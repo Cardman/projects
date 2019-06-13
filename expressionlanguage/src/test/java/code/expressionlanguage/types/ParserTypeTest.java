@@ -141,8 +141,8 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("pkg.Ex<String>", cont_);
         assertEq(2, indexes_.size());
-        assertEq(6, indexes_.first().intValue());
-        assertEq(13, indexes_.last().intValue());
+        assertEq(6, indexes_.first());
+        assertEq(13, indexes_.last());
     }
     @Test
     public void getIndexes14Test() {
@@ -154,8 +154,8 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("pkg.Ex<String>[]", cont_);
         assertEq(2, indexes_.size());
-        assertEq(6, indexes_.first().intValue());
-        assertEq(13, indexes_.last().intValue());
+        assertEq(6, indexes_.first());
+        assertEq(13, indexes_.last());
     }
     @Test
     public void getIndexes15Test() {
@@ -170,8 +170,8 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("pkg.Ex<pkg.ExTwo>", cont_);
         assertEq(2, indexes_.size());
-        assertEq(6, indexes_.first().intValue());
-        assertEq(16, indexes_.last().intValue());
+        assertEq(6, indexes_.first());
+        assertEq(16, indexes_.last());
     }
     @Test
     public void getIndexes16Test() {
@@ -186,8 +186,8 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("pkg.Ex<pkg.ExTwo>[]", cont_);
         assertEq(2, indexes_.size());
-        assertEq(6, indexes_.first().intValue());
-        assertEq(16, indexes_.last().intValue());
+        assertEq(6, indexes_.first());
+        assertEq(16, indexes_.last());
     }
     @Test
     public void getIndexes17Test() {
@@ -203,9 +203,9 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("pkg.Ex<pkg.ExTwo,pkg.ExThree>", cont_);
         assertEq(3, indexes_.size());
-        assertEq(6, indexes_.first().intValue());
-        assertEq(16, indexes_.get(1).intValue());
-        assertEq(28, indexes_.last().intValue());
+        assertEq(6, indexes_.first());
+        assertEq(16, indexes_.get(1));
+        assertEq(28, indexes_.last());
     }
     @Test
     public void getIndexes18Test() {
@@ -221,9 +221,9 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("pkg.Ex<pkg.ExTwo,pkg.ExThree>[]", cont_);
         assertEq(3, indexes_.size());
-        assertEq(6, indexes_.first().intValue());
-        assertEq(16, indexes_.get(1).intValue());
-        assertEq(28, indexes_.last().intValue());
+        assertEq(6, indexes_.first());
+        assertEq(16, indexes_.get(1));
+        assertEq(28, indexes_.last());
     }
     @Test
     public void getIndexes19Test() {
@@ -238,8 +238,8 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("pkg.Ex<ExTwo>", cont_);
         assertEq(2, indexes_.size());
-        assertEq(6, indexes_.first().intValue());
-        assertEq(12, indexes_.last().intValue());
+        assertEq(6, indexes_.first());
+        assertEq(12, indexes_.last());
     }
     @Test
     public void getIndexes20Test() {
@@ -254,8 +254,8 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("pkg.Ex<ExTwo>[]", cont_);
         assertEq(2, indexes_.size());
-        assertEq(6, indexes_.first().intValue());
-        assertEq(12, indexes_.last().intValue());
+        assertEq(6, indexes_.first());
+        assertEq(12, indexes_.last());
     }
     @Test
     public void getIndexes21Test() {
@@ -270,8 +270,8 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("Ex<pkg.ExTwo>", cont_);
         assertEq(2, indexes_.size());
-        assertEq(2, indexes_.first().intValue());
-        assertEq(12, indexes_.last().intValue());
+        assertEq(2, indexes_.first());
+        assertEq(12, indexes_.last());
     }
     @Test
     public void getIndexes22Test() {
@@ -286,8 +286,8 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("Ex<pkg.ExTwo>[]", cont_);
         assertEq(2, indexes_.size());
-        assertEq(2, indexes_.first().intValue());
-        assertEq(12, indexes_.last().intValue());
+        assertEq(2, indexes_.first());
+        assertEq(12, indexes_.last());
     }
     @Test
     public void getIndexes23Test() {
@@ -303,9 +303,9 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("pkg.Ex<ExTwo,pkg.ExThree>", cont_);
         assertEq(3, indexes_.size());
-        assertEq(6, indexes_.first().intValue());
-        assertEq(12, indexes_.get(1).intValue());
-        assertEq(24, indexes_.last().intValue());
+        assertEq(6, indexes_.first());
+        assertEq(12, indexes_.get(1));
+        assertEq(24, indexes_.last());
     }
     @Test
     public void getIndexes24Test() {
@@ -321,9 +321,9 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("pkg.Ex<ExTwo,pkg.ExThree>[]", cont_);
         assertEq(3, indexes_.size());
-        assertEq(6, indexes_.first().intValue());
-        assertEq(12, indexes_.get(1).intValue());
-        assertEq(24, indexes_.last().intValue());
+        assertEq(6, indexes_.first());
+        assertEq(12, indexes_.get(1));
+        assertEq(24, indexes_.last());
     }
     @Test
     public void getIndexes25Test() {
@@ -339,9 +339,9 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("pkg.Ex<pkg.ExTwo,ExThree>", cont_);
         assertEq(3, indexes_.size());
-        assertEq(6, indexes_.first().intValue());
-        assertEq(16, indexes_.get(1).intValue());
-        assertEq(24, indexes_.last().intValue());
+        assertEq(6, indexes_.first());
+        assertEq(16, indexes_.get(1));
+        assertEq(24, indexes_.last());
     }
     @Test
     public void getIndexes26Test() {
@@ -357,9 +357,9 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("pkg.Ex<pkg.ExTwo,ExThree>[]", cont_);
         assertEq(3, indexes_.size());
-        assertEq(6, indexes_.first().intValue());
-        assertEq(16, indexes_.get(1).intValue());
-        assertEq(24, indexes_.last().intValue());
+        assertEq(6, indexes_.first());
+        assertEq(16, indexes_.get(1));
+        assertEq(24, indexes_.last());
     }
     @Test
     public void getIndexes27Test() {
@@ -375,9 +375,9 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("pkg.Ex<ExTwo,ExThree>", cont_);
         assertEq(3, indexes_.size());
-        assertEq(6, indexes_.first().intValue());
-        assertEq(12, indexes_.get(1).intValue());
-        assertEq(20, indexes_.last().intValue());
+        assertEq(6, indexes_.first());
+        assertEq(12, indexes_.get(1));
+        assertEq(20, indexes_.last());
     }
     @Test
     public void getIndexes28Test() {
@@ -393,9 +393,9 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("pkg.Ex<ExTwo,ExThree>[]", cont_);
         assertEq(3, indexes_.size());
-        assertEq(6, indexes_.first().intValue());
-        assertEq(12, indexes_.get(1).intValue());
-        assertEq(20, indexes_.last().intValue());
+        assertEq(6, indexes_.first());
+        assertEq(12, indexes_.get(1));
+        assertEq(20, indexes_.last());
     }
     @Test
     public void getIndexes29Test() {
@@ -409,7 +409,7 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("pkg.Ex.Inner", cont_);
         assertEq(1, indexes_.size());
-        assertEq(6, indexes_.first().intValue());
+        assertEq(6, indexes_.first());
     }
     @Test
     public void getIndexes30Test() {
@@ -423,7 +423,7 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("pkg.Ex.Inner[]", cont_);
         assertEq(1, indexes_.size());
-        assertEq(6, indexes_.first().intValue());
+        assertEq(6, indexes_.first());
     }
     @Test
     public void getIndexes31Test() {
@@ -437,7 +437,7 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("Ex.Inner", cont_);
         assertEq(1, indexes_.size());
-        assertEq(2, indexes_.first().intValue());
+        assertEq(2, indexes_.first());
     }
     @Test
     public void getIndexes32Test() {
@@ -451,7 +451,7 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("Ex.Inner[]", cont_);
         assertEq(1, indexes_.size());
-        assertEq(2, indexes_.first().intValue());
+        assertEq(2, indexes_.first());
     }
     @Test
     public void getIndexes33Test() {
@@ -465,9 +465,9 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("pkg.Ex.Inner<pkg.Ex>", cont_);
         assertEq(3, indexes_.size());
-        assertEq(6, indexes_.first().intValue());
-        assertEq(12, indexes_.get(1).intValue());
-        assertEq(19, indexes_.last().intValue());
+        assertEq(6, indexes_.first());
+        assertEq(12, indexes_.get(1));
+        assertEq(19, indexes_.last());
     }
     @Test
     public void getIndexes34Test() {
@@ -483,10 +483,10 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("pkg.ExTwo<pkg.Ex.Inner,pkg.Ex>[]", cont_);
         assertEq(4, indexes_.size());
-        assertEq(9, indexes_.first().intValue());
-        assertEq(16, indexes_.get(1).intValue());
-        assertEq(22, indexes_.get(2).intValue());
-        assertEq(29, indexes_.last().intValue());
+        assertEq(9, indexes_.first());
+        assertEq(16, indexes_.get(1));
+        assertEq(22, indexes_.get(2));
+        assertEq(29, indexes_.last());
     }
     @Test
     public void getIndexes35Test() {
@@ -502,12 +502,12 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("pkg.ExTwo<pkg.Ex.Inner<pkg.Ex>,pkg.Ex>[]", cont_);
         assertEq(6, indexes_.size());
-        assertEq(9, indexes_.first().intValue());
-        assertEq(16, indexes_.get(1).intValue());
-        assertEq(22, indexes_.get(2).intValue());
-        assertEq(29, indexes_.get(3).intValue());
-        assertEq(30, indexes_.get(4).intValue());
-        assertEq(37, indexes_.last().intValue());
+        assertEq(9, indexes_.first());
+        assertEq(16, indexes_.get(1));
+        assertEq(22, indexes_.get(2));
+        assertEq(29, indexes_.get(3));
+        assertEq(30, indexes_.get(4));
+        assertEq(37, indexes_.last());
     }
     @Test
     public void getIndexes36Test() {
@@ -522,10 +522,10 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("Ex<String,ExTwo>.Inner", cont_);
         assertEq(4, indexes_.size());
-        assertEq(2, indexes_.first().intValue());
-        assertEq(9, indexes_.get(1).intValue());
-        assertEq(15, indexes_.get(2).intValue());
-        assertEq(16, indexes_.last().intValue());
+        assertEq(2, indexes_.first());
+        assertEq(9, indexes_.get(1));
+        assertEq(15, indexes_.get(2));
+        assertEq(16, indexes_.last());
     }
     @Test
     public void getIndexes37Test() {
@@ -541,12 +541,12 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("Ex<String,ExTwo>.Inner<pkg.ExThree>", cont_);
         assertEq(6, indexes_.size());
-        assertEq(2, indexes_.first().intValue());
-        assertEq(9, indexes_.get(1).intValue());
-        assertEq(15, indexes_.get(2).intValue());
-        assertEq(16, indexes_.get(3).intValue());
-        assertEq(22, indexes_.get(4).intValue());
-        assertEq(34, indexes_.last().intValue());
+        assertEq(2, indexes_.first());
+        assertEq(9, indexes_.get(1));
+        assertEq(15, indexes_.get(2));
+        assertEq(16, indexes_.get(3));
+        assertEq(22, indexes_.get(4));
+        assertEq(34, indexes_.last());
     }
     @Test
     public void getIndexes38Test() {
@@ -562,12 +562,12 @@ public class ParserTypeTest {
         ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
         Numbers<Integer> indexes_ = ParserType.getIndexes("Ex<String,ExTwo>.Inner<String>", cont_);
         assertEq(6, indexes_.size());
-        assertEq(2, indexes_.first().intValue());
-        assertEq(9, indexes_.get(1).intValue());
-        assertEq(15, indexes_.get(2).intValue());
-        assertEq(16, indexes_.get(3).intValue());
-        assertEq(22, indexes_.get(4).intValue());
-        assertEq(29, indexes_.last().intValue());
+        assertEq(2, indexes_.first());
+        assertEq(9, indexes_.get(1));
+        assertEq(15, indexes_.get(2));
+        assertEq(16, indexes_.get(3));
+        assertEq(22, indexes_.get(4));
+        assertEq(29, indexes_.last());
     }
     private ContextEl unfullValidateInheritingClassesDeps(StringMap<String> _files) {
         ContextEl cont_ = contextEnElDefault();

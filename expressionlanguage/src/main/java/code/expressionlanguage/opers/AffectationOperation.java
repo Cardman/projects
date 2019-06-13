@@ -125,7 +125,7 @@ public final class AffectationOperation extends ReflectableOpering implements Af
             Argument rightArg_ = right_.getArgument();
             if (rightArg_ != null && rightArg_.getStruct() instanceof NumberStruct) {
                 StringList first_ = clMatchLeft_.getNames();
-                long valueUnwrapped_ = ((NumberStruct) rightArg_.getStruct()).longValue();
+                long valueUnwrapped_ = ((NumberStruct) rightArg_.getStruct()).longStruct();
                 if ((first_.containsStr(primByte_) || first_.containsStr(byte_)) && valueUnwrapped_ >= Byte.MIN_VALUE && valueUnwrapped_ <= Byte.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
                     return;

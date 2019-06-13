@@ -199,15 +199,15 @@ public class PseudoFightTest extends InitializationDataBase {
         assertEq(2, pseudoFight_.getMult());
         assertEq(2, pseudoFight_.getActions().size());
         assertEq(4, pseudoFight_.getActions().first().size());
-        assertEq(0, pseudoFight_.getActions().first().getVal((byte) 0).intValue());
-        assertEq(1, pseudoFight_.getActions().first().getVal((byte) 1).intValue());
-        assertEq(Fighter.BACK, pseudoFight_.getActions().first().getVal((byte) 2).intValue());
-        assertEq(Fighter.BACK, pseudoFight_.getActions().first().getVal((byte) 3).intValue());
+        assertEq(0, pseudoFight_.getActions().first().getVal((byte) 0));
+        assertEq(1, pseudoFight_.getActions().first().getVal((byte) 1));
+        assertEq(Fighter.BACK, pseudoFight_.getActions().first().getVal((byte) 2));
+        assertEq(Fighter.BACK, pseudoFight_.getActions().first().getVal((byte) 3));
         assertEq(4, pseudoFight_.getActions().last().size());
-        assertEq(0, pseudoFight_.getActions().last().getVal((byte) 2).intValue());
-        assertEq(1, pseudoFight_.getActions().last().getVal((byte) 3).intValue());
-        assertEq(Fighter.BACK, pseudoFight_.getActions().last().getVal((byte) 0).intValue());
-        assertEq(Fighter.BACK, pseudoFight_.getActions().last().getVal((byte) 1).intValue());
+        assertEq(0, pseudoFight_.getActions().last().getVal((byte) 2));
+        assertEq(1, pseudoFight_.getActions().last().getVal((byte) 3));
+        assertEq(Fighter.BACK, pseudoFight_.getActions().last().getVal((byte) 0));
+        assertEq(Fighter.BACK, pseudoFight_.getActions().last().getVal((byte) 1));
     }
 
     private static PseudoFight simulation1() {
@@ -324,7 +324,7 @@ public class PseudoFightTest extends InitializationDataBase {
         playerFighters_.add((byte) 3);
         Numbers<Byte> fightersExpObj_ = pseudoFight_.fightersWearingExpObject(playerFighters_, _data_);
         assertEq(1, fightersExpObj_.size());
-        assertEq(3, fightersExpObj_.first().intValue());
+        assertEq(3, fightersExpObj_.first());
     }
 
     @Test
@@ -1095,9 +1095,9 @@ public class PseudoFightTest extends InitializationDataBase {
         assertEq(0, pseudoFighter_.getAbilities().last().size());
         assertEq(2, pseudoFighter_.getEvoLevels().size());
         assertEq(TETARTE, pseudoFighter_.getEvoLevels().first().getFirst());
-        assertEq(52, pseudoFighter_.getEvoLevels().first().getSecond().intValue());
+        assertEq(52, pseudoFighter_.getEvoLevels().first().getSecond());
         assertEq(TARTARD, pseudoFighter_.getEvoLevels().last().getFirst());
-        assertEq(100, pseudoFighter_.getEvoLevels().last().getSecond().intValue());
+        assertEq(100, pseudoFighter_.getEvoLevels().last().getSecond());
         assertEq(0, pseudoFighter_.getFoes().size());
         assertTrue(!pseudoFighter_.isFront());
         pseudoFighter_ = pseudoFight_.getPlayerFighters().get(1);
@@ -1133,9 +1133,9 @@ public class PseudoFightTest extends InitializationDataBase {
         assertEq(0, pseudoFighter_.getAbilities().last().size());
         assertEq(2, pseudoFighter_.getEvoLevels().size());
         assertEq(TETARTE, pseudoFighter_.getEvoLevels().first().getFirst());
-        assertEq(64, pseudoFighter_.getEvoLevels().first().getSecond().intValue());
+        assertEq(64, pseudoFighter_.getEvoLevels().first().getSecond());
         assertEq(TARTARD, pseudoFighter_.getEvoLevels().last().getFirst());
-        assertEq(100, pseudoFighter_.getEvoLevels().last().getSecond().intValue());
+        assertEq(100, pseudoFighter_.getEvoLevels().last().getSecond());
         assertEq(0, pseudoFighter_.getFoes().size());
         assertTrue(!pseudoFighter_.isFront());
         pseudoFighter_ = pseudoFight_.getPlayerFighters().get(2);
@@ -1173,9 +1173,9 @@ public class PseudoFightTest extends InitializationDataBase {
         assertEq(0, pseudoFighter_.getAbilities().first().size());
         assertEq(2, pseudoFighter_.getEvoLevels().size());
         assertEq(TETARTE, pseudoFighter_.getEvoLevels().first().getFirst());
-        assertEq(52, pseudoFighter_.getEvoLevels().first().getSecond().intValue());
+        assertEq(52, pseudoFighter_.getEvoLevels().first().getSecond());
         assertEq(TARTARD, pseudoFighter_.getEvoLevels().last().getFirst());
-        assertEq(100, pseudoFighter_.getEvoLevels().last().getSecond().intValue());
+        assertEq(100, pseudoFighter_.getEvoLevels().last().getSecond());
         assertEq(0, pseudoFighter_.getFoes().size());
         assertTrue(!pseudoFighter_.isFront());
         pseudoFighter_ = pseudoFight_.getPlayerFighters().get(3);
@@ -1211,9 +1211,9 @@ public class PseudoFightTest extends InitializationDataBase {
         assertEq(0, pseudoFighter_.getAbilities().last().size());
         assertEq(2, pseudoFighter_.getEvoLevels().size());
         assertEq(TETARTE, pseudoFighter_.getEvoLevels().first().getFirst());
-        assertEq(74, pseudoFighter_.getEvoLevels().first().getSecond().intValue());
+        assertEq(74, pseudoFighter_.getEvoLevels().first().getSecond());
         assertEq(TARTARD, pseudoFighter_.getEvoLevels().last().getFirst());
-        assertEq(100, pseudoFighter_.getEvoLevels().last().getSecond().intValue());
+        assertEq(100, pseudoFighter_.getEvoLevels().last().getSecond());
         assertEq(0, pseudoFighter_.getFoes().size());
         assertTrue(!pseudoFighter_.isFront());
     }
@@ -1330,9 +1330,9 @@ public class PseudoFightTest extends InitializationDataBase {
         assertTrue(abilities_.containsObj(ABSORB_EAU));
         assertEq(2, pseudoFighter_.getEvoLevels().size());
         assertEq(TETARTE, pseudoFighter_.getEvoLevels().first().getFirst());
-        assertEq(43, pseudoFighter_.getEvoLevels().first().getSecond().intValue());
+        assertEq(43, pseudoFighter_.getEvoLevels().first().getSecond());
         assertEq(TARTARD, pseudoFighter_.getEvoLevels().last().getFirst());
-        assertEq(43, pseudoFighter_.getEvoLevels().last().getSecond().intValue());
+        assertEq(43, pseudoFighter_.getEvoLevels().last().getSecond());
         assertEq(0, pseudoFighter_.getFoes().size());
         assertTrue(!pseudoFighter_.isFront());
         pseudoFighter_ = pseudoFight_.getPlayerFighters().get(1);
@@ -1364,9 +1364,9 @@ public class PseudoFightTest extends InitializationDataBase {
         assertTrue(abilities_.containsObj(ABSORB_EAU));
         assertEq(2, pseudoFighter_.getEvoLevels().size());
         assertEq(TETARTE, pseudoFighter_.getEvoLevels().first().getFirst());
-        assertEq(52, pseudoFighter_.getEvoLevels().first().getSecond().intValue());
+        assertEq(52, pseudoFighter_.getEvoLevels().first().getSecond());
         assertEq(TARTARD, pseudoFighter_.getEvoLevels().last().getFirst());
-        assertEq(52, pseudoFighter_.getEvoLevels().last().getSecond().intValue());
+        assertEq(52, pseudoFighter_.getEvoLevels().last().getSecond());
         assertEq(0, pseudoFighter_.getFoes().size());
         assertTrue(!pseudoFighter_.isFront());
         pseudoFighter_ = pseudoFight_.getPlayerFighters().get(2);
@@ -1398,9 +1398,9 @@ public class PseudoFightTest extends InitializationDataBase {
         assertTrue(abilities_.containsObj(ABSORB_EAU));
         assertEq(2, pseudoFighter_.getEvoLevels().size());
         assertEq(TETARTE, pseudoFighter_.getEvoLevels().first().getFirst());
-        assertEq(43, pseudoFighter_.getEvoLevels().first().getSecond().intValue());
+        assertEq(43, pseudoFighter_.getEvoLevels().first().getSecond());
         assertEq(TARTARD, pseudoFighter_.getEvoLevels().last().getFirst());
-        assertEq(43, pseudoFighter_.getEvoLevels().last().getSecond().intValue());
+        assertEq(43, pseudoFighter_.getEvoLevels().last().getSecond());
         assertEq(0, pseudoFighter_.getFoes().size());
         assertTrue(!pseudoFighter_.isFront());
         pseudoFighter_ = pseudoFight_.getPlayerFighters().get(3);
@@ -1432,9 +1432,9 @@ public class PseudoFightTest extends InitializationDataBase {
         assertTrue(abilities_.containsObj(ABSORB_EAU));
         assertEq(2, pseudoFighter_.getEvoLevels().size());
         assertEq(TETARTE, pseudoFighter_.getEvoLevels().first().getFirst());
-        assertEq(74, pseudoFighter_.getEvoLevels().first().getSecond().intValue());
+        assertEq(74, pseudoFighter_.getEvoLevels().first().getSecond());
         assertEq(TARTARD, pseudoFighter_.getEvoLevels().last().getFirst());
-        assertEq(74, pseudoFighter_.getEvoLevels().last().getSecond().intValue());
+        assertEq(74, pseudoFighter_.getEvoLevels().last().getSecond());
         assertEq(0, pseudoFighter_.getFoes().size());
         assertTrue(!pseudoFighter_.isFront());
     }

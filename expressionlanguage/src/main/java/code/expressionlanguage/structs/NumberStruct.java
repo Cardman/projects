@@ -221,13 +221,13 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasDigit())) {
                     Character one_ = ((CharStruct) _args[0]).getChar();
-                    Integer two_ = ((NumberStruct) _args[1]).intValue();
+                    Integer two_ = ((NumberStruct) _args[1]).intStruct();
                     _res.setResult(new IntStruct(Character.digit(one_, two_)));
                     return;
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasForDigit())) {
-                    Integer one_ = ((NumberStruct) _args[0]).intValue();
-                    Integer two_ = ((NumberStruct) _args[1]).intValue();
+                    Integer one_ = ((NumberStruct) _args[0]).intStruct();
+                    Integer two_ = ((NumberStruct) _args[1]).intStruct();
                     _res.setResult(new CharStruct(Character.forDigit(one_, two_)));
                     return;
                 }
@@ -339,7 +339,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                     }
                 } else if (StringList.quickEq(type_, intType_)) {
                     if (StringList.quickEq(name_, lgNames_.getAliasToString())) {
-                        Integer one_ = ((NumberStruct) _args[0]).intValue();
+                        Integer one_ = ((NumberStruct) _args[0]).intStruct();
                         _res.setResult(new StringStruct(Integer.toString(one_)));
                     } else {
                         boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseInt());
@@ -347,7 +347,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                     }
                 } else if (StringList.quickEq(type_, longType_)) {
                     if (StringList.quickEq(name_, lgNames_.getAliasToString())) {
-                        Long one_ = ((NumberStruct) _args[0]).longValue();
+                        Long one_ = ((NumberStruct) _args[0]).longStruct();
                         _res.setResult(new StringStruct(Long.toString(one_)));
                     } else {
                         boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseLong());
@@ -421,22 +421,22 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                 _res.setResult(new BooleanStruct(_struct.sameReference(_args[0])));
             } else if (StringList.quickEq(name_, lgNames_.getAliasByteValue())) {
                 NumberStruct instance_ = (NumberStruct) _struct;
-                _res.setResult(new ByteStruct(instance_.byteValue()));
+                _res.setResult(new ByteStruct(instance_.byteStruct()));
             } else if (StringList.quickEq(name_, lgNames_.getAliasShortValue())) {
                 NumberStruct instance_ = (NumberStruct) _struct;
-                _res.setResult(new ShortStruct(instance_.shortValue()));
+                _res.setResult(new ShortStruct(instance_.shortStruct()));
             } else if (StringList.quickEq(name_, lgNames_.getAliasIntValue())) {
                 NumberStruct instance_ = (NumberStruct) _struct;
-                _res.setResult(new IntStruct(instance_.intValue()));
+                _res.setResult(new IntStruct(instance_.intStruct()));
             } else if (StringList.quickEq(name_, lgNames_.getAliasLongValue())) {
                 NumberStruct instance_ = (NumberStruct) _struct;
-                _res.setResult(new LongStruct(instance_.longValue()));
+                _res.setResult(new LongStruct(instance_.longStruct()));
             } else if (StringList.quickEq(name_, lgNames_.getAliasFloatValue())) {
                 NumberStruct instance_ = (NumberStruct) _struct;
-                _res.setResult(new FloatStruct(instance_.floatValue()));
+                _res.setResult(new FloatStruct(instance_.floatStruct()));
             } else if (StringList.quickEq(name_, lgNames_.getAliasDoubleValue())) {
                 NumberStruct instance_ = (NumberStruct) _struct;
-                _res.setResult(new DoubleStruct(instance_.doubleValue()));
+                _res.setResult(new DoubleStruct(instance_.doubleStruct()));
             } else if (list_.isEmpty()) {
                 NumberStruct instance_ = (NumberStruct) _struct;
                 _res.setResult(instance_.getDisplayedString(_cont));
@@ -525,7 +525,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         Long lg_;
         int radix_ = DEFAULT_RADIX;
         if (_list.size() != 1) {
-            radix_ = ((NumberStruct) _args[1]).intValue();
+            radix_ = ((NumberStruct) _args[1]).intStruct();
         }
         lg_ = NumParsers.parseLong(one_, radix_);
         if (lg_ == null) {
@@ -553,7 +553,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         Long lg_;
         int radix_ = DEFAULT_RADIX;
         if (_list.size() != 1) {
-            radix_ = ((NumberStruct) _args[1]).intValue();
+            radix_ = ((NumberStruct) _args[1]).intStruct();
         }
         lg_ = NumParsers.parseLong(one_, radix_);
         if (lg_ == null || lg_ < Integer.MIN_VALUE || lg_ > Integer.MAX_VALUE) {
@@ -581,7 +581,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         Long lg_;
         int radix_ = DEFAULT_RADIX;
         if (_list.size() != 1) {
-            radix_ = ((NumberStruct) _args[1]).intValue();
+            radix_ = ((NumberStruct) _args[1]).intStruct();
         }
         lg_ = NumParsers.parseLong(one_, radix_);
         if (lg_ == null || lg_ < Short.MIN_VALUE || lg_ > Short.MAX_VALUE) {
@@ -609,7 +609,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         Long lg_;
         int radix_ = DEFAULT_RADIX;
         if (_list.size() != 1) {
-            radix_ = ((NumberStruct) _args[1]).intValue();
+            radix_ = ((NumberStruct) _args[1]).intStruct();
         }
         lg_ = NumParsers.parseLong(one_, radix_);
         if (lg_ == null || lg_ < Byte.MIN_VALUE || lg_ > Byte.MAX_VALUE) {
@@ -626,16 +626,16 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
 
     public static BooleanStruct quickCalculateLowerNb(Struct _a, Struct _b) {
         if (_a instanceof DoubleStruct || _a instanceof FloatStruct || _b instanceof DoubleStruct || _b instanceof FloatStruct) {
-            return new BooleanStruct(((NumberStruct)_a).doubleValue() < ((NumberStruct)_b).doubleValue());
+            return new BooleanStruct(((NumberStruct)_a).doubleStruct() < ((NumberStruct)_b).doubleStruct());
         }
-        return new BooleanStruct(((NumberStruct)_a).longValue() < ((NumberStruct)_b).longValue());
+        return new BooleanStruct(((NumberStruct)_a).longStruct() < ((NumberStruct)_b).longStruct());
     }
 
     public static BooleanStruct quickCalculateGreaterNb(Struct _a, Struct _b) {
         if (_a instanceof DoubleStruct || _a instanceof FloatStruct || _b instanceof DoubleStruct || _b instanceof FloatStruct) {
-            return new BooleanStruct(((NumberStruct)_a).doubleValue() > ((NumberStruct)_b).doubleValue());
+            return new BooleanStruct(((NumberStruct)_a).doubleStruct() > ((NumberStruct)_b).doubleStruct());
         }
-        return new BooleanStruct(((NumberStruct)_a).longValue() > ((NumberStruct)_b).longValue());
+        return new BooleanStruct(((NumberStruct)_a).longStruct() > ((NumberStruct)_b).longStruct());
     }
     public static BooleanStruct quickCalculateLowerStr(Struct _a, Struct _b) {
         String first_ = ((CharSequenceStruct)_a).toStringInstance();
@@ -699,9 +699,9 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         String longPrim_ = _an.getStandards().getAliasPrimLong();
         Struct tmp_;
         if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _an)) {
-            tmp_ = new LongStruct(-_a.longValue());
+            tmp_ = new LongStruct(-_a.longStruct());
         } else {
-            tmp_ = new DoubleStruct(-_a.doubleValue());
+            tmp_ = new DoubleStruct(-_a.doubleStruct());
         }
         LgNames stds_ = _an.getStandards();
         tmp_ = PrimitiveTypeUtil.convertObject(_order, tmp_, stds_);
@@ -1115,32 +1115,32 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         return new LongStruct(NumParsers.toLong(bitsLeft_));
     }
     private double getDouble() {
-        return doubleValue();
+        return doubleStruct();
     }
     private float getFloat() {
-        return floatValue();
+        return floatStruct();
     }
     private long getLong() {
-        return longValue();
+        return longStruct();
     }
 
     private int getInt() {
-        return intValue();
+        return intStruct();
     }
 
     private short getShort() {
-        return shortValue();
+        return shortStruct();
     }
     private byte getByte() {
-        return byteValue();
+        return byteStruct();
     }
 
-    public abstract double doubleValue();
-    public abstract float floatValue();
-    public abstract long longValue();
-    public abstract int intValue();
-    public abstract short shortValue();
-    public abstract byte byteValue();
+    public abstract double doubleStruct();
+    public abstract float floatStruct();
+    public abstract long longStruct();
+    public abstract int intStruct();
+    public abstract short shortStruct();
+    public abstract byte byteStruct();
 
     @Override
     public final boolean sameReference(Struct _other) {
@@ -1149,9 +1149,9 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         }
         NumberStruct other_ = (NumberStruct) _other;
         if (this instanceof DoubleStruct || this instanceof FloatStruct || other_ instanceof DoubleStruct || other_ instanceof FloatStruct) {
-            return doubleValue() == other_.doubleValue();
+            return doubleStruct() == other_.doubleStruct();
         }
-        return longValue() == other_.longValue();
+        return longStruct() == other_.longStruct();
     }
 
     @Override
@@ -1161,20 +1161,20 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
     @Override
     public StringStruct exportValue() {
         if (this instanceof DoubleStruct) {
-            return new StringStruct(Double.toString(doubleValue()));
+            return new StringStruct(Double.toString(doubleStruct()));
         }
         if (this instanceof FloatStruct) {
-            return new StringStruct(Float.toString(floatValue()));
+            return new StringStruct(Float.toString(floatStruct()));
         }
-        return new StringStruct(Long.toString(longValue()));
+        return new StringStruct(Long.toString(longStruct()));
     }
 
     static int compareGene(NumberStruct _nb1,NumberStruct _nb2) {
         if (_nb1 instanceof DoubleStruct || _nb1 instanceof FloatStruct || _nb2 instanceof DoubleStruct || _nb2 instanceof FloatStruct) {
-            if (_nb1.doubleValue() < _nb2.doubleValue()) {
+            if (_nb1.doubleStruct() < _nb2.doubleStruct()) {
                 return CustList.NO_SWAP_SORT;
             }
-            if (_nb1.doubleValue() > _nb2.doubleValue()) {
+            if (_nb1.doubleStruct() > _nb2.doubleStruct()) {
                 return CustList.SWAP_SORT;
             }
             return CustList.EQ_CMP;
@@ -1182,6 +1182,6 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         return compare(_nb1,_nb2);
     }
     static int compare(NumberStruct _nb1,NumberStruct _nb2) {
-        return Numbers.compareLg(_nb1.longValue(),_nb2.longValue());
+        return Numbers.compareLg(_nb1.longStruct(),_nb2.longStruct());
     }
 }

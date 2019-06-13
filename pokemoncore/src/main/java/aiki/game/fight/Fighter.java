@@ -2584,7 +2584,7 @@ public final class Fighter {
     }
 
     public short getStatusNbRoundShort(String _status) {
-        return status.getVal(_status).shortValue();
+        return status.getVal(_status);
     }
 
     public Short getStatusNbRound(String _status) {
@@ -2594,7 +2594,7 @@ public final class Fighter {
     int getNbStatusByRounds(short _nbRounds) {
         int i_ = CustList.SIZE_EMPTY;
         for (EntryCust<String, Short> e: status.entryList()) {
-            if (Numbers.eq(e.getValue().shortValue(), _nbRounds)) {
+            if (Numbers.eq(e.getValue(), _nbRounds)) {
                 i_++;
             }
         }
@@ -2618,7 +2618,7 @@ public final class Fighter {
     }
 
     public short getStatusRelatNbRoundShort(MoveTeamPosition _status) {
-        return statusRelat.getVal(_status).shortValue();
+        return statusRelat.getVal(_status);
     }
 
     public Short getStatusRelatNbRound(MoveTeamPosition _status) {

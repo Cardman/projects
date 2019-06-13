@@ -44,7 +44,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         _res.setResult(new StringBuilderStruct(new StringBuilder(arg_.toStringInstance())));
     }
     private static void newStringBuilderStructByNumber(NumberStruct _arg, LgNames _stds, ResultErrorStd _res) {
-        int one_ = _arg.intValue();
+        int one_ = _arg.intStruct();
         if (one_ < 0) {
             _res.setErrorMessage(Integer.toString(one_));
             _res.setError(_stds.getAliasBadIndex());
@@ -139,7 +139,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             cont_.failInitEnums();
             return;
         }
-        instance.ensureCapacity(_minimumCapacity.intValue());
+        instance.ensureCapacity(_minimumCapacity.intStruct());
         _out.setResult(this);
     }
 
@@ -160,7 +160,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             return;
         }
         LgNames lgNames_ = cont_.getStandards();
-        int newLength_ = _newLength.intValue();
+        int newLength_ = _newLength.intStruct();
         if (newLength_ < 0) {
             _out.setErrorMessage(StringList.concat(Long.toString(newLength_),"<0"));
             _out.setError(lgNames_.getAliasBadIndex());
@@ -178,8 +178,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         }
         LgNames lgNames_ = cont_.getStandards();
         String toApp_= _s.getDisplayedString(_an).getInstance();
-        int start_ = _start.intValue();
-        int end_ = _end.intValue();
+        int start_ = _start.intStruct();
+        int end_ = _end.intStruct();
         if (start_ < 0 || start_ > end_ || end_ > toApp_.length()) {
             if (start_ < 0) {
                 _out.setErrorMessage(StringList.concat(Long.toString(start_),"<0"));
@@ -227,8 +227,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             _out.setError(lgNames_.getAliasNullPe());
             return;
         }
-        int offset_ = _offset.intValue();
-        int len_ = _len.intValue();
+        int offset_ = _offset.intStruct();
+        int len_ = _len.intStruct();
         Struct[] arr_ = ((ArrayStruct)_str).getInstance();
         int lenChar_ = arr_.length;
         if (offset_ < 0 || len_ < 0 || offset_ + len_ > lenChar_) {
@@ -267,8 +267,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             return;
         }
         LgNames lgNames_ = cont_.getStandards();
-        int start_ = _start.intValue();
-        int end_ = _end.intValue();
+        int start_ = _start.intStruct();
+        int end_ = _end.intStruct();
         if (start_ < 0 || start_ > instance.length() || start_ > end_) {
             if (start_ < 0) {
                 _out.setErrorMessage(StringList.concat(Long.toString(start_),"<0"));
@@ -291,7 +291,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             return;
         }
         LgNames lgNames_ = cont_.getStandards();
-        int index_ = _index.intValue();
+        int index_ = _index.intStruct();
         if (index_ < 0 || index_ >= instance.length()) {
             if (index_ < 0) {
                 _out.setErrorMessage(StringList.concat(Long.toString(index_),"<0"));
@@ -312,8 +312,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             return;
         }
         LgNames lgNames_ = cont_.getStandards();
-        int start_ = _start.intValue();
-        int end_ = _end.intValue();
+        int start_ = _start.intStruct();
+        int end_ = _end.intStruct();
         if (start_ < 0 || start_ > instance.length() || start_ > end_) {
             if (start_ < 0) {
                 _out.setErrorMessage(StringList.concat(Long.toString(start_),"<0"));
@@ -341,7 +341,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             return;
         }
         LgNames lgNames_ = cont_.getStandards();
-        int index_ = _index.intValue();
+        int index_ = _index.intStruct();
         if (index_ < 0 || index_ > instance.length()) {
             if (index_ < 0) {
                 _out.setErrorMessage(StringList.concat(Long.toString(index_),"<0"));
@@ -361,8 +361,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         for (int i = 0; i < lenArr_; i++) {
             chars_[i] = ((CharStruct)arr_[i]).getChar();
         }
-        int offset_ = _offset.intValue();
-        int len_ = _len.intValue();
+        int offset_ = _offset.intStruct();
+        int len_ = _len.intStruct();
         if (offset_ < 0 || len_ < 0 || offset_ + len_ > chars_.length) {
             if (offset_ < 0) {
                 _out.setErrorMessage(StringList.concat(Long.toString(offset_),"<0"));
@@ -385,7 +385,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             return;
         }
         LgNames lgNames_ = cont_.getStandards();
-        int index_ = _offset.intValue();
+        int index_ = _offset.intStruct();
         if (index_ < 0 || index_ > instance.length()) {
             if (index_ < 0) {
                 _out.setErrorMessage(StringList.concat(Long.toString(index_),"<0"));
@@ -416,7 +416,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             return;
         }
         LgNames lgNames_ = cont_.getStandards();
-        int index_ = _dstOffset.intValue();
+        int index_ = _dstOffset.intStruct();
         if (index_ < 0 || index_ > instance.length()) {
             if (index_ < 0) {
                 _out.setErrorMessage(StringList.concat(Long.toString(index_),"<0"));
@@ -439,7 +439,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         }
         LgNames lgNames_ = cont_.getStandards();
         String toApp_= _s.getDisplayedString(_an).getInstance();
-        int index_ = _dstOffset.intValue();
+        int index_ = _dstOffset.intStruct();
         if (index_ < 0 || index_ > instance.length()) {
             if (index_ < 0) {
                 _out.setErrorMessage(StringList.concat(Long.toString(index_),"<0"));
@@ -449,8 +449,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             _out.setError(lgNames_.getAliasBadIndex());
             return;
         }
-        int start_ = _start.intValue();
-        int end_ = _end.intValue();
+        int start_ = _start.intStruct();
+        int end_ = _end.intStruct();
         if (start_ < 0 || end_ < 0 || start_ > end_ || end_ > toApp_.length()) {
             if (start_ < 0) {
                 _out.setErrorMessage(StringList.concat(Long.toString(start_),"<0"));
@@ -494,7 +494,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             return;
         }
         LgNames lgNames_ = cont_.getStandards();
-        int index_ = _index.intValue();
+        int index_ = _index.intStruct();
         if (index_ < 0 || index_ >= instance.length()) {
             if (index_ < 0) {
                 _out.setErrorMessage(StringList.concat(Long.toString(index_),"<0"));

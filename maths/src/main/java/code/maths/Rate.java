@@ -265,7 +265,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
 
     public boolean isInteger() {
         Numbers<Long> numbers_ = denominateur.getGrDigits();
-        return numbers_.size() == 1 && numbers_.first().longValue() == 1L;
+        return numbers_.size() == 1 && numbers_.first() == 1L;
     }
 
     public Rate inv() {

@@ -241,7 +241,7 @@ final class FightRules {
         //increasing
         int nbPl_ = places_.size();
         for(byte i=CustList.SECOND_INDEX;i<nbPl_;i++){
-            if(Numbers.eq(places_.get(i - 1).byteValue(),places_.get(i).byteValue())){
+            if(Numbers.eq(places_.get(i - 1), places_.get(i))){
                 _fight.addMessage(_import,Fight.ERR_SUBSTITUTE_PLACE, Long.toString(places_.get(i)));
                 error_ = true;
             }

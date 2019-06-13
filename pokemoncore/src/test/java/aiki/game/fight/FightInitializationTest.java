@@ -700,8 +700,8 @@ public class FightInitializationTest extends InitializationDataBase {
         assertEq(2, fight_.getFirstPositPlayerFighters().size());
         assertTrue(fight_.getFirstPositPlayerFighters().contains((byte) 0));
         assertTrue(fight_.getFirstPositPlayerFighters().contains((byte) 1));
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
     }
 
     @Test
@@ -747,8 +747,8 @@ public class FightInitializationTest extends InitializationDataBase {
         assertEq(2, fight_.getFirstPositPlayerFighters().size());
         assertTrue(fight_.getFirstPositPlayerFighters().contains((byte) 0));
         assertTrue(fight_.getFirstPositPlayerFighters().contains((byte) 1));
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
     }
 
     @Test
@@ -817,10 +817,10 @@ public class FightInitializationTest extends InitializationDataBase {
         assertTrue(fight_.getFirstPositPlayerFighters().contains((byte) 1));
         assertTrue(fight_.getFirstPositPlayerFighters().contains((byte) 2));
         assertTrue(fight_.getFirstPositPlayerFighters().contains((byte) 3));
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 2).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 3).intValue());
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 2));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
     }
 
     @Test
@@ -875,9 +875,9 @@ public class FightInitializationTest extends InitializationDataBase {
         assertTrue(fight_.getFirstPositFoeFighters().contains((byte) 0));
         assertTrue(fight_.getFirstPositFoeFighters().contains((byte) 1));
         assertTrue(fight_.getFirstPositFoeFighters().contains((byte) 2));
-        assertEq(0, fight_.getFirstPositFoeFighters().getVal((byte) 0).intValue());
-        assertEq(1, fight_.getFirstPositFoeFighters().getVal((byte) 1).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 2).intValue());
+        assertEq(0, fight_.getFirstPositFoeFighters().getVal((byte) 0));
+        assertEq(1, fight_.getFirstPositFoeFighters().getVal((byte) 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 2));
     }
 
     @Test

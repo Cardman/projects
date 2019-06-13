@@ -2026,11 +2026,11 @@ public final class CustBeanLgNames extends BeanLgNames {
                 ((NatTreeMapStringInteger)((RealInstanceStruct)_struct).getInstance()).applyChanges();
                 return res_;
             }
-            ((NatTreeMapStringInteger)((RealInstanceStruct)_struct).getInstance()).setValue(_index, ((IntStruct)_element).intValue());
+            ((NatTreeMapStringInteger)((RealInstanceStruct)_struct).getInstance()).setValue(_index, ((IntStruct)_element).intStruct());
             return res_;
         }
         if (((RealInstanceStruct)_struct).getInstance() instanceof Ints) {
-            ((Ints)((RealInstanceStruct)_struct).getInstance()).set(_index, ((IntStruct)_element).intValue());
+            ((Ints)((RealInstanceStruct)_struct).getInstance()).set(_index, ((IntStruct)_element).intStruct());
             return res_;
         }
         return res_;

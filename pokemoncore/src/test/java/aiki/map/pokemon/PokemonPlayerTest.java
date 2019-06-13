@@ -53,18 +53,18 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(20, pk_.getMoves().getVal(JACKPOT).getMax());
         assertEq(40, pk_.getMoves().getVal(OEIL_MIRACLE).getCurrent());
         assertEq(40, pk_.getMoves().getVal(OEIL_MIRACLE).getMax());
-        assertEq(0, pk_.getEv().getVal(Statistic.ATTACK).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.SPEED).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.HP).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(0, pk_.getEv().getVal(Statistic.ATTACK));
+        assertEq(0, pk_.getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(0, pk_.getEv().getVal(Statistic.SPEED));
+        assertEq(0, pk_.getEv().getVal(Statistic.HP));
+        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPEED));
+        assertEq(31, pk_.getIv().getVal(Statistic.HP));
     }
     @Test
     public void new_PokemonPlayer_Base2Test() {
@@ -79,12 +79,12 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(40, pk_.getMoves().getVal(OEIL_MIRACLE).getCurrent());
         assertEq(40, pk_.getMoves().getVal(OEIL_MIRACLE).getMax());
         assertEq(0, pk_.getEv().size());
-        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPEED));
+        assertEq(31, pk_.getIv().getVal(Statistic.HP));
     }
     @Test
     public void new_PokemonPlayer_Base3Test() {
@@ -97,12 +97,12 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(20, pk_.getMoves().getVal(JACKPOT).getCurrent());
         assertEq(20, pk_.getMoves().getVal(JACKPOT).getMax());
         assertEq(0, pk_.getEv().size());
-        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPEED));
+        assertEq(31, pk_.getIv().getVal(Statistic.HP));
     }
     @Test
     public void new_PokemonPlayer_Base4Test() {
@@ -119,12 +119,12 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(10, pk_.getMoves().getVal(PASSE_PASSE).getCurrent());
         assertEq(10, pk_.getMoves().getVal(PASSE_PASSE).getMax());
         assertEq(0, pk_.getEv().size());
-        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPEED));
+        assertEq(31, pk_.getIv().getVal(Statistic.HP));
     }
 
     @Test
@@ -138,12 +138,12 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(20, pk_.getMoves().getVal(JACKPOT).getCurrent());
         assertEq(20, pk_.getMoves().getVal(JACKPOT).getMax());
         assertEq(0, pk_.getEv().size());
-        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPEED));
+        assertEq(31, pk_.getIv().getVal(Statistic.HP));
     }
 
     @Test
@@ -157,12 +157,12 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(50, pk_.getMoves().getVal(ECLAIR).getCurrent());
         assertEq(50, pk_.getMoves().getVal(ECLAIR).getMax());
         assertEq(0, pk_.getEv().size());
-        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPEED));
+        assertEq(31, pk_.getIv().getVal(Statistic.HP));
     }
 
     @Test
@@ -180,7 +180,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel((short) 1);
         StringMap<Short> moves_ = PokemonPlayer.getMovesAtLevel(PICHU,(short) 1,_data_);
         assertEq(1, moves_.size());
-        assertEq(50, moves_.getVal(ECLAIR).intValue());
+        assertEq(50, moves_.getVal(ECLAIR));
     }
 
     @Test
@@ -204,19 +204,19 @@ public class PokemonPlayerTest extends InitializationDataBase {
         pk_.initMoves(moves_);
         pk_.initEvIv(_data_, true);
         assertEq(6, pk_.getEv().size());
-        assertEq(0, pk_.getEv().getVal(Statistic.ATTACK).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.SPEED).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.HP).intValue());
+        assertEq(0, pk_.getEv().getVal(Statistic.ATTACK));
+        assertEq(0, pk_.getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(0, pk_.getEv().getVal(Statistic.SPEED));
+        assertEq(0, pk_.getEv().getVal(Statistic.HP));
         assertEq(6, pk_.getIv().size());
-        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPEED));
+        assertEq(31, pk_.getIv().getVal(Statistic.HP));
     }
 
     @Test
@@ -229,12 +229,12 @@ public class PokemonPlayerTest extends InitializationDataBase {
         pk_.initEvIv(_data_, false);
         assertEq(0, pk_.getEv().size());
         assertEq(6, pk_.getIv().size());
-        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPEED));
+        assertEq(31, pk_.getIv().getVal(Statistic.HP));
     }
 
     @Test
@@ -248,12 +248,12 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(50, pk_.getMoves().getVal(ECLAIR).getMax());
         assertEq(0, pk_.getEv().size());
         assertEq(6, pk_.getIv().size());
-        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPEED));
+        assertEq(31, pk_.getIv().getVal(Statistic.HP));
     }
 
     @Test
@@ -266,19 +266,19 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(50, pk_.getMoves().getVal(ECLAIR).getCurrent());
         assertEq(50, pk_.getMoves().getVal(ECLAIR).getMax());
         assertEq(6, pk_.getEv().size());
-        assertEq(0, pk_.getEv().getVal(Statistic.ATTACK).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.SPEED).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.HP).intValue());
+        assertEq(0, pk_.getEv().getVal(Statistic.ATTACK));
+        assertEq(0, pk_.getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(0, pk_.getEv().getVal(Statistic.SPEED));
+        assertEq(0, pk_.getEv().getVal(Statistic.HP));
         assertEq(6, pk_.getIv().size());
-        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPEED));
+        assertEq(31, pk_.getIv().getVal(Statistic.HP));
     }
 
     @Test
@@ -298,18 +298,18 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(40, pk_.getMoves().getVal(OEIL_MIRACLE).getMax());
         assertEq(10, pk_.getMoves().getVal(PASSE_PASSE).getCurrent());
         assertEq(10, pk_.getMoves().getVal(PASSE_PASSE).getMax());
-        assertEq(0, pk_.getEv().getVal(Statistic.ATTACK).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.SPEED).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.HP).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(0, pk_.getEv().getVal(Statistic.ATTACK));
+        assertEq(0, pk_.getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(0, pk_.getEv().getVal(Statistic.SPEED));
+        assertEq(0, pk_.getEv().getVal(Statistic.HP));
+        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPEED));
+        assertEq(31, pk_.getIv().getVal(Statistic.HP));
         PokemonData fPk_ = data_.getPokemon(pk_.getName());
         assertEq(70, pk_.getHappiness());
         assertEq(Rate.zero(), pk_.getWonExpSinceLastLevel());
@@ -339,18 +339,18 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(40, pk_.getMoves().getVal(VIVE_ATTAQUE).getMax());
         assertEq(50, pk_.getMoves().getVal(CHARGE).getCurrent());
         assertEq(50, pk_.getMoves().getVal(CHARGE).getMax());
-        assertEq(0, pk_.getEv().getVal(Statistic.ATTACK).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.SPEED).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.HP).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(0, pk_.getEv().getVal(Statistic.ATTACK));
+        assertEq(0, pk_.getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(0, pk_.getEv().getVal(Statistic.SPEED));
+        assertEq(0, pk_.getEv().getVal(Statistic.HP));
+        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPEED));
+        assertEq(31, pk_.getIv().getVal(Statistic.HP));
         PokemonData fPk_ = _data_.getPokemon(pk_.getName());
         assertEq(70, pk_.getHappiness());
         assertEq(Rate.zero(), pk_.getWonExpSinceLastLevel());
@@ -452,18 +452,18 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(40, pk_.getMoves().getVal(OEIL_MIRACLE).getMax());
         assertEq(10, pk_.getMoves().getVal(PASSE_PASSE).getCurrent());
         assertEq(10, pk_.getMoves().getVal(PASSE_PASSE).getMax());
-        assertEq(0, pk_.getEv().getVal(Statistic.ATTACK).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.SPEED).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.HP).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(0, pk_.getEv().getVal(Statistic.ATTACK));
+        assertEq(0, pk_.getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(0, pk_.getEv().getVal(Statistic.SPEED));
+        assertEq(0, pk_.getEv().getVal(Statistic.HP));
+        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPEED));
+        assertEq(31, pk_.getIv().getVal(Statistic.HP));
         assertEq(70, pk_.getHappiness());
         assertEq(Rate.zero(), pk_.getWonExpSinceLastLevel());
         assertEq(0, pk_.getNbStepsTeamLead());
@@ -487,18 +487,18 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(1, pk_.getMoves().size());
         assertEq(20, pk_.getMoves().getVal(JACKPOT).getCurrent());
         assertEq(20, pk_.getMoves().getVal(JACKPOT).getMax());
-        assertEq(0, pk_.getEv().getVal(Statistic.ATTACK).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.SPEED).intValue());
-        assertEq(0, pk_.getEv().getVal(Statistic.HP).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(31, pk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(0, pk_.getEv().getVal(Statistic.ATTACK));
+        assertEq(0, pk_.getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(0, pk_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(0, pk_.getEv().getVal(Statistic.SPEED));
+        assertEq(0, pk_.getEv().getVal(Statistic.HP));
+        assertEq(31, pk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(31, pk_.getIv().getVal(Statistic.SPEED));
+        assertEq(31, pk_.getIv().getVal(Statistic.HP));
         assertEq(140, pk_.getHappiness());
         assertEq(Rate.zero(), pk_.getWonExpSinceLastLevel());
         assertEq(0, pk_.getNbStepsTeamLead());
@@ -525,12 +525,12 @@ public class PokemonPlayerTest extends InitializationDataBase {
         diff_ = new Difficulty();
         diff_.setIvPlayer((short) 20);
         pk_.initIv(diff_);
-        assertEq(20, pk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(20, pk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(20, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(20, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(20, pk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(20, pk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(20, pk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(20, pk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(20, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(20, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(20, pk_.getIv().getVal(Statistic.SPEED));
+        assertEq(20, pk_.getIv().getVal(Statistic.HP));
     }
 
     @Test
@@ -547,12 +547,12 @@ public class PokemonPlayerTest extends InitializationDataBase {
         diff_ = new Difficulty();
         diff_.setIvPlayer((short) 20);
         pk_.initIv(diff_);
-        assertEq(20, pk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(20, pk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(20, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(20, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(20, pk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(20, pk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(20, pk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(20, pk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(20, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(20, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(20, pk_.getIv().getVal(Statistic.SPEED));
+        assertEq(20, pk_.getIv().getVal(Statistic.HP));
     }
 
     @Test
@@ -569,12 +569,12 @@ public class PokemonPlayerTest extends InitializationDataBase {
         diff_.setIvPlayer((short) 20);
         pk_.initIv(diff_);
         pk_.initHp(_data_);
-        assertEq(20, pk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(20, pk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(20, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(20, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(20, pk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(20, pk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(20, pk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(20, pk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(20, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(20, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(20, pk_.getIv().getVal(Statistic.SPEED));
+        assertEq(20, pk_.getIv().getVal(Statistic.HP));
         assertEq(new Rate("148/5"), pk_.getRemainingHp());
         assertEq(new Rate("148/5"), pk_.pvMax(_data_));
     }
@@ -594,12 +594,12 @@ public class PokemonPlayerTest extends InitializationDataBase {
         diff_.setIvPlayer((short) 20);
         pk_.initIv(diff_);
         pk_.initHp(_data_);
-        assertEq(20, pk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(20, pk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(20, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(20, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(20, pk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(20, pk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(20, pk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(20, pk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(20, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(20, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(20, pk_.getIv().getVal(Statistic.SPEED));
+        assertEq(20, pk_.getIv().getVal(Statistic.HP));
         assertEq(new Rate("148/5"), pk_.getRemainingHp());
         assertEq(new Rate("148/5"), pk_.pvMax(_data_));
     }
@@ -619,12 +619,12 @@ public class PokemonPlayerTest extends InitializationDataBase {
         diff_.setIvPlayer((short) 20);
         pk_.initIv(diff_);
         pk_.initHp(_data_);
-        assertEq(20, pk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(20, pk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(20, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(20, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(20, pk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(20, pk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(20, pk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(20, pk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(20, pk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(20, pk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(20, pk_.getIv().getVal(Statistic.SPEED));
+        assertEq(20, pk_.getIv().getVal(Statistic.HP));
         assertEq(new Rate("1"), pk_.getRemainingHp());
         assertEq(new Rate("148/5"), pk_.pvMax(_data_));
     }
@@ -1565,9 +1565,9 @@ public class PokemonPlayerTest extends InitializationDataBase {
         pk_.getMoves().getVal(JACKPOT).setCurrent((short) 0);
         pk_.getMoves().getVal(OEIL_MIRACLE).setCurrent((short) 0);
         StringMap<Short> healedMoves_ = pk_.ppSoignesAttaques(healingObject_);
-        assertEq(10, healedMoves_.getVal(PASSE_PASSE).shortValue());
-        assertEq(20, healedMoves_.getVal(JACKPOT).shortValue());
-        assertEq(40, healedMoves_.getVal(OEIL_MIRACLE).shortValue());
+        assertEq(10, healedMoves_.getVal(PASSE_PASSE));
+        assertEq(20, healedMoves_.getVal(JACKPOT));
+        assertEq(40, healedMoves_.getVal(OEIL_MIRACLE));
     }
 
     @Test
@@ -1581,9 +1581,9 @@ public class PokemonPlayerTest extends InitializationDataBase {
         pk_.getMoves().getVal(JACKPOT).setCurrent((short) 0);
         pk_.getMoves().getVal(OEIL_MIRACLE).setCurrent((short) 0);
         StringMap<Short> healedMoves_ = pk_.ppSoignesAttaques(healingObject_);
-        assertEq(10, healedMoves_.getVal(PASSE_PASSE).shortValue());
-        assertEq(10, healedMoves_.getVal(JACKPOT).shortValue());
-        assertEq(10, healedMoves_.getVal(OEIL_MIRACLE).shortValue());
+        assertEq(10, healedMoves_.getVal(PASSE_PASSE));
+        assertEq(10, healedMoves_.getVal(JACKPOT));
+        assertEq(10, healedMoves_.getVal(OEIL_MIRACLE));
     }
 
     @Test
@@ -1645,9 +1645,9 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = new PokemonPlayer(base_,_data_);
         StringMap<Short> evos_ = pk_.getAllEvolutions(_data_);
         assertEq(3, evos_.size());
-        assertEq(25, evos_.getVal(TETARTE).intValue());
-        assertEq(25, evos_.getVal(TARTARD).intValue());
-        assertEq(25, evos_.getVal(TARPAUD).intValue());
+        assertEq(25, evos_.getVal(TETARTE));
+        assertEq(25, evos_.getVal(TARTARD));
+        assertEq(25, evos_.getVal(TARPAUD));
     }
 
     @Test
@@ -1661,8 +1661,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = new PokemonPlayer(base_,_data_);
         StringMap<Short> evos_ = pk_.getAllEvolutions(_data_);
         assertEq(2, evos_.size());
-        assertEq(20, evos_.getVal(NINJASK).intValue());
-        assertEq(20, evos_.getVal(MUNJA).intValue());
+        assertEq(20, evos_.getVal(NINJASK));
+        assertEq(20, evos_.getVal(MUNJA));
     }
 
     @Test
@@ -1676,8 +1676,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = new PokemonPlayer(base_,_data_);
         StringMap<Short> evos_ = pk_.getAllEvolutions(_data_);
         assertEq(2, evos_.size());
-        assertEq(32, evos_.getVal(MEIOS).intValue());
-        assertEq(41, evos_.getVal(SYMBIOS).intValue());
+        assertEq(32, evos_.getVal(MEIOS));
+        assertEq(41, evos_.getVal(SYMBIOS));
     }
 
     @Test
@@ -1691,8 +1691,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = new PokemonPlayer(base_,_data_);
         StringMap<Short> evos_ = pk_.getAllEvolutions(_data_);
         assertEq(2, evos_.size());
-        assertEq(20, evos_.getVal(TARTARD).intValue());
-        assertEq(20, evos_.getVal(TARPAUD).intValue());
+        assertEq(20, evos_.getVal(TARTARD));
+        assertEq(20, evos_.getVal(TARPAUD));
     }
 
     @Test
@@ -1712,33 +1712,33 @@ public class PokemonPlayerTest extends InitializationDataBase {
     public void getAllEvolutions6Test() {
         StringMap<Short> evos_ = PokemonPlayer.getAllEvolutions(PTITARD, (short) 3, true, _data_);
         assertEq(3, evos_.size());
-        assertEq(25, evos_.getVal(StringList.concat(PTITARD,SEPARATOR,TETARTE)).intValue());
-        assertEq(25, evos_.getVal(StringList.concat(PTITARD,SEPARATOR,TETARTE,SEPARATOR,TARTARD)).intValue());
-        assertEq(25, evos_.getVal(StringList.concat(PTITARD,SEPARATOR,TETARTE,SEPARATOR,TARPAUD)).intValue());
+        assertEq(25, evos_.getVal(StringList.concat(PTITARD,SEPARATOR,TETARTE)));
+        assertEq(25, evos_.getVal(StringList.concat(PTITARD,SEPARATOR,TETARTE,SEPARATOR,TARTARD)));
+        assertEq(25, evos_.getVal(StringList.concat(PTITARD,SEPARATOR,TETARTE,SEPARATOR,TARPAUD)));
     }
 
     @Test
     public void getAllEvolutions7Test() {
         StringMap<Short> evos_ = PokemonPlayer.getAllEvolutions(NINGALE, (short) 3, true, _data_);
         assertEq(2, evos_.size());
-        assertEq(20, evos_.getVal(StringList.concat(NINGALE,SEPARATOR,NINJASK)).intValue());
-        assertEq(20, evos_.getVal(StringList.concat(NINGALE,SEPARATOR,MUNJA)).intValue());
+        assertEq(20, evos_.getVal(StringList.concat(NINGALE,SEPARATOR,NINJASK)));
+        assertEq(20, evos_.getVal(StringList.concat(NINGALE,SEPARATOR,MUNJA)));
     }
 
     @Test
     public void getAllEvolutions8Test() {
         StringMap<Short> evos_ = PokemonPlayer.getAllEvolutions(NUCLEOS, (short) 3, true, _data_);
         assertEq(2, evos_.size());
-        assertEq(32, evos_.getVal(StringList.concat(NUCLEOS,SEPARATOR,MEIOS)).intValue());
-        assertEq(41, evos_.getVal(StringList.concat(NUCLEOS,SEPARATOR,MEIOS,SEPARATOR,SYMBIOS)).intValue());
+        assertEq(32, evos_.getVal(StringList.concat(NUCLEOS,SEPARATOR,MEIOS)));
+        assertEq(41, evos_.getVal(StringList.concat(NUCLEOS,SEPARATOR,MEIOS,SEPARATOR,SYMBIOS)));
     }
 
     @Test
     public void getAllEvolutions9Test() {
         StringMap<Short> evos_ = PokemonPlayer.getAllEvolutions(TETARTE, (short) 20, true, _data_);
         assertEq(2, evos_.size());
-        assertEq(20, evos_.getVal(StringList.concat(TETARTE,SEPARATOR,TARTARD)).intValue());
-        assertEq(20, evos_.getVal(StringList.concat(TETARTE,SEPARATOR,TARPAUD)).intValue());
+        assertEq(20, evos_.getVal(StringList.concat(TETARTE,SEPARATOR,TARTARD)));
+        assertEq(20, evos_.getVal(StringList.concat(TETARTE,SEPARATOR,TARPAUD)));
     }
 
     @Test
@@ -1799,14 +1799,14 @@ public class PokemonPlayerTest extends InitializationDataBase {
     public void gainEv1Test() {
         PokemonPlayer pk_ = pokemonPlayer(_data_,(short)7);
         pk_.gainEv(MUSCLE, (short) 0, _data_);
-        assertEq(0, pk_.getEv().getVal(Statistic.ATTACK).shortValue());
+        assertEq(0, pk_.getEv().getVal(Statistic.ATTACK));
     }
 
     @Test
     public void gainEv2Test() {
         PokemonPlayer pk_ = pokemonPlayer(_data_,(short)7);
         pk_.gainEv(MUSCLE, (short) 1, _data_);
-        assertEq(1, pk_.getEv().getVal(Statistic.ATTACK).shortValue());
+        assertEq(1, pk_.getEv().getVal(Statistic.ATTACK));
     }
 
     @Test
@@ -1944,8 +1944,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertTrue(sent_.getEv().contains(Statistic.SPEED));
         assertTrue(sent_.getEv().contains(Statistic.HP));
         Numbers<Short> n_ = new Numbers<Short>(sent_.getEv().values());
-        assertEq(0, n_.getMaximum((short) 0).intValue());
-        assertEq(0, n_.getMinimum((short) 0).intValue());
+        assertEq(0, n_.getMaximum((short) 0));
+        assertEq(0, n_.getMinimum((short) 0));
         assertTrue(sent_.getIv().contains(Statistic.ATTACK));
         assertTrue(sent_.getIv().contains(Statistic.DEFENSE));
         assertTrue(sent_.getIv().contains(Statistic.SPECIAL_ATTACK));
@@ -1953,8 +1953,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertTrue(sent_.getIv().contains(Statistic.SPEED));
         assertTrue(sent_.getIv().contains(Statistic.HP));
         n_ = new Numbers<Short>(sent_.getIv().values());
-        assertEq(31, n_.getMaximum((short) 31).intValue());
-        assertEq(31, n_.getMinimum((short) 31).intValue());
+        assertEq(31, n_.getMaximum((short) 31));
+        assertEq(31, n_.getMinimum((short) 31));
         assertEq(70, sent_.getHappiness());
         assertEq(Rate.one(), sent_.getWonExpSinceLastLevel());
         assertEq(0, sent_.getNbStepsTeamLead());
@@ -1993,12 +1993,12 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(1, sent_.getMoves().size());
         assertEq(20, sent_.getMoves().getVal(JACKPOT).getCurrent());
         assertEq(20, sent_.getMoves().getVal(JACKPOT).getMax());
-        assertEq(0, sent_.getEv().getVal(Statistic.ATTACK).intValue());
-        assertEq(0, sent_.getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, sent_.getEv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(0, sent_.getEv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(1, sent_.getEv().getVal(Statistic.SPEED).intValue());
-        assertEq(0, sent_.getEv().getVal(Statistic.HP).intValue());
+        assertEq(0, sent_.getEv().getVal(Statistic.ATTACK));
+        assertEq(0, sent_.getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, sent_.getEv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(0, sent_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(1, sent_.getEv().getVal(Statistic.SPEED));
+        assertEq(0, sent_.getEv().getVal(Statistic.HP));
         Numbers<Short> n_ = new Numbers<Short>(sent_.getEv().values());
         assertTrue(sent_.getIv().contains(Statistic.ATTACK));
         assertTrue(sent_.getIv().contains(Statistic.DEFENSE));
@@ -2007,8 +2007,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertTrue(sent_.getIv().contains(Statistic.SPEED));
         assertTrue(sent_.getIv().contains(Statistic.HP));
         n_ = new Numbers<Short>(sent_.getIv().values());
-        assertEq(31, n_.getMaximum((short) 31).intValue());
-        assertEq(31, n_.getMinimum((short) 31).intValue());
+        assertEq(31, n_.getMaximum((short) 31));
+        assertEq(31, n_.getMinimum((short) 31));
         assertEq(70, sent_.getHappiness());
         assertEq(Rate.one(), sent_.getWonExpSinceLastLevel());
         assertEq(0, sent_.getNbStepsTeamLead());
@@ -2051,8 +2051,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertTrue(sent_.getEv().contains(Statistic.SPEED));
         assertTrue(sent_.getEv().contains(Statistic.HP));
         Numbers<Short> n_ = new Numbers<Short>(sent_.getEv().values());
-        assertEq(0, n_.getMaximum((short) 0).intValue());
-        assertEq(0, n_.getMinimum((short) 0).intValue());
+        assertEq(0, n_.getMaximum((short) 0));
+        assertEq(0, n_.getMinimum((short) 0));
         assertTrue(sent_.getIv().contains(Statistic.ATTACK));
         assertTrue(sent_.getIv().contains(Statistic.DEFENSE));
         assertTrue(sent_.getIv().contains(Statistic.SPECIAL_ATTACK));
@@ -2060,8 +2060,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertTrue(sent_.getIv().contains(Statistic.SPEED));
         assertTrue(sent_.getIv().contains(Statistic.HP));
         n_ = new Numbers<Short>(sent_.getIv().values());
-        assertEq(31, n_.getMaximum((short) 31).intValue());
-        assertEq(31, n_.getMinimum((short) 31).intValue());
+        assertEq(31, n_.getMaximum((short) 31));
+        assertEq(31, n_.getMinimum((short) 31));
         assertEq(70, sent_.getHappiness());
         assertEq(Rate.one(), sent_.getWonExpSinceLastLevel());
         assertEq(0, sent_.getNbStepsTeamLead());
@@ -2101,8 +2101,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertTrue(sent_.getEv().contains(Statistic.SPEED));
         assertTrue(sent_.getEv().contains(Statistic.HP));
         Numbers<Short> n_ = new Numbers<Short>(sent_.getEv().values());
-        assertEq(0, n_.getMaximum((short) 0).intValue());
-        assertEq(0, n_.getMinimum((short) 0).intValue());
+        assertEq(0, n_.getMaximum((short) 0));
+        assertEq(0, n_.getMinimum((short) 0));
         assertTrue(sent_.getIv().contains(Statistic.ATTACK));
         assertTrue(sent_.getIv().contains(Statistic.DEFENSE));
         assertTrue(sent_.getIv().contains(Statistic.SPECIAL_ATTACK));
@@ -2110,8 +2110,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertTrue(sent_.getIv().contains(Statistic.SPEED));
         assertTrue(sent_.getIv().contains(Statistic.HP));
         n_ = new Numbers<Short>(sent_.getIv().values());
-        assertEq(31, n_.getMaximum((short) 31).intValue());
-        assertEq(31, n_.getMinimum((short) 31).intValue());
+        assertEq(31, n_.getMaximum((short) 31));
+        assertEq(31, n_.getMinimum((short) 31));
         assertEq(70, sent_.getHappiness());
         assertEq(Rate.one(), sent_.getWonExpSinceLastLevel());
         assertEq(0, sent_.getNbStepsTeamLead());
@@ -2144,12 +2144,12 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(1, sent_.getMoves().size());
         assertEq(20, sent_.getMoves().getVal(JACKPOT).getCurrent());
         assertEq(20, sent_.getMoves().getVal(JACKPOT).getMax());
-        assertEq(0, sent_.getEv().getVal(Statistic.ATTACK).intValue());
-        assertEq(0, sent_.getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, sent_.getEv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(0, sent_.getEv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(0, sent_.getEv().getVal(Statistic.SPEED).intValue());
-        assertEq(0, sent_.getEv().getVal(Statistic.HP).intValue());
+        assertEq(0, sent_.getEv().getVal(Statistic.ATTACK));
+        assertEq(0, sent_.getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, sent_.getEv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(0, sent_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(0, sent_.getEv().getVal(Statistic.SPEED));
+        assertEq(0, sent_.getEv().getVal(Statistic.HP));
         Numbers<Short> n_ = new Numbers<Short>(sent_.getEv().values());
         assertTrue(sent_.getIv().contains(Statistic.ATTACK));
         assertTrue(sent_.getIv().contains(Statistic.DEFENSE));
@@ -2158,8 +2158,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertTrue(sent_.getIv().contains(Statistic.SPEED));
         assertTrue(sent_.getIv().contains(Statistic.HP));
         n_ = new Numbers<Short>(sent_.getIv().values());
-        assertEq(31, n_.getMaximum((short) 31).intValue());
-        assertEq(31, n_.getMinimum((short) 31).intValue());
+        assertEq(31, n_.getMaximum((short) 31));
+        assertEq(31, n_.getMinimum((short) 31));
         assertEq(70, sent_.getHappiness());
         assertEq(Rate.one(), sent_.getWonExpSinceLastLevel());
         assertEq(0, sent_.getNbStepsTeamLead());
@@ -2198,12 +2198,12 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(1, sent_.getMoves().size());
         assertEq(30, sent_.getMoves().getVal(CHARGE).getCurrent());
         assertEq(30, sent_.getMoves().getVal(CHARGE).getMax());
-        assertEq(0, sent_.getEv().getVal(Statistic.ATTACK).intValue());
-        assertEq(0, sent_.getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, sent_.getEv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(0, sent_.getEv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(1, sent_.getEv().getVal(Statistic.SPEED).intValue());
-        assertEq(0, sent_.getEv().getVal(Statistic.HP).intValue());
+        assertEq(0, sent_.getEv().getVal(Statistic.ATTACK));
+        assertEq(0, sent_.getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, sent_.getEv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(0, sent_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(1, sent_.getEv().getVal(Statistic.SPEED));
+        assertEq(0, sent_.getEv().getVal(Statistic.HP));
         Numbers<Short> n_ = new Numbers<Short>(sent_.getEv().values());
         assertTrue(sent_.getIv().contains(Statistic.ATTACK));
         assertTrue(sent_.getIv().contains(Statistic.DEFENSE));
@@ -2212,8 +2212,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertTrue(sent_.getIv().contains(Statistic.SPEED));
         assertTrue(sent_.getIv().contains(Statistic.HP));
         n_ = new Numbers<Short>(sent_.getIv().values());
-        assertEq(31, n_.getMaximum((short) 31).intValue());
-        assertEq(31, n_.getMinimum((short) 31).intValue());
+        assertEq(31, n_.getMaximum((short) 31));
+        assertEq(31, n_.getMinimum((short) 31));
         assertEq(70, sent_.getHappiness());
         assertEq(Rate.one(), sent_.getWonExpSinceLastLevel());
         assertEq(0, sent_.getNbStepsTeamLead());
@@ -2251,12 +2251,12 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(1, sent_.getMoves().size());
         assertEq(30, sent_.getMoves().getVal(CHARGE).getCurrent());
         assertEq(30, sent_.getMoves().getVal(CHARGE).getMax());
-        assertEq(0, sent_.getEv().getVal(Statistic.ATTACK).intValue());
-        assertEq(0, sent_.getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, sent_.getEv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(0, sent_.getEv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(0, sent_.getEv().getVal(Statistic.SPEED).intValue());
-        assertEq(1, sent_.getEv().getVal(Statistic.HP).intValue());
+        assertEq(0, sent_.getEv().getVal(Statistic.ATTACK));
+        assertEq(0, sent_.getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, sent_.getEv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(0, sent_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(0, sent_.getEv().getVal(Statistic.SPEED));
+        assertEq(1, sent_.getEv().getVal(Statistic.HP));
         Numbers<Short> n_ = new Numbers<Short>(sent_.getEv().values());
         assertTrue(sent_.getIv().contains(Statistic.ATTACK));
         assertTrue(sent_.getIv().contains(Statistic.DEFENSE));
@@ -2265,8 +2265,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertTrue(sent_.getIv().contains(Statistic.SPEED));
         assertTrue(sent_.getIv().contains(Statistic.HP));
         n_ = new Numbers<Short>(sent_.getIv().values());
-        assertEq(31, n_.getMaximum((short) 31).intValue());
-        assertEq(31, n_.getMinimum((short) 31).intValue());
+        assertEq(31, n_.getMaximum((short) 31));
+        assertEq(31, n_.getMinimum((short) 31));
         assertEq(70, sent_.getHappiness());
         assertEq(Rate.one(), sent_.getWonExpSinceLastLevel());
         assertEq(0, sent_.getNbStepsTeamLead());

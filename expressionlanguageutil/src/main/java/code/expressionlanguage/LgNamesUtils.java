@@ -295,7 +295,7 @@ public class LgNamesUtils extends LgNames {
                 res_.setResult(std_);
                 return res_;
             }
-            AtomicInteger at_ = new AtomicInteger(((NumberStruct)_args[0]).intValue());
+            AtomicInteger at_ = new AtomicInteger(((NumberStruct)_args[0]).intStruct());
             StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicInteger);
             res_.setResult(std_);
             return res_;
@@ -307,7 +307,7 @@ public class LgNamesUtils extends LgNames {
                 res_.setResult(std_);
                 return res_;
             }
-            AtomicLong at_ = new AtomicLong(((NumberStruct)_args[0]).longValue());
+            AtomicLong at_ = new AtomicLong(((NumberStruct)_args[0]).longStruct());
             StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicLong);
             res_.setResult(std_);
             return res_;
@@ -393,7 +393,7 @@ public class LgNamesUtils extends LgNames {
                     res_.setError(getAliasNullPe());
                     return res_;
                 }
-                res_.setResult(new BooleanStruct(sleep(((NumberStruct)_args[0]).longValue())));
+                res_.setResult(new BooleanStruct(sleep(((NumberStruct)_args[0]).longStruct())));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasJoin)) {
@@ -428,7 +428,7 @@ public class LgNamesUtils extends LgNames {
             if (StringList.quickEq(name_,aliasSetPriority)) {
                 Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
                 try {
-                    thread_.setPriority(((NumberStruct)_args[0]).intValue());
+                    thread_.setPriority(((NumberStruct)_args[0]).intStruct());
                     res_.setResult(NullStruct.NULL_VALUE);
                 } catch (Exception e) {
                     res_.setError(getAliasIllegalArg());
@@ -511,7 +511,7 @@ public class LgNamesUtils extends LgNames {
                     return res_;
                 }
                 AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
-                re_.set(((NumberStruct)_args[0]).intValue());
+                re_.set(((NumberStruct)_args[0]).intStruct());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -531,7 +531,7 @@ public class LgNamesUtils extends LgNames {
                     return res_;
                 }
                 AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
-                re_.set(((NumberStruct)_args[0]).longValue());
+                re_.set(((NumberStruct)_args[0]).longStruct());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }

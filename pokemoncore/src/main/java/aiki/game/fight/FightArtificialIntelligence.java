@@ -677,10 +677,10 @@ final class FightArtificialIntelligence {
         }
         afterSubstitute_.putAllMap(_fight.getFirstPositFoeFighters());
         for (byte b: afterSubstitute_.getKeys()) {
-            if (Numbers.eq(afterSubstitute_.getVal(b).byteValue(), Fighter.BACK)) {
+            if (Numbers.eq(afterSubstitute_.getVal(b), Fighter.BACK)) {
                 continue;
             }
-            if (!Numbers.eq(beforeSubstitute_.getVal(b).byteValue(), Fighter.BACK)) {
+            if (!Numbers.eq(beforeSubstitute_.getVal(b), Fighter.BACK)) {
                 continue;
             }
             Fighter partner_ = foeTeam_.getMembers().getVal(b);
@@ -763,10 +763,10 @@ final class FightArtificialIntelligence {
             }
             afterSubstitute_.putAllMap(_fight.getFirstPositPlayerFighters());
             for (byte b: afterSubstitute_.getKeys()) {
-                if (Numbers.eq(afterSubstitute_.getVal(b).byteValue(), Fighter.BACK)) {
+                if (Numbers.eq(afterSubstitute_.getVal(b), Fighter.BACK)) {
                     continue;
                 }
-                if (!Numbers.eq(beforeSubstitute_.getVal(b).byteValue(), Fighter.BACK)) {
+                if (!Numbers.eq(beforeSubstitute_.getVal(b), Fighter.BACK)) {
                     continue;
                 }
                 Fighter partner_ = userTeam_.getMembers().getVal(b);

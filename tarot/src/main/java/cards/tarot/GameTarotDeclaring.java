@@ -80,7 +80,7 @@ public final class GameTarotDeclaring {
         HandTarot atouts_ = GameTarotCommonPlaying.atoutsPoignee(repartition_);
         HandTarot poignee_ = new HandTarot();
         for(Handfuls p: getAnnoncesPoignees(_numeroJoueur)) {
-            byte max_ = teamsRelation.getRules().getPoigneesAutorisees().getVal(p).byteValue();
+            int max_ = teamsRelation.getRules().getPoigneesAutorisees().getVal(p);
             byte trumpIndex_ = CustList.FIRST_INDEX;
             if(atouts_.total() == max_) {
                 while (poignee_.total() < max_) {

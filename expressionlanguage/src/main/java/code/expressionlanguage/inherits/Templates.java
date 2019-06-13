@@ -1210,7 +1210,7 @@ public final class Templates {
         if (err_ == ErrorType.NOTHING) {
             ArrayStruct arr_ = (ArrayStruct) _array;
             Struct[] inst_ = arr_.getInstance();
-            int index_ = ((NumberStruct)_index).intValue();
+            int index_ = ((NumberStruct)_index).intStruct();
             String arrType_ = arr_.getClassName();
             String param_ = PrimitiveTypeUtil.getQuickComponentType(arrType_);
             ClassArgumentMatching cl_ = new ClassArgumentMatching(param_);
@@ -1231,7 +1231,7 @@ public final class Templates {
             String cast_ = stds_.getAliasBadIndex();
             ArrayStruct arr_ = (ArrayStruct) _array;
             Struct[] inst_ = arr_.getInstance();
-            int index_ = ((NumberStruct)_index).intValue();
+            int index_ = ((NumberStruct)_index).intStruct();
             StringBuilder mess_ = new StringBuilder();
             if (index_ < 0) {
                 mess_.append(index_);
@@ -1278,7 +1278,7 @@ public final class Templates {
         }
         ArrayStruct arr_ = (ArrayStruct) _array;
         Struct[] inst_ = arr_.getInstance();
-        int index_ = ((NumberStruct)_index).intValue();
+        int index_ = ((NumberStruct)_index).intStruct();
         if (index_ < 0 || index_ >= inst_.length) {
             return ErrorType.BAD_INDEX;
         }
@@ -1323,7 +1323,7 @@ public final class Templates {
         if (err_ == ErrorType.NOTHING) {
             ArrayStruct arr_ = (ArrayStruct) _array;
             Struct[] inst_ = arr_.getInstance();
-            int index_ = ((NumberStruct)_index).intValue();
+            int index_ = ((NumberStruct)_index).intStruct();
             return inst_[index_];
         }
         if (err_ == ErrorType.NPE) {
@@ -1335,7 +1335,7 @@ public final class Templates {
             String cast_ = stds_.getAliasBadIndex();
             ArrayStruct arr_ = (ArrayStruct) _array;
             Struct[] inst_ = arr_.getInstance();
-            int index_ = ((NumberStruct)_index).intValue();
+            int index_ = ((NumberStruct)_index).intStruct();
             StringBuilder mess_ = new StringBuilder();
             if (index_ < 0) {
                 mess_.append(index_);
@@ -1368,7 +1368,7 @@ public final class Templates {
         }
         ArrayStruct arr_ = (ArrayStruct) _array;
         Struct[] inst_ = arr_.getInstance();
-        int index_ = ((NumberStruct)_index).intValue();
+        int index_ = ((NumberStruct)_index).intStruct();
         if (index_ < 0 || index_ >= inst_.length) {
             return ErrorType.BAD_INDEX;
         }

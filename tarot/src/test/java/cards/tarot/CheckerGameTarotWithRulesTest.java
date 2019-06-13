@@ -310,7 +310,7 @@ public class CheckerGameTarotWithRulesTest {
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(2, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
-        assertEq(4, game_.getAppele().first().intValue());
+        assertEq(4, game_.getAppele().first());
         assertEq(BidTarot.GUARD_WITHOUT, game_.getContrat());
         assertEq(2, game_.getEntameur());
         assertEq(2, game_.getRamasseur());
@@ -338,7 +338,7 @@ public class CheckerGameTarotWithRulesTest {
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(2, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
-        assertEq(4, game_.getAppele().first().intValue());
+        assertEq(4, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
         assertEq(2, game_.getEntameur());
         assertEq(2, game_.getRamasseur());
@@ -367,7 +367,7 @@ public class CheckerGameTarotWithRulesTest {
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
-        assertEq(1, game_.getAppele().first().intValue());
+        assertEq(1, game_.getAppele().first());
         assertEq(0, game_.getEntameur());
         assertEq(0, game_.getRamasseur());
     }
@@ -395,7 +395,7 @@ public class CheckerGameTarotWithRulesTest {
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
-        assertEq(1, game_.getAppele().first().intValue());
+        assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
         assertEq(0, game_.getEntameur());
         assertEq(0, game_.getRamasseur());
@@ -424,7 +424,7 @@ public class CheckerGameTarotWithRulesTest {
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
-        assertEq(1, game_.getAppele().first().intValue());
+        assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
         assertEq(0, game_.getEntameur());
         assertEq(0, game_.getRamasseur());
@@ -455,7 +455,7 @@ public class CheckerGameTarotWithRulesTest {
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
-        assertEq(1, game_.getAppele().first().intValue());
+        assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
         assertEq(0, game_.getEntameur());
         assertEq(0, game_.getRamasseur());
@@ -488,7 +488,7 @@ public class CheckerGameTarotWithRulesTest {
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
-        assertEq(1, game_.getAppele().first().intValue());
+        assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
         assertEq(0, game_.getEntameur());
         assertEq(0, game_.getRamasseur());
@@ -518,7 +518,7 @@ public class CheckerGameTarotWithRulesTest {
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
-        assertEq(1, game_.getAppele().first().intValue());
+        assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
         assertEq(0, game_.getEntameur());
         assertEq(0, game_.getRamasseur());
@@ -556,7 +556,7 @@ public class CheckerGameTarotWithRulesTest {
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
-        assertEq(1, game_.getAppele().first().intValue());
+        assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
         assertEq(0, game_.getEntameur());
         assertEq(0, game_.getRamasseur());
@@ -633,7 +633,7 @@ public class CheckerGameTarotWithRulesTest {
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
-        assertEq(1, game_.getAppele().first().intValue());
+        assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
         assertEq(0, game_.getEntameur());
         assertEq(0, game_.getRamasseur());
@@ -693,7 +693,7 @@ public class CheckerGameTarotWithRulesTest {
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
-        assertEq(1, game_.getAppele().first().intValue());
+        assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
         assertEq(0, game_.getEntameur());
         assertEq(0, game_.getRamasseur());
@@ -731,7 +731,7 @@ public class CheckerGameTarotWithRulesTest {
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
-        assertEq(1, game_.getAppele().first().intValue());
+        assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
         assertEq(0, game_.getEntameur());
         assertEq(0, game_.getRamasseur());
@@ -940,7 +940,7 @@ public class CheckerGameTarotWithRulesTest {
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
-        assertEq(3, game_.getAppele().first().intValue());
+        assertEq(3, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
         assertEq(0, game_.getEntameur());
         assertEq(0, game_.getRamasseur());
@@ -987,7 +987,7 @@ public class CheckerGameTarotWithRulesTest {
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
-        assertEq(1, game_.getAppele().first().intValue());
+        assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD_WITHOUT, game_.getContrat());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
@@ -1031,7 +1031,7 @@ public class CheckerGameTarotWithRulesTest {
         //assertEq(0, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
-        assertEq(1, game_.getAppele().first().intValue());
+        assertEq(1, game_.getAppele().first());
         assertEq(BidTarot.GUARD_WITHOUT, game_.getContrat());
         assertEq(0, game_.getEntameur());
         assertEq(0, game_.getRamasseur());
@@ -1075,7 +1075,7 @@ public class CheckerGameTarotWithRulesTest {
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
-        assertEq(3, game_.getAppele().first().intValue());
+        assertEq(3, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
         assertEq(0, game_.getEntameur());
         assertEq(0, game_.getRamasseur());
@@ -1122,7 +1122,7 @@ public class CheckerGameTarotWithRulesTest {
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
-        assertEq(3, game_.getAppele().first().intValue());
+        assertEq(3, game_.getAppele().first());
         assertEq(BidTarot.GUARD, game_.getContrat());
         assertEq(0, game_.getEntameur());
         assertEq(0, game_.getRamasseur());
@@ -1148,7 +1148,7 @@ public class CheckerGameTarotWithRulesTest {
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
-        assertEq(3, game_.getAppele().first().intValue());
+        assertEq(3, game_.getAppele().first());
         assertEq(BidTarot.GUARD_AGAINST, game_.getContrat());
         assertEq(0, game_.getEntameur());
         assertEq(0, game_.getRamasseur());
@@ -1174,7 +1174,7 @@ public class CheckerGameTarotWithRulesTest {
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
-        assertEq(3, game_.getAppele().first().intValue());
+        assertEq(3, game_.getAppele().first());
         assertEq(BidTarot.SLAM, game_.getContrat());
         assertEq(0, game_.getEntameur());
         assertEq(0, game_.getRamasseur());
@@ -1201,7 +1201,7 @@ public class CheckerGameTarotWithRulesTest {
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
-        assertEq(3, game_.getAppele().first().intValue());
+        assertEq(3, game_.getAppele().first());
         assertEq(BidTarot.SLAM, game_.getContrat());
         assertEq(0, game_.getEntameur());
         assertEq(0, game_.getRamasseur());
@@ -1228,7 +1228,7 @@ public class CheckerGameTarotWithRulesTest {
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
-        assertEq(3, game_.getAppele().first().intValue());
+        assertEq(3, game_.getAppele().first());
         assertEq(BidTarot.GUARD_AGAINST, game_.getContrat());
         assertEq(0, game_.getEntameur());
         assertEq(0, game_.getRamasseur());
@@ -1272,7 +1272,7 @@ public class CheckerGameTarotWithRulesTest {
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
-        assertEq(3, game_.getAppele().first().intValue());
+        assertEq(3, game_.getAppele().first());
         assertEq(BidTarot.GUARD_AGAINST, game_.getContrat());
         assertEq(5, game_.getEntameur());
         assertEq(5, game_.getRamasseur());
@@ -1531,7 +1531,7 @@ public class CheckerGameTarotWithRulesTest {
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
-        assertEq(3, game_.getAppele().first().intValue());
+        assertEq(3, game_.getAppele().first());
         assertEq(BidTarot.GUARD_AGAINST, game_.getContrat());
         assertEq(5, game_.getEntameur());
         assertEq(5, game_.getRamasseur());
@@ -1678,7 +1678,7 @@ public class CheckerGameTarotWithRulesTest {
         //assertEq(1, game_.getNbPlisTotal());
         assertEq(0, game_.getPreneur());
         assertEq(1, game_.getAppele().size());
-        assertEq(3, game_.getAppele().first().intValue());
+        assertEq(3, game_.getAppele().first());
         assertEq(BidTarot.GUARD_AGAINST, game_.getContrat());
         assertEq(5, game_.getEntameur());
         assertEq(5, game_.getRamasseur());

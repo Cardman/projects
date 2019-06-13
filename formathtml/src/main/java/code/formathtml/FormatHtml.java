@@ -22,7 +22,6 @@ import code.util.EntryCust;
 import code.util.IdList;
 import code.util.NatTreeMap;
 import code.util.NumberMap;
-import code.util.Numbers;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -4393,7 +4392,7 @@ public final class FormatHtml {
             _conf.getLastPage().setOffset(0);
             String var_ = forLoopLoc_.getAttribute(ATTRIBUTE_VAR);
             LoopVariable lv_ = _vars.getVal(var_);
-            lv_.setStruct(convert(lv_.getClassName(), ((NumberStruct) lv_.getStruct()).longValue()+lv_.getStep(), _conf.getContext()));
+            lv_.setStruct(convert(lv_.getClassName(), ((NumberStruct) lv_.getStruct()).longStruct()+lv_.getStep(), _conf.getContext()));
             lv_.setIndex(lv_.getIndex() + 1);
         }
     }
@@ -4661,9 +4660,9 @@ public final class FormatHtml {
                 return;
             }
             realFromValue_ = argFrom_.getLong();
-            fromValue_ = ((NumberStruct)convert(primLong_, realFromValue_, _conf.getContext())).longValue();
-            long toValue_ = ((NumberStruct)convert(primLong_, argTo_.getLong(), _conf.getContext())).longValue();
-            stepValue_ = ((NumberStruct)convert(primLong_, argStep_.getLong(), _conf.getContext())).longValue();
+            fromValue_ = ((NumberStruct)convert(primLong_, realFromValue_, _conf.getContext())).longStruct();
+            long toValue_ = ((NumberStruct)convert(primLong_, argTo_.getLong(), _conf.getContext())).longStruct();
+            stepValue_ = ((NumberStruct)convert(primLong_, argStep_.getLong(), _conf.getContext())).longStruct();
             if (stepValue_ > 0) {
                 if (fromValue_ > toValue_) {
                     stepValue_ = -stepValue_;

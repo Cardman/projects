@@ -115,14 +115,14 @@ public class NumbersTest {
         Numbers<Integer> nbs_ = new Numbers<Integer>();
         nbs_.add(1);
         nbs_.add(3);
-        assertEq(3,(long)nbs_.getMaximum(0));
+        assertEq(3, nbs_.getMaximum(0));
         nbs_ = new Numbers<Integer>();
         nbs_.add(3);
         nbs_.add(1);
-        assertEq(3,(long)nbs_.getMaximum(0));
+        assertEq(3, nbs_.getMaximum(0));
         nbs_ = new Numbers<Integer>();
         nbs_.add(3);
-        assertEq(3,(long)nbs_.getMaximum(0));
+        assertEq(3, nbs_.getMaximum(0));
         nbs_ = new Numbers<Integer>();
         assertEq(0,nbs_.getMaximum(0));
     }

@@ -302,7 +302,7 @@ public final class ExpressionLanguageTest {
         ArrayStruct res_ = (ArrayStruct) arg_.getStruct();
         assertEq(ARR_INT, res_.getClassName());
         assertEq(1, res_.getInstance().length);
-        assertEq(0, ((NumberStruct) res_.getInstance()[0]).intValue());
+        assertEq(0, ((NumberStruct) res_.getInstance()[0]).intStruct());
     }
 
     @Test
@@ -407,7 +407,7 @@ public final class ExpressionLanguageTest {
         assertEq(ARR_INT, res_.getClassName());
         Struct[] o_ = res_.getInstance();
         assertEq(1, o_.length);
-        assertEq(2, ((NumberStruct) o_[0]).intValue());
+        assertEq(2, ((NumberStruct) o_[0]).intStruct());
     }
 
     @Test
@@ -417,8 +417,8 @@ public final class ExpressionLanguageTest {
         assertEq(ARR_INT, res_.getClassName());
         Struct[] o_ = res_.getInstance();
         assertEq(2, o_.length);
-        assertEq(3, ((NumberStruct) o_[0]).intValue());
-        assertEq(7, ((NumberStruct) o_[1]).intValue());
+        assertEq(3, ((NumberStruct) o_[0]).intStruct());
+        assertEq(7, ((NumberStruct) o_[1]).intStruct());
     }
 
     @Test
@@ -437,8 +437,8 @@ public final class ExpressionLanguageTest {
         assertEq(ARR_INTEGER, res_.getClassName());
         Struct[] o_ = res_.getInstance();
         assertEq(2, o_.length);
-        assertEq(3, ((NumberStruct) o_[0]).intValue());
-        assertEq(7, ((NumberStruct) o_[1]).intValue());
+        assertEq(3, ((NumberStruct) o_[0]).intStruct());
+        assertEq(7, ((NumberStruct) o_[1]).intStruct());
     }
 
     @Test
@@ -516,7 +516,7 @@ public final class ExpressionLanguageTest {
         assertEq(1, res_.getInstance().length);
         assertEq(ARR_INT, ((ArrayStruct) res_.getInstance()[0]).getClassName());
         assertEq(1, ((ArrayStruct) res_.getInstance()[0]).getInstance().length);
-        assertEq(0, ((NumberStruct) ((ArrayStruct) res_.getInstance()[0]).getInstance()[0]).intValue());
+        assertEq(0, ((NumberStruct) ((ArrayStruct) res_.getInstance()[0]).getInstance()[0]).intStruct());
     }
 
     @Test
@@ -1207,7 +1207,7 @@ public final class ExpressionLanguageTest {
         Argument arg_ = directCalculate("0.5d*2l");
         NumberStruct res_ = (NumberStruct) arg_.getStruct();
         assertTrue(res_ instanceof DoubleStruct);
-        assertEq(1d, res_.doubleValue());
+        assertEq(1d, res_.doubleStruct());
     }
 
     @Test
@@ -1215,8 +1215,8 @@ public final class ExpressionLanguageTest {
         Argument arg_ = directCalculate("$math.random()");
         NumberStruct res_ = (NumberStruct)  arg_.getStruct();
         assertTrue(res_ instanceof DoubleStruct);
-        assertTrue(res_.doubleValue() >= 0.0d);
-        assertTrue(res_.doubleValue() < 1.0d);
+        assertTrue(res_.doubleStruct() >= 0.0d);
+        assertTrue(res_.doubleStruct() < 1.0d);
     }
 
     @Test
@@ -1224,8 +1224,8 @@ public final class ExpressionLanguageTest {
         Argument arg_ = directCalculate("$math.random(8l)");
         NumberStruct res_ = (NumberStruct)  arg_.getStruct();
         assertTrue(res_ instanceof LongStruct);
-        assertTrue(res_.longValue() >= 0);
-        assertTrue(res_.longValue() < 8);
+        assertTrue(res_.longStruct() >= 0);
+        assertTrue(res_.longStruct() < 8);
     }
 
     @Test
@@ -5136,7 +5136,7 @@ public final class ExpressionLanguageTest {
         assertEq(ARR_INT, res_.getClassName());
         Struct[] o_ = res_.getInstance();
         assertEq(1, o_.length);
-        assertEq(2, ((NumberStruct) o_[0]).intValue());
+        assertEq(2, ((NumberStruct) o_[0]).intStruct());
     }
     @Test
     public void processEl977Test() {

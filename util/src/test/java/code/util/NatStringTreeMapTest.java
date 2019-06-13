@@ -119,13 +119,13 @@ public final class NatStringTreeMapTest {
     public void getVal1Test() {
         NatStringTreeMap<Integer> map_ = new NatStringTreeMap<Integer>();
         map_.put("ONE", 1);
-        assertEq(1,map_.getVal("ONE").intValue());
+        assertEq(1,map_.getVal("ONE"));
         map_.put("TWO", 2);
-        assertEq(1,map_.getVal("ONE").intValue());
-        assertEq(2,map_.getVal("TWO").intValue());
+        assertEq(1,map_.getVal("ONE"));
+        assertEq(2,map_.getVal("TWO"));
         map_.put("TWO", 3);
-        assertEq(1,map_.getVal("ONE").intValue());
-        assertEq(3,map_.getVal("TWO").intValue());
+        assertEq(1,map_.getVal("ONE"));
+        assertEq(3,map_.getVal("TWO"));
     }
 
     @Test
@@ -168,10 +168,10 @@ public final class NatStringTreeMapTest {
         assertTrue(map_.contains("TWO"));
         assertTrue(map_.contains("THREE"));
         assertTrue(map_.contains("FOUR"));
-        assertEq(1, map_.getVal("ONE").intValue());
-        assertEq(2, map_.getVal("TWO").intValue());
-        assertEq(3, map_.getVal("THREE").intValue());
-        assertEq(4, map_.getVal("FOUR").intValue());
+        assertEq(1, map_.getVal("ONE"));
+        assertEq(2, map_.getVal("TWO"));
+        assertEq(3, map_.getVal("THREE"));
+        assertEq(4, map_.getVal("FOUR"));
     }
 
     @Test
@@ -187,9 +187,9 @@ public final class NatStringTreeMapTest {
         assertTrue(map_.contains("ONE"));
         assertTrue(map_.contains("TWO"));
         assertTrue(map_.contains("THREE"));
-        assertEq(1, map_.getVal("ONE").intValue());
-        assertEq(3, map_.getVal("TWO").intValue());
-        assertEq(4, map_.getVal("THREE").intValue());
+        assertEq(1, map_.getVal("ONE"));
+        assertEq(3, map_.getVal("TWO"));
+        assertEq(4, map_.getVal("THREE"));
     }
 
     @Test

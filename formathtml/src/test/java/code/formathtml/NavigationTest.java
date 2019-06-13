@@ -7327,8 +7327,8 @@ public class NavigationTest {
         StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
         assertEq(2, bean_.getTree().size());
-        assertEq(3, bean_.getTree().getVal("keyone").intValue());
-        assertEq(4, bean_.getTree().getVal("keytwo").intValue());
+        assertEq(3, bean_.getTree().getVal("keyone"));
+        assertEq(4, bean_.getTree().getVal("keytwo"));
         StringList res_ = bean_.getStrings();
         assertEq(2, res_.size());
         assertEq("FIRST", res_.get(0));
@@ -7476,8 +7476,8 @@ public class NavigationTest {
         StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
         assertEq(2, bean_.getTree().size());
-        assertEq(1, bean_.getTree().getVal("keythree").intValue());
-        assertEq(2, bean_.getTree().getVal("keyfour").intValue());
+        assertEq(1, bean_.getTree().getVal("keythree"));
+        assertEq(2, bean_.getTree().getVal("keyfour"));
         StringList res_ = bean_.getStrings();
         assertEq(2, res_.size());
         assertEq("FIRST", res_.get(0));
@@ -7551,8 +7551,8 @@ public class NavigationTest {
         assertEq(1, map_.size());
         Ints savedNbs_ = (Ints) map_.getVal("numbers");
         assertEq(2, savedNbs_.size());
-        assertEq(2, savedNbs_.get(0).intValue());
-        assertEq(4, savedNbs_.get(1).intValue());
+        assertEq(2, savedNbs_.get(0));
+        assertEq(4, savedNbs_.get(1));
         StringList res_ = bean_.getStrings();
         assertEq(2, res_.size());
         assertEq("FIRST", res_.get(0));

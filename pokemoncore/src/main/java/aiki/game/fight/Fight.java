@@ -824,7 +824,7 @@ public final class Fight {
     public Numbers<Byte> getFirstPositPlayerFightersByPlace(byte _place) {
         Numbers<Byte> l_ = new Numbers<Byte>();
         for (EntryCust<Byte, Byte> e: firstPositPlayerFighters.entryList()) {
-            if (e.getValue().byteValue() == _place) {
+            if (e.getValue() == _place) {
                 l_.add(e.getKey());
             }
         }

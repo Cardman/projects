@@ -1598,7 +1598,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     @return true <==> il vaut 0. (new LgInt())
     */
     public boolean isZero() {
-        return grDigits.first().longValue() == 0L;
+        return grDigits.first() == 0L;
     }
 
     /**

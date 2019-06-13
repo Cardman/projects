@@ -515,25 +515,25 @@ public final class PrimitiveTypeUtil {
     }
     private static Struct convertObject(ClassArgumentMatching _match, NumberStruct _obj, LgNames _stds) {
         if (_match.matchClass(_stds.getAliasPrimDouble()) || _match.matchClass(_stds.getAliasDouble())) {
-            return new DoubleStruct(_obj.doubleValue());
+            return new DoubleStruct(_obj.doubleStruct());
         }
         if (_match.matchClass(_stds.getAliasPrimFloat()) || _match.matchClass(_stds.getAliasFloat())) {
-            return new FloatStruct(_obj.floatValue());
+            return new FloatStruct(_obj.floatStruct());
         }
         if (_match.matchClass(_stds.getAliasPrimLong()) || _match.matchClass(_stds.getAliasLong())) {
-            return new LongStruct(_obj.longValue());
+            return new LongStruct(_obj.longStruct());
         }
         if (_match.matchClass(_stds.getAliasPrimInteger()) || _match.matchClass(_stds.getAliasInteger())) {
-            return new IntStruct(_obj.intValue());
+            return new IntStruct(_obj.intStruct());
         }
         if (_match.matchClass(_stds.getAliasPrimShort()) || _match.matchClass(_stds.getAliasShort())) {
-            return new ShortStruct(_obj.shortValue());
+            return new ShortStruct(_obj.shortStruct());
         }
         if (_match.matchClass(_stds.getAliasPrimByte()) || _match.matchClass(_stds.getAliasByte())) {
-            return new ByteStruct(_obj.byteValue());
+            return new ByteStruct(_obj.byteStruct());
         }
         if (_match.matchClass(_stds.getAliasPrimChar()) || _match.matchClass(_stds.getAliasCharacter())) {
-            return new CharStruct((char)_obj.intValue());
+            return new CharStruct((char)_obj.intStruct());
         }
         return _obj;
     }

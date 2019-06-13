@@ -809,7 +809,7 @@ public class FightItemsTest extends InitializationDataBase {
         fighter_.affecterStatut(SOMMEIL);
         FightItems.enableBerryStatus(fight_, fighterCoords_, BAIE_CERIZ, true, _data_);
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        assertEq(1, fighter_.getStatusNbRound(SOMMEIL).intValue());
+        assertEq(1, fighter_.getStatusNbRound(SOMMEIL));
         assertTrue(!fighter_.isUsingItem());
     }
 
@@ -821,7 +821,7 @@ public class FightItemsTest extends InitializationDataBase {
         fighter_.affecterStatut(PARALYSIE);
         FightItems.enableBerryStatus(fight_, fighterCoords_, BAIE_CERIZ, true, _data_);
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        assertEq(0, fighter_.getStatusNbRound(PARALYSIE).intValue());
+        assertEq(0, fighter_.getStatusNbRound(PARALYSIE));
         assertTrue(fighter_.isUsingItem());
     }
 
@@ -833,7 +833,7 @@ public class FightItemsTest extends InitializationDataBase {
         fighter_.affecterStatut(PARALYSIE);
         FightItems.enableBerryStatus(fight_, fighterCoords_, BAIE_CERIZ, false, _data_);
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        assertEq(0, fighter_.getStatusNbRound(PARALYSIE).intValue());
+        assertEq(0, fighter_.getStatusNbRound(PARALYSIE));
         assertTrue(!fighter_.isUsingItem());
     }
 
@@ -1085,8 +1085,8 @@ public class FightItemsTest extends InitializationDataBase {
         TeamPosition fighterCoords_ = POKEMON_PLAYER_FIGHTER_ZERO;
         FightItems.enableBerryStatistic(fight_, fighterCoords_, BAIE_PITAYE, false, false, _data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK).intValue());
-        assertEq(1, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK).intValue());
+        assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
+        assertEq(1, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
         assertTrue(!fighter_.isUsingItem());
     }
 
@@ -1096,8 +1096,8 @@ public class FightItemsTest extends InitializationDataBase {
         TeamPosition fighterCoords_ = POKEMON_PLAYER_FIGHTER_ZERO;
         FightItems.enableBerryStatistic(fight_, fighterCoords_, BAIE_PITAYE, true, true, _data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK).intValue());
-        assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK).intValue());
+        assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
+        assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
         assertTrue(!fighter_.isUsingItem());
     }
 
@@ -1109,8 +1109,8 @@ public class FightItemsTest extends InitializationDataBase {
         fighter_.setRemainedHp(Rate.one());
         FightItems.enableBerryStatistic(fight_, fighterCoords_, BAIE_PITAYE, true, true, _data_);
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK).intValue());
-        assertEq(1, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK).intValue());
+        assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
+        assertEq(1, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
         assertTrue(fighter_.isUsingItem());
     }
 
@@ -1123,8 +1123,8 @@ public class FightItemsTest extends InitializationDataBase {
         fighter_.variationBoostStatistique(Statistic.SPECIAL_ATTACK, (byte) 6);
         FightItems.enableBerryStatistic(fight_, fighterCoords_, BAIE_PITAYE, true, true, _data_);
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK).intValue());
-        assertEq(6, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK).intValue());
+        assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
+        assertEq(6, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
         assertTrue(!fighter_.isUsingItem());
     }
 
@@ -1233,9 +1233,9 @@ public class FightItemsTest extends InitializationDataBase {
         FightItems.enableBerry(fight_, fighterCoords_, BAIE_ORAN, _data_);
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         assertEq(new Rate("11"), fighter_.getRemainingHp());
-        assertEq(1, fighter_.getStatusNbRound(PARALYSIE).intValue());
+        assertEq(1, fighter_.getStatusNbRound(PARALYSIE));
         assertEq(0, fighter_.getCurrentMoves().getVal(BROUHAHA).getCurrent());
-        assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK).intValue());
+        assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
         assertTrue(!fighter_.isUsingItem());
     }
 
@@ -1250,9 +1250,9 @@ public class FightItemsTest extends InitializationDataBase {
         FightItems.enableBerry(fight_, fighterCoords_, BAIE_CERIZ, _data_);
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         assertEq(new Rate("1"), fighter_.getRemainingHp());
-        assertEq(0, fighter_.getStatusNbRound(PARALYSIE).intValue());
+        assertEq(0, fighter_.getStatusNbRound(PARALYSIE));
         assertEq(0, fighter_.getCurrentMoves().getVal(BROUHAHA).getCurrent());
-        assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK).intValue());
+        assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
         assertTrue(!fighter_.isUsingItem());
     }
 
@@ -1267,9 +1267,9 @@ public class FightItemsTest extends InitializationDataBase {
         FightItems.enableBerry(fight_, fighterCoords_, BAIE_MEPO, _data_);
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         assertEq(new Rate("1"), fighter_.getRemainingHp());
-        assertEq(1, fighter_.getStatusNbRound(PARALYSIE).intValue());
+        assertEq(1, fighter_.getStatusNbRound(PARALYSIE));
         assertEq(10, fighter_.getCurrentMoves().getVal(BROUHAHA).getCurrent());
-        assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK).intValue());
+        assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
         assertTrue(!fighter_.isUsingItem());
     }
 
@@ -1284,9 +1284,9 @@ public class FightItemsTest extends InitializationDataBase {
         FightItems.enableBerry(fight_, fighterCoords_, BAIE_PITAYE, _data_);
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         assertEq(new Rate("1"), fighter_.getRemainingHp());
-        assertEq(1, fighter_.getStatusNbRound(PARALYSIE).intValue());
+        assertEq(1, fighter_.getStatusNbRound(PARALYSIE));
         assertEq(0, fighter_.getCurrentMoves().getVal(BROUHAHA).getCurrent());
-        assertEq(1, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK).intValue());
+        assertEq(1, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
         assertTrue(!fighter_.isUsingItem());
     }
 
@@ -1301,9 +1301,9 @@ public class FightItemsTest extends InitializationDataBase {
         FightItems.enableBerry(fight_, fighterCoords_, BAIE_CHERIM, _data_);
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         assertEq(new Rate("1"), fighter_.getRemainingHp());
-        assertEq(1, fighter_.getStatusNbRound(PARALYSIE).intValue());
+        assertEq(1, fighter_.getStatusNbRound(PARALYSIE));
         assertEq(0, fighter_.getCurrentMoves().getVal(BROUHAHA).getCurrent());
-        assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK).intValue());
+        assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
         assertTrue(!fighter_.isUsingItem());
     }
 

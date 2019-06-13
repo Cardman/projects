@@ -488,7 +488,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(6, ((NumberStruct)field_).intValue());
+        assertEq(6, ((NumberStruct)field_).intStruct());
     }
     @Test
     public void calculateArgument15Test() {

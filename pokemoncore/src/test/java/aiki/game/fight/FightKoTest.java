@@ -261,12 +261,12 @@ public class FightKoTest extends InitializationDataBase {
         evs_.put(Statistic.SPEED, (short) 2);
         evs_.put(Statistic.HP, (short) 2);
         FightKo.addEvStatistics(fight_,POKEMON_PLAYER_FIGHTER_ZERO, new Rate("3"), evs_, _data_);
-        assertEq(6, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.ATTACK).intValue());
-        assertEq(6, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(6, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(6, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(6, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.SPEED).intValue());
-        assertEq(6, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.HP).intValue());
+        assertEq(6, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.ATTACK));
+        assertEq(6, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE));
+        assertEq(6, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(6, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(6, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.SPEED));
+        assertEq(6, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.HP));
     }
 
     private static Fight addEv(Difficulty _diff) {
@@ -323,7 +323,7 @@ public class FightKoTest extends InitializationDataBase {
         Fight fight_ = addEv(diff_);
         Numbers<Byte> fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_,(byte) 0);
         FightKo.addEv(fight_,POKEMON_PLAYER_FIGHTER_ZERO, fighters_, (byte) 0, _data_);
-        assertEq(3, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE).intValue());
+        assertEq(3, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE));
     }
 
     @Test
@@ -333,7 +333,7 @@ public class FightKoTest extends InitializationDataBase {
         Fight fight_ = addEv(diff_);
         Numbers<Byte> fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_,(byte) 0);
         FightKo.addEv(fight_,POKEMON_PLAYER_FIGHTER_ONE, fighters_, (byte) 0, _data_);
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getEv().getVal(Statistic.DEFENSE).intValue());
+        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getEv().getVal(Statistic.DEFENSE));
     }
 
     @Test
@@ -344,7 +344,7 @@ public class FightKoTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(HYPER_BALL);
         Numbers<Byte> fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_,(byte) 0);
         FightKo.addEv(fight_,POKEMON_PLAYER_FIGHTER_ZERO, fighters_, (byte) 0, _data_);
-        assertEq(3, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE).intValue());
+        assertEq(3, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE));
     }
 
     @Test
@@ -355,7 +355,7 @@ public class FightKoTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(GROSSERACINE);
         Numbers<Byte> fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_,(byte) 0);
         FightKo.addEv(fight_,POKEMON_PLAYER_FIGHTER_ZERO, fighters_, (byte) 0, _data_);
-        assertEq(3, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE).intValue());
+        assertEq(3, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE));
     }
 
     @Test
@@ -366,7 +366,7 @@ public class FightKoTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setExpItem(BRAC_MACHO);
         Numbers<Byte> fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_,(byte) 0);
         FightKo.addEv(fight_,POKEMON_PLAYER_FIGHTER_ZERO, fighters_, (byte) 0, _data_);
-        assertEq(6, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE).intValue());
+        assertEq(6, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE));
     }
 
     @Test
@@ -377,7 +377,7 @@ public class FightKoTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setExpItem(CEINT_POUV);
         Numbers<Byte> fighters_ = FightOrder.fightersBelongingToUserHavingBeaten(fight_,(byte) 0);
         FightKo.addEv(fight_,POKEMON_PLAYER_FIGHTER_ZERO, fighters_, (byte) 0, _data_);
-        assertEq(7, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE).intValue());
+        assertEq(7, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE));
     }
 
     @Test
@@ -526,8 +526,8 @@ public class FightKoTest extends InitializationDataBase {
         FightKo.addExpEvsFighters(fight_,fighters_, (byte) 0, diff_, _data_);
         assertEq(new Rate("4995/2"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp());
         assertEq(new Rate("0"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getWonExp());
-        assertEq(3, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getEv().getVal(Statistic.DEFENSE).intValue());
+        assertEq(3, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getEv().getVal(Statistic.DEFENSE));
     }
 
     @Test
@@ -580,8 +580,8 @@ public class FightKoTest extends InitializationDataBase {
         FightKo.addExpEvsFighters(fight_,fighters_, (byte) 0, diff_, _data_);
         assertEq(new Rate("4995/4"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp());
         assertEq(new Rate("4995/4"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getWonExp());
-        assertEq(3, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(3, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getEv().getVal(Statistic.DEFENSE).intValue());
+        assertEq(3, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE));
+        assertEq(3, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getEv().getVal(Statistic.DEFENSE));
     }
 
     @Test
@@ -640,8 +640,8 @@ public class FightKoTest extends InitializationDataBase {
         FightKo.addExpEvsFighters(fight_,fighters_, (byte) 0, diff_, _data_);
         assertEq(new Rate("0"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp());
         assertEq(new Rate("4995/2"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getWonExp());
-        assertEq(3, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(3, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getEv().getVal(Statistic.DEFENSE).intValue());
+        assertEq(3, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE));
+        assertEq(3, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getEv().getVal(Statistic.DEFENSE));
     }
 
     private static Fight setFighterKo(Difficulty _diff) {
@@ -823,7 +823,7 @@ public class FightKoTest extends InitializationDataBase {
         assertEq(TARTARD, u_.getCurrentName());
         FightKo.setKo(fight_,POKEMON_PLAYER_FIGHTER_ZERO, diff_, _data_);
         assertEq(YANMA, u_.getCurrentName());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
         assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlace());
         assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlaceSubst());
         assertEq(Rate.zero(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getRemainingHp());
@@ -841,10 +841,10 @@ public class FightKoTest extends InitializationDataBase {
         assertEq(new Rate("0"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getWonExp());
         assertEq(new Rate("0"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).getWonExp());
         assertEq(new Rate("0"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE).getWonExp());
-        assertEq(3, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE).getEv().getVal(Statistic.DEFENSE).intValue());
+        assertEq(3, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE).getEv().getVal(Statistic.DEFENSE));
         assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlace());
         assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlaceSubst());
         assertEq(Rate.zero(), fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getRemainingHp());
@@ -871,10 +871,10 @@ public class FightKoTest extends InitializationDataBase {
         assertEq(new Rate("0"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getWonExp());
         assertEq(new Rate("0"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).getWonExp());
         assertEq(new Rate("0"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE).getWonExp());
-        assertEq(9, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE).getEv().getVal(Statistic.DEFENSE).intValue());
+        assertEq(9, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE).getEv().getVal(Statistic.DEFENSE));
         assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getGroundPlace());
         assertEq(Rate.zero(), fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getRemainingHp());
         assertEq(Fighter.BACK, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getGroundPlace());

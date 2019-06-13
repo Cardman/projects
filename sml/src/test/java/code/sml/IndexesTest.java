@@ -27,7 +27,7 @@ public class IndexesTest {
         Node node_ = doc_.getDocumentElement();
         Numbers<Integer> indexes_ = DocumentBuilder.getIndexes(node_.getFirstChild());
         assertEq(1, indexes_.size());
-        assertEq(0, indexes_.get(0).intValue());
+        assertEq(0, indexes_.get(0));
     }
 
     @Test
@@ -37,8 +37,8 @@ public class IndexesTest {
         Node node_ = doc_.getDocumentElement();
         Numbers<Integer> indexes_ = DocumentBuilder.getIndexes(node_.getFirstChild().getNextSibling().getFirstChild());
         assertEq(2, indexes_.size());
-        assertEq(1, indexes_.get(0).intValue());
-        assertEq(0, indexes_.get(1).intValue());
+        assertEq(1, indexes_.get(0));
+        assertEq(0, indexes_.get(1));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class IndexesTest {
         node_.getFirstChild().setNextSibling(node_.getLastChild());
         Numbers<Integer> indexes_ = DocumentBuilder.getIndexes(node_.getFirstChild());
         assertEq(1, indexes_.size());
-        assertEq(0, indexes_.get(0).intValue());
+        assertEq(0, indexes_.get(0));
     }
 
     @Test
@@ -732,7 +732,7 @@ public class IndexesTest {
         assertEq(2, e_.getOffsets().size());
         assertEq(0, e_.getOffsets().getVal("when").size());
         assertEq(1, e_.getOffsets().getVal("where").size());
-        assertEq(1, e_.getOffsets().getVal("where").get(0).intValue());
+        assertEq(1, e_.getOffsets().getVal("where").get(0));
 //        assertEq(0, e_.getNextEltLineReturn());
     }
 
@@ -766,11 +766,11 @@ public class IndexesTest {
         assertEq(2, e_.getOffsets().size());
         assertEq(0, e_.getOffsets().getVal("when").size());
         assertEq(1, e_.getOffsets().getVal("where").size());
-        assertEq(1, e_.getOffsets().getVal("where").get(0).intValue());
+        assertEq(1, e_.getOffsets().getVal("where").get(0));
         assertEq(2, e_.getTabs().size());
         assertEq(0, e_.getTabs().getVal("when").size());
         assertEq(1, e_.getTabs().getVal("where").size());
-        assertEq(2, e_.getTabs().getVal("where").get(0).intValue());
+        assertEq(2, e_.getTabs().getVal("where").get(0));
 //        assertEq(0, e_.getNextEltLineReturn());
     }
 
@@ -804,11 +804,11 @@ public class IndexesTest {
         assertEq(2, e_.getOffsets().size());
         assertEq(0, e_.getOffsets().getVal("when").size());
         assertEq(1, e_.getOffsets().getVal("where").size());
-        assertEq(1, e_.getOffsets().getVal("where").get(0).intValue());
+        assertEq(1, e_.getOffsets().getVal("where").get(0));
         assertEq(2, e_.getTabs().size());
         assertEq(0, e_.getTabs().getVal("when").size());
         assertEq(1, e_.getTabs().getVal("where").size());
-        assertEq(2, e_.getTabs().getVal("where").get(0).intValue());
+        assertEq(2, e_.getTabs().getVal("where").get(0));
 //        assertEq(0, e_.getNextEltLineReturn());
     }
 
@@ -842,11 +842,11 @@ public class IndexesTest {
         assertEq(2, e_.getOffsets().size());
         assertEq(0, e_.getOffsets().getVal("when").size());
         assertEq(1, e_.getOffsets().getVal("where").size());
-        assertEq(1, e_.getOffsets().getVal("where").get(0).intValue());
+        assertEq(1, e_.getOffsets().getVal("where").get(0));
         assertEq(2, e_.getTabs().size());
         assertEq(0, e_.getTabs().getVal("when").size());
         assertEq(1, e_.getTabs().getVal("where").size());
-        assertEq(2, e_.getTabs().getVal("where").get(0).intValue());
+        assertEq(2, e_.getTabs().getVal("where").get(0));
 //        assertEq(0, e_.getNextEltLineReturn());
     }
 
@@ -1004,12 +1004,12 @@ public class IndexesTest {
         assertEq(2, t_.size());
         NatTreeMap<Integer, Integer> aOne_ = t_.getVal("where");
         assertEq(2, aOne_.size());
-        assertEq(5, aOne_.getVal(1).intValue());
-        assertEq(7, aOne_.getVal(11).intValue());
+        assertEq(5, aOne_.getVal(1));
+        assertEq(7, aOne_.getVal(11));
         NatTreeMap<Integer, Integer> aTwo_ = t_.getVal("when");
         assertEq(2, aTwo_.size());
-        assertEq(5, aTwo_.getVal(4).intValue());
-        assertEq(7, aTwo_.getVal(12).intValue());
+        assertEq(5, aTwo_.getVal(4));
+        assertEq(7, aTwo_.getVal(12));
     }
 
     @Test

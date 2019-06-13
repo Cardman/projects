@@ -307,8 +307,8 @@ public final class CheckerGamePresidentWithRules {
                         str_.add(c.strength(loadedGameCopy_.isReversed()));
                     }
                     if (!str_.isEmpty()) {
-                        boolean same_ = Numbers.eq(str_.getMinimum((byte) 0).byteValue(),
-                                str_.getMaximum((byte) 0).byteValue());
+                        boolean same_ = Numbers.eq(str_.getMinimum((byte) 0),
+                                str_.getMaximum((byte) 0));
                         if (!same_ || str_.size() != nbCardsPerPlayerTrick_) {
                             _loadedGame.setError(MESSAGE_ERROR);
                             return;

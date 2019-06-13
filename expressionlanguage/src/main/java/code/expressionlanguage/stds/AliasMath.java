@@ -277,22 +277,22 @@ public final class AliasMath {
         String aliasPrimFloat_ = lgNames_.getAliasPrimFloat();
         if (StringList.quickEq(name_, lgNames_.getAliasAbs())) {
             if (StringList.quickEq(paramList_.first(), aliasPrimLong_)) {
-                result_.setResult(new LongStruct(Math.abs(((NumberStruct) args_[0]).longValue())));
+                result_.setResult(new LongStruct(Math.abs(((NumberStruct) args_[0]).longStruct())));
             } else {
-                result_.setResult(new IntStruct(Math.abs(((NumberStruct) args_[0]).intValue())));
+                result_.setResult(new IntStruct(Math.abs(((NumberStruct) args_[0]).intStruct())));
             }
         } else if (StringList.quickEq(name_, lgNames_.getAliasMod())) {
             if (StringList.quickEq(paramList_.first(), aliasPrimLong_)) {
-                long num_ = ((NumberStruct) args_[0]).longValue();
-                long den_ = ((NumberStruct) args_[1]).longValue();
+                long num_ = ((NumberStruct) args_[0]).longStruct();
+                long den_ = ((NumberStruct) args_[1]).longStruct();
                 if (den_ == 0) {
                     result_.setError(divZero_);
                 } else {
                     result_.setResult(new LongStruct(Numbers.mod(num_, den_)));
                 }
             } else {
-                int num_ = ((NumberStruct) args_[0]).intValue();
-                int den_ = ((NumberStruct) args_[1]).intValue();
+                int num_ = ((NumberStruct) args_[0]).intStruct();
+                int den_ = ((NumberStruct) args_[1]).intStruct();
                 if (den_ == 0) {
                     result_.setError(divZero_);
                 } else {
@@ -301,16 +301,16 @@ public final class AliasMath {
             }
         } else if (StringList.quickEq(name_, lgNames_.getAliasQuot())) {
             if (StringList.quickEq(paramList_.first(), aliasPrimLong_)) {
-                long num_ = ((NumberStruct) args_[0]).longValue();
-                long den_ = ((NumberStruct) args_[1]).longValue();
+                long num_ = ((NumberStruct) args_[0]).longStruct();
+                long den_ = ((NumberStruct) args_[1]).longStruct();
                 if (den_ == 0) {
                     result_.setError(divZero_);
                 } else {
                     result_.setResult(new LongStruct(Numbers.quot(num_, den_)));
                 }
             } else {
-                int num_ = ((NumberStruct) args_[0]).intValue();
-                int den_ = ((NumberStruct) args_[1]).intValue();
+                int num_ = ((NumberStruct) args_[0]).intStruct();
+                int den_ = ((NumberStruct) args_[1]).intStruct();
                 if (den_ == 0) {
                     result_.setError(divZero_);
                 } else {
@@ -330,13 +330,13 @@ public final class AliasMath {
                 ClassArgumentMatching clArg_ = new ClassArgumentMatching(paramList_.first());
                 int order_ = PrimitiveTypeUtil.getOrderClass(clArg_, _cont);
                 if (order_ == PrimitiveTypeUtil.getOrderClass(aliasPrimInteger_, _cont)) {
-                    result_.setResult(new IntStruct(-b_.intValue()));
+                    result_.setResult(new IntStruct(-b_.intStruct()));
                 } else if (order_ == PrimitiveTypeUtil.getOrderClass(aliasPrimLong_, _cont)) {
-                    result_.setResult(new LongStruct(-b_.longValue()));
+                    result_.setResult(new LongStruct(-b_.longStruct()));
                 } else if (order_ == PrimitiveTypeUtil.getOrderClass(aliasPrimFloat_, _cont)) {
-                    result_.setResult(new FloatStruct(-b_.floatValue()));
+                    result_.setResult(new FloatStruct(-b_.floatStruct()));
                 } else {
-                    result_.setResult(new DoubleStruct(-b_.doubleValue()));
+                    result_.setResult(new DoubleStruct(-b_.doubleStruct()));
                 }
             } else {
                 ClassArgumentMatching clArg_ = new ClassArgumentMatching(paramList_.first());

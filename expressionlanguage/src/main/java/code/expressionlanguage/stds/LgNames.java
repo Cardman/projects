@@ -1,7 +1,6 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.errors.stds.ErrorCat;
 import code.expressionlanguage.errors.stds.StdWordError;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -791,7 +790,7 @@ public abstract class LgNames {
             if (paramList_.isEmpty()) {
                 result_.setResult(new DoubleStruct(Math.random()));
             } else {
-                result_.setResult(new LongStruct(AbMonteCarlo.randomLong(((NumberStruct) args_[0]).longValue())));
+                result_.setResult(new LongStruct(AbMonteCarlo.randomLong(((NumberStruct) args_[0]).longStruct())));
             }
             return result_;
         }

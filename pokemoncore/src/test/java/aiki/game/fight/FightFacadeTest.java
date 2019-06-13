@@ -2395,8 +2395,8 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fight_.getChosenIndexBack());
         assertEq(0, fight_.getChosenSubstitute());
         assertEq(0, fight_.getPossibleActionsCurFighter().size());
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
         assertEq(0, fight_.getChosableFoeTargets().size());
         assertEq(0, fight_.getChosablePlayerTargets().size());
         assertEq(Fighter.BACK, fight_.getChosenPlayerTarget());
@@ -4366,8 +4366,8 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, _data_);
         FightFacade.chooseBackFighter(fight_, (byte) 0, _data_);
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
         assertEq(Fighter.BACK, fight_.getChosenIndexFront());
         assertEq(0, fight_.getChosenIndexBack());
         assertEq(0, fight_.getPossibleActionsCurFighter().size());
@@ -7798,8 +7798,8 @@ public class FightFacadeTest extends InitializationDataBase {
         FightArtificialIntelligence.choiceForSubstituing(fight_, _data_);
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, _data_);
         FightFacade.setSubstituteFront(fight_, Fighter.BACK);
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
     }
 
     @Test
@@ -7837,8 +7837,8 @@ public class FightFacadeTest extends InitializationDataBase {
         FightArtificialIntelligence.choiceForSubstituing(fight_, _data_);
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, _data_);
         FightFacade.setSubstituteFront(fight_, Fighter.BACK);
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
     }
 
     @Test
@@ -7882,10 +7882,10 @@ public class FightFacadeTest extends InitializationDataBase {
         FightArtificialIntelligence.choiceForSubstituing(fight_, _data_);
         FightFacade.chooseFrontFighter(fight_, (byte) 1, diff_, _data_);
         FightFacade.setSubstituteFront(fight_, Fighter.BACK);
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 3).intValue());
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
     }
 
     @Test
@@ -7929,10 +7929,10 @@ public class FightFacadeTest extends InitializationDataBase {
         FightArtificialIntelligence.choiceForSubstituing(fight_, _data_);
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, _data_);
         FightFacade.setSubstituteFront(fight_, Fighter.BACK);
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 3).intValue());
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
     }
 
     @Test
@@ -7982,12 +7982,12 @@ public class FightFacadeTest extends InitializationDataBase {
         FightArtificialIntelligence.choiceForSubstituing(fight_, _data_);
         FightFacade.chooseFrontFighter(fight_, (byte) 1, diff_, _data_);
         FightFacade.setSubstituteFront(fight_, Fighter.BACK);
-//        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-//        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 3).intValue());
+//        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+//        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
     }
 
     @Test
@@ -8037,12 +8037,12 @@ public class FightFacadeTest extends InitializationDataBase {
         FightArtificialIntelligence.choiceForSubstituing(fight_, _data_);
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, _data_);
         FightFacade.setSubstituteFront(fight_, Fighter.BACK);
-//        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-//        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 3).intValue());
+//        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+//        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
     }
 
     @Test
@@ -8092,11 +8092,11 @@ public class FightFacadeTest extends InitializationDataBase {
         FightArtificialIntelligence.choiceForSubstituing(fight_, _data_);
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, _data_);
         FightFacade.setSubstituteFront(fight_, (byte) 1);
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-//        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 3).intValue());
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+//        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
     }
 
     @Test
@@ -8146,10 +8146,10 @@ public class FightFacadeTest extends InitializationDataBase {
         FightArtificialIntelligence.choiceForSubstituing(fight_, _data_);
         fight_.setChosenIndexFront((byte) 2);
         FightFacade.setSubstituteFront(fight_, (byte) 1);
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 3).intValue());
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
     }
 
     @Test
@@ -8185,8 +8185,8 @@ public class FightFacadeTest extends InitializationDataBase {
         FightArtificialIntelligence.choiceForSubstituing(fight_, _data_);
         FightFacade.chooseBackFighter(fight_, (byte) 0, _data_);
         FightFacade.setSubstituteBack(fight_, (byte) 0);
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
     }
 
     @Test
@@ -8222,8 +8222,8 @@ public class FightFacadeTest extends InitializationDataBase {
         FightArtificialIntelligence.choiceForSubstituing(fight_, _data_);
         fight_.setChosenIndexBack((byte) 2);
         FightFacade.setSubstituteBack(fight_, (byte) 0);
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
     }
 
     @Test
@@ -8259,8 +8259,8 @@ public class FightFacadeTest extends InitializationDataBase {
         FightArtificialIntelligence.choiceForSubstituing(fight_, _data_);
         FightFacade.chooseFrontFighter(fight_, (byte) 0, diff_, _data_);
         FightFacade.setSubstituteEndRound(fight_, Fighter.BACK);
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
         assertEq(Fighter.BACK, fight_.getChosenSubstitute());
     }
 
@@ -8297,8 +8297,8 @@ public class FightFacadeTest extends InitializationDataBase {
         FightArtificialIntelligence.choiceForSubstituing(fight_, _data_);
         FightFacade.chooseBackFighter(fight_, (byte) 0, _data_);
         FightFacade.setSubstituteEndRound(fight_, (byte) 0);
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
         assertEq(0, fight_.getChosenSubstitute());
     }
 
@@ -14180,18 +14180,18 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(0, getNbKoByValue(ko_, null));
         Fighter playerPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         Fighter wildPk_ = loadedFight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
-        assertEq(20, playerPk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.HP).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(20, playerPk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.SPEED));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.HP));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.SPEED));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.HP));
         assertTrue(playerPk_.getAction() instanceof Action);
         assertTrue(loadedFight_.getAcceptableChoices());
     }
@@ -14230,18 +14230,18 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(0, getNbKoByValue(ko_, null));
         Fighter playerPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         Fighter wildPk_ = loadedFight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
-        assertEq(20, playerPk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.HP).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(20, playerPk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.SPEED));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.HP));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.SPEED));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.HP));
         assertTrue(playerPk_.getAction() instanceof ActionMove);
         assertEq(PISTOLET_A_O,playerPk_.getFirstChosenMove());
         assertEq(1, playerPk_.getChosenTargets().size());
@@ -14286,18 +14286,18 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(0, getNbKoByValue(ko_, null));
         Fighter playerPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         Fighter wildPk_ = loadedFight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
-        assertEq(20, playerPk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.HP).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(20, playerPk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.SPEED));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.HP));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.SPEED));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.HP));
         assertTrue(playerPk_.getAction() instanceof ActionMove);
         assertEq(SEISME,playerPk_.getFirstChosenMove());
         assertEq(0, playerPk_.getChosenTargets().size());
@@ -14340,18 +14340,18 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(0, getNbKoByValue(ko_, null));
         Fighter playerPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         Fighter wildPk_ = loadedFight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
-        assertEq(20, playerPk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.HP).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(20, playerPk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.SPEED));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.HP));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.SPEED));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.HP));
         assertTrue(playerPk_.getAction() instanceof Action);
         assertEq(NULL_REF,wildPk_.getUsedBallCatching());
         assertTrue(loadedFight_.getAcceptableChoices());
@@ -14404,24 +14404,24 @@ public class FightFacadeTest extends InitializationDataBase {
         Fighter playerPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         Fighter playerBackPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE);
         Fighter wildPk_ = loadedFight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
-        assertEq(20, playerPk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.HP).intValue());
-        assertEq(20, playerBackPk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(20, playerBackPk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(20, playerBackPk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(20, playerBackPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(20, playerBackPk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(20, playerBackPk_.getIv().getVal(Statistic.HP).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(20, playerPk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.SPEED));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.HP));
+        assertEq(20, playerBackPk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(20, playerBackPk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(20, playerBackPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(20, playerBackPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(20, playerBackPk_.getIv().getVal(Statistic.SPEED));
+        assertEq(20, playerBackPk_.getIv().getVal(Statistic.HP));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.SPEED));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.HP));
         assertTrue(playerBackPk_.getAction() instanceof Action);
         assertTrue(playerPk_.getAction() instanceof ActionMove);
         assertEq(DEMI_TOUR,playerPk_.getFirstChosenMove());
@@ -14472,18 +14472,18 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(0, getNbKoByValue(ko_, null));
         Fighter playerPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         Fighter wildPk_ = loadedFight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
-        assertEq(20, playerPk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.HP).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(20, playerPk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.SPEED));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.HP));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.SPEED));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.HP));
         assertTrue(playerPk_.getAction() instanceof ActionMove);
         assertEq(BULLES_D_O,playerPk_.getFirstChosenMove());
         assertEq(1, playerPk_.getChosenTargets().size());
@@ -14533,24 +14533,24 @@ public class FightFacadeTest extends InitializationDataBase {
         Fighter playerPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         Fighter playerAllyPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE);
         Fighter wildPk_ = loadedFight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
-        assertEq(20, playerPk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.HP).intValue());
-        assertEq(20, playerAllyPk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(20, playerAllyPk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(20, playerAllyPk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(20, playerAllyPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(20, playerAllyPk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(20, playerAllyPk_.getIv().getVal(Statistic.HP).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(20, playerPk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.SPEED));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.HP));
+        assertEq(20, playerAllyPk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(20, playerAllyPk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(20, playerAllyPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(20, playerAllyPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(20, playerAllyPk_.getIv().getVal(Statistic.SPEED));
+        assertEq(20, playerAllyPk_.getIv().getVal(Statistic.HP));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.SPEED));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.HP));
         assertTrue(playerPk_.getAction() instanceof Action);
         assertTrue(loadedFight_.getAcceptableChoices());
     }
@@ -14590,18 +14590,18 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(0, getNbKoByValue(ko_, null));
         Fighter playerPk_ = loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         Fighter wildPk_ = loadedFight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
-        assertEq(20, playerPk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(20, playerPk_.getIv().getVal(Statistic.HP).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(15, wildPk_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(20, playerPk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.SPEED));
+        assertEq(20, playerPk_.getIv().getVal(Statistic.HP));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.ATTACK));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.SPEED));
+        assertEq(15, wildPk_.getIv().getVal(Statistic.HP));
         assertTrue(playerPk_.getAction() instanceof Action);
         assertTrue(loadedFight_.getAcceptableChoices());
     }

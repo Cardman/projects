@@ -21,7 +21,7 @@ public class ImageTest {
         Image img_ = new Image(StringList.concat("1",String.valueOf(Image.SEPARATOR_CHAR),"2"));
         assertEq(1, img_.getWidth());
         assertEq(1, img_.getPixels().size());
-        assertEq(2, img_.getPixels().first().intValue());
+        assertEq(2, img_.getPixels().first());
     }
 
     @Test
@@ -29,8 +29,8 @@ public class ImageTest {
         Image img_ = new Image(StringList.concat("1",String.valueOf(Image.SEPARATOR_CHAR),"2",String.valueOf(Image.SEPARATOR_CHAR),"3"));
         assertEq(1, img_.getWidth());
         assertEq(2, img_.getPixels().size());
-        assertEq(2, img_.getPixels().first().intValue());
-        assertEq(3, img_.getPixels().last().intValue());
+        assertEq(2, img_.getPixels().first());
+        assertEq(3, img_.getPixels().last());
     }
 
     @Test
@@ -38,8 +38,8 @@ public class ImageTest {
         Image img_ = new Image(StringList.concat("2",String.valueOf(Image.SEPARATOR_CHAR),"3",String.valueOf(Image.SEPARATOR_CHAR),"4"));
         assertEq(2, img_.getWidth());
         assertEq(2, img_.getPixels().size());
-        assertEq(3, img_.getPixels().first().intValue());
-        assertEq(4, img_.getPixels().last().intValue());
+        assertEq(3, img_.getPixels().first());
+        assertEq(4, img_.getPixels().last());
     }
 
     @Test

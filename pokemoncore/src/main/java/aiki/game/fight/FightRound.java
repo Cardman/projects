@@ -446,7 +446,7 @@ final class FightRound {
         boolean achieveTarget_ = false;
         for(TeamPosition e:FightOrder.targetsEffect(_fight,_finalThrower,effet_,_diff,_import)){
             if (!_previousEffect.isEmpty()) {
-                if (!_fight.getSuccessfulEffects().contains(new NbEffectFighterCoords(_previousEffect.getMaximum(-1), e))) {
+                if (!_fight.getSuccessfulEffects().contains(new NbEffectFighterCoords((int) _previousEffect.getMaximum(-1), e))) {
                     continue;
                 }
             }

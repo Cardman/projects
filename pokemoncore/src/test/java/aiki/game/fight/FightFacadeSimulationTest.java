@@ -3081,9 +3081,9 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         fightSimulation_.nextFight(_data_);
         assertEq(newCoords(6, 1, 4, 4), fightSimulation_.getFoeCoords());
         assertEq(1, fightSimulation_.getMaxActions().size());
-        assertEq(1, fightSimulation_.getMaxActions().first().intValue());
+        assertEq(1, fightSimulation_.getMaxActions().first());
         assertEq(1, fightSimulation_.getMult().size());
-        assertEq(1, fightSimulation_.getMult().first().intValue());
+        assertEq(1, fightSimulation_.getMult().first());
         assertEq(1, fightSimulation_.getItems().size());
         assertEq(0, fightSimulation_.getItems().first().size());
         assertEq(1, fightSimulation_.getUsedStones().size());

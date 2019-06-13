@@ -140,25 +140,25 @@ public class IdMapTest {
     public void getVal1Test() {
         IdMap<String,Integer> map_ = new IdMap<String,Integer>();
         map_.put("ONE", 1);
-        assertEq(1,map_.getVal("ONE").intValue());
+        assertEq(1,map_.getVal("ONE"));
         map_.put("TWO", 2);
-        assertEq(1,map_.getVal("ONE").intValue());
-        assertEq(2,map_.getVal("TWO").intValue());
+        assertEq(1,map_.getVal("ONE"));
+        assertEq(2,map_.getVal("TWO"));
         map_.put("TWO", 3);
-        assertEq(1,map_.getVal("ONE").intValue());
-        assertEq(3,map_.getVal("TWO").intValue());
+        assertEq(1,map_.getVal("ONE"));
+        assertEq(3,map_.getVal("TWO"));
         IdMap<KeyExample,Integer> otherMap_ = new IdMap<KeyExample,Integer>();
         KeyExample k1_;
         KeyExample k2_;
         k1_ = new KeyExample(0, 0);
         k2_ = new KeyExample(0, 1);
         otherMap_.put(k1_, 0);
-        assertEq(0, otherMap_.getVal(k1_).intValue());
+        assertEq(0, otherMap_.getVal(k1_));
         otherMap_.put(k2_, 1);
-        assertEq(0, otherMap_.getVal(k1_).intValue());
-        assertEq(1, otherMap_.getVal(k2_).intValue());
+        assertEq(0, otherMap_.getVal(k1_));
+        assertEq(1, otherMap_.getVal(k2_));
         otherMap_.put(k2_, 2);
-        assertEq(0, otherMap_.getVal(k1_).intValue());
+        assertEq(0, otherMap_.getVal(k1_));
         assertEq(2, otherMap_.getVal(k2_));
     }
 
@@ -201,14 +201,14 @@ public class IdMapTest {
         assertEq(2,map_.size());
         assertTrue(map_.contains("ONE"));
         assertTrue(map_.contains("THREE"));
-        assertEq(1,map_.getVal("ONE").intValue());
-        assertEq(3,map_.getVal("THREE").intValue());
+        assertEq(1,map_.getVal("ONE"));
+        assertEq(3,map_.getVal("THREE"));
         map_.move("ZERO", "THREE");
         assertEq(2,map_.size());
         assertTrue(map_.contains("ONE"));
         assertTrue(map_.contains("THREE"));
-        assertEq(1,map_.getVal("ONE").intValue());
-        assertEq(3,map_.getVal("THREE").intValue());
+        assertEq(1,map_.getVal("ONE"));
+        assertEq(3,map_.getVal("THREE"));
     }
 
     @Test
@@ -225,10 +225,10 @@ public class IdMapTest {
         assertTrue(map_.contains("TWO"));
         assertTrue(map_.contains("THREE"));
         assertTrue(map_.contains("FOUR"));
-        assertEq(1, map_.getVal("ONE").intValue());
-        assertEq(2, map_.getVal("TWO").intValue());
-        assertEq(3, map_.getVal("THREE").intValue());
-        assertEq(4, map_.getVal("FOUR").intValue());
+        assertEq(1, map_.getVal("ONE"));
+        assertEq(2, map_.getVal("TWO"));
+        assertEq(3, map_.getVal("THREE"));
+        assertEq(4, map_.getVal("FOUR"));
     }
 
     @Test
@@ -244,9 +244,9 @@ public class IdMapTest {
         assertTrue(map_.contains("ONE"));
         assertTrue(map_.contains("TWO"));
         assertTrue(map_.contains("THREE"));
-        assertEq(1, map_.getVal("ONE").intValue());
-        assertEq(3, map_.getVal("TWO").intValue());
-        assertEq(4, map_.getVal("THREE").intValue());
+        assertEq(1, map_.getVal("ONE"));
+        assertEq(3, map_.getVal("TWO"));
+        assertEq(4, map_.getVal("THREE"));
     }
 
     @Test
@@ -271,10 +271,10 @@ public class IdMapTest {
         assertTrue(map_.contains(k2_));
         assertTrue(map_.contains(k3_));
         assertTrue(map_.contains(k4_));
-        assertEq(0, map_.getVal(k1_).intValue());
-        assertEq(1, map_.getVal(k2_).intValue());
-        assertEq(2, map_.getVal(k3_).intValue());
-        assertEq(3, map_.getVal(k4_).intValue());
+        assertEq(0, map_.getVal(k1_));
+        assertEq(1, map_.getVal(k2_));
+        assertEq(2, map_.getVal(k3_));
+        assertEq(3, map_.getVal(k4_));
     }
 
     @Test
@@ -299,10 +299,10 @@ public class IdMapTest {
         assertTrue(map_.contains(k2_));
         assertTrue(map_.contains(k3_));
         assertTrue(map_.contains(k4_));
-        assertEq(0, map_.getVal(k1_).intValue());
-        assertEq(1, map_.getVal(k2_).intValue());
-        assertEq(2, map_.getVal(k3_).intValue());
-        assertEq(3, map_.getVal(k4_).intValue());
+        assertEq(0, map_.getVal(k1_));
+        assertEq(1, map_.getVal(k2_));
+        assertEq(2, map_.getVal(k3_));
+        assertEq(3, map_.getVal(k4_));
     }
 
     @Test

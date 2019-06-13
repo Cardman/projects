@@ -23,7 +23,7 @@ public class LgIntTest {
     public void new_LgInt_1(){
         LgInt entier_ = LgInt.zero();
         assertEq(1, entier_.getGrDigits().size());
-        assertEq(0, entier_.getGrDigits().first().intValue());
+        assertEq(0, entier_.getGrDigits().first());
         assertEq(LgInt.SIGNE_POSITIF,entier_.getSignum());
         assertTrue(entier_.isZero());
     }

@@ -61,12 +61,12 @@ public class Composite implements Displayable {
     }
 
     public void updateValue(ValueChangeEvent _changing) {
-        getStrings().add(StringList.concat(Integer.toString(((NumberStruct)_changing.getNewValue()).intValue())," ",Integer.toString(((NumberStruct)_changing.getOldValue()).intValue())));
+        getStrings().add(StringList.concat(Integer.toString(((NumberStruct)_changing.getNewValue()).intStruct())," ",Integer.toString(((NumberStruct)_changing.getOldValue()).intStruct())));
         changing = _changing;
     }
 
     public String getValue(ValueChangeEvent _changing) {
-        return StringList.concat(Integer.toString(((NumberStruct)_changing.getNewValue()).intValue())," ",Integer.toString(((NumberStruct)_changing.getOldValue()).intValue()));
+        return StringList.concat(Integer.toString(((NumberStruct)_changing.getNewValue()).intStruct())," ",Integer.toString(((NumberStruct)_changing.getOldValue()).intStruct()));
     }
 
     public ValueChangeEvent getChanging() {

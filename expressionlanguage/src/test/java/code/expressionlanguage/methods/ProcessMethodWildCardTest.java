@@ -48,7 +48,7 @@ public final class ProcessMethodWildCardTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo<java.lang.Number>", field_.getClassName(cont_));
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(9, ((NumberStruct)field_).intValue());
+        assertEq(9, ((NumberStruct)field_).intStruct());
     }
     @Test
     public void instanceArgument100Test() {
@@ -88,7 +88,7 @@ public final class ProcessMethodWildCardTest extends ProcessMethodCommon {
         assertEq("pkg.ExThree<java.lang.Integer>", field_.getClassName(cont_));
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(1, ((NumberStruct)field_).intValue());
+        assertEq(1, ((NumberStruct)field_).intStruct());
     }
     @Test
     public void instanceArgument101Test() {
@@ -125,7 +125,7 @@ public final class ProcessMethodWildCardTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo<java.lang.Number>", field_.getClassName(cont_));
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(14, ((NumberStruct)field_).intValue());
+        assertEq(14, ((NumberStruct)field_).intStruct());
     }
     @Test
     public void instanceArgument102Test() {
@@ -162,7 +162,7 @@ public final class ProcessMethodWildCardTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo<java.lang.Number>", field_.getClassName(cont_));
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(1, ((NumberStruct)field_).intValue());
+        assertEq(1, ((NumberStruct)field_).intStruct());
     }
     @Test
     public void instanceArgument103Test() {
@@ -208,7 +208,7 @@ public final class ProcessMethodWildCardTest extends ProcessMethodCommon {
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(2, ((NumberStruct)field_).intValue());
+        assertEq(2, ((NumberStruct)field_).intStruct());
     }
     @Test
     public void instanceArgument104Test() {
@@ -254,7 +254,7 @@ public final class ProcessMethodWildCardTest extends ProcessMethodCommon {
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(2, ((NumberStruct)field_).intValue());
+        assertEq(2, ((NumberStruct)field_).intStruct());
     }
     @Test
     public void instanceArgument123Test() {
@@ -290,7 +290,7 @@ public final class ProcessMethodWildCardTest extends ProcessMethodCommon {
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(6, ((NumberStruct)field_).intValue());
+        assertEq(6, ((NumberStruct)field_).intStruct());
     }
     @Test
     public void instanceArgument124Test() {
@@ -326,7 +326,7 @@ public final class ProcessMethodWildCardTest extends ProcessMethodCommon {
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(6, ((NumberStruct)field_).intValue());
+        assertEq(6, ((NumberStruct)field_).intStruct());
     }
     @Test
     public void instanceArgument125Test() {
@@ -362,7 +362,7 @@ public final class ProcessMethodWildCardTest extends ProcessMethodCommon {
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(6, ((NumberStruct)field_).intValue());
+        assertEq(6, ((NumberStruct)field_).intStruct());
     }
     @Test
     public void instanceArgument1FailTest() {

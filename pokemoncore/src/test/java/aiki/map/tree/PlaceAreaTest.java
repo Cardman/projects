@@ -204,7 +204,7 @@ public class PlaceAreaTest {
         assertEq("PIKACHU", area_.getPokemon().first().last().getName());
         assertEq(Gender.MALE, area_.getPokemon().first().last().getGender());
         assertEq(1, area_.getIndexes().size());
-        assertEq(0, area_.getIndexes().getVal(point(0,0)).intValue());
+        assertEq(0, area_.getIndexes().getVal(point(0,0)));
         assertEq(point(0,0), area_.getLeftTop());
         assertEq(0, area_.getInacessiblePoints().size());
         assertEq(1, area_.getDimsBlocks().size());

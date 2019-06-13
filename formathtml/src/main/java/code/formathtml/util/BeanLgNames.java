@@ -563,7 +563,7 @@ public abstract class BeanLgNames extends LgNames {
                 return res_;
             }
             if (StringList.quickEq(name_, getAliasGet())) {
-                res_.setResult(StdStruct.wrapStd(((Countable) instance_).get(((NumberStruct) _args[0]).intValue()), _cont));
+                res_.setResult(StdStruct.wrapStd(((Countable) instance_).get(((NumberStruct) _args[0]).intStruct()), _cont));
                 return res_;
             }
         }
@@ -823,7 +823,7 @@ public abstract class BeanLgNames extends LgNames {
             return res_;
         }
         if (_instance instanceof NumberStruct) {
-            res_.setResult(new StringStruct(Long.toString(((NumberStruct)_instance).longValue())));
+            res_.setResult(new StringStruct(Long.toString(((NumberStruct)_instance).longStruct())));
             return res_;
         }
         return getOtherName(_cont, _instance);
@@ -851,7 +851,7 @@ public abstract class BeanLgNames extends LgNames {
                     byte[] adapt_ = new byte[str_.length];
                     int i_ = CustList.FIRST_INDEX;
                     for (Struct s: str_) {
-                        adapt_[i_] = ((NumberStruct)s).byteValue();
+                        adapt_[i_] = ((NumberStruct)s).byteStruct();
                         i_++;
                     }
                     args_[i] = adapt_;
@@ -861,7 +861,7 @@ public abstract class BeanLgNames extends LgNames {
                     short[] adapt_ = new short[str_.length];
                     int i_ = CustList.FIRST_INDEX;
                     for (Struct s: str_) {
-                        adapt_[i_] = ((NumberStruct)s).shortValue();
+                        adapt_[i_] = ((NumberStruct)s).shortStruct();
                         i_++;
                     }
                     args_[i] = adapt_;
@@ -871,7 +871,7 @@ public abstract class BeanLgNames extends LgNames {
                     int[] adapt_ = new int[str_.length];
                     int i_ = CustList.FIRST_INDEX;
                     for (Struct s: str_) {
-                        adapt_[i_] = ((NumberStruct)s).intValue();
+                        adapt_[i_] = ((NumberStruct)s).intStruct();
                         i_++;
                     }
                     args_[i] = adapt_;
@@ -891,7 +891,7 @@ public abstract class BeanLgNames extends LgNames {
                     long[] adapt_ = new long[str_.length];
                     int i_ = CustList.FIRST_INDEX;
                     for (Struct s: str_) {
-                        adapt_[i_] = ((NumberStruct)s).longValue();
+                        adapt_[i_] = ((NumberStruct)s).longStruct();
                         i_++;
                     }
                     args_[i] = adapt_;
@@ -901,7 +901,7 @@ public abstract class BeanLgNames extends LgNames {
                     float[] adapt_ = new float[str_.length];
                     int i_ = CustList.FIRST_INDEX;
                     for (Struct s: str_) {
-                        adapt_[i_] = ((NumberStruct)s).floatValue();
+                        adapt_[i_] = ((NumberStruct)s).floatStruct();
                         i_++;
                     }
                     args_[i] = adapt_;
@@ -911,7 +911,7 @@ public abstract class BeanLgNames extends LgNames {
                     double[] adapt_ = new double[str_.length];
                     int i_ = CustList.FIRST_INDEX;
                     for (Struct s: str_) {
-                        adapt_[i_] = ((NumberStruct)s).doubleValue();
+                        adapt_[i_] = ((NumberStruct)s).doubleStruct();
                         i_++;
                     }
                     args_[i] = adapt_;
@@ -957,17 +957,17 @@ public abstract class BeanLgNames extends LgNames {
                     if (StringList.quickEq(pType_, _stds.getAliasPrimChar())) {
                         args_[i] = ((CharStruct) argStruct_).getChar();
                     } else {
-                        args_[i] = ((NumberStruct) argStruct_).longValue();
+                        args_[i] = ((NumberStruct) argStruct_).longStruct();
                     }
                 } else if (argStruct_ instanceof IntStruct) {
-                    args_[i] = ((NumberStruct) argStruct_).intValue();
+                    args_[i] = ((NumberStruct) argStruct_).intStruct();
                 } else if (argStruct_ instanceof DoubleStruct) {
-                    args_[i] = ((DoubleStruct) argStruct_).doubleValue();
+                    args_[i] = ((DoubleStruct) argStruct_).doubleStruct();
                 } else {
                     if (StringList.quickEq(pType_, _stds.getAliasPrimChar())) {
-                        args_[i] = (char) ((NumberStruct) argStruct_).intValue();
+                        args_[i] = (char) ((NumberStruct) argStruct_).intStruct();
                     } else {
-                        args_[i] = ((NumberStruct) argStruct_).longValue();
+                        args_[i] = ((NumberStruct) argStruct_).longStruct();
                     }
                 }
             } else if (argStruct_ instanceof StringStruct) {
@@ -995,7 +995,7 @@ public abstract class BeanLgNames extends LgNames {
                 byte[] adapt_ = new byte[str_.length];
                 int i_ = CustList.FIRST_INDEX;
                 for (Struct s: str_) {
-                    adapt_[i_] = ((NumberStruct)s).byteValue();
+                    adapt_[i_] = ((NumberStruct)s).byteStruct();
                     i_++;
                 }
                 return adapt_;
@@ -1004,7 +1004,7 @@ public abstract class BeanLgNames extends LgNames {
                 short[] adapt_ = new short[str_.length];
                 int i_ = CustList.FIRST_INDEX;
                 for (Struct s: str_) {
-                    adapt_[i_] = ((NumberStruct)s).shortValue();
+                    adapt_[i_] = ((NumberStruct)s).shortStruct();
                     i_++;
                 }
                 return adapt_;
@@ -1013,7 +1013,7 @@ public abstract class BeanLgNames extends LgNames {
                 int[] adapt_ = new int[str_.length];
                 int i_ = CustList.FIRST_INDEX;
                 for (Struct s: str_) {
-                    adapt_[i_] = ((NumberStruct)s).intValue();
+                    adapt_[i_] = ((NumberStruct)s).intStruct();
                     i_++;
                 }
                 return adapt_;
@@ -1031,7 +1031,7 @@ public abstract class BeanLgNames extends LgNames {
                 long[] adapt_ = new long[str_.length];
                 int i_ = CustList.FIRST_INDEX;
                 for (Struct s: str_) {
-                    adapt_[i_] = ((NumberStruct)s).longValue();
+                    adapt_[i_] = ((NumberStruct)s).longStruct();
                     i_++;
                 }
                 return adapt_;
@@ -1040,7 +1040,7 @@ public abstract class BeanLgNames extends LgNames {
                 float[] adapt_ = new float[str_.length];
                 int i_ = CustList.FIRST_INDEX;
                 for (Struct s: str_) {
-                    adapt_[i_] = ((NumberStruct)s).floatValue();
+                    adapt_[i_] = ((NumberStruct)s).floatStruct();
                     i_++;
                 }
                 return adapt_;
@@ -1049,7 +1049,7 @@ public abstract class BeanLgNames extends LgNames {
                 double[] adapt_ = new double[str_.length];
                 int i_ = CustList.FIRST_INDEX;
                 for (Struct s: str_) {
-                    adapt_[i_] = ((NumberStruct)s).doubleValue();
+                    adapt_[i_] = ((NumberStruct)s).doubleStruct();
                     i_++;
                 }
                 return adapt_;
@@ -1088,9 +1088,9 @@ public abstract class BeanLgNames extends LgNames {
                 return ((CharStruct) _args).getChar();
             }
             if (_args instanceof IntStruct) {
-                return ((IntStruct) _args).intValue();
+                return ((IntStruct) _args).intStruct();
             }
-            return ((NumberStruct) _args).longValue();
+            return ((NumberStruct) _args).longStruct();
         }
         if (_args instanceof StringStruct) {
             return ((StringStruct)_args).getInstance();

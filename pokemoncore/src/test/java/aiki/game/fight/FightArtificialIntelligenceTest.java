@@ -117,8 +117,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         //assertEq(1, fighter_.getSubstistute());
         //fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 0).intValue());
-        assertEq(0, fight_.getFirstPositFoeFighters().getVal((byte) 1).intValue());
+        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 0));
+        assertEq(0, fight_.getFirstPositFoeFighters().getVal((byte) 1));
     }
 
     @Test
@@ -157,9 +157,9 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
         //fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_TWO);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 0).intValue());
-        assertEq(0, fight_.getFirstPositFoeFighters().getVal((byte) 1).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 2).intValue());
+        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 0));
+        assertEq(0, fight_.getFirstPositFoeFighters().getVal((byte) 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 2));
     }
 
     @Test
@@ -201,10 +201,10 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
         //fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_THREE);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 0).intValue());
-        assertEq(1, fight_.getFirstPositFoeFighters().getVal((byte) 1).intValue());
-        assertEq(0, fight_.getFirstPositFoeFighters().getVal((byte) 2).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 3).intValue());
+        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 0));
+        assertEq(1, fight_.getFirstPositFoeFighters().getVal((byte) 1));
+        assertEq(0, fight_.getFirstPositFoeFighters().getVal((byte) 2));
+        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 3));
     }
 
     @Test
@@ -240,8 +240,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
         //fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 0).intValue());
-        assertEq(1, fight_.getFirstPositFoeFighters().getVal((byte) 1).intValue());
+        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 0));
+        assertEq(1, fight_.getFirstPositFoeFighters().getVal((byte) 1));
     }
 
     @Test
@@ -281,11 +281,11 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         //assertEq(3, fighter_.getSubstistute());
         //fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 0).intValue());
-        assertEq(1, fight_.getFirstPositFoeFighters().getVal((byte) 1).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 2).intValue());
-        assertEq(0, fight_.getFirstPositFoeFighters().getVal((byte) 3).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 4).intValue());
+        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 0));
+        assertEq(1, fight_.getFirstPositFoeFighters().getVal((byte) 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 2));
+        assertEq(0, fight_.getFirstPositFoeFighters().getVal((byte) 3));
+        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 4));
     }
 
     @Test
@@ -323,10 +323,10 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         //assertEq(3, fighter_.getSubstistute());
         //fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2).intValue());
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 3).intValue());
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2));
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
     }
 
     @Test
@@ -367,11 +367,11 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
         //fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_FOUR);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2).intValue());
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 3).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 4).intValue());
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2));
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 4));
     }
 
     @Test
@@ -413,11 +413,11 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
         //fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_FOUR);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 3).intValue());
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 4).intValue());
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 4));
     }
 
     @Test
@@ -458,11 +458,11 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
         //fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_FOUR);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 2).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 3).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 4).intValue());
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 2));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 4));
     }
 
     @Test
@@ -497,9 +497,9 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         FightArtificialIntelligence.choiceForSubstituing(fight_, _data_);
         //Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2).intValue());
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2));
     }
 
     @Test
@@ -538,9 +538,9 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         //assertEq(2, fighter_.getSubstistute());
         //fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 0).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 1).intValue());
-        assertEq(0, fight_.getFirstPositFoeFighters().getVal((byte) 2).intValue());
+        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 1));
+        assertEq(0, fight_.getFirstPositFoeFighters().getVal((byte) 2));
     }
 
     @Test
@@ -580,9 +580,9 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
         //fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        assertEq(0, fight_.getFirstPositFoeFighters().getVal((byte) 0).intValue());
-        assertEq(1, fight_.getFirstPositFoeFighters().getVal((byte) 1).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 2).intValue());
+        assertEq(0, fight_.getFirstPositFoeFighters().getVal((byte) 0));
+        assertEq(1, fight_.getFirstPositFoeFighters().getVal((byte) 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 2));
     }
 
 
@@ -624,9 +624,9 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
         //fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        assertEq(0, fight_.getFirstPositFoeFighters().getVal((byte) 0).intValue());
-        assertEq(1, fight_.getFirstPositFoeFighters().getVal((byte) 1).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 2).intValue());
+        assertEq(0, fight_.getFirstPositFoeFighters().getVal((byte) 0));
+        assertEq(1, fight_.getFirstPositFoeFighters().getVal((byte) 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositFoeFighters().getVal((byte) 2));
     }
 
     @Test
@@ -670,11 +670,11 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
         //fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_FOUR);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 2).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 3).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 4).intValue());
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 2));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 4));
     }
 
     @Test
@@ -718,10 +718,10 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         //assertEq(3, fighter_.getSubstistute());
         //fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1).intValue());
-        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2).intValue());
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 3).intValue());
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 1));
+        assertEq(Fighter.BACK, fight_.getFirstPositPlayerFighters().getVal((byte) 2));
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
     }
 
     private static Fight setFirstChosenMoveAlly(

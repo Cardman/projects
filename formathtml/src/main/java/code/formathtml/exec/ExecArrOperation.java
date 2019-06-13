@@ -39,7 +39,7 @@ public final class ExecArrOperation extends ExecReflectableInvokingOperation imp
         if (!(o_ instanceof NumberStruct)) {
             return;
         }
-        int index_ = ((NumberStruct)o_).intValue();
+        int index_ = ((NumberStruct)o_).intStruct();
         if (index_ < 0) {
             return;
         }

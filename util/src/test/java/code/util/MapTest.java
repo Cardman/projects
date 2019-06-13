@@ -100,19 +100,19 @@ public class MapTest {
         assertEq(1,map_.getVal("ONE"));
         assertNull(map_.getVal("TWO"));
         map_.put("TWO", 2);
-        assertEq(1,map_.getVal("ONE").intValue());
-        assertEq(2,map_.getVal("TWO").intValue());
+        assertEq(1,map_.getVal("ONE"));
+        assertEq(2,map_.getVal("TWO"));
         map_.put("TWO", 3);
-        assertEq(1,map_.getVal("ONE").intValue());
-        assertEq(3,map_.getVal("TWO").intValue());
+        assertEq(1,map_.getVal("ONE"));
+        assertEq(3,map_.getVal("TWO"));
         ObjectMap<KeyExample,Integer> otherMap_ = new ObjectMap<KeyExample,Integer>();
         otherMap_.put(new KeyExample(0, 0), 0);
-        assertEq(0, otherMap_.getVal(new KeyExample(0, 0)).intValue());
+        assertEq(0, otherMap_.getVal(new KeyExample(0, 0)));
         otherMap_.put(new KeyExample(0, 1), 1);
-        assertEq(0, otherMap_.getVal(new KeyExample(0, 0)).intValue());
-        assertEq(1, otherMap_.getVal(new KeyExample(0, 1)).intValue());
+        assertEq(0, otherMap_.getVal(new KeyExample(0, 0)));
+        assertEq(1, otherMap_.getVal(new KeyExample(0, 1)));
         otherMap_.put(new KeyExample(0, 1), 2);
-        assertEq(0, otherMap_.getVal(new KeyExample(0, 0)).intValue());
+        assertEq(0, otherMap_.getVal(new KeyExample(0, 0)));
         assertEq(2, otherMap_.getVal(new KeyExample(0, 1)));
     }
 
@@ -151,14 +151,14 @@ public class MapTest {
         assertEq(2,map_.size());
         assertTrue(map_.contains("ONE"));
         assertTrue(map_.contains("THREE"));
-        assertEq(1,map_.getVal("ONE").intValue());
-        assertEq(3,map_.getVal("THREE").intValue());
+        assertEq(1,map_.getVal("ONE"));
+        assertEq(3,map_.getVal("THREE"));
         map_.move("ZERO", "THREE");
         assertEq(2,map_.size());
         assertTrue(map_.contains("ONE"));
         assertTrue(map_.contains("THREE"));
-        assertEq(1,map_.getVal("ONE").intValue());
-        assertEq(3,map_.getVal("THREE").intValue());
+        assertEq(1,map_.getVal("ONE"));
+        assertEq(3,map_.getVal("THREE"));
     }
 
     @Test
@@ -175,10 +175,10 @@ public class MapTest {
         assertTrue(map_.contains("TWO"));
         assertTrue(map_.contains("THREE"));
         assertTrue(map_.contains("FOUR"));
-        assertEq(1, map_.getVal("ONE").intValue());
-        assertEq(2, map_.getVal("TWO").intValue());
-        assertEq(3, map_.getVal("THREE").intValue());
-        assertEq(4, map_.getVal("FOUR").intValue());
+        assertEq(1, map_.getVal("ONE"));
+        assertEq(2, map_.getVal("TWO"));
+        assertEq(3, map_.getVal("THREE"));
+        assertEq(4, map_.getVal("FOUR"));
     }
 
     @Test
@@ -194,9 +194,9 @@ public class MapTest {
         assertTrue(map_.contains("ONE"));
         assertTrue(map_.contains("TWO"));
         assertTrue(map_.contains("THREE"));
-        assertEq(1, map_.getVal("ONE").intValue());
-        assertEq(3, map_.getVal("TWO").intValue());
-        assertEq(4, map_.getVal("THREE").intValue());
+        assertEq(1, map_.getVal("ONE"));
+        assertEq(3, map_.getVal("TWO"));
+        assertEq(4, map_.getVal("THREE"));
     }
 
     @Test
@@ -213,10 +213,10 @@ public class MapTest {
         assertTrue(map_.contains(new KeyExample(0, 1)));
         assertTrue(map_.contains(new KeyExample(1, 1)));
         assertTrue(map_.contains(new KeyExample(1, 0)));
-        assertEq(0, map_.getVal(new KeyExample(0, 0)).intValue());
-        assertEq(1, map_.getVal(new KeyExample(0, 1)).intValue());
-        assertEq(2, map_.getVal(new KeyExample(1, 1)).intValue());
-        assertEq(3, map_.getVal(new KeyExample(1, 0)).intValue());
+        assertEq(0, map_.getVal(new KeyExample(0, 0)));
+        assertEq(1, map_.getVal(new KeyExample(0, 1)));
+        assertEq(2, map_.getVal(new KeyExample(1, 1)));
+        assertEq(3, map_.getVal(new KeyExample(1, 0)));
     }
 
     @Test
@@ -232,9 +232,9 @@ public class MapTest {
         assertTrue(map_.contains(new KeyExample(0, 0)));
         assertTrue(map_.contains(new KeyExample(0, 1)));
         assertTrue(map_.contains(new KeyExample(1, 1)));
-        assertEq(0, map_.getVal(new KeyExample(0, 0)).intValue());
-        assertEq(3, map_.getVal(new KeyExample(0, 1)).intValue());
-        assertEq(2, map_.getVal(new KeyExample(1, 1)).intValue());
+        assertEq(0, map_.getVal(new KeyExample(0, 0)));
+        assertEq(3, map_.getVal(new KeyExample(0, 1)));
+        assertEq(2, map_.getVal(new KeyExample(1, 1)));
     }
 
     @Test
@@ -251,10 +251,10 @@ public class MapTest {
         assertTrue(map_.contains(1));
         assertTrue(map_.contains(2));
         assertTrue(map_.contains(3));
-        assertEq(0, map_.getVal(0).intValue());
-        assertEq(1, map_.getVal(1).intValue());
-        assertEq(2, map_.getVal(2).intValue());
-        assertEq(3, map_.getVal(3).intValue());
+        assertEq(0, map_.getVal(0));
+        assertEq(1, map_.getVal(1));
+        assertEq(2, map_.getVal(2));
+        assertEq(3, map_.getVal(3));
     }
 
     @Test
@@ -270,9 +270,9 @@ public class MapTest {
         assertTrue(map_.contains(0));
         assertTrue(map_.contains(1));
         assertTrue(map_.contains(2));
-        assertEq(0, map_.getVal(0).intValue());
-        assertEq(3, map_.getVal(1).intValue());
-        assertEq(2, map_.getVal(2).intValue());
+        assertEq(0, map_.getVal(0));
+        assertEq(3, map_.getVal(1));
+        assertEq(2, map_.getVal(2));
     }
 
     @Test
@@ -289,10 +289,10 @@ public class MapTest {
         assertTrue(map_.contains(MyEnum.ONE));
         assertTrue(map_.contains(MyEnum.TWO));
         assertTrue(map_.contains(MyEnum.THREE));
-        assertEq(0, map_.getVal(MyEnum.ZERO).intValue());
-        assertEq(1, map_.getVal(MyEnum.ONE).intValue());
-        assertEq(2, map_.getVal(MyEnum.TWO).intValue());
-        assertEq(3, map_.getVal(MyEnum.THREE).intValue());
+        assertEq(0, map_.getVal(MyEnum.ZERO));
+        assertEq(1, map_.getVal(MyEnum.ONE));
+        assertEq(2, map_.getVal(MyEnum.TWO));
+        assertEq(3, map_.getVal(MyEnum.THREE));
     }
 
     @Test
@@ -308,9 +308,9 @@ public class MapTest {
         assertTrue(map_.contains(MyEnum.ZERO));
         assertTrue(map_.contains(MyEnum.ONE));
         assertTrue(map_.contains(MyEnum.TWO));
-        assertEq(0, map_.getVal(MyEnum.ZERO).intValue());
-        assertEq(3, map_.getVal(MyEnum.ONE).intValue());
-        assertEq(2, map_.getVal(MyEnum.TWO).intValue());
+        assertEq(0, map_.getVal(MyEnum.ZERO));
+        assertEq(3, map_.getVal(MyEnum.ONE));
+        assertEq(2, map_.getVal(MyEnum.TWO));
     }
 
     @Test
@@ -327,10 +327,10 @@ public class MapTest {
         assertTrue(map_.contains((char)1));
         assertTrue(map_.contains((char)2));
         assertTrue(map_.contains((char)3));
-        assertEq(0, map_.getVal((char)0).intValue());
-        assertEq(1, map_.getVal((char)1).intValue());
-        assertEq(2, map_.getVal((char)2).intValue());
-        assertEq(3, map_.getVal((char)3).intValue());
+        assertEq(0, map_.getVal((char)0));
+        assertEq(1, map_.getVal((char)1));
+        assertEq(2, map_.getVal((char)2));
+        assertEq(3, map_.getVal((char)3));
     }
 
     @Test
@@ -346,9 +346,9 @@ public class MapTest {
         assertTrue(map_.contains((char)0));
         assertTrue(map_.contains((char)1));
         assertTrue(map_.contains((char)2));
-        assertEq(0, map_.getVal((char)0).intValue());
-        assertEq(3, map_.getVal((char)1).intValue());
-        assertEq(2, map_.getVal((char)2).intValue());
+        assertEq(0, map_.getVal((char)0));
+        assertEq(3, map_.getVal((char)1));
+        assertEq(2, map_.getVal((char)2));
     }
 
     @Test
@@ -361,8 +361,8 @@ public class MapTest {
         assertEq(2, map_.size());
         assertTrue(map_.contains(false));
         assertTrue(map_.contains(true));
-        assertEq(0, map_.getVal(false).intValue());
-        assertEq(2, map_.getVal(true).intValue());
+        assertEq(0, map_.getVal(false));
+        assertEq(2, map_.getVal(true));
     }
 
     @Test
@@ -374,7 +374,7 @@ public class MapTest {
         map_.putAllMap(mapToPut_);
         assertEq(1, map_.size());
         assertTrue(map_.contains(false));
-        assertEq(2, map_.getVal(false).intValue());
+        assertEq(2, map_.getVal(false));
     }
 
     @Test

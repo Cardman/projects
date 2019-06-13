@@ -362,19 +362,19 @@ public class FighterTest extends InitializationDataBase {
         fighter_.initUserMoves(pokemonUser_);
         fighter_.initEvIvUser(pokemonUser_);
         assertEq(6, fighter_.getEv().size());
-        assertEq(1, fighter_.getEv().getVal(Statistic.ATTACK).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPEED).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.HP).intValue());
+        assertEq(1, fighter_.getEv().getVal(Statistic.ATTACK));
+        assertEq(0, fighter_.getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPEED));
+        assertEq(0, fighter_.getEv().getVal(Statistic.HP));
         assertEq(6, fighter_.getIv().size());
-        assertEq(31, fighter_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(31, fighter_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(31, fighter_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(31, fighter_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(31, fighter_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(31, fighter_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(31, fighter_.getIv().getVal(Statistic.ATTACK));
+        assertEq(31, fighter_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(31, fighter_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(31, fighter_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(31, fighter_.getIv().getVal(Statistic.SPEED));
+        assertEq(31, fighter_.getIv().getVal(Statistic.HP));
         assertEq(new Rate("1873/100"), pokemonUser_.getRemainingHp());
         assertEq(new Rate("1873/100"), fighter_.getRemainingHp());
     }
@@ -392,19 +392,19 @@ public class FighterTest extends InitializationDataBase {
         fighter_.initWildPokemonMoves(_data_);
         fighter_.initEvIvOther(_data_);
         assertEq(6, fighter_.getEv().size());
-        assertEq(0, fighter_.getEv().getVal(Statistic.ATTACK).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPEED).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.HP).intValue());
+        assertEq(0, fighter_.getEv().getVal(Statistic.ATTACK));
+        assertEq(0, fighter_.getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPEED));
+        assertEq(0, fighter_.getEv().getVal(Statistic.HP));
         assertEq(6, fighter_.getIv().size());
-        assertEq(0, fighter_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(0, fighter_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, fighter_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(0, fighter_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(0, fighter_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(0, fighter_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(0, fighter_.getIv().getVal(Statistic.ATTACK));
+        assertEq(0, fighter_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(0, fighter_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(0, fighter_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(0, fighter_.getIv().getVal(Statistic.SPEED));
+        assertEq(0, fighter_.getIv().getVal(Statistic.HP));
         assertEq(new Rate("89/5"), fighter_.getRemainingHp());
     }
 
@@ -431,8 +431,8 @@ public class FighterTest extends InitializationDataBase {
         fighter_.initCreatureGeneral(_data_);
         assertEq(new Rate("50"), fighter_.getStatisBase().getVal(Statistic.ATTACK));
         assertEq(new Rate("143/16"), fighter_.statistiqueGlobaleEvIv(Statistic.ATTACK));
-        assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK).intValue());
-        assertEq(0, fighter_.getStatisBoost().getVal(Statistic.DEFENSE).intValue());
+        assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
+        assertEq(0, fighter_.getStatisBoost().getVal(Statistic.DEFENSE));
         assertEq(1, fighter_.getTypes().size());
         assertTrue(fighter_.getTypes().containsObj(ELECTRIQUE));
         assertEq(new Rate("3"), fighter_.getWeight());
@@ -905,19 +905,19 @@ public class FighterTest extends InitializationDataBase {
         diff_.setIvPlayer((short) 3);
         fighter_.initIvUt(diff_);
         assertEq(6, fighter_.getEv().size());
-        assertEq(0, fighter_.getEv().getVal(Statistic.ATTACK).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPEED).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.HP).intValue());
+        assertEq(0, fighter_.getEv().getVal(Statistic.ATTACK));
+        assertEq(0, fighter_.getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPEED));
+        assertEq(0, fighter_.getEv().getVal(Statistic.HP));
         assertEq(6, fighter_.getIv().size());
-        assertEq(3, fighter_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(3, fighter_.getIv().getVal(Statistic.ATTACK));
+        assertEq(3, fighter_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(3, fighter_.getIv().getVal(Statistic.SPEED));
+        assertEq(3, fighter_.getIv().getVal(Statistic.HP));
     }
 
     @Test
@@ -933,19 +933,19 @@ public class FighterTest extends InitializationDataBase {
         diff_.setIvFoe((short) 3);
         fighter_.initIvAdv(diff_,HYPER_BALL);
         assertEq(6, fighter_.getEv().size());
-        assertEq(0, fighter_.getEv().getVal(Statistic.ATTACK).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPEED).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.HP).intValue());
+        assertEq(0, fighter_.getEv().getVal(Statistic.ATTACK));
+        assertEq(0, fighter_.getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPEED));
+        assertEq(0, fighter_.getEv().getVal(Statistic.HP));
         assertEq(6, fighter_.getIv().size());
-        assertEq(3, fighter_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(3, fighter_.getIv().getVal(Statistic.ATTACK));
+        assertEq(3, fighter_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(3, fighter_.getIv().getVal(Statistic.SPEED));
+        assertEq(3, fighter_.getIv().getVal(Statistic.HP));
         assertEq(HYPER_BALL, fighter_.getUsedBallCatching());
     }
 
@@ -963,19 +963,19 @@ public class FighterTest extends InitializationDataBase {
         fighter_.initIvAdv(diff_,HYPER_BALL);
         fighter_.initHp();
         assertEq(6, fighter_.getEv().size());
-        assertEq(0, fighter_.getEv().getVal(Statistic.ATTACK).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPEED).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.HP).intValue());
+        assertEq(0, fighter_.getEv().getVal(Statistic.ATTACK));
+        assertEq(0, fighter_.getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPEED));
+        assertEq(0, fighter_.getEv().getVal(Statistic.HP));
         assertEq(6, fighter_.getIv().size());
-        assertEq(3, fighter_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(3, fighter_.getIv().getVal(Statistic.ATTACK));
+        assertEq(3, fighter_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(3, fighter_.getIv().getVal(Statistic.SPEED));
+        assertEq(3, fighter_.getIv().getVal(Statistic.HP));
         assertEq(HYPER_BALL, fighter_.getUsedBallCatching());
         assertEq(new Rate("89/5"), fighter_.getRemainingHp());
         assertEq(new Rate("1789/100"), fighter_.pvMax());
@@ -996,19 +996,19 @@ public class FighterTest extends InitializationDataBase {
         fighter_.initIvAdv(diff_,HYPER_BALL);
         fighter_.initHp();
         assertEq(6, fighter_.getEv().size());
-        assertEq(0, fighter_.getEv().getVal(Statistic.ATTACK).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPEED).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.HP).intValue());
+        assertEq(0, fighter_.getEv().getVal(Statistic.ATTACK));
+        assertEq(0, fighter_.getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPEED));
+        assertEq(0, fighter_.getEv().getVal(Statistic.HP));
         assertEq(6, fighter_.getIv().size());
-        assertEq(3, fighter_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(3, fighter_.getIv().getVal(Statistic.ATTACK));
+        assertEq(3, fighter_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(3, fighter_.getIv().getVal(Statistic.SPEED));
+        assertEq(3, fighter_.getIv().getVal(Statistic.HP));
         assertEq(HYPER_BALL, fighter_.getUsedBallCatching());
         assertEq(new Rate("1789/100"), fighter_.getRemainingHp());
         assertEq(new Rate("1789/100"), fighter_.pvMax());
@@ -1029,19 +1029,19 @@ public class FighterTest extends InitializationDataBase {
         fighter_.initIvAdv(diff_,HYPER_BALL);
         fighter_.initHp();
         assertEq(6, fighter_.getEv().size());
-        assertEq(0, fighter_.getEv().getVal(Statistic.ATTACK).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPEED).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.HP).intValue());
+        assertEq(0, fighter_.getEv().getVal(Statistic.ATTACK));
+        assertEq(0, fighter_.getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPEED));
+        assertEq(0, fighter_.getEv().getVal(Statistic.HP));
         assertEq(6, fighter_.getIv().size());
-        assertEq(3, fighter_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(3, fighter_.getIv().getVal(Statistic.ATTACK));
+        assertEq(3, fighter_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(3, fighter_.getIv().getVal(Statistic.SPEED));
+        assertEq(3, fighter_.getIv().getVal(Statistic.HP));
         assertEq(HYPER_BALL, fighter_.getUsedBallCatching());
         assertEq(new Rate("1"), fighter_.getRemainingHp());
         assertEq(new Rate("1789/100"), fighter_.pvMax());
@@ -1061,19 +1061,19 @@ public class FighterTest extends InitializationDataBase {
         fighter_.initIvUt(diff_);
         fighter_.initHp();
         assertEq(6, fighter_.getEv().size());
-        assertEq(0, fighter_.getEv().getVal(Statistic.ATTACK).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPEED).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.HP).intValue());
+        assertEq(0, fighter_.getEv().getVal(Statistic.ATTACK));
+        assertEq(0, fighter_.getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPEED));
+        assertEq(0, fighter_.getEv().getVal(Statistic.HP));
         assertEq(6, fighter_.getIv().size());
-        assertEq(3, fighter_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(3, fighter_.getIv().getVal(Statistic.ATTACK));
+        assertEq(3, fighter_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(3, fighter_.getIv().getVal(Statistic.SPEED));
+        assertEq(3, fighter_.getIv().getVal(Statistic.HP));
         assertEq(new Rate("89/5"), fighter_.getRemainingHp());
         assertEq(new Rate("1789/100"), fighter_.pvMax());
     }
@@ -1093,19 +1093,19 @@ public class FighterTest extends InitializationDataBase {
         fighter_.initIvUt(diff_);
         fighter_.initHp();
         assertEq(6, fighter_.getEv().size());
-        assertEq(0, fighter_.getEv().getVal(Statistic.ATTACK).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPEED).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.HP).intValue());
+        assertEq(0, fighter_.getEv().getVal(Statistic.ATTACK));
+        assertEq(0, fighter_.getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPEED));
+        assertEq(0, fighter_.getEv().getVal(Statistic.HP));
         assertEq(6, fighter_.getIv().size());
-        assertEq(3, fighter_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(3, fighter_.getIv().getVal(Statistic.ATTACK));
+        assertEq(3, fighter_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(3, fighter_.getIv().getVal(Statistic.SPEED));
+        assertEq(3, fighter_.getIv().getVal(Statistic.HP));
         assertEq(new Rate("1789/100"), fighter_.getRemainingHp());
         assertEq(new Rate("1789/100"), fighter_.pvMax());
     }
@@ -1125,19 +1125,19 @@ public class FighterTest extends InitializationDataBase {
         fighter_.initIvUt(diff_);
         fighter_.initHp();
         assertEq(6, fighter_.getEv().size());
-        assertEq(0, fighter_.getEv().getVal(Statistic.ATTACK).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.SPEED).intValue());
-        assertEq(0, fighter_.getEv().getVal(Statistic.HP).intValue());
+        assertEq(0, fighter_.getEv().getVal(Statistic.ATTACK));
+        assertEq(0, fighter_.getEv().getVal(Statistic.DEFENSE));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(0, fighter_.getEv().getVal(Statistic.SPEED));
+        assertEq(0, fighter_.getEv().getVal(Statistic.HP));
         assertEq(6, fighter_.getIv().size());
-        assertEq(3, fighter_.getIv().getVal(Statistic.ATTACK).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.DEFENSE).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_ATTACK).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_DEFENSE).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.SPEED).intValue());
-        assertEq(3, fighter_.getIv().getVal(Statistic.HP).intValue());
+        assertEq(3, fighter_.getIv().getVal(Statistic.ATTACK));
+        assertEq(3, fighter_.getIv().getVal(Statistic.DEFENSE));
+        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_ATTACK));
+        assertEq(3, fighter_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
+        assertEq(3, fighter_.getIv().getVal(Statistic.SPEED));
+        assertEq(3, fighter_.getIv().getVal(Statistic.HP));
         assertEq(new Rate("1"), fighter_.getRemainingHp());
         assertEq(new Rate("1789/100"), fighter_.pvMax());
     }
@@ -2144,7 +2144,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterStatut(PEUR);
         fighter_.disableAllStatusByEnabledWeather(NULL_REF, _data_);
-        assertEq(1, fighter_.getStatusNbRound(PEUR).intValue());
+        assertEq(1, fighter_.getStatusNbRound(PEUR));
     }
 
     @Test
@@ -2165,7 +2165,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterPseudoStatut(fighterCoordsTwo_, VAMPIGRAINE);
         fighter_.disableAllStatusByEnabledWeather(NULL_REF, _data_);
-        assertEq(1, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE, fighterCoordsTwo_)).intValue());
+        assertEq(1, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE, fighterCoordsTwo_)));
     }
 
     @Test
@@ -2179,7 +2179,7 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemon_, _data_, (byte)0);
         fighter_.affecterStatut(PEUR);
         fighter_.disableAllStatusByEnabledWeather(ORAGE, _data_);
-        assertEq(1, fighter_.getStatusNbRound(PEUR).intValue());
+        assertEq(1, fighter_.getStatusNbRound(PEUR));
     }
 
     @Test
@@ -2193,7 +2193,7 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemon_, _data_, (byte)0);
         fighter_.affecterStatut(PEUR);
         fighter_.disableAllStatusByEnabledWeather(NULL_REF, _data_);
-        assertEq(0, fighter_.getStatusNbRound(PEUR).intValue());
+        assertEq(0, fighter_.getStatusNbRound(PEUR));
     }
 
     @Test
@@ -2211,7 +2211,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.initCreatureRelationsAutre(fightersCoords_, _data_);
         fighter_.affecterPseudoStatut(POKEMON_FOE_FIGHTER_ZERO, VAMPIGRAINE);
         fighter_.disableAllStatusByEnabledWeather(ZENITH, _data_);
-        assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE, POKEMON_FOE_FIGHTER_ZERO)).intValue());
+        assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE, POKEMON_FOE_FIGHTER_ZERO)));
     }
 
     @Test
@@ -2311,9 +2311,9 @@ public class FighterTest extends InitializationDataBase {
         pokemon_.setLevel((short) 3);
         Fighter fighter_ = new Fighter(pokemon_, _data_, (byte)0);
         fighter_.variationBoostStatistique(Statistic.ATTACK, (byte) 2);
-        assertEq(2, fighter_.getStatisBoost().getVal(Statistic.ATTACK).intValue());
+        assertEq(2, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         fighter_.variationBoostStatistique(Statistic.ATTACK, (byte) 1);
-        assertEq(3, fighter_.getStatisBoost().getVal(Statistic.ATTACK).intValue());
+        assertEq(3, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
     }
 
     @Test
@@ -4938,7 +4938,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, POKEMON_FOE_FIGHTER_ZERO), true);
         fighter_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, POKEMON_FOE_FIGHTER_ZERO)).enable();
         partner_.effectBatonPass(fighter_);
-        assertEq(1, partner_.getNbUsesMoves().getVal(BOUL_ARMURE).intValue());
+        assertEq(1, partner_.getNbUsesMoves().getVal(BOUL_ARMURE));
         assertEq(Rate.one(), partner_.getDamageSufferedCateg().getVal(PHYSIQUE));
         assertEq(Rate.zero(), partner_.getDamageSufferedCategRound().getVal(PHYSIQUE));
         assertEq(new Rate("2"), partner_.getDamageRateSufferedByType().getVal(ELECTRIQUE));
@@ -4947,7 +4947,7 @@ public class FighterTest extends InitializationDataBase {
         assertEq(JACKPOT, partner_.getLastSufferedMove());
         assertEq(new Rate("271/5"), partner_.getRemainingHp());
         assertEq(new Rate("271/10"), partner_.getClone());
-        assertEq(1, partner_.getStatisBoost().getVal(Statistic.ATTACK).intValue());
+        assertEq(1, partner_.getStatisBoost().getVal(Statistic.ATTACK));
         ActivityOfMove activity_;
         activity_ = partner_.getEnabledMoves().getVal(EMBARGO);
         assertEq(0, activity_.getNbTurn());
@@ -5936,7 +5936,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         Fighter fighter_ = new Fighter(pokemonUser_, _data_, (byte) 0);
         fighter_.incrementRoundsStatus(GEL);
-        assertEq(2, fighter_.getStatusNbRound(GEL).intValue());
+        assertEq(2, fighter_.getStatusNbRound(GEL));
     }
 
     @Test
@@ -6501,7 +6501,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
         Fighter fighter_ = new Fighter(pokemonUser_, _data_, (byte) 0);
         fighter_.wonEvStatistic(Statistic.ATTACK, (short) 1, (short) 100, _data_);
-        assertEq(2, fighter_.getEv().getVal(Statistic.ATTACK).intValue());
+        assertEq(2, fighter_.getEv().getVal(Statistic.ATTACK));
     }
 
     @Test
@@ -6525,7 +6525,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
         Fighter fighter_ = new Fighter(pokemonUser_, _data_, (byte) 0);
         fighter_.wonEvStatistic(Statistic.ATTACK, (short) 20, (short) 100, _data_);
-        assertEq(100, fighter_.getEv().getVal(Statistic.ATTACK).intValue());
+        assertEq(100, fighter_.getEv().getVal(Statistic.ATTACK));
     }
 
     @Test
@@ -6913,7 +6913,7 @@ public class FighterTest extends InitializationDataBase {
     int getNbStatusRelatByRounds(Fighter _f, short _nbRounds) {
         int i_ = CustList.SIZE_EMPTY;
         for (EntryCust<MoveTeamPosition, Short> e: _f.getStatusRelat().entryList()) {
-            if (Numbers.eq(e.getValue().shortValue(), _nbRounds)) {
+            if (Numbers.eq(e.getValue(), _nbRounds)) {
                 i_++;
             }
         }

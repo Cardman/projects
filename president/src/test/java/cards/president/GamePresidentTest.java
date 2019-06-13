@@ -39,8 +39,8 @@ public class GamePresidentTest {
         g_.initCartesEchanges();
         Numbers<Byte> ws_ = g_.getWinners();
         assertEq(2, ws_.size());
-        assertEq(1, ws_.get(0).intValue());
-        assertEq(3, ws_.get(1).intValue());
+        assertEq(1, ws_.get(0));
+        assertEq(3, ws_.get(1));
     }
 
 
@@ -69,8 +69,8 @@ public class GamePresidentTest {
         g_.initCartesEchanges();
         Numbers<Byte> ws_ = g_.getLoosers();
         assertEq(2, ws_.size());
-        assertEq(0, ws_.get(0).intValue());
-        assertEq(2, ws_.get(1).intValue());
+        assertEq(0, ws_.get(0));
+        assertEq(2, ws_.get(1));
     }
 
     @Test
@@ -2991,10 +2991,10 @@ public class GamePresidentTest {
         Numbers<Byte> ranks_ = g_.getNewRanks();
         //
         assertEq(4, ranks_.size());
-        assertEq(1, ranks_.get(0).intValue());
-        assertEq(3, ranks_.get(1).intValue());
-        assertEq(4, ranks_.get(2).intValue());
-        assertEq(2, ranks_.get(3).intValue());
+        assertEq(1, ranks_.get(0));
+        assertEq(3, ranks_.get(1));
+        assertEq(4, ranks_.get(2));
+        assertEq(2, ranks_.get(3));
     }
 
     @Test
@@ -3150,10 +3150,10 @@ public class GamePresidentTest {
         Numbers<Byte> ranks_ = g_.getNewRanks();
         //
         assertEq(4, ranks_.size());
-        assertEq(1, ranks_.get(0).intValue());
-        assertEq(2, ranks_.get(1).intValue());
-        assertEq(3, ranks_.get(2).intValue());
-        assertEq(4, ranks_.get(3).intValue());
+        assertEq(1, ranks_.get(0));
+        assertEq(2, ranks_.get(1));
+        assertEq(3, ranks_.get(2));
+        assertEq(4, ranks_.get(3));
     }
 
     @Test
@@ -3309,10 +3309,10 @@ public class GamePresidentTest {
         Numbers<Byte> ranks_ = g_.getNewRanks();
         //
         assertEq(4, ranks_.size());
-        assertEq(1, ranks_.get(0).intValue());
-        assertEq(2, ranks_.get(1).intValue());
-        assertEq(4, ranks_.get(2).intValue());
-        assertEq(3, ranks_.get(3).intValue());
+        assertEq(1, ranks_.get(0));
+        assertEq(2, ranks_.get(1));
+        assertEq(4, ranks_.get(2));
+        assertEq(3, ranks_.get(3));
     }
 
     @Test
@@ -3491,10 +3491,10 @@ public class GamePresidentTest {
         Numbers<Byte> ranks_ = g_.getNewRanks();
         //
         assertEq(4, ranks_.size());
-        assertEq(1, ranks_.get(0).intValue());
-        assertEq(2, ranks_.get(1).intValue());
-        assertEq(4, ranks_.get(2).intValue());
-        assertEq(3, ranks_.get(3).intValue());
+        assertEq(1, ranks_.get(0));
+        assertEq(2, ranks_.get(1));
+        assertEq(4, ranks_.get(2));
+        assertEq(3, ranks_.get(3));
     }
 
     @Test
@@ -3658,10 +3658,10 @@ public class GamePresidentTest {
         Numbers<Byte> ranks_ = g_.getNewRanks();
         //
         assertEq(4, ranks_.size());
-        assertEq(1, ranks_.get(0).intValue());
-        assertEq(2, ranks_.get(1).intValue());
-        assertEq(4, ranks_.get(2).intValue());
-        assertEq(3, ranks_.get(3).intValue());
+        assertEq(1, ranks_.get(0));
+        assertEq(2, ranks_.get(1));
+        assertEq(4, ranks_.get(2));
+        assertEq(3, ranks_.get(3));
     }
 
     @Test
@@ -3757,19 +3757,19 @@ public class GamePresidentTest {
         Numbers<Byte> ranks_ = g_.getNewRanks();
         //
         assertEq(13, ranks_.size());
-        assertEq(1, ranks_.get(0).intValue());
-        assertEq(2, ranks_.get(1).intValue());
-        assertEq(3, ranks_.get(2).intValue());
-        assertEq(4, ranks_.get(3).intValue());
-        assertEq(5, ranks_.get(4).intValue());
-        assertEq(6, ranks_.get(5).intValue());
-        assertEq(7, ranks_.get(6).intValue());
-        assertEq(8, ranks_.get(7).intValue());
-        assertEq(9, ranks_.get(8).intValue());
-        assertEq(10, ranks_.get(9).intValue());
-        assertEq(11, ranks_.get(10).intValue());
-        assertEq(12, ranks_.get(11).intValue());
-        assertEq(13, ranks_.get(12).intValue());
+        assertEq(1, ranks_.get(0));
+        assertEq(2, ranks_.get(1));
+        assertEq(3, ranks_.get(2));
+        assertEq(4, ranks_.get(3));
+        assertEq(5, ranks_.get(4));
+        assertEq(6, ranks_.get(5));
+        assertEq(7, ranks_.get(6));
+        assertEq(8, ranks_.get(7));
+        assertEq(9, ranks_.get(8));
+        assertEq(10, ranks_.get(9));
+        assertEq(11, ranks_.get(10));
+        assertEq(12, ranks_.get(11));
+        assertEq(13, ranks_.get(12));
     }
 
     static EqList<HandPresident> deal1() {

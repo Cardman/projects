@@ -1540,7 +1540,7 @@ public final class Game {
         StringList fullAccessiblePlaces_ = new StringList();
         for (Short c: accessiblePlaces_) {
             Place pl_ = map_.getPlaces().getVal(c);
-            if (inaccessiblePlaces_.containsObj(c.shortValue())) {
+            if (inaccessiblePlaces_.containsObj(c)) {
                 partiallyAccessiblePlaces_.add(pl_.getName());
             } else {
                 fullAccessiblePlaces_.add(pl_.getName());

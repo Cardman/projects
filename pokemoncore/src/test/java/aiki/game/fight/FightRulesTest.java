@@ -925,8 +925,8 @@ public class FightRulesTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         FightRound.roundThrowerMove(fight_, thrower_, diff_, _data_);
         assertTrue(fight_.getFighter(thrower_).isSuccessfulMove());
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 3).intValue());
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
         FightArtificialIntelligence.choiceForSubstituing(fight_, _data_);
         assertTrue(FightRules.substitutable(fight_, diff_, _data_));
     }
@@ -972,8 +972,8 @@ public class FightRulesTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         FightRound.roundThrowerMove(fight_, thrower_, diff_, _data_);
         assertTrue(fight_.getFighter(thrower_).isSuccessfulMove());
-        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 0).intValue());
-        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 3).intValue());
+        assertEq(1, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
+        assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 3));
         FightArtificialIntelligence.choiceForSubstituing(fight_, _data_);
         fight_.getFirstPositPlayerFighters().put((byte) 0, Fighter.BACK);
         fight_.getFirstPositPlayerFighters().put((byte) 2, (byte)1);

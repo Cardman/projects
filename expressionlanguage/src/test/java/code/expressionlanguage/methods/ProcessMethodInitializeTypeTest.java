@@ -1353,8 +1353,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
-        assertEq(1, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex","t"))).intValue());
-        assertEq(6, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex","v"))).intValue());
+        assertEq(1, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex","t"))).intStruct());
+        assertEq(6, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex","v"))).intStruct());
     }
     @Test
     public void calculate67Test() {
@@ -1468,11 +1468,11 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
     }
     private int getNumber(ContextEl _cont,String _className, String _fieldName, int _index) {
         Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
-        return ((NumberStruct)((ArrayStruct)str_).getInstance()[_index]).intValue();
+        return ((NumberStruct)((ArrayStruct)str_).getInstance()[_index]).intStruct();
     }
     private int getNumber(ContextEl _cont,String _className, String _fieldName) {
         Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
-        return ((NumberStruct)str_).intValue();
+        return ((NumberStruct)str_).intStruct();
     }
     private String getString(ContextEl _cont,String _className, String _fieldName) {
         Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));

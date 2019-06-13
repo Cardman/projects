@@ -40,7 +40,7 @@ public class PseudoFight {
         byte index_ = CustList.FIRST_INDEX;
         for (PseudoPokemonPlayer p: _pseudoPlayer.getTeam()) {
             boolean front_;
-            front_ = !Numbers.eq(actions.first().getVal(index_).byteValue(), Fighter.BACK);
+            front_ = !Numbers.eq(actions.first().getVal(index_), Fighter.BACK);
             EqList<NameLevel> copy_ = new EqList<NameLevel>();
             for (NameLevel e2_: _pseudoPlayer.getEvolutions().get(index_)) {
                 copy_.add(new NameLevel(e2_));
@@ -129,7 +129,7 @@ public class PseudoFight {
             }
             Numbers<Byte> fronts_ = new Numbers<Byte>();
             for (byte k: actions.get(indexAction_).getKeys()) {
-                if (Numbers.eq(actions.get(indexAction_).getVal(k).byteValue(), Fighter.BACK)) {
+                if (Numbers.eq(actions.get(indexAction_).getVal(k), Fighter.BACK)) {
                     continue;
                 }
                 fronts_.add(k);

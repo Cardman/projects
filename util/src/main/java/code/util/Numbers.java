@@ -227,29 +227,31 @@ public final class Numbers<T extends Number> extends CustList<T> {
         sortElts(new ComparatorNatNumber<T>());
     }
 
-    public T getMinimum(T _def) {
+    public long getMinimum(long _def) {
         if (isEmpty()) {
             return _def;
         }
-        T min_ = get(FIRST_INDEX);
+        long min_ = get(FIRST_INDEX).longValue();
         int size_ = size();
         for (int i=SECOND_INDEX;i<size_;i++) {
-            if (min_.longValue()>get(i).longValue()) {
-                min_ = get(i);
+            long cur_ = get(i).longValue();
+            if (min_> cur_) {
+                min_ = cur_;
             }
         }
         return min_;
     }
 
-    public T getMaximum(T _def) {
+    public long getMaximum(long _def) {
         if (isEmpty()) {
             return _def;
         }
-        T max_ = get(FIRST_INDEX);
+        long max_ = get(FIRST_INDEX).longValue();
         int size_ = size();
         for (int i=SECOND_INDEX;i<size_;i++) {
-            if (max_.longValue()<get(i).longValue()) {
-                max_ = get(i);
+            long cur_ = get(i).longValue();
+            if (max_< cur_) {
+                max_ = cur_;
             }
         }
         return max_;
@@ -267,12 +269,11 @@ public final class Numbers<T extends Number> extends CustList<T> {
         return indexOf(_element) != INDEX_NOT_FOUND_ELT;
     }
     public int indexOf(long _element) {
-        int index_ = FIRST_INDEX;
-        for (T e:this) {
-            if (_element == e.longValue()) {
-                return index_;
+        int s_ = size();
+        for (int i = 0; i < s_; i++) {
+            if (_element == get(i).longValue()) {
+                return i;
             }
-            index_++;
         }
         return INDEX_NOT_FOUND_ELT;
     }

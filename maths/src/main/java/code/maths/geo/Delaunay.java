@@ -924,7 +924,7 @@ public final class Delaunay {
             CustPoint first_ = next_.first();
             EqList<CustPoint> once_ = new EqList<CustPoint>();
             for (EntryCust<CustPoint, Integer> e: all_.entryList()) {
-                if (!Numbers.eq(e.getValue().intValue(), CustList.ONE_ELEMENT)) {
+                if (!Numbers.eq(e.getValue(), CustList.ONE_ELEMENT)) {
                     continue;
                 }
                 once_.add(e.getKey());

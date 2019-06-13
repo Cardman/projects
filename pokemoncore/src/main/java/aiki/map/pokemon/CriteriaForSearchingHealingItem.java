@@ -162,7 +162,7 @@ public final class CriteriaForSearchingHealingItem extends CriteriaForSearchingI
                 values_.add(healing_.getHealingAllMovesFullpp());
                 values_.removeDuplicates();
                 values_.sort();
-                if (values_.last().longValue() == 0) {
+                if (values_.last() == 0) {
                     return false;
                 }
                 for (long v: values_) {

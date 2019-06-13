@@ -1949,7 +1949,7 @@ public class FacadeGame implements WithMathFactory {
 
     public void removeTmToBuy(String _item) {
         // chosenTmForBuy.removeObj(data.getTm().getKeys(_item).first());
-        chosenTmForBuy.removeObj(data.getTmByMove(_item).first().shortValue());
+        chosenTmForBuy.removeObj(data.getTmByMove(_item).first());
     }
 
     public LgInt amountTm() {

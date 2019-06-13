@@ -74,8 +74,8 @@ public final class StringStruct extends CharSequenceStruct {
         for (int i = 0; i < len_; i++) {
             arr_[i] = ((CharStruct)argArr_[i]).getChar();
         }
-        int one_ = ((NumberStruct) _one).intValue();
-        int two_ = ((NumberStruct) _two).intValue();
+        int one_ = ((NumberStruct) _one).intStruct();
+        int two_ = ((NumberStruct) _two).intStruct();
         if (one_ < 0 || two_ < 0 || one_ > arr_.length - two_) {
             if (one_ < 0) {
                 _res.setErrorMessage(StringList.concat(Long.toString(one_),"<0"));
@@ -100,7 +100,7 @@ public final class StringStruct extends CharSequenceStruct {
         int len_ = argArr_.length;
         byte[] arr_ = new byte[len_];
         for (int i = 0; i < len_; i++) {
-            arr_[i] = ((NumberStruct)argArr_[i]).byteValue();
+            arr_[i] = ((NumberStruct)argArr_[i]).byteStruct();
         }
         String chars_ = StringList.decode(arr_);
         if (chars_ == null) {
@@ -122,10 +122,10 @@ public final class StringStruct extends CharSequenceStruct {
         int len_ = argArr_.length;
         byte[] arr_ = new byte[len_];
         for (int i = 0; i < len_; i++) {
-            arr_[i] = ((NumberStruct)argArr_[i]).byteValue();
+            arr_[i] = ((NumberStruct)argArr_[i]).byteStruct();
         }
-        int one_ = ((NumberStruct) _one).intValue();
-        int two_ = ((NumberStruct) _two).intValue();
+        int one_ = ((NumberStruct) _one).intStruct();
+        int two_ = ((NumberStruct) _two).intStruct();
         if (one_ < 0 || two_ < 0 || one_ > arr_.length - two_) {
             if (one_ < 0) {
                 _res.setErrorMessage(StringList.concat(Long.toString(one_),"<0"));
@@ -206,8 +206,8 @@ public final class StringStruct extends CharSequenceStruct {
             _res.setResult(new StringStruct(String.valueOf(arr_)));
             return;
         }
-        int one_ = ((NumberStruct)_args[0]).intValue();
-        int two_ = ((NumberStruct)_args[1]).intValue();
+        int one_ = ((NumberStruct)_args[0]).intStruct();
+        int two_ = ((NumberStruct)_args[1]).intStruct();
         if (one_ < 0 || two_ < 0 || one_ + two_ > arr_.length) {
             if (one_ < 0) {
                 _res.setErrorMessage(StringList.concat(Long.toString(one_),"<0"));
@@ -290,9 +290,9 @@ public final class StringStruct extends CharSequenceStruct {
         }
         boolean case_ = _case.getInstance();
         StringStruct other_ = (StringStruct) _other;
-        int comLen_ = _len.intValue();
-        int to_ = _toffset.intValue();
-        int po_ = _ooffset.intValue();
+        int comLen_ = _len.intStruct();
+        int to_ = _toffset.intStruct();
+        int po_ = _ooffset.intStruct();
         _res.setResult(new BooleanStruct(instance.regionMatches(case_,to_, other_.instance, po_, comLen_)));
     }
 

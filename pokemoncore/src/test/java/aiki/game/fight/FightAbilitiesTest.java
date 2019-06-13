@@ -48,7 +48,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterStatut(PEUR);
         FightAbilities.disableAllStatusByEnabledWeather(fight_, POKEMON_FOE_FIGHTER_ZERO, NULL_REF, _data_);
-        assertEq(1, fighter_.getStatusNbRound(PEUR).intValue());
+        assertEq(1, fighter_.getStatusNbRound(PEUR));
     }
 
     @Test
@@ -75,7 +75,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.affecterPseudoStatut(POKEMON_PLAYER_FIGHTER_ZERO, VAMPIGRAINE);
         FightAbilities.disableAllStatusByEnabledWeather(fight_, POKEMON_FOE_FIGHTER_ZERO, NULL_REF, _data_);
-        assertEq(1, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE, POKEMON_PLAYER_FIGHTER_ZERO)).intValue());
+        assertEq(1, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE, POKEMON_PLAYER_FIGHTER_ZERO)));
     }
 
     @Test
@@ -101,7 +101,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         fighter_.affecterStatut(PEUR);
         FightAbilities.disableAllStatusByEnabledWeather(fight_, POKEMON_FOE_FIGHTER_ZERO, ORAGE, _data_);
-        assertEq(1, fighter_.getStatusNbRound(PEUR).intValue());
+        assertEq(1, fighter_.getStatusNbRound(PEUR));
     }
 
     @Test
@@ -127,7 +127,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         fighter_.affecterStatut(PEUR);
         FightAbilities.disableAllStatusByEnabledWeather(fight_, POKEMON_FOE_FIGHTER_ZERO, NULL_REF, _data_);
-        assertEq(0, fighter_.getStatusNbRound(PEUR).intValue());
+        assertEq(0, fighter_.getStatusNbRound(PEUR));
     }
 
     @Test
@@ -153,7 +153,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         fighter_.affecterPseudoStatut(POKEMON_PLAYER_FIGHTER_ZERO, VAMPIGRAINE);
         FightAbilities.disableAllStatusByEnabledWeather(fight_, POKEMON_FOE_FIGHTER_ZERO, ZENITH, _data_);
-        assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE, POKEMON_PLAYER_FIGHTER_ZERO)).intValue());
+        assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE, POKEMON_PLAYER_FIGHTER_ZERO)));
     }
 
     @Test
@@ -179,7 +179,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).affecterStatut(PEUR);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
         FightAbilities.enableAbilityByWeather(fight_,POKEMON_FOE_FIGHTER_ZERO, _data_);
-        assertEq(1, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatusNbRound(PEUR).intValue());
+        assertEq(1, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatusNbRound(PEUR));
     }
 
     @Test
@@ -204,7 +204,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         FightInitialization.initFight(fight_, _data_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).affecterStatut(PEUR);
         FightAbilities.enableAbilityByWeather(fight_,POKEMON_FOE_FIGHTER_ZERO, _data_);
-        assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatusNbRound(PEUR).intValue());
+        assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatusNbRound(PEUR));
     }
 
     @Test
@@ -431,7 +431,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         Fight fight_ = enableAbility(HYPER_CUTTER, MULTITYPE, (byte) 1);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK, (byte) -2);
         FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, _data_);
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK).intValue());
+        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
     }
 
     @Test
@@ -440,8 +440,8 @@ public class FightAbilitiesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(PARALYSIE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED, (byte) -1);
         FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, _data_);
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPEED).intValue());
-        assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(PARALYSIE).intValue());
+        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPEED));
+        assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(PARALYSIE));
     }
 
     @Test
@@ -450,7 +450,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(PARALYSIE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).incrementRoundsStatus(PARALYSIE);
         FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, _data_);
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(PARALYSIE).intValue());
+        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(PARALYSIE));
     }
 
     @Test
@@ -458,7 +458,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         Fight fight_ = enableAbility(FEUILLE_GARDE, SECHERESSE, (byte) 2);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(PEUR);
         FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, _data_);
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(PEUR).intValue());
+        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(PEUR));
     }
 
     @Test
@@ -475,7 +475,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         Fight fight_ = enableAbility(MATINAL, MULTITYPE, (byte) 1);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(PARALYSIE);
         FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, _data_);
-        assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(PARALYSIE).intValue());
+        assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(PARALYSIE));
     }
 
     @Test
@@ -484,7 +484,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(PARALYSIE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED, (byte) 2);
         FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, _data_);
-        assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPEED).intValue());
+        assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPEED));
     }
 
     @Test
@@ -493,7 +493,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).supprimerStatut(PARALYSIE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED, (byte) -1);
         FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, _data_);
-        assertEq(-1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPEED).intValue());
+        assertEq(-1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPEED));
     }
 
     @Test
@@ -502,8 +502,8 @@ public class FightAbilitiesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED, (byte) -1);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(BRULURE);
         FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, _data_);
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK).intValue());
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPEED).intValue());
+        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
+        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPEED));
     }
 
     @Test
@@ -513,8 +513,8 @@ public class FightAbilitiesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).variationBoostStatistique(Statistic.SPEED, (byte) -1);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(BRULURE);
         FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, _data_);
-        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK).intValue());
-        assertEq(-1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPEED).intValue());
+        assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
+        assertEq(-1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPEED));
     }
 
     @Test
@@ -522,7 +522,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         Fight fight_ = enableAbility(HYPER_CUTTER, MULTITYPE, (byte) 1);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).variationBoostStatistique(Statistic.ATTACK, (byte) 2);
         FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, _data_);
-        assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK).intValue());
+        assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
     }
 
     @Test
@@ -543,7 +543,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
         Fight fight_ = enableAbility(MATINAL, MULTITYPE, (byte) 1);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(POISON_GRAVE);
         FightAbilities.enableAbility(fight_,POKEMON_PLAYER_FIGHTER_ZERO, _data_);
-        assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(POISON_GRAVE).intValue());
+        assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(POISON_GRAVE));
     }
 
     private static Fight disableAbility(String _firstAbility,String _secondAbility, byte _mult) {

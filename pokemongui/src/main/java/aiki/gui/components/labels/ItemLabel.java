@@ -43,7 +43,7 @@ public class ItemLabel extends SelectableLabel {
         widths_.add(getFontMetrics(getFont()).stringWidth(item.getItemClass()));
         widths_.add(getFontMetrics(getFont()).stringWidth(Integer.toString(item.getPrice())));
         widths_.add(getFontMetrics(getFont()).stringWidth(item.getNumber().toNumberString()));
-        setPreferredSize(new Dimension(widths_.getMaximum(1),h_));
+        setPreferredSize(new Dimension((int) widths_.getMaximum(1),h_));
     }
 
     @Override

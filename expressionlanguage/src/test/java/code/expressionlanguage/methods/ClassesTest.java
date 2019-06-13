@@ -2617,9 +2617,9 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
-        assertEq(2, ((NumberStruct)str_).intValue());
+        assertEq(2, ((NumberStruct)str_).intStruct());
         str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
-        assertEq(5, ((NumberStruct)str_).intValue());
+        assertEq(5, ((NumberStruct)str_).intStruct());
     }
     @Test
     public void calculateStaticField2Test() {
@@ -2674,7 +2674,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(1, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
-        assertEq(1, ((NumberStruct)str_).intValue());
+        assertEq(1, ((NumberStruct)str_).intStruct());
     }
     @Test
     public void calculateStaticField5Test() {
@@ -2695,9 +2695,9 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
-        assertEq(1, ((NumberStruct)str_).intValue());
+        assertEq(1, ((NumberStruct)str_).intStruct());
         str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myt"));
-        assertEq(3, ((NumberStruct)str_).intValue());
+        assertEq(3, ((NumberStruct)str_).intStruct());
     }
     @Test
     public void calculateStaticField6Test() {
@@ -2731,9 +2731,9 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
-        assertEq(127, ((NumberStruct)str_).intValue());
+        assertEq(127, ((NumberStruct)str_).intStruct());
         str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
-        assertEq(129, ((NumberStruct)str_).intValue());
+        assertEq(129, ((NumberStruct)str_).intStruct());
     }
     @Test
     public void calculateStaticField8Test() {
@@ -2747,9 +2747,9 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
-        assertEq(2, ((NumberStruct)str_).intValue());
+        assertEq(2, ((NumberStruct)str_).intStruct());
         str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
-        assertEq(5, ((NumberStruct)str_).intValue());
+        assertEq(5, ((NumberStruct)str_).intStruct());
     }
     @Test
     public void calculateStaticField9Test() {
@@ -2763,9 +2763,9 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
-        assertEq(2, ((NumberStruct)str_).intValue());
+        assertEq(2, ((NumberStruct)str_).intStruct());
         str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
-        assertEq(5, ((NumberStruct)str_).intValue());
+        assertEq(5, ((NumberStruct)str_).intStruct());
     }
     @Test
     public void calculateStaticField10Test() {
@@ -2782,7 +2782,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(1, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
-        assertEq(5, ((NumberStruct)str_).intValue());
+        assertEq(5, ((NumberStruct)str_).intStruct());
     }
     @Test
     public void calculateStaticField11Test() {
@@ -2797,9 +2797,9 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
-        assertEq(2, ((NumberStruct)str_).intValue());
+        assertEq(2, ((NumberStruct)str_).intStruct());
         str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
-        assertEq(5, ((NumberStruct)str_).intValue());
+        assertEq(5, ((NumberStruct)str_).intStruct());
     }
     @Test
     public void calculateStaticField12Test() {
@@ -2814,9 +2814,9 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
-        assertEq(1, ((NumberStruct)str_).intValue());
+        assertEq(1, ((NumberStruct)str_).intStruct());
         str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
-        assertEq(2, ((NumberStruct)str_).intValue());
+        assertEq(2, ((NumberStruct)str_).intStruct());
     }
     @Test
     public void calculateStaticField13Test() {
@@ -2860,7 +2860,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(0,((NumberStruct)str_).intValue());
+        assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
     public void calculateStaticField17Test() {
@@ -2876,7 +2876,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(0,((NumberStruct)str_).intValue());
+        assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
     public void calculateStaticField18Test() {
@@ -2892,7 +2892,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(0,((NumberStruct)str_).intValue());
+        assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
     public void calculateStaticField19Test() {
@@ -2908,7 +2908,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(0,((NumberStruct)str_).intValue());
+        assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
     public void calculateStaticField20Test() {
@@ -2924,7 +2924,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(0,((NumberStruct)str_).intValue());
+        assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
     public void calculateStaticField21Test() {
@@ -2940,7 +2940,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(0,((NumberStruct)str_).intValue());
+        assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
     public void calculateStaticField22Test() {
@@ -2956,7 +2956,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(0,((NumberStruct)str_).intValue());
+        assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
     public void calculateStaticField23Test() {
@@ -2972,7 +2972,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(0,((NumberStruct)str_).intValue());
+        assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
     public void calculateStaticField24Test() {
@@ -2988,7 +2988,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(0,((NumberStruct)str_).intValue());
+        assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
     public void calculateStaticField25Test() {
@@ -3256,7 +3256,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(-1,((NumberStruct)str_).intValue());
+        assertEq(-1,((NumberStruct)str_).intStruct());
     }
 
     @Test
@@ -3272,7 +3272,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(0,((NumberStruct)str_).intValue());
+        assertEq(0,((NumberStruct)str_).intStruct());
     }
 
     @Test
@@ -3288,7 +3288,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(0,((NumberStruct)str_).intValue());
+        assertEq(0,((NumberStruct)str_).intStruct());
     }
 
     @Test
@@ -3347,7 +3347,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(0,((NumberStruct)str_).intValue());
+        assertEq(0,((NumberStruct)str_).intStruct());
     }
 
     @Test
@@ -3364,7 +3364,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(0,((NumberStruct)str_).intValue());
+        assertEq(0,((NumberStruct)str_).intStruct());
     }
 
     @Test
@@ -3381,7 +3381,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(0,((NumberStruct)str_).intValue());
+        assertEq(0,((NumberStruct)str_).intStruct());
     }
 
     @Test
@@ -3398,7 +3398,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(0,((NumberStruct)str_).intValue());
+        assertEq(0,((NumberStruct)str_).intStruct());
     }
 
     @Test
@@ -3415,7 +3415,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(0,((NumberStruct)str_).intValue());
+        assertEq(0,((NumberStruct)str_).intStruct());
     }
 
     @Test
@@ -3432,7 +3432,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(0,((NumberStruct)str_).intValue());
+        assertEq(0,((NumberStruct)str_).intStruct());
     }
 
     @Test
@@ -3449,7 +3449,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(0,((NumberStruct)str_).intValue());
+        assertEq(0,((NumberStruct)str_).intStruct());
     }
 
     @Test
@@ -3466,7 +3466,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(0,((NumberStruct)str_).intValue());
+        assertEq(0,((NumberStruct)str_).intStruct());
     }
 
     @Test
@@ -3483,7 +3483,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(0,((NumberStruct)str_).intValue());
+        assertEq(0,((NumberStruct)str_).intStruct());
     }
 
     @Test
@@ -3499,7 +3499,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(-1,((NumberStruct)str_).intValue());
+        assertEq(-1,((NumberStruct)str_).intStruct());
     }
 
     @Test
@@ -3515,7 +3515,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(0,((NumberStruct)str_).intValue());
+        assertEq(0,((NumberStruct)str_).intStruct());
     }
 
     @Test
@@ -3531,7 +3531,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(2, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(0,((NumberStruct)str_).intValue());
+        assertEq(0,((NumberStruct)str_).intStruct());
     }
 
     @Test
@@ -3615,7 +3615,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(0,((NumberStruct)str_).intValue());
+        assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
     public void calculateStaticField66Test() {
@@ -3631,7 +3631,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(0,((NumberStruct)str_).intValue());
+        assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
     public void calculateStaticField67Test() {
@@ -3647,7 +3647,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(0,((NumberStruct)str_).intValue());
+        assertEq(0,((NumberStruct)str_).intStruct());
     }
     @Test
     public void calculateStaticField68Test() {
@@ -3990,7 +3990,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(3, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "field"));
-        assertEq(2, ((NumberStruct)str_).intValue());
+        assertEq(2, ((NumberStruct)str_).intStruct());
     }
     @Test
     public void calculateStaticField90Test() {
@@ -4150,7 +4150,7 @@ public final class ClassesTest {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(1, ctx_.getClasses().staticFieldCount());
         Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
-        assertEq(0, ((NumberStruct)str_).intValue());
+        assertEq(0, ((NumberStruct)str_).intStruct());
     }
     @Test
     public void calculateStaticField101Test() {
@@ -4789,7 +4789,7 @@ public final class ClassesTest {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(1, ctx_.getClasses().staticFieldCount());
-        assertEq(Long.MIN_VALUE, ((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).longValue());
+        assertEq(Long.MIN_VALUE, ((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).longStruct());
     }
     @Test
     public void calculateStaticField153Test() {
@@ -4802,7 +4802,7 @@ public final class ClassesTest {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(1, ctx_.getClasses().staticFieldCount());
-        assertEq(Long.MIN_VALUE, ((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).longValue());
+        assertEq(Long.MIN_VALUE, ((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).longStruct());
     }
     @Test
     public void calculateStaticField154Test() {
@@ -5007,7 +5007,7 @@ public final class ClassesTest {
         ContextEl ctx_ = contextElSingleDot();
         Classes.validateAll(files_,ctx_);
         assertTrue(ctx_.getClasses().isEmptyErrors());
-        assertEq(2,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intValue());
+        assertEq(2,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
     }
     @Test
     public void calculateStaticField175Test() {
@@ -5030,7 +5030,7 @@ public final class ClassesTest {
         ContextEl ctx_ = contextElSingleDot();
         Classes.validateAll(files_,ctx_);
         assertTrue(ctx_.getClasses().isEmptyErrors());
-        assertEq(2,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intValue());
+        assertEq(2,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
     }
     @Test
     public void calculateStaticField176Test() {
@@ -5053,7 +5053,7 @@ public final class ClassesTest {
         ContextEl ctx_ = contextElSingleDot();
         Classes.validateAll(files_,ctx_);
         assertTrue(ctx_.getClasses().isEmptyErrors());
-        assertEq(1,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intValue());
+        assertEq(1,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
     }
     @Test
     public void calculateStaticField177Test() {
@@ -5073,7 +5073,7 @@ public final class ClassesTest {
         ContextEl ctx_ = contextElSingleDot();
         Classes.validateAll(files_,ctx_);
         assertTrue(ctx_.getClasses().isEmptyErrors());
-        assertEq(3,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intValue());
+        assertEq(3,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
     }
     @Test
     public void calculateStaticField178Test() {
@@ -5096,7 +5096,7 @@ public final class ClassesTest {
         ContextEl ctx_ = contextElSingleDot();
         Classes.validateAll(files_,ctx_);
         assertTrue(ctx_.getClasses().isEmptyErrors());
-        assertEq(2,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intValue());
+        assertEq(2,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
     }
     @Test
     public void calculateStaticField179Test() {
@@ -5119,7 +5119,7 @@ public final class ClassesTest {
         ContextEl ctx_ = contextElSingleDot();
         Classes.validateAll(files_,ctx_);
         assertTrue(ctx_.getClasses().isEmptyErrors());
-        assertEq(2,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intValue());
+        assertEq(2,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
     }
     @Test
     public void calculateStaticField180Test() {
@@ -5142,7 +5142,7 @@ public final class ClassesTest {
         ContextEl ctx_ = contextElSingleDot();
         Classes.validateAll(files_,ctx_);
         assertTrue(ctx_.getClasses().isEmptyErrors());
-        assertEq(1,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intValue());
+        assertEq(1,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
     }
     @Test
     public void calculateStaticField181Test() {
@@ -5162,7 +5162,7 @@ public final class ClassesTest {
         ContextEl ctx_ = contextElSingleDot();
         Classes.validateAll(files_,ctx_);
         assertTrue(ctx_.getClasses().isEmptyErrors());
-        assertEq(3,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intValue());
+        assertEq(3,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
     }
     @Test
     public void calculateStaticField182Test() {

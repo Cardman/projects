@@ -86,8 +86,8 @@ public class TrickPresidentTest {
         tr_.ajouter(h_, (byte) 1);
         Numbers<Integer> indexes_ = tr_.getPlayedCardsIndexes((byte) 1, (byte) 3);
         assertEq(2, indexes_.size());
-        assertEq(0, indexes_.get(0).intValue());
-        assertEq(3, indexes_.get(1).intValue());
+        assertEq(0, indexes_.get(0));
+        assertEq(3, indexes_.get(1));
     }
 
 
@@ -109,7 +109,7 @@ public class TrickPresidentTest {
         tr_.ajouter(h_, (byte) 1);
         Numbers<Integer> indexes_ = tr_.getPlayedCardsIndexes((byte) 2, (byte) 3);
         assertEq(1, indexes_.size());
-        assertEq(1, indexes_.get(0).intValue());
+        assertEq(1, indexes_.get(0));
     }
 
     @Test

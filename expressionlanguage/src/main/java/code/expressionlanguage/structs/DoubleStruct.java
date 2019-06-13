@@ -16,32 +16,32 @@ public final class DoubleStruct extends NumberStruct {
     }
 
     @Override
-    public double doubleValue() {
+    public double doubleStruct() {
         return value;
     }
 
     @Override
-    public float floatValue() {
+    public float floatStruct() {
         return (float) value;
     }
 
     @Override
-    public long longValue() {
+    public long longStruct() {
         return (long) value;
     }
 
     @Override
-    public int intValue() {
+    public int intStruct() {
         return (int) value;
     }
 
     @Override
-    public short shortValue() {
+    public short shortStruct() {
         return (short) value;
     }
 
     @Override
-    public byte byteValue() {
+    public byte byteStruct() {
         return (byte) value;
     }
 

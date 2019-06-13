@@ -1277,14 +1277,14 @@ public class FightSimulation {
                 CustList<KeyFightRound> orderedFronts_;
                 orderedFronts_ = new CustList<KeyFightRound>();
                 for (byte k: currentActions_.getKeys()) {
-                    if (!Numbers.eq(currentActions_.getVal(k).byteValue(), Fighter.BACK)) {
+                    if (!Numbers.eq(currentActions_.getVal(k), Fighter.BACK)) {
                         orderedFronts_.add(new KeyFightRound(currentActions_.getVal(k),k));
                     }
                 }
                 NumberMap<Byte,Byte> nextActions_ = frontFighters.get(f).get(i);
                 nextFront_ = new Numbers<Byte>();
                 for (byte k: nextActions_.getKeys()) {
-                    if (!Numbers.eq(nextActions_.getVal(k).byteValue(), Fighter.BACK)) {
+                    if (!Numbers.eq(nextActions_.getVal(k), Fighter.BACK)) {
                         nextFront_.add(k);
                     }
                 }

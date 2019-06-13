@@ -71,12 +71,12 @@ public class FightSimulationTest extends InitializationDataBase {
 //        assertEq(PISTOLET_A_O, foeNumbers_.last().last().getMoves().first());
         mult_ = fightSimulation_.getMult();
         assertEq(1, mult_.size());
-        assertEq(1, mult_.get(0).intValue());
-//        assertEq(1, mult_.get(1).intValue());
+        assertEq(1, mult_.get(0));
+//        assertEq(1, mult_.get(1));
         maxActions_ = fightSimulation_.getMaxActions();
         assertEq(1, maxActions_.size());
-        assertEq(1, maxActions_.get(0).intValue());
-//        assertEq(1, maxActions_.get(1).intValue());
+        assertEq(1, maxActions_.get(0));
+//        assertEq(1, maxActions_.get(1));
         objects_ = fightSimulation_.getItems();
         assertEq(1, objects_.size());
         assertEq(0, objects_.get(0).size());
@@ -122,10 +122,10 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(JACKPOT, foeNumbers_.first().last().getMoves().first());
         mult_ = fightSimulation_.getMult();
         assertEq(1, mult_.size());
-        assertEq(1, mult_.get(0).intValue());
+        assertEq(1, mult_.get(0));
         maxActions_ = fightSimulation_.getMaxActions();
         assertEq(1, maxActions_.size());
-        assertEq(1, maxActions_.get(0).intValue());
+        assertEq(1, maxActions_.get(0));
         objects_ = fightSimulation_.getItems();
         assertEq(1, objects_.size());
         assertEq(0, objects_.get(0).size());
@@ -166,10 +166,10 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(JACKPOT, foeNumbers_.first().last().getMoves().first());
         mult_ = fightSimulation_.getMult();
         assertEq(1, mult_.size());
-        assertEq(2, mult_.get(0).intValue());
+        assertEq(2, mult_.get(0));
         maxActions_ = fightSimulation_.getMaxActions();
         assertEq(1, maxActions_.size());
-        assertEq(1, maxActions_.get(0).intValue());
+        assertEq(1, maxActions_.get(0));
         objects_ = fightSimulation_.getItems();
         assertEq(1, objects_.size());
         assertEq(0, objects_.get(0).size());
@@ -223,10 +223,10 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(JACKPOT, foeNumbers_.first().last().getMoves().first());
         mult_ = fightSimulation_.getMult();
         assertEq(1, mult_.size());
-        assertEq(1, mult_.get(0).intValue());
+        assertEq(1, mult_.get(0));
         maxActions_ = fightSimulation_.getMaxActions();
         assertEq(1, maxActions_.size());
-        assertEq(1, maxActions_.get(0).intValue());
+        assertEq(1, maxActions_.get(0));
         objects_ = fightSimulation_.getItems();
         assertEq(1, objects_.size());
         assertEq(0, objects_.get(0).size());
@@ -267,10 +267,10 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(JACKPOT, foeNumbers_.first().last().getMoves().first());
         mult_ = fightSimulation_.getMult();
         assertEq(1, mult_.size());
-        assertEq(1, mult_.get(0).intValue());
+        assertEq(1, mult_.get(0));
         maxActions_ = fightSimulation_.getMaxActions();
         assertEq(1, maxActions_.size());
-        assertEq(1, maxActions_.get(0).intValue());
+        assertEq(1, maxActions_.get(0));
         objects_ = fightSimulation_.getItems();
         assertEq(1, objects_.size());
         assertEq(0, objects_.get(0).size());
@@ -311,10 +311,10 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(JACKPOT, foeNumbers_.first().last().getMoves().first());
         mult_ = fightSimulation_.getMult();
         assertEq(1, mult_.size());
-        assertEq(1, mult_.get(0).intValue());
+        assertEq(1, mult_.get(0));
         maxActions_ = fightSimulation_.getMaxActions();
         assertEq(1, maxActions_.size());
-        assertEq(1, maxActions_.get(0).intValue());
+        assertEq(1, maxActions_.get(0));
         objects_ = fightSimulation_.getItems();
         assertEq(1, objects_.size());
         assertEq(0, objects_.get(0).size());
@@ -368,12 +368,12 @@ public class FightSimulationTest extends InitializationDataBase {
 //        assertEq(PISTOLET_A_O, foeNumbers_.last().last().getMoves().first());
         mult_ = fightSimulation_.getMult();
         assertEq(1, mult_.size());
-        assertEq(1, mult_.get(0).intValue());
-//        assertEq(1, mult_.get(1).intValue());
+        assertEq(1, mult_.get(0));
+//        assertEq(1, mult_.get(1));
         maxActions_ = fightSimulation_.getMaxActions();
         assertEq(1, maxActions_.size());
-        assertEq(1, maxActions_.get(0).intValue());
-//        assertEq(1, maxActions_.get(1).intValue());
+        assertEq(1, maxActions_.get(0));
+//        assertEq(1, maxActions_.get(1));
         objects_ = fightSimulation_.getItems();
         assertEq(1, objects_.size());
         assertEq(0, objects_.get(0).size());
@@ -417,10 +417,10 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(CHARGE, foeNumbers_.first().first().getMoves().first());
         mult_ = fightSimulation_.getMult();
         assertEq(1, mult_.size());
-        assertEq(1, mult_.get(0).intValue());
+        assertEq(1, mult_.get(0));
         maxActions_ = fightSimulation_.getMaxActions();
         assertEq(1, maxActions_.size());
-        assertEq(1, maxActions_.get(0).intValue());
+        assertEq(1, maxActions_.get(0));
         objects_ = fightSimulation_.getItems();
         assertEq(1, objects_.size());
         assertEq(0, objects_.get(0).size());
@@ -473,10 +473,10 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(CHARGE, foeNumbers_.first().first().getMoves().first());
         mult_ = fightSimulation_.getMult();
         assertEq(1, mult_.size());
-        assertEq(2, mult_.get(0).intValue());
+        assertEq(2, mult_.get(0));
         maxActions_ = fightSimulation_.getMaxActions();
         assertEq(1, maxActions_.size());
-        assertEq(1, maxActions_.get(0).intValue());
+        assertEq(1, maxActions_.get(0));
         objects_ = fightSimulation_.getItems();
         assertEq(1, objects_.size());
         assertEq(0, objects_.get(0).size());
@@ -528,12 +528,12 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(PISTOLET_A_O, foeNumbers_.last().last().getMoves().first());
         mult_ = fightSimulation_.getMult();
         assertEq(2, mult_.size());
-        assertEq(1, mult_.get(0).intValue());
-        assertEq(1, mult_.get(1).intValue());
+        assertEq(1, mult_.get(0));
+        assertEq(1, mult_.get(1));
         maxActions_ = fightSimulation_.getMaxActions();
         assertEq(2, maxActions_.size());
-        assertEq(1, maxActions_.get(0).intValue());
-        assertEq(1, maxActions_.get(1).intValue());
+        assertEq(1, maxActions_.get(0));
+        assertEq(1, maxActions_.get(1));
         objects_ = fightSimulation_.getItems();
         assertEq(2, objects_.size());
         assertEq(0, objects_.get(0).size());
@@ -573,10 +573,10 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(JACKPOT, foeNumbers_.first().last().getMoves().first());
         mult_ = fightSimulation_.getMult();
         assertEq(1, mult_.size());
-        assertEq(1, mult_.get(0).intValue());
+        assertEq(1, mult_.get(0));
         maxActions_ = fightSimulation_.getMaxActions();
         assertEq(1, maxActions_.size());
-        assertEq(1, maxActions_.get(0).intValue());
+        assertEq(1, maxActions_.get(0));
         objects_ = fightSimulation_.getItems();
         assertEq(1, objects_.size());
         assertEq(0, objects_.get(0).size());
@@ -614,10 +614,10 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(JACKPOT, foeNumbers_.first().last().getMoves().first());
         mult_ = fightSimulation_.getMult();
         assertEq(1, mult_.size());
-        assertEq(2, mult_.get(0).intValue());
+        assertEq(2, mult_.get(0));
         maxActions_ = fightSimulation_.getMaxActions();
         assertEq(1, maxActions_.size());
-        assertEq(1, maxActions_.get(0).intValue());
+        assertEq(1, maxActions_.get(0));
         objects_ = fightSimulation_.getItems();
         assertEq(1, objects_.size());
         assertEq(0, objects_.get(0).size());
@@ -655,10 +655,10 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(JACKPOT, foeNumbers_.first().last().getMoves().first());
         mult_ = fightSimulation_.getMult();
         assertEq(1, mult_.size());
-        assertEq(1, mult_.get(0).intValue());
+        assertEq(1, mult_.get(0));
         maxActions_ = fightSimulation_.getMaxActions();
         assertEq(1, maxActions_.size());
-        assertEq(1, maxActions_.get(0).intValue());
+        assertEq(1, maxActions_.get(0));
         objects_ = fightSimulation_.getItems();
         assertEq(1, objects_.size());
         assertEq(0, objects_.get(0).size());
@@ -696,10 +696,10 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(JACKPOT, foeNumbers_.first().last().getMoves().first());
         mult_ = fightSimulation_.getMult();
         assertEq(1, mult_.size());
-        assertEq(1, mult_.get(0).intValue());
+        assertEq(1, mult_.get(0));
         maxActions_ = fightSimulation_.getMaxActions();
         assertEq(1, maxActions_.size());
-        assertEq(1, maxActions_.get(0).intValue());
+        assertEq(1, maxActions_.get(0));
         objects_ = fightSimulation_.getItems();
         assertEq(1, objects_.size());
         assertEq(0, objects_.get(0).size());
@@ -737,10 +737,10 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(JACKPOT, foeNumbers_.first().last().getMoves().first());
         mult_ = fightSimulation_.getMult();
         assertEq(1, mult_.size());
-        assertEq(1, mult_.get(0).intValue());
+        assertEq(1, mult_.get(0));
         maxActions_ = fightSimulation_.getMaxActions();
         assertEq(1, maxActions_.size());
-        assertEq(1, maxActions_.get(0).intValue());
+        assertEq(1, maxActions_.get(0));
         objects_ = fightSimulation_.getItems();
         assertEq(1, objects_.size());
         assertEq(0, objects_.get(0).size());
@@ -1084,7 +1084,7 @@ public class FightSimulationTest extends InitializationDataBase {
         list_ = fightSimulation_.getFirstNextEvolutions(_data_);
         assertEq(1, list_.size());
         assertEq(1, list_.first().size());
-        assertEq(25, list_.first().getVal(TETARTE).intValue());
+        assertEq(25, list_.first().getVal(TETARTE));
     }
 
     @Test
@@ -1129,8 +1129,8 @@ public class FightSimulationTest extends InitializationDataBase {
         available_ = fightSimulation_.getAvailableEvolutions();
         assertEq(1, available_.size());
         assertEq(2, available_.first().size());
-        assertEq(26, available_.first().getVal(TARTARD).intValue());
-        assertEq(26, available_.first().getVal(TARPAUD).intValue());
+        assertEq(26, available_.first().getVal(TARTARD));
+        assertEq(26, available_.first().getVal(TARPAUD));
     }
 
     @Test
@@ -1155,7 +1155,7 @@ public class FightSimulationTest extends InitializationDataBase {
         available_ = fightSimulation_.getAvailableEvolutions();
         assertEq(1, available_.size());
         assertEq(1, available_.first().size());
-        assertEq(25, available_.first().getVal(TETARTE).intValue());
+        assertEq(25, available_.first().getVal(TETARTE));
     }
 
     @Test
@@ -1239,7 +1239,7 @@ public class FightSimulationTest extends InitializationDataBase {
         available_ = fightSimulation_.getAvailableEvolutions();
         assertEq(1, available_.size());
         assertEq(1, available_.first().size());
-        assertEq(25, available_.first().getVal(TETARTE).intValue());
+        assertEq(25, available_.first().getVal(TETARTE));
     }
 
     @Test
@@ -1268,8 +1268,8 @@ public class FightSimulationTest extends InitializationDataBase {
         available_ = fightSimulation_.getAvailableEvolutions();
         assertEq(1, available_.size());
         assertEq(2, available_.first().size());
-        assertEq(26, available_.first().getVal(TARTARD).intValue());
-        assertEq(26, available_.first().getVal(TARPAUD).intValue());
+        assertEq(26, available_.first().getVal(TARTARD));
+        assertEq(26, available_.first().getVal(TARPAUD));
     }
 
     @Test
@@ -1295,7 +1295,7 @@ public class FightSimulationTest extends InitializationDataBase {
         available_ = fightSimulation_.getAvailableEvolutions();
         assertEq(1, available_.size());
         assertEq(1, available_.first().size());
-        assertEq(25, available_.first().getVal(TETARTE).intValue());
+        assertEq(25, available_.first().getVal(TETARTE));
     }
 
     @Test
@@ -1324,8 +1324,8 @@ public class FightSimulationTest extends InitializationDataBase {
         available_ = fightSimulation_.getAvailableEvolutions();
         assertEq(1, available_.size());
         assertEq(2, available_.first().size());
-        assertEq(26, available_.first().getVal(TARTARD).intValue());
-        assertEq(26, available_.first().getVal(TARPAUD).intValue());
+        assertEq(26, available_.first().getVal(TARTARD));
+        assertEq(26, available_.first().getVal(TARPAUD));
     }
 
     @Test
@@ -1356,14 +1356,14 @@ public class FightSimulationTest extends InitializationDataBase {
         assertEq(2, list_.size());
         assertEq(2, list_.first().size());
         assertEq(1, list_.first().first().size());
-        assertEq(Fighter.BACK, list_.first().first().getVal((byte) 0).intValue());
+        assertEq(Fighter.BACK, list_.first().first().getVal((byte) 0));
         assertEq(1, list_.first().last().size());
-        assertEq(Fighter.BACK, list_.first().last().getVal((byte) 0).intValue());
+        assertEq(Fighter.BACK, list_.first().last().getVal((byte) 0));
         assertEq(2, list_.last().size());
         assertEq(1, list_.last().first().size());
-        assertEq(Fighter.BACK, list_.last().first().getVal((byte) 0).intValue());
+        assertEq(Fighter.BACK, list_.last().first().getVal((byte) 0));
         assertEq(1, list_.last().last().size());
-        assertEq(Fighter.BACK, list_.last().last().getVal((byte) 0).intValue());
+        assertEq(Fighter.BACK, list_.last().last().getVal((byte) 0));
     }
 
     @Test
@@ -1626,12 +1626,12 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.getFrontFighters().last().last().put((byte)0, Fighter.BACK);
         Numbers<Byte> indexes_ = fightSimulation_.indexesFight((byte) 0);
         assertEq(2, indexes_.size());
-        assertEq(1, indexes_.get(0).intValue());
-        assertEq(0, indexes_.get(1).intValue());
+        assertEq(1, indexes_.get(0));
+        assertEq(0, indexes_.get(1));
         indexes_ = fightSimulation_.indexesFight((byte) 1);
         assertEq(2, indexes_.size());
-        assertEq(0, indexes_.get(0).intValue());
-        assertEq(1, indexes_.get(1).intValue());
+        assertEq(0, indexes_.get(0));
+        assertEq(1, indexes_.get(1));
     }
 
     @Test
@@ -1668,14 +1668,14 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.getFrontFighters().last().last().put((byte)2, Fighter.BACK);
         Numbers<Byte> indexes_ = fightSimulation_.indexesFight((byte) 0);
         assertEq(3, indexes_.size());
-        assertEq(2, indexes_.get(0).intValue());
-        assertEq(0, indexes_.get(1).intValue());
-        assertEq(1, indexes_.get(2).intValue());
+        assertEq(2, indexes_.get(0));
+        assertEq(0, indexes_.get(1));
+        assertEq(1, indexes_.get(2));
         indexes_ = fightSimulation_.indexesFight((byte) 1);
         assertEq(3, indexes_.size());
-        assertEq(1, indexes_.get(0).intValue());
-        assertEq(0, indexes_.get(1).intValue());
-        assertEq(2, indexes_.get(2).intValue());
+        assertEq(1, indexes_.get(0));
+        assertEq(0, indexes_.get(1));
+        assertEq(2, indexes_.get(2));
     }
 
     @Test
@@ -1719,14 +1719,14 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.getFrontFighters().last().last().put((byte)1, Fighter.BACK);
         Numbers<Byte> indexes_ = fightSimulation_.indexesFight((byte) 0);
         assertEq(3, indexes_.size());
-        assertEq(0, indexes_.get(0).intValue());
-        assertEq(1, indexes_.get(1).intValue());
-        assertEq(2, indexes_.get(2).intValue());
+        assertEq(0, indexes_.get(0));
+        assertEq(1, indexes_.get(1));
+        assertEq(2, indexes_.get(2));
         indexes_ = fightSimulation_.indexesFight((byte) 1);
         assertEq(3, indexes_.size());
-        assertEq(1, indexes_.get(0).intValue());
-        assertEq(0, indexes_.get(1).intValue());
-        assertEq(2, indexes_.get(2).intValue());
+        assertEq(1, indexes_.get(0));
+        assertEq(0, indexes_.get(1));
+        assertEq(2, indexes_.get(2));
     }
 
     @Test
@@ -1770,14 +1770,14 @@ public class FightSimulationTest extends InitializationDataBase {
 //        fightSimulation_.getFrontFighters().last().last().put((byte)1, Fighter.BACK);
         Numbers<Byte> indexes_ = fightSimulation_.indexesFight((byte) 0);
         assertEq(1, indexes_.size());
-        assertEq(0, indexes_.get(0).intValue());
-//        assertEq(1, indexes_.get(1).intValue());
-//        assertEq(2, indexes_.get(2).intValue());
+        assertEq(0, indexes_.get(0));
+//        assertEq(1, indexes_.get(1));
+//        assertEq(2, indexes_.get(2));
 //        indexes_ = fightSimulation_.indexesFight((byte) 1);
 //        assertEq(3, indexes_.size());
-//        assertEq(1, indexes_.get(0).intValue());
-//        assertEq(0, indexes_.get(1).intValue());
-//        assertEq(2, indexes_.get(2).intValue());
+//        assertEq(1, indexes_.get(0));
+//        assertEq(0, indexes_.get(1));
+//        assertEq(2, indexes_.get(2));
     }
 
     @Test
@@ -1854,9 +1854,9 @@ public class FightSimulationTest extends InitializationDataBase {
 //        fightSimulation_.getFrontFighters().last().last().put((byte)1, Fighter.BACK);
         fightSimulation_.prepareMovesToBeLearntOneFight(_data_);
         assertEq(3, fightSimulation_.getCurrentFights().size());
-        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte)0).intValue());
-        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte)1).intValue());
-        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte)2).intValue());
+        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte)0));
+        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte)1));
+        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte)2));
 //        assertEq(3, fightSimulation_.getCurrentFights().getKeys((byte) 0).size());
         StringList abilities_;
 //        StringList moves_;
@@ -2183,9 +2183,9 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.getFrontFighters().last().last().put((byte)1, Fighter.BACK);
         fightSimulation_.prepareMovesToBeLearnt(_data_);
         assertEq(3, fightSimulation_.getCurrentFights().size());
-        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte)0).intValue());
-        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte)1).intValue());
-        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte)2).intValue());
+        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte)0));
+        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte)1));
+        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte)2));
 //        assertEq(3, fightSimulation_.getCurrentFights().getKeys((byte) 0).size());
         StringList abilities_;
         StringList moves_;
@@ -2462,9 +2462,9 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.getFrontFighters().last().last().put((byte)1, Fighter.BACK);
         fightSimulation_.prepareMovesToBeLearnt(_data_);
         assertEq(3, fightSimulation_.getCurrentFights().size());
-        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte)0).intValue());
-        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte)1).intValue());
-        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte)2).intValue());
+        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte)0));
+        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte)1));
+        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte)2));
 //        assertEq(3, fightSimulation_.getCurrentFights().getKeys((byte) 0).size());
         StringList abilities_;
         StringList moves_;
@@ -3557,7 +3557,7 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.deleteMove(0, CHARGE);
         fightSimulation_.addMove(0, MEGAPHONE);
         fightSimulation_.validateMoves(0, _data_);
-        assertEq(1, fightSimulation_.getCurrentFights().getVal((byte) 0).intValue());
+        assertEq(1, fightSimulation_.getCurrentFights().getVal((byte) 0));
         assertEq(1, fightSimulation_.getAvailableMoves().getVal((byte) 0).getKey().getFight());
         assertEq(0, fightSimulation_.getAvailableMoves().getVal((byte) 0).getKey().getRound());
         assertEq(4, fightSimulation_.getAvailableMoves().getVal((byte) 0).getMoves().size());
@@ -3620,7 +3620,7 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.getFrontFighters().last().last().put((byte)1, Fighter.BACK);
         fightSimulation_.prepareMovesToBeLearnt(_data_);
         fightSimulation_.validateMoves(1, _data_);
-        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte) 1).intValue());
+        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte) 1));
         assertEq(0, fightSimulation_.getAvailableMoves().getVal((byte) 1).getKey().getFight());
         assertEq(1, fightSimulation_.getAvailableMoves().getVal((byte) 1).getKey().getRound());
         assertEq(1, fightSimulation_.getAvailableMoves().getVal((byte) 1).getMoves().size());
@@ -3678,7 +3678,7 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.prepareMovesToBeLearnt(_data_);
         fightSimulation_.validateMoves(1, _data_);
         fightSimulation_.validateMoves(1, _data_);
-        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte) 1).intValue());
+        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte) 1));
         assertEq(0, fightSimulation_.getAvailableMoves().getVal((byte) 1).getKey().getFight());
         assertEq(1, fightSimulation_.getAvailableMoves().getVal((byte) 1).getKey().getRound());
         assertEq(1, fightSimulation_.getAvailableMoves().getVal((byte) 1).getMoves().size());
@@ -3748,7 +3748,7 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.validateMoves(1, _data_);
         fightSimulation_.validateMoves(1, _data_);
         fightSimulation_.addMoveBetweenFights(1, 0, BULLES_D_O);
-        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte) 1).intValue());
+        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte) 1));
         assertEq(0, fightSimulation_.getAvailableMoves().getVal((byte) 1).getKey().getFight());
         assertEq(1, fightSimulation_.getAvailableMoves().getVal((byte) 1).getKey().getRound());
         assertEq(1, fightSimulation_.getAvailableMoves().getVal((byte) 1).getMoves().size());
@@ -3820,7 +3820,7 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.validateMoves(1, _data_);
         fightSimulation_.addMoveBetweenFights(1, 0, BULLES_D_O);
         fightSimulation_.deleteMoveBetweenFights(1, 0, CHARGE);
-        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte) 1).intValue());
+        assertEq(0, fightSimulation_.getCurrentFights().getVal((byte) 1));
         assertEq(0, fightSimulation_.getAvailableMoves().getVal((byte) 1).getKey().getFight());
         assertEq(1, fightSimulation_.getAvailableMoves().getVal((byte) 1).getKey().getRound());
         assertEq(1, fightSimulation_.getAvailableMoves().getVal((byte) 1).getMoves().size());
@@ -3893,7 +3893,7 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.addMoveBetweenFights(1, 0, SACRIFICE);
         fightSimulation_.addMoveBetweenFights(1, 0, TORGNOLES);
         fightSimulation_.validateMoves(1, _data_);
-        assertEq(1, fightSimulation_.getCurrentFights().getVal((byte) 1).intValue());
+        assertEq(1, fightSimulation_.getCurrentFights().getVal((byte) 1));
         assertEq(1, fightSimulation_.getAvailableMoves().getVal((byte) 1).getKey().getFight());
         assertEq(0, fightSimulation_.getAvailableMoves().getVal((byte) 1).getKey().getRound());
         assertEq(6, fightSimulation_.getAvailableMoves().getVal((byte) 1).getMoves().size());

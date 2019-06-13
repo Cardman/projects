@@ -4923,7 +4923,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         String el_ = "1==0";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         assertEq(1, d_.getAllowedOperatorsIndexes().size());
-        assertEq(1, d_.getAllowedOperatorsIndexes().first().intValue());
+        assertEq(1, d_.getAllowedOperatorsIndexes().first());
     }
     @Test
     public void checkSyntaxDelimiters1Test() {
@@ -4932,8 +4932,8 @@ public final class ElResolverTest extends ProcessMethodCommon{
         String el_ = "{6*('\\u9fcb'+8)}";
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}');
         assertEq(2, d_.getDelStringsChars().size());
-        assertEq(4, d_.getDelStringsChars().first().intValue());
-        assertEq(11, d_.getDelStringsChars().last().intValue());
+        assertEq(4, d_.getDelStringsChars().first());
+        assertEq(11, d_.getDelStringsChars().last());
         assertEq(1, d_.getIndexBegin());
         assertEq(14, d_.getIndexEnd());
     }
@@ -4945,8 +4945,8 @@ public final class ElResolverTest extends ProcessMethodCommon{
         String el_ = "{6*('\\u9fcb'+8)}";
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}');
         assertEq(2, d_.getDelStringsChars().size());
-        assertEq(4, d_.getDelStringsChars().first().intValue());
-        assertEq(11, d_.getDelStringsChars().last().intValue());
+        assertEq(4, d_.getDelStringsChars().first());
+        assertEq(11, d_.getDelStringsChars().last());
         assertEq(1, d_.getIndexBegin());
         assertEq(14, d_.getIndexEnd());
     }
@@ -4958,8 +4958,8 @@ public final class ElResolverTest extends ProcessMethodCommon{
         String el_ = "{6*('`'+8)}";
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}');
         assertEq(2, d_.getDelStringsChars().size());
-        assertEq(4, d_.getDelStringsChars().first().intValue());
-        assertEq(6, d_.getDelStringsChars().last().intValue());
+        assertEq(4, d_.getDelStringsChars().first());
+        assertEq(6, d_.getDelStringsChars().last());
         assertEq(1, d_.getIndexBegin());
         assertEq(9, d_.getIndexEnd());
     }
@@ -4971,8 +4971,8 @@ public final class ElResolverTest extends ProcessMethodCommon{
         String el_ = "{6*('}'+8)}";
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}');
         assertEq(2, d_.getDelStringsChars().size());
-        assertEq(4, d_.getDelStringsChars().first().intValue());
-        assertEq(6, d_.getDelStringsChars().last().intValue());
+        assertEq(4, d_.getDelStringsChars().first());
+        assertEq(6, d_.getDelStringsChars().last());
         assertEq(1, d_.getIndexBegin());
         assertEq(9, d_.getIndexEnd());
     }
@@ -4984,8 +4984,8 @@ public final class ElResolverTest extends ProcessMethodCommon{
         String el_ = " {6*('\\u9fcb'+8)}";
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 2, '{', '}');
         assertEq(2, d_.getDelStringsChars().size());
-        assertEq(5, d_.getDelStringsChars().first().intValue());
-        assertEq(12, d_.getDelStringsChars().last().intValue());
+        assertEq(5, d_.getDelStringsChars().first());
+        assertEq(12, d_.getDelStringsChars().last());
         assertEq(2, d_.getIndexBegin());
         assertEq(15, d_.getIndexEnd());
     }
@@ -4997,8 +4997,8 @@ public final class ElResolverTest extends ProcessMethodCommon{
         String el_ = " {6*(\"//\"+8)}";
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 2, '{', '}');
         assertEq(2, d_.getDelStringsChars().size());
-        assertEq(5, d_.getDelStringsChars().first().intValue());
-        assertEq(8, d_.getDelStringsChars().last().intValue());
+        assertEq(5, d_.getDelStringsChars().first());
+        assertEq(8, d_.getDelStringsChars().last());
         assertEq(2, d_.getIndexBegin());
         assertEq(11, d_.getIndexEnd());
     }
@@ -5010,9 +5010,9 @@ public final class ElResolverTest extends ProcessMethodCommon{
         String el_ = " {$new $int[]\\{1i,3i\\}}";
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 2, '{', '}');
         assertEq(3, d_.getAllowedOperatorsIndexes().size());
-        assertEq(14, d_.getAllowedOperatorsIndexes().first().intValue());
-        assertEq(17, d_.getAllowedOperatorsIndexes().get(1).intValue());
-        assertEq(21, d_.getAllowedOperatorsIndexes().last().intValue());
+        assertEq(14, d_.getAllowedOperatorsIndexes().first());
+        assertEq(17, d_.getAllowedOperatorsIndexes().get(1));
+        assertEq(21, d_.getAllowedOperatorsIndexes().last());
         assertEq(2, d_.getIndexBegin());
         assertEq(21, d_.getIndexEnd());
     }
@@ -5044,8 +5044,8 @@ public final class ElResolverTest extends ProcessMethodCommon{
         String el_ = "{6*(`string`+8)}";
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}');
         assertEq(2, d_.getDelStringsChars().size());
-        assertEq(4, d_.getDelStringsChars().first().intValue());
-        assertEq(11, d_.getDelStringsChars().last().intValue());
+        assertEq(4, d_.getDelStringsChars().first());
+        assertEq(11, d_.getDelStringsChars().last());
         assertEq(1, d_.getIndexBegin());
         assertEq(14, d_.getIndexEnd());
     }
@@ -5056,8 +5056,8 @@ public final class ElResolverTest extends ProcessMethodCommon{
         String el_ = "{6*(`string``after`+8)}";
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}');
         assertEq(2, d_.getDelStringsChars().size());
-        assertEq(4, d_.getDelStringsChars().first().intValue());
-        assertEq(18, d_.getDelStringsChars().last().intValue());
+        assertEq(4, d_.getDelStringsChars().first());
+        assertEq(18, d_.getDelStringsChars().last());
         assertEq(1, d_.getIndexBegin());
         assertEq(21, d_.getIndexEnd());
     }

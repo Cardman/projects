@@ -73,7 +73,7 @@ public class PokemonLabel extends SelectableLabel {
         Numbers<Integer> widths_ = new Numbers<Integer>();
         widths_.add(getFontMetrics(getFont()).stringWidth(StringList.concat(Integer.toString(pokemon.getLevel()),SPACE)));
         widths_.add(getFontMetrics(getFont()).stringWidth(StringList.concat(gender,SPACE)));
-        return widths_.getMaximum(1);
+        return (int)widths_.getMaximum(1);
     }
 
     @Override

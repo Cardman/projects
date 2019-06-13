@@ -119,13 +119,13 @@ public final class NatCmpTreeMapTest {
     public void getVal1Test() {
         NatCmpTreeMap<MyCmp,Integer> map_ = new NatCmpTreeMap<MyCmp,Integer>();
         map_.put(new MyCmp(2), 1);
-        assertEq(1,map_.getVal(new MyCmp(2)).intValue());
+        assertEq(1,map_.getVal(new MyCmp(2)));
         map_.put(new MyCmp(4), 2);
-        assertEq(1,map_.getVal(new MyCmp(2)).intValue());
-        assertEq(2,map_.getVal(new MyCmp(4)).intValue());
+        assertEq(1,map_.getVal(new MyCmp(2)));
+        assertEq(2,map_.getVal(new MyCmp(4)));
         map_.put(new MyCmp(4), 3);
-        assertEq(1,map_.getVal(new MyCmp(2)).intValue());
-        assertEq(3,map_.getVal(new MyCmp(4)).intValue());
+        assertEq(1,map_.getVal(new MyCmp(2)));
+        assertEq(3,map_.getVal(new MyCmp(4)));
     }
 
     @Test
@@ -168,10 +168,10 @@ public final class NatCmpTreeMapTest {
         assertTrue(map_.contains(new MyCmp(4)));
         assertTrue(map_.contains(new MyCmp(3)));
         assertTrue(map_.contains(new MyCmp(1)));
-        assertEq(1, map_.getVal(new MyCmp(2)).intValue());
-        assertEq(2, map_.getVal(new MyCmp(4)).intValue());
-        assertEq(3, map_.getVal(new MyCmp(3)).intValue());
-        assertEq(4, map_.getVal(new MyCmp(1)).intValue());
+        assertEq(1, map_.getVal(new MyCmp(2)));
+        assertEq(2, map_.getVal(new MyCmp(4)));
+        assertEq(3, map_.getVal(new MyCmp(3)));
+        assertEq(4, map_.getVal(new MyCmp(1)));
     }
 
     @Test
@@ -187,9 +187,9 @@ public final class NatCmpTreeMapTest {
         assertTrue(map_.contains(new MyCmp(2)));
         assertTrue(map_.contains(new MyCmp(4)));
         assertTrue(map_.contains(new MyCmp(3)));
-        assertEq(1, map_.getVal(new MyCmp(2)).intValue());
-        assertEq(3, map_.getVal(new MyCmp(4)).intValue());
-        assertEq(4, map_.getVal(new MyCmp(3)).intValue());
+        assertEq(1, map_.getVal(new MyCmp(2)));
+        assertEq(3, map_.getVal(new MyCmp(4)));
+        assertEq(4, map_.getVal(new MyCmp(3)));
     }
 
     @Test

@@ -50,7 +50,7 @@ public final class ProcessMethodIdCallTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo<java.lang.Number,java.lang.Number>", field_.getClassName(cont_));
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(1, ((NumberStruct)field_).intValue());
+        assertEq(1, ((NumberStruct)field_).intStruct());
     }
     @Test
     public void calculate2Test() {
@@ -96,7 +96,7 @@ public final class ProcessMethodIdCallTest extends ProcessMethodCommon {
         assertEq("pkg.ExThree<java.lang.Number,java.lang.Number>", field_.getClassName(cont_));
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(3, ((NumberStruct)field_).intValue());
+        assertEq(3, ((NumberStruct)field_).intStruct());
     }
     @Test
     public void calculate3Test() {
@@ -136,7 +136,7 @@ public final class ProcessMethodIdCallTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo<java.lang.Number,java.lang.Number>", field_.getClassName(cont_));
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(9, ((NumberStruct)field_).intValue());
+        assertEq(9, ((NumberStruct)field_).intStruct());
     }
     @Test
     public void calculate4Test() {
@@ -186,7 +186,7 @@ public final class ProcessMethodIdCallTest extends ProcessMethodCommon {
         assertEq("pkg.ExThree<java.lang.Number,java.lang.Number>", field_.getClassName(cont_));
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(9, ((NumberStruct)field_).intValue());
+        assertEq(9, ((NumberStruct)field_).intStruct());
     }
     @Test
     public void calculate5Test() {
@@ -233,7 +233,7 @@ public final class ProcessMethodIdCallTest extends ProcessMethodCommon {
         assertEq("pkg.ExThree", field_.getClassName(cont_));
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(9, ((NumberStruct)field_).intValue());
+        assertEq(9, ((NumberStruct)field_).intStruct());
     }
     @Test
     public void calculate6Test() {
@@ -273,7 +273,7 @@ public final class ProcessMethodIdCallTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo<java.lang.Number,java.lang.Number>", field_.getClassName(cont_));
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(9, ((NumberStruct)field_).intValue());
+        assertEq(9, ((NumberStruct)field_).intStruct());
     }
     @Test
     public void calculate7Test() {
@@ -313,7 +313,7 @@ public final class ProcessMethodIdCallTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo<java.lang.Number,java.lang.Number>", field_.getClassName(cont_));
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(14, ((NumberStruct)field_).intValue());
+        assertEq(14, ((NumberStruct)field_).intStruct());
     }
     @Test
     public void calculate8Test() {
@@ -353,7 +353,7 @@ public final class ProcessMethodIdCallTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo<java.lang.Number,java.lang.Number>", field_.getClassName(cont_));
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
-        assertEq(1, ((NumberStruct)field_).intValue());
+        assertEq(1, ((NumberStruct)field_).intStruct());
     }
     @Test
     public void calculate9Test() {
@@ -387,6 +387,6 @@ public final class ProcessMethodIdCallTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo..Inner", field_.getClassName(cont_));
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
         assertEq("$core.Integer", field_.getClassName(cont_));
-        assertEq(1, ((NumberStruct)field_).intValue());
+        assertEq(1, ((NumberStruct)field_).intStruct());
     }
 }

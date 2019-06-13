@@ -29,7 +29,7 @@ public class NumComboBox extends TreeComboBox<Integer> {
     public void setSelectedItem(int _i) {
         int index_ = 0;
         for (Integer k: getElements().getKeys()) {
-            if (Numbers.eq(k.intValue(), _i)) {
+            if (Numbers.eq(k, _i)) {
                 selectItem(index_);
                 break;
             }
