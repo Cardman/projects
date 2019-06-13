@@ -49,9 +49,9 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         t_ = new TrickTarot(t_.getRamasseur(),true);
         t_.ajouter(CardTarot.TRUMP_10);
         t_.ajouter(CardTarot.TRUMP_1);
+        t_.ajouter(CardTarot.TRUMP_21);
         t_.ajouter(CardTarot.TRUMP_11);
         t_.ajouter(CardTarot.TRUMP_12);
-        t_.ajouter(CardTarot.TRUMP_21);
         trs_.add(t_);
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur(),true);
         HandTarot calledCards_ = new HandTarot();
@@ -60,8 +60,8 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotCommonPlaying playing_ = new GameTarotCommonPlaying(info_, team_);
-        team_.faireConfiance((byte)3,(byte)2);
-        team_.faireConfiance((byte)3,(byte)4);
+        faireConfiance(g_,(byte)2);
+        faireConfiance(g_,(byte)4);
         assertTrue(playing_.appeleConnuDefenseur((byte) 3,new EnumMap<Suit, EqList<HandTarot>>()));
     }
     @Test
@@ -111,7 +111,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotCommonPlaying playing_ = new GameTarotCommonPlaying(info_, team_);
-        team_.faireConfiance((byte)3,(byte)2);
+        faireConfiance(g_,(byte)2);
         assertTrue(!playing_.appeleConnuDefenseur((byte) 3,new EnumMap<Suit, EqList<HandTarot>>()));
     }
     @Test
@@ -150,9 +150,9 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         t_ = new TrickTarot(t_.getRamasseur(),true);
         t_.ajouter(CardTarot.TRUMP_10);
         t_.ajouter(CardTarot.TRUMP_1);
+        t_.ajouter(CardTarot.TRUMP_21);
         t_.ajouter(CardTarot.TRUMP_11);
         t_.ajouter(CardTarot.TRUMP_12);
-        t_.ajouter(CardTarot.TRUMP_21);
         trs_.add(t_);
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur(),true);
         HandTarot calledCards_ = new HandTarot();
@@ -161,8 +161,8 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotCommonPlaying playing_ = new GameTarotCommonPlaying(info_, team_);
-        team_.faireConfiance((byte)3,(byte)2);
-        team_.faireConfiance((byte)3,(byte)4);
+        faireConfiance(g_,(byte)2);
+        faireConfiance(g_,(byte)4);
         EnumMap<Suit, EqList<HandTarot>> rep_ = new EnumMap<Suit, EqList<HandTarot>>();
         EqList<HandTarot> hands_ = new EqList<HandTarot>();
         hands_.add(new HandTarot());
@@ -223,8 +223,8 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotCommonPlaying playing_ = new GameTarotCommonPlaying(info_, team_);
-        team_.faireConfiance((byte)3,(byte)2);
-        team_.faireConfiance((byte)3,(byte)4);
+        faireConfiance(g_,(byte)2);
+        faireConfiance(g_,(byte)4);
         EnumMap<Suit, EqList<HandTarot>> rep_ = new EnumMap<Suit, EqList<HandTarot>>();
         EqList<HandTarot> hands_ = new EqList<HandTarot>();
         HandTarot takerHand_ = new HandTarot();
@@ -287,7 +287,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotCommonPlaying playing_ = new GameTarotCommonPlaying(info_, team_);
-        team_.faireConfiance((byte)3,(byte)2);
+        faireConfiance(g_,(byte)2);
         EnumMap<Suit, EqList<HandTarot>> rep_ = new EnumMap<Suit, EqList<HandTarot>>();
         EqList<HandTarot> hands_ = new EqList<HandTarot>();
         hands_.add(new HandTarot());
@@ -347,7 +347,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotCommonPlaying playing_ = new GameTarotCommonPlaying(info_, team_);
-        team_.faireConfiance((byte)3,(byte)2);
+        faireConfiance(g_,(byte)2);
         EnumMap<Suit, EqList<HandTarot>> rep_ = new EnumMap<Suit, EqList<HandTarot>>();
         assertTrue(playing_.appeleConnuDefenseur((byte) 3, rep_));
     }
@@ -4864,6 +4864,10 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
     }
     @Test
     public void joueursNAyantPasJoueTest() {
+        HandTarot l_ = new HandTarot();
+        l_.ajouter(CardTarot.SPADE_QUEEN);
+        l_.ajouter(CardTarot.SPADE_10);
+        l_.ajouter(CardTarot.SPADE_1);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
         TrickTarot t_ = new TrickTarot((byte) 0,false);
         t_.ajouter(CardTarot.SPADE_QUEEN);
@@ -4884,6 +4888,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         ls_.add(15);
         ls_.add(14);
         GameTarotTrickInfo gt_ = new GameTarotTrickInfo(p_,trs_,m_,h_,BidTarot.TAKE,new HandTarot(),ls_);
+        gt_.addSeenDeck(l_);
         GameTarotCommonPlaying g_ = new GameTarotCommonPlaying(gt_, new GameTarotTeamsRelation((byte) 0,new Numbers<Byte>(),new CustList<BooleanList>(),new RulesTarot()));
         Numbers<Byte> players_ = g_.joueursNAyantPasJoue((byte) 2);
         assertEq(1, players_.size());

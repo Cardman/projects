@@ -3382,7 +3382,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterPetitAuBoutPliEnCours();
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
-        game_.unionPlis(true).first().setSeenByAllPlayers(true);
+        game_.unionPlis().first().setSeenByAllPlayers(true);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
@@ -3421,7 +3421,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterPetitAuBoutPliEnCours();
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 5, CardTarot.DIAMOND_KING);
-        game_.unionPlis(true).last().setSeenByAllPlayers(false);
+        game_.unionPlis().last().setSeenByAllPlayers(false);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
     }

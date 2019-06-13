@@ -61,7 +61,7 @@ abstract class TarotBean extends Bean {
     }
 
     protected final boolean playVariantModeGame() {
-        return !getBid().isJouerDonne() && !game.unionPlis(true).isEmpty();
+        return !getBid().isJouerDonne() && !game.unionPlis().isEmpty();
     }
 
     protected final GameTarot getGame() {

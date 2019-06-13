@@ -2613,7 +2613,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_, last_);
+        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_);
         assertEq(6, h_.size());
         assertEq(2, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.TRUMP_18));
@@ -2710,7 +2710,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_, last_);
+        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_);
         assertEq(6, h_.size());
         assertEq(2, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.TRUMP_18));
@@ -2811,7 +2811,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_, last_);
+        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_);
         assertEq(6, h_.size());
         assertEq(2, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.TRUMP_18));
@@ -2902,7 +2902,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_, last_);
+        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_);
         assertEq(6, h_.size());
         assertEq(3, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.TRUMP_18));
@@ -3016,7 +3016,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_, last_);
+        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_);
         assertEq(6, h_.size());
         assertEq(3, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.TRUMP_21));
@@ -3102,7 +3102,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_, last_);
+        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_);
         assertEq(6, h_.size());
         assertEq(3, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.TRUMP_18));
@@ -3200,7 +3200,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_, last_);
+        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_);
         assertEq(6, h_.size());
         assertEq(3, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.TRUMP_18));
@@ -3300,7 +3300,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_, last_);
+        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_);
         assertEq(6, h_.size());
         assertEq(4, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.TRUMP_18));
@@ -3422,7 +3422,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_, last_);
+        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_);
         assertEq(6, h_.size());
         assertEq(3, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.TRUMP_18));
@@ -3532,7 +3532,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_, last_);
+        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_);
         assertEq(6, h_.size());
         assertEq(3, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.TRUMP_18));
@@ -3628,7 +3628,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_, last_);
+        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_);
         assertEq(6, h_.size());
         assertEq(3, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.TRUMP_18));
@@ -3720,7 +3720,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_, last_);
+        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_);
         assertEq(6, h_.size());
         assertEq(3, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.TRUMP_18));
@@ -3811,7 +3811,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_, last_);
+        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_);
         assertEq(6, h_.size());
         assertEq(4, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.TRUMP_18));
@@ -3892,7 +3892,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_, last_);
+        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_);
         assertEq(6, h_.size());
         assertEq(16, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.TRUMP_21));
@@ -4008,7 +4008,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_, last_);
+        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_);
         assertEq(6, h_.size());
         assertEq(17, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.TRUMP_21));
@@ -4154,7 +4154,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_, last_);
+        CustList<HandTarot> h_ = info_.atoutsPossibles(team_, curHand_);
         assertEq(6, h_.size());
         assertEq(13, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.TRUMP_20));
@@ -4291,7 +4291,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.CLUB, curHand_, last_);
+        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.CLUB, curHand_);
         assertEq(6, h_.size());
         assertEq(2, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.CLUB_KNIGHT));
@@ -4386,7 +4386,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.CLUB, curHand_, last_);
+        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.CLUB, curHand_);
         assertEq(6, h_.size());
         assertEq(2, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.CLUB_KNIGHT));
@@ -4478,7 +4478,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.CLUB, curHand_, last_);
+        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.CLUB, curHand_);
         assertEq(6, h_.size());
         assertEq(2, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.CLUB_KNIGHT));
@@ -4567,7 +4567,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.HEART, curHand_, last_);
+        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.HEART, curHand_);
         assertEq(6, h_.size());
         assertEq(2, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.HEART_KING));
@@ -4669,7 +4669,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_2);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.CLUB, curHand_, last_);
+        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.CLUB, curHand_);
         assertEq(6, h_.size());
         assertEq(3, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.CLUB_KNIGHT));
@@ -4756,7 +4756,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_2);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.CLUB, curHand_, last_);
+        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.CLUB, curHand_);
         assertEq(6, h_.size());
         assertEq(3, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.CLUB_KNIGHT));
@@ -4848,7 +4848,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_2);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.CLUB, curHand_, last_);
+        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.CLUB, curHand_);
         assertEq(6, h_.size());
         assertEq(4, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.CLUB_KNIGHT));
@@ -4940,7 +4940,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_2);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.CLUB, curHand_, last_);
+        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.CLUB, curHand_);
         assertEq(6, h_.size());
         assertEq(4, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.CLUB_KNIGHT));
@@ -5049,7 +5049,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_10);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.CLUB, curHand_, last_);
+        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.CLUB, curHand_);
         assertEq(6, h_.size());
         assertEq(2, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.CLUB_KNIGHT));
@@ -5140,7 +5140,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_3);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.CLUB, curHand_, last_);
+        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.CLUB, curHand_);
         assertEq(6, h_.size());
         assertEq(2, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.CLUB_10));
@@ -5214,7 +5214,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_2);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.CLUB, curHand_, last_);
+        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.CLUB, curHand_);
         assertEq(6, h_.size());
         assertEq(3, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.CLUB_10));
@@ -5298,7 +5298,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_2);
         curHand_.ajouter(CardTarot.SPADE_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.CLUB, curHand_, last_);
+        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.CLUB, curHand_);
         assertEq(6, h_.size());
         assertEq(0, h_.get(0).total());
         assertEq(10, h_.get(1).total());
@@ -5391,7 +5391,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_2);
         curHand_.ajouter(CardTarot.SPADE_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.HEART, curHand_, last_);
+        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.HEART, curHand_);
         assertEq(6, h_.size());
         assertEq(11, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.HEART_KING));
@@ -5493,7 +5493,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_KING);
         curHand_.ajouter(CardTarot.SPADE_10);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.HEART, curHand_, last_);
+        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.HEART, curHand_);
         assertEq(6, h_.size());
         assertEq(11, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.HEART_KING));
@@ -5593,7 +5593,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_2);
         curHand_.ajouter(CardTarot.SPADE_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.HEART, curHand_, last_);
+        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.HEART, curHand_);
         assertEq(6, h_.size());
         assertEq(1, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.HEART_KING));
@@ -5675,7 +5675,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_2);
         curHand_.ajouter(CardTarot.SPADE_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.HEART, curHand_, last_);
+        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.HEART, curHand_);
         assertEq(6, h_.size());
         assertEq(11, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.HEART_KING));
@@ -5784,7 +5784,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_2);
         curHand_.ajouter(CardTarot.SPADE_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.HEART, curHand_, last_);
+        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.HEART, curHand_);
         assertEq(6, h_.size());
         assertEq(10, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.HEART_KING));
@@ -5905,7 +5905,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_1);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.CLUB, curHand_, last_);
+        CustList<HandTarot> h_ = info_.cartesPossibles(team_, Suit.CLUB, curHand_);
         assertEq(6, h_.size());
         assertEq(2, h_.get(0).total());
         assertTrue(h_.get(0).contient(CardTarot.CLUB_KNIGHT));
@@ -6007,7 +6007,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_1);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(team_, curHand_);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(0).total());
         assertEq(1, rep_.getVal(Suit.UNDEFINED).get(1).total());
@@ -6081,7 +6081,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(team_, curHand_);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(0).total());
         assertEq(1, rep_.getVal(Suit.UNDEFINED).get(1).total());
@@ -6136,7 +6136,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_2);
         curHand_.ajouter(CardTarot.SPADE_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(team_, curHand_);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
         assertEq(1, rep_.getVal(Suit.UNDEFINED).get(0).total());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(1).total());
@@ -6209,7 +6209,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_1);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(team_, curHand_);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
         assertEq(1, rep_.getVal(Suit.UNDEFINED).get(0).total());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(1).total());
@@ -6281,7 +6281,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(team_, curHand_);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(0).total());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(1).total());
@@ -6354,7 +6354,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(team_, curHand_);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(0).total());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(1).total());
@@ -6421,7 +6421,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(team_, curHand_);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(0).total());
         assertEq(1, rep_.getVal(Suit.UNDEFINED).get(1).total());
@@ -6488,7 +6488,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation rel_ = g_.getTeamsRelation();
-        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(rel_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(rel_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypo_ = info_.cartesCertaines(rel_, rep_);
         rep_ = hypo_.getVal(Hypothesis.POSSIBLE);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
@@ -6571,7 +6571,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_1);
         GameTarotTeamsRelation rel_ = g_.getTeamsRelation();
-        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(rel_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(rel_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypo_ = info_.cartesCertaines(rel_, rep_);
         rep_ = hypo_.getVal(Hypothesis.POSSIBLE);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
@@ -6657,7 +6657,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_1);
         GameTarotTeamsRelation rel_ = g_.getTeamsRelation();
-        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(rel_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(rel_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypo_ = info_.cartesCertaines(rel_, rep_);
         rep_ = hypo_.getVal(Hypothesis.POSSIBLE);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());

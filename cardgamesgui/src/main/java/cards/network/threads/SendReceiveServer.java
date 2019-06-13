@@ -743,7 +743,7 @@ public final class SendReceiveServer extends BasicServer {
             tricksHands_.setDistribution(game_.getDistribution(), false);
             tricksHands_.setPreneur(game_.getPreneur());
             tricksHands_.setBid(game_.getContrat());
-            tricksHands_.setTricks(game_.unionPlis(true), game_.getNombreDeJoueurs());
+            tricksHands_.setTricks(game_.unionPlis(), game_.getNombreDeJoueurs());
             Net.sendObject(Net.getSocketByPlace(place_), tricksHands_);
             return;
         }
@@ -1581,7 +1581,7 @@ public final class SendReceiveServer extends BasicServer {
                 }
                 return;
             }
-            if (!game_.unionPlis(true).isEmpty() && game_.getPliEnCours().getVuParToutJoueur() && game_.keepPlayingCurrentTrick()) {
+            if (!game_.unionPlis().isEmpty() && game_.getPliEnCours().getVuParToutJoueur() && game_.keepPlayingCurrentTrick()) {
                 byte place_ = game_.playerHavingToBid();
                 if (place_ == bye_.getPlace()) {
                     ThreadUtil.sleep(800);
@@ -1643,7 +1643,7 @@ public final class SendReceiveServer extends BasicServer {
             }
 
             if (game_.getContrat().getJeuChien() == PlayingDog.WITH) {
-                if (!game_.unionPlis(true).isEmpty()) {
+                if (!game_.unionPlis().isEmpty()) {
                     game_.ecarter(false);
                 } else {
                     game_.ecarter(true);

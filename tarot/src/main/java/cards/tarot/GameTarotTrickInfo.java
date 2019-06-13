@@ -18,6 +18,8 @@ public final class GameTarotTrickInfo {
     private HandTarot calledCards;
     private Numbers<Integer> handLengths;
 
+    private HandTarot lastHand = new HandTarot();
+
     public GameTarotTrickInfo(TrickTarot _progressingTrick, CustList<TrickTarot> _tricks,
                               EqList<EnumList<Miseres>> _declaresMiseres,
                               EqList<HandTarot> _handfuls, BidTarot _bid, HandTarot _calledCards,
@@ -31,6 +33,11 @@ public final class GameTarotTrickInfo {
         handLengths = _handLengths;
     }
 
+    void addSeenDeck(HandTarot _h) {
+        if (bid.getJeuChien() == PlayingDog.WITH) {
+            lastHand.ajouterCartes(_h);
+        }
+    }
     /**
      Retourne l'ensemble des cartes des couleurs (avec l'Excuse) probablement
      possedees par les autres joueurs Pour premier indice (premier get)
@@ -38,8 +45,7 @@ public final class GameTarotTrickInfo {
      @param _numero
      */
     public EnumMap<Suit,EqList<HandTarot>> cartesPossibles(GameTarotTeamsRelation _teamRel,
-                                                           HandTarot _cartesJoueur,
-                                                           HandTarot _lastHand) {
+                                                           HandTarot _cartesJoueur) {
         byte nombreJoueurs_ = _teamRel.getNombreDeJoueurs();
         byte next_ = progressingTrick.getNextPlayer(nombreJoueurs_);
         HandTarot playedCards_ = cartesJoueesEnCours(_teamRel,next_);
@@ -84,7 +90,7 @@ public final class GameTarotTrickInfo {
                 if (joueur_ == next_) {
                     continue;
                 }
-                if (_teamRel.getTaker() != joueur_ && _lastHand.contient(CardTarot.EXCUSE)) {
+                if (_teamRel.getTaker() != joueur_ && lastHand.contient(CardTarot.EXCUSE)) {
                     // L'Excuse du chien (si il est vu) ne
                     // peut etre possedee que par le preneur
                     possibleExcuse_.get(joueur_).supprimerCartes();
@@ -120,12 +126,12 @@ public final class GameTarotTrickInfo {
         }
         m.put(CardTarot.EXCUSE.couleur(), possibleExcuse_);
         m.put(Suit.TRUMP,atoutsPossibles(_teamRel,
-                _cartesJoueur,_lastHand));
+                _cartesJoueur));
         for (Suit couleur_ : Suit.couleursOrdinaires()) {
             // On fait une boucle sur les
             // couleurs autres que l'atout
             m.put(couleur_,cartesPossibles(_teamRel,couleur_,
-                    _cartesJoueur, _lastHand));
+                    _cartesJoueur));
         }
         return m;
     }
@@ -136,8 +142,7 @@ public final class GameTarotTrickInfo {
      @param _numero
      */
     EqList<HandTarot> atoutsPossibles(GameTarotTeamsRelation _teamRel,
-                                      HandTarot _curHand,
-                                      HandTarot _lastHand) {
+                                      HandTarot _curHand) {
         byte nombreJoueurs_ = _teamRel.getNombreDeJoueurs();
         byte next_ = progressingTrick.getNextPlayer(nombreJoueurs_);
         EnumMap<Suit,HandTarot> curRep_ = _curHand.couleurs();
@@ -249,7 +254,7 @@ public final class GameTarotTrickInfo {
                 if (_teamRel.getTaker() != joueur_) {
                     // Les atouts du chien (si il est vu) ne peuvent possedes
                     // que par le preneur
-                    for (CardTarot carte_ : _lastHand) {
+                    for (CardTarot carte_ : lastHand) {
                         if (!Suit.couleursOrdinaires().containsObj(carte_.couleur())) {
                             m.get(joueur_).removeCardIfPresent(carte_);
                         }
@@ -366,8 +371,7 @@ public final class GameTarotTrickInfo {
      @param _numero
      */
     EqList<HandTarot> cartesPossibles(GameTarotTeamsRelation _teamRel, Suit _couleur,
-                                      HandTarot _curHand,
-                                      HandTarot _lastHand) {
+                                      HandTarot _curHand) {
         byte nombreJoueurs_ = _teamRel.getNombreDeJoueurs();
         byte next_ = progressingTrick.getNextPlayer(nombreJoueurs_);
         HandTarot playedCards_ = cartesJoueesEnCours(_teamRel,next_);
@@ -434,7 +438,7 @@ public final class GameTarotTrickInfo {
                     le roi de couleur
                     du chien sont
                     certainement ecartees*/
-                    for (CardTarot carte_ : _lastHand
+                    for (CardTarot carte_ : lastHand
                             .couleur(_couleur)) {
                         if (carte_.getNomFigure() == CardChar.KING) {
                             continue;
@@ -460,7 +464,7 @@ public final class GameTarotTrickInfo {
                 if (_teamRel.getTaker() != joueur_) {
                     // Les cartes d'une couleur du chien (si il est vu) ne
                     // peuvent possedes que par le preneur ou etre ecartees
-                    for (CardTarot carte_ : _lastHand) {
+                    for (CardTarot carte_ : lastHand) {
                         if (carte_.couleur() == _couleur) {
                             m.get(joueur_).removeCardIfPresent(carte_);
                         }
@@ -1189,5 +1193,9 @@ public final class GameTarotTrickInfo {
 
     BidTarot getBid() {
         return bid;
+    }
+
+    HandTarot getLastHand() {
+        return lastHand;
     }
 }

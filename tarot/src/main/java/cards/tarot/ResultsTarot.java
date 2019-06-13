@@ -67,7 +67,7 @@ public final class ResultsTarot {
             repartitionRate_=end_.coefficientsRepartition();
             game.setScores(end_.calculateScores(repartitionRate_, sommeTemporaire_, scoreTakerWithoutDeclaring_));
             scoresDeal_=game.getScores();
-        } else if(!game.unionPlis(true).isEmpty()) {
+        } else if(!game.unionPlis().isEmpty()) {
             EndTarotGame end_ = game.getEndTarotGame();
             boolean pasJeuMisere_=game.pasJeuMisere();
             if(pasJeuMisere_) {

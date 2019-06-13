@@ -67,7 +67,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -134,7 +134,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -201,7 +201,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -268,7 +268,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -335,7 +335,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -411,7 +411,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_JACK);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -481,7 +481,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_JACK);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -557,7 +557,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_JACK);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -630,7 +630,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -703,7 +703,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -770,7 +770,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_2);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -837,7 +837,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_2);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -904,7 +904,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_2);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -971,7 +971,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_2);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -1038,7 +1038,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_2);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -1105,7 +1105,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_2);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -1172,7 +1172,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_2);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -1239,7 +1239,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_2);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -1312,7 +1312,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_2);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -1385,7 +1385,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_2);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -1458,7 +1458,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_2);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -1525,7 +1525,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_2);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -1592,7 +1592,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_2);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -1659,7 +1659,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_2);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -1732,7 +1732,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_2);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -1799,7 +1799,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_2);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -1863,7 +1863,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_2);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -1928,7 +1928,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_2);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -1993,7 +1993,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_2);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -2058,7 +2058,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_2);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -2125,7 +2125,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_3);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -2192,7 +2192,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_3);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -2259,7 +2259,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_3);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -2326,7 +2326,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_3);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -2393,7 +2393,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.SPADE_2);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -2460,7 +2460,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -2527,7 +2527,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);
@@ -2596,7 +2596,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
-        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_, last_);
+        EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(team_, curHand_);
         EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypos_ = info_.cartesCertaines(team_, poss_);
         poss_ = hypos_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit, EqList<HandTarot>> sure_ = hypos_.getVal(Hypothesis.SURE);

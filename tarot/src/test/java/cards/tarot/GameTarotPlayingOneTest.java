@@ -189,25 +189,9 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
         game.setPliEnCours(true);
         assertEq(4,game.getEntameur());
-        HandTarot expected_ = new HandTarot();
-        expected_.ajouter(CardTarot.EXCUSE);
-        expected_.ajouter(CardTarot.TRUMP_21);
-        expected_.ajouter(CardTarot.TRUMP_20);
-        expected_.ajouter(CardTarot.TRUMP_19);
-        expected_.ajouter(CardTarot.TRUMP_15);
-        expected_.ajouter(CardTarot.TRUMP_14);
-        expected_.ajouter(CardTarot.TRUMP_13);
-        expected_.ajouter(CardTarot.TRUMP_12);
-        expected_.ajouter(CardTarot.TRUMP_11);
-        expected_.ajouter(CardTarot.TRUMP_10);
-        expected_.ajouter(CardTarot.TRUMP_1);
-        expected_.ajouter(CardTarot.HEART_KING);
-        expected_.ajouter(CardTarot.DIAMOND_KING);
-        expected_.ajouter(CardTarot.CLUB_KING);
         HandTarot hand_ = game.getDistribution().main(game.getEntameur());
         HandTarot playableCards_ = game.playableCards(hand_.couleurs());
-        assertEq(expected_.total(),playableCards_.total());
-        assertTrue(playableCards_.contientCartes(expected_));
+        assertEq(hand_.total(),playableCards_.total());
         assertEq(Suit.UNDEFINED,game.getPliEnCours().couleurDemandee());
     }
     @Test
@@ -238,24 +222,10 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.EXCUSE);
 
         assertEq(4,game.getEntameur());
-        HandTarot expected_ = new HandTarot();
-        expected_.ajouter(CardTarot.DIAMOND_KNIGHT);
-        expected_.ajouter(CardTarot.DIAMOND_JACK);
-        expected_.ajouter(CardTarot.DIAMOND_10);
-        expected_.ajouter(CardTarot.DIAMOND_2);
-        expected_.ajouter(CardTarot.DIAMOND_1);
-        expected_.ajouter(CardTarot.CLUB_7);
-        expected_.ajouter(CardTarot.CLUB_6);
-        expected_.ajouter(CardTarot.CLUB_5);
-        expected_.ajouter(CardTarot.CLUB_4);
-        expected_.ajouter(CardTarot.TRUMP_18);
-        expected_.ajouter(CardTarot.TRUMP_17);
-        expected_.ajouter(CardTarot.TRUMP_16);
 
         HandTarot hand_ = game.getDistribution().main(game.playerAfter(game.getEntameur()));
         HandTarot playableCards_ = game.playableCards(hand_.couleurs());
-        assertEq(expected_.total(),playableCards_.total());
-        assertTrue(playableCards_.contientCartes(expected_));
+        assertEq(hand_.total(),playableCards_.total());
         assertEq(Suit.UNDEFINED,game.getPliEnCours().couleurDemandee());
     }
     @Test
@@ -283,22 +253,10 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
         game.setPliEnCours(true);
         assertEq(1,game.getEntameur());
-        HandTarot expected_ = new HandTarot();
-        expected_.ajouter(CardTarot.TRUMP_9);
-        expected_.ajouter(CardTarot.TRUMP_8);
-        expected_.ajouter(CardTarot.TRUMP_7);
-        expected_.ajouter(CardTarot.HEART_QUEEN);
-        expected_.ajouter(CardTarot.SPADE_5);
-        expected_.ajouter(CardTarot.SPADE_4);
-        expected_.ajouter(CardTarot.SPADE_3);
-        expected_.ajouter(CardTarot.DIAMOND_9);
-        expected_.ajouter(CardTarot.DIAMOND_8);
-        expected_.ajouter(CardTarot.DIAMOND_7);
 
         HandTarot hand_ = game.getDistribution().main(game.getEntameur());
         HandTarot playableCards_ = game.playableCards(hand_.couleurs());
-        assertEq(expected_.total(),playableCards_.total());
-        assertTrue(playableCards_.contientCartes(expected_));
+        assertEq(hand_.total(),playableCards_.total());
         assertEq(Suit.UNDEFINED,game.getPliEnCours().couleurDemandee());
     }
     @Test

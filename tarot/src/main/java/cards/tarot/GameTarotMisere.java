@@ -14,6 +14,7 @@ public final class GameTarotMisere {
 
     private HandTarot currentHand;
     private GameTarotCommonPlaying common;
+    private HandTarot playableCards;
 
     public GameTarotMisere(GameTarotTrickInfo _done, GameTarotTeamsRelation _teamsRelation,
                            HandTarot _currentHand) {
@@ -21,20 +22,18 @@ public final class GameTarotMisere {
         teamsRelation = _teamsRelation;
         currentHand = _currentHand;
         common = new GameTarotCommonPlaying(_done,_teamsRelation);
+        playableCards = common.cartesJouables(currentHand.couleurs());
     }
 
     CardTarot entame() {
-        EnumMap<Suit,HandTarot> repartition_ = currentHand.couleurs();
-        HandTarot cartesJouables_ = common.cartesJouables(new HandTarot(), repartition_);
         /* Jeu de misere */
-        if (cartesJouables_.total() == 1) {
-            return cartesJouables_.premiereCarte();
+        if (playableCards.total() == 1) {
+            return playableCards.premiereCarte();
         }
-        return entameMiserePetite(currentHand, cartesJouables_);
+        return entameMiserePetite();
     }
-    private CardTarot entameMiserePetite(HandTarot _lastHand,
-                                         HandTarot _cartesJouables) {
-        TarotInfoPliEnCours info_ = common.initInformations(_lastHand, currentHand,_cartesJouables, Status.TAKER);
+    private CardTarot entameMiserePetite() {
+        TarotInfoPliEnCours info_ = initInformations();
         EnumMap<Suit,HandTarot> repartition_ = currentHand.couleurs();
         HandTarot cartesJouees_ = info_.getCartesJouees();
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = info_.getRepartitionCartesJouees();
@@ -108,12 +107,10 @@ public final class GameTarotMisere {
 
 
     CardTarot enCours() {
-        EnumMap<Suit,HandTarot> repartition_ = currentHand.couleurs();
-        HandTarot cartesJouables_ = common.cartesJouables(new HandTarot(), repartition_);
         Suit couleurDemandee_ = doneTrickInfo.getProgressingTrick().couleurDemandee();
-        EnumMap<Suit,HandTarot> repartitionJouables_ = cartesJouables_.couleurs();
-        if (cartesJouables_.total() == 1) {
-            return cartesJouables_.premiereCarte();
+        EnumMap<Suit,HandTarot> repartitionJouables_ = playableCards.couleurs();
+        if (playableCards.total() == 1) {
+            return playableCards.premiereCarte();
         }
         if (doneTrickInfo.getProgressingTrick().couleurDemandee() == Suit.UNDEFINED) {
             // Cela
@@ -132,24 +129,23 @@ public final class GameTarotMisere {
         }
         if (Suit.couleursOrdinaires().containsObj(couleurDemandee_)) {
             if (!repartitionJouables_.getVal(couleurDemandee_).estVide()) {
-                return fournirCouleurOrdinaireMisere(currentHand, cartesJouables_);
+                return fournirCouleurOrdinaireMisere();
             }
             if (!repartitionJouables_.getVal(Suit.TRUMP).estVide()) {
-                return coupeMisere(currentHand, cartesJouables_);
+                return coupeMisere();
             }
-            return defausseMisere(currentHand, cartesJouables_);
+            return defausseMisere();
         }
         if (!repartitionJouables_.getVal(couleurDemandee_).estVide()) {
-            return fournirAtoutMisere(currentHand, cartesJouables_);
+            return fournirAtoutMisere();
         }
-        return defausseMisere(currentHand, cartesJouables_);
+        return defausseMisere();
     }
 
-    private CardTarot fournirCouleurOrdinaireMisere(HandTarot _lastHand,
-                                                    HandTarot _cartesJouables) {
-        TarotInfoPliEnCours info_ = common.initInformations(_lastHand, currentHand,_cartesJouables, Status.TAKER);
+    private CardTarot fournirCouleurOrdinaireMisere() {
+        TarotInfoPliEnCours info_ = initInformations();
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = info_.getRepartitionCartesJouees();
-        EnumMap<Suit,HandTarot> repartitionJouables_ = _cartesJouables.couleurs();
+        EnumMap<Suit,HandTarot> repartitionJouables_ = playableCards.couleurs();
         Suit couleurDemandee_ = doneTrickInfo.getProgressingTrick().couleurDemandee();
         HandTarot repartitionCouleDem_ = repartitionJouables_.getVal(couleurDemandee_);
         EqList<HandTarot> suites_ = repartitionCouleDem_
@@ -177,10 +173,9 @@ public final class GameTarotMisere {
         }
         return suites_.last().derniereCarte();
     }
-    private CardTarot fournirAtoutMisere(HandTarot _lastHand,
-                                         HandTarot _cartesJouables) {
-        TarotInfoPliEnCours info_ = common.initInformations(_lastHand, currentHand,_cartesJouables, Status.TAKER);
-        EnumMap<Suit,HandTarot> repartitionJouables_ = _cartesJouables.couleurs();
+    private CardTarot fournirAtoutMisere() {
+        TarotInfoPliEnCours info_ = initInformations();
+        EnumMap<Suit,HandTarot> repartitionJouables_ = playableCards.couleurs();
 
         byte ramasseurVirtuel_ = info_.getRamasseurVirtuel();
         byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
@@ -200,11 +195,10 @@ public final class GameTarotMisere {
         }
         return repartitionJouables_.getVal(Suit.TRUMP).premiereCarte();
     }
-    private CardTarot coupeMisere(HandTarot _lastHand,
-                                  HandTarot _cartesJouables) {
-        TarotInfoPliEnCours info_ = common.initInformations(_lastHand, currentHand,_cartesJouables, Status.TAKER);
+    private CardTarot coupeMisere() {
+        TarotInfoPliEnCours info_ = initInformations();
         CustList<TrickTarot> plisFaits_ = info_.getPlisFaits();
-        EnumMap<Suit,HandTarot> repartitionJouables_ = _cartesJouables.couleurs();
+        EnumMap<Suit,HandTarot> repartitionJouables_ = playableCards.couleurs();
         HandTarot trumps_ = repartitionJouables_.getVal(Suit.TRUMP);
         Suit couleurDemandee_ = doneTrickInfo.getProgressingTrick().couleurDemandee();
         EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = info_.getCartesPossibles();
@@ -270,12 +264,11 @@ public final class GameTarotMisere {
         }
         return trumps_.premiereCarte();
     }
-    private CardTarot defausseMisere(HandTarot _lastHand,
-                                     HandTarot _cartesJouables) {
-        TarotInfoPliEnCours info_ = common.initInformations(_lastHand, currentHand,_cartesJouables, Status.TAKER);
+    private CardTarot defausseMisere() {
+        TarotInfoPliEnCours info_ = initInformations();
         EnumMap<Suit,HandTarot> repartition_ = currentHand.couleurs();
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = info_.getRepartitionCartesJouees();
-        EnumMap<Suit,HandTarot> repartitionJouables_ = _cartesJouables.couleurs();
+        EnumMap<Suit,HandTarot> repartitionJouables_ = playableCards.couleurs();
         CustList<TrickTarot> plisFaits_ = info_.getPlisFaits();
 
         EnumList<Suit> couleurs_ = GameTarotCommon.couleursNonAtoutNonVides(currentHand, Suit.couleursOrdinaires());
@@ -321,6 +314,10 @@ public final class GameTarotMisere {
         return enCoursMiserePetite(couleurs_, repartition_,
                 repartitionCartesJouees_);
     }
+    TarotInfoPliEnCours initInformations() {
+        return common.initInformations(doneTrickInfo.getLastHand(), currentHand,playableCards, Status.TAKER);
+    }
+
     private static CardTarot depouilleFigure(EnumList<Suit> _couleurs,
                                              EnumMap<Suit,HandTarot> _repartition,
                                              EnumMap<Suit,HandTarot> _repartitionCartesJouees) {

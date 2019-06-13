@@ -1,7 +1,6 @@
 package cards.tarot.beans;
 import cards.consts.Status;
 import cards.tarot.EndTarotGame;
-import cards.tarot.GameTarot;
 import cards.tarot.ResultsTarot;
 import cards.tarot.enumerations.BonusTarot;
 import cards.tarot.enumerations.Handfuls;
@@ -148,7 +147,7 @@ final class DetailsResultsTarotBean extends TarotBean {
             additionnalBonusesAttack = end_.additionnalBonusesAttack(getBid());
             additionnalBonusesDefense = end_.additionnalBonusesDefense(getBid());
             diffAttackDefenseBonuses = additionnalBonusesAttack-additionnalBonusesDefense;
-        }else if (!getGame().unionPlis(true).isEmpty()) {
+        }else if (!getGame().unionPlis().isEmpty()) {
             EndTarotGame end_ = getGame().getEndTarotGame();
             Numbers<Short> positions_ = new Numbers<Short>();
             Numbers<Short> positions1_ = new Numbers<Short>();

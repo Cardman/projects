@@ -58,20 +58,15 @@ public abstract class CommonGameTarot {
         } else if (_r.getRepartition().getAppel() == CallingCard.WITHOUT) {
             g_.initDefense();
         }
-        CustList<TrickTarot> tricks_ = g_.unionPlis(false);
+        for (TrickTarot t: g_.getTricks()) {
+            if (!t.getVuParToutJoueur()) {
+                continue;
+            }
+            g_.retrieveCalledPlayers(t);
+        }
         byte starter_;
         byte trickWinner_;
-        if (!tricks_.isEmpty()) {
-            starter_ = _prog.getEntameur();
-            trickWinner_ = _prog.getEntameur();
-            for (TrickTarot t: tricks_) {
-                if (!t.getVuParToutJoueur()) {
-                    continue;
-                }
-                g_.retrieveCalledPlayers(t);
-            }
-            g_.retrieveCalledPlayers(_prog);
-        } else if (_prog.getVuParToutJoueur()) {
+        if (_prog.getVuParToutJoueur()) {
             starter_ = _prog.getEntameur();
             trickWinner_ = _prog.getEntameur();
             g_.retrieveCalledPlayers(_prog);
@@ -98,6 +93,10 @@ public abstract class CommonGameTarot {
         return g_;
     }
 
+    protected static void faireConfiance(GameTarot _g, byte _p) {
+        byte n_ = _g.getProgressingTrick().getNextPlayer(_g.getNombreDeJoueurs());
+        _g.getTeamsRelation().faireConfiance(n_, _p);
+    }
     protected int getTaker(RulesTarot _g, int _dealer, CustList<BidTarot> _bids) {
         byte player_ = _g.getRepartition().getNextPlayer(_dealer);
         int taker_ = CustList.INDEX_NOT_FOUND_ELT;
@@ -126,20 +125,22 @@ public abstract class CommonGameTarot {
         for (int i: _g.getProgressingTrick().joueursAyantJoue((byte) nbPl_)) {
             handLengths_.set(i, handLengths_.get(i)-1);
         }
-        return new GameTarotTrickInfo(_g.getProgressingTrick(), _g.getTricks(),
+        GameTarotTrickInfo gameTarotTrickInfo_ = new GameTarotTrickInfo(_g.getProgressingTrick(), _g.getTricks(),
                 _g.getDeclaresMiseres(),
                 _g.getHandfuls(), _g.getContrat(), _g.getCalledCards(),
                 handLengths_);
+        gameTarotTrickInfo_.addSeenDeck(_g.derniereMain());
+        return gameTarotTrickInfo_;
     }
     protected static void addSureCard(TarotInfoPliEnCours _info, int _p, CardTarot _c) {
-        int nbPl_ = _info.getTeamsRelation().getNombreDeJoueurs();
+        int nbPl_ = _info.getNbPlayers();
+        HandTarot hc_ = _info.getCartesPossibles().getVal(_c.couleur()).get(_p);
+        if (!hc_.contient(_c)) {
+            return;
+        }
         for (int i = 0; i < nbPl_; i++) {
             if (i == _p) {
-                HandTarot h_ = _info.getCartesPossibles().getVal(_c.couleur()).get(_p);
-                if (!h_.contient(_c)) {
-                    h_.ajouter(_c);
-                }
-                h_ = _info.getCartesCertaines().getVal(_c.couleur()).get(_p);
+                HandTarot h_ = _info.getCartesCertaines().getVal(_c.couleur()).get(_p);
                 if (!h_.contient(_c)) {
                     h_.ajouter(_c);
                 }

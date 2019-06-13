@@ -28,8 +28,11 @@ final class TarotInfoPliEnCours {
     private boolean defender;
     private EnumList<Suit> coupesFranches;
     private EnumList<Suit> calledSuits;
-    private GameTarotTeamsRelation teamsRelation;
+    private byte nbPlayers;
     private byte currentPlayer;
+    private byte taker;
+    private Numbers<Byte> joueursConfiance;
+    private Numbers<Byte> joueursNonConfiance;
 
     TarotInfoPliEnCours() {
     }
@@ -202,11 +205,35 @@ final class TarotInfoPliEnCours {
         calledSuits = _calledSuits;
     }
 
-    public GameTarotTeamsRelation getTeamsRelation() {
-        return teamsRelation;
+    public byte getNbPlayers() {
+        return nbPlayers;
     }
 
-    public void setTeamsRelation(GameTarotTeamsRelation _teamsRelation) {
-        teamsRelation = _teamsRelation;
+    public void setNbPlayers(byte _nbPlayers) {
+        nbPlayers = _nbPlayers;
+    }
+
+    public byte getTaker() {
+        return taker;
+    }
+
+    public void setTaker(byte _taker) {
+        taker = _taker;
+    }
+
+    public Numbers<Byte> getJoueursConfiance() {
+        return joueursConfiance;
+    }
+
+    public void setJoueursConfiance(Numbers<Byte> _joueursConfiance) {
+        joueursConfiance = _joueursConfiance;
+    }
+
+    public Numbers<Byte> getJoueursNonConfiance() {
+        return joueursNonConfiance;
+    }
+
+    public void setJoueursNonConfiance(Numbers<Byte> _joueursNonConfiance) {
+        joueursNonConfiance = _joueursNonConfiance;
     }
 }

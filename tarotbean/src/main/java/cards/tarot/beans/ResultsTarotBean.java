@@ -1,7 +1,6 @@
 package cards.tarot.beans;
 import cards.consts.EndGameState;
 import cards.tarot.EndTarotGame;
-import cards.tarot.GameTarot;
 import cards.tarot.ResultsTarot;
 import cards.tarot.enumerations.BonusTarot;
 import cards.tarot.enumerations.CardTarot;
@@ -10,8 +9,6 @@ import code.util.Numbers;
 import code.util.StringList;
 
 final class ResultsTarotBean extends TarotBean {
-
-    private static final String EMPTY_STRING = "";
 
     private short basePoints;
 
@@ -40,8 +37,6 @@ final class ResultsTarotBean extends TarotBean {
     private StringList calledPlayers;
 
     private StringList calledCardsList;
-
-    private String aloneTrumpAcePlayer;
 
     private short initialUserPosition;
 
@@ -91,7 +86,7 @@ final class ResultsTarotBean extends TarotBean {
             for (CardTarot c: getGame().getCarteAppelee()) {
                 calledCardsList.add(toString(c,getLoc()));
             }
-        } else if(!getGame().unionPlis(true).isEmpty()) {
+        } else if(!getGame().unionPlis().isEmpty()) {
             EndTarotGame end_ = getGame().getEndTarotGame();
             boolean pasJeuMisere_=getGame().pasJeuMisere();
             if(pasJeuMisere_) {
@@ -124,13 +119,6 @@ final class ResultsTarotBean extends TarotBean {
                 positions4_ = end_.changePositionsFour(positions3_, pasJeuMisere_);
             }
             finalUserPosition = positions4_.get(res_.getUser());
-        } else {
-            byte ind_ = getGame().joueurAyantPetitSec();
-            if (ind_ != CustList.INDEX_NOT_FOUND_ELT) {
-                aloneTrumpAcePlayer= getNicknames().get(ind_);
-            } else {
-                aloneTrumpAcePlayer = EMPTY_STRING;
-            }
         }
         linesDeal = new CustList<LineDeal>();
         int nbDeals_ = getScores().size();
@@ -261,10 +249,6 @@ final class ResultsTarotBean extends TarotBean {
 
     StringList getCalledCardsList() {
         return calledCardsList;
-    }
-
-    String getAloneTrumpAcePlayer() {
-        return aloneTrumpAcePlayer;
     }
 
     short getInitialUserPosition() {

@@ -50,7 +50,7 @@ public final class CheckerGameTarotWithRules {
             _loadedGame.setError(BAD_COUNT_FOR_REMAINING_CARDS);
             return;
         }
-        CustList<TrickTarot> allTricks_ = _loadedGame.unionPlis(true);
+        CustList<TrickTarot> allTricks_ = _loadedGame.unionPlis();
         HandTarot cards_ = new HandTarot();
         for (TrickTarot t : allTricks_) {
             for (CardTarot c : t) {

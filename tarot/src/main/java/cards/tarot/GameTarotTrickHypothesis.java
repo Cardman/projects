@@ -433,7 +433,6 @@ final class GameTarotTrickHypothesis {
     }
 
     static PossibleTrickWinner getPossibleTrickWinnerTrumpSuit(TarotInfoPliEnCours _info, CardTarot _carteForte) {
-        GameTarotTeamsRelation teamRel_ = _info.getTeamsRelation();
         EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         EnumMap<Suit,EqList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
         byte ramasseurVirtuel_ = _info.getRamasseurVirtuel();
@@ -444,10 +443,9 @@ final class GameTarotTrickHypothesis {
                 joueursNonJoue_);
         Numbers<Byte> joueursConfianceNonJoue_ = new Numbers<Byte>(
                 joueursNonJoue_);
-        byte nombreDeJoueurs_ = teamRel_.getNombreDeJoueurs();
         byte player_ = _info.getCurrentPlayer();
-        Numbers<Byte> joueursConfiance_ = teamRel_.joueursConfiance(player_,GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_));
-        Numbers<Byte> joueursNonConfiance_ = teamRel_.joueursNonConfiance(player_,GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_));
+        Numbers<Byte> joueursConfiance_ = _info.getJoueursConfiance();
+        Numbers<Byte> joueursNonConfiance_ = _info.getJoueursNonConfiance();
         joueursNonConfianceNonJoue_.retainAllElements(joueursNonConfiance_);
         joueursConfianceNonJoue_.retainAllElements(joueursConfiance_);
         Numbers<Byte> joueursJoue_ = _info.getJoueursJoue();
@@ -475,7 +473,7 @@ final class GameTarotTrickHypothesis {
                     must follow a card belonging to the current demanded suit.*/
                     Numbers<Byte> joueursNonConfiancePreneur_ = new Numbers<Byte>();
                     for (byte j: joueursNonConfianceNonJoue_) {
-                        if (j != teamRel_.getTaker()) {
+                        if (j != _info.getTaker()) {
                             continue;
                         }
                         joueursNonConfiancePreneur_.add(j);
@@ -552,7 +550,7 @@ final class GameTarotTrickHypothesis {
             joueur numero
             */
             if (couleursAppelees_.containsObj(couleurDemandee_) && !carteAppeleeJouee_
-                    && player_ == teamRel_.getTaker()) {
+                    && player_ == _info.getTaker()) {
                 joueursConfianceNonJoue_ = new Numbers<Byte>();
             }
             /*
@@ -676,7 +674,6 @@ final class GameTarotTrickHypothesis {
     }
 
     static PossibleTrickWinner getPossibleTrickWinnerNoTrump(TarotInfoPliEnCours _info, CardTarot _carteForte) {
-        GameTarotTeamsRelation teamRel_ = _info.getTeamsRelation();
         EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         EnumMap<Suit,EqList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
         byte ramasseurVirtuel_ = _info.getRamasseurVirtuel();
@@ -686,10 +683,9 @@ final class GameTarotTrickHypothesis {
                 joueursNonJoue_);
         Numbers<Byte> joueursConfianceNonJoue_ = new Numbers<Byte>(
                 joueursNonJoue_);
-        byte nombreDeJoueurs_ = teamRel_.getNombreDeJoueurs();
         byte player_ = _info.getCurrentPlayer();
-        Numbers<Byte> joueursConfiance_ = teamRel_.joueursConfiance(player_,GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_));
-        Numbers<Byte> joueursNonConfiance_ = teamRel_.joueursNonConfiance(player_,GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_));
+        Numbers<Byte> joueursConfiance_ = _info.getJoueursConfiance();
+        Numbers<Byte> joueursNonConfiance_ = _info.getJoueursNonConfiance();
         joueursNonConfianceNonJoue_.retainAllElements(joueursNonConfiance_);
         joueursConfianceNonJoue_.retainAllElements(joueursConfiance_);
         Numbers<Byte> joueursJoue_ = _info.getJoueursJoue();
@@ -888,7 +884,6 @@ final class GameTarotTrickHypothesis {
     }
 
     static PossibleTrickWinner getPossibleTrickWinnerTrump(TarotInfoPliEnCours _info, CardTarot _carteForte) {
-        GameTarotTeamsRelation teamRel_ = _info.getTeamsRelation();
         EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         EnumMap<Suit,EqList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
         byte ramasseurVirtuel_ = _info.getRamasseurVirtuel();
@@ -897,10 +892,9 @@ final class GameTarotTrickHypothesis {
                 joueursNonJoue_);
         Numbers<Byte> joueursConfianceNonJoue_ = new Numbers<Byte>(
                 joueursNonJoue_);
-        byte nombreDeJoueurs_ = teamRel_.getNombreDeJoueurs();
         byte player_ = _info.getCurrentPlayer();
-        Numbers<Byte> joueursConfiance_ = teamRel_.joueursConfiance(player_,GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_));
-        Numbers<Byte> joueursNonConfiance_ = teamRel_.joueursNonConfiance(player_,GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_));
+        Numbers<Byte> joueursConfiance_ = _info.getJoueursConfiance();
+        Numbers<Byte> joueursNonConfiance_ = _info.getJoueursNonConfiance();
         joueursNonConfianceNonJoue_.retainAllElements(joueursNonConfiance_);
         joueursConfianceNonJoue_.retainAllElements(joueursConfiance_);
         Numbers<Byte> joueursJoue_ = _info.getJoueursJoue();

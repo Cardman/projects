@@ -83,8 +83,6 @@ public final class Games {
 
     private static final String TAROT_NO_DISCARDED_TRUMP = "noDiscardedTrump";
 
-    private static final String TAROT_FIRST_TRICK = "firstTrick";
-
     private static final String TAROT_OVERTRUMP = "overtrump";
 
     private static final String TAROT_PLAY_STRONGER_CARD = "playStrongerCard";
@@ -350,10 +348,6 @@ public final class Games {
         HandTarot main_ = _g.getDistribution().main(_g.playerHavingToPlay());
         EnumMap<Suit,HandTarot> repartition_ = main_.couleurs();
         Suit couleurDemandee_ = _g.getProgressingTrick().couleurDemandee();
-        if (_g.getProgressingTrick().couleurDemandee() == Suit.UNDEFINED) {
-            Suit couleurAppele_ = _g.getCalledCards().premiereCarte().couleur();
-            return Format.formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_FIRST_TRICK, toString(couleurAppele_,_loc), toString(_g.getCalledCards().premiereCarte(),_loc));
-        }
         if (Suit.couleursOrdinaires().containsObj(couleurDemandee_)
                 && !repartition_.getVal(couleurDemandee_).estVide()) {
             return Format.formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_PLAY_SUIT, toString(couleurDemandee_,_loc));

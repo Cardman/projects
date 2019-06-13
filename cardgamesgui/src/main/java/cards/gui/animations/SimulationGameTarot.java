@@ -132,7 +132,7 @@ public final class SimulationGameTarot extends Thread implements SimulationGame 
         GameTarot partie_=partieTarotSimulee();
         partie_.simuler();
         if(partie_.getSimulationAvecContrats()) {
-            CustList<TrickTarot> plisFaits_=partie_.unionPlis(true);
+            CustList<TrickTarot> plisFaits_=partie_.unionPlis();
             mainsUtilisateurs_.add(0,new HandTarot());
             mainsUtilisateurs_.get(0).ajouter(plisFaits_.last().carteDuJoueur((byte)0));
             int indLastShownTrick_=plisFaits_.size()-2;

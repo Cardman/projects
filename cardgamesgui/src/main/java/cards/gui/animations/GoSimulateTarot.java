@@ -73,7 +73,7 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
         partie_.setChargementSimulation(100);
         String lg_ = container.getOwner().getLanguageKey();
         if(partie_.getSimulationAvecContrats()) {
-            CustList<TrickTarot> plisFaits_=partie_.unionPlis(true);
+            CustList<TrickTarot> plisFaits_=partie_.unionPlis();
             mainsUtilisateurs_.add(0,new HandTarot());
             mainsUtilisateurs_.get(0).ajouter(plisFaits_.last().carteDuJoueur((byte)0));
             int indLastShownTrick_=plisFaits_.size()-2;
@@ -240,10 +240,13 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
         ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //        container.ajouterTexteDansZone(event_);
 //        container.ajouterTexteDansZone(ContainerTarot.EMPTY+ContainerTarot.RETURN_LINE_CHAR);
-        CustList<TrickTarot> plisFaits_=partie_.unionPlis(false);
+        CustList<TrickTarot> plisFaits_=partie_.getTricks();
         int nbTricks_ = plisFaits_.size();
-        for(int indicePli_=CustList.SECOND_INDEX;indicePli_<nbTricks_;indicePli_++) {
+        for(int indicePli_=CustList.FIRST_INDEX;indicePli_<nbTricks_;indicePli_++) {
             TrickTarot pli_=plisFaits_.get(indicePli_);
+            if (!pli_.getVuParToutJoueur()) {
+                continue;
+            }
 
             entameur_=pli_.getEntameur();
             for(byte indiceCarte_=CustList.FIRST_INDEX;indiceCarte_<nombreJoueurs_;indiceCarte_++) {
@@ -263,7 +266,7 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
 //                container.ajouterTexteDansZone(event_);
                 ThreadUtil.sleep(1000);
                 container.pause();
-                if(indicePli_==CustList.SECOND_INDEX) {
+                if(indicePli_==CustList.FIRST_INDEX) {
                     if(partie_.pasJeuMisere()) {
                         for(Miseres annonce_:partie_.getAnnoncesMiseres(joueur_)) {
                             mess_ = container.getMessages().getVal(MainWindow.DEMO_ACTION);

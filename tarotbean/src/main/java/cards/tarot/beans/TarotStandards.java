@@ -581,7 +581,7 @@ public final class TarotStandards extends BeanLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_, ALONE_TRUMP_ACE_PLAYER)) {
-                res_.setResult(new StringStruct(instance_.getAloneTrumpAcePlayer()));
+                res_.setResult(new StringStruct(""));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, CALLED_PLAYERS)) {
