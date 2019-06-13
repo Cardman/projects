@@ -1,6 +1,5 @@
 package code.util;
 import code.util.comparators.ComparatorNatNumber;
-import code.util.ints.Displayable;
 import code.util.ints.Listable;
 
 public final class Numbers<T extends Number> extends CustList<T> {
@@ -314,19 +313,6 @@ public final class Numbers<T extends Number> extends CustList<T> {
         return indexOfObj(_obj) != INDEX_NOT_FOUND_ELT;
     }
 
-    @Override
-    public Numbers<T> sub(int _from, int _to) {
-        if (_from > _to) {
-            return new Numbers<T>();
-        }
-        return new Numbers<T>(super.sub(_from, _to));
-    }
-
-    @Override
-    public Numbers<T> mid(int _beginIndex, int _nbElements) {
-        return new Numbers<T>(sub(_beginIndex, _beginIndex+_nbElements));
-    }
-
     public void removeDuplicates() {
         int i_ = FIRST_INDEX;
         while (true) {
@@ -384,20 +370,6 @@ public final class Numbers<T extends Number> extends CustList<T> {
                 i_++;
             }
         }
-    }
-
-    @Override
-    public Numbers<T> getReverse() {
-        Numbers<T> list_ = new Numbers<T>(this);
-        int i_ = FIRST_INDEX;
-        int j_ = list_.size();
-        j_--;
-        while (i_ < j_) {
-            list_.swapIndexes(i_, j_);
-            i_++;
-            j_--;
-        }
-        return list_;
     }
 
     public void retainAllElements(Numbers<T> _c) {

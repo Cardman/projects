@@ -1,22 +1,18 @@
 package code.maths.montecarlo;
 import code.maths.LgInt;
-import code.maths.NumDiffDenNum;
-import code.maths.Rate;
-import code.util.CollCapacity;
 import code.util.NumberMap;
-import code.util.Numbers;
 
 
-public final class MonteCarloNb<E extends Number> extends AbMonteCarlo<E> {
+public final class MonteCarloNb extends AbMonteCarlo<Long> {
 
-    private NumberMap<E,LgInt> law;
+    private NumberMap<Long,LgInt> law;
 
     public MonteCarloNb() {
-        law = new NumberMap<E,LgInt>();
+        law = new NumberMap<Long,LgInt>();
     }
 
     @Override
-    public NumberMap<E,LgInt> getLaw() {
+    public NumberMap<Long,LgInt> getLaw() {
         return law;
     }
 }

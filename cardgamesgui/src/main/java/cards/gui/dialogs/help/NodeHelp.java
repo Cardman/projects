@@ -27,7 +27,7 @@ public class NodeHelp implements Displayable {
         return elements.get(_indice);
     }
 
-    public NodeHelp element(Numbers<Integer> _indices) {
+    public NodeHelp element(CustList<Integer> _indices) {
         if (_indices.isEmpty()) {
             return this;
         }

@@ -177,7 +177,7 @@ public final class FrameGeneralHelp extends ChildFrame {
             container_.removeAll();
         }
         for (HelpIndexes chemin_ : cles_) {
-            Numbers<Integer> cheminSansNoeud_ = chemin_.mid(CustList.FIRST_INDEX,
+            CustList<Integer> cheminSansNoeud_ = chemin_.mid(CustList.FIRST_INDEX,
                     chemin_.getLastIndex());
             NodeHelp noeudLoc_;
             DefaultMutableTreeNode noeudLocGraphique_;

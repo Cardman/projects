@@ -6053,7 +6053,7 @@ public final class GameBelote {
 
     /**@throws NullPointerException si un des arguments est null*/
     private static boolean egaliteJoueurs(Numbers<Byte> _joueurs1, Numbers<Byte> _joueurs2) {
-        return _joueurs1.containsAllObj(_joueurs2) && _joueurs2.containsAllObj(_joueurs1);
+        return Numbers.equalsSetBytes(_joueurs1,_joueurs2);
     }
     public boolean isSameTeam(Numbers<Byte> _players) {
         int nbPlayers_ = _players.size();

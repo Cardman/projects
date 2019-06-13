@@ -1,5 +1,6 @@
 package cards.gui.dialogs.help;
 
+import code.util.CustList;
 import code.util.Numbers;
 import code.util.ints.Equallable;
 
@@ -47,7 +48,7 @@ public final class HelpIndexes implements Equallable<HelpIndexes> {
         return indexes.getLastIndex();
     }
 
-    public Numbers<Integer> mid(byte _firstIndex, int _lastIndex) {
+    public CustList<Integer> mid(byte _firstIndex, int _lastIndex) {
         return indexes.mid(_firstIndex, _lastIndex);
     }
 

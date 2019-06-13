@@ -5,7 +5,6 @@ import code.util.EqList;
 import code.util.IdList;
 import code.util.IdMap;
 import code.util.Numbers;
-import code.util.SortableCustList;
 
 public final class Delaunay {
 

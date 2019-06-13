@@ -24,10 +24,9 @@ public final class GameTarotTeamsRelation {
         CustList<Numbers<Byte>> teams_ =new CustList<Numbers<Byte>>();
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
         Numbers<Byte> all_ =tousJoueurs(nombreDeJoueurs_);
-        Numbers<Byte> rem_ =new Numbers<Byte>(all_);
         Numbers<Byte> done_ =new Numbers<Byte>();
-        while(!rem_.isEmpty()) {
-            byte pl_ = rem_.first();
+        while(!all_.isEmpty()) {
+            byte pl_ = all_.first();
             if (done_.contains(pl_)) {
                 all_.remove(0);
                 continue;

@@ -446,8 +446,8 @@ final class GameTarotTrickHypothesis {
         byte player_ = _info.getCurrentPlayer();
         Numbers<Byte> joueursConfiance_ = _info.getJoueursConfiance();
         Numbers<Byte> joueursNonConfiance_ = _info.getJoueursNonConfiance();
-        joueursNonConfianceNonJoue_.retainAllElements(joueursNonConfiance_);
-        joueursConfianceNonJoue_.retainAllElements(joueursConfiance_);
+        joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonConfianceNonJoue_,joueursNonConfiance_);
+        joueursConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursConfianceNonJoue_,joueursConfiance_);
         Numbers<Byte> joueursJoue_ = _info.getJoueursJoue();
         Suit couleurDemandee_ = _info.getProgressingTrick().couleurDemandee();
         /*
@@ -686,8 +686,8 @@ final class GameTarotTrickHypothesis {
         byte player_ = _info.getCurrentPlayer();
         Numbers<Byte> joueursConfiance_ = _info.getJoueursConfiance();
         Numbers<Byte> joueursNonConfiance_ = _info.getJoueursNonConfiance();
-        joueursNonConfianceNonJoue_.retainAllElements(joueursNonConfiance_);
-        joueursConfianceNonJoue_.retainAllElements(joueursConfiance_);
+        joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonConfianceNonJoue_,joueursNonConfiance_);
+        joueursConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursConfianceNonJoue_,joueursConfiance_);
         Numbers<Byte> joueursJoue_ = _info.getJoueursJoue();
         Suit couleurDemandee_ = _info.getProgressingTrick().couleurDemandee();
         /* La couleur demandee n 'est pas de l 'atout et le pli n 'est pas coupe */
@@ -895,8 +895,8 @@ final class GameTarotTrickHypothesis {
         byte player_ = _info.getCurrentPlayer();
         Numbers<Byte> joueursConfiance_ = _info.getJoueursConfiance();
         Numbers<Byte> joueursNonConfiance_ = _info.getJoueursNonConfiance();
-        joueursNonConfianceNonJoue_.retainAllElements(joueursNonConfiance_);
-        joueursConfianceNonJoue_.retainAllElements(joueursConfiance_);
+        joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonConfianceNonJoue_,joueursNonConfiance_);
+        joueursConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursConfianceNonJoue_,joueursConfiance_);
         Numbers<Byte> joueursJoue_ = _info.getJoueursJoue();
         /* Le pli n'est pas coupe et la couleur demandee est l'atout */
         if (cartesCertaines_.getVal(Suit.TRUMP).get(player_).estVide()

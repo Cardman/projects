@@ -1533,21 +1533,19 @@ public final class Player {
     }
 
     public void restore(Numbers<Byte> _indexes) {
-        TreeMap<Byte, Byte> map_;
-        map_ = new TreeMap<Byte, Byte>(new ComparatorNatNumber<Byte>());
+        TreeMap<Byte, Integer> map_;
+        map_ = new TreeMap<Byte, Integer>(new ComparatorNatNumber<Byte>());
         int nbIndexes_ = _indexes.size();
         for (byte i = CustList.FIRST_INDEX; i < nbIndexes_; i++) {
-            map_.put(i, _indexes.get(i));
+            map_.put(i, (int)_indexes.get(i));
         }
-        TreeMap<Byte,Byte> copy_;
-        copy_ = new TreeMap<Byte, Byte>(new ComparatorTreeMapValue<Byte, Byte>(map_));
+        TreeMap<Byte,Integer> copy_;
+        copy_ = new TreeMap<Byte, Integer>(new ComparatorTreeMapValue<Byte>(map_));
         copy_.putAllMap(map_);
-        Numbers<Byte> indexes_;
-        indexes_ = new Numbers<Byte>(copy_.getKeys());
-        swap(indexes_);
+        swap(copy_.getKeys());
     }
 
-    public void swap(Numbers<Byte> _indexes) {
+    public void swap(CustList<Byte> _indexes) {
         CustList<UsablePokemon> team_;
         team_ = new CustList<UsablePokemon>();
         for (byte i: _indexes) {

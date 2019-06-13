@@ -523,7 +523,7 @@ public class NumbersTest {
         Numbers<Integer> nbs_ = new Numbers<Integer>();
         nbs_.add(5);
         nbs_.add(1);
-        Numbers<Integer> out_ = nbs_.sub(1,2);
+        CustList<Integer> out_ = nbs_.sub(1,2);
         assertEq(1, out_.size());
         assertEq(1, out_.get(0));
     }
@@ -532,7 +532,7 @@ public class NumbersTest {
         Numbers<Integer> nbs_ = new Numbers<Integer>();
         nbs_.add(5);
         nbs_.add(1);
-        Numbers<Integer> out_ = nbs_.sub(2,1);
+        CustList<Integer> out_ = nbs_.sub(2,1);
         assertEq(0, out_.size());
     }
     @Test
@@ -540,7 +540,7 @@ public class NumbersTest {
         Numbers<Integer> nbs_ = new Numbers<Integer>();
         nbs_.add(5);
         nbs_.add(1);
-        Numbers<Integer> out_ = nbs_.mid(1,1);
+        CustList<Integer> out_ = nbs_.mid(1,1);
         assertEq(1, out_.size());
         assertEq(1, out_.get(0));
     }

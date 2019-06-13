@@ -976,7 +976,7 @@ public class FightSimulation {
         Numbers<Byte> indexesBack_;
         indexesBack_ = new Numbers<Byte>();
         for (EntryCust<Byte, Byte> e: fighters_.entryList()) {
-            if (!Numbers.eq(e.getValue().byteValue(), Fighter.BACK)) {
+            if (!Numbers.eq(e.getValue(), Fighter.BACK)) {
                 indexes_.add(e.getKey());
             } else {
                 indexesBack_.add(e.getKey());

@@ -1,7 +1,6 @@
 package code.maths.geo;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.SortableCustList;
 
 
 public final class EdgeThreeDimensions {
