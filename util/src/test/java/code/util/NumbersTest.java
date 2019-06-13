@@ -7,30 +7,6 @@ import org.junit.Test;
 
 public class NumbersTest {
     @Test
-    public void eq1Test(){
-        assertTrue(Numbers.eq(new Long(1), new Integer(1)));
-    }
-    @Test
-    public void eq2Test(){
-        assertTrue(Numbers.eq(new Long(1), new Short((short) 1)));
-    }
-    @Test
-    public void eq3Test(){
-        assertTrue(Numbers.eq(new Long(1), new Byte((byte) 1)));
-    }
-    @Test
-    public void eq4Test(){
-        assertTrue(Numbers.eq(new Short((short) 1), new Integer(1)));
-    }
-    @Test
-    public void eq5Test(){
-        assertTrue(Numbers.eq(new Byte((byte) 1), new Integer(1)));
-    }
-    @Test
-    public void eq6Test(){
-        assertTrue(Numbers.eq(new Byte((byte) 1), new Short((short) 1)));
-    }
-    @Test
     public void getReverseTest() {
         Numbers<Integer> list_ = new Numbers<Integer>();
         list_.add(0);
@@ -538,92 +514,9 @@ public class NumbersTest {
         assertEq(3, indexes_.get(23).get(2));
     }
     @Test
-    public void displayTest() {
-        Numbers<Integer> list_ = new Numbers<Integer>();
-        assertEq("[]",list_.display());
-        list_ = new Numbers<Integer>();
-        list_.add(1);
-        assertEq("[1]",list_.display());
-        list_ = new Numbers<Integer>();
-        list_.add(0);
-        list_.add(1);
-        assertEq("[0,1]",list_.display());
-        assertEq("1.0",Numbers.toString(1.0f));
-        assertEq("1.0",Numbers.toString(1.0));
-    }
-    @Test
-    public void joinTest() {
-        Numbers<Integer> list_ = new Numbers<Integer>();
-        assertEq("",list_.join(';'));
-        assertEq("",list_.join(";"));
-        list_ = new Numbers<Integer>();
-        list_.add(1);
-        assertEq("1",list_.join(';'));
-        assertEq("1",list_.join(";"));
-        list_ = new Numbers<Integer>();
-        list_.add(0);
-        list_.add(1);
-        assertEq("0;1",list_.join(';'));
-        assertEq("0;1",list_.join(";"));
-    }
-    @Test
     public void cmpTest() {
-        assertTrue(Numbers.gt(1,0));
-        assertTrue(!Numbers.gt(0,1));
-        assertTrue(Numbers.gt(1f,-1));
-        assertTrue(!Numbers.gt(-1f,1));
-        assertTrue(Numbers.gt(1d,-1));
-        assertTrue(!Numbers.gt(-1d,1));
-        assertTrue(Numbers.gt(1,-1f));
-        assertTrue(!Numbers.gt(-1,1f));
-        assertTrue(Numbers.gt(1,-1d));
-        assertTrue(!Numbers.gt(-1,1d));
-        assertTrue(!Numbers.lt(1,0));
-        assertTrue(Numbers.lt(0,1));
-        assertTrue(!Numbers.lt(1f,-1));
-        assertTrue(Numbers.lt(-1f,1));
-        assertTrue(!Numbers.lt(1d,-1));
-        assertTrue(Numbers.lt(-1d,1));
-        assertTrue(!Numbers.lt(1,-1f));
-        assertTrue(Numbers.lt(-1,1f));
-        assertTrue(!Numbers.lt(1,-1d));
-        assertTrue(Numbers.lt(-1,1d));
         assertTrue(!Numbers.eq(1,0));
         assertTrue(Numbers.eq(1,1));
-        assertTrue(!Numbers.eq((Number)1,0));
-        assertTrue(Numbers.eq((Number)1,1));
-        assertTrue(!Numbers.eq(1f,-1));
-        assertTrue(Numbers.eq(-1f,-1));
-        assertTrue(!Numbers.eq(1d,-1));
-        assertTrue(Numbers.eq(-1d,-1));
-        assertTrue(!Numbers.eq(1,-1f));
-        assertTrue(Numbers.eq(-1,-1f));
-        assertTrue(!Numbers.eq(1,-1d));
-        assertTrue(Numbers.eq(-1,-1d));
-        assertEq(CustList.NO_SWAP_SORT,Numbers.compare(-1,1));
-        assertEq(CustList.EQ_CMP,Numbers.compare(1,1));
-        assertEq(CustList.SWAP_SORT,Numbers.compare(1,-1));
-        assertEq(CustList.NO_SWAP_SORT,Numbers.compareGene(-1,1));
-        assertEq(CustList.EQ_CMP,Numbers.compareGene(1,1));
-        assertEq(CustList.SWAP_SORT,Numbers.compareGene(1,-1));
-        assertEq(CustList.NO_SWAP_SORT,Numbers.compareGene(-1,1f));
-        assertEq(CustList.EQ_CMP,Numbers.compareGene(1,1f));
-        assertEq(CustList.SWAP_SORT,Numbers.compareGene(1,-1f));
-        assertEq(CustList.NO_SWAP_SORT,Numbers.compareGene(-1,1d));
-        assertEq(CustList.EQ_CMP,Numbers.compareGene(1,1d));
-        assertEq(CustList.SWAP_SORT,Numbers.compareGene(1,-1d));
-        assertEq(CustList.NO_SWAP_SORT,Numbers.compareGene(-1f,1f));
-        assertEq(CustList.EQ_CMP,Numbers.compareGene(1f,1f));
-        assertEq(CustList.SWAP_SORT,Numbers.compareGene(1f,-1f));
-        assertEq(CustList.NO_SWAP_SORT,Numbers.compareGene(-1f,1d));
-        assertEq(CustList.EQ_CMP,Numbers.compareGene(1f,1d));
-        assertEq(CustList.SWAP_SORT,Numbers.compareGene(1f,-1d));
-        assertEq(CustList.NO_SWAP_SORT,Numbers.compareGene(-1d,1f));
-        assertEq(CustList.EQ_CMP,Numbers.compareGene(1d,1f));
-        assertEq(CustList.SWAP_SORT,Numbers.compareGene(1d,-1f));
-        assertEq(CustList.NO_SWAP_SORT,Numbers.compareGene(-1d,1d));
-        assertEq(CustList.EQ_CMP,Numbers.compareGene(1d,1d));
-        assertEq(CustList.SWAP_SORT,Numbers.compareGene(1d,-1d));
     }
     @Test
     public void sub1Test(){

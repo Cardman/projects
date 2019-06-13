@@ -15,7 +15,7 @@ public class MyValidator extends Validator {
             if (_value instanceof Boolean) {
                 message_.setArgs(String.valueOf(((Boolean)_value).booleanValue()));
             } else {
-                message_.setArgs(String.valueOf(((Number)_value).longValue()));
+                message_.setArgs(String.valueOf(((Long)_value).longValue()));
             }
             message_.setMessage("{0} is not a no zero rate");
             message_.setFormatMessage(true);

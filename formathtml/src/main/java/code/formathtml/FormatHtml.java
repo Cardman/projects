@@ -3481,7 +3481,7 @@ public final class FormatHtml {
         Long value_ = BeanLgNames.parseLong(attribute_);
         if (value_ != null) {
             //TODO converter
-            _tag.setAttribute(ATTRIBUTE_VALUE, Numbers.toString(value_));
+            _tag.setAttribute(ATTRIBUTE_VALUE, Long.toString(value_));
         } else {
             _conf.getLastPage().setProcessingAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VAR_VALUE));
             _conf.getLastPage().setLookForAttrValue(true);

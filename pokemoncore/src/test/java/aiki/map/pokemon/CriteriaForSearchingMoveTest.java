@@ -37,8 +37,8 @@ public class CriteriaForSearchingMoveTest extends InitializationDataBase {
     public void matchPrice1Test() {
         CriteriaForSearchingMove criteria_;
         criteria_ = new CriteriaForSearchingMove();
-        criteria_.setMinPrice(0);
-        criteria_.setMaxPrice(2);
+        criteria_.setMinPrice(0L);
+        criteria_.setMaxPrice(2L);
         assertTrue(criteria_.matchPrice(1));
     }
 
@@ -46,8 +46,8 @@ public class CriteriaForSearchingMoveTest extends InitializationDataBase {
     public void matchPp1Test() {
         CriteriaForSearchingMove criteria_;
         criteria_ = new CriteriaForSearchingMove();
-        criteria_.setMinPp(0);
-        criteria_.setMaxPp(2);
+        criteria_.setMinPp(0L);
+        criteria_.setMaxPp(2L);
         assertTrue(criteria_.matchPp(1));
     }
 
@@ -55,8 +55,8 @@ public class CriteriaForSearchingMoveTest extends InitializationDataBase {
     public void matchPrio1Test() {
         CriteriaForSearchingMove criteria_;
         criteria_ = new CriteriaForSearchingMove();
-        criteria_.setMinPrio(0);
-        criteria_.setMaxPrio(2);
+        criteria_.setMinPrio(0L);
+        criteria_.setMaxPrio(2L);
         assertTrue(criteria_.matchPrio(1));
     }
 

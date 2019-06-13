@@ -3,7 +3,7 @@ import code.util.comparators.ComparatorNatNumber;
 import code.util.ints.Displayable;
 import code.util.ints.Listable;
 
-public final class Numbers<T extends Number> extends CustList<T> implements Displayable {
+public final class Numbers<T extends Number> extends CustList<T> {
 
     private static final int DEFAULT_RADIX = 10;
 
@@ -25,24 +25,11 @@ public final class Numbers<T extends Number> extends CustList<T> implements Disp
         super(_capacity);
     }
 
-    private static String nullableToString(Number _nb) {
-        return toString(_nb);
-    }
-    public static String toString(Number _nb) {
-        if (_nb instanceof Double) {
-            return _nb.toString();
-        }
-        if (_nb instanceof Float) {
-            return _nb.toString();
-        }
-        return Long.toString(_nb.longValue());
-    }
-
     public static boolean equalsSetBytes(Listable<Byte> _list1,Listable<Byte> _list2) {
         for (Byte c: _list2) {
             boolean contains_ = false;
             for (Byte d: _list1) {
-                if (eq(c.byteValue(), d.byteValue())) {
+                if (eq(c, d)) {
                     contains_ = true;
                     break;
                 }
@@ -54,7 +41,7 @@ public final class Numbers<T extends Number> extends CustList<T> implements Disp
         for (Byte c: _list1) {
             boolean contains_ = false;
             for (Byte d: _list2) {
-                if (eq(c.byteValue(), d.byteValue())) {
+                if (eq(c, d)) {
                     contains_ = true;
                     break;
                 }
@@ -69,7 +56,7 @@ public final class Numbers<T extends Number> extends CustList<T> implements Disp
         for (Short c: _list2) {
             boolean contains_ = false;
             for (Short d: _list1) {
-                if (eq(c.shortValue(), d.shortValue())) {
+                if (eq(c, d)) {
                     contains_ = true;
                     break;
                 }
@@ -81,7 +68,7 @@ public final class Numbers<T extends Number> extends CustList<T> implements Disp
         for (Short c: _list1) {
             boolean contains_ = false;
             for (Short d: _list2) {
-                if (eq(c.shortValue(), d.shortValue())) {
+                if (eq(c, d)) {
                     contains_ = true;
                     break;
                 }
@@ -142,69 +129,11 @@ public final class Numbers<T extends Number> extends CustList<T> implements Disp
         }
         return -((-_one)/_two)-1;
     }
-    public static boolean eq(Number _nb1,Number _nb2) {
-        if (_nb1 instanceof Double || _nb1 instanceof Float) {
-            return _nb1.doubleValue() == _nb2.doubleValue();
-        }
-        if (_nb2 instanceof Double || _nb2 instanceof Float) {
-            return _nb1.doubleValue() == _nb2.doubleValue();
-        }
-        return _nb1.longValue() == _nb2.longValue();
-    }
 
-    public static boolean lt(Number _nb1,Number _nb2) {
-        if (_nb1 instanceof Double || _nb1 instanceof Float) {
-            return _nb1.doubleValue() < _nb2.doubleValue();
-        }
-        if (_nb2 instanceof Double || _nb2 instanceof Float) {
-            return _nb1.doubleValue() < _nb2.doubleValue();
-        }
-        return _nb1.longValue() < _nb2.longValue();
-    }
-
-    public static boolean gt(Number _nb1,Number _nb2) {
-        if (_nb1 instanceof Double || _nb1 instanceof Float) {
-            return _nb1.doubleValue() > _nb2.doubleValue();
-        }
-        if (_nb2 instanceof Double || _nb2 instanceof Float) {
-            return _nb1.doubleValue() > _nb2.doubleValue();
-        }
-        return _nb1.longValue() > _nb2.longValue();
-    }
     public static boolean eq(long _nb1,long _nb2) {
         return _nb1 == _nb2;
     }
 
-    public static int compareGene(Number _nb1,Number _nb2) {
-        if (_nb1 instanceof Double || _nb1 instanceof Float) {
-            if (_nb1.doubleValue() < _nb2.doubleValue()) {
-                return CustList.NO_SWAP_SORT;
-            }
-            if (_nb1.doubleValue() > _nb2.doubleValue()) {
-                return CustList.SWAP_SORT;
-            }
-            return CustList.EQ_CMP;
-        }
-        if (_nb2 instanceof Double || _nb2 instanceof Float) {
-            if (_nb1.doubleValue() < _nb2.doubleValue()) {
-                return CustList.NO_SWAP_SORT;
-            }
-            if (_nb1.doubleValue() > _nb2.doubleValue()) {
-                return CustList.SWAP_SORT;
-            }
-            return CustList.EQ_CMP;
-        }
-        if (_nb1.longValue() < _nb2.longValue()) {
-            return CustList.NO_SWAP_SORT;
-        }
-        if (_nb1.longValue() > _nb2.longValue()) {
-            return CustList.SWAP_SORT;
-        }
-        return CustList.EQ_CMP;
-    }
-    public static int compare(Number _nb1,Number _nb2) {
-        return compareLg(_nb1.longValue(),_nb2.longValue());
-    }
     public static int compareLg(long _nb1,long _nb2) {
         if (_nb1 < _nb2) {
             return CustList.NO_SWAP_SORT;
@@ -349,31 +278,6 @@ public final class Numbers<T extends Number> extends CustList<T> implements Disp
         return INDEX_NOT_FOUND_ELT;
     }
 
-    public String join(String _join) {
-        if (isEmpty()) {
-            return EMPTY_STRING;
-        }
-        StringBuilder return_ = new StringBuilder(nullableToString(get(FIRST_INDEX)));
-        int size_ = size();
-        for (int i=SECOND_INDEX;i<size_;i++) {
-            return_.append(_join);
-            return_.append(nullableToString(get(i)));
-        }
-        return return_.toString();
-    }
-
-    public String join(char _join) {
-        if (isEmpty()) {
-            return EMPTY_STRING;
-        }
-        StringBuilder return_ = new StringBuilder(toString(get(FIRST_INDEX)));
-        int size_ = size();
-        for (int i=SECOND_INDEX;i<size_;i++) {
-            return_.append(_join);
-            return_.append(toString(get(i)));
-        }
-        return return_.toString();
-    }
 
     public void removeAllElements(Listable<T> _c) {
         for (Number s: _c) {
@@ -480,11 +384,6 @@ public final class Numbers<T extends Number> extends CustList<T> implements Disp
                 i_++;
             }
         }
-    }
-
-    @Override
-    public String display() {
-        return StringList.concat("[",join(","),"]");
     }
 
     @Override

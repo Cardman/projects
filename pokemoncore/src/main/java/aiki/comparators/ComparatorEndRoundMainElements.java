@@ -8,7 +8,7 @@ public final class ComparatorEndRoundMainElements implements
 
     @Override
     public int compare(EndRoundMainElements _o1, EndRoundMainElements _o2) {
-        return Numbers.compare(_o1.getNumberIncrement(), _o2.getNumberIncrement());
+        return Numbers.compareLg(_o1.getNumberIncrement(), _o2.getNumberIncrement());
     }
 
 }

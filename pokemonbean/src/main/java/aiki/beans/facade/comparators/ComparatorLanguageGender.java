@@ -37,7 +37,7 @@ public final class ComparatorLanguageGender implements Comparing<LanguageElement
         }
         String langOne_ = _o1.getLanguage();
         String langTwo_ = _o2.getLanguage();
-        return Numbers.compare(languages.indexOfObj(langOne_), languages.indexOfObj(langTwo_));
+        return Numbers.compareLg(languages.indexOfObj(langOne_), languages.indexOfObj(langTwo_));
     }
 
     private static int compare(EnumMap<Gender,String> _translator, Gender _e1, Gender _e2) {

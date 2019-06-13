@@ -16,42 +16,42 @@ public class MapTest {
 
     @Test
     public void put1Test() {
-        StringMap<Number> map_ = new StringMap<Number>(new StringMap<Number>(new CollCapacity(0)));
-        Listable<EntryCust<String,Number>> l_ = map_.getList();
+        StringMap<Integer> map_ = new StringMap<Integer>(new StringMap<Integer>(new CollCapacity(0)));
+        Listable<EntryCust<String,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put("ONE", 1);
         assertEq(1, l_.size());
-        assertTrue(containsEntry(l_, new EntryCust<String, Number>("ONE", 1)));
+        assertTrue(containsEntry(l_, new EntryCust<String, Integer>("ONE", 1)));
         map_.put("TWO", 2);
         assertEq(2, l_.size());
-        assertTrue(containsEntry(l_, new EntryCust<String, Number>("ONE", 1)));
-        assertTrue(containsEntry(l_, new EntryCust<String, Number>("TWO", 2)));
+        assertTrue(containsEntry(l_, new EntryCust<String, Integer>("ONE", 1)));
+        assertTrue(containsEntry(l_, new EntryCust<String, Integer>("TWO", 2)));
         map_.put("TWO", 3);
         assertEq(2, l_.size());
-        assertTrue(containsEntry(l_, new EntryCust<String, Number>("ONE", 1)));
-        assertTrue(containsEntry(l_, new EntryCust<String, Number>("TWO", 3)));
-        ObjectMap<KeyExample,Number> otherMap_ = new ObjectMap<KeyExample,Number>();
-        Listable<EntryCust<KeyExample,Number>> lOther_ = otherMap_.getList();
+        assertTrue(containsEntry(l_, new EntryCust<String, Integer>("ONE", 1)));
+        assertTrue(containsEntry(l_, new EntryCust<String, Integer>("TWO", 3)));
+        ObjectMap<KeyExample,Integer> otherMap_ = new ObjectMap<KeyExample,Integer>();
+        Listable<EntryCust<KeyExample,Integer>> lOther_ = otherMap_.getList();
         KeyExample k1_ = new KeyExample(0, 0);
         KeyExample k2_ = new KeyExample(0, 1);
         KeyExample k3_ = new KeyExample(0, 1);
         assertEq(0, lOther_.size());
         otherMap_.put(k1_, 0);
         assertEq(1, lOther_.size());
-        assertTrue(containsEntryTwo(lOther_, new EntryCust<KeyExample, Number>(k1_, 0)));
+        assertTrue(containsEntryTwo(lOther_, new EntryCust<KeyExample, Integer>(k1_, 0)));
         otherMap_.put(k2_, 1);
         assertEq(2, lOther_.size());
-        assertTrue(containsEntryTwo(lOther_, new EntryCust<KeyExample, Number>(k1_, 0)));
-        assertTrue(containsEntryTwo(lOther_, new EntryCust<KeyExample, Number>(k2_, 1)));
+        assertTrue(containsEntryTwo(lOther_, new EntryCust<KeyExample, Integer>(k1_, 0)));
+        assertTrue(containsEntryTwo(lOther_, new EntryCust<KeyExample, Integer>(k2_, 1)));
         otherMap_.put(k3_, 2);
         assertEq(2, lOther_.size());
-        assertTrue(containsEntryTwo(lOther_, new EntryCust<KeyExample, Number>(k1_, 0)));
-        assertTrue(containsEntryTwo(lOther_, new EntryCust<KeyExample, Number>(k2_, 2)));
+        assertTrue(containsEntryTwo(lOther_, new EntryCust<KeyExample, Integer>(k1_, 0)));
+        assertTrue(containsEntryTwo(lOther_, new EntryCust<KeyExample, Integer>(k2_, 2)));
     }
 
     @Test
     public void size1Test() {
-        StringMap<Number> map_ = new StringMap<Number>();
+        StringMap<Integer> map_ = new StringMap<Integer>();
         assertEq(0, map_.size());
         map_.put("ONE", 1);
         assertEq(1,map_.size());
@@ -59,7 +59,7 @@ public class MapTest {
         assertEq(2,map_.size());
         map_.put("TWO", 3);
         assertEq(2,map_.size());
-        ObjectMap<KeyExample,Number> otherMap_ = new ObjectMap<KeyExample,Number>();
+        ObjectMap<KeyExample,Integer> otherMap_ = new ObjectMap<KeyExample,Integer>();
         assertEq(0, otherMap_.size());
         otherMap_.put(new KeyExample(0, 0), 0);
         assertEq(1,otherMap_.size());
@@ -71,7 +71,7 @@ public class MapTest {
 
     @Test
     public void contains1Test() {
-        StringMap<Number> map_ = new StringMap<Number>();
+        StringMap<Integer> map_ = new StringMap<Integer>();
         assertEq(0, map_.size());
         map_.put("ONE", 1);
         assertTrue(map_.contains("ONE"));
@@ -81,7 +81,7 @@ public class MapTest {
         map_.put("TWO", 3);
         assertTrue(map_.contains("ONE"));
         assertTrue(map_.contains("TWO"));
-        ObjectMap<KeyExample,Number> otherMap_ = new ObjectMap<KeyExample,Number>();
+        ObjectMap<KeyExample,Integer> otherMap_ = new ObjectMap<KeyExample,Integer>();
         assertEq(0, otherMap_.size());
         otherMap_.put(new KeyExample(0, 0), 0);
         assertTrue(otherMap_.contains(new KeyExample(0, 0)));
@@ -95,9 +95,9 @@ public class MapTest {
 
     @Test
     public void getVal1Test() {
-        StringMap<Number> map_ = new StringMap<Number>();
+        StringMap<Integer> map_ = new StringMap<Integer>();
         map_.put("ONE", 1);
-        assertEq(1,map_.getVal("ONE").intValue());
+        assertEq(1,map_.getVal("ONE"));
         assertNull(map_.getVal("TWO"));
         map_.put("TWO", 2);
         assertEq(1,map_.getVal("ONE").intValue());
@@ -105,7 +105,7 @@ public class MapTest {
         map_.put("TWO", 3);
         assertEq(1,map_.getVal("ONE").intValue());
         assertEq(3,map_.getVal("TWO").intValue());
-        ObjectMap<KeyExample,Number> otherMap_ = new ObjectMap<KeyExample,Number>();
+        ObjectMap<KeyExample,Integer> otherMap_ = new ObjectMap<KeyExample,Integer>();
         otherMap_.put(new KeyExample(0, 0), 0);
         assertEq(0, otherMap_.getVal(new KeyExample(0, 0)).intValue());
         otherMap_.put(new KeyExample(0, 1), 1);
@@ -118,7 +118,7 @@ public class MapTest {
 
     @Test
     public void removeKey1Test() {
-        StringMap<Number> map_ = new StringMap<Number>();
+        StringMap<Integer> map_ = new StringMap<Integer>();
         map_.put("ONE", 1);
         map_.put("TWO", 2);
         map_.removeKey("ZERO");
@@ -129,7 +129,7 @@ public class MapTest {
         assertEq(1,map_.size());
         assertTrue(map_.contains("ONE"));
         assertTrue(!map_.contains("TWO"));
-        ObjectMap<KeyExample,Number> otherMap_ = new ObjectMap<KeyExample,Number>();
+        ObjectMap<KeyExample,Integer> otherMap_ = new ObjectMap<KeyExample,Integer>();
         otherMap_.put(new KeyExample(0, 0), 0);
         otherMap_.put(new KeyExample(0, 1), 1);
         otherMap_.removeKey(new KeyExample(1, 1));
@@ -144,7 +144,7 @@ public class MapTest {
 
     @Test
     public void move1Test() {
-        StringMap<Number> map_ = new StringMap<Number>();
+        StringMap<Integer> map_ = new StringMap<Integer>();
         map_.put("ONE", 1);
         map_.put("TWO", 3);
         map_.move("TWO", "THREE");
@@ -163,10 +163,10 @@ public class MapTest {
 
     @Test
     public void putAllMap1Test() {
-        StringMap<Number> map_ = new StringMap<Number>();
+        StringMap<Integer> map_ = new StringMap<Integer>();
         map_.put("ONE", 1);
         map_.put("TWO", 2);
-        StringMap<Number> mapToPut_ = new StringMap<Number>();
+        StringMap<Integer> mapToPut_ = new StringMap<Integer>();
         mapToPut_.put("THREE", 3);
         mapToPut_.put("FOUR", 4);
         map_.putAllMap(mapToPut_);
@@ -183,10 +183,10 @@ public class MapTest {
 
     @Test
     public void putAllMap2Test() {
-        StringMap<Number> map_ = new StringMap<Number>();
+        StringMap<Integer> map_ = new StringMap<Integer>();
         map_.put("ONE", 1);
         map_.put("TWO", 2);
-        StringMap<Number> mapToPut_ = new StringMap<Number>();
+        StringMap<Integer> mapToPut_ = new StringMap<Integer>();
         mapToPut_.put("TWO", 3);
         mapToPut_.put("THREE", 4);
         map_.putAllMap(mapToPut_);
@@ -201,10 +201,10 @@ public class MapTest {
 
     @Test
     public void putAllMap3Test() {
-        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>(new ObjectMap<KeyExample,Number>(new CollCapacity(0)));
+        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>(new ObjectMap<KeyExample,Integer>(new CollCapacity(0)));
         map_.put(new KeyExample(0, 0), 0);
         map_.put(new KeyExample(0, 1), 1);
-        ObjectMap<KeyExample,Number> mapToPut_ = new ObjectMap<KeyExample,Number>();
+        ObjectMap<KeyExample,Integer> mapToPut_ = new ObjectMap<KeyExample,Integer>();
         mapToPut_.put(new KeyExample(1, 1), 2);
         mapToPut_.put(new KeyExample(1, 0), 3);
         map_.putAllMap(mapToPut_);
@@ -221,10 +221,10 @@ public class MapTest {
 
     @Test
     public void putAllMap4Test() {
-        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>();
+        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
         map_.put(new KeyExample(0, 0), 0);
         map_.put(new KeyExample(0, 1), 1);
-        ObjectMap<KeyExample,Number> mapToPut_ = new ObjectMap<KeyExample,Number>();
+        ObjectMap<KeyExample,Integer> mapToPut_ = new ObjectMap<KeyExample,Integer>();
         mapToPut_.put(new KeyExample(1, 1), 2);
         mapToPut_.put(new KeyExample(0, 1), 3);
         map_.putAllMap(mapToPut_);
@@ -239,10 +239,10 @@ public class MapTest {
 
     @Test
     public void putAllMap5Test() {
-        NumberMap<Integer,Number> map_ = new NumberMap<Integer,Number>(new NumberMap<Integer,Number>(new CollCapacity(0)));
+        NumberMap<Integer,Integer> map_ = new NumberMap<Integer,Integer>(new NumberMap<Integer,Integer>(new CollCapacity(0)));
         map_.put(0, 0);
         map_.put(1, 1);
-        NumberMap<Integer,Number> mapToPut_ = new NumberMap<Integer,Number>();
+        NumberMap<Integer,Integer> mapToPut_ = new NumberMap<Integer,Integer>();
         mapToPut_.put(2, 2);
         mapToPut_.put(3, 3);
         map_.putAllMap(mapToPut_);
@@ -259,10 +259,10 @@ public class MapTest {
 
     @Test
     public void putAllMap6Test() {
-        NumberMap<Integer,Number> map_ = new NumberMap<Integer,Number>();
+        NumberMap<Integer,Integer> map_ = new NumberMap<Integer,Integer>();
         map_.put(0, 0);
         map_.put(1, 1);
-        NumberMap<Integer,Number> mapToPut_ = new NumberMap<Integer,Number>();
+        NumberMap<Integer,Integer> mapToPut_ = new NumberMap<Integer,Integer>();
         mapToPut_.put(2, 2);
         mapToPut_.put(1, 3);
         map_.putAllMap(mapToPut_);
@@ -277,10 +277,10 @@ public class MapTest {
 
     @Test
     public void putAllMap7Test() {
-        EnumMap<MyEnum,Number> map_ = new EnumMap<MyEnum,Number>(new EnumMap<MyEnum,Number>(new CollCapacity(0)));
+        EnumMap<MyEnum,Integer> map_ = new EnumMap<MyEnum,Integer>(new EnumMap<MyEnum,Integer>(new CollCapacity(0)));
         map_.put(MyEnum.ZERO, 0);
         map_.put(MyEnum.ONE, 1);
-        EnumMap<MyEnum,Number> mapToPut_ = new EnumMap<MyEnum,Number>();
+        EnumMap<MyEnum,Integer> mapToPut_ = new EnumMap<MyEnum,Integer>();
         mapToPut_.put(MyEnum.TWO, 2);
         mapToPut_.put(MyEnum.THREE, 3);
         map_.putAllMap(mapToPut_);
@@ -297,10 +297,10 @@ public class MapTest {
 
     @Test
     public void putAllMap8Test() {
-        EnumMap<MyEnum,Number> map_ = new EnumMap<MyEnum,Number>();
+        EnumMap<MyEnum,Integer> map_ = new EnumMap<MyEnum,Integer>();
         map_.put(MyEnum.ZERO, 0);
         map_.put(MyEnum.ONE, 1);
-        EnumMap<MyEnum,Number> mapToPut_ = new EnumMap<MyEnum,Number>();
+        EnumMap<MyEnum,Integer> mapToPut_ = new EnumMap<MyEnum,Integer>();
         mapToPut_.put(MyEnum.TWO, 2);
         mapToPut_.put(MyEnum.ONE, 3);
         map_.putAllMap(mapToPut_);
@@ -315,10 +315,10 @@ public class MapTest {
 
     @Test
     public void putAllMap9Test() {
-        CharMap<Number> map_ = new CharMap<Number>(new CharMap<Number>(new CollCapacity(0)));
+        CharMap<Integer> map_ = new CharMap<Integer>(new CharMap<Integer>(new CollCapacity(0)));
         map_.put((char)0, 0);
         map_.put((char)1, 1);
-        CharMap<Number> mapToPut_ = new CharMap<Number>();
+        CharMap<Integer> mapToPut_ = new CharMap<Integer>();
         mapToPut_.put((char)2, 2);
         mapToPut_.put((char)3, 3);
         map_.putAllMap(mapToPut_);
@@ -335,10 +335,10 @@ public class MapTest {
 
     @Test
     public void putAllMap10Test() {
-        CharMap<Number> map_ = new CharMap<Number>();
+        CharMap<Integer> map_ = new CharMap<Integer>();
         map_.put((char)0, 0);
         map_.put((char)1, 1);
-        CharMap<Number> mapToPut_ = new CharMap<Number>();
+        CharMap<Integer> mapToPut_ = new CharMap<Integer>();
         mapToPut_.put((char)2, 2);
         mapToPut_.put((char)1, 3);
         map_.putAllMap(mapToPut_);
@@ -353,9 +353,9 @@ public class MapTest {
 
     @Test
     public void putAllMap11Test() {
-        BooleanMap<Number> map_ = new BooleanMap<Number>(new CollCapacity(0));
+        BooleanMap<Integer> map_ = new BooleanMap<Integer>(new CollCapacity(0));
         map_.put(false, 0);
-        BooleanMap<Number> mapToPut_ = new BooleanMap<Number>();
+        BooleanMap<Integer> mapToPut_ = new BooleanMap<Integer>();
         mapToPut_.put(true, 2);
         map_.putAllMap(mapToPut_);
         assertEq(2, map_.size());
@@ -367,9 +367,9 @@ public class MapTest {
 
     @Test
     public void putAllMap12Test() {
-        BooleanMap<Number> map_ = new BooleanMap<Number>();
+        BooleanMap<Integer> map_ = new BooleanMap<Integer>();
         map_.put(false, 0);
-        BooleanMap<Number> mapToPut_ = new BooleanMap<Number>();
+        BooleanMap<Integer> mapToPut_ = new BooleanMap<Integer>();
         mapToPut_.put(false, 2);
         map_.putAllMap(mapToPut_);
         assertEq(1, map_.size());
@@ -416,10 +416,10 @@ public class MapTest {
     }
     @Test
     public void valuesTest() {
-        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>();
+        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
         map_.put(new KeyExample(0, 0), 0);
         map_.put(new KeyExample(0, 1), 1);
-        CustList<Number> values_ = map_.values();
+        CustList<Integer> values_ = map_.values();
         assertEq(2, values_.size());
         assertEq(0, values_.first());
         assertEq(1, values_.last());
@@ -427,7 +427,7 @@ public class MapTest {
 
     @Test
     public void add1Test() {
-        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>();
+        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
         map_.put(new KeyExample(0, 0), 0);
         map_.put(new KeyExample(0, 1), 1);
         map_.add(new KeyExample(0, 0), 2);
@@ -440,7 +440,7 @@ public class MapTest {
 
     @Test
     public void add2Test() {
-        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>();
+        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
         map_.put(new KeyExample(0, 0), 0);
         map_.put(new KeyExample(0, 1), 1);
         map_.add(new KeyExample(0, 2), 2);
@@ -455,7 +455,7 @@ public class MapTest {
 
     @Test
     public void set1Test() {
-        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>();
+        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
         map_.put(new KeyExample(0, 0), 0);
         map_.put(new KeyExample(0, 1), 1);
         map_.set(new KeyExample(0, 0), 2);
@@ -468,7 +468,7 @@ public class MapTest {
 
     @Test
     public void set2Test() {
-        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>();
+        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
         map_.put(new KeyExample(0, 0), 0);
         map_.put(new KeyExample(0, 1), 1);
         map_.set(new KeyExample(0, 2), 2);
@@ -481,7 +481,7 @@ public class MapTest {
     }
     @Test
     public void containsAllAsKeys1Test() {
-        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>();
+        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
         map_.put(new KeyExample(0, 0), 0);
         map_.put(new KeyExample(0, 1), 1);
         CustList<KeyExample> elts_ =new CustList<KeyExample>();
@@ -491,7 +491,7 @@ public class MapTest {
     }
     @Test
     public void containsAllAsKeys2Test() {
-        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>();
+        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
         map_.put(new KeyExample(0, 0), 0);
         map_.put(new KeyExample(0, 1), 1);
         CustList<KeyExample> elts_ =new CustList<KeyExample>();
@@ -500,7 +500,7 @@ public class MapTest {
     }
     @Test
     public void containsAllAsKeys3Test() {
-        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>();
+        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
         map_.put(new KeyExample(0, 0), 0);
         map_.put(new KeyExample(0, 1), 1);
         CustList<KeyExample> elts_ =new CustList<KeyExample>();
@@ -508,7 +508,7 @@ public class MapTest {
     }
     @Test
     public void methods1Test() {
-        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>();
+        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
         map_.put(new KeyExample(0, 0), 0);
         map_.put(new KeyExample(0, 1), 1);
         assertTrue(!map_.isEmpty());
@@ -524,7 +524,7 @@ public class MapTest {
     }
     @Test
     public void methods2Test() {
-        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>();
+        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
         map_.put(new KeyExample(0, 0), 0);
         map_.put(new KeyExample(0, 1), 1);
         map_.clear();
@@ -532,7 +532,7 @@ public class MapTest {
     }
     @Test
     public void getKeysEqTest() {
-        ObjectMap<KeyExample,Number> map_ = new ObjectMap<KeyExample,Number>();
+        ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
         map_.put(new KeyExample(0, 0), 0);
         map_.put(new KeyExample(0, 1), 1);
         CustList<KeyExample> elts_ = map_.getKeys();
@@ -542,7 +542,7 @@ public class MapTest {
     }
     @Test
     public void getKeysNbTest() {
-        NumberMap<Integer,Number> map_ = new NumberMap<Integer,Number>();
+        NumberMap<Integer,Integer> map_ = new NumberMap<Integer,Integer>();
         map_.put(0, 0);
         map_.put(1, 1);
         CustList<Integer> elts_ = map_.getKeys();
@@ -552,7 +552,7 @@ public class MapTest {
     }
     @Test
     public void getKeysBoolTest() {
-        BooleanMap<Number> map_ = new BooleanMap<Number>();
+        BooleanMap<Integer> map_ = new BooleanMap<Integer>();
         map_.put(true, 0);
         map_.put(false, 1);
         CustList<Boolean> elts_ = map_.getKeys();
@@ -562,7 +562,7 @@ public class MapTest {
     }
     @Test
     public void getKeysCharTest() {
-        CharMap<Number> map_ = new CharMap<Number>();
+        CharMap<Integer> map_ = new CharMap<Integer>();
         map_.put((char)0, 0);
         map_.put((char)1, 1);
         CustList<Character> elts_ = map_.getKeys();
@@ -572,7 +572,7 @@ public class MapTest {
     }
     @Test
     public void getKeysEmTest() {
-        EnumMap<MyEnum,Number> map_ = new EnumMap<MyEnum,Number>();
+        EnumMap<MyEnum,Integer> map_ = new EnumMap<MyEnum,Integer>();
         map_.put(MyEnum.ZERO, 0);
         map_.put(MyEnum.ONE, 1);
         CustList<MyEnum> elts_ = map_.getKeys();
@@ -588,8 +588,8 @@ public class MapTest {
         assertEq(1,elts_.size());
         assertEq("",elts_.first());
     }
-    private static boolean containsEntry(Listable<EntryCust<String,Number>> _l, EntryCust<String,Number> _e) {
-        for (EntryCust<String,Number> e: _l) {
+    private static boolean containsEntry(Listable<EntryCust<String,Integer>> _l, EntryCust<String,Integer> _e) {
+        for (EntryCust<String,Integer> e: _l) {
             if (StringList.quickEq(e.getKey(), _e.getKey())) {
                 if (Numbers.eq(e.getValue(), _e.getValue())) {
                     return true;
@@ -598,8 +598,8 @@ public class MapTest {
         }
         return false;
     }
-    private static boolean containsEntryTwo(Listable<EntryCust<KeyExample,Number>> _l, EntryCust<KeyExample,Number> _e) {
-        for (EntryCust<KeyExample,Number> e: _l) {
+    private static boolean containsEntryTwo(Listable<EntryCust<KeyExample,Integer>> _l, EntryCust<KeyExample,Integer> _e) {
+        for (EntryCust<KeyExample,Integer> e: _l) {
             if (e.getKey().eq(_e.getKey())) {
                 if (Numbers.eq(e.getValue(), _e.getValue())) {
                     return true;

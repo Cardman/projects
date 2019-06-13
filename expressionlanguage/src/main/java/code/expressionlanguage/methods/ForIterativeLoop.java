@@ -673,8 +673,8 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         _conf.getLastPage().setOffset(0);
         String var_ = getVariableName();
         LoopVariable lv_ = _vars.getVal(var_);
-        Number o_ = ((NumberStruct) lv_.getStruct()).longValue()+lv_.getStep();
-        lv_.setStruct(PrimitiveTypeUtil.unwrapObject(importedClassName, new LongStruct(o_.longValue()), _conf.getStandards()));
+        long o_ = ((NumberStruct) lv_.getStruct()).longValue()+lv_.getStep();
+        lv_.setStruct(PrimitiveTypeUtil.unwrapObject(importedClassName, new LongStruct(o_), _conf.getStandards()));
         lv_.setIndex(lv_.getIndex() + 1);
     }
 

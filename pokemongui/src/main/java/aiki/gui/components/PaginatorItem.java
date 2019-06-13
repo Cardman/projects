@@ -390,8 +390,8 @@ public final class PaginatorItem extends Paginator {
         getFacade().setSearchModeNameItem(s_);
         s_ = modeDescription.getCurrent();
         getFacade().setSearchModeDescriptionItem(s_);
-        getFacade().setMinPriceItem(convertNumberField(minPrice.getText()));
-        getFacade().setMaxPriceItem(convertNumberField(maxPrice.getText()));
+        getFacade().setMinPriceItem(convertLongNumberField(minPrice.getText()));
+        getFacade().setMaxPriceItem(convertLongNumberField(maxPrice.getText()));
         getFacade().setMinNumberItem(convertLgIntField(minNumber.getText()));
         getFacade().setMaxNumberItem(convertLgIntField(maxNumber.getText()));
         getFacade().setCmpNameIncreasingItem(cmpNameSorting.getCurrent());

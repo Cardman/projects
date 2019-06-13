@@ -21,7 +21,7 @@ public final class ComparatorPlaceNumber implements Comparing<Short> {
         if (res_ != CustList.EQ_CMP) {
             return res_;
         }
-        return Numbers.compare(_o1, _o2);
+        return Numbers.compareLg(_o1, _o2);
     }
 
 }

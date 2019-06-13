@@ -673,26 +673,25 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
     }
     public static NumberStruct calculateSum(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
         int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
-        Number nb_;
         String longPrim_ = _an.getStandards().getAliasPrimLong();
         String intPrim_ = _an.getStandards().getAliasPrimInteger();
         String floatPrim_ = _an.getStandards().getAliasPrimFloat();
         if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _an)) {
             long left_ = _a.getLong();
             long right_ = _b.getLong();
-            nb_ = left_ + right_;
+            long nb_ = left_ + right_;
             if (order_ == PrimitiveTypeUtil.getOrderClass(intPrim_, _an)) {
-                return new IntStruct(nb_.intValue());
+                return new IntStruct((int)nb_);
             }
-            return new LongStruct(nb_.longValue());
+            return new LongStruct(nb_);
         }
         double left_ = _a.getDouble();
         double right_ = _b.getDouble();
-        nb_ = left_ + right_;
+        double nb_ = left_ + right_;
         if (order_ == PrimitiveTypeUtil.getOrderClass(floatPrim_, _an)) {
-            return new FloatStruct(nb_.floatValue());
+            return new FloatStruct((float)nb_);
         }
-        return new DoubleStruct(nb_.doubleValue());
+        return new DoubleStruct(nb_);
     }
 
     public static NumberStruct opposite(NumberStruct _a, Analyzable _an,ClassArgumentMatching _order) {
@@ -710,49 +709,47 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
     }
     public static NumberStruct calculateDiff(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
         int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
-        Number nb_;
         String longPrim_ = _an.getStandards().getAliasPrimLong();
         String intPrim_ = _an.getStandards().getAliasPrimInteger();
         String floatPrim_ = _an.getStandards().getAliasPrimFloat();
         if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _an)) {
             long left_ = _a.getLong();
             long right_ = _b.getLong();
-            nb_ = left_ - right_;
+            long nb_ = left_ - right_;
             if (order_ == PrimitiveTypeUtil.getOrderClass(intPrim_, _an)) {
-                return new IntStruct(nb_.intValue());
+                return new IntStruct((int)nb_);
             }
-            return new LongStruct(nb_.longValue());
+            return new LongStruct(nb_);
         }
         double left_ = _a.getDouble();
         double right_ = _b.getDouble();
-        nb_ = left_ - right_;
+        double nb_ = left_ - right_;
         if (order_ == PrimitiveTypeUtil.getOrderClass(floatPrim_, _an)) {
-            return new FloatStruct(nb_.floatValue());
+            return new FloatStruct((float)nb_);
         }
-        return new DoubleStruct(nb_.doubleValue());
+        return new DoubleStruct(nb_);
     }
     public static NumberStruct calculateMult(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
         int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
-        Number nb_;
         String longPrim_ = _an.getStandards().getAliasPrimLong();
         String intPrim_ = _an.getStandards().getAliasPrimInteger();
         String floatPrim_ = _an.getStandards().getAliasPrimFloat();
         if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _an)) {
             long left_ = _a.getLong();
             long right_ = _b.getLong();
-            nb_ = left_ * right_;
+            long nb_ = left_ * right_;
             if (order_ == PrimitiveTypeUtil.getOrderClass(intPrim_, _an)) {
-                return new IntStruct(nb_.intValue());
+                return new IntStruct((int)nb_);
             }
-            return new LongStruct(nb_.longValue());
+            return new LongStruct(nb_);
         }
         double left_ = _a.getDouble();
         double right_ = _b.getDouble();
-        nb_ = left_ * right_;
+        double nb_ = left_ * right_;
         if (order_ == PrimitiveTypeUtil.getOrderClass(floatPrim_, _an)) {
-            return new FloatStruct(nb_.floatValue());
+            return new FloatStruct((float)nb_);
         }
-        return new DoubleStruct(nb_.doubleValue());
+        return new DoubleStruct(nb_);
     }
     private static Struct calculateDivEx(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
         LgNames stds_ = _an.getStandards();
@@ -767,7 +764,6 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
     }
     public static Struct calculateDiv(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
         int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
-        Number nb_;
         String longPrim_ = _an.getStandards().getAliasPrimLong();
         String intPrim_ = _an.getStandards().getAliasPrimInteger();
         String floatPrim_ = _an.getStandards().getAliasPrimFloat();
@@ -777,19 +773,19 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             if (right_ == 0) {
                 return NullStruct.NULL_VALUE;
             }
-            nb_ = left_ / right_;
+            long nb_ = left_ / right_;
             if (order_ == PrimitiveTypeUtil.getOrderClass(intPrim_, _an)) {
-                return new IntStruct(nb_.intValue());
+                return new IntStruct((int)nb_);
             }
-            return new LongStruct(nb_.longValue());
+            return new LongStruct(nb_);
         }
         double left_ = _a.getDouble();
         double right_ = _b.getDouble();
-        nb_ = left_ / right_;
+        double nb_ = left_ / right_;
         if (order_ == PrimitiveTypeUtil.getOrderClass(floatPrim_, _an)) {
-            return new FloatStruct(nb_.floatValue());
+            return new FloatStruct((float)nb_);
         }
-        return new DoubleStruct(nb_.doubleValue());
+        return new DoubleStruct(nb_);
     }
     private static Struct calculateModEx(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
         LgNames stds_ = _an.getStandards();
@@ -804,7 +800,6 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
     }
     public static Struct calculateMod(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
         int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
-        Number nb_;
         String longPrim_ = _an.getStandards().getAliasPrimLong();
         String intPrim_ = _an.getStandards().getAliasPrimInteger();
         String floatPrim_ = _an.getStandards().getAliasPrimFloat();
@@ -814,19 +809,19 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
             if (right_ == 0) {
                 return NullStruct.NULL_VALUE;
             }
-            nb_ = left_ % right_;
+            long nb_ = left_ % right_;
             if (order_ == PrimitiveTypeUtil.getOrderClass(intPrim_, _an)) {
-                return new IntStruct(nb_.intValue());
+                return new IntStruct((int)nb_);
             }
-            return new LongStruct(nb_.longValue());
+            return new LongStruct(nb_);
         }
         double left_ = _a.getDouble();
         double right_ = _b.getDouble();
-        nb_ = left_ % right_;
+        double nb_ = left_ % right_;
         if (order_ == PrimitiveTypeUtil.getOrderClass(floatPrim_, _an)) {
-            return new FloatStruct(nb_.floatValue());
+            return new FloatStruct((float)nb_);
         }
-        return new DoubleStruct(nb_.doubleValue());
+        return new DoubleStruct(nb_);
     }
 
     public static Struct calculateAnd(Struct _a, Struct _b, Analyzable _an,ClassArgumentMatching _order) {

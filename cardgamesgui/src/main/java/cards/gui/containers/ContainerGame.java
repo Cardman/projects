@@ -112,7 +112,7 @@ public class ContainerGame implements Packable, Containable {
     protected static void changerNombreDeParties(GameEnum _game, long _nbGames) {
         String fileName_ = StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
         String content_ = StreamTextFile.contentsOfFile(fileName_);
-        Numbers<Long> vl_=new Numbers<Long>();
+        StringList vl_=new StringList();
         boolean read_ = true;
         StringList lines_ = new StringList();
         if (content_ != null) {
@@ -126,18 +126,18 @@ public class ContainerGame implements Packable, Containable {
         }
         if (read_) {
             for (int indice_ = CustList.FIRST_INDEX;indice_<total_;indice_++) {
-                vl_.add(Numbers.parseLongZero(lines_.get(indice_)));
+                vl_.add(lines_.get(indice_));
             }
         } else {
-            vl_=new Numbers<Long>();
+            vl_=new StringList();
             for (int indice_ = CustList.FIRST_INDEX; indice_ < total_; indice_++) {
-                vl_.add((long)0);
+                vl_.add("0");
             }
         }
         //Si l'action de battre les cartes est faite a chaque lancement
         //de logiciel alors le nombre de parties est remis a zero lors
         //d'une fermeture de logiciel
-        vl_.set(_game.ordinal(), _nbGames + 1);
+        vl_.set(_game.ordinal(), Long.toString(_nbGames + 1));
         StreamTextFile.saveTextFile(fileName_, vl_.join(LINE_RETURN));
     }
 

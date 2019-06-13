@@ -22,7 +22,7 @@ public interface Listable<T> extends Iterable<T>,SimpleIterable , Countable, Sim
 
     void add(int _index, T _element);
 
-    void removeAt(Number _index);
+    void removeAt(int _index);
 
     void remove(int _index);
 

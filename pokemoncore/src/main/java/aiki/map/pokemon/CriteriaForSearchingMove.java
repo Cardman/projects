@@ -18,19 +18,19 @@ public final class CriteriaForSearchingMove extends CriteriaForSearching {
 
     private String contentOfType;
 
-    private Integer minPrice;
+    private Long minPrice;
 
-    private Integer maxPrice;
+    private Long maxPrice;
 
     private String selectedClass = DataBase.EMPTY_STRING;
 
-    private Integer minPp;
+    private Long minPp;
 
-    private Integer maxPp;
+    private Long maxPp;
 
-    private Integer minPrio;
+    private Long minPrio;
 
-    private Integer maxPrio;
+    private Long maxPrio;
 
     private TargetChoice targetChoice;
 
@@ -125,11 +125,11 @@ public final class CriteriaForSearchingMove extends CriteriaForSearching {
         contentOfType = _contentOfType;
     }
 
-    public void setMinPrice(Integer _minPrice) {
+    public void setMinPrice(Long _minPrice) {
         minPrice = _minPrice;
     }
 
-    public void setMaxPrice(Integer _maxPrice) {
+    public void setMaxPrice(Long _maxPrice) {
         maxPrice = _maxPrice;
     }
 
@@ -137,19 +137,19 @@ public final class CriteriaForSearchingMove extends CriteriaForSearching {
         selectedClass = _selectedClass;
     }
 
-    public void setMinPp(Integer _minPp) {
+    public void setMinPp(Long _minPp) {
         minPp = _minPp;
     }
 
-    public void setMaxPp(Integer _maxPp) {
+    public void setMaxPp(Long _maxPp) {
         maxPp = _maxPp;
     }
 
-    public void setMinPrio(Integer _minPrio) {
+    public void setMinPrio(Long _minPrio) {
         minPrio = _minPrio;
     }
 
-    public void setMaxPrio(Integer _maxPrio) {
+    public void setMaxPrio(Long _maxPrio) {
         maxPrio = _maxPrio;
     }
 

@@ -18,7 +18,7 @@ public final class AllowedHandfulDefaultComparator implements Comparing<Handfuls
         int nb1_ = conf1_.getVal(nbCardsPerPlayer);
         NumberMap<Integer,Integer> conf2_ = Handfuls.getConfigurationParDefautAnnoncePoignee(_o2);
         int nb2_ = conf2_.getVal(nbCardsPerPlayer);
-        return Numbers.compare(nb1_, nb2_);
+        return Numbers.compareLg(nb1_, nb2_);
     }
 
 }

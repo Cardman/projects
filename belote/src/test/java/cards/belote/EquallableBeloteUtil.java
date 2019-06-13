@@ -15,13 +15,15 @@ public final class EquallableBeloteUtil {
     private EquallableBeloteUtil() {
     }
 
-    public static void assertEq(long _expected, Number _result) {
-        Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(Numbers.toString(_expected),DIFF,Numbers.toString(_result)), sameValue(_expected, _result));
+    public static void assertEq(long _expected, long _result) {
+        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
     }
 
-    private static boolean sameValue(long _expected, Number _result) {
-        return _expected == _result.longValue();
+    public static void assertEq(long _expected, int _result) {
+        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
+    }
+    private static boolean sameValue(long _expected, long _result) {
+        return _expected == _result;
     }
     public static void assertEq(HandBelote _expected, HandBelote _result) {
         Assert.assertNotNull(_result);

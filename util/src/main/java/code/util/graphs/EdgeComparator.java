@@ -8,7 +8,7 @@ public class EdgeComparator<T extends SortedEdge<T>> implements Comparing<T> {
 
     @Override
     public int compare(T _one, T _two) {
-        return Numbers.compare(_one.getOrder(), _two.getOrder());
+        return Numbers.compareLg(_one.getOrder(), _two.getOrder());
     }
 
 }

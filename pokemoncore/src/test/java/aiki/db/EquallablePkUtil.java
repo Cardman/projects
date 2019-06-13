@@ -59,38 +59,31 @@ public final class EquallablePkUtil {
         Assert.assertTrue(StringList.concat(_expected,DIFF,_result), StringList.quickEq(_expected, _result));
     }
 
-    public static void assertEq(Integer _expected, Long _result) {
-        Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), sameValue(_expected, _result));
+    public static void assertEq(int _expected, long _result) {
+        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
     }
 
-    public static void assertEq(Integer _expected, Integer _result) {
-        Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), sameValue(_expected, _result));
+    public static void assertEq(int _expected, int _result) {
+        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
     }
 
-    public static void assertEq(Integer _expected, Short _result) {
-        Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), sameValue(_expected, _result));
+    public static void assertEq(int _expected, short _result) {
+        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
     }
 
-    public static void assertEq(Integer _expected, Byte _result) {
-        Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), sameValue(_expected, _result));
+    public static void assertEq(int _expected, byte _result) {
+        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
     }
 
-    public static void assertEq(Byte _expected, Integer _result) {
-        Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), sameValue(_expected, _result));
+    public static void assertEq(byte _expected, int _result) {
+        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
     }
 
-    public static void assertEq(Byte _expected, Short _result) {
-        Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), sameValue(_expected, _result));
+    public static void assertEq(byte _expected, short _result) {
+        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
     }
-    public static void assertEq(Byte _expected, Byte _result) {
-        Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), sameValue(_expected, _result));
+    public static void assertEq(byte _expected, byte _result) {
+        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
     }
 
     public static void assertEq(StringList _expected, StringList _result) {
@@ -189,11 +182,7 @@ public final class EquallablePkUtil {
         Assert.assertSame(_expected, _result);
     }
 
-    private static boolean sameValue(Byte _expected, Number _result) {
-        return _expected.longValue() == _result.longValue();
-    }
-
-    private static boolean sameValue(Integer _expected, Number _result) {
-        return _expected.longValue() == _result.longValue();
+    private static boolean sameValue(long _expected, long _result) {
+        return _expected == _result;
     }
 }

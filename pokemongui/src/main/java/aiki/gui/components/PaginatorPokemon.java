@@ -545,11 +545,11 @@ public final class PaginatorPokemon extends Paginator {
         getFacade().setSearchModeItemFirstBox(s_);
         s_ = modeMoves.getCurrent();
         getFacade().setSearchModeMoveFirstBox(s_);
-        getFacade().setMinLevelFirstBox(convertShortNumberField(minLevel.getText()));
-        getFacade().setMaxLevelFirstBox(convertShortNumberField(maxLevel.getText()));
+        getFacade().setMinLevelFirstBox(convertLongNumberField(minLevel.getText()));
+        getFacade().setMaxLevelFirstBox(convertLongNumberField(maxLevel.getText()));
         getFacade().setGenderFirstBox(gender.getCurrent());
-        getFacade().setMinNbPossEvolsFirstBox(convertShortNumberField(minPossEvos.getText()));
-        getFacade().setMaxNbPossEvolsFirstBox(convertShortNumberField(maxPossEvos.getText()));
+        getFacade().setMinNbPossEvolsFirstBox(convertLongNumberField(minPossEvos.getText()));
+        getFacade().setMaxNbPossEvolsFirstBox(convertLongNumberField(maxPossEvos.getText()));
         getFacade().setCmpNameIncreasingFirstBox(cmpNameSorting.getCurrent());
         getFacade().setCmpAbilityIncreasingFirstBox(cmpAbilitySorting.getCurrent());
         getFacade().setCmpItemIncreasingFirstBox(cmpItemSorting.getCurrent());

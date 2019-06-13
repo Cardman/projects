@@ -92,7 +92,7 @@ public class EditPokemonMovesBean extends CommonBean {
         if (player) {
             if (availableMovesOnly) {
                 String namePk_ = (String) getForms().getVal(POKEMON_NAME_EDIT);
-                short level_ = ((Number) getForms().getVal(POKEMON_LEVEL_EDIT)).shortValue();
+                short level_ = (Short) getForms().getVal(POKEMON_LEVEL_EDIT);
                 set_.addAllElts(FightSimulation.possiblesInitialMoves(namePk_, level_, data_));
             } else {
                 set_.addAllElts(data_.getMoves().getKeys());

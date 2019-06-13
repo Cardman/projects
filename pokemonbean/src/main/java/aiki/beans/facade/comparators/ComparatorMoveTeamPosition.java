@@ -11,11 +11,11 @@ public final class ComparatorMoveTeamPosition implements Comparing<MoveTeamPosit
         if (res_ != 0) {
             return res_;
         }
-        res_ = Numbers.compare(_o1.getTeamPosition().getTeam(), _o2.getTeamPosition().getTeam());
+        res_ = Numbers.compareLg(_o1.getTeamPosition().getTeam(), _o2.getTeamPosition().getTeam());
         if (res_ != 0) {
             return res_;
         }
-        return Numbers.compare(_o1.getTeamPosition().getPosition(), _o2.getTeamPosition().getPosition());
+        return Numbers.compareLg(_o1.getTeamPosition().getPosition(), _o2.getTeamPosition().getPosition());
     }
 
 }

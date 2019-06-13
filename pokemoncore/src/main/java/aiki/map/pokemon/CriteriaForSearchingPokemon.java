@@ -25,15 +25,15 @@ public final class CriteriaForSearchingPokemon extends CriteriaForSearching {
 
     private String contentOfMove;
 
-    private Short minLevel;
+    private Long minLevel;
 
-    private Short maxLevel;
+    private Long maxLevel;
 
     private Gender gender;
 
-    private Short minNbPossEvols;
+    private Long minNbPossEvols;
 
-    private Short maxNbPossEvols;
+    private Long maxNbPossEvols;
 
     public boolean matchName(String _name) {
         return match(searchModeName, contentOfName, _name);
@@ -115,11 +115,11 @@ public final class CriteriaForSearchingPokemon extends CriteriaForSearching {
         contentOfMove = _contentOfMove;
     }
 
-    public void setMinLevel(Short _minLevel) {
+    public void setMinLevel(Long _minLevel) {
         minLevel = _minLevel;
     }
 
-    public void setMaxLevel(Short _maxLevel) {
+    public void setMaxLevel(Long _maxLevel) {
         maxLevel = _maxLevel;
     }
 
@@ -127,11 +127,11 @@ public final class CriteriaForSearchingPokemon extends CriteriaForSearching {
         gender = _gender;
     }
 
-    public void setMinNbPossEvols(Short _minNbPossEvols) {
+    public void setMinNbPossEvols(Long _minNbPossEvols) {
         minNbPossEvols = _minNbPossEvols;
     }
 
-    public void setMaxNbPossEvols(Short _maxNbPossEvols) {
+    public void setMaxNbPossEvols(Long _maxNbPossEvols) {
         maxNbPossEvols = _maxNbPossEvols;
     }
 }

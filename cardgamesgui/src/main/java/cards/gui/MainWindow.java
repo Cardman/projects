@@ -743,7 +743,7 @@ public final class MainWindow extends NetGroupFrame {
     private void changerNombreDePartiesEnQuittant() {
         String fileName_ = StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
         String content_ = StreamTextFile.contentsOfFile(fileName_);
-        Numbers<Long> vl_=new Numbers<Long>();
+        StringList vl_=new StringList();
         boolean read_ = true;
         StringList lines_ = new StringList();
         if (content_ != null) {
@@ -757,12 +757,12 @@ public final class MainWindow extends NetGroupFrame {
         }
         if (read_) {
             for (int indice_ = CustList.FIRST_INDEX;indice_<total_;indice_++) {
-                vl_.add(Numbers.parseLongZero(lines_.get(indice_)));
+                vl_.add(lines_.get(indice_));
             }
         } else {
-            vl_=new Numbers<Long>();
+            vl_=new StringList();
             for (int indice_ = CustList.FIRST_INDEX; indice_ < total_; indice_++) {
-                vl_.add((long)0);
+                vl_.add("0");
             }
         }
         //Si l'action de battre les cartes est faite a chaque lancement
@@ -770,13 +770,13 @@ public final class MainWindow extends NetGroupFrame {
         //d'une fermeture de logiciel
 
         if(reglesPresident.getMixedCards()==MixCardsChoice.EACH_LAUNCHING) {
-            vl_.set(GameEnum.PRESIDENT.ordinal(), (long)0);
+            vl_.set(GameEnum.PRESIDENT.ordinal(), "0");
         }
         if(reglesBelote.getCartesBattues()==MixCardsChoice.EACH_LAUNCHING) {
-            vl_.set(GameEnum.BELOTE.ordinal(), (long)0);
+            vl_.set(GameEnum.BELOTE.ordinal(), "0");
         }
         if(reglesTarot.getCartesBattues()==MixCardsChoice.EACH_LAUNCHING) {
-            vl_.set(GameEnum.TAROT.ordinal(), (long)0);
+            vl_.set(GameEnum.TAROT.ordinal(), "0");
         }
         StreamTextFile.saveTextFile(fileName_, vl_.join(LINE_RETURN));
     }

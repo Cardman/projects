@@ -1,20 +1,13 @@
 package code.formathtml.util;
-import code.sml.DocumentBuilder;
 import code.sml.Node;
 import code.util.StringList;
-import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
-public final class NodeAttribute implements Equallable<NodeAttribute>, Displayable {
+public final class NodeAttribute implements Equallable<NodeAttribute> {
 
     private Node node;
 
     private String attribue;
-
-    @Override
-    public String display() {
-        return StringList.concat(DocumentBuilder.getIndexes(node).display(),attribue);
-    }
 
     @Override
     public boolean eq(NodeAttribute _obj) {

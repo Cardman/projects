@@ -30,7 +30,7 @@ public final class NatTreeMap<K extends Number, V> extends AbsMap<K, V>  {
                 return;
             }
             EntryCust<K, V> c_ = getList().get(index_);
-            int res_ = Numbers.compare(_key,c_.getKey());
+            int res_ = Numbers.compareLg(_key.longValue(),c_.getKey().longValue());
             if (res_ < 0) {
                 getList().add(index_, new EntryCust<K, V>(_key, _value));
                 return;
@@ -48,7 +48,7 @@ public final class NatTreeMap<K extends Number, V> extends AbsMap<K, V>  {
         int index_ = CustList.FIRST_INDEX;
         for (EntryCust<K, V> e:getList()) {
             Number c_ = _key;
-            int res_ = Numbers.compare(c_,e.getKey());
+            int res_ = Numbers.compareLg(c_.longValue(),e.getKey().longValue());
             if (res_ == CustList.EQ_CMP) {
                 return index_;
             }

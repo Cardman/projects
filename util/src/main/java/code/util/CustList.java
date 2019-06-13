@@ -105,8 +105,8 @@ public class CustList<T> implements Listable<T> {
     }
 
     @Override
-    public void removeAt(Number _n) {
-        list.remove(_n.intValue());
+    public void removeAt(int _n) {
+        list.remove(_n);
     }
 
     @Override

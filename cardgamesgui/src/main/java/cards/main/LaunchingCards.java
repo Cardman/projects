@@ -104,10 +104,10 @@ public class LaunchingCards extends SoftApplicationCore {
         }
         f=new File(StringList.concat(getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE));
         if(!f.exists()) {
-            Numbers<Integer> dealsNumbers_ = new Numbers<Integer>();
+            StringList dealsNumbers_ = new StringList();
             int nbGames_ = GameEnum.values().length;
             for (int i=CustList.FIRST_INDEX;i<nbGames_;i++) {
-                dealsNumbers_.add((int)CustList.SIZE_EMPTY);
+                dealsNumbers_.add("0");
             }
             StreamTextFile.saveTextFile(f.getAbsolutePath(), dealsNumbers_.join(LINE_RETURN));
         }

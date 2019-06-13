@@ -52,16 +52,16 @@ public class CriteriaForSearchingEggTest extends InitializationDataBase {
     @Test
     public void matchSteps3Test() {
         CriteriaForSearchingEgg criteria_ = new CriteriaForSearchingEgg();
-        criteria_.setMinSteps(3);
-        criteria_.setMaxSteps(5);
+        criteria_.setMinSteps(3L);
+        criteria_.setMaxSteps(5L);
         assertTrue(!criteria_.matchSteps(6));
     }
 
     @Test
     public void matchSteps4Test() {
         CriteriaForSearchingEgg criteria_ = new CriteriaForSearchingEgg();
-        criteria_.setMinSteps(3);
-        criteria_.setMaxSteps(5);
+        criteria_.setMinSteps(3L);
+        criteria_.setMaxSteps(5L);
         assertTrue(criteria_.matchSteps(4));
     }
 }

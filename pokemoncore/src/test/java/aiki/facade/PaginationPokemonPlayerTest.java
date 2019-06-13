@@ -127,7 +127,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
         pagination_.setTranslation(_data_,LANGUAGE);
-        pagination_.getCriteria().setMaxLevel((short) 1);
+        pagination_.getCriteria().setMaxLevel(1L);
         Pokemon pk_ = new WildPk();
         pk_.setName(NUCLEOS);
         pk_.setGender(Gender.NO_GENDER);
@@ -178,7 +178,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
         pagination_.setTranslation(_data_,LANGUAGE);
-        pagination_.getCriteria().setMaxNbPossEvols((short) 0);
+        pagination_.getCriteria().setMaxNbPossEvols(0L);
         Pokemon pk_ = new WildPk();
         pk_.setName(NUCLEOS);
         pk_.setGender(Gender.NO_GENDER);
@@ -194,7 +194,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
         pagination_.setTranslation(_data_,LANGUAGE);
-        pagination_.getCriteria().setMaxNbPossEvols((short) 1);
+        pagination_.getCriteria().setMaxNbPossEvols(1L);
         Pokemon pk_ = new WildPk();
         pk_.setName(NUCLEOS);
         pk_.setGender(Gender.NO_GENDER);
@@ -1136,7 +1136,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pagination_.getCmpItem().setIncreasing(SelectedBoolean.NO);
         pagination_.getCmpAbility().setPriority(1);
         pagination_.getCmpAbility().setIncreasing(SelectedBoolean.YES);
-        pagination_.getCriteria().setMinNbPossEvols((short) 1);
+        pagination_.getCriteria().setMinNbPossEvols(1L);
         pagination_.search(player_.getBox());
         assertEq(2, pagination_.getResults().size());
         CustList<SortingPokemonPlayer> sorted_;

@@ -45,13 +45,13 @@ public class EditPokemonBean extends CommonBean {
             }
         }
         namePk = (String) getForms().getVal(POKEMON_NAME_EDIT);
-        level = ((Number) getForms().getVal(POKEMON_LEVEL_EDIT)).shortValue();
+        level = (Short) getForms().getVal(POKEMON_LEVEL_EDIT);
         experience = (Rate) getForms().getVal(POKEMON_EXPERIENCE);
-        happiness = ((Number) getForms().getVal(POKEMON_HAPPINESS)).shortValue();
+        happiness = (Short) getForms().getVal(POKEMON_HAPPINESS);
         item = (String) getForms().getVal(ITEM_EDIT);
         for (Statistic s: Statistic.getStatisticsWithBase()) {
             EvLine ev_ = new EvLine();
-            ev_.setEv(((Number) getForms().getVal(StringList.concat(POKEMON_EV_VAR,s.name()))).shortValue());
+            ev_.setEv((Short) getForms().getVal(StringList.concat(POKEMON_EV_VAR, s.name())));
             ev.put(s, ev_);
         }
         remainingHp = (Rate) getForms().getVal(POKEMON_HP);

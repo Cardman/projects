@@ -590,7 +590,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return str_.toString();
     }
 
-    public static String simpleNumberFormat(String _format, Number... _args) {
+    public static String simpleNumberFormat(String _format, long... _args) {
         StringBuilder str_ = new StringBuilder();
         StringBuilder arg_ = new StringBuilder();
         int length_ = _format.length();
@@ -626,8 +626,8 @@ public final class StringList extends CustList<String> implements Equallable<Str
                 inside_ = false;
                 int argNb_ = Numbers.parseInt(arg_.toString());
                 if (argNb_ >= 0 && argNb_ < argLength_) {
-                    Number a_ = _args[argNb_];
-                    str_.append(Numbers.toString(a_));
+                    long a_ = _args[argNb_];
+                    str_.append(Long.toString(a_));
                 } else {
                     str_.append(LEFT_BRACE);
                     str_.append(arg_);

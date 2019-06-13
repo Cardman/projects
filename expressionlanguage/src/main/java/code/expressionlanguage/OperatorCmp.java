@@ -16,7 +16,7 @@ public class OperatorCmp implements Comparing<MethodMetaInfo> {
         }
         StringList pOne_ = _one.getParameterNames();
         StringList pTwo_ = _two.getParameterNames();
-        res_ = Numbers.compare(pOne_.size(), pTwo_.size());
+        res_ = Numbers.compareLg(pOne_.size(), pTwo_.size());
         if (res_ != CustList.EQ_CMP) {
             return res_;
         }

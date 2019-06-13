@@ -31,7 +31,7 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.setTranslation(_data_, LANGUAGE);
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
         pagination_.getCriteria().setContentOfName("P*");
-        pagination_.getCriteria().setMinPrice(1);
+        pagination_.getCriteria().setMinPrice(1L);
         assertTrue(!pagination_.match(BAIE_ORAN));
     }
 
@@ -339,7 +339,7 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
         pagination_.getCriteria().setContentOfName("*P*");
         pagination_.getCriteria().setSelectedClass(Berry.ITEM);
-        pagination_.getCriteria().setMinPrice(300);
+        pagination_.getCriteria().setMinPrice(300L);
         pagination_.setInventory(inv_);
         pagination_.search(items_, _data_);
         assertEq(0, pagination_.getResults().size());

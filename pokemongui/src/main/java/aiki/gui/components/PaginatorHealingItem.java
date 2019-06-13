@@ -722,8 +722,8 @@ public final class PaginatorHealingItem extends Paginator {
         getFacade().setMaxRateHpHealingItem(convertRateField(maxHpRate.getText()));
         getFacade().setMinPpHealingItem(convertLongNumberField(minPp.getText()));
         getFacade().setMaxPpHealingItem(convertLongNumberField(maxPp.getText()));
-        getFacade().setMinPriceHealingItem(convertNumberField(minPrice.getText()));
-        getFacade().setMaxPriceHealingItem(convertNumberField(maxPrice.getText()));
+        getFacade().setMinPriceHealingItem(convertLongNumberField(minPrice.getText()));
+        getFacade().setMaxPriceHealingItem(convertLongNumberField(maxPrice.getText()));
         getFacade().setMinNumberHealingItem(convertLgIntField(minNumber.getText()));
         getFacade().setMaxNumberHealingItem(convertLgIntField(maxNumber.getText()));
         getFacade().setCmpNameIncreasingHealingItem(cmpNameSorting.getCurrent());

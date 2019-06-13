@@ -280,7 +280,7 @@ public final class CustLgNames extends BeanLgNames {
                     return res_;
                 }
                 if (StringList.quickEq(_method.getConstraints().getParametersTypes().first(), getAliasNumber())) {
-                    Number arg_ = (Number) _args[0];
+                    Object arg_ = _args[0];
                     String resLoc_ = ((Composite)instance_).getOverridenOne(arg_);
                     res_.setResult(new StringStruct(resLoc_));
                     return res_;

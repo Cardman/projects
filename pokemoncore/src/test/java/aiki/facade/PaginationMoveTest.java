@@ -689,7 +689,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         pagination_ = new PaginationMove();
         pagination_.setNbResultsPerPage(1);
         pagination_.setTranslation(_data_, LANGUAGE);
-        pagination_.getCriteria().setMinPp(20);
+        pagination_.getCriteria().setMinPp(20L);
         StringList moves_;
         moves_ = new StringList();
         moves_.add(ECLAIR);
@@ -790,7 +790,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         pagination_ = new PaginationMove();
         pagination_.setNbResultsPerPage(1);
         pagination_.setTranslation(_data_, LANGUAGE);
-        pagination_.getCriteria().setMaxPrice(1500);
+        pagination_.getCriteria().setMaxPrice(1500L);
         StringList moves_;
         moves_ = new StringList();
         moves_.add(ECLAIR);
@@ -891,7 +891,7 @@ public class PaginationMoveTest extends InitializationDataBase {
         pagination_ = new PaginationMove();
         pagination_.setNbResultsPerPage(1);
         pagination_.setTranslation(_data_, LANGUAGE);
-        pagination_.getCriteria().setMaxPrio(0);
+        pagination_.getCriteria().setMaxPrio(0L);
         StringList moves_;
         moves_ = new StringList();
         moves_.add(ECLAIR);

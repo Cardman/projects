@@ -19,7 +19,6 @@ public final class EquallableExUtil {
     }
 
     public static void assertEq(boolean _expected, boolean _result) {
-        Assert.assertNotNull(_result);
         Assert.assertTrue(StringList.concat(Boolean.toString(_expected),DIFF,Boolean.toString(_result)), _expected == _result);
     }
     public static void assertEq(String _expected, String _result) {
@@ -32,23 +31,19 @@ public final class EquallableExUtil {
         Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
     }
 
-    public static void assertEq(double _expected, Number _result) {
-        Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(Numbers.toString(_expected),DIFF,Numbers.toString(_result)), sameValue(_expected, _result));
+    public static void assertEq(double _expected, double _result) {
+        Assert.assertTrue(StringList.concat(Double.toString(_expected),DIFF,Double.toString(_result)), sameValue(_expected, _result));
     }
 
-    public static void assertEq(long _expected, Number _result) {
-        Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(Numbers.toString(_expected),DIFF,Numbers.toString(_result)), sameValue(_expected, _result));
+    public static void assertEq(long _expected, long _result) {
+        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
     }
 
-    public static void assertEq(int _expected, Number _result) {
-        Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(Numbers.toString(_expected),DIFF,Numbers.toString(_result)), sameValue(_expected, _result));
+    public static void assertEq(int _expected, int _result) {
+        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
     }
-    public static void assertEq(Character _expected, Character _result) {
-        Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), _expected.charValue() == _result.charValue());
+    public static void assertEq(char _expected, char _result) {
+        Assert.assertEquals(StringList.concat(Character.toString(_expected), DIFF, Character.toString(_result)), _expected, _result);
     }
     public static void assertEq(StringList _expected, StringList _result) {
         Assert.assertNotNull(_result);
@@ -59,11 +54,11 @@ public final class EquallableExUtil {
         Assert.assertSame(_expected, _result);
     }
 
-    private static boolean sameValue(long _expected, Number _result) {
-        return _expected == _result.longValue();
+    private static boolean sameValue(long _expected, long _result) {
+        return _expected == _result;
     }
 
-    private static boolean sameValue(double _expected, Number _result) {
-        return _expected == _result.doubleValue();
+    private static boolean sameValue(double _expected, double _result) {
+        return _expected == _result;
     }
 }

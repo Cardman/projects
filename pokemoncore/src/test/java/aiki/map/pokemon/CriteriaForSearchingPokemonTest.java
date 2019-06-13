@@ -134,16 +134,16 @@ public class CriteriaForSearchingPokemonTest extends InitializationDataBase {
     @Test
     public void matchLevel3Test() {
         CriteriaForSearchingPokemon criteria_ = new CriteriaForSearchingPokemon();
-        criteria_.setMinLevel((short) 3);
-        criteria_.setMaxLevel((short) 5);
+        criteria_.setMinLevel(3L);
+        criteria_.setMaxLevel(5L);
         assertTrue(!criteria_.matchLevel(6));
     }
 
     @Test
     public void matchLevel4Test() {
         CriteriaForSearchingPokemon criteria_ = new CriteriaForSearchingPokemon();
-        criteria_.setMinLevel((short) 3);
-        criteria_.setMaxLevel((short) 5);
+        criteria_.setMinLevel(3L);
+        criteria_.setMaxLevel(5L);
         assertTrue(criteria_.matchLevel(4));
     }
 
@@ -245,16 +245,16 @@ public class CriteriaForSearchingPokemonTest extends InitializationDataBase {
     @Test
     public void matchNbPossEvos3Test() {
         CriteriaForSearchingPokemon criteria_ = new CriteriaForSearchingPokemon();
-        criteria_.setMinNbPossEvols((short) 3);
-        criteria_.setMaxNbPossEvols((short) 5);
+        criteria_.setMinNbPossEvols(3L);
+        criteria_.setMaxNbPossEvols(5L);
         assertTrue(!criteria_.matchNbPossEvos(6));
     }
 
     @Test
     public void matchNbPossEvos4Test() {
         CriteriaForSearchingPokemon criteria_ = new CriteriaForSearchingPokemon();
-        criteria_.setMinNbPossEvols((short) 3);
-        criteria_.setMaxNbPossEvols((short) 5);
+        criteria_.setMinNbPossEvols(3L);
+        criteria_.setMaxNbPossEvols(5L);
         assertTrue(criteria_.matchNbPossEvos(4));
     }
 }

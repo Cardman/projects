@@ -11,11 +11,11 @@ public final class ComparatorMoveTarget implements Comparing<MoveTarget> {
         if (res_ != 0) {
             return res_;
         }
-        res_ = Numbers.compare(_o1.getTarget().getTeam(), _o2.getTarget().getTeam());
+        res_ = Numbers.compareLg(_o1.getTarget().getTeam(), _o2.getTarget().getTeam());
         if (res_ != 0) {
             return res_;
         }
-        return Numbers.compare(_o1.getTarget().getPosition(), _o2.getTarget().getPosition());
+        return Numbers.compareLg(_o1.getTarget().getPosition(), _o2.getTarget().getPosition());
     }
 
 }

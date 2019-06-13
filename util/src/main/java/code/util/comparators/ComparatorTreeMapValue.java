@@ -13,7 +13,7 @@ public final class ComparatorTreeMapValue<T, U extends Number> implements Compar
 
     @Override
     public int compare(T _o1, T _o2) {
-        return Numbers.compare(map.getVal(_o1), map.getVal(_o2));
+        return Numbers.compareLg(map.getVal(_o1).longValue(), map.getVal(_o2).longValue());
     }
 
 }

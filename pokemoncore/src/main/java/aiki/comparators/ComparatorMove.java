@@ -79,7 +79,7 @@ public final class ComparatorMove implements Comparing<SortingMove> {
                 }
             }
         }
-        return Numbers.compare(_o1.getIndex(), _o2.getIndex());
+        return Numbers.compareLg(_o1.getIndex(), _o2.getIndex());
     }
 
 }

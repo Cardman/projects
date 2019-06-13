@@ -37,7 +37,7 @@ public final class ComparatorLanguageEnvType implements Comparing<LanguageElemen
         }
         String langOne_ = _o1.getLanguage();
         String langTwo_ = _o2.getLanguage();
-        return Numbers.compare(languages.indexOfObj(langOne_), languages.indexOfObj(langTwo_));
+        return Numbers.compareLg(languages.indexOfObj(langOne_), languages.indexOfObj(langTwo_));
     }
 
     private static int compare(EnumMap<EnvironmentType,String> _translator, EnvironmentType _e1, EnvironmentType _e2) {

@@ -280,8 +280,8 @@ public final class PaginatorEgg extends Paginator {
         getFacade().setContentOfNameEgg(convertStringField(name.getText()));
         SearchingMode s_ = modeName.getCurrent();
         getFacade().setSearchModeNameEgg(s_);
-        getFacade().setMinStepsEgg(convertNumberField(minSteps.getText()));
-        getFacade().setMaxStepsEgg(convertNumberField(maxSteps.getText()));
+        getFacade().setMinStepsEgg(convertLongNumberField(minSteps.getText()));
+        getFacade().setMaxStepsEgg(convertLongNumberField(maxSteps.getText()));
         getFacade().setCmpNameIncreasingEgg(cmpNameSorting.getCurrent());
         getFacade().setCmpStepsIncreasingEgg(cmpStepsSorting.getCurrent());
         getFacade().setCmpNamePriorityEgg(cmpNamePrio.getCurrent());

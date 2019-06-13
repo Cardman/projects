@@ -1213,8 +1213,8 @@ public final class ExpressionLanguageTest {
     @Test
     public void processEl372Test() {
         Argument arg_ = directCalculate("$math.random()");
-        Number res_ = arg_.getDouble();
-        assertTrue(res_ instanceof Double);
+        NumberStruct res_ = (NumberStruct)  arg_.getStruct();
+        assertTrue(res_ instanceof DoubleStruct);
         assertTrue(res_.doubleValue() >= 0.0d);
         assertTrue(res_.doubleValue() < 1.0d);
     }
@@ -1222,8 +1222,8 @@ public final class ExpressionLanguageTest {
     @Test
     public void processEl373Test() {
         Argument arg_ = directCalculate("$math.random(8l)");
-        Number res_ = arg_.getNumber();
-        assertTrue(res_ instanceof Long);
+        NumberStruct res_ = (NumberStruct)  arg_.getStruct();
+        assertTrue(res_ instanceof LongStruct);
         assertTrue(res_.longValue() >= 0);
         assertTrue(res_.longValue() < 8);
     }

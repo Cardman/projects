@@ -8,9 +8,9 @@ public final class CriteriaForSearchingEgg extends CriteriaForSearching {
 
     private String contentOfName;
 
-    private Integer minSteps;
+    private Long minSteps;
 
-    private Integer maxSteps;
+    private Long maxSteps;
 
     public boolean matchName(String _name) {
         return match(searchModeName, contentOfName, _name);
@@ -28,11 +28,11 @@ public final class CriteriaForSearchingEgg extends CriteriaForSearching {
         contentOfName = _contentOfName;
     }
 
-    public void setMinSteps(Integer _minSteps) {
+    public void setMinSteps(Long _minSteps) {
         minSteps = _minSteps;
     }
 
-    public void setMaxSteps(Integer _maxSteps) {
+    public void setMaxSteps(Long _maxSteps) {
         maxSteps = _maxSteps;
     }
 }

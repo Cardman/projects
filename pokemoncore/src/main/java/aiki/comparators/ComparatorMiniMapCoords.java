@@ -8,11 +8,11 @@ public final class ComparatorMiniMapCoords implements Comparing<MiniMapCoords> {
 
     @Override
     public int compare(MiniMapCoords _o1, MiniMapCoords _o2) {
-        int res_ = Numbers.compare(_o1.getYcoords(), _o2.getYcoords());
+        int res_ = Numbers.compareLg(_o1.getYcoords(), _o2.getYcoords());
         if (res_ != CustList.EQ_CMP) {
             return res_;
         }
-        return Numbers.compare(_o1.getXcoords(), _o2.getXcoords());
+        return Numbers.compareLg(_o1.getXcoords(), _o2.getXcoords());
     }
 
 }

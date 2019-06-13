@@ -823,7 +823,7 @@ public abstract class BeanLgNames extends LgNames {
             return res_;
         }
         if (_instance instanceof NumberStruct) {
-            res_.setResult(new StringStruct(Numbers.toString(((NumberStruct)_instance).longValue())));
+            res_.setResult(new StringStruct(Long.toString(((NumberStruct)_instance).longValue())));
             return res_;
         }
         return getOtherName(_cont, _instance);

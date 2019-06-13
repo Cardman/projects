@@ -913,11 +913,11 @@ public class FacadeGame implements WithMathFactory {
         firstPaginationPk.getCriteria().setContentOfMove(_contentOfMove);
     }
 
-    public void setMinLevelFirstBox(Short _minLevel) {
+    public void setMinLevelFirstBox(Long _minLevel) {
         firstPaginationPk.getCriteria().setMinLevel(_minLevel);
     }
 
-    public void setMaxLevelFirstBox(Short _maxLevel) {
+    public void setMaxLevelFirstBox(Long _maxLevel) {
         firstPaginationPk.getCriteria().setMaxLevel(_maxLevel);
     }
 
@@ -925,11 +925,11 @@ public class FacadeGame implements WithMathFactory {
         firstPaginationPk.getCriteria().setGender(_gender);
     }
 
-    public void setMinNbPossEvolsFirstBox(Short _minNbPossEvols) {
+    public void setMinNbPossEvolsFirstBox(Long _minNbPossEvols) {
         firstPaginationPk.getCriteria().setMinNbPossEvols(_minNbPossEvols);
     }
 
-    public void setMaxNbPossEvolsFirstBox(Short _minNbPossEvols) {
+    public void setMaxNbPossEvolsFirstBox(Long _minNbPossEvols) {
         firstPaginationPk.getCriteria().setMaxNbPossEvols(_minNbPossEvols);
     }
 
@@ -1061,11 +1061,11 @@ public class FacadeGame implements WithMathFactory {
         paginationEgg.getCriteria().setContentOfName(_contentOfName);
     }
 
-    public void setMinStepsEgg(Integer _minSteps) {
+    public void setMinStepsEgg(Long _minSteps) {
         paginationEgg.getCriteria().setMinSteps(_minSteps);
     }
 
-    public void setMaxStepsEgg(Integer _maxSteps) {
+    public void setMaxStepsEgg(Long _maxSteps) {
         paginationEgg.getCriteria().setMaxSteps(_maxSteps);
     }
 
@@ -1608,11 +1608,11 @@ public class FacadeGame implements WithMathFactory {
                 _contentOfDescription);
     }
 
-    public void setMinPriceItem(Integer _minPrice) {
+    public void setMinPriceItem(Long _minPrice) {
         paginationItem.getCriteria().setMinPrice(_minPrice);
     }
 
-    public void setMaxPriceItem(Integer _maxPrice) {
+    public void setMaxPriceItem(Long _maxPrice) {
         paginationItem.getCriteria().setMaxPrice(_maxPrice);
     }
 
@@ -1851,27 +1851,27 @@ public class FacadeGame implements WithMathFactory {
         paginationMove.getCriteria().setContentOfType(_contentOfType);
     }
 
-    public void setMinPpMove(Integer _minPp) {
+    public void setMinPpMove(Long _minPp) {
         paginationMove.getCriteria().setMinPp(_minPp);
     }
 
-    public void setMaxPpMove(Integer _maxPp) {
+    public void setMaxPpMove(Long _maxPp) {
         paginationMove.getCriteria().setMaxPp(_maxPp);
     }
 
-    public void setMinPrioMove(Integer _minPrio) {
+    public void setMinPrioMove(Long _minPrio) {
         paginationMove.getCriteria().setMinPrio(_minPrio);
     }
 
-    public void setMaxPrioMove(Integer _maxPrio) {
+    public void setMaxPrioMove(Long _maxPrio) {
         paginationMove.getCriteria().setMaxPrio(_maxPrio);
     }
 
-    public void setMinPriceMove(Integer _minPrice) {
+    public void setMinPriceMove(Long _minPrice) {
         paginationMove.getCriteria().setMinPrice(_minPrice);
     }
 
-    public void setMaxPriceMove(Integer _maxPrice) {
+    public void setMaxPriceMove(Long _maxPrice) {
         paginationMove.getCriteria().setMaxPrice(_maxPrice);
     }
 
@@ -2587,11 +2587,11 @@ public class FacadeGame implements WithMathFactory {
         paginationHealingItem.getCriteria().setStatistic(_statistic);
     }
 
-    public void setMinPriceHealingItem(Integer _minPrice) {
+    public void setMinPriceHealingItem(Long _minPrice) {
         paginationHealingItem.getCriteria().setMinPrice(_minPrice);
     }
 
-    public void setMaxPriceHealingItem(Integer _maxPrice) {
+    public void setMaxPriceHealingItem(Long _maxPrice) {
         paginationHealingItem.getCriteria().setMaxPrice(_maxPrice);
     }
 

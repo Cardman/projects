@@ -46,22 +46,22 @@ public abstract class CriteriaForSearching {
         return true;
     }
 
-    protected static boolean match(Number _min, Number _max, Number _number) {
+    protected static boolean match(Long _min, Long _max, long _number) {
         if (_min == null) {
             if (_max == null) {
                 return true;
             }
-            if (Numbers.compare(_max,_number) < 0) {
+            if (Numbers.compareLg(_max,_number) < 0) {
                 return false;
             }
             return true;
         }
         if (_max != null) {
-            if (Numbers.compare(_max,_number) < 0) {
+            if (Numbers.compareLg(_max,_number) < 0) {
                 return false;
             }
         }
-        if (Numbers.compare(_min,_number) > 0) {
+        if (Numbers.compareLg(_min,_number) > 0) {
             return false;
         }
         return true;

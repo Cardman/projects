@@ -80,7 +80,7 @@ public final class KeyHypothesis implements Cmp<KeyHypothesis>, Displayable {
         if (res_ != 0) {
             return false;
         }
-        res_ = Numbers.compare(numberPlayer, _g.numberPlayer);
+        res_ = Numbers.compareLg(numberPlayer, _g.numberPlayer);
         if (res_ != 0) {
             return false;
         }
@@ -97,7 +97,7 @@ public final class KeyHypothesis implements Cmp<KeyHypothesis>, Displayable {
         if (res_ != 0) {
             return false;
         }
-        res_ = Numbers.compare(numberTarget, _g.numberTarget);
+        res_ = Numbers.compareLg(numberTarget, _g.numberTarget);
         return res_ == 0;
     }
 
@@ -107,7 +107,7 @@ public final class KeyHypothesis implements Cmp<KeyHypothesis>, Displayable {
         if (res_ != 0) {
             return res_;
         }
-        res_ = Numbers.compare(numberPlayer, _o.numberPlayer);
+        res_ = Numbers.compareLg(numberPlayer, _o.numberPlayer);
         if (res_ != 0) {
             return res_;
         }
@@ -124,7 +124,7 @@ public final class KeyHypothesis implements Cmp<KeyHypothesis>, Displayable {
         if (res_ != 0) {
             return res_;
         }
-        return Numbers.compare(numberTarget, _o.numberTarget);
+        return Numbers.compareLg(numberTarget, _o.numberTarget);
     }
 
     @Override

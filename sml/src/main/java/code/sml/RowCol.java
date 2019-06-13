@@ -34,9 +34,9 @@ public final class RowCol implements Cmp<RowCol>, Displayable {
     @Override
     public int cmp(RowCol _other) {
         if (row != _other.row) {
-            return Numbers.compare(row, _other.row);
+            return Numbers.compareLg(row, _other.row);
         }
-        return Numbers.compare(col, _other.col);
+        return Numbers.compareLg(col, _other.col);
     }
 
     public int getRow() {

@@ -525,12 +525,12 @@ public final class PaginatorMove extends Paginator {
             getFacade().setSelectedClassMove(StatusMoveData.MOVE);
         }
         getFacade().setTargetChoiceMove(targets.getCurrent());
-        getFacade().setMinPrioMove(convertNumberField(minPriority.getText()));
-        getFacade().setMaxPrioMove(convertNumberField(maxPriority.getText()));
-        getFacade().setMinPpMove(convertNumberField(minPp.getText()));
-        getFacade().setMaxPpMove(convertNumberField(maxPp.getText()));
-        getFacade().setMinPriceMove(convertNumberField(minPrice.getText()));
-        getFacade().setMaxPriceMove(convertNumberField(maxPrice.getText()));
+        getFacade().setMinPrioMove(convertLongNumberField(minPriority.getText()));
+        getFacade().setMaxPrioMove(convertLongNumberField(maxPriority.getText()));
+        getFacade().setMinPpMove(convertLongNumberField(minPp.getText()));
+        getFacade().setMaxPpMove(convertLongNumberField(maxPp.getText()));
+        getFacade().setMinPriceMove(convertLongNumberField(minPrice.getText()));
+        getFacade().setMaxPriceMove(convertLongNumberField(maxPrice.getText()));
         getFacade().setCmpNameIncreasingMove(cmpNameSorting.getCurrent());
         getFacade().setCmpNamePriorityMove(cmpNamePrio.getCurrent());
         getFacade().setCmpPriceIncreasingMove(cmpPriceSorting.getCurrent());

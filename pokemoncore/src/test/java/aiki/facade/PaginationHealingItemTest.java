@@ -1599,8 +1599,8 @@ public class PaginationHealingItemTest extends InitializationDataBase {
         pagination_ = new PaginationHealingItem();
         pagination_.setNbResultsPerPage(1);
         pagination_.setTranslation(_data_, LANGUAGE);
-        pagination_.getCriteria().setMinPrice(1);
-        pagination_.getCriteria().setMaxPrice(1);
+        pagination_.getCriteria().setMinPrice(1L);
+        pagination_.getCriteria().setMaxPrice(1L);
         pagination_.setInventory(inv_);
         pagination_.search(items_, _data_);
         assertEq(0, pagination_.getResults().size());

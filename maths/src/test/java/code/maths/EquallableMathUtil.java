@@ -7,6 +7,9 @@ import code.maths.geo.CustPointThreeDims;
 import code.util.Numbers;
 import code.util.StringList;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 public final class EquallableMathUtil {
 
     private static final String DIFF = " != ";
@@ -19,13 +22,24 @@ public final class EquallableMathUtil {
         Assert.assertTrue(StringList.concat(_expected,DIFF,_result), StringList.quickEq(_expected, _result));
     }
 
-    public static void assertEq(long _expected, Number _result) {
-        Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(Numbers.toString(_expected),DIFF,Numbers.toString(_result)), sameValue(_expected, _result));
+    public static void assertEq(long _expected, BigDecimal _result) {
+        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,_result.toString()), sameValue(_expected, _result.longValue()));
     }
 
+    public static void assertEq(long _expected, BigInteger _result) {
+        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,_result.toString()), sameValue(_expected, _result.longValue()));
+    }
+    public static void assertEq(long _expected, long _result) {
+        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
+    }
+    public static void assertEq(double _expected, double _result) {
+        Assert.assertTrue(StringList.concat(Double.toString(_expected),DIFF,Double.toString(_result)), sameValue(_expected, _result));
+    }
+
+    public static void assertEq(long _expected, int _result) {
+        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
+    }
     public static void assertEq(boolean _expected, boolean _result) {
-        Assert.assertNotNull(_result);
         Assert.assertTrue(StringList.concat(String.valueOf(_expected),DIFF,String.valueOf(_result)), _expected == _result);
     }
 
@@ -59,7 +73,10 @@ public final class EquallableMathUtil {
         Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
     }
 
-    private static boolean sameValue(long _expected, Number _result) {
-        return _expected == _result.longValue();
+    private static boolean sameValue(double _expected, double _result) {
+        return _expected == _result;
+    }
+    private static boolean sameValue(long _expected, long _result) {
+        return _expected == _result;
     }
 }

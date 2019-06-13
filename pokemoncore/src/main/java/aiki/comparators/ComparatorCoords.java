@@ -22,7 +22,7 @@ public final class ComparatorCoords implements Comparing<Coords> {
         if (res_ != CustList.EQ_CMP) {
             return res_;
         }
-        return Numbers.compare(_o1.getNumberPlace(), _o2.getNumberPlace());
+        return Numbers.compareLg(_o1.getNumberPlace(), _o2.getNumberPlace());
     }
 
 }

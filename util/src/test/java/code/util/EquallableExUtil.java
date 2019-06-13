@@ -28,25 +28,35 @@ public final class EquallableExUtil {
         Assert.assertTrue(StringList.concat(_expected,DIFF,_result), StringList.quickEq(_expected, _result));
     }
 
-    public static void assertEq(long _expected, Number _result) {
-        Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(Numbers.toString(_expected),DIFF,Numbers.toString(_result)), sameValue(_expected, _result));
+    public static void assertEq(long _expected, long _result) {
+        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
     }
 
+    public static void assertEq(long _expected, int _result) {
+        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
+    }
+
+    public static void assertEq(long _expected, short _result) {
+        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
+    }
+
+    public static void assertEq(long _expected, byte _result) {
+        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
+    }
     public static void assertEq(long _expected, char _result) {
-        Assert.assertTrue(StringList.concat(Numbers.toString(_expected),DIFF,Character.toString(_result)), _expected == _result);
+        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Character.toString(_result)), _expected == _result);
     }
-    public static void assertEq(BigInteger _expected, Number _result) {
+    public static void assertEq(BigInteger _expected, BigInteger _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(Numbers.toString(_expected),DIFF,Numbers.toString(_result)), _expected.equals(_result));
+        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), _expected.equals(_result));
     }
 
-    public static void assertEq(BigDecimal _expected, Number _result) {
+    public static void assertEq(BigDecimal _expected, BigDecimal _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(Numbers.toString(_expected),DIFF,Numbers.toString(_result)), _expected.equals(_result));
+        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), _expected.equals(_result));
     }
-    private static boolean sameValue(long _expected, Number _result) {
-        return _expected == _result.longValue();
+    private static boolean sameValue(long _expected, long _result) {
+        return _expected == _result;
     }
 
     public static void assertEq(KeyExample _expected, KeyExample _result) {

@@ -57,16 +57,16 @@ public class CriteriaForSearchingItemTest extends InitializationDataBase {
     @Test
     public void matchPrice3Test() {
         CriteriaForSearchingItem criteria_ = new CriteriaForSearchingItem();
-        criteria_.setMinPrice(3);
-        criteria_.setMaxPrice(5);
+        criteria_.setMinPrice(3L);
+        criteria_.setMaxPrice(5L);
         assertTrue(!criteria_.matchPrice(6));
     }
 
     @Test
     public void matchPrice4Test() {
         CriteriaForSearchingItem criteria_ = new CriteriaForSearchingItem();
-        criteria_.setMinPrice(3);
-        criteria_.setMaxPrice(5);
+        criteria_.setMinPrice(3L);
+        criteria_.setMaxPrice(5L);
         assertTrue(criteria_.matchPrice(4));
     }
 

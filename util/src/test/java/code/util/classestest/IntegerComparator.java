@@ -6,7 +6,7 @@ public class IntegerComparator implements Comparing<Integer> {
 
     @Override
     public int compare(Integer _arg0, Integer _arg1) {
-        return Numbers.compare(_arg0, _arg1);
+        return Numbers.compareLg(_arg0, _arg1);
     }
 
 }

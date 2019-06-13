@@ -32,9 +32,9 @@ public class TeamBean extends CommonFightBean {
     public void beforeDisplaying() {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         DataBase data_ = dataBaseFight_.getData();
-        Number noTeam_ = (Number) getForms().getVal(NO_TEAM);
-        foeTeam = noTeam_.byteValue() == Fight.FOE;
-        Team team_ = dataBaseFight_.getGame().getFight().getTeams().getVal(noTeam_.byteValue());
+        Byte noTeam_ = (Byte) getForms().getVal(NO_TEAM);
+        foeTeam = noTeam_ == Fight.FOE;
+        Team team_ = dataBaseFight_.getGame().getFight().getTeams().getVal(noTeam_);
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         NatStringTreeMap<ActivityOfMove> enabledMoves_;
@@ -130,15 +130,15 @@ public class TeamBean extends CommonFightBean {
     }
     public Numbers<Byte> getMembers() {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
-        Number noTeam_ = (Number) getForms().getVal(NO_TEAM);
-        return getMembers(dataBaseFight_, noTeam_.byteValue());
+        Byte noTeam_ = (Byte) getForms().getVal(NO_TEAM);
+        return getMembers(dataBaseFight_, noTeam_);
     }
     public String getTrPokemonLink(Long _index) {
         byte index_ = getMembers().get(_index.intValue());
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         DataBase data_ = dataBaseFight_.getData();
-        Number noTeam_ = (Number) getForms().getVal(NO_TEAM);
-        Team team_ = dataBaseFight_.getGame().getFight().getTeams().getVal(noTeam_.byteValue());
+        Byte noTeam_ = (Byte) getForms().getVal(NO_TEAM);
+        Team team_ = dataBaseFight_.getGame().getFight().getTeams().getVal(noTeam_);
         Fighter fighter_ = team_.getMembers().getVal(index_);
         byte i_ = CustList.FIRST_INDEX;
         byte nb_ = CustList.FIRST_INDEX;

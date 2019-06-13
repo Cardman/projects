@@ -130,20 +130,6 @@ public abstract class Paginator extends Panel{
         return _text;
     }
 
-    protected static Integer convertNumberField(String _text) {
-        if (_text.isEmpty()) {
-            return null;
-        }
-        return Numbers.parseInt(_text);
-    }
-
-    protected static Short convertShortNumberField(String _text) {
-        if (_text.isEmpty()) {
-            return null;
-        }
-        return (short) Numbers.parseInt(_text);
-    }
-
     protected static Long convertLongNumberField(String _text) {
         if (_text.isEmpty()) {
             return null;

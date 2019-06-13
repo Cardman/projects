@@ -93,47 +93,47 @@ public class CriteriaForSearchingTest {
 
     @Test
     public void matchNumber2Test() {
-        assertTrue(CriteriaForSearching.match(0, null, 0));
+        assertTrue(CriteriaForSearching.match(0L, null, 0));
     }
 
     @Test
     public void matchNumber3Test() {
-        assertTrue(CriteriaForSearching.match(1, null, 2));
+        assertTrue(CriteriaForSearching.match(1L, null, 2));
     }
 
     @Test
     public void matchNumber4Test() {
-        assertTrue(!CriteriaForSearching.match(1, null, 0));
+        assertTrue(!CriteriaForSearching.match(1L, null, 0));
     }
 
     @Test
     public void matchNumber5Test() {
-        assertTrue(CriteriaForSearching.match(null, 0, 0));
+        assertTrue(CriteriaForSearching.match(null, 0L, 0));
     }
 
     @Test
     public void matchNumber6Test() {
-        assertTrue(CriteriaForSearching.match(null, 0, -1));
+        assertTrue(CriteriaForSearching.match(null, 0L, -1));
     }
 
     @Test
     public void matchNumber7Test() {
-        assertTrue(!CriteriaForSearching.match(null , -1, 0));
+        assertTrue(!CriteriaForSearching.match(null , -1L, 0));
     }
 
     @Test
     public void matchNumber8Test() {
-        assertTrue(CriteriaForSearching.match(0, 2, 1));
+        assertTrue(CriteriaForSearching.match(0L, 2L, 1));
     }
 
     @Test
     public void matchNumber9Test() {
-        assertTrue(!CriteriaForSearching.match(0 , 2, -1));
+        assertTrue(!CriteriaForSearching.match(0L , 2L, -1));
     }
 
     @Test
     public void matchNumber10Test() {
-        assertTrue(!CriteriaForSearching.match(0 , 2, 3));
+        assertTrue(!CriteriaForSearching.match(0L , 2L, 3));
     }
 
     @Test

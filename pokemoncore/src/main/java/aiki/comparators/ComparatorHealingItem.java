@@ -143,7 +143,7 @@ public final class ComparatorHealingItem implements Comparing<SortingHealingItem
                 }
             }
         }
-        return Numbers.compare(_o1.getIndex(), _o2.getIndex());
+        return Numbers.compareLg(_o1.getIndex(), _o2.getIndex());
     }
 
 }

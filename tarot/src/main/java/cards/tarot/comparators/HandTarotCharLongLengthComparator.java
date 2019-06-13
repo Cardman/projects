@@ -16,7 +16,7 @@ public final class HandTarotCharLongLengthComparator implements Comparing<Suit> 
     public int compare(Suit _suit1, Suit _suit2) {
         HandTarot main1_ = hand.charCardsBySuit(_suit1);
         HandTarot main2_ = hand.charCardsBySuit(_suit2);
-        return Numbers.compare(main2_.total(), main1_.total());
+        return Numbers.compareLg(main2_.total(), main1_.total());
     }
 
 }

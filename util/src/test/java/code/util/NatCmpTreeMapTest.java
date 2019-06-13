@@ -11,8 +11,8 @@ public final class NatCmpTreeMapTest {
 
     @Test
     public void put1Test() {
-        NatCmpTreeMap<MyCmp,Number> map_ = new NatCmpTreeMap<MyCmp,Number>();
-        Listable<EntryCust<MyCmp,Number>> l_ = map_.getList();
+        NatCmpTreeMap<MyCmp,Integer> map_ = new NatCmpTreeMap<MyCmp,Integer>();
+        Listable<EntryCust<MyCmp,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put(new MyCmp(2), 1);
         assertEq(1, l_.size());
@@ -42,8 +42,8 @@ public final class NatCmpTreeMapTest {
 
     @Test
     public void put2Test() {
-        NatCmpTreeMap<MyCmp,Number> map_ = new NatCmpTreeMap<MyCmp,Number>();
-        Listable<EntryCust<MyCmp,Number>> l_ = map_.getList();
+        NatCmpTreeMap<MyCmp,Integer> map_ = new NatCmpTreeMap<MyCmp,Integer>();
+        Listable<EntryCust<MyCmp,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put(new MyCmp(2), 2);
         map_.put(new MyCmp(2), 1);
@@ -74,8 +74,8 @@ public final class NatCmpTreeMapTest {
 
     @Test
     public void put3Test() {
-        NatCmpTreeMap<MyCmp,Number> map_ = new NatCmpTreeMap<MyCmp,Number>();
-        Listable<EntryCust<MyCmp,Number>> l_ = map_.getList();
+        NatCmpTreeMap<MyCmp,Integer> map_ = new NatCmpTreeMap<MyCmp,Integer>();
+        Listable<EntryCust<MyCmp,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put(new MyCmp(2), 2);
         map_.put(new MyCmp(2), 1);
@@ -91,7 +91,7 @@ public final class NatCmpTreeMapTest {
     }
     @Test
     public void size1Test() {
-        NatCmpTreeMap<MyCmp,Number> map_ = new NatCmpTreeMap<MyCmp,Number>();
+        NatCmpTreeMap<MyCmp,Integer> map_ = new NatCmpTreeMap<MyCmp,Integer>();
         assertEq(0, map_.size());
         map_.put(new MyCmp(2), 1);
         assertEq(1,map_.size());
@@ -103,7 +103,7 @@ public final class NatCmpTreeMapTest {
 
     @Test
     public void contains1Test() {
-        NatCmpTreeMap<MyCmp,Number> map_ = new NatCmpTreeMap<MyCmp,Number>();
+        NatCmpTreeMap<MyCmp,Integer> map_ = new NatCmpTreeMap<MyCmp,Integer>();
         assertEq(0, map_.size());
         map_.put(new MyCmp(2), 1);
         assertTrue(map_.contains(new MyCmp(2)));
@@ -117,7 +117,7 @@ public final class NatCmpTreeMapTest {
 
     @Test
     public void getVal1Test() {
-        NatCmpTreeMap<MyCmp,Number> map_ = new NatCmpTreeMap<MyCmp,Number>();
+        NatCmpTreeMap<MyCmp,Integer> map_ = new NatCmpTreeMap<MyCmp,Integer>();
         map_.put(new MyCmp(2), 1);
         assertEq(1,map_.getVal(new MyCmp(2)).intValue());
         map_.put(new MyCmp(4), 2);
@@ -130,7 +130,7 @@ public final class NatCmpTreeMapTest {
 
     @Test
     public void removeKey1Test() {
-        NatCmpTreeMap<MyCmp,Number> map_ = new NatCmpTreeMap<MyCmp,Number>();
+        NatCmpTreeMap<MyCmp,Integer> map_ = new NatCmpTreeMap<MyCmp,Integer>();
         map_.put(new MyCmp(2), 1);
         map_.put(new MyCmp(4), 2);
         map_.removeKey(new MyCmp(5));
@@ -156,10 +156,10 @@ public final class NatCmpTreeMapTest {
 
     @Test
     public void putAllMap1Test() {
-        NatCmpTreeMap<MyCmp,Number> map_ = new NatCmpTreeMap<MyCmp,Number>();
+        NatCmpTreeMap<MyCmp,Integer> map_ = new NatCmpTreeMap<MyCmp,Integer>();
         map_.put(new MyCmp(2), 1);
         map_.put(new MyCmp(4), 2);
-        NatCmpTreeMap<MyCmp,Number> mapToPut_ = new NatCmpTreeMap<MyCmp,Number>();
+        NatCmpTreeMap<MyCmp,Integer> mapToPut_ = new NatCmpTreeMap<MyCmp,Integer>();
         mapToPut_.put(new MyCmp(3), 3);
         mapToPut_.put(new MyCmp(1), 4);
         map_.putAllMap(mapToPut_);
@@ -176,10 +176,10 @@ public final class NatCmpTreeMapTest {
 
     @Test
     public void putAllMap2Test() {
-        NatCmpTreeMap<MyCmp,Number> map_ = new NatCmpTreeMap<MyCmp,Number>();
+        NatCmpTreeMap<MyCmp,Integer> map_ = new NatCmpTreeMap<MyCmp,Integer>();
         map_.put(new MyCmp(2), 1);
         map_.put(new MyCmp(4), 2);
-        NatCmpTreeMap<MyCmp,Number> mapToPut_ = new NatCmpTreeMap<MyCmp,Number>();
+        NatCmpTreeMap<MyCmp,Integer> mapToPut_ = new NatCmpTreeMap<MyCmp,Integer>();
         mapToPut_.put(new MyCmp(4), 3);
         mapToPut_.put(new MyCmp(3), 4);
         map_.putAllMap(mapToPut_);
@@ -194,10 +194,10 @@ public final class NatCmpTreeMapTest {
 
     @Test
     public void getKey1Test() {
-        NatCmpTreeMap<MyCmp,Number> map_ = new NatCmpTreeMap<MyCmp,Number>();
+        NatCmpTreeMap<MyCmp,Integer> map_ = new NatCmpTreeMap<MyCmp,Integer>();
         map_.put(new MyCmp(2), 1);
         map_.put(new MyCmp(4), 2);
-        NatCmpTreeMap<MyCmp,Number> mapToPut_ = new NatCmpTreeMap<MyCmp,Number>();
+        NatCmpTreeMap<MyCmp,Integer> mapToPut_ = new NatCmpTreeMap<MyCmp,Integer>();
         mapToPut_.put(new MyCmp(4), 3);
         mapToPut_.put(new MyCmp(3), 4);
         assertEq(2, map_.size());
@@ -210,10 +210,10 @@ public final class NatCmpTreeMapTest {
 
     @Test
     public void getValue1Test() {
-        NatCmpTreeMap<MyCmp,Number> map_ = new NatCmpTreeMap<MyCmp,Number>();
+        NatCmpTreeMap<MyCmp,Integer> map_ = new NatCmpTreeMap<MyCmp,Integer>();
         map_.put(new MyCmp(2), 1);
         map_.put(new MyCmp(4), 2);
-        NatCmpTreeMap<MyCmp,Number> mapToPut_ = new NatCmpTreeMap<MyCmp,Number>();
+        NatCmpTreeMap<MyCmp,Integer> mapToPut_ = new NatCmpTreeMap<MyCmp,Integer>();
         mapToPut_.put(new MyCmp(4), 3);
         mapToPut_.put(new MyCmp(3), 4);
         assertEq(2, map_.size());

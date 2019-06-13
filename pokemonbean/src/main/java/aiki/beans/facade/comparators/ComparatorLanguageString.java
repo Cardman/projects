@@ -35,7 +35,7 @@ public final class ComparatorLanguageString implements Comparing<LanguageElement
         }
         String langOne_ = _o1.getLanguage();
         String langTwo_ = _o2.getLanguage();
-        return Numbers.compare(languages.indexOfObj(langOne_), languages.indexOfObj(langTwo_));
+        return Numbers.compareLg(languages.indexOfObj(langOne_), languages.indexOfObj(langTwo_));
     }
 
     private static int compare(StringMap<String> _translator, String _e1, String _e2) {

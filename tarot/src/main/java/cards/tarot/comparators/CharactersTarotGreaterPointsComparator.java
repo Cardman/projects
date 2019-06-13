@@ -9,7 +9,7 @@ public final class CharactersTarotGreaterPointsComparator implements Comparing<C
     public int compare(CardTarot _card1, CardTarot _card2) {
         int pointsOne_ = _card1.points();
         int pointsTwo_ = _card2.points();
-        return Numbers.compare(pointsTwo_, pointsOne_);
+        return Numbers.compareLg(pointsTwo_, pointsOne_);
     }
 
 }

@@ -10,7 +10,7 @@ public class ClassDeepCmp implements Comparing<RootBlock> {
     public int compare(RootBlock _one, RootBlock _two) {
         int dOne_ = _one.getSelfAndParentTypes().size();
         int dTwo_ = _two.getSelfAndParentTypes().size();
-        return Numbers.compare(dOne_, dTwo_);
+        return Numbers.compareLg(dOne_, dTwo_);
     }
 
 }

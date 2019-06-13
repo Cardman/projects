@@ -416,8 +416,8 @@ public class PokemonBean extends CommonBean {
     }
     public String clickLevel(Long _indexOne, Long _indexTwo) {
         getForms().removeKey(INSIDE);
-        getForms().put(LEVEL_MAP_INDEX, _indexTwo.intValue());
-        getForms().put(PLACE_MAP_INDEX, _indexOne.byteValue());
+        getForms().put(LEVEL_MAP_INDEX, _indexTwo.byteValue());
+        getForms().put(PLACE_MAP_INDEX, _indexOne.shortValue());
         getForms().put(PROPONE_LINK, false);
         getForms().put(PROPONE_TILE, false);
         getForms().put(SEE_AREA, false);

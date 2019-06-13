@@ -326,7 +326,7 @@ public final class AliasMath {
             }
         } else if (StringList.quickEq(name_, am_.aliasMinus)) {
             if (paramList_.size() == 1) {
-                Number b_ = _args[0].getNumber();
+                NumberStruct b_ = (NumberStruct) _args[0].getStruct();
                 ClassArgumentMatching clArg_ = new ClassArgumentMatching(paramList_.first());
                 int order_ = PrimitiveTypeUtil.getOrderClass(clArg_, _cont);
                 if (order_ == PrimitiveTypeUtil.getOrderClass(aliasPrimInteger_, _cont)) {

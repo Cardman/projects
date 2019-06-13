@@ -17,7 +17,7 @@ public final class HandBeloteShortLengthComparator implements Comparing<Suit> {
     public int compare(Suit _suit1, Suit _suit2) {
         int total1_ = hand.getVal(_suit1).total();
         int total2_ = hand.getVal(_suit2).total();
-        return Numbers.compare(total1_, total2_);
+        return Numbers.compareLg(total1_, total2_);
     }
 
 }

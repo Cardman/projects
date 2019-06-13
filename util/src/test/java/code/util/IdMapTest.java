@@ -13,21 +13,21 @@ public class IdMapTest {
 
     @Test
     public void put1Test() {
-        IdMap<String,Number> map_ = new IdMap<String,Number>(new IdMap<String,Number>(new CollCapacity(0)));
-        Listable<EntryCust<String,Number>> l_ = map_.getList();
+        IdMap<String,Integer> map_ = new IdMap<String,Integer>(new IdMap<String,Integer>(new CollCapacity(0)));
+        Listable<EntryCust<String,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put("ONE", 1);
         assertEq(1, l_.size());
-        assertTrue(containsEntry(l_, new EntryCust<String, Number>("ONE", 1)));
+        assertTrue(containsEntry(l_, new EntryCust<String, Integer>("ONE", 1)));
         map_.put("TWO", 2);
         assertEq(2, l_.size());
-        assertTrue(containsEntry(l_, new EntryCust<String, Number>("ONE", 1)));
-        assertTrue(containsEntry(l_, new EntryCust<String, Number>("TWO", 2)));
+        assertTrue(containsEntry(l_, new EntryCust<String, Integer>("ONE", 1)));
+        assertTrue(containsEntry(l_, new EntryCust<String, Integer>("TWO", 2)));
         map_.put("TWO", 3);
         assertEq(2, l_.size());
-        assertTrue(containsEntry(l_, new EntryCust<String, Number>("ONE", 1)));
-        assertTrue(containsEntry(l_, new EntryCust<String, Number>("TWO", 3)));
-        IdMap<KeyExample,Number> otherMap_ = new IdMap<KeyExample,Number>();
+        assertTrue(containsEntry(l_, new EntryCust<String, Integer>("ONE", 1)));
+        assertTrue(containsEntry(l_, new EntryCust<String, Integer>("TWO", 3)));
+        IdMap<KeyExample,Integer> otherMap_ = new IdMap<KeyExample,Integer>();
         IdList<KeyExample> lOther_ = getKeys(otherMap_.getList());
         KeyExample k1_ = new KeyExample(0, 0);
         KeyExample k2_ = new KeyExample(0, 1);
@@ -55,8 +55,8 @@ public class IdMapTest {
         assertTrue(lOther_.containsObj(k3_));
         assertEq(2, getValue(otherMap_.getList(), k3_));
     }
-    private static boolean containsEntry(Listable<EntryCust<String,Number>> _l, EntryCust<String,Number> _e) {
-        for (EntryCust<String,Number> e: _l) {
+    private static boolean containsEntry(Listable<EntryCust<String,Integer>> _l, EntryCust<String,Integer> _e) {
+        for (EntryCust<String,Integer> e: _l) {
             if (StringList.quickEq(e.getKey(), _e.getKey())) {
                 if (Numbers.eq(e.getValue(), _e.getValue())) {
                     return true;
@@ -65,8 +65,8 @@ public class IdMapTest {
         }
         return false;
     }
-    private static Number getValue(Listable<EntryCust<KeyExample,Number>> _l, KeyExample _k) {
-        for (EntryCust<KeyExample,Number> e: _l) {
+    private static Integer getValue(Listable<EntryCust<KeyExample,Integer>> _l, KeyExample _k) {
+        for (EntryCust<KeyExample,Integer> e: _l) {
             if (e.getKey() == _k) {
                 return e.getValue();
             }
@@ -74,9 +74,9 @@ public class IdMapTest {
         return null;
     }
 
-    private static IdList<KeyExample> getKeys(Listable<EntryCust<KeyExample,Number>> _l) {
+    private static IdList<KeyExample> getKeys(Listable<EntryCust<KeyExample,Integer>> _l) {
         IdList<KeyExample> l_ = new IdList<KeyExample>();
-        for (EntryCust<KeyExample,Number> e: _l) {
+        for (EntryCust<KeyExample,Integer> e: _l) {
             l_.add(e.getKey());
         }
         return l_;
@@ -84,7 +84,7 @@ public class IdMapTest {
 
     @Test
     public void size1Test() {
-        IdMap<String,Number> map_ = new IdMap<String,Number>();
+        IdMap<String,Integer> map_ = new IdMap<String,Integer>();
         assertEq(0, map_.size());
         map_.put("ONE", 1);
         assertEq(1,map_.size());
@@ -92,7 +92,7 @@ public class IdMapTest {
         assertEq(2,map_.size());
         map_.put("TWO", 3);
         assertEq(2,map_.size());
-        IdMap<KeyExample,Number> otherMap_ = new IdMap<KeyExample,Number>();
+        IdMap<KeyExample,Integer> otherMap_ = new IdMap<KeyExample,Integer>();
         assertEq(0, otherMap_.size());
         otherMap_.put(new KeyExample(0, 0), 0);
         assertEq(1,otherMap_.size());
@@ -104,7 +104,7 @@ public class IdMapTest {
 
     @Test
     public void contains1Test() {
-        IdMap<String,Number> map_ = new IdMap<String,Number>();
+        IdMap<String,Integer> map_ = new IdMap<String,Integer>();
         assertEq(0, map_.size());
         map_.put("ONE", 1);
         assertTrue(map_.contains("ONE"));
@@ -114,7 +114,7 @@ public class IdMapTest {
         map_.put("TWO", 3);
         assertTrue(map_.contains("ONE"));
         assertTrue(map_.contains("TWO"));
-        IdMap<KeyExample,Number> otherMap_ = new IdMap<KeyExample,Number>();
+        IdMap<KeyExample,Integer> otherMap_ = new IdMap<KeyExample,Integer>();
         KeyExample k1_;
         KeyExample k2_;
         KeyExample k3_;
@@ -138,7 +138,7 @@ public class IdMapTest {
 
     @Test
     public void getVal1Test() {
-        IdMap<String,Number> map_ = new IdMap<String,Number>();
+        IdMap<String,Integer> map_ = new IdMap<String,Integer>();
         map_.put("ONE", 1);
         assertEq(1,map_.getVal("ONE").intValue());
         map_.put("TWO", 2);
@@ -147,7 +147,7 @@ public class IdMapTest {
         map_.put("TWO", 3);
         assertEq(1,map_.getVal("ONE").intValue());
         assertEq(3,map_.getVal("TWO").intValue());
-        IdMap<KeyExample,Number> otherMap_ = new IdMap<KeyExample,Number>();
+        IdMap<KeyExample,Integer> otherMap_ = new IdMap<KeyExample,Integer>();
         KeyExample k1_;
         KeyExample k2_;
         k1_ = new KeyExample(0, 0);
@@ -164,7 +164,7 @@ public class IdMapTest {
 
     @Test
     public void removeKey1Test() {
-        IdMap<String,Number> map_ = new IdMap<String,Number>();
+        IdMap<String,Integer> map_ = new IdMap<String,Integer>();
         map_.put("ONE", 1);
         map_.put("TWO", 2);
         map_.removeKey("ZERO");
@@ -175,7 +175,7 @@ public class IdMapTest {
         assertEq(1,map_.size());
         assertTrue(map_.contains("ONE"));
         assertTrue(!map_.contains("TWO"));
-        IdMap<KeyExample,Number> otherMap_ = new IdMap<KeyExample,Number>();
+        IdMap<KeyExample,Integer> otherMap_ = new IdMap<KeyExample,Integer>();
         KeyExample k1_;
         KeyExample k2_;
         k1_ = new KeyExample(0, 0);
@@ -194,7 +194,7 @@ public class IdMapTest {
 
     @Test
     public void move1Test() {
-        IdMap<String,Number> map_ = new IdMap<String,Number>();
+        IdMap<String,Integer> map_ = new IdMap<String,Integer>();
         map_.put("ONE", 1);
         map_.put("TWO", 3);
         map_.move("TWO", "THREE");
@@ -213,10 +213,10 @@ public class IdMapTest {
 
     @Test
     public void putAllMap1Test() {
-        IdMap<String,Number> map_ = new IdMap<String,Number>();
+        IdMap<String,Integer> map_ = new IdMap<String,Integer>();
         map_.put("ONE", 1);
         map_.put("TWO", 2);
-        IdMap<String,Number> mapToPut_ = new IdMap<String,Number>();
+        IdMap<String,Integer> mapToPut_ = new IdMap<String,Integer>();
         mapToPut_.put("THREE", 3);
         mapToPut_.put("FOUR", 4);
         map_.putAllMap(mapToPut_);
@@ -233,10 +233,10 @@ public class IdMapTest {
 
     @Test
     public void putAllMap2Test() {
-        IdMap<String,Number> map_ = new IdMap<String,Number>();
+        IdMap<String,Integer> map_ = new IdMap<String,Integer>();
         map_.put("ONE", 1);
         map_.put("TWO", 2);
-        IdMap<String,Number> mapToPut_ = new IdMap<String,Number>();
+        IdMap<String,Integer> mapToPut_ = new IdMap<String,Integer>();
         mapToPut_.put("TWO", 3);
         mapToPut_.put("THREE", 4);
         map_.putAllMap(mapToPut_);
@@ -259,10 +259,10 @@ public class IdMapTest {
         k2_ = new KeyExample(0, 1);
         k3_ = new KeyExample(1, 1);
         k4_ = new KeyExample(1, 0);
-        IdMap<KeyExample,Number> map_ = new IdMap<KeyExample,Number>();
+        IdMap<KeyExample,Integer> map_ = new IdMap<KeyExample,Integer>();
         map_.put(k1_, 0);
         map_.put(k2_, 1);
-        IdMap<KeyExample,Number> mapToPut_ = new IdMap<KeyExample,Number>();
+        IdMap<KeyExample,Integer> mapToPut_ = new IdMap<KeyExample,Integer>();
         mapToPut_.put(k3_, 2);
         mapToPut_.put(k4_, 3);
         map_.putAllMap(mapToPut_);
@@ -287,10 +287,10 @@ public class IdMapTest {
         k2_ = new KeyExample(0, 1);
         k3_ = new KeyExample(1, 1);
         k4_ = new KeyExample(0, 1);
-        IdMap<KeyExample,Number> map_ = new IdMap<KeyExample,Number>();
+        IdMap<KeyExample,Integer> map_ = new IdMap<KeyExample,Integer>();
         map_.put(k1_, 0);
         map_.put(k2_, 1);
-        IdMap<KeyExample,Number> mapToPut_ = new IdMap<KeyExample,Number>();
+        IdMap<KeyExample,Integer> mapToPut_ = new IdMap<KeyExample,Integer>();
         mapToPut_.put(k3_, 2);
         mapToPut_.put(k4_, 3);
         map_.putAllMap(mapToPut_);
@@ -315,10 +315,10 @@ public class IdMapTest {
         k2_ = new KeyExample(0, 1);
         k3_ = new KeyExample(1, 1);
         k4_ = new KeyExample(0, 1);
-        IdMap<KeyExample,Number> map_ = new IdMap<KeyExample,Number>();
+        IdMap<KeyExample,Integer> map_ = new IdMap<KeyExample,Integer>();
         map_.put(k1_, 0);
         map_.put(k2_, 1);
-        IdMap<KeyExample,Number> mapToPut_ = new IdMap<KeyExample,Number>();
+        IdMap<KeyExample,Integer> mapToPut_ = new IdMap<KeyExample,Integer>();
         mapToPut_.put(k3_, 2);
         mapToPut_.put(k4_, 3);
         map_.putAllMap(mapToPut_);

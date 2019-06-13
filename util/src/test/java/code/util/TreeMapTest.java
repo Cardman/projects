@@ -16,8 +16,8 @@ public class TreeMapTest {
 
     @Test
     public void put1Test() {
-        TreeMap<String,Number> map_ = new TreeMap<String,Number>(new NaturalComparator());
-        Listable<EntryCust<String,Number>> l_ = map_.getList();
+        TreeMap<String,Integer> map_ = new TreeMap<String,Integer>(new NaturalComparator());
+        Listable<EntryCust<String,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put("ONE", 1);
         assertEq(1, l_.size());
@@ -47,8 +47,8 @@ public class TreeMapTest {
 
     @Test
     public void put2Test() {
-        TreeMap<String,Number> map_ = new TreeMap<String,Number>(new MyStringComparator(-1));
-        Listable<EntryCust<String,Number>> l_ = map_.getList();
+        TreeMap<String,Integer> map_ = new TreeMap<String,Integer>(new MyStringComparator(-1));
+        Listable<EntryCust<String,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put("ONE", 1);
         assertEq(1, l_.size());
@@ -78,7 +78,7 @@ public class TreeMapTest {
 
     @Test
     public void size1Test() {
-        TreeMap<String,Number> map_ = new TreeMap<String,Number>(new NaturalComparator());
+        TreeMap<String,Integer> map_ = new TreeMap<String,Integer>(new NaturalComparator());
         assertEq(0, map_.size());
         map_.put("ONE", 1);
         assertEq(1,map_.size());
@@ -90,7 +90,7 @@ public class TreeMapTest {
 
     @Test
     public void contains1Test() {
-        TreeMap<String,Number> map_ = new TreeMap<String,Number>(new NaturalComparator());
+        TreeMap<String,Integer> map_ = new TreeMap<String,Integer>(new NaturalComparator());
         assertEq(0, map_.size());
         map_.put("ONE", 1);
         assertTrue(map_.contains("ONE"));
@@ -104,7 +104,7 @@ public class TreeMapTest {
 
     @Test
     public void getVal1Test() {
-        TreeMap<String,Number> map_ = new TreeMap<String,Number>(new NaturalComparator());
+        TreeMap<String,Integer> map_ = new TreeMap<String,Integer>(new NaturalComparator());
         map_.put("ONE", 1);
         assertEq(1,map_.getVal("ONE").intValue());
         map_.put("TWO", 2);
@@ -117,7 +117,7 @@ public class TreeMapTest {
 
     @Test
     public void removeKey1Test() {
-        TreeMap<String,Number> map_ = new TreeMap<String,Number>(new NaturalComparator());
+        TreeMap<String,Integer> map_ = new TreeMap<String,Integer>(new NaturalComparator());
         map_.put("ONE", 1);
         map_.put("TWO", 2);
         map_.removeKey("ZERO");
@@ -132,7 +132,7 @@ public class TreeMapTest {
 
     @Test
     public void getKeys1Test() {
-        TreeMap<String,Number> map_ = new TreeMap<String,Number>(new NaturalComparator());
+        TreeMap<String,Integer> map_ = new TreeMap<String,Integer>(new NaturalComparator());
         map_.put("ONE", 1);
         map_.put("TWO", 2);
         CustList<String> keys_ = map_.getKeys();
@@ -143,10 +143,10 @@ public class TreeMapTest {
 
     @Test
     public void putAllMap1Test() {
-        TreeMap<String,Number> map_ = new TreeMap<String,Number>(new NaturalComparator());
+        TreeMap<String,Integer> map_ = new TreeMap<String,Integer>(new NaturalComparator());
         map_.put("ONE", 1);
         map_.put("TWO", 2);
-        TreeMap<String,Number> mapToPut_ = new TreeMap<String,Number>(new NaturalComparator());
+        TreeMap<String,Integer> mapToPut_ = new TreeMap<String,Integer>(new NaturalComparator());
         mapToPut_.put("THREE", 3);
         mapToPut_.put("FOUR", 4);
         map_.putAllMap(mapToPut_);
@@ -163,10 +163,10 @@ public class TreeMapTest {
 
     @Test
     public void putAllMap2Test() {
-        TreeMap<String,Number> map_ = new TreeMap<String,Number>(new NaturalComparator());
+        TreeMap<String,Integer> map_ = new TreeMap<String,Integer>(new NaturalComparator());
         map_.put("ONE", 1);
         map_.put("TWO", 2);
-        TreeMap<String,Number> mapToPut_ = new TreeMap<String,Number>(new NaturalComparator());
+        TreeMap<String,Integer> mapToPut_ = new TreeMap<String,Integer>(new NaturalComparator());
         mapToPut_.put("TWO", 3);
         mapToPut_.put("THREE", 4);
         map_.putAllMap(mapToPut_);
@@ -181,10 +181,10 @@ public class TreeMapTest {
 
     @Test
     public void getKey1Test() {
-        TreeMap<String,Number> map_ = new TreeMap<String,Number>(new NaturalComparator());
+        TreeMap<String,Integer> map_ = new TreeMap<String,Integer>(new NaturalComparator());
         map_.put("ONE", 1);
         map_.put("TWO", 2);
-        TreeMap<String,Number> mapToPut_ = new TreeMap<String,Number>(new NaturalComparator());
+        TreeMap<String,Integer> mapToPut_ = new TreeMap<String,Integer>(new NaturalComparator());
         mapToPut_.put("TWO", 3);
         mapToPut_.put("THREE", 4);
         assertNotNull(map_.comparator());
@@ -199,10 +199,10 @@ public class TreeMapTest {
 
     @Test
     public void getKey2Test() {
-        TreeMap<String,Number> map_ = new TreeMap<String,Number>(new MyStringComparator(-1));
+        TreeMap<String,Integer> map_ = new TreeMap<String,Integer>(new MyStringComparator(-1));
         map_.put("ONE", 1);
         map_.put("TWO", 2);
-        TreeMap<String,Number> mapToPut_ = new TreeMap<String,Number>(new MyStringComparator(-1));
+        TreeMap<String,Integer> mapToPut_ = new TreeMap<String,Integer>(new MyStringComparator(-1));
         mapToPut_.put("TWO", 3);
         mapToPut_.put("THREE", 4);
         assertNotNull(map_.comparator());
@@ -217,10 +217,10 @@ public class TreeMapTest {
 
     @Test
     public void getValue1Test() {
-        TreeMap<String,Number> map_ = new TreeMap<String,Number>(new NaturalComparator());
+        TreeMap<String,Integer> map_ = new TreeMap<String,Integer>(new NaturalComparator());
         map_.put("ONE", 1);
         map_.put("TWO", 2);
-        TreeMap<String,Number> mapToPut_ = new TreeMap<String,Number>(new NaturalComparator());
+        TreeMap<String,Integer> mapToPut_ = new TreeMap<String,Integer>(new NaturalComparator());
         mapToPut_.put("TWO", 3);
         mapToPut_.put("THREE", 4);
         assertNotNull(map_.comparator());
@@ -235,10 +235,10 @@ public class TreeMapTest {
 
     @Test
     public void getValue2Test() {
-        TreeMap<String,Number> map_ = new TreeMap<String,Number>(new MyStringComparator(-1));
+        TreeMap<String,Integer> map_ = new TreeMap<String,Integer>(new MyStringComparator(-1));
         map_.put("ONE", 1);
         map_.put("TWO", 2);
-        TreeMap<String,Number> mapToPut_ = new TreeMap<String,Number>(new MyStringComparator(-1));
+        TreeMap<String,Integer> mapToPut_ = new TreeMap<String,Integer>(new MyStringComparator(-1));
         mapToPut_.put("TWO", 3);
         mapToPut_.put("THREE", 4);
         assertNotNull(map_.comparator());

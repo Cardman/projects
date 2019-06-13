@@ -37,7 +37,7 @@ public final class ComparatorLanguageStatisic implements Comparing<LanguageEleme
         }
         String langOne_ = _o1.getLanguage();
         String langTwo_ = _o2.getLanguage();
-        return Numbers.compare(languages.indexOfObj(langOne_), languages.indexOfObj(langTwo_));
+        return Numbers.compareLg(languages.indexOfObj(langOne_), languages.indexOfObj(langTwo_));
     }
 
     private static int compare(EnumMap<Statistic,String> _translator, Statistic _e1, Statistic _e2) {

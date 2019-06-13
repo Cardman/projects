@@ -92,9 +92,9 @@ public class FighterBean extends CommonFightBean {
     public void beforeDisplaying() {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         DataBase data_ = dataBaseFight_.getData();
-        Number noTeam_ = (Number) getForms().getVal(NO_TEAM);
-        Number noFighter_ = (Number) getForms().getVal(NO_FIGHTER);
-        Fighter fighter_ = dataBaseFight_.getGame().getFight().getTeams().getVal(noTeam_.byteValue()).getMembers().getVal(noFighter_.byteValue());
+        Byte noTeam_ = (Byte) getForms().getVal(NO_TEAM);
+        Long noFighter_ = (Long) getForms().getVal(NO_FIGHTER);
+        Fighter fighter_ = dataBaseFight_.getGame().getFight().getTeams().getVal(noTeam_).getMembers().getVal(noFighter_.byteValue());
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         StringMap<String> translationsItems_;
@@ -466,16 +466,16 @@ public class FighterBean extends CommonFightBean {
     }
     public boolean isBack() {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
-        Number noTeam_ = (Number) getForms().getVal(NO_TEAM);
-        Number noFighter_ = (Number) getForms().getVal(NO_FIGHTER);
-        Fighter fighter_ = dataBaseFight_.getGame().getFight().getTeams().getVal(noTeam_.byteValue()).getMembers().getVal(noFighter_.byteValue());
+        Byte noTeam_ = (Byte) getForms().getVal(NO_TEAM);
+        Long noFighter_ = (Long) getForms().getVal(NO_FIGHTER);
+        Fighter fighter_ = dataBaseFight_.getGame().getFight().getTeams().getVal(noTeam_).getMembers().getVal(noFighter_.byteValue());
         return fighter_.estArriere();
     }
     public boolean isBackSubst() {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
-        Number noTeam_ = (Number) getForms().getVal(NO_TEAM);
-        Number noFighter_ = (Number) getForms().getVal(NO_FIGHTER);
-        Fighter fighter_ = dataBaseFight_.getGame().getFight().getTeams().getVal(noTeam_.byteValue()).getMembers().getVal(noFighter_.byteValue());
+        Byte noTeam_ = (Byte) getForms().getVal(NO_TEAM);
+        Long noFighter_ = (Long) getForms().getVal(NO_FIGHTER);
+        Fighter fighter_ = dataBaseFight_.getGame().getFight().getTeams().getVal(noTeam_).getMembers().getVal(noFighter_.byteValue());
         return fighter_.getGroundPlaceSubst() == Fighter.BACK;
     }
     public boolean isFoeStatusRelatTeam(Long _index) {

@@ -21,9 +21,9 @@ public class CriteriaForSearchingItem extends CriteriaForSearching {
 
     private String contentOfDescription;
 
-    private Integer minPrice;
+    private Long minPrice;
 
-    private Integer maxPrice;
+    private Long maxPrice;
 
     private LgInt minNumber;
 
@@ -89,11 +89,11 @@ public class CriteriaForSearchingItem extends CriteriaForSearching {
         contentOfDescription = _contentOfDescription;
     }
 
-    public void setMinPrice(Integer _minPrice) {
+    public void setMinPrice(Long _minPrice) {
         minPrice = _minPrice;
     }
 
-    public void setMaxPrice(Integer _maxPrice) {
+    public void setMaxPrice(Long _maxPrice) {
         maxPrice = _maxPrice;
     }
 

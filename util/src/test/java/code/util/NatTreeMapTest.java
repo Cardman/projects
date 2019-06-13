@@ -1,6 +1,5 @@
 package code.util;
 import static code.util.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -12,8 +11,8 @@ public final class NatTreeMapTest {
 
     @Test
     public void put1Test() {
-        NatTreeMap<Integer,Number> map_ = new NatTreeMap<Integer,Number>();
-        Listable<EntryCust<Integer,Number>> l_ = map_.getList();
+        NatTreeMap<Integer,Integer> map_ = new NatTreeMap<Integer,Integer>();
+        Listable<EntryCust<Integer,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put(2, 1);
         assertEq(1, l_.size());
@@ -43,8 +42,8 @@ public final class NatTreeMapTest {
 
     @Test
     public void put2Test() {
-        NatTreeMap<Integer,Number> map_ = new NatTreeMap<Integer,Number>(new CollCapacity(2));
-        Listable<EntryCust<Integer,Number>> l_ = map_.getList();
+        NatTreeMap<Integer,Integer> map_ = new NatTreeMap<Integer,Integer>(new CollCapacity(2));
+        Listable<EntryCust<Integer,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put(2, 2);
         map_.put(2, 1);
@@ -75,8 +74,8 @@ public final class NatTreeMapTest {
 
     @Test
     public void put3Test() {
-        NatTreeMap<Integer,Number> map_ = new NatTreeMap<Integer,Number>();
-        Listable<EntryCust<Integer,Number>> l_ = map_.getList();
+        NatTreeMap<Integer,Integer> map_ = new NatTreeMap<Integer,Integer>();
+        Listable<EntryCust<Integer,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put(2, 2);
         map_.put(2, 1);
@@ -92,7 +91,7 @@ public final class NatTreeMapTest {
     }
     @Test
     public void size1Test() {
-        NatTreeMap<Integer,Number> map_ = new NatTreeMap<Integer,Number>();
+        NatTreeMap<Integer,Integer> map_ = new NatTreeMap<Integer,Integer>();
         assertEq(0, map_.size());
         map_.put(2, 1);
         assertEq(1,map_.size());
@@ -104,7 +103,7 @@ public final class NatTreeMapTest {
 
     @Test
     public void contains1Test() {
-        NatTreeMap<Integer,Number> map_ = new NatTreeMap<Integer,Number>();
+        NatTreeMap<Integer,Integer> map_ = new NatTreeMap<Integer,Integer>();
         assertEq(0, map_.size());
         map_.put(2, 1);
         assertTrue(map_.contains(2));
@@ -118,20 +117,20 @@ public final class NatTreeMapTest {
 
     @Test
     public void getVal1Test() {
-        NatTreeMap<Integer,Number> map_ = new NatTreeMap<Integer,Number>();
+        NatTreeMap<Integer,Integer> map_ = new NatTreeMap<Integer,Integer>();
         map_.put(2, 1);
-        assertEq(1,map_.getVal(2).intValue());
+        assertEq(1, map_.getVal(2));
         map_.put(4, 2);
-        assertEq(1,map_.getVal(2).intValue());
-        assertEq(2,map_.getVal(4).intValue());
+        assertEq(1, map_.getVal(2));
+        assertEq(2, map_.getVal(4));
         map_.put(4, 3);
-        assertEq(1,map_.getVal(2).intValue());
-        assertEq(3,map_.getVal(4).intValue());
+        assertEq(1, map_.getVal(2));
+        assertEq(3, map_.getVal(4));
     }
 
     @Test
     public void removeKey1Test() {
-        NatTreeMap<Integer,Number> map_ = new NatTreeMap<Integer,Number>();
+        NatTreeMap<Integer,Integer> map_ = new NatTreeMap<Integer,Integer>();
         map_.put(2, 1);
         map_.put(4, 2);
         map_.removeKey(5);
@@ -157,10 +156,10 @@ public final class NatTreeMapTest {
 
     @Test
     public void putAllMap1Test() {
-        NatTreeMap<Integer,Number> map_ = new NatTreeMap<Integer,Number>();
+        NatTreeMap<Integer,Integer> map_ = new NatTreeMap<Integer,Integer>();
         map_.put(2, 1);
         map_.put(4, 2);
-        NatTreeMap<Integer,Number> mapToPut_ = new NatTreeMap<Integer,Number>();
+        NatTreeMap<Integer,Integer> mapToPut_ = new NatTreeMap<Integer,Integer>();
         mapToPut_.put(3, 3);
         mapToPut_.put(1, 4);
         map_.putAllMap(mapToPut_);
@@ -169,18 +168,18 @@ public final class NatTreeMapTest {
         assertTrue(map_.contains(4));
         assertTrue(map_.contains(3));
         assertTrue(map_.contains(1));
-        assertEq(1, map_.getVal(2).intValue());
-        assertEq(2, map_.getVal(4).intValue());
-        assertEq(3, map_.getVal(3).intValue());
-        assertEq(4, map_.getVal(1).intValue());
+        assertEq(1, map_.getVal(2));
+        assertEq(2, map_.getVal(4));
+        assertEq(3, map_.getVal(3));
+        assertEq(4, map_.getVal(1));
     }
 
     @Test
     public void putAllMap2Test() {
-        NatTreeMap<Integer,Number> map_ = new NatTreeMap<Integer,Number>();
+        NatTreeMap<Integer,Integer> map_ = new NatTreeMap<Integer,Integer>();
         map_.put(2, 1);
         map_.put(4, 2);
-        NatTreeMap<Integer,Number> mapToPut_ = new NatTreeMap<Integer,Number>();
+        NatTreeMap<Integer,Integer> mapToPut_ = new NatTreeMap<Integer,Integer>();
         mapToPut_.put(4, 3);
         mapToPut_.put(3, 4);
         map_.putAllMap(mapToPut_);
@@ -188,17 +187,17 @@ public final class NatTreeMapTest {
         assertTrue(map_.contains(2));
         assertTrue(map_.contains(4));
         assertTrue(map_.contains(3));
-        assertEq(1, map_.getVal(2).intValue());
-        assertEq(3, map_.getVal(4).intValue());
-        assertEq(4, map_.getVal(3).intValue());
+        assertEq(1, map_.getVal(2));
+        assertEq(3, map_.getVal(4));
+        assertEq(4, map_.getVal(3));
     }
 
     @Test
     public void getKey1Test() {
-        NatTreeMap<Integer,Number> map_ = new NatTreeMap<Integer,Number>();
+        NatTreeMap<Integer,Integer> map_ = new NatTreeMap<Integer,Integer>();
         map_.put(2, 1);
         map_.put(4, 2);
-        NatTreeMap<Integer,Number> mapToPut_ = new NatTreeMap<Integer,Number>();
+        NatTreeMap<Integer,Integer> mapToPut_ = new NatTreeMap<Integer,Integer>();
         mapToPut_.put(4, 3);
         mapToPut_.put(3, 4);
         assertEq(2, map_.size());
@@ -211,10 +210,10 @@ public final class NatTreeMapTest {
 
     @Test
     public void getValue1Test() {
-        NatTreeMap<Integer,Number> map_ = new NatTreeMap<Integer,Number>();
+        NatTreeMap<Integer,Integer> map_ = new NatTreeMap<Integer,Integer>();
         map_.put(2, 1);
         map_.put(4, 2);
-        NatTreeMap<Integer,Number> mapToPut_ = new NatTreeMap<Integer,Number>();
+        NatTreeMap<Integer,Integer> mapToPut_ = new NatTreeMap<Integer,Integer>();
         mapToPut_.put(4, 3);
         mapToPut_.put(3, 4);
         assertEq(2, map_.size());

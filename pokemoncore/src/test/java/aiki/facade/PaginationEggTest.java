@@ -29,7 +29,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setTranslation(_data_, LANGUAGE);
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
         pagination_.getCriteria().setContentOfName("P*");
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         Egg egg_;
         egg_ = new Egg(NUCLEOS);
         egg_.versEclosion((short) 15);
@@ -54,7 +54,7 @@ public class PaginationEggTest extends InitializationDataBase {
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
         pagination_.setTranslation(_data_, LANGUAGE);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         Egg egg_;
         egg_ = new Egg(NUCLEOS);
         assertTrue(!pagination_.match(egg_));
@@ -795,7 +795,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("*P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(2);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -863,7 +863,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("*P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(2);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -934,7 +934,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("*P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -1007,7 +1007,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("*Z*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -1061,7 +1061,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("*Z*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -1107,7 +1107,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("*P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES_AND_NO);
         pagination_.getCmpSteps().setPriority(2);
@@ -1179,7 +1179,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -1223,7 +1223,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -1268,7 +1268,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -1313,7 +1313,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -1387,7 +1387,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -1462,7 +1462,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -1537,7 +1537,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -1580,7 +1580,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -1624,7 +1624,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -1668,7 +1668,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -1711,7 +1711,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -1755,7 +1755,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -1799,7 +1799,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -1842,7 +1842,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -1886,7 +1886,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("B*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -1929,7 +1929,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -1972,7 +1972,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -2016,7 +2016,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("B*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -2059,7 +2059,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -2103,7 +2103,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -2151,7 +2151,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -2200,7 +2200,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -2447,7 +2447,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("B*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -2499,7 +2499,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -2547,7 +2547,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.changeNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("*P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(2);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);
@@ -2609,7 +2609,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pagination_.changeNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("*P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
-        pagination_.getCriteria().setMinSteps(1);
+        pagination_.getCriteria().setMinSteps(1L);
         pagination_.getCmpName().setPriority(2);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpSteps().setPriority(1);

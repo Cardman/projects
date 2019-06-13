@@ -7,6 +7,6 @@ public final class ComparatorStatistic implements Comparing<Statistic> {
 
     @Override
     public int compare(Statistic _arg0, Statistic _arg1) {
-        return Numbers.compare(_arg0.ordinal(), _arg1.ordinal());
+        return Numbers.compareLg(_arg0.ordinal(), _arg1.ordinal());
     }
 }
