@@ -252,7 +252,7 @@ public final class GameTarotBeginTrickClassic {
     }
 
     TarotInfoPliEnCours initInformations() {
-        return common.initInformations(info.getLastHand(), currentHand,playableCards, currentStatus,confidentPlayers,notConfidentPlayers);
+        return common.initInformations(info.getLastHand(), currentHand,playableCards, confidentPlayers,notConfidentPlayers);
     }
     CardTarot playWithAtMostOneSuitCard(TarotInfoPliEnCours _info) {
         EnumMap<Suit,HandTarot> repartition_ = currentHand.couleurs();
@@ -833,7 +833,7 @@ public final class GameTarotBeginTrickClassic {
                 plisFaits_, couleursNonVidesAjouer_);
         couleurs_ = GameTarotCommon.couleursSansFigures(currentHand, couleurs_);
         if(!couleurs_.isEmpty()) {
-            EnumList<Suit> couleursPossiblementCoupees_ = GameTarotTrickHypothesis.couleursPouvantEtreCoupees(currentHand,
+            EnumList<Suit> couleursPossiblementCoupees_ = GameTarotTrickHypothesis.couleursPouvantEtreCoupees(
                     notPlayed,
                     cartesPossibles_, couleurs_);
             if(!couleursPossiblementCoupees_.isEmpty()) {

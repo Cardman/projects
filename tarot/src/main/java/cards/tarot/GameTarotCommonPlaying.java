@@ -87,7 +87,7 @@ public final class GameTarotCommonPlaying {
     TarotInfoPliEnCours initInformations(
             HandTarot _lastHand,
             HandTarot _cartes,
-            HandTarot _cartesJouables, Status _currentStatus,
+            HandTarot _cartesJouables,
             Numbers<Byte> _confident, Numbers<Byte> _notConfident) {
         lastHand = _lastHand;
         byte nextPlayer_ = doneTrickInfo.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
@@ -140,7 +140,6 @@ public final class GameTarotCommonPlaying {
         info_.setCouleursMaitresses(couleursMaitresses_);
         info_.setCartesMaitresses(cartesMaitresses_);
         info_.setMaitreJeu(maitreJeu_);
-        info_.setDefender(_currentStatus == Status.DEFENDER);
         info_.setCoupesFranches(coupesFranches_);
         info_.setCalledSuits(couleursAppelees());
         info_.setProgressingTrick(doneTrickInfo.getProgressingTrick());

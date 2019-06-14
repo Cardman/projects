@@ -1,7 +1,6 @@
 package cards.tarot;
 
 import cards.consts.PossibleTrickWinner;
-import cards.consts.Status;
 import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
 import code.util.*;
@@ -322,7 +321,7 @@ public final class GameTarotMisere {
                 repartitionCartesJouees_);
     }
     TarotInfoPliEnCours initInformations() {
-        return common.initInformations(doneTrickInfo.getLastHand(), currentHand,playableCards, Status.TAKER,confidentPlayers,notConfidentPlayers);
+        return common.initInformations(doneTrickInfo.getLastHand(), currentHand,playableCards, confidentPlayers,notConfidentPlayers);
     }
 
     private static CardTarot depouilleFigure(EnumList<Suit> _couleurs,

@@ -5014,6 +5014,52 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         assertSame(CardTarot.WHITE, gbt_.tryDemandTrumpSuit(infoTr_));
     }
     @Test
+    public void tryDemandTrumpSuit9Test() {
+        HandTarot last_ = new HandTarot();
+        last_.ajouter(CardTarot.SPADE_QUEEN);
+        last_.ajouter(CardTarot.SPADE_10);
+        last_.ajouter(CardTarot.TRUMP_20);
+        RulesTarot r_ = new RulesTarot();
+        HandTarot curHand_ = new HandTarot();
+        curHand_.ajouter(CardTarot.CLUB_KING);
+        curHand_.ajouter(CardTarot.TRUMP_21);
+        curHand_.ajouter(CardTarot.TRUMP_19);
+        curHand_.ajouter(CardTarot.TRUMP_18);
+        curHand_.ajouter(CardTarot.TRUMP_17);
+        curHand_.ajouter(CardTarot.TRUMP_16);
+        curHand_.ajouter(CardTarot.TRUMP_15);
+        curHand_.ajouter(CardTarot.TRUMP_14);
+        curHand_.ajouter(CardTarot.TRUMP_13);
+        curHand_.ajouter(CardTarot.TRUMP_12);
+        curHand_.ajouter(CardTarot.TRUMP_11);
+        curHand_.ajouter(CardTarot.TRUMP_10);
+        curHand_.ajouter(CardTarot.TRUMP_9);
+        curHand_.ajouter(CardTarot.TRUMP_8);
+        curHand_.ajouter(CardTarot.TRUMP_1);
+        byte d_ = 1;
+        EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
+        bids_.add(BidTarot.FOLD);
+        bids_.add(BidTarot.FOLD);
+        bids_.add(BidTarot.FOLD);
+        bids_.add(BidTarot.GUARD);
+        bids_.add(BidTarot.FOLD);
+        CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
+        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_),false);
+        t_.ajouter(CardTarot.SPADE_QUEEN);
+        t_.ajouter(CardTarot.SPADE_10);
+        t_.ajouter(CardTarot.SPADE_1);
+        trs_.add(t_);
+        TrickTarot pr_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
+        HandTarot calledCards_ = new HandTarot();
+        calledCards_.ajouter(CardTarot.CLUB_KING);
+        GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
+        GameTarotTeamsRelation team_ = g_.getTeamsRelation();
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
+        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
+        assertSame(CardTarot.TRUMP_21, gbt_.tryDemandTrumpSuit(infoTr_));
+    }
+    @Test
     public void playAsTaker1Test() {
         HandTarot last_ = new HandTarot();
         last_.ajouter(CardTarot.SPADE_QUEEN);

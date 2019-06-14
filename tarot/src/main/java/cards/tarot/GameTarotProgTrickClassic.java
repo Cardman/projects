@@ -1723,7 +1723,7 @@ public final class GameTarotProgTrickClassic {
     }
 
     TarotInfoPliEnCours initInformations() {
-        return common.initInformations(doneTrickInfo.getLastHand(), currentHand,playableCards, currentStatus,confidentPlayers,notConfidentPlayers);
+        return common.initInformations(doneTrickInfo.getLastHand(), currentHand,playableCards, confidentPlayers,notConfidentPlayers);
     }
 
     CardTarot tryPlayExcuse(boolean _leadGame) {

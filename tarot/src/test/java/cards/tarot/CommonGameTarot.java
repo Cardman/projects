@@ -145,12 +145,12 @@ public abstract class CommonGameTarot {
                     h_.ajouter(_c);
                 }
             } else {
-                _info.getCartesPossibles().getVal(_c.couleur()).get(_p).removeCardIfPresent(_c);
+                _info.getCartesPossibles().getVal(_c.couleur()).get(i).removeCardIfPresent(_c);
             }
         }
     }
-    protected static void addCard(EnumMap<Suit,EqList<HandTarot>> _poss, int _p, CardTarot _c) {
-        HandTarot h_ = _poss.getVal(_c.couleur()).get(_p);
+    protected static void addPossibleCard(TarotInfoPliEnCours _info, int _p, CardTarot _c) {
+        HandTarot h_ = _info.getCartesPossibles().getVal(_c.couleur()).get(_p);
         if (h_.contient(_c)) {
             return;
         }
@@ -165,8 +165,8 @@ public abstract class CommonGameTarot {
         HandTarot h_ = _info.getCartesPossibles().getVal(_c.couleur()).get(_p);
         h_.removeCardIfPresent(_c);
     }
-    protected static void removeCard(EnumMap<Suit,EqList<HandTarot>> _poss, int _p, CardTarot _c) {
-        HandTarot h_ = _poss.getVal(_c.couleur()).get(_p);
+    protected static void removeSureCard(TarotInfoPliEnCours _info, int _p, CardTarot _c) {
+        HandTarot h_ = _info.getCartesCertaines().getVal(_c.couleur()).get(_p);
         h_.removeCardIfPresent(_c);
     }
 }
