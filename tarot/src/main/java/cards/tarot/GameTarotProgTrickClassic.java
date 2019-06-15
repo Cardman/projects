@@ -85,8 +85,8 @@ public final class GameTarotProgTrickClassic {
         /*CarteTarot temporairement
         maitresse*/
         PossibleTrickWinner ramasseurCertain_ = GameTarotTrickHypothesis.equipeQuiVaFairePli(
-                info_,
-                carteForte_);
+                info_
+        );
         if (ramasseurCertain_ == PossibleTrickWinner.FOE_TEAM) {
             return followNormalSuitFoe(info_);
         }
@@ -874,8 +874,8 @@ public final class GameTarotProgTrickClassic {
         maitresse
         */
         PossibleTrickWinner ramasseurCertain_ = GameTarotTrickHypothesis.equipeQuiVaFairePli(
-                info_,
-                carteForte_);
+                info_
+        );
         boolean maitreJeu_ = info_.isMaitreJeu();
         if (ramasseurCertain_ == PossibleTrickWinner.FOE_TEAM) {
             CardTarot card_ = tryPlayExcuse(maitreJeu_);
@@ -1005,8 +1005,8 @@ public final class GameTarotProgTrickClassic {
         maitresse
         */
         PossibleTrickWinner ramasseurCertain_ = GameTarotTrickHypothesis.equipeQuiVaFairePli(
-                info_,
-                carteForte_);
+                info_
+        );
         //jouer un atout en coupe, surcoupe ou souscoupe
         if (ramasseurCertain_ == PossibleTrickWinner.FOE_TEAM) {
             return underTrumpFoe(info_);
@@ -1591,8 +1591,8 @@ public final class GameTarotProgTrickClassic {
         maitresse
         */
         PossibleTrickWinner ramasseurCertain_ = GameTarotTrickHypothesis.equipeQuiVaFairePli(
-                info_,
-                carteForte_);
+                info_
+        );
         boolean maitreJeu_ = info_.isMaitreJeu();
         EnumMap<Suit,EqList<HandTarot>> suitesTouteCouleur_ = info_.getSuitesTouteCouleur();
         EnumList<Suit> couleursStrictesMaitresses_ = GameTarotCommonPlaying.strictCouleursMaitres(
@@ -1683,8 +1683,8 @@ public final class GameTarotProgTrickClassic {
         maitresse
         */
         PossibleTrickWinner ramasseurCertain_ = GameTarotTrickHypothesis.equipeQuiVaFairePli(
-                info_,
-                carteForte_);
+                info_
+        );
         boolean maitreJeu_ = info_.isMaitreJeu();
         EnumMap<Suit,EqList<HandTarot>> suitesTouteCouleur_ = info_.getSuitesTouteCouleur();
         EnumList<Suit> couleursStrictesMaitresses_ = GameTarotCommonPlaying.strictCouleursMaitres(

@@ -165,8 +165,8 @@ public final class GameTarotMisere {
         maitresse
         */
         PossibleTrickWinner ramasseurCertain_ = GameTarotTrickHypothesis.equipeQuiVaFairePli(
-                info_,
-                carteForte_);
+                info_
+        );
         if (ramasseurCertain_ == PossibleTrickWinner.FOE_TEAM) {
             return repartitionCouleDem_.premiereCarte();
         }
@@ -191,8 +191,8 @@ public final class GameTarotMisere {
         maitresse
         */
         PossibleTrickWinner ramasseurCertain_ = GameTarotTrickHypothesis.equipeQuiVaFairePli(
-                info_,
-                carteForte_);
+                info_
+        );
         if (ramasseurCertain_ == PossibleTrickWinner.FOE_TEAM) {
             if (repartitionJouables_.getVal(Suit.TRUMP).contient(CardTarot.petit())) {
                 return CardTarot.petit();
@@ -218,8 +218,8 @@ public final class GameTarotMisere {
         maitresse
         */
         PossibleTrickWinner ramasseurCertain_ = GameTarotTrickHypothesis.equipeQuiVaFairePli(
-                info_,
-                carteForte_);
+                info_
+        );
         if (ramasseurCertain_ == PossibleTrickWinner.FOE_TEAM) {
             if (repartitionJouables_.getVal(Suit.TRUMP).contient(CardTarot.petit())) {
                 return CardTarot.petit();

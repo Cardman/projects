@@ -143,6 +143,7 @@ public abstract class CommonGameTarot {
                 HandTarot h_ = _info.getCartesCertaines().getVal(_c.couleur()).get(_p);
                 if (!h_.contient(_c)) {
                     h_.ajouter(_c);
+                    h_.trierParForceEnCours(_c.couleur());
                 }
             } else {
                 _info.getCartesPossibles().getVal(_c.couleur()).get(i).removeCardIfPresent(_c);
@@ -155,6 +156,7 @@ public abstract class CommonGameTarot {
             return;
         }
         h_.ajouter(_c);
+        h_.trierParForceEnCours(_c.couleur());
     }
 
 
