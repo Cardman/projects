@@ -1904,6 +1904,621 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addSureCard(t_,4,CardTarot.DIAMOND_KING);
         assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
+    @Test
+    public void getPossibleTrickWinnerTrumpSuit1Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        hand_.ajouter(CardTarot.DIAMOND_9);
+        hand_.ajouter(CardTarot.DIAMOND_KING);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        playable_.ajouter(CardTarot.DIAMOND_9);
+        playable_.ajouter(CardTarot.DIAMOND_KING);
+        TrickTarot current_ = new TrickTarot((byte)2,true);
+        current_.ajouter(CardTarot.DIAMOND_1);
+        current_.ajouter(CardTarot.TRUMP_3);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 3);
+        team_.add((byte) 0);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,1,CardTarot.TRUMP_4);
+        addSureCard(t_,1,CardTarot.TRUMP_4);
+        addPossibleCard(t_,0,CardTarot.TRUMP_5);
+        addPossibleCard(t_,4,CardTarot.DIAMOND_9);
+        addSureCard(t_,4,CardTarot.DIAMOND_9);
+        addPossibleCard(t_,4,CardTarot.DIAMOND_KING);
+        addSureCard(t_,4,CardTarot.DIAMOND_KING);
+        assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
+    }
+    @Test
+    public void getPossibleTrickWinnerTrumpSuit2Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        hand_.ajouter(CardTarot.DIAMOND_9);
+        hand_.ajouter(CardTarot.DIAMOND_KING);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        playable_.ajouter(CardTarot.DIAMOND_9);
+        playable_.ajouter(CardTarot.DIAMOND_KING);
+        TrickTarot current_ = new TrickTarot((byte)2,true);
+        current_.ajouter(CardTarot.DIAMOND_1);
+        current_.ajouter(CardTarot.TRUMP_3);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 3);
+        team_.add((byte) 0);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,1,CardTarot.TRUMP_4);
+        addSureCard(t_,1,CardTarot.TRUMP_4);
+        addPossibleCard(t_,0,CardTarot.TRUMP_5);
+        addSureCard(t_,0,CardTarot.TRUMP_5);
+        addPossibleCard(t_,4,CardTarot.DIAMOND_9);
+        addSureCard(t_,4,CardTarot.DIAMOND_9);
+        addPossibleCard(t_,4,CardTarot.DIAMOND_KING);
+        addSureCard(t_,4,CardTarot.DIAMOND_KING);
+        assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
+    }
+    @Test
+    public void getPossibleTrickWinnerTrumpSuit3Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        hand_.ajouter(CardTarot.DIAMOND_9);
+        hand_.ajouter(CardTarot.DIAMOND_KING);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        playable_.ajouter(CardTarot.DIAMOND_9);
+        playable_.ajouter(CardTarot.DIAMOND_KING);
+        TrickTarot current_ = new TrickTarot((byte)2,true);
+        current_.ajouter(CardTarot.DIAMOND_1);
+        current_.ajouter(CardTarot.TRUMP_3);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 3);
+        team_.add((byte) 0);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,1,CardTarot.TRUMP_5);
+        addSureCard(t_,1,CardTarot.TRUMP_5);
+        addPossibleCard(t_,0,CardTarot.TRUMP_4);
+        addSureCard(t_,0,CardTarot.TRUMP_4);
+        addPossibleCard(t_,4,CardTarot.DIAMOND_9);
+        addSureCard(t_,4,CardTarot.DIAMOND_9);
+        addPossibleCard(t_,4,CardTarot.DIAMOND_KING);
+        addSureCard(t_,4,CardTarot.DIAMOND_KING);
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
+    }
+    @Test
+    public void getPossibleTrickWinnerTrumpSuit4Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        hand_.ajouter(CardTarot.DIAMOND_9);
+        hand_.ajouter(CardTarot.DIAMOND_KING);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        playable_.ajouter(CardTarot.DIAMOND_9);
+        playable_.ajouter(CardTarot.DIAMOND_KING);
+        TrickTarot current_ = new TrickTarot((byte)2,true);
+        current_.ajouter(CardTarot.DIAMOND_1);
+        current_.ajouter(CardTarot.TRUMP_13);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 3);
+        team_.add((byte) 0);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,1,CardTarot.TRUMP_5);
+        addSureCard(t_,1,CardTarot.TRUMP_5);
+        addPossibleCard(t_,0,CardTarot.TRUMP_4);
+        addSureCard(t_,0,CardTarot.TRUMP_4);
+        addPossibleCard(t_,4,CardTarot.DIAMOND_9);
+        addSureCard(t_,4,CardTarot.DIAMOND_9);
+        addPossibleCard(t_,4,CardTarot.DIAMOND_KING);
+        addSureCard(t_,4,CardTarot.DIAMOND_KING);
+        assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
+    }
+    @Test
+    public void getPossibleTrickWinnerTrumpSuit5Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        hand_.ajouter(CardTarot.DIAMOND_9);
+        hand_.ajouter(CardTarot.DIAMOND_KING);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        playable_.ajouter(CardTarot.DIAMOND_9);
+        playable_.ajouter(CardTarot.DIAMOND_KING);
+        TrickTarot current_ = new TrickTarot((byte)3,true);
+        current_.ajouter(CardTarot.DIAMOND_1);
+        current_.ajouter(CardTarot.TRUMP_3);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 2);
+        team_.add((byte) 3);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,1,CardTarot.TRUMP_4);
+        addSureCard(t_,1,CardTarot.TRUMP_4);
+        addPossibleCard(t_,2,CardTarot.TRUMP_5);
+        addPossibleCard(t_,0,CardTarot.DIAMOND_9);
+        addSureCard(t_,0,CardTarot.DIAMOND_9);
+        addPossibleCard(t_,0,CardTarot.DIAMOND_KING);
+        addSureCard(t_,0,CardTarot.DIAMOND_KING);
+        assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
+    }
+    @Test
+    public void getPossibleTrickWinnerTrumpSuit6Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        hand_.ajouter(CardTarot.DIAMOND_9);
+        hand_.ajouter(CardTarot.DIAMOND_KING);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        playable_.ajouter(CardTarot.DIAMOND_9);
+        playable_.ajouter(CardTarot.DIAMOND_KING);
+        TrickTarot current_ = new TrickTarot((byte)3,true);
+        current_.ajouter(CardTarot.DIAMOND_1);
+        current_.ajouter(CardTarot.TRUMP_3);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 2);
+        team_.add((byte) 3);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,2,CardTarot.TRUMP_4);
+        addSureCard(t_,2,CardTarot.TRUMP_4);
+        addPossibleCard(t_,1,CardTarot.TRUMP_5);
+        addSureCard(t_,1,CardTarot.TRUMP_5);
+        addPossibleCard(t_,0,CardTarot.DIAMOND_9);
+        addSureCard(t_,0,CardTarot.DIAMOND_9);
+        addPossibleCard(t_,0,CardTarot.DIAMOND_KING);
+        addSureCard(t_,0,CardTarot.DIAMOND_KING);
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
+    }
+    @Test
+    public void getPossibleTrickWinnerTrumpSuit7Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        hand_.ajouter(CardTarot.DIAMOND_9);
+        hand_.ajouter(CardTarot.DIAMOND_KING);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        playable_.ajouter(CardTarot.DIAMOND_9);
+        playable_.ajouter(CardTarot.DIAMOND_KING);
+        TrickTarot current_ = new TrickTarot((byte)3,true);
+        current_.ajouter(CardTarot.DIAMOND_1);
+        current_.ajouter(CardTarot.TRUMP_3);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 2);
+        team_.add((byte) 3);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,2,CardTarot.TRUMP_5);
+        addSureCard(t_,2,CardTarot.TRUMP_5);
+        addPossibleCard(t_,1,CardTarot.TRUMP_4);
+        addSureCard(t_,1,CardTarot.TRUMP_4);
+        addPossibleCard(t_,0,CardTarot.DIAMOND_9);
+        addSureCard(t_,0,CardTarot.DIAMOND_9);
+        addPossibleCard(t_,0,CardTarot.DIAMOND_KING);
+        addSureCard(t_,0,CardTarot.DIAMOND_KING);
+        assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
+    }
+    @Test
+    public void getPossibleTrickWinnerTrumpSuit8Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        hand_.ajouter(CardTarot.DIAMOND_9);
+        hand_.ajouter(CardTarot.DIAMOND_KING);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        playable_.ajouter(CardTarot.DIAMOND_9);
+        playable_.ajouter(CardTarot.DIAMOND_KING);
+        TrickTarot current_ = new TrickTarot((byte)3,true);
+        current_.ajouter(CardTarot.DIAMOND_1);
+        current_.ajouter(CardTarot.TRUMP_13);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 2);
+        team_.add((byte) 3);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,2,CardTarot.TRUMP_5);
+        addSureCard(t_,2,CardTarot.TRUMP_5);
+        addPossibleCard(t_,1,CardTarot.TRUMP_4);
+        addSureCard(t_,1,CardTarot.TRUMP_4);
+        addPossibleCard(t_,0,CardTarot.DIAMOND_9);
+        addSureCard(t_,0,CardTarot.DIAMOND_9);
+        addPossibleCard(t_,0,CardTarot.DIAMOND_KING);
+        addSureCard(t_,0,CardTarot.DIAMOND_KING);
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
+    }
+    @Test
+    public void getPossibleTrickWinnerTrumpSuit9Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        hand_.ajouter(CardTarot.HEART_9);
+        hand_.ajouter(CardTarot.HEART_JACK);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        playable_.ajouter(CardTarot.HEART_9);
+        playable_.ajouter(CardTarot.HEART_JACK);
+        TrickTarot current_ = new TrickTarot((byte)2,true);
+        current_.ajouter(CardTarot.HEART_1);
+        current_.ajouter(CardTarot.TRUMP_3);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 3);
+        team_.add((byte) 0);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        t_.setCarteAppeleeJouee(true);
+        addPossibleCard(t_,1,CardTarot.TRUMP_4);
+        addSureCard(t_,1,CardTarot.TRUMP_4);
+        addPossibleCard(t_,0,CardTarot.TRUMP_5);
+        addPossibleCard(t_,4,CardTarot.HEART_9);
+        addSureCard(t_,4,CardTarot.HEART_9);
+        addPossibleCard(t_,4,CardTarot.HEART_JACK);
+        addSureCard(t_,4,CardTarot.HEART_JACK);
+        assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
+    }
+    @Test
+    public void getPossibleTrickWinnerTrumpSuit10Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        hand_.ajouter(CardTarot.HEART_9);
+        hand_.ajouter(CardTarot.HEART_JACK);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        playable_.ajouter(CardTarot.HEART_9);
+        playable_.ajouter(CardTarot.HEART_JACK);
+        TrickTarot current_ = new TrickTarot((byte)2,true);
+        current_.ajouter(CardTarot.HEART_1);
+        current_.ajouter(CardTarot.TRUMP_3);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 3);
+        team_.add((byte) 0);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,1,CardTarot.TRUMP_4);
+        addSureCard(t_,1,CardTarot.TRUMP_4);
+        addPossibleCard(t_,0,CardTarot.TRUMP_5);
+        addPossibleCard(t_,4,CardTarot.HEART_9);
+        addSureCard(t_,4,CardTarot.HEART_9);
+        addPossibleCard(t_,4,CardTarot.HEART_JACK);
+        addSureCard(t_,4,CardTarot.HEART_JACK);
+        assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
+    }
+    @Test
+    public void getPossibleTrickWinnerTrumpSuit11Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        hand_.ajouter(CardTarot.HEART_9);
+        hand_.ajouter(CardTarot.HEART_JACK);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        playable_.ajouter(CardTarot.HEART_9);
+        playable_.ajouter(CardTarot.HEART_JACK);
+        TrickTarot current_ = new TrickTarot((byte)2,true);
+        current_.ajouter(CardTarot.HEART_1);
+        current_.ajouter(CardTarot.TRUMP_3);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 3);
+        team_.add((byte) 0);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,1,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,1,CardTarot.TRUMP_4);
+        addSureCard(t_,1,CardTarot.TRUMP_4);
+        addPossibleCard(t_,0,CardTarot.TRUMP_5);
+        addPossibleCard(t_,4,CardTarot.HEART_9);
+        addSureCard(t_,4,CardTarot.HEART_9);
+        addPossibleCard(t_,4,CardTarot.HEART_JACK);
+        addSureCard(t_,4,CardTarot.HEART_JACK);
+        assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
+    }
+    @Test
+    public void getPossibleTrickWinnerTrumpSuit12Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        hand_.ajouter(CardTarot.HEART_9);
+        hand_.ajouter(CardTarot.HEART_KING);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        playable_.ajouter(CardTarot.HEART_9);
+        playable_.ajouter(CardTarot.HEART_KING);
+        TrickTarot current_ = new TrickTarot((byte)0,true);
+        current_.ajouter(CardTarot.HEART_1);
+        current_.ajouter(CardTarot.TRUMP_3);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 1);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,1,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,3,CardTarot.TRUMP_5);
+        addPossibleCard(t_,4,CardTarot.HEART_9);
+        addSureCard(t_,4,CardTarot.HEART_9);
+        addPossibleCard(t_,1,CardTarot.HEART_KING);
+        addSureCard(t_,1,CardTarot.HEART_KING);
+        assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
+    }
+    @Test
+    public void getPossibleTrickWinnerTrumpSuit13Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        hand_.ajouter(CardTarot.HEART_9);
+        hand_.ajouter(CardTarot.HEART_JACK);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        playable_.ajouter(CardTarot.HEART_9);
+        playable_.ajouter(CardTarot.HEART_JACK);
+        TrickTarot current_ = new TrickTarot((byte)4,true);
+        current_.ajouter(CardTarot.HEART_1);
+        current_.ajouter(CardTarot.TRUMP_3);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 2);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,1,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        t_.setCarteAppeleeJouee(true);
+        addPossibleCard(t_,0,CardTarot.TRUMP_5);
+        addPossibleCard(t_,1,CardTarot.HEART_9);
+        addSureCard(t_,1,CardTarot.HEART_9);
+        addPossibleCard(t_,1,CardTarot.HEART_JACK);
+        addSureCard(t_,1,CardTarot.HEART_JACK);
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
+    }
+    @Test
+    public void getPossibleTrickWinnerTrumpSuit14Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        hand_.ajouter(CardTarot.HEART_9);
+        hand_.ajouter(CardTarot.HEART_KING);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        playable_.ajouter(CardTarot.HEART_9);
+        playable_.ajouter(CardTarot.HEART_KING);
+        TrickTarot current_ = new TrickTarot((byte)4,true);
+        current_.ajouter(CardTarot.HEART_1);
+        current_.ajouter(CardTarot.TRUMP_3);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 2);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,0,CardTarot.TRUMP_5);
+        addPossibleCard(t_,1,CardTarot.HEART_9);
+        addSureCard(t_,1,CardTarot.HEART_9);
+        addPossibleCard(t_,1,CardTarot.HEART_KING);
+        addSureCard(t_,1,CardTarot.HEART_KING);
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
+    }
+    @Test
+    public void getPossibleTrickWinnerTrumpSuit15Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        hand_.ajouter(CardTarot.HEART_9);
+        hand_.ajouter(CardTarot.HEART_JACK);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        playable_.ajouter(CardTarot.HEART_9);
+        playable_.ajouter(CardTarot.HEART_JACK);
+        TrickTarot current_ = new TrickTarot((byte)4,true);
+        current_.ajouter(CardTarot.HEART_1);
+        current_.ajouter(CardTarot.TRUMP_3);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 2);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,1,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,0,CardTarot.TRUMP_5);
+        addPossibleCard(t_,1,CardTarot.HEART_9);
+        addSureCard(t_,1,CardTarot.HEART_9);
+        addPossibleCard(t_,1,CardTarot.HEART_JACK);
+        addSureCard(t_,1,CardTarot.HEART_JACK);
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
+    }
+    @Test
+    public void getPossibleTrickWinnerTrumpSuit16Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        hand_.ajouter(CardTarot.TRUMP_2);
+        hand_.ajouter(CardTarot.TRUMP_1);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        playable_.ajouter(CardTarot.TRUMP_2);
+        playable_.ajouter(CardTarot.TRUMP_1);
+        TrickTarot current_ = new TrickTarot((byte)3,true);
+        current_.ajouter(CardTarot.DIAMOND_1);
+        current_.ajouter(CardTarot.TRUMP_13);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 2);
+        team_.add((byte) 3);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,2,CardTarot.TRUMP_5);
+        addSureCard(t_,2,CardTarot.TRUMP_5);
+        addPossibleCard(t_,1,CardTarot.TRUMP_4);
+        addSureCard(t_,1,CardTarot.TRUMP_4);
+        addPossibleCard(t_,0,CardTarot.TRUMP_2);
+        addSureCard(t_,0,CardTarot.TRUMP_2);
+        addPossibleCard(t_,0,CardTarot.TRUMP_1);
+        addSureCard(t_,0,CardTarot.TRUMP_1);
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
+    }
+    @Test
+    public void getPossibleTrickWinnerTrumpSuit17Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        TrickTarot current_ = new TrickTarot((byte)3,true);
+        current_.ajouter(CardTarot.DIAMOND_1);
+        current_.ajouter(CardTarot.TRUMP_13);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 2);
+        team_.add((byte) 3);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,2,CardTarot.TRUMP_5);
+        addSureCard(t_,2,CardTarot.TRUMP_5);
+        addPossibleCard(t_,1,CardTarot.TRUMP_4);
+        addSureCard(t_,1,CardTarot.TRUMP_4);
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
+    }
+    @Test
+    public void getPossibleTrickWinnerTrumpSuit18Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        TrickTarot current_ = new TrickTarot((byte)3,true);
+        current_.ajouter(CardTarot.DIAMOND_1);
+        current_.ajouter(CardTarot.TRUMP_8);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 2);
+        team_.add((byte) 3);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,2,CardTarot.TRUMP_15);
+        addSureCard(t_,2,CardTarot.TRUMP_15);
+        addPossibleCard(t_,1,CardTarot.TRUMP_14);
+        addSureCard(t_,1,CardTarot.TRUMP_14);
+        addPossibleCard(t_,0,CardTarot.TRUMP_13);
+        addSureCard(t_,0,CardTarot.TRUMP_13);
+        addPossibleCard(t_,0,CardTarot.TRUMP_21);
+        addSureCard(t_,0,CardTarot.TRUMP_21);
+        assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
+    }
+    @Test
+    public void getPossibleTrickWinnerTrumpSuit19Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        TrickTarot current_ = new TrickTarot((byte)3,true);
+        current_.ajouter(CardTarot.DIAMOND_1);
+        current_.ajouter(CardTarot.TRUMP_8);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 2);
+        team_.add((byte) 3);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,2,CardTarot.TRUMP_15);
+        addSureCard(t_,2,CardTarot.TRUMP_15);
+        addPossibleCard(t_,1,CardTarot.TRUMP_21);
+        addSureCard(t_,1,CardTarot.TRUMP_21);
+        addPossibleCard(t_,0,CardTarot.TRUMP_13);
+        addSureCard(t_,0,CardTarot.TRUMP_13);
+        addPossibleCard(t_,0,CardTarot.TRUMP_14);
+        addSureCard(t_,0,CardTarot.TRUMP_14);
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
+    }
+    @Test
+    public void getPossibleTrickWinnerTrumpSuit20Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        TrickTarot current_ = new TrickTarot((byte)3,true);
+        current_.ajouter(CardTarot.DIAMOND_1);
+        current_.ajouter(CardTarot.TRUMP_8);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 2);
+        team_.add((byte) 3);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,2,CardTarot.TRUMP_21);
+        addSureCard(t_,2,CardTarot.TRUMP_21);
+        addPossibleCard(t_,1,CardTarot.TRUMP_15);
+        addSureCard(t_,1,CardTarot.TRUMP_15);
+        addPossibleCard(t_,0,CardTarot.TRUMP_13);
+        addSureCard(t_,0,CardTarot.TRUMP_13);
+        addPossibleCard(t_,0,CardTarot.TRUMP_14);
+        addSureCard(t_,0,CardTarot.TRUMP_14);
+        assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePli1Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        TrickTarot current_ = new TrickTarot((byte)3,true);
+        current_.ajouter(CardTarot.DIAMOND_1);
+        current_.ajouter(CardTarot.TRUMP_8);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 2);
+        team_.add((byte) 3);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,2,CardTarot.TRUMP_21);
+        addSureCard(t_,2,CardTarot.TRUMP_21);
+        addPossibleCard(t_,1,CardTarot.TRUMP_15);
+        addSureCard(t_,1,CardTarot.TRUMP_15);
+        addPossibleCard(t_,0,CardTarot.TRUMP_13);
+        addSureCard(t_,0,CardTarot.TRUMP_13);
+        addPossibleCard(t_,0,CardTarot.TRUMP_14);
+        addSureCard(t_,0,CardTarot.TRUMP_14);
+        assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.equipeQuiVaFairePli(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePli2Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        hand_.ajouter(CardTarot.DIAMOND_9);
+        hand_.ajouter(CardTarot.DIAMOND_KING);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        playable_.ajouter(CardTarot.DIAMOND_9);
+        playable_.ajouter(CardTarot.DIAMOND_KING);
+        TrickTarot current_ = new TrickTarot((byte)2,true);
+        current_.ajouter(CardTarot.DIAMOND_1);
+        current_.ajouter(CardTarot.DIAMOND_8);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 3);
+        team_.add((byte) 0);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,1,CardTarot.TRUMP_3);
+        addSureCard(t_,1,CardTarot.TRUMP_3);
+        addPossibleCard(t_,0,CardTarot.TRUMP_4);
+        addPossibleCard(t_,4,CardTarot.DIAMOND_9);
+        addSureCard(t_,4,CardTarot.DIAMOND_9);
+        addPossibleCard(t_,4,CardTarot.DIAMOND_KING);
+        addSureCard(t_,4,CardTarot.DIAMOND_KING);
+        assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.equipeQuiVaFairePli(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePli3Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        hand_.ajouter(CardTarot.DIAMOND_6);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        playable_.ajouter(CardTarot.DIAMOND_6);
+        TrickTarot current_ = new TrickTarot((byte)2,true);
+        current_.ajouter(CardTarot.TRUMP_14);
+        current_.ajouter(CardTarot.TRUMP_12);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 3);
+        team_.add((byte) 0);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,1,CardTarot.TRUMP_21);
+        addSureCard(t_,1, CardTarot.TRUMP_21);
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.equipeQuiVaFairePli(t_));
+    }
     static boolean existeJouBatAdvDemat(TarotInfoPliEnCours _t,Numbers<Byte> _dom,Numbers<Byte> _beat) {
         EnumMap<Suit, EqList<HandTarot>> poss_ = _t.getCartesPossibles();
         EnumMap<Suit, EqList<HandTarot>> sure_ = _t.getCartesCertaines();
