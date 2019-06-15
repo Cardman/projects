@@ -320,6 +320,20 @@ public final class GameTarotCommonPlaying {
         }
         return couleurs_;
     }
+    static EnumList<Suit> couleursAvecCarteNonMaitresse(HandTarot _main,
+                                                     HandTarot _cartesJouees, EnumList<Suit> _couleurs) {
+        EnumList<Suit> couleurs_ = new EnumList<Suit>();
+        EnumMap<Suit,HandTarot> couleursMains_ = _main.couleurs();
+        EnumMap<Suit,HandTarot> cartesJouees_ = _cartesJouees.couleurs();
+        for (Suit couleur_ : _couleurs) {
+            HandTarot cartesMaitresses_ = GameTarotCommon.cartesMaitresses(couleursMains_,
+                    cartesJouees_).getVal(couleur_);
+            if (cartesMaitresses_.total() != couleursMains_.getVal(couleur_).total()) {
+                couleurs_.add(couleur_);
+            }
+        }
+        return couleurs_;
+    }
     byte playerAfter(byte _player) {
         return teamsRelation.getRules().getRepartition().getNextPlayer(_player);
     }

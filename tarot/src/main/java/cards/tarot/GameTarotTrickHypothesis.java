@@ -576,6 +576,15 @@ final class GameTarotTrickHypothesis {
         Le joueur numero peut prendre la main en surcoupant le ramasseur
         virtuel
         */
+        CardTarot cardPl_ = cartesCertaines_.getVal(Suit.TRUMP).get(player_)
+                .premiereCarte();
+        Numbers<Byte> other_ = new Numbers<Byte>(joueursNonJoue_);
+        other_.removeObj(player_);
+        if (ramasseurBatAdvSur(other_,
+                couleurDemandee_, cardPl_, cartesPossibles_,
+                cartesCertaines_)) {
+            return PossibleTrickWinner.UNKNOWN;
+        }
         /*
         On cherche les joueurs de confiance battant de maniere certaine
         les joueurs de non confiance n'ayant pas joue ou possedant des
@@ -939,6 +948,14 @@ final class GameTarotTrickHypothesis {
         Le joueur numero peut prendre la main en utilisant un atout sur
         demande d'atout
         */
+        CardTarot cardPl_ = cartesCertaines_.getVal(Suit.TRUMP).get(player_)
+                .premiereCarte();
+        Numbers<Byte> other_ = new Numbers<Byte>(joueursNonJoue_);
+        other_.removeObj(player_);
+        if (ramasseurBatAdvDemat(other_,
+                cardPl_, cartesPossibles_)) {
+            return PossibleTrickWinner.UNKNOWN;
+        }
         /*
         On cherche les joueurs de confiance battant de maniere certaine les
         joueurs de non confiance n'ayant pas joue ou possedant des cartes que

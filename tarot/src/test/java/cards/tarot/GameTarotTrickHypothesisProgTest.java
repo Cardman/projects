@@ -2446,6 +2446,54 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         assertSame(PossibleTrickWinner.TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
     }
     @Test
+    public void getPossibleTrickWinnerTrumpSuit21Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        TrickTarot current_ = new TrickTarot((byte)2,true);
+        current_.ajouter(CardTarot.DIAMOND_1);
+        current_.ajouter(CardTarot.TRUMP_8);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 0);
+        team_.add((byte) 3);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,0,CardTarot.TRUMP_15);
+        addSureCard(t_,0,CardTarot.TRUMP_15);
+        addPossibleCard(t_,1,CardTarot.TRUMP_20);
+        addSureCard(t_,1,CardTarot.TRUMP_20);
+        addPossibleCard(t_,4,CardTarot.TRUMP_21);
+        addSureCard(t_,4,CardTarot.TRUMP_21);
+        addPossibleCard(t_,4,CardTarot.TRUMP_14);
+        addSureCard(t_,4,CardTarot.TRUMP_14);
+        assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
+    }
+    @Test
+    public void getPossibleTrickWinnerTrumpSuit22Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        TrickTarot current_ = new TrickTarot((byte)2,true);
+        current_.ajouter(CardTarot.DIAMOND_1);
+        current_.ajouter(CardTarot.TRUMP_8);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 0);
+        team_.add((byte) 3);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,0,CardTarot.TRUMP_17);
+        addPossibleCard(t_,0,CardTarot.TRUMP_21);
+        addPossibleCard(t_,1,CardTarot.TRUMP_17);
+        addPossibleCard(t_,1,CardTarot.TRUMP_21);
+        addPossibleCard(t_,4,CardTarot.TRUMP_14);
+        addSureCard(t_,4,CardTarot.TRUMP_14);
+        assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerTrumpSuit(t_));
+    }
+    @Test
     public void equipeQuiVaFairePli1Test() {
         HandTarot hand_ = new HandTarot();
         hand_.ajouter(CardTarot.HEART_QUEEN);
