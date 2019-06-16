@@ -619,7 +619,7 @@ public final class GameTarotProgTrickClassic {
         return carteLaPlusPetite(suites_);
     }
 
-    private CardTarot playWhenLastDiscard(TarotInfoPliEnCours _info) {
+    CardTarot playWhenLastDiscard(TarotInfoPliEnCours _info) {
         EnumList<Suit> couleursAppelees_ = common.couleursAppelees();
         EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         EnumMap<Suit,EqList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
@@ -698,7 +698,6 @@ public final class GameTarotProgTrickClassic {
     }
 
     CardTarot followNormalSuit(TarotInfoPliEnCours _info) {
-        boolean contientExcuse_ = _info.isContientExcuse();
         byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
         CardTarot carteForte_ = doneTrickInfo.getProgressingTrick().carteDuJoueur(_info.getRamasseurVirtuel(), nombreDeJoueurs_);
         Suit couleurDemandee_ = doneTrickInfo.getProgressingTrick().couleurDemandee();
@@ -713,20 +712,10 @@ public final class GameTarotProgTrickClassic {
             CustList<TrickTarot> plisFaits_ = _info.getPlisFaits();
             EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
             boolean joueurConfianceRamasseur_ = confidentPlayers.containsObj(ramasseurVirtuel_);
-            boolean maitreJeu_ = _info.isMaitreJeu();
             if (!repartitionCouleDem_.premiereCarte().isCharacter()) {
                 /*Si le joueur
                 ne possede pas
                 de figure*/
-                if (contientExcuse_ && maitreJeu_) {
-                    return CardTarot.excuse();
-                }
-                return carteLaPlusPetite(suites_);
-            }
-            if (maitreJeu_) {
-                if (contientExcuse_) {
-                    return CardTarot.excuse();
-                }
                 return carteLaPlusPetite(suites_);
             }
             /* Le joueur possede au moins une figure */
@@ -746,44 +735,12 @@ public final class GameTarotProgTrickClassic {
                 }
                 return carteLaPlusPetite(suites_);
             }
-            TrickTarot dernierPli_;
-            Numbers<Byte> dernieresCoupes_;
-            dernierPli_ = tours_.last();
-            dernieresCoupes_ = dernierPli_.joueursCoupes();
-            /* Maintenant on aborde au moins le deuxieme tour */
-            if (dernieresCoupes_.isEmpty()) {
-                /*
-            Si le dernier pli
-            n'est pas coupe a
-            cette couleur
-            */
-                if (joueurConfianceRamasseur_) {
-                    if (carteForte_.couleur() == Suit.TRUMP) {
-                        /*
+            if (joueurConfianceRamasseur_) {
+                if (carteForte_.couleur() == Suit.TRUMP) {
+                    /*
                     L'espoir fait
                     vivre
                     */
-                        return repartitionCouleDem_
-                                .premiereCarte();
-                    }
-                    if(aucunePriseMainPossibleCouleur(
-                            cartesPossibles_,couleurDemandee_,
-                            carteForte_,notConfidentPlayersNotPlay)) {
-                        return repartitionCouleDem_
-                                .premiereCarte();
-                    }
-                }
-                return carteLaPlusPetite(suites_);
-            }
-            /*Maintenant on sait qu'au dernier tour le pli a ete coupe*/
-            if (confidentPlayers.containsObj(dernierPli_.getRamasseur())) {
-                if (carteForte_.couleur() == Suit.TRUMP) {
-                    /*L'espoir fait vivre*/
-                    return repartitionCouleDem_.premiereCarte();
-                }
-                if(aucunePriseMainPossibleCouleur(
-                        cartesPossibles_,couleurDemandee_,
-                        carteForte_,notConfidentPlayersNotPlay)) {
                     return repartitionCouleDem_
                             .premiereCarte();
                 }
@@ -840,7 +797,7 @@ public final class GameTarotProgTrickClassic {
     }
 
     private static boolean canLeadTrick(boolean _maitreJeu, EqList<HandTarot> _cartesRelMaitres) {
-        return _maitreJeu && !_cartesRelMaitres.isEmpty();
+        return !_cartesRelMaitres.isEmpty() && _maitreJeu;
     }
 
     private CardTarot fournirAtoutClassique() {
