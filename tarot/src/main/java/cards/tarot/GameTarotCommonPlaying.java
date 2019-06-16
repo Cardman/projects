@@ -16,7 +16,6 @@ import code.util.Numbers;
 public final class GameTarotCommonPlaying {
     private GameTarotTrickInfo doneTrickInfo;
     private GameTarotTeamsRelation teamsRelation;
-    private HandTarot lastHand;
 
     public GameTarotCommonPlaying(GameTarotTrickInfo _doneTrickInfo, GameTarotTeamsRelation _teamsRelation) {
         doneTrickInfo = _doneTrickInfo;
@@ -85,11 +84,9 @@ public final class GameTarotCommonPlaying {
         return plisTotal_ <= 1;
     }
     TarotInfoPliEnCours initInformations(
-            HandTarot _lastHand,
             HandTarot _cartes,
             HandTarot _cartesJouables,
             Numbers<Byte> _confident, Numbers<Byte> _notConfident) {
-        lastHand = _lastHand;
         byte nextPlayer_ = doneTrickInfo.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
         EnumMap<Suit,HandTarot> repartition_ = _cartes.couleurs();
         Numbers<Byte> joueursNonJoue_ = joueursNAyantPasJoue(nextPlayer_);
@@ -190,9 +187,7 @@ public final class GameTarotCommonPlaying {
 
     HandTarot cartesVuesAuChien() {
         HandTarot cartes_ = new HandTarot();
-        if (doneTrickInfo.getBid().getJeuChien() == PlayingDog.WITH) {
-            cartes_.ajouterCartes(lastHand);
-        }
+        cartes_.ajouterCartes(doneTrickInfo.getLastHand());
         return cartes_;
     }
     boolean appeleConnuDefenseur(byte _joueur, EnumMap<Suit, EqList<HandTarot>> _cartesPossibles) {

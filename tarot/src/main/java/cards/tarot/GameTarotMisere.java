@@ -321,7 +321,7 @@ public final class GameTarotMisere {
                 repartitionCartesJouees_);
     }
     TarotInfoPliEnCours initInformations() {
-        return common.initInformations(doneTrickInfo.getLastHand(), currentHand,playableCards, confidentPlayers,notConfidentPlayers);
+        return common.initInformations(currentHand,playableCards, confidentPlayers,notConfidentPlayers);
     }
 
     private static CardTarot depouilleFigure(EnumList<Suit> _couleurs,

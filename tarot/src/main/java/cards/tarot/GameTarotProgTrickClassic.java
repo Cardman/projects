@@ -407,35 +407,33 @@ public final class GameTarotProgTrickClassic {
                 }
                 return carteLaPlusPetite(suites_);
             }
-            if (!GameTarotTeamsRelation.intersectionJoueurs(confidentPlayers, joueursSusceptiblesDeCouper_).isEmpty()) {
-                if (maitreJeu_) {
-                    if (contientExcuse_) {
-                        return CardTarot.excuse();
-                    }
-                    if (premiereSuitePlusLongueQueTotalCouleurDemandee(
-                            suites_,cartesPossibles_,couleurDemandee_,teamsRelation.autresJoueurs(_info.getCurrentPlayer()))) {
-                        return repartitionCouleDem_
-                                .premiereCarte();
-                    }
-                    return carteLaPlusPetite(suites_);
+            if (maitreJeu_) {
+                if (contientExcuse_) {
+                    return CardTarot.excuse();
                 }
-                return jeuFigureHauteDePlusFaibleSuite(suites_);
+                if (premiereSuitePlusLongueQueTotalCouleurDemandee(
+                        suites_,cartesPossibles_,couleurDemandee_,teamsRelation.autresJoueurs(_info.getCurrentPlayer()))) {
+                    return repartitionCouleDem_
+                            .premiereCarte();
+                }
+                return carteLaPlusPetite(suites_);
             }
-            if (confidentPlayers.containsObj(tours_.last().getRamasseur())) {
-                if (carteForte_.couleur() == Suit.TRUMP) {
+            return jeuFigureHauteDePlusFaibleSuite(suites_);
+        }
+        if (confidentPlayers.containsObj(dernierPli_.getRamasseur())) {
+            if (carteForte_.couleur() == Suit.TRUMP) {
                     /*
                 L'espoir fait
                 vivre
                 */
-                    return repartitionCouleDem_
-                            .premiereCarte();
-                }
-                if(aucunePriseMainPossibleCouleur(
-                        cartesPossibles_,couleurDemandee_,
-                        carteForte_,notConfidentPlayersNotPlay)) {
-                    return repartitionCouleDem_
-                            .premiereCarte();
-                }
+                return repartitionCouleDem_
+                        .premiereCarte();
+            }
+            if(aucunePriseMainPossibleCouleur(
+                    cartesPossibles_,couleurDemandee_,
+                    carteForte_,notConfidentPlayersNotPlay)) {
+                return repartitionCouleDem_
+                        .premiereCarte();
             }
             return carteLaPlusPetite(suites_);
         }
@@ -491,32 +489,30 @@ public final class GameTarotProgTrickClassic {
                 }
                 return carteLaPlusPetite(suites_);
             }
-            if (!GameTarotTeamsRelation.intersectionJoueurs(confidentPlayers, joueursSusceptiblesDeCouper_).isEmpty()) {
-                if (maitreJeu_) {
-                    if (contientExcuse_) {
-                        return CardTarot.excuse();
-                    }
-                    if (premiereSuitePlusLongueQueTotalCouleurDemandee(
-                            suites_,cartesPossibles_,couleurDemandee_,teamsRelation.autresJoueurs(_info.getCurrentPlayer()))) {
-                        return repartitionCouleDem_
-                                .premiereCarte();
-                    }
-                    return carteLaPlusPetite(suites_);
+            if (maitreJeu_) {
+                if (contientExcuse_) {
+                    return CardTarot.excuse();
                 }
-                return jeuFigureHauteDePlusFaibleSuite(suites_);
+                if (premiereSuitePlusLongueQueTotalCouleurDemandee(
+                        suites_,cartesPossibles_,couleurDemandee_,teamsRelation.autresJoueurs(_info.getCurrentPlayer()))) {
+                    return repartitionCouleDem_
+                            .premiereCarte();
+                }
+                return carteLaPlusPetite(suites_);
             }
-            if (confidentPlayers.containsObj(dernierPli_.getRamasseur())) {
-                if (carteForte_.couleur() == Suit.TRUMP) {
-                    /*L'espoir fait vivre*/
-                    return repartitionCouleDem_
-                            .premiereCarte();
-                }
-                if(aucunePriseMainPossibleCouleur(
-                        cartesPossibles_,couleurDemandee_,
-                        carteForte_,notConfidentPlayersNotPlay)) {
-                    return repartitionCouleDem_
-                            .premiereCarte();
-                }
+            return jeuFigureHauteDePlusFaibleSuite(suites_);
+        }
+        if (confidentPlayers.containsObj(dernierPli_.getRamasseur())) {
+            if (carteForte_.couleur() == Suit.TRUMP) {
+                /*L'espoir fait vivre*/
+                return repartitionCouleDem_
+                        .premiereCarte();
+            }
+            if(aucunePriseMainPossibleCouleur(
+                    cartesPossibles_,couleurDemandee_,
+                    carteForte_,notConfidentPlayersNotPlay)) {
+                return repartitionCouleDem_
+                        .premiereCarte();
             }
             return carteLaPlusPetite(suites_);
         }
@@ -785,7 +781,7 @@ public final class GameTarotProgTrickClassic {
                 return carteLaPlusPetite(suites_);
             }
             /*Maintenant on sait qu'au dernier tour le pli a ete coupe*/
-            if (confidentPlayers.containsObj(tours_.last().getRamasseur())) {
+            if (confidentPlayers.containsObj(dernierPli_.getRamasseur())) {
                 if (carteForte_.couleur() == Suit.TRUMP) {
                     /*L'espoir fait vivre*/
                     return repartitionCouleDem_.premiereCarte();
@@ -836,7 +832,7 @@ public final class GameTarotProgTrickClassic {
         }
         return CardTarot.WHITE;
     }
-    private CardTarot tryLeadTrick(EnumMap<Suit, HandTarot> _cartesMaitresses, Suit _couleurDemandee, HandTarot _repartitionCouleDem, EqList<HandTarot> _suites, EqList<HandTarot> _cartesRelMaitres) {
+    static CardTarot tryLeadTrick(EnumMap<Suit, HandTarot> _cartesMaitresses, Suit _couleurDemandee, HandTarot _repartitionCouleDem, EqList<HandTarot> _suites, EqList<HandTarot> _cartesRelMaitres) {
         if (!_cartesMaitresses.getVal(_couleurDemandee)
                 .estVide()) {
             return _repartitionCouleDem.premiereCarte();
@@ -848,7 +844,7 @@ public final class GameTarotProgTrickClassic {
         return carteLaPlusPetite(_suites);
     }
 
-    private boolean canLeadTrick(boolean _maitreJeu, EqList<HandTarot> _cartesRelMaitres) {
+    private static boolean canLeadTrick(boolean _maitreJeu, EqList<HandTarot> _cartesRelMaitres) {
         return _maitreJeu && !_cartesRelMaitres.isEmpty();
     }
 
@@ -908,7 +904,7 @@ public final class GameTarotProgTrickClassic {
             if (!cartesRelMaitres_.isEmpty()) {
                 return cartesRelMaitres_.last().premiereCarte();
             }
-            if (peutRamasserDemandeAtout(cartesPossibles_, cartesCertaines_,
+            if (peutRamasserDemandeAtoutNonMaitre(cartesPossibles_, cartesCertaines_,
                     _info.getCurrentPlayer(), notPlayed, played) && !notConfidentPlayersNotPlay.isEmpty()) {
                 return repartitionCouleDem_.premiereCarte();
             }
@@ -1002,7 +998,7 @@ public final class GameTarotProgTrickClassic {
                         repartitionCartesJouees_, couleurDemandee_), contientExcuse_);
     }
 
-    private boolean leadTrumps(EnumMap<Suit, EqList<HandTarot>> _cartesPossibles, CardTarot _carteForte, Numbers<Byte> _players) {
+    static boolean leadTrumps(EnumMap<Suit, EqList<HandTarot>> _cartesPossibles, CardTarot _carteForte, Numbers<Byte> _players) {
         boolean carteMaitresse_;
         carteMaitresse_ = true;
         for (byte joueur_ : _players) {
@@ -1719,7 +1715,7 @@ public final class GameTarotProgTrickClassic {
         return discardFoe(suitesTouteCouleur_,repartitionCartesJouees_, currentHand);
     }
     TarotInfoPliEnCours initInformations() {
-        return common.initInformations(doneTrickInfo.getLastHand(), currentHand,playableCards, confidentPlayers,notConfidentPlayers);
+        return common.initInformations(currentHand,playableCards, confidentPlayers,notConfidentPlayers);
     }
 
     CardTarot tryPlayExcuse(boolean _leadGame) {
@@ -1737,12 +1733,15 @@ public final class GameTarotProgTrickClassic {
      l'adversaire n'ayant pas joue (uniquement si le partenaire est maitre
      temporairement du pli)
      */
-    private static boolean joueurConfianceRamasseurProbaPli(
+    static boolean joueurConfianceRamasseurProbaPli(
             Numbers<Byte> _joueursNonConfianceNonJoue, Suit _couleurDemandee,
             EnumMap<Suit,EqList<HandTarot>> _cartesPossibles, CardTarot _carteForte) {
         boolean bat_ = true;
         for (byte joueur_ : _joueursNonConfianceNonJoue) {
             if(_cartesPossibles.getVal(_couleurDemandee).get(joueur_).estVide()) {
+                if(!_cartesPossibles.getVal(Suit.TRUMP).get(joueur_).estVide()) {
+                    bat_ = false;
+                }
                 continue;
             }
             if (_carteForte.strength(_couleurDemandee) <= _cartesPossibles.getVal(_couleurDemandee).get(joueur_).premiereCarte().strength(_couleurDemandee)) {
@@ -1752,7 +1751,7 @@ public final class GameTarotProgTrickClassic {
         return bat_;
     }
 
-    private static boolean aucunePriseMainPossibleParFigure(
+    static boolean aucunePriseMainPossibleParFigure(
             EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,
             Suit _couleurDemandee,
             Numbers<Byte> _joueursNonConfianceNonJoue) {
@@ -1769,7 +1768,7 @@ public final class GameTarotProgTrickClassic {
         }
         return carteMaitresse_;
     }
-    private static boolean aucunePriseMainPossibleCouleur(
+    static boolean aucunePriseMainPossibleCouleur(
             EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,
             Suit _couleurDemandee,
             CardTarot _carteForte,
@@ -1778,7 +1777,11 @@ public final class GameTarotProgTrickClassic {
         for (byte joueur_ : _joueursNonConfianceNonJoue) {
             if (_cartesPossibles.getVal(_couleurDemandee)
                     .get(joueur_).estVide()) {
-                return false;
+                if (!_cartesPossibles.getVal(Suit.TRUMP)
+                        .get(joueur_).estVide()) {
+                    return false;
+                }
+                continue;
             }
             max_ = (byte) Math.max(
                     _cartesPossibles.getVal(_couleurDemandee)
@@ -1816,7 +1819,7 @@ public final class GameTarotProgTrickClassic {
         }
         return carteMaitresse_;
     }
-    private static boolean premiereSuitePlusLongueQueTotalCouleurDemandee(
+    static boolean premiereSuitePlusLongueQueTotalCouleurDemandee(
             EqList<HandTarot> _suites,
             EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,
             Suit _couleurDemandee,
@@ -1839,7 +1842,7 @@ public final class GameTarotProgTrickClassic {
      Couleur demand&eacute;e atout: retourne vrai si et seulement si le joueur
      numero peut ramasser le pli en jouant son plus grand atout
      */
-    static boolean peutRamasserDemandeAtout(
+    static boolean peutRamasserDemandeAtoutNonMaitre(
             EnumMap<Suit, EqList<HandTarot>> _cartesPossibles,
             EnumMap<Suit, EqList<HandTarot>> _cartesCertaines, byte _numero,
             Numbers<Byte> _joueursNonJoue, Numbers<Byte> _joueursJoue) {
