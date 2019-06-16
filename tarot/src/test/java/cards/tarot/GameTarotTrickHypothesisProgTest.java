@@ -1553,11 +1553,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,1,CardTarot.TRUMP_4);
         addPossibleCard(t_,1,CardTarot.TRUMP_3);
-        addPossibleCard(t_,1,CardTarot.DIAMOND_7);
-        addSureCard(t_,1,CardTarot.DIAMOND_7);
-        addPossibleCard(t_,0,CardTarot.DIAMOND_9);
-        addSureCard(t_,0,CardTarot.DIAMOND_9);
+        addPossibleCard(t_,0,CardTarot.TRUMP_4);
+        addPossibleCard(t_,0,CardTarot.TRUMP_3);
         addPossibleCard(t_,4,CardTarot.TRUMP_2);
         addSureCard(t_,4,CardTarot.TRUMP_2);
         assertSame(PossibleTrickWinner.UNKNOWN,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));

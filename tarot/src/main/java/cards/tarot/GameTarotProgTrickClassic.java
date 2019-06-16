@@ -909,7 +909,7 @@ public final class GameTarotProgTrickClassic {
                 return cartesRelMaitres_.last().premiereCarte();
             }
             if (peutRamasserDemandeAtout(cartesPossibles_, cartesCertaines_,
-                    _info.getCurrentPlayer(), notPlayed, played, couleurDemandee_) && !notConfidentPlayersNotPlay.isEmpty()) {
+                    _info.getCurrentPlayer(), notPlayed, played) && !notConfidentPlayersNotPlay.isEmpty()) {
                 return repartitionCouleDem_.premiereCarte();
             }
             return suites_.last().premiereCarte();
@@ -1787,36 +1787,32 @@ public final class GameTarotProgTrickClassic {
         }
         return _carteForte.strength(_couleurDemandee) > max_;
     }
-    private static boolean peutSauverFigureAppele(
+    static boolean peutSauverFigureAppele(
             EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,
             Suit _couleurDemandee,
             HandTarot _cartesChien,
             Numbers<Byte> _joueursNonConfianceNonJoue,
             boolean _figure) {
-        boolean carteMaitresse_ = true;
-        for (byte joueur_ : _joueursNonConfianceNonJoue) {
-            if (!GameTarotTrickHypothesis.peutCouper(_couleurDemandee, joueur_, _cartesPossibles)) {
-                carteMaitresse_ = false;
-            }
-            if (!carteMaitresse_) {
-                carteMaitresse_ = true;
-                if (!_cartesPossibles.getVal(_couleurDemandee).get(joueur_).estVide()
-                        && !_cartesChien.estVide()) {
-                    if (_cartesChien.premiereCarte().strength(_couleurDemandee) <= _cartesPossibles.getVal(_couleurDemandee).get(joueur_).premiereCarte().strength(_couleurDemandee)) {
-                        carteMaitresse_ = false;
-                    }
-                }
-            } else {
-                if (_cartesPossibles.getVal(Suit.TRUMP)
-                        .get(joueur_).estVide()) {
-                    continue;
-                }
-                carteMaitresse_ = false;
-                break;
-            }
-        }
         if(!_figure) {
             return false;
+        }
+        boolean carteMaitresse_ = true;
+        for (byte joueur_ : _joueursNonConfianceNonJoue) {
+            boolean local_ = true;
+            if (!_cartesPossibles.getVal(_couleurDemandee).get(joueur_).estVide()
+                    && !_cartesChien.estVide()) {
+                CardTarot max_ = _cartesPossibles.getVal(_couleurDemandee).get(joueur_).premiereCarte();
+                if (max_.isCharacter()) {
+                    if (_cartesChien.premiereCarte().strength(_couleurDemandee) <= max_.strength(_couleurDemandee)) {
+                        local_ = false;
+                    }
+                }
+            } else if (!GameTarotTrickHypothesis.defausse(_cartesPossibles,joueur_,_couleurDemandee)) {
+                local_ = false;
+            }
+            if (!local_) {
+                carteMaitresse_ = false;
+            }
         }
         return carteMaitresse_;
     }
@@ -1843,19 +1839,19 @@ public final class GameTarotProgTrickClassic {
      Couleur demand&eacute;e atout: retourne vrai si et seulement si le joueur
      numero peut ramasser le pli en jouant son plus grand atout
      */
-    private static boolean peutRamasserDemandeAtout(
-            EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,
-            EnumMap<Suit,EqList<HandTarot>> _cartesCertaines, byte _numero,
-            Numbers<Byte> _joueursNonJoue, Numbers<Byte> _joueursJoue, Suit _couleurDemandee) {
+    static boolean peutRamasserDemandeAtout(
+            EnumMap<Suit, EqList<HandTarot>> _cartesPossibles,
+            EnumMap<Suit, EqList<HandTarot>> _cartesCertaines, byte _numero,
+            Numbers<Byte> _joueursNonJoue, Numbers<Byte> _joueursJoue) {
         boolean existe_ = false;
         EqList<HandTarot> atoutsCertains_ = _cartesCertaines.getVal(Suit.TRUMP);
         byte maxAtoutNumero_ = atoutsCertains_.get(_numero)
-                .premiereCarte().strength(_couleurDemandee);
+                .premiereCarte().strength(Suit.TRUMP);
         for (byte joueur_ : _joueursNonJoue) {
             if(atoutsCertains_.get(joueur_).estVide()) {
                 continue;
             }
-            if (atoutsCertains_.get(joueur_).premiereCarte().strength(_couleurDemandee) > maxAtoutNumero_) {
+            if (atoutsCertains_.get(joueur_).premiereCarte().strength(Suit.TRUMP) > maxAtoutNumero_) {
                 existe_ = true;
             }
         }
@@ -1868,10 +1864,13 @@ public final class GameTarotProgTrickClassic {
                 continue;
             }
             byte maxAtoutJoueurNonJoue_ = atoutsPossibles_.get(joueur_).premiereCarte()
-                    .strength(_couleurDemandee);
+                    .strength(Suit.TRUMP);
             boolean local_ = true;
             for (byte joueur2_ : _joueursJoue) {
-                if (maxAtoutJoueurNonJoue_ <= atoutsPossibles_.get(joueur2_).premiereCarte().strength(_couleurDemandee)) {
+                if (atoutsPossibles_.get(joueur2_).estVide()) {
+                    continue;
+                }
+                if (maxAtoutJoueurNonJoue_ <= atoutsPossibles_.get(joueur2_).premiereCarte().strength(Suit.TRUMP)) {
                     local_ = false;
                 }
             }

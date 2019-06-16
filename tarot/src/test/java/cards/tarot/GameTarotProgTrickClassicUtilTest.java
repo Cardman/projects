@@ -992,7 +992,7 @@ public class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         HandTarot pl_ = new HandTarot();
         EnumMap<Suit, HandTarot> played_ = pl_.couleurs();
         EnumMap<Suit, EqList<HandTarot>> possible_ = generate(5);
-        possible_.getVal(Suit.HEART).get(1).ajouter(CardTarot.HEART_QUEEN);
+        addCard(possible_,1,CardTarot.HEART_QUEEN);
         EnumMap<Suit, EqList<HandTarot>> sure_ = generate(5);
         EqList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
         Numbers<Byte> joueursNonJoue_ = new Numbers<Byte>();
@@ -1013,7 +1013,7 @@ public class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         HandTarot pl_ = new HandTarot();
         EnumMap<Suit, HandTarot> played_ = pl_.couleurs();
         EnumMap<Suit, EqList<HandTarot>> possible_ = generate(5);
-        possible_.getVal(Suit.HEART).get(1).ajouter(CardTarot.HEART_10);
+        addCard(possible_,1,CardTarot.HEART_10);
         EnumMap<Suit, EqList<HandTarot>> sure_ = generate(5);
         EqList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
         Numbers<Byte> joueursNonJoue_ = new Numbers<Byte>();
@@ -1035,7 +1035,7 @@ public class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         HandTarot pl_ = new HandTarot();
         EnumMap<Suit, HandTarot> played_ = pl_.couleurs();
         EnumMap<Suit, EqList<HandTarot>> possible_ = generate(5);
-        possible_.getVal(Suit.HEART).get(1).ajouter(CardTarot.HEART_KNIGHT);
+        addCard(possible_,1,CardTarot.HEART_KNIGHT);
         EnumMap<Suit, EqList<HandTarot>> sure_ = generate(5);
         EqList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
         Numbers<Byte> joueursNonJoue_ = new Numbers<Byte>();
@@ -1057,7 +1057,7 @@ public class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         HandTarot pl_ = new HandTarot();
         EnumMap<Suit, HandTarot> played_ = pl_.couleurs();
         EnumMap<Suit, EqList<HandTarot>> possible_ = generate(5);
-        possible_.getVal(Suit.HEART).get(1).ajouter(CardTarot.HEART_JACK);
+        addCard(possible_,1,CardTarot.HEART_JACK);
         EnumMap<Suit, EqList<HandTarot>> sure_ = generate(5);
         EqList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
         Numbers<Byte> joueursNonJoue_ = new Numbers<Byte>();
@@ -1078,7 +1078,7 @@ public class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         HandTarot pl_ = new HandTarot();
         EnumMap<Suit, HandTarot> played_ = pl_.couleurs();
         EnumMap<Suit, EqList<HandTarot>> possible_ = generate(5);
-        possible_.getVal(Suit.HEART).get(1).ajouter(CardTarot.HEART_7);
+        addCard(possible_,1,CardTarot.HEART_7);
         EnumMap<Suit, EqList<HandTarot>> sure_ = generate(5);
         EqList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
         Numbers<Byte> joueursNonJoue_ = new Numbers<Byte>();
@@ -1099,7 +1099,7 @@ public class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         HandTarot pl_ = new HandTarot();
         EnumMap<Suit, HandTarot> played_ = pl_.couleurs();
         EnumMap<Suit, EqList<HandTarot>> possible_ = generate(5);
-        possible_.getVal(Suit.HEART).get(1).ajouter(CardTarot.HEART_7);
+        addCard(possible_,1,CardTarot.HEART_7);
         EnumMap<Suit, EqList<HandTarot>> sure_ = generate(5);
         EqList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
         Numbers<Byte> joueursNonJoue_ = new Numbers<Byte>();
@@ -1121,7 +1121,7 @@ public class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         HandTarot pl_ = new HandTarot();
         EnumMap<Suit, HandTarot> played_ = pl_.couleurs();
         EnumMap<Suit, EqList<HandTarot>> possible_ = generate(5);
-        possible_.getVal(Suit.HEART).get(1).ajouter(CardTarot.HEART_7);
+        addCard(possible_,1,CardTarot.HEART_7);
         EnumMap<Suit, EqList<HandTarot>> sure_ = generate(5);
         EqList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
         Numbers<Byte> joueursNonJoue_ = new Numbers<Byte>();
@@ -1143,7 +1143,7 @@ public class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         HandTarot pl_ = new HandTarot();
         EnumMap<Suit, HandTarot> played_ = pl_.couleurs();
         EnumMap<Suit, EqList<HandTarot>> possible_ = generate(5);
-        possible_.getVal(Suit.HEART).get(1).ajouter(CardTarot.HEART_KING);
+        addCard(possible_,1,CardTarot.HEART_KING);
         EnumMap<Suit, EqList<HandTarot>> sure_ = generate(5);
         EqList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
         Numbers<Byte> joueursNonJoue_ = new Numbers<Byte>();
@@ -1153,6 +1153,219 @@ public class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
                 Suit.HEART, Suit.HEART, sure_,
                 CardTarot.HEART_QUEEN);
         assertSame(CardTarot.HEART_4,GameTarotProgTrickClassic.sauveQuiPeutFigure(possible_, suites_,cartesRelMaitres_,joueursNonJoue_,Suit.HEART));
+    }
+    @Test
+    public void peutRamasserDemandeAtout1Test() {
+        EnumMap<Suit, EqList<HandTarot>> possible_ = generate(5);
+        EnumMap<Suit, EqList<HandTarot>> sure_ = generate(5);
+        addCard(possible_,1,CardTarot.TRUMP_21);
+        addCard(sure_,1,CardTarot.TRUMP_21);
+        addCard(possible_,2,CardTarot.TRUMP_11);
+        addCard(sure_,2,CardTarot.TRUMP_11);
+        addCard(possible_,0,CardTarot.TRUMP_15);
+        addCard(sure_,0,CardTarot.TRUMP_15);
+        Numbers<Byte> played_ = new Numbers<Byte>();
+        played_.add((byte) 3);
+        played_.add((byte) 4);
+        Numbers<Byte> notPlayed_ = new Numbers<Byte>();
+        notPlayed_.add((byte)1);
+        notPlayed_.add((byte)2);
+        assertTrue(!GameTarotProgTrickClassic.peutRamasserDemandeAtout(possible_,sure_,(byte)0,notPlayed_,played_));
+    }
+    @Test
+    public void peutRamasserDemandeAtout2Test() {
+        EnumMap<Suit, EqList<HandTarot>> possible_ = generate(5);
+        EnumMap<Suit, EqList<HandTarot>> sure_ = generate(5);
+        addCard(possible_,1,CardTarot.TRUMP_21);
+        addCard(possible_,2,CardTarot.TRUMP_11);
+        addCard(sure_,2,CardTarot.TRUMP_11);
+        addCard(possible_,0,CardTarot.TRUMP_15);
+        addCard(sure_,0,CardTarot.TRUMP_15);
+        Numbers<Byte> played_ = new Numbers<Byte>();
+        played_.add((byte) 3);
+        played_.add((byte) 4);
+        Numbers<Byte> notPlayed_ = new Numbers<Byte>();
+        notPlayed_.add((byte)1);
+        notPlayed_.add((byte)2);
+        assertTrue(!GameTarotProgTrickClassic.peutRamasserDemandeAtout(possible_,sure_,(byte)0,notPlayed_,played_));
+    }
+    @Test
+    public void peutRamasserDemandeAtout3Test() {
+        EnumMap<Suit, EqList<HandTarot>> possible_ = generate(5);
+        EnumMap<Suit, EqList<HandTarot>> sure_ = generate(5);
+        addCard(possible_,1,CardTarot.TRUMP_21);
+        addCard(possible_,2,CardTarot.TRUMP_11);
+        addCard(sure_,2,CardTarot.TRUMP_11);
+        addCard(possible_,0,CardTarot.TRUMP_15);
+        addCard(sure_,0,CardTarot.TRUMP_15);
+        addCard(possible_,3,CardTarot.TRUMP_16);
+        Numbers<Byte> played_ = new Numbers<Byte>();
+        played_.add((byte) 3);
+        played_.add((byte) 4);
+        Numbers<Byte> notPlayed_ = new Numbers<Byte>();
+        notPlayed_.add((byte)1);
+        notPlayed_.add((byte)2);
+        assertTrue(!GameTarotProgTrickClassic.peutRamasserDemandeAtout(possible_,sure_,(byte)0,notPlayed_,played_));
+    }
+    @Test
+    public void peutRamasserDemandeAtout4Test() {
+        EnumMap<Suit, EqList<HandTarot>> possible_ = generate(5);
+        EnumMap<Suit, EqList<HandTarot>> sure_ = generate(5);
+        addCard(possible_,1,CardTarot.TRUMP_21);
+        addCard(possible_,1,CardTarot.TRUMP_14);
+        addCard(possible_,2,CardTarot.TRUMP_11);
+        addCard(sure_,2,CardTarot.TRUMP_11);
+        addCard(possible_,0,CardTarot.TRUMP_15);
+        addCard(sure_,0,CardTarot.TRUMP_15);
+        addCard(possible_,3,CardTarot.TRUMP_21);
+        addCard(possible_,3,CardTarot.TRUMP_14);
+        Numbers<Byte> played_ = new Numbers<Byte>();
+        played_.add((byte) 3);
+        played_.add((byte) 4);
+        Numbers<Byte> notPlayed_ = new Numbers<Byte>();
+        notPlayed_.add((byte)1);
+        notPlayed_.add((byte)2);
+        assertTrue(GameTarotProgTrickClassic.peutRamasserDemandeAtout(possible_,sure_,(byte)0,notPlayed_,played_));
+    }
+    @Test
+    public void peutRamasserDemandeAtout5Test() {
+        EnumMap<Suit, EqList<HandTarot>> possible_ = generate(5);
+        EnumMap<Suit, EqList<HandTarot>> sure_ = generate(5);
+        addCard(possible_,1,CardTarot.TRUMP_14);
+        addCard(sure_,1,CardTarot.TRUMP_14);
+        addCard(possible_,2,CardTarot.TRUMP_11);
+        addCard(sure_,2,CardTarot.TRUMP_11);
+        addCard(possible_,0,CardTarot.TRUMP_15);
+        addCard(sure_,0,CardTarot.TRUMP_15);
+        addCard(possible_,3,CardTarot.TRUMP_21);
+        addCard(sure_,3,CardTarot.TRUMP_21);
+        Numbers<Byte> played_ = new Numbers<Byte>();
+        played_.add((byte) 3);
+        played_.add((byte) 4);
+        Numbers<Byte> notPlayed_ = new Numbers<Byte>();
+        notPlayed_.add((byte)1);
+        notPlayed_.add((byte)2);
+        assertTrue(GameTarotProgTrickClassic.peutRamasserDemandeAtout(possible_,sure_,(byte)0,notPlayed_,played_));
+    }
+    @Test
+    public void peutRamasserDemandeAtout6Test() {
+        EnumMap<Suit, EqList<HandTarot>> possible_ = generate(5);
+        EnumMap<Suit, EqList<HandTarot>> sure_ = generate(5);
+        addCard(possible_,1,CardTarot.TRUMP_14);
+        addCard(sure_,1,CardTarot.TRUMP_14);
+        addCard(possible_,0,CardTarot.TRUMP_15);
+        addCard(sure_,0,CardTarot.TRUMP_15);
+        addCard(possible_,3,CardTarot.TRUMP_21);
+        addCard(sure_,3,CardTarot.TRUMP_21);
+        Numbers<Byte> played_ = new Numbers<Byte>();
+        played_.add((byte) 3);
+        played_.add((byte) 4);
+        Numbers<Byte> notPlayed_ = new Numbers<Byte>();
+        notPlayed_.add((byte)1);
+        notPlayed_.add((byte)2);
+        assertTrue(GameTarotProgTrickClassic.peutRamasserDemandeAtout(possible_,sure_,(byte)0,notPlayed_,played_));
+    }
+    @Test
+    public void peutSauverFigureAppele1Test() {
+        EnumMap<Suit, EqList<HandTarot>> possible_ = generate(5);
+        addCard(possible_,1,CardTarot.TRUMP_14);
+        Numbers<Byte> played_ = new Numbers<Byte>();
+        played_.add((byte) 3);
+        played_.add((byte) 4);
+        Numbers<Byte> notPlayed_ = new Numbers<Byte>();
+        notPlayed_.add((byte)1);
+        notPlayed_.add((byte)2);
+        assertTrue(!GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART,new HandTarot(),notPlayed_,true));
+    }
+    @Test
+    public void peutSauverFigureAppele2Test() {
+        EnumMap<Suit, EqList<HandTarot>> possible_ = generate(5);
+        addCard(possible_,1,CardTarot.TRUMP_14);
+        addCard(possible_,1,CardTarot.HEART_JACK);
+        Numbers<Byte> played_ = new Numbers<Byte>();
+        played_.add((byte) 3);
+        played_.add((byte) 4);
+        Numbers<Byte> notPlayed_ = new Numbers<Byte>();
+        notPlayed_.add((byte)1);
+        notPlayed_.add((byte)2);
+        assertTrue(!GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART,new HandTarot(),notPlayed_,true));
+    }
+    @Test
+    public void peutSauverFigureAppele3Test() {
+        EnumMap<Suit, EqList<HandTarot>> possible_ = generate(5);
+        addCard(possible_,1,CardTarot.TRUMP_14);
+        addCard(possible_,1,CardTarot.HEART_JACK);
+        Numbers<Byte> played_ = new Numbers<Byte>();
+        played_.add((byte) 3);
+        played_.add((byte) 4);
+        Numbers<Byte> notPlayed_ = new Numbers<Byte>();
+        notPlayed_.add((byte)1);
+        notPlayed_.add((byte)2);
+        HandTarot last_ = new HandTarot();
+        last_.ajouter(CardTarot.HEART_7);
+        assertTrue(!GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART, last_,notPlayed_,true));
+    }
+    @Test
+    public void peutSauverFigureAppele4Test() {
+        EnumMap<Suit, EqList<HandTarot>> possible_ = generate(5);
+        addCard(possible_,1,CardTarot.TRUMP_14);
+        addCard(possible_,1,CardTarot.HEART_JACK);
+        Numbers<Byte> played_ = new Numbers<Byte>();
+        played_.add((byte) 3);
+        played_.add((byte) 4);
+        Numbers<Byte> notPlayed_ = new Numbers<Byte>();
+        notPlayed_.add((byte)1);
+        notPlayed_.add((byte)2);
+        HandTarot last_ = new HandTarot();
+        last_.ajouter(CardTarot.HEART_KING);
+        assertTrue(GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART, last_,notPlayed_,true));
+    }
+    @Test
+    public void peutSauverFigureAppele5Test() {
+        EnumMap<Suit, EqList<HandTarot>> possible_ = generate(5);
+        addCard(possible_,1,CardTarot.TRUMP_14);
+        addCard(possible_,1,CardTarot.HEART_10);
+        Numbers<Byte> played_ = new Numbers<Byte>();
+        played_.add((byte) 3);
+        played_.add((byte) 4);
+        Numbers<Byte> notPlayed_ = new Numbers<Byte>();
+        notPlayed_.add((byte)1);
+        notPlayed_.add((byte)2);
+        HandTarot last_ = new HandTarot();
+        last_.ajouter(CardTarot.HEART_9);
+        assertTrue(GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART, last_,notPlayed_,true));
+    }
+    @Test
+    public void peutSauverFigureAppele6Test() {
+        EnumMap<Suit, EqList<HandTarot>> possible_ = generate(5);
+        Numbers<Byte> played_ = new Numbers<Byte>();
+        played_.add((byte) 3);
+        played_.add((byte) 4);
+        Numbers<Byte> notPlayed_ = new Numbers<Byte>();
+        notPlayed_.add((byte)1);
+        notPlayed_.add((byte)2);
+        HandTarot last_ = new HandTarot();
+        assertTrue(GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART, last_,notPlayed_,true));
+    }
+    @Test
+    public void peutSauverFigureAppele7Test() {
+        EnumMap<Suit, EqList<HandTarot>> possible_ = generate(5);
+        Numbers<Byte> played_ = new Numbers<Byte>();
+        played_.add((byte) 3);
+        played_.add((byte) 4);
+        Numbers<Byte> notPlayed_ = new Numbers<Byte>();
+        notPlayed_.add((byte)1);
+        notPlayed_.add((byte)2);
+        HandTarot last_ = new HandTarot();
+        assertTrue(!GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART, last_,notPlayed_,false));
+    }
+    private static void addCard(EnumMap<Suit, EqList<HandTarot>> _poss, int _p, CardTarot _c) {
+        HandTarot h_ = _poss.getVal(_c.couleur()).get(_p);
+        if (h_.contient(_c)) {
+            return;
+        }
+        h_.ajouter(_c);
+        h_.trierParForceEnCours(_c.couleur());
     }
     private static EnumMap<Suit,EqList<HandTarot>> generate(int _nbPlayer) {
         EnumMap<Suit,EqList<HandTarot>> e_ = new EnumMap<Suit,EqList<HandTarot>>();

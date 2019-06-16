@@ -681,6 +681,14 @@ final class GameTarotTrickHypothesis {
             prendre la
             main en coupant
             */
+            Numbers<Byte> other_ = new Numbers<Byte>(joueursNonJoue_);
+            other_.removeObj(player_);
+            CardTarot cardPl_ = cartesPossibles_.getVal(Suit.TRUMP).get(player_).premiereCarte();
+            if (ramasseurBatAdvSur(other_,
+                    couleurDemandee_, cardPl_, cartesPossibles_,
+                    cartesCertaines_)) {
+                return PossibleTrickWinner.UNKNOWN;
+            }
             /*
             On cherche les joueurs de confiance battant de maniere
             certaine les joueurs de non confiance n'ayant pas joue ou
