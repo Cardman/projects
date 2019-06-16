@@ -660,22 +660,14 @@ public final class GameTarotProgTrickClassic {
                             .premiereCarte();
                 }
                 if (aucunePriseMainPossibleParFigure(
-                        cartesPossibles_,couleurDemandee_,notConfidentPlayersNotPlay)
-                        && (!carteForte_.isCharacter() || joueurConfianceRamasseur_)) {
+                        cartesPossibles_,couleurDemandee_,notConfidentPlayersNotPlay)) {
                     return jeuFigureHauteDePlusFaibleSuite(suites_);
                 }
                 if (carteForte_.isCharacter()) {
-                    if (suites_.size() == 1
-                            || !suites_.get(1)
-                            .premiereCarte()
-                            .isCharacter()
-                            || !joueurConfianceRamasseurProbaPli_) {
+                    if (!joueurConfianceRamasseurProbaPli_) {
                         return repartitionCouleDem_
                                 .premiereCarte();
                     }
-                    return jeuFigureHauteDePlusFaibleSuite(suites_);
-                }
-                if (joueurConfianceRamasseurProbaPli_) {
                     return jeuFigureHauteDePlusFaibleSuite(suites_);
                 }
                 return repartitionCouleDem_
