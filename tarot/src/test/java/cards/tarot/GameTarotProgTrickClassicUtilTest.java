@@ -12,7 +12,7 @@ import static cards.tarot.EquallableTarotUtil.assertEq;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-public class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
+public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
     @Test
     public void getCharacterSeq1Test() {
         HandTarot hand_ = new HandTarot();
@@ -1603,6 +1603,44 @@ public class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
                 Suit.HEART, Suit.HEART, sure_,
                 CardTarot.HEART_10);
         assertSame(CardTarot.HEART_JACK,GameTarotProgTrickClassic.tryLeadTrick(cartesMaitresses_,Suit.HEART,hand_.couleur(Suit.HEART),suites_,cartesRelMaitres_));
+    }
+    @Test
+    public void tryPlayExcuse1Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_4);
+        hand_.ajouter(CardTarot.HEART_6);
+        hand_.ajouter(CardTarot.HEART_8);
+        hand_.ajouter(CardTarot.HEART_JACK);
+        assertSame(CardTarot.WHITE,GameTarotProgTrickClassic.tryPlayExcuse(true,hand_));
+    }
+    @Test
+    public void tryPlayExcuse2Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_8);
+        hand_.ajouter(CardTarot.HEART_JACK);
+        assertSame(CardTarot.WHITE,GameTarotProgTrickClassic.tryPlayExcuse(true,hand_));
+    }
+    @Test
+    public void tryPlayExcuse3Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.EXCUSE);
+        hand_.ajouter(CardTarot.HEART_JACK);
+        assertSame(CardTarot.EXCUSE,GameTarotProgTrickClassic.tryPlayExcuse(true,hand_));
+    }
+    @Test
+    public void tryPlayExcuse4Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.EXCUSE);
+        hand_.ajouter(CardTarot.HEART_10);
+        hand_.ajouter(CardTarot.HEART_JACK);
+        assertSame(CardTarot.WHITE,GameTarotProgTrickClassic.tryPlayExcuse(false,hand_));
+    }
+    @Test
+    public void tryPlayExcuse5Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.EXCUSE);
+        hand_.ajouter(CardTarot.HEART_JACK);
+        assertSame(CardTarot.EXCUSE,GameTarotProgTrickClassic.tryPlayExcuse(false,hand_));
     }
     private static void addCard(EnumMap<Suit, EqList<HandTarot>> _poss, int _p, CardTarot _c) {
         HandTarot h_ = _poss.getVal(_c.couleur()).get(_p);

@@ -1089,6 +1089,10 @@ final class GameTarotTrickHypothesis {
             }
             if (defausse(_cartesPossibles, joueur_, _couleurDemandee)) {
                 ramasseurVirtuelEgalCertain_ = true;
+            } else if (nePeutCouper(_couleurDemandee,joueur_,_cartesPossibles,_cartesCertaines)){
+                if (_strength > _cartesPossibles.getVal(_couleurDemandee).get(joueur_).premiereCarte().strength(_couleurDemandee)) {
+                    ramasseurVirtuelEgalCertain_ = true;
+                }
             }
             if (!ramasseurVirtuelEgalCertain_) {
                 ramasseurDeter_ = false;

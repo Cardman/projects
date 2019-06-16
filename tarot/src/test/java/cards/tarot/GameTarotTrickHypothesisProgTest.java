@@ -617,6 +617,50 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         assertTrue(!ramasseurBatSsCprAdv(t_,beat_));
     }
     @Test
+    public void ramasseurBatSsCprAdv5Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        hand_.ajouter(CardTarot.DIAMOND_QUEEN);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        playable_.ajouter(CardTarot.DIAMOND_QUEEN);
+        TrickTarot current_ = new TrickTarot((byte)2,true);
+        current_.ajouter(CardTarot.DIAMOND_1);
+        current_.ajouter(CardTarot.DIAMOND_KING);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 3);
+        team_.add((byte) 0);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,1,CardTarot.DIAMOND_JACK);
+        Numbers<Byte> beat_ = new Numbers<Byte>();
+        beat_.add((byte) 1);
+        assertTrue(ramasseurBatSsCprAdv(t_,beat_));
+    }
+    @Test
+    public void ramasseurBatSsCprAdv6Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        hand_.ajouter(CardTarot.DIAMOND_QUEEN);
+        HandTarot playable_ = new HandTarot();
+        playable_.ajouter(CardTarot.HEART_QUEEN);
+        playable_.ajouter(CardTarot.DIAMOND_QUEEN);
+        TrickTarot current_ = new TrickTarot((byte)2,true);
+        current_.ajouter(CardTarot.DIAMOND_1);
+        current_.ajouter(CardTarot.DIAMOND_JACK);
+        HandTarot played_ = new HandTarot();
+        Numbers<Byte> team_ = new Numbers<Byte>();
+        team_.add((byte) 3);
+        team_.add((byte) 0);
+        TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
+        t_.getCalledSuits().add(Suit.HEART);
+        addPossibleCard(t_,1,CardTarot.DIAMOND_KING);
+        Numbers<Byte> beat_ = new Numbers<Byte>();
+        beat_.add((byte) 1);
+        assertTrue(!ramasseurBatSsCprAdv(t_,beat_));
+    }
+    @Test
     public void existeJoueurNonJoueBattantAdv1Test() {
         HandTarot hand_ = new HandTarot();
         hand_.ajouter(CardTarot.HEART_QUEEN);
