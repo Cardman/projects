@@ -1325,4 +1325,8 @@ public final class GameTarotBeginTrickClassic {
         }
         return false;
     }
+
+    public Status getCurrentStatus() {
+        return currentStatus;
+    }
 }

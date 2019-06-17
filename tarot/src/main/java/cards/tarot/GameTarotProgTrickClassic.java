@@ -502,12 +502,7 @@ public final class GameTarotProgTrickClassic {
             }
             return jeuFigureHauteDePlusFaibleSuite(suites_);
         }
-        if (confidentPlayers.containsObj(dernierPli_.getRamasseur())) {
-            if (carteForte_.couleur() == Suit.TRUMP) {
-                /*L'espoir fait vivre*/
-                return repartitionCouleDem_
-                        .premiereCarte();
-            }
+        if (joueurConfianceRamasseurProbaPli_) {
             if(aucunePriseMainPossibleCouleur(
                     cartesPossibles_,couleurDemandee_,
                     carteForte_,notConfidentPlayersNotPlay)) {
@@ -538,27 +533,12 @@ public final class GameTarotProgTrickClassic {
                                 .premiereCarte();
                     }
                     if (aucunePriseMainPossibleParFigure(
-                            cartesPossibles_,couleurDemandee_,notConfidentPlayersNotPlay)
-                            && (!carteForte_.isCharacter() || joueurConfianceRamasseur_)) {
+                            cartesPossibles_,couleurDemandee_,notConfidentPlayersNotPlay)) {
                         return jeuFigureHauteDePlusFaibleSuite(suites_);
                     }
-                    if (carteForte_.isCharacter()) {
-                        if (suites_.size() == 1
-                                || !suites_.get(1).premiereCarte().isCharacter()
-                                || !joueurConfianceRamasseurProbaPli_) {
-                            return repartitionCouleDem_
-                                    .premiereCarte();
-                        }
-                        return jeuFigureHauteDePlusFaibleSuite(suites_);
-                    }
-                    if (!teamsRelation.existePreneur()) {
-                        return repartitionCouleDem_.premiereCarte();
-                    }
-                    if (joueurConfianceRamasseurProbaPli_) {
-                        return jeuFigureHauteDePlusFaibleSuite(suites_);
-                    }
+                    return repartitionCouleDem_
+                            .premiereCarte();
                 }
-                /* Le joueur n'a aucune cartes maitresses */
                 if (aucunePriseMainPossibleParFigure(
                         cartesPossibles_,couleurDemandee_,notConfidentPlayersNotPlay)) {
                     return repartitionCouleDem_
@@ -2191,4 +2171,7 @@ public final class GameTarotProgTrickClassic {
         return carteLaPlusPetite(_suites.getVal(couleurs_.first()));
     }
 
+    public Status getCurrentStatus() {
+        return currentStatus;
+    }
 }
