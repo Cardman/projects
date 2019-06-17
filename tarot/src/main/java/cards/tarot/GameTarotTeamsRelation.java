@@ -237,6 +237,12 @@ public final class GameTarotTeamsRelation {
     boolean confiance(byte _joueur, byte _enjoueur) {
         return confidence.get(_joueur).get(_enjoueur);
     }
+    boolean isVirtualTaker(byte _pl) {
+        if (!existePreneur()) {
+            return true;
+        }
+        return taker == _pl;
+    }
     boolean existePreneur() {
         return taker > -1;
     }

@@ -240,7 +240,7 @@ public final class GameTarotBeginTrickClassic {
             return card_;
         }
         //differents cas de jeu
-        if(info_.getCurrentPlayer() == teamsRelation.getTaker() || !teamsRelation.existePreneur()) {
+        if(teamsRelation.isVirtualTaker(info_.getCurrentPlayer())) {
             return playAsTaker(info_);
         }
         if(currentStatus == Status.CALLED_PLAYER) {
@@ -936,7 +936,7 @@ public final class GameTarotBeginTrickClassic {
         if (!contientExcuse_) {
             return jeuMainMaitresse(currentHand,cartesJouees_);
         }
-        if (teamsRelation.getTaker() == next_ || !teamsRelation.existePreneur()) {
+        if (teamsRelation.isVirtualTaker(next_)) {
             //Preneur
             boolean playExc_ = playExc(nbPlayers_, next_, plisFaits_, carteAppeleeJouee_);
             if (playExc_) {

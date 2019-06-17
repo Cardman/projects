@@ -1,7 +1,6 @@
 package cards.tarot;
 
 import cards.consts.Hypothesis;
-import cards.consts.Status;
 import cards.consts.Suit;
 import cards.tarot.comparators.GameTarotMostDemandedSuitComparator;
 import cards.tarot.enumerations.CardTarot;
@@ -187,7 +186,7 @@ public final class GameTarotCommonPlaying {
 
     HandTarot cartesVuesAuChien() {
         HandTarot cartes_ = new HandTarot();
-        cartes_.ajouterCartes(doneTrickInfo.getLastHand());
+        cartes_.ajouterCartes(doneTrickInfo.getLastSeenHand());
         return cartes_;
     }
     boolean appeleConnuDefenseur(byte _joueur, EnumMap<Suit, EqList<HandTarot>> _cartesPossibles) {

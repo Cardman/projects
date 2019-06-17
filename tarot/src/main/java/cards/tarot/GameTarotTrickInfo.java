@@ -18,7 +18,7 @@ public final class GameTarotTrickInfo {
     private HandTarot calledCards;
     private Numbers<Integer> handLengths;
 
-    private HandTarot lastHand = new HandTarot();
+    private HandTarot lastSeenHand = new HandTarot();
     private byte nbPlayers;
     private byte taker;
     private RulesTarot rules;
@@ -60,7 +60,7 @@ public final class GameTarotTrickInfo {
         }
         rules = _rel.getRules();
         if (bid.getJeuChien() == PlayingDog.WITH) {
-            lastHand.ajouterCartes(_h);
+            lastSeenHand.ajouterCartes(_h);
         }
     }
 
@@ -124,7 +124,7 @@ public final class GameTarotTrickInfo {
                 if (joueur_ == next_) {
                     continue;
                 }
-                if (taker != joueur_ && lastHand.contient(CardTarot.EXCUSE)) {
+                if (taker != joueur_ && lastSeenHand.contient(CardTarot.EXCUSE)) {
                     // L'Excuse du chien (si il est vu) ne
                     // peut etre possedee que par le preneur
                     possibleExcuse_.get(joueur_).supprimerCartes();
@@ -286,7 +286,7 @@ public final class GameTarotTrickInfo {
                 if (taker != joueur_) {
                     // Les atouts du chien (si il est vu) ne peuvent possedes
                     // que par le preneur
-                    for (CardTarot carte_ : lastHand) {
+                    for (CardTarot carte_ : lastSeenHand) {
                         if (!Suit.couleursOrdinaires().containsObj(carte_.couleur())) {
                             m.get(joueur_).removeCardIfPresent(carte_);
                         }
@@ -469,7 +469,7 @@ public final class GameTarotTrickInfo {
                     le roi de couleur
                     du chien sont
                     certainement ecartees*/
-                    for (CardTarot carte_ : lastHand
+                    for (CardTarot carte_ : lastSeenHand
                             .couleur(_couleur)) {
                         if (carte_.getNomFigure() == CardChar.KING) {
                             continue;
@@ -495,7 +495,7 @@ public final class GameTarotTrickInfo {
                 if (taker != joueur_) {
                     // Les cartes d'une couleur du chien (si il est vu) ne
                     // peuvent possedes que par le preneur ou etre ecartees
-                    for (CardTarot carte_ : lastHand) {
+                    for (CardTarot carte_ : lastSeenHand) {
                         if (carte_.couleur() == _couleur) {
                             m.get(joueur_).removeCardIfPresent(carte_);
                         }
@@ -1221,7 +1221,7 @@ public final class GameTarotTrickInfo {
         return bid;
     }
 
-    HandTarot getLastHand() {
-        return lastHand;
+    HandTarot getLastSeenHand() {
+        return lastSeenHand;
     }
 }
