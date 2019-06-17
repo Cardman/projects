@@ -663,16 +663,7 @@ final class GameTarotTrickHypothesis {
             On ne sait pas si un joueur n'ayant pas joue va couper le pli
             ou non
             */
-            CardTarot cardPl_ = cartesPossibles_.getVal(couleurDemandee_).get(player_)
-                    .premiereCarte();
-            Numbers<Byte> other_ = new Numbers<Byte>(joueursNonJoue_);
-            other_.removeObj(player_);
-            if (ramasseurBatSsCprAdv(other_,
-                    couleurDemandee_, cardPl_.strength(couleurDemandee_), cartesPossibles_,
-                    cartesCertaines_)) {
-                return PossibleTrickWinner.UNKNOWN;
-            }
-            return getPossibleTrickWinnerNoCurrentTrump(_info,card_);
+            return PossibleTrickWinner.UNKNOWN;
         }
         /* Fin si le joueur numero peut prendre la main sans couper */
         if (canTrump_) {

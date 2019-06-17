@@ -78,7 +78,7 @@ public final class GameTarotProgTrickClassic {
         }
         return defausseAtoutClassique();
     }
-    private CardTarot fournirCouleurOrdinaireClassique() {
+    CardTarot fournirCouleurOrdinaireClassique() {
         TarotInfoPliEnCours info_ = initInformations();
         PossibleTrickWinner ramasseurCertain_ = GameTarotTrickHypothesis.equipeQuiVaFairePli(info_);
         if (ramasseurCertain_ == PossibleTrickWinner.FOE_TEAM) {
@@ -90,9 +90,9 @@ public final class GameTarotProgTrickClassic {
         return followDefaultSuit(info_);
     }
 
-    private CardTarot followDefaultSuit(TarotInfoPliEnCours _info) {
+    CardTarot followDefaultSuit(TarotInfoPliEnCours _info) {
         //incertitude
-        if (currentHand.total() == 2 && _info.isContientExcuse()) {
+        if (hasExcPlusCard(_info)) {
             return CardTarot.excuse();
         }
         CardTarot card_ = followNormalSuit(_info);
@@ -111,6 +111,10 @@ public final class GameTarotProgTrickClassic {
         }
         /* Defenseur */
         return followAsDefender(_info);
+    }
+
+    private boolean hasExcPlusCard(TarotInfoPliEnCours _info) {
+        return currentHand.total() == 2 && _info.isContientExcuse();
     }
 
     CardTarot followAsDefender(TarotInfoPliEnCours _info) {
@@ -386,7 +390,7 @@ public final class GameTarotProgTrickClassic {
             }
             return weakestCard(suites_);
         }
-        if (currentHand.total() == 2 && contientExcuse_) {
+        if (hasExcPlusCard(_info)) {
             return playIfPartnersWin(_info);
         }
         /* couleur demandee non atout */
@@ -598,7 +602,7 @@ public final class GameTarotProgTrickClassic {
 
     private CardTarot followTrumpDefault(TarotInfoPliEnCours _info) {
         //incertitude du ramasseur a la couleur demandee (founiture obligatoire de la couleur demandee)
-        if (currentHand.total() == 2 && _info.isContientExcuse()) {
+        if (hasExcPlusCard(_info)) {
             return CardTarot.excuse();
         }
         boolean maitreJeu_ = _info.isMaitreJeu();
@@ -698,7 +702,7 @@ public final class GameTarotProgTrickClassic {
         boolean contientExcuse_ = _info.isContientExcuse();
         EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
-        if (currentHand.total() == 2 && contientExcuse_) {
+        if (hasExcPlusCard(_info)) {
             return playIfPartnersWin(_info);
         }
         /* couleur demandee atout */
@@ -759,7 +763,7 @@ public final class GameTarotProgTrickClassic {
         if (ramasseurCertain_ == PossibleTrickWinner.TEAM) {
             return underTrumpPartners(info_);
         }
-        if (currentHand.total() == 2 && info_.isContientExcuse()) {
+        if (hasExcPlusCard(info_)) {
             return CardTarot.excuse();
         }
         CardTarot card_ = underTrump(info_);
@@ -1215,7 +1219,7 @@ public final class GameTarotProgTrickClassic {
     CardTarot underTrumpPartners(TarotInfoPliEnCours _info) {
         boolean contientExcuse_ = _info.isContientExcuse();
         byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
-        if (currentHand.total() == 2 && contientExcuse_) {
+        if (hasExcPlusCard(_info)) {
             return playIfPartnersWin(_info);
         }
         /* couleur demandee atout */

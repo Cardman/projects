@@ -1725,10 +1725,10 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
     public void getPossibleTrickWinnerNoTrump21Test() {
         HandTarot hand_ = new HandTarot();
         hand_.ajouter(CardTarot.HEART_QUEEN);
-        hand_.ajouter(CardTarot.DIAMOND_9);
+        hand_.ajouter(CardTarot.DIAMOND_7);
         HandTarot playable_ = new HandTarot();
         playable_.ajouter(CardTarot.HEART_QUEEN);
-        playable_.ajouter(CardTarot.DIAMOND_9);
+        playable_.ajouter(CardTarot.DIAMOND_7);
         TrickTarot current_ = new TrickTarot((byte)2,true);
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
@@ -1742,8 +1742,8 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addSureCard(t_,1,CardTarot.DIAMOND_JACK);
         addPossibleCard(t_,0,CardTarot.DIAMOND_10);
         addSureCard(t_,0,CardTarot.DIAMOND_10);
-        addPossibleCard(t_,4,CardTarot.DIAMOND_9);
-        addSureCard(t_,4,CardTarot.DIAMOND_9);
+        addPossibleCard(t_,4,CardTarot.DIAMOND_7);
+        addSureCard(t_,4,CardTarot.DIAMOND_7);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.getPossibleTrickWinnerNoTrump(t_));
     }
     @Test
