@@ -779,7 +779,7 @@ public final class GameTarotProgTrickClassic {
         return defaultTrump(info_);
     }
 
-    private CardTarot defaultTrump(TarotInfoPliEnCours _info) {
+    CardTarot defaultTrump(TarotInfoPliEnCours _info) {
         Suit couleurDemandee_ = doneTrickInfo.getProgressingTrick().couleurDemandee();
         byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
         CardTarot carteForte_ = doneTrickInfo.getProgressingTrick().carteDuJoueur(_info.getRamasseurVirtuel(), nombreDeJoueurs_);
@@ -805,7 +805,7 @@ public final class GameTarotProgTrickClassic {
         }
         boolean maitreJeu_ = _info.isMaitreJeu();
         if (canLeadTrick(maitreJeu_, cartesRelMaitres_)) {
-            if(confidentPlayersNotPlay.isEmpty()) {
+            if(notConfidentPlayersNotPlay.isEmpty()) {
                 return atoutLePlusPetit(suites_);
             }
             return cartesRelMaitres_.last().premiereCarte();
@@ -814,11 +814,12 @@ public final class GameTarotProgTrickClassic {
         if (carteMaitresse_) {
             return CardTarot.petit();
         }
+        byte nextPlayer_ = doneTrickInfo.getProgressingTrick().getNextPlayer(nombreDeJoueurs_);
         if (nombreDeJoueurs_ < 5) {
             CustList<TrickTarot> tours_ = GameTarotCommonPlaying.tours(couleurDemandee_, _info.getPlisFaits());
             if (tours_.size() == 1) {
                 Numbers<Byte> joueursCoupePreTour_ = tours_.first().joueursCoupes();
-                if (GameTarotTeamsRelation.intersectionJoueurs(notConfidentPlayers, GameTarotTeamsRelation.autresJoueurs(joueursCoupePreTour_, nombreDeJoueurs_)).isEmpty()) {
+                if (GameTarotTeamsRelation.intersectionJoueurs(notConfidentPlayers, joueursCoupePreTour_).isEmpty()) {
                     return CardTarot.petit();
                 }
             }

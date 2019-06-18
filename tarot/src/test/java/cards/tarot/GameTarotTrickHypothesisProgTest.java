@@ -2698,8 +2698,6 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         EnumMap<Suit,HandTarot> repartition_ = _cartes.couleurs();
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = _playedCard.couleurs();
         Numbers<Byte> notConfident_ = GameTarotTeamsRelation.autresJoueurs(_team, (byte) _nbPlayers);
-        Numbers<Byte> joueursJoue_ = new Numbers<Byte>(played_);
-        joueursJoue_.removeObj(nextPlayer_);
         Numbers<Byte> joueursNonJoue_ = GameTarotTeamsRelation.autresJoueurs(played_, (byte) _nbPlayers);
         EnumMap<Suit,EqList<HandTarot>> suitesTouteCouleur_ = _cartes.eclaterToutEnCours(repartitionCartesJouees_);
 
@@ -2710,7 +2708,6 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         info_.setCurrentPlayer(nextPlayer_);
         info_.setJoueursNonJoue(joueursNonJoue_);
         info_.setCartesJouables(_cartesJouables);
-        info_.setJoueursJoue(joueursJoue_);
         info_.setPlisFaits(new CustList<TrickTarot>());
         info_.setCartesJouees(_playedCard);
         info_.setRepartitionCartesJouees(repartitionCartesJouees_);

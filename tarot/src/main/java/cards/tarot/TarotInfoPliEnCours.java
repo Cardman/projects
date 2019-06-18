@@ -10,7 +10,6 @@ final class TarotInfoPliEnCours {
 
     private HandTarot cartesJouables;
     private Numbers<Byte> joueursNonJoue;
-    private Numbers<Byte> joueursJoue;
     private CustList<TrickTarot> plisFaits;
     private TrickTarot progressingTrick;
     private HandTarot cartesJouees;
@@ -58,14 +57,6 @@ final class TarotInfoPliEnCours {
 
     public void setJoueursNonJoue(Numbers<Byte> _joueursNonJoue) {
         joueursNonJoue = _joueursNonJoue;
-    }
-
-    public Numbers<Byte> getJoueursJoue() {
-        return joueursJoue;
-    }
-
-    public void setJoueursJoue(Numbers<Byte> _joueursJoue) {
-        joueursJoue = _joueursJoue;
     }
 
     public CustList<TrickTarot> getPlisFaits() {

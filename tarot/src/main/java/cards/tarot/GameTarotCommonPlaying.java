@@ -95,8 +95,6 @@ public final class GameTarotCommonPlaying {
         boolean carteAppeleeJouee_ = cartesJouees_.contientCartes(doneTrickInfo.getCalledCards());
         boolean contientExcuse_ = _cartes.contient(CardTarot.excuse());
         byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
-        Numbers<Byte> joueursJoue_ = GameTarotTeamsRelation.autresJoueurs(joueursNonJoue_, nombreDeJoueurs_);
-        joueursJoue_.removeObj(nextPlayer_);
         EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = doneTrickInfo.cartesPossibles(_cartes);
         EnumMap<Hypothesis,EnumMap<Suit,EqList<HandTarot>>> hypotheses_ = doneTrickInfo.cartesCertaines(cartesPossibles_);
         cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
@@ -122,7 +120,6 @@ public final class GameTarotCommonPlaying {
         info_.setCurrentPlayer(nextPlayer_);
         info_.setJoueursNonJoue(joueursNonJoue_);
         info_.setCartesJouables(_cartesJouables);
-        info_.setJoueursJoue(joueursJoue_);
         info_.setPlisFaits(plisFaits_);
         info_.setCartesJouees(cartesJouees_);
         info_.setRepartitionCartesJouees(repartitionCartesJouees_);
