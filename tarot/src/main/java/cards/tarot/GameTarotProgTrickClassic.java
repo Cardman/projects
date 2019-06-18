@@ -23,6 +23,7 @@ public final class GameTarotProgTrickClassic {
     private Numbers<Byte> confidentPlayersNotPlay;
     private Numbers<Byte> notConfidentPlayersNotPlay;
     private HandTarot playableCards;
+    private HandTarot discarded = new HandTarot();
     public GameTarotProgTrickClassic(GameTarotTrickInfo _done, GameTarotTeamsRelation _teamsRelation,
                                      HandTarot _calledCards, HandTarot _currentHand) {
         doneTrickInfo = _done;
@@ -42,6 +43,10 @@ public final class GameTarotProgTrickClassic {
         notConfidentPlayers = _teamsRelation.joueursNonConfiance(nextPlayer_,GameTarotTeamsRelation.tousJoueurs(nbPlayers_));
         confidentPlayersNotPlay = GameTarotTeamsRelation.intersectionJoueurs(confidentPlayers,notPlayed);
         notConfidentPlayersNotPlay = GameTarotTeamsRelation.intersectionJoueurs(notConfidentPlayers,notPlayed);
+        boolean knownLastHand_ = !doneTrickInfo.getLastSeenHand().estVide();
+        if (knownLastHand_ && teamsRelation.isVirtualTaker(nextPlayer_)) {
+            discarded.ajouterCartes(_done.getTricks().first().getCartes());
+        }
     }
     CardTarot enCoursClassic() {
         if (playableCards.total() == 1) {
@@ -841,7 +846,8 @@ public final class GameTarotProgTrickClassic {
     */
         Suit couleurDemandee_ = doneTrickInfo.getProgressingTrick().couleurDemandee();
         byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
-        CardTarot carteForte_ = doneTrickInfo.getProgressingTrick().carteDuJoueur(_info.getRamasseurVirtuel(), nombreDeJoueurs_);
+        byte virtLead_ = _info.getRamasseurVirtuel();
+        CardTarot carteForte_ = doneTrickInfo.getProgressingTrick().carteDuJoueur(virtLead_, nombreDeJoueurs_);
         CustList<TrickTarot> plisFaits_ = _info.getPlisFaits();
         EnumMap<Suit,HandTarot> repartitionJouables_ = _info.getCartesJouables().couleurs();
         boolean maitreJeu_ = _info.isMaitreJeu();
@@ -896,76 +902,61 @@ public final class GameTarotProgTrickClassic {
             couleur
             demandee
             */
+                if (carteForte_.couleur() == Suit.TRUMP) {
+                    if (joueursNonConfiance_.contains(virtLead_)) {
+                        return atoutLePlusPetit(suites_);
+                    }
+                    return CardTarot.EXCUSE;
+                }
+                boolean joueurConfianceRamasseurProbaPli_ = !joueursNonConfiance_.contains(virtLead_) &&
+                        joueurConfianceRamasseurProbaPli(
+                                notConfidentPlayersNotPlay,
+                                couleurDemandee_,
+                                cartesPossibles_,
+                                carteForte_);
+                if (joueurConfianceRamasseurProbaPli_) {
+                    return CardTarot.EXCUSE;
+                }
                 return atoutLePlusPetit(suites_);
             }
-            if (Suit.couleursOrdinaires().containsObj(carteForte_.couleur())) {
-            /*
-            Si le joueur ne
-            surcoupe pas un
-            autre joueur
-            alors il n'a pas
-            le Petit par
-            hypothese par
-            (m.derniereCarte
-            ().getforceJeu(couleurDemandee)>1)
-            */
-                int nbChars_ = repartitionCartesJouees_
-                        .getVal(couleurDemandee_)
-                        .nombreDeFigures();
-                int nbFullChars_ = HandTarot.couleurComplete(couleurDemandee_).nombreDeFigures();
-                if (nbChars_ == nbFullChars_) {
-                    return CardTarot.excuse();
+            if (doneTrickInfo.getProgressingTrick().contient(CardTarot.TRUMP_1)) {
+                if (joueursNonConfiance_.contains(virtLead_)) {
+                    return atoutLePlusPetit(suites_);
                 }
-                if (joueursNonConfianceNonJoue_
-                        .isEmpty()) {
-                    return CardTarot.excuse();
-                }
+                return CardTarot.EXCUSE;
             }
-            boolean carteAppeleeJouee_ = _info.isCarteAppeleeJouee();
-            if (!carteAppeleeJouee_ && teamsRelation.existeAppele()
-                    && _info.getCurrentPlayer() == teamsRelation.getTaker()
-                    && !doneTrickInfo.getProgressingTrick().contient(CardTarot.petit())) {
+            if (joueursNonConfianceNonJoue_
+                    .isEmpty()) {
                 return CardTarot.excuse();
             }
             return atoutLePlusPetit(suites_);
         }
+        HandTarot atoutsCoupeSansPetit_ = new HandTarot();
+        atoutsCoupeSansPetit_.ajouterCartes(atoutsCoupe_);
+        atoutsCoupeSansPetit_.removeCardIfPresent(CardTarot.TRUMP_1);
+        EqList<HandTarot> suitesSansPetit_;
+        suitesSansPetit_ = atoutsCoupeSansPetit_.eclaterEnCours(
+                repartitionCartesJouees_, couleurDemandee_);
+        EqList<HandTarot> cartesRelMaitresSansPetit_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(
+                suitesSansPetit_, cartesPossibles_, joueursNonJoue_,
+                Suit.TRUMP, couleurDemandee_, cartesCertaines_,
+                carteForte_);
         /* Le joueur peut couper avec le Petit */
-        if (canLeadTrick(maitreJeu_, cartesRelMaitres_)) {
-            if (contientExcuse_) {
-                return CardTarot.excuse();
-            }
-            if (!cartesRelMaitres_.last()
-                    .contient(CardTarot.petit())
-                    || cartesRelMaitres_.last().total() > 1) {
-                return cartesRelMaitres_.last()
-                        .premiereCarte();
-            }
-            //cartesRelMaitres.last().contient(CarteTarot.petit())
-            //&& cartesRelMaitres.last().total() == 1
-            // ==> cartesRelMaitres == suites
-            return cartesRelMaitres_.get(
-                    cartesRelMaitres_.size() - 2)
-                    .premiereCarte();
+        if (canLeadTrick(maitreJeu_, cartesRelMaitresSansPetit_)) {
+            return cartesRelMaitresSansPetit_.
+                    last().premiereCarte();
         }
         if (GameTarotTrickHypothesis.pasAtout(joueursNonConfiance_, cartesPossibles_)) {
             return atoutLePlusPetit(suites_);
         }
-        EnumList<Suit> coupesFranches_ = _info.getCoupesFranches();
-        if (coupesFranches_.size() == 1) {
-            if (teamsRelation.isVirtualTaker(_info.getCurrentPlayer())) {
-                if (atoutsCoupe_.total()
-                        + nombreDeJoueurs_ <= 13) {
-                    return CardTarot.petit();
-                }
-                boolean carteMaitresse_ = noOverTrump(couleurDemandee_, cartesPossibles_, cartesCertaines_, joueursNonConfianceNonJoue_);
-                if (carteMaitresse_) {
-                    return CardTarot.petit();
-                }
-                return atoutLePlusPetit(suites_);
-            }
+        boolean carteMaitresse_ = noOverTrump(couleurDemandee_, cartesPossibles_, cartesCertaines_, joueursNonConfianceNonJoue_);
+        if (carteMaitresse_) {
             return CardTarot.petit();
         }
-        boolean carteMaitresse_;
+        EnumList<Suit> coupesFranches_ = _info.getCoupesFranches();
+        if (coupesFranches_.size() == 1) {
+            return CardTarot.petit();
+        }
         carteMaitresse_ = true;
         /* Il existe au moins deux coupes franches */
         for (Suit coupe_ : coupesFranches_) {
@@ -978,39 +969,18 @@ public final class GameTarotProgTrickClassic {
         if (carteMaitresse_) {
             return CardTarot.petit();
         }
-        boolean knownLastHand_ = !doneTrickInfo.getLastSeenHand().estVide();
-        if (!knownLastHand_) {
-            for (byte joueur_ : joueursNonConfianceNonJoue_) {
-                if (!cartesPossibles_.getVal(Suit.TRUMP).get(joueur_).estVide()) {
-                    carteMaitresse_ = true;
-                }
-            }
-            if (carteMaitresse_) {
-                if (atoutsCoupe_.total() > 1) {
-                    return atoutLePlusPetit(suites_);
-                }
-                return CardTarot.petit();
-            }
-        }
-        carteMaitresse_ = noOverTrump(couleurDemandee_, cartesPossibles_, cartesCertaines_, joueursNonConfianceNonJoue_);
-        if (carteMaitresse_) {
-            return CardTarot.petit();
-        }
-        if (knownLastHand_ && teamsRelation.isVirtualTaker(_info.getCurrentPlayer())) {
+        if (!discarded.estVide()) {
             EnumList<Suit> coupesNonJoues_;
             EnumList<Suit> couleursExclues_ = new EnumList<Suit>();
             couleursExclues_.add(couleurDemandee_);
             coupesNonJoues_ = GameTarotCommon.complementaireCouleurs(coupesFranches_, couleursExclues_);
             coupesNonJoues_ = GameTarotCommonPlaying.couleursNonEntamees(plisFaits_, coupesNonJoues_);
-            HandTarot ecart_ = plisFaits_.first().getCartes();
-            int nbCartesEcarteesCouleurDemandee_ = ecart_.couleur(couleurDemandee_).total();
+            int nbCartesEcarteesCouleurDemandee_ = discarded.couleur(couleurDemandee_).total();
             coupesNonJoues_ = GameTarotCommon.couleursNonAtoutAyantNbCartesInfEg(
-                    ecart_,
+                    discarded,
                     coupesNonJoues_, nbCartesEcarteesCouleurDemandee_ - 1);
             if (!coupesNonJoues_.isEmpty()) {
-                if (atoutsCoupe_.total() > 1) {
-                    return atoutLePlusPetit(suites_);
-                }
+                return atoutLePlusPetit(suites_);
             }
         }
         return CardTarot.petit();
@@ -1665,6 +1635,9 @@ public final class GameTarotProgTrickClassic {
     }
     /**Methode retournant un atout different du Petit sauf si ce dernier est sec.*/
     static CardTarot atoutLePlusPetit(EqList<HandTarot> _suites) {
+        if (_suites.size() == 1) {
+            return _suites.first().premiereCarte();
+        }
         if (!_suites.last().contient(CardTarot.petit())) {
             return _suites.last().premiereCarte();
         }

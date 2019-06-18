@@ -183,6 +183,16 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         assertSame(CardTarot.EXCUSE, GameTarotProgTrickClassic.atoutLePlusPetit(hand_.eclaterEnCours(played_, Suit.TRUMP),true));
     }
     @Test
+    public void atoutLePlusPetit6Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.TRUMP_1);
+        hand_.ajouter(CardTarot.TRUMP_2);
+        hand_.ajouter(CardTarot.TRUMP_3);
+        EnumMap<Suit, HandTarot> played_ = new HandTarot().couleurs();
+        assertSame(CardTarot.TRUMP_3, GameTarotProgTrickClassic.atoutLePlusPetit(hand_.eclaterEnCours(played_, Suit.TRUMP)));
+    }
+
+    @Test
     public void jouerPetiteCarteDefausse1Test() {
         HandTarot hand_ = new HandTarot();
         hand_.ajouter(CardTarot.HEART_7);

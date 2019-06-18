@@ -245,7 +245,7 @@ public final class GameTarotCommon {
     static EnumList<Suit> complementaireCouleurs(EnumList<Suit> _couleurs, EnumList<Suit> _couleursExclues) {
         EnumList<Suit> couleurs_ = new EnumList<Suit>();
         for (Suit couleur_ : _couleurs) {
-            if(!_couleursExclues.containsObj(couleur_)) {
+            if(_couleursExclues.containsObj(couleur_)) {
                 continue;
             }
             couleurs_.add(couleur_);
