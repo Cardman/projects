@@ -1139,7 +1139,7 @@ public final class GameTarot {
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
         if (existePreneur() || pasJeuMisere()) {
             GameTarotProgTrickClassic g_ = new GameTarotProgTrickClassic(doneTrickInfo_,teamsRelation_,
-                    calledCards,mainJoueur_, bid);
+                    calledCards,mainJoueur_);
             return g_.enCoursClassic();
         }
         GameTarotMisere g_ = new GameTarotMisere(doneTrickInfo_,teamsRelation_,
