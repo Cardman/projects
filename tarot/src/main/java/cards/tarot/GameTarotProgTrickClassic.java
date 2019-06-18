@@ -622,7 +622,7 @@ public final class GameTarotProgTrickClassic {
         maitresse
         */
         EqList<HandTarot> cartesRelMaitres_;
-        int nombrePoints_ = 0;
+
 
         //fournir d'un atout a la demande d'atout
         suites_ = repartitionJouables_.getVal(Suit.TRUMP)
@@ -659,11 +659,7 @@ public final class GameTarotProgTrickClassic {
                 && confidentPlayers.containsObj(ramasseurVirtuel_)) {
             return atoutLePlusPetit(suites_, contientExcuse_);
         }
-        for (CardTarot carte_ : doneTrickInfo.getProgressingTrick()) {
-            if (carte_ != CardTarot.EXCUSE) {
-                nombrePoints_ += carte_.points();
-            }
-        }
+        int nombrePoints_ = getNbPointsInCurrentTrick();
         if (nombrePoints_ > 6) {
             if (!cartesRelMaitres_.isEmpty() && !notConfidentPlayersNotPlay.isEmpty()) {
                 return cartesRelMaitres_.last().premiereCarte();
@@ -821,10 +817,6 @@ public final class GameTarotProgTrickClassic {
         if (nombreDeJoueurs_ < 5) {
             CustList<TrickTarot> tours_ = GameTarotCommonPlaying.tours(couleurDemandee_, _info.getPlisFaits());
             if (tours_.size() == 1) {
-                if (atoutsCoupe_.total() > 1
-                        || !atoutsCoupe_.contient(CardTarot.petit())) {
-                    return atoutLePlusPetit(suites_);
-                }
                 Numbers<Byte> joueursCoupePreTour_ = tours_.first().joueursCoupes();
                 if (GameTarotTeamsRelation.intersectionJoueurs(notConfidentPlayers, GameTarotTeamsRelation.autresJoueurs(joueursCoupePreTour_, nombreDeJoueurs_)).isEmpty()) {
                     return CardTarot.petit();
@@ -832,11 +824,7 @@ public final class GameTarotProgTrickClassic {
             }
         }
         /* Le jeu s'effectue maintenant a 5 joueurs */
-        if (atoutsCoupe_.total() > 1
-                || !atoutsCoupe_.contient(CardTarot.petit())) {
-            return atoutLePlusPetit(suites_);
-        }
-        return CardTarot.petit();
+        return atoutLePlusPetit(suites_);
     }
 
     CardTarot trumpFirstRound(TarotInfoPliEnCours _info) {
@@ -1013,7 +1001,6 @@ public final class GameTarotProgTrickClassic {
             suites_ = atoutsCoupe_.eclaterEnCours(
                     repartitionCartesJouees_, couleurDemandee_);
             Numbers<Byte> joueursNonJoue_ = _info.getJoueursNonJoue();
-            Numbers<Byte> joueursJoue_ = _info.getJoueursJoue();
 
             EqList<HandTarot> cartesRelMaitres_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(
                     suites_, cartesPossibles_, joueursNonJoue_,
@@ -1023,38 +1010,16 @@ public final class GameTarotProgTrickClassic {
                 return cartesRelMaitres_.last()
                         .premiereCarte();
             }
+            CardTarot first_ = atoutsCoupe_.premiereCarte();
             boolean carteMaitresse_ = noOverTrump(couleurDemandee_, cartesPossibles_, cartesCertaines_, notConfidentPlayersNotPlay);
             if (!carteMaitresse_) {
-                int nombrePoints_ = 0;
-                for (CardTarot carte_ : doneTrickInfo.getProgressingTrick()) {
-                    if (carte_ != CardTarot.EXCUSE) {
-                        nombrePoints_ += carte_.points();
-                    }
-                }
+                int nombrePoints_ = getNbPointsInCurrentTrick();
                 if (nombrePoints_ > 7) {
                     if (!cartesRelMaitres_.isEmpty()) {
                         return cartesRelMaitres_.last()
                                 .premiereCarte();
                     }
-                    for (byte joueur_ : joueursNonJoue_) {
-                        if (GameTarotTrickHypothesis.vaSurcouper(cartesPossibles_, cartesCertaines_, _info.getCurrentPlayer(), joueur_, couleurDemandee_)) {
-                            return atoutLePlusPetit(suites_,
-                                    contientExcuse_);
-                        }
-                    }
-                    for (byte joueur_ : joueursNonJoue_) {
-                        boolean local_ = true;
-                        for (byte joueur2_ : joueursJoue_) {
-                            if (!(GameTarotTrickHypothesis.peutSurcouper(cartesPossibles_, joueur2_, joueur_, couleurDemandee_))) {
-                                local_ = false;
-                            }
-                        }
-                        if (local_) {
-                            return atoutLePlusPetit(suites_,
-                                    contientExcuse_);
-                        }
-                    }
-                    return atoutsCoupe_.premiereCarte();
+                    return first_;
                 }
                 /*
                 Moins de 8 points (les points sont doubles pour
@@ -1094,34 +1059,37 @@ public final class GameTarotProgTrickClassic {
                     return atoutLePlusPetit(suites_,
                             contientExcuse_);
                 }
-                if (confidentPlayers.containsObj(ramasseurVirtuel_)) {
-                    carteMaitresse_ = true;
-                    for (byte joueur_ : notConfidentPlayersNotPlay) {
-                        if(GameTarotTrickHypothesis.peutCouper(
-                                couleurDemandee_, joueur_,
-                                cartesPossibles_)) {
-                            carteMaitresse_ = false;
-                            break;
-                        }
-                        if(cartesPossibles_
-                                .getVal(couleurDemandee_)
-                                .get(joueur_).estVide()) {
-                            continue;
-                        }
-                        if (!(cartesPossibles_.getVal(couleurDemandee_).get(joueur_).premiereCarte().strength(couleurDemandee_)< carteForte_.strength(couleurDemandee_))) {
-                            carteMaitresse_ = false;
-                        }
+            } else if (confidentPlayers.containsObj(ramasseurVirtuel_)) {
+                for (byte joueur_ : notConfidentPlayersNotPlay) {
+                    if(cartesPossibles_
+                            .getVal(couleurDemandee_)
+                            .get(joueur_).estVide()) {
+                        continue;
                     }
-                    if (carteMaitresse_) {
-                        return atoutLePlusPetit(suites_,
-                                contientExcuse_);
+                    if (cartesPossibles_.getVal(couleurDemandee_).get(joueur_).premiereCarte().strength(couleurDemandee_) >= carteForte_.strength(couleurDemandee_)) {
+                        carteMaitresse_ = false;
                     }
+                }
+                if (carteMaitresse_) {
+                    return atoutLePlusPetit(suites_,
+                            contientExcuse_);
                 }
             }
             return atoutLePlusPetit(suites_);
         }
         return CardTarot.WHITE;
     }
+
+    private int getNbPointsInCurrentTrick() {
+        int nombrePoints_ = 0;
+        for (CardTarot carte_ : doneTrickInfo.getProgressingTrick()) {
+            if (carte_ != CardTarot.EXCUSE) {
+                nombrePoints_ += carte_.points();
+            }
+        }
+        return nombrePoints_;
+    }
+
     CardTarot underTrumpFoe(TarotInfoPliEnCours _info) {
         boolean contientExcuse_ = _info.isContientExcuse();
         EnumMap<Suit,HandTarot> repartitionJouables_ = _info.getCartesJouables().couleurs();

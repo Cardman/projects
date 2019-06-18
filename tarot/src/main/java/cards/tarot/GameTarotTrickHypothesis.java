@@ -1297,27 +1297,6 @@ final class GameTarotTrickHypothesis {
         return pasAtout_;
     }
 
-    static boolean vaSurcouper(
-            EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,
-            EnumMap<Suit,EqList<HandTarot>> _cartesCertaines, byte _numero,
-            byte _numeroBis, Suit _couleurDemandee) {
-        return _cartesPossibles.getVal(_couleurDemandee).get(_numeroBis).estVide()
-                && !_cartesCertaines.getVal(Suit.TRUMP).get(_numeroBis).estVide()
-                && _cartesCertaines.getVal(Suit.TRUMP).get(_numeroBis).premiereCarte()
-                .strength(_couleurDemandee) > _cartesCertaines.getVal(Suit.TRUMP).get(_numero)
-                .premiereCarte().strength(_couleurDemandee);
-    }
-
-    static boolean peutSurcouper(
-            EnumMap<Suit,EqList<HandTarot>> _cartesPossibles, byte _numero,
-            byte _numeroBis, Suit _couleurDemandee) {
-        return _cartesPossibles.getVal(_couleurDemandee).get(_numeroBis).estVide()
-                && !_cartesPossibles.getVal(Suit.TRUMP).get(_numeroBis).estVide()
-                && _cartesPossibles.getVal(Suit.TRUMP).get(_numeroBis).premiereCarte()
-                .strength(_couleurDemandee) > _cartesPossibles.getVal(Suit.TRUMP).get(_numero)
-                .premiereCarte().strength(_couleurDemandee);
-    }
-
     static boolean defausse(EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,
                             byte _numero, Suit _couleur) {
         return _cartesPossibles.getVal(Suit.TRUMP).get(_numero).estVide()
