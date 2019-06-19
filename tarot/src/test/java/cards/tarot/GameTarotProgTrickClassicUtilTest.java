@@ -313,6 +313,22 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         assertSame(CardTarot.HEART_7,GameTarotProgTrickClassic.jeuGrandeCarteDefausseMaitre(s_,hand_));
     }
     @Test
+    public void jeuGrandeCarteDefausseMaitre3Test() {
+        HandTarot hand_ = new HandTarot();
+        hand_.ajouter(CardTarot.HEART_JACK);
+        hand_.ajouter(CardTarot.HEART_KNIGHT);
+        hand_.ajouter(CardTarot.HEART_QUEEN);
+        hand_.ajouter(CardTarot.HEART_KING);
+        hand_.ajouter(CardTarot.DIAMOND_JACK);
+        hand_.ajouter(CardTarot.DIAMOND_KNIGHT);
+        hand_.ajouter(CardTarot.DIAMOND_QUEEN);
+        hand_.ajouter(CardTarot.DIAMOND_KING);
+        EnumList<Suit> s_ = new EnumList<Suit>();
+        s_.add(Suit.HEART);
+        s_.add(Suit.DIAMOND);
+        assertSame(CardTarot.HEART_KING,GameTarotProgTrickClassic.jeuGrandeCarteDefausseMaitre(s_,hand_));
+    }
+    @Test
     public void leadingCard1Test() {
         HandTarot hand_ = new HandTarot();
         hand_.ajouter(CardTarot.HEART_7);

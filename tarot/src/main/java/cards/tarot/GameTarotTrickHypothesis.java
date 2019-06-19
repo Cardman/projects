@@ -81,7 +81,7 @@ final class GameTarotTrickHypothesis {
                 Suit couleurDemandee_ = p.couleurDemandee();
                 byte forcePetit_ = carte_.strength(couleurDemandee_);
                 boolean petitRamasse_ = false;
-                for(byte j2_: p.joueursAyantJoueAvant(j, nombreJoueurs_,_teamReal.getRules().getDealing())) {
+                for(byte j2_: p.joueursAyantJoueAvant(j,_teamReal.getRules().getDealing())) {
                     if(p.carteDuJoueur(j2_, nombreJoueurs_).strength(couleurDemandee_) < forcePetit_) {
                         continue;
                     }
@@ -208,7 +208,7 @@ final class GameTarotTrickHypothesis {
                     //carteJouee est une figure de la couleur demandee au premier tour
                     boolean carteJoueeRamassee_ = false;
                     byte max_ = carteJouee_.strength(c);
-                    for(byte j2_: p.joueursAyantJoueAvant(j,nombreJoueurs_, _teamReal.getRules().getDealing())) {
+                    for(byte j2_: p.joueursAyantJoueAvant(j, _teamReal.getRules().getDealing())) {
                         CardTarot carteJoueeAvant_ = p.carteDuJoueur(j2_,nombreJoueurs_);
                         if(carteJoueeAvant_.strength(c) < max_) {
                             continue;

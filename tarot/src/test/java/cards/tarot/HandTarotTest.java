@@ -370,6 +370,16 @@ public class HandTarotTest {
         main_.ajouter(CardTarot.HEART_9);
         return main_;
     }
+
+    private HandTarot trierExc(){
+        HandTarot main_ = new HandTarot();
+        main_.ajouter(CardTarot.SPADE_KING);
+        main_.ajouter(CardTarot.HEART_1);
+        main_.ajouter(CardTarot.TRUMP_12);
+        main_.ajouter(CardTarot.SPADE_JACK);
+        main_.ajouter(CardTarot.HEART_9);
+        return main_;
+    }
     @Test
     public void trier1(){
         HandTarot main_ = trier();
@@ -395,6 +405,15 @@ public class HandTarotTest {
         resAtt_.ajouter(CardTarot.HEART_9);
         resAtt_.ajouter(CardTarot.TRUMP_12);
         resAtt_.ajouter(CardTarot.EXCUSE);
+        assertEq(resAtt_, main_);
+        main_ = trierExc();
+        main_.trier(couleurs_, false);
+        resAtt_ = new HandTarot();
+        resAtt_.ajouter(CardTarot.SPADE_JACK);
+        resAtt_.ajouter(CardTarot.SPADE_KING);
+        resAtt_.ajouter(CardTarot.HEART_1);
+        resAtt_.ajouter(CardTarot.HEART_9);
+        resAtt_.ajouter(CardTarot.TRUMP_12);
         assertEq(resAtt_, main_);
     }
     @Test

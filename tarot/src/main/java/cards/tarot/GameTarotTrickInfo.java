@@ -247,7 +247,7 @@ public final class GameTarotTrickInfo {
                 if (joueur_ == next_) {
                     continue;
                 }
-                Numbers<Byte> joueursAvant_ = pli_.joueursAyantJoueAvant(joueur_,nbPlayers, rules.getDealing());
+                Numbers<Byte> joueursAvant_ = pli_.joueursAyantJoueAvant(joueur_, rules.getDealing());
                 byte forceLoc_ = c.strength(couleurDemande_);
                 byte max_ = 0;
                 byte ramasseurVirtuel_ = joueur_;

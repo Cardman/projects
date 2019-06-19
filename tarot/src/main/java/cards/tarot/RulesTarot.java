@@ -52,15 +52,16 @@ public final class RulesTarot {
                 allowedBids.put(c, true);
             }
         }
+        boolean found_ = false;
         for (DealingTarot r: DealingTarot.getRepartitionsValides()) {
-            if (r.getNombreJoueurs() == _nbPlayers) {
+            if (r.getNombreJoueurs() == _nbPlayers && !found_) {
                 dealing = r;
                 int nbCartesParJoueurs_ = r.getNombreCartesParJoueur();
-                for(Handfuls p: Handfuls.getPoigneesValidesParDefaut()) {
-                    NumberMap<Integer,Integer> conf_ = Handfuls.getConfigurationParDefautAnnoncePoignee(p);
-                    allowedHandfuls.put(p,conf_.getVal(nbCartesParJoueurs_));
+                for (Handfuls p : Handfuls.getPoigneesValidesParDefaut()) {
+                    NumberMap<Integer, Integer> conf_ = Handfuls.getConfigurationParDefautAnnoncePoignee(p);
+                    allowedHandfuls.put(p, conf_.getVal(nbCartesParJoueurs_));
                 }
-                break;
+                found_ = true;
             }
         }
     }
@@ -73,6 +74,7 @@ public final class RulesTarot {
         allowedHandfuls = new EnumMap<Handfuls,Integer>(_reglesTarot.allowedHandfuls);
         endDealTarot = _reglesTarot.endDealTarot;
         nbDeals = _reglesTarot.nbDeals;
+        discardAfterCall = _reglesTarot.discardAfterCall;
     }
     public boolean isValidRules() {
         for(Handfuls p: Handfuls.getPoigneesValidesParDefaut()) {
@@ -99,6 +101,16 @@ public final class RulesTarot {
             }
         }
         reorgHandfules();
+        int size_ = allowedHandfuls.size();
+        for (int i = 1; i < size_; i++) {
+            int value_ = allowedHandfuls.getValue(i);
+            if (value_ == 0) {
+                continue;
+            }
+            if (allowedHandfuls.getValue(i - 1) > value_) {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -171,18 +183,6 @@ public final class RulesTarot {
     }
     public void setPoigneesAutorisees(EnumMap<Handfuls,Integer> _poigneesAutorisees) {
         allowedHandfuls = _poigneesAutorisees;
-    }
-    public EndDealTarot getFinPartieTarot() {
-        return endDealTarot;
-    }
-    public void setFinPartieTarot(EndDealTarot _finPartieTarot) {
-        endDealTarot = _finPartieTarot;
-    }
-    public int getNombreParties() {
-        return nbDeals;
-    }
-    public void setNombreParties(int _nombreParties) {
-        nbDeals = _nombreParties;
     }
 
     public boolean getDiscardAfterCall() {

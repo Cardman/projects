@@ -107,7 +107,7 @@ public final class ResultsTarot {
                 scoresDeal_.add((short)0);
             }
         }
-        if(game.getType()==GameType.RANDOM&&game.getNumber()==0|| game.getType() == GameType.EDIT && game.getNumber() <= game.getRegles().getNombreParties()) {
+        if(game.getType()==GameType.RANDOM&&game.getNumber()==0|| game.getType() == GameType.EDIT && game.getNumber() <= game.getRegles().getNbDeals()) {
             long variance9_=0;
             long esperance_=0;
             res.getScores().add(new Numbers<Long>());

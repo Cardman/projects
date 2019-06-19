@@ -172,7 +172,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         endDeal_.setToolTipText(getMessages().getVal(END_DEAL_RULE));
         sousPanneau_.add(endDeal_);
         listeChoixTwo=new ComboBoxEnumCards<EndDealTarot>();
-        EndDealTarot curOne_ = getReglesTarot().getFinPartieTarot();
+        EndDealTarot curOne_ = getReglesTarot().getEndDealTarot();
         int index_ = 0;
         int i_ = -1;
         for (EndDealTarot mode_:EndDealTarot.values()) {
@@ -371,7 +371,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
             contrats_.put(enchere_, jcb_.isSelected());
         }
         getReglesTarot().setContrats(contrats_);
-        getReglesTarot().setFinPartieTarot(listeChoixTwo.getCurrentElement());
+        getReglesTarot().setEndDealTarot(listeChoixTwo.getCurrentElement());
         getReglesTarot().setMode(listeChoixThree.getCurrentElement());
         getReglesTarot().setDiscardAfterCall(discardAfterCall.isSelected());
         getReglesTarot().setRepartition(listeChoixFour.getCurrentElement());

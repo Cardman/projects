@@ -261,10 +261,6 @@ public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTaro
         cards.sortElts(new CharactersTarotGreaterPointsComparator());
     }
 
-    public void echanger(int _a,int _b) {
-        cards.swapIndexes( _a, _b);
-    }
-
     public int tailleCouleur(Suit _couleur) {
         int taille_=0;
         for(CardTarot c:cards) {
@@ -342,22 +338,6 @@ public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTaro
         }
         return mt_;
     }
-    /**Retourne vrai si et seulement si la main a pour seul atout le Petit sans L'Excuse*/
-    public boolean petitSec() {
-        boolean presencePetit_=false;
-        byte nombreAtouts_=0;
-        for(CardTarot carte_:cards) {
-            if(CardTarot.eq(carte_, CardTarot.excuse())) {
-                nombreAtouts_++;
-            }else if(carte_.couleur() == CardTarot.petit().couleur()) {
-                nombreAtouts_++;
-            }
-            if(CardTarot.eq(carte_, CardTarot.petit())) {
-                presencePetit_ = true;
-            }
-        }
-        return presencePetit_&&nombreAtouts_==1;
-    }
     public int tailleRois() {
         int taille_=0;
         for(CardTarot c:cards) {
@@ -434,10 +414,8 @@ public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTaro
         Suit couleur_=premiereCarte().couleur();
         boolean ajouterVec_ = true;
         if(couleur_ == CardTarot.excuse().couleur()) {
-            if(contient(CardTarot.excuse())) {
-                suites_.add(new HandTarot());
-                suites_.last().ajouter(CardTarot.excuse());
-            }
+            suites_.add(new HandTarot());
+            suites_.last().ajouter(CardTarot.excuse());
         }else if(couleur_ == Suit.TRUMP) {
             for(CardTarot carte_:atoutsSansExcuse()) {
                 if(_cartesJouees.getVal(couleur_).contient(carte_)) {

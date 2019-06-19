@@ -138,23 +138,11 @@ public final class TrickTarot implements Iterable<CardTarot> {
         }
         return joueurs_;
     }
-    Numbers<Byte> joueursAyantJoueAvant(byte _pnumero, byte _nombreDeJoueurs, DealingTarot _d) {
-        Numbers<Byte> joueurs_=new Numbers<Byte>();
-        for(byte j : _d.getSortedPlayers(starter)) {
-            if(!aJoue(j, _nombreDeJoueurs)) {
-                continue;
-            }
-            if(j == _pnumero) {
-                break;
-            }
-            joueurs_.add(j);
-        }
-        return joueurs_;
-    }
+
     Numbers<Byte> joueursAyantJoueApres(byte _pnumero, DealingTarot _d) {
         byte nombreDeJoueurs_ = (byte) total();
         Numbers<Byte> all_ = GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_);
-        Numbers<Byte> before_ = joueursAyantJoueAvant(_pnumero, nombreDeJoueurs_, _d);
+        Numbers<Byte> before_ = joueursAyantJoueAvant(_pnumero, _d);
         all_.removeAllElements(before_);
         all_.removeAllLong(_pnumero);
         return all_;
@@ -247,9 +235,6 @@ public final class TrickTarot implements Iterable<CardTarot> {
     Numbers<Byte> joueursDefausses(byte _nbPlayers) {
         Numbers<Byte> coupes_=new Numbers<Byte>();
         Suit couleur_;
-        if(total()<2) {
-            return coupes_;
-        }
         couleur_=couleurDemandee();
         if(couleur_==Suit.TRUMP) {
             for(CardTarot c: cards) {
@@ -266,13 +251,7 @@ public final class TrickTarot implements Iterable<CardTarot> {
         }
         return coupes_;
     }
-    byte pointsPliTarot() {
-        byte nombrePoints_=0;
-        for(CardTarot carte_:cards) {
-            nombrePoints_+=carte_.points();
-        }
-        return (byte) (nombrePoints_/2);
-    }
+
     /**Retourne vrai si et seulement si la carte est jouee dans ce pli*/
     boolean contient(CardTarot _c) {
         return cards.contient(_c);

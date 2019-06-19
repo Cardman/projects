@@ -1,13 +1,11 @@
 package cards.tarot.beans;
 import cards.tarot.RulesTarot;
-import cards.tarot.comparators.AllowedHandfulDefaultComparator;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.TreeMap;
 
 public final class RulesTarotBean extends TarotBean {
 
@@ -42,19 +40,13 @@ public final class RulesTarotBean extends TarotBean {
         }
         mode = toString(rules_.getMode(),lg_);
         repartition = toString(rules_.getRepartition(),lg_);
-        int nbCardsPerPlayer_ = rules_.getRepartition().getNombreCartesParJoueur();
-        TreeMap<Handfuls,Integer> tr_;
-        tr_ = new TreeMap<Handfuls,Integer>(new AllowedHandfulDefaultComparator(nbCardsPerPlayer_));
-        for (EntryCust<Handfuls,Integer> e: rules_.getPoigneesAutorisees().entryList()) {
-            tr_.put(e.getKey(), e.getValue());
-        }
         StringMap<Integer> str_ = new StringMap<Integer>();
-        for (EntryCust<Handfuls,Integer> e: tr_.entryList()) {
+        for (EntryCust<Handfuls,Integer> e: rules_.getPoigneesAutorisees().entryList()) {
             Handfuls h_ = e.getKey();
             str_.addEntry(toString(h_,lg_), e.getValue());
         }
         poigneesAutorisees = str_;
-        finPartieTarot = toString(rules_.getFinPartieTarot(),lg_);
+        finPartieTarot = toString(rules_.getEndDealTarot(),lg_);
         discardAfterCall = rules_.getDiscardAfterCall();
     }
 

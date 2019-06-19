@@ -951,7 +951,7 @@ public final class GameTarot {
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
         GameTarotDeclaring g_ = new GameTarotDeclaring(doneTrickInfo_,teamsRelation_,
                 mainJoueur_,declaresHandfuls);
-        return g_.strategiePoignee(_numeroJoueur);
+        return g_.strategiePoignee();
     }
 
     public void ajouterAnnoncesPoignees(byte _b, EnumList<Handfuls> _ann) {

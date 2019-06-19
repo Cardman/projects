@@ -281,7 +281,7 @@ public final class EndTarotGame {
                 scorePreneurPlis_++;
             }
         } else if (scorePreneurPlis_ + 1 == _scoreNecessairePreneur) {
-            if (relations.getRules().getFinPartieTarot() == EndDealTarot.ATTACK_WIN) {
+            if (relations.getRules().getEndDealTarot() == EndDealTarot.ATTACK_WIN) {
                 if (_scorePreneurPlisDouble % 2 == 1) {
                     scorePreneurPlis_++;
                 }
@@ -309,10 +309,10 @@ public final class EndTarotGame {
         }
         if (_differenceScorePreneur == -1
                 && _scorePreneurPlisDouble % 2 == 1) {
-            if (relations.getRules().getFinPartieTarot() == EndDealTarot.ATTACK_LOOSE) {
+            if (relations.getRules().getEndDealTarot() == EndDealTarot.ATTACK_LOOSE) {
                 return -PTS_BASE;
             }
-            if (relations.getRules().getFinPartieTarot() == EndDealTarot.ZERO) {
+            if (relations.getRules().getEndDealTarot() == EndDealTarot.ZERO) {
                 return 0;
             }
             return PTS_BASE;

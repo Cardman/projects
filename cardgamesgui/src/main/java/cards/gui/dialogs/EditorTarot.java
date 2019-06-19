@@ -151,7 +151,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     @Override
     public void validateRulesDeal(MainWindow _parent) {
         validateRules();
-        getReglesTarot().setNombreParties((Integer)getNbGames().getValue());
+        getReglesTarot().setNbDeals((Integer)getNbGames().getValue());
         distribuer(_parent);
     }
     private void distribuer(MainWindow _parent) {

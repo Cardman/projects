@@ -3,6 +3,7 @@ package cards.tarot;
 import cards.consts.Suit;
 import cards.tarot.enumerations.*;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EnumMap;
 
@@ -61,21 +62,22 @@ public final class GameTarotDeclaring {
         EnumMap<Suit,HandTarot> repartition_ = curHand.couleurs();
         int nombreAtoutsEx_ = GameTarotCommon.atoutsAvecExcuse(repartition_);
         EnumList<Handfuls> annoncesPossibles_ = new EnumList<Handfuls>();
-        for (Handfuls poignee_ : teamsRelation.getRules().getPoigneesAutorisees().getKeys()) {
-            if(nombreAtoutsEx_ < teamsRelation.getRules().getPoigneesAutorisees().getVal(poignee_)) {
+        for (EntryCust<Handfuls,Integer> e: teamsRelation.getRules().getPoigneesAutorisees().entryList()) {
+            if (nombreAtoutsEx_ < e.getValue()) {
                 continue;
             }
-            annoncesPossibles_.add(poignee_);
+            annoncesPossibles_.add(e.getKey());
         }
         return annoncesPossibles_;
 
     }
 
-    public HandTarot strategiePoignee(byte _numeroJoueur) {
+    public HandTarot strategiePoignee() {
+        byte next_ = doneTrickInfo.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
         EnumMap<Suit,HandTarot> repartition_ = curHand.couleurs();
         HandTarot atouts_ = GameTarotCommonPlaying.atoutsPoignee(repartition_);
         HandTarot poignee_ = new HandTarot();
-        for(Handfuls p: getAnnoncesPoignees(_numeroJoueur)) {
+        for(Handfuls p: getAnnoncesPoignees(next_)) {
             int max_ = teamsRelation.getRules().getPoigneesAutorisees().getVal(p);
             byte trumpIndex_ = CustList.FIRST_INDEX;
             if(atouts_.total() == max_) {
