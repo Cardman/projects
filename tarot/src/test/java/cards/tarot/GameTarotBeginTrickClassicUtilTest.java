@@ -2080,7 +2080,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_20);
         curHand_.ajouter(CardTarot.TRUMP_15);
         curHand_.ajouter(CardTarot.TRUMP_12);
-        curHand_.ajouter(CardTarot.CLUB_KING);
+        curHand_.ajouter(CardTarot.CLUB_QUEEN);
         curHand_.ajouter(CardTarot.CLUB_5);
         curHand_.ajouter(CardTarot.CLUB_1);
         curHand_.ajouter(CardTarot.TRUMP_11);
@@ -2131,7 +2131,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_20);
         curHand_.ajouter(CardTarot.TRUMP_15);
         curHand_.ajouter(CardTarot.TRUMP_12);
-        curHand_.ajouter(CardTarot.CLUB_KING);
+        curHand_.ajouter(CardTarot.CLUB_QUEEN);
         curHand_.ajouter(CardTarot.CLUB_5);
         curHand_.ajouter(CardTarot.CLUB_1);
         curHand_.ajouter(CardTarot.TRUMP_11);
@@ -2182,7 +2182,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_20);
         curHand_.ajouter(CardTarot.TRUMP_15);
         curHand_.ajouter(CardTarot.TRUMP_12);
-        curHand_.ajouter(CardTarot.CLUB_KING);
+        curHand_.ajouter(CardTarot.CLUB_QUEEN);
         curHand_.ajouter(CardTarot.CLUB_5);
         curHand_.ajouter(CardTarot.CLUB_1);
         curHand_.ajouter(CardTarot.TRUMP_11);

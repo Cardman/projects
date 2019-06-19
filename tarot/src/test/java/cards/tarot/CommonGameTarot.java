@@ -141,6 +141,22 @@ public abstract class CommonGameTarot {
             hPl_.ajouterCartes(t.getCartes());
         }
         hPl_.ajouterCartes(_currentHand);
+        if (_currentHand.contientCartes(_calledCards)) {
+            _g.getAppele().add(_g.getPliEnCours().getNextPlayer((byte) nbPl_));
+            _g.getAppele().removeDuplicates();
+        }
+        if (_g.getAppele().size() > 1) {
+            fail("too much");
+        }
+        if (!hPl_.contientCartes(_calledCards)) {
+            for (int i =0;i<nbPl_;i++) {
+                if (!_g.getAppele().containsObj(i)) {
+                    for (EntryCust<Suit,EqList<HandTarot>> h: cartesPossibles_.entryList()) {
+                        h.getValue().get(i).supprimerCartes(_calledCards);
+                    }
+                }
+            }
+        }
         HandTarot hPlCh_ = new HandTarot();
         for (CardTarot c: hPl_) {
             if (hPlCh_.contient(c)) {
@@ -257,6 +273,22 @@ public abstract class CommonGameTarot {
             hPl_.ajouterCartes(t.getCartes());
         }
         hPl_.ajouterCartes(_currentHand);
+        if (_currentHand.contientCartes(_calledCards)) {
+            _g.getAppele().add(_g.getPliEnCours().getNextPlayer((byte) nbPl_));
+            _g.getAppele().removeDuplicates();
+        }
+        if (_g.getAppele().size() > 1) {
+            fail("too much");
+        }
+        if (!hPl_.contientCartes(_calledCards)) {
+            for (int i =0;i<nbPl_;i++) {
+                if (!_g.getAppele().containsObj(i)) {
+                    for (EntryCust<Suit,EqList<HandTarot>> h: cartesPossibles_.entryList()) {
+                        h.getValue().get(i).supprimerCartes(_calledCards);
+                    }
+                }
+            }
+        }
         HandTarot hPlCh_ = new HandTarot();
         for (CardTarot c: hPl_) {
             if (hPlCh_.contient(c)) {
@@ -380,6 +412,22 @@ public abstract class CommonGameTarot {
             hPl_.ajouterCartes(t.getCartes());
         }
         hPl_.ajouterCartes(_currentHand);
+        if (_currentHand.contientCartes(_g.getCalledCards())) {
+            _g.getAppele().add(_g.getPliEnCours().getNextPlayer((byte) nbPl_));
+            _g.getAppele().removeDuplicates();
+        }
+        if (_g.getAppele().size() > 1) {
+            fail("too much");
+        }
+        if (!hPl_.contientCartes(_g.getCalledCards())) {
+            for (int i =0;i<nbPl_;i++) {
+                if (!_g.getAppele().containsObj(i)) {
+                    for (EntryCust<Suit,EqList<HandTarot>> h: cartesPossibles_.entryList()) {
+                        h.getValue().get(i).supprimerCartes(_g.getCalledCards());
+                    }
+                }
+            }
+        }
         HandTarot hPlCh_ = new HandTarot();
         for (CardTarot c: hPl_) {
             if (hPlCh_.contient(c)) {

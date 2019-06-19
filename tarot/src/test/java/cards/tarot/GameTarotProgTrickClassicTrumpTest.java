@@ -1761,7 +1761,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_12);
         curHand_.ajouter(CardTarot.TRUMP_5);
         curHand_.ajouter(CardTarot.TRUMP_9);
-        curHand_.ajouter(CardTarot.CLUB_KING);
+        curHand_.ajouter(CardTarot.CLUB_QUEEN);
         curHand_.ajouter(CardTarot.CLUB_1);
         curHand_.ajouter(CardTarot.TRUMP_4);
         curHand_.ajouter(CardTarot.TRUMP_8);
