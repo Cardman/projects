@@ -294,6 +294,7 @@ final class GameTarotTrickHypothesis {
         if (st_ == Status.DEFENDER) {
             joueursNonConfiancePresqueSure_.add(_teamReal.getTaker());
         }
+        joueursNonConfiancePresqueSure_.removeObj(_numero);
         joueursNonConfiancePresqueSure_.removeDuplicates();
         Numbers<Byte> allConf_ = new Numbers<Byte>();
         allConf_.addAllElts(possibleAlly_);

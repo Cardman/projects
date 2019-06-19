@@ -50,7 +50,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 4, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.TRUMP_18);
@@ -65,6 +64,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -117,7 +117,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 1, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.TRUMP_18);
@@ -132,6 +131,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -184,7 +184,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 3, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.TRUMP_18);
@@ -199,6 +198,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -251,7 +251,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 1, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.TRUMP_18);
@@ -266,6 +265,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -318,7 +318,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 4, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.TRUMP_18);
@@ -333,6 +332,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -395,7 +395,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_6);
         curHand_.ajouter(CardTarot.HEART_9);
@@ -409,6 +408,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_JACK);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -464,7 +464,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_6);
         curHand_.ajouter(CardTarot.HEART_9);
@@ -479,6 +478,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_JACK);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -541,7 +541,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_6);
         curHand_.ajouter(CardTarot.HEART_9);
@@ -555,6 +554,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_JACK);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -614,7 +614,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_9);
         curHand_.ajouter(CardTarot.TRUMP_18);
@@ -628,6 +627,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.HEART_KING);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -687,7 +687,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_9);
         curHand_.ajouter(CardTarot.TRUMP_18);
@@ -701,6 +700,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.HEART_KING);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -753,7 +753,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_6);
         curHand_.ajouter(CardTarot.HEART_9);
@@ -768,6 +767,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -820,7 +820,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_6);
         curHand_.ajouter(CardTarot.HEART_9);
@@ -835,6 +834,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -887,7 +887,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_6);
         curHand_.ajouter(CardTarot.HEART_9);
@@ -902,6 +901,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -954,10 +954,9 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
-        curHand_.ajouter(CardTarot.HEART_6);
-        curHand_.ajouter(CardTarot.HEART_9);
+        curHand_.ajouter(CardTarot.HEART_KING);
+        curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.TRUMP_18);
         curHand_.ajouter(CardTarot.TRUMP_17);
         curHand_.ajouter(CardTarot.TRUMP_11);
@@ -967,8 +966,9 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.DIAMOND_9);
         curHand_.ajouter(CardTarot.CLUB_KNIGHT);
         curHand_.ajouter(CardTarot.CLUB_10);
-        curHand_.ajouter(CardTarot.HEART_8);
+        curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.SPADE_2);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -1021,10 +1021,9 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
-        curHand_.ajouter(CardTarot.HEART_6);
-        curHand_.ajouter(CardTarot.HEART_9);
+        curHand_.ajouter(CardTarot.HEART_KING);
+        curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.TRUMP_18);
         curHand_.ajouter(CardTarot.TRUMP_17);
         curHand_.ajouter(CardTarot.TRUMP_11);
@@ -1036,6 +1035,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -1088,9 +1088,8 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
-        curHand_.ajouter(CardTarot.HEART_6);
+        curHand_.ajouter(CardTarot.HEART_KING);
         curHand_.ajouter(CardTarot.HEART_9);
         curHand_.ajouter(CardTarot.TRUMP_18);
         curHand_.ajouter(CardTarot.TRUMP_17);
@@ -1103,6 +1102,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -1155,9 +1155,8 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
-        curHand_.ajouter(CardTarot.HEART_6);
+        curHand_.ajouter(CardTarot.HEART_KING);
         curHand_.ajouter(CardTarot.HEART_9);
         curHand_.ajouter(CardTarot.TRUMP_18);
         curHand_.ajouter(CardTarot.TRUMP_17);
@@ -1170,6 +1169,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -1222,9 +1222,8 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
-        curHand_.ajouter(CardTarot.HEART_6);
+        curHand_.ajouter(CardTarot.HEART_KING);
         curHand_.ajouter(CardTarot.HEART_9);
         curHand_.ajouter(CardTarot.TRUMP_18);
         curHand_.ajouter(CardTarot.TRUMP_17);
@@ -1237,6 +1236,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -1296,9 +1296,8 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
-        curHand_.ajouter(CardTarot.HEART_6);
+        curHand_.ajouter(CardTarot.HEART_KING);
         curHand_.ajouter(CardTarot.HEART_9);
         curHand_.ajouter(CardTarot.TRUMP_17);
         curHand_.ajouter(CardTarot.TRUMP_11);
@@ -1310,6 +1309,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -1369,9 +1369,8 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
-        curHand_.ajouter(CardTarot.HEART_6);
+        curHand_.ajouter(CardTarot.HEART_KING);
         curHand_.ajouter(CardTarot.HEART_9);
         curHand_.ajouter(CardTarot.TRUMP_17);
         curHand_.ajouter(CardTarot.TRUMP_11);
@@ -1383,6 +1382,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -1442,9 +1442,8 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
-        curHand_.ajouter(CardTarot.HEART_6);
+        curHand_.ajouter(CardTarot.HEART_KING);
         curHand_.ajouter(CardTarot.HEART_9);
         curHand_.ajouter(CardTarot.TRUMP_17);
         curHand_.ajouter(CardTarot.TRUMP_11);
@@ -1456,6 +1455,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -1508,7 +1508,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_6);
         curHand_.ajouter(CardTarot.HEART_9);
@@ -1523,6 +1522,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -1575,7 +1575,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_6);
         curHand_.ajouter(CardTarot.HEART_9);
@@ -1590,6 +1589,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -1642,7 +1642,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_6);
         curHand_.ajouter(CardTarot.HEART_9);
@@ -1657,6 +1656,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -1716,7 +1716,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_6);
         curHand_.ajouter(CardTarot.HEART_9);
@@ -1730,6 +1729,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_KNIGHT);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -1748,9 +1748,9 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
     @Test
     public void hypothesesRepartitionsJoueurs26Test() {
         HandTarot last_ = new HandTarot();
-        last_.ajouter(CardTarot.HEART_KING);
-        last_.ajouter(CardTarot.HEART_8);
-        last_.ajouter(CardTarot.DIAMOND_KNIGHT);
+        last_.ajouter(CardTarot.SPADE_10);
+        last_.ajouter(CardTarot.SPADE_4);
+        last_.ajouter(CardTarot.SPADE_1);
         RulesTarot r_ = new RulesTarot();
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
         EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
@@ -1765,11 +1765,18 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
         t_ = new TrickTarot(r_.getDealing().getNextPlayer(2),true);
-        t_.ajouter(CardTarot.HEART_1);
-        t_.ajouter(CardTarot.HEART_2);
-        t_.ajouter(CardTarot.HEART_KING);
-        t_.ajouter(CardTarot.HEART_3);
-        t_.ajouter(CardTarot.HEART_4);
+        t_.ajouter(CardTarot.TRUMP_2);
+        t_.ajouter(CardTarot.TRUMP_3);
+        t_.ajouter(CardTarot.TRUMP_21);
+        t_.ajouter(CardTarot.TRUMP_4);
+        t_.ajouter(CardTarot.TRUMP_5);
+        trs_.add(t_);
+        t_ = new TrickTarot(t_.getRamasseur(),true);
+        t_.ajouter(CardTarot.TRUMP_20);
+        t_.ajouter(CardTarot.TRUMP_10);
+        t_.ajouter(CardTarot.TRUMP_6);
+        t_.ajouter(CardTarot.TRUMP_1);
+        t_.ajouter(CardTarot.SPADE_8);
         trs_.add(t_);
         t_ = new TrickTarot(t_.getRamasseur(),true);
         t_.ajouter(CardTarot.CLUB_10);
@@ -1782,21 +1789,20 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
-        curHand_.ajouter(CardTarot.HEART_6);
-        curHand_.ajouter(CardTarot.HEART_9);
-        curHand_.ajouter(CardTarot.TRUMP_21);
+        curHand_.ajouter(CardTarot.TRUMP_19);
+        curHand_.ajouter(CardTarot.TRUMP_16);
         curHand_.ajouter(CardTarot.TRUMP_18);
         curHand_.ajouter(CardTarot.TRUMP_17);
-        curHand_.ajouter(CardTarot.TRUMP_2);
-        curHand_.ajouter(CardTarot.DIAMOND_KNIGHT);
-        curHand_.ajouter(CardTarot.DIAMOND_10);
-        curHand_.ajouter(CardTarot.DIAMOND_JACK);
-        curHand_.ajouter(CardTarot.DIAMOND_9);
-        curHand_.ajouter(CardTarot.CLUB_KNIGHT);
-        curHand_.ajouter(CardTarot.HEART_8);
-        curHand_.ajouter(CardTarot.SPADE_2);
+        curHand_.ajouter(CardTarot.TRUMP_11);
+        curHand_.ajouter(CardTarot.TRUMP_14);
+        curHand_.ajouter(CardTarot.TRUMP_15);
+        curHand_.ajouter(CardTarot.TRUMP_13);
+        curHand_.ajouter(CardTarot.TRUMP_7);
+        curHand_.ajouter(CardTarot.TRUMP_12);
+        curHand_.ajouter(CardTarot.TRUMP_8);
+        curHand_.ajouter(CardTarot.TRUMP_9);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -1845,7 +1851,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_6);
         curHand_.ajouter(CardTarot.HEART_9);
@@ -1861,6 +1866,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_6);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.SPADE_2);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -1910,7 +1916,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_6);
         curHand_.ajouter(CardTarot.HEART_9);
@@ -1926,6 +1931,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_6);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.SPADE_2);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -1975,7 +1981,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 0, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_6);
         curHand_.ajouter(CardTarot.HEART_9);
@@ -1991,6 +1996,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_6);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.SPADE_2);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -2040,7 +2046,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_6);
         curHand_.ajouter(CardTarot.HEART_9);
@@ -2056,6 +2061,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_6);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.SPADE_2);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -2108,7 +2114,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_6);
         curHand_.ajouter(CardTarot.HEART_9);
@@ -2123,6 +2128,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.SPADE_2);
         curHand_.ajouter(CardTarot.SPADE_3);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -2175,9 +2181,8 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
-        curHand_.ajouter(CardTarot.HEART_6);
+        curHand_.ajouter(CardTarot.HEART_KING);
         curHand_.ajouter(CardTarot.HEART_9);
         curHand_.ajouter(CardTarot.TRUMP_18);
         curHand_.ajouter(CardTarot.TRUMP_17);
@@ -2190,6 +2195,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
         curHand_.ajouter(CardTarot.SPADE_3);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -2242,7 +2248,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_6);
         curHand_.ajouter(CardTarot.HEART_9);
@@ -2257,6 +2262,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.SPADE_2);
         curHand_.ajouter(CardTarot.SPADE_3);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -2309,7 +2315,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 0, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_6);
         curHand_.ajouter(CardTarot.HEART_9);
@@ -2324,6 +2329,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.SPADE_2);
         curHand_.ajouter(CardTarot.SPADE_3);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -2376,7 +2382,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 2, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_6);
         curHand_.ajouter(CardTarot.HEART_9);
@@ -2391,6 +2396,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.SPADE_2);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -2443,7 +2449,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 1, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.TRUMP_18);
@@ -2458,6 +2463,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -2510,7 +2516,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 1, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.TRUMP_18);
@@ -2525,6 +2530,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);
@@ -2579,7 +2585,6 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 1, last_);
-        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         HandTarot curHand_ = new HandTarot();
         curHand_.ajouter(CardTarot.HEART_8);
         curHand_.ajouter(CardTarot.CLUB_7);
@@ -2594,6 +2599,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
+        GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         byte next_ = pr_.getNextPlayer(g_.getNombreDeJoueurs());
         EnumMap<Suit, EqList<HandTarot>> poss_ = info_.cartesPossibles(curHand_);

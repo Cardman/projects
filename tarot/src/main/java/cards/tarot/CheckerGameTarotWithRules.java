@@ -2,6 +2,7 @@ package cards.tarot;
 
 import cards.consts.Suit;
 import cards.tarot.enumerations.*;
+import code.util.BooleanList;
 import code.util.CustList;
 import code.util.Numbers;
 
@@ -37,6 +38,28 @@ public final class CheckerGameTarotWithRules {
         RulesTarot rules_ = _loadedGame.getRegles();
         if (!rules_.isValidRules()) {
             _loadedGame.setError(INVALID_RULES);
+            return;
+        }
+        if (_loadedGame.getDeclaresMiseres().size() != _loadedGame.getNombreDeJoueurs()) {
+            _loadedGame.setError(BAD_COUNT_FOR_DEAL);
+            return;
+        }
+        if (_loadedGame.getConfidence().size() != _loadedGame.getNombreDeJoueurs()) {
+            _loadedGame.setError(BAD_COUNT_FOR_DEAL);
+            return;
+        }
+        for (BooleanList b: _loadedGame.getConfidence()) {
+            if (b.size() != _loadedGame.getNombreDeJoueurs()) {
+                _loadedGame.setError(BAD_COUNT_FOR_DEAL);
+                return;
+            }
+        }
+        if (_loadedGame.getDeclaresHandfuls().size() != _loadedGame.getNombreDeJoueurs()) {
+            _loadedGame.setError(BAD_COUNT_FOR_DEAL);
+            return;
+        }
+        if (_loadedGame.getHandfuls().size() != _loadedGame.getNombreDeJoueurs()) {
+            _loadedGame.setError(BAD_COUNT_FOR_DEAL);
             return;
         }
         _loadedGame.loadGame();

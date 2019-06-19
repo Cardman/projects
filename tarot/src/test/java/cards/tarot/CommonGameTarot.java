@@ -316,15 +316,6 @@ public abstract class CommonGameTarot {
         }
         return new GameTarotBeginTrickClassic(_done,_teamsRelation,_calledCards,_currentHand);
     }
-    protected static GameTarotProgTrickClassic newGameTarotProgTrickClassic(GameTarotTrickInfo _done, GameTarotTeamsRelation _teamsRelation,
-                                                                            HandTarot _calledCards, HandTarot _currentHand) {
-        return new GameTarotProgTrickClassic(_done,_teamsRelation,_calledCards,_currentHand);
-    }
-
-    protected static GameTarotBeginTrickClassic newGameTarotBeginTrickClassic(GameTarotTrickInfo _done, GameTarotTeamsRelation _teamsRelation,
-                                                                            HandTarot _calledCards, HandTarot _currentHand) {
-        return new GameTarotBeginTrickClassic(_done,_teamsRelation,_calledCards,_currentHand);
-    }
     protected static void faireConfiance(GameTarot _g, byte _p) {
         byte n_ = _g.getProgressingTrick().getNextPlayer(_g.getNombreDeJoueurs());
         _g.getTeamsRelation().faireConfiance(n_, _p);
@@ -341,6 +332,110 @@ public abstract class CommonGameTarot {
             player_ = _g.getRepartition().getNextPlayer(player_);
         }
         return taker_;
+    }
+    protected static GameTarotTrickInfo newGameTarotTrickInfo(GameTarot _g, HandTarot _currentHand) {
+        Numbers<Integer> handLengths_ = new Numbers<Integer>();
+        int nombreCartesParJoueur_ = _g.getRegles().getRepartition().getNombreCartesParJoueur();
+        int nbPl_ = _g.getRegles().getRepartition().getNombreJoueurs();
+        for (int i = 0; i < nbPl_; i++) {
+            handLengths_.add(nombreCartesParJoueur_);
+        }
+        handLengths_.add(_g.getRegles().getRepartition().getNombreCartesChien());
+        int nbTr_ = _g.getTricks().size() - 1;
+        for (int i = 0; i < nbPl_; i++) {
+            handLengths_.set(i,handLengths_.get(i)-nbTr_);
+        }
+        for (int i: _g.getProgressingTrick().joueursAyantJoue((byte) nbPl_)) {
+            handLengths_.set(i, handLengths_.get(i)-1);
+        }
+        GameTarotTrickInfo gameTarotTrickInfo_ = new GameTarotTrickInfo(_g.getProgressingTrick(), _g.getTricks(),
+                _g.getDeclaresMiseres(),
+                _g.getHandfuls(), _g.getContrat(), _g.getCalledCards(),
+                handLengths_);
+        gameTarotTrickInfo_.addSeenDeck(_g.derniereMain(),_g.getTeamsRelation());
+        EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = new EnumMap<Suit,EqList<HandTarot>>();
+        EqList<HandTarot> possibleExcuse_ = gameTarotTrickInfo_.excusePossibleRegles(_currentHand);
+        cartesPossibles_.put(CardTarot.EXCUSE.couleur(), possibleExcuse_);
+        cartesPossibles_.put(Suit.TRUMP,gameTarotTrickInfo_.atoutsPossiblesRegles(
+                _currentHand));
+        for (Suit couleur_ : Suit.couleursOrdinaires()) {
+            // On fait une boucle sur les
+            // couleurs autres que l'atout
+            cartesPossibles_.put(couleur_,gameTarotTrickInfo_.cartesPossiblesRegles(couleur_,
+                    _currentHand));
+        }
+        for (int i =0;i<nbPl_;i++) {
+            for (EntryCust<Suit,EqList<HandTarot>> h: cartesPossibles_.entryList()) {
+                h.getValue().get(i).supprimerCartes(_g.getTricks().first().getCartes());
+            }
+        }
+        if (handLengths_.get(_g.getPliEnCours().getNextPlayer((byte) nbPl_)) != _currentHand.total()) {
+            fail(StringList.concat("Error len",Integer.toString(handLengths_.get(_g.getPliEnCours().getNextPlayer((byte) nbPl_))),",",Integer.toString(_currentHand.total())));
+        }
+        CustList<TrickTarot> allTr_ = new CustList<TrickTarot>();
+        allTr_.addAllElts(_g.getTricks());
+        allTr_.add(_g.getPliEnCours());
+        HandTarot hPl_ = new HandTarot();
+        for (TrickTarot t: allTr_) {
+            hPl_.ajouterCartes(t.getCartes());
+        }
+        hPl_.ajouterCartes(_currentHand);
+        HandTarot hPlCh_ = new HandTarot();
+        for (CardTarot c: hPl_) {
+            if (hPlCh_.contient(c)) {
+                fail(StringList.concat("found ",c.name()));
+            }
+            hPlCh_.ajouter(c);
+        }
+        EnumMap<Hypothesis,EnumMap<Suit,EqList<HandTarot>>> hypotheses_ = gameTarotTrickInfo_.cartesCertaines(cartesPossibles_);
+        cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
+        EnumMap<Suit,EqList<HandTarot>> cartesCertaines_ = hypotheses_
+                .getVal(Hypothesis.SURE);
+        while (true) {
+            int det_ = det(cartesCertaines_, handLengths_);
+            if (det_ < 0) {
+                break;
+            }
+            HandTarot all_ = new HandTarot();
+            HandTarot del_ = new HandTarot();
+            for (EntryCust<Suit,EqList<HandTarot>> h: cartesPossibles_.entryList()) {
+                all_.ajouterCartes(h.getValue().get(det_));
+            }
+            HandTarot curFound_ = new HandTarot();
+            for (EntryCust<Suit,EqList<HandTarot>> h: cartesCertaines_.entryList()) {
+                curFound_.ajouterCartes(h.getValue().get(det_));
+            }
+            all_.supprimerCartes(curFound_);
+            int req_ = handLengths_.get(det_) - curFound_.total();
+            if (req_ >= all_.total()) {
+                fail("No enough");
+            }
+            for (int i = req_; i < all_.total(); i++) {
+                del_.ajouter(all_.carte(i));
+            }
+            for (EntryCust<Suit,EqList<HandTarot>> h: cartesPossibles_.entryList()) {
+                h.getValue().get(det_).supprimerCartes(del_);
+            }
+            hypotheses_ = gameTarotTrickInfo_.cartesCertaines(cartesPossibles_);
+            cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
+            cartesCertaines_ = hypotheses_
+                    .getVal(Hypothesis.SURE);
+        }
+        EqList<HandTarot> hands_ = new EqList<HandTarot>();
+        for (int i = 0; i < nbPl_; i++) {
+            HandTarot h_ = new HandTarot();
+            for (EntryCust<Suit,EqList<HandTarot>> h: cartesCertaines_.entryList()) {
+                h_.ajouterCartes(h.getValue().get(i));
+            }
+            hands_.add(h_);
+        }
+        hands_.add(_g.derniereMain());
+        _g.getDeal().setDeal(hands_);
+        CheckerGameTarotWithRules.check(_g);
+        if (!_g.getError().isEmpty()) {
+            fail("Error");
+        }
+        return gameTarotTrickInfo_;
     }
     protected static GameTarotTrickInfo newGameTarotTrickInfo(GameTarot _g) {
         Numbers<Integer> handLengths_ = new Numbers<Integer>();
