@@ -141,11 +141,14 @@ public abstract class CommonGameTarot {
             hPl_.ajouterCartes(t.getCartes());
         }
         hPl_.ajouterCartes(_currentHand);
-        if (_currentHand.contientCartes(_calledCards)) {
+        if (_currentHand.contientCartes(_calledCards) && !_calledCards.estVide()) {
             _g.getAppele().add(_g.getPliEnCours().getNextPlayer((byte) nbPl_));
             _g.getAppele().removeDuplicates();
         }
         if (_g.getAppele().size() > 1) {
+            fail("too much");
+        }
+        if (_g.getAppele().size() > _g.getRegles().getDealing().getNbAppeles()) {
             fail("too much");
         }
         if (!hPl_.contientCartes(_calledCards)) {
@@ -273,11 +276,14 @@ public abstract class CommonGameTarot {
             hPl_.ajouterCartes(t.getCartes());
         }
         hPl_.ajouterCartes(_currentHand);
-        if (_currentHand.contientCartes(_calledCards)) {
+        if (_currentHand.contientCartes(_calledCards) && !_calledCards.estVide()) {
             _g.getAppele().add(_g.getPliEnCours().getNextPlayer((byte) nbPl_));
             _g.getAppele().removeDuplicates();
         }
         if (_g.getAppele().size() > 1) {
+            fail("too much");
+        }
+        if (_g.getAppele().size() > _g.getRegles().getDealing().getNbAppeles()) {
             fail("too much");
         }
         if (!hPl_.contientCartes(_calledCards)) {
@@ -412,11 +418,14 @@ public abstract class CommonGameTarot {
             hPl_.ajouterCartes(t.getCartes());
         }
         hPl_.ajouterCartes(_currentHand);
-        if (_currentHand.contientCartes(_g.getCalledCards())) {
+        if (_currentHand.contientCartes(_g.getCalledCards()) && !_g.getCalledCards().estVide()) {
             _g.getAppele().add(_g.getPliEnCours().getNextPlayer((byte) nbPl_));
             _g.getAppele().removeDuplicates();
         }
         if (_g.getAppele().size() > 1) {
+            fail("too much");
+        }
+        if (_g.getAppele().size() > _g.getRegles().getDealing().getNbAppeles()) {
             fail("too much");
         }
         if (!hPl_.contientCartes(_g.getCalledCards())) {
