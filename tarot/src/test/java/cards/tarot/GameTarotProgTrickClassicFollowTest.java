@@ -5115,7 +5115,8 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotProgTrickClassic gbt_ = new GameTarotProgTrickClassic(info_,team_,calledCards_,curHand_);
-        assertSame(CardTarot.HEART_5, gbt_.fournirCouleurOrdinaireClassique());
+        TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
+        assertSame(CardTarot.HEART_5, gbt_.fournirCouleurOrdinaireClassique(infoTr_));
     }
     @Test
     public void fournirCouleurOrdinaireClassique2Test() {
@@ -5242,7 +5243,8 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotProgTrickClassic gbt_ = new GameTarotProgTrickClassic(info_,team_,calledCards_,curHand_);
-        assertSame(CardTarot.DIAMOND_6, gbt_.fournirCouleurOrdinaireClassique());
+        TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
+        assertSame(CardTarot.DIAMOND_6, gbt_.fournirCouleurOrdinaireClassique(infoTr_));
     }
     @Test
     public void fournirCouleurOrdinaireClassique3Test() {
@@ -5301,6 +5303,7 @@ public final class GameTarotProgTrickClassicFollowTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotProgTrickClassic gbt_ = new GameTarotProgTrickClassic(info_,team_,calledCards_,curHand_);
-        assertSame(CardTarot.HEART_JACK, gbt_.fournirCouleurOrdinaireClassique());
+        TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
+        assertSame(CardTarot.HEART_JACK, gbt_.fournirCouleurOrdinaireClassique(infoTr_));
     }
 }

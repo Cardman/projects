@@ -3305,7 +3305,8 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotProgTrickClassic gbt_ = new GameTarotProgTrickClassic(info_,team_,calledCards_,curHand_);
-        assertSame(CardTarot.TRUMP_2, gbt_.coupeClassique());
+        TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
+        assertSame(CardTarot.TRUMP_2, gbt_.coupeClassique(infoTr_));
     }
     @Test
     public void coupeClassique2Test() {
@@ -3354,7 +3355,8 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotProgTrickClassic gbt_ = new GameTarotProgTrickClassic(info_,team_,calledCards_,curHand_);
-        assertSame(CardTarot.TRUMP_1, gbt_.coupeClassique());
+        TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
+        assertSame(CardTarot.TRUMP_1, gbt_.coupeClassique(infoTr_));
     }
     @Test
     public void coupeClassique3Test() {
@@ -3402,7 +3404,8 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotProgTrickClassic gbt_ = new GameTarotProgTrickClassic(info_,team_,calledCards_,curHand_);
-        assertSame(CardTarot.TRUMP_1, gbt_.coupeClassique());
+        TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
+        assertSame(CardTarot.TRUMP_1, gbt_.coupeClassique(infoTr_));
     }
     @Test
     public void coupeClassique4Test() {
@@ -3450,7 +3453,8 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotProgTrickClassic gbt_ = new GameTarotProgTrickClassic(info_,team_,calledCards_,curHand_);
-        assertSame(CardTarot.TRUMP_5, gbt_.coupeClassique());
+        TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
+        assertSame(CardTarot.TRUMP_5, gbt_.coupeClassique(infoTr_));
     }
     @Test
     public void coupeClassique5Test() {
@@ -3511,7 +3515,8 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotProgTrickClassic gbt_ = new GameTarotProgTrickClassic(info_,team_,calledCards_,curHand_);
-        assertSame(CardTarot.EXCUSE, gbt_.coupeClassique());
+        TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
+        assertSame(CardTarot.EXCUSE, gbt_.coupeClassique(infoTr_));
     }
     @Test
     public void coupeClassique6Test() {
@@ -3572,6 +3577,7 @@ public final class GameTarotProgTrickClassicTrumpTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
         GameTarotProgTrickClassic gbt_ = new GameTarotProgTrickClassic(info_,team_,calledCards_,curHand_);
-        assertSame(CardTarot.TRUMP_21, gbt_.coupeClassique());
+        TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
+        assertSame(CardTarot.TRUMP_21, gbt_.coupeClassique(infoTr_));
     }
 }

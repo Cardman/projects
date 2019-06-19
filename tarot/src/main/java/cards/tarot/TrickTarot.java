@@ -86,6 +86,13 @@ public final class TrickTarot implements Iterable<CardTarot> {
     public CardTarot carte(int _i) {
         return cards.carte(_i);
     }
+    public CardTarot premiereCarteNonExc() {
+        CardTarot first_ = premiereCarte();
+        if (first_ == CardTarot.EXCUSE) {
+            return carte(1);
+        }
+        return first_;
+    }
     public CardTarot premiereCarte() {
         return cards.premiereCarte();
     }
