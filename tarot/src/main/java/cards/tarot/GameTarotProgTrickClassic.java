@@ -20,7 +20,6 @@ public final class GameTarotProgTrickClassic {
     private Numbers<Byte> notConfidentPlayers;
     private Numbers<Byte> played;
     private Numbers<Byte> notPlayed;
-    private Numbers<Byte> confidentPlayersNotPlay;
     private Numbers<Byte> notConfidentPlayersNotPlay;
     private HandTarot playableCards;
     private HandTarot discarded = new HandTarot();
@@ -41,7 +40,6 @@ public final class GameTarotProgTrickClassic {
         currentStatus = _teamsRelation.statutDe(nextPlayer_);
         confidentPlayers = _teamsRelation.joueursConfiance(nextPlayer_,GameTarotTeamsRelation.tousJoueurs(nbPlayers_));
         notConfidentPlayers = _teamsRelation.joueursNonConfiance(nextPlayer_,GameTarotTeamsRelation.tousJoueurs(nbPlayers_));
-        confidentPlayersNotPlay = GameTarotTeamsRelation.intersectionJoueurs(confidentPlayers,notPlayed);
         notConfidentPlayersNotPlay = GameTarotTeamsRelation.intersectionJoueurs(notConfidentPlayers,notPlayed);
         boolean knownLastHand_ = !doneTrickInfo.getLastSeenHand().estVide();
         if (knownLastHand_ && teamsRelation.isVirtualTaker(nextPlayer_)) {
@@ -62,6 +60,11 @@ public final class GameTarotProgTrickClassic {
             return g_.entameClassique();
         }
         Suit couleurDemandee_ = doneTrickInfo.getProgressingTrick().couleurDemandee();
+        TarotInfoPliEnCours info_ = initInformations();
+        CardTarot card_ = tryPlayExcuseOrLead(info_,currentHand);
+        if (card_ != CardTarot.WHITE) {
+            return card_;
+        }
         EnumMap<Suit,HandTarot> repartitionJouables_ = playableCards.couleurs();
         if (Suit.couleursOrdinaires().containsObj(couleurDemandee_)) {
             if (!repartitionJouables_.getVal(couleurDemandee_).estVide()) {
@@ -91,9 +94,6 @@ public final class GameTarotProgTrickClassic {
 
     CardTarot followDefaultSuit(TarotInfoPliEnCours _info) {
         //incertitude
-        if (hasExcPlusCard(_info)) {
-            return CardTarot.excuse();
-        }
         CardTarot card_ = followNormalSuit(_info);
         if (card_ != CardTarot.WHITE) {
             return card_;
@@ -112,8 +112,8 @@ public final class GameTarotProgTrickClassic {
         return followAsDefender(_info);
     }
 
-    private boolean hasExcPlusCard(TarotInfoPliEnCours _info) {
-        return currentHand.total() == 2 && _info.isContientExcuse();
+    private static boolean hasExcPlusCard(HandTarot _current) {
+        return _current.total() == 2 && _current.contient(CardTarot.EXCUSE);
     }
 
     CardTarot followAsDefender(TarotInfoPliEnCours _info) {
@@ -197,7 +197,6 @@ public final class GameTarotProgTrickClassic {
     CardTarot followAsCalledPlayer(TarotInfoPliEnCours _info) {
         //fournir a la couleur demandee ordinaire
         CardTarot carteForte_ = doneTrickInfo.getProgressingTrick().carteDuJoueur(_info.getRamasseurVirtuel(), teamsRelation.getNombreDeJoueurs());
-        boolean contientExcuse_ = _info.isContientExcuse();
         Suit couleurDemandee_ = doneTrickInfo.getProgressingTrick().couleurDemandee();
         byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = _info.getRepartitionCartesJouees();
@@ -254,7 +253,7 @@ public final class GameTarotProgTrickClassic {
         Numbers<Byte> joueursSusceptiblesDeCouper_;
         joueursSusceptiblesDeCouper_ = GameTarotTrickHypothesis.joueursSusceptiblesCoupe(cartesPossibles_,couleurDemandee_,joueursNonJoue_);
         if (!joueursSusceptiblesDeCouper_.isEmpty()) {
-            return processWhenPossibleTrumps(contientExcuse_, suites_, joueursSusceptiblesDeCouper_, maitreJeu_);
+            return processWhenPossibleTrumps(suites_, joueursSusceptiblesDeCouper_, maitreJeu_);
         }
         /* Si la coupe semble improbable */
         if (discardAtSecondRound(tours_, dernieresDefausses_)) {
@@ -273,7 +272,6 @@ public final class GameTarotProgTrickClassic {
 
     CardTarot followAsTaker(TarotInfoPliEnCours _info) {
         CardTarot carteForte_ = doneTrickInfo.getProgressingTrick().carteDuJoueur(_info.getRamasseurVirtuel(), teamsRelation.getNombreDeJoueurs());
-        boolean contientExcuse_ = _info.isContientExcuse();
         Suit couleurDemandee_ = doneTrickInfo.getProgressingTrick().couleurDemandee();
         EnumMap<Suit,HandTarot> cartesMaitresses_ = _info.getCartesMaitresses();
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = _info.getRepartitionCartesJouees();
@@ -306,7 +304,7 @@ public final class GameTarotProgTrickClassic {
         joueursSusceptiblesDeCouper_ = GameTarotTrickHypothesis.joueursSusceptiblesCoupe(cartesPossibles_,couleurDemandee_,joueursNonJoue_);
         boolean maitreJeu_ = _info.isMaitreJeu();
         if (!joueursSusceptiblesDeCouper_.isEmpty()) {
-            return processWhenPossibleTrumps(contientExcuse_, suites_, joueursSusceptiblesDeCouper_, maitreJeu_);
+            return processWhenPossibleTrumps(suites_, joueursSusceptiblesDeCouper_, maitreJeu_);
         }
         if (joueurConfianceRamasseurProbaPli_) {
             return repartitionCouleDem_
@@ -359,10 +357,7 @@ public final class GameTarotProgTrickClassic {
         return tryLeadTrick(cartesMaitresses_, couleurDemandee_, repartitionCouleDem_, suites_, cartesRelMaitres_);
     }
 
-    private CardTarot processWhenPossibleTrumps(boolean _contientExcuse, EqList<HandTarot> _suites, Numbers<Byte> _joueursSusceptiblesDeCouper, boolean _maitreJeu) {
-        if (_maitreJeu && _contientExcuse) {
-            return CardTarot.excuse();
-        }
+    private CardTarot processWhenPossibleTrumps(EqList<HandTarot> _suites, Numbers<Byte> _joueursSusceptiblesDeCouper, boolean _maitreJeu) {
         if (!GameTarotTeamsRelation.intersectionJoueurs(notConfidentPlayers, _joueursSusceptiblesDeCouper).isEmpty()) {
             return carteLaPlusPetite(_suites);
         }
@@ -377,20 +372,13 @@ public final class GameTarotProgTrickClassic {
         HandTarot repartitionCouleDem_ = _info.getCartesJouables().couleurs().getVal(couleurDemandee_);
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = _info.getRepartitionCartesJouees();
         boolean maitreJeu_ = _info.isMaitreJeu();
-        boolean contientExcuse_ = _info.isContientExcuse();
         EqList<HandTarot> suites_ = repartitionCouleDem_
                 .eclaterEnCours(repartitionCartesJouees_, couleurDemandee_);
         if (maitreJeu_) {
-            if (contientExcuse_) {
-                return CardTarot.excuse();
-            }
             if (suites_.size() == 1) {
                 return repartitionCouleDem_.premiereCarte();
             }
             return weakestCard(suites_);
-        }
-        if (hasExcPlusCard(_info)) {
-            return playIfPartnersWin(_info);
         }
         /* couleur demandee non atout */
         if (repartitionCouleDem_.premiereCarte().isCharacter()) {
@@ -401,11 +389,6 @@ public final class GameTarotProgTrickClassic {
 
     CardTarot followNormalSuitFoe(TarotInfoPliEnCours _info) {
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = _info.getRepartitionCartesJouees();
-        boolean maitreJeu_ = _info.isMaitreJeu();
-        CardTarot card_ = tryPlayExcuse(maitreJeu_,currentHand);
-        if (card_ != CardTarot.WHITE) {
-            return card_;
-        }
         Suit couleurDemandee_ = doneTrickInfo.getProgressingTrick().couleurDemandee();
         HandTarot repartitionCouleDem_ = _info.getCartesJouables().couleurs().getVal(couleurDemandee_);
         EqList<HandTarot> suites_ = repartitionCouleDem_
@@ -601,9 +584,6 @@ public final class GameTarotProgTrickClassic {
 
     private CardTarot followTrumpDefault(TarotInfoPliEnCours _info) {
         //incertitude du ramasseur a la couleur demandee (founiture obligatoire de la couleur demandee)
-        if (hasExcPlusCard(_info)) {
-            return CardTarot.excuse();
-        }
         boolean maitreJeu_ = _info.isMaitreJeu();
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = _info.getRepartitionCartesJouees();
         EnumMap<Suit,HandTarot> repartitionJouables_ = playableCards.couleurs();
@@ -697,9 +677,6 @@ public final class GameTarotProgTrickClassic {
         boolean contientExcuse_ = _info.isContientExcuse();
         EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
-        if (hasExcPlusCard(_info)) {
-            return playIfPartnersWin(_info);
-        }
         /* couleur demandee atout */
         //jeu obligatoire d'atout
         repartitionCouleDem_ = repartitionJouables_.getVal(Suit.TRUMP);
@@ -717,15 +694,10 @@ public final class GameTarotProgTrickClassic {
     }
 
     private CardTarot followTrumpFoe(TarotInfoPliEnCours _info) {
-        boolean maitreJeu_ = _info.isMaitreJeu();
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = _info.getRepartitionCartesJouees();
         EnumMap<Suit,HandTarot> repartitionJouables_ = playableCards.couleurs();
         Suit couleurDemandee_ = doneTrickInfo.getProgressingTrick().couleurDemandee();
         boolean contientExcuse_ = _info.isContientExcuse();
-        CardTarot card_ = tryPlayExcuse(maitreJeu_,currentHand);
-        if (card_ != CardTarot.WHITE) {
-            return card_;
-        }
         /* La couleur demandee est atout */
         return atoutLePlusPetit(
                 repartitionJouables_.getVal(Suit.TRUMP).eclaterEnCours(
@@ -750,9 +722,6 @@ public final class GameTarotProgTrickClassic {
     CardTarot coupeClassique() {
 
         TarotInfoPliEnCours info_ = initInformations();
-        if (hasExcPlusCard(info_)) {
-            return CardTarot.excuse();
-        }
         PossibleTrickWinner ramasseurCertain_ = GameTarotTrickHypothesis.equipeQuiVaFairePli(info_);
         //jouer un atout en coupe, surcoupe ou souscoupe
         if (ramasseurCertain_ == PossibleTrickWinner.FOE_TEAM) {
@@ -814,7 +783,6 @@ public final class GameTarotProgTrickClassic {
         if (carteMaitresse_) {
             return CardTarot.petit();
         }
-        byte nextPlayer_ = doneTrickInfo.getProgressingTrick().getNextPlayer(nombreDeJoueurs_);
         if (nombreDeJoueurs_ < 5) {
             CustList<TrickTarot> tours_ = GameTarotCommonPlaying.tours(couleurDemandee_, _info.getPlisFaits());
             if (tours_.size() == 1) {
@@ -1178,10 +1146,6 @@ public final class GameTarotProgTrickClassic {
         TarotInfoPliEnCours info_ = initInformations();
         PossibleTrickWinner ramasseurCertain_ = GameTarotTrickHypothesis.equipeQuiVaFairePli(info_);
         //defausse sur une couleur ordinaire
-        CardTarot card_ = tryPlayExcuse(info_.isMaitreJeu(),currentHand);
-        if (card_ != CardTarot.WHITE) {
-            return card_;
-        }
         if (ramasseurCertain_ == PossibleTrickWinner.FOE_TEAM) {
             return discardOnFoe(info_);
         }
@@ -1266,10 +1230,6 @@ public final class GameTarotProgTrickClassic {
     CardTarot defausseAtoutClassique() {
         TarotInfoPliEnCours info_ = initInformations();
         //defausse sur l'atout
-        CardTarot card_ = tryPlayExcuse(info_.isMaitreJeu(),currentHand);
-        if (card_ != CardTarot.WHITE) {
-            return card_;
-        }
         PossibleTrickWinner ramasseurCertain_ = GameTarotTrickHypothesis.equipeQuiVaFairePli(info_);
         if (ramasseurCertain_ == PossibleTrickWinner.FOE_TEAM) {
             return discardOnFoe(info_);
@@ -1316,12 +1276,28 @@ public final class GameTarotProgTrickClassic {
         return common.initInformations(currentHand,playableCards, confidentPlayers,notConfidentPlayers);
     }
 
+    CardTarot tryPlayExcuseOrLead(TarotInfoPliEnCours _info, HandTarot _currentHand) {
+        if (hasExcPlusCard(_currentHand) && GameTarotTrickHypothesis.equipeQuiVaFairePli(_info) == PossibleTrickWinner.TEAM) {
+            HandTarot cartesJouables_ = _info.getCartesJouables();
+            CustList<TrickTarot> plisFaits_ = _info.getPlisFaits();
+            Numbers<Byte> equipeNumero_ = new Numbers<Byte>();
+            equipeNumero_.addAllElts(confidentPlayers);
+            equipeNumero_.add(_info.getCurrentPlayer());
+            if (equipeNumero_.containsAllObj(GameTarotCommonPlaying.ramasseurs(plisFaits_))) {
+                HandTarot noExc_ = new HandTarot();
+                noExc_.ajouterCartes(cartesJouables_);
+                noExc_.removeCardIfPresent(CardTarot.EXCUSE);
+                return noExc_.premiereCarte();
+            }
+        }
+        return tryPlayExcuse(_info.isMaitreJeu(),_currentHand);
+    }
     static CardTarot tryPlayExcuse(boolean _leadGame, HandTarot _currentHand) {
         boolean contExc_ = _currentHand.contient(CardTarot.EXCUSE);
         if (_leadGame && contExc_) {
             return CardTarot.EXCUSE;
         }
-        if (_currentHand.total() == 2 && contExc_) {
+        if (hasExcPlusCard(_currentHand)) {
             return CardTarot.EXCUSE;
         }
         return CardTarot.WHITE;
