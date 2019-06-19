@@ -12,6 +12,11 @@ import code.util.Numbers;
 
 public class TrickTarotTest {
     @Test
+    public void new_PliTarot_Test(){
+        TrickTarot pli_ = new TrickTarot();
+        assertTrue(pli_.estVide());
+    }
+    @Test
     public void new_PliTarot_byte_Boolean_1Test(){
         TrickTarot pli_ = new TrickTarot((byte) 0,true);
         assertTrue(pli_.estVide());

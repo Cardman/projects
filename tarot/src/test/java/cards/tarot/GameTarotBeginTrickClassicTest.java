@@ -65,7 +65,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.TRUMP_21,gbt_.playWithStrongestHand(infoTr_));
     }
@@ -123,7 +123,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.TRUMP_21,gbt_.playWithStrongestHand(infoTr_));
     }
@@ -181,7 +181,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 0, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.TRUMP_21,gbt_.playWithStrongestHand(infoTr_));
     }
@@ -245,7 +245,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 0, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.EXCUSE,gbt_.playWithStrongestHand(infoTr_));
     }
@@ -305,7 +305,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.EXCUSE,gbt_.playWithStrongestHand(infoTr_));
     }
@@ -369,7 +369,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.TRUMP_21,gbt_.playWithStrongestHand(infoTr_));
     }
@@ -433,7 +433,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.EXCUSE,gbt_.playWithStrongestHand(infoTr_));
     }
@@ -497,7 +497,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 3, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.EXCUSE,gbt_.playWithStrongestHand(infoTr_));
     }
@@ -555,7 +555,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 3, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.EXCUSE,gbt_.playWithStrongestHand(infoTr_));
     }
@@ -613,7 +613,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 3, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.TRUMP_19,gbt_.playWithStrongestHand(infoTr_));
     }
@@ -671,7 +671,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 3, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.TRUMP_19,gbt_.playWithStrongestHand(infoTr_));
     }
@@ -729,7 +729,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 3, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.EXCUSE,gbt_.playWithStrongestHand(infoTr_));
     }
@@ -788,7 +788,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         faireConfiance(g_,(byte) 4);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.TRUMP_19,gbt_.playWithStrongestHand(infoTr_));
     }
@@ -846,7 +846,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.TRUMP_19,gbt_.playWithStrongestTrumps(infoTr_));
@@ -911,7 +911,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.TRUMP_18,gbt_.playWithStrongestTrumps(infoTr_));
@@ -976,7 +976,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.WHITE,gbt_.playWithStrongestTrumps(infoTr_));
@@ -1035,7 +1035,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.TRUMP_19,gbt_.playWithStrongestTrumps(infoTr_));
@@ -1118,7 +1118,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.TRUMP_15,gbt_.playWithStrongestTrumps(infoTr_));
@@ -1201,7 +1201,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.TRUMP_15,gbt_.playWithStrongestTrumps(infoTr_));
@@ -1302,7 +1302,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_KING,gbt_.playWithStrongestTrumps(infoTr_));
@@ -1397,7 +1397,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_KING,gbt_.playWithStrongestTrumps(infoTr_));
@@ -1492,7 +1492,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.CLUB_QUEEN,gbt_.playWithStrongestTrumps(infoTr_));
@@ -1587,7 +1587,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.CLUB_QUEEN,gbt_.playWithStrongestTrumps(infoTr_));
@@ -1682,7 +1682,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.CLUB_QUEEN,gbt_.playWithStrongestTrumps(infoTr_));
@@ -1777,7 +1777,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.CLUB_QUEEN,gbt_.playWithStrongestTrumps(infoTr_));
@@ -1896,7 +1896,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.DIAMOND_QUEEN,gbt_.playWithStrongestTrumps(infoTr_));
@@ -2021,7 +2021,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.WHITE,gbt_.playWithStrongestTrumps(infoTr_));
@@ -2146,7 +2146,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.WHITE,gbt_.playWithStrongestTrumps(infoTr_));
@@ -2198,11 +2198,11 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         t_.ajouter(CardTarot.TRUMP_10);
         t_.ajouter(CardTarot.TRUMP_11);
         t_.ajouter(CardTarot.TRUMP_12);
-        t_.ajouter(CardTarot.EXCUSE);
+        t_.ajouter(CardTarot.TRUMP_13);
         trs_.add(t_);
         t_ = new TrickTarot(t_.getRamasseur(),true);
         t_.ajouter(CardTarot.TRUMP_18);
-        t_.ajouter(CardTarot.SPADE_2);
+        t_.ajouter(CardTarot.EXCUSE);
         t_.ajouter(CardTarot.SPADE_3);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_5);
@@ -2241,7 +2241,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.WHITE,gbt_.playWithStrongestTrumps(infoTr_));
@@ -2300,7 +2300,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.TRUMP_19,gbt_.playWithStrongestTrumps(infoTr_));
@@ -2359,7 +2359,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.WHITE,gbt_.playWithStrongestTrumps(infoTr_));
@@ -2411,11 +2411,11 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         t_.ajouter(CardTarot.TRUMP_10);
         t_.ajouter(CardTarot.TRUMP_11);
         t_.ajouter(CardTarot.TRUMP_12);
-        t_.ajouter(CardTarot.EXCUSE);
+        t_.ajouter(CardTarot.TRUMP_13);
         trs_.add(t_);
         t_ = new TrickTarot(t_.getRamasseur(),true);
         t_.ajouter(CardTarot.TRUMP_18);
-        t_.ajouter(CardTarot.SPADE_2);
+        t_.ajouter(CardTarot.EXCUSE);
         t_.ajouter(CardTarot.SPADE_3);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_5);
@@ -2454,7 +2454,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.WHITE,gbt_.playWithStrongestTrumps(infoTr_));
@@ -2506,11 +2506,11 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         t_.ajouter(CardTarot.TRUMP_10);
         t_.ajouter(CardTarot.TRUMP_11);
         t_.ajouter(CardTarot.TRUMP_12);
-        t_.ajouter(CardTarot.EXCUSE);
+        t_.ajouter(CardTarot.TRUMP_13);
         trs_.add(t_);
         t_ = new TrickTarot(t_.getRamasseur(),true);
         t_.ajouter(CardTarot.TRUMP_18);
-        t_.ajouter(CardTarot.SPADE_2);
+        t_.ajouter(CardTarot.EXCUSE);
         t_.ajouter(CardTarot.SPADE_3);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_5);
@@ -2549,7 +2549,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.WHITE,gbt_.playWithStrongestTrumps(infoTr_));
@@ -2614,7 +2614,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.WHITE, gbt_.playWithAtMostOneSuitCard(infoTr_));
     }
@@ -2738,7 +2738,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.CLUB_QUEEN, gbt_.playWithAtMostOneSuitCard(infoTr_));
     }
@@ -2862,7 +2862,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.EXCUSE, gbt_.playWithAtMostOneSuitCard(infoTr_));
     }
@@ -2987,7 +2987,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         faireConfiance(g_,(byte)2);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.TRUMP_1, gbt_.playWithAtMostOneSuitCard(infoTr_));
     }
@@ -3073,10 +3073,10 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         trs_.add(t_);
         t_ = new TrickTarot(t_.getRamasseur(),true);
         t_.ajouter(CardTarot.HEART_QUEEN);
-        t_.ajouter(CardTarot.CLUB_4);
-        t_.ajouter(CardTarot.CLUB_5);
-        t_.ajouter(CardTarot.CLUB_6);
-        t_.ajouter(CardTarot.CLUB_7);
+        t_.ajouter(CardTarot.HEART_5);
+        t_.ajouter(CardTarot.HEART_6);
+        t_.ajouter(CardTarot.HEART_7);
+        t_.ajouter(CardTarot.HEART_8);
         trs_.add(t_);
         t_ = new TrickTarot(t_.getRamasseur(),true);
         t_.ajouter(CardTarot.SPADE_KING);
@@ -3106,7 +3106,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         faireConfiance(g_,(byte)2);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.TRUMP_14, gbt_.playWithAtMostOneSuitCard(infoTr_));
     }
@@ -3185,10 +3185,10 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         trs_.add(t_);
         t_ = new TrickTarot(t_.getRamasseur(),true);
         t_.ajouter(CardTarot.HEART_QUEEN);
-        t_.ajouter(CardTarot.CLUB_4);
-        t_.ajouter(CardTarot.CLUB_5);
-        t_.ajouter(CardTarot.CLUB_6);
-        t_.ajouter(CardTarot.CLUB_7);
+        t_.ajouter(CardTarot.HEART_1);
+        t_.ajouter(CardTarot.HEART_2);
+        t_.ajouter(CardTarot.HEART_4);
+        t_.ajouter(CardTarot.HEART_3);
         trs_.add(t_);
         t_ = new TrickTarot(t_.getRamasseur(),true);
         t_.ajouter(CardTarot.SPADE_KING);
@@ -3211,6 +3211,13 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_7);
         t_.ajouter(CardTarot.DIAMOND_8);
         trs_.add(t_);
+        t_ = new TrickTarot(t_.getRamasseur(),true);
+        t_.ajouter(CardTarot.CLUB_QUEEN);
+        t_.ajouter(CardTarot.CLUB_6);
+        t_.ajouter(CardTarot.CLUB_KNIGHT);
+        t_.ajouter(CardTarot.CLUB_4);
+        t_.ajouter(CardTarot.CLUB_5);
+        trs_.add(t_);
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur(),true);
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
@@ -3218,7 +3225,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         faireConfiance(g_,(byte)2);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.TRUMP_15, gbt_.playWithAtMostOneSuitCard(infoTr_));
     }
@@ -3283,7 +3290,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         faireConfiance(g_,(byte)2);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         removePossibleCard(infoTr_,2,CardTarot.SPADE_KNIGHT);
         removePossibleCard(infoTr_,2,CardTarot.SPADE_JACK);
@@ -3357,7 +3364,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.TRUMP_17, gbt_.playWithAtMostOneSuitCard(infoTr_));
     }
@@ -3421,7 +3428,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.TRUMP_3, gbt_.playWithAtMostOneSuitCard(infoTr_));
     }
@@ -3545,7 +3552,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.CLUB_QUEEN, gbt_.playWithAtMostOneSuitCard(infoTr_));
     }
@@ -3669,7 +3676,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.CLUB_10, gbt_.playWithAtMostOneSuitCard(infoTr_));
     }
@@ -3793,7 +3800,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.TRUMP_14, gbt_.playWithAtMostOneSuitCard(infoTr_));
     }
@@ -3857,7 +3864,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.SPADE_9, gbt_.playWithAtMostOneSuitCard(infoTr_));
     }
@@ -3925,7 +3932,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         t_.ajouter(CardTarot.CLUB_3);
         t_.ajouter(CardTarot.SPADE_KNIGHT);
         t_.ajouter(CardTarot.SPADE_JACK);
-        t_.ajouter(CardTarot.CLUB_2);
+        t_.ajouter(CardTarot.SPADE_3);
         trs_.add(t_);
         t_ = new TrickTarot(t_.getRamasseur(),true);
         t_.ajouter(CardTarot.TRUMP_15);
@@ -3975,7 +3982,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.TRUMP_14, gbt_.playWithAtMostOneSuitCard(infoTr_));
     }
@@ -4039,7 +4046,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.SPADE_9, gbt_.playWithAtMostOneSuitCard(infoTr_));
     }
@@ -4103,7 +4110,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.TRUMP_18, gbt_.playWithAtMostOneSuitCard(infoTr_));
     }
@@ -4227,7 +4234,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.TRUMP_14, gbt_.playWithAtMostOneSuitCard(infoTr_));
     }
@@ -4273,7 +4280,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         removePossibleCard(infoTr_,1,CardTarot.SPADE_KING);
         removePossibleCard(infoTr_,1,CardTarot.SPADE_KNIGHT);
@@ -4333,7 +4340,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         trs_.add(t_);
         t_ = new TrickTarot(t_.getRamasseur(),true);
         t_.ajouter(CardTarot.TRUMP_18);
-        t_.ajouter(CardTarot.SPADE_2);
+        t_.ajouter(CardTarot.TRUMP_14);
         t_.ajouter(CardTarot.CLUB_KING);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_5);
@@ -4350,7 +4357,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         t_.ajouter(CardTarot.SPADE_3);
         t_.ajouter(CardTarot.SPADE_KNIGHT);
         t_.ajouter(CardTarot.SPADE_JACK);
-        t_.ajouter(CardTarot.CLUB_2);
+        t_.ajouter(CardTarot.SPADE_2);
         trs_.add(t_);
         t_ = new TrickTarot(t_.getRamasseur(),true);
         t_.ajouter(CardTarot.TRUMP_15);
@@ -4407,7 +4414,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.WHITE, gbt_.playWithAtMostOneSuitCard(infoTr_));
     }
@@ -4531,7 +4538,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.DIAMOND_KNIGHT, gbt_.playAfterAllTrumps(infoTr_));
     }
@@ -4655,7 +4662,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.WHITE, gbt_.playAfterAllTrumps(infoTr_));
     }
@@ -4702,7 +4709,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         faireConfiance(g_,(byte)2);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.TRUMP_21, gbt_.tryDemandTrumpSuit(infoTr_));
     }
@@ -4749,7 +4756,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         faireConfiance(g_,(byte)2);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.WHITE, gbt_.tryDemandTrumpSuit(infoTr_));
     }
@@ -4795,7 +4802,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.WHITE, gbt_.tryDemandTrumpSuit(infoTr_));
     }
@@ -4841,7 +4848,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.TRUMP_1, gbt_.tryDemandTrumpSuit(infoTr_));
     }
@@ -4887,7 +4894,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.TRUMP_20, gbt_.tryDemandTrumpSuit(infoTr_));
     }
@@ -4933,7 +4940,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.WHITE, gbt_.tryDemandTrumpSuit(infoTr_));
     }
@@ -4979,7 +4986,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.WHITE, gbt_.tryDemandTrumpSuit(infoTr_));
     }
@@ -5025,7 +5032,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         addSureCard(infoTr_,0,CardTarot.TRUMP_18);
         addSureCard(infoTr_,0,CardTarot.TRUMP_17);
@@ -5076,7 +5083,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(CardTarot.TRUMP_21, gbt_.tryDemandTrumpSuit(infoTr_));
     }
@@ -5122,7 +5129,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.SPADE_KING, gbt_.playAsTaker(infoTr_));
@@ -5169,7 +5176,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.SPADE_7, gbt_.playAsTaker(infoTr_));
@@ -5222,7 +5229,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.SPADE_7, gbt_.playAsTaker(infoTr_));
@@ -5263,10 +5270,10 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         trs_.add(t_);
         t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.TRUMP_21);
-        t_.ajouter(CardTarot.SPADE_5);
+        t_.ajouter(CardTarot.TRUMP_5);
         t_.ajouter(CardTarot.TRUMP_1);
-        t_.ajouter(CardTarot.SPADE_6);
-        t_.ajouter(CardTarot.SPADE_4);
+        t_.ajouter(CardTarot.TRUMP_3);
+        t_.ajouter(CardTarot.TRUMP_4);
         trs_.add(t_);
         t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.TRUMP_20);
@@ -5282,7 +5289,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         faireConfiance(g_,(byte)2);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.CLUB_QUEEN, gbt_.playAsTaker(infoTr_));
@@ -5335,7 +5342,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_9, gbt_.playAsTaker(infoTr_));
@@ -5394,7 +5401,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.SPADE_KNIGHT, gbt_.playAsTaker(infoTr_));
@@ -5453,7 +5460,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.TRUMP_19, gbt_.playAsTaker(infoTr_));
@@ -5512,7 +5519,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.TRUMP_21, gbt_.playAsTaker(infoTr_));
@@ -5571,7 +5578,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.EXCUSE, gbt_.playAsTaker(infoTr_));
@@ -5630,7 +5637,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.CLUB_1, gbt_.playAsTaker(infoTr_));
@@ -5689,7 +5696,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         addSureCard(infoTr_,1,CardTarot.TRUMP_3);
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
@@ -5750,7 +5757,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         faireConfiance(g_,(byte)2);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         addSureCard(infoTr_,1,CardTarot.TRUMP_3);
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
@@ -5811,7 +5818,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         faireConfiance(g_,(byte)2);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         addSureCard(infoTr_,1,CardTarot.TRUMP_4);
         addSureCard(infoTr_,2,CardTarot.TRUMP_5);
@@ -5873,7 +5880,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         faireConfiance(g_,(byte)2);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         addSureCard(infoTr_,1,CardTarot.TRUMP_4);
         addSureCard(infoTr_,2,CardTarot.TRUMP_5);
@@ -5935,7 +5942,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         faireConfiance(g_,(byte)2);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         addSureCard(infoTr_,1,CardTarot.TRUMP_4);
         addSureCard(infoTr_,2,CardTarot.TRUMP_5);
@@ -5997,7 +6004,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         faireConfiance(g_,(byte)2);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         addSureCard(infoTr_,1,CardTarot.TRUMP_4);
         addSureCard(infoTr_,2,CardTarot.TRUMP_5);
@@ -6040,10 +6047,10 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         trs_.add(t_);
         t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.TRUMP_21);
-        t_.ajouter(CardTarot.SPADE_5);
+        t_.ajouter(CardTarot.TRUMP_5);
         t_.ajouter(CardTarot.TRUMP_1);
-        t_.ajouter(CardTarot.SPADE_6);
-        t_.ajouter(CardTarot.SPADE_4);
+        t_.ajouter(CardTarot.TRUMP_4);
+        t_.ajouter(CardTarot.TRUMP_3);
         trs_.add(t_);
         t_ = new TrickTarot(r_.getDealing().getNextPlayer(d_),true);
         t_.ajouter(CardTarot.TRUMP_20);
@@ -6059,7 +6066,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         faireConfiance(g_,(byte)2);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_9, gbt_.playAsTaker(infoTr_));
@@ -6072,12 +6079,12 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         last_.ajouter(CardTarot.SPADE_1);
         RulesTarot r_ = new RulesTarot();
         HandTarot curHand_ = new HandTarot();
-        curHand_.ajouter(CardTarot.TRUMP_21);
         curHand_.ajouter(CardTarot.TRUMP_20);
         curHand_.ajouter(CardTarot.TRUMP_19);
         curHand_.ajouter(CardTarot.TRUMP_18);
         curHand_.ajouter(CardTarot.TRUMP_17);
         curHand_.ajouter(CardTarot.TRUMP_16);
+        curHand_.ajouter(CardTarot.TRUMP_15);
         curHand_.ajouter(CardTarot.CLUB_JACK);
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.CLUB_9);
@@ -6113,7 +6120,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         faireConfiance(g_,(byte)2);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.CLUB_9, gbt_.playAsTaker(infoTr_));
@@ -6166,7 +6173,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.TAKER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_9, gbt_.playAsTaker(infoTr_));
@@ -6182,7 +6189,6 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_19);
         curHand_.ajouter(CardTarot.TRUMP_10);
         curHand_.ajouter(CardTarot.CLUB_KNIGHT);
-        curHand_.ajouter(CardTarot.CLUB_JACK);
         curHand_.ajouter(CardTarot.HEART_KING);
         curHand_.ajouter(CardTarot.HEART_QUEEN);
         curHand_.ajouter(CardTarot.HEART_KNIGHT);
@@ -6233,7 +6239,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         faireConfiance(g_,(byte)2);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         addSureCard(infoTr_,1,CardTarot.TRUMP_4);
         addSureCard(infoTr_,2,CardTarot.TRUMP_5);
@@ -6288,7 +6294,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.CLUB_KING, gbt_.playAsCalledPlayer(infoTr_));
@@ -6341,7 +6347,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_9, gbt_.playAsCalledPlayer(infoTr_));
@@ -6394,7 +6400,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_4, gbt_.playAsCalledPlayer(infoTr_));
@@ -6447,7 +6453,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.TRUMP_20, gbt_.playAsCalledPlayer(infoTr_));
@@ -6500,7 +6506,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_4, gbt_.playAsCalledPlayer(infoTr_));
@@ -6559,7 +6565,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_4, gbt_.playAsCalledPlayer(infoTr_));
@@ -6618,7 +6624,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         addSureCard(infoTr_,4,CardTarot.TRUMP_8);
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
@@ -6678,7 +6684,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_JACK, gbt_.playAsCalledPlayer(infoTr_));
@@ -6697,12 +6703,12 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_17);
         curHand_.ajouter(CardTarot.HEART_JACK);
         curHand_.ajouter(CardTarot.HEART_9);
-        curHand_.ajouter(CardTarot.HEART_5);
+        curHand_.ajouter(CardTarot.TRUMP_5);
         curHand_.ajouter(CardTarot.HEART_4);
         curHand_.ajouter(CardTarot.SPADE_KNIGHT);
         curHand_.ajouter(CardTarot.SPADE_JACK);
-        curHand_.ajouter(CardTarot.SPADE_9);
-        curHand_.ajouter(CardTarot.SPADE_8);
+        curHand_.ajouter(CardTarot.TRUMP_9);
+        curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 2;
         EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
@@ -6737,7 +6743,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.CLUB_KING, gbt_.playAsCalledPlayer(infoTr_));
@@ -6755,8 +6761,8 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_18);
         curHand_.ajouter(CardTarot.TRUMP_17);
         curHand_.ajouter(CardTarot.HEART_JACK);
-        curHand_.ajouter(CardTarot.HEART_9);
-        curHand_.ajouter(CardTarot.HEART_5);
+        curHand_.ajouter(CardTarot.TRUMP_9);
+        curHand_.ajouter(CardTarot.TRUMP_5);
         curHand_.ajouter(CardTarot.HEART_4);
         curHand_.ajouter(CardTarot.SPADE_KNIGHT);
         curHand_.ajouter(CardTarot.SPADE_JACK);
@@ -6802,7 +6808,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.SPADE_8, gbt_.playAsCalledPlayer(infoTr_));
@@ -6820,13 +6826,13 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_18);
         curHand_.ajouter(CardTarot.TRUMP_1);
         curHand_.ajouter(CardTarot.HEART_JACK);
-        curHand_.ajouter(CardTarot.HEART_9);
+        curHand_.ajouter(CardTarot.TRUMP_9);
         curHand_.ajouter(CardTarot.HEART_5);
         curHand_.ajouter(CardTarot.HEART_4);
         curHand_.ajouter(CardTarot.SPADE_KNIGHT);
         curHand_.ajouter(CardTarot.SPADE_JACK);
         curHand_.ajouter(CardTarot.SPADE_9);
-        curHand_.ajouter(CardTarot.SPADE_8);
+        curHand_.ajouter(CardTarot.TRUMP_8);
         byte d_ = 2;
         EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
         bids_.add(BidTarot.FOLD);
@@ -6867,7 +6873,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_4, gbt_.playAsCalledPlayer(infoTr_));
@@ -6886,11 +6892,11 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_1);
         curHand_.ajouter(CardTarot.HEART_JACK);
         curHand_.ajouter(CardTarot.HEART_9);
-        curHand_.ajouter(CardTarot.HEART_5);
+        curHand_.ajouter(CardTarot.TRUMP_5);
         curHand_.ajouter(CardTarot.HEART_4);
         curHand_.ajouter(CardTarot.SPADE_KNIGHT);
         curHand_.ajouter(CardTarot.SPADE_JACK);
-        curHand_.ajouter(CardTarot.SPADE_9);
+        curHand_.ajouter(CardTarot.TRUMP_9);
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 2;
@@ -6927,7 +6933,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_JACK, gbt_.playAsCalledPlayer(infoTr_));
@@ -6946,11 +6952,11 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_1);
         curHand_.ajouter(CardTarot.HEART_KING);
         curHand_.ajouter(CardTarot.HEART_9);
-        curHand_.ajouter(CardTarot.HEART_5);
+        curHand_.ajouter(CardTarot.TRUMP_5);
         curHand_.ajouter(CardTarot.HEART_4);
         curHand_.ajouter(CardTarot.SPADE_KNIGHT);
         curHand_.ajouter(CardTarot.SPADE_JACK);
-        curHand_.ajouter(CardTarot.SPADE_9);
+        curHand_.ajouter(CardTarot.TRUMP_9);
         curHand_.ajouter(CardTarot.SPADE_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         byte d_ = 2;
@@ -6987,7 +6993,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_KING, gbt_.playAsCalledPlayer(infoTr_));
@@ -7034,7 +7040,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_KING, gbt_.playAsCalledPlayer(infoTr_));
@@ -7081,7 +7087,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_3, gbt_.playAsCalledPlayer(infoTr_));
@@ -7140,7 +7146,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_4, gbt_.playAsCalledPlayer(infoTr_));
@@ -7199,7 +7205,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.SPADE_8, gbt_.playAsCalledPlayer(infoTr_));
@@ -7246,7 +7252,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_4, gbt_.playAsCalledPlayer(infoTr_));
@@ -7293,7 +7299,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_4, gbt_.playAsCalledPlayer(infoTr_));
@@ -7340,7 +7346,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.SPADE_KING, gbt_.playAsCalledPlayer(infoTr_));
@@ -7399,7 +7405,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_4, gbt_.playAsCalledPlayer(infoTr_));
@@ -7458,7 +7464,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.SPADE_8, gbt_.playAsCalledPlayer(infoTr_));
@@ -7512,7 +7518,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_KING, gbt_.playAsCalledPlayer(infoTr_));
@@ -7571,7 +7577,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.SPADE_8, gbt_.playAsCalledPlayer(infoTr_));
@@ -7630,7 +7636,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.TRUMP_20, gbt_.playAsCalledPlayer(infoTr_));
@@ -7689,7 +7695,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.TRUMP_20, gbt_.playAsCalledPlayer(infoTr_));
@@ -7748,7 +7754,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.TRUMP_20, gbt_.playAsCalledPlayer(infoTr_));
@@ -7801,7 +7807,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_4, gbt_.playAsCalledPlayer(infoTr_));
@@ -7848,7 +7854,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_3, gbt_.playAsCalledPlayer(infoTr_));
@@ -7895,7 +7901,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.DEFENDER,gbt_.getCurrentStatus());
         assertSame(CardTarot.DIAMOND_1, gbt_.playAsDefender(infoTr_));
@@ -7942,7 +7948,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.DEFENDER,gbt_.getCurrentStatus());
         assertSame(CardTarot.SPADE_8, gbt_.playAsDefender(infoTr_));
@@ -7995,7 +8001,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.DEFENDER,gbt_.getCurrentStatus());
         assertSame(CardTarot.CLUB_10, gbt_.playAsDefender(infoTr_));
@@ -8048,7 +8054,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.DEFENDER,gbt_.getCurrentStatus());
         assertSame(CardTarot.SPADE_9, gbt_.playAsDefender(infoTr_));
@@ -8101,7 +8107,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.DEFENDER,gbt_.getCurrentStatus());
         assertSame(CardTarot.SPADE_JACK, gbt_.playAsDefender(infoTr_));
@@ -8154,7 +8160,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.DEFENDER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_1, gbt_.playAsDefender(infoTr_));
@@ -8213,7 +8219,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.DEFENDER,gbt_.getCurrentStatus());
         assertSame(CardTarot.DIAMOND_JACK, gbt_.playAsDefender(infoTr_));
@@ -8272,7 +8278,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.DEFENDER,gbt_.getCurrentStatus());
         assertSame(CardTarot.SPADE_1, gbt_.playAsDefender(infoTr_));
@@ -8325,7 +8331,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.DEFENDER,gbt_.getCurrentStatus());
         assertSame(CardTarot.SPADE_4, gbt_.playAsDefender(infoTr_));
@@ -8378,7 +8384,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.DEFENDER,gbt_.getCurrentStatus());
         assertSame(CardTarot.CLUB_1, gbt_.playAsDefender(infoTr_));
@@ -8431,7 +8437,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         assertSame(CardTarot.CLUB_1, gbt_.entameClassique());
     }
     @Test
@@ -8476,7 +8482,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         assertSame(CardTarot.SPADE_KING, gbt_.entameClassique());
     }
     @Test
@@ -8521,7 +8527,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         assertSame(CardTarot.SPADE_KING, gbt_.entameClassique());
     }
     @Test
@@ -8561,7 +8567,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, -1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         assertSame(CardTarot.CLUB_10, gbt_.entameClassique());
     }
     @Test
@@ -8606,7 +8612,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         assertSame(CardTarot.TRUMP_1, gbt_.entameClassique());
     }
     @Test
@@ -8729,7 +8735,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         assertSame(CardTarot.DIAMOND_KNIGHT, gbt_.entameClassique());
     }
     @Test
@@ -8852,7 +8858,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         assertSame(CardTarot.DIAMOND_9, gbt_.entameClassique());
     }
     @Test
@@ -8975,7 +8981,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         assertSame(CardTarot.DIAMOND_KNIGHT, gbt_.entameClassique());
     }
     @Test
@@ -9020,7 +9026,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         assertSame(CardTarot.TRUMP_20, gbt_.entameClassique());
     }
     @Test
@@ -9077,7 +9083,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         assertSame(CardTarot.TRUMP_19,gbt_.entameClassique());
     }
     @Test
@@ -9134,7 +9140,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         assertSame(CardTarot.CLUB_1,gbt_.entameClassique());
     }
     @Test
@@ -9263,7 +9269,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         assertSame(CardTarot.DIAMOND_JACK, gbt_.entameClassique());
     }
     @Test
@@ -9279,8 +9285,8 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_18);
         curHand_.ajouter(CardTarot.TRUMP_1);
         curHand_.ajouter(CardTarot.HEART_JACK);
-        curHand_.ajouter(CardTarot.HEART_9);
-        curHand_.ajouter(CardTarot.HEART_5);
+        curHand_.ajouter(CardTarot.TRUMP_9);
+        curHand_.ajouter(CardTarot.TRUMP_5);
         curHand_.ajouter(CardTarot.HEART_4);
         curHand_.ajouter(CardTarot.SPADE_KNIGHT);
         curHand_.ajouter(CardTarot.SPADE_JACK);
@@ -9321,7 +9327,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.TRUMP_20, gbt_.playAsCalledPlayerOnExc(infoTr_));
@@ -9381,7 +9387,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         addSureCard(infoTr_,4,CardTarot.TRUMP_8);
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
@@ -9442,7 +9448,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.SPADE_KING, gbt_.playAsCalledPlayerOnExc(infoTr_));
@@ -9502,7 +9508,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_JACK, gbt_.playAsCalledPlayerOnExc(infoTr_));
@@ -9562,7 +9568,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_JACK, gbt_.playAsCalledPlayerOnExc(infoTr_));
@@ -9622,7 +9628,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.CALLED_PLAYER,gbt_.getCurrentStatus());
         assertSame(CardTarot.CLUB_QUEEN, gbt_.playAsCalledPlayerOnExc(infoTr_));
@@ -9641,12 +9647,12 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_2);
         curHand_.ajouter(CardTarot.HEART_JACK);
         curHand_.ajouter(CardTarot.HEART_9);
-        curHand_.ajouter(CardTarot.HEART_5);
-        curHand_.ajouter(CardTarot.HEART_4);
+        curHand_.ajouter(CardTarot.TRUMP_5);
+        curHand_.ajouter(CardTarot.TRUMP_6);
         curHand_.ajouter(CardTarot.SPADE_KNIGHT);
         curHand_.ajouter(CardTarot.SPADE_JACK);
         curHand_.ajouter(CardTarot.SPADE_9);
-        curHand_.ajouter(CardTarot.SPADE_8);
+        curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.DIAMOND_KING);
         byte d_ = 2;
         EnumList<BidTarot> bids_ = new EnumList<BidTarot>();
@@ -9685,7 +9691,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         faireConfiance(g_, (byte) 3);
         faireConfiance(g_, (byte) 4);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.DEFENDER,gbt_.getCurrentStatus());
         assertSame(CardTarot.TRUMP_2, gbt_.playAsDefenderTeam(infoTr_));
@@ -9748,7 +9754,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         faireConfiance(g_, (byte) 3);
         faireConfiance(g_, (byte) 4);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         addSureCard(infoTr_, 4,CardTarot.TRUMP_11);
         assertSame(Status.DEFENDER,gbt_.getCurrentStatus());
@@ -9812,7 +9818,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         faireConfiance(g_, (byte) 3);
         faireConfiance(g_, (byte) 4);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         addSureCard(infoTr_, 4,CardTarot.TRUMP_11);
         assertSame(Status.DEFENDER,gbt_.getCurrentStatus());
@@ -9876,7 +9882,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         faireConfiance(g_, (byte) 3);
         faireConfiance(g_, (byte) 4);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         addSureCard(infoTr_, 4,CardTarot.TRUMP_11);
         assertSame(Status.DEFENDER,gbt_.getCurrentStatus());
@@ -9940,7 +9946,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         faireConfiance(g_, (byte) 3);
         faireConfiance(g_, (byte) 4);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         addSureCard(infoTr_, 4,CardTarot.TRUMP_11);
         assertSame(Status.DEFENDER,gbt_.getCurrentStatus());
@@ -10022,7 +10028,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         faireConfiance(g_, (byte) 3);
         faireConfiance(g_, (byte) 4);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.DEFENDER,gbt_.getCurrentStatus());
         assertSame(CardTarot.DIAMOND_QUEEN, gbt_.playAsDefenderTeam(infoTr_));
@@ -10084,7 +10090,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         faireConfiance(g_, (byte) 3);
         faireConfiance(g_, (byte) 4);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.DEFENDER,gbt_.getCurrentStatus());
         assertSame(CardTarot.HEART_KING, gbt_.playAsDefenderWhenFoundCall(infoTr_));
@@ -10146,7 +10152,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         faireConfiance(g_, (byte) 3);
         faireConfiance(g_, (byte) 4);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.DEFENDER,gbt_.getCurrentStatus());
         assertSame(CardTarot.CLUB_1, gbt_.playAsDefenderWhenFoundCall(infoTr_));
@@ -10214,7 +10220,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         faireConfiance(g_, (byte) 3);
         faireConfiance(g_, (byte) 4);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.DEFENDER,gbt_.getCurrentStatus());
         assertSame(CardTarot.DIAMOND_KING, gbt_.playAsDefenderWhenFoundCall(infoTr_));
@@ -10282,7 +10288,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         faireConfiance(g_, (byte) 3);
         faireConfiance(g_, (byte) 4);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         TarotInfoPliEnCours infoTr_ = gbt_.initInformations();
         assertSame(Status.DEFENDER,gbt_.getCurrentStatus());
         assertSame(CardTarot.DIAMOND_2, gbt_.playAsDefenderWhenFoundCall(infoTr_));
@@ -10330,7 +10336,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         assertSame(CardTarot.HEART_1, gbt_.entameSurExcuseClassique());
     }
     @Test
@@ -10376,7 +10382,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 2, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         assertSame(CardTarot.HEART_1, gbt_.entameSurExcuseClassique());
     }
     @Test
@@ -10392,8 +10398,8 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_18);
         curHand_.ajouter(CardTarot.TRUMP_1);
         curHand_.ajouter(CardTarot.HEART_JACK);
-        curHand_.ajouter(CardTarot.HEART_9);
-        curHand_.ajouter(CardTarot.HEART_5);
+        curHand_.ajouter(CardTarot.TRUMP_9);
+        curHand_.ajouter(CardTarot.TRUMP_5);
         curHand_.ajouter(CardTarot.HEART_4);
         curHand_.ajouter(CardTarot.SPADE_KNIGHT);
         curHand_.ajouter(CardTarot.SPADE_JACK);
@@ -10434,7 +10440,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, d_, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         assertSame(CardTarot.TRUMP_20, gbt_.entameSurExcuseClassique());
     }
     @Test
@@ -10450,8 +10456,8 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.TRUMP_18);
         curHand_.ajouter(CardTarot.TRUMP_2);
         curHand_.ajouter(CardTarot.HEART_JACK);
-        curHand_.ajouter(CardTarot.HEART_9);
-        curHand_.ajouter(CardTarot.HEART_5);
+        curHand_.ajouter(CardTarot.TRUMP_9);
+        curHand_.ajouter(CardTarot.TRUMP_5);
         curHand_.ajouter(CardTarot.HEART_4);
         curHand_.ajouter(CardTarot.SPADE_KNIGHT);
         curHand_.ajouter(CardTarot.SPADE_JACK);
@@ -10495,7 +10501,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         faireConfiance(g_, (byte) 3);
         faireConfiance(g_, (byte) 4);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         assertSame(CardTarot.TRUMP_2, gbt_.entameSurExcuseClassique());
     }
     @Test
@@ -10555,7 +10561,7 @@ public final class GameTarotBeginTrickClassicTest extends CommonGameTarot {
         faireConfiance(g_, (byte) 3);
         faireConfiance(g_, (byte) 4);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_);
-        GameTarotBeginTrickClassic gbt_ = new GameTarotBeginTrickClassic(info_,team_,calledCards_,curHand_);
+        GameTarotBeginTrickClassic gbt_ = newGameTarotBeginTrickClassic(g_,info_,team_,calledCards_,curHand_);
         assertSame(CardTarot.HEART_KING, gbt_.entameSurExcuseClassique());
     }
 }

@@ -24,7 +24,7 @@ public final class TrickTarot implements Iterable<CardTarot> {
     TrickTarot(HandTarot _pm, byte _pentameur,boolean _vuParToutJoueur) {
         seenByAllPlayers = _vuParToutJoueur;
         initPli(_pentameur);
-        cards=_pm;
+        setCards(_pm);
     }
 
     private void initPli(byte _pentameur) {
@@ -35,7 +35,7 @@ public final class TrickTarot implements Iterable<CardTarot> {
         seenByAllPlayers = _seenByAllPlayers;
     }
     public boolean getVuParToutJoueur() {
-        return seenByAllPlayers;
+        return isSeenByAllPlayers();
     }
 
     public byte getNextPlayer(byte _nbPlayer) {
@@ -43,11 +43,11 @@ public final class TrickTarot implements Iterable<CardTarot> {
     }
     /**Retourne l'entameur du pli*/
     public byte getEntameur() {
-        return starter;
+        return getStarter();
     }
 
     public HandTarot getCartes() {
-        return cards;
+        return getCards();
     }
 
     byte getRamasseur() {
@@ -209,9 +209,6 @@ public final class TrickTarot implements Iterable<CardTarot> {
     Numbers<Byte> joueursCoupes(byte _nombreDeJoueurs) {
         Numbers<Byte> coupes_=new Numbers<Byte>();
         Suit couleur_;
-        if(total()<2) {
-            return coupes_;
-        }
         couleur_=couleurDemandee();
         if(couleur_==Suit.TRUMP) {
             for(CardTarot c: cards) {
@@ -271,7 +268,7 @@ public final class TrickTarot implements Iterable<CardTarot> {
     }
 
     void setEntameur(int _i) {
-        starter = (byte) _i;
+        setStarter((byte) _i);
     }
     public byte getStarter() {
         return starter;

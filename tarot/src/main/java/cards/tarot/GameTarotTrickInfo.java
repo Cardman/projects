@@ -81,12 +81,26 @@ public final class GameTarotTrickInfo {
      @param _numero
      */
     public EnumMap<Suit,EqList<HandTarot>> cartesPossibles(HandTarot _cartesJoueur) {
+        EnumMap<Suit,EqList<HandTarot>> m = new EnumMap<Suit,EqList<HandTarot>>();
+        EqList<HandTarot> possibleExcuse_ = excusePossibleRegles(_cartesJoueur);
+        m.put(CardTarot.EXCUSE.couleur(), possibleExcuse_);
+        m.put(Suit.TRUMP,atoutsPossibles(
+                _cartesJoueur));
+        for (Suit couleur_ : Suit.couleursOrdinaires()) {
+            // On fait une boucle sur les
+            // couleurs autres que l'atout
+            m.put(couleur_,cartesPossibles(couleur_,
+                    _cartesJoueur));
+        }
+        return m;
+    }
+
+    EqList<HandTarot> excusePossibleRegles(HandTarot _cartesJoueur) {
         byte next_ = progressingTrick.getNextPlayer(nbPlayers);
         HandTarot playedCards_ = cartesJoueesEnCours(next_);
         boolean plExcuse_ = playedCards_.contient(CardTarot.EXCUSE);
         boolean containsExcuse_ = _cartesJoueur.contient(CardTarot.EXCUSE);
         boolean noExc_ = plExcuse_ || containsExcuse_;
-        EnumMap<Suit,EqList<HandTarot>> m = new EnumMap<Suit,EqList<HandTarot>>();
         EqList<HandTarot> possibleExcuse_ = new EqList<HandTarot>();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
             HandTarot h_ = new HandTarot();
@@ -158,18 +172,8 @@ public final class GameTarotTrickInfo {
                 possibleExcuse_.last().supprimerCartes();
             }
         }
-        m.put(CardTarot.EXCUSE.couleur(), possibleExcuse_);
-        m.put(Suit.TRUMP,atoutsPossibles(
-                _cartesJoueur));
-        for (Suit couleur_ : Suit.couleursOrdinaires()) {
-            // On fait une boucle sur les
-            // couleurs autres que l'atout
-            m.put(couleur_,cartesPossibles(couleur_,
-                    _cartesJoueur));
-        }
-        return m;
+        return possibleExcuse_;
     }
-
     /**
      Retourne l'ensemble des atouts (sans l'Excuse) probablement possedes par
      les autres joueurs
@@ -177,9 +181,48 @@ public final class GameTarotTrickInfo {
      */
     EqList<HandTarot> atoutsPossibles(HandTarot _curHand) {
         byte next_ = progressingTrick.getNextPlayer(nbPlayers);
-        EnumMap<Suit,HandTarot> curRep_ = _curHand.couleurs();
         HandTarot playedCards_ = cartesJoueesEnCours(next_);
         boolean playedCalledCard_ = playedCards_.contientCartes(calledCards);
+        EqList<HandTarot> m = atoutsPossiblesRegles(_curHand);
+        for (byte i = 0; i < nbPlayers; i++) {
+            HandTarot main_ = m.get(i);
+            if (i == next_) {
+                continue;
+            }
+            //filtre sur le jeu d'une carte couleur atout apres un adversaire ramasseur
+            HandTarot atoutsFiltres_ = sousCoupeTarot(next_, _curHand,i,
+                    main_);
+            m.set(i, atoutsFiltres_);
+        }
+        for (byte i = 0; i < nbPlayers; i++) {
+            HandTarot main_ = m.get(i);
+            if (i == next_) {
+                continue;
+            }
+            //filtre sur la fourniture d'un atout a une couleur
+            HandTarot atoutsFiltres_ = coupeTarot(next_, _curHand,i,
+                    main_);
+            m.set(i, atoutsFiltres_);
+        }
+        if(playedCalledCard_) {
+            for (byte i = 0; i < nbPlayers; i++) {
+                HandTarot main_ = m.get(i);
+                if (i == next_) {
+                    continue;
+                }
+                if(petitJoueDemandeAtoutRamasseurAdv(i)) {
+                    main_.supprimerCartes();
+                }
+                //filtre sur la fourniture d'un atout a une couleur
+            }
+        }
+        return m;
+    }
+
+    EqList<HandTarot> atoutsPossiblesRegles(HandTarot _curHand) {
+        byte next_ = progressingTrick.getNextPlayer(nbPlayers);
+        EnumMap<Suit,HandTarot> curRep_ = _curHand.couleurs();
+        HandTarot playedCards_ = cartesJoueesEnCours(next_);
         EnumMap<Suit,HandTarot> plRep_ = playedCards_.couleurs();
         HandTarot plTr_ = plRep_.getVal(Suit.TRUMP);
         HandTarot curTr_ = curRep_.getVal(Suit.TRUMP);
@@ -361,41 +404,8 @@ public final class GameTarotTrickInfo {
                 m.last().removeCardIfPresent(carte_);
             }
         }
-        for (byte i = 0; i < nbPlayers; i++) {
-            HandTarot main_ = m.get(i);
-            if (i == next_) {
-                continue;
-            }
-            //filtre sur le jeu d'une carte couleur atout apres un adversaire ramasseur
-            HandTarot atoutsFiltres_ = sousCoupeTarot(next_, _curHand,i,
-                    main_);
-            m.set(i, atoutsFiltres_);
-        }
-        for (byte i = 0; i < nbPlayers; i++) {
-            HandTarot main_ = m.get(i);
-            if (i == next_) {
-                continue;
-            }
-            //filtre sur la fourniture d'un atout a une couleur
-            HandTarot atoutsFiltres_ = coupeTarot(next_, _curHand,i,
-                    main_);
-            m.set(i, atoutsFiltres_);
-        }
-        if(playedCalledCard_) {
-            for (byte i = 0; i < nbPlayers; i++) {
-                HandTarot main_ = m.get(i);
-                if (i == next_) {
-                    continue;
-                }
-                if(petitJoueDemandeAtoutRamasseurAdv(i)) {
-                    main_.supprimerCartes();
-                }
-                //filtre sur la fourniture d'un atout a une couleur
-            }
-        }
         return m;
     }
-
     /**
      Retourne l'ensemble des cartes d'une meme couleur autre que l'atout
      probablement possedees par les autres joueurs on tient compte du pli en
@@ -407,6 +417,45 @@ public final class GameTarotTrickInfo {
         byte next_ = progressingTrick.getNextPlayer(nbPlayers);
         HandTarot playedCards_ = cartesJoueesEnCours(next_);
         boolean playedCalledCard_ = playedCards_.contientCartes(calledCards);
+        EqList<HandTarot> m = cartesPossiblesRegles(_couleur,_curHand);
+        for (byte i = 0; i < nbPlayers; i++) {
+            HandTarot couleurLoc_ = m.get(i);
+            if (i == next_) {
+                continue;
+            }
+            if (couleurLoc_.estVide()) {
+                continue;
+            }
+            Suit noCouleur_ = couleurLoc_.premiereCarte()
+                    .couleur();
+            //filtre sur le jeu d'une carte couleur ordinaire apres un adversaire ramasseur
+            HandTarot atoutsFiltres_ = joueCarteBasseTarot(next_,_curHand,
+                    i, noCouleur_, couleurLoc_, tricks);
+            m.set(i, atoutsFiltres_);
+        }
+        if (playedCalledCard_) {
+            for (byte i = 0; i < nbPlayers; i++) {
+                HandTarot couleurLoc_ = m.get(i);
+                if (i == next_) {
+                    continue;
+                }
+                if (couleurLoc_.estVide()) {
+                    continue;
+                }
+                Suit noCouleur_ = couleurLoc_.premiereCarte()
+                        .couleur();
+                HandTarot filteredCharacters_ = playCharacterCardTarot(
+                        i, noCouleur_, couleurLoc_, tricks);
+                m.set(i, filteredCharacters_);
+            }
+        }
+        return m;
+    }
+
+    EqList<HandTarot> cartesPossiblesRegles(Suit _couleur,
+                                            HandTarot _curHand) {
+        byte next_ = progressingTrick.getNextPlayer(nbPlayers);
+        HandTarot playedCards_ = cartesJoueesEnCours(next_);
         EqList<HandTarot> m = new EqList<HandTarot>();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
             HandTarot h_ = new HandTarot();
@@ -542,40 +591,8 @@ public final class GameTarotTrickInfo {
                 }
             }
         }
-        for (byte i = 0; i < nbPlayers; i++) {
-            HandTarot couleurLoc_ = m.get(i);
-            if (i == next_) {
-                continue;
-            }
-            if (couleurLoc_.estVide()) {
-                continue;
-            }
-            Suit noCouleur_ = couleurLoc_.premiereCarte()
-                    .couleur();
-            //filtre sur le jeu d'une carte couleur ordinaire apres un adversaire ramasseur
-            HandTarot atoutsFiltres_ = joueCarteBasseTarot(next_,_curHand,
-                    i, noCouleur_, couleurLoc_, tricks);
-            m.set(i, atoutsFiltres_);
-        }
-        if (playedCalledCard_) {
-            for (byte i = 0; i < nbPlayers; i++) {
-                HandTarot couleurLoc_ = m.get(i);
-                if (i == next_) {
-                    continue;
-                }
-                if (couleurLoc_.estVide()) {
-                    continue;
-                }
-                Suit noCouleur_ = couleurLoc_.premiereCarte()
-                        .couleur();
-                HandTarot filteredCharacters_ = playCharacterCardTarot(
-                        i, noCouleur_, couleurLoc_, tricks);
-                m.set(i, filteredCharacters_);
-            }
-        }
         return m;
     }
-
     /**
      Retourne l'ensemble des cartes certainement possedees par les joueurs
      classees par couleur puis par joueurs
