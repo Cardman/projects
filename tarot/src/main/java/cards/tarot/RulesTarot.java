@@ -1,6 +1,5 @@
 package cards.tarot;
 import cards.consts.MixCardsChoice;
-import cards.tarot.comparators.AllowedHandfulComparator;
 import cards.tarot.enumerations.AllowedBiddingTarot;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CallingCard;
@@ -99,8 +98,18 @@ public final class RulesTarot {
                 return false;
             }
         }
+        reorgHandfules();
         return true;
     }
+
+    public void reorgHandfules() {
+        EnumMap<Handfuls,Integer> s_ = new EnumMap<Handfuls,Integer>();
+        for(Handfuls p: Handfuls.getPoigneesValidesParDefaut()) {
+            s_.put(p, allowedHandfuls.getVal(p));
+        }
+        allowedHandfuls = s_;
+    }
+
     public MixCardsChoice getCartesBattues() {
         return mixedCards;
     }
@@ -121,9 +130,7 @@ public final class RulesTarot {
         return allowedHandfuls.getVal(_poignee) > 0;
     }
     public EnumList<Handfuls> getPoigneesOrdonnees() {
-        EnumList<Handfuls> poignees_ = allowedHandfuls.getKeys();
-        poignees_.sortElts(new AllowedHandfulComparator(allowedHandfuls));
-        return poignees_;
+        return allowedHandfuls.getKeys();
     }
     public EnumList<Miseres> getMiseres() {
         return miseres;

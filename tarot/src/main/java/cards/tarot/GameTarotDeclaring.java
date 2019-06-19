@@ -19,19 +19,15 @@ public final class GameTarotDeclaring {
         declaresHandfuls = _declaresHandfuls;
     }
 
-    public EnumList<Handfuls> strategieAnnoncesPoignees(BidTarot _bid, HandTarot _calledCards,byte _numeroJoueur) {
+    public EnumList<Handfuls> strategieAnnoncesPoignees(HandTarot _calledCards) {
 
         EnumList<Handfuls> va_ = new EnumList<Handfuls>();
+        byte next_ = doneTrickInfo.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
         EnumMap<Suit,HandTarot> repartition_ = curHand.couleurs();
         // peuvent etre annoncees par le joueur si toutes les annonces etaient
         // autorisees
         HandTarot atouts_ = GameTarotCommonPlaying.atoutsPoignee(repartition_);
-        boolean chienInvisible_ = _bid.getJeuChien() == PlayingDog.WITHOUT;
-        if (_bid.getJeuChien() == PlayingDog.AGAINST) {
-            chienInvisible_ = true;
-        }
-        if (teamsRelation.getTaker() != _numeroJoueur || teamsRelation.existeAppele() || !_calledCards.estVide()
-                && chienInvisible_ || GameTarotBid.estUnJeuDeChelemSur(repartition_,doneTrickInfo.cartesJoueesEnCours(_numeroJoueur).couleurs())) {
+        if (teamsRelation.getTaker() != next_ || !curHand.contientCartes(_calledCards) || GameTarotBid.estUnJeuDeChelemSur(repartition_,doneTrickInfo.cartesJoueesEnCours(next_).couleurs())) {
             EnumList<Handfuls> poigneesOrdonnees_ = teamsRelation.getRules().getPoigneesOrdonnees();
             EnumList<Handfuls> poigneesAutorisees_ = new EnumList<Handfuls>();
             for(Handfuls p: poigneesOrdonnees_) {

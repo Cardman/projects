@@ -88,7 +88,6 @@ import cards.tarot.HandTarot;
 import cards.tarot.ResultsTarot;
 import cards.tarot.RulesTarot;
 import cards.tarot.TricksHandsTarot;
-import cards.tarot.comparators.AllowedHandfulComparator;
 import cards.tarot.enumerations.*;
 import code.gui.ThreadUtil;
 import code.network.AddingPlayer;
@@ -1847,8 +1846,6 @@ public final class SendReceiveServer extends BasicServer {
             decla_.setFirstRoundPlaying(game_.premierTour());
             if (firstRound_) {
                 EnumList<Handfuls> handfuls_ = new EnumList<Handfuls>(game_.getRegles().getCurrentAllowedHandfuls());
-                EnumMap<Handfuls,Integer> allowedHanduls_ = game_.getRegles().getPoigneesAutorisees();
-                handfuls_.sortElts(new AllowedHandfulComparator(allowedHanduls_));
                 decla_.setAllowedHandfuls(new EnumList<Handfuls>(handfuls_));
                 decla_.setRequiredTrumps(new EnumMap<Handfuls,Integer>(game_.getRegles().getPoigneesAutorisees()));
                 decla_.setAllowedMiseres(new EnumList<Miseres>(game_.getRegles().getMiseres()));

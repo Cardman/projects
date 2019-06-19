@@ -937,7 +937,7 @@ public final class GameTarot {
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
         GameTarotDeclaring g_ = new GameTarotDeclaring(doneTrickInfo_,teamsRelation_,
                 mainJoueur_,declaresHandfuls);
-        return g_.strategieAnnoncesPoignees(bid,calledCards,_numeroJoueur);
+        return g_.strategieAnnoncesPoignees(calledCards);
     }
 
     public boolean isValidHandful(Handfuls _h, HandTarot _hand, HandTarot _excludedCards) {
