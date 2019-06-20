@@ -38,7 +38,7 @@ public final class TrickBelote implements Iterable<CardBelote> {
     @param nombre_joueurs nombre de joueurs qui jouent a cette partie
     @param _contrat contrat de la partie
     @param couleur_atout la couleur d'atout si elle existe*/
-    byte getRamasseur(BidBeloteSuit _contrat) {
+    public byte getRamasseur(BidBeloteSuit _contrat) {
         return getRamasseurPliEnCours((byte) total(),_contrat);
     }
     public byte getRamasseurPliEnCours(byte _nombreJoueurs, BidBeloteSuit _contrat) {
@@ -61,6 +61,10 @@ public final class TrickBelote implements Iterable<CardBelote> {
         //On calcule_ la_ position_ de_ ramasseur_ par_ rapport_ a celle_ de_ l'utilisateur_
         return (byte) ((ramasseur_+getEntameur())%_nombreJoueurs);
         //On renvoie_ le_ ramasseur_ du_ pli_ courant_
+    }
+
+    public byte getNextPlayer(byte _nbPlayer) {
+        return (byte) ((starter + total()) % _nbPlayer);
     }
     void ajouter(CardBelote _c) {
         cards.ajouter(_c);

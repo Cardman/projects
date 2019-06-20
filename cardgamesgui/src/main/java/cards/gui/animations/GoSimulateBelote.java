@@ -267,7 +267,7 @@ public final class GoSimulateBelote extends Thread implements GoSimulate {
                     return;
                 }
             }
-            byte ramasseur_=partie_.ramasseur(plisFaits_,(byte)indicePli_);
+            byte ramasseur_=pli_.getRamasseur(partie_.getContrat());
             mess_ = container.getMessages().getVal(MainWindow.TRICK_WINNER);
             event_ = StringList.concat(StringList.simpleStringsFormat(mess_, pseudos_.get(ramasseur_)),ContainerGame.RETURN_LINE);
             event_ = StringList.concat(event_,ContainerGame.RETURN_LINE);

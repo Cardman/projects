@@ -21,6 +21,7 @@ final class BeloteInfoPliEnCours {
     private EnumMap<Suit,EqList<HandBelote>> suitesTouteCouleur;
     private boolean maitreAtout;
     private EnumList<Suit> couleursMaitresses;
+    private EnumList<Suit> strictCouleursMaitresses;
     private EnumMap<Suit,HandBelote> cartesMaitresses;
     private boolean maitreJeu;
     private EnumList<Suit> coupesFranches;
@@ -131,6 +132,14 @@ final class BeloteInfoPliEnCours {
 
     public void setCouleursMaitresses(EnumList<Suit> _couleursMaitresses) {
         couleursMaitresses = _couleursMaitresses;
+    }
+
+    public EnumList<Suit> getStrictCouleursMaitresses() {
+        return strictCouleursMaitresses;
+    }
+
+    public void setStrictCouleursMaitresses(EnumList<Suit> _strictCouleursMaitresses) {
+        strictCouleursMaitresses = _strictCouleursMaitresses;
     }
 
     public EnumMap<Suit,HandBelote> getCartesMaitresses() {

@@ -9,38 +9,38 @@ import code.util.StringList;
     */
 public enum CardBelote {
     WHITE,
-    HEART_JACK(CardChar.JACK,Suit.HEART,8,4,5,20,2,2,14),
-    HEART_9(9,Suit.HEART,7,3,3,14,0,0,9),
-    HEART_1(1,Suit.HEART,6,8,8,11,11,19,6),
-    HEART_10(10,Suit.HEART,5,7,4,10,10,10,4),
-    HEART_KING(CardChar.KING,Suit.HEART,4,6,7,4,4,4,3),
-    HEART_QUEEN(CardChar.QUEEN,Suit.HEART,3,5,6,3,3,3,2),
-    HEART_8(8,Suit.HEART,2,2,2,0,0,0,0),
-    HEART_7(7,Suit.HEART,1,1,1,0,0,0,0),
-    SPADE_JACK(CardChar.JACK,Suit.SPADE,8,4,5,20,2,2,14),
-    SPADE_9(9,Suit.SPADE,7,3,3,14,0,0,9),
-    SPADE_1(1,Suit.SPADE,6,8,8,11,11,19,6),
-    SPADE_10(10,Suit.SPADE,5,7,4,10,10,10,4),
-    SPADE_KING(CardChar.KING,Suit.SPADE,4,6,7,4,4,4,3),
-    SPADE_QUEEN(CardChar.QUEEN,Suit.SPADE,3,5,6,3,3,3,2),
-    SPADE_8(8,Suit.SPADE,2,2,2,0,0,0,0),
-    SPADE_7(7,Suit.SPADE,1,1,1,0,0,0,0),
-    DIAMOND_JACK(CardChar.JACK,Suit.DIAMOND,8,4,5,20,2,2,14),
-    DIAMOND_9(9,Suit.DIAMOND,7,3,3,14,0,0,9),
-    DIAMOND_1(1,Suit.DIAMOND,6,8,8,11,11,19,6),
-    DIAMOND_10(10,Suit.DIAMOND,5,7,4,10,10,10,4),
-    DIAMOND_KING(CardChar.KING,Suit.DIAMOND,4,6,7,4,4,4,3),
-    DIAMOND_QUEEN(CardChar.QUEEN,Suit.DIAMOND,3,5,6,3,3,3,2),
-    DIAMOND_8(8,Suit.DIAMOND,2,2,2,0,0,0,0),
-    DIAMOND_7(7,Suit.DIAMOND,1,1,1,0,0,0,0),
-    CLUB_JACK(CardChar.JACK,Suit.CLUB,8,4,5,20,2,2,14),
-    CLUB_9(9,Suit.CLUB,7,3,3,14,0,0,9),
-    CLUB_1(1,Suit.CLUB,6,8,8,11,11,19,6),
-    CLUB_10(10,Suit.CLUB,5,7,4,10,10,10,4),
-    CLUB_KING(CardChar.KING,Suit.CLUB,4,6,7,4,4,4,3),
-    CLUB_QUEEN(CardChar.QUEEN,Suit.CLUB,3,5,6,3,3,3,2),
-    CLUB_8(8,Suit.CLUB,2,2,2,0,0,0,0),
-    CLUB_7(7,Suit.CLUB,1,1,1,0,0,0,0);
+    HEART_JACK(CardChar.JACK,Suit.HEART,OrderPoints.TRUMP_JACK,OrderPoints.SUIT_JACK,5),
+    HEART_9(9,Suit.HEART,OrderPoints.TRUMP_9,OrderPoints.SUIT_9,3),
+    HEART_1(1,Suit.HEART,OrderPoints.TRUMP_1,OrderPoints.SUIT_1,8),
+    HEART_10(10,Suit.HEART,OrderPoints.TRUMP_10,OrderPoints.SUIT_10,4),
+    HEART_KING(CardChar.KING,Suit.HEART,OrderPoints.TRUMP_KING,OrderPoints.SUIT_KING,7),
+    HEART_QUEEN(CardChar.QUEEN,Suit.HEART,OrderPoints.TRUMP_QUEEN,OrderPoints.SUIT_QUEEN,6),
+    HEART_8(8,Suit.HEART,OrderPoints.TRUMP_8,OrderPoints.SUIT_8,2),
+    HEART_7(7,Suit.HEART,OrderPoints.TRUMP_7,OrderPoints.SUIT_7,1),
+    SPADE_JACK(CardChar.JACK,Suit.SPADE,OrderPoints.TRUMP_JACK,OrderPoints.SUIT_JACK,5),
+    SPADE_9(9,Suit.SPADE,OrderPoints.TRUMP_9,OrderPoints.SUIT_9,3),
+    SPADE_1(1,Suit.SPADE,OrderPoints.TRUMP_1,OrderPoints.SUIT_1,8),
+    SPADE_10(10,Suit.SPADE,OrderPoints.TRUMP_10,OrderPoints.SUIT_10,4),
+    SPADE_KING(CardChar.KING,Suit.SPADE,OrderPoints.TRUMP_KING,OrderPoints.SUIT_KING,7),
+    SPADE_QUEEN(CardChar.QUEEN,Suit.SPADE,OrderPoints.TRUMP_QUEEN,OrderPoints.SUIT_QUEEN,6),
+    SPADE_8(8,Suit.SPADE,OrderPoints.TRUMP_8,OrderPoints.SUIT_8,2),
+    SPADE_7(7,Suit.SPADE,OrderPoints.TRUMP_7,OrderPoints.SUIT_7,1),
+    DIAMOND_JACK(CardChar.JACK,Suit.DIAMOND,OrderPoints.TRUMP_JACK,OrderPoints.SUIT_JACK,5),
+    DIAMOND_9(9,Suit.DIAMOND,OrderPoints.TRUMP_9,OrderPoints.SUIT_9,3),
+    DIAMOND_1(1,Suit.DIAMOND,OrderPoints.TRUMP_1,OrderPoints.SUIT_1,8),
+    DIAMOND_10(10,Suit.DIAMOND,OrderPoints.TRUMP_10,OrderPoints.SUIT_10,4),
+    DIAMOND_KING(CardChar.KING,Suit.DIAMOND,OrderPoints.TRUMP_KING,OrderPoints.SUIT_KING,7),
+    DIAMOND_QUEEN(CardChar.QUEEN,Suit.DIAMOND,OrderPoints.TRUMP_QUEEN,OrderPoints.SUIT_QUEEN,6),
+    DIAMOND_8(8,Suit.DIAMOND,OrderPoints.TRUMP_8,OrderPoints.SUIT_8,2),
+    DIAMOND_7(7,Suit.DIAMOND,OrderPoints.TRUMP_7,OrderPoints.SUIT_7,1),
+    CLUB_JACK(CardChar.JACK,Suit.CLUB,OrderPoints.TRUMP_JACK,OrderPoints.SUIT_JACK,5),
+    CLUB_9(9,Suit.CLUB,OrderPoints.TRUMP_9,OrderPoints.SUIT_9,3),
+    CLUB_1(1,Suit.CLUB,OrderPoints.TRUMP_1,OrderPoints.SUIT_1,8),
+    CLUB_10(10,Suit.CLUB,OrderPoints.TRUMP_10,OrderPoints.SUIT_10,4),
+    CLUB_KING(CardChar.KING,Suit.CLUB,OrderPoints.TRUMP_KING,OrderPoints.SUIT_KING,7),
+    CLUB_QUEEN(CardChar.QUEEN,Suit.CLUB,OrderPoints.TRUMP_QUEEN,OrderPoints.SUIT_QUEEN,6),
+    CLUB_8(8,Suit.CLUB,OrderPoints.TRUMP_8,OrderPoints.SUIT_8,2),
+    CLUB_7(7,Suit.CLUB,OrderPoints.TRUMP_7,OrderPoints.SUIT_7,1);
 
     private final Suit couleur;
     /**Numero de valeur de la carte (Numeros pour les atouts du tarot, et pour les cartes chiffrees, position pour les figures avec Roi, Dame, Cavalier, Valet)*/
@@ -69,37 +69,33 @@ public enum CardBelote {
         pointsToutAt = 0;
     }
     CardBelote(CardChar _figure, Suit _pcouleur,
-            int _pordreAtout, int _pordreCouleur,
-            int _pordreAnnonce,
-            int _ppointsAtout, int _ppointsCouleur,
-            int _ppointsSansAt, int _ppointsToutAt) {
+               OrderPoints _pordreAtout, OrderPoints _pordreCouleur,
+               int _pordreAnnonce) {
         jouable = true;
         nomFigure = _figure;
         couleur=_pcouleur;
-        forceAtout = (byte) _pordreAtout;
-        forceCouleur = (byte) _pordreCouleur;
+        forceAtout = (byte) _pordreAtout.getOrder();
+        forceCouleur = (byte) _pordreCouleur.getOrder();
         forceAnnonce = (byte) _pordreAnnonce;
-        pointsAtout = (byte) _ppointsAtout;
-        pointsCouleur = (byte) _ppointsCouleur;
-        pointsSansAt = (byte) _ppointsSansAt;
-        pointsToutAt = (byte) _ppointsToutAt;
+        pointsAtout = (byte) _pordreAtout.getPointsDomSuit();
+        pointsCouleur = (byte) _pordreCouleur.getPointsDomSuit();
+        pointsSansAt = (byte) _pordreCouleur.getPointsNoDomSuit();
+        pointsToutAt = (byte) _pordreAtout.getPointsNoDomSuit();
         valeur = 0;
     }
     CardBelote(int _pvaleur, Suit _pcouleur,
-            int _pordreAtout, int _pordreCouleur,
-            int _pordreAnnonce,
-            int _ppointsAtout, int _ppointsCouleur,
-            int _ppointsSansAt, int _ppointsToutAt) {
+               OrderPoints _pordreAtout, OrderPoints _pordreCouleur,
+               int _pordreAnnonce) {
         jouable = true;
         valeur=(byte) _pvaleur;
         couleur=_pcouleur;
-        forceAtout = (byte) _pordreAtout;
-        forceCouleur = (byte) _pordreCouleur;
+        forceAtout = (byte) _pordreAtout.getOrder();
+        forceCouleur = (byte) _pordreCouleur.getOrder();
         forceAnnonce = (byte) _pordreAnnonce;
-        pointsAtout = (byte) _ppointsAtout;
-        pointsCouleur = (byte) _ppointsCouleur;
-        pointsSansAt = (byte) _ppointsSansAt;
-        pointsToutAt = (byte) _ppointsToutAt;
+        pointsAtout = (byte) _pordreAtout.getPointsDomSuit();
+        pointsCouleur = (byte) _pordreCouleur.getPointsDomSuit();
+        pointsSansAt = (byte)  _pordreCouleur.getPointsNoDomSuit();
+        pointsToutAt = (byte) _pordreAtout.getPointsNoDomSuit();
         nomFigure = CardChar.UNDEFINED;
     }
     public static boolean eq(CardBelote _one, CardBelote _two) {

@@ -511,26 +511,8 @@ public final class GameTarotTrickInfo {
                 m.last().ajouterCartes(
                         tricks.first().getCartes().couleur(_couleur));
             } else {
-                if (tricks.first().getCartes().tailleCouleur(Suit.TRUMP) > 0) {
-                    /* Si le preneur est oblige
-                    d 'ecarter des atouts
-                    alors les cartes autre que
-                    le roi de couleur
-                    du chien sont
-                    certainement ecartees*/
-                    for (CardTarot carte_ : lastSeenHand
-                            .couleur(_couleur)) {
-                        if (carte_.getNomFigure() == CardChar.KING) {
-                            continue;
-                        }
-                        m.last().ajouter(carte_);
-                    }
-                }
                 for (CardTarot carte_ : HandTarot.couleurComplete(_couleur)) {
                     if (carte_.getNomFigure() == CardChar.KING) {
-                        continue;
-                    }
-                    if (m.last().contient(carte_)) {
                         continue;
                     }
                     if (!playedCards_.contient(carte_)

@@ -1,4 +1,5 @@
 package cards.belote.beans;
+import cards.belote.EndBeloteGame;
 import cards.belote.ResultsBelote;
 import cards.consts.EndGameState;
 import code.util.CustList;
@@ -44,25 +45,27 @@ final class ResultsBeloteBean extends BeloteBean {
         setLoc(res_.getLoc());
         byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
         setBid(getGame().getContrat());
-        capotAttaque=getGame().valeurCapot();
-        pointsAttaqueSansPrime=getGame().pointsAttaqueSansPrime();
+        EndBeloteGame end_ = getGame().getEndBeloteGame();
+        capotAttaque=end_.valeurCapot();
+        pointsAttaqueSansPrime=end_.pointsAttaqueSansPrime();
         pointsAttaqueTemporaire=pointsAttaqueSansPrime;
-        pointsDefenseSansPrime=getGame().pointsDefenseSansPrime();
+        pointsDefenseSansPrime=end_.pointsDefenseSansPrime();
         pointsDefenseTemporaire=pointsDefenseSansPrime;
         if (playGame()) {
             byte preneur_=getGame().getPreneur();
-            pointsAttaqueTemporaire = getGame().pointsAttackWithBonus();
-            pointsDefenseTemporaire = getGame().pointsDefenseWithBonus();
+            pointsAttaqueTemporaire = end_.pointsAttackWithBonus();
+            pointsDefenseTemporaire = end_.pointsDefenseWithBonus();
             takerNickname = getNicknames().get(preneur_);
             calledPlayersList = new StringList();
             for (byte p: getGame().partenaires(preneur_)) {
                 calledPlayersList.add(getNicknames().get(p));
             }
             bidString = toString(getBid(),getLoc());
-            pointsAttaqueDefinitif=getGame().scoreDefinitifAttaque(pointsAttaqueTemporaire, pointsDefenseTemporaire);
-            pointsDefenseDefinitif=getGame().scoreDefinitifDefense(pointsAttaqueDefinitif,pointsDefenseTemporaire);
-            winEqualityLoose = getGame().getUserState(res_.getUser());
-            differenceScoreTaker = getGame().getDiffAttackPointsMinusDefensePoints();
+            pointsAttaqueDefinitif=end_.scoreDefinitifAttaque(pointsAttaqueTemporaire, pointsDefenseTemporaire);
+            pointsDefenseDefinitif=end_.scoreDefinitifDefense(pointsAttaqueDefinitif,pointsDefenseTemporaire);
+            Numbers<Short> scores_ = getGame().getScores();
+            winEqualityLoose = end_.getUserState(res_.getUser(), scores_);
+            differenceScoreTaker = end_.getDiffAttackPointsMinusDefensePoints(scores_);
         }
         linesDeal = new CustList<LineDeal>();
         int nbDeals_ = getScores().size();

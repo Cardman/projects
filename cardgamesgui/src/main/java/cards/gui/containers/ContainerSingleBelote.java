@@ -13,15 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
-import cards.belote.BidBeloteSuit;
-import cards.belote.DealBelote;
-import cards.belote.DeclareHandBelote;
-import cards.belote.GameBelote;
-import cards.belote.HandBelote;
-import cards.belote.ResultsBelote;
-import cards.belote.RulesBelote;
-import cards.belote.TrickBelote;
-import cards.belote.TricksHandsBelote;
+import cards.belote.*;
 import cards.belote.beans.BeloteStandards;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
@@ -921,15 +913,15 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         String lg_ = getOwner().getLanguageKey();
         GameBelote partie_=partieBelote();
         HandBelote mainUtilisateur_=partie_.getDistribution().main();
+        GameBeloteTrickInfo info_ = partie_.getDoneTrickInfo();
         BidBeloteSuit contrat_=partie_.getContrat();
         Suit couleurAtout_=partie_.couleurAtout();
-        EnumMap<Suit,HandBelote> repartition_=mainUtilisateur_.couleurs(contrat_);
         HandBelote cartesJouees_=partie_.cartesJouees();
         cartesJouees_.ajouterCartes(partie_.getPliEnCours().getCartes());
         EnumMap<Suit,HandBelote> repartitionCartesJouees_=cartesJouees_.couleurs(contrat_);
         DialogHelpBelote.setTitleDialog(getOwner(),StringList.concat(getMessages().getVal(MainWindow.HELP_GAME),SPACE,GameEnum.BELOTE.toString(lg_)));
-        EnumMap<Suit,EqList<HandBelote>> cartesPossibles_=partie_.cartesPossibles(repartitionCartesJouees_,partie_.unionPlis(),repartition_,DealBelote.NUMERO_UTILISATEUR,couleurAtout_);
-        EnumMap<Hypothesis,EnumMap<Suit,EqList<HandBelote>>> hypotheses_ = partie_.cartesCertaines(cartesPossibles_);
+        EnumMap<Suit,EqList<HandBelote>> cartesPossibles_=info_.cartesPossibles(mainUtilisateur_);
+        EnumMap<Hypothesis,EnumMap<Suit,EqList<HandBelote>>> hypotheses_ = info_.cartesCertaines(cartesPossibles_);
         EnumMap<Suit,EqList<HandBelote>> cartesCertaines_=hypotheses_.getVal(Hypothesis.SURE);
         Suit firstSuit_;
         if (partie_.getPliEnCours().estVide()) {
