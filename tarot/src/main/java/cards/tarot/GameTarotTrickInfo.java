@@ -525,15 +525,17 @@ public final class GameTarotTrickInfo {
                         }
                         m.last().ajouter(carte_);
                     }
-                } else {
-                    for (CardTarot carte_ : HandTarot.couleurComplete(_couleur)) {
-                        if (carte_.getNomFigure() == CardChar.KING) {
-                            continue;
-                        }
-                        if (!playedCards_.contient(carte_)
-                                && !_curHand.contient(carte_)) {
-                            m.last().ajouter(carte_);
-                        }
+                }
+                for (CardTarot carte_ : HandTarot.couleurComplete(_couleur)) {
+                    if (carte_.getNomFigure() == CardChar.KING) {
+                        continue;
+                    }
+                    if (m.last().contient(carte_)) {
+                        continue;
+                    }
+                    if (!playedCards_.contient(carte_)
+                            && !_curHand.contient(carte_)) {
+                        m.last().ajouter(carte_);
                     }
                 }
             }
