@@ -1,8 +1,5 @@
 package cards.facade;
-import cards.belote.BidBeloteSuit;
-import cards.belote.GameBelote;
-import cards.belote.HandBelote;
-import cards.belote.RulesBelote;
+import cards.belote.*;
 import cards.belote.enumerations.*;
 import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.consts.*;
@@ -248,9 +245,9 @@ public final class Games {
         Suit couleurAtout_=_g.couleurAtout();
         byte ramasseurVirtuel_= _g.getProgressingTrick().getRamasseurPliEnCours(_g.getNombreDeJoueurs(), _g.getBid());
         CardBelote carteForte_= _g.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_,_g.getNombreDeJoueurs());
-        HandBelote leadingSuit_ = GameBelote.main(e_,couleurDemandee_);
+        HandBelote leadingSuit_ = GameBeloteCommon.hand(e_,couleurDemandee_);
         if(_g.getBid().getCouleurDominante()) {
-            HandBelote trumps_ = GameBelote.main(e_,couleurAtout_);
+            HandBelote trumps_ = GameBeloteCommon.hand(e_,couleurAtout_);
             byte valeurForte_=carteForte_.strength(couleurDemandee_, _g.getBid());
             if(couleurAtout_==couleurDemandee_) {
                 //Nombre d'atouts dans la main du joueur
@@ -286,7 +283,7 @@ public final class Games {
                     }
                 }
             }
-            HandBelote trumpsTrick_ = GameBelote.main(m.couleurs(_g.getBid()),couleurAtout_);
+            HandBelote trumpsTrick_ = GameBeloteCommon.hand(m.couleurs(_g.getBid()),couleurAtout_);
             if(trumpsTrick_.estVide()) {
                 /*PliBelote non coupe*/
                 return Format.formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_TRUMP_FOE, toString(carteForte_,_loc));

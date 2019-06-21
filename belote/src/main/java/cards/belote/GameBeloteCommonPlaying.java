@@ -64,6 +64,11 @@ public final class GameBeloteCommonPlaying {
         EnumList<Suit> strSuits_ = strictCouleursMaitres(suitesTouteCouleur_, repartitionCartesJouees_, cartesPossibles_, nextPlayer_);
         BeloteInfoPliEnCours info_ = new BeloteInfoPliEnCours();
         info_.setContrat(doneTrickInfo.getBid());
+        info_.setProgressingTrick(prog_);
+        info_.setNbPlayers(teamsRelation.getNombreDeJoueurs());
+        info_.setNextPlayer(nextPlayer_);
+        info_.setJoueursConfiance(teamsRelation.partenaires(nextPlayer_));
+        info_.setJoueursNonConfiance(teamsRelation.adversaires(nextPlayer_));
         info_.setJoueursNonJoue(joueursNonJoue_);
         info_.setJoueursJoue(joueursJoue_);
         info_.setPlisFaits(plisFaits_);
@@ -106,9 +111,9 @@ public final class GameBeloteCommonPlaying {
         BidBeloteSuit bid_ = doneTrickInfo.getBid();
         byte ramasseurVirtuel_= pr_.getRamasseurPliEnCours(nbPlayers_, bid_);
         CardBelote carteForte_= pr_.carteDuJoueur(ramasseurVirtuel_, nbPlayers_);
-        HandBelote leadingSuit_ = GameBeloteCommon.main(_repartitionMain,couleurDemandee_);
+        HandBelote leadingSuit_ = GameBeloteCommon.hand(_repartitionMain,couleurDemandee_);
         if(bid_.getCouleurDominante()) {
-            HandBelote trumps_ = GameBeloteCommon.main(_repartitionMain,couleurAtout_);
+            HandBelote trumps_ = GameBeloteCommon.hand(_repartitionMain,couleurAtout_);
             byte valeurForte_=carteForte_.strength(couleurDemandee_, bid_);
             if(couleurAtout_==couleurDemandee_) {
                 //Nombre d'atouts dans la main du joueur
@@ -180,7 +185,7 @@ public final class GameBeloteCommonPlaying {
                 }
                 return cartesJouables_;
             }
-            HandBelote trumpsTrick_ = GameBeloteCommon.main(m.couleurs(bid_),couleurAtout_);
+            HandBelote trumpsTrick_ = GameBeloteCommon.hand(m.couleurs(bid_),couleurAtout_);
             if(trumpsTrick_.estVide()) {
                 /*PliBelote non coupe*/
                 cartesJouables_.ajouterCartes(trumps_);
@@ -248,7 +253,7 @@ public final class GameBeloteCommonPlaying {
         CustList<EnumList<Suit>> couleursMaitres_=couleursMaitresSansReprise(_suites,_couleurs,_repartition.couleurs(bid_),_cartesPossibles,_repartitionCartesJouees,_numero);
         if (!couleursMaitres_.isEmpty()) {
             if (!couleursMaitres_.first().isEmpty()) {
-                return GameBeloteCommon.main(_repartition.couleurs(bid_),couleursMaitres_.first().first()).premiereCarte();
+                return GameBeloteCommon.hand(_repartition.couleurs(bid_),couleursMaitres_.first().first()).premiereCarte();
             }
         }
         EnumList<Suit> couleurs_ = GameBeloteCommon.couleursLesPlusLongues(_cartesMaitresses, _couleurs);
@@ -257,7 +262,7 @@ public final class GameBeloteCommonPlaying {
         //jouees
         couleurs_ = GameBeloteCommon.couleursLesPlusLongues(_repartition.couleurs(bid_), couleurs_);
         //longues
-        return GameBeloteCommon.main(_repartition.couleurs(bid_),couleurs_.first()).premiereCarte();
+        return GameBeloteCommon.hand(_repartition.couleurs(bid_),couleurs_.first()).premiereCarte();
     }
     CustList<EnumList<Suit>> couleursMaitresSansReprise(
             EnumMap<Suit,EqList<HandBelote>> _suites,
@@ -278,7 +283,7 @@ public final class GameBeloteCommonPlaying {
         for(int joueur_=CustList.FIRST_INDEX;joueur_<nbPlayers_;joueur_++) {
             //La taille de cartesPossibles correspond au nombre de joueurs
             if(joueur_!=_numero) {
-                max_=Math.max(GameBeloteCommon.main(_cartesPossibles,couleurAtout_,joueur_).total(),max_);
+                max_=Math.max(GameBeloteCommon.hand(_cartesPossibles,couleurAtout_,joueur_).total(),max_);
             }
         }
         /*Fin for int joueur=0;joueur<cartesPossibles.get(1).size();joueur++
@@ -287,7 +292,7 @@ public final class GameBeloteCommonPlaying {
             /*S'il est impossible que les autres joueurs aient de l'atout*/
             return true;
         }
-        if(GameBeloteCommon.main(_cartesJouees,couleurAtout_).total()==HandBelote.couleurComplete(couleurAtout_, Order.TRUMP).total()) {
+        if(GameBeloteCommon.hand(_cartesJouees,couleurAtout_).total()==HandBelote.couleurComplete(couleurAtout_, Order.TRUMP).total()) {
             return true;
         }
         if(_suites.isEmpty()) {
@@ -299,7 +304,7 @@ public final class GameBeloteCommonPlaying {
             if(carte_.strength(couleurAtout_,doneTrickInfo.getBid())<=atoutPetitSuiteHaute_.strength(couleurAtout_,doneTrickInfo.getBid())) {
                 break;
             }
-            if(!GameBeloteCommon.main(_cartesJouees,couleurAtout_).contient(carte_)&&!_suites.first().contient(carte_)) {
+            if(!GameBeloteCommon.hand(_cartesJouees,couleurAtout_).contient(carte_)&&!_suites.first().contient(carte_)) {
                 existeAtoutMaitre_=false;
                 break;
             }
@@ -421,6 +426,15 @@ public final class GameBeloteCommonPlaying {
         }
         return GameBeloteCommon.couleurs();
     }
+    static CustList<TrickBelote> tours(Suit _couleur,CustList<TrickBelote> _plisFaits) {
+        CustList<TrickBelote> tricksNumbers_=new CustList<TrickBelote>();
+        for(TrickBelote pli_:_plisFaits) {
+            if(pli_.couleurDemandee()==_couleur) {
+                tricksNumbers_.add(pli_);
+            }
+        }
+        return tricksNumbers_;
+    }
     static int getNbMaxPossPlayerCards(
             EnumMap<Suit,EqList<HandBelote>> _possibleCards, byte _player, Suit _suit) {
         int max_=CustList.SIZE_EMPTY;
@@ -428,7 +442,7 @@ public final class GameBeloteCommonPlaying {
         int nbSeqs_ = suite(_possibleCards,_suit).size();
         for(int joueur_=CustList.FIRST_INDEX;joueur_<nbSeqs_;joueur_++) {
             if(joueur_!=_player) {
-                max_=Math.max(GameBeloteCommon.main(_possibleCards,_suit,joueur_).total(),max_);
+                max_=Math.max(GameBeloteCommon.hand(_possibleCards,_suit,joueur_).total(),max_);
             }
         }
         return max_;
@@ -437,7 +451,7 @@ public final class GameBeloteCommonPlaying {
     int getNbLeadingTrumpCards(EnumMap<Suit,EqList<HandBelote>> _seqs,
                                        EnumMap<Suit,HandBelote> _playedCards, Suit _suit) {
         boolean existeCarteMaitresse_=true;
-        CardBelote c=GameBeloteCommon.main(_seqs,_suit,CustList.FIRST_INDEX).premiereCarte();
+        CardBelote c=GameBeloteCommon.hand(_seqs,_suit,CustList.FIRST_INDEX).premiereCarte();
         HandBelote cartesCouleurs_ = GameBeloteCommonPlaying.cartesCouleurs(_suit);
         cartesCouleurs_.setOrdre(Order.TRUMP);
         cartesCouleurs_.trierUnicolore(true);
@@ -445,7 +459,7 @@ public final class GameBeloteCommonPlaying {
             if(carte_.strength(_suit,doneTrickInfo.getBid())<=c.strength(_suit,doneTrickInfo.getBid())) {
                 break;
             }
-            if(!GameBeloteCommon.main(_playedCards,_suit).contient(carte_)&&!GameBeloteCommon.main(_seqs,_suit,CustList.FIRST_INDEX).contient(carte_)) {
+            if(!GameBeloteCommon.hand(_playedCards,_suit).contient(carte_)&&!GameBeloteCommon.hand(_seqs,_suit,CustList.FIRST_INDEX).contient(carte_)) {
                 existeCarteMaitresse_=false;
                 break;
             }
@@ -454,32 +468,32 @@ public final class GameBeloteCommonPlaying {
 
         int maitres_ = CustList.SIZE_EMPTY;
         if(existeCarteMaitresse_) {
-            maitres_ = GameBeloteCommon.main(_seqs,_suit,CustList.FIRST_INDEX).total();
+            maitres_ = GameBeloteCommon.hand(_seqs,_suit,CustList.FIRST_INDEX).total();
         }
         return maitres_;
     }
     int getNbLeadingSuitCards(EnumMap<Suit,EqList<HandBelote>> _seqs,
                               EnumMap<Suit,HandBelote> _playedCards, Suit _suit) {
         boolean existeCarteMaitresse_=true;
-        CardBelote c=GameBeloteCommon.main(_seqs,_suit,CustList.FIRST_INDEX).premiereCarte();
+        CardBelote c=GameBeloteCommon.hand(_seqs,_suit,CustList.FIRST_INDEX).premiereCarte();
         for(CardBelote carte_:GameBeloteCommonPlaying.cartesCouleurs(_suit)) {
             if(carte_.strength(_suit,doneTrickInfo.getBid())<=c.strength(_suit,doneTrickInfo.getBid())) {
                 break;
             }
-            if(!GameBeloteCommon.main(_playedCards,_suit).contient(carte_)&&!GameBeloteCommon.main(_seqs,_suit,CustList.FIRST_INDEX).contient(carte_)) {
+            if(!GameBeloteCommon.hand(_playedCards,_suit).contient(carte_)&&!GameBeloteCommon.hand(_seqs,_suit,CustList.FIRST_INDEX).contient(carte_)) {
                 existeCarteMaitresse_=false;
                 break;
             }
         }
         int maitres_ = CustList.SIZE_EMPTY;
         if(existeCarteMaitresse_) {
-            maitres_ = GameBeloteCommon.main(_seqs,_suit,CustList.FIRST_INDEX).total();
+            maitres_ = GameBeloteCommon.hand(_seqs,_suit,CustList.FIRST_INDEX).total();
         }
         return maitres_;
     }
     static boolean completelyPlayedSuit(EnumMap<Suit,HandBelote> _playedCards,
                                         Suit _suit) {
-        return GameBeloteCommon.main(_playedCards,_suit).total()==HandBelote.couleurComplete(_suit, Order.SUIT).total();
+        return GameBeloteCommon.hand(_playedCards,_suit).total()==HandBelote.couleurComplete(_suit, Order.SUIT).total();
     }
     static HandBelote cartesAtouts(Suit _couleur) {
         return HandBelote.couleurComplete(_couleur, Order.TRUMP);
@@ -682,13 +696,13 @@ public final class GameBeloteCommonPlaying {
     static boolean defausse(Suit _couleur,byte _joueur,
                             EnumMap<Suit,EqList<HandBelote>> _cartesPossibles, BidBeloteSuit _contrat) {
         if(_contrat.getCouleurDominante()) {
-            return GameBeloteCommon.main(_cartesPossibles,_contrat.getCouleur(),_joueur).estVide()&&GameBeloteCommon.main(_cartesPossibles,_couleur,_joueur).estVide();
+            return GameBeloteCommon.hand(_cartesPossibles,_contrat.getCouleur(),_joueur).estVide()&&GameBeloteCommon.hand(_cartesPossibles,_couleur,_joueur).estVide();
         }
-        return GameBeloteCommon.main(_cartesPossibles,_couleur,_joueur).estVide();
+        return GameBeloteCommon.hand(_cartesPossibles,_couleur,_joueur).estVide();
     }
     /**Retourne vrai si et seulement si le joueur ne peut pas fournir la couleur donnee et peut couper avec un atout*/
     static boolean peutCouper(Suit _couleur,byte _numero,EnumMap<Suit,EqList<HandBelote>> _cartesPossibles, Suit _couleurAtout) {
-        return GameBeloteCommon.main(_cartesPossibles,_couleur,_numero).estVide()&&!GameBeloteCommon.main(_cartesPossibles,_couleurAtout,_numero).estVide();
+        return GameBeloteCommon.hand(_cartesPossibles,_couleur,_numero).estVide()&&!GameBeloteCommon.hand(_cartesPossibles,_couleurAtout,_numero).estVide();
     }
     /**@throws NullPointerException si un des arguments est null*/
     static boolean egaliteCouleurs(EnumList<Suit> _couleurs1, EnumList<Suit> _couleurs2) {

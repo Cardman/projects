@@ -1202,14 +1202,7 @@ public final class GameTarot {
         return playerHavingToBid_;
     }
     public byte playerHavingToPlay() {
-        byte leader_ = getPliEnCours().getEntameur();
-        for (byte p: rules.getRepartition().getSortedPlayers(leader_)) {
-            if (getPliEnCours().aJoue(p, getNombreDeJoueurs())) {
-                continue;
-            }
-            return p;
-        }
-        return CustList.INDEX_NOT_FOUND_ELT;
+        return getPliEnCours().getNextPlayer(getNombreDeJoueurs());
     }
     public byte playerAfter(byte _player) {
         return rules.getRepartition().getNextPlayer(_player);

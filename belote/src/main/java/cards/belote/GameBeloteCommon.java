@@ -232,10 +232,10 @@ public final class GameBeloteCommon {
                 ordre_ = Order.SUIT;
             }
             HandBelote couleurTotale_ = HandBelote.couleurComplete(couleur_, ordre_);
-            HandBelote cartes_=main(_couleurs,couleur_);
+            HandBelote cartes_= hand(_couleurs,couleur_);
             HandBelote suite_=new HandBelote();
             HandBelote cartesJoueesOuPossedees_=new HandBelote();
-            cartesJoueesOuPossedees_.ajouterCartes(main(_cartesJouees,couleur_));
+            cartesJoueesOuPossedees_.ajouterCartes(hand(_cartesJouees,couleur_));
             //C'est la reunion des cartes jouees dans le jeu et de celles du joueur
             cartesJoueesOuPossedees_.ajouterCartes(cartes_);
             cartesJoueesOuPossedees_.trierUnicolore(true);
@@ -267,13 +267,13 @@ public final class GameBeloteCommon {
         }
         return suits_;
     }
-    static HandBelote main(EnumMap<Suit, HandBelote> _mains, Suit _couleur) {
+    public static HandBelote hand(EnumMap<Suit, HandBelote> _mains, Suit _couleur) {
         return _mains.getVal(_couleur);
     }
     static EqList<HandBelote> suite(EnumMap<Suit,EqList<HandBelote>> _mains, Suit _couleur) {
         return _mains.getVal(_couleur);
     }
-    static HandBelote main(EnumMap<Suit,EqList<HandBelote>> _mains,Suit _couleur,int _indice2) {
+    static HandBelote hand(EnumMap<Suit,EqList<HandBelote>> _mains, Suit _couleur, int _indice2) {
         return _mains.getVal(_couleur).get(_indice2);
     }
     static EnumList<Suit> couleurs() {

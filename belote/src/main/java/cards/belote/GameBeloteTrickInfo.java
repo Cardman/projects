@@ -11,8 +11,8 @@ public final class GameBeloteTrickInfo {
 
     private TrickBelote progressingTrick;
     private CustList<TrickBelote> tricks;
-    private EqList<DeclareHandBelote> declares=new EqList<DeclareHandBelote>();
-    private EqList<HandBelote> declaresBeloteRebelote = new EqList<HandBelote>();
+    private EqList<DeclareHandBelote> declares;
+    private EqList<HandBelote> declaresBeloteRebelote;
     private BidBeloteSuit bid;
     private Numbers<Integer> handLengths;
 
@@ -158,12 +158,12 @@ public final class GameBeloteTrickInfo {
         for(Suit couleur_:GameBeloteCommon.couleurs()) {
             if(bid.getCouleurDominante()) {
                 if(couleur_!=bid.getCouleur()) {
-                    GameBeloteCommon.main(_reps,couleur_, _player).setOrdre(Order.SUIT);
+                    GameBeloteCommon.hand(_reps,couleur_, _player).setOrdre(Order.SUIT);
                 }
             } else if(bid.ordreCouleur()) {
-                GameBeloteCommon.main(_reps,couleur_, _player).setOrdre(Order.SUIT);
+                GameBeloteCommon.hand(_reps,couleur_, _player).setOrdre(Order.SUIT);
             }
-            GameBeloteCommon.main(_reps,couleur_, _player).trierUnicolore(true);
+            GameBeloteCommon.hand(_reps,couleur_, _player).trierUnicolore(true);
         }
     }
 
@@ -224,7 +224,7 @@ public final class GameBeloteTrickInfo {
             Suit _couleurAtout,
             HandBelote _curHand) {
         EnumMap<Suit,HandBelote> repartition_ = _curHand.couleurs(bid);
-        HandBelote trumps_ = GameBeloteCommon.main(repartition_,_couleurAtout);
+        HandBelote trumps_ = GameBeloteCommon.hand(repartition_,_couleurAtout);
         HandBelote cartesJouees_ = cartesJouees();
         cartesJouees_.ajouterCartes(progressingTrick.getCartes());
         byte next_ = progressingTrick.getNextPlayer(nbPlayers);
@@ -539,7 +539,7 @@ public final class GameBeloteTrickInfo {
      @param numero*/
     private EqList<HandBelote> cartesPossibles(Suit _couleur, HandBelote _cartesJoueur) {
         EnumMap<Suit,HandBelote> repartition_ = _cartesJoueur.couleurs(bid);
-        HandBelote suitCards_ = GameBeloteCommon.main(repartition_,_couleur);
+        HandBelote suitCards_ = GameBeloteCommon.hand(repartition_,_couleur);
         HandBelote cartesJouees_ = cartesJouees();
         cartesJouees_.ajouterCartes(progressingTrick.getCartes());
         EqList<HandBelote> m=new EqList<HandBelote>();
@@ -707,5 +707,9 @@ public final class GameBeloteTrickInfo {
 
     BidBeloteSuit getBid() {
         return bid;
+    }
+
+    HandBelote getLastSeenHand() {
+        return lastSeenHand;
     }
 }

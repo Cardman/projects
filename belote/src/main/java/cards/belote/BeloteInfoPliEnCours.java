@@ -13,6 +13,7 @@ final class BeloteInfoPliEnCours {
     private Numbers<Byte> joueursNonJoue;
     private Numbers<Byte> joueursJoue;
     private CustList<TrickBelote> plisFaits;
+    private TrickBelote progressingTrick;
     private HandBelote cartesJouees;
     private EnumMap<Suit,HandBelote> repartitionCartesJouees;
     private EnumMap<Suit,EqList<HandBelote>> cartesPossibles;
@@ -26,6 +27,10 @@ final class BeloteInfoPliEnCours {
     private boolean maitreJeu;
     private EnumList<Suit> coupesFranches;
     private BidBeloteSuit contrat;
+    private Numbers<Byte> joueursConfiance;
+    private Numbers<Byte> joueursNonConfiance;
+    private byte nextPlayer;
+    private byte nbPlayers;
 
     BeloteInfoPliEnCours() {
     }
@@ -68,6 +73,14 @@ final class BeloteInfoPliEnCours {
 
     public void setPlisFaits(CustList<TrickBelote> _plisFaits) {
         plisFaits = _plisFaits;
+    }
+
+    public TrickBelote getProgressingTrick() {
+        return progressingTrick;
+    }
+
+    public void setProgressingTrick(TrickBelote _progressingTrick) {
+        progressingTrick = _progressingTrick;
     }
 
     public HandBelote getCartesJouees() {
@@ -178,4 +191,35 @@ final class BeloteInfoPliEnCours {
         contrat = _contrat;
     }
 
+    public Numbers<Byte> getJoueursConfiance() {
+        return joueursConfiance;
+    }
+
+    public void setJoueursConfiance(Numbers<Byte> _joueursConfiance) {
+        joueursConfiance = _joueursConfiance;
+    }
+
+    public Numbers<Byte> getJoueursNonConfiance() {
+        return joueursNonConfiance;
+    }
+
+    public void setJoueursNonConfiance(Numbers<Byte> _joueursNonConfiance) {
+        joueursNonConfiance = _joueursNonConfiance;
+    }
+
+    public byte getNextPlayer() {
+        return nextPlayer;
+    }
+
+    public void setNextPlayer(byte _nextPlayer) {
+        nextPlayer = _nextPlayer;
+    }
+
+    public byte getNbPlayers() {
+        return nbPlayers;
+    }
+
+    public void setNbPlayers(byte _nbPlayers) {
+        nbPlayers = _nbPlayers;
+    }
 }
