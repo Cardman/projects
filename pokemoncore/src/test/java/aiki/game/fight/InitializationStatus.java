@@ -35,6 +35,7 @@ final class InitializationStatus {
     static final String GEL = "GEL";
     static final String NUIT_NOIRE = "NUIT_NOIRE";
     static final String NUIT_BLANCHE_BIS = "NUIT_BLANCHE_BIS";
+    static final String NUIT_GRISE = "NUIT_GRISE";
     static final String NUIT_BLANCHE = "NUIT_BLANCHE";
     static final String CAUCHEMAR = "CAUCHEMAR";
     static final String AMOUR_TRES_MOU = "AMOUR_TRES_MOU";
@@ -238,6 +239,12 @@ final class InitializationStatus {
         statusBeginRound_.getEffectEndRound().add(effectEndRoundStatusRelation_);
         statusBeginRound_.setIncrementEndRound(46);
         _data.completeMembers(NUIT_BLANCHE_BIS,statusBeginRound_);
+        statusBeginRound_ = defaultStatusBeginRound();
+        statusBeginRound_.setStatusType(StatusType.RELATION_UNIQUE);
+        statusBeginRound_.setCatchingRate(new Rate("3/2"));
+        statusBeginRound_.getLawForUsingAMoveNbRound().addEvent(new Rate("4"),new LgInt("9"));
+        statusBeginRound_.setIncrementingEndRound(true);
+        _data.completeMembers(NUIT_GRISE,statusBeginRound_);
         statusBeginRound_ = defaultStatusBeginRound();
         statusBeginRound_.setStatusType(StatusType.RELATION_UNIQUE);
         statusBeginRound_.setCatchingRate(new Rate("3/2"));

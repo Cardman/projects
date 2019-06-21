@@ -1184,13 +1184,17 @@ final class FightEndRound {
     }
 
     static void effectEndRoundStatusHp(Fight _fight,TeamPosition _combattant,Status _statut,String _nomStatut,Difficulty _diff,DataBase _import){
+        CustList<EffectEndRoundStatus> effectEndRound_ = _statut.getEffectEndRound();
+        if (effectEndRound_.isEmpty()) {
+            return;
+        }
         Fighter creature_=_fight.getFighter(_combattant);
         int nbRounds_ = creature_.getStatusNbRoundShort(_nomStatut);
         if(nbRounds_ <= 0){
             return;
         }
         _fight.addStatusEndRoundMessage(_nomStatut, _combattant, _import);
-        EffectEndRoundSingleStatus effet_=(EffectEndRoundSingleStatus) _statut.getEffectEndRound().first();
+        EffectEndRoundSingleStatus effet_=(EffectEndRoundSingleStatus) effectEndRound_.first();
         Rate taux_=new Rate(effet_.getInflictedRateHpTarget());
         if (effet_.isIncrementingDamageByRounds()) {
             taux_.multiplyBy(new Rate(nbRounds_));
@@ -1223,7 +1227,11 @@ final class FightEndRound {
 
     static void effectEndRoundStatusRelation(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,String _nomStatut, DataBase _import){
         Status status_ = _import.getStatus(_nomStatut);
-        EffectEndRoundStatus effetFinTour_ = status_.getEffectEndRound().first();
+        CustList<EffectEndRoundStatus> effectEndRound_ = status_.getEffectEndRound();
+        if (effectEndRound_.isEmpty()) {
+            return;
+        }
+        EffectEndRoundStatus effetFinTour_ = effectEndRound_.first();
         boolean success_ = true;
         if (!effetFinTour_.getFailEndRound().isEmpty()) {
             StringMap<String> values_;
@@ -1270,7 +1278,11 @@ final class FightEndRound {
     static void effectEndRoundStatusRelationHp(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,String _nomStatut,Difficulty _diff,DataBase _import){
         Fighter creature_=_fight.getFighter(_cible);
         Status status_ = _import.getStatus(_nomStatut);
-        EffectEndRoundStatus effetFinTour_ = status_.getEffectEndRound().first();
+        CustList<EffectEndRoundStatus> effectEndRound_ = status_.getEffectEndRound();
+        if (effectEndRound_.isEmpty()) {
+            return;
+        }
+        EffectEndRoundStatus effetFinTour_ = effectEndRound_.first();
         boolean success_ = true;
         if (!effetFinTour_.getFailEndRound().isEmpty()) {
             StringMap<String> values_;
@@ -1286,7 +1298,7 @@ final class FightEndRound {
             return;
         }
         _fight.addStatusRelEndRoundMessage(_nomStatut, _cible, _lanceur, _import);
-        EffectEndRoundStatusRelation effet_=(EffectEndRoundStatusRelation) status_.getEffectEndRound().first();
+        EffectEndRoundStatusRelation effet_=(EffectEndRoundStatusRelation) effectEndRound_.first();
         Rate tauxAbs_=new Rate(effet_.getThievedHpRateTargetToUser());
         if(!tauxAbs_.isZero() && FightKo.canBeHealed(_fight,_lanceur.getTeam(),_import)){
             Fighter creatureLanceur_=_fight.getFighter(_lanceur);

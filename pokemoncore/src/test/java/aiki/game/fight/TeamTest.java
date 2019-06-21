@@ -712,9 +712,9 @@ public class TeamTest extends InitializationDataBase {
         fightersCoords_.add(fighterCoordsTwo_);
         team_.initRelationsCombattant(fightersCoords_, _data_);
         Fighter fighter_ = team_.getMembers().getVal((byte) 0);
-        assertEq(22, fighter_.getStatusRelat().size());
+        assertEq(24, fighter_.getStatusRelat().size());
 //        assertEq(22, fighter_.getStatusRelat().getKeys((short) 0).size());
-        assertEq(22, getNbStatusRelatByRounds(fighter_,(short) 0));
+        assertEq(24, getNbStatusRelatByRounds(fighter_,(short) 0));
         assertEq(6, fighter_.getTrackingMoves().size());
         assertEq(2, fighter_.getPrivateMoves().size());
         assertEq(0, fighter_.getPrivateMoves().getVal(new MoveTeamPosition(POSSESSIF,fighterCoordsOne_)).size());
@@ -722,9 +722,9 @@ public class TeamTest extends InitializationDataBase {
         assertEq(4, fighter_.getTrappingMoves().size());
         assertEq(4, fighter_.getIncrUserAccuracy().size());
         fighter_ = team_.getMembers().getVal((byte) 1);
-        assertEq(22, fighter_.getStatusRelat().size());
+        assertEq(24, fighter_.getStatusRelat().size());
 //        assertEq(22, fighter_.getStatusRelat().getKeys((short) 0).size());
-        assertEq(22, getNbStatusRelatByRounds(fighter_,(short) 0));
+        assertEq(24, getNbStatusRelatByRounds(fighter_,(short) 0));
         assertEq(6, fighter_.getTrackingMoves().size());
         assertEq(2, fighter_.getPrivateMoves().size());
         assertEq(0, fighter_.getPrivateMoves().getVal(new MoveTeamPosition(POSSESSIF,fighterCoordsOne_)).size());

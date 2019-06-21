@@ -5214,6 +5214,37 @@ public class FightEndRoundTest extends InitializationDataBase {
     }
 
     @Test
+    public void effectEndRoundStatusRelationHp19Test() {
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(SIPHON, (short) 10);
+        moves_.put(DEMI_TOUR, (short) 10);
+        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
+        userMoves_.add(new LevelMoves((short)3,moves_));
+        userMoves_.add(new LevelMoves((short)4,moves_));
+        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
+        StringList partnerMoves_ = new StringList(JACKPOT);
+        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
+        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
+        StringList foeMoves_ = new StringList(DETECTION);
+        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
+        Fight fight_ = effectEndRoundStatusRelationHp(userMoves_, partnersMoves_, foesMoves_, diff_);
+        TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
+        TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        Fighter fighter_ = fight_.getFighter(target_);
+        String st_ = NUIT_GRISE;
+        fighter_.affecterPseudoStatut(thrower_, st_);
+        fighter_.affecterStatut(SOMMEIL);
+        fighter_.setRemainedHp(Rate.one());
+        FightEndRound.effectEndRoundStatusRelationHp(fight_, thrower_, target_, st_, diff_, _data_);
+        assertEq(new Rate("1"),fighter_.getRemainingHp());
+        assertEq(1, fighter_.getStatusRelatNbRound(new MoveTeamPosition(st_, thrower_)));
+        assertTrue(fight_.getAcceptableChoices());
+        assertEq(0, fight_.getEffects().size());
+    }
+    @Test
     public void effectEndRoundStatusRelationHp1SimulationTest() {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);

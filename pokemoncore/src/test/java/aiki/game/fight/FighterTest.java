@@ -725,9 +725,9 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemon_, _data_, (byte) 0);
         TeamPosition fighterCoords_ = new TeamPosition(Fight.PLAYER, (byte)0);
         fighter_.ajouterRelationAutre(fighterCoords_, _data_);
-        assertEq(11, fighter_.getStatusRelat().size());
+        assertEq(12, fighter_.getStatusRelat().size());
 //        assertEq(11, fighter_.getStatusRelat().getKeys((short) 0).size());
-        assertEq(11, getNbStatusRelatByRounds(fighter_,(short) 0));
+        assertEq(12, getNbStatusRelatByRounds(fighter_,(short) 0));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE,fighterCoords_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(AMOUR,fighterCoords_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(AMOUR_FOU,fighterCoords_)));
@@ -737,6 +737,7 @@ public class FighterTest extends InitializationDataBase {
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(NUIT_BLANCHE,fighterCoords_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(NUIT_BLANCHE_BIS,fighterCoords_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(NUIT_NOIRE,fighterCoords_)));
+        assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(NUIT_GRISE,fighterCoords_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(PRISE_DE_TETE,fighterCoords_)));
         assertEq(3, fighter_.getTrackingMoves().size());
         assertTrue(fighter_.getTrackingMoves().contains(new MoveTeamPosition(ENCORE,fighterCoords_)));
@@ -793,9 +794,9 @@ public class FighterTest extends InitializationDataBase {
         fightersCoords_.add(fighterCoordsOne_);
         fightersCoords_.add(fighterCoordsTwo_);
         fighter_.initCreatureRelationsAutre(fightersCoords_, _data_);
-        assertEq(22, fighter_.getStatusRelat().size());
+        assertEq(24, fighter_.getStatusRelat().size());
 //        assertEq(22, fighter_.getStatusRelat().getKeys((short) 0).size());
-        assertEq(22, getNbStatusRelatByRounds(fighter_,(short) 0));
+        assertEq(24, getNbStatusRelatByRounds(fighter_,(short) 0));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE,fighterCoordsOne_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(AMOUR,fighterCoordsOne_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(AMOUR_MOU,fighterCoordsOne_)));
@@ -805,6 +806,7 @@ public class FighterTest extends InitializationDataBase {
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(PRISE_DE_TETE,fighterCoordsOne_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(COUP_DE_BEC,fighterCoordsOne_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(NUIT_BLANCHE,fighterCoordsOne_)));
+        assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(NUIT_GRISE,fighterCoordsOne_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(NUIT_BLANCHE_BIS,fighterCoordsOne_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(NUIT_NOIRE,fighterCoordsOne_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE,fighterCoordsTwo_)));
@@ -816,6 +818,7 @@ public class FighterTest extends InitializationDataBase {
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(PRISE_DE_TETE,fighterCoordsTwo_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(COUP_DE_BEC,fighterCoordsTwo_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(NUIT_BLANCHE,fighterCoordsTwo_)));
+        assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(NUIT_GRISE,fighterCoordsTwo_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(NUIT_BLANCHE_BIS,fighterCoordsTwo_)));
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(NUIT_NOIRE,fighterCoordsTwo_)));
         assertEq(6, fighter_.getTrackingMoves().size());

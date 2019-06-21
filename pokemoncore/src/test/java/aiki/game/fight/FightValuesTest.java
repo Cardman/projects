@@ -1252,7 +1252,7 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterPseudoStatut(POKEMON_FOE_FIGHTER_ZERO, VAMPIGRAINE);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).affecterPseudoStatut(POKEMON_PLAYER_FIGHTER_ZERO, VAMPIGRAINE);
         StringMap<String> map_ = FightValues.calculateBasicBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, _data_);
-        assertEq(42, map_.size());
+        assertEq(43, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANNEAU_HYDRO)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANTI_AIR)));
@@ -1308,7 +1308,7 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterPseudoStatut(POKEMON_FOE_FIGHTER_ZERO, VAMPIGRAINE);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).affecterPseudoStatut(POKEMON_PLAYER_FIGHTER_ZERO, VAMPIGRAINE);
         StringMap<String> map_ = FightValues.calculateBasicBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, _data_);
-        assertEq(42, map_.size());
+        assertEq(43, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANNEAU_HYDRO)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANTI_AIR)));
@@ -1365,7 +1365,7 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).affecterPseudoStatut(POKEMON_PLAYER_FIGHTER_ZERO, VAMPIGRAINE);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setCurrentAbility(LEVITATION);
         StringMap<String> map_ = FightValues.calculateBasicBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, _data_);
-        assertEq(42, map_.size());
+        assertEq(43, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANNEAU_HYDRO)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANTI_AIR)));
@@ -1423,7 +1423,7 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setCurrentAbility(LEVITATION);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getTrackingMoves().getVal(new MoveTeamPosition(ENCORE, POKEMON_PLAYER_FIGHTER_ZERO)).getActivity().enable();
         StringMap<String> map_ = FightValues.calculateBasicBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, _data_);
-        assertEq(42, map_.size());
+        assertEq(43, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANNEAU_HYDRO)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANTI_AIR)));
@@ -1483,7 +1483,7 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMove(ANNEAU_HYDRO);
         FightRound.initRound(fight_);
         StringMap<String> map_ = FightValues.calculateBasicBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, _data_);
-        assertEq(42, map_.size());
+        assertEq(43, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANNEAU_HYDRO)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANTI_AIR)));
@@ -1555,7 +1555,7 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).variationBoostStatistique(Statistic.CRITICAL_HIT, (byte) _data_.getMaxBoost());
         StringMap<String> map_;
         map_ = FightValues.calculateBasicBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, _data_);
-        assertEq(42, map_.size());
+        assertEq(43, map_.size());
         assertEq(V, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANNEAU_HYDRO)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANTI_AIR)));
@@ -1616,7 +1616,7 @@ public class FightValuesTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setLastUsedMove(NULL_REF);
         StringMap<String> map_ = FightValues.calculateBasicBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, _data_);
-        assertEq(42, map_.size());
+        assertEq(43, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANNEAU_HYDRO)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANTI_AIR)));
@@ -1677,7 +1677,7 @@ public class FightValuesTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setLastSufferedMoveTypes(new StringList(ROCHE));
         StringMap<String> map_ = FightValues.calculateBasicBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, _data_);
-        assertEq(42, map_.size());
+        assertEq(43, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANNEAU_HYDRO)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANTI_AIR)));
@@ -1738,7 +1738,7 @@ public class FightValuesTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setLastUsedMove(ATTERRISSAGE);
         StringMap<String> map_ = FightValues.calculateBasicBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, _data_);
-        assertEq(42, map_.size());
+        assertEq(43, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANNEAU_HYDRO)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANTI_AIR)));
@@ -1815,7 +1815,7 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).successUsingMove();
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setSuccessfulMove(false);
         StringMap<String> map_ = FightValues.calculateBasicBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, _data_);
-        assertEq(42, map_.size());
+        assertEq(43, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(V, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANNEAU_HYDRO)));
         assertEq(V, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANTI_AIR)));
@@ -1891,7 +1891,7 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, true);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).successUsingMove();
         StringMap<String> map_ = FightValues.calculateBasicBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, _data_);
-        assertEq(42, map_.size());
+        assertEq(43, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(V, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANNEAU_HYDRO)));
         assertEq(V, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANTI_AIR)));
@@ -1967,7 +1967,7 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, true);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).successUsingMove();
         StringMap<String> map_ = FightValues.calculateBasicBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_PLAYER_FIGHTER_ZERO, _data_);
-        assertEq(42, map_.size());
+        assertEq(43, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_POSSEDE_STATUT_RELATION,DataBase.SEP_BETWEEN_KEYS,AMOUR)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_POSSEDE_STATUT_RELATION,DataBase.SEP_BETWEEN_KEYS,AMOUR_FOU)));
@@ -2031,7 +2031,7 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, true);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).successUsingMove();
         StringMap<String> map_ = FightValues.calculateBasicBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_PLAYER_FIGHTER_ZERO, _data_);
-        assertEq(42, map_.size());
+        assertEq(43, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_POSSEDE_STATUT_RELATION,DataBase.SEP_BETWEEN_KEYS,AMOUR)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_POSSEDE_STATUT_RELATION,DataBase.SEP_BETWEEN_KEYS,AMOUR_FOU)));
@@ -2099,7 +2099,7 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, true);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).successUsingMove();
         StringMap<String> map_ = FightValues.calculateBasicBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, _data_);
-        assertEq(42, map_.size());
+        assertEq(43, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(V, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANNEAU_HYDRO)));
         assertEq(V, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANTI_AIR)));
@@ -2180,7 +2180,7 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getEnabledMovesForAlly().put(COUP_D_MAIN, true);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).successUsingMove();
         StringMap<String> map_ = FightValues.calculateBasicBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, _data_);
-        assertEq(42, map_.size());
+        assertEq(43, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(V, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANNEAU_HYDRO)));
         assertEq(V, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANTI_AIR)));
@@ -2241,7 +2241,7 @@ public class FightValuesTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).successUsingMove();
         StringMap<String> map_ = FightValues.calculateBasicBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, _data_);
-        assertEq(42, map_.size());
+        assertEq(43, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANNEAU_HYDRO)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANTI_AIR)));
@@ -2303,7 +2303,7 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).successUsingMove();
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSuccessfulMove(false);
         StringMap<String> map_ = FightValues.calculateBasicBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, _data_);
-        assertEq(42, map_.size());
+        assertEq(43, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANNEAU_HYDRO)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANTI_AIR)));
@@ -2364,7 +2364,7 @@ public class FightValuesTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setLastUsedMove(NULL_REF);
         StringMap<String> map_ = FightValues.calculateBasicBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, _data_);
-        assertEq(42, map_.size());
+        assertEq(43, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANNEAU_HYDRO)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANTI_AIR)));
@@ -2425,7 +2425,7 @@ public class FightValuesTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setLastSufferedMoveTypes(new StringList(ROCHE));
         StringMap<String> map_ = FightValues.calculateBasicBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, _data_);
-        assertEq(42, map_.size());
+        assertEq(43, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANNEAU_HYDRO)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANTI_AIR)));
@@ -2542,7 +2542,7 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterPseudoStatut(POKEMON_FOE_FIGHTER_ZERO, VAMPIGRAINE);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).affecterPseudoStatut(POKEMON_PLAYER_FIGHTER_ZERO, VAMPIGRAINE);
         StringMap<String> map_ = FightValues.calculateBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, SEISME, 0, _data_);
-        assertEq(44, map_.size());
+        assertEq(45, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANNEAU_HYDRO)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANTI_AIR)));
@@ -2600,7 +2600,7 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterPseudoStatut(POKEMON_FOE_FIGHTER_ZERO, VAMPIGRAINE);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).affecterPseudoStatut(POKEMON_PLAYER_FIGHTER_ZERO, VAMPIGRAINE);
         StringMap<String> map_ = FightValues.calculateBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, PICS_TOXIK, 0, _data_);
-        assertEq(45, map_.size());
+        assertEq(46, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANNEAU_HYDRO)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANTI_AIR)));
@@ -2660,7 +2660,7 @@ public class FightValuesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).affecterPseudoStatut(POKEMON_PLAYER_FIGHTER_ZERO, VAMPIGRAINE);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setCurrentAbility(LEVITATION);
         StringMap<String> map_ = FightValues.calculateBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, PICS_TOXIK, 0, _data_);
-        assertEq(45, map_.size());
+        assertEq(46, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANNEAU_HYDRO)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANTI_AIR)));
@@ -2724,7 +2724,7 @@ public class FightValuesTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setLastUsedMove(NULL_REF);
         StringMap<String> map_ = FightValues.calculateBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, COPIE, 0, _data_);
-        assertEq(44, map_.size());
+        assertEq(45, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANNEAU_HYDRO)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANTI_AIR)));
@@ -2829,7 +2829,7 @@ public class FightValuesTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setLastSufferedMoveTypes(new StringList(ROCHE));
         StringMap<String> map_ = FightValues.calculateBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, GRIBOUILLE, 0, _data_);
-        assertEq(44, map_.size());
+        assertEq(45, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANNEAU_HYDRO)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANTI_AIR)));
@@ -2934,7 +2934,7 @@ public class FightValuesTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setLastUsedMove(ANNEAU_HYDRO);
         StringMap<String> map_ = FightValues.calculateBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, COPIE, 0, _data_);
-        assertEq(44, map_.size());
+        assertEq(45, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANNEAU_HYDRO)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANTI_AIR)));
@@ -2997,7 +2997,7 @@ public class FightValuesTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setLastUsedMove(NULL_REF);
         StringMap<String> map_ = FightValues.calculateBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, FORCE_NATURE, 0, _data_);
-        assertEq(44, map_.size());
+        assertEq(45, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANNEAU_HYDRO)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANTI_AIR)));
@@ -3060,7 +3060,7 @@ public class FightValuesTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setLastSufferedMoveTypes(new StringList(ROCHE));
         StringMap<String> map_ = FightValues.calculateBooleanValues(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, MOI_D_ABORD, 0, _data_);
-        assertEq(44, map_.size());
+        assertEq(45, map_.size());
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.AUCUN_BOOST_POSSIBLE)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANNEAU_HYDRO)));
         assertEq(F, map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_EFFET,DataBase.SEP_BETWEEN_KEYS,ANTI_AIR)));

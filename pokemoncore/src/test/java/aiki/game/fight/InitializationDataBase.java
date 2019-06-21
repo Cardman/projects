@@ -738,6 +738,7 @@ public class InitializationDataBase {
     protected static final String ERE_GEL = InitializationStatus.ERE_GEL;
     protected static final String GEL = InitializationStatus.GEL;
     protected static final String NUIT_NOIRE = InitializationStatus.NUIT_NOIRE;
+    protected static final String NUIT_GRISE = InitializationStatus.NUIT_GRISE;
     protected static final String NUIT_BLANCHE_BIS = InitializationStatus.NUIT_BLANCHE_BIS;
     protected static final String NUIT_BLANCHE = InitializationStatus.NUIT_BLANCHE;
     protected static final String CAUCHEMAR = InitializationStatus.CAUCHEMAR;
