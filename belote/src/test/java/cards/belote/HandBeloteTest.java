@@ -1217,17 +1217,11 @@ public class HandBeloteTest {
         assertTrue(!repartitionsValides_.isEmpty());
         assertEq(DealingBelote.values().length,repartitionsValides_.size());
     }
-
-
-    //TODO change later
     private void asserting(EqList<HandBelote> _exp, EqList<HandBelote> _res) {
         assertEq(_exp.size(), _res.size());
         int s_ = _exp.size();
         for (int i = CustList.FIRST_INDEX; i < s_; i++) {
             assertEq(_exp.get(i), _res.get(i));
         }
-    }    @Test
-    public void jeuValide1(){
-        assertTrue(HandBelote.jeuValide());
     }
 }

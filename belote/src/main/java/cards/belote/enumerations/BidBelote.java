@@ -45,9 +45,7 @@ public enum BidBelote {
     public boolean getCouleurDominante(){
         return couleurDominante;
     }
-    public int getPriorite(){
-        return priorite;
-    }
+
     //portee projet
     public Order getOrdre() {
         return ordre;
@@ -97,63 +95,7 @@ public enum BidBelote {
     private boolean estPlusFortQue(BidBelote _contrat) {
         return getForce()>_contrat.getForce();
     }
-    public static EnumList<BidBelote> getValidBids() {
-        EnumList<BidBelote> bids_ = new EnumList<BidBelote>();
-        for (BidBelote e: BidBelote.values()) {
-            EnumList<BidBelote> bidsOfSameStrength_ = e.getBidsOfSameStrength();
-            if (bidsOfSameStrength_.size() > 1) {
-                boolean bidsOfSamePriority_ = false;
-                for (BidBelote e2_: bidsOfSameStrength_) {
-                    if (e2_ == e) {
-                        continue;
-                    }
-                    if (e.getPriorite() == e2_.getPriorite()) {
-                        bidsOfSamePriority_ = true;
-                        break;
-                    }
-                }
-                if (bidsOfSamePriority_) {
-                    continue;
-                }
-                boolean existBidNotAlwaysUsable_ = false;
-                for (BidBelote e2_: bidsOfSameStrength_) {
-                    if (e2_.getToujoursPossibleAnnoncer()) {
-                        continue;
-                    }
-                    existBidNotAlwaysUsable_ = true;
-                }
-                if (existBidNotAlwaysUsable_) {
-                    continue;
-                }
-            }
-            if (e.getOrdre() == Order.NOTHING) {
-                if (!e.getCouleurDominante()) {
-                    if (!e.jouerDonne()) {
-                        bids_.add(e);
-                    }
-                    continue;
-                }
-                bids_.add(e);
-                continue;
-            }
-            if (e.getOrdre() == Order.TRUMP || e.getOrdre() == Order.SUIT) {
-                if (e.getCouleurDominante()) {
-                    continue;
-                }
-                bids_.add(e);
-            }
-        }
-        return bids_;
-    }
-    public EnumList<BidBelote> getBidsOfSameStrength() {
-        EnumList<BidBelote> bids_ = new EnumList<BidBelote>();
-        for (BidBelote e: BidBelote.values()) {
-            if (e.getForce() == getForce()) {
-                bids_.add(e);
-            }
-        }
-        return bids_;
-    }
+
     public static EnumList<BidBelote> getAlwaysUsableBids() {
         EnumList<BidBelote> bids_ = new EnumList<BidBelote>();
         for (BidBelote e: BidBelote.values()) {
@@ -183,31 +125,5 @@ public enum BidBelote {
             bids_.add(e);
         }
         return bids_;
-    }
-    public static boolean allOrderedBids() {
-        for (BidBelote e: BidBelote.values()) {
-            if (e.jouerDonne()) {
-                for (BidBelote e2_: BidBelote.values()) {
-                    if (e2_.jouerDonne()) {
-                        continue;
-                    }
-                    if (e.getForce() > e2_.getForce()) {
-                        continue;
-                    }
-                    return false;
-                }
-            } else {
-                for (BidBelote e2_: BidBelote.values()) {
-                    if (!e2_.jouerDonne()) {
-                        continue;
-                    }
-                    if (e.getForce() < e2_.getForce()) {
-                        continue;
-                    }
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 }
