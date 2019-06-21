@@ -24,12 +24,10 @@ public final class GameBeloteTrickHypothesis {
      @param cartes_possibles l'ensemble des cartes probablement possedees par les joueurs
      @param cartes_certaines l'ensemble des cartes surement possedees par les joueurs
      @param ramasseur_virtuel le joueur, qui sans les cartes jouees par les derniers joueurs du pli est ramasseur
-     @param _carteForte la carte qui est en train de dominer le pli
      @param joueurs_non_joue l'ensemble des joueurs n'ayant pas encore joue leur carte
      */
     static PossibleTrickWinner equipeQuiVaFairePliCouleurDominante(
-            BeloteInfoPliEnCours _info,
-            CardBelote _carteForte) {
+            BeloteInfoPliEnCours _info) {
         EnumMap<Suit,EqList<HandBelote>> cartesPossibles_=_info.getCartesPossibles();
         EnumMap<Suit,EqList<HandBelote>> cartesCertaines_=_info.getCartesCertaines();
         Numbers<Byte> joueursNonJoue_=_info.getJoueursNonJoue();
@@ -41,20 +39,22 @@ public final class GameBeloteTrickHypothesis {
         Suit couleurDemandee_=_info.getProgressingTrick().couleurDemandee();
         Suit couleurAtout_=_info.getCouleurAtout();
         boolean ramasseurVirtuelEgalCertain_=false;
+        byte nbPlayers_ = _info.getNbPlayers();
+        CardBelote carteForte_=_info.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_,nbPlayers_);
         Numbers<Byte> joueursNonConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, adversaires_);
         Numbers<Byte> joueursConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, partenaire_);
-        Numbers<Byte> joueursJoue_=GameBeloteTeamsRelation.autresJoueurs(joueursNonJoue_, _info.getNbPlayers());
+        Numbers<Byte> joueursJoue_=GameBeloteTeamsRelation.autresJoueurs(joueursNonJoue_, nbPlayers_);
         /*Le contrat n est ni sans-atout ni tout atout.*/
         BidBeloteSuit bid_ = _info.getContrat();
-        if(_carteForte.couleur()==couleurAtout_&&couleurDemandee_!=couleurAtout_) {
+        if(carteForte_.couleur()==couleurAtout_&&couleurDemandee_!=couleurAtout_) {
             /*Le pli est coupe*/
             if(!GameBeloteCommon.hand(cartesCertaines_,couleurDemandee_,next_).estVide()||GameBeloteCommon.hand(cartesCertaines_,couleurAtout_,next_).estVide()||
                     GameBeloteCommon.hand(cartesCertaines_,couleurAtout_,next_).premiereCarte().strength(couleurDemandee_, bid_)
-                            <_carteForte.strength(couleurDemandee_, bid_)) {
+                            <carteForte_.strength(couleurDemandee_, bid_)) {
                 /*Le joueur numero ne peut pas prendre la main*/
                 if(partenaire_.containsObj(ramasseurVirtuel_)) {
                     /*On cherche a savoir si le ramasseur virtuel (joueur de confiance) va avec sa coupe sur la couleur demandee dominer tous les atouts des joueurs de non confiance eventuels*/
-                    if(ramasseurBatAdvSur(_info,joueursNonConfianceNonJoue_, couleurDemandee_, _carteForte)) {
+                    if(ramasseurBatAdvSur(_info,joueursNonConfianceNonJoue_, couleurDemandee_, carteForte_)) {
                         return PossibleTrickWinner.TEAM;
                     }
                     /*On cherche les joueurs de confiance battant de maniere certaine les joueurs de non confiance n'ayant pas joue
@@ -69,7 +69,7 @@ public final class GameBeloteTrickHypothesis {
                     }
                     /*On cherche les joueurs de non confiance battant de maniere certaine les joueurs de confiance n'ayant pas joue
                     ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
-                    if(existeJoueurAdvRamBatAdvSur(_info,joueursConfianceNonJoue_, joueursNonConfianceNonJoue_, couleurDemandee_, _carteForte)) {
+                    if(existeJoueurAdvRamBatAdvSur(_info,joueursConfianceNonJoue_, joueursNonConfianceNonJoue_, couleurDemandee_, carteForte_)) {
                         return PossibleTrickWinner.FOE_TEAM;
                     }
                     /*On cherche les joueurs de confiance battant de maniere certaine les joueurs de non confiance n'ayant pas joue
@@ -81,7 +81,7 @@ public final class GameBeloteTrickHypothesis {
                 }
                 /*ramasseurVirtuel n'est pas un joueur de confiance pour le joueur numero*/
                 /*On cherche a savoir si le ramasseur virtuel (joueur de non confiance) bat tous les joueurs de confiance n'ayant pas joue*/
-                if(ramasseurBatAdvSur(_info,joueursConfianceNonJoue_, couleurDemandee_, _carteForte)) {
+                if(ramasseurBatAdvSur(_info,joueursConfianceNonJoue_, couleurDemandee_, carteForte_)) {
                     return PossibleTrickWinner.FOE_TEAM;
                 }
                 /*On cherche les joueurs de non confiance battant de maniere certaine les joueurs de confiance n'ayant pas joue
@@ -96,7 +96,7 @@ public final class GameBeloteTrickHypothesis {
                 }
                 /*On cherche les joueurs de confiance battant de maniere certaine les joueurs de non confiance n'ayant pas joue
                 ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
-                if(existeJoueurAdvRamBatAdvSur(_info,joueursNonConfianceNonJoue_, joueursConfianceNonJoue_, couleurDemandee_, _carteForte)) {
+                if(existeJoueurAdvRamBatAdvSur(_info,joueursNonConfianceNonJoue_, joueursConfianceNonJoue_, couleurDemandee_, carteForte_)) {
                     return PossibleTrickWinner.TEAM;
                 }
                 /*On cherche les joueurs de confiance battant de maniere certaine les joueurs de non confiance n'ayant pas joue
@@ -128,7 +128,7 @@ public final class GameBeloteTrickHypothesis {
             }
             return PossibleTrickWinner.UNKNOWN;
         }
-        if(_carteForte.couleur()==couleurDemandee_&&couleurDemandee_!=couleurAtout_) {
+        if(carteForte_.couleur()==couleurDemandee_&&couleurDemandee_!=couleurAtout_) {
             /*La couleur demandee n'est pas de l'atout et le pli n'est pas coupe*/
             for(byte joueur_:joueursConfianceNonJoue_) {
                 if (vaCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_,couleurAtout_)) {
@@ -187,11 +187,11 @@ public final class GameBeloteTrickHypothesis {
                 return PossibleTrickWinner.UNKNOWN;
             }
             if(!GameBeloteCommon.hand(cartesPossibles_,couleurDemandee_,next_).estVide()
-                    &&GameBeloteCommon.hand(cartesPossibles_,couleurDemandee_,next_).premiereCarte().strength(couleurDemandee_,bid_)>_carteForte.strength(couleurDemandee_,bid_)) {
+                    &&GameBeloteCommon.hand(cartesPossibles_,couleurDemandee_,next_).premiereCarte().strength(couleurDemandee_,bid_)>carteForte_.strength(couleurDemandee_,bid_)) {
                 /*Si le joueur numero peut prendre la main sans couper*/
                 /*On ne sait pas si un joueur n'ayant pas joue va couper le pli ou non*/
                 if(partenaire_.containsObj(ramasseurVirtuel_)) {
-                    if(ramasseurBatSsCprAdv(_info,joueursNonConfianceNonJoue_, couleurDemandee_, _carteForte)) {
+                    if(ramasseurBatSsCprAdv(_info,joueursNonConfianceNonJoue_, couleurDemandee_, carteForte_)) {
                         return PossibleTrickWinner.TEAM;
                     }
                     return PossibleTrickWinner.UNKNOWN;
@@ -226,25 +226,25 @@ public final class GameBeloteTrickHypothesis {
             }
             /*Le joueur numero ne peut pas prendre la main*/
             if(partenaire_.containsObj(ramasseurVirtuel_)) {
-                if(ramasseurBatSsCprAdv(_info,joueursNonConfianceNonJoue_, couleurDemandee_, _carteForte)) {
+                if(ramasseurBatSsCprAdv(_info,joueursNonConfianceNonJoue_, couleurDemandee_, carteForte_)) {
                     return PossibleTrickWinner.TEAM;
                 }
                 return PossibleTrickWinner.UNKNOWN;
             }
             /*Fin joueursDeConfiance.contains(ramasseurVirtuel)*/
             /*Maintenant le ramasseur virtuel n'est pas un joueur de confiance*/
-            if(ramasseurBatSsCprAdv(_info,joueursConfianceNonJoue_, couleurDemandee_, _carteForte)) {
+            if(ramasseurBatSsCprAdv(_info,joueursConfianceNonJoue_, couleurDemandee_, carteForte_)) {
                 return PossibleTrickWinner.FOE_TEAM;
             }
             return PossibleTrickWinner.UNKNOWN;
         }
         /*Le pli n'est pas coupe et la couleur demandee est l'atout*/
         if(GameBeloteCommon.hand(cartesCertaines_,couleurAtout_,next_).estVide()
-                ||GameBeloteCommon.hand(cartesCertaines_,couleurAtout_,next_).premiereCarte().strength(couleurDemandee_,bid_)<_carteForte.strength(couleurDemandee_,bid_)) {
+                ||GameBeloteCommon.hand(cartesCertaines_,couleurAtout_,next_).premiereCarte().strength(couleurDemandee_,bid_)<carteForte_.strength(couleurDemandee_,bid_)) {
             /*Si le joueur numero ne peut pas prendre la main sur demande d'atout*/
             if(partenaire_.containsObj(ramasseurVirtuel_)) {
                 /*Si le ramasseur virtuel (de confiance, ici) domine certainement les joueurs de non confiance n'ayant pas joue*/
-                if(ramasseurBatAdvDemat(_info,joueursNonConfianceNonJoue_, couleurAtout_, _carteForte)) {
+                if(ramasseurBatAdvDemat(_info,joueursNonConfianceNonJoue_, couleurAtout_, carteForte_)) {
                     return PossibleTrickWinner.TEAM;
                 }
                 /*On cherche les joueurs de confiance battant de maniere certaine les joueurs de non confiance n'ayant pas joue
@@ -259,19 +259,19 @@ public final class GameBeloteTrickHypothesis {
                 }
                 /*On cherche les joueurs de non confiance battant de maniere certaine les joueurs de confiance n'ayant pas joue
                 ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
-                if(existeJouBatAdvSurDemat(_info,joueursConfianceNonJoue_, joueursNonConfianceNonJoue_, _carteForte, couleurAtout_)) {
+                if(existeJouBatAdvSurDemat(_info,joueursConfianceNonJoue_, joueursNonConfianceNonJoue_, carteForte_, couleurAtout_)) {
                     return PossibleTrickWinner.FOE_TEAM;
                 }
                 /*On cherche les joueurs de confiance battant de maniere certaine les joueurs de non confiance n'ayant pas joue
                 ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
-                if(existeJouBatPtmSurDemat(_info,joueursConfianceNonJoue_, joueursNonConfianceNonJoue_, joueursJoue_, _carteForte, couleurAtout_)) {
+                if(existeJouBatPtmSurDemat(_info,joueursConfianceNonJoue_, joueursNonConfianceNonJoue_, joueursJoue_, carteForte_, couleurAtout_)) {
                     return PossibleTrickWinner.FOE_TEAM;
                 }
                 return PossibleTrickWinner.UNKNOWN;
             }
             /*ramasseurVirtuel n'est pas un joueur de confiance pour le joueur numero*/
             /*Si le ramasseur virtuel (de non confiance, ici) domine certainement les joueurs de non confiance n'ayant pas joue*/
-            if(ramasseurBatAdvDemat(_info,joueursConfianceNonJoue_, couleurAtout_, _carteForte)) {
+            if(ramasseurBatAdvDemat(_info,joueursConfianceNonJoue_, couleurAtout_, carteForte_)) {
                 return PossibleTrickWinner.FOE_TEAM;
             }
             /*On cherche les joueurs de non confiance battant de maniere certaine les joueurs de confiance n'ayant pas joue ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
@@ -283,11 +283,11 @@ public final class GameBeloteTrickHypothesis {
                 return PossibleTrickWinner.FOE_TEAM;
             }
             /*On cherche les joueurs de confiance battant de maniere certaine les joueurs de non confiance n'ayant pas joue ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
-            if(existeJouBatAdvSurDemat(_info,joueursNonConfianceNonJoue_, joueursConfianceNonJoue_, _carteForte, couleurAtout_)) {
+            if(existeJouBatAdvSurDemat(_info,joueursNonConfianceNonJoue_, joueursConfianceNonJoue_, carteForte_, couleurAtout_)) {
                 return PossibleTrickWinner.TEAM;
             }
             /*On cherche les joueurs de confiance battant de maniere certaine les joueurs de non confiance n'ayant pas joue ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
-            if(existeJouBatPtmSurDemat(_info,joueursNonConfianceNonJoue_, joueursConfianceNonJoue_, joueursJoue_, _carteForte, couleurAtout_)) {
+            if(existeJouBatPtmSurDemat(_info,joueursNonConfianceNonJoue_, joueursConfianceNonJoue_, joueursJoue_, carteForte_, couleurAtout_)) {
                 return PossibleTrickWinner.TEAM;
             }
             return PossibleTrickWinner.UNKNOWN;
@@ -316,8 +316,7 @@ public final class GameBeloteTrickHypothesis {
     }
 
     static PossibleTrickWinner equipeQuiVaFairePliSansAtout(
-            BeloteInfoPliEnCours _info,
-            CardBelote _carteForte) {
+            BeloteInfoPliEnCours _info) {
 
         EnumMap<Suit,EqList<HandBelote>> cartesPossibles_=_info.getCartesPossibles();
         Numbers<Byte> joueursNonJoue_=_info.getJoueursNonJoue();
@@ -328,15 +327,17 @@ public final class GameBeloteTrickHypothesis {
         Suit couleurDemandee_=_info.getProgressingTrick().couleurDemandee();
         Numbers<Byte> joueursNonConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, adversaires_);
         Numbers<Byte> joueursConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, partenaire_);
+        byte nbPlayers_ = _info.getNbPlayers();
+        CardBelote carteForte_=_info.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_,nbPlayers_);
 
         /*La couleur demandee n'est pas de l'atout et le pli n'est pas coupe*/
         BidBeloteSuit bid_ = _info.getContrat();
         if(!GameBeloteCommon.hand(cartesPossibles_,couleurDemandee_,next_).estVide()
-                &&GameBeloteCommon.hand(cartesPossibles_,couleurDemandee_,next_).premiereCarte().strength(couleurDemandee_, bid_)>_carteForte.strength(couleurDemandee_, bid_)) {
+                &&GameBeloteCommon.hand(cartesPossibles_,couleurDemandee_,next_).premiereCarte().strength(couleurDemandee_, bid_)>carteForte_.strength(couleurDemandee_, bid_)) {
             /*Si le joueur numero peut prendre la main sans couper*/
             /*On ne sait pas si un joueur n'ayant pas joue va couper le pli ou non*/
             if(partenaire_.containsObj(ramasseurVirtuel_)) {
-                if(ramasseurBatSsCprAdv(_info,joueursNonConfianceNonJoue_, couleurDemandee_, _carteForte)) {
+                if(ramasseurBatSsCprAdv(_info,joueursNonConfianceNonJoue_, couleurDemandee_, carteForte_)) {
                     return PossibleTrickWinner.TEAM;
                 }
                 return PossibleTrickWinner.UNKNOWN;
@@ -347,21 +348,20 @@ public final class GameBeloteTrickHypothesis {
         /*Fin si le joueur numero peut prendre la main sans couper*/
         /*Le joueur numero ne peut pas prendre la main*/
         if(partenaire_.containsObj(ramasseurVirtuel_)) {
-            if(ramasseurBatSsCprAdv(_info,joueursNonConfianceNonJoue_, couleurDemandee_, _carteForte)) {
+            if(ramasseurBatSsCprAdv(_info,joueursNonConfianceNonJoue_, couleurDemandee_, carteForte_)) {
                 return PossibleTrickWinner.TEAM;
             }
             return PossibleTrickWinner.UNKNOWN;
         }
         /*Fin joueursDeConfiance.contains(ramasseurVirtuel)*/
         /*Maintenant le ramasseur virtuel n'est pas un joueur de confiance*/
-        if(ramasseurBatSsCprAdv(_info,joueursConfianceNonJoue_, couleurDemandee_, _carteForte)) {
+        if(ramasseurBatSsCprAdv(_info,joueursConfianceNonJoue_, couleurDemandee_, carteForte_)) {
             return PossibleTrickWinner.FOE_TEAM;
         }
         return PossibleTrickWinner.UNKNOWN;
     }
     static PossibleTrickWinner equipeQuiVaFairePliToutAtout(
-            BeloteInfoPliEnCours _info,
-            CardBelote _carteForte) {
+            BeloteInfoPliEnCours _info) {
 
         EnumMap<Suit,EqList<HandBelote>> cartesCertaines_=_info.getCartesCertaines();
         Numbers<Byte> joueursNonJoue_=_info.getJoueursNonJoue();
@@ -372,16 +372,18 @@ public final class GameBeloteTrickHypothesis {
         Suit couleurDemandee_=_info.getProgressingTrick().couleurDemandee();
         Numbers<Byte> joueursNonConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, adversaires_);
         Numbers<Byte> joueursConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, partenaire_);
-        Numbers<Byte> joueursJoue_=GameBeloteTeamsRelation.autresJoueurs(joueursNonJoue_, _info.getNbPlayers());
+        byte nbPlayers_ = _info.getNbPlayers();
+        CardBelote carteForte_=_info.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_,nbPlayers_);
+        Numbers<Byte> joueursJoue_=GameBeloteTeamsRelation.autresJoueurs(joueursNonJoue_, nbPlayers_);
 
         /*Le pli n'est pas coupe et la couleur demandee est l'atout*/
         BidBeloteSuit bid_ = _info.getContrat();
         if(GameBeloteCommon.hand(cartesCertaines_,couleurDemandee_,next_).estVide()
-                ||GameBeloteCommon.hand(cartesCertaines_,couleurDemandee_,next_).premiereCarte().strength(couleurDemandee_, bid_)<_carteForte.strength(couleurDemandee_, bid_)) {
+                ||GameBeloteCommon.hand(cartesCertaines_,couleurDemandee_,next_).premiereCarte().strength(couleurDemandee_, bid_)<carteForte_.strength(couleurDemandee_, bid_)) {
             /*Si le joueur numero ne peut pas prendre la main sur demande d'atout*/
             if(partenaire_.containsObj(ramasseurVirtuel_)) {
                 /*Si le ramasseur virtuel (de confiance, ici) domine certainement les joueurs de non confiance n'ayant pas joue*/
-                if(ramasseurBatAdvDemat(_info,joueursNonConfianceNonJoue_, couleurDemandee_, _carteForte)) {
+                if(ramasseurBatAdvDemat(_info,joueursNonConfianceNonJoue_, couleurDemandee_, carteForte_)) {
                     return PossibleTrickWinner.TEAM;
                 }
                 /*On cherche les joueurs de confiance battant de maniere certaine les joueurs de non confiance n'ayant pas joue
@@ -396,19 +398,19 @@ public final class GameBeloteTrickHypothesis {
                 }
                 /*On cherche les joueurs de non confiance battant de maniere certaine les joueurs de confiance n'ayant pas joue
                 ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
-                if(existeJouBatAdvSurDemat(_info,joueursConfianceNonJoue_, joueursNonConfianceNonJoue_, _carteForte, couleurDemandee_)) {
+                if(existeJouBatAdvSurDemat(_info,joueursConfianceNonJoue_, joueursNonConfianceNonJoue_, carteForte_, couleurDemandee_)) {
                     return PossibleTrickWinner.FOE_TEAM;
                 }
                 /*On cherche les joueurs de confiance battant de maniere certaine les joueurs de non confiance n'ayant pas joue
                 ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
-                if(existeJouBatPtmSurDemat(_info,joueursConfianceNonJoue_, joueursNonConfianceNonJoue_, joueursJoue_, _carteForte, couleurDemandee_)) {
+                if(existeJouBatPtmSurDemat(_info,joueursConfianceNonJoue_, joueursNonConfianceNonJoue_, joueursJoue_, carteForte_, couleurDemandee_)) {
                     return PossibleTrickWinner.FOE_TEAM;
                 }
                 return PossibleTrickWinner.UNKNOWN;
             }
             /*ramasseurVirtuel n'est pas un joueur de confiance pour le joueur numero*/
             /*Si le ramasseur virtuel (de non confiance, ici) domine certainement les joueurs de non confiance n'ayant pas joue*/
-            if(ramasseurBatAdvDemat(_info,joueursConfianceNonJoue_, couleurDemandee_, _carteForte)) {
+            if(ramasseurBatAdvDemat(_info,joueursConfianceNonJoue_, couleurDemandee_, carteForte_)) {
                 return PossibleTrickWinner.FOE_TEAM;
             }
             /*On cherche les joueurs de non confiance battant de maniere certaine les joueurs de confiance n'ayant pas joue ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
@@ -420,11 +422,11 @@ public final class GameBeloteTrickHypothesis {
                 return PossibleTrickWinner.FOE_TEAM;
             }
             /*On cherche les joueurs de confiance battant de maniere certaine les joueurs de non confiance n'ayant pas joue ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
-            if(existeJouBatAdvSurDemat(_info,joueursNonConfianceNonJoue_, joueursConfianceNonJoue_, _carteForte, couleurDemandee_)) {
+            if(existeJouBatAdvSurDemat(_info,joueursNonConfianceNonJoue_, joueursConfianceNonJoue_, carteForte_, couleurDemandee_)) {
                 return PossibleTrickWinner.TEAM;
             }
             /*On cherche les joueurs de confiance battant de maniere certaine les joueurs de non confiance n'ayant pas joue ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
-            if(existeJouBatPtmSurDemat(_info,joueursNonConfianceNonJoue_, joueursConfianceNonJoue_, joueursJoue_, _carteForte, couleurDemandee_)) {
+            if(existeJouBatPtmSurDemat(_info,joueursNonConfianceNonJoue_, joueursConfianceNonJoue_, joueursJoue_, carteForte_, couleurDemandee_)) {
                 return PossibleTrickWinner.TEAM;
             }
             return PossibleTrickWinner.UNKNOWN;

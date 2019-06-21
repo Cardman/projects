@@ -3807,6 +3807,40 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getHealed());
     }
 
+
+    @Test
+    public void effectEndRoundStatusHp55Test() {
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(SIPHON, (short) 10);
+        moves_.put(DEMI_TOUR, (short) 10);
+        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
+        userMoves_.add(new LevelMoves((short)3,moves_));
+        userMoves_.add(new LevelMoves((short)4,moves_));
+        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
+        StringList partnerMoves_ = new StringList(JACKPOT);
+        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
+        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
+        StringList foeMoves_ = new StringList(DETECTION);
+        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
+        Fight fight_ = effectEndRoundStatusHp(userMoves_, partnersMoves_, foesMoves_, diff_);
+        TeamPosition f_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        Fighter fighter_ = fight_.getFighter(f_);
+        String st_ = BRULURE;
+        fighter_.affecterStatut(st_);
+        fighter_.setCurrentAbility(COEUR_SOIN);
+        fighter_.setRemainedHp(Rate.one());
+        Status status_ = _data_.getStatus(st_);
+        FightEndRound.effectEndRoundStatusHp(fight_, f_, status_, st_, diff_, _data_);
+        assertEq(new Rate("0"), fighter_.getRemainingHp());
+        assertTrue(fight_.getAcceptableChoices());
+        assertEq(1, fight_.getEffects().size());
+        AnimationKo anim_ = (AnimationKo) fight_.getEffects().first();
+        assertEq(POKEMON_PLAYER_TARGET_ZERO, anim_.getUser());
+    }
+
     @Test
     public void effectEndRoundStatusHp6Test() {
         Difficulty diff_= new Difficulty();

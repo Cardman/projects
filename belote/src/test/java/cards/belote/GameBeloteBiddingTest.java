@@ -125,12 +125,13 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         }
         regles_.setEncheresAutorisees(contrats_);
         return regles_;
-    }    @Test
+    }
+    @Test
     public void allowedBids_AtFirstRoundBidsInitialize1(){
         RulesBelote regles_=initializeDefaultRules();
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setEnchere(BidBelote.FOLD);
@@ -163,7 +164,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         game_.ajouterContrat(contratTmp_,player_);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setEnchere(BidBelote.FOLD);
@@ -197,7 +198,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         game_.ajouterContrat(contratTmp_,player_);
         assertTrue(!game_.keepBidding());
         //game_.setContrat(contrat_tmp);
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setEnchere(BidBelote.FOLD);
@@ -216,7 +217,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         game_.finEncherePremierTour();
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setEnchere(BidBelote.FOLD);
@@ -268,7 +269,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         contratTmp_.setEnchere(BidBelote.FOLD);
         game_.ajouterContrat(contratTmp_,player_);
         assertTrue(game_.keepBidding());
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setEnchere(BidBelote.FOLD);
@@ -326,7 +327,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         game_.ajouterContrat(contratTmp_,player_);
         assertTrue(!game_.keepBidding());
         //game_.setContrat(contrat_tmp);
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setEnchere(BidBelote.FOLD);
@@ -435,7 +436,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setEnchere(BidBelote.FOLD);
@@ -454,7 +455,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setEnchere(BidBelote.FOLD);
@@ -473,7 +474,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP, BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setEnchere(BidBelote.FOLD);
@@ -512,7 +513,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         game_.ajouterContrat(contratTmp_,player_);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setEnchere(BidBelote.FOLD);
@@ -546,7 +547,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         game_.ajouterContrat(contratTmp_,player_);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setEnchere(BidBelote.FOLD);
@@ -580,7 +581,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         game_.ajouterContrat(contratTmp_,player_);
         player_ = game_.playerAfter(player_);
         assertTrue(game_.keepBidding());
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setEnchere(BidBelote.FOLD);
@@ -615,7 +616,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         game_.ajouterContrat(contratTmp_,player_);
         assertTrue(game_.keepBidding());
         //game_.setContrat(contrat_tmp);
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setEnchere(BidBelote.FOLD);
@@ -655,7 +656,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         game_.ajouterContrat(contratTmp_,player_);
         assertTrue(game_.keepBidding());
         //game_.setContrat(contrat_tmp);
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setEnchere(BidBelote.FOLD);
@@ -695,7 +696,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         game_.ajouterContrat(contratTmp_,player_);
         assertTrue(game_.keepBidding());
         //game_.setContrat(contrat_tmp);
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setEnchere(BidBelote.FOLD);
@@ -718,7 +719,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         game_.finEncherePremierTour();
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setEnchere(BidBelote.FOLD);
@@ -744,7 +745,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         game_.finEncherePremierTour();
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setEnchere(BidBelote.FOLD);
@@ -770,7 +771,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
         game_.finEncherePremierTour();
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setEnchere(BidBelote.FOLD);
@@ -822,7 +823,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         contratTmp_.setEnchere(BidBelote.FOLD);
         game_.ajouterContrat(contratTmp_,player_);
         assertTrue(game_.keepBidding());
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setEnchere(BidBelote.FOLD);
@@ -874,7 +875,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         contratTmp_.setEnchere(BidBelote.FOLD);
         game_.ajouterContrat(contratTmp_,player_);
         assertTrue(game_.keepBidding());
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setEnchere(BidBelote.FOLD);
@@ -926,7 +927,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         contratTmp_.setEnchere(BidBelote.FOLD);
         game_.ajouterContrat(contratTmp_,player_);
         assertTrue(game_.keepBidding());
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setEnchere(BidBelote.FOLD);
@@ -985,7 +986,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         game_.ajouterContrat(contratTmp_,player_);
         assertTrue(game_.keepBidding());
         //game_.setContrat(contrat_tmp);
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setEnchere(BidBelote.FOLD);
@@ -1051,7 +1052,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         game_.ajouterContrat(contratTmp_,player_);
         assertTrue(game_.keepBidding());
         //game_.setContrat(contrat_tmp);
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setEnchere(BidBelote.FOLD);
@@ -1117,7 +1118,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         game_.ajouterContrat(contratTmp_,player_);
         assertTrue(game_.keepBidding());
         //game_.setContrat(contrat_tmp);
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setEnchere(BidBelote.FOLD);
@@ -1369,7 +1370,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         regles_.getEncheresAutorisees().put(BidBelote.NO_TRUMP, true);
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_;
         b_ = new BidBeloteSuit();
@@ -1635,7 +1636,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         contratTmp_.setPoints(140);
         game_.ajouterContrat(contratTmp_, game_.playerAfter(game_.getDistribution().getDonneur()));
         //game_.resetNbPlisTotal();
-        EqList<BidBeloteSuit> bids_ = game_.allowedBids();
+        EqList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         EqList<BidBeloteSuit> expected_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit b_;
         b_ = new BidBeloteSuit();

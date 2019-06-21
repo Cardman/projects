@@ -87,7 +87,6 @@ public class GameBeloteWithTrumpSuitThreeTest extends GameBeloteWithTrumpSuit {
         game_.getDistribution().jouer(player_,CardBelote.DIAMOND_QUEEN);
         game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_QUEEN);
         player_ = game_.playerAfter(player_);
-        assertTrue(game_.memeEquipe(player_, game_.getEntameur()));
         hand_ = game_.getDistribution().main(player_);
         EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
         assertTrue(!suits_.getVal(game_.couleurAtout()).estVide());
@@ -116,7 +115,6 @@ public class GameBeloteWithTrumpSuitThreeTest extends GameBeloteWithTrumpSuit {
         game_.getDistribution().jouer(player_,CardBelote.DIAMOND_QUEEN);
         game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_QUEEN);
         player_ = game_.playerAfter(player_);
-        assertTrue(game_.memeEquipe(player_, game_.getEntameur()));
         hand_ = game_.getDistribution().main(player_);
         EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
         assertTrue(!suits_.getVal(game_.couleurAtout()).estVide());

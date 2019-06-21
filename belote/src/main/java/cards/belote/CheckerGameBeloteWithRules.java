@@ -38,7 +38,7 @@ public final class CheckerGameBeloteWithRules {
             return;
         }
         _loadedGame.loadGame();
-        CustList<TrickBelote> allTricks_ = _loadedGame.unionPlis();
+        CustList<TrickBelote> allTricks_ = _loadedGame.getTricks();
         HandBelote cards_ = new HandBelote();
         for (TrickBelote t : allTricks_) {
             for (CardBelote c : t) {
@@ -183,7 +183,7 @@ public final class CheckerGameBeloteWithRules {
                 }
                 boolean found_ = false;
                 int pts_ = 0;
-                for (BidBeloteSuit bid_ : loadedGameCopy_.allowedBids()) {
+                for (BidBeloteSuit bid_ : loadedGameCopy_.getGameBeloteBid().allowedBids()) {
                     if (bid_.getEnchere() != _loadedGame.contrat(i_)
                             .getEnchere()) {
                         continue;
@@ -227,7 +227,7 @@ public final class CheckerGameBeloteWithRules {
                     }
                     boolean found_ = false;
                     int pts_ = 0;
-                    for (BidBeloteSuit bid_ : loadedGameCopy_.allowedBids()) {
+                    for (BidBeloteSuit bid_ : loadedGameCopy_.getGameBeloteBid().allowedBids()) {
                         if (bid_.getEnchere() != _loadedGame.contrat(i_)
                                 .getEnchere()) {
                             continue;
@@ -321,7 +321,7 @@ public final class CheckerGameBeloteWithRules {
             }
         }
         loadedGameCopy_.setPliEnCours();
-        HandBelote playedCards_ = _loadedGame.cartesJouees();
+        HandBelote playedCards_ = _loadedGame.getDoneTrickInfo().cartesJouees();
         playedCards_.ajouterCartes(_loadedGame.getPliEnCours().getCartes());
         int nbPlayers_ = _loadedGame.getNombreDeJoueurs();
         for (byte b = CustList.FIRST_INDEX; b < nbPlayers_; b++) {
@@ -394,7 +394,7 @@ public final class CheckerGameBeloteWithRules {
                 if (loadedGameCopy_.premierTour()) {
                     if (_loadedGame.getAnnonce(p).getAnnonce() != DeclaresBelote.UNDEFINED) {
                         DeclareHandBelote declaring_ = loadedGameCopy_
-                                .strategieAnnonces(p);
+                                .strategieAnnonces();
                         if (!_loadedGame.getAnnonce(p).eq(declaring_)) {
                             _loadedGame.setError(BAD_DECLARING);
                             return;

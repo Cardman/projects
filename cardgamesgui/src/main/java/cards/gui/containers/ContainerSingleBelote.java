@@ -176,7 +176,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                     getConsulting().setEnabledMenu(true);
                     setCanBid(true);
                     if (!partie_.getRegles().dealAll()) {
-                        for(BidBeloteSuit e:partie_.allowedBids()) {
+                        for(BidBeloteSuit e:partie_.getGameBeloteBid().allowedBids()) {
                             ajouterBoutonContratBelote(Games.toString(e,lg_),e,e.estDemandable(contrat_));
                         }
                     } else {
@@ -184,7 +184,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                     }
                 } else if(partie_.getContrat().jouerDonne()) {
                     getMini().setStatus(Status.TAKER, partie_.getPreneur());
-                    getMini().setStatus(Status.CALLED_PLAYER, partie_.partenaires(partie_.getPreneur()).first());
+                    getMini().setStatus(Status.CALLED_PLAYER, partie_.getTeamsRelation().partenaires(partie_.getPreneur()).first());
                     addButtonNextTrickBelote(getMessages().getVal(MainWindow.GO_CARD_GAME), true);
                 } else {
                     addButtonEndDealBelote(getMessages().getVal(MainWindow.END_DEAL), true);
@@ -194,7 +194,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             return;
         }
         getHelpGame().setEnabledMenu(true);
-        if (partie_.unionPlis().isEmpty() && partie_.getPliEnCours().estVide()) {
+        if (partie_.getTricks().isEmpty() && partie_.getPliEnCours().estVide()) {
             afficherMainUtilisateurBelote(false);
             if (!partie_.getRegles().dealAll() && partie_.getDistribution().main().total() == partie_.getRegles().getRepartition().getNombreCartesParJoueur()) {
                 TrickBelote pliEnCours_=partie_.getPliEnCours();
@@ -210,7 +210,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                 animCarteBelote.start();
             } else if(partie_.getContrat().jouerDonne()) {
                 getMini().setStatus(Status.TAKER, partie_.getPreneur());
-                getMini().setStatus(Status.CALLED_PLAYER, partie_.partenaires(partie_.getPreneur()).first());
+                getMini().setStatus(Status.CALLED_PLAYER, partie_.getTeamsRelation().partenaires(partie_.getPreneur()).first());
                 addButtonNextTrickBelote(getMessages().getVal(MainWindow.GO_CARD_GAME), true);
                 pack();
             } else {
@@ -390,7 +390,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             panneau_.add(caseCoche_);
         }
         if(_premierTour) {
-            DeclareHandBelote annonceMain_ = partie_.strategieAnnonces(DealBelote.NUMERO_UTILISATEUR);
+            DeclareHandBelote annonceMain_ = partie_.strategieAnnonces();
             if(annonceMain_.getAnnonce() != DeclaresBelote.UNDEFINED) {
                 annonceBelote = false;
                 Panel panneau_ =getPanneauBoutonsJeu();
@@ -514,7 +514,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         } else {
             setCanBid(true);
             if (!partie_.getRegles().dealAll()) {
-                for(BidBeloteSuit e:partie_.allowedBids()) {
+                for(BidBeloteSuit e:partie_.getGameBeloteBid().allowedBids()) {
                     ajouterBoutonContratBelote(Games.toString(e,lg_),e,true);
                 }
             } else {
@@ -785,7 +785,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         tricksHands_.setDistribution(game_.getDistribution(), true);
         tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.setBid(game_.getContrat());
-        tricksHands_.setTricks(game_.unionPlis(), game_.getNombreDeJoueurs());
+        tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
         tricksHands_.sortHands(getDisplayingBelote(), game_.getNombreDeJoueurs());
         MainWindow ow_ = getOwner();
         ascenseur_=new ScrollPane(new PanelTricksHandsBelote(ow_, tricksHands_, nombreJoueurs_, pseudosBelote(), getDisplayingBelote(),ow_));
@@ -861,7 +861,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         tricksHands_.setDistribution(game_.getDistribution(), true);
         tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.setBid(game_.getContrat());
-        tricksHands_.setTricks(game_.unionPlis(), game_.getNombreDeJoueurs());
+        tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
         DialogTricksBelote.setDialogTricksBelote(getMessages().getVal(MainWindow.HANDS_TRICKS_BELOTE), getWindow());
         MainWindow ow_ = getOwner();
         DialogTricksBelote.init(tricksHands_, game_.getNombreDeJoueurs(), pseudosBelote(), getDisplayingBelote(),ow_);
@@ -916,7 +916,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         GameBeloteTrickInfo info_ = partie_.getDoneTrickInfo();
         BidBeloteSuit contrat_=partie_.getContrat();
         Suit couleurAtout_=partie_.couleurAtout();
-        HandBelote cartesJouees_=partie_.cartesJouees();
+        HandBelote cartesJouees_=info_.cartesJouees();
         cartesJouees_.ajouterCartes(partie_.getPliEnCours().getCartes());
         EnumMap<Suit,HandBelote> repartitionCartesJouees_=cartesJouees_.couleurs(contrat_);
         DialogHelpBelote.setTitleDialog(getOwner(),StringList.concat(getMessages().getVal(MainWindow.HELP_GAME),SPACE,GameEnum.BELOTE.toString(lg_)));
@@ -983,7 +983,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     @Override
     public void replay() {
         GameBelote partie_=partieBelote();
-        CustList<TrickBelote> plisFaits_=partie_.unionPlis();
+        CustList<TrickBelote> plisFaits_=partie_.getTricks();
         partie_.restituerMainsDepartRejouerDonne(plisFaits_, partie_.getNombreDeJoueurs());
         partie_.initPartie();
         mettreEnPlaceIhmBelote();

@@ -1,20 +1,14 @@
 package cards.belote;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import cards.belote.comparators.BidBeloteSuitComparator;
 import cards.belote.comparators.DeclareHandBeloteComparator;
-import cards.belote.enumerations.BeloteTrumpPartner;
-import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.CardChar;
 import cards.consts.GameType;
-import cards.consts.Status;
 import cards.consts.Suit;
-import code.maths.Rate;
 import code.util.BooleanList;
 import code.util.CustList;
-import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
 import code.util.Numbers;
@@ -114,8 +108,7 @@ public final class GameBelote {
             }
             bid = bid_;
         }
-        CustList<TrickBelote> tricks_ = unionPlis();
-        if (!tricks_.isEmpty()) {
+        if (!tricks.isEmpty()) {
             starter = progressingTrick.getEntameur();
             trickWinner = progressingTrick.getEntameur();
         } else if (!progressingTrick.estVide()) {
@@ -304,14 +297,6 @@ public final class GameBelote {
         return simulationWithBids;
     }
 
-    public boolean surCoupeObligatoirePartenaire() {
-        return rules.getGestionCoupePartenaire()==BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP
-                ||rules.getGestionCoupePartenaire()==BeloteTrumpPartner.OVERTRUMP_ONLY;
-    }
-    public boolean sousCoupeObligatoirePartenaire() {
-        return rules.getGestionCoupePartenaire()==BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP
-                || rules.getGestionCoupePartenaire()==BeloteTrumpPartner.UNDERTRUMP_ONLY;
-    }
     public boolean autorise(CardBelote _c) {
         HandBelote main_=getDistribution().main(playerHavingToPlay());
         return playableCards(main_.couleurs(bid)).contient(_c);
@@ -394,253 +379,18 @@ public final class GameBelote {
         return lastBid;
     }
     public BidBeloteSuit strategieContrat() {
-        BidBeloteSuit contratJoueur_=contrat();
-        if (getRegles().dealAll()) {
-            return contratJoueur_;
-        }
-        if(contratJoueur_.estDemandable(bid)) {
-            return contratJoueur_;
-        }
-        return new BidBeloteSuit();
+        GameBeloteBid g_ = getGameBeloteBid();
+        return g_.strategieContrat();
     }
 
-    public EqList<BidBeloteSuit> allowedBids() {
-        EqList<BidBeloteSuit> encheres_ = new EqList<BidBeloteSuit>();
-        if (getRegles().dealAll()) {
-            for (Suit s: couleurs()) {
-                for (int p: RulesBelote.getPoints()) {
-                    if (bid.getPoints() >= p) {
-                        continue;
-                    }
-                    BidBeloteSuit bid_;
-                    bid_ = new BidBeloteSuit();
-                    bid_.setCouleur(s);
-                    bid_.setEnchere(BidBelote.SUIT);
-                    bid_.setPoints(p);
-                    encheres_.add(bid_);
-                }
-            }
-            for (BidBelote b: BidBelote.getNonZeroBids()) {
-                if (b.getCouleurDominante()) {
-                    continue;
-                }
-                if (!getRegles().getEncheresAutorisees().getVal(b)) {
-                    continue;
-                }
-                for (int p: RulesBelote.getPoints()) {
-                    if (bid.getPoints() >= p) {
-                        continue;
-                    }
-                    BidBeloteSuit bid_;
-                    bid_ = new BidBeloteSuit();
-                    bid_.setCouleur(Suit.UNDEFINED);
-                    bid_.setEnchere(b);
-                    bid_.setPoints(p);
-                    encheres_.add(bid_);
-                }
-            }
-            return encheres_;
-        }
-        Suit s_ = getDistribution().derniereMain().premiereCarte().couleur();
-        for(BidBelote e: rules.getEncheresAutorisees().getKeys()) {
-            if(!rules.getEncheresAutorisees().getVal(e)) {
-                continue;
-            }
-            if (!e.getCouleurDominante()) {
-                BidBeloteSuit e_ = new BidBeloteSuit();
-                e_.setEnchere(e);
-                encheres_.add(e_);
-                continue;
-            }
-            boolean pasEncherePrio_ = true;
-            for(BidBelote e2_: rules.getEncheresAutorisees().getKeys()) {
-                if(e2_.estPrioritaire(e, !endBidsFirstRound)) {
-                    pasEncherePrio_ = false;
-                }
-            }
-            if(pasEncherePrio_) {
-                if (!endBidsFirstRound) {
-                    /*First round of bidding*/
-                    BidBeloteSuit e_ = new BidBeloteSuit();
-                    e_.setEnchere(e);
-                    e_.setCouleur(s_);
-                    encheres_.add(e_);
-                    continue;
-                }
-                /*Second round of bidding*/
-                for (Suit s: couleurs()) {
-                    if (s == s_) {
-                        continue;
-                    }
-                    BidBeloteSuit e_ = new BidBeloteSuit();
-                    e_.setEnchere(e);
-                    e_.setCouleur(s);
-                    encheres_.add(e_);
-                }
-            }
-        }
-        encheres_.sortElts(new BidBeloteSuitComparator());
-        return encheres_;
-    }
-    private BidBeloteSuit contrat() {
+    public GameBeloteBid getGameBeloteBid() {
         byte numero_=(byte)((getDistribution().getDonneur()+1+bids.size())%getNombreDeJoueurs());
         HandBelote mj_=getDistribution().main(numero_);
-        HandBelote reunion_=new HandBelote();
-        reunion_.ajouterCartes(mj_);
-        reunion_.ajouterCartes(getDistribution().derniereMain());
-        BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
-        BidBelote enchereCouleurDominante_ = BidBelote.FOLD;
-        EnumList<Suit> suits_ = new EnumList<Suit>();
-        Numbers<Integer> points_ = new Numbers<Integer>();
-        for(BidBeloteSuit e: allowedBids()) {
-            points_.add(e.getPoints());
-            if(!e.getCouleurDominante()) {
-                continue;
-            }
-            enchereCouleurDominante_ = e.getEnchere();
-            if (!suits_.containsObj(e.getCouleur())) {
-                suits_.add(e.getCouleur());
-            }
+        HandBelote last_ = new HandBelote();
+        if (!rules.dealAll()) {
+            last_.ajouter(deal.derniereMain().premiereCarte());
         }
-        points_.removeDuplicates();
-        points_.sort();
-        EnumMap<Suit,Rate> couleurPointsFictifs_ = new EnumMap<Suit,Rate>();
-        EnumMap<Suit,Rate> couleurPointsFictifsRequis_ = new EnumMap<Suit,Rate>();
-        int nbCartesFictives_ = reunion_.total();
-        int nbCartesFinales_ = rules.getRepartition().getNombreCartesParJoueur();
-        for(Suit c: couleurs()) {
-            //c: couleur atout
-            BidBeloteSuit enchereBeloteLoc_ = new BidBeloteSuit();
-            enchereBeloteLoc_.setCouleur(c);
-            enchereBeloteLoc_.setEnchere(BidBelote.SUIT);
-            EnumMap<Suit,HandBelote> repartition_=reunion_.couleurs(enchereBeloteLoc_);
-            //repartition est la repartition des cartes a la couleur d'atout c
-            int pointsFictifs_ = 0;
-            for(Suit c2_: couleurs()) {
-                if(c2_ == c) {
-                    continue;
-                }
-                //c2: couleur ordinaire
-                HandBelote cartesAssurantMax_ = repartition_.getVal(c2_).cartesPlisAssures(enchereBeloteLoc_);
-                for(CardBelote c3_: cartesAssurantMax_) {
-                    pointsFictifs_+=c3_.points(enchereBeloteLoc_)+4;
-                }
-            }
-            HandBelote cartesAssurantMax_ = repartition_.getVal(c).cartesPlisAssures(enchereBeloteLoc_);
-            for(CardBelote c3_: cartesAssurantMax_) {
-                pointsFictifs_+=c3_.points(enchereBeloteLoc_)+8;
-            }
-            couleurPointsFictifs_.put(c, new Rate(pointsFictifs_*nbCartesFinales_,HandBelote.pointsTotauxDixDeDer(enchereBeloteLoc_)*nbCartesFictives_));
-            couleurPointsFictifsRequis_.put(c, new Rate(1,2));
-            //Comparaison
-        }
-        EnumMap<BidBelote,Rate> couleurPointsFictifsContrats_ = new EnumMap<BidBelote,Rate>();
-        EnumMap<BidBelote,Rate> couleurPointsFictifsContratsRequis_ = new EnumMap<BidBelote,Rate>();
-        for(BidBelote e: rules.getEncheresAutorisees().getKeys()) {
-            if(!rules.getEncheresAutorisees().getVal(e)) {
-                continue;
-            }
-            if (e.getCouleurDominante()) {
-                continue;
-            }
-            Suit c_ = Suit.UNDEFINED;
-            BidBeloteSuit enchereBeloteLoc_ = new BidBeloteSuit();
-            enchereBeloteLoc_.setCouleur(c_);
-            enchereBeloteLoc_.setEnchere(e);
-            EnumMap<Suit,HandBelote> repartition_=reunion_.couleurs(enchereBeloteLoc_);
-            int pointsFictifs_ = 0;
-            boolean toutesCouleursAvecCarteMaitresse_ = true;
-            for(Suit c2_: couleurs()) {
-                if(GameBeloteCommon.cartesMaitresses(repartition_, new HandBelote().couleurs(enchereBeloteLoc_),enchereBeloteLoc_).getVal(c2_).estVide()) {
-                    toutesCouleursAvecCarteMaitresse_ = false;
-                    break;
-                }
-                HandBelote cartesAssurantMax_ = repartition_.getVal(c2_).cartesPlisAssures(enchereBeloteLoc_);
-                for(CardBelote c3_: cartesAssurantMax_) {
-                    pointsFictifs_+=c3_.points(enchereBeloteLoc_)+5;
-                }
-            }
-            if(!toutesCouleursAvecCarteMaitresse_) {
-                continue;
-            }
-            couleurPointsFictifsContrats_.put(e, new Rate(pointsFictifs_*nbCartesFinales_,HandBelote.pointsTotauxDixDeDer(enchereBeloteLoc_)*nbCartesFictives_));
-            couleurPointsFictifsContratsRequis_.put(e, new Rate(1,2));
-        }
-        EnumMap<Suit,Rate> couleursCandidates_ = new EnumMap<Suit,Rate>();
-        for(Suit c: suits_) {
-            if(Rate.strLower(couleurPointsFictifs_.getVal(c), couleurPointsFictifsRequis_.getVal(c))) {
-                continue;
-            }
-            couleursCandidates_.put(c,Rate.divide(couleurPointsFictifs_.getVal(c),couleurPointsFictifsRequis_.getVal(c)));
-        }
-        Suit couleurMax_ = Suit.UNDEFINED;
-        Rate max_ = Rate.zero();
-        for(Suit c: couleursCandidates_.getKeys()) {
-            if(Rate.strGreater(couleursCandidates_.getVal(c), max_)) {
-                couleurMax_ = c;
-                max_ = couleursCandidates_.getVal(c);
-            }
-        }
-        Rate max2_ = Rate.zero();
-        if(couleurMax_ == Suit.UNDEFINED) {
-            if(couleurPointsFictifsContrats_.isEmpty()) {
-                return enchereCouleur_;
-            }
-        } else {
-            max2_ = max_;
-        }
-        BidBelote e_ = BidBelote.FOLD;
-        for(BidBelote e: couleurPointsFictifsContrats_.getKeys()) {
-            if(Rate.strLower(couleurPointsFictifsContrats_.getVal(e), couleurPointsFictifsContratsRequis_.getVal(e))) {
-                continue;
-            }
-            if(Rate.strGreater(couleurPointsFictifsContrats_.getVal(e), max2_)) {
-                e_ = e;
-                max2_ = couleurPointsFictifsContrats_.getVal(e);
-            }
-        }
-        if (getRegles().dealAll()) {
-            if(Rate.eq(max_,max2_)) {
-                int pts_ = (int)
-                        Rate.multiply(couleurPointsFictifs_.getVal(couleurMax_),
-                                new Rate(HandBelote.pointsTotauxDixDeDer(enchereCouleur_))).ll();
-                if (!points_.isEmpty()) {
-                    if (pts_ > points_.first()) {
-                        enchereCouleur_.setEnchere(enchereCouleurDominante_);
-                        enchereCouleur_.setCouleur(couleurMax_);
-                        enchereCouleur_.setPoints(points_.first());
-                        return enchereCouleur_;
-                    }
-                }
-            } else if(e_ != BidBelote.FOLD) {
-                int pts_ = (int)
-                        Rate.multiply(couleurPointsFictifsContrats_.getVal(e_),
-                                new Rate(HandBelote.pointsTotauxDixDeDer(enchereCouleur_))).ll();
-                if (!points_.isEmpty()) {
-                    if (pts_ > points_.first()) {
-                        enchereCouleur_.setEnchere(e_);
-                        enchereCouleur_.setPoints(pts_);
-                        return enchereCouleur_;
-                    }
-                }
-            }
-        } else {
-            if(Rate.eq(max_,max2_)) {
-                enchereCouleur_.setEnchere(enchereCouleurDominante_);
-                enchereCouleur_.setCouleur(couleurMax_);
-                enchereCouleur_.setPoints((int)
-                        Rate.multiply(couleurPointsFictifs_.getVal(couleurMax_),
-                            new Rate(HandBelote.pointsTotauxDixDeDer(enchereCouleur_))).ll());
-                return enchereCouleur_;
-            } else if(e_ != BidBelote.FOLD) {
-                enchereCouleur_.setEnchere(e_);
-                enchereCouleur_.setPoints((int)
-                        Rate.multiply(couleurPointsFictifsContrats_.getVal(e_),
-                                new Rate(HandBelote.pointsTotauxDixDeDer(enchereCouleur_))).ll());
-                return enchereCouleur_;
-            }
-        }
-        return enchereCouleur_;
+        return new GameBeloteBid(mj_,rules,bids,bid,endBidsFirstRound,last_);
     }
 
     public void finEncherePremierTour() {
@@ -702,7 +452,7 @@ public final class GameBelote {
             return true;
         }
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
-        for (BidBeloteSuit e: allowedBids()) {
+        for (BidBeloteSuit e: getGameBeloteBid().allowedBids()) {
             if (!e.jouerDonne()) {
                 continue;
             }
@@ -727,7 +477,7 @@ public final class GameBelote {
     EqList<BidBeloteSuit> maximumBid() {
         EqList<BidBeloteSuit> contratsMax_ = new EqList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
-        for (BidBeloteSuit b: allowedBids()) {
+        for (BidBeloteSuit b: getGameBeloteBid().allowedBids()) {
             if (!b.jouerDonne()) {
                 continue;
             }
@@ -776,94 +526,27 @@ public final class GameBelote {
         }
         return false;
     }
-    public DeclareHandBelote strategieAnnonces(byte _joueurCourant) {
-        EnumList<DeclaresBelote> annoncesAutorisees_ = new EnumList<DeclaresBelote>();
-        for(DeclaresBelote a: rules.getAnnoncesAutorisees().getKeys()) {
-            if(!rules.getAnnoncesAutorisees().getVal(a)) {
-                continue;
-            }
-            annoncesAutorisees_.add(a);
-        }
-        DeclareHandBelote annonce_ = getDistribution().main(_joueurCourant).annonce(annoncesAutorisees_, bid);
-        annonce_.setJoueur(_joueurCourant);
-        return annonce_;
+    public DeclareHandBelote strategieAnnonces() {
+        byte numero_=playerHavingToPlay();
+        HandBelote mainJoueur_=getDistribution().main(numero_);
+        GameBeloteTrickInfo info_ = getDoneTrickInfo();
+        GameBeloteTeamsRelation team_ = getTeamsRelation();
+        GameBeloteDeclaring g_ = new GameBeloteDeclaring(info_,team_,mainJoueur_,declares);
+        return g_.strategieAnnonces();
     }
     public void annoncer(byte _joueurCourant) {
-        declares.set(_joueurCourant, strategieAnnonces(_joueurCourant));
+        declares.set(_joueurCourant, strategieAnnonces());
     }
     public DeclareHandBelote getAnnonce(byte _joueurCourant) {
         return declares.get(_joueurCourant);
     }
     public void annulerAnnonces() {
-        EqList<DeclareHandBelote> annoncesLoc_ = new EqList<DeclareHandBelote>(declares);
-        DeclareHandBeloteComparator comparateur_ =
-                new DeclareHandBeloteComparator(bid.getCouleur());
-        EqList<DeclareHandBelote> declarationsTakerTeam_ = new EqList<DeclareHandBelote>();
-        Numbers<Byte> takerTeam_ = partenaires(getPreneur());
-        takerTeam_.add(getPreneur());
-        for (byte p: takerTeam_) {
-            declarationsTakerTeam_.add(new DeclareHandBelote(annoncesLoc_.get(p)));
-        }
-        declarationsTakerTeam_.sortElts(new DeclareHandBeloteComparator(bid.getCouleur()));
-        EqList<DeclareHandBelote> declarationsTakerFoesTeam_ = new EqList<DeclareHandBelote>();
-        Numbers<Byte> takerFoesTeam_ = adversaires(getPreneur());
-        for (byte p: takerFoesTeam_) {
-            declarationsTakerFoesTeam_.add(new DeclareHandBelote(annoncesLoc_.get(p)));
-        }
-        declarationsTakerFoesTeam_.sortElts(new DeclareHandBeloteComparator(bid.getCouleur()));
-        if (!declarationsTakerTeam_.isEmpty()) {
-            if (declarationsTakerFoesTeam_.isEmpty()) {
-                for (byte p: takerFoesTeam_) {
-                    declares.get(p).setAnnonce(DeclaresBelote.UNDEFINED);
-                }
-                return;
-            }
-            boolean equals_ = true;
-            int min_ = Math.min(takerFoesTeam_.size(), takerTeam_.size());
-            for (int i = CustList.FIRST_INDEX;i<min_;i++) {
-                int res_ = comparateur_.compare(declarationsTakerTeam_.get(i), declarationsTakerFoesTeam_.get(i));
-                if (res_ < 0) {
-                    for (byte p: takerFoesTeam_) {
-                        declares.get(p).setAnnonce(DeclaresBelote.UNDEFINED);
-                    }
-                    equals_ = false;
-                    break;
-                }
-                if (res_ > 0) {
-                    for (byte p: takerTeam_) {
-                        declares.get(p).setAnnonce(DeclaresBelote.UNDEFINED);
-                    }
-                    equals_ = false;
-                    break;
-                }
-            }
-            if (!equals_) {
-                return;
-            }
-            if (takerFoesTeam_.size() > takerTeam_.size()) {
-                for (byte p: takerTeam_) {
-                    declares.get(p).setAnnonce(DeclaresBelote.UNDEFINED);
-                }
-            } else if (takerFoesTeam_.size() < takerTeam_.size()) {
-                for (byte p: takerFoesTeam_) {
-                    declares.get(p).setAnnonce(DeclaresBelote.UNDEFINED);
-                }
-            } else {
-                for (byte p: takerTeam_) {
-                    declares.get(p).setAnnonce(DeclaresBelote.UNDEFINED);
-                }
-                for (byte p: takerFoesTeam_) {
-                    declares.get(p).setAnnonce(DeclaresBelote.UNDEFINED);
-                }
-            }
-            return;
-        }
-        if (!declarationsTakerFoesTeam_.isEmpty()) {
-            for (byte p: takerTeam_) {
-                declares.get(p).setAnnonce(DeclaresBelote.UNDEFINED);
-            }
-        }
-        //annuler les annonces de l'equipe les plus faibles a la fin du premier tour
+        byte numero_=playerHavingToPlay();
+        HandBelote mainJoueur_=getDistribution().main(numero_);
+        GameBeloteTrickInfo info_ = getDoneTrickInfo();
+        GameBeloteTeamsRelation team_ = getTeamsRelation();
+        GameBeloteDeclaring g_ = new GameBeloteDeclaring(info_,team_,mainJoueur_,declares);
+        g_.annulerAnnonces();
     }
     public void setAnnoncesBeloteRebelote(byte _b, CardBelote _carte) {
         declaresBeloteRebelote.get(_b).ajouter(_carte);
@@ -933,25 +616,6 @@ public final class GameBelote {
         return g_.playableCards(_repartitionMain);
     }
 
-    public HandBelote cartesJouees() {
-        HandBelote cartesJouees_=new HandBelote();
-        for(TrickBelote pli_:tricks) {
-            cartesJouees_.ajouterCartes(pli_.getCartes());
-        }
-        return cartesJouees_;
-    }
-
-    private static EnumList<Suit> couleurs() {
-        return Suit.couleursOrdinaires();
-    }
-
-    public boolean memeEquipe(byte _numero1, byte _numero2) {
-        if (aPourDefenseur(_numero1)) {
-            return aPourDefenseur(_numero2);
-        }
-        return !aPourDefenseur(_numero2);
-    }
-
     /**A la fin d'un pli on ramasse les cartes
     et on les ajoute dans des tas*/
     public void ajouterUneCarteDansPliEnCours(CardBelote _c) {
@@ -964,17 +628,13 @@ public final class GameBelote {
     public byte getRamasseur() {
         return trickWinner;
     }
-    /**Inclut tous les plis sauf celui qui est en cours*/
-    public CustList<TrickBelote> unionPlis() {
-        return tricks;
-    }
 
     public EndBeloteGame getEndBeloteGame() {
         GameBeloteTeamsRelation t_ = getTeamsRelation();
         return new EndBeloteGame(t_,declares,declaresBeloteRebelote,wonLastTrick,bid,tricks);
     }
 
-    private GameBeloteTeamsRelation getTeamsRelation() {
+    public GameBeloteTeamsRelation getTeamsRelation() {
         return new GameBeloteTeamsRelation(taker,rules);
     }
     void ajouterPliEnCours() {
@@ -1025,10 +685,6 @@ public final class GameBelote {
         }
     }
 
-    private boolean aPourDefenseur(byte _numero) {
-        return _numero!=taker&&!partenaires(taker).containsObj(_numero);
-    }
-
     Numbers<Byte> orderedPlayers(byte _leader) {
         return rules.getRepartition().getSortedPlayers(_leader);
     }
@@ -1047,33 +703,6 @@ public final class GameBelote {
     }
     public byte playerAfter(byte _player) {
         return rules.getRepartition().getNextPlayer(_player);
-    }
-
-    private Numbers<Byte> adversaires(byte _numero) {
-        Numbers<Byte> adversaires_ = new Numbers<Byte>();
-        byte player_ = playerAfter(_numero);
-        adversaires_.add(player_);
-        player_ = playerAfter(player_);
-        player_ = playerAfter(player_);
-        adversaires_.add(player_);
-        return adversaires_;
-    }
-    public Numbers<Byte> partenaires(byte _numero) {
-        Numbers<Byte> partenaires_ = new Numbers<Byte>();
-        byte player_ = playerAfter(_numero);
-        player_ = playerAfter(player_);
-        partenaires_.add(player_);
-        return partenaires_;
-    }
-    //methode utilisee pour l'affichage
-    public Status statutDe(byte _numero) {
-        if(_numero==taker) {
-            return Status.TAKER;
-        }
-        if(partenaires(taker).containsObj(_numero)) {
-            return Status.CALLED_PLAYER;
-        }
-        return Status.DEFENDER;
     }
 
 

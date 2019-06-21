@@ -245,7 +245,7 @@ public final class SendReceiveServer extends BasicServer {
                 DealtHandBelote hand_ = new DealtHandBelote();
                 hand_.setDeck(deal_.derniereMain());
                 hand_.setDealer(Net.getGames().partieBelote().playerAfter(deal_.getDonneur()));
-                hand_.setAllowedBids(Net.getGames().partieBelote().allowedBids());
+                hand_.setAllowedBids(Net.getGames().partieBelote().getGameBeloteBid().allowedBids());
                 hand_.setRep(Net.getGames().partieBelote().getRegles().getRepartition());
                 hand_.setPoints(Net.getGames().partieBelote().getContrat().getPoints());
                 for (byte i:Net.activePlayers()) {
@@ -978,7 +978,7 @@ public final class SendReceiveServer extends BasicServer {
                 byte place_ = Net.getGames().partieBelote().playerHavingToBid();
                 if (Net.isHumanPlayer(place_)) {
                     AllowBiddingBelote allowedBids_ = new AllowBiddingBelote();
-                    allowedBids_.setBids(Net.getGames().partieBelote().allowedBids());
+                    allowedBids_.setBids(Net.getGames().partieBelote().getGameBeloteBid().allowedBids());
                     allowedBids_.setPoints(Net.getGames().partieBelote().getContrat().getPoints());
                     Net.sendObject(Net.getSocketByPlace(place_), allowedBids_);
                     return;
@@ -1022,7 +1022,7 @@ public final class SendReceiveServer extends BasicServer {
                 byte place_ = game_.playerHavingToBid();
                 if (Net.isHumanPlayer(place_)) {
                     AllowBiddingBelote allowedBids_ = new AllowBiddingBelote();
-                    allowedBids_.setBids(game_.allowedBids());
+                    allowedBids_.setBids(game_.getGameBeloteBid().allowedBids());
                     allowedBids_.setPoints(game_.getContrat().getPoints());
                     Net.sendObject(Net.getSocketByPlace(place_), allowedBids_);
                     return;
@@ -1201,7 +1201,7 @@ public final class SendReceiveServer extends BasicServer {
             tricksHands_.setDistribution(game_.getDistribution(), false);
             tricksHands_.setPreneur(game_.getPreneur());
             tricksHands_.setBid(game_.getContrat());
-            tricksHands_.setTricks(game_.unionPlis(), game_.getNombreDeJoueurs());
+            tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
             Net.sendObject(Net.getSocketByPlace(place_), tricksHands_);
             return;
         }
@@ -1771,7 +1771,7 @@ public final class SendReceiveServer extends BasicServer {
             decla_.setTakerIndex(game_.getPreneur());
             decla_.setFirstRoundPlaying(game_.premierTour());
             if (game_.premierTour()) {
-                decla_.setDeclaration(game_.strategieAnnonces(place_));
+                decla_.setDeclaration(game_.strategieAnnonces());
             } else {
                 decla_.setDeclaration(new DeclareHandBelote());
             }

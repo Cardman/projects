@@ -29,7 +29,7 @@ public final class AfterAnimationBidBelote extends Thread {
             container.getConsulting().setEnabledMenu(true);
             container.setCanBid(true);
             if (!gameBelote_.getRegles().dealAll()) {
-                for(BidBeloteSuit e:gameBelote_.allowedBids()){
+                for(BidBeloteSuit e:gameBelote_.getGameBeloteBid().allowedBids()){
                     container.ajouterBoutonContratBelote(Games.toString(e,lg_),e,e.estDemandable(gameBelote_.getContrat()));
                 }
             } else {
@@ -37,7 +37,7 @@ public final class AfterAnimationBidBelote extends Thread {
             }
         } else if(gameBelote_.getContrat().jouerDonne()) {
             container.getMini().setStatus(Status.TAKER, gameBelote_.getPreneur());
-            container.getMini().setStatus(Status.CALLED_PLAYER, gameBelote_.partenaires(gameBelote_.getPreneur()).first());
+            container.getMini().setStatus(Status.CALLED_PLAYER, gameBelote_.getTeamsRelation().partenaires(gameBelote_.getPreneur()).first());
             container.addButtonNextTrickBelote(container.getMessages().getVal(MainWindow.GO_CARD_GAME), true);
         } else {
             container.addButtonEndDealBelote(container.getMessages().getVal(MainWindow.END_DEAL), true);

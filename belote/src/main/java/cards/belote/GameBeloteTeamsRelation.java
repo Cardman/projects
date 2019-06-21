@@ -1,5 +1,6 @@
 package cards.belote;
 
+import cards.belote.enumerations.BeloteTrumpPartner;
 import cards.consts.Status;
 import code.util.CustList;
 import code.util.Numbers;
@@ -15,7 +16,7 @@ public final class GameBeloteTeamsRelation {
     byte playerAfter(byte _player) {
         return rules.getRepartition().getNextPlayer(_player);
     }
-    Numbers<Byte> adversaires(byte _numero) {
+    public Numbers<Byte> adversaires(byte _numero) {
         Numbers<Byte> adversaires_ = new Numbers<Byte>();
         byte player_ = playerAfter(_numero);
         adversaires_.add(player_);
@@ -24,7 +25,7 @@ public final class GameBeloteTeamsRelation {
         adversaires_.add(player_);
         return adversaires_;
     }
-    Numbers<Byte> partenaires(byte _numero) {
+    public Numbers<Byte> partenaires(byte _numero) {
         Numbers<Byte> partenaires_ = new Numbers<Byte>();
         byte player_ = playerAfter(_numero);
         player_ = playerAfter(player_);
@@ -32,7 +33,7 @@ public final class GameBeloteTeamsRelation {
         return partenaires_;
     }
     //methode utilisee pour l'affichage
-    Status statutDe(byte _numero) {
+    public Status statutDe(byte _numero) {
         if(_numero==taker) {
             return Status.TAKER;
         }
@@ -56,7 +57,7 @@ public final class GameBeloteTeamsRelation {
         }
         return true;
     }
-    boolean memeEquipe(byte _numero1, byte _numero2) {
+    public boolean memeEquipe(byte _numero1, byte _numero2) {
         if (aPourDefenseur(_numero1)) {
             return aPourDefenseur(_numero2);
         }
@@ -102,6 +103,17 @@ public final class GameBeloteTeamsRelation {
         return rules;
     }
 
+    public boolean surCoupeObligatoirePartenaire() {
+        return rules.getGestionCoupePartenaire()==BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP
+                ||rules.getGestionCoupePartenaire()==BeloteTrumpPartner.OVERTRUMP_ONLY;
+    }
+    public boolean sousCoupeObligatoirePartenaire() {
+        return rules.getGestionCoupePartenaire()==BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP
+                || rules.getGestionCoupePartenaire()==BeloteTrumpPartner.UNDERTRUMP_ONLY;
+    }
+    boolean sousCoupeObligatoireAdversaire() {
+        return rules.getSousCoupeAdv();
+    }
     byte getTaker() {
         return taker;
     }

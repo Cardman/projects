@@ -1,6 +1,5 @@
 package cards.belote;
 
-import cards.belote.enumerations.BeloteTrumpPartner;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Hypothesis;
 import cards.consts.Order;
@@ -18,7 +17,6 @@ public final class GameBeloteTrickInfo {
 
     private byte nbPlayers;
     private byte taker;
-    private RulesBelote rules;
     private HandBelote lastSeenHand = new HandBelote();
     private GameBeloteTeamsRelation relations;
 
@@ -39,7 +37,6 @@ public final class GameBeloteTrickInfo {
         relations = _rel;
         nbPlayers = _rel.getNombreDeJoueurs();
         taker = _rel.getTaker();
-        rules = _rel.getRules();
         if (!_h.estVide()) {
             lastSeenHand.ajouter(_h.premiereCarte());
         }
@@ -154,7 +151,7 @@ public final class GameBeloteTrickInfo {
         return retour_;
     }
 
-    public void sortSuits(EnumMap<Suit, EqList<HandBelote>> _reps, byte _player) {
+    void sortSuits(EnumMap<Suit, EqList<HandBelote>> _reps, byte _player) {
         for(Suit couleur_:GameBeloteCommon.couleurs()) {
             if(bid.getCouleurDominante()) {
                 if(couleur_!=bid.getCouleur()) {
@@ -220,7 +217,7 @@ public final class GameBeloteTrickInfo {
     }
     /**Retourne l'ensemble des atouts probablement possedes par les autres joueurs
      @param numero*/
-    private EqList<HandBelote> atoutsPossibles(
+    EqList<HandBelote> atoutsPossibles(
             Suit _couleurAtout,
             HandBelote _curHand) {
         EnumMap<Suit,HandBelote> repartition_ = _curHand.couleurs(bid);
@@ -263,9 +260,9 @@ public final class GameBeloteTrickInfo {
             }
         }
         if(bid.getCouleurDominante()) {
-            boolean surCoupeObligPart_=surCoupeObligatoirePartenaire();
-            boolean sousCoupeObligPart_=sousCoupeObligatoirePartenaire();
-            boolean sousCoupeObligAdv_=sousCoupeObligatoireAdversaire();
+            boolean surCoupeObligPart_=relations.surCoupeObligatoirePartenaire();
+            boolean sousCoupeObligPart_=relations.sousCoupeObligatoirePartenaire();
+            boolean sousCoupeObligAdv_=relations.sousCoupeObligatoireAdversaire();
             HandBelote cartesAnnonces_ = GameBeloteCommonPlaying.cartesBeloteRebelote(bid);
             for(TrickBelote p: tricks) {
                 for(CardBelote c: p) {
@@ -580,7 +577,7 @@ public final class GameBeloteTrickInfo {
         }
         return m;
     }
-    private static boolean neFournitPas(Suit _couleur, byte _joueur,CustList<TrickBelote> _plisFaits) {
+    static boolean neFournitPas(Suit _couleur, byte _joueur,CustList<TrickBelote> _plisFaits) {
         int lastIndex_ = _plisFaits.getLastIndex();
         for(int indicePli_= lastIndex_;indicePli_>=CustList.FIRST_INDEX;indicePli_--) {
             TrickBelote pli_=_plisFaits.get(indicePli_);
@@ -594,12 +591,12 @@ public final class GameBeloteTrickInfo {
     }
     /**Retourne vrai si et seulement si le joueur ne peut pas jouer atout sur demande d'atout ou couper quand il le faut
      (sur un adversaire ayant joue une carte de la couleur demandee forte virtuellement)*/
-    private boolean defausseBelote(Suit _couleur, byte _joueur,CustList<TrickBelote> _plisFaits) {
+    boolean defausseBelote(Suit _couleur, byte _joueur,CustList<TrickBelote> _plisFaits) {
         if(bid.getCouleurDominante()) {
             Suit couleurAtout_=bid.getCouleur();
-            boolean surCoupeObligPart_=surCoupeObligatoirePartenaire();
-            boolean sousCoupeObligPart_=sousCoupeObligatoirePartenaire();
-            boolean sousCoupeObligAdv_=sousCoupeObligatoireAdversaire();
+            boolean surCoupeObligPart_=relations.surCoupeObligatoirePartenaire();
+            boolean sousCoupeObligPart_=relations.sousCoupeObligatoirePartenaire();
+            boolean sousCoupeObligAdv_=relations.sousCoupeObligatoireAdversaire();
             if(_couleur==couleurAtout_) {
                 /*Si la couleur demandee est celle de l'atout*/
                 int lastIndex_ = _plisFaits.getLastIndex();
@@ -677,24 +674,12 @@ public final class GameBeloteTrickInfo {
         return false;
     }
 
-    HandBelote cartesJouees() {
+    public HandBelote cartesJouees() {
         HandBelote m = new HandBelote();
         for (TrickBelote t: tricks) {
             m.ajouterCartes(t.getCartes());
         }
         return m;
-    }
-
-    public boolean surCoupeObligatoirePartenaire() {
-        return rules.getGestionCoupePartenaire()==BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP
-                ||rules.getGestionCoupePartenaire()==BeloteTrumpPartner.OVERTRUMP_ONLY;
-    }
-    public boolean sousCoupeObligatoirePartenaire() {
-        return rules.getGestionCoupePartenaire()==BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP
-                || rules.getGestionCoupePartenaire()==BeloteTrumpPartner.UNDERTRUMP_ONLY;
-    }
-    private boolean sousCoupeObligatoireAdversaire() {
-        return rules.getSousCoupeAdv();
     }
 
     CustList<TrickBelote> getTricks() {

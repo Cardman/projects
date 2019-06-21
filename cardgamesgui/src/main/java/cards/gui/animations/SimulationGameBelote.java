@@ -116,7 +116,7 @@ public final class SimulationGameBelote extends Thread implements SimulationGame
         partie_.simuler();
         byte nombreJoueurs_=partie_.getNombreDeJoueurs();
         if(partie_.getSimulationAvecContrats()) {
-            CustList<TrickBelote> plisFaits_=partie_.unionPlis();
+            CustList<TrickBelote> plisFaits_=partie_.getTricks();
             mainsUtilisateurs_.add(0,new HandBelote());
             mainsUtilisateurs_.get(0).ajouter(plisFaits_.get(plisFaits_.size()-1).carteDuJoueur((byte)0, nombreJoueurs_));
             int indLastShownTrick_=plisFaits_.size()-2;

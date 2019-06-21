@@ -246,6 +246,7 @@ public final class Games {
         byte ramasseurVirtuel_= _g.getProgressingTrick().getRamasseurPliEnCours(_g.getNombreDeJoueurs(), _g.getBid());
         CardBelote carteForte_= _g.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_,_g.getNombreDeJoueurs());
         HandBelote leadingSuit_ = GameBeloteCommon.hand(e_,couleurDemandee_);
+        GameBeloteTeamsRelation team_ = _g.getTeamsRelation();
         if(_g.getBid().getCouleurDominante()) {
             HandBelote trumps_ = GameBeloteCommon.hand(e_,couleurAtout_);
             byte valeurForte_=carteForte_.strength(couleurDemandee_, _g.getBid());
@@ -262,10 +263,10 @@ public final class Games {
             if(!leadingSuit_.estVide()) {
                 return Format.formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_PLAY_SUIT, toString(couleurDemandee_,_loc));
             }
-            if(_g.memeEquipe(ramasseurVirtuel_, numero_)) {
+            if(team_.memeEquipe(ramasseurVirtuel_, numero_)) {
                 /*Le partenaire est maitre temporairement*/
-                if(_g.surCoupeObligatoirePartenaire()) {
-                    if(_g.sousCoupeObligatoirePartenaire()) {
+                if(team_.surCoupeObligatoirePartenaire()) {
+                    if(team_.sousCoupeObligatoirePartenaire()) {
                         if(trumps_.premiereCarte().strength(couleurDemandee_, _g.getBid())<valeurForte_) {
                             return Format.formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_UNDER_TRUMP_PARTNER, toString(couleurAtout_,_loc));
                         }
@@ -277,7 +278,7 @@ public final class Games {
                         return Format.formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_PLAY_STRONGER_CARD, toString(carteForte_,_loc));
                     }
                 }
-                if(_g.sousCoupeObligatoirePartenaire()) {
+                if(team_.sousCoupeObligatoirePartenaire()) {
                     if(trumps_.premiereCarte().strength(couleurDemandee_, _g.getBid())<valeurForte_) {
                         return Format.formatter(FOLDER, BELOTE_FILE_NAME, _loc, BELOTE_UNDER_TRUMP_PARTNER, toString(couleurAtout_,_loc));
                     }

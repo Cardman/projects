@@ -95,11 +95,8 @@ public final class ItemForBattle extends Item {
         if (!effectEndRound.isEmpty()) {
             effectEndRound.first().validate(_data);
             if (!(effectEndRound.first() instanceof EffectEndRoundIndividual)) {
-                if (!(effectEndRound.first() instanceof EffectEndRoundTeam)) {
-                    _data.setError(true);
-                    return;
-
-                }
+                _data.setError(true);
+                return;
             }
         }
         if (!effectSending.isEmpty()) {

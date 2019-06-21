@@ -1197,7 +1197,7 @@ final class FightEndRound {
         }
         if (creature_.capaciteActive()) {
             CustList<EffectEndRound> effs_ = creature_.ficheCapaciteActuelle(_import).getEffectEndRound();
-            if (!effs_.isEmpty()) {
+            if (!effs_.isEmpty() && effs_.first() instanceof EffectEndRoundIndividual) {
                 EffectEndRoundIndividual eff_;
                 eff_ = (EffectEndRoundIndividual) effs_.first();
                 if(eff_.getMultDamageStatus().contains(_nomStatut)){
@@ -1282,11 +1282,11 @@ final class FightEndRound {
             //_fight.addDisabledStatusRelMessage(_nomStatut, _cible, _lanceur, _import);
             return;
         }
-        EffectEndRoundStatusRelation effet_=(EffectEndRoundStatusRelation) status_.getEffectEndRound().first();
-        if(creature_.getStatusRelatNbRoundShort(new MoveTeamPosition(_nomStatut,_lanceur)) <= 0){
+       if(creature_.getStatusRelatNbRoundShort(new MoveTeamPosition(_nomStatut,_lanceur)) <= 0){
             return;
         }
         _fight.addStatusRelEndRoundMessage(_nomStatut, _cible, _lanceur, _import);
+        EffectEndRoundStatusRelation effet_=(EffectEndRoundStatusRelation) status_.getEffectEndRound().first();
         Rate tauxAbs_=new Rate(effet_.getThievedHpRateTargetToUser());
         if(!tauxAbs_.isZero() && FightKo.canBeHealed(_fight,_lanceur.getTeam(),_import)){
             Fighter creatureLanceur_=_fight.getFighter(_lanceur);

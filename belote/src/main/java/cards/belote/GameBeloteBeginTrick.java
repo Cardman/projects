@@ -59,9 +59,8 @@ public final class GameBeloteBeginTrick {
         boolean strictMaitreAtout_;
         EnumList<Suit> couleursMaitres_=info_.getCouleursMaitresses();
         EnumMap<Suit,HandBelote> cartesMaitresses_=info_.getCartesMaitresses();
-        Numbers<Byte> appele_=teamsRelation.partenaires(taker);
-        Numbers<Byte> partenaire_=teamsRelation.partenaires(next_);
-        Numbers<Byte> adversaire_ =teamsRelation.adversaires(next_);
+        Numbers<Byte> partenaire_=info_.getJoueursConfiance();
+        Numbers<Byte> adversaire_ =info_.getJoueursNonConfiance();
         boolean maitreJeu_;
 
         strictMaitreAtout_=info_.isMaitreAtout();
@@ -162,7 +161,7 @@ public final class GameBeloteBeginTrick {
             return faireCouperAdv(couleursNonVides_, repartition_, repartitionCartesJouees_);
         }
         //Appele
-        if(appele_.containsObj(next_)) {
+        if(currentStatus == Status.CALLED_PLAYER) {
             if(!GameBeloteCommon.hand(cartesCertaines_,couleurAtout_,taker).estVide()) {
                 if(!GameBeloteCommon.hand(repartition_,couleurAtout_).estVide()) {
                     boolean cartesMaitressesJouees_ = true;
@@ -298,8 +297,7 @@ public final class GameBeloteBeginTrick {
         EnumMap<Suit,EqList<HandBelote>> cartesCertaines_=info_.getCartesCertaines();
         EnumList<Suit> couleursMaitres_=info_.getCouleursMaitresses();
         EnumMap<Suit,HandBelote> cartesMaitresses_=info_.getCartesMaitresses();
-        Numbers<Byte> appele_=teamsRelation.partenaires(taker);
-        Numbers<Byte> adversaire_ =teamsRelation.adversaires(next_);
+        Numbers<Byte> adversaire_ =info_.getJoueursNonConfiance();
         boolean maitreJeu_;
         /*Jeu sans atout ou tout atout*/
         maitreJeu_=info_.isMaitreJeu();
@@ -323,7 +321,7 @@ public final class GameBeloteBeginTrick {
             return faireCouperAdv(couleursNonVides_, repartition_, repartitionCartesJouees_);
         }
         EnumList<Suit> couleurs_;
-        if(appele_.containsObj(next_)) {
+        if(currentStatus == Status.CALLED_PLAYER) {
             if (!lastSeenHand.estVide()) {
                 Suit couleurDessus_=lastSeenHand.premiereCarte().couleur();
                 if(!GameBeloteCommon.hand(cartesCertaines_,couleurDessus_,taker).estVide()) {

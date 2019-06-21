@@ -106,7 +106,6 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_8);
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
-        assertTrue(!game_.memeEquipe(game_.getEntameur(),player_));
         hand_ = game_.getDistribution().main(player_);
         EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
         HandBelote playableCards_ = game_.playableCards(suits_);
@@ -124,7 +123,6 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_8);
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
-        assertTrue(!game_.memeEquipe(game_.getEntameur(),player_));
         hand_ = game_.getDistribution().main(player_);
         EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
         HandBelote playableCards_ = game_.playableCards(suits_);
@@ -142,7 +140,6 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_8);
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
-        assertTrue(!game_.memeEquipe(game_.getEntameur(),player_));
         hand_ = game_.getDistribution().main(player_);
         EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
         HandBelote playableCards_ = game_.playableCards(suits_);
@@ -160,7 +157,6 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_8);
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
-        assertTrue(!game_.memeEquipe(game_.getEntameur(),player_));
         hand_ = game_.getDistribution().main(player_);
         EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
         HandBelote playableCards_ = game_.playableCards(suits_);

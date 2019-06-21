@@ -76,7 +76,7 @@ public final class GoSimulateBelote extends Thread implements GoSimulate {
         byte nombreJoueurs_=partie_.getNombreDeJoueurs();
         String lg_ = container.getOwner().getLanguageKey();
         if(partie_.getSimulationAvecContrats()) {
-            CustList<TrickBelote> plisFaits_=partie_.unionPlis();
+            CustList<TrickBelote> plisFaits_=partie_.getTricks();
             mainsUtilisateurs_.add(0,new HandBelote());
             mainsUtilisateurs_.get(0).ajouter(plisFaits_.get(plisFaits_.size()-1).carteDuJoueur((byte)0, nombreJoueurs_));
             int indLastShownTrick_=plisFaits_.size()-2;
@@ -214,7 +214,7 @@ public final class GoSimulateBelote extends Thread implements GoSimulate {
             arretDemo();
             return;
         }
-        CustList<TrickBelote> plisFaits_=partie_.unionPlis();
+        CustList<TrickBelote> plisFaits_=partie_.getTricks();
         int nbTricks_ = plisFaits_.size();
         for(int indicePli_=CustList.FIRST_INDEX;indicePli_<nbTricks_;indicePli_++) {
             TrickBelote pli_=plisFaits_.get(indicePli_);

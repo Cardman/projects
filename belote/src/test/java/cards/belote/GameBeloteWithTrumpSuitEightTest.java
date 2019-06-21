@@ -89,7 +89,6 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.HEART_KING);
         player_ = game_.playerAfter(player_);
         hand_ = game_.getDistribution().main(player_);
-        assertTrue(!game_.memeEquipe(player_, game_.getPliEnCours().getRamasseurPliEnCours(game_.getNombreDeJoueurs(), game_.getContrat())));
         suits_ = hand_.couleurs(game_.getContrat());
         trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote trumpsHandOverCurrentGreatestTrump_ = new HandBelote();
@@ -124,7 +123,6 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.HEART_8);
         player_ = game_.playerAfter(player_);
         hand_ = game_.getDistribution().main(player_);
-        assertTrue(!game_.memeEquipe(player_, game_.getPliEnCours().getRamasseurPliEnCours(game_.getNombreDeJoueurs(), game_.getContrat())));
         suits_ = hand_.couleurs(game_.getContrat());
         trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote trumpsHandOverCurrentGreatestTrump_ = new HandBelote();
@@ -161,7 +159,6 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.HEART_JACK);
         player_ = game_.playerAfter(player_);
         hand_ = game_.getDistribution().main(player_);
-        assertTrue(!game_.memeEquipe(player_, game_.getPliEnCours().getRamasseurPliEnCours(game_.getNombreDeJoueurs(), game_.getContrat())));
         suits_ = hand_.couleurs(game_.getContrat());
         trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote trumpsHandOverCurrentGreatestTrump_ = new HandBelote();
@@ -198,7 +195,6 @@ public class GameBeloteWithTrumpSuitEightTest extends GameBeloteWithTrumpSuit {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.HEART_JACK);
         player_ = game_.playerAfter(player_);
         hand_ = game_.getDistribution().main(player_);
-        assertTrue(!game_.memeEquipe(player_, game_.getPliEnCours().getRamasseurPliEnCours(game_.getNombreDeJoueurs(), game_.getContrat())));
         suits_ = hand_.couleurs(game_.getContrat());
         trumps_ = suits_.getVal(game_.couleurAtout());
         assertTrue(!suits_.getVal(game_.couleurAtout()).estVide());

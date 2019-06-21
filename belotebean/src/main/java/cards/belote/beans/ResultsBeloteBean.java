@@ -57,7 +57,7 @@ final class ResultsBeloteBean extends BeloteBean {
             pointsDefenseTemporaire = end_.pointsDefenseWithBonus();
             takerNickname = getNicknames().get(preneur_);
             calledPlayersList = new StringList();
-            for (byte p: getGame().partenaires(preneur_)) {
+            for (byte p: getGame().getTeamsRelation().partenaires(preneur_)) {
                 calledPlayersList.add(getNicknames().get(p));
             }
             bidString = toString(getBid(),getLoc());

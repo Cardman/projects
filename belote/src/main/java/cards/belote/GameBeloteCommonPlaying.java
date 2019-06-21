@@ -150,8 +150,8 @@ public final class GameBeloteCommonPlaying {
             }
             if(teamsRelation.memeEquipe(ramasseurVirtuel_, numero_)) {
                 /*Le partenaire est maitre temporairement*/
-                if(surCoupeObligatoirePartenaire()) {
-                    if(sousCoupeObligatoirePartenaire()) {
+                if(teamsRelation.surCoupeObligatoirePartenaire()) {
+                    if(teamsRelation.sousCoupeObligatoirePartenaire()) {
                         if(trumps_.premiereCarte().strength(couleurDemandee_, bid_)<valeurForte_) {
                             cartesJouables_.ajouterCartes(trumps_);
                             return cartesJouables_;
@@ -174,7 +174,7 @@ public final class GameBeloteCommonPlaying {
                     //main(repartitionMain,couleurAtout).premiereCarte().force(couleurDemandee,contrat)<valeurForte
                     //!sousCoupeObligatoirePartenaire() && main(repartitionMain,couleurAtout).premiereCarte().force(couleurDemandee,contrat)<valeurForte
                 }
-                if(sousCoupeObligatoirePartenaire()) {
+                if(teamsRelation.sousCoupeObligatoirePartenaire()) {
                     if(trumps_.premiereCarte().strength(couleurDemandee_, bid_)<valeurForte_) {
                         cartesJouables_.ajouterCartes(trumps_);
                         return cartesJouables_;
@@ -737,16 +737,6 @@ public final class GameBeloteCommonPlaying {
         return doneTrickInfo.getBid().getCouleur();
     }
 
-    public boolean surCoupeObligatoirePartenaire() {
-        RulesBelote rules_ = teamsRelation.getRules();
-        return rules_.getGestionCoupePartenaire()==BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP
-                ||rules_.getGestionCoupePartenaire()==BeloteTrumpPartner.OVERTRUMP_ONLY;
-    }
-    public boolean sousCoupeObligatoirePartenaire() {
-        RulesBelote rules_ = teamsRelation.getRules();
-        return rules_.getGestionCoupePartenaire()==BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP
-                || rules_.getGestionCoupePartenaire()==BeloteTrumpPartner.UNDERTRUMP_ONLY;
-    }
     private boolean sousCoupeObligatoireAdversaire() {
         return teamsRelation.getRules().getSousCoupeAdv();
     }
