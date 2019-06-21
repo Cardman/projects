@@ -2,7 +2,10 @@ package aiki.fight.status;
 
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
+import aiki.fight.moves.effects.EffectEndRoundSingleStatus;
 import aiki.fight.moves.effects.EffectEndRoundStatus;
+import aiki.fight.moves.effects.EffectEndRoundStatusRelation;
+import aiki.fight.moves.effects.enums.RelationType;
 import aiki.fight.status.effects.EffectPartnerStatus;
 import code.maths.Rate;
 import code.util.CustList;
@@ -64,6 +67,17 @@ public abstract class Status {
         }
         if (!effectEndRound.isEmpty()) {
             effectEndRound.first().validate(_data);
+            if (statusType == StatusType.INDIVIDUEL) {
+                if (!(effectEndRound.first() instanceof EffectEndRoundSingleStatus)) {
+                    _data.setError(true);
+                    return;
+                }
+            } else {
+                if (!(effectEndRound.first() instanceof EffectEndRoundStatusRelation)) {
+                    _data.setError(true);
+                    return;
+                }
+            }
         }
         if (!effectEndRound.isEmpty()) {
             if (incrementEndRound == effectEndRound.first().getEndRoundRank()) {
