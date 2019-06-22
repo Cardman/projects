@@ -1097,7 +1097,7 @@ public final class FileResolver {
                 declType_ = false;
             } else {
                 if (StringList.isDollarWordChar(currentChar_) && i_ + 1 < len_ && !StringList.isDollarWordChar(_file.charAt(i_ + 1))) {
-                    StringList parts_ = StringList.getDollarWordSeparators(instruction_);
+                    StringList parts_ = StringList.getDollarWordSeparators(instruction_.toString());
                     StringList printable_ = new StringList();
                     for (String p: parts_) {
                         String t_ = p.trim();

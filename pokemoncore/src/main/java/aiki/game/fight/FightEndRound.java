@@ -1231,6 +1231,11 @@ final class FightEndRound {
         if (effectEndRound_.isEmpty()) {
             return;
         }
+        Fighter creature_=_fight.getFighter(_cible);
+        short nbTour_=creature_.getStatusRelatNbRoundShort(new MoveTeamPosition(_nomStatut,_lanceur));
+        if(nbTour_ <= 0){
+            return;
+        }
         EffectEndRoundStatus effetFinTour_ = effectEndRound_.first();
         boolean success_ = true;
         if (!effetFinTour_.getFailEndRound().isEmpty()) {
@@ -1238,8 +1243,6 @@ final class FightEndRound {
             values_ = FightValues.calculateValues(_fight,_lanceur,_cible,_import);
             success_ = !_import.evaluateBoolean(effetFinTour_.getFailEndRound(), values_, false);
         }
-        Fighter creature_=_fight.getFighter(_cible);
-        short nbTour_=creature_.getStatusRelatNbRoundShort(new MoveTeamPosition(_nomStatut,_lanceur));
         if(!success_){
             creature_.supprimerPseudoStatutCombattant(_lanceur,_nomStatut);
             _fight.addDisabledStatusRelMessage(_nomStatut, _cible, _lanceur, nbTour_, _import);
@@ -1252,9 +1255,6 @@ final class FightEndRound {
             return;
         }
         MonteCarloNumber loi_=((StatusBeginRound)status_).getLawForUsingAMoveNbRound();
-        if(nbTour_ <= 0){
-            return;
-        }
         MonteCarloBoolean loiSachant_=loi_.knowingGreater(new Rate(nbTour_));
         boolean resterActif_;
         LgInt maxRd_ = _import.getMaxRd();
@@ -1282,6 +1282,9 @@ final class FightEndRound {
         if (effectEndRound_.isEmpty()) {
             return;
         }
+        if(creature_.getStatusRelatNbRoundShort(new MoveTeamPosition(_nomStatut,_lanceur)) <= 0){
+            return;
+        }
         EffectEndRoundStatus effetFinTour_ = effectEndRound_.first();
         boolean success_ = true;
         if (!effetFinTour_.getFailEndRound().isEmpty()) {
@@ -1292,9 +1295,6 @@ final class FightEndRound {
         if(!success_){
             creature_.supprimerPseudoStatutCombattant(_lanceur,_nomStatut);
             //_fight.addDisabledStatusRelMessage(_nomStatut, _cible, _lanceur, _import);
-            return;
-        }
-       if(creature_.getStatusRelatNbRoundShort(new MoveTeamPosition(_nomStatut,_lanceur)) <= 0){
             return;
         }
         _fight.addStatusRelEndRoundMessage(_nomStatut, _cible, _lanceur, _import);

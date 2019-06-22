@@ -57,7 +57,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
         super(_capacity);
     }
 
-    public static byte[] encode(CharSequence _input) {
+    public static byte[] encode(String _input) {
         int len_ = _input.length();
         char[] chs_ = new char[len_];
         for (int i = 0; i < len_; i++) {
@@ -1421,21 +1421,19 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return _strings;
     }
 
-    public static String concat(CharSequence... _strings) {
+    public static String concat(String... _strings) {
         StringBuilder str_ = new StringBuilder();
-        for (CharSequence s: _strings) {
+        for (String s: _strings) {
             str_.append(s);
         }
         return str_.toString();
     }
-
-    public static String concatNbs(CharSequence _string,long _nbs) {
+    public static String concatNbs(String _string,long _nbs) {
         StringBuilder str_ = new StringBuilder(_string);
         str_.append(_nbs);
         return str_.toString();
     }
-
-    public static String concatNb(long _nb,CharSequence _string) {
+    public static String concatNb(long _nb,String _string) {
         StringBuilder str_ = new StringBuilder();
         str_.append(_nb);
         str_.append(_string);
@@ -1808,7 +1806,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return ret_;
     }
 
-    public static StringList getDollarWordSeparators(CharSequence _str) {
+    public static StringList getDollarWordSeparators(String _str) {
         if (_str.length() == 0) {
             return new StringList();
         }
@@ -1818,11 +1816,11 @@ public final class StringList extends CustList<String> implements Equallable<Str
         StringBuilder str_ = new StringBuilder();
         while (true) {
             if (i_ >= _str.length()) {
-                ret_.add(_str.toString());
+                ret_.add(_str);
                 return ret_;
             }
             if (isDollarWordChar(_str.charAt(i_))) {
-                str_.append(_str.toString(), CustList.FIRST_INDEX, i_);
+                str_.append(_str, CustList.FIRST_INDEX, i_);
                 break;
             }
             i_++;

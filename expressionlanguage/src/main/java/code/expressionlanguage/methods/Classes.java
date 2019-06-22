@@ -207,7 +207,11 @@ public final class Classes {
                 generic_.append(vars_.join(Templates.TEMPLATE_SEP));
                 generic_.append(Templates.TEMPLATE_END);
             }
-            String type_ = StringList.concat(_context.getStandards().getAliasEnumParam(),Templates.TEMPLATE_BEGIN,generic_,Templates.TEMPLATE_END);
+            StringBuilder sBuild_ = new StringBuilder(_context.getStandards().getAliasEnumParam());
+            sBuild_.append(Templates.TEMPLATE_BEGIN);
+            sBuild_.append(generic_);
+            sBuild_.append(Templates.TEMPLATE_END);
+            String type_ = sBuild_.toString();
             _root.getDirectSuperTypes().add(type_);
             _root.getExplicitDirectSuperTypes().put(-1, false);
             _root.getRowColDirectSuperTypes().put(-1, type_);

@@ -427,9 +427,12 @@ public final class Rate implements Cmp<Rate>, Displayable {
             zero_ = false;
         }
         if (zero_) {
-            return StringList.concat(intPartStr_, String.valueOf(SEP_INT_DEC), str_);
+            str_.insert(0,SEP_INT_DEC);
+            str_.insert(0,intPartStr_);
+            return str_.toString();
         }
-        return StringList.concat(return_,str_);
+        str_.insert(0,return_);
+        return str_.toString();
     }
 
     public String evaluate(int _numberMeaningDigits) {

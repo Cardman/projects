@@ -110,7 +110,8 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
             for (Object o: pathFull_) {
                 str_.append((String)o).append(StreamTextFile.SEPARATEUR);
             }
-            new File(StringList.concat(str_,typedString.getText())).mkdirs();
+            str_.append(typedString.getText());
+            new File(str_.toString()).mkdirs();
             applyTreeChange(treePath_);
         }
     }

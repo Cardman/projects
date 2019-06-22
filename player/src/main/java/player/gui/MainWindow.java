@@ -201,7 +201,7 @@ public class MainWindow extends GroupFrame {
                 songsList = StringList.splitStrings(songs.getText(), LINE_RETURN);
                 songsList.removeAllString(EMPTY);
                 StringList songsList_ = new StringList();
-                for (String o: suffledSongsNames(songsList.toArray())) {
+                for (String o: suffledSongsNames(songsList)) {
                     songsList_.add(o);
                 }
                 songsList = songsList_;
@@ -291,7 +291,7 @@ public class MainWindow extends GroupFrame {
                     }
                     if (random.isSelected()) {
                         StringList songsList_ = new StringList();
-                        for (String o: suffledSongsNames(songsList.toArray())) {
+                        for (String o: suffledSongsNames(songsList)) {
                             songsList_.add(o);
                         }
                         songsList = songsList_;
@@ -361,7 +361,7 @@ public class MainWindow extends GroupFrame {
         }
     }
 
-    public static StringList suffledSongsNames(String... _list) {
+    public static StringList suffledSongsNames(StringList _list) {
         StringList list_ = new StringList(_list);
         Ints indexes_ = new Ints();
         Ints indexesEdited_ = new Ints();
