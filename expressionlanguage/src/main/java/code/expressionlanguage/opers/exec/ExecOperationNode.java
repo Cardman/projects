@@ -55,7 +55,7 @@ public abstract class ExecOperationNode implements Operable {
         indexInEl = _oper.getIndexInEl();
         indexBegin = _oper.getIndexBegin();
         indexChild = _oper.getIndexChild();
-        resultClass = _oper.getResultClass();
+        resultClass = ((OperationNode)_oper).getResultClass();
         argument = _oper.getArgument();
         order = _oper.getOrder();
     }
@@ -503,6 +503,11 @@ public abstract class ExecOperationNode implements Operable {
     }
 
     @Override
+    public PossibleIntermediateDottedOperable getSiblingSettable() {
+        return getSiblingSet();
+    }
+
+    @Override
     public final ClassArgumentMatching getResultClass() {
         return resultClass;
     }
@@ -513,5 +518,10 @@ public abstract class ExecOperationNode implements Operable {
 
     public final void setSiblingSet(ExecPossibleIntermediateDotted _siblingSet) {
         siblingSet = _siblingSet;
+    }
+
+    @Override
+    public ParentOperable getParentOperable() {
+        return getParent();
     }
 }

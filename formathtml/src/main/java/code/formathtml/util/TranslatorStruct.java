@@ -3,7 +3,6 @@ package code.formathtml.util;
 import code.bean.translator.Translator;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.Struct;
 
 public final class TranslatorStruct implements RealInstanceStruct {

@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.util.IdMap;
 
-public interface ExecSettableElResult extends ExecOperable, Operable {
+public interface ExecSettableElResult extends Operable {
 
     Argument calculateSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right);

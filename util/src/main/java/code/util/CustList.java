@@ -129,7 +129,6 @@ public class CustList<T> implements Listable<T> {
         return list.iterator();
     }
 
-    @Override
     public Object[] toArray() {
         return list.toArray();
     }

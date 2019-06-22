@@ -158,7 +158,7 @@ public final class AffectationOperation extends ReflectableOpering implements Af
     }
 
     static SettableElResult tryGetSettable(MethodOperation _operation) {
-        Operable root_ = getFirstToBeAnalyzed(_operation);
+        OperationNode root_ = getFirstToBeAnalyzed(_operation);
         SettableElResult elt_;
         if (!(root_ instanceof DotOperation)) {
             elt_ = castTo(root_);
@@ -168,14 +168,14 @@ public final class AffectationOperation extends ReflectableOpering implements Af
         }
         return elt_;
     }
-    public static Operable getFirstToBeAnalyzed(ParentOperable _operation) {
-        Operable root_ = _operation.getFirstChild();
-        while (root_ instanceof IdOperable) {
-            root_ = ((IdOperable)root_).getFirstChild();
+    public static OperationNode getFirstToBeAnalyzed(MethodOperation _operation) {
+        OperationNode root_ = _operation.getFirstChild();
+        while (root_ instanceof IdOperation) {
+            root_ = root_.getFirstChild();
         }
         return root_;
     }
-    private static SettableElResult castTo(Operable _op) {
+    private static SettableElResult castTo(OperationNode _op) {
         if (_op instanceof SettableElResult) {
             return (SettableElResult) _op;
         }
@@ -298,7 +298,7 @@ public final class AffectationOperation extends ReflectableOpering implements Af
             return;
         }
         StandardFieldOperable fieldRef_ = (StandardFieldOperable) _settable;
-        Operable lastChild_ = _current.getFirstChild().getNextSibling();
+        Operable lastChild_ = _current.getChildrenOperable().get(1);
         Argument value_ = lastChild_.getArgument();
         ClassField id_ = fieldRef_.getFieldId();
         FieldInfo fm_ = _conf.getFieldInfo(id_);

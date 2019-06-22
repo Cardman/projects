@@ -97,22 +97,6 @@ public class Composite implements Displayable {
         privateInt = _privateInt;
     }
 
-    public long varArgsNoParam(long... _args) {
-        long l_ = 0;
-        for (long l: _args) {
-            l_ += l;
-        }
-        return l_;
-    }
-
-    public long varArgsArrays(long[]... _args) {
-        long l_ = 0;
-        for (long[] l: _args) {
-            l_ += l.length;
-        }
-        return l_;
-    }
-
     public int summum(int _other) {
         return integer + _other;
     }
@@ -131,9 +115,7 @@ public class Composite implements Displayable {
     public String getOverridenOne(Object _string) {
         return "two";
     }
-    public String getOverridenOne(Boolean _string) {
-        return "three";
-    }
+
     public String getOverridenTwo(String _string) {
         return "one";
     }
@@ -205,12 +187,6 @@ public class Composite implements Displayable {
         map = _map;
     }
 
-    public StringList keys() {
-        StringList list_ = new StringList(map.getKeys());
-        list_.sort();
-        return list_;
-    }
-
     public String internMethod() {
         return "sample";
     }
@@ -248,7 +224,4 @@ public class Composite implements Displayable {
         displayed = _displayed;
     }
 
-    public void setChanging(ValueChangeEvent _changing) {
-        changing = _changing;
-    }
 }

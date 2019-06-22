@@ -17,6 +17,7 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.exec.PossibleIntermediateDottedOperable;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
@@ -1811,7 +1812,7 @@ public abstract class OperationNode implements Operable {
         setArgAna(this, _argument, _conf);
     }
     public static void setArgAna(Operable _op,Argument _argument, Analyzable _conf) {
-        PossibleIntermediateDottedOperable n_ = _op.getSiblingSet();
+        PossibleIntermediateDottedOperable n_ = _op.getSiblingSettable();
         if (n_ != null) {
             n_.setPreviousArgument(_argument);
         }
@@ -1823,6 +1824,11 @@ public abstract class OperationNode implements Operable {
             _argument.setStruct(PrimitiveTypeUtil.unwrapObject(un_, _argument.getStruct(), _conf.getStandards()));
         }
         _op.setSimpleArgument(_argument);
+    }
+
+    @Override
+    public PossibleIntermediateDottedOperable getSiblingSettable() {
+        return getSiblingSet();
     }
 
     @Override
@@ -1850,4 +1856,10 @@ public abstract class OperationNode implements Operable {
     public final int getIndexBegin() {
         return operations.getDelimiter().getIndexBegin();
     }
+
+    @Override
+    public ParentOperable getParentOperable() {
+        return getParent();
+    }
+
 }

@@ -10,7 +10,7 @@ import org.junit.Test;
 public class StringListTest {
     @Test
     public void sub1Test(){
-        StringList s_ = new StringList();
+        StringList s_ = new StringList(new CollCapacity(0));
         CustList<String> out_ = s_.sub(0, 0);
         assertEq(0, out_.size());
     }

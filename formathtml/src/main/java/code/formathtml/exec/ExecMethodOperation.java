@@ -70,4 +70,9 @@ public abstract class ExecMethodOperation extends ExecDynOperationNode implement
     public final ExecDynOperationNode getFirstChild() {
         return firstChild;
     }
+
+    @Override
+    public Operable getFirstChildOperable() {
+        return getFirstChild();
+    }
 }

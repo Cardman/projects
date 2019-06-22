@@ -9,6 +9,8 @@ import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.*;
 import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.opers.exec.ParentOperable;
+import code.expressionlanguage.opers.exec.PossibleIntermediateDottedOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -625,6 +627,10 @@ public abstract class ExecDynOperationNode implements Operable {
     }
 
     @Override
+    public PossibleIntermediateDottedOperable getSiblingSettable() {
+        return getSiblingSet();
+    }
+    @Override
     public final ClassArgumentMatching getResultClass() {
         return resultClass;
     }
@@ -639,5 +645,10 @@ public abstract class ExecDynOperationNode implements Operable {
 
     public final void setSiblingSet(ExecPossibleIntermediateDotted _siblingSet) {
         siblingSet = _siblingSet;
+    }
+
+    @Override
+    public ParentOperable getParentOperable() {
+        return getParent();
     }
 }

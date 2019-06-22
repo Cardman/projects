@@ -14,6 +14,7 @@ public class Bean {
     private String language;
 
     public void beforeDisplaying() {
+        //implemented by sub classes
     }
 
     public Object getDataBase() {

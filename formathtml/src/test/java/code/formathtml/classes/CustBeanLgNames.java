@@ -2,32 +2,12 @@ package code.formathtml.classes;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
-import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardClass;
-import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.stds.StandardField;
-import code.expressionlanguage.stds.StandardMethod;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.CharStruct;
-import code.expressionlanguage.structs.DoubleStruct;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.LongStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.RealInstanceStruct;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.opers.util.*;
+import code.expressionlanguage.stds.*;
+import code.expressionlanguage.structs.*;
 import code.formathtml.DefaultInitialization;
-import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.BeanStruct;
-import code.formathtml.util.StdStruct;
-import code.formathtml.util.ValueChangeEvent;
+import code.formathtml.util.*;
 import code.util.*;
-import code.util.ints.SimpleIterable;
 
 public final class CustBeanLgNames extends BeanLgNames {
 
@@ -154,7 +134,6 @@ public final class CustBeanLgNames extends BeanLgNames {
     private static final String TYPE_MY_VALIDATOR_ENUM = "code.formathtml.classes.MyValidatorEnum";
     private static final String TYPE_MY_VALIDATOR = "code.formathtml.classes.MyValidator";
     private static final String TYPE_STRING_LIST = "code.util.StringList";
-    private static final String ALIAS_SB = "sb";
     private static final String ALIAS_LS = "ls";
     private static final String ALIAS_LSE = "lse";
     public CustBeanLgNames() {
@@ -1485,12 +1464,10 @@ public final class CustBeanLgNames extends BeanLgNames {
                 return res_;
             }
             if (StringList.quickEq(methodName_,VALIDATE_MAP)) {
-                i_.validateMap();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(methodName_,VALIDATE_STRINGS)) {
-                i_.validateStrings();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1798,10 +1775,6 @@ public final class CustBeanLgNames extends BeanLgNames {
                     return res_;
                 }
                 res_.setResult(new StdStruct(new GeneObjs(_args[0]),TYPE_GENE_OBJS));
-                return res_;
-            }
-            if (StringList.quickEq(_method.getParametersTypes().first(), getCustList())) {
-                res_.setResult(new StdStruct(new GeneObjs(((SimpleIterable)_args[0]).toArray()),TYPE_GENE_OBJS));
                 return res_;
             }
         }

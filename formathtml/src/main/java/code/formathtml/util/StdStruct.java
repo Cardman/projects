@@ -12,7 +12,6 @@ import code.expressionlanguage.structs.FloatStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringBuilderStruct;
 import code.expressionlanguage.structs.StringStruct;

@@ -7,7 +7,7 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 public interface Operable {
 
     Argument getArgument();
-    ParentOperable getParent();
+    ParentOperable getParentOperable();
     void setSimpleArgument(Argument _argument);
     void setSimpleArgumentAna(Argument _argument, Analyzable _conf);
     ClassArgumentMatching getResultClass();
@@ -16,6 +16,6 @@ public interface Operable {
     int getIndexBegin();
     int getIndexInEl();
 
-    PossibleIntermediateDottedOperable getSiblingSet();
-    Operable getNextSibling();
+    PossibleIntermediateDottedOperable getSiblingSettable();
+
 }

@@ -11,8 +11,6 @@ public interface MidListable<T extends Equallable<T>> extends Iterable<T> {
 
     boolean contains(T _o);
 
-    Object[] toArray();
-
     void add(T _e);
 
     void remove(T _o);

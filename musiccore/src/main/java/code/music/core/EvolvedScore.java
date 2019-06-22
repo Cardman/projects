@@ -88,11 +88,6 @@ public final class EvolvedScore implements MidListable<EvolvedPart>, Displayable
     }
 
     @Override
-    public Object[] toArray() {
-        return parts.toArray();
-    }
-
-    @Override
     public void add(EvolvedPart _e) {
         score.add(_e.getPart());
         parts.add(_e);

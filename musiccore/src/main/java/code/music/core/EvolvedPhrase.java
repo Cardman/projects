@@ -102,11 +102,6 @@ public final class EvolvedPhrase implements MidListable<EvolvedNote>, Equallable
     }
 
     @Override
-    public Object[] toArray() {
-        return notes.toArray();
-    }
-
-    @Override
     public void add(EvolvedNote _e) {
         phrase.add(_e.getNote());
         notes.add(_e);

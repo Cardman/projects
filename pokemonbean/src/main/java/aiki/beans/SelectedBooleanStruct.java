@@ -2,7 +2,7 @@ package aiki.beans;
 
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.RealInstanceStruct;
+import code.formathtml.util.RealInstanceStruct;
 import code.expressionlanguage.structs.Struct;
 import aiki.facade.enums.SelectedBoolean;
 

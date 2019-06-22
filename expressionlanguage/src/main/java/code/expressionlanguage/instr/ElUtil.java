@@ -349,7 +349,7 @@ public final class ElUtil {
         return isDeclaringVariable(_par);
     }
     public static boolean isDeclaringVariable(Operable _var) {
-        ParentOperable par_ = _var.getParent();
+        ParentOperable par_ = _var.getParentOperable();
         if (par_ == null) {
             return true;
         }
@@ -357,16 +357,16 @@ public final class ElUtil {
             return true;
         }
         if (par_ instanceof AffectationOperable) {
-            if (par_.getParent() == null) {
-                return _var == par_.getFirstChild();
+            if (par_.getParentOperable() == null) {
+                return _var == par_.getFirstChildOperable();
             }
-            if (par_.getParent() instanceof DeclaringOperable) {
-                return _var == par_.getFirstChild();
+            if (par_.getParentOperable() instanceof DeclaringOperable) {
+                return _var == par_.getFirstChildOperable();
             }
         }
         return false;
     }
-    public static boolean isDeclaringVariable(ParentOperable _par) {
+    public static boolean isDeclaringVariable(MethodOperation _par) {
         if (_par == null) {
             return true;
         }

@@ -127,11 +127,6 @@ public final class EvolvedPart implements MidListable<EvolvedPhrase>, Equallable
     }
 
     @Override
-    public Object[] toArray() {
-        return phrases.toArray();
-    }
-
-    @Override
     public void add(EvolvedPhrase _e) {
         part.add(_e.getPhrase());
         phrases.add(_e);

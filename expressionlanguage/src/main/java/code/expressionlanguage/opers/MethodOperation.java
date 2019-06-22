@@ -186,4 +186,9 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
     public final IntTreeMap< String> getChildren() {
         return children;
     }
+
+    @Override
+    public Operable getFirstChildOperable() {
+        return getFirstChild();
+    }
 }

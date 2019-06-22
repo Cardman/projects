@@ -6,5 +6,4 @@ public interface SimpleIterable {
 
     SimpleItr simpleIterator();
 
-    Object[] toArray();
 }

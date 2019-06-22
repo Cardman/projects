@@ -5,6 +5,6 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 
 public interface ExecPossibleIntermediateDotted extends PossibleIntermediateDottedOperable {
 
-    int getOrder();
+
     boolean isIntermediateDottedOperation();
 }

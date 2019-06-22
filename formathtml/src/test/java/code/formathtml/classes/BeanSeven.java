@@ -1,6 +1,5 @@
 package code.formathtml.classes;
 import code.bean.Bean;
-import code.formathtml.util.ValueChangeEvent;
 import code.util.CustList;
 import code.util.NatStringTreeMap;
 import code.util.Ints;
@@ -24,8 +23,6 @@ public class BeanSeven extends Bean {
     private CustList<EnumNumber> chosenNumbers = new CustList<EnumNumber>(EnumNumber.ONE,EnumNumber.FOUR);
 
     private String message="Test {0}";
-
-    private ValueChangeEvent changing;
 
     private NatTreeMapStringInteger tree = new NatTreeMapStringInteger();
 
@@ -64,26 +61,10 @@ public class BeanSeven extends Bean {
         setClassName("code.formathtml.classes.BeanSeven");
     }
 
-    @Override
-    public void beforeDisplaying() {
-//        strings.clear();
-//        if (!getForms().contains("strings")) {
-//            strings.add("FIRST");
-//            strings.add("SECOND");
-//        } else {
-//            strings.addAll((StringList)getForms().getVal("strings"));
-//        }
-    }
-
-    public void validateStrings() {
-    }
-
     public void validateStringsSave() {
         getForms().put("strings", new StringList(strings));
     }
 
-    public void validateMap() {
-    }
     public void validateIntsSave() {
         Ints nbs_ = new Ints();
         for (Object i: arrayInt.toArray()) {
@@ -114,10 +95,6 @@ public class BeanSeven extends Bean {
         return StringList.concatNbs("page",_one);
     }
 
-    public StringList sortedNumberKeys() {
-        return new StringList(numbers.getKeys());
-    }
-
     public CustList<Composite> getComposites() {
         return composites;
     }
@@ -134,21 +111,8 @@ public class BeanSeven extends Bean {
         return composite.getStrings().size() > 1;
     }
 
-    public boolean hasMoreThanZero() {
-        return composite.getStrings().size() > 0;
-    }
-
     public void setComposite(Composite _composite) {
         composite = _composite;
-    }
-
-    public String invokeMethod(Long _index) {
-        composite.getStrings().add(_index.toString());
-        return "returned value";
-    }
-
-    public ValueChangeEvent getChanging() {
-        return changing;
     }
 
     public NatTreeMapStringInteger getTree() {
@@ -157,12 +121,6 @@ public class BeanSeven extends Bean {
 
     public StringMap<Integer> getMap() {
         return map;
-    }
-
-    public StringList getKeys() {
-        StringList list_ = new StringList(map.getKeys());
-        list_.sort();
-        return list_;
     }
 
     public int getDouble(Long _index) {
@@ -259,20 +217,12 @@ public class BeanSeven extends Bean {
         commonClass = _commonClass;
     }
 
-    public void setChanging(ValueChangeEvent _changing) {
-        changing = _changing;
-    }
-
     public void setTree(NatTreeMapStringInteger _tree) {
         tree = _tree;
     }
 
     public void setMap(StringMap<Integer> _map) {
         map = _map;
-    }
-
-    public void setComposites(CustList<Composite> _composites) {
-        composites = _composites;
     }
 
     public void setStrings(StringList _strings) {

@@ -59,4 +59,9 @@ public abstract class ExecMethodOperation extends ExecOperationNode implements R
     public final ExecOperationNode getFirstChild() {
         return firstChild;
     }
+
+    @Override
+    public Operable getFirstChildOperable() {
+        return getFirstChild();
+    }
 }

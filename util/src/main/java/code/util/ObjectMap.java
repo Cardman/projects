@@ -17,16 +17,7 @@ public final class ObjectMap<K extends Equallable<K>, V> extends AbObjectMap<K,V
     }
 
     @Override
-    int indexOfEntry(K _key) {
-        int index_ = CustList.FIRST_INDEX;
-        Equallable<K> k_ = _key;
-        for (EntryCust<K, V> e:getList()) {
-            K key_ = e.getKey();
-            if (k_.eq(key_)) {
-                return index_;
-            }
-            index_++;
-        }
-        return CustList.INDEX_NOT_FOUND_ELT;
+    protected boolean eq(K _one, K _two) {
+        return _one.eq(_two);
     }
 }

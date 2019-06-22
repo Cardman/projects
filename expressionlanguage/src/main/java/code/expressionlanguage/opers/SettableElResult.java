@@ -7,6 +7,6 @@ public interface SettableElResult extends Operable {
 
     void setVariable(boolean _variable);
     void setCatenizeStrings();
-    ClassArgumentMatching getResultClass();
+
 
 }

@@ -4,7 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.util.CustList;
 
 public interface ParentOperable extends Operable {
-    Operable getFirstChild();
+    Operable getFirstChildOperable();
     CustList<Operable> getChildrenOperable();
 
     void quickCalculate(Analyzable _conf);

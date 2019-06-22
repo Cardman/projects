@@ -8479,7 +8479,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new code.formathtml.classes.GeneObjs()\" className=\"code.formathtml.classes.GeneObjs\"/><c:set var=\"listTwo\" expression=\"$new code.formathtml.classes.GeneObjs(list;.)\" className=\"code.formathtml.classes.GeneObjs\"/>{listTwo;.size()}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new Object[0]\" className=\"java.lang.Object[]\"/><c:set var=\"listTwo\" expression=\"list;.clone()\" className=\"java.lang.Object[]\"/>{listTwo;.length}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -8979,7 +8979,7 @@ public class FormatHtmlTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new code.formathtml.classes.GeneObjs()\" className=\"code.formathtml.classes.GeneObjs\"/><c:set expression='list;.add($(java.lang.Object)1i)'/><c:set expression='list;.add($(java.lang.Object)2i)'/><c:set var=\"listTwo\" expression=\"$new code.formathtml.classes.GeneObjs(list;.)\" className=\"code.formathtml.classes.GeneObjs\"/>{listTwo;.size()}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new Object[2]\" className=\"java.lang.Object[]\"/><c:set expression='list;.[0]=1i'/><c:set expression='list;.[1]=2i'/><c:set var=\"listTwo\" expression=\"list;.clone()\" className=\"java.lang.Object[]\"/>{listTwo;.length}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);

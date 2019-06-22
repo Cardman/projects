@@ -19,7 +19,7 @@ public final class ExecAffectationOperation extends ExecReflectableOpering imple
         settable = tryGetSettable(this);
     }
     static ExecSettableElResult tryGetSettable(ExecMethodOperation _operation) {
-        Operable root_ = AffectationOperation.getFirstToBeAnalyzed(_operation);
+        ExecOperationNode root_ = getFirstToBeAnalyzed(_operation);
         ExecSettableElResult elt_;
         if (!(root_ instanceof ExecDotOperation)) {
             elt_ = castTo(root_);
@@ -29,11 +29,18 @@ public final class ExecAffectationOperation extends ExecReflectableOpering imple
         }
         return elt_;
     }
-    private static ExecSettableElResult castTo(Operable _op) {
+    private static ExecSettableElResult castTo(ExecOperationNode _op) {
         if (_op instanceof ExecSettableElResult) {
             return (ExecSettableElResult) _op;
         }
         return null;
+    }
+    public static ExecOperationNode getFirstToBeAnalyzed(ExecMethodOperation _operation) {
+        ExecOperationNode root_ = _operation.getFirstChild();
+        while (root_ instanceof ExecIdOperation) {
+            root_ = root_.getFirstChild();
+        }
+        return root_;
     }
     public ExecSettableElResult getSettable() {
         return settable;

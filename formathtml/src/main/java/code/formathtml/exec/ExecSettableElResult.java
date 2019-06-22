@@ -2,13 +2,12 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.opers.exec.ExecOperable;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.exec.Operable;
 
-public interface ExecSettableElResult extends ExecOperable {
+public interface ExecSettableElResult extends Operable {
 
     boolean resultCanBeSet();
-    ClassArgumentMatching getResultClass();
+
 
     void calculateSetting(
             ExecutableCode _conf, Argument _right);

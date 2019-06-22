@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.util.IdMap;
 
-public interface CallExecSimpleOperation extends ExecOperable {
+public interface CallExecSimpleOperation extends Operable {
 
     void endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right);
     ExecSettableElResult getSettable();
