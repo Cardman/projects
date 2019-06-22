@@ -44,9 +44,8 @@ public final class GameBeloteTeamsRelation {
     }
 
     static boolean contientJoueurs(Bytes _joueurs1, Bytes _joueurs2) {
-        for (Number e: _joueurs2) {
-            long nb_ = e.longValue();
-            if (!_joueurs1.contains(nb_)) {
+        for (byte e: _joueurs2) {
+            if (!_joueurs1.contains(e)) {
                 return false;
             }
         }

@@ -1,8 +1,6 @@
 package aiki.beans.simulation;
 import aiki.beans.CommonBean;
-import aiki.beans.facade.comparators.ComparatorMoves;
-import aiki.beans.facade.comparators.ComparatorPlaceIndex;
-import aiki.beans.facade.comparators.ComparatorRadioLineMoves;
+import aiki.beans.facade.comparators.*;
 import aiki.beans.facade.dto.KeptMovesAfterFight;
 import aiki.beans.facade.map.dto.PlaceIndex;
 import aiki.beans.facade.simulation.dto.PokemonPlayerDto;
@@ -56,7 +54,6 @@ import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import code.util.comparators.ComparatorEnum;
 
 public class SimulationBean extends CommonBean {
     private boolean allowCatchingKo;
@@ -143,8 +140,8 @@ public class SimulationBean extends CommonBean {
         SimulationSteps simu_ = (SimulationSteps) getForms().getVal(SIMULATION_STATE);
         DataBase data_ = (DataBase) getDataBase();
         if (simu_ == SimulationSteps.DIFF) {
-            damageRates = new TreeMap<DifficultyModelLaw, String>(new ComparatorEnum<DifficultyModelLaw>());
-            winPointsFight = new TreeMap<DifficultyWinPointsFight, String>(new ComparatorEnum<DifficultyWinPointsFight>());
+            damageRates = new TreeMap<DifficultyModelLaw, String>(new ComparatorDifficultyModelLaw());
+            winPointsFight = new TreeMap<DifficultyWinPointsFight, String>(new ComparatorDifficultyWinPointsFight());
             EnumMap<DifficultyWinPointsFight, String> trWinPts_ = data_.getTranslatedDiffWinPts().getVal(getLanguage());
             for (DifficultyWinPointsFight k: trWinPts_.getKeys()) {
 //                winPointsFight.put(k, XmlParser.transformSpecialChars(trWinPts_.getVal(k)));

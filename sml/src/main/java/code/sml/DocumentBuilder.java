@@ -2296,7 +2296,7 @@ public final class DocumentBuilder {
         int nodeLen_ = nodeName_.length();
         int k_ = 0;
         boolean addAttribute_ = true;
-        Character delimiter_ = null;
+        char delimiter_ = 0;
         StringBuilder str_ = new StringBuilder();
         int j_ = indexLoc_;
         int offset_ = 0;
@@ -2312,13 +2312,13 @@ public final class DocumentBuilder {
                 addAttribute_ = false;
             }
             if (addAttribute_ && k_ > nodeLen_) {
-                if (delimiter_ == null) {
+                if (delimiter_ == 0) {
                     if (ch_ == APOS) {
                         delimiter_ = ch_;
                     } else if (ch_ == QUOT) {
                         delimiter_ = ch_;
                     }
-                    if (delimiter_ == null) {
+                    if (delimiter_ == 0) {
                         if (!Character.isWhitespace(ch_) && ch_ != EQUALS) {
                             str_.append(ch_);
                         }
@@ -2330,7 +2330,7 @@ public final class DocumentBuilder {
                     }
                 } else {
                     if (ch_ == delimiter_) {
-                        delimiter_ = null;
+                        delimiter_ = 0;
                         m_.put(str_.toString(), rc_);
                         offsetsMap_.put(str_.toString(), offsets_);
                         offsets_ = new Ints();
@@ -2476,10 +2476,10 @@ public final class DocumentBuilder {
         attributes_ = new StringMap<AttributePart>();
         StringBuilder str_ = new StringBuilder();
         int beginToken_ = _from;
-        Character delimiter_ = null;
+        char delimiter_ = 0;
         for (int i = _from; i < _to; i++) {
             char ch_ = _html.charAt(i);
-            if (delimiter_ == null) {
+            if (delimiter_ == 0) {
                 if (ch_ == APOS) {
                     delimiter_ = ch_;
                     beginToken_ = i + 1;
@@ -2494,11 +2494,11 @@ public final class DocumentBuilder {
                     attrPart_.setEnd(i);
                     attributes_.put(str_.toString(), attrPart_);
                     str_ = new StringBuilder();
-                    delimiter_ = null;
+                    delimiter_ = 0;
                     continue;
                 }
             }
-            if (delimiter_ == null) {
+            if (delimiter_ == 0) {
                 if (Character.isWhitespace(ch_) || ch_ == EQUALS) {
                     continue;
                 }
@@ -2553,11 +2553,11 @@ public final class DocumentBuilder {
             int lastIndex_ = _xml.indexOf(GT, firstIndex_);
             int beginToken_ = firstIndex_;
             StringBuilder str_ = new StringBuilder();
-            Character delimiter_ = null;
+            char delimiter_ = 0;
             int foundAttr_ = CustList.INDEX_NOT_FOUND_ELT;
             for (int i = firstIndex_; i < lastIndex_; i++) {
                 char ch_ = _xml.charAt(i);
-                if (delimiter_ == null) {
+                if (delimiter_ == 0) {
                     if (ch_ == APOS) {
                         delimiter_ = ch_;
                     } else if (ch_ == QUOT) {
@@ -2565,7 +2565,7 @@ public final class DocumentBuilder {
                     }
                 } else {
                     if (ch_ == delimiter_) {
-                        delimiter_ = null;
+                        delimiter_ = 0;
                         beginToken_ = i + 1;
                         while (Character.isWhitespace(_xml.charAt(beginToken_))) {
                             beginToken_++;
@@ -2573,7 +2573,7 @@ public final class DocumentBuilder {
                         continue;
                     }
                 }
-                if (delimiter_ == null) {
+                if (delimiter_ == 0) {
                     if (Character.isWhitespace(ch_) || ch_ == EQUALS) {
                         if (StringList.quickEq(str_.toString(), _attribute)) {
                             foundAttr_ = beginToken_;

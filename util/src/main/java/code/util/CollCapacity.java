@@ -1,6 +1,6 @@
 package code.util;
 
-public class CollCapacity {
+public final class CollCapacity {
 
     private int capacity;
 

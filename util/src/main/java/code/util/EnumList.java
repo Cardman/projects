@@ -4,7 +4,7 @@ import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
 /** Not compared in tests */
-public final class EnumList<T extends Enum<T>> extends AbEqList<T> implements Equallable<EnumList<T>> {
+public final class EnumList<T> extends AbEqList<T> implements Equallable<EnumList<T>> {
 
     public EnumList() {
     }

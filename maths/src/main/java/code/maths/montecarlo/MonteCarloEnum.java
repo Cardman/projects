@@ -1,15 +1,13 @@
 package code.maths.montecarlo;
 import code.maths.LgInt;
-import code.maths.NumDiffDenNum;
-import code.maths.Rate;
+import code.util.AbsMap;
 import code.util.CollCapacity;
-import code.util.EnumList;
 import code.util.EnumMap;
 
 
-public final class MonteCarloEnum<E extends Enum<E>> extends AbMonteCarlo<E> {
+public final class MonteCarloEnum<E> extends AbMonteCarlo<E> {
 
-    private EnumMap<E,LgInt> law;
+    private AbsMap<E,LgInt> law;
 
     public MonteCarloEnum() {
         setLaw(new EnumMap<E,LgInt>());
@@ -20,10 +18,10 @@ public final class MonteCarloEnum<E extends Enum<E>> extends AbMonteCarlo<E> {
     }
 
     @Override
-    public EnumMap<E,LgInt> getLaw() {
+    public AbsMap<E,LgInt> getLaw() {
         return law;
     }
-    public void setLaw(EnumMap<E, LgInt> _law) {
+    public void setLaw(AbsMap<E, LgInt> _law) {
         law = _law;
     }
 }

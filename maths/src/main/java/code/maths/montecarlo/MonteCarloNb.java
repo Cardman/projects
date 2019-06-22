@@ -5,14 +5,14 @@ import code.util.*;
 
 public final class MonteCarloNb extends AbMonteCarlo<Long> {
 
-    private LongMap<LgInt> law;
+    private AbsMap<Long,LgInt> law;
 
     public MonteCarloNb() {
         law = new LongMap<LgInt>();
     }
 
     @Override
-    public LongMap<LgInt> getLaw() {
+    public AbsMap<Long,LgInt> getLaw() {
         return law;
     }
 }

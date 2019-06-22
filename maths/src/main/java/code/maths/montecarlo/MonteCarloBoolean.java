@@ -2,6 +2,7 @@ package code.maths.montecarlo;
 import code.maths.LgInt;
 import code.maths.NumDiffDenNum;
 import code.maths.Rate;
+import code.util.AbsMap;
 import code.util.BooleanList;
 import code.util.BooleanMap;
 import code.util.CollCapacity;
@@ -9,7 +10,7 @@ import code.util.CollCapacity;
 
 public final class MonteCarloBoolean extends AbMonteCarlo<Boolean> {
 
-    private BooleanMap<LgInt> law;
+    private AbsMap<Boolean,LgInt> law;
 
     public MonteCarloBoolean() {
         setLaw(new BooleanMap<LgInt>());
@@ -20,11 +21,11 @@ public final class MonteCarloBoolean extends AbMonteCarlo<Boolean> {
     }
 
     @Override
-    public BooleanMap<LgInt> getLaw() {
+    public AbsMap<Boolean,LgInt> getLaw() {
         return law;
     }
 
-    public void setLaw(BooleanMap<LgInt> _law) {
+    public void setLaw(AbsMap<Boolean,LgInt> _law) {
         law = _law;
     }
 }

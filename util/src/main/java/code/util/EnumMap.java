@@ -4,7 +4,7 @@ import code.util.ints.ListableEntries;
 
 
 
-public final class EnumMap<K extends Enum<K>, V> extends AbsMap<K,V> {
+public final class EnumMap<K, V> extends AbsMap<K,V> {
 
 //    //list cannot be null, even by reflection
 //    private final CustList<EntryCust<K,V>> list = new CustList<EntryCust<K,V>>();

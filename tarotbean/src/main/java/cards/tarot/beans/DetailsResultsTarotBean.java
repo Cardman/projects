@@ -2,6 +2,8 @@ package cards.tarot.beans;
 import cards.consts.Status;
 import cards.tarot.EndTarotGame;
 import cards.tarot.ResultsTarot;
+import cards.tarot.comparators.HandfulComparator;
+import cards.tarot.comparators.MiseresComparator;
 import cards.tarot.enumerations.BonusTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
@@ -13,7 +15,6 @@ import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import code.util.comparators.ComparatorEnum;
 
 
 final class DetailsResultsTarotBean extends TarotBean {
@@ -209,7 +210,7 @@ final class DetailsResultsTarotBean extends TarotBean {
             if (getGame().pasJeuMisere()) {
                 for (byte p = CustList.FIRST_INDEX;p<nombreJoueurs_;p++){
                     SumDeclaringPlayer line_ = new SumDeclaringPlayer();
-                    TreeMap<Handfuls,Short> handfulsTakerLoc_ = new TreeMap<Handfuls,Short>(new ComparatorEnum<Handfuls>());
+                    TreeMap<Handfuls,Short> handfulsTakerLoc_ = new TreeMap<Handfuls,Short>(new HandfulComparator());
                     for (Handfuls h: end_.calculHandfulsScorePlayer(p).get(p).getKeys()) {
                         handfulsTakerLoc_.put(h, (short)0);
                     }
@@ -220,7 +221,7 @@ final class DetailsResultsTarotBean extends TarotBean {
                         str_.addEntry(toString(h_,loc_), e.getValue());
                     }
                     line_.setHandfuls(str_);
-                    TreeMap<Miseres,Short> miseres_ = new TreeMap<Miseres,Short>(new ComparatorEnum<Miseres>());
+                    TreeMap<Miseres,Short> miseres_ = new TreeMap<Miseres,Short>(new MiseresComparator());
                     for (Miseres m: end_.calculMiseresScorePlayer(p).get(p).getKeys()) {
                         miseres_.put(m, (short)0);
                     }

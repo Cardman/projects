@@ -1,6 +1,7 @@
 package code.maths.montecarlo;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.util.AbsMap;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.ObjectMap;
@@ -8,7 +9,7 @@ import code.util.ObjectMap;
 
 public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
 
-    private ObjectMap<Rate,LgInt> law;
+    private AbsMap<Rate,LgInt> law;
 
     public MonteCarloNumber() {
         setLaw(new ObjectMap<Rate,LgInt>());
@@ -178,11 +179,11 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
     }
 
     @Override
-    public ObjectMap<Rate,LgInt> getLaw() {
+    public AbsMap<Rate,LgInt> getLaw() {
         return law;
     }
 
-    public void setLaw(ObjectMap<Rate, LgInt> _law) {
+    public void setLaw(AbsMap<Rate, LgInt> _law) {
         law = _law;
     }
 }

@@ -3,6 +3,8 @@ package cards.tarot;
 import cards.consts.EndGameState;
 import cards.consts.Status;
 import cards.consts.Suit;
+import cards.tarot.comparators.HandfulComparator;
+import cards.tarot.comparators.MiseresComparator;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.BonusTarot;
 import cards.tarot.enumerations.CallingCard;
@@ -20,7 +22,6 @@ import code.util.EnumMap;
 import code.util.EqList;
 import code.util.*;
 import code.util.TreeMap;
-import code.util.comparators.ComparatorEnum;
 
 public final class EndTarotGame {
 
@@ -417,7 +418,7 @@ public final class EndTarotGame {
         CustList<TreeMap<Miseres,Short>> scores1_ = new CustList<TreeMap<Miseres,Short>>();
         byte nombreDeJoueurs_ = relations.getNombreDeJoueurs();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreDeJoueurs_; joueur_++) {
-            scores1_.add(new TreeMap<Miseres,Short>(new ComparatorEnum<Miseres>()));
+            scores1_.add(new TreeMap<Miseres,Short>(new MiseresComparator()));
             if (joueur_ == relations.getTaker()) {
                 for (Miseres m : declaresMiseres.get(joueur_)) {
                     scores1_.last().put(m,
@@ -443,7 +444,7 @@ public final class EndTarotGame {
         CustList<TreeMap<Handfuls,Short>> scores1_ = new CustList<TreeMap<Handfuls,Short>>();
         byte nombreDeJoueurs_ = relations.getNombreDeJoueurs();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreDeJoueurs_; joueur_++) {
-            scores1_.add(new TreeMap<Handfuls,Short>(new ComparatorEnum<Handfuls>()));
+            scores1_.add(new TreeMap<Handfuls,Short>(new HandfulComparator()));
             for (Handfuls poignee_ : declaresHandfuls.get(joueur_)) {
                 if (_pointsTakerWithoutDeclaring >= 0) {
                     scores1_.last().put(poignee_,

@@ -7,7 +7,6 @@ import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import code.util.comparators.ComparatorEnum;
 
 
 public class BeanFive extends Bean {
@@ -16,7 +15,7 @@ public class BeanFive extends Bean {
 
     private EnumNumbers combobox = new EnumNumbers(EnumNumber.values());
 
-    private TreeMap<EnumNumber, String> translations = new TreeMap<EnumNumber, String>(new ComparatorEnum<EnumNumber>());
+    private TreeMap<EnumNumber, String> translations = new TreeMap<EnumNumber, String>(new ComparatorEnumNumber());
 
     private NatStringTreeMap<Ints> numbers = new NatStringTreeMap<Ints>();
 

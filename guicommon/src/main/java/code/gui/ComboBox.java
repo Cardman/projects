@@ -8,7 +8,7 @@ import code.util.comparators.ComparatorMapValue;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 
-public abstract class ComboBox<T extends Enum<T>> extends GraphicCombo {
+public abstract class ComboBox<T> extends GraphicCombo {
 
     private static final String EMPTY_STRING = "";
 

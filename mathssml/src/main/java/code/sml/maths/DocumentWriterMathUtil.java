@@ -66,7 +66,7 @@ public final class DocumentWriterMathUtil {
         return elt_;
     }
 
-    public static Element setStringMapLgInt(StringMap<LgInt> _object, String _fieldName, Document _document) {
+    public static Element setStringMapLgInt(AbsMap<String,LgInt> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<String, LgInt> s: _object.entryList()) {
@@ -92,7 +92,7 @@ public final class DocumentWriterMathUtil {
         return elt_;
     }
 
-    public static Element setMapRateLgInt(ObjectMap<Rate,LgInt> _object, String _fieldName, Document _document) {
+    public static Element setMapRateLgInt(AbsMap<Rate,LgInt> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Rate,LgInt> s: _object.entryList()) {
@@ -105,7 +105,7 @@ public final class DocumentWriterMathUtil {
         return elt_;
     }
 
-    public static Element setBooleanMapLgInt(BooleanMap<LgInt> _object, String _fieldName, Document _document) {
+    public static Element setBooleanMapLgInt(AbsMap<Boolean,LgInt> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Boolean, LgInt> s: _object.entryList()) {

@@ -87,17 +87,17 @@ public final class Argument {
         return !((BooleanStruct)object).getInstance();
     }
 
-    public void setObject(Character _object) {
+    public void setObject(char _object) {
         object = new CharStruct(_object);
     }
-    public void setObject(Boolean _object) {
+    public void setObject(boolean _object) {
         object = new BooleanStruct(_object);
     }
     public void setObject(String _object) {
         object = new StringStruct(_object);
     }
 
-    public void setObject(Integer _object) {
+    public void setObject(int _object) {
         object = new IntStruct(_object);
     }
 

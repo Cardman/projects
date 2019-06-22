@@ -114,8 +114,7 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                 _res.setResult(new BooleanStruct(one_));
             }
         } else if (StringList.quickEq(type_, charType_)) {
-            Character one_ = ((CharStruct)_args[0]).getChar();
-            _res.setResult(new CharStruct(one_));
+            _res.setResult(_args[0]);
         } else if (StringList.quickEq(type_, byteType_)) {
             if (StringList.quickEq(list_.first(), stringType_)) {
                 parseByte(_res,list_,lgNames_,_args,true);
@@ -214,13 +213,13 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
         } else if (StringList.quickEq(type_, charType_)) {
             if (_method.getConstraints().isStaticMethod()) {
                 if (StringList.quickEq(name_, lgNames_.getAliasCompare())) {
-                    Character one_ = ((CharStruct) _args[0]).getChar();
-                    Character two_ = ((CharStruct) _args[1]).getChar();
-                    _res.setResult(new IntStruct(one_.compareTo(two_)));
+                    char one_ = ((CharStruct) _args[0]).getChar();
+                    char two_ = ((CharStruct) _args[1]).getChar();
+                    _res.setResult(new IntStruct(Numbers.compareLg(one_,two_)));
                     return;
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasDigit())) {
-                    Character one_ = ((CharStruct) _args[0]).getChar();
+                    char one_ = ((CharStruct) _args[0]).getChar();
                     Integer two_ = ((NumberStruct) _args[1]).intStruct();
                     _res.setResult(new IntStruct(Character.digit(one_, two_)));
                     return;
@@ -232,66 +231,66 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                     return;
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasGetDirectionality())) {
-                    Character one_ = ((CharStruct) _args[0]).getChar();
+                    char one_ = ((CharStruct) _args[0]).getChar();
                     _res.setResult(new ByteStruct(Character.getDirectionality(one_)));
                     return;
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasGetType())) {
-                    Character one_ = ((CharStruct) _args[0]).getChar();
+                    char one_ = ((CharStruct) _args[0]).getChar();
                     _res.setResult(new IntStruct(Character.getType(one_)));
                     return;
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsDigit())) {
-                    Character one_ = ((CharStruct) _args[0]).getChar();
+                    char one_ = ((CharStruct) _args[0]).getChar();
                     _res.setResult(new BooleanStruct(ContextEl.isDigit(one_)));
                     return;
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsLetter())) {
-                    Character one_ = ((CharStruct) _args[0]).getChar();
+                    char one_ = ((CharStruct) _args[0]).getChar();
                     _res.setResult(new BooleanStruct(Character.isLetter(one_)));
                     return;
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsLetterOrDigit())) {
-                    Character one_ = ((CharStruct) _args[0]).getChar();
+                    char one_ = ((CharStruct) _args[0]).getChar();
                     _res.setResult(new BooleanStruct(Character.isLetterOrDigit(one_)));
                     return;
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsLowerCase())) {
-                    Character one_ = ((CharStruct) _args[0]).getChar();
+                    char one_ = ((CharStruct) _args[0]).getChar();
                     _res.setResult(new BooleanStruct(Character.isLowerCase(one_)));
                     return;
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsUpperCase())) {
-                    Character one_ = ((CharStruct) _args[0]).getChar();
+                    char one_ = ((CharStruct) _args[0]).getChar();
                     _res.setResult(new BooleanStruct(Character.isUpperCase(one_)));
                     return;
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsSpace())) {
-                    Character one_ = ((CharStruct) _args[0]).getChar();
+                    char one_ = ((CharStruct) _args[0]).getChar();
                     _res.setResult(new BooleanStruct(Character.isWhitespace(one_)));
                     return;
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsWhitespace())) {
-                    Character one_ = ((CharStruct) _args[0]).getChar();
+                    char one_ = ((CharStruct) _args[0]).getChar();
                     _res.setResult(new BooleanStruct(Character.isWhitespace(one_)));
                     return;
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsWordChar())) {
-                    Character one_ = ((CharStruct) _args[0]).getChar();
+                    char one_ = ((CharStruct) _args[0]).getChar();
                     _res.setResult(new BooleanStruct(StringList.isWordChar(one_)));
                     return;
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasToLowerCase())) {
-                    Character one_ = ((CharStruct) _args[0]).getChar();
+                    char one_ = ((CharStruct) _args[0]).getChar();
                     _res.setResult(new CharStruct(Character.toLowerCase(one_)));
                     return;
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasToUpperCase())) {
-                    Character one_ = ((CharStruct) _args[0]).getChar();
+                    char one_ = ((CharStruct) _args[0]).getChar();
                     _res.setResult(new CharStruct(Character.toUpperCase(one_)));
                     return;
                 }
-                Character one_ = ((CharStruct) _args[0]).getChar();
+                char one_ = ((CharStruct) _args[0]).getChar();
                 _res.setResult(new StringStruct(Character.toString(one_)));
                 return;
             }
@@ -304,9 +303,9 @@ public abstract class NumberStruct implements DisplayableStruct, ExportableStrin
                 _res.setError(lgNames_.getAliasNullPe());
                 return;
             }
-            Character one_ = ch_.getChar();
-            Character two_ = ((CharStruct) _args[0]).getChar();
-            _res.setResult(new IntStruct(one_.compareTo(two_)));
+            char one_ = ch_.getChar();
+            char two_ = ((CharStruct) _args[0]).getChar();
+            _res.setResult(new IntStruct(Numbers.compareLg(one_,two_)));
             return;
         }
         if (StringList.quickEq(type_, byteType_)

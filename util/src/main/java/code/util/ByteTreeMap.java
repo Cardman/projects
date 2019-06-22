@@ -3,7 +3,7 @@ package code.util;
 /**
     @author Cardman
 */
-public class ByteTreeMap<V> extends NatTreeMap<Byte, V>  {
+public final class ByteTreeMap<V> extends NatTreeMap<Byte, V>  {
 
     public ByteTreeMap() {
     }

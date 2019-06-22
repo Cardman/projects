@@ -3,13 +3,12 @@ package code.formathtml.classes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.TreeMap;
-import code.util.comparators.ComparatorEnum;
 
 public class EncapsFields {
 
     private CustList<EnumNumber> combobox = new CustList<EnumNumber>(EnumNumber.values());
 
-    private TreeMap<EnumNumber, String> comboboxMap = new TreeMap<EnumNumber, String>(new ComparatorEnum<EnumNumber>());
+    private TreeMap<EnumNumber, String> comboboxMap = new TreeMap<EnumNumber, String>(new ComparatorEnumNumber());
     
     private EnumNumber comboNumber = EnumNumber.ONE;
 

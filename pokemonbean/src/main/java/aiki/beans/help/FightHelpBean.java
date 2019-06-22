@@ -1,5 +1,7 @@
 package aiki.beans.help;
 import aiki.beans.CommonBean;
+import aiki.beans.facade.comparators.ComparatorDifficultyModelLaw;
+import aiki.beans.facade.comparators.ComparatorDifficultyWinPointsFight;
 import aiki.beans.facade.comparators.ComparatorStringList;
 import aiki.beans.facade.comparators.ComparatorTypesDuo;
 import aiki.comparators.ComparatorTrStrings;
@@ -54,7 +56,6 @@ import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import code.util.comparators.ComparatorEnum;
 import code.util.ints.Listable;
 
 public class FightHelpBean extends CommonBean {
@@ -2027,7 +2028,7 @@ public class FightHelpBean extends CommonBean {
         fleeingFormula = data_.getFormula(data_.getFleeingFormula(), getLanguage());
         varFleeingFormula = new NatStringTreeMap<String>();
         varFleeingFormula.putAllMap(data_.getDescriptions(data_.getFleeingFormula(), getLanguage()));
-        rates = new TreeMap<DifficultyWinPointsFight, String>(new ComparatorEnum<DifficultyWinPointsFight>());
+        rates = new TreeMap<DifficultyWinPointsFight, String>(new ComparatorDifficultyWinPointsFight());
         for (DifficultyWinPointsFight d: data_.getRates().getKeys()) {
             rates.put(d, data_.getFormula(data_.getRates().getVal(d), getLanguage()));
         }
@@ -2035,7 +2036,7 @@ public class FightHelpBean extends CommonBean {
         for (DifficultyWinPointsFight d: data_.getRates().getKeys()) {
             varRates.putAllMap(data_.getDescriptions(data_.getRates().getVal(d), getLanguage()));
         }
-        lawsRates = new TreeMap<DifficultyModelLaw, NatCmpTreeMap<Rate, Rate>>(new ComparatorEnum<DifficultyModelLaw>());
+        lawsRates = new TreeMap<DifficultyModelLaw, NatCmpTreeMap<Rate, Rate>>(new ComparatorDifficultyModelLaw());
         for (DifficultyModelLaw d: data_.getLawsDamageRate().getKeys()) {
             NatCmpTreeMap<Rate,Rate> tree_ = new NatCmpTreeMap<Rate, Rate>();
             MonteCarloNumber law_ = data_.getLawsDamageRate().getVal(d).getLaw();

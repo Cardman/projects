@@ -4147,7 +4147,7 @@ public final class DocumentWriterAikiCoreUtil {
         return element_;
     }
 
-    private static Element setMapStatisticLgInt(EnumMap<Statistic,LgInt> _object, String _fieldName, Document _document) {
+    private static Element setMapStatisticLgInt(AbsMap<Statistic,LgInt> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Statistic, LgInt> s: _object.entryList()) {

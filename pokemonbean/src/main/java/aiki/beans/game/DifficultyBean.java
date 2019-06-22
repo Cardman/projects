@@ -1,4 +1,6 @@
 package aiki.beans.game;
+import aiki.beans.facade.comparators.ComparatorDifficultyModelLaw;
+import aiki.beans.facade.comparators.ComparatorDifficultyWinPointsFight;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.params.Difficulty;
@@ -10,7 +12,6 @@ import code.maths.montecarlo.MonteCarloNumber;
 import code.util.EnumMap;
 import code.util.NatCmpTreeMap;
 import code.util.TreeMap;
-import code.util.comparators.ComparatorEnum;
 
 public class DifficultyBean extends Bean {
     private boolean allowCatchingKo;
@@ -40,8 +41,8 @@ public class DifficultyBean extends Bean {
         FacadeGame facadeGame_ = (FacadeGame) getDataBase();
         DataBase data_ = facadeGame_.getData();
         Difficulty diff_ = facadeGame_.getGame().getDifficulty();
-        damageRates = new TreeMap<DifficultyModelLaw, String>(new ComparatorEnum<DifficultyModelLaw>());
-        winPointsFight = new TreeMap<DifficultyWinPointsFight, String>(new ComparatorEnum<DifficultyWinPointsFight>());
+        damageRates = new TreeMap<DifficultyModelLaw, String>(new ComparatorDifficultyModelLaw());
+        winPointsFight = new TreeMap<DifficultyWinPointsFight, String>(new ComparatorDifficultyWinPointsFight());
         EnumMap<DifficultyWinPointsFight, String> trWinPts_ = data_.getTranslatedDiffWinPts().getVal(getLanguage());
         for (DifficultyWinPointsFight k: trWinPts_.getKeys()) {
 //            winPointsFight.put(k, XmlParser.transformSpecialChars(trWinPts_.getVal(k)));

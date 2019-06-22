@@ -3,7 +3,7 @@ package code.util;
 import code.util.classestest.MyCmp;
 import code.util.classestest.MyEnum;
 import code.util.classestest.MyEquallable;
-import code.util.comparators.ComparatorEnum;
+import code.util.classestest.ComparatorEnum;
 import org.junit.Test;
 
 import static code.util.EquallableExUtil.assertEq;
@@ -43,7 +43,7 @@ public class AbEqListTest {
         e_.add(MyEnum.TWO);
         e_.add(MyEnum.THREE);
         e_.add(MyEnum.ONE);
-        CustList<EnumList<MyEnum>> gr_ = e_.getGroupsSameCompare(new ComparatorEnum<MyEnum>());
+        CustList<EnumList<MyEnum>> gr_ = e_.getGroupsSameCompare(new ComparatorEnum());
         assertEq(3, gr_.size());
         assertSame(2, gr_.get(0).size());
         assertSame(MyEnum.ONE, gr_.get(0).get(0));

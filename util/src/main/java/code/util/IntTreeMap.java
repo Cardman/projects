@@ -3,7 +3,7 @@ package code.util;
 /**
     @author Cardman
 */
-public class IntTreeMap<V> extends NatTreeMap<Integer, V>  {
+public final class IntTreeMap<V> extends NatTreeMap<Integer, V>  {
 
     public IntTreeMap() {
     }
