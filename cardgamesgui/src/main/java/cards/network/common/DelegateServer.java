@@ -1,13 +1,13 @@
 package cards.network.common;
 import cards.facade.Games;
-import code.util.NumberMap;
+import code.util.*;
 
 
 public final class DelegateServer {
 
     private Games games;
 
-    private NumberMap<Integer,String> nicknames;
+    private IntMap<String> nicknames;
 
     public Games getGames() {
         return games;
@@ -17,11 +17,11 @@ public final class DelegateServer {
         games = _games;
     }
 
-    public NumberMap<Integer,String> getNicknames() {
+    public IntMap<String> getNicknames() {
         return nicknames;
     }
 
-    public void setNicknames(NumberMap<Integer,String> _nicknames) {
+    public void setNicknames(IntMap<String> _nicknames) {
         nicknames = _nicknames;
     }
 }

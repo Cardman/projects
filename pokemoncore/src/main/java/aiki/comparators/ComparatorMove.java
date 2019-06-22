@@ -6,7 +6,7 @@ import aiki.facade.StringFieldComparator;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.util.SortingMove;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.ints.Comparing;
 
 public final class ComparatorMove implements Comparing<SortingMove> {

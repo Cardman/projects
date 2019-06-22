@@ -11,14 +11,6 @@ public final class StringList extends CustList<String> implements Equallable<Str
 
     public static final char RIGHT_BRACE = '}';
 
-    public static final char LEFT_BRACKET = '[';
-
-    public static final char RIGHT_BRACKET = ']';
-
-    public static final char LEFT_PAR= '(';
-
-    public static final char RIGHT_PAR= ')';
-
     public static final String POINT = ".";
 
     private static final char CHAR_WORD_OTHER = '_';
@@ -74,7 +66,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return encode(chs_);
     }
     public static byte[] encode(char[] _input) {
-        Numbers<Byte> expBytes_ = encodeList(_input);
+        Bytes expBytes_ = encodeList(_input);
         int length_ = expBytes_.size();
         byte[] bytes_ = new byte[length_];
         for (int i = 0; i < length_; i++) {
@@ -83,8 +75,8 @@ public final class StringList extends CustList<String> implements Equallable<Str
         }
         return bytes_;
     }
-    public static Numbers<Byte> encodeList(char[] _input) {
-        Numbers<Byte> expBytes_ = new Numbers<Byte>();
+    public static Bytes encodeList(char[] _input) {
+        Bytes expBytes_ = new Bytes();
         for (char c: _input) {
             if (c < 128) {
                 expBytes_.add((byte)c);
@@ -324,7 +316,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
                     if (_pattern.length() <= j_ + i_ + 1) {
                         exit_ = true;
                         String subString_ = _pattern.substring(i_);
-                        if (list_.containsStr(subString_)) {
+                        if (contains(list_, subString_)) {
                             strBuilder_.append(_map.getVal(subString_));
                         } else {
                             strBuilder_.append(subString_);
@@ -333,7 +325,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
                     }
 //                    String subString_ = _pattern.substring(i_, j_ + i_ + 1);
                     String subString_ = _pattern.substring(i_, Math.min(j_ + i_ + 1, _pattern.length()));
-                    if (list_.containsStr(subString_)) {
+                    if (contains(list_, subString_)) {
                         strBuilder_.append(_map.getVal(subString_));
                         i_ += j_;
                         break;
@@ -374,7 +366,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
                 if (_pattern.length() <= j_ + i_ + 1) {
                     exit_ = true;
                     String subString_ = _pattern.substring(i_);
-                    if (list_.containsStr(subString_)) {
+                    if (contains(list_, subString_)) {
                         strBuilder_.append(_map.getVal(subString_));
                     } else {
                         strBuilder_.append(subString_);
@@ -391,7 +383,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
                         break;
                     }
                 }
-                if (list_.containsStr(subString_) && !exist_) {
+                if (contains(list_, subString_) && !exist_) {
                     strBuilder_.append(_map.getVal(subString_));
                     i_ += j_;
                     break;
@@ -462,7 +454,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
                 list_ = nexList_;
 //                String subString_ = _pattern.substring(i_, j_ + i_ + 1);
                 String subString_ = _pattern.substring(i_, Math.min(j_ + i_ + 1, _pattern.length()));
-                if (list_.containsStr(subString_)) {
+                if (contains(list_, subString_)) {
                     strBuilder_.append(_map.getVal(subString_));
                     i_ += j_;
                     break;
@@ -526,7 +518,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
         //setModified();
         int size_ = size();
         for (int i=FIRST_INDEX;i<size_;i++) {
-            set(i, StringList.replace(get(i), _replaced, _replacing));
+            set(i, replace(get(i), _replaced, _replacing));
         }
     }
 
@@ -534,7 +526,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
         //setModified();
         int size_ = size();
         for (int i=FIRST_INDEX;i<size_;i++) {
-            set(i, StringList.replaceBackSlash(get(i)));
+            set(i, replaceBackSlash(get(i)));
         }
     }
 
@@ -665,10 +657,10 @@ public final class StringList extends CustList<String> implements Equallable<Str
     }
 
     private static StringList getEl(String _string) {
-        StringList tokens_ = StringList.getTokensSets(_string);
+        StringList tokens_ = getTokensSets(_string);
         StringList newList_ = new StringList();
         for (String t: tokens_) {
-            if (t.lastIndexOf(StringList.LEFT_BRACE) != CustList.FIRST_INDEX) {
+            if (t.lastIndexOf(LEFT_BRACE) != CustList.FIRST_INDEX) {
                 continue;
             }
             newList_.add(removeElBounds(t));
@@ -679,10 +671,10 @@ public final class StringList extends CustList<String> implements Equallable<Str
     private static String removeElBounds(String _string) {
         StringBuilder str_ = new StringBuilder();
         for (char c: _string.toCharArray()) {
-            if (c == StringList.LEFT_BRACE) {
+            if (c == LEFT_BRACE) {
                 continue;
             }
-            if (c == StringList.RIGHT_BRACE) {
+            if (c == RIGHT_BRACE) {
                 continue;
             }
             str_.append(c);
@@ -817,8 +809,8 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return list_.toString();
     }
 
-    public static Numbers<Integer> indexesOfSubString(String _string, String _subString) {
-        Numbers<Integer> list_ = new Numbers<Integer>();
+    public static Ints indexesOfSubString(String _string, String _subString) {
+        Ints list_ = new Ints();
         if (_subString.isEmpty()) {
             list_.add((int) FIRST_INDEX);
             return list_;
@@ -836,8 +828,8 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return list_;
     }
 
-    public static Numbers<Integer> indexesOfChar(String _string, char _subString) {
-        Numbers<Integer> list_ = new Numbers<Integer>();
+    public static Ints indexesOfChar(String _string, char _subString) {
+        Ints list_ = new Ints();
         int i_ = FIRST_INDEX;
         int len_ = _string.length();
         while (i_ < len_) {
@@ -851,8 +843,8 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return list_;
     }
 
-    public Numbers<Integer> indexesOfString(String _string) {
-        Numbers<Integer> list_ = new Numbers<Integer>();
+    public Ints indexesOfString(String _string) {
+        Ints list_ = new Ints();
         int size_ = size();
         for (int i=FIRST_INDEX;i<size_;i++) {
             if (quickEq(get(i),_string)) {
@@ -862,35 +854,24 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return list_;
     }
 
-    public StringList intersect(StringList _list) {
+    public static StringList intersect(CustList<String> _first,CustList<String> _list) {
         StringList list_ = new StringList();
         for (String s: _list) {
-            if (containsObj(s)) {
+            if (contains(_first,s)) {
                 list_.add(s);
             }
         }
         return list_;
     }
 
-    public int indexOfObj(String _element, int _from) {
-        int s_ = size();
-        for (int i = _from; i < s_; i++) {
-            String e_ = get(i);
-            if (quickEq(_element, e_)) {
-                return i;
-            }
-        }
-        return INDEX_NOT_FOUND_ELT;
-    }
-
-    public void removePrefixInStrings(String _prefix) {
+    public static void removePrefixInStrings(CustList<String> _list,String _prefix) {
         //setModified();
-        int size_ = size();
+        int size_ = _list.size();
         for (int i=FIRST_INDEX;i<size_;i++) {
-            if (!get(i).startsWith(_prefix)) {
+            if (!_list.get(i).startsWith(_prefix)) {
                 continue;
             }
-            set(i, get(i).substring(_prefix.length()));
+            _list.set(i, _list.get(i).substring(_prefix.length()));
         }
     }
 
@@ -928,48 +909,45 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return list_;
     }
 
-    public void removeAllElements(CustList<String> _c) {
+    public static void removeAllElements(CustList<String> _strings, CustList<String> _c) {
         for (String s: _c) {
-            if (containsObj(s)) {
-                removeAllObj(s);
+            if (contains(_strings,s)) {
+                removeAllObj(_strings, s);
             }
         }
     }
 
-    public void removeAllObj(String _obj) {
-        while (containsObj(_obj)) {
-            removeObj(_obj);
+    public static void removeAllObj(CustList<String> _strings, String _obj) {
+        while (contains(_strings, _obj)) {
+            removeObj(_strings, _obj);
         }
     }
 
-    public void removeObj(String _obj) {
-        int index_ = indexOfObj(_obj);
+    public static void removeObj(CustList<String> _strings, String _obj) {
+        int index_ = indexOf(_strings,_obj);
         if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
             return;
         }
-        removeAt(index_);
+        _strings.removeAt(index_);
     }
 
     public boolean containsAllObj(CustList<String> _list) {
         for (String e: _list) {
-            if (!containsObj(e)) {
+            if (!contains(this, e)) {
                 return false;
             }
         }
         return true;
     }
-    public boolean containsObj(String _obj) {
-        return indexOfObj(_obj) != INDEX_NOT_FOUND_ELT;
-    }
 
     public void removeAllString(String _obj) {
-        while (containsStr(_obj)) {
-            removeObj(_obj);
+        while (contains(this, _obj)) {
+            removeObj(this, _obj);
         }
     }
 
     public void removeString(String _string) {
-        removeObj(_string);
+        removeObj(this, _string);
     }
 
     @Override
@@ -1333,11 +1311,11 @@ public final class StringList extends CustList<String> implements Equallable<Str
             }
             String e_ = get(i_);
             boolean rem_ = false;
-            int next_ = indexOfObj(e_, i_ + 1);
+            int next_ = indexOf(this,e_, i_ + 1);
             while (next_ != INDEX_NOT_FOUND_ELT) {
                 removeAt(next_);
                 rem_ = true;
-                next_ = indexOfObj(e_, next_ + 1);
+                next_ = indexOf(this,e_, next_ + 1);
             }
             if (!rem_) {
                 i_++;
@@ -1345,15 +1323,11 @@ public final class StringList extends CustList<String> implements Equallable<Str
         }
     }
 
-    public int indexOfObj(String _obj) {
-        return indexOfObj(_obj,FIRST_INDEX);
-    }
-
     public void retainAllElements(StringList _c) {
         int i_ = FIRST_INDEX;
         while (i_ < size()) {
             String e_ = get(i_);
-            if (!_c.containsObj(e_)) {
+            if (!contains(_c, e_)) {
                 removeAt(i_);
             } else {
                 i_++;
@@ -1369,9 +1343,6 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return new StringList(super.sub(_from, _to));
     }
 
-    public boolean containsStr(String _string) {
-        return containsObj(_string);
-    }
     @Override
     public StringList getReverse() {
         StringList list_ = new StringList(this);
@@ -1437,9 +1408,9 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return true;
     }
 
-    public boolean disjoint(StringList _list) {
+    public boolean disjoint(CustList<String> _list) {
         for (String s: _list) {
-            if (containsStr(s)) {
+            if (contains(this,s)) {
                 return false;
             }
         }
@@ -1749,12 +1720,12 @@ public final class StringList extends CustList<String> implements Equallable<Str
         int i_ = CustList.FIRST_INDEX;
         StringList tokens_ = new StringList();
         while (true) {
-            int index_ = _str.indexOf(StringList.LEFT_BRACE, i_);
+            int index_ = _str.indexOf(LEFT_BRACE, i_);
             if (index_ < 0) {
                 tokens_.add(_str.substring(i_));
                 break;
             }
-            int indexTwo_ = _str.indexOf(StringList.RIGHT_BRACE, index_ + 2);
+            int indexTwo_ = _str.indexOf(RIGHT_BRACE, index_ + 2);
             if (indexTwo_ < 0) {
                 tokens_.add(_str.substring(i_));
                 break;
@@ -1883,7 +1854,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
 
     /**The returned String ends with a slash.*/
     public static String replaceBackSlashDot(String _path) {
-        String path_ = StringList.replaceBackSlash(_path);
+        String path_ = replaceBackSlash(_path);
         if (path_.endsWith(concat(String.valueOf(SLASH),String.valueOf(DOT)))) {
             path_ = path_.substring(0, path_.length() - 1);
         } else if (!path_.endsWith(String.valueOf(SLASH))) {
@@ -2030,6 +2001,22 @@ public final class StringList extends CustList<String> implements Equallable<Str
             return true;
         }
         return Character.isLetterOrDigit(_char);
+    }
+    public static boolean contains(CustList<String> _list, String _value) {
+        return indexOf(_list,_value) > INDEX_NOT_FOUND_ELT;
+    }
+    public static int indexOf(CustList<String> _list, String _value) {
+        return indexOf(_list,_value,FIRST_INDEX);
+    }
+    public static int indexOf(CustList<String> _list, String _value, int _from) {
+        int s_ = _list.size();
+        for (int i = _from; i < s_; i++) {
+            String e_ = _list.get(i);
+            if (quickEq(_value, e_)) {
+                return i;
+            }
+        }
+        return INDEX_NOT_FOUND_ELT;
     }
 
     @Override

@@ -120,7 +120,7 @@ public final class GameBeloteBid {
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         BidBelote enchereCouleurDominante_ = BidBelote.FOLD;
         EnumList<Suit> suits_ = new EnumList<Suit>();
-        Numbers<Integer> points_ = new Numbers<Integer>();
+        Ints points_ = new Ints();
         for(BidBeloteSuit e: allowedBids()) {
             points_.add(e.getPoints());
             if(!e.getCouleurDominante()) {

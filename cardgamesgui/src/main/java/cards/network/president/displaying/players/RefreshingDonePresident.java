@@ -3,7 +3,7 @@ import cards.network.common.PlayerActionGame;
 import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
-import code.util.NumberMap;
+import code.util.*;
 
 
 public final class RefreshingDonePresident extends PlayerActionGame {
@@ -16,7 +16,7 @@ public final class RefreshingDonePresident extends PlayerActionGame {
 
     private HandPresident playedHand;
 
-    private NumberMap<Byte,Playing> status;
+    private ByteMap<Playing> status;
 
     private byte nextPlayer;
 
@@ -52,11 +52,11 @@ public final class RefreshingDonePresident extends PlayerActionGame {
         playedHand = _playedHand;
     }
 
-    public NumberMap<Byte,Playing> getStatus() {
+    public ByteMap<Playing> getStatus() {
         return status;
     }
 
-    public void setStatus(NumberMap<Byte,Playing> _status) {
+    public void setStatus(ByteMap<Playing> _status) {
         status = _status;
     }
 

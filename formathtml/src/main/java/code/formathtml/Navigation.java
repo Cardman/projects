@@ -18,9 +18,9 @@ import code.resources.ResourceFiles;
 import code.sml.*;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.ints.WithMathFactory;
@@ -519,7 +519,7 @@ public final class Navigation {
         ip_.setPrefix(session.getPrefix());
         ip_.setHtml(htmlText);
         session.addPage(ip_);
-        NumberMap<Long,NatTreeMap<Long,NodeContainer>> containersMap_;
+        LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
         long lg_ = htmlPage_.getUrl();
         Document doc_ = session.getDocument();
@@ -633,7 +633,7 @@ public final class Navigation {
             session.clearPages();
             return;
         }
-        NatTreeMap<Long, NodeContainer> containers_ = containersMap_.getVal(lg_);
+        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(lg_);
         //Setting values for bean
         updateBean(containers_);
         session.clearPages();
@@ -645,7 +645,7 @@ public final class Navigation {
         processAnchorRequest(actionCommand_);
     }
 
-    private void updateBean(NatTreeMap<Long, NodeContainer> _containers) {
+    private void updateBean(LongTreeMap< NodeContainer> _containers) {
         Document doc_ = session.getDocument();
         for (EntryCust<Long, NodeContainer> e: _containers.entryList()) {
             NodeContainer nCont_ = e.getValue();
@@ -657,7 +657,7 @@ public final class Navigation {
             session.getLastPage().setProcessingAttribute(EMPTY_STRING);
             String simpleKey_ = nCont_.getNodeInformation().getName();
             Struct obj_ = nCont_.getTypedStruct();
-            Numbers<Long> indexes_ = new Numbers<Long>();
+            Longs indexes_ = new Longs();
             for (String n: positiveNumbers(simpleKey_)) {
                 indexes_.add(Numbers.parseLongZero(n));
             }
@@ -700,9 +700,9 @@ public final class Navigation {
     private void processFormErrors(Document _doc, Element _formElement, long _id,
             StringMap<String> _errors, StringMap<StringList> _errorsArgs) {
         HtmlPage htmlPage_ = session.getHtmlPage();
-        NumberMap<Long,NatTreeMap<Long,NodeContainer>> containersMap_;
+        LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        NatTreeMap<Long, NodeContainer> containers_ = containersMap_.getVal(_id);
+        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(_id);
         for (String i : _errors.getKeys()) {
             ElementList spans_ = _formElement.getElementsByTagName(TAG_SPAN);
             int lengthSpans_ = spans_.getLength();
@@ -784,7 +784,7 @@ public final class Navigation {
             int optionsLen_ = options_.getLength();
             for (int j = CustList.FIRST_INDEX; j < optionsLen_; j++) {
                 Element option_ = options_.item(j);
-                if (nCont_.getNodeInformation().getValue().containsStr(option_.getAttribute(ATTRIBUTE_VALUE))) {
+                if (StringList.contains(nCont_.getNodeInformation().getValue(), option_.getAttribute(ATTRIBUTE_VALUE))) {
                     option_.setAttribute(SELECTED, SELECTED);
                 } else {
                     option_.removeAttribute(SELECTED);

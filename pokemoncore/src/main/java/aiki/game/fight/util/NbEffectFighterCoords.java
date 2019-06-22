@@ -1,6 +1,6 @@
 package aiki.game.fight.util;
 import aiki.game.fight.TeamPosition;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;

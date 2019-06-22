@@ -1,12 +1,12 @@
 package cards.network.common.before;
-import code.util.NatTreeMap;
+import code.util.*;
 
 
 public final class ChoosenPlace extends PlayerActionBeforeGame {
 
     private int place;
 
-    private NatTreeMap<Integer, Byte> placesPlayers;
+    private IntTreeMap< Byte> placesPlayers;
 
     public int getPlace() {
         return place;
@@ -16,11 +16,11 @@ public final class ChoosenPlace extends PlayerActionBeforeGame {
         place = _place;
     }
 
-    public NatTreeMap<Integer, Byte> getPlacesPlayers() {
+    public IntTreeMap< Byte> getPlacesPlayers() {
         return placesPlayers;
     }
 
-    public void setPlacesPlayers(NatTreeMap<Integer, Byte> _placesPlayers) {
+    public void setPlacesPlayers(IntTreeMap< Byte> _placesPlayers) {
         placesPlayers = _placesPlayers;
     }
 }

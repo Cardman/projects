@@ -72,7 +72,7 @@ public final class ClassArgumentMatching {
     }
 
     public boolean isVariable() {
-        return className.containsStr("");
+        return StringList.contains(className, "");
     }
 
     public boolean isPrimitive(Analyzable _context) {

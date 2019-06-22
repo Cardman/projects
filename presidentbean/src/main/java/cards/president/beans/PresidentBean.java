@@ -3,7 +3,7 @@ import cards.president.GamePresident;
 import cards.president.ResultsPresident;
 import code.bean.Bean;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.Longs;
 import code.util.StringList;
 
 final class PresidentBean extends Bean {
@@ -12,7 +12,7 @@ final class PresidentBean extends Bean {
 
     private StringList nicknames;
 
-    private CustList<Numbers<Long>> scores;
+    private CustList<Longs> scores;
 
     private byte user;
 
@@ -34,7 +34,7 @@ final class PresidentBean extends Bean {
         for(int i=CustList.FIRST_INDEX;i<nbDeals_;i++) {
             LineDeal l_ = new LineDeal();
             l_.setNumber(i);
-            Numbers<Long> scores_ = new Numbers<Long>();
+            Longs scores_ = new Longs();
             for(byte joueur_=CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
                 scores_.add(getScores().get(i).get(joueur_));
             }
@@ -59,11 +59,11 @@ final class PresidentBean extends Bean {
         nicknames = _nicknames;
     }
 
-    CustList<Numbers<Long>> getScores() {
+    CustList<Longs> getScores() {
         return scores;
     }
 
-    void setScores(CustList<Numbers<Long>> _scores) {
+    void setScores(CustList<Longs> _scores) {
         scores = _scores;
     }
 

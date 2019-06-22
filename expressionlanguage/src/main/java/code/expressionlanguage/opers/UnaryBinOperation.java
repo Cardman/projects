@@ -15,7 +15,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 
 public final class UnaryBinOperation extends AbstractUnaryOperation implements SymbolOperation {
     private ClassMethodId classMethodId;
@@ -97,7 +97,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
 
     @Override
     void calculateChildren() {
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        IntTreeMap< String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
     }
 

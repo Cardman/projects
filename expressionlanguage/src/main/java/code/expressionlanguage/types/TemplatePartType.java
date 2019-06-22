@@ -6,7 +6,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringList;
 
 final class TemplatePartType extends BinaryType {
@@ -42,13 +42,13 @@ final class TemplatePartType extends BinaryType {
     }
 
     @Override
-    boolean analyzeTree(ExecutableCode _an, CustList<NatTreeMap<Integer, String>> _dels) {
+    boolean analyzeTree(ExecutableCode _an, CustList<IntTreeMap< String>> _dels) {
         return true;
     }
 
     @Override
     void analyzeDepends(Analyzable _an,
-            int _index, CustList<NatTreeMap<Integer, String>> _dels,
+            int _index, CustList<IntTreeMap< String>> _dels,
             RootBlock _rooted, boolean _exact) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();
@@ -71,7 +71,7 @@ final class TemplatePartType extends BinaryType {
     }
     @Override
     public void analyzeInherits(Analyzable _an, int _index,
-            CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
+            CustList<IntTreeMap< String>> _dels, String _globalType,
             RootBlock _rooted,
             boolean _protected) {
         CustList<PartType> ch_ = new CustList<PartType>();
@@ -89,11 +89,11 @@ final class TemplatePartType extends BinaryType {
         setAnalyzedType(t_);
     }
     @Override
-    void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted) {
+    void analyze(Analyzable _an, CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _rooted) {
         analyzeLine(_an,_dels,_globalType,_rooted);
     }
     @Override
-    void analyzeLine(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted) {
+    void analyzeLine(Analyzable _an, CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _rooted) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();
         while (f_ != null) {
@@ -110,7 +110,7 @@ final class TemplatePartType extends BinaryType {
     }
     @Override
     void analyzeAccessibleId(Analyzable _an,
-            CustList<NatTreeMap<Integer, String>> _dels,
+            CustList<IntTreeMap< String>> _dels,
             AccessingImportingBlock _rooted) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();

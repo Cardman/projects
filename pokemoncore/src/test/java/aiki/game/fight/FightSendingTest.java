@@ -30,8 +30,8 @@ import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -131,7 +131,7 @@ public class FightSendingTest extends InitializationDataBase {
         EffectWhileSending effect_ = obj_.getEffectSending().first();
         FightSending.effectWhileSendingBegin(fight_,POKEMON_PLAYER_FIGHTER_ONE, effect_, _data_);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
-        assertTrue(!FightMoves.climatsActifs(fight_, _data_).containsObj(ZENITH));
+        assertTrue(!StringList.contains(FightMoves.climatsActifs(fight_, _data_), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, _data_));
     }
 
@@ -282,7 +282,7 @@ public class FightSendingTest extends InitializationDataBase {
         FightSending.effectWhileSendingBegin(fight_,POKEMON_PLAYER_FIGHTER_ONE, effect_, _data_);
         assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
-        assertTrue(!FightMoves.climatsActifs(fight_, _data_).containsObj(ZENITH));
+        assertTrue(!StringList.contains(FightMoves.climatsActifs(fight_, _data_), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, _data_));
     }
 
@@ -389,7 +389,7 @@ public class FightSendingTest extends InitializationDataBase {
         FightSending.effectWhileSendingBegin(fight_,POKEMON_PLAYER_FIGHTER_ONE, effect_, _data_);
         assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
-        assertTrue(!FightMoves.climatsActifs(fight_, _data_).containsObj(ZENITH));
+        assertTrue(!StringList.contains(FightMoves.climatsActifs(fight_, _data_), ZENITH));
         assertTrue(FightMoves.existenceAntiClimatActif(fight_, _data_));
         fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ONE);
         assertEq(1, fighter_.getStatusNbRound(PEUR));
@@ -530,7 +530,7 @@ public class FightSendingTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE);
         FightSending.effectPlate(fight_,POKEMON_PLAYER_FIGHTER_ONE, _data_);
         assertEq(1, fighter_.getTypes().size());
-        assertTrue(fighter_.getTypes().containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(fighter_.getTypes(), ELECTRIQUE));
     }
 
     @Test
@@ -576,7 +576,7 @@ public class FightSendingTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE);
         FightSending.effectPlate(fight_,POKEMON_PLAYER_FIGHTER_ONE, _data_);
         assertEq(1, fighter_.getTypes().size());
-        assertTrue(fighter_.getTypes().containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(fighter_.getTypes(), ELECTRIQUE));
     }
 
     @Test
@@ -622,7 +622,7 @@ public class FightSendingTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE);
         FightSending.effectPlate(fight_,POKEMON_PLAYER_FIGHTER_ONE, _data_);
         assertEq(1, fighter_.getTypes().size());
-        assertTrue(fighter_.getTypes().containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(fighter_.getTypes(), ELECTRIQUE));
     }
 
     @Test
@@ -668,7 +668,7 @@ public class FightSendingTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE);
         FightSending.effectPlate(fight_,POKEMON_PLAYER_FIGHTER_ONE, _data_);
         assertEq(1, fighter_.getTypes().size());
-        assertTrue(fighter_.getTypes().containsObj(DRAGON));
+        assertTrue(StringList.contains(fighter_.getTypes(), DRAGON));
     }
 
     @Test
@@ -715,7 +715,7 @@ public class FightSendingTest extends InitializationDataBase {
         fighter_.setCurrentAbility(NULL_REF);
         FightSending.effectPlate(fight_,POKEMON_PLAYER_FIGHTER_ONE, _data_);
         assertEq(1, fighter_.getTypes().size());
-        assertTrue(fighter_.getTypes().containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(fighter_.getTypes(), ELECTRIQUE));
     }
 
     @Test
@@ -911,7 +911,7 @@ public class FightSendingTest extends InitializationDataBase {
         FightSending.sendBegin(fight_,POKEMON_PLAYER_FIGHTER_ONE, _data_);
         StringList list_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getTypes();
         assertEq(1, list_.size());
-        assertTrue(list_.containsObj(DRAGON));
+        assertTrue(StringList.contains(list_, DRAGON));
     }
 
     @Test
@@ -958,7 +958,7 @@ public class FightSendingTest extends InitializationDataBase {
         assertTrue(!fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         StringList list_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getTypes();
         assertEq(1, list_.size());
-        assertTrue(list_.containsObj(DRAGON));
+        assertTrue(StringList.contains(list_, DRAGON));
     }
 
     private static Fight endRelations(Difficulty _diff) {
@@ -1151,7 +1151,7 @@ public class FightSendingTest extends InitializationDataBase {
         assertEq(METEO, f_.getCurrentAbility());
         StringList types_ = f_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(types_, ELECTRIQUE));
         assertTrue(!f_.isDisappeared());
         assertTrue(!f_.isNeedingToRecharge());
         assertEq(0, f_.getNbPrepaRound());
@@ -1182,7 +1182,7 @@ public class FightSendingTest extends InitializationDataBase {
         assertEq(new Rate("1"), f_.getRemainingHp());
         StringList types_ = f_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(types_, ELECTRIQUE));
         assertTrue(!f_.isDisappeared());
         assertTrue(!f_.isNeedingToRecharge());
         assertEq(0, f_.getNbPrepaRound());
@@ -1213,7 +1213,7 @@ public class FightSendingTest extends InitializationDataBase {
         StringList types_ = f_.getTypes();
         assertEq(new Rate("1"), f_.getRemainingHp());
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(types_, ELECTRIQUE));
         assertTrue(!f_.isDisappeared());
         assertTrue(!f_.isNeedingToRecharge());
         assertEq(0, f_.getNbPrepaRound());
@@ -1244,7 +1244,7 @@ public class FightSendingTest extends InitializationDataBase {
         StringList types_ = f_.getTypes();
         assertEq(new Rate("468/25"), f_.getRemainingHp());
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(types_, ELECTRIQUE));
         assertTrue(!f_.isDisappeared());
         assertTrue(!f_.isNeedingToRecharge());
         assertEq(0, f_.getNbPrepaRound());
@@ -1269,7 +1269,7 @@ public class FightSendingTest extends InitializationDataBase {
         StringList types_ = f_.getTypes();
         assertEq(new Rate("1873/100"), f_.getRemainingHp());
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(types_, ELECTRIQUE));
         assertTrue(!f_.isDisappeared());
         assertTrue(!f_.isNeedingToRecharge());
         assertEq(0, f_.getNbPrepaRound());
@@ -1375,7 +1375,7 @@ public class FightSendingTest extends InitializationDataBase {
         assertEq(METEO, f_.getCurrentAbility());
         StringList types_ = f_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(types_, ELECTRIQUE));
         assertTrue(!f_.isDisappeared());
         assertTrue(!f_.isNeedingToRecharge());
         assertEq(0, f_.getNbPrepaRound());
@@ -1406,7 +1406,7 @@ public class FightSendingTest extends InitializationDataBase {
         assertEq(new Rate("1"), f_.getRemainingHp());
         StringList types_ = f_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(types_, ELECTRIQUE));
         assertTrue(!f_.isDisappeared());
         assertTrue(!f_.isNeedingToRecharge());
         assertEq(0, f_.getNbPrepaRound());
@@ -1437,7 +1437,7 @@ public class FightSendingTest extends InitializationDataBase {
         StringList types_ = f_.getTypes();
         assertEq(new Rate("2173/300"), f_.getRemainingHp());
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(types_, ELECTRIQUE));
         assertTrue(!f_.isDisappeared());
         assertTrue(!f_.isNeedingToRecharge());
         assertEq(0, f_.getNbPrepaRound());
@@ -1468,7 +1468,7 @@ public class FightSendingTest extends InitializationDataBase {
         StringList types_ = f_.getTypes();
         assertEq(new Rate("1873/100"), f_.getRemainingHp());
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(types_, ELECTRIQUE));
         assertTrue(!f_.isDisappeared());
         assertTrue(!f_.isNeedingToRecharge());
         assertEq(0, f_.getNbPrepaRound());
@@ -1493,7 +1493,7 @@ public class FightSendingTest extends InitializationDataBase {
         StringList types_ = f_.getTypes();
         assertEq(new Rate("1873/100"), f_.getRemainingHp());
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(types_, ELECTRIQUE));
         assertTrue(!f_.isDisappeared());
         assertTrue(!f_.isNeedingToRecharge());
         assertEq(0, f_.getNbPrepaRound());
@@ -1598,7 +1598,7 @@ public class FightSendingTest extends InitializationDataBase {
         TeamPosition fighter_ = POKEMON_PLAYER_FIGHTER_TWO;
         FightSending.addFighterAgainstFoeTeam(fight_, fighter_, _data_);
         Team userTeam_ = fight_.getUserTeam();
-        NumberMap<Byte,Numbers<Byte>> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        ByteMap<Bytes> map_ = userTeam_.getPlayerFightersAgainstFoe();
         assertEq(2, map_.getVal((byte) 2).size());
         assertTrue(map_.getVal((byte) 2).containsObj((byte) 0));
         assertTrue(map_.getVal((byte) 2).containsObj((byte) 1));
@@ -1613,7 +1613,7 @@ public class FightSendingTest extends InitializationDataBase {
         TeamPosition fighter_ = POKEMON_PLAYER_FIGHTER_FOUR;
         FightSending.addFighterAgainstFoeTeam(fight_, fighter_, _data_);
         Team userTeam_ = fight_.getUserTeam();
-        NumberMap<Byte,Numbers<Byte>> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        ByteMap<Bytes> map_ = userTeam_.getPlayerFightersAgainstFoe();
         assertEq(3, map_.size());
         assertEq(2, map_.getVal((byte) 0).size());
         assertTrue(map_.getVal((byte) 0).containsObj((byte) 0));
@@ -1631,7 +1631,7 @@ public class FightSendingTest extends InitializationDataBase {
         TeamPosition fighter_ = POKEMON_FOE_FIGHTER_TWO;
         FightSending.addFighterAgainstFoeTeam(fight_, fighter_, _data_);
         Team userTeam_ = fight_.getUserTeam();
-        NumberMap<Byte,Numbers<Byte>> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        ByteMap<Bytes> map_ = userTeam_.getPlayerFightersAgainstFoe();
         assertEq(3, map_.size());
         assertTrue(map_.getVal((byte) 0).containsObj((byte) 0));
         assertTrue(map_.getVal((byte) 0).containsObj((byte) 1));
@@ -2939,7 +2939,7 @@ public class FightSendingTest extends InitializationDataBase {
         fight_.getFoeTeam().ajouterEffetEquipeEntreeAdv(PICS_TOXIK);
         FightSending.sending(fight_, thrower_, diff_, _data_);
         Team userTeam_ = fight_.getUserTeam();
-        NumberMap<Byte,Numbers<Byte>> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        ByteMap<Bytes> map_ = userTeam_.getPlayerFightersAgainstFoe();
         assertEq(2, map_.getVal((byte) 1).size());
         assertTrue(map_.getVal((byte) 1).containsObj((byte) 0));
         assertTrue(map_.getVal((byte) 1).containsObj((byte) 1));
@@ -2950,7 +2950,7 @@ public class FightSendingTest extends InitializationDataBase {
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(types_, ELECTRIQUE));
     }
 
     @Test
@@ -2966,7 +2966,7 @@ public class FightSendingTest extends InitializationDataBase {
         fight_.getFoeTeam().ajouterEffetEquipeEntreeAdv(PICS_TOXIK);
         FightSending.sending(fight_, thrower_, diff_, _data_);
         Team userTeam_ = fight_.getUserTeam();
-        NumberMap<Byte,Numbers<Byte>> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        ByteMap<Bytes> map_ = userTeam_.getPlayerFightersAgainstFoe();
         assertEq(2, map_.getVal((byte) 1).size());
         assertTrue(map_.getVal((byte) 1).containsObj((byte) 0));
         assertTrue(map_.getVal((byte) 1).containsObj((byte) 1));
@@ -2977,7 +2977,7 @@ public class FightSendingTest extends InitializationDataBase {
         assertEq(new Rate("3/2"), fighter_.getWeight());
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(types_, ELECTRIQUE));
     }
 
     @Test
@@ -2993,7 +2993,7 @@ public class FightSendingTest extends InitializationDataBase {
         fight_.getFoeTeam().ajouterEffetEquipeEntreeAdv(PICS_TOXIK);
         FightSending.sending(fight_, thrower_, diff_, _data_);
         Team userTeam_ = fight_.getUserTeam();
-        NumberMap<Byte,Numbers<Byte>> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        ByteMap<Bytes> map_ = userTeam_.getPlayerFightersAgainstFoe();
         assertEq(2, map_.getVal((byte) 1).size());
         assertTrue(map_.getVal((byte) 1).containsObj((byte) 0));
         assertTrue(map_.getVal((byte) 1).containsObj((byte) 1));
@@ -3004,7 +3004,7 @@ public class FightSendingTest extends InitializationDataBase {
         assertEq(new Rate("3"), fighter_.getWeight());
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(DRAGON));
+        assertTrue(StringList.contains(types_, DRAGON));
     }
 
     @Test
@@ -3021,7 +3021,7 @@ public class FightSendingTest extends InitializationDataBase {
         fight_.getFoeTeam().ajouterEffetEquipeEntreeAdv(PICS_TOXIK);
         FightSending.sending(fight_, thrower_, diff_, _data_);
         Team userTeam_ = fight_.getUserTeam();
-        NumberMap<Byte,Numbers<Byte>> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        ByteMap<Bytes> map_ = userTeam_.getPlayerFightersAgainstFoe();
         assertEq(2, map_.getVal((byte) 1).size());
         assertTrue(map_.getVal((byte) 1).containsObj((byte) 0));
         assertTrue(map_.getVal((byte) 1).containsObj((byte) 1));
@@ -3033,7 +3033,7 @@ public class FightSendingTest extends InitializationDataBase {
         assertEq(0, fighter_.getStatusNbRound(GEL));
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(types_, ELECTRIQUE));
     }
 
     private static Fight sendSubstitutes(
@@ -4862,7 +4862,7 @@ public class FightSendingTest extends InitializationDataBase {
         FightSending.firstEffectWhileSendingTeam(fight_, Fight.PLAYER, diff_, _data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         assertEq(1, fighter_.getTypes().size());
-        assertTrue(fighter_.getTypes().containsObj(DRAGON));
+        assertTrue(StringList.contains(fighter_.getTypes(), DRAGON));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
     }
@@ -4897,7 +4897,7 @@ public class FightSendingTest extends InitializationDataBase {
         FightSending.firstEffectWhileSendingTeam(fight_, Fight.PLAYER, diff_, _data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         assertEq(1, fighter_.getTypes().size());
-        assertTrue(fighter_.getTypes().containsObj(EAU));
+        assertTrue(StringList.contains(fighter_.getTypes(), EAU));
         assertEq(1, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(1, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
     }
@@ -4932,7 +4932,7 @@ public class FightSendingTest extends InitializationDataBase {
         FightSending.firstEffectWhileSendingTeams(fight_, diff_, _data_);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         assertEq(1, fighter_.getTypes().size());
-        assertTrue(fighter_.getTypes().containsObj(EAU));
+        assertTrue(StringList.contains(fighter_.getTypes(), EAU));
         assertEq(1, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(1, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
     }

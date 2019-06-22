@@ -3,7 +3,7 @@ import code.maths.LgInt;
 import code.maths.MathList;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -1000,7 +1000,7 @@ public final class FctOperation extends InvokingOperation {
 
     @Override
     void calculateChildren() {
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        IntTreeMap< String> vs_ = getOperations().getValues();
         vs_.removeKey(vs_.firstKey());
         getChildren().putAllMap(vs_);
     }

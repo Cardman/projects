@@ -5,7 +5,7 @@ import cards.tarot.ResultsTarot;
 import cards.tarot.enumerations.BonusTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 
 final class ResultsTarotBean extends TarotBean {
@@ -55,14 +55,14 @@ final class ResultsTarotBean extends TarotBean {
         byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
         setBid(getGame().getContrat());
         short doubledScoreTaker_=0;
-        Numbers<Short> positions_ = new Numbers<Short>();
-        Numbers<Short> positions1_ = new Numbers<Short>();
-        Numbers<Short> positions2_ = new Numbers<Short>();
-        Numbers<Short> positions3_ = new Numbers<Short>();
-        Numbers<Short> positions4_ = new Numbers<Short>();
-        Numbers<Short> doubledScoresPlayersTricks_ = new Numbers<Short>();
-        Numbers<Short> needlyScoresPlayers_ = new Numbers<Short>();
-        Numbers<Short> doublesDifferencesPlayers_ = new Numbers<Short>();
+        Shorts positions_ = new Shorts();
+        Shorts positions1_ = new Shorts();
+        Shorts positions2_ = new Shorts();
+        Shorts positions3_ = new Shorts();
+        Shorts positions4_ = new Shorts();
+        Shorts doubledScoresPlayersTricks_ = new Shorts();
+        Shorts needlyScoresPlayers_ = new Shorts();
+        Shorts doublesDifferencesPlayers_ = new Shorts();
         linesDeal = new CustList<LineDeal>();
         calledCardsList = new StringList();
         calledPlayers = new StringList();
@@ -125,7 +125,7 @@ final class ResultsTarotBean extends TarotBean {
         for(int i=CustList.FIRST_INDEX;i<nbDeals_;i++) {
             LineDeal l_ = new LineDeal();
             l_.setNumber(i);
-            Numbers<Long> scores_ = new Numbers<Long>();
+            Longs scores_ = new Longs();
             for(byte joueur_=CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
                 scores_.add(getScores().get(i).get(joueur_));
             }

@@ -18,7 +18,7 @@ import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.document.RenderedPage;
 import code.util.EqList;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -61,8 +61,8 @@ public final class ConsultHosts extends Dialog {
         facade = _facade;
         Panel contentPane_ = new Panel();
         contentPane_.setLayout(new GridLayout(0,1));
-        NatTreeMap<Short,EqList<Coords>> hostsByPlace_;
-        hostsByPlace_ = new NatTreeMap<Short,EqList<Coords>>();
+        ShortTreeMap<EqList<Coords>> hostsByPlace_;
+        hostsByPlace_ = new ShortTreeMap<EqList<Coords>>();
         for (Coords c: facade.getMap().getHostPokemons()) {
             if (hostsByPlace_.contains(c.getNumberPlace())) {
                 hostsByPlace_.getVal(c.getNumberPlace()).add(c);

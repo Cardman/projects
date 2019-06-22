@@ -53,7 +53,7 @@ import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
 import code.util.EnumMap;
-import code.util.NumberMap;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -90,7 +90,7 @@ public class DataBaseTest {
         files_.add("file_TWO");
         data_.checkCaseOfFiles("folder", files_);
         assertEq(1, data_.getFilesWithSameNameDifferentCase().size());
-        assertTrue(data_.getFilesWithSameNameDifferentCase().containsObj("folder/FILE_ONE"));
+        assertTrue(StringList.contains(data_.getFilesWithSameNameDifferentCase(), "folder/FILE_ONE"));
     }
 
     @Test
@@ -104,7 +104,7 @@ public class DataBaseTest {
         files_.add("file_TWO");
         data_.checkCaseOfFiles("folder", files_);
         assertEq(1, data_.getFilesWithSameNameDifferentCase().size());
-        assertTrue(data_.getFilesWithSameNameDifferentCase().containsObj("folder/FILE_ONE"));
+        assertTrue(StringList.contains(data_.getFilesWithSameNameDifferentCase(), "folder/FILE_ONE"));
     }
 
     @Test
@@ -122,9 +122,9 @@ public class DataBaseTest {
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("ECLAIR", moveDamage_);
         assertEq(1, data_.getCategories().size());
-        assertTrue(data_.getCategories().containsObj("SPECIAL"));
+        assertTrue(StringList.contains(data_.getCategories(), "SPECIAL"));
         assertEq(1, data_.getAllCategories().size());
-        assertTrue(data_.getAllCategories().containsObj("SPECIAL"));
+        assertTrue(StringList.contains(data_.getAllCategories(), "SPECIAL"));
     }
 
     @Test
@@ -142,9 +142,9 @@ public class DataBaseTest {
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("TONNERRE", moveDamage_);
         assertEq(1, data_.getCategories().size());
-        assertTrue(data_.getCategories().containsObj("PHYSIQUE"));
+        assertTrue(StringList.contains(data_.getCategories(), "PHYSIQUE"));
         assertEq(1, data_.getAllCategories().size());
-        assertTrue(data_.getAllCategories().containsObj("PHYSIQUE"));
+        assertTrue(StringList.contains(data_.getAllCategories(), "PHYSIQUE"));
     }
 
     @Test
@@ -161,7 +161,7 @@ public class DataBaseTest {
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
         assertEq(0, data_.getCategories().size());
         assertEq(1, data_.getAllCategories().size());
-        assertTrue(data_.getAllCategories().containsObj(DataBase.AUTRE));
+        assertTrue(StringList.contains(data_.getAllCategories(), DataBase.AUTRE));
     }
 
     @Test
@@ -178,7 +178,7 @@ public class DataBaseTest {
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
         assertEq(0, data_.getCategories().size());
         assertEq(1, data_.getVariables().size());
-        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN")));
+        assertTrue(StringList.contains(data_.getVariables(), StringList.concat(DataBase.VAR_PREFIX, "NB_TURN")));
     }
 
     @Test
@@ -236,7 +236,7 @@ public class DataBaseTest {
         moveDamage_.getEffects().add(damage_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("CHARGE", moveDamage_);
-        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN")));
+        assertTrue(StringList.contains(data_.getVariables(), StringList.concat(DataBase.VAR_PREFIX, "NB_TURN")));
     }
 
     @Test
@@ -257,7 +257,7 @@ public class DataBaseTest {
         moveDamage_.getEffects().add(damage_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("CHARGE", moveDamage_);
-        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN")));
+        assertTrue(StringList.contains(data_.getVariables(), StringList.concat(DataBase.VAR_PREFIX, "NB_TURN")));
     }
 
     @Test
@@ -279,7 +279,7 @@ public class DataBaseTest {
         moveDamage_.getEffects().add(damage_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("CHARGE", moveDamage_);
-        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN")));
+        assertTrue(StringList.contains(data_.getVariables(), StringList.concat(DataBase.VAR_PREFIX, "NB_TURN")));
     }
 
     @Test
@@ -322,7 +322,7 @@ public class DataBaseTest {
         moveDamage_.getEffects().add(effStatis_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
-        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN")));
+        assertTrue(StringList.contains(data_.getVariables(), StringList.concat(DataBase.VAR_PREFIX, "NB_TURN")));
     }
 
     @Test
@@ -344,7 +344,7 @@ public class DataBaseTest {
         moveDamage_.getEffects().add(effStatis_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
-        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN")));
+        assertTrue(StringList.contains(data_.getVariables(), StringList.concat(DataBase.VAR_PREFIX, "NB_TURN")));
     }
 
     @Test
@@ -385,7 +385,7 @@ public class DataBaseTest {
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
-        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN")));
+        assertTrue(StringList.contains(data_.getVariables(), StringList.concat(DataBase.VAR_PREFIX, "NB_TURN")));
     }
 
     @Test
@@ -426,7 +426,7 @@ public class DataBaseTest {
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
-        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN")));
+        assertTrue(StringList.contains(data_.getVariables(), StringList.concat(DataBase.VAR_PREFIX, "NB_TURN")));
     }
 
     @Test
@@ -466,7 +466,7 @@ public class DataBaseTest {
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
-        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN")));
+        assertTrue(StringList.contains(data_.getVariables(), StringList.concat(DataBase.VAR_PREFIX, "NB_TURN")));
     }
 
     @Test
@@ -489,7 +489,7 @@ public class DataBaseTest {
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
         assertEq(0, data_.getVariables().size());
         assertEq(1, data_.getMovesEffectWhileSending().size());
-        assertTrue(data_.getMovesEffectWhileSending().containsObj("QUEUE_DE_CHEVAL"));
+        assertTrue(StringList.contains(data_.getMovesEffectWhileSending(), "QUEUE_DE_CHEVAL"));
     }
 
     @Test
@@ -510,9 +510,9 @@ public class DataBaseTest {
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
-        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN")));
+        assertTrue(StringList.contains(data_.getVariables(), StringList.concat(DataBase.VAR_PREFIX, "NB_TURN")));
         assertEq(1, data_.getMovesEffectWhileSending().size());
-        assertTrue(data_.getMovesEffectWhileSending().containsObj("QUEUE_DE_CHEVAL"));
+        assertTrue(StringList.contains(data_.getMovesEffectWhileSending(), "QUEUE_DE_CHEVAL"));
     }
 
     @Test
@@ -1163,7 +1163,7 @@ public class DataBaseTest {
         effect_.setFail("");
         effect_.setFailEndRound("");
         effect_.setEndRoundRank(2);
-        effect_.setRateDamageFunctionOfNbRounds(new NumberMap<Long,Rate>());
+        effect_.setRateDamageFunctionOfNbRounds(new LongMap<Rate>());
         effect_.setLawForEnablingEffect(new MonteCarloNumber());
         effect_.getLawForEnablingEffect().addEvent(Rate.one(), LgInt.zero());
         effect_.getRateDamageFunctionOfNbRounds().put(1L, new Rate(1,2));
@@ -1521,9 +1521,9 @@ public class DataBaseTest {
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
-        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN")));
+        assertTrue(StringList.contains(data_.getVariables(), StringList.concat(DataBase.VAR_PREFIX, "NB_TURN")));
         assertEq(1, data_.getMovesEffectWhileSending().size());
-        assertTrue(data_.getMovesEffectWhileSending().containsObj("QUEUE_DE_CHEVAL"));
+        assertTrue(StringList.contains(data_.getMovesEffectWhileSending(), "QUEUE_DE_CHEVAL"));
     }
 
     @Test
@@ -1544,10 +1544,10 @@ public class DataBaseTest {
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
-        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"NB_TURN")));
-        assertTrue(data_.getVariables().containsObj(StringList.concat(DataBase.VAR_PREFIX,"USED_MOVE")));
+        assertTrue(StringList.contains(data_.getVariables(), StringList.concat(DataBase.VAR_PREFIX, "NB_TURN")));
+        assertTrue(StringList.contains(data_.getVariables(), StringList.concat(DataBase.VAR_PREFIX, "USED_MOVE")));
         assertEq(1, data_.getMovesCountering().size());
-        assertTrue(data_.getMovesCountering().containsObj("QUEUE_DE_CHEVAL"));
+        assertTrue(StringList.contains(data_.getMovesCountering(), "QUEUE_DE_CHEVAL"));
     }
 
     @Test
@@ -1567,7 +1567,7 @@ public class DataBaseTest {
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
         assertEq(1, data_.getMovesChangingTypes().size());
-        assertTrue(data_.getMovesChangingTypes().containsObj("QUEUE_DE_CHEVAL"));
+        assertTrue(StringList.contains(data_.getMovesChangingTypes(), "QUEUE_DE_CHEVAL"));
     }
 
     @Test
@@ -1664,7 +1664,7 @@ public class DataBaseTest {
         assertEq(1, data_.getVarParamsMove().size());
         assertTrue(data_.getVarParamsMove().contains("NB_TURN"));
         assertEq(2, data_.getVarParamsMove().getVal("NB_TURN").size());
-        assertTrue(data_.getVarParamsMove().getVal("NB_TURN").containsStr("CHARGE"));
-        assertTrue(data_.getVarParamsMove().getVal("NB_TURN").containsStr("FLYING"));
+        assertTrue(StringList.contains(data_.getVarParamsMove().getVal("NB_TURN"), "CHARGE"));
+        assertTrue(StringList.contains(data_.getVarParamsMove().getVal("NB_TURN"), "FLYING"));
     }
 }

@@ -5,7 +5,7 @@ import aiki.map.levels.Level;
 import aiki.map.tree.PlaceArea;
 import aiki.util.Coords;
 import code.util.CustList;
-import code.util.NumberMap;
+import code.util.*;
 
 public abstract class Place {
 
@@ -22,7 +22,7 @@ public abstract class Place {
     public abstract boolean isEmptyForAdding(Coords _coords);
     public abstract void validateForEditing(DataBase _data);
     public abstract Level getLevelByCoords(Coords _coords);
-    public abstract NumberMap<Byte,Level> getLevelsMap();
+    public abstract ByteMap<Level> getLevelsMap();
     public abstract CustList<Level> getLevelsList();
     public abstract Person getPerson(Coords _coords);
     public abstract boolean containsPerson(Coords _coords);

@@ -96,8 +96,8 @@ import code.network.NetGroupFrame;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.StringList;
 import code.util.consts.Constants;
 
@@ -188,9 +188,9 @@ public final class SendReceiveServer extends BasicServer {
                 pl_.setRulesTarot(new RulesTarot());
             }
             pl_.setNbPlayers(Net.getNbPlayers());
-            pl_.setPseudos(new NumberMap<Integer,String>(Net.getNicknames()));
+            pl_.setPseudos(new IntMap<String>(Net.getNicknames()));
             pl_.setPlacesPlayers(Net.getPlacesPlayers());
-            pl_.setReadyPlayers(new NumberMap<Integer,Boolean>(Net.getReadyPlayers()));
+            pl_.setReadyPlayers(new IntMap<Boolean>(Net.getReadyPlayers()));
             for (int p:Net.getSockets().getKeys()) {
                 pl_.setFirst(p == newPlayer_.getIndex());
                 Net.sendObject(Net.getSockets().getVal(p),pl_);
@@ -331,9 +331,9 @@ public final class SendReceiveServer extends BasicServer {
             pl_.setRulesTarot(Net.getGames().getRulesTarot());
         }
         pl_.setNbPlayers(Net.getNbPlayers());
-        pl_.setPseudos(new NumberMap<Integer,String>(Net.getNicknames()));
+        pl_.setPseudos(new IntMap<String>(Net.getNicknames()));
         pl_.setPlacesPlayers(Net.getPlacesPlayers());
-        pl_.setReadyPlayers(new NumberMap<Integer,Boolean>(Net.getReadyPlayers()));
+        pl_.setReadyPlayers(new IntMap<Boolean>(Net.getReadyPlayers()));
         for (int p:Net.getSockets().getKeys()) {
             pl_.setFirst(p == newPlayer_.getIndex());
             Net.sendObject(Net.getSockets().getVal(p),pl_);
@@ -1227,9 +1227,9 @@ public final class SendReceiveServer extends BasicServer {
                 g_.initCartesEchanges();
                 g_.donnerMeilleuresCartes();
                 if (g_.availableSwitchingCards()) {
-                    Numbers<Byte> pl_ = Net.activePlayers();
-                    Numbers<Byte> humWin_ = g_.getWinners(pl_);
-                    Numbers<Byte> humLos_ = g_.getLoosers(pl_);
+                    Bytes pl_ = Net.activePlayers();
+                    Bytes humWin_ = g_.getWinners(pl_);
+                    Bytes humLos_ = g_.getLoosers(pl_);
                     if (!humWin_.isEmpty()) {
                         //Display discarding
                         AllowDiscarding allow_ = new AllowDiscarding();
@@ -1276,7 +1276,7 @@ public final class SendReceiveServer extends BasicServer {
             return;
         }
         if (_readObject instanceof DiscardedCards) {
-            Numbers<Byte> pl_ = Net.activePlayers();
+            Bytes pl_ = Net.activePlayers();
             DiscardedCards dis_ = (DiscardedCards) _readObject;
             HandPresident cards_ = dis_.getDiscarded();
             byte player_ = dis_.getPlace();
@@ -1284,9 +1284,9 @@ public final class SendReceiveServer extends BasicServer {
             if (!g_.giveWorstCards(pl_, player_, cards_)) {
                 return;
             }
-            Numbers<Byte> humWin_ = g_.getWinners(pl_);
-            Numbers<Byte> humLos_ = g_.getLoosers(pl_);
-            Numbers<Byte> humLosReceiving_ = new Numbers<Byte>();
+            Bytes humWin_ = g_.getWinners(pl_);
+            Bytes humLos_ = g_.getLoosers(pl_);
+            Bytes humLosReceiving_ = new Bytes();
             for (byte p: humLos_) {
                 byte w_ = g_.getMatchingWinner(p);
                 if (humWin_.containsObj(w_)) {
@@ -1310,7 +1310,7 @@ public final class SendReceiveServer extends BasicServer {
         }
         if (_readObject instanceof RefreshedHandPresident) {
             Net.setReceivedForPlayer(((Dealt)_readObject).getPlace());
-            Numbers<Byte> pl_ = Net.activePlayers();
+            Bytes pl_ = Net.activePlayers();
             GamePresident g_ = Net.getGames().partiePresident();
             if (Net.allReceivedAmong(g_.getLoosers(pl_))) {
                 Net.initAllReceived();
@@ -1505,16 +1505,16 @@ public final class SendReceiveServer extends BasicServer {
             }
             byte player_ = bye_.getPlace();
             if (game_.availableSwitchingCards() && !game_.readyToPlayMulti()) {
-                Numbers<Byte> pl_ = Net.activePlayers();
-                Numbers<Byte> humWin_ = game_.getWinners(new Numbers<Byte>(player_));
+                Bytes pl_ = Net.activePlayers();
+                Bytes humWin_ = game_.getWinners(new Bytes(player_));
                 if (!humWin_.isEmpty()) {
                     HandPresident h_ = game_.strategieEchange(player_);
                     if (!game_.giveWorstCards(pl_, player_, h_)) {
                         return;
                     }
                     humWin_ = game_.getWinners(pl_);
-                    Numbers<Byte> humLos_ = game_.getLoosers(pl_);
-                    Numbers<Byte> humLosReceiving_ = new Numbers<Byte>();
+                    Bytes humLos_ = game_.getLoosers(pl_);
+                    Bytes humLosReceiving_ = new Bytes();
                     for (byte p: humLos_) {
                         byte w_ = game_.getMatchingWinner(p);
                         if (humWin_.containsObj(w_)) {
@@ -1699,10 +1699,10 @@ public final class SendReceiveServer extends BasicServer {
             }
         }
         ResultsBelote res_ = new ResultsBelote();
-        CustList<Numbers<Long>> scores_ = Net.getScores();
-        CustList<Numbers<Long>> list_ = new CustList<Numbers<Long>>();
-        for (Numbers<Long> v: scores_) {
-            list_.add(new Numbers<Long>(v));
+        CustList<Longs> scores_ = Net.getScores();
+        CustList<Longs> list_ = new CustList<Longs>();
+        for (Longs v: scores_) {
+            list_.add(new Longs(v));
         }
         res_.setGame(Net.getGames().partieBelote());
         res_.initialize(new StringList(players_), list_);
@@ -1725,10 +1725,10 @@ public final class SendReceiveServer extends BasicServer {
         }
         ResultsPresident res_ = new ResultsPresident();
         res_.setGame(Net.getGames().partiePresident());
-        CustList<Numbers<Long>> scores_ = Net.getScores();
-        CustList<Numbers<Long>> list_ = new CustList<Numbers<Long>>();
-        for (Numbers<Long> v: scores_) {
-            list_.add(new Numbers<Long>(v));
+        CustList<Longs> scores_ = Net.getScores();
+        CustList<Longs> list_ = new CustList<Longs>();
+        for (Longs v: scores_) {
+            list_.add(new Longs(v));
         }
         res_.initialize(new StringList(players_), list_);
         for (byte p: Net.activePlayers()) {
@@ -1750,10 +1750,10 @@ public final class SendReceiveServer extends BasicServer {
         }
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(Net.getGames().partieTarot());
-        CustList<Numbers<Long>> scores_ = Net.getScores();
-        CustList<Numbers<Long>> list_ = new CustList<Numbers<Long>>();
-        for (Numbers<Long> v: scores_) {
-            list_.add(new Numbers<Long>(v));
+        CustList<Longs> scores_ = Net.getScores();
+        CustList<Longs> list_ = new CustList<Longs>();
+        for (Longs v: scores_) {
+            list_.add(new Longs(v));
         }
         res_.initialize(new StringList(players_), list_);
         for (byte p: Net.activePlayers()) {

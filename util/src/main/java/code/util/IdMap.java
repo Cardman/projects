@@ -18,15 +18,6 @@ public final class IdMap<K,V> extends AbsMap<K,V> {
     }
 
     @Override
-    public IdList<K> getKeys() {
-        IdList<K> s_ = new IdList<K>();
-        for (EntryCust<K, V> e: getList()) {
-            s_.add(e.getKey());
-        }
-        return s_;
-    }
-
-    @Override
     int indexOfEntry(K _key) {
         int index_ = CustList.FIRST_INDEX;
         for (EntryCust<K, V> e:getList()) {

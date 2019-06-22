@@ -9,7 +9,7 @@ import code.maths.montecarlo.AbMonteCarlo;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 
 
 public final class DealBelote implements Iterable<HandBelote> {
@@ -111,7 +111,7 @@ public final class DealBelote implements Iterable<HandBelote> {
         /*On donne les_ cartes_ aux_ joueurs_.
         Le nombre_ de_ cartes_ donnes_ par_ joueur_ est_ de_ 3 puis_ 2*/
         //int nbJoueurs_ = _regles.getRepartition().getNombreJoueurs();
-        Numbers<Byte> ordreDisributionJoueurs_;
+        Bytes ordreDisributionJoueurs_;
         ordreDisributionJoueurs_ = _regles.getRepartition().getSortedPlayersAfter(dealer);
 
         for(int i: _regles.getRepartition().getDistributionDebut()) {
@@ -167,7 +167,7 @@ public final class DealBelote implements Iterable<HandBelote> {
         main(_preneur).ajouter(talon_.jouer(CustList.FIRST_INDEX));
         //Le preneur_ prend_ la_ carte_ du_ dessus_
         boolean dejaCommence_ = false;
-        Numbers<Byte> ordreDisributionJoueurs_;
+        Bytes ordreDisributionJoueurs_;
         ordreDisributionJoueurs_ = _regles.getRepartition().getSortedPlayersAfter(dealer);
         for(int i: _regles.getRepartition().getDistributionFin()) {
             for (int j : ordreDisributionJoueurs_) {

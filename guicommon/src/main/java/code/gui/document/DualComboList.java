@@ -2,7 +2,7 @@ package code.gui.document;
 
 import code.formathtml.render.MetaComboList;
 import code.gui.GraphicStringList;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringList;
 
 public final class DualComboList extends DualInput {
@@ -17,13 +17,13 @@ public final class DualComboList extends DualInput {
         return (MetaComboList) super.getComponent();
     }
 
-    public Numbers<Integer> getSelectedIndexes() {
+    public Ints getSelectedIndexes() {
         return getSelect().getSelectedIndexes();
     }
 
     @Override
     public StringList getValue() {
-        Numbers<Integer> indexes_ = getSelect().getSelectedIndexes();
+        Ints indexes_ = getSelect().getSelectedIndexes();
         StringList values_ = new StringList();
         MetaComboList combo_ = getComponent();
         for (int i: indexes_) {

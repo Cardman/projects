@@ -11,7 +11,7 @@ import cards.facade.Games;
 import cards.gui.MainWindow;
 import code.gui.CustCellRender;
 import code.gui.GraphicListable;
-import code.util.Numbers;
+import code.util.*;
 /**
  */
 public class CardBeloteCellRenderer extends CustCellRender{

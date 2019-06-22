@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.instr.OperationsSequence;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringList;
 
 public final class TernaryOperation extends AbstractTernaryOperation {
@@ -13,7 +13,7 @@ public final class TernaryOperation extends AbstractTernaryOperation {
 
     @Override
     void calculateChildren() {
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        IntTreeMap< String> vs_ = getOperations().getValues();
         vs_.removeKey(vs_.firstKey());
         getChildren().putAllMap(vs_);
         String fct_ = getOperations().getFctName();

@@ -4,7 +4,7 @@ import cards.consts.Suit;
 import cards.tarot.enumerations.*;
 import code.util.BooleanList;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 
 public final class CheckerGameTarotWithRules {
 
@@ -148,7 +148,7 @@ public final class CheckerGameTarotWithRules {
             }
             noTrick_ = false;
         }
-        Numbers<Byte> players_ = _loadedGame.orderedPlayers(_loadedGame
+        Bytes players_ = _loadedGame.orderedPlayers(_loadedGame
                 .getDistribution().getDonneur());
         DealTarot deal_ = new DealTarot(_loadedGame.getDistribution());
         for (TrickTarot t : allTricks_) {

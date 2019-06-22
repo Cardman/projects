@@ -8,7 +8,7 @@ import org.junit.Test;
 public class NumbersTest {
     @Test
     public void getReverseTest() {
-        Numbers<Integer> list_ = new Numbers<Integer>();
+        Ints list_ = new Ints();
         list_.add(0);
         list_.add(1);
         CustList<Integer> f_ = list_.getReverse();
@@ -18,7 +18,7 @@ public class NumbersTest {
     }
     @Test
     public void containsIndexOf1(){
-        Numbers<Integer> nbs_ = new Numbers<Integer>();
+        Ints nbs_ = new Ints();
         nbs_.add(1);
         nbs_.add(3);
         assertTrue(nbs_.contains(1));
@@ -31,7 +31,7 @@ public class NumbersTest {
     }
     @Test
     public void removeDuplicates1(){
-        Numbers<Integer> nbs_ = new Numbers<Integer>();
+        Ints nbs_ = new Ints();
         nbs_.add(1);
         nbs_.add(3);
         nbs_.removeDuplicates();
@@ -41,7 +41,7 @@ public class NumbersTest {
     }
     @Test
     public void removeDuplicates2(){
-        Numbers<Integer> nbs_ = new Numbers<Integer>();
+        Ints nbs_ = new Ints();
         nbs_.add(1);
         nbs_.add(1);
         nbs_.removeDuplicates();
@@ -50,7 +50,7 @@ public class NumbersTest {
     }
     @Test
     public void removeDuplicates3(){
-        Numbers<Integer> nbs_ = new Numbers<Integer>();
+        Ints nbs_ = new Ints();
         nbs_.add(1);
         nbs_.add(3);
         nbs_.add(1);
@@ -61,7 +61,7 @@ public class NumbersTest {
     }
     @Test
     public void removeDuplicates4(){
-        Numbers<Integer> nbs_ = new Numbers<Integer>();
+        Ints nbs_ = new Ints();
         nbs_.add(1);
         nbs_.add(3);
         nbs_.add(1);
@@ -73,7 +73,7 @@ public class NumbersTest {
     }
     @Test
     public void removeDuplicates5(){
-        Numbers<Integer> nbs_ = new Numbers<Integer>();
+        Ints nbs_ = new Ints();
         nbs_.add(1);
         nbs_.add(1);
         nbs_.add(3);
@@ -84,7 +84,7 @@ public class NumbersTest {
     }
     @Test
     public void removeDuplicates6(){
-        Numbers<Integer> nbs_ = new Numbers<Integer>();
+        Ints nbs_ = new Ints();
         nbs_.add(1);
         nbs_.add(1);
         nbs_.add(3);
@@ -96,39 +96,39 @@ public class NumbersTest {
     }
     @Test
     public void min1(){
-        Numbers<Integer> nbs_ = new Numbers<Integer>();
+        Ints nbs_ = new Ints();
         nbs_.add(1);
         nbs_.add(3);
         assertEq(1,(long)nbs_.getMinimum(0));
-        nbs_ = new Numbers<Integer>();
+        nbs_ = new Ints();
         nbs_.add(3);
         nbs_.add(1);
         assertEq(1,(long)nbs_.getMinimum(0));
-        nbs_ = new Numbers<Integer>();
+        nbs_ = new Ints();
         nbs_.add(1);
         assertEq(1,(long)nbs_.getMinimum(0));
-        nbs_ = new Numbers<Integer>();
+        nbs_ = new Ints();
         assertEq(0,nbs_.getMinimum(0));
     }
     @Test
     public void max1(){
-        Numbers<Integer> nbs_ = new Numbers<Integer>();
+        Ints nbs_ = new Ints();
         nbs_.add(1);
         nbs_.add(3);
         assertEq(3, nbs_.getMaximum(0));
-        nbs_ = new Numbers<Integer>();
+        nbs_ = new Ints();
         nbs_.add(3);
         nbs_.add(1);
         assertEq(3, nbs_.getMaximum(0));
-        nbs_ = new Numbers<Integer>();
+        nbs_ = new Ints();
         nbs_.add(3);
         assertEq(3, nbs_.getMaximum(0));
-        nbs_ = new Numbers<Integer>();
+        nbs_ = new Ints();
         assertEq(0,nbs_.getMaximum(0));
     }
     @Test
     public void sort1(){
-        Numbers<Integer> nbs_ = new Numbers<Integer>();
+        Ints nbs_ = new Ints();
         nbs_.add(5);
         nbs_.add(1);
         nbs_.add(4);
@@ -404,16 +404,16 @@ public class NumbersTest {
     }
     @Test
     public void getAllIndexes1(){
-        Numbers<Integer> nbs_ = new Numbers<Integer>();
+        Ints nbs_ = new Ints();
         assertEq(0,nbs_.getAllIndexes().size());
     }
     @Test
     public void getAllIndexes2(){
-        Numbers<Integer> nbs_ = new Numbers<Integer>();
+        Ints nbs_ = new Ints();
         nbs_.add(2);
         nbs_.add(3);
         nbs_.add(4);
-        CustList<Numbers<Integer>> indexes_;
+        CustList<Ints> indexes_;
         indexes_ = nbs_.getAllIndexes();
         assertEq(24,indexes_.size());
         assertEq(3, indexes_.get(0).size());
@@ -520,7 +520,7 @@ public class NumbersTest {
     }
     @Test
     public void sub1Test(){
-        Numbers<Integer> nbs_ = new Numbers<Integer>();
+        Ints nbs_ = new Ints();
         nbs_.add(5);
         nbs_.add(1);
         CustList<Integer> out_ = nbs_.sub(1,2);
@@ -529,7 +529,7 @@ public class NumbersTest {
     }
     @Test
     public void sub2Test(){
-        Numbers<Integer> nbs_ = new Numbers<Integer>();
+        Ints nbs_ = new Ints();
         nbs_.add(5);
         nbs_.add(1);
         CustList<Integer> out_ = nbs_.sub(2,1);
@@ -537,7 +537,7 @@ public class NumbersTest {
     }
     @Test
     public void mid1Test(){
-        Numbers<Integer> nbs_ = new Numbers<Integer>();
+        Ints nbs_ = new Ints();
         nbs_.add(5);
         nbs_.add(1);
         CustList<Integer> out_ = nbs_.mid(1,1);
@@ -546,87 +546,63 @@ public class NumbersTest {
     }
     @Test
     public void eqSet1Test(){
-        Numbers<Byte> nbs_ = new Numbers<Byte>();
+        Bytes nbs_ = new Bytes();
         nbs_.add((byte) 5);
         nbs_.add((byte) 1);
-        Numbers<Byte> nbsTwo_ = new Numbers<Byte>();
+        Bytes nbsTwo_ = new Bytes();
         nbsTwo_.add((byte) 5);
         nbsTwo_.add((byte) 1);
         assertTrue(Numbers.equalsSetBytes(nbs_,nbsTwo_));
     }
     @Test
     public void eqSet2Test(){
-        Numbers<Byte> nbs_ = new Numbers<Byte>();
+        Bytes nbs_ = new Bytes();
         nbs_.add((byte) 5);
-        Numbers<Byte> nbsTwo_ = new Numbers<Byte>();
+        Bytes nbsTwo_ = new Bytes();
         nbsTwo_.add((byte) 5);
         nbsTwo_.add((byte) 1);
         assertTrue(!Numbers.equalsSetBytes(nbs_,nbsTwo_));
     }
     @Test
     public void eqSet3Test(){
-        Numbers<Byte> nbs_ = new Numbers<Byte>();
+        Bytes nbs_ = new Bytes();
         nbs_.add((byte) 5);
         nbs_.add((byte) 1);
-        Numbers<Byte> nbsTwo_ = new Numbers<Byte>();
+        Bytes nbsTwo_ = new Bytes();
         nbsTwo_.add((byte) 5);
         assertTrue(!Numbers.equalsSetBytes(nbs_,nbsTwo_));
     }
     @Test
     public void eqSet4Test(){
-        Numbers<Short> nbs_ = new Numbers<Short>();
+        Shorts nbs_ = new Shorts();
         nbs_.add((short) 5);
         nbs_.add((short) 1);
-        Numbers<Short> nbsTwo_ = new Numbers<Short>();
+        Shorts nbsTwo_ = new Shorts();
         nbsTwo_.add((short) 5);
         nbsTwo_.add((short) 1);
         assertTrue(Numbers.equalsSetShorts(nbs_,nbsTwo_));
     }
     @Test
     public void eqSet5Test(){
-        Numbers<Short> nbs_ = new Numbers<Short>();
+        Shorts nbs_ = new Shorts();
         nbs_.add((short) 5);
-        Numbers<Short> nbsTwo_ = new Numbers<Short>();
+        Shorts nbsTwo_ = new Shorts();
         nbsTwo_.add((short) 5);
         nbsTwo_.add((short) 1);
         assertTrue(!Numbers.equalsSetShorts(nbs_,nbsTwo_));
     }
     @Test
     public void eqSet6Test(){
-        Numbers<Short> nbs_ = new Numbers<Short>();
+        Shorts nbs_ = new Shorts();
         nbs_.add((short) 5);
         nbs_.add((short) 1);
-        Numbers<Short> nbsTwo_ = new Numbers<Short>();
+        Shorts nbsTwo_ = new Shorts();
         nbsTwo_.add((short) 5);
         assertTrue(!Numbers.equalsSetShorts(nbs_,nbsTwo_));
     }
     @Test
-    public void removeAllElementsTest(){
-        Numbers<Short> nbs_ = new Numbers<Short>();
-        nbs_.add((short) 5);
-        nbs_.add((short) 1);
-        Numbers<Short> nbsTwo_ = new Numbers<Short>();
-        nbsTwo_.add((short) 5);
-        nbsTwo_.add((short) 2);
-        nbs_.removeAllElements(nbsTwo_);
-        assertEq(1, nbs_.size());
-        assertEq(1, nbs_.get(0));
-    }
-    @Test
-    public void retainAllElementsTest(){
-        Numbers<Short> nbs_ = new Numbers<Short>();
-        nbs_.add((short) 5);
-        nbs_.add((short) 1);
-        Numbers<Short> nbsTwo_ = new Numbers<Short>();
-        nbsTwo_.add((short) 5);
-        nbsTwo_.add((short) 2);
-        nbs_.retainAllElements(nbsTwo_);
-        assertEq(1, nbs_.size());
-        assertEq(5, nbs_.get(0));
-    }
-    @Test
     public void removeOneNumber1Test(){
-        Numbers<Short> nbs_ = new Numbers<Short>();
+        Shorts nbs_ = new Shorts();
         nbs_.add((short) 5);
         nbs_.add((short) 1);
         nbs_.removeOneNumber(2);
@@ -636,7 +612,7 @@ public class NumbersTest {
     }
     @Test
     public void removeOneNumber2Test(){
-        Numbers<Short> nbs_ = new Numbers<Short>();
+        Shorts nbs_ = new Shorts();
         nbs_.add((short) 5);
         nbs_.add((short) 1);
         nbs_.removeOneNumber(1);
@@ -645,7 +621,7 @@ public class NumbersTest {
     }
     @Test
     public void removeOneNumber3Test(){
-        Numbers<Short> nbs_ = new Numbers<Short>();
+        Shorts nbs_ = new Shorts();
         nbs_.add((short) 5);
         nbs_.add((short) 1);
         nbs_.removeOneNumber(5);
@@ -656,36 +632,8 @@ public class NumbersTest {
         assertEq(1, nbs_.get(0));
     }
     @Test
-    public void containsAllObj1Test(){
-        Numbers<Byte> nbs_ = new Numbers<Byte>();
-        nbs_.add((byte) 5);
-        nbs_.add((byte) 1);
-        Numbers<Byte> nbsTwo_ = new Numbers<Byte>();
-        nbsTwo_.add((byte) 5);
-        nbsTwo_.add((byte) 1);
-        assertTrue(nbs_.containsAllObj(nbsTwo_));
-    }
-    @Test
-    public void containsAllObj2Test(){
-        Numbers<Byte> nbs_ = new Numbers<Byte>();
-        nbs_.add((byte) 5);
-        Numbers<Byte> nbsTwo_ = new Numbers<Byte>();
-        nbsTwo_.add((byte) 5);
-        nbsTwo_.add((byte) 1);
-        assertTrue(!nbs_.containsAllObj(nbsTwo_));
-    }
-    @Test
-    public void containsAllObj3Test(){
-        Numbers<Byte> nbs_ = new Numbers<Byte>();
-        nbs_.add((byte) 5);
-        nbs_.add((byte) 1);
-        Numbers<Byte> nbsTwo_ = new Numbers<Byte>();
-        nbsTwo_.add((byte) 5);
-        assertTrue(nbs_.containsAllObj(nbsTwo_));
-    }
-    @Test
     public void removeAllLong1Test(){
-        Numbers<Short> nbs_ = new Numbers<Short>();
+        Shorts nbs_ = new Shorts();
         nbs_.add((short) 5);
         nbs_.add((short) 1);
         nbs_.removeAllLong(1);
@@ -694,7 +642,7 @@ public class NumbersTest {
     }
     @Test
     public void removeAllLong2Test(){
-        Numbers<Short> nbs_ = new Numbers<Short>();
+        Shorts nbs_ = new Shorts();
         nbs_.add((short) 5);
         nbs_.add((short) 1);
         nbs_.removeAllLong(5);
@@ -703,7 +651,7 @@ public class NumbersTest {
     }
     @Test
     public void removeAllLong3Test(){
-        Numbers<Short> nbs_ = new Numbers<Short>();
+        Shorts nbs_ = new Shorts();
         nbs_.add((short) 5);
         nbs_.add((short) 1);
         nbs_.removeAllLong(2);
@@ -712,13 +660,75 @@ public class NumbersTest {
         assertEq(1, nbs_.get(1));
     }
     @Test
-    public void indexesOfTest(){
-        Numbers<Integer> nbs_ = new Numbers<Integer>(new CollCapacity(2));
+    public void indexesOf1Test(){
+        Ints nbs_ = new Ints(new CollCapacity(2));
         nbs_.add(5);
         nbs_.add(1);
-        Numbers<Integer> out_ = nbs_.indexesOfObj(1);
+        Ints out_ = nbs_.indexesOfObj(1);
         assertEq(1, out_.size());
         assertEq(1, out_.get(0));
         assertEq(0, Numbers.wrapIntArray().length);
+    }
+    @Test
+    public void indexesOf2Test(){
+        Longs nbs_ = new Longs(new CollCapacity(2));
+        nbs_.add(5L);
+        nbs_.add(1L);
+        Longs l_ = new Longs(nbs_);
+        Ints out_ = l_.indexesOfObj(1);
+        assertEq(1, out_.size());
+        assertEq(1, out_.get(0));
+    }
+    @Test
+    public void indexesOf3Test(){
+        Bytes nbs_ = new Bytes(new CollCapacity(2));
+        nbs_.add((byte) 5);
+        nbs_.add((byte) 1);
+        Bytes l_ = new Bytes(nbs_);
+        Ints out_ = l_.indexesOfObj(1);
+        assertEq(1, out_.size());
+        assertEq(1, out_.get(0));
+    }
+    @Test
+    public void indexesOf4Test(){
+        Shorts nbs_ = new Shorts(new CollCapacity(2));
+        nbs_.add((short) 5);
+        nbs_.add((short) 1);
+        Shorts l_ = new Shorts(nbs_);
+        Ints out_ = l_.indexesOfObj(1);
+        assertEq(1, out_.size());
+        assertEq(1, out_.get(0));
+    }
+    @Test
+    public void containsObj1Test(){
+        Ints nbs_ = new Ints(new CollCapacity(2));
+        nbs_.add(5);
+        nbs_.add(1);
+        assertTrue(nbs_.containsObj(1));
+        assertTrue(!nbs_.containsObj(2));
+    }
+    @Test
+    public void containsObj2Test(){
+        Longs nbs_ = new Longs(5L,1L);
+        assertTrue(nbs_.containsObj(1));
+        assertTrue(!nbs_.containsObj(2));
+    }
+    @Test
+    public void containsObj3Test(){
+        Bytes nbs_ = new Bytes((byte)5,(byte)1);
+        assertTrue(nbs_.containsObj(1));
+        assertTrue(!nbs_.containsObj(2));
+    }
+    @Test
+    public void containsObj4Test(){
+        Shorts nbs_ = new Shorts((short)5,(short)1);
+        assertTrue(nbs_.containsObj(1));
+        assertTrue(!nbs_.containsObj(2));
+    }
+    @Test
+    public void containsObj5Test(){
+        Longs nbs_ = new Longs();
+        assertTrue(!nbs_.containsObj(1));
+        assertTrue(!nbs_.containsObj(2));
     }
 }

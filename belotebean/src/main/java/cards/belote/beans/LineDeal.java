@@ -1,11 +1,11 @@
 package cards.belote.beans;
-import code.util.Numbers;
+import code.util.Longs;
 
 final class LineDeal {
 
     private int number;
 
-    private Numbers<Long> scores;
+    private Longs scores;
 
     int getNumber() {
         return number;
@@ -15,11 +15,11 @@ final class LineDeal {
         number = _number;
     }
 
-    Numbers<Long> getScores() {
+    Longs getScores() {
         return scores;
     }
 
-    void setScores(Numbers<Long> _scores) {
+    void setScores(Longs _scores) {
         scores = _scores;
     }
 

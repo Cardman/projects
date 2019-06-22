@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import cards.president.enumerations.CardPresident;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.Ints;
 
 
 public class TrickPresidentTest {
@@ -84,7 +84,7 @@ public class TrickPresidentTest {
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_5);
         tr_.ajouter(h_, (byte) 1);
-        Numbers<Integer> indexes_ = tr_.getPlayedCardsIndexes((byte) 1, (byte) 3);
+        Ints indexes_ = tr_.getPlayedCardsIndexes((byte) 1, (byte) 3);
         assertEq(2, indexes_.size());
         assertEq(0, indexes_.get(0));
         assertEq(3, indexes_.get(1));
@@ -107,7 +107,7 @@ public class TrickPresidentTest {
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_5);
         tr_.ajouter(h_, (byte) 1);
-        Numbers<Integer> indexes_ = tr_.getPlayedCardsIndexes((byte) 2, (byte) 3);
+        Ints indexes_ = tr_.getPlayedCardsIndexes((byte) 2, (byte) 3);
         assertEq(1, indexes_.size());
         assertEq(1, indexes_.get(0));
     }

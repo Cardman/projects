@@ -1,22 +1,23 @@
 package code.maths.litteral;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.Ints;
+import code.util.*;
 import code.util.StringList;
 
 public class Delimiters {
 
-    private Numbers<Integer> allowedOperatorsIndexes = new Numbers<Integer>();
-    private Numbers<Integer> delStringsChars = new Numbers<Integer>();
-    private Numbers<Integer> delNumbers = new Numbers<Integer>();
+    private Ints allowedOperatorsIndexes = new Ints();
+    private Ints delStringsChars = new Ints();
+    private Ints delNumbers = new Ints();
     private CustList<StringList> stringInfo = new CustList<StringList>();
     private CustList<StringBuilder> nbInfos = new CustList<StringBuilder>();
     private CustList<VariableInfo> variables = new CustList<VariableInfo>();
 
-    public Numbers<Integer> getAllowedOperatorsIndexes() {
+    public Ints getAllowedOperatorsIndexes() {
         return allowedOperatorsIndexes;
     }
 
-    public Numbers<Integer> getDelStringsChars() {
+    public Ints getDelStringsChars() {
         return delStringsChars;
     }
 
@@ -24,7 +25,7 @@ public class Delimiters {
         return stringInfo;
     }
 
-    public Numbers<Integer> getDelNumbers() {
+    public Ints getDelNumbers() {
         return delNumbers;
     }
 

@@ -28,7 +28,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
 
     @Override
     void calculateChildren() {
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        IntTreeMap< String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
     }
 
@@ -48,7 +48,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         }
         setResultClass(settable.getResultClass());
         settable.setVariable(false);
-        NatTreeMap<Integer, String> ops_ = getOperations().getOperators();
+        IntTreeMap< String> ops_ = getOperations().getOperators();
         String op_ = ops_.firstValue();
         ClassMethodIdReturn cust_ = getOperator(_conf, op_, settable.getResultClass());
         if (cust_.isFoundMethod()) {

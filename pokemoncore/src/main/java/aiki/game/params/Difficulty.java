@@ -4,7 +4,7 @@ import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
-import code.util.Numbers;
+import code.util.*;
 
 
 public final class Difficulty {

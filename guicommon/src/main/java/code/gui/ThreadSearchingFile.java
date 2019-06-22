@@ -54,7 +54,7 @@ public final class ThreadSearchingFile extends Thread {
                     nb_++;
                     SwingUtilities.invokeLater(new SettingInformation(dialog, nb_, results_.size()));
                     if (f.isDirectory()) {
-                        if (dialog.getExcludedFolders().containsObj(StringList.replaceBackSlash(f.getAbsolutePath()))) {
+                        if (StringList.contains(dialog.getExcludedFolders(), StringList.replaceBackSlash(f.getAbsolutePath()))) {
                             continue;
                         }
                         next_.add(f);

@@ -6,7 +6,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringList;
 
 final class ArraryPartType extends ParentPartType {
@@ -35,13 +35,13 @@ final class ArraryPartType extends ParentPartType {
     }
 
     @Override
-    boolean analyzeTree(ExecutableCode _an, CustList<NatTreeMap<Integer, String>> _dels) {
+    boolean analyzeTree(ExecutableCode _an, CustList<IntTreeMap< String>> _dels) {
         return true;
     }
 
     @Override
     void analyzeDepends(Analyzable _an,
-            int _index, CustList<NatTreeMap<Integer, String>> _dels,
+            int _index, CustList<IntTreeMap< String>> _dels,
             RootBlock _rooted, boolean _exact) {
         String ch_ = getFirstChild().getAnalyzedType();
         ch_ = StringList.concat(getBegin(),ch_);
@@ -52,7 +52,7 @@ final class ArraryPartType extends ParentPartType {
 
     @Override
     void analyzeInherits(Analyzable _an, int _index,
-            CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
+            CustList<IntTreeMap< String>> _dels, String _globalType,
             RootBlock _rooted,
             boolean _protected) {
         String ch_ = getFirstChild().getAnalyzedType();
@@ -60,20 +60,20 @@ final class ArraryPartType extends ParentPartType {
         setAnalyzedType(ch_);
     }
     @Override
-    void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted) {
+    void analyze(Analyzable _an, CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _rooted) {
         String ch_ = getFirstChild().getAnalyzedType();
         ch_ = StringList.concat(getBegin(),ch_);
         setAnalyzedType(ch_);
     }
     @Override
-    void analyzeLine(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted) {
+    void analyzeLine(Analyzable _an, CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _rooted) {
         String ch_ = getFirstChild().getAnalyzedType();
         ch_ = StringList.concat(getBegin(),ch_);
         setAnalyzedType(ch_);
     }
     @Override
     void analyzeAccessibleId(Analyzable _an,
-            CustList<NatTreeMap<Integer, String>> _dels,
+            CustList<IntTreeMap< String>> _dels,
             AccessingImportingBlock _rooted) {
         String ch_ = getFirstChild().getAnalyzedType();
         ch_ = StringList.concat(getBegin(),ch_);

@@ -3,7 +3,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.exec.IdOperable;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 
 public final class IdOperation extends AbstractUnaryOperation implements IdOperable {
 
@@ -25,7 +25,7 @@ public final class IdOperation extends AbstractUnaryOperation implements IdOpera
     }
     @Override
     void calculateChildren() {
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        IntTreeMap< String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
     }
 }

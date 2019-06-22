@@ -2,7 +2,7 @@ package aiki.map.characters;
 
 import aiki.db.DataBase;
 import aiki.map.characters.enums.SellType;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 
 
@@ -12,7 +12,7 @@ public final class Seller extends Person {
 
     private StringList items;
 
-    private Numbers<Short> tm;
+    private Shorts tm;
 
     public void validate(DataBase _data) {
         if (!_data.getItems().containsAllAsKeys(items)) {
@@ -53,13 +53,6 @@ public final class Seller extends Person {
         }
     }
 
-    @Override
-    public void validateForEditing(DataBase _data) {
-        super.validateForEditing(_data);
-        items.retainAllElements(_data.getItems().getKeys());
-        tm.retainAllElements(_data.getTmPrice().getKeys());
-    }
-
     public SellType getSell() {
         return sell;
     }
@@ -76,11 +69,11 @@ public final class Seller extends Person {
         items = _items;
     }
 
-    public Numbers<Short> getTm() {
+    public Shorts getTm() {
         return tm;
     }
 
-    public void setTm(Numbers<Short> _tm) {
+    public void setTm(Shorts _tm) {
         tm = _tm;
     }
 

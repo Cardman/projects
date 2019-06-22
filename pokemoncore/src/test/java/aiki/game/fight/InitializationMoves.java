@@ -65,8 +65,8 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -1915,14 +1915,14 @@ final class InitializationMoves {
         ficheAttaqueOff_.getBoostedTypes().add(TENEBRE);
         ficheAttaqueOff_.setAccuracy("1");
         ficheAttaqueOff_.setStoppableMoveSolo(true);
-        ficheAttaqueOff_.getSecEffectsByItem().put(HERBEBLANCHE,new Numbers<Integer>(8));
-        //validate ficheAttaqueOff_.getSecEffectsByItem().put("PIC_VENIN",new Numbers<Integer>(4));
-        ficheAttaqueOff_.getSecEffectsByItem().put(ROCHE_ROYALE,new Numbers<Integer>(6));
-        ficheAttaqueOff_.getSecEffectsByItem().put(ORBE_FLAMME,new Numbers<Integer>(1));
-        //validate ficheAttaqueOff_.getSecEffectsByItem().put("AIMANT",new Numbers<Integer>(3));
-        //validate ficheAttaqueOff_.getSecEffectsByItem().put("ORBE_TOXIQUE",new Numbers<Integer>(2));
-        ficheAttaqueOff_.getSecEffectsByItem().put(HERBE_MENTAL,new Numbers<Integer>(7));
-        //validate ficheAttaqueOff_.getSecEffectsByItem().put("CROC_RASOIR",new Numbers<Integer>(5));
+        ficheAttaqueOff_.getSecEffectsByItem().put(HERBEBLANCHE,new Ints(8));
+        //validate ficheAttaqueOff_.getSecEffectsByItem().put("PIC_VENIN",new Ints(4));
+        ficheAttaqueOff_.getSecEffectsByItem().put(ROCHE_ROYALE,new Ints(6));
+        ficheAttaqueOff_.getSecEffectsByItem().put(ORBE_FLAMME,new Ints(1));
+        //validate ficheAttaqueOff_.getSecEffectsByItem().put("AIMANT",new Ints(3));
+        //validate ficheAttaqueOff_.getSecEffectsByItem().put("ORBE_TOXIQUE",new Ints(2));
+        ficheAttaqueOff_.getSecEffectsByItem().put(HERBE_MENTAL,new Ints(7));
+        //validate ficheAttaqueOff_.getSecEffectsByItem().put("CROC_RASOIR",new Ints(5));
         ficheAttaqueOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueOff_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         effetDegats_ = defaultEffetDegats();
@@ -7422,7 +7422,7 @@ final class InitializationMoves {
         object_.setCancelChgtStat(new EnumList<Statistic>());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7436,7 +7436,7 @@ final class InitializationMoves {
         object_.setAccuracy(NULL_REF);
         object_.setEffects(new CustList<Effect>());
         object_.setRepeatRoundLaw(new MonteCarloNumber());
-        object_.setSecEffectsByItem(new StringMap<Numbers<Integer>>());
+        object_.setSecEffectsByItem(new StringMap<Ints>());
         object_.setAchieveDisappearedPkUsingMove(new StringList());
         object_.setSwitchType(SwitchType.NOTHING);
         object_.setTypesByOwnedItem(new StringMap<String>());
@@ -7460,7 +7460,7 @@ final class InitializationMoves {
         object_.setStatisDef(Statistic.DEFENSE);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7473,7 +7473,7 @@ final class InitializationMoves {
         object_.setAccuracy(NULL_REF);
         object_.setEffects(new CustList<Effect>());
         object_.setRepeatRoundLaw(new MonteCarloNumber());
-        object_.setSecEffectsByItem(new StringMap<Numbers<Integer>>());
+        object_.setSecEffectsByItem(new StringMap<Ints>());
         object_.setAchieveDisappearedPkUsingMove(new StringList());
         object_.setSwitchType(SwitchType.NOTHING);
         object_.setTypesByOwnedItem(new StringMap<String>());
@@ -7489,7 +7489,7 @@ final class InitializationMoves {
         object_.setLocalFailStatus(new StringMap<String>());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7498,7 +7498,7 @@ final class InitializationMoves {
         object_.setRateHp(Rate.zero());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7526,7 +7526,7 @@ final class InitializationMoves {
         object_.setHealingEndRoundGround(Rate.zero());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7534,7 +7534,7 @@ final class InitializationMoves {
         EffectEndRoundGlobal object_ = new EffectEndRoundGlobal();
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         object_.setFailEndRound(NULL_REF);
         return object_;
     }
@@ -7548,7 +7548,7 @@ final class InitializationMoves {
         object_.setAddedTypes(new StringList());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7559,7 +7559,7 @@ final class InitializationMoves {
         object_.setClosestFoeDamageRateHp(Rate.zero());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7568,7 +7568,7 @@ final class InitializationMoves {
         object_.setRateDamage(Rate.zero());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7587,7 +7587,7 @@ final class InitializationMoves {
         object_.setDisableFoeTeamStatus(new StringList());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7597,7 +7597,7 @@ final class InitializationMoves {
         object_.setConstAbility(NULL_REF);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7605,7 +7605,7 @@ final class InitializationMoves {
         EffectEndRoundPositionTargetRelation object_ = new EffectEndRoundPositionTargetRelation();
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         object_.setFailEndRound(NULL_REF);
         return object_;
     }
@@ -7615,7 +7615,7 @@ final class InitializationMoves {
         object_.setMultMovePowerFctType(new StringMap<Rate>());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7624,7 +7624,7 @@ final class InitializationMoves {
         object_.setProtSingleAgainstKo(Rate.zero());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7632,7 +7632,7 @@ final class InitializationMoves {
         EffectSwitchPosition object_ = new EffectSwitchPosition();
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7644,7 +7644,7 @@ final class InitializationMoves {
         object_.setAttackTargetWithTypes(new StringList());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7653,7 +7653,7 @@ final class InitializationMoves {
         object_.setMoveObject(MoveItemType.EXCHANGE_OBJECTS);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7662,19 +7662,19 @@ final class InitializationMoves {
         object_.setCommonValue(new EnumMap<Statistic,String>());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
     private static EffectTeamWhileSendFoe defaultEffetEquipeEntreeAdv() {
         EffectTeamWhileSendFoe object_ = new EffectTeamWhileSendFoe();
         object_.setStatistics(new EnumMap<Statistic,Byte>());
-        object_.setStatusByNbUses(new NumberMap<Short,String>());
+        object_.setStatusByNbUses(new ShortMap<String>());
         object_.setDeletedByFoeTypes(new StringList());
         object_.setDamageRateAgainstFoe(NULL_REF);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         object_.setFailSending(NULL_REF);
         return object_;
     }
@@ -7684,7 +7684,7 @@ final class InitializationMoves {
         object_.setChoiceRestriction(MoveChoiceRestrictionType.NOTHING);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7693,17 +7693,17 @@ final class InitializationMoves {
         object_.setMultMovePowerFctType(new StringMap<Rate>());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
     private static EffectEndRoundSingleRelation defaultEffectEndRoundSingleRelation() {
         EffectEndRoundSingleRelation object_ = new EffectEndRoundSingleRelation();
-        object_.setRateDamageFunctionOfNbRounds(new NumberMap<Long,Rate>());
+        object_.setRateDamageFunctionOfNbRounds(new LongMap<Rate>());
         object_.setLawForEnablingEffect(new MonteCarloNumber());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         object_.setFailEndRound(NULL_REF);
         return object_;
     }
@@ -7712,7 +7712,7 @@ final class InitializationMoves {
         EffectAccuracy object_ = new EffectAccuracy();
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7721,7 +7721,7 @@ final class InitializationMoves {
         object_.setPointViewChangement(PointViewChangementType.NOTHING);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7733,7 +7733,7 @@ final class InitializationMoves {
         object_.setRateInvokationMove(Rate.zero());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7741,7 +7741,7 @@ final class InitializationMoves {
         EffectCopyFighter object_ = new EffectCopyFighter();
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7750,7 +7750,7 @@ final class InitializationMoves {
         object_.setMultAllyDamage(Rate.zero());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7759,7 +7759,7 @@ final class InitializationMoves {
         object_.setMovesNotToBeCopied(new StringList());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7767,7 +7767,7 @@ final class InitializationMoves {
         EffectOrder object_ = new EffectOrder();
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7776,7 +7776,7 @@ final class InitializationMoves {
         object_.setHpRateClone(Rate.zero());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7785,7 +7785,7 @@ final class InitializationMoves {
         object_.setImmuAgainstTypes(new StringList());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7794,7 +7794,7 @@ final class InitializationMoves {
         object_.setWinningRateBySumTargetUser(Rate.zero());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7802,7 +7802,7 @@ final class InitializationMoves {
         EffectBatonPass object_ = new EffectBatonPass();
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7811,7 +7811,7 @@ final class InitializationMoves {
         object_.setHealHp(Rate.zero());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         object_.setFailEndRound(NULL_REF);
         return object_;
     }
@@ -7820,7 +7820,7 @@ final class InitializationMoves {
         EffectVarPP object_ = new EffectVarPP();
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -7828,7 +7828,7 @@ final class InitializationMoves {
         EffectSwitchMoveTypes object_ = new EffectSwitchMoveTypes();
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         object_.setChangeTypes(new StringMap<String>());
         object_.setReplacingTypes(new StringList());
         return object_;
@@ -7838,7 +7838,7 @@ final class InitializationMoves {
         EffectCounterAttack object_ = new EffectCounterAttack();
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         object_.setSufferingDamageTypes(new StringMap<Rate>());
         object_.setDroppedStatDirectMove(new EnumMap<Statistic,Byte>());
         object_.setSufferingDamageDirectMove(Rate.zero());
@@ -7857,7 +7857,7 @@ final class InitializationMoves {
         object_.setUserStatusEndRound(NULL_REF);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         object_.setFailEndRound(NULL_REF);
         return object_;
     }
@@ -7875,7 +7875,7 @@ final class InitializationMoves {
         EffectEndRoundFoe object_ = new EffectEndRoundFoe();
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         object_.setInflictedRateHpTarget(Rate.zero());
         object_.setFailEndRound(NULL_REF);
         return object_;

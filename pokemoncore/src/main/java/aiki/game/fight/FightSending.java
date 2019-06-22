@@ -24,8 +24,8 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -550,7 +550,7 @@ final class FightSending {
                 EffectTeamWhileSendFoe effetEquipeEntreeAdv_=(EffectTeamWhileSendFoe)effet_;
                 boolean passerReussiteEffet_=false;
                 for(String e:creatureCbt_.getTypes()){
-                    if(effetEquipeEntreeAdv_.getDeletedByFoeTypes().containsObj(e)){
+                    if(StringList.contains(effetEquipeEntreeAdv_.getDeletedByFoeTypes(), e)){
                         equipeAdvCbtEnvoye_.supprimerEffetEquipeEntreeAdv(c);
                         passerReussiteEffet_=true;
                         break;
@@ -621,7 +621,7 @@ final class FightSending {
         }
         if(!_effet.getStatusByNbUses().isEmpty()){
             LgInt utilisation_=nbUtilisationsEntreeAdv_.getVal(_attaque);
-            NumberMap<Short,String> statutSiNb_=_effet.getStatusByNbUses();
+            ShortMap<String> statutSiNb_=_effet.getStatusByNbUses();
             short utilisationBis_=(short)utilisation_.ll();
             if(statutSiNb_.contains(utilisationBis_)){
                 String statut_=statutSiNb_.getVal(utilisationBis_);

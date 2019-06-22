@@ -13,7 +13,7 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringList;
 
 public abstract class NamedFunctionBlock extends MemberCallingsBlock implements Returnable {
@@ -24,7 +24,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     private final StringList parametersTypes;
 
-    private Numbers<Integer> parametersTypesOffset;
+    private Ints parametersTypesOffset;
 
     private final String returnType;
 
@@ -36,7 +36,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     private final StringList parametersNames;
 
-    private Numbers<Integer> parametersNamesOffset;
+    private Ints parametersNamesOffset;
 
     private final AccessEnum access;
 
@@ -44,13 +44,13 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     private final boolean varargs;
     private CustList<StringList> annotationsParams = new CustList<StringList>();
-    private CustList<Numbers<Integer>> annotationsIndexesParams = new CustList<Numbers<Integer>>();
+    private CustList<Ints> annotationsIndexesParams = new CustList<Ints>();
     private CustList<CustList<CustList<ExecOperationNode>>> annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
 
     public NamedFunctionBlock(OffsetAccessInfo _access,
                               OffsetStringInfo _retType, OffsetStringInfo _fctName,
-                              StringList _paramTypes, Numbers<Integer> _paramTypesOffset,
-                              StringList _paramNames, Numbers<Integer> _paramNamesOffset,
+                              StringList _paramTypes, Ints _paramTypesOffset,
+                              StringList _paramNames, Ints _paramNamesOffset,
                               OffsetsBlock _offset) {
         super(_offset);
         importedParametersTypes = new StringList();
@@ -139,11 +139,11 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     public CustList<CustList<CustList<ExecOperationNode>>> getAnnotationsOpsParams() {
         return annotationsOpsParams;
     }
-    public Numbers<Integer> getParametersTypesOffset() {
+    public Ints getParametersTypesOffset() {
         return parametersTypesOffset;
     }
 
-    public Numbers<Integer> getParametersNamesOffset() {
+    public Ints getParametersNamesOffset() {
         return parametersNamesOffset;
     }
 
@@ -238,7 +238,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return annotationsParams;
     }
 
-    public CustList<Numbers<Integer>> getAnnotationsIndexesParams() {
+    public CustList<Ints> getAnnotationsIndexesParams() {
         return annotationsIndexesParams;
     }
 }

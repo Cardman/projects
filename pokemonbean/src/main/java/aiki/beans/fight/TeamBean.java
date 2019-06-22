@@ -12,8 +12,8 @@ import aiki.game.fight.Team;
 import code.maths.LgInt;
 import code.util.CustList;
 import code.util.NatStringTreeMap;
-import code.util.NatTreeMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -23,9 +23,9 @@ public class TeamBean extends CommonFightBean {
     private NatStringTreeMap<ActivityOfMove> enabledMoves;
     private NatStringTreeMap<LgInt> enabledMovesWhileSendingFoeUses;
     private NatStringTreeMap<Integer> nbUsesMoves;
-    private NatStringTreeMap<NatTreeMap<Byte,StacksOfUses>> healAfter;
-    private NatStringTreeMap<NatTreeMap<Byte,Anticipation>> movesAnticipation;
-    private NatTreeMap<Byte,Numbers<Byte> > playerFightersAgainstFoe;
+    private NatStringTreeMap<ByteTreeMap<StacksOfUses>> healAfter;
+    private NatStringTreeMap<ByteTreeMap<Anticipation>> movesAnticipation;
+    private ByteTreeMap<Bytes > playerFightersAgainstFoe;
     private boolean foeTeam;
 
     @Override
@@ -84,11 +84,11 @@ public class TeamBean extends CommonFightBean {
             enabledMovesByGroup_.put(key_, new ActivityOfMove(team_.getEnabledMovesByGroup().getVal(s)));
         }
         enabledMovesByGroup = enabledMovesByGroup_;
-        NatStringTreeMap<NatTreeMap<Byte,StacksOfUses>> healAfter_;
-        healAfter_ = new NatStringTreeMap<NatTreeMap<Byte,StacksOfUses>>();
+        NatStringTreeMap<ByteTreeMap<StacksOfUses>> healAfter_;
+        healAfter_ = new NatStringTreeMap<ByteTreeMap<StacksOfUses>>();
         for (String m: team_.getHealAfterSet()) {
-            NatTreeMap<Byte,StacksOfUses> h_;
-            h_ = new NatTreeMap<Byte,StacksOfUses>();
+            ByteTreeMap<StacksOfUses> h_;
+            h_ = new ByteTreeMap<StacksOfUses>();
             for (byte k: team_.getHealAfterSet(m)) {
                 StacksOfUses stack_;
                 stack_ = new StacksOfUses();
@@ -101,11 +101,11 @@ public class TeamBean extends CommonFightBean {
             healAfter_.put(translationsMoves_.getVal(m), h_);
         }
         healAfter = healAfter_;
-        NatStringTreeMap<NatTreeMap<Byte,Anticipation>> movesAnticipation_;
-        movesAnticipation_ = new NatStringTreeMap<NatTreeMap<Byte,Anticipation>>();
+        NatStringTreeMap<ByteTreeMap<Anticipation>> movesAnticipation_;
+        movesAnticipation_ = new NatStringTreeMap<ByteTreeMap<Anticipation>>();
         for (String m: team_.getMovesAnticipationSet()) {
-            NatTreeMap<Byte,Anticipation> a_;
-            a_ = new NatTreeMap<Byte,Anticipation>();
+            ByteTreeMap<Anticipation> a_;
+            a_ = new ByteTreeMap<Anticipation>();
             for (byte k: team_.getMovesAnticipationSet(m)) {
                 Anticipation ant_;
                 ant_ = new Anticipation();
@@ -120,15 +120,15 @@ public class TeamBean extends CommonFightBean {
             movesAnticipation_.put(translationsMoves_.getVal(m), a_);
         }
         movesAnticipation = movesAnticipation_;
-        playerFightersAgainstFoe = new NatTreeMap<Byte,Numbers<Byte> >();
+        playerFightersAgainstFoe = new ByteTreeMap<Bytes >();
         for (byte p: team_.getPlayerFightersAgainstFoeSet()) {
-            Numbers<Byte> numbers_ = new Numbers<Byte>();
+            Bytes numbers_ = new Bytes();
             numbers_.addAllElts(team_.getPlayerFightersAgainstFoeVal(p));
             numbers_.sort();
             playerFightersAgainstFoe.put(p, numbers_);
         }
     }
-    public Numbers<Byte> getMembers() {
+    public Bytes getMembers() {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         Byte noTeam_ = (Byte) getForms().getVal(NO_TEAM);
         return getMembers(dataBaseFight_, noTeam_);
@@ -242,15 +242,15 @@ public class TeamBean extends CommonFightBean {
         return nbUsesMoves;
     }
 
-    public NatStringTreeMap<NatTreeMap<Byte,StacksOfUses>> getHealAfter() {
+    public NatStringTreeMap<ByteTreeMap<StacksOfUses>> getHealAfter() {
         return healAfter;
     }
 
-    public NatStringTreeMap<NatTreeMap<Byte,Anticipation>> getMovesAnticipation() {
+    public NatStringTreeMap<ByteTreeMap<Anticipation>> getMovesAnticipation() {
         return movesAnticipation;
     }
 
-    public NatTreeMap<Byte,Numbers<Byte>> getPlayerFightersAgainstFoe() {
+    public ByteTreeMap<Bytes> getPlayerFightersAgainstFoe() {
         return playerFightersAgainstFoe;
     }
 }

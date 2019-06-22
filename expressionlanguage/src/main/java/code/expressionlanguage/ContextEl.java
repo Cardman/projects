@@ -1201,7 +1201,7 @@ public abstract class ContextEl implements ExecutableCode {
         AccessingImportingBlock r_ = analyzing.getImporting();
 
         StringMap<StringList> vars_ = getCurrentConstraints();
-        StringList varsList_ = vars_.getKeys();
+        CustList<String> varsList_ = vars_.getKeys();
         getAvailableVariables().clear();
         getAvailableVariables().addAllElts(varsList_);
         String gl_ = getGlobalClass();
@@ -1262,7 +1262,7 @@ public abstract class ContextEl implements ExecutableCode {
         }
         AccessingImportingBlock r_ = analyzing.getImporting();
         StringMap<StringList> vars_ = getCurrentConstraints();
-        StringList varsList_ = vars_.getKeys();
+        CustList<String> varsList_ = vars_.getKeys();
         getAvailableVariables().clear();
         getAvailableVariables().addAllElts(varsList_);
         String gl_ = getGlobalClass();
@@ -1517,7 +1517,7 @@ public abstract class ContextEl implements ExecutableCode {
             if (!access(_root, b_, outer_)) {
                 return null;
             }
-            if (!_readyTypes.containsStr(joined_) && _static) {
+            if (!StringList.contains(_readyTypes, joined_) && _static) {
                 return EMPTY_TYPE;
             }
             return joined_;
@@ -1568,7 +1568,7 @@ public abstract class ContextEl implements ExecutableCode {
             if (_static) {
                 for (RootBlock a: allAncestors_) {
                     String id_ = a.getFullName();
-                    if (!_readyTypes.containsStr(id_)) {
+                    if (!StringList.contains(_readyTypes, id_)) {
                         return EMPTY_TYPE;
                     }
                 }
@@ -1635,7 +1635,7 @@ public abstract class ContextEl implements ExecutableCode {
             if (_static != null) {
                 staticLoc_ = _static;
             }
-            if (!_readyTypes.containsStr(out_) && staticLoc_) {
+            if (!StringList.contains(_readyTypes, out_) && staticLoc_) {
                 return EMPTY_TYPE;
             }
             StringList built_ = TypeUtil.getBuiltInners(index_ + 1 == _inners.size(), fullName_, out_, name_, staticLoc_, this);
@@ -1646,7 +1646,7 @@ public abstract class ContextEl implements ExecutableCode {
             }
             return null;
         }
-        if (!_readyTypes.containsStr(out_)) {
+        if (!StringList.contains(_readyTypes, out_)) {
             if (_static != null) {
                 if (_static) {
                     return EMPTY_TYPE;
@@ -2339,7 +2339,7 @@ public abstract class ContextEl implements ExecutableCode {
                 if (!e.isStaticField()) {
                     continue;
                 }
-                if (!e.getFieldName().containsStr(_method.trim())) {
+                if (!StringList.contains(e.getFieldName(), _method.trim())) {
                     continue;
                 }
                 if (!Classes.canAccess(_typeLoc, e, this)) {
@@ -2416,7 +2416,7 @@ public abstract class ContextEl implements ExecutableCode {
                     continue;
                 }
                 InfoBlock i_ = (InfoBlock) b;
-                if (!i_.getFieldName().containsStr(search_)) {
+                if (!StringList.contains(i_.getFieldName(), search_)) {
                     continue;
                 }
                 String type_ = i_.getImportedClassName();
@@ -2427,7 +2427,7 @@ public abstract class ContextEl implements ExecutableCode {
         } else if (g_ instanceof StandardType) {
             for (EntryCust<String, StandardField> f: ((StandardType)g_).getFields().entryList()) {
                 StandardField f_ = f.getValue();
-                if (!f_.getFieldName().containsStr(search_)) {
+                if (!StringList.contains(f_.getFieldName(), search_)) {
                     continue;
                 }
                 String type_ = f_.getImportedClassName();
@@ -2565,7 +2565,7 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     @Override
-    public Numbers<Integer> getCurrentBadIndexes() {
+    public Ints getCurrentBadIndexes() {
         return analyzing.getCurrentBadIndexes();
     }
 

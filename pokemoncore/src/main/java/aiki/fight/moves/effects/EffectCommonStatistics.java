@@ -3,7 +3,7 @@ package aiki.fight.moves.effects;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
-import code.util.EnumList;
+import code.util.CustList;
 import code.util.EnumMap;
 
 
@@ -19,9 +19,14 @@ public final class EffectCommonStatistics extends Effect {
             return;
 
         }
-        EnumList<Statistic> keys_ = commonValue.getKeys();
-        keys_.removeObj(Statistic.PV_RESTANTS);
-        if (!Statistic.getStatisticsWithBase().containsAllObj(keys_)) {
+        CustList<Statistic> keys_ = commonValue.getKeys();
+        CustList<Statistic> keysFilt_ = new CustList<Statistic>();
+        for (Statistic s: keys_) {
+            if (s != Statistic.PV_RESTANTS) {
+                keysFilt_.add(s);
+            }
+        }
+        if (!Statistic.getStatisticsWithBase().containsAllObj(keysFilt_)) {
             _data.setError(true);
             return;
 

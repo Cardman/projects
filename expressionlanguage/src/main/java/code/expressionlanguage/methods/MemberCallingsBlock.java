@@ -10,14 +10,14 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 
 public abstract class MemberCallingsBlock extends BracedBlock implements FunctionBlock, AnnotableBlock {
     private StringList annotations = new StringList();
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
-    private Numbers<Integer> annotationsIndexes = new Numbers<Integer>();
+    private Ints annotationsIndexes = new Ints();
 
     MemberCallingsBlock(OffsetsBlock _offset) {
         super(_offset);
@@ -201,7 +201,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         return annotationsOps;
     }
     @Override
-    public Numbers<Integer> getAnnotationsIndexes() {
+    public Ints getAnnotationsIndexes() {
         return annotationsIndexes;
     }
 }

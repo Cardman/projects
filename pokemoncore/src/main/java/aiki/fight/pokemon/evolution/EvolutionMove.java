@@ -16,7 +16,7 @@ public final class EvolutionMove extends Evolution {
             return;
 
         }
-        if (!_fPk.getMoveTutors().containsObj(move)) {
+        if (!StringList.contains(_fPk.getMoveTutors(), move)) {
             _dataBase.setError(true);
             return;
 

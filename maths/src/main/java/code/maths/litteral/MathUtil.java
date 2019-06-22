@@ -1,6 +1,6 @@
 package code.maths.litteral;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringMap;
 
 final class MathUtil {
@@ -133,7 +133,7 @@ final class MathUtil {
         if (p_ == null) {
             return null;
         }
-        NatTreeMap<Integer,String> children_ = p_.getChildren();
+        IntTreeMap<String> children_ = p_.getChildren();
         if (_block.getIndexChild() + 1 >= children_.size()) {
             return null;
         }

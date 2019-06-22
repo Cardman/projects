@@ -10,7 +10,7 @@ import aiki.gui.components.Paginator;
 import aiki.util.SortingHealingItem;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.sml.stream.ExtractFromFiles;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -78,7 +78,7 @@ public class HealingItemLabel extends SelectableLabel {
 //        if (h_ < FOURTH_LINE) {
 //            h_ = FOURTH_LINE;
 //        }
-        Numbers<Integer> widths_ = new Numbers<Integer>();
+        Ints widths_ = new Ints();
         widths_.add(_thirdColumn);
         widths_.add(getFontMetrics(getFont()).stringWidth(item.getItemClass()));
         widths_.add(getThirdLineWidth());

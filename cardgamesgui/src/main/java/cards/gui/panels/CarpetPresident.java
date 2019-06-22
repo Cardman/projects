@@ -13,7 +13,7 @@ import cards.president.HandPresident;
 import cards.president.enumerations.Playing;
 import code.gui.Panel;
 import code.util.CustList;
-import code.util.NumberMap;
+import code.util.*;
 import code.util.StringList;
 
 public class CarpetPresident extends Panel {
@@ -28,7 +28,7 @@ public class CarpetPresident extends Panel {
     private Panel centerDeck;
     private CustList<GraphicPresidentCard> listCards = new CustList<GraphicPresidentCard>();
 
-    private NumberMap<Byte,Playing> cards = new NumberMap<Byte,Playing>();
+    private ByteMap<Playing> cards = new ByteMap<Playing>();
     private StringList pseudos = new StringList();
 
 //    private byte nextPlayer;
@@ -39,11 +39,11 @@ public class CarpetPresident extends Panel {
     private int number;
     public CarpetPresident() {}
 
-    public void initTapisPresident(String _lg, StringList _pseudos, NumberMap<Byte,Playing> _status,int _nombre) {
+    public void initTapisPresident(String _lg, StringList _pseudos, ByteMap<Playing> _status,int _nombre) {
         setLayout(new BorderLayout());
         number = _nombre;
         pseudos = _pseudos;
-        cards = new NumberMap<Byte,Playing>(_status);
+        cards = new ByteMap<Playing>(_status);
         centerDeck = new Panel();
         centerDeck.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         centerDeck.setPreferredSize(GraphicPresidentCard.getDimensionForSeveralCards(_nombre));
@@ -125,7 +125,7 @@ public class CarpetPresident extends Panel {
 //        centerDeck.validate();
     }
 
-    public void setStatus(String _lg, NumberMap<Byte,Playing> _status, byte _nextPlayer) {
+    public void setStatus(String _lg, ByteMap<Playing> _status, byte _nextPlayer) {
         cards.putAllMap(_status);
         for (byte p: cards.getKeys()) {
             JLabel l_ = labels.get(p);

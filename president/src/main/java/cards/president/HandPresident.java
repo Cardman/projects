@@ -7,8 +7,8 @@ import code.maths.montecarlo.AbMonteCarlo;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EqList;
-import code.util.NatTreeMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.Ints;
 import code.util.ints.Equallable;
 
 
@@ -80,8 +80,8 @@ public final class HandPresident implements Iterable<CardPresident>, Equallable<
         return l_;
     }
 
-    public NatTreeMap<Byte,HandPresident> getCardsByStrength(boolean _reverse) {
-        NatTreeMap<Byte,HandPresident> m_ = new NatTreeMap<Byte,HandPresident>();
+    public ByteTreeMap<HandPresident> getCardsByStrength(boolean _reverse) {
+        ByteTreeMap<HandPresident> m_ = new ByteTreeMap<HandPresident>();
         for (CardPresident c: pileBase()) {
             byte str_ = c.strength(_reverse);
             m_.put(str_, getCardsByStrength(str_, _reverse));
@@ -166,8 +166,8 @@ public final class HandPresident implements Iterable<CardPresident>, Equallable<
 
     public boolean containsCards(HandPresident _hand) {
         for (CardPresident c: _hand) {
-            Numbers<Integer> indexesHand_ = cards.indexesOfObj(c);
-            Numbers<Integer> indexesOtherHand_ = _hand.cards.indexesOfObj(c);
+            Ints indexesHand_ = cards.indexesOfObj(c);
+            Ints indexesOtherHand_ = _hand.cards.indexesOfObj(c);
             if (indexesHand_.size() < indexesOtherHand_.size()) {
                 return false;
             }

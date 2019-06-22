@@ -9,9 +9,10 @@ import cards.president.enumerations.Playing;
 import code.util.BooleanList;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
+import code.util.*;
+import code.util.Ints;
 import code.util.TreeMap;
 
 
@@ -46,14 +47,14 @@ public final class GamePresident {
     Scores cumules au cours des parties Chaque nombre (Short) represente un
     score pour le joueur
     */
-    private Numbers<Short> scores = new Numbers<Short>();
+    private Shorts scores = new Shorts();
     /** Nombre de fois qu'a ete joue la partie(partie fini) */
     private long number;
     private RulesPresident rules = new RulesPresident();
 
-    private Numbers<Byte> ranks = new Numbers<Byte>();
+    private Bytes ranks = new Bytes();
 
-    private NumberMap<Byte,HandPresident> switchedCards = new NumberMap<Byte,HandPresident>();
+    private ByteMap<HandPresident> switchedCards = new ByteMap<HandPresident>();
 
     private String error = "";
     private boolean reversed;
@@ -62,7 +63,7 @@ public final class GamePresident {
 
     private byte nextPlayer = CustList.INDEX_NOT_FOUND_ELT;
 
-    private NumberMap<Byte,Playing> lastStatus = new NumberMap<Byte,Playing>();
+    private ByteMap<Playing> lastStatus = new ByteMap<Playing>();
 
     private HandPresident playedCards = new HandPresident();
 
@@ -76,21 +77,21 @@ public final class GamePresident {
 
     private CustList<CustList<TrickPresident>> dealTricks = new CustList<CustList<TrickPresident>>();
 
-    private CustList<Numbers<Byte>> ranksDeals = new CustList<Numbers<Byte>>();
+    private CustList<Bytes> ranksDeals = new CustList<Bytes>();
 
-    private NumberMap<Integer,NumberMap<Byte,Playing>> lastStatusTrick = new NumberMap<Integer,NumberMap<Byte,Playing>>();
+    private IntMap<ByteMap<Playing>> lastStatusTrick = new IntMap<ByteMap<Playing>>();
 
-    private CustList<NumberMap<Integer,NumberMap<Byte,Playing>>> lastStatusDeal = new CustList<NumberMap<Integer,NumberMap<Byte,Playing>>>();
+    private CustList<IntMap<ByteMap<Playing>>> lastStatusDeal = new CustList<IntMap<ByteMap<Playing>>>();
 
-    private CustList<CustList<NumberMap<Integer,NumberMap<Byte,Playing>>>> lastStatusDeals = new CustList<CustList<NumberMap<Integer,NumberMap<Byte,Playing>>>>();
+    private CustList<CustList<IntMap<ByteMap<Playing>>>> lastStatusDeals = new CustList<CustList<IntMap<ByteMap<Playing>>>>();
 
-    private NumberMap<Integer,Byte> nextPlayerTrick = new NumberMap<Integer,Byte>();
+    private IntMap<Byte> nextPlayerTrick = new IntMap<Byte>();
 
-    private CustList<NumberMap<Integer,Byte>> nextPlayerDeal = new CustList<NumberMap<Integer,Byte>>();
+    private CustList<IntMap<Byte>> nextPlayerDeal = new CustList<IntMap<Byte>>();
 
-    private CustList<CustList<NumberMap<Integer,Byte>>> nextPlayerDeals = new CustList<CustList<NumberMap<Integer,Byte>>>();
+    private CustList<CustList<IntMap<Byte>>> nextPlayerDeals = new CustList<CustList<IntMap<Byte>>>();
 
-    private CustList<NumberMap<Byte,HandPresident>> switchedCardsDeals = new CustList<NumberMap<Byte,HandPresident>>();
+    private CustList<ByteMap<HandPresident>> switchedCardsDeals = new CustList<ByteMap<HandPresident>>();
 
     private boolean simulated;
 
@@ -107,18 +108,18 @@ public final class GamePresident {
     @param mode2
         le mode indiquant le deroulement de la partie
     */
-    public GamePresident(GameType _type, DealPresident _donne, RulesPresident _regles, Numbers<Byte> _ranks) {
+    public GamePresident(GameType _type, DealPresident _donne, RulesPresident _regles, Bytes _ranks) {
         type = _type;
         deal = _donne;
         rules = _regles;
-        lastStatus = new NumberMap<Byte,Playing>();
+        lastStatus = new ByteMap<Playing>();
         byte nombreJoueurs_ = getNombreDeJoueurs();
         for (int i = CustList.FIRST_INDEX; i < nombreJoueurs_; i++) {
             scores.add((short) 0);
             passOrFinish.add(false);
         }
         setLastStatus();
-        ranks = new Numbers<Byte>(_ranks);
+        ranks = new Bytes(_ranks);
         byte leader_ = getFirstLeader();
         progressingTrick.setEntameur(leader_);
         nextPlayer = leader_;
@@ -129,7 +130,7 @@ public final class GamePresident {
     public void initPartie() {
         progressingTrick = new TrickPresident(getFirstLeader());
         nextPlayer = progressingTrick.getEntameur();
-        lastStatus = new NumberMap<Byte,Playing>();
+        lastStatus = new ByteMap<Playing>();
         byte nombreJoueurs_ = getNombreDeJoueurs();
         for (int i = CustList.FIRST_INDEX; i < nombreJoueurs_; i++) {
             scores.set(i, (short) 0);
@@ -164,7 +165,7 @@ public final class GamePresident {
         }
         passOrFinish = passOrFinish();
         nextPlayer = progressingTrick.getPlayer(progressingTrick.total(), getNombreDeJoueurs());
-        lastStatus = new NumberMap<Byte,Playing>();
+        lastStatus = new ByteMap<Playing>();
         setLastStatus();
         currentUserHands = new EqList<HandPresident>();
         simulated = false;
@@ -176,7 +177,7 @@ public final class GamePresident {
 
     public void initCartesEchanges() {
         if(!ranks.isEmpty()&&allowSwitchCards()) {
-//            NatTreeMap<Byte,Byte> players_ = new NatTreeMap<Byte,Byte>();
+//            ByteTreeMap<Byte> players_ = new ByteTreeMap<Byte>();
 //            int r_ = ranks.size();
 //            for (byte i = CustList.FIRST_INDEX; i < r_; i++) {
 //                players_.put(ranks.get(i), i);
@@ -203,10 +204,10 @@ public final class GamePresident {
         int nbPlayedCardsCount_ = _nbTimes * HandPresident.pileBase().total();
         int nbPlayedCards_ = CustList.SIZE_EMPTY;
         while (noDeal_ < _nbTimes) {
-            lastStatusDeal = new CustList<NumberMap<Integer,NumberMap<Byte,Playing>>>();
-            nextPlayerDeal = new CustList<NumberMap<Integer,Byte>>();
-            lastStatusTrick = new NumberMap<Integer,NumberMap<Byte,Playing>>();
-            lastStatusTrick.put(-1, new NumberMap<Byte,Playing>(lastStatus));
+            lastStatusDeal = new CustList<IntMap<ByteMap<Playing>>>();
+            nextPlayerDeal = new CustList<IntMap<Byte>>();
+            lastStatusTrick = new IntMap<ByteMap<Playing>>();
+            lastStatusTrick.put(-1, new ByteMap<Playing>(lastStatus));
             currentUserHands = new EqList<HandPresident>();
             userHandsPerDeal = new CustList<EqList<HandPresident>>();
             currentUserHands.add(new HandPresident(deal.main()));
@@ -214,7 +215,7 @@ public final class GamePresident {
             donnerMeilleuresCartes();
             currentUserHands.add(new HandPresident(deal.main()));
             giveWorstCards();
-            NumberMap<Byte,HandPresident> switchedCards_ = new NumberMap<Byte,HandPresident>();
+            ByteMap<HandPresident> switchedCards_ = new ByteMap<HandPresident>();
             for (byte p: switchedCards.getKeys()) {
                 switchedCards_.put(p, new HandPresident(switchedCards.getVal(p)));
             }
@@ -223,7 +224,7 @@ public final class GamePresident {
             userHandsPerDeal.add(currentUserHands);
 //            currentUserHands = new CustList<>();
             byte leader_ = getFirstLeader();
-            nextPlayerTrick = new NumberMap<Integer,Byte>();
+            nextPlayerTrick = new IntMap<Byte>();
             nextPlayerTrick.put(-1, leader_);
             progressingTrick = new TrickPresident(leader_);
             passOrFinish = passOrFinish();
@@ -259,14 +260,14 @@ public final class GamePresident {
                 ranksDeals.add(ranks);
             }
             dealTricks.add(tricks);
-            Numbers<Byte> ranks_ = getNewRanks();
+            Bytes ranks_ = getNewRanks();
             HandPresident stackNext_ = empiler();
             byte dealer_ = getDistribution().getDonneur();
             deal = new DealPresident(noDeal_ + 1, stackNext_);
             deal.donneurSuivant(dealer_,rules);
             deal.initDonne(rules);
             tricks = new CustList<TrickPresident>();
-            ranks = new Numbers<Byte>(ranks_);
+            ranks = new Bytes(ranks_);
             setLastStatus();
             noDeal_++;
         }
@@ -340,16 +341,16 @@ public final class GamePresident {
         return 2;
     }
 
-    public Numbers<Byte> getWinners() {
+    public Bytes getWinners() {
         if (ranks.isEmpty()) {
-            return new Numbers<Byte>();
+            return new Bytes();
         }
-        NatTreeMap<Byte,Byte> players_ = new NatTreeMap<Byte,Byte>();
+        ByteTreeMap<Byte> players_ = new ByteTreeMap<Byte>();
         int r_ = ranks.size();
         for (byte i = CustList.FIRST_INDEX; i < r_; i++) {
             players_.put(ranks.get(i), i);
         }
-        Numbers<Byte> w_ = new Numbers<Byte>();
+        Bytes w_ = new Bytes();
         int nb_ = nombresCartesEchangesMax();
         for (byte i = CustList.FIRST_INDEX; i < nb_; i++) {
             w_.add(players_.getValue(i));
@@ -357,16 +358,16 @@ public final class GamePresident {
         return w_;
     }
 
-    public Numbers<Byte> getLoosers() {
+    public Bytes getLoosers() {
         if (ranks.isEmpty()) {
-            return new Numbers<Byte>();
+            return new Bytes();
         }
-        NatTreeMap<Byte,Byte> players_ = new NatTreeMap<Byte,Byte>();
+        ByteTreeMap<Byte> players_ = new ByteTreeMap<Byte>();
         int r_ = ranks.size();
         for (byte i = CustList.FIRST_INDEX; i < r_; i++) {
             players_.put(ranks.get(i), i);
         }
-        Numbers<Byte> l_ = new Numbers<Byte>();
+        Bytes l_ = new Bytes();
         int nb_ = nombresCartesEchangesMax();
         int i_ = players_.size() - 1;
         while (l_.size() < nb_) {
@@ -376,16 +377,16 @@ public final class GamePresident {
         return l_;
     }
 
-    public static Numbers<Byte> getWinners(Numbers<Byte> _ranks, int _nbMax) {
+    public static Bytes getWinners(Bytes _ranks, int _nbMax) {
         if (_ranks.isEmpty()) {
-            return new Numbers<Byte>();
+            return new Bytes();
         }
-        NatTreeMap<Byte,Byte> players_ = new NatTreeMap<Byte,Byte>();
+        ByteTreeMap<Byte> players_ = new ByteTreeMap<Byte>();
         int r_ = _ranks.size();
         for (byte i = CustList.FIRST_INDEX; i < r_; i++) {
             players_.put(_ranks.get(i), i);
         }
-        Numbers<Byte> w_ = new Numbers<Byte>();
+        Bytes w_ = new Bytes();
         int nb_ = _nbMax;
         for (byte i = CustList.FIRST_INDEX; i < nb_; i++) {
             w_.add(players_.getValue(i));
@@ -393,16 +394,16 @@ public final class GamePresident {
         return w_;
     }
 
-    public static Numbers<Byte> getLoosers(Numbers<Byte> _ranks, int _nbMax) {
+    public static Bytes getLoosers(Bytes _ranks, int _nbMax) {
         if (_ranks.isEmpty()) {
-            return new Numbers<Byte>();
+            return new Bytes();
         }
-        NatTreeMap<Byte,Byte> players_ = new NatTreeMap<Byte,Byte>();
+        ByteTreeMap<Byte> players_ = new ByteTreeMap<Byte>();
         int r_ = _ranks.size();
         for (byte i = CustList.FIRST_INDEX; i < r_; i++) {
             players_.put(_ranks.get(i), i);
         }
-        Numbers<Byte> l_ = new Numbers<Byte>();
+        Bytes l_ = new Bytes();
         int nb_ = _nbMax;
         int i_ = players_.size() - 1;
         while (l_.size() < nb_) {
@@ -428,8 +429,8 @@ public final class GamePresident {
         }
     }
 
-    public Numbers<Byte> getLoosers(Numbers<Byte> _humanPlayers) {
-        Numbers<Byte> l_ = new Numbers<Byte>();
+    public Bytes getLoosers(Bytes _humanPlayers) {
+        Bytes l_ = new Bytes();
         for (byte w: getLoosers()) {
             if (_humanPlayers.containsObj(w)) {
                 l_.add(w);
@@ -438,8 +439,8 @@ public final class GamePresident {
         return l_;
     }
 
-    public Numbers<Byte> getWinners(Numbers<Byte> _humanPlayers) {
-        Numbers<Byte> l_ = new Numbers<Byte>();
+    public Bytes getWinners(Bytes _humanPlayers) {
+        Bytes l_ = new Bytes();
         for (byte w: getWinners()) {
             if (_humanPlayers.containsObj(w)) {
                 l_.add(w);
@@ -448,7 +449,7 @@ public final class GamePresident {
         return l_;
     }
 
-    public static byte getMatchingWinner(Numbers<Byte> _winners, Numbers<Byte> _losers, byte _loser) {
+    public static byte getMatchingWinner(Bytes _winners, Bytes _losers, byte _loser) {
         int ind_ = _losers.indexOfObj(_loser);
         if (ind_ == CustList.INDEX_NOT_FOUND_ELT) {
             return (byte) ind_;
@@ -456,7 +457,7 @@ public final class GamePresident {
         return _winners.get(ind_);
     }
 
-    public static byte getMatchingLoser(Numbers<Byte> _winners, Numbers<Byte> _losers, byte _winner) {
+    public static byte getMatchingLoser(Bytes _winners, Bytes _losers, byte _winner) {
         int ind_ = _winners.indexOfObj(_winner);
         if (ind_ == CustList.INDEX_NOT_FOUND_ELT) {
             return (byte) ind_;
@@ -521,7 +522,7 @@ public final class GamePresident {
     }
 
     //Case not empty human winners:
-    public void giveWorstCards(Numbers<Byte> _humanPlayers) {
+    public void giveWorstCards(Bytes _humanPlayers) {
         if (switchedCards.isEmpty()) {
             return;
         }
@@ -535,7 +536,7 @@ public final class GamePresident {
     }
 
     //multi mode
-    public boolean giveWorstCards(Numbers<Byte> _humanPlayers, byte _player, HandPresident _hand) {
+    public boolean giveWorstCards(Bytes _humanPlayers, byte _player, HandPresident _hand) {
         switchedCards.getVal(_player).ajouterCartes(_hand);
         boolean finished_ = true;
         for (byte w: switchedCards.getKeys()) {
@@ -719,7 +720,7 @@ public final class GamePresident {
     }
 
     public boolean currentPlayerHasPlayed(byte _player, String _lg) {
-        Numbers<Byte> players_ = progressingTrick.getPlayers();
+        Bytes players_ = progressingTrick.getPlayers();
         if (!players_.isEmpty()) {
             byte lastPlayer_ = players_.last();
             byte nextPlayer_ = (byte) ((lastPlayer_ + 1) % getNombreDeJoueurs());
@@ -845,7 +846,7 @@ public final class GamePresident {
             return;
         }
         nextPlayerTrick.put(_key, nextPlayer);
-        lastStatusTrick.put(_key, new NumberMap<Byte,Playing>(lastStatus));
+        lastStatusTrick.put(_key, new ByteMap<Playing>(lastStatus));
     }
 
 //    void addUserHandSimulation(byte _player) {
@@ -932,15 +933,15 @@ public final class GamePresident {
             return;
         }
         nextPlayerDeal.add(nextPlayerTrick);
-        nextPlayerTrick = new NumberMap<Integer,Byte>();
+        nextPlayerTrick = new IntMap<Byte>();
         lastStatusDeal.add(lastStatusTrick);
-        lastStatusTrick = new NumberMap<Integer,NumberMap<Byte,Playing>>();
+        lastStatusTrick = new IntMap<ByteMap<Playing>>();
 //        userHandsPerDeal.add(currentUserHands);
 //        currentUserHands = new CustList<HandPresident>();
     }
 
     private void finishGame() {
-        Numbers<Byte> players_ = keepPlayingCurrentGameList();
+        Bytes players_ = keepPlayingCurrentGameList();
         if (players_.size() != CustList.ONE_ELEMENT) {
             return;
         }
@@ -1030,9 +1031,9 @@ public final class GamePresident {
         }
     }
 
-    public Numbers<Byte> keepPlayingCurrentGameList() {
+    public Bytes keepPlayingCurrentGameList() {
         byte nbPlayers_ = getNombreDeJoueurs();
-        Numbers<Byte> l_ = new Numbers<Byte>();
+        Bytes l_ = new Bytes();
         for (byte p = CustList.FIRST_INDEX; p < nbPlayers_; p++) {
             if (!getDistribution().main(p).estVide()) {
                 l_.add(p);
@@ -1190,12 +1191,12 @@ public final class GamePresident {
         if (playing_ == Playing.SKIPPED) {
             return new HandPresident();
         }
-        NatTreeMap<Byte,HandPresident> filtered_;
-        filtered_ = new NatTreeMap<Byte,HandPresident>();
+        ByteTreeMap<HandPresident> filtered_;
+        filtered_ = new ByteTreeMap<HandPresident>();
         HandPresident l_ = progressingTrick.getBestCards();
         byte str_ = l_.premiereCarte().strength(reversed);
         if (playing_ == Playing.HAS_TO_EQUAL) {
-            NatTreeMap<Byte,HandPresident> cards_ = _hand.getCardsByStrength(reversed);
+            ByteTreeMap<HandPresident> cards_ = _hand.getCardsByStrength(reversed);
             for (byte s: cards_.getKeys()) {
                 HandPresident h_ = cards_.getVal(s);
                 if (s != str_) {
@@ -1204,7 +1205,7 @@ public final class GamePresident {
                 filtered_.put(s, h_);
             }
         } else if (rules.getEqualty() == EqualtyPlaying.FORBIDDEN) {
-            NatTreeMap<Byte,HandPresident> cards_ = _hand.getCardsByStrength(reversed);
+            ByteTreeMap<HandPresident> cards_ = _hand.getCardsByStrength(reversed);
             for (byte s: cards_.getKeys()) {
                 HandPresident h_ = cards_.getVal(s);
                 if (s <= str_) {
@@ -1213,7 +1214,7 @@ public final class GamePresident {
                 filtered_.put(s, h_);
             }
         } else {
-            NatTreeMap<Byte,HandPresident> cards_ = _hand.getCardsByStrength(reversed);
+            ByteTreeMap<HandPresident> cards_ = _hand.getCardsByStrength(reversed);
             for (byte s: cards_.getKeys()) {
                 HandPresident h_ = cards_.getVal(s);
                 if (s < str_) {
@@ -1268,7 +1269,7 @@ public final class GamePresident {
         int count_ = progressingTrick.total();
         int nbPlayers_ = getNombreDeJoueurs();
         EqList<HandPresident> hands_ = new EqList<HandPresident>();
-        Numbers<Integer> indexes_ = new Numbers<Integer>();
+        Ints indexes_ = new Ints();
         int index_;
         if (count_ >= nbPlayers_) {
             index_ = count_ - nbPlayers_;
@@ -1286,7 +1287,7 @@ public final class GamePresident {
             }
         }
         EqList<HandPresident> filledHands_ = new EqList<HandPresident>();
-        Numbers<Integer> filledHandsIndexes_ = new Numbers<Integer>();
+        Ints filledHandsIndexes_ = new Ints();
         index_ = CustList.FIRST_INDEX;
         for (HandPresident h: hands_) {
             if (h.estVide()) {
@@ -1389,7 +1390,7 @@ public final class GamePresident {
 
     public HandPresident beginTrick() {
         HandPresident playable_ = cartesJouables(progressingTrick.getEntameur());
-        NatTreeMap<Byte,HandPresident> m_ = playable_.getCardsByStrength(reversed);
+        ByteTreeMap<HandPresident> m_ = playable_.getCardsByStrength(reversed);
         EqList<HandPresident> notEmpty_ = new EqList<HandPresident>();
         for (byte b: m_.getKeys()) {
             HandPresident h_ = m_.getVal(b);
@@ -1453,7 +1454,7 @@ public final class GamePresident {
         return h_;
     }
 
-    EqList<HandPresident> getLeadingCardsPlayer(NatTreeMap<Byte,HandPresident> _m, TreeMap<CardPresident,Byte> _playedCards) {
+    EqList<HandPresident> getLeadingCardsPlayer(ByteTreeMap<HandPresident> _m, TreeMap<CardPresident,Byte> _playedCards) {
         TreeMap<CardPresident,Byte> virtualPlayedCards_ = new TreeMap<CardPresident, Byte>(new GameStrengthCardPresidentComparator(reversed, true));
         virtualPlayedCards_.putAllMap(_playedCards);
         for (byte s: _m.getKeys()) {
@@ -1473,7 +1474,7 @@ public final class GamePresident {
         return getLeadingCards(_m, virtualPlayedCards_);
     }
 
-    EqList<HandPresident> getLeadingCards(NatTreeMap<Byte,HandPresident> _m, TreeMap<CardPresident,Byte> _playedCards) {
+    EqList<HandPresident> getLeadingCards(ByteTreeMap<HandPresident> _m, TreeMap<CardPresident,Byte> _playedCards) {
         EqList<HandPresident> hands_ = new EqList<HandPresident>();
         for (byte s: _m.getKeys()) {
             HandPresident h_ = _m.getVal(s);
@@ -1503,7 +1504,7 @@ public final class GamePresident {
 
     public HandPresident defaultBeginTrick() {
         HandPresident playable_ = cartesJouables(progressingTrick.getEntameur());
-        NatTreeMap<Byte,HandPresident> m_ = playable_.getCardsByStrength(reversed);
+        ByteTreeMap<HandPresident> m_ = playable_.getCardsByStrength(reversed);
         for (byte b: m_.getKeys()) {
             HandPresident h_ = m_.getVal(b);
             if (!h_.estVide()) {
@@ -1523,7 +1524,7 @@ public final class GamePresident {
         if (playable_.estVide()) {
             return playable_;
         }
-        NatTreeMap<Byte,HandPresident> m_ = playable_.getCardsByStrength(reversed);
+        ByteTreeMap<HandPresident> m_ = playable_.getCardsByStrength(reversed);
         EqList<HandPresident> notEmpty_ = new EqList<HandPresident>();
         for (byte b: m_.getKeys()) {
             HandPresident h_ = m_.getVal(b);
@@ -1673,7 +1674,7 @@ public final class GamePresident {
         return hSub_;
     }
 
-    HandPresident defaultGroup(NatTreeMap<Byte,HandPresident> _m) {
+    HandPresident defaultGroup(ByteTreeMap<HandPresident> _m) {
         int nb_ = progressingTrick.getNombreDeCartesParJoueur();
         for (byte b: _m.getKeys()) {
             HandPresident h_ = _m.getVal(b);
@@ -1694,7 +1695,7 @@ public final class GamePresident {
         return new HandPresident();
     }
 
-    HandPresident lastGroup(NatTreeMap<Byte,HandPresident> _m) {
+    HandPresident lastGroup(ByteTreeMap<HandPresident> _m) {
         int nb_ = progressingTrick.getNombreDeCartesParJoueur();
         byte avg_ = CardPresident.getAvgStrength(reversed);
         for (byte b: _m.getKeys()) {
@@ -1727,7 +1728,7 @@ public final class GamePresident {
         if (playable_.estVide()) {
             return playable_;
         }
-        NatTreeMap<Byte,HandPresident> m_ = playable_.getCardsByStrength(reversed);
+        ByteTreeMap<HandPresident> m_ = playable_.getCardsByStrength(reversed);
         for (byte b: m_.getKeys()) {
             HandPresident h_ = m_.getVal(b);
             if (h_.total() == progressingTrick.getNombreDeCartesParJoueur()) {
@@ -1814,7 +1815,7 @@ public final class GamePresident {
 
     boolean maitreSimpleNUupleEntame(HandPresident _rep, TreeMap<CardPresident, Byte> _playedCards){
         /*repartition est triee par nombre puis par valeur*/
-        NatTreeMap<Byte,HandPresident> m_ = _rep.getCardsByStrength(reversed);
+        ByteTreeMap<HandPresident> m_ = _rep.getCardsByStrength(reversed);
         CustList<EqList<HandPresident>> repartition_=getCardsSortedByLengthSortedByStrengthList(_rep);
         CustList<EqList<HandPresident>> repartitionNotEmpty_=new CustList<EqList<HandPresident>>();
         for (EqList<HandPresident> l :repartition_) {
@@ -1832,7 +1833,7 @@ public final class GamePresident {
         int total_;
         int totalPrecedent_=0;
         int autreSomme_=0;
-        Numbers<Integer> retenue_=new Numbers<Integer>();
+        Ints retenue_=new Ints();
         for(int i=repartitionNotEmpty_.size()-1;i>=CustList.FIRST_INDEX;i--) {
             total_=repartitionNotEmpty_.get(i).first().total();
             if(total_>0) {
@@ -1874,7 +1875,7 @@ public final class GamePresident {
         return true;
     }
 
-    EqList<HandPresident> carteNonNMaitresNUple(byte _nb,NatTreeMap<Byte,HandPresident> _rep, TreeMap<CardPresident, Byte> _playedCards) {
+    EqList<HandPresident> carteNonNMaitresNUple(byte _nb,ByteTreeMap<HandPresident> _rep, TreeMap<CardPresident, Byte> _playedCards) {
         EqList<HandPresident> cartes_=new EqList<HandPresident>();
         for(HandPresident v:_rep.values()) {
             if(!v.estVide()&&v.total()==_nb&&!maitreValeur(v.premiereCarte().strength(reversed), _nb, _playedCards)) {
@@ -1884,7 +1885,7 @@ public final class GamePresident {
         return cartes_;
     }
 
-    EqList<HandPresident> carteNMaitres(byte _nb, NatTreeMap<Byte,HandPresident> _rep, TreeMap<CardPresident, Byte> _playedCards) {
+    EqList<HandPresident> carteNMaitres(byte _nb, ByteTreeMap<HandPresident> _rep, TreeMap<CardPresident, Byte> _playedCards) {
         EqList<HandPresident> cartes_=new EqList<HandPresident>();
         for(HandPresident v:_rep.values()) {
             if(!v.estVide()&&v.total()>=_nb&&maitreValeur(v.premiereCarte().strength(reversed), _nb, _playedCards)) {
@@ -1893,7 +1894,7 @@ public final class GamePresident {
         }
         return cartes_;
     }
-    EqList<HandPresident> carteNMaitresBis(byte _nb, NatTreeMap<Byte,HandPresident> _rep, TreeMap<CardPresident, Byte> _playedCards) {
+    EqList<HandPresident> carteNMaitresBis(byte _nb, ByteTreeMap<HandPresident> _rep, TreeMap<CardPresident, Byte> _playedCards) {
         EqList<HandPresident> cartes_=new EqList<HandPresident>();
         for(HandPresident v:_rep.values()) {
             if(!v.estVide()&&maitreValeur(v.premiereCarte().strength(reversed), _nb, _playedCards)) {
@@ -1905,7 +1906,7 @@ public final class GamePresident {
 
     boolean dominantHandProgressTrick(HandPresident _h, TreeMap<CardPresident, Byte> _playedCards) {
         HandPresident c_ = new HandPresident(_h);
-        NatTreeMap<Byte,HandPresident> gl_ = _h.getCardsByStrength(reversed);
+        ByteTreeMap<HandPresident> gl_ = _h.getCardsByStrength(reversed);
         EqList<HandPresident> rep_ = getCardsSortedByLengthSortedByStrengthReduce(c_);
         EqList<HandPresident> hWorst_ = new EqList<HandPresident>();
         EqList<HandPresident> hBest_ = new EqList<HandPresident>();
@@ -1977,7 +1978,7 @@ public final class GamePresident {
 
     HandPresident dominantHand(HandPresident _h, TreeMap<CardPresident, Byte> _playedCards) {
         HandPresident c_ = new HandPresident(_h);
-        NatTreeMap<Byte,HandPresident> gl_ = _h.getCardsByStrength(reversed);
+        ByteTreeMap<HandPresident> gl_ = _h.getCardsByStrength(reversed);
         EqList<HandPresident> rep_ = getCardsSortedByLengthSortedByStrengthReduce(c_);
         EqList<HandPresident> hWorst_ = new EqList<HandPresident>();
         EqList<HandPresident> hBest_ = new EqList<HandPresident>();
@@ -2050,7 +2051,7 @@ public final class GamePresident {
         return c_.getCardsByStrength(reversed).values().first();
     }
 
-    boolean dominantGroup(HandPresident _h, int _nb, TreeMap<CardPresident, Byte> _playedCards, NatTreeMap<Byte,HandPresident> _rep) {
+    boolean dominantGroup(HandPresident _h, int _nb, TreeMap<CardPresident, Byte> _playedCards, ByteTreeMap<HandPresident> _rep) {
         int maxStack_ = rules.getNbStacks() * NB_SUITS;
         if (_h.premiereCarte().strength(reversed) == CardPresident.getMaxStrength(reversed)) {
             return true;
@@ -2082,7 +2083,7 @@ public final class GamePresident {
         return true;
     }
 
-//    HandPresident maitreValeur(NatTreeMap<Byte,HandPresident> _rep, TreeMap<CardPresident, Byte> _playedCards) {
+//    HandPresident maitreValeur(ByteTreeMap<HandPresident> _rep, TreeMap<CardPresident, Byte> _playedCards) {
 //        HandPresident h_ = new HandPresident();
 //        int maxStack_ = rules.getNbStacks() * NB_SUITS;
 //        TreeMap<CardPresident, Byte> sum_ = new TreeMap<CardPresident, Byte>(new _playedCards);
@@ -2222,10 +2223,10 @@ public final class GamePresident {
         return rules;
     }
 
-    public Numbers<Byte> getNewRanks() {
-        Numbers<Byte> r_ = new Numbers<Byte>();
-        Numbers<Integer> t_ = new Numbers<Integer>();
-        Numbers<Integer> c_ = new Numbers<Integer>();
+    public Bytes getNewRanks() {
+        Bytes r_ = new Bytes();
+        Ints t_ = new Ints();
+        Ints c_ = new Ints();
         byte nbPlayers_ = getNombreDeJoueurs();
         DealPresident deal_ = new DealPresident(deal);
         for (TrickPresident t: tricks) {
@@ -2245,8 +2246,8 @@ public final class GamePresident {
             int tInd_ = tricks.size() - 1;
             while (tInd_ >= CustList.FIRST_INDEX) {
                 TrickPresident curTrick_ = tricks.get(tInd_);
-                Numbers<Integer> cInd_ = curTrick_.getFilledHandsIndexesBefore(curTrick_.total());
-                Numbers<Integer> cIndPl_ = new Numbers<Integer>();
+                Ints cInd_ = curTrick_.getFilledHandsIndexesBefore(curTrick_.total());
+                Ints cIndPl_ = new Ints();
                 for (int i: cInd_) {
                     byte curPlayer_ = curTrick_.getPlayer(i, nbPlayers_);
                     if (curPlayer_ == p) {
@@ -2266,8 +2267,8 @@ public final class GamePresident {
                 tInd_--;
             }
         }
-        Numbers<Byte> normalEnds_ = new Numbers<Byte>();
-        Numbers<Byte> eStrongestCards_ = new Numbers<Byte>();
+        Bytes normalEnds_ = new Bytes();
+        Bytes eStrongestCards_ = new Bytes();
         if (rules.isLoosingIfFinishByBestCards()) {
             for (byte p = CustList.FIRST_INDEX; p <nbPlayers_; p++) {
                 CustList<TrickPresident> tricks_ = tricks.sub(CustList.FIRST_INDEX, t_.get(p) + 1);
@@ -2305,8 +2306,8 @@ public final class GamePresident {
             }
             normalEnds_.add(p);
         }
-//        NatTreeMap<Integer, Numbers<Byte>> tricksPlayers_;
-//        tricksPlayers_ = new NatTreeMap<Integer, Numbers<Byte>>();
+//        IntTreeMap< Bytes> tricksPlayers_;
+//        tricksPlayers_ = new IntTreeMap< Bytes>();
 //        for (byte p = CustList.FIRST_INDEX; p <nbPlayers_; p++) {
 //            if (eStrongestCards_.containsObj(p)) {
 //                continue;
@@ -2315,15 +2316,15 @@ public final class GamePresident {
 //            if (tricksPlayers_.contains(noTrick_)) {
 //                tricksPlayers_.getVal(noTrick_).add(p);
 //            } else {
-//                tricksPlayers_.put(noTrick_, new Numbers<Byte>(p));
+//                tricksPlayers_.put(noTrick_, new Bytes(p));
 //            }
 //        }
-        Numbers<Byte> tricksCardsPlayers_;
-        tricksCardsPlayers_ = new Numbers<Byte>();
+        Bytes tricksCardsPlayers_;
+        tricksCardsPlayers_ = new Bytes();
 //        for (Integer k: tricksPlayers_.getKeys()) {
-//            Numbers<Byte> players_ = tricksPlayers_.getVal(k);
-//            NatTreeMap<Integer, Byte> ordPlayers_;
-//            ordPlayers_ = new NatTreeMap<Integer, Byte>();
+//            Bytes players_ = tricksPlayers_.getVal(k);
+//            IntTreeMap< Byte> ordPlayers_;
+//            ordPlayers_ = new IntTreeMap< Byte>();
 //            for (Byte p: players_) {
 //                ordPlayers_.put(c_.get(p), p);
 //            }
@@ -2335,13 +2336,13 @@ public final class GamePresident {
 //            if (tricksPlayers_.contains(noTrick_)) {
 //                tricksPlayers_.getVal(noTrick_).add(p);
 //            } else {
-//                tricksPlayers_.put(noTrick_, new Numbers<Byte>(p));
+//                tricksPlayers_.put(noTrick_, new Bytes(p));
 //            }
 //        }
 //        for (Integer k: tricksPlayers_.getKeys()) {
-//            Numbers<Byte> players_ = tricksPlayers_.getVal(k);
-//            NatTreeMap<Integer, Byte> ordPlayers_;
-//            ordPlayers_ = new NatTreeMap<Integer, Byte>();
+//            Bytes players_ = tricksPlayers_.getVal(k);
+//            IntTreeMap< Byte> ordPlayers_;
+//            ordPlayers_ = new IntTreeMap< Byte>();
 //            for (Byte p: players_) {
 //                ordPlayers_.put(c_.get(p), p);
 //            }
@@ -2357,23 +2358,23 @@ public final class GamePresident {
         return r_;
     }
 
-    static Numbers<Byte> getTricksCardsPlayers(Numbers<Byte> _players, Numbers<Integer> _t, Numbers<Integer> _c) {
-        NatTreeMap<Integer, Numbers<Byte>> tricksPlayers_;
-        tricksPlayers_ = new NatTreeMap<Integer, Numbers<Byte>>();
+    static Bytes getTricksCardsPlayers(Bytes _players, Ints _t, Ints _c) {
+        IntTreeMap< Bytes> tricksPlayers_;
+        tricksPlayers_ = new IntTreeMap< Bytes>();
         for (byte p : _players) {
             int noTrick_ = _t.get(p);
             if (tricksPlayers_.contains(noTrick_)) {
                 tricksPlayers_.getVal(noTrick_).add(p);
             } else {
-                tricksPlayers_.put(noTrick_, new Numbers<Byte>(p));
+                tricksPlayers_.put(noTrick_, new Bytes(p));
             }
         }
-        Numbers<Byte> tricksCardsPlayers_;
-        tricksCardsPlayers_ = new Numbers<Byte>();
+        Bytes tricksCardsPlayers_;
+        tricksCardsPlayers_ = new Bytes();
         for (int k: tricksPlayers_.getKeys()) {
-            Numbers<Byte> players_ = tricksPlayers_.getVal(k);
-            NatTreeMap<Integer, Byte> ordPlayers_;
-            ordPlayers_ = new NatTreeMap<Integer, Byte>();
+            Bytes players_ = tricksPlayers_.getVal(k);
+            IntTreeMap< Byte> ordPlayers_;
+            ordPlayers_ = new IntTreeMap< Byte>();
             for (byte p: players_) {
                 ordPlayers_.put(_c.get(p), p);
             }
@@ -2413,11 +2414,11 @@ public final class GamePresident {
         return type;
     }
 
-    public Numbers<Byte> getRanks() {
+    public Bytes getRanks() {
         return ranks;
     }
 
-    public NumberMap<Byte,HandPresident> getSwitchedCards() {
+    public ByteMap<HandPresident> getSwitchedCards() {
         return switchedCards;
     }
 
@@ -2438,8 +2439,8 @@ public final class GamePresident {
         return nb_;
     }
 
-    public void copySwitchCards(NumberMap<Byte,HandPresident> _switchedCards) {
-        switchedCards = new NumberMap<Byte,HandPresident>();
+    public void copySwitchCards(ByteMap<HandPresident> _switchedCards) {
+        switchedCards = new ByteMap<HandPresident>();
         for (byte k: _switchedCards.getKeys()) {
             switchedCards.put(k, new HandPresident(_switchedCards.getVal(k)));
         }
@@ -2453,7 +2454,7 @@ public final class GamePresident {
         return reason;
     }
 
-    public NumberMap<Byte,Playing> getLastStatus() {
+    public ByteMap<Playing> getLastStatus() {
         return lastStatus;
     }
 
@@ -2473,7 +2474,7 @@ public final class GamePresident {
                 lastStatus.put(p, Playing.CAN_PLAY);
                 continue;
             }
-            Numbers<Integer> indexes_ = progressingTrick.getPlayedCardsIndexes(p, nbPlayers_);
+            Ints indexes_ = progressingTrick.getPlayedCardsIndexes(p, nbPlayers_);
             if (progressingTrick.getPlayer(progressingTrick.total(), nbPlayers_) != p) {
                 if (!indexes_.isEmpty()) {
                     HandPresident lastHand_ = progressingTrick.carte(indexes_.last());
@@ -2592,19 +2593,19 @@ public final class GamePresident {
         return dealTricks;
     }
 
-    public CustList<Numbers<Byte>> getRanksDeals() {
+    public CustList<Bytes> getRanksDeals() {
         return ranksDeals;
     }
 
-    public CustList<CustList<NumberMap<Integer,NumberMap<Byte,Playing>>>> getLastStatusDeals() {
+    public CustList<CustList<IntMap<ByteMap<Playing>>>> getLastStatusDeals() {
         return lastStatusDeals;
     }
 
-    public CustList<CustList<NumberMap<Integer,Byte>>> getNextPlayerDeals() {
+    public CustList<CustList<IntMap<Byte>>> getNextPlayerDeals() {
         return nextPlayerDeals;
     }
 
-    public CustList<NumberMap<Byte,HandPresident>> getSwitchedCardsDeals() {
+    public CustList<ByteMap<HandPresident>> getSwitchedCardsDeals() {
         return switchedCardsDeals;
     }
 
@@ -2616,11 +2617,11 @@ public final class GamePresident {
         deal = _deal;
     }
 
-    public Numbers<Short> getScores() {
+    public Shorts getScores() {
         return scores;
     }
 
-    public void setScores(Numbers<Short> _scores) {
+    public void setScores(Shorts _scores) {
         scores = _scores;
     }
 
@@ -2652,11 +2653,11 @@ public final class GamePresident {
         tricks = _tricks;
     }
 
-    public void setRanks(Numbers<Byte> _ranks) {
+    public void setRanks(Bytes _ranks) {
         ranks = _ranks;
     }
 
-    public void setSwitchedCards(NumberMap<Byte, HandPresident> _switchedCards) {
+    public void setSwitchedCards(ByteMap< HandPresident> _switchedCards) {
         switchedCards = _switchedCards;
     }
 

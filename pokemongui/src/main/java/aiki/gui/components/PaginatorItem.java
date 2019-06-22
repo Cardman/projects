@@ -26,7 +26,7 @@ import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringList;
 import aiki.facade.enums.SearchingMode;
 
@@ -259,7 +259,7 @@ public final class PaginatorItem extends Paginator {
         add(top_);
         results.setLayout(new GridLayout(0, 1));
         int side_ = getFacade().getMap().getSideLength();
-        Numbers<Integer> widths_ = new Numbers<Integer>();
+        Ints widths_ = new Ints();
 //        int nameWidth_ = getHeader().width(getMessages().getVal(NAME));
 //        widths_.add(nameWidth_);
 //        int numberWidth_ = getHeader().width(getMessages().getVal(NUMBER));

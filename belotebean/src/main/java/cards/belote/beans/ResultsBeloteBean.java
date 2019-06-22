@@ -3,7 +3,7 @@ import cards.belote.EndBeloteGame;
 import cards.belote.ResultsBelote;
 import cards.consts.EndGameState;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 
 
@@ -63,7 +63,7 @@ final class ResultsBeloteBean extends BeloteBean {
             bidString = toString(getBid(),getLoc());
             pointsAttaqueDefinitif=end_.scoreDefinitifAttaque(pointsAttaqueTemporaire, pointsDefenseTemporaire);
             pointsDefenseDefinitif=end_.scoreDefinitifDefense(pointsAttaqueDefinitif,pointsDefenseTemporaire);
-            Numbers<Short> scores_ = getGame().getScores();
+            Shorts scores_ = getGame().getScores();
             winEqualityLoose = end_.getUserState(res_.getUser(), scores_);
             differenceScoreTaker = end_.getDiffAttackPointsMinusDefensePoints(scores_);
         }
@@ -72,7 +72,7 @@ final class ResultsBeloteBean extends BeloteBean {
         for(int i=CustList.FIRST_INDEX;i<nbDeals_;i++) {
             LineDeal l_ = new LineDeal();
             l_.setNumber(i);
-            Numbers<Long> scores_ = new Numbers<Long>();
+            Longs scores_ = new Longs();
             for(byte joueur_=CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
                 scores_.add(getScores().get(i).get(joueur_));
             }

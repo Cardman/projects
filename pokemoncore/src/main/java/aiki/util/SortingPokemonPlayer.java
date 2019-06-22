@@ -2,7 +2,7 @@ package aiki.util;
 import aiki.facade.Sorting;
 import aiki.map.pokemon.enums.Gender;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.ints.Cmp;
 
 public final class SortingPokemonPlayer implements Sorting {

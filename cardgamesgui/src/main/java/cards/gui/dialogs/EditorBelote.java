@@ -33,7 +33,7 @@ import code.maths.montecarlo.AbMonteCarlo;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringList;
 
 public final class EditorBelote extends DialogBelote implements SetterSelectedCardList{
@@ -132,7 +132,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         Panel container_=new Panel();
         container_.setLayout(new BorderLayout());
         initMessageName(_parent);
-        Numbers<Integer> decks_ = new Numbers<Integer>();
+        Ints decks_ = new Ints();
         //Panneau Distribution
         for(int b=FileConst.MIN_DEALS;b<=FileConst.MAX_DEALS;b++) {
             decks_.add(b);

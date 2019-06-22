@@ -19,7 +19,7 @@ import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.Numbers;
+import code.util.*;
 
 
 public class PlayerEndFightTest extends InitializationDataBase {
@@ -313,7 +313,7 @@ public class PlayerEndFightTest extends InitializationDataBase {
         PokemonPlayer pkThree_ = (PokemonPlayer) player_.getTeam().get(2);
         PokemonPlayer pkFour_ = (PokemonPlayer) player_.getTeam().get(3);
         PokemonPlayer pkFive_ = (PokemonPlayer) player_.getTeam().get(4);
-        Numbers<Byte> indexes_= new Numbers<Byte>();
+        Bytes indexes_= new Bytes();
         indexes_.add((byte)1);
         indexes_.add((byte)4);
         indexes_.add((byte)2);
@@ -367,7 +367,7 @@ public class PlayerEndFightTest extends InitializationDataBase {
         PokemonPlayer pkThree_ = (PokemonPlayer) player_.getTeam().get(2);
         PokemonPlayer pkFour_ = (PokemonPlayer) player_.getTeam().get(3);
         PokemonPlayer pkFive_ = (PokemonPlayer) player_.getTeam().get(4);
-        Numbers<Byte> indexes_= new Numbers<Byte>();
+        Bytes indexes_= new Bytes();
         indexes_.add((byte)1);
         indexes_.add((byte)4);
         indexes_.add((byte)2);

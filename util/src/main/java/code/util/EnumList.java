@@ -47,9 +47,9 @@ public final class EnumList<T extends Enum<T>> extends AbEqList<T> implements Eq
         groups_.add(group_);
         return groups_;
     }
-    public Numbers<Integer> indexesOfObj(T _element) {
-        Numbers<Integer> indexes_;
-        indexes_ = new Numbers<Integer>();
+    public Ints indexesOfObj(T _element) {
+        Ints indexes_;
+        indexes_ = new Ints();
         int i_ = FIRST_INDEX;
         while (true) {
             int found_ = indexOfObj(_element, i_);

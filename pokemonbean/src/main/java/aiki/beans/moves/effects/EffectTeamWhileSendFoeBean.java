@@ -8,14 +8,14 @@ import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.NatStringTreeMap;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.ints.Listable;
 
 public class EffectTeamWhileSendFoeBean extends EffectBean {
-    private NatTreeMap<Short, String> statusByNbUses;
+    private ShortTreeMap< String> statusByNbUses;
     private StringList deletedByFoeTypes;
     private String damageRateAgainstFoe;
     private TreeMap<Statistic,Byte> statistics;
@@ -42,8 +42,8 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         }
         deletedByFoeTypes_.sortElts(new ComparatorTrStrings(translatedTypes_));
         deletedByFoeTypes = deletedByFoeTypes_;
-        NatTreeMap<Short, String> statusByNbUses_;
-        statusByNbUses_ = new NatTreeMap<Short, String>();
+        ShortTreeMap< String> statusByNbUses_;
+        statusByNbUses_ = new ShortTreeMap< String>();
         for (Short s: effect_.getStatusByNbUses().getKeys()) {
             String status_ = effect_.getStatusByNbUses().getVal(s);
             statusByNbUses_.put(s, status_);
@@ -112,8 +112,8 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         return translatedTypes_.getVal(type_);
     }
     public String clickStatus(Long _indexEffect, Long _index) {
-        NatTreeMap<Short, String> statusByNbUses_;
-        statusByNbUses_ = new NatTreeMap<Short, String>();
+        ShortTreeMap< String> statusByNbUses_;
+        statusByNbUses_ = new ShortTreeMap< String>();
         EffectTeamWhileSendFoe effect_ = (EffectTeamWhileSendFoe) getEffect(_indexEffect.intValue());
         for (Short s: effect_.getStatusByNbUses().getKeys()) {
             String status_ = effect_.getStatusByNbUses().getVal(s);
@@ -147,7 +147,7 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         return statistics;
     }
 
-    public NatTreeMap<Short,String> getStatusByNbUses() {
+    public ShortTreeMap<String> getStatusByNbUses() {
         return statusByNbUses;
     }
 

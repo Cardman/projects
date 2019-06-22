@@ -3,7 +3,7 @@ import aiki.beans.help.LanguageElementKey;
 import aiki.db.DataBase;
 import code.util.CustList;
 import code.util.EnumMap;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
@@ -37,7 +37,7 @@ public final class ComparatorLanguageSelectedBoolean implements Comparing<Langua
         }
         String langOne_ = _o1.getLanguage();
         String langTwo_ = _o2.getLanguage();
-        return Numbers.compareLg(languages.indexOfObj(langOne_), languages.indexOfObj(langTwo_));
+        return Numbers.compareLg(StringList.indexOf(languages,langOne_), StringList.indexOf(languages,langTwo_));
     }
 
     private static int compare(EnumMap<SelectedBoolean,String> _translator, SelectedBoolean _e1, SelectedBoolean _e2) {

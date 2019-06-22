@@ -1,6 +1,6 @@
 package code.expressionlanguage.files;
 
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringList;
 
 public final class ParsedAnnotations {
@@ -12,7 +12,7 @@ public final class ParsedAnnotations {
     private static final char DEL_TEXT = '`';
     private static final char ESCAPE = '\\';
     private static final char ANNOT = '@';
-    private Numbers<Integer> annotationsIndexes = new Numbers<Integer>();
+    private Ints annotationsIndexes = new Ints();
     private StringList annotations = new StringList();
     private String instruction = "";
     private String after = "";
@@ -169,7 +169,7 @@ public final class ParsedAnnotations {
         }
         return _char == BEGIN_CALLING;
     }
-    public Numbers<Integer> getAnnotationsIndexes() {
+    public Ints getAnnotationsIndexes() {
         return annotationsIndexes;
     }
     public StringList getAnnotations() {

@@ -23,7 +23,7 @@ import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.util.CustList;
-import code.util.NumberMap;
+import code.util.*;
 import code.util.ObjectMap;
 
 public class DataMapJoiningTest {
@@ -112,7 +112,7 @@ public class DataMapJoiningTest {
         Road roadFive_ = hroad();
         Road roadSix_ = hroad();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setPlaces(new NumberMap<Short,Place>());
+        dataMap_.setPlaces(new ShortMap<Place>());
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),cityOne_);
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),roadOne_);
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),cityTwo_);

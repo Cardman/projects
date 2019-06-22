@@ -1,6 +1,6 @@
 package aiki.game.fight;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 import code.util.ints.Equallable;
 

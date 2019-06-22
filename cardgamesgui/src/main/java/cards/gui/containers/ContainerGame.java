@@ -32,8 +32,8 @@ import code.gui.Panel;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EnumMap;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -74,8 +74,8 @@ public class ContainerGame implements Packable, Containable {
     private DisplayingBelote displayingBelote;
     private DisplayingPresident displayingPresident;
     private DisplayingTarot displayingTarot;
-    private NumberMap<Byte,JLabel> handfuls = new NumberMap<Byte,JLabel>();
-    private NumberMap<Byte,Panel> declaredHandfuls = new NumberMap<Byte,Panel>();
+    private ByteMap<JLabel> handfuls = new ByteMap<JLabel>();
+    private ByteMap<Panel> declaredHandfuls = new ByteMap<Panel>();
     private Carpet tapis = new Carpet();
     private boolean changerPileFin;
     public ContainerGame(MainWindow _window) {
@@ -244,10 +244,10 @@ public class ContainerGame implements Packable, Containable {
     public void setCarteSortie(boolean _carteSortie) {
         carteSortie = _carteSortie;
     }
-    public NumberMap<Byte,Panel> getDeclaredHandfuls() {
+    public ByteMap<Panel> getDeclaredHandfuls() {
         return declaredHandfuls;
     }
-    public void setDeclaredHandfuls(NumberMap<Byte,Panel> _declaredHandfuls) {
+    public void setDeclaredHandfuls(ByteMap<Panel> _declaredHandfuls) {
         declaredHandfuls = _declaredHandfuls;
     }
     public StringMap<String> getMessages() {
@@ -271,10 +271,10 @@ public class ContainerGame implements Packable, Containable {
     protected void setTapis(Carpet _tapis) {
         tapis = _tapis;
     }
-    public NumberMap<Byte,JLabel> getHandfuls() {
+    public ByteMap<JLabel> getHandfuls() {
         return handfuls;
     }
-    public void setHandfuls(NumberMap<Byte,JLabel> _handfuls) {
+    public void setHandfuls(ByteMap<JLabel> _handfuls) {
         handfuls = _handfuls;
     }
     protected boolean isChangerPileFin() {

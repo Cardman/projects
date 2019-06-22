@@ -35,8 +35,8 @@ import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EqList;
 import code.util.NatStringTreeMap;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -366,7 +366,7 @@ public final class Fight {
     private StringMap<Boolean> stillEnabledMoves;
 
     /***/
-    private NumberMap<Byte,Team> teams;
+    private ByteMap<Team> teams;
 
     /**variable sur un tour*/
     private boolean fullHealing;
@@ -398,7 +398,7 @@ public final class Fight {
     private ObjectMap<TeamPosition,Rate> damageByCurrentUser = new ObjectMap<TeamPosition,Rate>();
 
     /***/
-    private NumberMap<Byte,Boolean> kos = new NumberMap<Byte,Boolean>();
+    private ByteMap<Boolean> kos = new ByteMap<Boolean>();
 
     /***/
     private StringList sufferingTargetStatus = new StringList();
@@ -422,10 +422,10 @@ public final class Fight {
     private boolean simulation;
 
     /**All keys are the player + ally fighters keys*/
-    private NumberMap<Byte,Byte> firstPositPlayerFighters;
+    private ByteMap<Byte> firstPositPlayerFighters;
 
     /**All keys are the foe fighters keys*/
-    private NumberMap<Byte,Byte> firstPositFoeFighters;
+    private ByteMap<Byte> firstPositFoeFighters;
 
     /***/
     private ObjectMap<MoveTarget,MoveTarget> allyChoice;
@@ -434,7 +434,7 @@ public final class Fight {
     private StringList lostObjects;
 
     /***/
-    private NumberMap<Byte,ChoiceOfEvolutionAndMoves> choices;
+    private ByteMap<ChoiceOfEvolutionAndMoves> choices;
 
     /***/
     private StringList caughtEvolutions;
@@ -589,7 +589,7 @@ public final class Fight {
 
     public TeamPosition getFighterKey(TargetCoords _targetCoords) {
         Team team_ = teams.getVal((byte) _targetCoords.getTeam());
-        Numbers<Byte> keys_ = team_.fightersAtCurrentPlace(_targetCoords.getPosition());
+        Bytes keys_ = team_.fightersAtCurrentPlace(_targetCoords.getPosition());
         if (!keys_.isEmpty()) {
             return new TeamPosition((byte) _targetCoords.getTeam(), keys_.first());
         }
@@ -601,7 +601,7 @@ public final class Fight {
     }
 
     public EqList<TeamPosition> sortedTeamMembersByPosition(byte _team) {
-        Numbers<Byte> positions_ = new Numbers<Byte>();
+        Bytes positions_ = new Bytes();
         for (byte p: teams.getVal(_team).getMembers().getKeys()) {
             positions_.add(p);
         }
@@ -685,11 +685,11 @@ public final class Fight {
         stillEnabledMoves = _stillEnabledMoves;
     }
 
-    public NumberMap<Byte,Team> getTeams() {
+    public ByteMap<Team> getTeams() {
         return teams;
     }
 
-    public void setTeams(NumberMap<Byte,Team> _teams) {
+    public void setTeams(ByteMap<Team> _teams) {
         teams = _teams;
     }
 
@@ -749,11 +749,11 @@ public final class Fight {
         damageByCurrentUser = _damage;
     }
 
-    public NumberMap<Byte,Boolean> getKos() {
+    public ByteMap<Boolean> getKos() {
         return kos;
     }
 
-    public void setKos(NumberMap<Byte,Boolean> _kos) {
+    public void setKos(ByteMap<Boolean> _kos) {
         kos = _kos;
     }
 
@@ -813,7 +813,7 @@ public final class Fight {
         simulation = _simulation;
     }
 
-    public NumberMap<Byte,Byte> getFirstPositPlayerFighters() {
+    public ByteMap<Byte> getFirstPositPlayerFighters() {
         return firstPositPlayerFighters;
     }
 
@@ -821,8 +821,8 @@ public final class Fight {
         return !getFirstPositPlayerFightersByPlace(_place).isEmpty();
     }
 
-    public Numbers<Byte> getFirstPositPlayerFightersByPlace(byte _place) {
-        Numbers<Byte> l_ = new Numbers<Byte>();
+    public Bytes getFirstPositPlayerFightersByPlace(byte _place) {
+        Bytes l_ = new Bytes();
         for (EntryCust<Byte, Byte> e: firstPositPlayerFighters.entryList()) {
             if (e.getValue() == _place) {
                 l_.add(e.getKey());
@@ -831,19 +831,19 @@ public final class Fight {
         return l_;
     }
 
-    public void setFirstPositPlayerFighters(NumberMap<Byte,Byte> _firstPositPlayerFighters) {
+    public void setFirstPositPlayerFighters(ByteMap<Byte> _firstPositPlayerFighters) {
         firstPositPlayerFighters = _firstPositPlayerFighters;
     }
 
-    public NumberMap<Byte,Byte> getFirstPositFoeFighters() {
+    public ByteMap<Byte> getFirstPositFoeFighters() {
         return firstPositFoeFighters;
     }
 
-    public void setFirstPositFoeFighters(NumberMap<Byte,Byte> _firstPositFoeFighters) {
+    public void setFirstPositFoeFighters(ByteMap<Byte> _firstPositFoeFighters) {
         firstPositFoeFighters = _firstPositFoeFighters;
     }
 
-    public EqList<MoveTarget> getAllyChoiceSet() {
+    public CustList<MoveTarget> getAllyChoiceSet() {
         return allyChoice.getKeys();
     }
 
@@ -871,11 +871,11 @@ public final class Fight {
         lostObjects = _lostObjects;
     }
 
-    public NumberMap<Byte,ChoiceOfEvolutionAndMoves> getChoices() {
+    public ByteMap<ChoiceOfEvolutionAndMoves> getChoices() {
         return choices;
     }
 
-    public void setChoices(NumberMap<Byte,ChoiceOfEvolutionAndMoves> _choices) {
+    public void setChoices(ByteMap<ChoiceOfEvolutionAndMoves> _choices) {
         choices = _choices;
     }
 

@@ -7,7 +7,7 @@ import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.util.SortingEgg;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringMap;
 import code.util.TreeMap;
 
@@ -88,8 +88,8 @@ public final class PaginationEgg extends
     }
     @Override
     public boolean sortable() {
-        Numbers<Integer> priorities_;
-        priorities_ = new Numbers<Integer>();
+        Ints priorities_;
+        priorities_ = new Ints();
         if (cmpSteps.getPriority() != NO_PRIORITY) {
             priorities_.add(cmpSteps.getPriority());
         }

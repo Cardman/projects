@@ -1,10 +1,10 @@
 package code.expressionlanguage.instr;
 
-import code.util.NatTreeMap;
+import code.util.*;
 
 public final class ResultAfterOperators {
     private ResultAfterDoubleDotted doubleDotted;
-    private NatTreeMap<Integer,Character> parsBrackets;
+    private IntTreeMap<Character> parsBrackets;
     private boolean constString;
     private boolean constChar;
     private boolean constText;
@@ -19,11 +19,11 @@ public final class ResultAfterOperators {
         doubleDotted = _doubleDotted;
     }
 
-    public NatTreeMap<Integer, Character> getParsBrackets() {
+    public IntTreeMap< Character> getParsBrackets() {
         return parsBrackets;
     }
 
-    public void setParsBrackets(NatTreeMap<Integer, Character> _parsBrackets) {
+    public void setParsBrackets(IntTreeMap< Character> _parsBrackets) {
         parsBrackets = _parsBrackets;
     }
 

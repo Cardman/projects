@@ -18,7 +18,7 @@ public class AbEqListTest {
         e_.add(MyEnum.TWO);
         e_.add(MyEnum.THREE);
         e_.add(MyEnum.ONE);
-        Numbers<Integer> indexes_ = e_.indexesOfObj(MyEnum.ONE);
+        Ints indexes_ = e_.indexesOfObj(MyEnum.ONE);
         assertEq(2, indexes_.size());
         assertEq(0, indexes_.get(0));
         assertEq(3, indexes_.get(1));
@@ -236,7 +236,7 @@ public class AbEqListTest {
         e_.add(false);
         e_.add(false);
         e_.add(true);
-        Numbers<Integer> indexes_ = e_.indexesOfObj(true);
+        Ints indexes_ = e_.indexesOfObj(true);
         assertEq(2, indexes_.size());
         assertEq(0, indexes_.get(0));
         assertEq(3, indexes_.get(1));
@@ -247,7 +247,7 @@ public class AbEqListTest {
         BooleanList e_ = new BooleanList(new BooleanList());
         e_.add(false);
         e_.add(false);
-        Numbers<Integer> indexes_ = e_.indexesOfObj(true);
+        Ints indexes_ = e_.indexesOfObj(true);
         assertEq(0, indexes_.size());
         assertTrue(!e_.containsObj(true));
     }

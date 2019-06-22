@@ -5,7 +5,7 @@ import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.Suit;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 
 public final class EquallableBeloteUtil {

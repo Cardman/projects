@@ -23,7 +23,7 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -97,7 +97,7 @@ public interface Analyzable {
     Options getOptions();
     AssignedVariablesBlock getAssignedVariables();
     AnalyzedPageEl getAnalyzing();
-    Numbers<Integer> getCurrentBadIndexes();
+    Ints getCurrentBadIndexes();
     Block getCurrentBlock();
     boolean isGearConst();
     StringList getNeedInterfaces();

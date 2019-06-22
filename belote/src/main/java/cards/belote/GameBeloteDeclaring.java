@@ -5,7 +5,7 @@ import cards.belote.enumerations.DeclaresBelote;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 
 final class GameBeloteDeclaring {
     private GameBeloteTrickInfo doneTrickInfo;
@@ -37,14 +37,14 @@ final class GameBeloteDeclaring {
         DeclareHandBeloteComparator comparateur_ =
                 new DeclareHandBeloteComparator(doneTrickInfo.getBid().getCouleur());
         EqList<DeclareHandBelote> declarationsTakerTeam_ = new EqList<DeclareHandBelote>();
-        Numbers<Byte> takerTeam_ = teamsRelation.partenaires(teamsRelation.getTaker());
+        Bytes takerTeam_ = teamsRelation.partenaires(teamsRelation.getTaker());
         takerTeam_.add(teamsRelation.getTaker());
         for (byte p: takerTeam_) {
             declarationsTakerTeam_.add(new DeclareHandBelote(annoncesLoc_.get(p)));
         }
         declarationsTakerTeam_.sortElts(new DeclareHandBeloteComparator(doneTrickInfo.getBid().getCouleur()));
         EqList<DeclareHandBelote> declarationsTakerFoesTeam_ = new EqList<DeclareHandBelote>();
-        Numbers<Byte> takerFoesTeam_ = teamsRelation.adversaires(teamsRelation.getTaker());
+        Bytes takerFoesTeam_ = teamsRelation.adversaires(teamsRelation.getTaker());
         for (byte p: takerFoesTeam_) {
             declarationsTakerFoesTeam_.add(new DeclareHandBelote(annoncesLoc_.get(p)));
         }

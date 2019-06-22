@@ -14,7 +14,7 @@ import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.maths.LgInt;
-import code.util.NumberMap;
+import code.util.*;
 import code.util.StringList;
 
 
@@ -328,8 +328,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate45Test(){
         Game game_ = newGameInFightTrainer(Sex.GIRL);
         Team team_ = game_.getFight().getUserTeam();
-        NumberMap<Byte,StacksOfUses> map_;
-        map_ = new NumberMap<Byte,StacksOfUses>();
+        ByteMap<StacksOfUses> map_;
+        map_ = new ByteMap<StacksOfUses>();
         map_.put((byte) 0, new StacksOfUses());
         team_.getHealAfter().put(CHARGE, map_);
         assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
@@ -338,8 +338,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate46Test(){
         Game game_ = newGameInFightTrainer(Sex.BOY);
         Team team_ = game_.getFight().getUserTeam();
-        NumberMap<Byte,StacksOfUses> map_;
-        map_ = new NumberMap<Byte,StacksOfUses>();
+        ByteMap<StacksOfUses> map_;
+        map_ = new ByteMap<StacksOfUses>();
         map_.put((byte) 0, new StacksOfUses());
         team_.getHealAfter().put(CHARGE, map_);
         assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
@@ -348,8 +348,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate47Test(){
         Game game_ = newGameInFightTrainer(Sex.GIRL);
         Team team_ = game_.getFight().getFoeTeam();
-        NumberMap<Byte,StacksOfUses> map_;
-        map_ = new NumberMap<Byte,StacksOfUses>();
+        ByteMap<StacksOfUses> map_;
+        map_ = new ByteMap<StacksOfUses>();
         map_.put((byte) 0, new StacksOfUses());
         team_.getHealAfter().put(CHARGE, map_);
         assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
@@ -358,8 +358,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate48Test(){
         Game game_ = newGameInFightTrainer(Sex.BOY);
         Team team_ = game_.getFight().getFoeTeam();
-        NumberMap<Byte,StacksOfUses> map_;
-        map_ = new NumberMap<Byte,StacksOfUses>();
+        ByteMap<StacksOfUses> map_;
+        map_ = new ByteMap<StacksOfUses>();
         map_.put((byte) 0, new StacksOfUses());
         team_.getHealAfter().put(CHARGE, map_);
         assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
@@ -368,8 +368,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate49Test(){
         Game game_ = newGameInFightTrainer(Sex.GIRL);
         Team team_ = game_.getFight().getUserTeam();
-        NumberMap<Byte,Anticipation> map_;
-        map_ = new NumberMap<Byte,Anticipation>();
+        ByteMap<Anticipation> map_;
+        map_ = new ByteMap<Anticipation>();
         map_.put((byte) 0, new Anticipation());
         team_.getMovesAnticipation().put(CHARGE, map_);
         assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
@@ -378,8 +378,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate50Test(){
         Game game_ = newGameInFightTrainer(Sex.BOY);
         Team team_ = game_.getFight().getUserTeam();
-        NumberMap<Byte,Anticipation> map_;
-        map_ = new NumberMap<Byte,Anticipation>();
+        ByteMap<Anticipation> map_;
+        map_ = new ByteMap<Anticipation>();
         map_.put((byte) 0, new Anticipation());
         team_.getMovesAnticipation().put(CHARGE, map_);
         assertTrue(!team_.validate(_data_, Fight.PLAYER, game_.getFight()));
@@ -388,8 +388,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate51Test(){
         Game game_ = newGameInFightTrainer(Sex.GIRL);
         Team team_ = game_.getFight().getFoeTeam();
-        NumberMap<Byte,Anticipation> map_;
-        map_ = new NumberMap<Byte,Anticipation>();
+        ByteMap<Anticipation> map_;
+        map_ = new ByteMap<Anticipation>();
         map_.put((byte) 0, new Anticipation());
         team_.getMovesAnticipation().put(CHARGE, map_);
         assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
@@ -398,8 +398,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate52Test(){
         Game game_ = newGameInFightTrainer(Sex.BOY);
         Team team_ = game_.getFight().getFoeTeam();
-        NumberMap<Byte,Anticipation> map_;
-        map_ = new NumberMap<Byte,Anticipation>();
+        ByteMap<Anticipation> map_;
+        map_ = new ByteMap<Anticipation>();
         map_.put((byte) 0, new Anticipation());
         team_.getMovesAnticipation().put(CHARGE, map_);
         assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
@@ -604,8 +604,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate81Test(){
         Game game_ = newGameInFightTrainer(Sex.GIRL);
         Team team_ = game_.getFight().getUserTeam();
-        NumberMap<Byte,StacksOfUses> map_;
-        map_ = new NumberMap<Byte,StacksOfUses>();
+        ByteMap<StacksOfUses> map_;
+        map_ = new ByteMap<StacksOfUses>();
         map_.put((byte) 0, new StacksOfUses());
         map_.getVal((byte) 0).setNbRounds((byte) -1);
         team_.getHealAfter().put(VOEU, map_);
@@ -615,8 +615,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate82Test(){
         Game game_ = newGameInFightTrainer(Sex.BOY);
         Team team_ = game_.getFight().getUserTeam();
-        NumberMap<Byte,StacksOfUses> map_;
-        map_ = new NumberMap<Byte,StacksOfUses>();
+        ByteMap<StacksOfUses> map_;
+        map_ = new ByteMap<StacksOfUses>();
         map_.put((byte) 0, new StacksOfUses());
         map_.getVal((byte) 0).setNbRounds((byte) -1);
         team_.getHealAfter().put(VOEU, map_);
@@ -626,8 +626,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate83Test(){
         Game game_ = newGameInFightTrainer(Sex.GIRL);
         Team team_ = game_.getFight().getFoeTeam();
-        NumberMap<Byte,StacksOfUses> map_;
-        map_ = new NumberMap<Byte,StacksOfUses>();
+        ByteMap<StacksOfUses> map_;
+        map_ = new ByteMap<StacksOfUses>();
         map_.put((byte) 0, new StacksOfUses());
         map_.getVal((byte) 0).setNbRounds((byte) -1);
         team_.getHealAfter().put(VOEU, map_);
@@ -637,8 +637,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate84Test(){
         Game game_ = newGameInFightTrainer(Sex.BOY);
         Team team_ = game_.getFight().getFoeTeam();
-        NumberMap<Byte,StacksOfUses> map_;
-        map_ = new NumberMap<Byte,StacksOfUses>();
+        ByteMap<StacksOfUses> map_;
+        map_ = new ByteMap<StacksOfUses>();
         map_.put((byte) 0, new StacksOfUses());
         map_.getVal((byte) 0).setNbRounds((byte) -1);
         team_.getHealAfter().put(VOEU, map_);
@@ -648,8 +648,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate85Test(){
         Game game_ = newGameInFightTrainer(Sex.GIRL);
         Team team_ = game_.getFight().getUserTeam();
-        NumberMap<Byte,Anticipation> map_;
-        map_ = new NumberMap<Byte,Anticipation>();
+        ByteMap<Anticipation> map_;
+        map_ = new ByteMap<Anticipation>();
         map_.put((byte) 0, new Anticipation());
         map_.getVal((byte) 0).setNbRounds((byte) -1);
         team_.getMovesAnticipation().put(PRESCIENCE, map_);
@@ -659,8 +659,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate86Test(){
         Game game_ = newGameInFightTrainer(Sex.BOY);
         Team team_ = game_.getFight().getUserTeam();
-        NumberMap<Byte,Anticipation> map_;
-        map_ = new NumberMap<Byte,Anticipation>();
+        ByteMap<Anticipation> map_;
+        map_ = new ByteMap<Anticipation>();
         map_.put((byte) 0, new Anticipation());
         map_.getVal((byte) 0).setNbRounds((byte) -1);
         team_.getMovesAnticipation().put(PRESCIENCE, map_);
@@ -670,8 +670,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate87Test(){
         Game game_ = newGameInFightTrainer(Sex.GIRL);
         Team team_ = game_.getFight().getFoeTeam();
-        NumberMap<Byte,Anticipation> map_;
-        map_ = new NumberMap<Byte,Anticipation>();
+        ByteMap<Anticipation> map_;
+        map_ = new ByteMap<Anticipation>();
         map_.put((byte) 0, new Anticipation());
         map_.getVal((byte) 0).setNbRounds((byte) -1);
         team_.getMovesAnticipation().put(PRESCIENCE, map_);
@@ -681,8 +681,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate88Test(){
         Game game_ = newGameInFightTrainer(Sex.BOY);
         Team team_ = game_.getFight().getFoeTeam();
-        NumberMap<Byte,Anticipation> map_;
-        map_ = new NumberMap<Byte,Anticipation>();
+        ByteMap<Anticipation> map_;
+        map_ = new ByteMap<Anticipation>();
         map_.put((byte) 0, new Anticipation());
         map_.getVal((byte) 0).setNbRounds((byte) -1);
         team_.getMovesAnticipation().put(PRESCIENCE, map_);
@@ -692,8 +692,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate89Test(){
         Game game_ = newGameInFightTrainer(Sex.GIRL);
         Team team_ = game_.getFight().getUserTeam();
-        NumberMap<Byte,Anticipation> map_;
-        map_ = new NumberMap<Byte,Anticipation>();
+        ByteMap<Anticipation> map_;
+        map_ = new ByteMap<Anticipation>();
         map_.put((byte) 0, new Anticipation());
         map_.getVal((byte) 0).setTargetPosition(POKEMON_FOE_TARGET_ZERO);
         team_.getMovesAnticipation().put(PRESCIENCE, map_);
@@ -703,8 +703,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate90Test(){
         Game game_ = newGameInFightTrainer(Sex.BOY);
         Team team_ = game_.getFight().getUserTeam();
-        NumberMap<Byte,Anticipation> map_;
-        map_ = new NumberMap<Byte,Anticipation>();
+        ByteMap<Anticipation> map_;
+        map_ = new ByteMap<Anticipation>();
         map_.put((byte) 0, new Anticipation());
         map_.getVal((byte) 0).setTargetPosition(POKEMON_FOE_TARGET_ZERO);
         team_.getMovesAnticipation().put(PRESCIENCE, map_);
@@ -714,8 +714,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate91Test(){
         Game game_ = newGameInFightTrainer(Sex.GIRL);
         Team team_ = game_.getFight().getFoeTeam();
-        NumberMap<Byte,Anticipation> map_;
-        map_ = new NumberMap<Byte,Anticipation>();
+        ByteMap<Anticipation> map_;
+        map_ = new ByteMap<Anticipation>();
         map_.put((byte) 0, new Anticipation());
         map_.getVal((byte) 0).setTargetPosition(POKEMON_PLAYER_TARGET_ZERO);
         team_.getMovesAnticipation().put(PRESCIENCE, map_);
@@ -725,8 +725,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate92Test(){
         Game game_ = newGameInFightTrainer(Sex.BOY);
         Team team_ = game_.getFight().getFoeTeam();
-        NumberMap<Byte,Anticipation> map_;
-        map_ = new NumberMap<Byte,Anticipation>();
+        ByteMap<Anticipation> map_;
+        map_ = new ByteMap<Anticipation>();
         map_.put((byte) 0, new Anticipation());
         map_.getVal((byte) 0).setTargetPosition(POKEMON_PLAYER_TARGET_ZERO);
         team_.getMovesAnticipation().put(PRESCIENCE, map_);
@@ -736,8 +736,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate93Test(){
         Game game_ = newGameInFightTrainer(Sex.GIRL);
         Team team_ = game_.getFight().getUserTeam();
-        NumberMap<Byte,Anticipation> map_;
-        map_ = new NumberMap<Byte,Anticipation>();
+        ByteMap<Anticipation> map_;
+        map_ = new ByteMap<Anticipation>();
         map_.put((byte) 0, new Anticipation());
         map_.getVal((byte) 0).setTargetPosition(new TargetCoords(Fight.FOE,(byte) (Fighter.BACK-1)));
         team_.getMovesAnticipation().put(PRESCIENCE, map_);
@@ -747,8 +747,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate94Test(){
         Game game_ = newGameInFightTrainer(Sex.BOY);
         Team team_ = game_.getFight().getUserTeam();
-        NumberMap<Byte,Anticipation> map_;
-        map_ = new NumberMap<Byte,Anticipation>();
+        ByteMap<Anticipation> map_;
+        map_ = new ByteMap<Anticipation>();
         map_.put((byte) 0, new Anticipation());
         map_.getVal((byte) 0).setTargetPosition(new TargetCoords(Fight.FOE,(byte) (Fighter.BACK-1)));
         team_.getMovesAnticipation().put(PRESCIENCE, map_);
@@ -758,8 +758,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate95Test(){
         Game game_ = newGameInFightTrainer(Sex.GIRL);
         Team team_ = game_.getFight().getFoeTeam();
-        NumberMap<Byte,Anticipation> map_;
-        map_ = new NumberMap<Byte,Anticipation>();
+        ByteMap<Anticipation> map_;
+        map_ = new ByteMap<Anticipation>();
         map_.put((byte) 0, new Anticipation());
         map_.getVal((byte) 0).setTargetPosition(new TargetCoords(Fight.PLAYER,(byte) (Fighter.BACK-1)));
         team_.getMovesAnticipation().put(PRESCIENCE, map_);
@@ -769,8 +769,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate96Test(){
         Game game_ = newGameInFightTrainer(Sex.BOY);
         Team team_ = game_.getFight().getFoeTeam();
-        NumberMap<Byte,Anticipation> map_;
-        map_ = new NumberMap<Byte,Anticipation>();
+        ByteMap<Anticipation> map_;
+        map_ = new ByteMap<Anticipation>();
         map_.put((byte) 0, new Anticipation());
         map_.getVal((byte) 0).setTargetPosition(new TargetCoords(Fight.PLAYER,(byte) (Fighter.BACK-1)));
         team_.getMovesAnticipation().put(PRESCIENCE, map_);
@@ -958,8 +958,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate123Test(){
         Game game_ = newGameInFightTrainer(Sex.GIRL);
         Team team_ = game_.getFight().getUserTeam();
-        NumberMap<Byte,Anticipation> map_;
-        map_ = new NumberMap<Byte,Anticipation>();
+        ByteMap<Anticipation> map_;
+        map_ = new ByteMap<Anticipation>();
         map_.put((byte) 0, new Anticipation());
         map_.getVal((byte) 0).setDamage(new Rate(-1));
         team_.getMovesAnticipation().put(PRESCIENCE, map_);
@@ -969,8 +969,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate124Test(){
         Game game_ = newGameInFightTrainer(Sex.BOY);
         Team team_ = game_.getFight().getUserTeam();
-        NumberMap<Byte,Anticipation> map_;
-        map_ = new NumberMap<Byte,Anticipation>();
+        ByteMap<Anticipation> map_;
+        map_ = new ByteMap<Anticipation>();
         map_.put((byte) 0, new Anticipation());
         map_.getVal((byte) 0).setDamage(new Rate(-1));
         team_.getMovesAnticipation().put(PRESCIENCE, map_);
@@ -980,8 +980,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate125Test(){
         Game game_ = newGameInFightTrainer(Sex.GIRL);
         Team team_ = game_.getFight().getFoeTeam();
-        NumberMap<Byte,Anticipation> map_;
-        map_ = new NumberMap<Byte,Anticipation>();
+        ByteMap<Anticipation> map_;
+        map_ = new ByteMap<Anticipation>();
         map_.put((byte) 0, new Anticipation());
         team_.getMovesAnticipation().clear();
         assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));
@@ -990,8 +990,8 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate126Test(){
         Game game_ = newGameInFightTrainer(Sex.BOY);
         Team team_ = game_.getFight().getFoeTeam();
-        NumberMap<Byte,Anticipation> map_;
-        map_ = new NumberMap<Byte,Anticipation>();
+        ByteMap<Anticipation> map_;
+        map_ = new ByteMap<Anticipation>();
         map_.put((byte) 0, new Anticipation());
         team_.getMovesAnticipation().clear();
         assertTrue(!team_.validate(_data_, Fight.FOE, game_.getFight()));

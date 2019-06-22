@@ -48,7 +48,8 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
+import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -716,7 +717,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             LambdaConstructorStruct l_ = (LambdaConstructorStruct) ls_;
             String forId_ = l_.getFormClassName();
             if (forId_.startsWith(ARR)) {
-                Numbers<Integer> dims_ = new Numbers<Integer>();
+                Ints dims_ = new Ints();
                 String size_;
                 size_ = lgNames_.getAliasBadSize();
                 for (Argument a: _values) {

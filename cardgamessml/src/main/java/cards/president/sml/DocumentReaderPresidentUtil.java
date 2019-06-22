@@ -21,7 +21,7 @@ import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EqList;
-import code.util.NumberMap;
+import code.util.*;
 import code.util.StringList;
 public final class DocumentReaderPresidentUtil {
 
@@ -407,11 +407,11 @@ public final class DocumentReaderPresidentUtil {
         return list_;
     }
 
-    private static NumberMap<Byte,HandPresident> getMapByteHandPresident(Element _elt) {
+    private static ByteMap<HandPresident> getMapByteHandPresident(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        NumberMap<Byte,HandPresident> map_ = new NumberMap<Byte,HandPresident>(cap_);
+        ByteMap<HandPresident> map_ = new ByteMap<HandPresident>(cap_);
         CustList<Byte> keys_ = new CustList<Byte>(cap_);
         CustList<HandPresident> values_ = new CustList<HandPresident>(cap_);
         for (Element c: childElements_) {
@@ -427,11 +427,11 @@ public final class DocumentReaderPresidentUtil {
         }
         return map_;
     }
-    public static NumberMap<Byte,Playing> getMapBytePlaying(Element _elt) {
+    public static ByteMap<Playing> getMapBytePlaying(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        NumberMap<Byte,Playing> map_ = new NumberMap<Byte,Playing>(cap_);
+        ByteMap<Playing> map_ = new ByteMap<Playing>(cap_);
         CustList<Byte> keys_ = new CustList<Byte>(cap_);
         CustList<Playing> values_ = new CustList<Playing>(cap_);
         for (Element c: childElements_) {

@@ -8,7 +8,7 @@ import aiki.util.SortingHealingItem;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.ints.Comparing;
 
 public final class ComparatorHealingItem implements Comparing<SortingHealingItem> {

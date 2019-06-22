@@ -2,7 +2,7 @@ package cards.president;
 import cards.consts.MixCardsChoice;
 import cards.president.enumerations.EqualtyPlaying;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 
 
 public final class RulesPresident {
@@ -59,8 +59,8 @@ public final class RulesPresident {
         return true;
     }
 
-    public Numbers<Byte> getSortedPlayersAfterEq(byte _player) {
-        Numbers<Byte> pl_ = new Numbers<Byte>();
+    public Bytes getSortedPlayersAfterEq(byte _player) {
+        Bytes pl_ = new Bytes();
         for (int p = _player; p < nbPlayers; p++) {
             pl_.add((byte) p);
         }
@@ -70,8 +70,8 @@ public final class RulesPresident {
         return pl_;
     }
 
-    public Numbers<Byte> getSortedPlayersAfter(byte _player) {
-        Numbers<Byte> pl_ = new Numbers<Byte>();
+    public Bytes getSortedPlayersAfter(byte _player) {
+        Bytes pl_ = new Bytes();
         for (int p = _player + 1; p < nbPlayers; p++) {
             pl_.add((byte) p);
         }

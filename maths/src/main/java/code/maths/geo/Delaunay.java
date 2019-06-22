@@ -4,7 +4,7 @@ import code.util.EntryCust;
 import code.util.EqList;
 import code.util.IdList;
 import code.util.IdMap;
-import code.util.Numbers;
+import code.util.*;
 
 public final class Delaunay {
 
@@ -920,7 +920,7 @@ public final class Delaunay {
                     }
                 }
             }
-            IdList<CustPoint> next_ = all_.getKeys();
+            CustList<CustPoint> next_ = all_.getKeys();
             CustPoint first_ = next_.first();
             EqList<CustPoint> once_ = new EqList<CustPoint>();
             for (EntryCust<CustPoint, Integer> e: all_.entryList()) {
@@ -948,11 +948,11 @@ public final class Delaunay {
                 sites_.add(new SitePoint(n, p, v_));
             }
             sites_.sortElts(new SiteComparing());
-            next_.clear();
+            IdList<CustPoint> pts_ = new IdList<CustPoint>();
             for (Site s: sites_) {
-                next_.add(((SitePoint)s).getPoint());
+                pts_.add(((SitePoint)s).getPoint());
             }
-            id_.put(p, next_);
+            id_.put(p, pts_);
         }
         return id_;
     }

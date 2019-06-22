@@ -15,7 +15,7 @@ public final class EvolutionMoveType extends Evolution {
         for (String m : _fPk.getMoveTutors()) {
             types_.addAllElts(_dataBase.getMove(m).getTypes());
         }
-        if (!types_.containsObj(type)) {
+        if (!StringList.contains(types_, type)) {
             _dataBase.setError(true);
             return;
 

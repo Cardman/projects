@@ -73,8 +73,8 @@ import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.StringList;
 
 public class ContainerSingleBelote extends ContainerBelote implements ContainerSingle {
@@ -234,7 +234,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     }
     public void addButtonsForCoinche(GameBelote _partie) {
         int square_ = 1;
-        Numbers<Integer> points_ = RulesBelote.getPoints();
+        Ints points_ = RulesBelote.getPoints();
         int size_ = points_.size();
         while (square_ * square_ < size_) {
             square_++;
@@ -468,8 +468,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         panneau2_.add(new ScrollPane(getEvents()));
         setMini(new MiniCarpet(partie_.getNombreDeJoueurs(),getDisplayingBelote().getHoraire(),pseudos_));
         panneau2_.add(getMini());
-        setHandfuls(new NumberMap<Byte,JLabel>());
-        setDeclaredHandfuls(new NumberMap<Byte,Panel>());
+        setHandfuls(new ByteMap<JLabel>());
+        setDeclaredHandfuls(new ByteMap<Panel>());
         Panel declaredHandfuls_ = new Panel(new GridLayout(0,1));
         int nbPlayers_ = partie_.getNombreDeJoueurs();
         for (byte i=CustList.FIRST_INDEX;i<nbPlayers_;i++) {
@@ -750,7 +750,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             if(nombreJoueurs_>9) {
                 couleurs_.add(new Color(128,0,255));
             }
-            Graphic graphique_=new Graphic(res_.getScores(),new Numbers<Long>(res_.getSums()),new EqList<Rate>(),couleurs_);
+            Graphic graphique_=new Graphic(res_.getScores(),new Longs(res_.getSums()),new EqList<Rate>(),couleurs_);
             Rate derniereMoyenne_=new Rate(res_.getSums().last(),nombreJoueurs_);
             EqList<Rate> scoresCentresMoyenne_=new EqList<Rate>();
             for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {

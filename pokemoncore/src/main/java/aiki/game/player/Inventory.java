@@ -1,25 +1,21 @@
 package aiki.game.player;
 import aiki.db.DataBase;
 import code.maths.LgInt;
-import code.util.EntryCust;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 
 public final class Inventory {
 
     private StringMap<LgInt> items;
 
-    private NumberMap<Short,Boolean> tm;
+    private ShortMap<Boolean> tm;
 
-    private NumberMap<Short,Boolean> hm;
+    private ShortMap<Boolean> hm;
 
     public Inventory() {
         setItems(new StringMap<LgInt>());
-        setTm(new NumberMap<Short,Boolean>());
-        setHm(new NumberMap<Short,Boolean>());
+        setTm(new ShortMap<Boolean>());
+        setHm(new ShortMap<Boolean>());
     }
 
     public Inventory(DataBase _dataBase) {
@@ -27,11 +23,11 @@ public final class Inventory {
         for (String o: _dataBase.getItems().getKeys()) {
             getItems().put(o, LgInt.zero());
         }
-        setTm(new NumberMap<Short,Boolean>());
+        setTm(new ShortMap<Boolean>());
         for (short t: _dataBase.getTm().getKeys()) {
             getTm().put(t, false);
         }
-        setHm(new NumberMap<Short,Boolean>());
+        setHm(new ShortMap<Boolean>());
         for (short t: _dataBase.getHm().getKeys()) {
             getHm().put(t, false);
         }
@@ -43,8 +39,8 @@ public final class Inventory {
                 return false;
             }
         }
-        StringList obj_ = items.getKeys();
-        StringList objData_ = _data.getItems().getKeys();
+        CustList<String> obj_ = items.getKeys();
+        CustList<String> objData_ = _data.getItems().getKeys();
         if (!StringList.equalsSet(obj_, objData_)) {
             return false;
         }
@@ -84,17 +80,17 @@ public final class Inventory {
         items.getVal(_object).addNb(_number);
     }
 
-    Numbers<Short> getAllTm() {
+    CustList<Short> getAllTm() {
         return tm.getKeys();
     }
 
-    Numbers<Short> getAllHm() {
+    CustList<Short> getAllHm() {
         return hm.getKeys();
     }
 
-    public Numbers<Short> gotTm() {
-        Numbers<Short> n_;
-        n_ = new Numbers<Short>();
+    public Shorts gotTm() {
+        Shorts n_;
+        n_ = new Shorts();
         for (EntryCust<Short,Boolean> e: tm.entryList()) {
             if (e.getValue()) {
                 n_.add(e.getKey());
@@ -103,9 +99,9 @@ public final class Inventory {
         return n_;
     }
 
-    public Numbers<Short> gotHm() {
-        Numbers<Short> n_;
-        n_ = new Numbers<Short>();
+    public Shorts gotHm() {
+        Shorts n_;
+        n_ = new Shorts();
         for (EntryCust<Short,Boolean> e: hm.entryList()) {
             if (e.getValue()) {
                 n_.add(e.getKey());
@@ -114,7 +110,7 @@ public final class Inventory {
         return n_;
     }
 
-    StringList getItemsKeys() {
+    CustList<String> getItemsKeys() {
         return items.getKeys();
     }
 
@@ -125,19 +121,19 @@ public final class Inventory {
         items = _items;
     }
 
-    public NumberMap<Short, Boolean> getTm() {
+    public ShortMap< Boolean> getTm() {
         return tm;
     }
 
-    public void setTm(NumberMap<Short, Boolean> _tm) {
+    public void setTm(ShortMap< Boolean> _tm) {
         tm = _tm;
     }
 
-    public NumberMap<Short, Boolean> getHm() {
+    public ShortMap< Boolean> getHm() {
         return hm;
     }
 
-    public void setHm(NumberMap<Short, Boolean> _hm) {
+    public void setHm(ShortMap< Boolean> _hm) {
         hm = _hm;
     }
 }

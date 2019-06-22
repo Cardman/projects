@@ -1,6 +1,6 @@
 package code.images;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.ints.Comparing;
 
 public final class ComparatorIntPoint implements Comparing<IntPoint> {

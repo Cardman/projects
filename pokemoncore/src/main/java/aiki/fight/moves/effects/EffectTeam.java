@@ -5,10 +5,7 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.util.CategoryMult;
 import code.maths.Rate;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.ObjectMap;
-import code.util.StringList;
+import code.util.*;
 
 
 public final class EffectTeam extends Effect {
@@ -58,7 +55,7 @@ public final class EffectTeam extends Effect {
 
         }
         for (CategoryMult k : multDamage.getKeys()) {
-            if (!_data.getCategories().containsObj(k.getCategory())) {
+            if (!StringList.contains(_data.getCategories(), k.getCategory())) {
                 _data.setError(true);
                 return;
 

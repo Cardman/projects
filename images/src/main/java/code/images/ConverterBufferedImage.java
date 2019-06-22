@@ -42,7 +42,7 @@ public final class ConverterBufferedImage {
 
     public static int getIntColor(String _color, String _separator) {
         StringList list_ = StringList.splitStrings(_color,_separator);
-        Numbers<Integer> ints_ = new Numbers<Integer>();
+        Ints ints_ = new Ints();
         for (String c: list_) {
             ints_.add((int)Numbers.parseLongZero(c));
         }
@@ -142,7 +142,7 @@ public final class ConverterBufferedImage {
     public static String getSquareColorSixtyFour(String _color,
             String _separatorRgb, int _sideLength) {
         StringList list_ = StringList.splitStrings(_color,_separatorRgb);
-        Numbers<Integer> ints_ = new Numbers<Integer>();
+        Ints ints_ = new Ints();
         for (String c: list_) {
             ints_.add(Numbers.parseInt(c));
         }

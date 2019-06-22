@@ -1,6 +1,7 @@
 package cards.belote.enumerations;
 import code.util.EnumList;
-import code.util.Numbers;
+import code.util.*;
+import code.util.Ints;
 
 public enum DealingBelote {
     CLASSIC_2_VS_2(4, Numbers.wrapIntArray(3,2),Numbers.wrapIntArray(3)),
@@ -23,8 +24,8 @@ public enum DealingBelote {
         return (byte) (next_%nombreJoueurs);
     }
 
-    public Numbers<Byte> getSortedPlayers(int _player) {
-        Numbers<Byte> players_ = new Numbers<Byte>();
+    public Bytes getSortedPlayers(int _player) {
+        Bytes players_ = new Bytes();
         int next_ = _player;
         next_ = (byte) (next_%nombreJoueurs);
         while (players_.size() < nombreJoueurs) {
@@ -34,8 +35,8 @@ public enum DealingBelote {
         return players_;
     }
 
-    public Numbers<Byte> getSortedPlayersAfter(int _player) {
-        Numbers<Byte> players_ = new Numbers<Byte>();
+    public Bytes getSortedPlayersAfter(int _player) {
+        Bytes players_ = new Bytes();
         int next_ = _player;
         next_++;
         next_ = (byte) (next_%nombreJoueurs);
@@ -46,15 +47,15 @@ public enum DealingBelote {
         return players_;
     }
 
-    public Numbers<Integer> getDistributionDebut() {
-        Numbers<Integer> distributionDebut_ = new Numbers<Integer>();
+    public Ints getDistributionDebut() {
+        Ints distributionDebut_ = new Ints();
         for(int i: distributionDebut){
             distributionDebut_.add(i);
         }
         return distributionDebut_;
     }
-    public Numbers<Integer> getDistributionFin() {
-        Numbers<Integer> distributionFin_ = new Numbers<Integer>();
+    public Ints getDistributionFin() {
+        Ints distributionFin_ = new Ints();
         for(int i: distributionFin){
             distributionFin_.add(i);
         }

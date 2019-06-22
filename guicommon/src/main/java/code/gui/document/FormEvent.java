@@ -8,8 +8,8 @@ import code.formathtml.Navigation;
 import code.formathtml.util.NodeContainer;
 import code.sml.Element;
 import code.util.CustList;
-import code.util.NatTreeMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.StringList;
 
 public class FormEvent extends MouseAdapter {
@@ -40,7 +40,7 @@ public class FormEvent extends MouseAdapter {
         htmlPage_.setForm(true);
         String nbForm_ = form.getAttribute("n-f");
         htmlPage_.setUrl(Numbers.parseLongZero(nbForm_));
-        NatTreeMap<Long,NodeContainer> inputsMap_;
+        LongTreeMap<NodeContainer> inputsMap_;
         inputsMap_ = htmlPage_.getContainers().getVal(Numbers.parseLongZero(nbForm_));
         DualComponent current_ = form_.getChildren().first();
         while (true) {

@@ -28,8 +28,8 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -3745,7 +3745,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data
-        fight_.getUserTeam().getPlayerFightersAgainstFoe().put((byte) 2, new Numbers<Byte>());
+        fight_.getUserTeam().getPlayerFightersAgainstFoe().put((byte) 2, new Bytes());
         assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
     @Test
@@ -3755,7 +3755,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         Fight fight_ = game_.getFight();
         //invalid data
-        fight_.getUserTeam().getPlayerFightersAgainstFoe().put((byte) 2, new Numbers<Byte>());
+        fight_.getUserTeam().getPlayerFightersAgainstFoe().put((byte) 2, new Bytes());
         assertTrue(!FightFacade.validate(game_.getFight(), _data_, player_, diff_));
     }
     @Test
@@ -5850,7 +5850,7 @@ public class FightValidationTest extends InitializationDataBase {
         Fight fight_ = _game.getFight();
         Fighter fighter_ = new Fighter(_pk, _data_, Fighter.BACK);
         fighter_.initIvAdv(_game.getDifficulty(),NULL_REF);
-        NumberMap<Byte,Fighter> team_ = fight_.getFoeTeam().getMembers();
+        ByteMap<Fighter> team_ = fight_.getFoeTeam().getMembers();
         TeamPosition key_ = Fight.toFoeFighter((byte) team_.size());
         fight_.getFirstPositFoeFighters().put((byte) team_.size(), Fighter.BACK);
         team_.put((byte) team_.size(), fighter_);

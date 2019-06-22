@@ -77,7 +77,7 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -334,7 +334,7 @@ final class FightEffects {
             }
         } else if (_effet.getChoiceRestriction() == MoveChoiceRestrictionType.LANCEUR_ATTAQUES) {
             for(String c:creatureCible_.attaquesUtilisables()){
-                if(creatureLanceur_.attaquesUtilisables().containsObj(c)){
+                if(StringList.contains(creatureLanceur_.attaquesUtilisables(), c)){
                     creatureLanceur_.getPrivateMoves().getVal(new MoveTeamPosition(_attaqueLanceur,_cible)).add(c);
                 }
             }
@@ -353,11 +353,11 @@ final class FightEffects {
         }
         for (String t: _effet.getDisableImmuAgainstTypes()) {
             //disable protection against moves of type
-            creatureCible_.getProtectedAgainstMoveTypes().removeObj(t);
+            StringList.removeObj(creatureCible_.getProtectedAgainstMoveTypes(), t);
         }
         for (String t: _effet.getAttackTargetWithTypes()) {
             //disable protection against moves of type
-            creatureCible_.getProtectedAgainstMoveTypes().removeObj(t);
+            StringList.removeObj(creatureCible_.getProtectedAgainstMoveTypes(), t);
         }
         if(!_effet.getDisableImmuFromMoves().isEmpty()){
             //activer l'attaque _attaqueLanceur
@@ -488,7 +488,7 @@ final class FightEffects {
                 for(String c:creatureLanceur_.attaquesUtilisables()){
                     lanceurAttaquesActuellesTypes_.addAllElts(FightMoves.moveTypes(_fight,_lanceur,c,_import));
                 }
-                lanceurAttaquesActuellesTypes_.removeAllElements(creatureLanceur_.getTypes());
+                StringList.removeAllElements(lanceurAttaquesActuellesTypes_, creatureLanceur_.getTypes());
                 lanceurAttaquesActuellesTypes_.removeDuplicates();
                 MonteCarloString types_=new MonteCarloString();
                 for(String e:lanceurAttaquesActuellesTypes_){
@@ -609,7 +609,7 @@ final class FightEffects {
         if (derAttaqueCible_.isEmpty()) {
             return;
         }
-        if (!FightInvoke.copiableMoves(_fight, _lanceur, _cible, _effet, _import).containsObj(derAttaqueCible_)) {
+        if (!StringList.contains(FightInvoke.copiableMoves(_fight, _lanceur, _cible, _effet, _import), derAttaqueCible_)) {
             return;
         }
         Fighter creatureLanceur_=_fight.getFighter(_lanceur);
@@ -645,7 +645,7 @@ final class FightEffects {
             Difficulty _diff,DataBase _import){
         Fighter creatureCible_=_fight.getFighter(_cible);
         Fighter creatureLanceur_=_fight.getFighter(_lanceur);
-        if(_import.getMovesConstChoices().containsObj(_attaqueLanceur)&&!_fight.isInvokedMove()){
+        if(StringList.contains(_import.getMovesConstChoices(), _attaqueLanceur) &&!_fight.isInvokedMove()){
             if(!creatureLanceur_.getEnabledMovesConstChoices().getVal(_attaqueLanceur).isEnabled()){
                 //utilisation attaque et mise a zero
                 creatureLanceur_.activerAttaqueBlocantLanceur(_attaqueLanceur);
@@ -653,7 +653,7 @@ final class FightEffects {
             }
         }
         ThrowerDamageLaws throwerDamageLaws_ = calculateLawsForDamageByTeam(_fight, _lanceur, _cible, _attaqueLanceur, _diff, _import);
-        if(_import.getMovesAnticipation().containsObj(_attaqueLanceur)){
+        if(StringList.contains(_import.getMovesAnticipation(), _attaqueLanceur)){
             Rate sommeCoups_=Rate.zero();
             for (TeamPosition t: throwerDamageLaws_.getNumberHits().getKeys()) {
                 DamageMoveCountUser damage_ = damageByUserOfMove(_fight, _import,t, _cible, throwerDamageLaws_);
@@ -1064,7 +1064,7 @@ final class FightEffects {
         Fighter creatureCible_=_fight.getFighter(_cible);
         String finalMove_ = creatureCible_.getFinalChosenMove();
         DamagingMoveData move_ = (DamagingMoveData) _import.getMove(_move);
-        if(_import.getMovesProtSingleTargetAgainstKo().containsObj(finalMove_)&&creatureCible_.isSuccessfulMove() && move_.getStoppableMoveKoSingle()){
+        if(StringList.contains(_import.getMovesProtSingleTargetAgainstKo(), finalMove_) &&creatureCible_.isSuccessfulMove() && move_.getStoppableMoveKoSingle()){
             pv_.affect(remainingHp(finalMove_, _import));
         } else if(move_.getCannotKo()){
             pv_.affect(_import.getMinHp());
@@ -1339,7 +1339,7 @@ final class FightEffects {
             boolean priseEnCompteEquipeCible_=true;
             if(thrower_.capaciteActive()){
                 AbilityData fCapac_=thrower_.ficheCapaciteActuelle(_import);
-                if(fCapac_.getIgnFoeTeamMove().containsObj(c)){
+                if(StringList.contains(fCapac_.getIgnFoeTeamMove(), c)){
                     priseEnCompteEquipeCible_=false;
                 }
             }
@@ -1449,7 +1449,7 @@ final class FightEffects {
         Fighter target_ = _fight.getFighter(_target);
         if(!target_.isActed()){
             for(String e:thrower_.getAlreadyInvokedMovesRound()){
-                if (!_import.getMovesInvoking().containsObj(e)) {
+                if (!StringList.contains(_import.getMovesInvoking(), e)) {
                     continue;
                 }
                 MoveData fAttInvoque_=_import.getMove(e);
@@ -1497,7 +1497,7 @@ final class FightEffects {
                         continue;
                     }
                     EffectGlobal effetGlobal_=(EffectGlobal)effet_;
-                    if(effetGlobal_.getMovesUsedByTargetedFighters().containsObj(target_.getFinalChosenMove())){
+                    if(StringList.contains(effetGlobal_.getMovesUsedByTargetedFighters(), target_.getFinalChosenMove())){
                         for (String t:_moveTypes) {
                             if(effetGlobal_.getMultDamagePrepaRound().contains(t)){
                                 rate_.multiplyBy(effetGlobal_.getMultDamagePrepaRound().getVal(t));
@@ -1545,7 +1545,7 @@ final class FightEffects {
         Fighter thrower_ = _fight.getFighter(_thrower);
         MoveData fAtt_ = _import.getMove(_move);
         for (String t: fAtt_.getBoostedTypes()) {
-            if(!thrower_.getTypes().containsObj(t)){
+            if(!StringList.contains(thrower_.getTypes(), t)){
                 continue;
             }
             rate_.multiplyBy(_import.getStab());
@@ -1750,7 +1750,7 @@ final class FightEffects {
             boolean priseEnCompteEquipeCible_=true;
             if(thrower_.capaciteActive()){
                 AbilityData fCapac_=thrower_.ficheCapaciteActuelle(_import);
-                if(fCapac_.getIgnFoeTeamMove().containsObj(c)){
+                if(StringList.contains(fCapac_.getIgnFoeTeamMove(), c)){
                     priseEnCompteEquipeCible_=false;
                 }
             }
@@ -2008,21 +2008,21 @@ final class FightEffects {
         Team equipe_=_fight.getTeams().getVal(_combattant.getTeam());
         Team equipeAdv_=_fight.getTeams().getVal(Fight.foe(_combattant.getTeam()));
         for(String c:equipeAdv_.getEnabledMoves().getKeys()){
-            if(_effet.getDisableFoeTeamEffects().containsObj(c)){
+            if(StringList.contains(_effet.getDisableFoeTeamEffects(), c)){
                 //desactiver attaques adv
                 equipeAdv_.desactiverEffetEquipe(c);
                 _fight.addDisabledTeamMoveMessage(Fight.foe(_combattant.getTeam()), c, _import);
             }
         }
         for(String c:equipeAdv_.getEnabledMovesWhileSendingFoe().getKeys()){
-            if(_effet.getDisableFoeTeamEffects().containsObj(c)){
+            if(StringList.contains(_effet.getDisableFoeTeamEffects(), c)){
                 //disable team foe moves sending
                 equipeAdv_.supprimerEffetEquipeEntreeAdv(c);
                 _fight.addDisabledTeamUsesMoveMessage(Fight.foe(_combattant.getTeam()), c, _import);
             }
         }
         for (String c:equipeAdv_.getNbUsesMoves().getKeys()) {
-            if(_effet.getDisableFoeTeamEffects().containsObj(c)){
+            if(StringList.contains(_effet.getDisableFoeTeamEffects(), c)){
                 //disable team foe moves sending
                 equipeAdv_.getNbUsesMoves().put(c, 0);
                 _fight.addDisabledTeamUsesMoveMessage(Fight.foe(_combattant.getTeam()), c, _import);
@@ -2030,14 +2030,14 @@ final class FightEffects {
         }
         Fighter fighter_ = _fight.getFighter(_combattant);
         for (MoveTeamPosition k: fighter_.getStatusRelatSet()) {
-            if (!_effet.getDisableFoeTeamStatus().containsObj(k.getMove())) {
+            if (!StringList.contains(_effet.getDisableFoeTeamStatus(), k.getMove())) {
                 continue;
             }
             fighter_.supprimerPseudoStatut(k.getMove());
             _fight.addDisabledStatusOtherRelMessage(k.getMove(), _combattant, _import);
         }
         for (MoveTeamPosition k: fighter_.getTrappingMoves().getKeys()) {
-            if (!_effet.getDisableFoeTeamEffects().containsObj(k.getMove())) {
+            if (!StringList.contains(_effet.getDisableFoeTeamEffects(), k.getMove())) {
                 continue;
             }
             for (byte f: equipeAdv_.getMembers().getKeys()) {
@@ -2159,7 +2159,7 @@ final class FightEffects {
         }
         for(TeamPosition c:FightOrder.frontFighters(_fight)){
             Fighter creature_ = _fight.getFighter(c);
-            creature_.getProtectedAgainstMoveTypes().removeAllElements(_effet.getDisableImmuAgainstTypes());
+            StringList.removeAllElements(creature_.getProtectedAgainstMoveTypes(), _effet.getDisableImmuAgainstTypes());
         }
     }
 
@@ -2688,7 +2688,7 @@ final class FightEffects {
             if (obj_ instanceof ItemForBattle) {
                 ItemForBattle o_ = (ItemForBattle) obj_;
                 for(String e:_fight.getSufferingTargetStatus()){
-                    if(!o_.getSynchroStatus().containsStr(e)){
+                    if(!StringList.contains(o_.getSynchroStatus(), e)){
                         continue;
                     }
                     affectStatusToThrower(_fight, _lanceur, e, _cible, _echecStatuts, _import);
@@ -2739,7 +2739,7 @@ final class FightEffects {
         if (map_.isEmpty()) {
             return map_;
         }
-        Numbers<Byte> values_ = new Numbers<Byte>(map_.values());
+        Bytes values_ = new Bytes(map_.values());
         if (values_.getMinimum((byte) (_import.getMaxBoost()+1)) < 0) {
             Fighter fighter_ = _fight.getFighter(_combattant);
             if (fighter_.capaciteActive()) {

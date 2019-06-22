@@ -12,8 +12,8 @@ import code.maths.montecarlo.AbMonteCarlo;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 
 
 public final class DealTarot implements Iterable<HandTarot> {
@@ -367,9 +367,9 @@ public final class DealTarot implements Iterable<HandTarot> {
             deal.add(new HandTarot());
         }
         int iterations_ = CustList.SIZE_EMPTY;
-        Numbers<Byte> ordreDisributionJoueurs_;
+        Bytes ordreDisributionJoueurs_;
         ordreDisributionJoueurs_ = _regles.getRepartition().getSortedPlayersAfter(dealer);
-        NumberMap<Integer,Integer> distributionChien_ = repartition_.getDistributionAuChien();
+        IntMap<Integer> distributionChien_ = repartition_.getDistributionAuChien();
         for (int i : repartition_.getDistribution()) {
             //i == nombre_ de_ cartes_ a donner_
             for (int j : ordreDisributionJoueurs_) {

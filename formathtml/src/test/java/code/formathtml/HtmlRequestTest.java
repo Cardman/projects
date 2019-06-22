@@ -28,7 +28,7 @@ import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.BeanStruct;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.ValueChangeEvent;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -49,7 +49,7 @@ public class HtmlRequestTest {
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasInteger());
 //      HtmlRequest.setObject(conf_, composite_, "integer", "", 7, "", conf_.getStandards().getAliasInteger(), new List<Long>());
-        HtmlRequest.setObject(conf_, nc_, new IntStruct(7), new Numbers<Long>());
+        HtmlRequest.setObject(conf_, nc_, new IntStruct(7), new Longs());
         assertEq(7, composite_.getInteger());
     }
 
@@ -69,7 +69,7 @@ public class HtmlRequestTest {
         nc_.getNodeInformation().setChanging("updateValue");
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasInteger());
 //        HtmlRequest.setObject(conf_, bean_, "composite.integer", "", 88, "updateValue", conf_.getStandards().getAliasInteger(), new List<Long>(4L));
-        HtmlRequest.setObject(conf_, nc_, new IntStruct(88), new Numbers<Long>(4L));
+        HtmlRequest.setObject(conf_, nc_, new IntStruct(88), new Longs(4L));
         assertEq(88, bean_.getComposite().getInteger());
         assertEq(1, bean_.getComposite().getStrings().size());
         assertEq("88 8", bean_.getComposite().getStrings().first());
@@ -78,7 +78,7 @@ public class HtmlRequestTest {
         assertEq(88, new_);
         int old_ = ((NumberStruct) changing_.getOldValue()).intStruct();
         assertEq(8, old_);
-        Numbers<Long> list_ = changing_.getIndexes();
+        Longs list_ = changing_.getIndexes();
         assertEq(1, list_.size());
         assertEq(4, list_.first());
     }
@@ -97,7 +97,7 @@ public class HtmlRequestTest {
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasInteger());
         //HtmlRequest.setObject(conf_, bean_, "composite.integer", "", 88, "", conf_.getStandards().getAliasInteger(), new List<Long>(4L));
-        HtmlRequest.setObject(conf_, nc_, new IntStruct(88), new Numbers<Long>(4L));
+        HtmlRequest.setObject(conf_, nc_, new IntStruct(88), new Longs(4L));
         assertEq(88, bean_.getComposite().getInteger());
         assertEq(0, bean_.getComposite().getStrings().size());
         assertNull(bean_.getChanging());
@@ -122,7 +122,7 @@ public class HtmlRequestTest {
 //        nc_.getNodeInformation().setChanging("updateValue");
 //        nc_.getNodeInformation().setInputClass(Composite.class.getName());
 ////        HtmlRequest.setObject(conf_, bean_, "composite", "", composite_, "updateValue", Composite.class.getName(), new List<Long>(4L));
-//        HtmlRequest.setObject(conf_, nc_, composite_, new Numbers<Long>(4L));
+//        HtmlRequest.setObject(conf_, nc_, composite_, new Longs(4L));
 //        assertEq(21, bean_.getComposite().getInteger());
 //        assertEq(1, bean_.getComposite().getStrings().size());
 //        assertEq("21,0,[],null,null,null 8,0,[],null,null,null", bean_.getComposite().getStrings().first());
@@ -131,7 +131,7 @@ public class HtmlRequestTest {
 //        assertEq(21, new_.getInteger());
 //        Composite old_ = (Composite) changing_.getOldValue();
 //        assertEq(8, old_.getInteger());
-//        Numbers<Long> list_ = changing_.getIndexes();
+//        Longs list_ = changing_.getIndexes();
 //        assertEq(1, list_.size());
 //        assertEq(4, list_.first());
 //    }
@@ -150,7 +150,7 @@ public class HtmlRequestTest {
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasInteger());
 //        HtmlRequest.setObject(conf_, bean_, "invisibleField", "setInvisibleField", 7, "", conf_.getStandards().getAliasInteger(),new List<Long>());
-        HtmlRequest.setObject(conf_, nc_, new IntStruct(7),new Numbers<Long>());
+        HtmlRequest.setObject(conf_, nc_, new IntStruct(7),new Longs());
         assertEq(7, bean_.getInvisibleField());
     }
 
@@ -168,7 +168,7 @@ public class HtmlRequestTest {
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasInteger());
 //        HtmlRequest.setObject(conf_, bean_, "getComposite().integer", "", 88, "", conf_.getStandards().getAliasInteger(),new List<Long>(4L));
-        HtmlRequest.setObject(conf_, nc_, new IntStruct(88), new Numbers<Long>(4L));
+        HtmlRequest.setObject(conf_, nc_, new IntStruct(88), new Longs(4L));
         assertEq(88, bean_.getComposite().getInteger());
     }
 
@@ -185,7 +185,7 @@ public class HtmlRequestTest {
         nc_.getNodeInformation().setVarMethod("setInvisibleIntField");
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasPrimInteger());
-        HtmlRequest.setObject(conf_, nc_, new IntStruct(7),new Numbers<Long>());
+        HtmlRequest.setObject(conf_, nc_, new IntStruct(7),new Longs());
         assertEq(7, bean_.getInvisibleField());
     }
 
@@ -203,7 +203,7 @@ public class HtmlRequestTest {
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasString());
-        HtmlRequest.setObject(conf_, nc_, new StringStruct("NEW"),new Numbers<Long>());
+        HtmlRequest.setObject(conf_, nc_, new StringStruct("NEW"),new Longs());
         assertEq("NEW", bean_.getStrings().first());
     }
 
@@ -221,7 +221,7 @@ public class HtmlRequestTest {
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasString());
-        HtmlRequest.setObject(conf_, nc_, new StringStruct("keythree"),new Numbers<Long>());
+        HtmlRequest.setObject(conf_, nc_, new StringStruct("keythree"),new Longs());
         assertEq(2, bean_.getTree().size());
         assertEq(1, bean_.getTree().getVal("keythree"));
         assertEq(2, bean_.getTree().getVal("keytwo"));
@@ -240,7 +240,7 @@ public class HtmlRequestTest {
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasInteger());
-        HtmlRequest.setObject(conf_, nc_, new IntStruct(3),new Numbers<Long>());
+        HtmlRequest.setObject(conf_, nc_, new IntStruct(3),new Longs());
         assertEq(2, bean_.getTree().size());
         assertEq(3, bean_.getTree().getVal("keyone"));
         assertEq(2, bean_.getTree().getVal("keytwo"));
@@ -266,7 +266,7 @@ public class HtmlRequestTest {
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasPrimInteger());
-        HtmlRequest.setObject(conf_, nc_, new IntStruct(5),new Numbers<Long>());
+        HtmlRequest.setObject(conf_, nc_, new IntStruct(5),new Longs());
         assertEq(2, inst_.length);
         assertEq(5, ((NumberStruct) inst_[0]).intStruct());
         assertEq(3, ((NumberStruct) inst_[1]).intStruct());
@@ -287,7 +287,7 @@ public class HtmlRequestTest {
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("updateValue");
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasString());
-        HtmlRequest.setObject(conf_, nc_, new StringStruct("NEW"),new Numbers<Long>());
+        HtmlRequest.setObject(conf_, nc_, new StringStruct("NEW"),new Longs());
         assertEq("NEW", bean_.getStrings().first());
         StringList values_ = bean_.getComposite().getStrings();
         assertEq(0, values_.size());
@@ -307,7 +307,7 @@ public class HtmlRequestTest {
         nc_.getNodeInformation().setVarMethod("inexistantmethod");
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasInteger());
-        HtmlRequest.setObject(conf_, nc_, new IntStruct(7), new Numbers<Long>());
+        HtmlRequest.setObject(conf_, nc_, new IntStruct(7), new Longs());
         assertNotNull(conf_.getContext().getException());
 //        assertEq(7, composite_.getInteger());
     }
@@ -327,7 +327,7 @@ public class HtmlRequestTest {
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasString());
 //        HtmlRequest.setObject(conf_, bean_, "hello", "setter", "ex", "", conf_.getStandards().getAliasString(),new List<Long>());
-        HtmlRequest.setObject(conf_, nc_, new StringStruct("ex"),new Numbers<Long>());
+        HtmlRequest.setObject(conf_, nc_, new StringStruct("ex"),new Longs());
         assertNotNull(conf_.getContext().getException());
 //        assertEq("ex",bean_.getHello());
     }

@@ -32,7 +32,7 @@ public final class AffectationOperation extends ReflectableOpering implements Af
 
     @Override
     void calculateChildren() {
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        IntTreeMap< String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
     }
 
@@ -57,7 +57,7 @@ public final class AffectationOperation extends ReflectableOpering implements Af
         if (settable instanceof VariableOperation) {
             VariableOperation v_ = (VariableOperation)settable;
             String inf_ = v_.getVariableName();
-            if (ElUtil.isDeclaringVariable(v_, _conf) && _conf.getInfersLocalVars().containsStr(inf_)) {
+            if (ElUtil.isDeclaringVariable(v_, _conf) && StringList.contains(_conf.getInfersLocalVars(), inf_)) {
                 ClassArgumentMatching clMatchRight_ = right_.getResultClass();
                 String type_ = clMatchRight_.getSingleNameOrEmpty();
                 if (!type_.isEmpty()) {
@@ -74,7 +74,7 @@ public final class AffectationOperation extends ReflectableOpering implements Af
         if (settable instanceof MutableLoopVariableOperation) {
             MutableLoopVariableOperation v_ = (MutableLoopVariableOperation)settable;
             String inf_ = v_.getVariableName();
-            if (ElUtil.isDeclaringLoopVariable(v_, _conf) && _conf.getInfersMutableLocalVars().containsStr(inf_)) {
+            if (ElUtil.isDeclaringLoopVariable(v_, _conf) && StringList.contains(_conf.getInfersMutableLocalVars(), inf_)) {
                 ClassArgumentMatching clMatchRight_ = right_.getResultClass();
                 String type_ = clMatchRight_.getSingleNameOrEmpty();
                 if (!type_.isEmpty()) {
@@ -126,19 +126,19 @@ public final class AffectationOperation extends ReflectableOpering implements Af
             if (rightArg_ != null && rightArg_.getStruct() instanceof NumberStruct) {
                 StringList first_ = clMatchLeft_.getNames();
                 long valueUnwrapped_ = ((NumberStruct) rightArg_.getStruct()).longStruct();
-                if ((first_.containsStr(primByte_) || first_.containsStr(byte_)) && valueUnwrapped_ >= Byte.MIN_VALUE && valueUnwrapped_ <= Byte.MAX_VALUE) {
+                if ((StringList.contains(first_, primByte_) || StringList.contains(first_, byte_)) && valueUnwrapped_ >= Byte.MIN_VALUE && valueUnwrapped_ <= Byte.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
                     return;
                 }
-                if ((first_.containsStr(primChar_) || first_.containsStr(char_)) && valueUnwrapped_ >= Character.MIN_VALUE && valueUnwrapped_ <= Character.MAX_VALUE) {
+                if ((StringList.contains(first_, primChar_) || StringList.contains(first_, char_)) && valueUnwrapped_ >= Character.MIN_VALUE && valueUnwrapped_ <= Character.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
                     return;
                 }
-                if ((first_.containsStr(primShort_) || first_.containsStr(short_))&& valueUnwrapped_ >= Short.MIN_VALUE && valueUnwrapped_ <= Short.MAX_VALUE) {
+                if ((StringList.contains(first_, primShort_) || StringList.contains(first_, short_))&& valueUnwrapped_ >= Short.MIN_VALUE && valueUnwrapped_ <= Short.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
                     return;
                 }
-                if ((first_.containsStr(primInt_) || first_.containsStr(int_)) && valueUnwrapped_ >= Integer.MIN_VALUE && valueUnwrapped_ <= Integer.MAX_VALUE) {
+                if ((StringList.contains(first_, primInt_) || StringList.contains(first_, int_)) && valueUnwrapped_ >= Integer.MIN_VALUE && valueUnwrapped_ <= Integer.MAX_VALUE) {
                     right_.getResultClass().setUnwrapObject(clMatchLeft_);
                     return;
                 }

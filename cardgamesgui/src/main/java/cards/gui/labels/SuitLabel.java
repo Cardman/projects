@@ -10,7 +10,7 @@ import cards.consts.Suit;
 import cards.facade.Games;
 import code.gui.LabelButtonUtil;
 import code.gui.PaintableLabel;
-import code.util.Numbers;
+import code.util.*;
 
 public class SuitLabel extends PaintableLabel {
 

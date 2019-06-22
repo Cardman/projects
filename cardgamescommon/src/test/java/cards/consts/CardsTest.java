@@ -11,11 +11,11 @@ public class CardsTest {
     @Test
     public void test() {
         ResultsGame r_ = new ResultsGame();
-        r_.setScores(new CustList<Numbers<Long>>());
+        r_.setScores(new CustList<Longs>());
         assertNotNull(r_.getScores());
         r_.setSigmas(new EqList<Rate>());
         assertNotNull(r_.getSigmas());
-        r_.setSums(new Numbers<Long>());
+        r_.setSums(new Longs());
         assertNotNull(r_.getSums());
         r_.setDetailResultsTitle(CoreResourcesAccess.CHARS);
         assertNotNull(r_.getDetailResultsTitle());

@@ -49,7 +49,7 @@ public class Mapping {
                     continue;
                 }
                 for (String n: _mapping.getVal(var_)) {
-                    if (visitedBoundsAll_.containsStr(n)) {
+                    if (StringList.contains(visitedBoundsAll_, n)) {
                         continue;
                     }
                     visitedBoundsAll_.add(n);
@@ -86,7 +86,7 @@ public class Mapping {
                 str_.append(var_);
                 varBounds_.add(str_.toString());
                 for (String n: _mapping.getVal(var_)) {
-                    if (visitedBoundsAll_.containsStr(n)) {
+                    if (StringList.contains(visitedBoundsAll_, n)) {
                         continue;
                     }
                     visitedBoundsAll_.add(n);
@@ -120,7 +120,7 @@ public class Mapping {
                         continue;
                     }
                     String var_ = n.substring(1);
-                    if (visitedBounds_.containsStr(var_)) {
+                    if (StringList.contains(visitedBounds_, var_)) {
                         continue;
                     }
                     if (StringList.quickEq(var_, _param)) {

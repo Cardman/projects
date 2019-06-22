@@ -46,17 +46,17 @@ public final class PrimitiveTypeUtil {
         if (second_.isPrimitive(_conf) && first_.isWrapper(_conf) && StringList.equalsSet(new StringList(toWrapper(second_.getSingleNameOrEmpty(), stds_)), first_.getNames())) {
             return new ResultTernary(_second, true, false);
         }
-        if (_first.containsStr(NO_SUB_CLASS) && !second_.isPrimitive(_conf)) {
+        if (StringList.contains(_first, NO_SUB_CLASS) && !second_.isPrimitive(_conf)) {
             return new ResultTernary(_second, false, false);
         }
-        if (_first.containsStr(NO_SUB_CLASS)) {
+        if (StringList.contains(_first, NO_SUB_CLASS)) {
             String w_ = toWrapper(second_.getSingleNameOrEmpty(), stds_);
             return new ResultTernary(new StringList(w_), false, false);
         }
-        if (_second.containsStr(NO_SUB_CLASS) && !first_.isPrimitive(_conf)) {
+        if (StringList.contains(_second, NO_SUB_CLASS) && !first_.isPrimitive(_conf)) {
             return new ResultTernary(_first, false, false);
         }
-        if (_second.containsStr(NO_SUB_CLASS)) {
+        if (StringList.contains(_second, NO_SUB_CLASS)) {
             String w_ = toWrapper(first_.getSingleNameOrEmpty(), stds_);
             return new ResultTernary(new StringList(w_), false, false);
         }
@@ -67,55 +67,55 @@ public final class PrimitiveTypeUtil {
             String short_ = stds_.getAliasShort();
             String char_ = stds_.getAliasCharacter();
             String byte_ = stds_.getAliasByte();
-            if (_first.containsStr(primByte_) || _first.containsStr(byte_)) {
-                if (_second.containsStr(primShort_) || _second.containsStr(short_)) {
-                    return new ResultTernary(new StringList(primShort_), _first.containsStr(byte_), _second.containsStr(short_));
+            if (StringList.contains(_first, primByte_) || StringList.contains(_first, byte_)) {
+                if (StringList.contains(_second, primShort_) || StringList.contains(_second, short_)) {
+                    return new ResultTernary(new StringList(primShort_), StringList.contains(_first, byte_), StringList.contains(_second, short_));
                 }
             }
-            if (_second.containsStr(primByte_) || _second.containsStr(byte_)) {
-                if (_first.containsStr(primShort_) || _first.containsStr(short_)) {
-                    return new ResultTernary(new StringList(primShort_), _first.containsStr(short_), _second.containsStr(byte_));
+            if (StringList.contains(_second, primByte_) || StringList.contains(_second, byte_)) {
+                if (StringList.contains(_first, primShort_) || StringList.contains(_first, short_)) {
+                    return new ResultTernary(new StringList(primShort_), StringList.contains(_first, short_), StringList.contains(_second, byte_));
                 }
             }
             if (_secondArg != null && _secondArg.getStruct() instanceof IntStruct) {
                 int value_ = _secondArg.getInt();
-                if (_first.containsStr(primByte_) && value_ >= Byte.MIN_VALUE && value_ <= Byte.MAX_VALUE) {
+                if (StringList.contains(_first, primByte_) && value_ >= Byte.MIN_VALUE && value_ <= Byte.MAX_VALUE) {
                     return new ResultTernary(new StringList(primByte_), false, true);
                 }
-                if (_first.containsStr(primChar_) && value_ >= Character.MIN_VALUE && value_ <= Character.MAX_VALUE) {
+                if (StringList.contains(_first, primChar_) && value_ >= Character.MIN_VALUE && value_ <= Character.MAX_VALUE) {
                     return new ResultTernary(new StringList(primChar_), false, true);
                 }
-                if (_first.containsStr(primShort_) && value_ >= Short.MIN_VALUE && value_ <= Short.MAX_VALUE) {
+                if (StringList.contains(_first, primShort_) && value_ >= Short.MIN_VALUE && value_ <= Short.MAX_VALUE) {
                     return new ResultTernary(new StringList(primShort_), false, true);
                 }
-                if (_first.containsStr(byte_) && value_ >= Byte.MIN_VALUE && value_ <= Byte.MAX_VALUE) {
+                if (StringList.contains(_first, byte_) && value_ >= Byte.MIN_VALUE && value_ <= Byte.MAX_VALUE) {
                     return new ResultTernary(new StringList(primByte_), true, true);
                 }
-                if (_first.containsStr(char_) && value_ >= Character.MIN_VALUE && value_ <= Character.MAX_VALUE) {
+                if (StringList.contains(_first, char_) && value_ >= Character.MIN_VALUE && value_ <= Character.MAX_VALUE) {
                     return new ResultTernary(new StringList(primChar_), true, true);
                 }
-                if (_first.containsStr(short_) && value_ >= Short.MIN_VALUE && value_ <= Short.MAX_VALUE) {
+                if (StringList.contains(_first, short_) && value_ >= Short.MIN_VALUE && value_ <= Short.MAX_VALUE) {
                     return new ResultTernary(new StringList(primShort_), true, true);
                 }
             }
             if (_firstArg != null && _firstArg.getStruct() instanceof IntStruct) {
                 int value_ = _firstArg.getInt();
-                if (_second.containsStr(primByte_) && value_ >= Byte.MIN_VALUE && value_ <= Byte.MAX_VALUE) {
+                if (StringList.contains(_second, primByte_) && value_ >= Byte.MIN_VALUE && value_ <= Byte.MAX_VALUE) {
                     return new ResultTernary(new StringList(primByte_), true, false);
                 }
-                if (_second.containsStr(primChar_) && value_ >= Character.MIN_VALUE && value_ <= Character.MAX_VALUE) {
+                if (StringList.contains(_second, primChar_) && value_ >= Character.MIN_VALUE && value_ <= Character.MAX_VALUE) {
                     return new ResultTernary(new StringList(primChar_), true, false);
                 }
-                if (_second.containsStr(primShort_) && value_ >= Short.MIN_VALUE && value_ <= Short.MAX_VALUE) {
+                if (StringList.contains(_second, primShort_) && value_ >= Short.MIN_VALUE && value_ <= Short.MAX_VALUE) {
                     return new ResultTernary(new StringList(primShort_), true, false);
                 }
-                if (_second.containsStr(byte_) && value_ >= Byte.MIN_VALUE && value_ <= Byte.MAX_VALUE) {
+                if (StringList.contains(_second, byte_) && value_ >= Byte.MIN_VALUE && value_ <= Byte.MAX_VALUE) {
                     return new ResultTernary(new StringList(primByte_), true, true);
                 }
-                if (_second.containsStr(char_) && value_ >= Character.MIN_VALUE && value_ <= Character.MAX_VALUE) {
+                if (StringList.contains(_second, char_) && value_ >= Character.MIN_VALUE && value_ <= Character.MAX_VALUE) {
                     return new ResultTernary(new StringList(primChar_), true, true);
                 }
-                if (_second.containsStr(short_) && value_ >= Short.MIN_VALUE && value_ <= Short.MAX_VALUE) {
+                if (StringList.contains(_second, short_) && value_ >= Short.MIN_VALUE && value_ <= Short.MAX_VALUE) {
                     return new ResultTernary(new StringList(primShort_), true, true);
                 }
             }
@@ -129,7 +129,7 @@ public final class PrimitiveTypeUtil {
             }
             StringList superTypesFirst_ = getSuperTypesSet(prOne_, _vars, _conf);
             StringList superTypesSecond_ = getSuperTypesSet(prTwo_, _vars, _conf);
-            StringList ints_ = superTypesFirst_.intersect(superTypesSecond_);
+            StringList ints_ = StringList.intersect(superTypesFirst_,superTypesSecond_);
             StringList bases_;
             bases_ = getTernarySubclasses(ints_, _vars, _conf);
             return new ResultTernary(bases_, true, true);
@@ -158,7 +158,7 @@ public final class PrimitiveTypeUtil {
         }
         superTypesSecondAdj_.removeDuplicates();
         superTypesFirstAdj_.removeDuplicates();
-        StringList ints_ = superTypesFirstAdj_.intersect(superTypesSecondAdj_);
+        StringList ints_ = StringList.intersect(superTypesFirstAdj_,superTypesSecondAdj_);
         StringMap<String> basesGene_ = new StringMap<String>();
         StringList bases_ = new StringList();
         for (String l: ints_) {
@@ -281,7 +281,7 @@ public final class PrimitiveTypeUtil {
         String cl_ = Templates.getIdFromAllTypes(className_);
         StringList list_ = new StringList();
         while (!canBeUseAsArgument(id_, cl_, _an)) {
-            if (list_.containsStr(cl_)) {
+            if (StringList.contains(list_, cl_)) {
                 _an.setException(new ErrorStruct(_an,cast_));
                 break;
             }
@@ -328,13 +328,13 @@ public final class PrimitiveTypeUtil {
         return _stds.getPrimitiveTypes().contains(_className);
     }
 
-    public static ArrayStruct newCustomArray(String _className, Numbers<Integer> _dims, Analyzable _cont) {
-        TreeMap<Numbers<Integer>,Struct> indexesArray_;
-        indexesArray_ = new TreeMap<Numbers<Integer>,Struct>(new IndexesComparator());
+    public static ArrayStruct newCustomArray(String _className, Ints _dims, Analyzable _cont) {
+        TreeMap<Ints,Struct> indexesArray_;
+        indexesArray_ = new TreeMap<Ints,Struct>(new IndexesComparator());
         Struct[] instanceGl_ = new Struct[_dims.first()];
         ArrayStruct output_ = new ArrayStruct(instanceGl_, PrimitiveTypeUtil.getPrettyArrayType(_className, _dims.size()));
-        Numbers<Integer> dims_ = new Numbers<Integer>();
-        indexesArray_.put(new Numbers<Integer>(), output_);
+        Ints dims_ = new Ints();
+        indexesArray_.put(new Ints(), output_);
         int glDim_ = _dims.size();
         int i_ = CustList.FIRST_INDEX;
         Struct defClass_ = defaultClass(_className, _cont);
@@ -342,26 +342,26 @@ public final class PrimitiveTypeUtil {
             dims_.add(i);
             glDim_--;
             if (glDim_ == 0) {
-                for (Numbers<Integer> k: dims_.getAllIndexes()) {
+                for (Ints k: dims_.getAllIndexes()) {
                     indexesArray_.put(k, defClass_);
                 }
                 continue;
             }
             String formattedClass_ = PrimitiveTypeUtil.getPrettyArrayType(_className, glDim_);
-            for (Numbers<Integer> k: dims_.getAllIndexes()) {
+            for (Ints k: dims_.getAllIndexes()) {
                 Struct[] instance_ = new Struct[_dims.get(i_ + 1)];
                 Struct value_ = new ArrayStruct(instance_, formattedClass_);
                 indexesArray_.put(k, value_);
             }
             i_++;
         }
-        for (EntryCust<Numbers<Integer>,Struct> e: indexesArray_.entryList()) {
-            Numbers<Integer> key_ = e.getKey();
+        for (EntryCust<Ints,Struct> e: indexesArray_.entryList()) {
+            Ints key_ = e.getKey();
             Struct value_ = e.getValue();
             if (key_.isEmpty()) {
                 continue;
             }
-            Numbers<Integer> ind_ = new Numbers<Integer>(key_);
+            Ints ind_ = new Ints(key_);
             ind_.removeLast();
             int lastIndex_ = key_.last();
             Struct str_ = indexesArray_.getVal(ind_);
@@ -604,7 +604,7 @@ public final class PrimitiveTypeUtil {
             if (StringList.quickEq(p_, a_)) {
                 return AssignableFrom.YES;
             }
-            if (clArgBl_.getAllSuperTypes().containsObj(p_)) {
+            if (StringList.contains(clArgBl_.getAllSuperTypes(), p_)) {
                 return AssignableFrom.YES;
             }
             return AssignableFrom.NO;
@@ -628,7 +628,7 @@ public final class PrimitiveTypeUtil {
             return false;
         }
         GeneType clArgBl_ = _context.getClassBody(a_);
-        if (clArgBl_.getAllSuperTypes().containsObj(p_)) {
+        if (StringList.contains(clArgBl_.getAllSuperTypes(), p_)) {
             return true;
         }
         return StringList.quickEq(p_, a_);
@@ -656,7 +656,7 @@ public final class PrimitiveTypeUtil {
             String pName_ = paramComp_.getComponent();
             String name_ = argComp_.getComponent();
             PrimitiveType pr_ = stds_.getPrimitiveTypes().getVal(name_);
-            return pr_.getAllSuperType(_context).containsStr(pName_);
+            return StringList.contains(pr_.getAllSuperType(_context), pName_);
         }
         return false;
     }

@@ -7,7 +7,7 @@ import code.formathtml.HtmlPage;
 import code.formathtml.Navigation;
 import code.sml.Element;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 
 public class AnchorEvent extends MouseAdapter {
 

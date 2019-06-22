@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.Ints;
 
 public interface GraphicListable {
 
@@ -15,7 +15,7 @@ public interface GraphicListable {
     void addRange();
     void clearAllRange();
     void clearRange();
-    Numbers<Integer> getSelectedIndexes();
+    Ints getSelectedIndexes();
     CustCellRender getRender();
 
     void setRender(CustCellRender _render);

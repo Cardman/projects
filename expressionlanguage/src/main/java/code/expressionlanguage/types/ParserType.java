@@ -5,8 +5,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.options.Options;
 import code.util.CustList;
-import code.util.NatTreeMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.Ints;
 import code.util.StringList;
 
 public final class ParserType {
@@ -16,12 +16,12 @@ public final class ParserType {
     static final int INT_PRIO = 3;
     static final int TMP_PRIO = 4;
     private ParserType(){}
-    public static Numbers<Integer> getIndexes(String _input, Analyzable _an) {
+    public static Ints getIndexes(String _input, Analyzable _an) {
         int count_ = 0;
         int len_ = _input.length();
         int i_ = 0;
         Options opt_ = _an.getOptions();
-        Numbers<Integer> indexes_ = new Numbers<Integer>();
+        Ints indexes_ = new Ints();
         if (opt_.isSingleInnerParts()) {
             boolean addDot_ = false;
             StringBuilder id_ = new StringBuilder();
@@ -114,11 +114,11 @@ public final class ParserType {
         }
         return indexes_;
     }
-    public static Numbers<Integer> getIndexesExec(String _input) {
+    public static Ints getIndexesExec(String _input) {
         int count_ = 0;
         int len_ = _input.length();
         int i_ = 0;
-        Numbers<Integer> indexes_ = new Numbers<Integer>();
+        Ints indexes_ = new Ints();
         while (i_ < len_) {
             char curChar_ = _input.charAt(i_);
             if (curChar_ == Templates.LT) {
@@ -151,7 +151,7 @@ public final class ParserType {
         }
         return indexes_;
     }
-    public static AnalyzingType analyzeLocal(int _offset, String _string, Numbers<Integer> _indexes, Options _options) {
+    public static AnalyzingType analyzeLocal(int _offset, String _string, Ints _indexes, Options _options) {
         AnalyzingType a_ = new AnalyzingType();
         a_.getIndexes().addAllElts(_indexes);
         if (_string.trim().isEmpty()) {
@@ -202,8 +202,8 @@ public final class ParserType {
         int len_ = _string.length();
         int i_ = 0;
         int prio_ = TMP_PRIO;
-        NatTreeMap<Integer,String> operators_;
-        operators_ = new NatTreeMap<Integer,String>();
+        IntTreeMap<String> operators_;
+        operators_ = new IntTreeMap<String>();
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
             if (!_indexes.containsObj((long)i_+_offset)) {
@@ -251,7 +251,7 @@ public final class ParserType {
         a_.setupValues(_string, _options);
         return a_;
     }
-    public static AnalyzingType analyzeLocalExec(int _offset, String _string, Numbers<Integer> _indexes) {
+    public static AnalyzingType analyzeLocalExec(int _offset, String _string, Ints _indexes) {
         AnalyzingType a_ = new AnalyzingType();
         a_.getIndexes().addAllElts(_indexes);
         if (_string.trim().isEmpty()) {
@@ -299,8 +299,8 @@ public final class ParserType {
         int len_ = _string.length();
         int i_ = 0;
         int prio_ = TMP_PRIO;
-        NatTreeMap<Integer,String> operators_;
-        operators_ = new NatTreeMap<Integer,String>();
+        IntTreeMap<String> operators_;
+        operators_ = new IntTreeMap<String>();
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
             if (!_indexes.containsObj((long)i_+_offset)) {

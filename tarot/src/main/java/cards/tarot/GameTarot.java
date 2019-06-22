@@ -10,7 +10,7 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 
 /** */
 
@@ -61,7 +61,7 @@ public final class GameTarot {
 
     /** Ensemble des plis faits par les joueurs */
     private CustList<TrickTarot> tricks = new CustList<TrickTarot>();
-    private Numbers<Byte> calledPlayers = new Numbers<Byte>();
+    private Bytes calledPlayers = new Bytes();
     /**The called cards are the cards owned by the taker's probably parteners
     */
     private HandTarot calledCards = new HandTarot();
@@ -80,7 +80,7 @@ public final class GameTarot {
     Scores cumules au cours des parties Chaque nombre (Short) represente un
     score pour le joueur
     */
-    private Numbers<Short> scores = new Numbers<Short>();
+    private Shorts scores = new Shorts();
     /** Nombre de fois qu'a ete joue la partie(partie fini) */
     private long number;
     private RulesTarot rules = new RulesTarot();
@@ -234,7 +234,7 @@ public final class GameTarot {
             }
         }
         if (!defined_) {
-            calledPlayers = new Numbers<Byte>();
+            calledPlayers = new Bytes();
             calledPlayers.addAllElts(joueursAyantCarteAppelee());
         }
         for (TrickTarot t: tricks) {
@@ -567,11 +567,11 @@ public final class GameTarot {
     }
 
     public void initEquipeDeterminee() {
-        Numbers<Byte> attaquants_=rules.getRepartition().getAppelesDetermines(taker);
-        calledPlayers = new Numbers<Byte>(attaquants_);
+        Bytes attaquants_=rules.getRepartition().getAppelesDetermines(taker);
+        calledPlayers = new Bytes(attaquants_);
         attaquants_.add(taker);
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
-        Numbers<Byte> defenseurs_=GameTarotTeamsRelation.autresJoueurs(attaquants_, nombreDeJoueurs_);
+        Bytes defenseurs_=GameTarotTeamsRelation.autresJoueurs(attaquants_, nombreDeJoueurs_);
         for(byte j1_:attaquants_) {
             for(byte j2_:attaquants_) {
                 if(j1_==j2_) {
@@ -591,7 +591,7 @@ public final class GameTarot {
     }
 
     public void initDefense() {
-        Numbers<Byte> defenseurs_=new Numbers<Byte>();
+        Bytes defenseurs_=new Bytes();
         byte indice_=taker;
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
         for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nombreDeJoueurs_;joueur_++) {
@@ -744,8 +744,8 @@ public final class GameTarot {
     Appele pour determiner le joueur ayant la carte appelee et initialiser sa
     confiance envers les autres joueurs
     */
-    Numbers<Byte> joueursAyantCarteAppelee() {
-        Numbers<Byte> joueurs_ = new Numbers<Byte>();
+    Bytes joueursAyantCarteAppelee() {
+        Bytes joueurs_ = new Bytes();
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
         for (byte b = CustList.FIRST_INDEX; b < nombreDeJoueurs_; b++) {
             for(CardTarot c: calledCards) {
@@ -773,7 +773,7 @@ public final class GameTarot {
         }
     }
 
-    public Numbers<Byte> getAppele() {
+    public Bytes getAppele() {
         return calledPlayers;
     }
 
@@ -1188,7 +1188,7 @@ public final class GameTarot {
     }
 
 
-    public Numbers<Byte> orderedPlayers(byte _leader) {
+    public Bytes orderedPlayers(byte _leader) {
         return rules.getRepartition().getSortedPlayers(_leader);
     }
 
@@ -1274,7 +1274,7 @@ public final class GameTarot {
         }
         //getDistribution().main().total() == 1
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
-        Numbers<Byte> partenaires_ = teamsRelation_.tousCoequipiers(trickWinner);
+        Bytes partenaires_ = teamsRelation_.tousCoequipiers(trickWinner);
         boolean possedeExcuseMemeEquipe_ = false;
         for (byte b1_ : partenaires_) {
             if (getDistribution().main(b1_).contient(CardTarot.excuse())) {
@@ -1304,7 +1304,7 @@ public final class GameTarot {
         return new GameTarotTeamsRelation(taker,calledPlayers,confidence,rules);
     }
     public GameTarotTrickInfo getDoneTrickInfo() {
-        Numbers<Integer> handLengths_ = new Numbers<Integer>();
+        Ints handLengths_ = new Ints();
         for (HandTarot h: deal) {
             handLengths_.add(h.total());
         }
@@ -1315,8 +1315,8 @@ public final class GameTarot {
         gameTarotTrickInfo_.addSeenDeck(deal.derniereMain(),getTeamsRelation());
         return gameTarotTrickInfo_;
     }
-    public Numbers<Short> getScores() {
-        return new Numbers<Short>(scores);
+    public Shorts getScores() {
+        return new Shorts(scores);
     }
 
     public HandTarot empiler() {
@@ -1491,7 +1491,7 @@ public final class GameTarot {
         tricks = _tricks;
     }
 
-    public void setScores(Numbers<Short> _scores) {
+    public void setScores(Shorts _scores) {
         scores = _scores;
     }
 

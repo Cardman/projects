@@ -3,6 +3,7 @@ package code.expressionlanguage;
 import java.util.concurrent.locks.ReentrantLock;
 
 import code.util.EntryCust;
+import code.util.StringList;
 import code.util.StringMap;
 
 public class CustLockingClass extends DefaultLockingClass {
@@ -25,7 +26,7 @@ public class CustLockingClass extends DefaultLockingClass {
 
     @Override
     public InitClassState getState(ContextEl _context, String _className) {
-        if (getAlwayasInit().containsStr(_className)) {
+        if (StringList.contains(getAlwayasInit(), _className)) {
             return InitClassState.SUCCESS;
         }
         while (true) {

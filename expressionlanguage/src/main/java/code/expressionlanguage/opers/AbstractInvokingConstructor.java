@@ -13,7 +13,7 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringList;
 
 public abstract class AbstractInvokingConstructor extends InvokingOperation {
@@ -38,7 +38,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
 
     @Override
     final void calculateChildren() {
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        IntTreeMap< String> vs_ = getOperations().getValues();
         vs_.removeKey(vs_.firstKey());
         getChildren().putAllMap(vs_);
     }

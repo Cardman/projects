@@ -1,15 +1,15 @@
 package code.formathtml.classes;
 import code.bean.Bean;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.Ints;
 
 public class BeanThree extends Bean {
 
-    private Numbers<Integer> numbers = new Numbers<Integer>();
+    private Ints numbers = new Ints();
 
     private int index = CustList.INDEX_NOT_FOUND_ELT;
 
-    private Numbers<Integer> numbersTwo = new Numbers<Integer>();
+    private Ints numbersTwo = new Ints();
 
     private int indexTwo = CustList.INDEX_NOT_FOUND_ELT;
 
@@ -37,7 +37,7 @@ public class BeanThree extends Bean {
         return index;
     }
 
-    public Numbers<Integer> getNumbers() {
+    public Ints getNumbers() {
         return numbers;
     }
 
@@ -49,7 +49,7 @@ public class BeanThree extends Bean {
         return indexTwo;
     }
 
-    public Numbers<Integer> getNumbersTwo() {
+    public Ints getNumbersTwo() {
         return numbersTwo;
     }
 
@@ -57,11 +57,11 @@ public class BeanThree extends Bean {
         indexTwo = _indexTwo;
     }
 
-    public void setNumbers(Numbers<Integer> _numbers) {
+    public void setNumbers(Ints _numbers) {
         numbers = _numbers;
     }
 
-    public void setNumbersTwo(Numbers<Integer> _numbersTwo) {
+    public void setNumbersTwo(Ints _numbersTwo) {
         numbersTwo = _numbersTwo;
     }
 }

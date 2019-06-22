@@ -5,7 +5,7 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.ParentOperable;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 
 public final class DotOperation extends ReflectableOpering {
 
@@ -40,7 +40,7 @@ public final class DotOperation extends ReflectableOpering {
     }
     @Override
     void calculateChildren() {
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        IntTreeMap< String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
     }
 }

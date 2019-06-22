@@ -95,7 +95,7 @@ import code.network.enums.IpType;
 import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -603,7 +603,7 @@ public class ScenePanel extends Panel {
         facade.openMenu();
         panelMenu.setVisible(false);
         panelOptions.removeAll();
-        NatTreeMap<Byte,UsablePokemon> pks_ = new NatTreeMap<Byte,UsablePokemon>();
+        ByteTreeMap<UsablePokemon> pks_ = new ByteTreeMap<UsablePokemon>();
         for (byte i: facade.getPlayer().getIndexesOfPokemonTeam()) {
             pks_.put(i, facade.getPlayer().getTeam().get(i));
         }
@@ -650,7 +650,7 @@ public class ScenePanel extends Panel {
         facade.openMenu();
         panelMenu.setVisible(false);
         panelOptions.removeAll();
-        NatTreeMap<Byte,UsablePokemon> pks_ = new NatTreeMap<Byte,UsablePokemon>();
+        ByteTreeMap<UsablePokemon> pks_ = new ByteTreeMap<UsablePokemon>();
         for (byte i: facade.getPlayer().getIndexesOfPokemonTeam()) {
             pks_.put(i, facade.getPlayer().getTeam().get(i));
         }
@@ -790,8 +790,8 @@ public class ScenePanel extends Panel {
         }
     }
 
-    public void setTradable(NatTreeMap<Byte, PokemonPlayer> _team) {
-        NatTreeMap<Byte,UsablePokemon> teamPks_ = new NatTreeMap<Byte,UsablePokemon>();
+    public void setTradable(ByteTreeMap< PokemonPlayer> _team) {
+        ByteTreeMap<UsablePokemon> teamPks_ = new ByteTreeMap<UsablePokemon>();
         for (EntryCust<Byte, PokemonPlayer> e: _team.entryList()) {
             teamPks_.put(e.getKey(), e.getValue());
         }
@@ -821,9 +821,9 @@ public class ScenePanel extends Panel {
         panelNetWork.add(readyCheck);
     }
 
-    public void setTradableAfterTrading(NatTreeMap<Byte, PokemonPlayer> _team) {
+    public void setTradableAfterTrading(ByteTreeMap< PokemonPlayer> _team) {
         enabledClick = false;
-        NatTreeMap<Byte,UsablePokemon> teamPks_ = new NatTreeMap<Byte,UsablePokemon>();
+        ByteTreeMap<UsablePokemon> teamPks_ = new ByteTreeMap<UsablePokemon>();
         for (EntryCust<Byte, PokemonPlayer> e: _team.entryList()) {
             teamPks_.put(e.getKey(), e.getValue());
         }
@@ -997,8 +997,8 @@ public class ScenePanel extends Panel {
             panelMenu.setVisible(false);
         } else if (facade.getInterfaceType() == InterfaceType.PENSION) {
             Panel set_ = new Panel();
-            NatTreeMap<Byte,UsablePokemon> teamPks_ = new NatTreeMap<Byte,UsablePokemon>();
-            NatTreeMap<Byte, PokemonPlayer> team_ = facade.getGame().getPlayer().getPokemonPlayerList();
+            ByteTreeMap<UsablePokemon> teamPks_ = new ByteTreeMap<UsablePokemon>();
+            ByteTreeMap< PokemonPlayer> team_ = facade.getGame().getPlayer().getPokemonPlayerList();
             for (EntryCust<Byte, PokemonPlayer> e: team_.entryList()) {
                 teamPks_.put(e.getKey(), e.getValue());
             }
@@ -1219,8 +1219,8 @@ public class ScenePanel extends Panel {
 //    }
 
     private void initPkTeamMoveTutors() {
-        NatTreeMap<Byte,PokemonPlayer> team_ = facade.getPlayer().getPokemonPlayerList();
-        NatTreeMap<Byte,UsablePokemon> pks_ = new NatTreeMap<Byte,UsablePokemon>();
+        ByteTreeMap<PokemonPlayer> team_ = facade.getPlayer().getPokemonPlayerList();
+        ByteTreeMap<UsablePokemon> pks_ = new ByteTreeMap<UsablePokemon>();
         for (EntryCust<Byte, PokemonPlayer> e: team_.entryList()) {
             pks_.put(e.getKey(), e.getValue());
         }
@@ -1230,8 +1230,8 @@ public class ScenePanel extends Panel {
 
     private void refreshPkTeamMoveTutors() {
         enabledClick = false;
-        NatTreeMap<Byte,PokemonPlayer> team_ = facade.getPlayer().getPokemonPlayerList();
-        NatTreeMap<Byte,UsablePokemon> pks_ = new NatTreeMap<Byte,UsablePokemon>();
+        ByteTreeMap<PokemonPlayer> team_ = facade.getPlayer().getPokemonPlayerList();
+        ByteTreeMap<UsablePokemon> pks_ = new ByteTreeMap<UsablePokemon>();
         for (EntryCust<Byte, PokemonPlayer> e: team_.entryList()) {
             pks_.put(e.getKey(), e.getValue());
         }
@@ -1240,7 +1240,7 @@ public class ScenePanel extends Panel {
     }
 
     private void initTeam() {
-        NatTreeMap<Byte,UsablePokemon> pks_ = new NatTreeMap<Byte,UsablePokemon>();
+        ByteTreeMap<UsablePokemon> pks_ = new ByteTreeMap<UsablePokemon>();
         byte i_ = CustList.FIRST_INDEX;
         for (UsablePokemon p: facade.getPlayer().getTeam()) {
             pks_.put(i_, p);
@@ -1251,7 +1251,7 @@ public class ScenePanel extends Panel {
 
     private void refreshTeam() {
         enabledClick = false;
-        NatTreeMap<Byte,UsablePokemon> pks_ = new NatTreeMap<Byte,UsablePokemon>();
+        ByteTreeMap<UsablePokemon> pks_ = new ByteTreeMap<UsablePokemon>();
         byte i_ = CustList.FIRST_INDEX;
         for (UsablePokemon p: facade.getPlayer().getTeam()) {
             pks_.put(i_, p);

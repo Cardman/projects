@@ -72,8 +72,8 @@ public final class FileResolver {
         boolean commentedSingleLine_ = false;
         boolean commentedMultiLine_ = false;
         int indexImport_ = 0;
-        Numbers<Integer> badIndexes_ = new Numbers<Integer>();
-        Numbers<Integer> offsetsImports_ = new Numbers<Integer>();
+        Ints badIndexes_ = new Ints();
+        Ints offsetsImports_ = new Ints();
         while (i_ < len_) {
             char currentChar_ = _file.charAt(i_);
             if (commentedSingleLine_) {
@@ -240,7 +240,7 @@ public final class FileResolver {
                         if (c_ instanceof RootBlock) {
                             RootBlock cur_ = (RootBlock) c_;
                             String s_ = cur_.getName();
-                            if (simpleNames_.containsStr(s_)) {
+                            if (StringList.contains(simpleNames_, s_)) {
                                 //ERROR
                                 DuplicateType d_ = new DuplicateType();
                                 d_.setId(cur_.getFullName());
@@ -378,9 +378,9 @@ public final class FileResolver {
         int beginType_ = nextIndex_;
         int accessOffsetType_ = beginType_;
         String afterAccessType_ = _file.substring(i_);
-        Numbers<Integer> annotationsIndexesTypes_ = new Numbers<Integer>();
+        Ints annotationsIndexesTypes_ = new Ints();
         StringList annotationsTypes_ = new StringList();
-        Numbers<Integer> badIndexes_ = _input.getBadIndexes();
+        Ints badIndexes_ = _input.getBadIndexes();
         int deltaType_ = 0;
         if (afterAccessType_.trim().charAt(0) == ANNOT) {
             // accessOffesType_ == nextIndex_ == i_ + 1;
@@ -471,10 +471,10 @@ public final class FileResolver {
             }
         }
         StringList importedTypes_;
-        Numbers<Integer> offsetsImports_;
+        Ints offsetsImports_;
         boolean enableByEndLine_ = false;
         BracedBlock currentParent_;
-        Numbers<Integer> braces_ = new Numbers<Integer>();
+        Ints braces_ = new Ints();
         if (oper_) {
             ParsedImportedTypes p_ = new ParsedImportedTypes(nextIndex_, _file, badIndexes_, enabledSpaces_);
             importedTypes_ = p_.getImportedTypes();
@@ -510,17 +510,17 @@ public final class FileResolver {
             paramOffest_ = typeOffset_ + declTypeLen_ + 1;
             paramOffest_ += StringList.getFirstPrintableCharIndex(afterMethodName_);
             info_ = afterMethodName_.trim();
-            Numbers<Integer> offestsTypes_ = new Numbers<Integer>();
-            Numbers<Integer> offestsParams_ = new Numbers<Integer>();
+            Ints offestsTypes_ = new Ints();
+            Ints offestsParams_ = new Ints();
             StringList parametersType_ = new StringList();
             StringList parametersName_ = new StringList();
-            CustList<Numbers<Integer>> annotationsIndexesParams_ = new CustList<Numbers<Integer>>();
+            CustList<Ints> annotationsIndexesParams_ = new CustList<Ints>();
             CustList<StringList> annotationsParams_ = new CustList<StringList>();
             while (true) {
                 if (info_.indexOf(END_CALLING) == 0) {
                     break;
                 }
-                Numbers<Integer> annotationsIndexesParam_ = new Numbers<Integer>();
+                Ints annotationsIndexesParam_ = new Ints();
                 StringList annotationsParam_ = new StringList();
                 String trim_ = info_.trim();
                 if (trim_.isEmpty()) {
@@ -641,7 +641,7 @@ public final class FileResolver {
             }
             //insert interfaces static initialization for class and enums
             StringList staticInitInterfaces_ = new StringList();
-            Numbers<Integer> staticInitInterfacesOffset_ = new Numbers<Integer>();
+            Ints staticInitInterfacesOffset_ = new Ints();
             if (ContextEl.startsWithKeyWord(_file.substring(nextIndex_), keyWordInterfaces_)) {
                 int begin_ = _file.indexOf(BEGIN_CALLING, nextIndex_);
                 if (begin_ < 0) {
@@ -680,7 +680,7 @@ public final class FileResolver {
                 return out_;
             }
             StringBuilder str_ = new StringBuilder();
-            NatTreeMap<Integer, String> superTypes_ = new NatTreeMap<Integer, String>();
+            IntTreeMap< String> superTypes_ = new IntTreeMap< String>();
             StringBuilder typeNamePref_ = new StringBuilder();
             StringBuilder templateDef_ = new StringBuilder();
             int nbOpened_ = 0;
@@ -777,7 +777,7 @@ public final class FileResolver {
         return processOuterTypeBody(_context, _input, nextIndex_, _file, currentParent_, braces_, enableByEndLine_, out_);
     }
     private static ResultCreation processOuterTypeBody(ContextEl _context, InputTypeCreation _input, int _nextIndex,
-            String _file, BracedBlock _currentParent, Numbers<Integer> _braces, boolean _enabledEnum, ResultCreation _out) {
+            String _file, BracedBlock _currentParent, Ints _braces, boolean _enabledEnum, ResultCreation _out) {
         int len_ = _file.length();
         Options options_ = _context.getOptions();
         KeyWords keyWords_ = _context.getKeyWords();
@@ -789,8 +789,8 @@ public final class FileResolver {
         StringBuilder instruction_ = new StringBuilder();
         int instructionLocation_ = -1;
         EnablingSpaces enabledSpaces_ = _input.getEnabledSpaces();
-        Numbers<Integer> badIndexes_ = _input.getBadIndexes();
-        Numbers<Integer> parentheses_ = new Numbers<Integer>();
+        Ints badIndexes_ = _input.getBadIndexes();
+        Ints parentheses_ = new Ints();
         boolean commentedSingleLine_ = false;
         boolean commentedMultiLine_ = false;
         boolean constChar_ = false;
@@ -1146,11 +1146,11 @@ public final class FileResolver {
         return _out;
     }
     private static AfterBuiltInstruction processInstruction(ContextEl _context, InputTypeCreation _input, char _currentChar,
-                                                            BracedBlock _currentParent, IdMap<SwitchPartBlock, Boolean> _bracedSwitchPart, Numbers<Integer> _braces,
+                                                            BracedBlock _currentParent, IdMap<SwitchPartBlock, Boolean> _bracedSwitchPart, Ints _braces,
                                                             int _instructionLocation, StringBuilder _instruction, String _file, boolean _declType, int _i, int _nextIndex, boolean _enabledEnum) {
         AfterBuiltInstruction after_ = new AfterBuiltInstruction();
         EnablingSpaces enabledSpaces_ = _input.getEnabledSpaces();
-        Numbers<Integer> badIndexes_ = _input.getBadIndexes();
+        Ints badIndexes_ = _input.getBadIndexes();
         Options options_ = _context.getOptions();
         BracedBlock currentParent_ = _currentParent;
         int instructionLocation_ = _instructionLocation;
@@ -1176,7 +1176,7 @@ public final class FileResolver {
                 int expressionOffest_;
                 String expression_;
                 int delta_ = 0;
-                Numbers<Integer> annotationsIndexes_ = new Numbers<Integer>();
+                Ints annotationsIndexes_ = new Ints();
                 StringList annotations_ = new StringList();
                 if (_declType) {
                     RootBlock built_ = processTypeHeader(_context, _input, true,
@@ -1297,7 +1297,7 @@ public final class FileResolver {
                 int expressionOffest_;
                 String expression_ = EMPTY_STRING;
                 int delta_ = 0;
-                Numbers<Integer> annotationsIndexes_ = new Numbers<Integer>();
+                Ints annotationsIndexes_ = new Ints();
                 StringList annotations_ = new StringList();
                 if (trimmedInstruction_.charAt(0) == ANNOT) {
                     ParsedAnnotations par_ = new ParsedAnnotations(found_, instructionRealLocation_);
@@ -1505,7 +1505,7 @@ public final class FileResolver {
         String keyWordProtected_ = keyWords_.getKeyWordProtected();
         String keyWordPublic_ = keyWords_.getKeyWordPublic();
         String trimmedInstruction_ = _trimmedInstruction;
-        Numbers<Integer> annotationsIndexes_ = new Numbers<Integer>();
+        Ints annotationsIndexes_ = new Ints();
         StringList annotations_ = new StringList();
         int typeOffset_ = _instructionLocation;
         if (trimmedInstruction_.charAt(0) == ANNOT) {
@@ -1541,7 +1541,7 @@ public final class FileResolver {
         enLoc_.setFile(_enLoc.getFile());
         enLoc_.setOk(_enLoc.isOk());
         enLoc_.setOnlySpacesLine(_enLoc.isOnlySpacesLine());
-        Numbers<Integer> badIndexes_ = _input.getBadIndexes();
+        Ints badIndexes_ = _input.getBadIndexes();
         boolean staticType_ = _defStatic;
         boolean abstractType_ = false;
         boolean finalType_ = false;
@@ -1595,16 +1595,16 @@ public final class FileResolver {
     }
 
     private static RootBlock tryBuiltTypeWithInfos(String _file, int _instructionLocation, int _instructionRealLocation, BracedBlock _currentParent, AccessEnum _accessFct, int _trFound,
-                                                   Numbers<Integer> _annotationsIndexes, StringList _annotations, int _typeOffset, int _locIndex, EnablingSpaces _enLoc, Numbers<Integer> _badIndexes,
+                                                   Ints _annotationsIndexes, StringList _annotations, int _typeOffset, int _locIndex, EnablingSpaces _enLoc, Ints _badIndexes,
                                                    boolean _staticType, boolean _abstractType, boolean _finalType, String _keyWordClass, String _keyWordEnum, String _keyWordInterface, String _keyWordInterfaces, String _type,
                                                    int _categoryOffset) {
         ParsedImportedTypes p_ = new ParsedImportedTypes(_locIndex, _file, _badIndexes, _enLoc);
         StringList importedTypes_ = p_.getImportedTypes();
-        Numbers<Integer> offsetsImports_ = p_.getOffsetsImports();
+        Ints offsetsImports_ = p_.getOffsetsImports();
         int locIndex_ = p_.getNextIndex();
         //insert interfaces static initialization for class and enums
         StringList staticInitInterfaces_ = new StringList();
-        Numbers<Integer> staticInitInterfacesOffset_ = new Numbers<Integer>();
+        Ints staticInitInterfacesOffset_ = new Ints();
         if (ContextEl.startsWithKeyWord(_file.substring(locIndex_), _keyWordInterfaces)) {
             int begin_ = _file.indexOf(BEGIN_CALLING, locIndex_);
             if (begin_ < 0) {
@@ -1634,13 +1634,13 @@ public final class FileResolver {
     }
 
     private static RootBlock tryBuildType(String _file, int _instructionLocation, int _instructionRealLocation, BracedBlock _currentParent,
-                                          AccessEnum _accessFct, int _trFound, Numbers<Integer> _annotationsIndexes, StringList _annotations, int _typeOffset, int _locIndex,
+                                          AccessEnum _accessFct, int _trFound, Ints _annotationsIndexes, StringList _annotations, int _typeOffset, int _locIndex,
                                           EnablingSpaces _enLoc, boolean _staticType, boolean _abstractType, boolean _finalType,
                                           String _keyWordClass, String _keyWordEnum, String _keyWordInterface, String _type, int _categoryOffset, StringList _importedTypes,
-                                          Numbers<Integer> _offsetsImports, StringList _staticInitInterfaces, Numbers<Integer> _staticInitInterfacesOffset) {
+                                          Ints _offsetsImports, StringList _staticInitInterfaces, Ints _staticInitInterfacesOffset) {
         int locIndex_ = skipWhitespace(_locIndex, _file, _enLoc);
         StringBuilder str_ = new StringBuilder();
-        NatTreeMap<Integer, String> superTypes_ = new NatTreeMap<Integer, String>();
+        IntTreeMap< String> superTypes_ = new IntTreeMap< String>();
         StringBuilder typeNamePref_ = new StringBuilder();
         StringBuilder templateDef_ = new StringBuilder();
         int nbOpened_ = 0;
@@ -1726,7 +1726,7 @@ public final class FileResolver {
         String word_ = EMPTY_STRING;
         int trFound_ = StringList.getFirstPrintableCharIndex(found_);
         int accessOffest_ = trFound_ + _i - found_.length();
-        Numbers<Integer> annotationsIndexes_ = new Numbers<Integer>();
+        Ints annotationsIndexes_ = new Ints();
         StringList annotations_ = new StringList();
         int deltaAccess_ = 0;
         KeyWords keyWords_ = _context.getKeyWords();
@@ -1906,17 +1906,17 @@ public final class FileResolver {
                 paramOffest_ += StringList.getFirstPrintableCharIndex(after_);
                 info_ = after_.trim();
             }
-            Numbers<Integer> offestsTypes_ = new Numbers<Integer>();
-            Numbers<Integer> offestsParams_ = new Numbers<Integer>();
+            Ints offestsTypes_ = new Ints();
+            Ints offestsParams_ = new Ints();
             StringList parametersType_ = new StringList();
             StringList parametersName_ = new StringList();
-            CustList<Numbers<Integer>> annotationsIndexesParams_ = new CustList<Numbers<Integer>>();
+            CustList<Ints> annotationsIndexesParams_ = new CustList<Ints>();
             CustList<StringList> annotationsParams_ = new CustList<StringList>();
             while (true) {
                 if (info_.indexOf(END_CALLING) == 0) {
                     break;
                 }
-                Numbers<Integer> annotationsIndexesParam_ = new Numbers<Integer>();
+                Ints annotationsIndexesParam_ = new Ints();
                 StringList annotationsParam_ = new StringList();
                 if (info_.trim().charAt(0) == ANNOT) {
                     ParsedAnnotations par_ = new ParsedAnnotations(info_, paramOffest_);
@@ -1965,9 +1965,9 @@ public final class FileResolver {
                     } else {
                         trimMeth_ = "[]";
                     }
-                    br_ = new IndexerBlock(_context,get_, _currentParent, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(typeOffset_, retType_), new OffsetStringInfo(methodNameOffest_, trimMeth_), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_, modifier_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                    br_ = new IndexerBlock(_context,get_, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(typeOffset_, retType_), new OffsetStringInfo(methodNameOffest_, trimMeth_), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_, modifier_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                 } else {
-                    br_ = new MethodBlock(_context, _currentParent, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(typeOffset_, retType_), new OffsetStringInfo(methodNameOffest_, trimMeth_), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_, modifier_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                    br_ = new MethodBlock(_context, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(typeOffset_, retType_), new OffsetStringInfo(methodNameOffest_, trimMeth_), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_, modifier_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                 }
             } else {
                 br_ = new ConstructorBlock(new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(accessOffest_, EMPTY_STRING), new OffsetStringInfo(accessOffest_, EMPTY_STRING), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
@@ -2020,7 +2020,7 @@ public final class FileResolver {
         }
         return br_;
     }
-    private static Block processInstructionBlock(ContextEl _context, Numbers<Integer> _badIndexes,String _file,
+    private static Block processInstructionBlock(ContextEl _context, Ints _badIndexes,String _file,
                                                  IdMap<SwitchPartBlock, Boolean> _bracedSwitchPart, int _instructionLocation,
                                                  int _instructionRealLocation, int _i, BracedBlock _currentParent, String _trimmedInstruction) {
         char endLine_ = _context.getOptions().getEndLine();
@@ -3070,7 +3070,7 @@ public final class FileResolver {
     private static int getIndex(String _info, char _endLine) {
         int indexInstr_ = 0;
         int instrLen_ = _info.length();
-        Numbers<Integer> localCallings_ = new Numbers<Integer>();
+        Ints localCallings_ = new Ints();
         boolean localConstChar_ = false;
         boolean localConstString_ = false;
         boolean localConstText_ = false;

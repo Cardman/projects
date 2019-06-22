@@ -22,15 +22,6 @@ public final class CharMap<V> extends AbsMap<Character,V> {
     }
 
     @Override
-    public CharList getKeys() {
-        CharList s_ = new CharList();
-        for (EntryCust<Character, V> e: getList()) {
-            s_.add(e.getKey());
-        }
-        return s_;
-    }
-
-    @Override
     int indexOfEntry(Character _key) {
         int index_ = CustList.FIRST_INDEX;
         for (EntryCust<Character, V> e:getList()) {

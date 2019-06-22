@@ -23,8 +23,8 @@ import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.images.Image;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -103,7 +103,7 @@ public class DataMapScreenTest {
         Road roadFive_ = hroad();
         Road roadSix_ = hroad();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setPlaces(new NumberMap<Short,Place>());
+        dataMap_.setPlaces(new ShortMap<Place>());
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),cityOne_);
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),roadOne_);
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),cityTwo_);
@@ -765,7 +765,7 @@ public class DataMapScreenTest {
 
     private static int[][] getImageByString(String _string) {
         Image i_ = new Image(_string);
-        Numbers<Integer> pixels_ = i_.getPixels();
+        Ints pixels_ = i_.getPixels();
         int width_ = i_.getWidth();
         int height_ = i_.getHeight();
         int[][] img_ = new int[height_][width_];

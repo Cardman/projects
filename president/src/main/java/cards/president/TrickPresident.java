@@ -3,7 +3,8 @@ import java.util.Iterator;
 
 import code.util.CustList;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
+import code.util.Ints;
 
 
 public final class TrickPresident implements Iterable<HandPresident> {
@@ -12,7 +13,7 @@ public final class TrickPresident implements Iterable<HandPresident> {
     /**cards est l'ensemble de cartes jouees pendant le pli a la belote ou au tarot*/
     private EqList<HandPresident> cards=new EqList<HandPresident>();
 
-    private Numbers<Byte> players = new Numbers<Byte>();
+    private Bytes players = new Bytes();
 
     public TrickPresident() {}
     TrickPresident(byte _pentameur) {
@@ -22,7 +23,7 @@ public final class TrickPresident implements Iterable<HandPresident> {
     TrickPresident(HandPresident _pm, byte _pentameur) {
         initPli(_pentameur);
         cards=new EqList<HandPresident>(_pm);
-        players = new Numbers<Byte>();
+        players = new Bytes();
     }
 
     TrickPresident(TrickPresident _trick) {
@@ -41,8 +42,8 @@ public final class TrickPresident implements Iterable<HandPresident> {
         return (byte) ((starter + _index) % _nbPlayers);
     }
 
-    public Numbers<Integer> getPlayedCardsIndexes(byte _player, byte _nbPlayers) {
-        Numbers<Integer> l_ = new Numbers<Integer>();
+    public Ints getPlayedCardsIndexes(byte _player, byte _nbPlayers) {
+        Ints l_ = new Ints();
         byte pl_ = starter;
         int len_ = cards.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -55,8 +56,8 @@ public final class TrickPresident implements Iterable<HandPresident> {
         return l_;
     }
 
-    public Numbers<Integer> getFilledHandsIndexesBefore(int _index) {
-        Numbers<Integer> l_ = new Numbers<Integer>();
+    public Ints getFilledHandsIndexesBefore(int _index) {
+        Ints l_ = new Ints();
         int len_ = cards.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             if (i >= _index) {
@@ -158,7 +159,7 @@ public final class TrickPresident implements Iterable<HandPresident> {
         cards.add(_c);
         players.add(_pl);
     }
-    public Numbers<Byte> getPlayers() {
+    public Bytes getPlayers() {
         return players;
     }
     public HandPresident carte(int _i) {
@@ -191,7 +192,7 @@ public final class TrickPresident implements Iterable<HandPresident> {
 
     void setEntameur(int _i) {
         starter = (byte) _i;
-        players = new Numbers<Byte>();
+        players = new Bytes();
     }
     public EqList<HandPresident> getCards() {
         return cards;

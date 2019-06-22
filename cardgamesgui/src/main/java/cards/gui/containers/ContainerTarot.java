@@ -26,7 +26,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 
 public class ContainerTarot extends ContainerGame{
@@ -34,7 +34,7 @@ public class ContainerTarot extends ContainerGame{
     public static final String EMPTY="";
     protected static final String TAB="\t";
     /**Renvoie tous les scores de toutes les parties non solitaires*/
-    private CustList<Numbers<Long>> scores=new CustList<Numbers<Long>>();
+    private CustList<Longs> scores=new CustList<Longs>();
     /**Maximum des valeurs absolues des scores centr&eacute;s par rapport &agrave; la moyenne*/
     private long maxAbsoluScore;
     /**Est vrai si et seulement si une partie vient d'etre sauvegardee*/
@@ -241,10 +241,10 @@ public class ContainerTarot extends ContainerGame{
     protected void setPartieSauvegardee(boolean _partieSauvegardee) {
         partieSauvegardee = _partieSauvegardee;
     }
-    public CustList<Numbers<Long>> getScores() {
+    public CustList<Longs> getScores() {
         return scores;
     }
-    protected void setScores(CustList<Numbers<Long>> _scores) {
+    protected void setScores(CustList<Longs> _scores) {
         scores = _scores;
     }
     public EnumList<Miseres> getAllowedMiseres() {

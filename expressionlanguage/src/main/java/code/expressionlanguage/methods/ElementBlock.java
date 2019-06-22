@@ -38,7 +38,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     private int trOffset;
     private StringList annotations = new StringList();
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
-    private Numbers<Integer> annotationsIndexes = new Numbers<Integer>();
+    private Ints annotationsIndexes = new Ints();
 
     public ElementBlock(OffsetStringInfo _fieldName,
                         OffsetStringInfo _type,
@@ -184,7 +184,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         return annotationsOps;
     }
     @Override
-    public Numbers<Integer> getAnnotationsIndexes() {
+    public Ints getAnnotationsIndexes() {
         return annotationsIndexes;
     }
 

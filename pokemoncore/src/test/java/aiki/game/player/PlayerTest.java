@@ -20,7 +20,7 @@ import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -50,7 +50,7 @@ public class PlayerTest extends InitializationDataBase {
         player_.initTeam(player_.getSex(), diff_, pkTwo_, _data_);
         assertEq(0, player_.getEggsList().size());
         assertEq(1, player_.getPokemonPlayerList().size());
-        Numbers<Byte> keys_ = new Numbers<Byte>(player_.getPokemonPlayerList().getKeys());
+        Bytes keys_ = new Bytes(player_.getPokemonPlayerList().getKeys());
         int index_ = keys_.first();
         assertEq(0, index_);
         PokemonPlayer pk_ = (PokemonPlayer) player_.getTeam().get(index_);
@@ -98,7 +98,7 @@ public class PlayerTest extends InitializationDataBase {
         player_.initTeam(player_.getSex(), diff_, pkTwo_, _data_);
         assertEq(0, player_.getEggsList().size());
         assertEq(1, player_.getPokemonPlayerList().size());
-        Numbers<Byte> keys_ = new Numbers<Byte>(player_.getPokemonPlayerList().getKeys());
+        Bytes keys_ = new Bytes(player_.getPokemonPlayerList().getKeys());
         int index_ = keys_.first();
         assertEq(0, index_);
         PokemonPlayer pk_ = (PokemonPlayer) player_.getTeam().get(index_);
@@ -146,7 +146,7 @@ public class PlayerTest extends InitializationDataBase {
         player_.initTeam(player_.getSex(), diff_, pkTwo_, _data_);
         assertEq(0, player_.getEggsList().size());
         assertEq(1, player_.getPokemonPlayerList().size());
-        Numbers<Byte> keys_ = new Numbers<Byte>(player_.getPokemonPlayerList().getKeys());
+        Bytes keys_ = new Bytes(player_.getPokemonPlayerList().getKeys());
         int index_ = keys_.first();
         assertEq(0, index_);
         PokemonPlayer pk_ = (PokemonPlayer) player_.getTeam().get(index_);
@@ -194,7 +194,7 @@ public class PlayerTest extends InitializationDataBase {
         player_.initTeam(player_.getSex(), diff_, pkTwo_, _data_);
         assertEq(0, player_.getEggsList().size());
         assertEq(1, player_.getPokemonPlayerList().size());
-        Numbers<Byte> keys_ = new Numbers<Byte>(player_.getPokemonPlayerList().getKeys());
+        Bytes keys_ = new Bytes(player_.getPokemonPlayerList().getKeys());
         int index_ = keys_.first();
         assertEq(0, index_);
         PokemonPlayer pk_ = (PokemonPlayer) player_.getTeam().get(index_);
@@ -231,7 +231,7 @@ public class PlayerTest extends InitializationDataBase {
         assertTrue(!player_.getRepousseActif());
         assertEq(0, player_.getEggsList().size());
         assertEq(1, player_.getPokemonPlayerList().size());
-        Numbers<Byte> keys_ = new Numbers<Byte>(player_.getPokemonPlayerList().getKeys());
+        Bytes keys_ = new Bytes(player_.getPokemonPlayerList().getKeys());
         int index_ = keys_.first();
         assertEq(0, index_);
         PokemonPlayer pk_ = (PokemonPlayer) player_.getTeam().get(index_);
@@ -372,7 +372,7 @@ public class PlayerTest extends InitializationDataBase {
         assertTrue(!player_.getRepousseActif());
         assertEq(0, player_.getEggsList().size());
         assertEq(1, player_.getPokemonPlayerList().size());
-        Numbers<Byte> keys_ = new Numbers<Byte>(player_.getPokemonPlayerList().getKeys());
+        Bytes keys_ = new Bytes(player_.getPokemonPlayerList().getKeys());
         int index_ = keys_.first();
         assertEq(0, index_);
         PokemonPlayer pk_ = (PokemonPlayer) player_.getTeam().get(index_);
@@ -742,7 +742,7 @@ public class PlayerTest extends InitializationDataBase {
         assertTrue(!player_.getRepousseActif());
         assertEq(0, player_.getEggsList().size());
         assertEq(1, player_.getPokemonPlayerList().size());
-        Numbers<Byte> keys_ = new Numbers<Byte>(player_.getPokemonPlayerList().getKeys());
+        Bytes keys_ = new Bytes(player_.getPokemonPlayerList().getKeys());
         int index_ = keys_.first();
         assertEq(0, index_);
         PokemonPlayer pk_ = (PokemonPlayer) player_.getTeam().get(index_);
@@ -884,7 +884,7 @@ public class PlayerTest extends InitializationDataBase {
         assertTrue(!player_.getRepousseActif());
         assertEq(0, player_.getEggsList().size());
         assertEq(1, player_.getPokemonPlayerList().size());
-        Numbers<Byte> keys_ = new Numbers<Byte>(player_.getPokemonPlayerList().getKeys());
+        Bytes keys_ = new Bytes(player_.getPokemonPlayerList().getKeys());
         int index_ = keys_.first();
         assertEq(0, index_);
         PokemonPlayer pk_ = (PokemonPlayer) player_.getTeam().get(index_);
@@ -1208,7 +1208,7 @@ public class PlayerTest extends InitializationDataBase {
         player_.eclosionOeuf(diff_, _data_);
         assertEq(0, player_.getEggsList().size());
         assertEq(1, player_.getPokemonPlayerList().size());
-        Numbers<Byte> keys_ = new Numbers<Byte>(player_.getPokemonPlayerList().getKeys());
+        Bytes keys_ = new Bytes(player_.getPokemonPlayerList().getKeys());
         int index_ = keys_.first();
         assertEq(0, index_);
     }
@@ -1222,10 +1222,10 @@ public class PlayerTest extends InitializationDataBase {
         player_.eclosionOeuf(diff_, _data_);
         assertEq(1, player_.getEggsList().size());
         assertEq(1, player_.getPokemonPlayerList().size());
-        Numbers<Byte> keys_ = new Numbers<Byte>(player_.getPokemonPlayerList().getKeys());
+        Bytes keys_ = new Bytes(player_.getPokemonPlayerList().getKeys());
         int index_ = keys_.first();
         assertEq(0, index_);
-        keys_ = new Numbers<Byte>(player_.getEggsList().getKeys());
+        keys_ = new Bytes(player_.getEggsList().getKeys());
         index_ = keys_.first();
         assertEq(1, index_);
     }
@@ -4927,11 +4927,11 @@ public class PlayerTest extends InitializationDataBase {
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
         player_.choosePokemonForMoveTutors((short) 0, _data_);
-        StringList moves_ = player_.currentMovesPokemon();
+        CustList<String> moves_ = player_.currentMovesPokemon();
         assertEq(3, moves_.size());
-        assertTrue(moves_.containsObj(JACKPOT));
-        assertTrue(moves_.containsObj(PASSE_PASSE));
-        assertTrue(moves_.containsObj(OEIL_MIRACLE));
+        assertTrue(StringList.contains(moves_, JACKPOT));
+        assertTrue(StringList.contains(moves_, PASSE_PASSE));
+        assertTrue(StringList.contains(moves_, OEIL_MIRACLE));
     }
 
     @Test
@@ -5610,7 +5610,7 @@ public class PlayerTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
-        Numbers<Short> tm_ = new Numbers<Short>();
+        Shorts tm_ = new Shorts();
         tm_.add((short)2);
         assertTrue(!player_.canBeBought(tm_, _data_));
     }
@@ -5620,7 +5620,7 @@ public class PlayerTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
-        Numbers<Short> tm_ = new Numbers<Short>();
+        Shorts tm_ = new Shorts();
         tm_.add((short)3);
         assertTrue(player_.canBeBought(tm_, _data_));
     }
@@ -5630,7 +5630,7 @@ public class PlayerTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
-        Numbers<Short> tm_ = new Numbers<Short>();
+        Shorts tm_ = new Shorts();
         tm_.add((short)4);
         assertTrue(player_.canBeBought(tm_, _data_));
     }
@@ -5705,7 +5705,7 @@ public class PlayerTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
         player_.getTm((short) 4);
-        Numbers<Short> tm_ = new Numbers<Short>();
+        Shorts tm_ = new Shorts();
         tm_.add((short) 3);
         player_.achatCts(tm_, _data_);
         assertEq(new LgInt("1000"), player_.getMoney());

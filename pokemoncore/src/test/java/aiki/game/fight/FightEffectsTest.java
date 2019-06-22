@@ -63,8 +63,8 @@ import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -859,7 +859,7 @@ public class FightEffectsTest extends InitializationDataBase {
         StringList value_;
         value_ = map_.getVal(new MoveTeamPosition(POSSESSIF, target_));
         assertEq(1, value_.size());
-        assertTrue(value_.containsObj(COPIE));
+        assertTrue(StringList.contains(value_, COPIE));
     }
 
     @Test
@@ -1158,12 +1158,12 @@ public class FightEffectsTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         assertEq(METEO, fighter_.getCurrentAbility());
         assertEq(1, typesThrower_.size());
-        assertTrue(typesThrower_.containsObj(FEU));
+        assertTrue(StringList.contains(typesThrower_, FEU));
         StringList typesTarget_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition()).getTypes();
         fighter_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition());
         assertEq(MULTITYPE, fighter_.getCurrentAbility());
         assertEq(1, typesTarget_.size());
-        assertTrue(typesTarget_.containsObj(DRAGON));
+        assertTrue(StringList.contains(typesTarget_, DRAGON));
         MoveData fMove_ = _data_.getMove(ECHANGE);
         EffectSwitchAbilities effect_ = (EffectSwitchAbilities) fMove_.getEffet(CustList.FIRST_INDEX);
         FightEffects.effectSwitchAbilities(fight_, thrower_, target_, effect_, _data_);
@@ -1171,12 +1171,12 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         assertEq(MULTITYPE, fighter_.getCurrentAbility());
         assertEq(1, typesThrower_.size());
-        assertTrue(typesThrower_.containsObj(DRAGON));
+        assertTrue(StringList.contains(typesThrower_, DRAGON));
         typesTarget_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition()).getTypes();
         fighter_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition());
         assertEq(METEO, fighter_.getCurrentAbility());
         assertEq(1, typesTarget_.size());
-        assertTrue(typesTarget_.containsObj(FEU));
+        assertTrue(StringList.contains(typesTarget_, FEU));
     }
 
     @Test
@@ -1191,12 +1191,12 @@ public class FightEffectsTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         assertEq(METEO, fighter_.getCurrentAbility());
         assertEq(1, typesThrower_.size());
-        assertTrue(typesThrower_.containsObj(FEU));
+        assertTrue(StringList.contains(typesThrower_, FEU));
         StringList typesTarget_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition()).getTypes();
         fighter_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition());
         assertEq(MULTITYPE, fighter_.getCurrentAbility());
         assertEq(1, typesTarget_.size());
-        assertTrue(typesTarget_.containsObj(DRAGON));
+        assertTrue(StringList.contains(typesTarget_, DRAGON));
         MoveData fMove_ = _data_.getMove(TEN_DANSE);
         EffectSwitchAbilities effect_ = (EffectSwitchAbilities) fMove_.getEffet(CustList.FIRST_INDEX);
         FightEffects.effectSwitchAbilities(fight_, thrower_, target_, effect_, _data_);
@@ -1204,12 +1204,12 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         assertEq(METEO, fighter_.getCurrentAbility());
         assertEq(1, typesThrower_.size());
-        assertTrue(typesThrower_.containsObj(FEU));
+        assertTrue(StringList.contains(typesThrower_, FEU));
         typesTarget_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition()).getTypes();
         fighter_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition());
         assertEq(METEO, fighter_.getCurrentAbility());
         assertEq(1, typesTarget_.size());
-        assertTrue(typesTarget_.containsObj(FEU));
+        assertTrue(StringList.contains(typesTarget_, FEU));
     }
 
     @Test
@@ -1224,12 +1224,12 @@ public class FightEffectsTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         assertEq(METEO, fighter_.getCurrentAbility());
         assertEq(1, typesThrower_.size());
-        assertTrue(typesThrower_.containsObj(FEU));
+        assertTrue(StringList.contains(typesThrower_, FEU));
         StringList typesTarget_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition()).getTypes();
         fighter_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition());
         assertEq(MULTITYPE, fighter_.getCurrentAbility());
         assertEq(1, typesTarget_.size());
-        assertTrue(typesTarget_.containsObj(DRAGON));
+        assertTrue(StringList.contains(typesTarget_, DRAGON));
         MoveData fMove_ = _data_.getMove(IMITATION);
         EffectSwitchAbilities effect_ = (EffectSwitchAbilities) fMove_.getEffet(CustList.FIRST_INDEX);
         FightEffects.effectSwitchAbilities(fight_, thrower_, target_, effect_, _data_);
@@ -1237,12 +1237,12 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         assertEq(MULTITYPE, fighter_.getCurrentAbility());
         assertEq(1, typesThrower_.size());
-        assertTrue(typesThrower_.containsObj(DRAGON));
+        assertTrue(StringList.contains(typesThrower_, DRAGON));
         typesTarget_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition()).getTypes();
         fighter_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition());
         assertEq(MULTITYPE, fighter_.getCurrentAbility());
         assertEq(1, typesTarget_.size());
-        assertTrue(typesTarget_.containsObj(DRAGON));
+        assertTrue(StringList.contains(typesTarget_, DRAGON));
     }
 
     @Test
@@ -1257,12 +1257,12 @@ public class FightEffectsTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         assertEq(METEO, fighter_.getCurrentAbility());
         assertEq(1, typesThrower_.size());
-        assertTrue(typesThrower_.containsObj(FEU));
+        assertTrue(StringList.contains(typesThrower_, FEU));
         StringList typesTarget_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition()).getTypes();
         fighter_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition());
         assertEq(MULTITYPE, fighter_.getCurrentAbility());
         assertEq(1, typesTarget_.size());
-        assertTrue(typesTarget_.containsObj(DRAGON));
+        assertTrue(StringList.contains(typesTarget_, DRAGON));
         MoveData fMove_ = _data_.getMove(RAYON_SIMPLE);
         EffectSwitchAbilities effect_ = (EffectSwitchAbilities) fMove_.getEffet(CustList.FIRST_INDEX);
         FightEffects.effectSwitchAbilities(fight_, thrower_, target_, effect_, _data_);
@@ -1270,13 +1270,13 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         assertEq(METEO, fighter_.getCurrentAbility());
         assertEq(1, typesThrower_.size());
-        assertTrue(typesThrower_.containsObj(FEU));
+        assertTrue(StringList.contains(typesThrower_, FEU));
         typesTarget_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition()).getTypes();
         fighter_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition());
         assertEq(SIMPLE, fighter_.getCurrentAbility());
         assertEq(2, typesTarget_.size());
-        assertTrue(typesTarget_.containsObj(EAU));
-        assertTrue(typesTarget_.containsObj(COMBAT));
+        assertTrue(StringList.contains(typesTarget_, EAU));
+        assertTrue(StringList.contains(typesTarget_, COMBAT));
     }
 
     @Test
@@ -1291,12 +1291,12 @@ public class FightEffectsTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         assertEq(METEO, fighter_.getCurrentAbility());
         assertEq(1, typesThrower_.size());
-        assertTrue(typesThrower_.containsObj(FEU));
+        assertTrue(StringList.contains(typesThrower_, FEU));
         StringList typesTarget_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition()).getTypes();
         fighter_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition());
         assertEq(MULTITYPE, fighter_.getCurrentAbility());
         assertEq(1, typesTarget_.size());
-        assertTrue(typesTarget_.containsObj(DRAGON));
+        assertTrue(StringList.contains(typesTarget_, DRAGON));
         MoveData fMove_ = _data_.getMove(ECHANGE_BIS);
         EffectSwitchAbilities effect_ = (EffectSwitchAbilities) fMove_.getEffet(CustList.FIRST_INDEX);
         FightEffects.effectSwitchAbilities(fight_, thrower_, target_, effect_, _data_);
@@ -1304,12 +1304,12 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         assertEq(METEO, fighter_.getCurrentAbility());
         assertEq(1, typesThrower_.size());
-        assertTrue(typesThrower_.containsObj(FEU));
+        assertTrue(StringList.contains(typesThrower_, FEU));
         typesTarget_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition()).getTypes();
         fighter_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition());
         assertEq(MULTITYPE, fighter_.getCurrentAbility());
         assertEq(1, typesTarget_.size());
-        assertTrue(typesTarget_.containsObj(DRAGON));
+        assertTrue(StringList.contains(typesTarget_, DRAGON));
     }
 
     private static Fight effectSwitchObjects() {
@@ -1393,7 +1393,7 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(BAIE_MEPO,fighter_.getItem());
         StringList lostObjects_ = fight_.getLostObjects();
         assertEq(1, lostObjects_.size());
-        assertTrue(lostObjects_.containsObj(BAIE_MEPO));
+        assertTrue(StringList.contains(lostObjects_, BAIE_MEPO));
     }
 
     @Test
@@ -1415,7 +1415,7 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(BAIE_MEPO,fighter_.getItem());
         StringList lostObjects_ = fight_.getLostObjects();
         assertEq(1, lostObjects_.size());
-        assertTrue(lostObjects_.containsObj(BAIE_MEPO));
+        assertTrue(StringList.contains(lostObjects_, BAIE_MEPO));
     }
 
     @Test
@@ -1655,7 +1655,7 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(NULL_REF,fighter_.getItem());
         StringList lostObjects_ = fight_.getLostObjects();
         assertEq(1, lostObjects_.size());
-        assertTrue(lostObjects_.containsObj(BAIE_MEPO));
+        assertTrue(StringList.contains(lostObjects_, BAIE_MEPO));
     }
 
     private static Fight effectSwitchTypes() {
@@ -1730,7 +1730,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(SOL));
+        assertTrue(StringList.contains(types_, SOL));
         assertTrue(fight_.getAcceptableChoices());
     }
 
@@ -1748,7 +1748,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(SOL));
+        assertTrue(StringList.contains(types_, SOL));
         assertTrue(fight_.getAcceptableChoices());
     }
 
@@ -1763,7 +1763,7 @@ public class FightEffectsTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(SOL));
+        assertTrue(StringList.contains(types_, SOL));
         assertTrue(fight_.getAcceptableChoices());
     }
 
@@ -1783,11 +1783,11 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(SOL));
+        assertTrue(StringList.contains(types_, SOL));
         fighter_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition());
         types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(SOL));
+        assertTrue(StringList.contains(types_, SOL));
         assertTrue(fight_.getAcceptableChoices());
     }
 
@@ -1807,11 +1807,11 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(SOL));
+        assertTrue(StringList.contains(types_, SOL));
         fighter_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition());
         types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(VOL));
+        assertTrue(StringList.contains(types_, VOL));
         assertTrue(fight_.getAcceptableChoices());
     }
 
@@ -1831,11 +1831,11 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(VOL));
+        assertTrue(StringList.contains(types_, VOL));
         fighter_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition());
         types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(VOL));
+        assertTrue(StringList.contains(types_, VOL));
         assertTrue(fight_.getAcceptableChoices());
     }
 
@@ -1855,11 +1855,11 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(VOL));
+        assertTrue(StringList.contains(types_, VOL));
         fighter_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition());
         types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(EAU));
+        assertTrue(StringList.contains(types_, EAU));
         assertTrue(fight_.getAcceptableChoices());
     }
 
@@ -1879,11 +1879,11 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(VOL));
+        assertTrue(StringList.contains(types_, VOL));
         fighter_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition());
         types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(SOL));
+        assertTrue(StringList.contains(types_, SOL));
         assertTrue(fight_.getAcceptableChoices());
     }
 
@@ -1903,12 +1903,12 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(VOL));
+        assertTrue(StringList.contains(types_, VOL));
         fighter_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition());
         types_ = fighter_.getTypes();
         assertEq(2, types_.size());
-        assertTrue(types_.containsObj(SOL));
-        assertTrue(types_.containsObj(SPECTRE));
+        assertTrue(StringList.contains(types_, SOL));
+        assertTrue(StringList.contains(types_, SPECTRE));
         assertTrue(fight_.getAcceptableChoices());
     }
 
@@ -1926,7 +1926,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(FEE));
+        assertTrue(StringList.contains(types_, FEE));
         assertTrue(fight_.getAcceptableChoices());
     }
 
@@ -1943,7 +1943,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(SOL));
+        assertTrue(StringList.contains(types_, SOL));
         assertTrue(fight_.getAcceptableChoices());
     }
 
@@ -1961,8 +1961,8 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         StringList types_ = fighter_.getTypes();
         assertEq(2, types_.size());
-        assertTrue(types_.containsObj(COMBAT));
-        assertTrue(types_.containsObj(ACIER));
+        assertTrue(StringList.contains(types_, COMBAT));
+        assertTrue(StringList.contains(types_, ACIER));
         assertTrue(fight_.getAcceptableChoices());
     }
     @Test
@@ -1980,7 +1980,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(types_, ELECTRIQUE));
         assertTrue(!fight_.getAcceptableChoices());
     }
 
@@ -2000,7 +2000,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(FEU));
+        assertTrue(StringList.contains(types_, FEU));
         assertTrue(!fight_.getAcceptableChoices());
     }
 
@@ -2358,8 +2358,8 @@ public class FightEffectsTest extends InitializationDataBase {
         EffectCopyMove effect_ = (EffectCopyMove) fMove_.getEffet(CustList.FIRST_INDEX);
         FightEffects.effectCopyMove(fight_, thrower_, target_, effect_, _data_);
         fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
-        assertTrue(!fighter_.getMovesSet().containsObj(JACKPOT));
-        assertTrue(!fighter_.getCurrentMovesSet().containsObj(JACKPOT));
+        assertTrue(!StringList.contains(fighter_.getMovesSet(), JACKPOT));
+        assertTrue(!StringList.contains(fighter_.getCurrentMovesSet(), JACKPOT));
     }
 
     @Test
@@ -2456,9 +2456,9 @@ public class FightEffectsTest extends InitializationDataBase {
         EffectCopyMove effect_ = (EffectCopyMove) fMove_.getEffet(CustList.FIRST_INDEX);
         FightEffects.effectCopyMove(fight_, thrower_, target_, effect_, _data_);
         fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
-        assertTrue(!fighter_.getMovesSet().containsObj(JACKPOT));
-        assertTrue(fighter_.getMovesSet().containsObj(GRIBOUILLE));
-        assertTrue(!fighter_.getCurrentMovesSet().containsObj(GRIBOUILLE));
+        assertTrue(!StringList.contains(fighter_.getMovesSet(), JACKPOT));
+        assertTrue(StringList.contains(fighter_.getMovesSet(), GRIBOUILLE));
+        assertTrue(!StringList.contains(fighter_.getCurrentMovesSet(), GRIBOUILLE));
         assertEq(20, fighter_.getCurrentMove(JACKPOT).getCurrent());
         assertEq(20, fighter_.getCurrentMove(JACKPOT).getMax());
     }
@@ -2832,7 +2832,7 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(0, fighter_.getStatusNbRound(PARALYSIE));
         StringList status_ = fight_.getSufferingTargetStatus();
         assertEq(1, status_.size());
-        assertTrue(status_.containsObj(PARALYSIE));
+        assertTrue(StringList.contains(status_, PARALYSIE));
         assertTrue(fighter_.isUsingItem());
         assertEq(0, fighter_.getStatusNbRound(SOMMEIL));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
@@ -2860,7 +2860,7 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(1, fighter_.getStatusNbRound(SOMMEIL));
         StringList status_ = fight_.getSufferingTargetStatus();
         assertEq(1, status_.size());
-        assertTrue(status_.containsObj(SOMMEIL));
+        assertTrue(StringList.contains(status_, SOMMEIL));
         assertTrue(!fighter_.isUsingItem());
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.DEFENSE));
@@ -2913,7 +2913,7 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(1, fighter_.getStatusRelatNbRound(new MoveTeamPosition(VAMPIGRAINE, thrower_)));
         StringList status_ = fight_.getSufferingTargetStatus();
         assertEq(1, status_.size());
-        assertTrue(status_.containsObj(VAMPIGRAINE));
+        assertTrue(StringList.contains(status_, VAMPIGRAINE));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.DEFENSE));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
@@ -5661,7 +5661,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fight_.addEffect(thrower_, thrower_, effect_);
         FightEffects.effectBatonPass(fight_, thrower_, diff_, _data_);
         Team userTeam_ = fight_.getUserTeam();
-        NumberMap<Byte,Numbers<Byte>> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        ByteMap<Bytes> map_ = userTeam_.getPlayerFightersAgainstFoe();
         assertEq(2, map_.getVal((byte) 0).size());
         assertTrue(map_.getVal((byte) 0).containsObj((byte) 0));
         assertTrue(map_.getVal((byte) 0).containsObj((byte) 1));
@@ -5731,7 +5731,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fight_.addEffect(thrower_, thrower_, effect_);
         FightEffects.effectBatonPass(fight_, thrower_, diff_, _data_);
         Team userTeam_ = fight_.getUserTeam();
-        NumberMap<Byte,Numbers<Byte>> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        ByteMap<Bytes> map_ = userTeam_.getPlayerFightersAgainstFoe();
         assertEq(3, map_.size());
         assertEq(5, fight_.getFirstPositPlayerFighters().size());
         assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
@@ -5791,7 +5791,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fight_.addEffect(thrower_, thrower_, effect_);
         FightEffects.effectBatonPass(fight_, thrower_, diff_, _data_);
         Team userTeam_ = fight_.getUserTeam();
-        NumberMap<Byte,Numbers<Byte>> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        ByteMap<Bytes> map_ = userTeam_.getPlayerFightersAgainstFoe();
         assertEq(3, map_.size());
         assertEq(5, fight_.getFirstPositPlayerFighters().size());
         assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
@@ -5844,7 +5844,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fight_.addEffect(thrower_, thrower_, effect_);
         FightEffects.effectBatonPass(fight_, thrower_, diff_, _data_);
         Team userTeam_ = fight_.getUserTeam();
-        NumberMap<Byte,Numbers<Byte>> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        ByteMap<Bytes> map_ = userTeam_.getPlayerFightersAgainstFoe();
         assertEq(3, map_.size());
         assertEq(5, fight_.getFirstPositPlayerFighters().size());
         assertEq(0, fight_.getFirstPositPlayerFighters().getVal((byte) 0));
@@ -5897,7 +5897,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fight_.addEffect(thrower_, thrower_, effect_);
         FightEffects.effectBatonPass(fight_, thrower_, diff_, _data_);
         Team userTeam_ = fight_.getUserTeam();
-        NumberMap<Byte,Numbers<Byte>> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        ByteMap<Bytes> map_ = userTeam_.getPlayerFightersAgainstFoe();
         assertEq(3, map_.getVal((byte) 0).size());
         assertTrue(map_.getVal((byte) 0).containsObj((byte) 0));
         assertTrue(map_.getVal((byte) 0).containsObj((byte) 1));
@@ -5962,7 +5962,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fight_.addEffect(thrower_, thrower_, effect_);
         FightEffects.effectBatonPass(fight_, thrower_, diff_, _data_);
         Team userTeam_ = fight_.getUserTeam();
-        NumberMap<Byte,Numbers<Byte>> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        ByteMap<Bytes> map_ = userTeam_.getPlayerFightersAgainstFoe();
         assertEq(2, map_.getVal((byte) 0).size());
         assertTrue(map_.getVal((byte) 0).containsObj((byte) 0));
         assertTrue(map_.getVal((byte) 0).containsObj((byte) 1));
@@ -6086,7 +6086,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(FEU));
+        assertTrue(StringList.contains(types_, FEU));
         assertEq(0, fighter_.getStatusNbRound(GEL));
     }
 
@@ -6110,7 +6110,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(FEU));
+        assertTrue(StringList.contains(types_, FEU));
         assertEq(0, fighter_.getStatusNbRound(GEL));
     }
 
@@ -6132,7 +6132,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(types_, ELECTRIQUE));
         assertEq(0, fighter_.getProtectedAgainstMoveTypes().size());
     }
 
@@ -6154,7 +6154,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(types_, ELECTRIQUE));
     }
 
     @Test
@@ -6181,7 +6181,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(FEU));
+        assertTrue(StringList.contains(types_, FEU));
         assertEq(0, fighter_.getStatusNbRound(GEL));
     }
 
@@ -6209,8 +6209,8 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         StringList types_ = fighter_.getTypes();
         assertEq(2, types_.size());
-        assertTrue(types_.containsObj(FEU));
-        assertTrue(types_.containsObj(EAU));
+        assertTrue(StringList.contains(types_, FEU));
+        assertTrue(StringList.contains(types_, EAU));
         assertEq(0, fighter_.getStatusNbRound(GEL));
     }
 
@@ -6231,7 +6231,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(types_, ELECTRIQUE));
     }
 
     @Test
@@ -6255,7 +6255,7 @@ public class FightEffectsTest extends InitializationDataBase {
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.DEFENSE));
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(types_, ELECTRIQUE));
     }
 
     @Test
@@ -7549,7 +7549,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(thrower_);
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(SOL));
+        assertTrue(StringList.contains(types_, SOL));
         assertTrue(fighter_.isSuccessfulMove());
     }
 
@@ -7784,7 +7784,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         StringList types_ = fighter_.getTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(FEU));
+        assertTrue(StringList.contains(types_, FEU));
         assertEq(0, fighter_.getStatusNbRound(GEL));
         assertTrue(fighter_.isSuccessfulMove());
     }
@@ -7806,7 +7806,7 @@ public class FightEffectsTest extends InitializationDataBase {
         assertTrue(activity_.isEnabled());
         StringList types_ = fighter_.getProtectedAgainstMoveTypes();
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(VOL));
+        assertTrue(StringList.contains(types_, VOL));
         assertTrue(fighter_.isSuccessfulMove());
     }
 
@@ -7906,7 +7906,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_.getTrappingMoves().getVal(new MoveTeamPosition(SIPHON, POKEMON_FOE_FIGHTER_ZERO)).enable();
         FightEffects.processEffectTarget(fight_, RELAIS, CustList.FIRST_INDEX, thrower_, thrower_, diff_, _data_);
         Team userTeam_ = fight_.getUserTeam();
-        NumberMap<Byte,Numbers<Byte>> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        ByteMap<Bytes> map_ = userTeam_.getPlayerFightersAgainstFoe();
         assertEq(2, map_.getVal((byte) 0).size());
         assertTrue(map_.getVal((byte) 0).containsObj((byte) 0));
         assertTrue(map_.getVal((byte) 0).containsObj((byte) 1));

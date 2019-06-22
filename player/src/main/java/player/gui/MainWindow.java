@@ -37,7 +37,7 @@ import code.stream.StreamBinaryFile;
 import code.stream.StreamSoundFile;
 import code.stream.StreamTextFile;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
@@ -363,8 +363,8 @@ public class MainWindow extends GroupFrame {
 
     public static StringList suffledSongsNames(String... _list) {
         StringList list_ = new StringList(_list);
-        Numbers<Integer> indexes_ = new Numbers<Integer>();
-        Numbers<Integer> indexesEdited_ = new Numbers<Integer>();
+        Ints indexes_ = new Ints();
+        Ints indexesEdited_ = new Ints();
         int size_ = list_.size();
         for (int i = CustList.FIRST_INDEX; i < size_; i++) {
             indexes_.add(i);

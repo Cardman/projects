@@ -2,17 +2,17 @@ package cards.tarot.comparators;
 import cards.consts.Suit;
 import cards.tarot.TrickTarot;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.ints.Comparing;
 
 public final class GameTarotMostDemandedSuitComparator implements Comparing<Suit> {
 
     private CustList<TrickTarot> tricks;
 
-    private Numbers<Byte> players;
+    private Bytes players;
 
     public GameTarotMostDemandedSuitComparator(CustList<TrickTarot> _tricks,
-            Numbers<Byte> _players) {
+            Bytes _players) {
         tricks = _tricks;
         players = _players;
     }

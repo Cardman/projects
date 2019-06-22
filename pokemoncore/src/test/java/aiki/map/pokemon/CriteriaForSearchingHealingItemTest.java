@@ -50,13 +50,13 @@ public class CriteriaForSearchingHealingItemTest extends InitializationDataBase 
     public void getStatus4Test() {
         StringList st_ = CriteriaForSearchingHealingItem.getStatus(_data_.getItem(TOTAL_SOIN));
         assertEq(7, st_.size());
-        assertTrue(st_.containsObj(BRULURE));
-        assertTrue(st_.containsObj(GEL));
-        assertTrue(st_.containsObj(PARALYSIE));
-        assertTrue(st_.containsObj(POISON_ST));
-        assertTrue(st_.containsObj(POISON_GRAVE));
-        assertTrue(st_.containsObj(SOMMEIL));
-        assertTrue(st_.containsObj(SOMMEIL_REPOS));
+        assertTrue(StringList.contains(st_, BRULURE));
+        assertTrue(StringList.contains(st_, GEL));
+        assertTrue(StringList.contains(st_, PARALYSIE));
+        assertTrue(StringList.contains(st_, POISON_ST));
+        assertTrue(StringList.contains(st_, POISON_GRAVE));
+        assertTrue(StringList.contains(st_, SOMMEIL));
+        assertTrue(StringList.contains(st_, SOMMEIL_REPOS));
     }
 
     @Test

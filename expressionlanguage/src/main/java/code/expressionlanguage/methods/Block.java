@@ -108,7 +108,7 @@ public abstract class Block {
                 bad_.setIndexFile(0);
                 _an.getClasses().addError(bad_);
             } else if (!label_.isEmpty()){
-                if (_anEl.getLabels().containsStr(label_)) {
+                if (StringList.contains(_anEl.getLabels(), label_)) {
                     DuplicateLabel dup_ = new DuplicateLabel();
                     dup_.setId(label_);
                     dup_.setFileName(getFile().getFileName());

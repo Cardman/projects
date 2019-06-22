@@ -4,6 +4,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import aiki.game.fight.actions.*;
+import code.util.*;
 import org.junit.Test;
 
 import aiki.db.ImageHeroKey;
@@ -36,13 +37,6 @@ import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.EqList;
-import code.util.NatStringTreeMap;
-import code.util.NatTreeMap;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
 
 
 public class GameFightTest extends InitializationDataBase {
@@ -709,7 +703,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.directInteraction(game_.closestTile(_data_.getMap()), _data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(_data_);
-        NatTreeMap<Byte, Fighter> team_ = game_.getPlayerTeam();
+        ByteTreeMap< Fighter> team_ = game_.getPlayerTeam();
         assertEq(2, team_.size());
         assertSame(team_.getVal((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
         assertSame(team_.getVal((byte) 1), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE));
@@ -734,7 +728,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.directInteraction(game_.closestTile(_data_.getMap()), _data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(_data_);
-        NatTreeMap<Byte, Fighter> team_ = game_.getFoeFrontTeam();
+        ByteTreeMap< Fighter> team_ = game_.getFoeFrontTeam();
         assertEq(1, team_.size());
         assertSame(team_.getVal((byte) 0), game_.getFight().getFighter(POKEMON_FOE_FIGHTER_ZERO));
     }
@@ -758,7 +752,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.directInteraction(game_.closestTile(_data_.getMap()), _data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(_data_);
-        NatTreeMap<Byte, Fighter> team_ = game_.getUnionFrontTeam();
+        ByteTreeMap< Fighter> team_ = game_.getUnionFrontTeam();
         assertEq(1, team_.size());
         assertSame(team_.getVal((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
@@ -782,7 +776,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.directInteraction(game_.closestTile(_data_.getMap()), _data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(_data_);
-        NatTreeMap<Byte, Fighter> team_ = game_.getPlayerFrontTeam();
+        ByteTreeMap< Fighter> team_ = game_.getPlayerFrontTeam();
         assertEq(1, team_.size());
         assertSame(team_.getVal((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
@@ -806,7 +800,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.directInteraction(game_.closestTile(_data_.getMap()), _data_.getMap());
         game_.getDifficulty().setRandomWildFight(false);
         game_.initTrainerFight(_data_);
-        NatTreeMap<Byte, Fighter> team_ = game_.getPlayerBackTeam();
+        ByteTreeMap< Fighter> team_ = game_.getPlayerBackTeam();
         assertEq(1, team_.size());
         assertSame(team_.getVal((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE));
     }
@@ -834,7 +828,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.chooseMove(SEISME, _data_);
         game_.roundAllThrowers(_data_, false);
         game_.deselect();
-        NatTreeMap<Byte, Fighter> team_ = game_.getPlayerFrontTeamForSubstituting();
+        ByteTreeMap< Fighter> team_ = game_.getPlayerFrontTeamForSubstituting();
         assertEq(1, team_.size());
         assertSame(team_.getVal((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
@@ -862,7 +856,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.chooseMove(SEISME, _data_);
         game_.roundAllThrowers(_data_, false);
         game_.deselect();
-        NatTreeMap<Byte, Fighter> team_ = game_.getPlayerBackTeamForSubstituting();
+        ByteTreeMap< Fighter> team_ = game_.getPlayerBackTeamForSubstituting();
         assertEq(1, team_.size());
         assertSame(team_.getVal((byte) 0), game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ONE));
     }
@@ -1074,8 +1068,8 @@ public class GameFightTest extends InitializationDataBase {
         assertTrue(evolutions_.getVal(TARINORME));
         StringList abilities_ = game_.getAbilities();
         assertEq(2, abilities_.size());
-        assertTrue(abilities_.containsObj(FERMETE));
-        assertTrue(abilities_.containsObj(MAGNEPIEGE));
+        assertTrue(StringList.contains(abilities_, FERMETE));
+        assertTrue(StringList.contains(abilities_, MAGNEPIEGE));
         assertEq(MAGNEPIEGE, game_.getAbility());
         //assertEq(TURBO, game_.getFight().getChoices().getVal((byte) 0).getAbility());
     }

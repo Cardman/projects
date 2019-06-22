@@ -1,6 +1,6 @@
 package aiki.beans.facade.comparators;
 import aiki.fight.enums.Statistic;
-import code.util.Numbers;
+import code.util.*;
 import code.util.ints.Comparing;
 
 public final class ComparatorStatistic implements Comparing<Statistic> {

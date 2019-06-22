@@ -23,7 +23,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -5311,8 +5311,8 @@ final class InitializationPokedex {
         object_.setLevMoves(new EqList<LevelMove>());
         object_.setAbilities(new StringList());
         object_.setMoveTutors(new StringList());
-        object_.setHiddenMoves(new Numbers<Short>());
-        object_.setTechnicalMoves(new Numbers<Short>());
+        object_.setHiddenMoves(new Shorts());
+        object_.setTechnicalMoves(new Shorts());
         object_.setBaseEvo(NULL_REF);
         object_.setEvolutions(new StringMap<Evolution>());
         object_.setHeight(Rate.zero());

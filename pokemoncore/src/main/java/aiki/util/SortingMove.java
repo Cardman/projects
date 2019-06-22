@@ -2,7 +2,7 @@ package aiki.util;
 import aiki.facade.Sorting;
 import aiki.fight.moves.enums.TargetChoice;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.ints.Cmp;
 
 public final class SortingMove implements Sorting {

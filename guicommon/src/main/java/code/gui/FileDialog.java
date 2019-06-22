@@ -143,7 +143,7 @@ public abstract class FileDialog extends Dialog {
                 CustList<File> filesList_ = new CustList<File>();
                 for (File f: currentFiles_) {
                     if (f.isDirectory()) {
-                        if (excludedFolders.containsObj(StringList.replaceBackSlash(f.getAbsolutePath()))) {
+                        if (StringList.contains(excludedFolders, StringList.replaceBackSlash(f.getAbsolutePath()))) {
                             continue;
                         }
                         default_.add(new DefaultMutableTreeNode(f.getName()));
@@ -221,7 +221,7 @@ public abstract class FileDialog extends Dialog {
             currentFiles_.sortElts(new FileNameComparator());
             for (File l: currentFiles_) {
                 if (l.isDirectory()) {
-                    if (excludedFolders.containsObj(StringList.replaceBackSlash(l.getAbsolutePath()))) {
+                    if (StringList.contains(excludedFolders, StringList.replaceBackSlash(l.getAbsolutePath()))) {
                         continue;
                     }
                     folderList_.add(l.getName());
@@ -247,7 +247,7 @@ public abstract class FileDialog extends Dialog {
         for (Object o: _treePath.getPath()) {
             pathFull_.add((String)o);
         }
-        pathFull_.removeObj(EMPTY_STRING);
+        StringList.removeObj(pathFull_, EMPTY_STRING);
         StringBuilder str_ = new StringBuilder();
         for (Object o: pathFull_) {
             str_.append((String)o).append(StreamTextFile.SEPARATEUR);
@@ -269,7 +269,7 @@ public abstract class FileDialog extends Dialog {
             currentFiles_.sortElts(new FileNameComparator());
             for (File l: currentFiles_) {
                 if (l.isDirectory()) {
-                    if (excludedFolders.containsObj(StringList.replaceBackSlash(l.getAbsolutePath()))) {
+                    if (StringList.contains(excludedFolders, StringList.replaceBackSlash(l.getAbsolutePath()))) {
                         continue;
                     }
                     folderList_.add(l.getName());

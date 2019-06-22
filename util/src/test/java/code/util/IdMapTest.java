@@ -322,7 +322,7 @@ public class IdMapTest {
         mapToPut_.put(k3_, 2);
         mapToPut_.put(k4_, 3);
         map_.putAllMap(mapToPut_);
-        IdList<KeyExample> keys_ = map_.getKeys();
+        IdList<KeyExample> keys_ = new IdList<KeyExample>(map_.getKeys());
         assertEq(4, keys_.size());
         assertTrue(keys_.containsObj(k1_));
         assertTrue(keys_.containsObj(k2_));

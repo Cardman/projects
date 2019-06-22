@@ -9,7 +9,7 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.util.SortingPokemonPlayer;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.util.EnumMap;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringList;
 
 public class PokemonLabel extends SelectableLabel {
@@ -70,7 +70,7 @@ public class PokemonLabel extends SelectableLabel {
     }
 
     public int getThirdColumnWidth() {
-        Numbers<Integer> widths_ = new Numbers<Integer>();
+        Ints widths_ = new Ints();
         widths_.add(getFontMetrics(getFont()).stringWidth(StringList.concat(Integer.toString(pokemon.getLevel()),SPACE)));
         widths_.add(getFontMetrics(getFont()).stringWidth(StringList.concat(gender,SPACE)));
         return (int)widths_.getMaximum(1);

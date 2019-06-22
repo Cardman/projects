@@ -17,7 +17,7 @@ import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringBuilderStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.SimpleEntries;
@@ -61,13 +61,13 @@ public final class StdStruct implements RealInstanceStruct {
     public static StdStruct newInstance(Object _instance, String _className) {
         return new StdStruct(_instance, _className);
     }
-    public static StdStruct newListLong(Numbers<Long> _instance, String _className) {
+    public static StdStruct newListLong(Longs _instance, String _className) {
         return new StdStruct((Object)_instance, _className);
     }
-    public static StdStruct newListInt(Numbers<Integer> _instance, String _className) {
+    public static StdStruct newListInt(Ints _instance, String _className) {
         return new StdStruct((Object)_instance, _className);
     }
-    public static StdStruct newListByte(Numbers<Byte> _instance, String _className) {
+    public static StdStruct newListByte(Bytes _instance, String _className) {
         return new StdStruct((Object)_instance, _className);
     }
     public static Struct defaultClass(String _element, Analyzable _context) {

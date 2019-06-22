@@ -239,10 +239,10 @@ public class MapTest {
 
     @Test
     public void putAllMap5Test() {
-        NumberMap<Integer,Integer> map_ = new NumberMap<Integer,Integer>(new NumberMap<Integer,Integer>(new CollCapacity(0)));
+        IntMap<Integer> map_ = new IntMap<Integer>(new IntMap<Integer>(new CollCapacity(0)));
         map_.put(0, 0);
         map_.put(1, 1);
-        NumberMap<Integer,Integer> mapToPut_ = new NumberMap<Integer,Integer>();
+        IntMap<Integer> mapToPut_ = new IntMap<Integer>();
         mapToPut_.put(2, 2);
         mapToPut_.put(3, 3);
         map_.putAllMap(mapToPut_);
@@ -259,10 +259,10 @@ public class MapTest {
 
     @Test
     public void putAllMap6Test() {
-        NumberMap<Integer,Integer> map_ = new NumberMap<Integer,Integer>();
+        IntMap<Integer> map_ = new IntMap<Integer>();
         map_.put(0, 0);
         map_.put(1, 1);
-        NumberMap<Integer,Integer> mapToPut_ = new NumberMap<Integer,Integer>();
+        IntMap<Integer> mapToPut_ = new IntMap<Integer>();
         mapToPut_.put(2, 2);
         mapToPut_.put(1, 3);
         map_.putAllMap(mapToPut_);
@@ -541,14 +541,55 @@ public class MapTest {
         assertEq(new KeyExample(0, 1),elts_.last());
     }
     @Test
-    public void getKeysNbTest() {
-        NumberMap<Integer,Integer> map_ = new NumberMap<Integer,Integer>();
+    public void getKeysNb1Test() {
+        IntMap<Integer> map_ = new IntMap<Integer>();
         map_.put(0, 0);
         map_.put(1, 1);
         CustList<Integer> elts_ = map_.getKeys();
         assertEq(2,elts_.size());
         assertEq(0,elts_.first());
         assertEq(1,elts_.last());
+    }
+    @Test
+    public void getKeysNb2Test() {
+        ByteMap<Integer> mapEmpty_ = new ByteMap<Integer>(new CollCapacity(2));
+        ByteMap<Integer> map_ = new ByteMap<Integer>(mapEmpty_);
+        map_.put((byte) 0, 0);
+        map_.put((byte) 1, 1);
+        ByteMap<Integer> mapTwo_ = new ByteMap<Integer>(map_);
+        CustList<Byte> elts_ = mapTwo_.getKeys();
+        assertEq(2,elts_.size());
+        assertEq(0,elts_.first());
+        assertEq(1,elts_.last());
+        mapEmpty_ = new ByteMap<Integer>();
+        elts_ = mapEmpty_.getKeys();
+        assertEq(0,elts_.size());
+    }
+    @Test
+    public void getKeysNb3Test() {
+        LongMap<Integer> map_ = new LongMap<Integer>();
+        map_.put(0L, 0);
+        map_.put(1L, 1);
+        CustList<Long> elts_ = map_.getKeys();
+        assertEq(2,elts_.size());
+        assertEq(0,elts_.first());
+        assertEq(1,elts_.last());
+        LongMap<Integer> mapEmpty_ = new LongMap<Integer>(new CollCapacity(2));
+        elts_ = mapEmpty_.getKeys();
+        assertEq(0,elts_.size());
+    }
+    @Test
+    public void getKeysNb4Test() {
+        ShortMap<Integer> map_ = new ShortMap<Integer>();
+        map_.put((short) 0, 0);
+        map_.put((short) 1, 1);
+        CustList<Short> elts_ = map_.getKeys();
+        assertEq(2,elts_.size());
+        assertEq(0,elts_.first());
+        assertEq(1,elts_.last());
+        ShortMap<Integer> mapEmpty_ = new ShortMap<Integer>(new CollCapacity(2));
+        elts_ = mapEmpty_.getKeys();
+        assertEq(0,elts_.size());
     }
     @Test
     public void getKeysBoolTest() {

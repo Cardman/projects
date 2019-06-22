@@ -1,6 +1,6 @@
 package code.util.classestest;
 
-import code.util.Numbers;
+import code.util.*;
 import code.util.ints.Cmp;
 
 public final class MyCmp implements Cmp<MyCmp> {

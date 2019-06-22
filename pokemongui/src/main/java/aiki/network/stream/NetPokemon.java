@@ -1,17 +1,17 @@
 package aiki.network.stream;
 import aiki.map.pokemon.PokemonPlayer;
-import code.util.NatTreeMap;
+import code.util.*;
 
 
 public final class NetPokemon {
 
-    private NatTreeMap<Byte,PokemonPlayer> tradablePokemon;
+    private ByteTreeMap<PokemonPlayer> tradablePokemon;
 
-    public NatTreeMap<Byte, PokemonPlayer> getTradablePokemon() {
+    public ByteTreeMap< PokemonPlayer> getTradablePokemon() {
         return tradablePokemon;
     }
 
-    public void setTradablePokemon(NatTreeMap<Byte, PokemonPlayer> _tradablePokemon) {
+    public void setTradablePokemon(ByteTreeMap< PokemonPlayer> _tradablePokemon) {
         tradablePokemon = _tradablePokemon;
     }
 }

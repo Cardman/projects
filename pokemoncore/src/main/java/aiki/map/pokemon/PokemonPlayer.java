@@ -33,7 +33,7 @@ import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumMap;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -601,7 +601,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
             mt_.add(p.getMove());
         }
         mt_.removeDuplicates();
-        mt_.removeAllElements(moves.getKeys());
+        StringList.removeAllElements(mt_, moves.getKeys());
         mt_.sort();
         return mt_;
     }
@@ -786,7 +786,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
     }
 
     public void soinStatuts(StringList _statuts){
-        status.removeAllElements(_statuts);
+        StringList.removeAllElements(status, _statuts);
     }
 
     public void soinTousStatuts(){

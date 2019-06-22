@@ -2,17 +2,17 @@ package cards.network.common.before;
 import cards.belote.RulesBelote;
 import cards.president.RulesPresident;
 import cards.tarot.RulesTarot;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
+import code.util.*;
+import code.util.*;
 
 
 public final class PlayersNamePresent {
 
-    private NumberMap<Integer,String> pseudos;
+    private IntMap<String> pseudos;
 
-    private NatTreeMap<Integer, Byte> placesPlayers;
+    private IntTreeMap< Byte> placesPlayers;
 
-    private NumberMap<Integer,Boolean> readyPlayers;
+    private IntMap<Boolean> readyPlayers;
 
     private int nbPlayers;
 
@@ -24,27 +24,27 @@ public final class PlayersNamePresent {
 
     private RulesBelote rulesBelote;
 
-    public NumberMap<Integer,String> getPseudos() {
+    public IntMap<String> getPseudos() {
         return pseudos;
     }
 
-    public void setPseudos(NumberMap<Integer,String> _pseudos) {
+    public void setPseudos(IntMap<String> _pseudos) {
         pseudos = _pseudos;
     }
 
-    public NatTreeMap<Integer, Byte> getPlacesPlayers() {
+    public IntTreeMap< Byte> getPlacesPlayers() {
         return placesPlayers;
     }
 
-    public void setPlacesPlayers(NatTreeMap<Integer, Byte> _placesPlayers) {
+    public void setPlacesPlayers(IntTreeMap< Byte> _placesPlayers) {
         placesPlayers = _placesPlayers;
     }
 
-    public NumberMap<Integer,Boolean> getReadyPlayers() {
+    public IntMap<Boolean> getReadyPlayers() {
         return readyPlayers;
     }
 
-    public void setReadyPlayers(NumberMap<Integer,Boolean> _readyPlayers) {
+    public void setReadyPlayers(IntMap<Boolean> _readyPlayers) {
         readyPlayers = _readyPlayers;
     }
 

@@ -5,7 +5,7 @@ import org.junit.Assert;
 import cards.consts.Suit;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 
 public final class EquallableTarotUtil {

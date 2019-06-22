@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 import aiki.map.enums.Direction;
 import code.gui.PaintableLabel;
-import code.util.Numbers;
+import code.util.*;
 
 public class KeyPad extends PaintableLabel {
 

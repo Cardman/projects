@@ -5,7 +5,7 @@ import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 
 
 public final class TrickTarot implements Iterable<CardTarot> {
@@ -98,8 +98,8 @@ public final class TrickTarot implements Iterable<CardTarot> {
     }
 
     //Pli en cours
-    public Numbers<Byte> joueursAyantJoue(byte _nombreDeJoueurs) {
-        Numbers<Byte> joueurs_ = new Numbers<Byte>();
+    public Bytes joueursAyantJoue(byte _nombreDeJoueurs) {
+        Bytes joueurs_ = new Bytes();
         for(byte j=starter;j<_nombreDeJoueurs;j++) {
             if(!aJoue(j, _nombreDeJoueurs)) {
                 continue;
@@ -125,8 +125,8 @@ public final class TrickTarot implements Iterable<CardTarot> {
         byte position_=(byte)cards.position(_c);
         return (byte)((position_+getEntameur())%_nombreDeJoueurs);
     }
-    Numbers<Byte> joueursAyantJoueAvant(byte _pnumero, DealingTarot _d) {
-        Numbers<Byte> joueurs_=new Numbers<Byte>();
+    Bytes joueursAyantJoueAvant(byte _pnumero, DealingTarot _d) {
+        Bytes joueurs_=new Bytes();
         for(byte j : _d.getSortedPlayers(starter)) {
             if(!aJoue(j, (byte) _d.getNombreJoueurs())) {
                 continue;
@@ -139,11 +139,13 @@ public final class TrickTarot implements Iterable<CardTarot> {
         return joueurs_;
     }
 
-    Numbers<Byte> joueursAyantJoueApres(byte _pnumero, DealingTarot _d) {
+    Bytes joueursAyantJoueApres(byte _pnumero, DealingTarot _d) {
         byte nombreDeJoueurs_ = (byte) total();
-        Numbers<Byte> all_ = GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_);
-        Numbers<Byte> before_ = joueursAyantJoueAvant(_pnumero, _d);
-        all_.removeAllElements(before_);
+        Bytes all_ = GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_);
+        Bytes before_ = joueursAyantJoueAvant(_pnumero, _d);
+        for (byte b: before_) {
+            all_.removeAllLong(b);
+        }
         all_.removeAllLong(_pnumero);
         return all_;
     }
@@ -199,15 +201,15 @@ public final class TrickTarot implements Iterable<CardTarot> {
         }
         return carte(1).couleur();
     }
-    Numbers<Byte> joueursCoupes() {
+    Bytes joueursCoupes() {
         return joueursCoupes((byte) total());
     }
     /**Retourne l'ensemble des joueurs qui coupent ce pli<br>
     <ol><li>si la couleur demandee est de l'atout alors on cherche l'ensemble des joueurs n'ayant pas joue de l'atout(Excuse incluse)</li>
     <li>sinon on cherche les joueurs ayant joue de l'atout sur une couleur</li></ol>
     Ces joueurs sont classes par ordre chronologique de jeu*/
-    Numbers<Byte> joueursCoupes(byte _nombreDeJoueurs) {
-        Numbers<Byte> coupes_=new Numbers<Byte>();
+    Bytes joueursCoupes(byte _nombreDeJoueurs) {
+        Bytes coupes_=new Bytes();
         Suit couleur_;
         couleur_=couleurDemandee();
         if(couleur_==Suit.TRUMP) {
@@ -229,8 +231,8 @@ public final class TrickTarot implements Iterable<CardTarot> {
     <ol><li>si la couleur demandee est de l'atout alors on cherche l'ensemble des joueurs n'ayant pas joue de l'atout(Excuse incluse)</li>
     <li>sinon on cherche les joueurs ayant joue une autre couleur que celle demandee</li></ol>
     Ces joueurs sont classes par ordre chronologique de jeu*/
-    Numbers<Byte> joueursDefausses(byte _nbPlayers) {
-        Numbers<Byte> coupes_=new Numbers<Byte>();
+    Bytes joueursDefausses(byte _nbPlayers) {
+        Bytes coupes_=new Bytes();
         Suit couleur_;
         couleur_=couleurDemandee();
         if(couleur_==Suit.TRUMP) {

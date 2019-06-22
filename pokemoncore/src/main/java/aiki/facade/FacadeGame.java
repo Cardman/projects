@@ -66,9 +66,9 @@ import code.util.EntryCust;
 import code.util.EnumMap;
 import code.util.EqList;
 import code.util.NatStringTreeMap;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -108,7 +108,7 @@ public class FacadeGame implements WithMathFactory {
 
     private StringMap<LgInt> chosenItemsForBuyOrSell = new StringMap<LgInt>();
 
-    private Numbers<Short> chosenTmForBuy = new Numbers<Short>();
+    private Shorts chosenTmForBuy = new Shorts();
 
     private short firstSelectPkToHost = CustList.INDEX_NOT_FOUND_ELT;
 
@@ -192,7 +192,7 @@ public class FacadeGame implements WithMathFactory {
         DataMap map_ = data_.getMap();
         map_.setBegin(new Coords());
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new NumberMap<Short, Place>());
+        map_.setPlaces(new ShortMap< Place>());
         map_.setFirstPokemon(_firstPokemon);
         map_.setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
@@ -1679,7 +1679,7 @@ public class FacadeGame implements WithMathFactory {
             String m_ = data.getTm().getVal(i);
             list_.add(m_);
         }
-        list_.removeAllElements(getOwnedMoves());
+        StringList.removeAllElements(list_, getOwnedMoves());
         paginationMove.search(list_, data);
     }
 
@@ -2160,9 +2160,9 @@ public class FacadeGame implements WithMathFactory {
         if (secondSelectPkToHost == CustList.INDEX_NOT_FOUND_ELT) {
             return;
         }
-        NatTreeMap<Byte, PokemonPlayer> team_ = game.getPlayer()
+        ByteTreeMap< PokemonPlayer> team_ = game.getPlayer()
                 .getPokemonPlayerList();
-        Numbers<Byte> keys_ = new Numbers<Byte>(team_.getKeys());
+        Bytes keys_ = new Bytes(team_.getKeys());
         // int teamSize_ = game.getPlayer().getTeam().size();
         game.attemptForStoringPokemonToHost(keys_.get(firstSelectPkToHost),
                 keys_.get(secondSelectPkToHost), data);
@@ -2800,31 +2800,31 @@ public class FacadeGame implements WithMathFactory {
     // %%%%end%%%% fight before round or before proponed switch
 
     // %%%%begin%%%% fight player side team
-    public NatTreeMap<Byte, Fighter> getPlayerTeam() {
+    public ByteTreeMap< Fighter> getPlayerTeam() {
         return game.getPlayerTeam();
     }
 
-    public NatTreeMap<Byte, Fighter> getFoeFrontTeam() {
+    public ByteTreeMap< Fighter> getFoeFrontTeam() {
         return game.getFoeFrontTeam();
     }
 
-    public NatTreeMap<Byte, Fighter> getUnionFrontTeam() {
+    public ByteTreeMap< Fighter> getUnionFrontTeam() {
         return game.getUnionFrontTeam();
     }
 
-    public NatTreeMap<Byte, Fighter> getPlayerFrontTeam() {
+    public ByteTreeMap< Fighter> getPlayerFrontTeam() {
         return game.getPlayerFrontTeam();
     }
 
-    public NatTreeMap<Byte, Fighter> getPlayerBackTeam() {
+    public ByteTreeMap< Fighter> getPlayerBackTeam() {
         return game.getPlayerBackTeam();
     }
 
-    public NatTreeMap<Byte, Fighter> getPlayerFrontTeamForSubstituting() {
+    public ByteTreeMap< Fighter> getPlayerFrontTeamForSubstituting() {
         return game.getPlayerFrontTeamForSubstituting();
     }
 
-    public NatTreeMap<Byte, Fighter> getPlayerBackTeamForSubstituting() {
+    public ByteTreeMap< Fighter> getPlayerBackTeamForSubstituting() {
         return game.getPlayerBackTeamForSubstituting();
     }
 

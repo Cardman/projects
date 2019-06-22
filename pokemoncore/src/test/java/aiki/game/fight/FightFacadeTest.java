@@ -39,8 +39,8 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.NatStringTreeMap;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
+import code.util.*;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -813,7 +813,7 @@ public class FightFacadeTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = defaultChoices(partnersMoves_, foesMoves_, player_, diff_);
         FightEndRound.calculateNewLevel(fight_, player_, diff_, _data_);
-        NumberMap<Byte,ChoiceOfEvolutionAndMoves> map_;
+        ByteMap<ChoiceOfEvolutionAndMoves> map_;
         map_ = FightFacade.defaultChoices(fight_);
         assertEq(0, map_.size());
     }
@@ -850,17 +850,17 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defaultChoices(partnersMoves_, foesMoves_, player_, diff_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
         FightEndRound.calculateNewLevel(fight_, player_, diff_, _data_);
-        NumberMap<Byte,ChoiceOfEvolutionAndMoves> map_;
+        ByteMap<ChoiceOfEvolutionAndMoves> map_;
         map_ = FightFacade.defaultChoices(fight_);
         assertEq(1, map_.size());
         assertTrue(map_.contains((byte) 0));
         assertTrue(!map_.contains((byte) 1));
         ChoiceOfEvolutionAndMoves moves_ = map_.getVal((byte) 0);
         assertEq(4,moves_.getKeptMoves().size());
-        assertTrue(moves_.getKeptMoves().containsObj(ECUME));
-        assertTrue(moves_.getKeptMoves().containsObj(HYPNOSE));
-        assertTrue(moves_.getKeptMoves().containsObj(PISTOLET_A_O));
-        assertTrue(moves_.getKeptMoves().containsObj(TORGNOLES));
+        assertTrue(StringList.contains(moves_.getKeptMoves(), ECUME));
+        assertTrue(StringList.contains(moves_.getKeptMoves(), HYPNOSE));
+        assertTrue(StringList.contains(moves_.getKeptMoves(), PISTOLET_A_O));
+        assertTrue(StringList.contains(moves_.getKeptMoves(), TORGNOLES));
     }
 
     @Test
@@ -891,16 +891,16 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = defaultChoices(partnersMoves_, foesMoves_, player_, diff_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("25"));
         FightEndRound.calculateNewLevel(fight_, player_, diff_, _data_);
-        NumberMap<Byte,ChoiceOfEvolutionAndMoves> map_;
+        ByteMap<ChoiceOfEvolutionAndMoves> map_;
         map_ = FightFacade.defaultChoices(fight_);
         assertEq(1, map_.size());
         assertTrue(map_.contains((byte) 0));
         assertTrue(!map_.contains((byte) 1));
         ChoiceOfEvolutionAndMoves moves_ = map_.getVal((byte) 0);
-        assertTrue(moves_.getKeptMoves().containsObj(PISTOLET_A_O));
-        assertTrue(moves_.getKeptMoves().containsObj(TORGNOLES));
-        assertTrue(moves_.getKeptMoves().containsObj(DANSE_PLUIE));
-        assertTrue(moves_.getKeptMoves().containsObj(PLAQUAGE));
+        assertTrue(StringList.contains(moves_.getKeptMoves(), PISTOLET_A_O));
+        assertTrue(StringList.contains(moves_.getKeptMoves(), TORGNOLES));
+        assertTrue(StringList.contains(moves_.getKeptMoves(), DANSE_PLUIE));
+        assertTrue(StringList.contains(moves_.getKeptMoves(), PLAQUAGE));
     }
 
     private static Fight possibleChoices(
@@ -1024,7 +1024,7 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, _data_);
         StringList moves_ = fight_.getChoices().getVal((byte) 0).getKeptMoves();
-        moves_.removeObj(HYPNOSE);
+        StringList.removeObj(moves_, HYPNOSE);
         moves_.add(DANSE_PLUIE);
         assertTrue(FightFacade.possibleChoices(fight_, _data_));
         assertTrue(!fight_.isError());
@@ -1063,7 +1063,7 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
         FightEndRound.proponeMovesEvolutions(fight_, player_,diff_, _data_);
         StringList moves_ = fight_.getChoices().getVal((byte) 0).getKeptMoves();
-        moves_.removeObj(HYPNOSE);
+        StringList.removeObj(moves_, HYPNOSE);
         assertTrue(!FightFacade.possibleChoices(fight_, _data_));
         assertTrue(fight_.isError());
     }
@@ -1208,7 +1208,7 @@ public class FightFacadeTest extends InitializationDataBase {
         ChoiceOfEvolutionAndMoves choice_ = fight_.getChoices().getVal((byte) 0);
         choice_.setName(TETARTE);
         choice_.setAbility(ABSORB_EAU);
-        choice_.getKeptMoves().removeObj(DANSE_PLUIE);
+        StringList.removeObj(choice_.getKeptMoves(), DANSE_PLUIE);
         choice_.getKeptMoves().add(BULLES_D_O);
         assertTrue(FightFacade.possibleChoices(fight_, _data_));
         assertTrue(!fight_.isError());
@@ -7132,10 +7132,10 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = allowedMovesNotEmpty(partnersMoves_, foesMoves_, player_, diff_);
         StringList moves_ = FightFacade.allowedMovesNotEmpty(fight_, POKEMON_PLAYER_FIGHTER_ZERO, _data_);
         assertEq(4, moves_.size());
-        assertTrue(moves_.containsObj(ECUME));
-        assertTrue(moves_.containsObj(PISTOLET_A_O));
-        assertTrue(moves_.containsObj(TORGNOLES));
-        assertTrue(moves_.containsObj(HYPNOSE));
+        assertTrue(StringList.contains(moves_, ECUME));
+        assertTrue(StringList.contains(moves_, PISTOLET_A_O));
+        assertTrue(StringList.contains(moves_, TORGNOLES));
+        assertTrue(StringList.contains(moves_, HYPNOSE));
     }
 
     @Test
@@ -7168,7 +7168,7 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(f_).usePowerPointsByMove(diff_, PISTOLET_A_O, (short) 50);
         StringList moves_ = FightFacade.allowedMovesNotEmpty(fight_, f_, _data_);
         assertEq(1, moves_.size());
-        assertTrue(moves_.containsObj(LUTTE));
+        assertTrue(StringList.contains(moves_, LUTTE));
     }
 
     private static Fight remainingThrowersTargetsHp(
@@ -8425,8 +8425,8 @@ public class FightFacadeTest extends InitializationDataBase {
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, _data_);
         StringList list_ = FightFacade.getAbilities(fight_, (byte) 0, TARINORME);
         assertEq(2, list_.size());
-        assertTrue(list_.containsObj(MAGNEPIEGE));
-        assertTrue(list_.containsObj(FERMETE));
+        assertTrue(StringList.contains(list_, MAGNEPIEGE));
+        assertTrue(StringList.contains(list_, FERMETE));
     }
 
     @Test
@@ -8689,16 +8689,16 @@ public class FightFacadeTest extends InitializationDataBase {
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, _data_);
         FightFacade.choosePokemonForLearningAndEvolving(fight_, (byte) 0, _data_);
         FightFacade.setEvolution(fight_, TARINORME);
-        NumberMap<Byte,ChoiceOfEvolutionAndMoves> choices_ = fight_.getChoices();
+        ByteMap<ChoiceOfEvolutionAndMoves> choices_ = fight_.getChoices();
         ChoiceOfEvolutionAndMoves choice_ = choices_.getVal((byte) 0);
         assertEq(TARINORME, choice_.getName());
         assertEq(FERMETE, choice_.getAbility());
         StringList list_ = choice_.getKeptMoves();
         assertEq(4, list_.size());
-        assertTrue(list_.containsObj(DETECTION));
-        assertTrue(list_.containsObj(ULTRASON));
-        assertTrue(list_.containsObj(BROUHAHA));
-        assertTrue(list_.containsObj(POURSUITE));
+        assertTrue(StringList.contains(list_, DETECTION));
+        assertTrue(StringList.contains(list_, ULTRASON));
+        assertTrue(StringList.contains(list_, BROUHAHA));
+        assertTrue(StringList.contains(list_, POURSUITE));
     }
 
     @Test
@@ -8737,16 +8737,16 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.choosePokemonForLearningAndEvolving(fight_, (byte) 0, _data_);
         FightFacade.setEvolution(fight_, TARINORME);
         FightFacade.setEvolution(fight_, NULL_REF);
-        NumberMap<Byte,ChoiceOfEvolutionAndMoves> choices_ = fight_.getChoices();
+        ByteMap<ChoiceOfEvolutionAndMoves> choices_ = fight_.getChoices();
         ChoiceOfEvolutionAndMoves choice_ = choices_.getVal((byte) 0);
         assertEq(NULL_REF, choice_.getName());
         assertEq(METEO, choice_.getAbility());
         StringList list_ = choice_.getKeptMoves();
         assertEq(4, list_.size());
-        assertTrue(list_.containsObj(DETECTION));
-        assertTrue(list_.containsObj(ULTRASON));
-        assertTrue(list_.containsObj(BROUHAHA));
-        assertTrue(list_.containsObj(POURSUITE));
+        assertTrue(StringList.contains(list_, DETECTION));
+        assertTrue(StringList.contains(list_, ULTRASON));
+        assertTrue(StringList.contains(list_, BROUHAHA));
+        assertTrue(StringList.contains(list_, POURSUITE));
     }
 
     @Test
@@ -8785,16 +8785,16 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.choosePokemonForLearningAndEvolving(fight_, (byte) 0, _data_);
         FightFacade.setEvolution(fight_, TARINORME);
         FightFacade.setAbility(fight_, MAGNEPIEGE);
-        NumberMap<Byte,ChoiceOfEvolutionAndMoves> choices_ = fight_.getChoices();
+        ByteMap<ChoiceOfEvolutionAndMoves> choices_ = fight_.getChoices();
         ChoiceOfEvolutionAndMoves choice_ = choices_.getVal((byte) 0);
         assertEq(TARINORME, choice_.getName());
         assertEq(MAGNEPIEGE, choice_.getAbility());
         StringList list_ = choice_.getKeptMoves();
         assertEq(4, list_.size());
-        assertTrue(list_.containsObj(DETECTION));
-        assertTrue(list_.containsObj(ULTRASON));
-        assertTrue(list_.containsObj(BROUHAHA));
-        assertTrue(list_.containsObj(POURSUITE));
+        assertTrue(StringList.contains(list_, DETECTION));
+        assertTrue(StringList.contains(list_, ULTRASON));
+        assertTrue(StringList.contains(list_, BROUHAHA));
+        assertTrue(StringList.contains(list_, POURSUITE));
     }
 
     @Test
@@ -8879,15 +8879,15 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.choosePokemonForLearningAndEvolving(fight_, (byte) 0, _data_);
         FightFacade.setEvolution(fight_, TARINORME);
         FightFacade.addOrForgetMove(fight_, ULTRASON);
-        NumberMap<Byte,ChoiceOfEvolutionAndMoves> choices_ = fight_.getChoices();
+        ByteMap<ChoiceOfEvolutionAndMoves> choices_ = fight_.getChoices();
         ChoiceOfEvolutionAndMoves choice_ = choices_.getVal((byte) 0);
         assertEq(TARINORME, choice_.getName());
         assertEq(FERMETE, choice_.getAbility());
         StringList list_ = choice_.getKeptMoves();
         assertEq(3, list_.size());
-        assertTrue(list_.containsObj(DETECTION));
-        assertTrue(list_.containsObj(BROUHAHA));
-        assertTrue(list_.containsObj(POURSUITE));
+        assertTrue(StringList.contains(list_, DETECTION));
+        assertTrue(StringList.contains(list_, BROUHAHA));
+        assertTrue(StringList.contains(list_, POURSUITE));
     }
 
     @Test
@@ -8927,16 +8927,16 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.setEvolution(fight_, TARINORME);
         FightFacade.addOrForgetMove(fight_, ULTRASON);
         FightFacade.addOrForgetMove(fight_, BOMBAIMANT);
-        NumberMap<Byte,ChoiceOfEvolutionAndMoves> choices_ = fight_.getChoices();
+        ByteMap<ChoiceOfEvolutionAndMoves> choices_ = fight_.getChoices();
         ChoiceOfEvolutionAndMoves choice_ = choices_.getVal((byte) 0);
         assertEq(TARINORME, choice_.getName());
         assertEq(FERMETE, choice_.getAbility());
         StringList list_ = choice_.getKeptMoves();
         assertEq(4, list_.size());
-        assertTrue(list_.containsObj(BOMBAIMANT));
-        assertTrue(list_.containsObj(DETECTION));
-        assertTrue(list_.containsObj(BROUHAHA));
-        assertTrue(list_.containsObj(POURSUITE));
+        assertTrue(StringList.contains(list_, BOMBAIMANT));
+        assertTrue(StringList.contains(list_, DETECTION));
+        assertTrue(StringList.contains(list_, BROUHAHA));
+        assertTrue(StringList.contains(list_, POURSUITE));
     }
 
     @Test
@@ -8979,7 +8979,7 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
-        NatTreeMap<Byte, Fighter> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
+        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
         assertEq(2, mapFighters_.size());
         assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
         assertSame(mapFighters_.getVal((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
@@ -9027,7 +9027,7 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
-        NatTreeMap<Byte, Fighter> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
+        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeam(fight_);
         assertEq(1, mapFighters_.size());
         assertSame(mapFighters_.getVal((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
@@ -9075,7 +9075,7 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
-        NatTreeMap<Byte, Fighter> mapFighters_ = FightFacade.getAllyFrontTeam(fight_);
+        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getAllyFrontTeam(fight_);
         assertEq(1, mapFighters_.size());
         assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE));
     }
@@ -9123,7 +9123,7 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
-        NatTreeMap<Byte, Fighter> mapFighters_ = FightFacade.getUnionFrontTeam(fight_);
+        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getUnionFrontTeam(fight_);
         assertEq(2, mapFighters_.size());
         assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE));
         assertSame(mapFighters_.getVal((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
@@ -9163,7 +9163,7 @@ public class FightFacadeTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = choice(partnersMoves_, foesMoves_, player_, diff_);
-        NatTreeMap<Byte, Fighter> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
+        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
         assertEq(2, mapFighters_.size());
         assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
         assertSame(mapFighters_.getVal((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
@@ -9208,7 +9208,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.setSubstituteSwitch(fight_,(byte) 0);
         FightFacade.regularRoundAllThrowersChooseActionsFoe(fight_, diff_, player_, _data_, false);
         assertTrue(!fight_.isError());
-        NatTreeMap<Byte, Fighter> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
+        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
         assertEq(2, mapFighters_.size());
         assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
         assertSame(mapFighters_.getVal((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
@@ -9251,7 +9251,7 @@ public class FightFacadeTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = choice(partnersMoves_, foesMoves_, player_, diff_);
-        NatTreeMap<Byte, Fighter> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
+        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerBackTeam(fight_);
         assertEq(2, mapFighters_.size());
         assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
         assertSame(mapFighters_.getVal((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
@@ -9299,7 +9299,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.setSubstituteSwitch(fight_,(byte) 0);
         FightFacade.regularRoundAllThrowersChooseActionsFoe(fight_, diff_, player_, _data_, false);
         assertTrue(!fight_.isError());
-        NatTreeMap<Byte, Fighter> mapFighters_ = FightFacade.getPlayerTeam(fight_);
+        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerTeam(fight_);
         assertEq(3, mapFighters_.size());
         assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
         assertSame(mapFighters_.getVal((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
@@ -9343,7 +9343,7 @@ public class FightFacadeTest extends InitializationDataBase {
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         foesMoves_.add(new LevelMoves((short)3,foeMoves_));
         Fight fight_ = choice(partnersMoves_, foesMoves_, player_, diff_);
-        NatTreeMap<Byte, Fighter> mapFighters_ = FightFacade.getAllyBackTeam(fight_);
+        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getAllyBackTeam(fight_);
         assertEq(1, mapFighters_.size());
         assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_FOUR));
     }
@@ -9391,7 +9391,7 @@ public class FightFacadeTest extends InitializationDataBase {
         fight_.getFighter(userOne_).setGroundPlaceSubst((byte) 1);
         fight_.getFighter(userTwo_).setGroundPlace((byte) 0);
         fight_.getFighter(userTwo_).setGroundPlaceSubst((byte) 0);
-        NatTreeMap<Byte, Fighter> mapFighters_ = FightFacade.getFoeFrontTeam(fight_);
+        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getFoeFrontTeam(fight_);
         assertEq(2, mapFighters_.size());
         assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_FOE_FIGHTER_ONE));
         assertSame(mapFighters_.getVal((byte) 1), fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO));
@@ -9437,7 +9437,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, _data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, _data_);
-        NatTreeMap<Byte, Fighter> mapFighters_ = FightFacade.getPlayerFrontTeamForSubstituting(fight_);
+        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeamForSubstituting(fight_);
         assertEq(1, mapFighters_.size());
         assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
@@ -9479,7 +9479,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, _data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, _data_);
-        NatTreeMap<Byte, Fighter> mapFighters_ = FightFacade.getPlayerFrontTeamForSubstituting(fight_);
+        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeamForSubstituting(fight_);
         assertEq(1, mapFighters_.size());
         assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
@@ -9521,7 +9521,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, _data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, _data_);
-        NatTreeMap<Byte, Fighter> mapFighters_ = FightFacade.getPlayerFrontTeamForSubstituting(fight_);
+        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeamForSubstituting(fight_);
         assertEq(2, mapFighters_.size());
         assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
         assertSame(mapFighters_.getVal((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
@@ -9564,7 +9564,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, _data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, _data_);
-        NatTreeMap<Byte, Fighter> mapFighters_ = FightFacade.getPlayerFrontTeamForSubstituting(fight_);
+        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeamForSubstituting(fight_);
         assertEq(2, mapFighters_.size());
         assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
         assertSame(mapFighters_.getVal((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
@@ -9610,7 +9610,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, _data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, _data_);
-        NatTreeMap<Byte, Fighter> mapFighters_ = FightFacade.getPlayerFrontTeamForSubstituting(fight_);
+        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerFrontTeamForSubstituting(fight_);
         assertEq(1, mapFighters_.size());
         assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO));
     }
@@ -9655,7 +9655,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, _data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, _data_);
-        NatTreeMap<Byte, Fighter> mapFighters_ = FightFacade.getPlayerBackTeamForSubstituting(fight_);
+        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerBackTeamForSubstituting(fight_);
         assertEq(2, mapFighters_.size());
         assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
         assertSame(mapFighters_.getVal((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
@@ -9698,7 +9698,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, _data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, _data_);
-        NatTreeMap<Byte, Fighter> mapFighters_ = FightFacade.getPlayerBackTeamForSubstituting(fight_);
+        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerBackTeamForSubstituting(fight_);
         assertEq(1, mapFighters_.size());
         assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
     }
@@ -9743,7 +9743,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, _data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, _data_);
-        NatTreeMap<Byte, Fighter> mapFighters_ = FightFacade.getPlayerBackTeamForSubstituting(fight_);
+        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerBackTeamForSubstituting(fight_);
         assertEq(2, mapFighters_.size());
         assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE));
         assertSame(mapFighters_.getVal((byte) 1), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
@@ -9786,7 +9786,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, _data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightArtificialIntelligence.choiceForSubstituing(fight_, _data_);
-        NatTreeMap<Byte, Fighter> mapFighters_ = FightFacade.getPlayerBackTeamForSubstituting(fight_);
+        ByteTreeMap< Fighter> mapFighters_ = FightFacade.getPlayerBackTeamForSubstituting(fight_);
         assertEq(1, mapFighters_.size());
         assertSame(mapFighters_.getVal((byte) 0), fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO));
     }
@@ -14173,7 +14173,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(FightState.ATTAQUES, fight_.getState());
         Fight loadedFight_ = saveFight(fight_);
         FightFacade.initializeFromSavedGame(loadedFight_, diff_, player_, _data_);
-        NumberMap<Byte,Boolean> ko_ = loadedFight_.getKos();
+        ByteMap<Boolean> ko_ = loadedFight_.getKos();
         assertEq(2, ko_.size());
         assertEq(2, getNbKoByValue(ko_, false));
         assertEq(0, getNbKoByValue(ko_, true));
@@ -14223,7 +14223,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(FightState.ATTAQUES, fight_.getState());
         Fight loadedFight_ = saveFight(fight_);
         FightFacade.initializeFromSavedGame(loadedFight_, diff_, player_, _data_);
-        NumberMap<Byte,Boolean> ko_ = loadedFight_.getKos();
+        ByteMap<Boolean> ko_ = loadedFight_.getKos();
         assertEq(2, ko_.size());
         assertEq(2, getNbKoByValue(ko_, false));
         assertEq(0, getNbKoByValue(ko_, true));
@@ -14279,7 +14279,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(FightState.ATTAQUES, fight_.getState());
         Fight loadedFight_ = saveFight(fight_);
         FightFacade.initializeFromSavedGame(loadedFight_, diff_, player_, _data_);
-        NumberMap<Byte,Boolean> ko_ = loadedFight_.getKos();
+        ByteMap<Boolean> ko_ = loadedFight_.getKos();
         assertEq(2, ko_.size());
         assertEq(2, getNbKoByValue(ko_, false));
         assertEq(0, getNbKoByValue(ko_, true));
@@ -14333,7 +14333,7 @@ public class FightFacadeTest extends InitializationDataBase {
         ActionMove actionMove_ = (ActionMove) loadedFight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
         actionMove_.setFirstChosenMove(NULL_REF);
         FightFacade.initializeFromSavedGame(loadedFight_, diff_, player_, _data_);
-        NumberMap<Byte,Boolean> ko_ = loadedFight_.getKos();
+        ByteMap<Boolean> ko_ = loadedFight_.getKos();
         assertEq(2, ko_.size());
         assertEq(2, getNbKoByValue(ko_, false));
         assertEq(0, getNbKoByValue(ko_, true));
@@ -14396,7 +14396,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(FightState.SWITCH_APRES_ATTAQUE, fight_.getState());
         Fight loadedFight_ = saveFight(fight_);
         FightFacade.initializeFromSavedGame(loadedFight_, diff_, player_, _data_);
-        NumberMap<Byte,Boolean> ko_ = loadedFight_.getKos();
+        ByteMap<Boolean> ko_ = loadedFight_.getKos();
         assertEq(2, ko_.size());
         assertEq(2, getNbKoByValue(ko_, false));
         assertEq(0, getNbKoByValue(ko_, true));
@@ -14465,7 +14465,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(FightState.APPRENDRE_EVOLUER, fight_.getState());
         Fight loadedFight_ = saveFight(fight_);
         FightFacade.initializeFromSavedGame(loadedFight_, diff_, player_, _data_);
-        NumberMap<Byte,Boolean> ko_ = loadedFight_.getKos();
+        ByteMap<Boolean> ko_ = loadedFight_.getKos();
         assertEq(2, ko_.size());
         assertEq(2, getNbKoByValue(ko_, false));
         assertEq(0, getNbKoByValue(ko_, true));
@@ -14525,7 +14525,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(FightState.ATTAQUES, fight_.getState());
         Fight loadedFight_ = saveFight(fight_);
         FightFacade.initializeFromSavedGame(loadedFight_, diff_, player_, _data_);
-        NumberMap<Byte,Boolean> ko_ = loadedFight_.getKos();
+        ByteMap<Boolean> ko_ = loadedFight_.getKos();
         assertEq(2, ko_.size());
         assertEq(2, getNbKoByValue(ko_, false));
         assertEq(0, getNbKoByValue(ko_, true));
@@ -14583,7 +14583,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(FightState.ATTAQUES, fight_.getState());
         Fight loadedFight_ = saveFight(fight_);
         FightFacade.initializeFromSavedGame(loadedFight_, diff_, player_, _data_);
-        NumberMap<Byte,Boolean> ko_ = loadedFight_.getKos();
+        ByteMap<Boolean> ko_ = loadedFight_.getKos();
         assertEq(2, ko_.size());
         assertEq(2, getNbKoByValue(ko_, false));
         assertEq(0, getNbKoByValue(ko_, true));
@@ -14606,7 +14606,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertTrue(loadedFight_.getAcceptableChoices());
     }
 
-    private int getNbKoByValue(NumberMap<Byte,Boolean> _map, Boolean _value) {
+    private int getNbKoByValue(ByteMap<Boolean> _map, Boolean _value) {
         int nb_ = CustList.FIRST_INDEX;
         for (EntryCust<Byte,Boolean> e: _map.entryList()) {
             if (e.getValue() == _value) {
@@ -14624,7 +14624,7 @@ public class FightFacadeTest extends InitializationDataBase {
         savedFight_.setPlayerMaxNumberFrontFighters(_currentFight.getPlayerMaxNumberFrontFighters());
         savedFight_.setEnabledMoves(_currentFight.getEnabledMoves());
         savedFight_.setStillEnabledMoves(_currentFight.getStillEnabledMoves());
-        savedFight_.setTeams(new NumberMap<Byte,Team>());
+        savedFight_.setTeams(new ByteMap<Team>());
         for (byte k: _currentFight.getTeams().getKeys()) {
             Team team_;
             team_ = saveTeam(_currentFight.getTeams().getVal(k));
@@ -14641,7 +14641,7 @@ public class FightFacadeTest extends InitializationDataBase {
         savedFight_.setFirstPositFoeFighters(_currentFight.getFirstPositFoeFighters());
         savedFight_.setAllyChoice(_currentFight.getAllyChoice());
         savedFight_.setLostObjects(_currentFight.getLostObjects());
-        savedFight_.setChoices(new NumberMap<Byte,ChoiceOfEvolutionAndMoves>());
+        savedFight_.setChoices(new ByteMap<ChoiceOfEvolutionAndMoves>());
         for (byte k: _currentFight.getChoices().getKeys()) {
             ChoiceOfEvolutionAndMoves choice_;
             choice_ = saveChoice(_currentFight.getChoices().getVal(k));
@@ -14670,7 +14670,7 @@ public class FightFacadeTest extends InitializationDataBase {
         savedTeam_.setNbUsesMovesRound(_currentTeam.getNbUsesMovesRound());
         savedTeam_.setHealAfter(_currentTeam.getHealAfter());
         savedTeam_.setMovesAnticipation(_currentTeam.getMovesAnticipation());
-        savedTeam_.setMembers(new NumberMap<Byte,Fighter>());
+        savedTeam_.setMembers(new ByteMap<Fighter>());
         for (byte k: _currentTeam.getMembers().getKeys()) {
             Fighter fighter_;
             fighter_ = saveFighter(_currentTeam.getMembers().getVal(k));

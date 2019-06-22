@@ -7,15 +7,6 @@ import code.util.ints.Cmp;
 public final class NatCmpTreeMap<K extends Cmp<K>, V> extends AbsMap<K, V> {
 
     @Override
-    public CustList<K> getKeys() {
-        CustList<K> s_ = new CustList<K>();
-        for (EntryCust<K, V> e: getList()) {
-            s_.add(e.getKey());
-        }
-        return s_;
-    }
-
-    @Override
     public void put(K _key, V _value) {
         int index_ = 0;
         while (true) {

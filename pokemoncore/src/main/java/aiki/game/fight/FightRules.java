@@ -27,8 +27,8 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.comparators.ComparatorBoolean;
@@ -63,7 +63,7 @@ final class FightRules {
                 if (!TeamPosition.eq(c2_.getTeamPosition(), _combattant)) {
                     continue;
                 }
-                liste_.removeAllElements(creatureCbtLoc_.getPrivateMoves().getVal(c2_));
+                StringList.removeAllElements(liste_, creatureCbtLoc_.getPrivateMoves().getVal(c2_));
             }
             for(MoveTeamPosition c2_:creatureCbtLoc_.enabledRelationsMoves()){
                 MoveData fAttaque_=_import.getMove(c2_.getMove());
@@ -104,7 +104,7 @@ final class FightRules {
                             continue;
                         }
                         EffectTeam effetEq_=(EffectTeam)effet_;
-                        liste_.removeAllElements(effetEq_.getUnusableMoves());
+                        StringList.removeAllElements(liste_, effetEq_.getUnusableMoves());
                     }
                 }
             }
@@ -116,7 +116,7 @@ final class FightRules {
             }
         }
         boolean lance_=false;
-        for (NumberMap<Byte,Anticipation> m: equipe_.getMovesAnticipationValues()) {
+        for (ByteMap<Anticipation> m: equipe_.getMovesAnticipationValues()) {
             for (byte p: m.getKeys()) {
                 if (!Numbers.eq(creatureCbt_.getGroundPlace(),p)) {
                     continue;
@@ -132,7 +132,7 @@ final class FightRules {
             }
         }
         if(lance_){
-            liste_.removeAllElements(_import.getMovesAnticipation());
+            StringList.removeAllElements(liste_, _import.getMovesAnticipation());
         }
         for(String c:creatureCbt_.enabledIndividualMoves()){
             MoveData fAttaque_=_import.getMove(c);
@@ -153,7 +153,7 @@ final class FightRules {
                             notDamage_.add(e);
                         }
                     }
-                    liste_.removeAllElements(notDamage_);
+                    StringList.removeAllElements(liste_, notDamage_);
                 }
             }
         }
@@ -166,11 +166,11 @@ final class FightRules {
                     continue;
                 }
                 EffectGlobal effetGl_=(EffectGlobal)effet_;
-                liste_.removeAllElements(effetGl_.getUnusableMoves());
+                StringList.removeAllElements(liste_, effetGl_.getUnusableMoves());
             }
         }
         if (FightOrder.nbBackPartners(_fight,_combattant) == 0) {
-            liste_.removeAllElements(_import.getMovesFullHeal());
+            StringList.removeAllElements(liste_, _import.getMovesFullHeal());
         }
         liste_.removeString(_import.getDefaultMove());
         liste_.retainAllElements(usablesMoves_);
@@ -182,9 +182,9 @@ final class FightRules {
     static boolean substitutable(Fight _fight, Difficulty _diff, DataBase _import){
         boolean error_ = false;
         boolean autoriseEchangePositionFinTour_=_diff.getAllowedSwitchPlacesEndRound();
-        Numbers<Byte> places_ = new Numbers<Byte>();
-        Numbers<Byte> usedPlaces_ = new Numbers<Byte>();
-        Numbers<Byte> playerPlaces_ = new Numbers<Byte>();
+        Bytes places_ = new Bytes();
+        Bytes usedPlaces_ = new Bytes();
+        Bytes playerPlaces_ = new Bytes();
         byte nbPkNonKo_=0;
         for(TeamPosition c: FightOrder.fightersBelongingToUser(_fight,true)){
             Fighter creature_ = _fight.getFighter(c);
@@ -282,7 +282,7 @@ final class FightRules {
         boolean error_ = false;
         //String retour_=DataBase.EMPTY_STRING;
         Team equipeUt_=_fight.getUserTeam();
-        Numbers<Byte> remplacants_=new Numbers<Byte>();
+        Bytes remplacants_=new Bytes();
         StringMap<LgInt> utilisationsObjets_=new StringMap<LgInt>();
         for(byte c:equipeUt_.getMembers().getKeys()){
             Fighter creature_=equipeUt_.getMembers().getVal(c);
@@ -343,8 +343,8 @@ final class FightRules {
                 String attaque_=creature_.getFirstChosenMove();
                 String moveName_ = _import.translateMove(attaque_);
                 StringList attaquesAutorisees_=FightFacade.allowedMovesNotEmpty(_fight,Fight.toUserFighter(c),_import);
-                if(attaquesAutorisees_.containsObj(attaque_)){
-                    if (_import.getMovesFullHeal().containsObj(attaque_) || _import.isBatonPassMove(attaque_)) {
+                if(StringList.contains(attaquesAutorisees_, attaque_)){
+                    if (StringList.contains(_import.getMovesFullHeal(), attaque_) || _import.isBatonPassMove(attaque_)) {
                         if(Numbers.eq(creature_.getSubstistute(),Fighter.BACK)){
                             error_ = true;
                             _fight.addMessage(_import,Fight.ERR_SWITCH, name_);
@@ -377,7 +377,7 @@ final class FightRules {
                         if(fAtt_.getTargetChoice() == TargetChoice.ADJ_UNIQ){
                             byte noTeam_ = (byte) cibles_.first().getTeam();
                             Team equipeCible_=_fight.getTeams().getVal(noTeam_);
-                            Numbers<Byte> cbts_=equipeCible_.fightersAtCurrentPlace(cibles_.first().getPosition());
+                            Bytes cbts_=equipeCible_.fightersAtCurrentPlace(cibles_.first().getPosition());
                             if(cbts_.size() != DataBase.ONE_POSSIBLE_CHOICE){
                                 error_ = true;
                                 _fight.addMessage(_import,Fight.ERR_NO_CHOSEN_TARGET, moveName_, name_);
@@ -396,7 +396,7 @@ final class FightRules {
                         } else if (fAtt_.getTargetChoice() == TargetChoice.AUTRE_UNIQ) {
                             byte noTeam_ = (byte) cibles_.first().getTeam();
                             Team equipeCible_=_fight.getTeams().getVal(noTeam_);
-                            Numbers<Byte> cbts_=equipeCible_.fightersAtCurrentPlace(cibles_.first().getPosition());
+                            Bytes cbts_=equipeCible_.fightersAtCurrentPlace(cibles_.first().getPosition());
                             if(cbts_.size() != DataBase.ONE_POSSIBLE_CHOICE){
                                 error_ = true;
                                 _fight.addMessage(_import,Fight.ERR_NO_CHOSEN_TARGET, moveName_, name_);
@@ -503,7 +503,7 @@ final class FightRules {
                             if(Numbers.eq(creature_.getStatusNbRoundShort(s), 0)){
                                 continue;
                             }
-                            if(baie_.getHealStatus().containsObj(s)){
+                            if(StringList.contains(baie_.getHealStatus(), s)){
                                 statuts_.add(s);
                             }
                         }
@@ -570,7 +570,7 @@ final class FightRules {
                             if(creature_.getStatusNbRoundShort(c2_) == 0){
                                 continue;
                             }
-                            if(soinStatut_.getStatus().containsObj(c2_)){
+                            if(StringList.contains(soinStatut_.getStatus(), c2_)){
                                 statuts_.add(c2_);
                             }
                         }

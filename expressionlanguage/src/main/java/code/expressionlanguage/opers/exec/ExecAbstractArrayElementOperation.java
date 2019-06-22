@@ -8,7 +8,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.AbstractArrayElementOperation;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringList;
 
 public abstract class ExecAbstractArrayElementOperation extends
@@ -31,8 +31,8 @@ public abstract class ExecAbstractArrayElementOperation extends
         int nbCh_ = _arguments.size();
         Argument a_ = new Argument();
 
-        Numbers<Integer> dims_;
-        dims_ = new Numbers<Integer>();
+        Ints dims_;
+        dims_ = new Ints();
         dims_.add(nbCh_);
         Struct str_ = PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf);
         Templates.setCheckedElements(_arguments,str_,_conf);

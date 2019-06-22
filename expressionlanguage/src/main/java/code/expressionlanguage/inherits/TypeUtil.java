@@ -38,7 +38,7 @@ public final class TypeUtil {
         }
     }
 
-    public static void checkInterfaces(ContextEl _context, StringList _types, boolean _predefined) {
+    public static void checkInterfaces(ContextEl _context, CustList<String> _types, boolean _predefined) {
         Classes classes_ = _context.getClasses();
         for (RootBlock c: classes_.getClassBodies(_predefined)) {
             _context.getAnalyzing().setImporting(c);
@@ -120,12 +120,12 @@ public final class TypeUtil {
             }
             StringList all_ = un_.getAllInterfaces();
             StringList allCopy_ = new StringList(all_);
-            allCopy_.removeAllElements(_context.getStandards().getPredefinedInterfacesInitOrder());
+            StringList.removeAllElements(allCopy_, _context.getStandards().getPredefinedInterfacesInitOrder());
             String clName_ = un_.getImportedDirectGenericSuperClass();
             String id_ = Templates.getIdFromAllTypes(clName_);
             RootBlock superType_ = classes_.getClassBody(id_);
             if (superType_ instanceof UniqueRootedBlock) {
-                allCopy_.removeAllElements(((UniqueRootedBlock)superType_).getAllInterfaces());
+                StringList.removeAllElements(allCopy_, ((UniqueRootedBlock)superType_).getAllInterfaces());
             }
             StringList filteredStatic_ = new StringList();
             for (String i: allCopy_) {
@@ -219,7 +219,7 @@ public final class TypeUtil {
             }
             currentSuperInterfaces_ = newSuperInterfaces_;
         }
-        _ints.removeAllObj(aliasObject_);
+        StringList.removeAllObj(_ints, aliasObject_);
         _ints.removeDuplicates();
     }
     public static void buildOverrides(RootBlock _type,ContextEl _context) {
@@ -292,7 +292,7 @@ public final class TypeUtil {
                     pairs_.add(p);
                     String superType_ = p.getSupMethod().getClassName();
                     String superTypeId_ = Templates.getIdFromAllTypes(superType_);
-                    if (!visited_.containsStr(superTypeId_)) {
+                    if (!StringList.contains(visited_, superTypeId_)) {
                         next_.add(p.getSupMethod());
                         visited_.add(superTypeId_);
                     }
@@ -663,7 +663,7 @@ public final class TypeUtil {
     }
 
     private static void addIfNotFound(StringList _visited, StringList _new, String _format) {
-        if (_visited.containsStr(_format)) {
+        if (StringList.contains(_visited, _format)) {
             return;
         }
         _visited.add(_format);

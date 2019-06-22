@@ -991,13 +991,13 @@ public abstract class OperationNode implements Operable {
         }
         if (_accessFromSuper) {
             StringList l_ = new StringList(_superTypesBase.values());
-            if (l_.containsStr(_t)) {
+            if (StringList.contains(l_, _t)) {
                 return null;
             }
         }
         if (!_superClass) {
             StringList l_ = new StringList(_superTypesBase.values());
-            if (!l_.containsStr(_t)) {
+            if (!StringList.contains(l_, _t)) {
                 return null;
             }
         }

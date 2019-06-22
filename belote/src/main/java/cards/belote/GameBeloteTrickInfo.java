@@ -13,7 +13,7 @@ public final class GameBeloteTrickInfo {
     private EqList<DeclareHandBelote> declares;
     private EqList<HandBelote> declaresBeloteRebelote;
     private BidBeloteSuit bid;
-    private Numbers<Integer> handLengths;
+    private Ints handLengths;
 
     private byte nbPlayers;
     private byte taker;
@@ -24,7 +24,7 @@ public final class GameBeloteTrickInfo {
                                EqList<DeclareHandBelote> _declares,
                                EqList<HandBelote> _declaresBeloteRebelote,
                               BidBeloteSuit _bid,
-                              Numbers<Integer> _handLengths) {
+                              Ints _handLengths) {
         progressingTrick = _progressingTrick;
         tricks = _tricks;
         declares = _declares;
@@ -53,10 +53,10 @@ public final class GameBeloteTrickInfo {
      */
     public EnumMap<Hypothesis,EnumMap<Suit,EqList<HandBelote>>> cartesCertaines(
             EnumMap<Suit, EqList<HandBelote>> _cartesPossibles) {
-        Numbers<Byte> joueursRepartitionConnue_ = new Numbers<Byte>();
-        Numbers<Byte> joueursRepartitionConnue2_ = new Numbers<Byte>();
-        Numbers<Byte> joueursRepartitionConnueMemo_ = new Numbers<Byte>();
-        Numbers<Byte> joueursRepartitionInconnue_ = new Numbers<Byte>();
+        Bytes joueursRepartitionConnue_ = new Bytes();
+        Bytes joueursRepartitionConnue2_ = new Bytes();
+        Bytes joueursRepartitionConnueMemo_ = new Bytes();
+        Bytes joueursRepartitionInconnue_ = new Bytes();
         EnumMap<Suit,EqList<HandBelote>> cartesCertaines_ = new EnumMap<Suit,EqList<HandBelote>>();
         EnumMap<Suit,EqList<HandBelote>> cartesPossibles_ = new EnumMap<Suit,EqList<HandBelote>>(
                 _cartesPossibles);
@@ -166,7 +166,7 @@ public final class GameBeloteTrickInfo {
 
     void addToKnown(EnumList<Suit> _all,EnumMap<Suit,EqList<HandBelote>> _poss,byte _player,
                     EnumMap<Suit,EqList<HandBelote>> _sure,
-                    Numbers<Byte> _joueursRepartitionConnue, Numbers<Byte> _joueursRepartitionConnueMemo) {
+                    Bytes _joueursRepartitionConnue, Bytes _joueursRepartitionConnueMemo) {
         int nombreCartesPossiblesJoueur_ = 0;
         for (Suit couleur_: _all) {
             nombreCartesPossiblesJoueur_ += _poss.getVal(couleur_)
@@ -297,7 +297,7 @@ public final class GameBeloteTrickInfo {
                     if(joueur_ == next_) {
                         continue;
                     }
-                    Numbers<Byte> joueursAvant_ = pli_.joueursAyantJoueAvant(joueur_,nbPlayers);
+                    Bytes joueursAvant_ = pli_.joueursAyantJoueAvant(joueur_,nbPlayers);
                     byte forceLoc_ = c.strength(couleurDemande_, bid);
                     byte max_ = 0;
                     byte ramasseurVirtuel_ = joueur_;
@@ -429,7 +429,7 @@ public final class GameBeloteTrickInfo {
                 if(joueur_ == next_) {
                     continue;
                 }
-                Numbers<Byte> joueursAvant_ = pli_.joueursAyantJoueAvant(joueur_,nbPlayers);
+                Bytes joueursAvant_ = pli_.joueursAyantJoueAvant(joueur_,nbPlayers);
                 byte forceLoc_ = c.strength(couleurDemande_, bid);
                 byte max_ = 0;
                 byte ramasseurVirtuel_ = joueur_;
@@ -623,7 +623,7 @@ public final class GameBeloteTrickInfo {
                         continue;
                     }
                     //defausse de joueur
-                    Numbers<Byte> joueurs_=pli_.joueursAyantJoueAvant(_joueur);
+                    Bytes joueurs_=pli_.joueursAyantJoueAvant(_joueur);
                     if(joueurs_.isEmpty()) {
                         continue;
                     }

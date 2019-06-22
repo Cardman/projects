@@ -2,7 +2,7 @@ package aiki.fight.moves.effects;
 
 import aiki.db.DataBase;
 import aiki.fight.moves.enums.TargetChoice;
-import code.util.Numbers;
+import code.util.Ints;
 
 
 public abstract class Effect {
@@ -11,7 +11,7 @@ public abstract class Effect {
 
     private String fail;
 
-    private Numbers<Integer> requiredSuccessfulEffects;
+    private Ints requiredSuccessfulEffects;
 
     /**
      * @param _data
@@ -40,12 +40,12 @@ public abstract class Effect {
         fail = _fail;
     }
 
-    public Numbers<Integer> getRequiredSuccessfulEffects() {
+    public Ints getRequiredSuccessfulEffects() {
         return requiredSuccessfulEffects;
     }
 
     public void setRequiredSuccessfulEffects(
-            Numbers<Integer> _requiredSuccessfulEffects) {
+            Ints _requiredSuccessfulEffects) {
         requiredSuccessfulEffects = _requiredSuccessfulEffects;
     }
 }

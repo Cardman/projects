@@ -2,6 +2,7 @@ package aiki.game.player;
 import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import code.util.StringList;
 import org.junit.Test;
 
 import aiki.game.fight.InitializationDataBase;
@@ -14,15 +15,18 @@ public class InventoryTest extends InitializationDataBase{
     public void new_Inventory_DataBase_1Test() {
         Inventory obj_ = new Inventory(_data_);
         assertEq(100,obj_.getItemsKeys().size());
-        assertTrue(obj_.getItemsKeys().containsObj(MUSCLE));
-        assertTrue(obj_.getItemsKeys().containsObj(PP_PLUS));
-        assertTrue(obj_.getItemsKeys().containsObj(GRELOT));
-        assertTrue(obj_.getItemsKeys().containsObj(PIERRE_LUNE));
-        assertTrue(obj_.getItemsKeys().containsObj(PIERRE_SOLEIL));
+        assertTrue(StringList.contains(obj_.getItemsKeys(), MUSCLE));
+        assertTrue(StringList.contains(obj_.getItemsKeys(), PP_PLUS));
+        assertTrue(StringList.contains(obj_.getItemsKeys(), GRELOT));
+        assertTrue(StringList.contains(obj_.getItemsKeys(), PIERRE_LUNE));
+        assertTrue(StringList.contains(obj_.getItemsKeys(), PIERRE_SOLEIL));
         assertEq(4,obj_.getAllTm().size());
-        assertTrue(obj_.getAllTm().containsObj((short) 5));
+        assertEq(2,obj_.getAllTm().get(0));
+        assertEq(3,obj_.getAllTm().get(1));
+        assertEq(4,obj_.getAllTm().get(2));
+        assertEq(5,obj_.getAllTm().get(3));
         assertEq(1,obj_.getAllHm().size());
-        assertTrue(obj_.getAllHm().containsObj((short) 1));
+        assertEq(1,obj_.getAllHm().first());
     }
 
     @Test

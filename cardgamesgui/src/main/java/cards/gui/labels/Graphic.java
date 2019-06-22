@@ -7,16 +7,16 @@ import code.gui.PaintableLabel;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.Longs;
 /**
     */
 
 public class Graphic extends PaintableLabel {
-    private CustList<Numbers<Long>> scores;
-    private Numbers<Long> sommes;
+    private CustList<Longs> scores;
+    private Longs sommes;
     private EqList<Rate> sigmas;
     private CustList<Color> couleurs;
-    public Graphic(CustList<Numbers<Long>> _pscores,Numbers<Long> _psommes,EqList<Rate> _psigmas,CustList<Color> _pcouleurs) {
+    public Graphic(CustList<Longs> _pscores,Longs _psommes,EqList<Rate> _psigmas,CustList<Color> _pcouleurs) {
         scores=_pscores;
         sommes=_psommes;
         sigmas=_psigmas;

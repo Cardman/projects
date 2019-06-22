@@ -8,7 +8,7 @@ import code.expressionlanguage.opers.AnnotationInstanceOperation;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -55,8 +55,8 @@ public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation
             args_ = new int[CustList.ONE_ELEMENT];
             args_[CustList.FIRST_INDEX] = chidren_.size();
             Argument a_ = new Argument();
-            Numbers<Integer> dims_;
-            dims_ = new Numbers<Integer>();
+            Ints dims_;
+            dims_ = new Ints();
             dims_.add(nbCh_);
             String className_ = PrimitiveTypeUtil.getQuickComponentType(className);
             Struct str_ = PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf);

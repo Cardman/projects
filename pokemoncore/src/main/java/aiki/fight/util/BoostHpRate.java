@@ -1,6 +1,6 @@
 package aiki.fight.util;
 import code.maths.Rate;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 import code.util.ints.Displayable;
 

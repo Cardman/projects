@@ -4,12 +4,12 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 
 final class TarotInfoPliEnCours {
 
     private HandTarot cartesJouables;
-    private Numbers<Byte> joueursNonJoue;
+    private Bytes joueursNonJoue;
     private CustList<TrickTarot> plisFaits;
     private TrickTarot progressingTrick;
     private HandTarot cartesJouees;
@@ -29,8 +29,8 @@ final class TarotInfoPliEnCours {
     private byte nbPlayers;
     private byte currentPlayer;
     private byte taker;
-    private Numbers<Byte> joueursConfiance;
-    private Numbers<Byte> joueursNonConfiance;
+    private Bytes joueursConfiance;
+    private Bytes joueursNonConfiance;
 
     TarotInfoPliEnCours() {
     }
@@ -51,11 +51,11 @@ final class TarotInfoPliEnCours {
         cartesJouables = _cartesJouables;
     }
 
-    public Numbers<Byte> getJoueursNonJoue() {
+    public Bytes getJoueursNonJoue() {
         return joueursNonJoue;
     }
 
-    public void setJoueursNonJoue(Numbers<Byte> _joueursNonJoue) {
+    public void setJoueursNonJoue(Bytes _joueursNonJoue) {
         joueursNonJoue = _joueursNonJoue;
     }
 
@@ -203,19 +203,19 @@ final class TarotInfoPliEnCours {
         taker = _taker;
     }
 
-    public Numbers<Byte> getJoueursConfiance() {
+    public Bytes getJoueursConfiance() {
         return joueursConfiance;
     }
 
-    public void setJoueursConfiance(Numbers<Byte> _joueursConfiance) {
+    public void setJoueursConfiance(Bytes _joueursConfiance) {
         joueursConfiance = _joueursConfiance;
     }
 
-    public Numbers<Byte> getJoueursNonConfiance() {
+    public Bytes getJoueursNonConfiance() {
         return joueursNonConfiance;
     }
 
-    public void setJoueursNonConfiance(Numbers<Byte> _joueursNonConfiance) {
+    public void setJoueursNonConfiance(Bytes _joueursNonConfiance) {
         joueursNonConfiance = _joueursNonConfiance;
     }
 }

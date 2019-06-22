@@ -25,7 +25,7 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -836,7 +836,7 @@ final class InitializationAbilities {
         object_.setUserStatusEndRound(NULL_REF);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         object_.setFailEndRound(NULL_REF);
         return object_;
     }
@@ -915,7 +915,7 @@ final class InitializationAbilities {
         object_.setDeleteAllStatusAlly(Rate.zero());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         object_.setFailEndRound(NULL_REF);
         return object_;
     }
@@ -933,7 +933,7 @@ final class InitializationAbilities {
         object_.setCancelChgtStat(new EnumList<Statistic>());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         return object_;
     }
 
@@ -951,7 +951,7 @@ final class InitializationAbilities {
         object_.setMultDamageStatus(new StringMap<Rate>());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         object_.setFailEndRound(NULL_REF);
         return object_;
     }

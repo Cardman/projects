@@ -11,7 +11,7 @@ import code.formathtml.DefaultInitialization;
 import code.formathtml.util.BeanLgNames;
 import code.gui.document.RenderedPage;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.Ints;
 
 public class ListenerClickTree implements TreeSelectionListener {
 
@@ -41,9 +41,9 @@ public class ListenerClickTree implements TreeSelectionListener {
         }
         DefaultMutableTreeNode noeudParent_;
         DefaultMutableTreeNode noeud_;
-        Numbers<Integer> indices_;
+        Ints indices_;
         if (!chemin_.isEmpty()) {
-            indices_ = new Numbers<Integer>();
+            indices_ = new Ints();
             int pathLength_ = chemin_.size();
             for (int indice_ = CustList.SECOND_INDEX; indice_ < pathLength_; indice_++) {
                 noeudParent_ = chemin_.getPrev(indice_);
@@ -51,7 +51,7 @@ public class ListenerClickTree implements TreeSelectionListener {
                 indices_.add(noeudParent_.getIndex(noeud_));
             }
         } else {
-            indices_ = new Numbers<Integer>();
+            indices_ = new Ints();
         }
         ElementHelp element_ = node.element(indices_).getElementLocal();
         BeanLgNames bean_ = new GeneralHelpLgNames();

@@ -2271,7 +2271,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.EXCUSE);
         EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         EnumMap<Suit,EqList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        Numbers<Byte> players_ = new Numbers<Byte>();
+        Bytes players_ = new Bytes();
         players_.add((byte) 0);
         players_.add((byte) 1);
         EqList<HandTarot> seq_ = seqs_.getVal(Suit.SPADE);
@@ -2466,7 +2466,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.EXCUSE);
         EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         EnumMap<Suit,EqList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        Numbers<Byte> players_ = new Numbers<Byte>();
+        Bytes players_ = new Bytes();
         players_.add((byte) 0);
         players_.add((byte) 1);
         EqList<HandTarot> seq_ = seqs_.getVal(Suit.SPADE);
@@ -2661,7 +2661,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.EXCUSE);
         EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         EnumMap<Suit,EqList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        Numbers<Byte> players_ = new Numbers<Byte>();
+        Bytes players_ = new Bytes();
         players_.add((byte) 0);
         players_.add((byte) 1);
         EqList<HandTarot> seq_ = seqs_.getVal(Suit.SPADE);
@@ -2913,7 +2913,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_1);
         EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         EnumMap<Suit,EqList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        Numbers<Byte> players_ = new Numbers<Byte>();
+        Bytes players_ = new Bytes();
         players_.add((byte) 0);
         players_.add((byte) 1);
         EqList<HandTarot> seq_ = seqs_.getVal(Suit.TRUMP);
@@ -3162,7 +3162,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_1);
         EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         EnumMap<Suit,EqList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        Numbers<Byte> players_ = new Numbers<Byte>();
+        Bytes players_ = new Bytes();
         players_.add((byte) 0);
         players_.add((byte) 1);
         EqList<HandTarot> seq_ = seqs_.getVal(Suit.TRUMP);
@@ -3409,7 +3409,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_1);
         EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         EnumMap<Suit,EqList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        Numbers<Byte> players_ = new Numbers<Byte>();
+        Bytes players_ = new Bytes();
         players_.add((byte) 0);
         players_.add((byte) 1);
         EqList<HandTarot> seq_ = seqs_.getVal(Suit.TRUMP);
@@ -3656,7 +3656,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_7);
         EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         EnumMap<Suit,EqList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        Numbers<Byte> players_ = new Numbers<Byte>();
+        Bytes players_ = new Bytes();
         players_.add((byte) 0);
         players_.add((byte) 1);
         EqList<HandTarot> seq_ = seqs_.getVal(Suit.TRUMP);
@@ -3906,7 +3906,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_1);
         EnumMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         EnumMap<Suit,EqList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        Numbers<Byte> players_ = new Numbers<Byte>();
+        Bytes players_ = new Bytes();
         players_.add((byte) 0);
         players_.add((byte) 1);
         EqList<HandTarot> seq_ = seqs_.getVal(Suit.TRUMP);
@@ -4647,7 +4647,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         t_.ajouter(CardTarot.TRUMP_8);
         t_.ajouter(CardTarot.TRUMP_9);
         trs_.add(t_);
-        Numbers<Byte> all_ = GameTarotTeamsRelation.tousJoueurs((byte) 5);
+        Bytes all_ = GameTarotTeamsRelation.tousJoueurs((byte) 5);
         all_.removeAllLong(0);
         EnumList<Suit> suits_ = GameTarotCommonPlaying.couleursLesPlusEntameesParJoueurs(trs_, all_, Suit.couleursOrdinaires());
         assertEq(2, suits_.size());
@@ -4786,7 +4786,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         t_.ajouter(CardTarot.TRUMP_8);
         t_.ajouter(CardTarot.TRUMP_9);
         trs_.add(t_);
-        Numbers<Byte> all_ = GameTarotTeamsRelation.tousJoueurs((byte) 5);
+        Bytes all_ = GameTarotTeamsRelation.tousJoueurs((byte) 5);
         all_.removeAllLong(0);
         EnumList<Suit> suits_ = GameTarotCommonPlaying.couleursLesMoinsEntameesParJoueurs(trs_, all_, Suit.couleursOrdinaires());
         assertEq(2, suits_.size());
@@ -4857,7 +4857,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         t_.ajouter(CardTarot.TRUMP_8);
         t_.ajouter(CardTarot.TRUMP_9);
         trs_.add(t_);
-        Numbers<Byte> winners_ = GameTarotCommonPlaying.ramasseurs(trs_);
+        Bytes winners_ = GameTarotCommonPlaying.ramasseurs(trs_);
         assertEq(3, winners_.size());
         assertTrue(winners_.contains(0));
         assertTrue(winners_.contains(4));
@@ -4882,7 +4882,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         EqList<EnumList<Miseres>> m_ = new EqList<EnumList<Miseres>>();
         EqList<HandTarot> h_ = new EqList<HandTarot>();
         feedLength(m_,h_);
-        Numbers<Integer> ls_ = new Numbers<Integer>();
+        Ints ls_ = new Ints();
         ls_.add(14);
         ls_.add(14);
         ls_.add(15);
@@ -4899,11 +4899,11 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
             }
             confidence_.add(b_);
         }
-        Numbers<Byte> calledPlayers_ = new Numbers<Byte>();
+        Bytes calledPlayers_ = new Bytes();
         GameTarotTeamsRelation rel_ = new GameTarotTeamsRelation((byte) 0, calledPlayers_, confidence_, r_);
         gt_.addSeenDeck(l_, rel_);
         GameTarotCommonPlaying g_ = new GameTarotCommonPlaying(gt_, rel_);
-        Numbers<Byte> players_ = g_.joueursNAyantPasJoue((byte) 2);
+        Bytes players_ = g_.joueursNAyantPasJoue((byte) 2);
         assertEq(1, players_.size());
         assertTrue(players_.contains(3));
     }

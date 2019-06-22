@@ -18,12 +18,12 @@ public final class EffectUnprotectFromTypes extends Effect {
     public void validate(DataBase _data) {
         super.validate(_data);
         for (TypesDuo t : types) {
-            if (!_data.getTypes().containsObj(t.getDamageType())) {
+            if (!StringList.contains(_data.getTypes(), t.getDamageType())) {
                 _data.setError(true);
                 return;
 
             }
-            if (!_data.getTypes().containsObj(t.getPokemonType())) {
+            if (!StringList.contains(_data.getTypes(), t.getPokemonType())) {
                 _data.setError(true);
                 return;
 

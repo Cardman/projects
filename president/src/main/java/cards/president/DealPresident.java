@@ -5,7 +5,7 @@ import cards.consts.MixCardsChoice;
 import code.maths.montecarlo.AbMonteCarlo;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 
 
 public final class DealPresident implements Iterable<HandPresident> {
@@ -140,7 +140,7 @@ public final class DealPresident implements Iterable<HandPresident> {
         for (int i = CustList.FIRST_INDEX; i < nbJrs_; i++) {
             deal.add(new HandPresident());
         }
-        Numbers<Byte> ordreDisributionJoueurs_;
+        Bytes ordreDisributionJoueurs_;
         ordreDisributionJoueurs_ = _regles.getSortedPlayersAfter(dealer);
         while (!deck.estVide()) {
             //i == nombre_ de_ cartes_ a donner_

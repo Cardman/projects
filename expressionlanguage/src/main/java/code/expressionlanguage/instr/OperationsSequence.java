@@ -1,7 +1,7 @@
 package code.expressionlanguage.instr;
 import code.util.CustList;
-import code.util.NatTreeMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.Ints;
 
 public final class OperationsSequence {
     private static final char DOT_VAR = '.';
@@ -18,9 +18,9 @@ public final class OperationsSequence {
 
     private int priority;
 
-    private NatTreeMap<Integer,String> values;
+    private IntTreeMap<String> values;
 
-    private NatTreeMap<Integer,String> operators;
+    private IntTreeMap<String> operators;
 
     private Delimiters delimiter;
 
@@ -31,16 +31,16 @@ public final class OperationsSequence {
     private String extractType = "";
 
     private int countArrays;
-    private Numbers<Integer> errorParts = new Numbers<Integer>();
+    private Ints errorParts = new Ints();
     private boolean instance;
     public void setValue(String _string, int _offset) {
-        values = new NatTreeMap<Integer,String>();
+        values = new IntTreeMap<String>();
         values.put((int)CustList.FIRST_INDEX, _string);
         offset = _offset;
     }
 
-    public void setupValues(String _string, boolean _is, boolean _instance, Numbers<Integer> _nb) {
-        values = new NatTreeMap<Integer,String>();
+    public void setupValues(String _string, boolean _is, boolean _instance, Ints _nb) {
+        values = new IntTreeMap<String>();
         instance = _instance;
         if (operators.isEmpty()) {
             values.put((int)CustList.FIRST_INDEX, _string);
@@ -213,7 +213,7 @@ public final class OperationsSequence {
         values.put(_beginValuePart, _str);
     }
 
-    public Numbers<Integer> getErrorParts() {
+    public Ints getErrorParts() {
         return errorParts;
     }
     public int getCountArrays() {
@@ -286,15 +286,15 @@ public final class OperationsSequence {
         priority = _priority;
     }
 
-    public NatTreeMap<Integer, String> getValues() {
+    public IntTreeMap< String> getValues() {
         return values;
     }
 
-    public NatTreeMap<Integer, String> getOperators() {
+    public IntTreeMap< String> getOperators() {
         return operators;
     }
 
-    public void setOperators(NatTreeMap<Integer, String> _operators) {
+    public void setOperators(IntTreeMap< String> _operators) {
         operators = _operators;
     }
 

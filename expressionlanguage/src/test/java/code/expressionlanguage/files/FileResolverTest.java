@@ -3344,7 +3344,7 @@ public final class FileResolverTest {
         ClassBlock cl_ = (ClassBlock) r_;
         assertNull(cl_.getFirstChild());
         StringList ints_;
-        Numbers<Integer> offs_;
+        Ints offs_;
         ints_ = cl_.getStaticInitInterfaces();
         assertEq(2, ints_.size());
         assertEq("pkg.Int", ints_.first());
@@ -3383,7 +3383,7 @@ public final class FileResolverTest {
         ClassBlock cl_ = (ClassBlock) r_;
         assertNull(cl_.getFirstChild());
         StringList ints_;
-        Numbers<Integer> offs_;
+        Ints offs_;
         ints_ = cl_.getStaticInitInterfaces();
         assertEq(1, ints_.size());
         assertEq("pkg.Int", ints_.first());
@@ -5494,7 +5494,7 @@ public final class FileResolverTest {
         StringList annots_ = field_.getAnnotations();
         assertEq(1, annots_.size());
         assertEq("@MyAnnot", annots_.first());
-        Numbers<Integer> annotsInd_ = field_.getAnnotationsIndexes();
+        Ints annotsInd_ = field_.getAnnotationsIndexes();
         assertEq(1, annotsInd_.size());
         assertEq(126, annotsInd_.first());
         assertEq(135, ((ElementBlock) child_).getFieldNameOffset());
@@ -10279,7 +10279,7 @@ public final class FileResolverTest {
     private static int countCustomTypes(ContextEl _cont) {
         int count_ = 0;
         for (RootBlock r: _cont.getClasses().getClassBodies()) {
-            if (!_cont.getStandards().getPredefinedClasses().containsStr(r.getFullName())) {
+            if (!StringList.contains(_cont.getStandards().getPredefinedClasses(), r.getFullName())) {
                 count_++;
             }
         }
@@ -10310,7 +10310,7 @@ public final class FileResolverTest {
     private static RootBlock getCustomTypes(ContextEl _cont,int _i) {
         int count_ = 0;
         for (RootBlock r: _cont.getClasses().getClassBodies()) {
-            if (_cont.getStandards().getPredefinedClasses().containsStr(r.getFullName())) {
+            if (StringList.contains(_cont.getStandards().getPredefinedClasses(), r.getFullName())) {
                 continue;
             }
             if (count_ == _i) {

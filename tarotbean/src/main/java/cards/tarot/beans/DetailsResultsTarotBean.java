@@ -9,7 +9,7 @@ import code.maths.Rate;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumMap;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -149,16 +149,16 @@ final class DetailsResultsTarotBean extends TarotBean {
             diffAttackDefenseBonuses = additionnalBonusesAttack-additionnalBonusesDefense;
         }else if (!getGame().unionPlis().isEmpty()) {
             EndTarotGame end_ = getGame().getEndTarotGame();
-            Numbers<Short> positions_ = new Numbers<Short>();
-            Numbers<Short> positions1_ = new Numbers<Short>();
-            Numbers<Short> positions2_ = new Numbers<Short>();
-            Numbers<Short> positions3_ = new Numbers<Short>();
-            Numbers<Short> positions4_ = new Numbers<Short>();
-            Numbers<Short> doubledScoresPlayersTricks_ = new Numbers<Short>();
-            Numbers<Short> needlyScoresPlayers_ = new Numbers<Short>();
-            Numbers<Short> doublesDifferencesPlayers_ = new Numbers<Short>();
-            Numbers<Short> additionnalBonuses_ =new Numbers<Short>();
-            Numbers<Short> coefficients_ =new Numbers<Short>();
+            Shorts positions_ = new Shorts();
+            Shorts positions1_ = new Shorts();
+            Shorts positions2_ = new Shorts();
+            Shorts positions3_ = new Shorts();
+            Shorts positions4_ = new Shorts();
+            Shorts doubledScoresPlayersTricks_ = new Shorts();
+            Shorts needlyScoresPlayers_ = new Shorts();
+            Shorts doublesDifferencesPlayers_ = new Shorts();
+            Shorts additionnalBonuses_ =new Shorts();
+            Shorts coefficients_ =new Shorts();
             boolean pasJeuMisere_=getGame().pasJeuMisere();
             if(pasJeuMisere_) {
                 for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {

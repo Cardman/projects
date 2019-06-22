@@ -4,7 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 
 final class EmptyPartType extends LeafPartType {
 
@@ -14,32 +14,32 @@ final class EmptyPartType extends LeafPartType {
 
     @Override
     void analyzeDepends(Analyzable _an,int _index,
-            CustList<NatTreeMap<Integer, String>> _dels,
+            CustList<IntTreeMap< String>> _dels,
             RootBlock _rooted, boolean _exact) {
         _an.getCurrentBadIndexes().add(getIndexInType());
     }
     @Override
     void analyzeInherits(Analyzable _an, int _index,
-            CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
+            CustList<IntTreeMap< String>> _dels, String _globalType,
             RootBlock _rooted,
             boolean _protected) {
         _an.getCurrentBadIndexes().add(getIndexInType());
     }
     @Override
-    void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted) {
+    void analyze(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _rooted) {
         _an.getCurrentBadIndexes().add(getIndexInType());
     }
     @Override
-    void analyzeLine(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted) {
+    void analyzeLine(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _rooted) {
         _an.getCurrentBadIndexes().add(getIndexInType());
     }
     @Override
     void analyzeAccessibleId(Analyzable _an,
-            CustList<NatTreeMap<Integer, String>> _dels,
+            CustList<IntTreeMap< String>> _dels,
             AccessingImportingBlock _rooted) {
         _an.getCurrentBadIndexes().add(getIndexInType());
     }
     @Override
-    void checkDynExistence(Analyzable _an,CustList<NatTreeMap<Integer, String>>_dels) {
+    void checkDynExistence(Analyzable _an,CustList<IntTreeMap< String>>_dels) {
     }
 }

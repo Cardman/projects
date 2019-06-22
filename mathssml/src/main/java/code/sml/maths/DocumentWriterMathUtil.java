@@ -14,7 +14,7 @@ import code.sml.Element;
 import code.util.BooleanMap;
 import code.util.EntryCust;
 import code.util.EqList;
-import code.util.NumberMap;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringMap;
 
@@ -138,7 +138,7 @@ public final class DocumentWriterMathUtil {
         elt_.appendChild(setMapRateLgInt(_object.getLaw(), FIELD_LAW, _document));
         return elt_;
     }
-    public static Element setMapLongRate(NumberMap<Long,Rate> _object, String _fieldName, Document _document) {
+    public static Element setMapLongRate(LongMap<Rate> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Long,Rate> s: _object.entryList()) {

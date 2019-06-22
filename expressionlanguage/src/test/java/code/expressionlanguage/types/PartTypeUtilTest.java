@@ -1058,7 +1058,7 @@ public final class PartTypeUtilTest {
         
         StringList solved_ = PartTypeUtil.processAnalyzeDepends("Outer..InnerThree", 0,context_, root_, true);
         assertEq(1, solved_.size());
-        assertTrue(solved_.containsStr("pkg.Outer"));
+        assertTrue(StringList.contains(solved_, "pkg.Outer"));
     }
     @Test
     public void processDepends6Test() {
@@ -1095,8 +1095,8 @@ public final class PartTypeUtilTest {
         
         StringList solved_ = PartTypeUtil.processAnalyzeDepends("Outer..InnerThree..InnerInner", 0,context_, root_, true);
         assertEq(2, solved_.size());
-        assertTrue(solved_.containsStr("pkg.Outer"));
-        assertTrue(solved_.containsStr("pkgtwo.OuterTwo..InnerThree"));
+        assertTrue(StringList.contains(solved_, "pkg.Outer"));
+        assertTrue(StringList.contains(solved_, "pkgtwo.OuterTwo..InnerThree"));
     }
     @Test
     public void processDepends7Test() {
@@ -1135,8 +1135,8 @@ public final class PartTypeUtilTest {
         
         StringList solved_ = PartTypeUtil.processAnalyzeDepends("..InnerThree..InnerInner", 0,context_, root_, true);
         assertEq(2, solved_.size());
-        assertTrue(solved_.containsStr("pkg.Outer"));
-        assertTrue(solved_.containsStr("pkgtwo.OuterTwo..InnerThree"));
+        assertTrue(StringList.contains(solved_, "pkg.Outer"));
+        assertTrue(StringList.contains(solved_, "pkgtwo.OuterTwo..InnerThree"));
     }
     @Test
     public void processDepends8Test() {
@@ -1165,7 +1165,7 @@ public final class PartTypeUtilTest {
         
         StringList solved_ = PartTypeUtil.processAnalyzeDepends("Outer..InnerThree", 0,context_, root_, true);
         assertEq(1, solved_.size());
-        assertTrue(solved_.containsStr("pkg.Outer"));
+        assertTrue(StringList.contains(solved_, "pkg.Outer"));
     }
     @Test
     public void processDepends9Test() {
@@ -1194,7 +1194,7 @@ public final class PartTypeUtilTest {
         
         StringList solved_ = PartTypeUtil.processAnalyzeDepends("Outer<java.lang.Number>..InnerThree", 0,context_, root_, true);
         assertEq(1, solved_.size());
-        assertTrue(solved_.containsStr("pkg.Outer"));
+        assertTrue(StringList.contains(solved_, "pkg.Outer"));
     }
     @Test
     public void processDepends10Test() {
@@ -1223,7 +1223,7 @@ public final class PartTypeUtilTest {
         
         StringList solved_ = PartTypeUtil.processAnalyzeDepends("Outer<java.lang.Number>..InnerThree<java.lang.String>",0,context_, root_, true);
         assertEq(1, solved_.size());
-        assertTrue(solved_.containsStr("pkg.Outer"));
+        assertTrue(StringList.contains(solved_, "pkg.Outer"));
     }
     @Test
     public void processDepends11Test() {
@@ -1252,7 +1252,7 @@ public final class PartTypeUtilTest {
         
         StringList solved_ = PartTypeUtil.processAnalyzeDepends("..InnerThree<java.lang.String>", 0,context_, root_, true);
         assertEq(1, solved_.size());
-        assertTrue(solved_.containsStr("pkg.Outer"));
+        assertTrue(StringList.contains(solved_, "pkg.Outer"));
     }
     @Test
     public void processDepends12Test() {
@@ -1292,8 +1292,8 @@ public final class PartTypeUtilTest {
         context_.getAvailableVariables().add("I");
         StringList solved_ = PartTypeUtil.processAnalyzeDepends("Outer<#D>..InnerThree<#H>..InnerInner<#I>", 0,context_, root_, true);
         assertEq(2, solved_.size());
-        assertTrue(solved_.containsStr("pkg.Outer"));
-        assertTrue(solved_.containsStr("pkgtwo.OuterTwo..InnerThree"));
+        assertTrue(StringList.contains(solved_, "pkg.Outer"));
+        assertTrue(StringList.contains(solved_, "pkgtwo.OuterTwo..InnerThree"));
     }
     @Test
     public void processDepends13Test() {
@@ -1376,8 +1376,8 @@ public final class PartTypeUtilTest {
         StringList solved_ = PartTypeUtil.processAnalyzeDepends("Outer<#D[]>..InnerThree<#H[]>..InnerInner<#I[]>[]", 0,context_, root_, true);
         assertTrue(cl_.displayErrors(), cl_.isEmptyErrors());
         assertEq(2, solved_.size());
-        assertTrue(solved_.containsStr("pkg.Outer"));
-        assertTrue(solved_.containsStr("pkgtwo.OuterTwo..InnerThree"));
+        assertTrue(StringList.contains(solved_, "pkg.Outer"));
+        assertTrue(StringList.contains(solved_, "pkgtwo.OuterTwo..InnerThree"));
     }
     @Test
     public void processDepends16Test() {
@@ -1541,8 +1541,8 @@ public final class PartTypeUtilTest {
         
         StringList solved_ = PartTypeUtil.processAnalyzeDepends("..InnerThree<java.lang.Number>..InnerInner", 0,context_, root_, true);
         assertEq(2, solved_.size());
-        assertTrue(solved_.containsStr("pkg.Outer"));
-        assertTrue(solved_.containsStr("pkgtwo.OuterTwo..InnerThree"));
+        assertTrue(StringList.contains(solved_, "pkg.Outer"));
+        assertTrue(StringList.contains(solved_, "pkgtwo.OuterTwo..InnerThree"));
     }
     private ContextEl unfullValidateInheritingClassesVarFirst(StringMap<String> _files) {
         Options opt_ = new Options();

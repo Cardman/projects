@@ -10,7 +10,7 @@ import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 
 public final class CastOperation extends AbstractUnaryOperation {
 
@@ -25,7 +25,7 @@ public final class CastOperation extends AbstractUnaryOperation {
     void calculateChildren() {
         offset = getOperations().getOperators().firstKey();
         className = getOperations().getOperators().firstValue();
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        IntTreeMap< String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
     }
 

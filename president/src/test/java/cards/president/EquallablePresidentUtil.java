@@ -3,7 +3,7 @@ import org.junit.Assert;
 
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 
 public final class EquallablePresidentUtil {

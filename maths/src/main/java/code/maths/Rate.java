@@ -1,7 +1,7 @@
 package code.maths;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 import code.util.ints.Cmp;
 import code.util.ints.Displayable;
@@ -264,21 +264,21 @@ public final class Rate implements Cmp<Rate>, Displayable {
     }
 
     public boolean isInteger() {
-        Numbers<Long> numbers_ = denominateur.getGrDigits();
+        Longs numbers_ = denominateur.getGrDigits();
         return numbers_.size() == 1 && numbers_.first() == 1L;
     }
 
     public Rate inv() {
         Rate inv_ = Rate.zero();
         inv_.numerateur.setSignum(numerateur.getSignum());
-        inv_.numerateur.setGrDigits(new Numbers<Long>(denominateur.getGrDigits()));
+        inv_.numerateur.setGrDigits(new Longs(denominateur.getGrDigits()));
         inv_.denominateur.setSignum(LgInt.SIGNE_POSITIF);
-        inv_.denominateur.setGrDigits(new Numbers<Long>(numerateur.getGrDigits()));
+        inv_.denominateur.setGrDigits(new Longs(numerateur.getGrDigits()));
         return inv_;
     }
 
     public void invertNb() {
-        Numbers<Long> digitsNum_ = numerateur.getGrDigits();
+        Longs digitsNum_ = numerateur.getGrDigits();
         numerateur.setGrDigits(denominateur.getGrDigits());
         denominateur.setGrDigits(digitsNum_);
     }
@@ -296,18 +296,18 @@ public final class Rate implements Cmp<Rate>, Displayable {
             return opp_;
         }
         opp_.numerateur.setSignum(!numerateur.getSignum());
-        opp_.numerateur.setGrDigits(new Numbers<Long>(numerateur.getGrDigits()));
+        opp_.numerateur.setGrDigits(new Longs(numerateur.getGrDigits()));
         opp_.denominateur.setSignum(LgInt.SIGNE_POSITIF);
-        opp_.denominateur.setGrDigits(new Numbers<Long>(denominateur.getGrDigits()));
+        opp_.denominateur.setGrDigits(new Longs(denominateur.getGrDigits()));
         return opp_;
     }
 
     public Rate absNb() {
         Rate abs_ = Rate.zero();
         abs_.numerateur.setSignum(LgInt.SIGNE_POSITIF);
-        abs_.numerateur.setGrDigits(new Numbers<Long>(numerateur.getGrDigits()));
+        abs_.numerateur.setGrDigits(new Longs(numerateur.getGrDigits()));
         abs_.denominateur.setSignum(LgInt.SIGNE_POSITIF);
-        abs_.denominateur.setGrDigits(new Numbers<Long>(denominateur.getGrDigits()));
+        abs_.denominateur.setGrDigits(new Longs(denominateur.getGrDigits()));
         return abs_;
     }
 

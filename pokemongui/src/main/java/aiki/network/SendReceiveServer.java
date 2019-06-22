@@ -16,7 +16,7 @@ import code.network.AddingPlayer;
 import code.network.BasicServer;
 import code.network.NetGroupFrame;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -92,8 +92,8 @@ public final class SendReceiveServer extends BasicServer {
             }
             if (check_.getIndex() == CustList.SECOND_INDEX) {
                 CheckCompatibility first_ = Net.getCheckCompatibility().getVal((int)CustList.FIRST_INDEX);
-                NatTreeMap<Byte, PokemonPlayer> pkFirst_ = check_.getData().getTeam(first_.getTeam());
-                NatTreeMap<Byte, PokemonPlayer> pkSecond_ = first_.getData().getTeam(check_.getTeam());
+                ByteTreeMap< PokemonPlayer> pkFirst_ = check_.getData().getTeam(first_.getTeam());
+                ByteTreeMap< PokemonPlayer> pkSecond_ = first_.getData().getTeam(check_.getTeam());
                 if (pkFirst_.isEmpty() || pkSecond_.isEmpty()) {
                     Bye forcedBye_ = new Bye();
                     forcedBye_.setForced(true);

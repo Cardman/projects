@@ -8,10 +8,7 @@ import cards.tarot.enumerations.EndDealTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.ModeTarot;
-import code.util.EntryCust;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.NumberMap;
+import code.util.*;
 
 
 public final class RulesTarot {
@@ -40,7 +37,7 @@ public final class RulesTarot {
         }
         int nbCartesParJoueurs_ = _rep.getNombreCartesParJoueur();
         for(Handfuls p: Handfuls.getPoigneesValidesParDefaut()) {
-            NumberMap<Integer,Integer> conf_ = Handfuls.getConfigurationParDefautAnnoncePoignee(p);
+            IntMap<Integer> conf_ = Handfuls.getConfigurationParDefautAnnoncePoignee(p);
             allowedHandfuls.put(p,conf_.getVal(nbCartesParJoueurs_));
         }
     }
@@ -58,7 +55,7 @@ public final class RulesTarot {
                 dealing = r;
                 int nbCartesParJoueurs_ = r.getNombreCartesParJoueur();
                 for (Handfuls p : Handfuls.getPoigneesValidesParDefaut()) {
-                    NumberMap<Integer, Integer> conf_ = Handfuls.getConfigurationParDefautAnnoncePoignee(p);
+                    IntMap< Integer> conf_ = Handfuls.getConfigurationParDefautAnnoncePoignee(p);
                     allowedHandfuls.put(p, conf_.getVal(nbCartesParJoueurs_));
                 }
                 found_ = true;
@@ -141,7 +138,7 @@ public final class RulesTarot {
     public boolean poigneeAutorisee(Handfuls _poignee) {
         return allowedHandfuls.getVal(_poignee) > 0;
     }
-    public EnumList<Handfuls> getPoigneesOrdonnees() {
+    public CustList<Handfuls> getPoigneesOrdonnees() {
         return allowedHandfuls.getKeys();
     }
     public EnumList<Miseres> getMiseres() {

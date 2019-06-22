@@ -1,19 +1,19 @@
 package cards.gui.dialogs.help;
 
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.ints.Equallable;
 
 public final class HelpIndexes implements Equallable<HelpIndexes> {
 
-    private final Numbers<Integer> indexes;
+    private final Ints indexes;
 
     public HelpIndexes() {
-        indexes = new Numbers<Integer>();
+        indexes = new Ints();
     }
 
     public HelpIndexes(HelpIndexes _cheminNumCourant) {
-        indexes = new Numbers<Integer>(_cheminNumCourant.indexes);
+        indexes = new Ints(_cheminNumCourant.indexes);
     }
 
     @Override

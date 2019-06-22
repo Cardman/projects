@@ -13,7 +13,7 @@ import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringList;
 
 public abstract class OverridableBlock extends NamedFunctionBlock implements GeneMethod {
@@ -30,8 +30,8 @@ public abstract class OverridableBlock extends NamedFunctionBlock implements Gen
     public OverridableBlock(ContextEl _importingPage,
                             OffsetAccessInfo _access,
                             OffsetStringInfo _retType, OffsetStringInfo _fctName,
-                            StringList _paramTypes, Numbers<Integer> _paramTypesOffset,
-                            StringList _paramNames, Numbers<Integer> _paramNamesOffset,
+                            StringList _paramTypes, Ints _paramTypesOffset,
+                            StringList _paramNames, Ints _paramNamesOffset,
                             OffsetStringInfo _modifier, OffsetsBlock _offset) {
         super(_access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset);
         modifierOffset = _modifier.getOffset();

@@ -11,7 +11,7 @@ import cards.gui.MainWindow;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.CustCellRender;
 import code.gui.GraphicListable;
-import code.util.Numbers;
+import code.util.*;
 /**
  */
 public class CardTarotCellRenderer extends CustCellRender{

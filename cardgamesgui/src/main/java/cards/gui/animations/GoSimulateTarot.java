@@ -30,7 +30,7 @@ import code.gui.document.RenderedPage;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 
 /**This class thread is independant from EDT,
@@ -157,7 +157,7 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
 //            }
         }
         container.getMini().setStatus(Status.TAKER, partie_.getPreneur());
-        Numbers<Byte> appele_=partie_.getAppele();
+        Bytes appele_=partie_.getAppele();
         if (partie_.getRegles().getDiscardAfterCall()) {
             if(!partie_.getCarteAppelee().estVide()) {
                 event_ = StringList.concat(container.getMessages().getVal(MainWindow.TAKER_CALL),ContainerGame.RETURN_LINE);
@@ -343,7 +343,7 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
     private void arretDemo() {
         SwingUtilities.invokeLater(new StopDemo(container));
     }
-    private void appelEcart(byte _preneur,Numbers<Byte> _appele,EqList<HandTarot> _mainsUtilisateurs) {
+    private void appelEcart(byte _preneur,Bytes _appele,EqList<HandTarot> _mainsUtilisateurs) {
         GameTarot partie_=partieTarotSimulee();
         String event_;
         if(partie_.getContrat().getJeuChien() == PlayingDog.WITH) {

@@ -18,8 +18,8 @@ import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.SortableCustList;
 import code.util.StringList;
@@ -73,7 +73,7 @@ final class FightArtificialIntelligence {
                 remainingTargetHp_ = remainingFoeTargetHp(_fight, f, m, _diff, _import);
                 remoteHp_.put(m, remainingTargetHp_);
                 for (TargetCoords t: remainingTargetHp_.getKeys()) {
-                    Numbers<Byte> foeFighers_ = _fight.getFoeTeam().fightersAtCurrentPlace(t.getPosition());
+                    Bytes foeFighers_ = _fight.getFoeTeam().fightersAtCurrentPlace(t.getPosition());
                     for (byte f2_: foeFighers_) {
                         TeamPosition c2_ = Fight.toFoeFighter(f2_);
                         if (Rate.strLower(remainingTargetHp_.getVal(t), _fight.getFighter(c2_).getRemainingHp())) {
@@ -108,7 +108,7 @@ final class FightArtificialIntelligence {
                     }
                     // notKoFoeFighters_.size() == 1
                     // koFoeFighters_.isEmpty() == 1
-                    Numbers<Byte> foeFighers_ = _fight.getFoeTeam().fightersAtCurrentPlace(notKoFoeFighters_.first().getPosition());
+                    Bytes foeFighers_ = _fight.getFoeTeam().fightersAtCurrentPlace(notKoFoeFighters_.first().getPosition());
                     for (byte f: foeFighers_) {
                         TeamPosition c2_ = Fight.toFoeFighter(f);
                         if (koFoeFighter(_fight, partner_, m2_, c2_, _diff, _import)) {
@@ -175,7 +175,7 @@ final class FightArtificialIntelligence {
         ObjectMap<TargetCoords,Rate> remoteHpLoc_ = new ObjectMap<TargetCoords,Rate>();
         int mult_ = _fight.getMult();
         for(byte f = CustList.FIRST_INDEX; f < mult_; f++){
-            Numbers<Byte> fighters_ = _fight.getFoeTeam().fightersAtCurrentPlace(f);
+            Bytes fighters_ = _fight.getFoeTeam().fightersAtCurrentPlace(f);
             if (fighters_.isEmpty()) {
                 continue;
             }
@@ -329,7 +329,7 @@ final class FightArtificialIntelligence {
     static EqList<TargetCoords> koFoeFighters(Fight _fight, TeamPosition _thrower, String _move, StringMap<EqList<TargetCoords>> _possibleChoicesAlly, Difficulty _diff, DataBase _import) {
         EqList<TargetCoords> kos_ = new EqList<TargetCoords>();
         for (TargetCoords t: _possibleChoicesAlly.getVal(_move)) {
-            Numbers<Byte> foeFighers_ = _fight.getFoeTeam().fightersAtCurrentPlace(t.getPosition());
+            Bytes foeFighers_ = _fight.getFoeTeam().fightersAtCurrentPlace(t.getPosition());
             for (byte p:foeFighers_) {
                 TeamPosition c2_ = Fight.toFoeFighter(p);
                 if (koFoeFighter(_fight, _thrower, _move, c2_, _diff, _import)) {
@@ -622,13 +622,13 @@ final class FightArtificialIntelligence {
     static void choiceForSubstituing(Fight _fight, DataBase _import){
         _fight.addEmptyMessage();
         Team foeTeam_=_fight.getFoeTeam();
-        NumberMap<Byte,Byte> beforeSubstitute_;
-        beforeSubstitute_ = new NumberMap<Byte,Byte>();
+        ByteMap<Byte> beforeSubstitute_;
+        beforeSubstitute_ = new ByteMap<Byte>();
         beforeSubstitute_.putAllMap(_fight.getFirstPositFoeFighters());
-        NumberMap<Byte,Byte> afterSubstitute_;
-        afterSubstitute_ = new NumberMap<Byte,Byte>();
-        Numbers<Byte> remplacantsPotentiels_=new Numbers<Byte>();
-        Numbers<Byte> pksKo_=new Numbers<Byte>();
+        ByteMap<Byte> afterSubstitute_;
+        afterSubstitute_ = new ByteMap<Byte>();
+        Bytes remplacantsPotentiels_=new Bytes();
+        Bytes pksKo_=new Bytes();
         for(byte c:foeTeam_.getMembers().getKeys()){
             Fighter membre_=foeTeam_.getMembers().getVal(c);
             if(membre_.estKo()&&!Numbers.eq(membre_.getGroundPlaceSubst(),Fighter.BACK)){
@@ -653,14 +653,16 @@ final class FightArtificialIntelligence {
             _fight.getFirstPositFoeFighters().put(pksKo_.get(i), Fighter.BACK);
             _fight.getFirstPositFoeFighters().put(remplacantsPotentiels_.get(i), membre_.getGroundPlaceSubst());
         }
-        Numbers<Byte> free_ = new Numbers<Byte>();
+        Bytes free_ = new Bytes();
         int mult_ = _fight.getMult();
         for (byte i=CustList.FIRST_INDEX;i<mult_;i++) {
             free_.add(i);
         }
-        Numbers<Byte> values_ = new Numbers<Byte>(_fight.getFirstPositFoeFighters().values());
+        Bytes values_ = new Bytes(_fight.getFirstPositFoeFighters().values());
         values_.removeAllLong(Fighter.BACK);
-        free_.removeAllElements(values_);
+        for (byte b:values_) {
+            free_.removeAllLong(b);
+        }
         int nbSubst_ = remplacantsPotentiels_.size();
         for(int i = nbSubst_; i < nbPksKo_; i++){
             _fight.getFirstPositFoeFighters().put(pksKo_.get(i), Fighter.BACK);
@@ -688,13 +690,13 @@ final class FightArtificialIntelligence {
             _fight.addMessage(_import,Fight.SEND_SUBSTITUTE_FOE, name_);
         }
         if (_fight.getFightType() == FightType.TMP_TRAINER) {
-            beforeSubstitute_ = new NumberMap<Byte,Byte>();
+            beforeSubstitute_ = new ByteMap<Byte>();
             beforeSubstitute_.putAllMap(_fight.getFirstPositPlayerFighters());
-            afterSubstitute_ = new NumberMap<Byte,Byte>();
+            afterSubstitute_ = new ByteMap<Byte>();
             Team userTeam_=_fight.getUserTeam();
-            remplacantsPotentiels_=new Numbers<Byte>();
-            pksKo_=new Numbers<Byte>();
-            Numbers<Byte> frontPk_ = new Numbers<Byte>();
+            remplacantsPotentiels_=new Bytes();
+            pksKo_=new Bytes();
+            Bytes frontPk_ = new Bytes();
             for(TeamPosition c:FightOrder.fightersBelongingToUser(_fight,false)){
                 Fighter membre_=userTeam_.getMembers().getVal(c.getPosition());
                 if(membre_.estKo()&&!Numbers.eq(membre_.getGroundPlaceSubst(),Fighter.BACK)){

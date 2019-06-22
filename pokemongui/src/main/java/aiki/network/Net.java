@@ -6,8 +6,8 @@ import java.net.Socket;
 
 import aiki.network.sml.DocumentWriterAikiMultiUtil;
 import aiki.network.stream.CheckCompatibility;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
+import code.util.*;
+import code.util.*;
 
 public final class Net {
 
@@ -17,20 +17,20 @@ public final class Net {
 
     private static final String POKEMON = "POKEMON";
 
-    private static NumberMap<Integer,Socket> _sockets_=new NumberMap<Integer,Socket>();
-    private static NatTreeMap<Integer, Byte> _placesPlayers_ = new NatTreeMap<Integer, Byte>();
-    private static NumberMap<Integer,Boolean> _readyPlayers_ = new NumberMap<Integer,Boolean>();
+    private static IntMap<Socket> _sockets_=new IntMap<Socket>();
+    private static IntTreeMap< Byte> _placesPlayers_ = new IntTreeMap< Byte>();
+    private static IntMap<Boolean> _readyPlayers_ = new IntMap<Boolean>();
 
-    private static NumberMap<Integer,CheckCompatibility> _checkCompatibility_ = new NumberMap<Integer,CheckCompatibility>();
+    private static IntMap<CheckCompatibility> _checkCompatibility_ = new IntMap<CheckCompatibility>();
 
-    private static NumberMap<Integer,String> _nicknames_=new NumberMap<Integer,String>();
-    private static NumberMap<Integer,SendReceiveServer> _connectionsServer_=new NumberMap<Integer,SendReceiveServer>();
+    private static IntMap<String> _nicknames_=new IntMap<String>();
+    private static IntMap<SendReceiveServer> _connectionsServer_=new IntMap<SendReceiveServer>();
 
 //    //network: socket allowing a player to send and receive informations which is use for a game
 //    private static Socket _socket_;
 //    private static String _ipHost_;
-    private static NumberMap<Byte,Boolean> _activePlayers_;
-    private static NumberMap<Byte,Boolean> _received_;
+    private static ByteMap<Boolean> _activePlayers_;
+    private static ByteMap<Boolean> _received_;
 
 //    private static ConnectionToServer _connection_;
 
@@ -125,32 +125,32 @@ public final class Net {
     }
 
     /**server*/
-    public static NumberMap<Integer,SendReceiveServer> getConnectionsServer() {
+    public static IntMap<SendReceiveServer> getConnectionsServer() {
         return _connectionsServer_;
     }
 
     /**server*/
-    public static NumberMap<Integer,Boolean> getReadyPlayers() {
+    public static IntMap<Boolean> getReadyPlayers() {
         return _readyPlayers_;
     }
 
     /**server*/
-    public static NumberMap<Integer,Socket> getSockets() {
+    public static IntMap<Socket> getSockets() {
         return _sockets_;
     }
 
     /**server*/
-    public static NatTreeMap<Integer, Byte> getPlacesPlayers() {
+    public static IntTreeMap< Byte> getPlacesPlayers() {
         return _placesPlayers_;
     }
 
     /**server*/
-    public static NumberMap<Integer,CheckCompatibility> getCheckCompatibility() {
+    public static IntMap<CheckCompatibility> getCheckCompatibility() {
         return _checkCompatibility_;
     }
 
     /**server*/
-    public static NumberMap<Integer,String> getNicknames() {
+    public static IntMap<String> getNicknames() {
         return _nicknames_;
     }
 }

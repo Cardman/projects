@@ -86,8 +86,8 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.StringList;
 
 public class ContainerSingleTarot extends ContainerTarot implements ContainerSingle {
@@ -166,8 +166,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         getScrollDeclaringHandful().setPreferredSize(new Dimension(250,60));
         getScrollDeclaringHandful().setVisible(false);
         panneau2_.add(getScrollDeclaringHandful());
-        setHandfuls(new NumberMap<Byte,JLabel>());
-        setDeclaredHandfuls(new NumberMap<Byte,Panel>());
+        setHandfuls(new ByteMap<JLabel>());
+        setDeclaredHandfuls(new ByteMap<Panel>());
         Panel declaredHandfuls_ = new Panel(new GridLayout(0,1));
         int nbPlayers_ = partie_.getNombreDeJoueurs();
         for (byte i=CustList.FIRST_INDEX;i<nbPlayers_;i++) {
@@ -256,13 +256,13 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 if (!t.getVuParToutJoueur()) {
                     continue;
                 }
-                Numbers<Byte> players_ = partie_.orderedPlayers(t.getEntameur());
+                Bytes players_ = partie_.orderedPlayers(t.getEntameur());
                 for (byte p: players_) {
                     addTextInAreaByLoading(p,pseudos_.get(p),t.carteDuJoueur(p,nombreDeJoueurs_));
                 }
             }
             TrickTarot pliEnCours_=partie_.getPliEnCours();
-            Numbers<Byte> joueurs_=pliEnCours_.joueursAyantJoue(nombreDeJoueurs_);
+            Bytes joueurs_=pliEnCours_.joueursAyantJoue(nombreDeJoueurs_);
             for (byte p: joueurs_) {
                 addTextInAreaByLoading(p,pseudos_.get(p),partie_.getPliEnCours().carteDuJoueur(p,partie_.getNombreDeJoueurs()));
             }
@@ -501,13 +501,13 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             if (!t.getVuParToutJoueur()) {
                 continue;
             }
-            Numbers<Byte> players_ = partie_.orderedPlayers(t.getEntameur());
+            Bytes players_ = partie_.orderedPlayers(t.getEntameur());
             for (byte p: players_) {
                 addTextInAreaByLoading(p,pseudos_.get(p),t.carteDuJoueur(p,nombreDeJoueurs_));
             }
         }
         TrickTarot pliEnCours_=partie_.getPliEnCours();
-        Numbers<Byte> joueurs_=pliEnCours_.joueursAyantJoue(nombreDeJoueurs_);
+        Bytes joueurs_=pliEnCours_.joueursAyantJoue(nombreDeJoueurs_);
         for (byte p: joueurs_) {
             addTextInAreaByLoading(p,pseudos_.get(p),partie_.getPliEnCours().carteDuJoueur(p,partie_.getNombreDeJoueurs()));
         }
@@ -1027,7 +1027,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             if(nombreJoueurs_>9) {
                 couleurs_.add(new Color(128,0,255));
             }
-            Graphic graphique_=new Graphic(getScores(),new Numbers<Long>(res_.getSums()),new EqList<Rate>(res_.getSigmas()),couleurs_);
+            Graphic graphique_=new Graphic(getScores(),new Longs(res_.getSums()),new EqList<Rate>(res_.getSigmas()),couleurs_);
             Rate derniereMoyenne_=new Rate(res_.getSums().last(),nombreJoueurs_);
             EqList<Rate> scoresCentresMoyenne_=new EqList<Rate>();
             for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {

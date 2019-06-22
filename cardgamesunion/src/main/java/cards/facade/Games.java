@@ -21,7 +21,7 @@ import code.format.Format;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EnumMap;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 
 public final class Games {
@@ -148,7 +148,7 @@ public final class Games {
         partiesPresident.add(_partiePresident);
     }
 
-    public boolean isSameTeam(Numbers<Byte> _players) {
+    public boolean isSameTeam(Bytes _players) {
         if (enCoursDePartieBelote()) {
             return partieBelote().isSameTeam(_players);
         }

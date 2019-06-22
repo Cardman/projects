@@ -27,7 +27,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -44,7 +44,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
                                  OffsetsBlock _offset) {
         super(new OffsetAccessInfo(0, AccessEnum.PUBLIC),
                 _retType, _fctName,
-                new StringList(), new Numbers<Integer>(), new StringList(), new Numbers<Integer>(),
+                new StringList(), new Ints(), new StringList(), new Ints(),
                 _offset);
         defaultValue = _defaultValue.getInfo();
         defaultValueOffset = _defaultValue.getOffset();

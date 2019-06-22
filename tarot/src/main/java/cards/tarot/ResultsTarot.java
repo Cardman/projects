@@ -24,10 +24,10 @@ public final class ResultsTarot {
     private String loc;
 
     public void initialize(StringList _pseudos,
-            CustList<Numbers<Long>> _scores) {
+            CustList<Longs> _scores) {
         res.setScores(_scores);
         nicknames = _pseudos;
-        Numbers<Short> scoresDeal_ = new Numbers<Short>();
+        Shorts scoresDeal_ = new Shorts();
         short basePoints_=0;
         short doubledScoreTaker_=0;
         short differenceScoreTaker_=0;
@@ -36,21 +36,21 @@ public final class ResultsTarot {
         short additionnalBonusesDefense_=0;
         short scoreTakerWithoutDeclaring_=0;
         short needlyScoresTaker_=0;
-        Numbers<Short> additionnalBonuses_ =new Numbers<Short>();
-        Numbers<Short> coefficients_ =new Numbers<Short>();
+        Shorts additionnalBonuses_ =new Shorts();
+        Shorts coefficients_ =new Shorts();
         short maxDoubledDifference_=0;
         byte nombreJoueurs_=game.getNombreDeJoueurs();
         BidTarot contrat_=game.getContrat();
         CustList<TreeMap<Miseres,Short>> miseresTaker_ = new CustList<TreeMap<Miseres,Short>>();
         CustList<TreeMap<Handfuls,Short>> handfulsTaker_ = new CustList<TreeMap<Handfuls,Short>>();
-        Numbers<Short> positions_ = new Numbers<Short>();
-        Numbers<Short> positions1_ = new Numbers<Short>();
-        Numbers<Short> positions2_ = new Numbers<Short>();
-        Numbers<Short> positions3_ = new Numbers<Short>();
-        Numbers<Short> positions4_ = new Numbers<Short>();
-        Numbers<Short> doubledScoresPlayersTricks_ = new Numbers<Short>();
-        Numbers<Short> needlyScoresPlayers_ = new Numbers<Short>();
-        Numbers<Short> doublesDifferencesPlayers_ = new Numbers<Short>();
+        Shorts positions_ = new Shorts();
+        Shorts positions1_ = new Shorts();
+        Shorts positions2_ = new Shorts();
+        Shorts positions3_ = new Shorts();
+        Shorts positions4_ = new Shorts();
+        Shorts doubledScoresPlayersTricks_ = new Shorts();
+        Shorts needlyScoresPlayers_ = new Shorts();
+        Shorts doublesDifferencesPlayers_ = new Shorts();
         if(contrat_.isJouerDonne()) {
             EndTarotGame end_ = game.getEndTarotGame();
             miseresTaker_ = end_.getMiseresPointsForTaker();
@@ -110,7 +110,7 @@ public final class ResultsTarot {
         if(game.getType()==GameType.RANDOM&&game.getNumber()==0|| game.getType() == GameType.EDIT && game.getNumber() <= game.getRegles().getNbDeals()) {
             long variance9_=0;
             long esperance_=0;
-            res.getScores().add(new Numbers<Long>());
+            res.getScores().add(new Longs());
             if(res.getScores().size()==1) {
                 for(short score_:scoresDeal_) {
                     res.getScores().last().add((long) score_);
@@ -193,15 +193,15 @@ public final class ResultsTarot {
         return res.getSigmas();
     }
 
-    public Numbers<Long> getSums() {
+    public Longs getSums() {
         return res.getSums();
     }
 
-    public CustList<Numbers<Long>> getScores() {
+    public CustList<Longs> getScores() {
         return res.getScores();
     }
 
-    public void setScores(CustList<Numbers<Long>> _scores) {
+    public void setScores(CustList<Longs> _scores) {
         res.setScores(_scores);
     }
 
@@ -213,7 +213,7 @@ public final class ResultsTarot {
         res.setSigmas(_sigmas);
     }
 
-    public void setSums(Numbers<Long> _sums) {
+    public void setSums(Longs _sums) {
         res.setSums(_sums);
     }
 }

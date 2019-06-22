@@ -19,15 +19,6 @@ public final class StringMap<V> extends AbsMap<String,V> {
     }
 
     @Override
-    public StringList getKeys() {
-        StringList s_ = new StringList();
-        for (EntryCust<String, V> e: getList()) {
-            s_.add(e.getKey());
-        }
-        return s_;
-    }
-
-    @Override
     int indexOfEntry(String _key) {
         int index_ = CustList.FIRST_INDEX;
         for (EntryCust<String, V> e:getList()) {

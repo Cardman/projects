@@ -7,7 +7,7 @@ import org.junit.Test;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
-import code.util.Numbers;
+import code.util.*;
 
 
 public class TrickBeloteTest {
@@ -362,7 +362,7 @@ public class TrickBeloteTest {
     public void joueursAyantJoueAvant1(){
         TrickBelote pli_ = new TrickBelote((byte) 0);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
-        Numbers<Byte> joueurs_ = pli_.joueursAyantJoueAvant((byte) 1);
+        Bytes joueurs_ = pli_.joueursAyantJoueAvant((byte) 1);
         pli_.getCartes().ajouter(CardBelote.SPADE_JACK);
         pli_.getCartes().ajouter(CardBelote.HEART_KING);
         pli_.getCartes().ajouter(CardBelote.CLUB_7);
@@ -1565,7 +1565,7 @@ public class TrickBeloteTest {
         pli_.getCartes().ajouter(CardBelote.SPADE_7);
         pli_.getCartes().ajouter(CardBelote.HEART_KING);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_8);
-        Numbers<Byte> joueurs_ = pli_.joueursCoupes(Suit.HEART);
+        Bytes joueurs_ = pli_.joueursCoupes(Suit.HEART);
         byte j_ = (byte) ((0 + 2) % nombreDeJoueurs_);
         assertEq(1, joueurs_.size());
         assertTrue(joueurs_.containsObj(j_));
@@ -1609,7 +1609,7 @@ public class TrickBeloteTest {
         pli_.getCartes().ajouter(CardBelote.SPADE_7);
         pli_.getCartes().ajouter(CardBelote.HEART_KING);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_JACK);
-        Numbers<Byte> joueurs_ = pli_.joueursDefausses(Suit.UNDEFINED);
+        Bytes joueurs_ = pli_.joueursDefausses(Suit.UNDEFINED);
         byte j_ = (byte) ((0 + 1) % nombreDeJoueurs_);
         assertEq(2, joueurs_.size());
         assertTrue(joueurs_.containsObj(j_));
@@ -1660,7 +1660,7 @@ public class TrickBeloteTest {
         pli_.getCartes().ajouter(CardBelote.SPADE_7);
         pli_.getCartes().ajouter(CardBelote.HEART_KING);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_8);
-        Numbers<Byte> joueurs_ = pli_.joueursDefausses(Suit.HEART);
+        Bytes joueurs_ = pli_.joueursDefausses(Suit.HEART);
         byte j_ = (byte) ((0 + 1) % nombreDeJoueurs_);
         assertEq(1, joueurs_.size());
         assertTrue(joueurs_.containsObj(j_));

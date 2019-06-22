@@ -26,6 +26,15 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
         return new CustList<EntryCust<K,V>>(getList());
     }
 
+    @Override
+    public CustList<K> getKeys() {
+        CustList<K> l_ = new CustList<K>();
+        for (EntryCust<K,V> e: list) {
+            l_.add(e.getKey());
+        }
+        return l_;
+    }
+
     public boolean containsAllAsKeys(CustList<K> _elements) {
         for (K k: _elements) {
             if (!contains(k)) {

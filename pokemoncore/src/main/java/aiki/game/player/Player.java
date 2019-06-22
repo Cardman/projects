@@ -38,13 +38,12 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import code.util.comparators.ComparatorNatNumber;
 import code.util.comparators.ComparatorTreeMapValue;
 
 
@@ -136,10 +135,10 @@ public final class Player {
 
     private String chosenAbilityForEvolution = DataBase.EMPTY_STRING;
 
-    private Numbers<Byte> indexesOfPokemonTeam = new Numbers<Byte>();
+    private Bytes indexesOfPokemonTeam = new Bytes();
 
     //values are true <==> a move has to be forgotten
-    private NumberMap<Byte,Boolean> indexesOfPokemonTeamMoves = new NumberMap<Byte,Boolean>();
+    private ByteMap<Boolean> indexesOfPokemonTeamMoves = new ByteMap<Boolean>();
 
     public Player(){
     }
@@ -191,8 +190,8 @@ public final class Player {
         selectedMoves = new StringMap<Boolean>();
         chosenTeamPokemon = CustList.INDEX_NOT_FOUND_ELT;
         chosenAbilityForEvolution = DataBase.EMPTY_STRING;
-        indexesOfPokemonTeam = new Numbers<Byte>();
-        indexesOfPokemonTeamMoves = new NumberMap<Byte,Boolean>();
+        indexesOfPokemonTeam = new Bytes();
+        indexesOfPokemonTeamMoves = new ByteMap<Boolean>();
         for(UsablePokemon e:team){
             if (!(e instanceof PokemonPlayer)) {
                 continue;
@@ -611,7 +610,7 @@ public final class Player {
             StringList statuts_=new StringList(pkSoigne_.getStatus());
             pkSoigne_.soinStatuts(baie_.getHealStatus());
             if(!StringList.equalsSet(statuts_,pkSoigne_.getStatus())){
-                statuts_.removeAllElements(pkSoigne_.getStatus());
+                StringList.removeAllElements(statuts_, pkSoigne_.getStatus());
                 for (String s: statuts_) {
                     String st_ = _import.translateStatus(s);
                     String pk_ = _import.translatePokemon(pkSoigne_.getName());
@@ -670,7 +669,7 @@ public final class Player {
             StringList statuts_=new StringList(pkSoigne_.getStatus());
             pkSoigne_.soinStatuts(soin_.getStatus());
             if(!StringList.equalsSet(statuts_,pkSoigne_.getStatus())){
-                statuts_.removeAllElements(pkSoigne_.getStatus());
+                StringList.removeAllElements(statuts_, pkSoigne_.getStatus());
                 for (String s: statuts_) {
                     String st_ = _import.translateStatus(s);
                     String pk_ = _import.translatePokemon(pkSoigne_.getName());
@@ -816,7 +815,7 @@ public final class Player {
     }
 
     public void choosePokemonForMoveTutors(short _indice, DataBase _import) {
-        Numbers<Byte> keys_ = new Numbers<Byte>(getPokemonPlayerList().getKeys());
+        Bytes keys_ = new Bytes(getPokemonPlayerList().getKeys());
         chosenTeamPokemon = keys_.get(_indice);
         chosenMoves.clear();
         selectedMoves.clear();
@@ -835,7 +834,7 @@ public final class Player {
         return ((PokemonPlayer) getSelectedPkTeam()).getMoves().size() < _import.getNbMaxMoves();
     }
 
-    public StringList currentMovesPokemon() {
+    public CustList<String> currentMovesPokemon() {
         return ((PokemonPlayer) getSelectedPkTeam()).getMoves().getKeys();
     }
 
@@ -887,17 +886,17 @@ public final class Player {
         StringList moves_ = getCheckedMoves();
         PokemonPlayer pk_ = (PokemonPlayer) team.get(chosenTeamPokemon);
         String name_ = _import.translatePokemon(pk_.getName());
-        StringList oldMoves_ = pk_.getMoves().getKeys();
+        CustList<String> oldMoves_ = pk_.getMoves().getKeys();
         StringList forgottenMoves_;
         forgottenMoves_ = new StringList(oldMoves_);
-        forgottenMoves_.removeAllElements(moves_);
+        StringList.removeAllElements(forgottenMoves_, moves_);
         StringList keptMoves_;
         keptMoves_ = new StringList(oldMoves_);
 //        keptMoves_.removeAllElements(selectedMoves.getKeys(false));
-        keptMoves_.removeAllElements(getUnCheckedMoves());
+        StringList.removeAllElements(keptMoves_, getUnCheckedMoves());
         StringList learntMoves_;
         learntMoves_ = new StringList(moves_);
-        learntMoves_.removeAllElements(oldMoves_);
+        StringList.removeAllElements(learntMoves_, oldMoves_);
         for (String m: forgottenMoves_) {
             String move_ = _import.translateMove(m);
             commentGame.addMessage(mess_.getVal(FORGET_MOVES), name_, move_);
@@ -1110,7 +1109,7 @@ public final class Player {
         money.addNb(prixTotal_);
     }
 
-    public boolean canBeBought(Numbers<Short> _tm,DataBase _import) {
+    public boolean canBeBought(Shorts _tm,DataBase _import) {
         LgInt prixTotal_=LgInt.zero();
         for(short o:_tm){
             prixTotal_.addNb(_import.getTmPrice().getVal(o));
@@ -1126,7 +1125,7 @@ public final class Player {
         money.removeNb(_import.getTmPrice().getVal(_ct));
     }
 
-    public void achatCts(Numbers<Short> _cts,DataBase _import){
+    public void achatCts(Shorts _cts,DataBase _import){
         for(short c:_cts){
             achatCt(c,_import);
         }
@@ -1506,8 +1505,8 @@ public final class Player {
         return caughtPk.contains(_name) && caughtPk.getVal(_name);
     }
 
-    public NatTreeMap<Byte, PokemonPlayer> getPokemonPlayerList() {
-        NatTreeMap<Byte, PokemonPlayer> indexes_ = new NatTreeMap<Byte, PokemonPlayer>();
+    public ByteTreeMap< PokemonPlayer> getPokemonPlayerList() {
+        ByteTreeMap< PokemonPlayer> indexes_ = new ByteTreeMap< PokemonPlayer>();
         int nbPks_ = team.size();
         for (byte p=CustList.FIRST_INDEX; p<nbPks_; p++) {
             if (team.get(p) instanceof PokemonPlayer) {
@@ -1517,8 +1516,8 @@ public final class Player {
         return indexes_;
     }
 
-    public NatTreeMap<Byte, Egg> getEggsList() {
-        NatTreeMap<Byte, Egg> indexes_ = new NatTreeMap<Byte, Egg>();
+    public ByteTreeMap< Egg> getEggsList() {
+        ByteTreeMap< Egg> indexes_ = new ByteTreeMap< Egg>();
         int nbPks_ = team.size();
         for (byte p=CustList.FIRST_INDEX; p<nbPks_; p++) {
             if (team.get(p) instanceof Egg) {
@@ -1532,9 +1531,9 @@ public final class Player {
         return remainingRepelSteps > 0;
     }
 
-    public void restore(Numbers<Byte> _indexes) {
-        TreeMap<Byte, Integer> map_;
-        map_ = new TreeMap<Byte, Integer>(new ComparatorNatNumber<Byte>());
+    public void restore(Bytes _indexes) {
+        ByteTreeMap< Integer> map_;
+        map_ = new ByteTreeMap< Integer>();
         int nbIndexes_ = _indexes.size();
         for (byte i = CustList.FIRST_INDEX; i < nbIndexes_; i++) {
             map_.put(i, (int)_indexes.get(i));
@@ -1670,11 +1669,11 @@ public final class Player {
         chosenAbilityForEvolution = _chosenAbilityForEvolution;
     }
 
-    public Numbers<Byte> getIndexesOfPokemonTeam() {
+    public Bytes getIndexesOfPokemonTeam() {
         return indexesOfPokemonTeam;
     }
 
-    public NumberMap<Byte,Boolean> getIndexesOfPokemonTeamMoves() {
+    public ByteMap<Boolean> getIndexesOfPokemonTeamMoves() {
         return indexesOfPokemonTeamMoves;
     }
 

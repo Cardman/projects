@@ -13,7 +13,7 @@ import cards.belote.enumerations.CardBelote;
 import cards.gui.labels.GraphicBeloteCard;
 import code.gui.Panel;
 import code.gui.ScrollPane;
-import code.util.NumberMap;
+import code.util.*;
 import code.util.StringList;
 
 public class CarpetBelote extends Panel {
@@ -23,7 +23,7 @@ public class CarpetBelote extends Panel {
 
     private Panel centerDeck;
 
-    private NumberMap<Integer,GraphicBeloteCard> cards = new NumberMap<Integer,GraphicBeloteCard>();
+    private IntMap<GraphicBeloteCard> cards = new IntMap<GraphicBeloteCard>();
 
     /**sens de distribution des cartes*/
     private boolean horaire;

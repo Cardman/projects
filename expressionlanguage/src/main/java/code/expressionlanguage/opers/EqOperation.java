@@ -11,7 +11,7 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringList;
 
 public final class EqOperation extends ReflectableOpering implements SymbolOperation {
@@ -94,7 +94,7 @@ public final class EqOperation extends ReflectableOpering implements SymbolOpera
     }
     @Override
     void calculateChildren() {
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        IntTreeMap< String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
     }
 

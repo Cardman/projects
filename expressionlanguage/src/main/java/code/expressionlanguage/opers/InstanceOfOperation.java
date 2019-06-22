@@ -6,7 +6,7 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
-import code.util.NatTreeMap;
+import code.util.*;
 
 public final class InstanceOfOperation extends AbstractUnaryOperation {
 
@@ -22,7 +22,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
     void calculateChildren() {
         offset = getOperations().getOperators().firstKey();
         className = getOperations().getOperators().firstValue();
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        IntTreeMap< String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
     }
 

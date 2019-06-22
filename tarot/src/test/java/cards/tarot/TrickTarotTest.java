@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
-import code.util.Numbers;
+import code.util.*;
 
 
 public class TrickTarotTest {
@@ -388,7 +388,7 @@ public class TrickTarotTest {
         TrickTarot pli_ = new TrickTarot((byte) 0,true);
         //nombreTotal++;
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
-        Numbers<Byte> joueurs_ = pli_.joueursAyantJoueAvant((byte) 1, DealingTarot.DEAL_2_VS_2_WITHOUT_CALL);
+        Bytes joueurs_ = pli_.joueursAyantJoueAvant((byte) 1, DealingTarot.DEAL_2_VS_2_WITHOUT_CALL);
         assertEq(1, joueurs_.size());
         assertTrue(joueurs_.containsObj((byte) 0));
         pli_.getCartes().ajouter(CardTarot.SPADE_JACK);
@@ -935,7 +935,7 @@ public class TrickTarotTest {
 
         TrickTarot pli_ = new TrickTarot((byte) 0,true);
         //nombreTotal++;
-        Numbers<Byte> joueurs_ = pli_.joueursCoupes(nombreDeJoueurs_);
+        Bytes joueurs_ = pli_.joueursCoupes(nombreDeJoueurs_);
         assertEq(0,joueurs_.size());
         pli_.getCartes().ajouter(CardTarot.DIAMOND_1);
         joueurs_ = pli_.joueursCoupes(nombreDeJoueurs_);
@@ -1016,7 +1016,7 @@ public class TrickTarotTest {
 
         TrickTarot pli_ = new TrickTarot((byte) 0,true);
         //nombreTotal++;
-        Numbers<Byte> joueurs_ = pli_.joueursCoupes(nombreDeJoueurs_);
+        Bytes joueurs_ = pli_.joueursCoupes(nombreDeJoueurs_);
         assertEq(0,joueurs_.size());
         pli_.getCartes().ajouter(CardTarot.TRUMP_14);
         joueurs_ = pli_.joueursCoupes(nombreDeJoueurs_);
@@ -1113,7 +1113,7 @@ public class TrickTarotTest {
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
         pli_.getCartes().ajouter(CardTarot.TRUMP_11);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_8);
-        Numbers<Byte> joueurs_ = pli_.joueursDefausses(nombreDeJoueurs_);
+        Bytes joueurs_ = pli_.joueursDefausses(nombreDeJoueurs_);
         byte j_ = (byte) ((0 + 1) % nombreDeJoueurs_);
         assertEq(1, joueurs_.size());
         assertTrue(joueurs_.containsObj(j_));
@@ -1157,7 +1157,7 @@ public class TrickTarotTest {
         pli_.getCartes().ajouter(CardTarot.SPADE_7);
         pli_.getCartes().ajouter(CardTarot.TRUMP_11);
         pli_.getCartes().ajouter(CardTarot.DIAMOND_8);
-        Numbers<Byte> joueurs_ = pli_.joueursDefausses(nombreDeJoueurs_);
+        Bytes joueurs_ = pli_.joueursDefausses(nombreDeJoueurs_);
         byte j_ = (byte) ((0 + 1) % nombreDeJoueurs_);
         byte jTwo_ = (byte) ((0 + 3) % nombreDeJoueurs_);
         assertEq(2, joueurs_.size());

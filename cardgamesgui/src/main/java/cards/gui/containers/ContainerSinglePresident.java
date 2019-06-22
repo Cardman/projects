@@ -63,8 +63,8 @@ import code.maths.Rate;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.StringList;
 import code.util.TreeMap;
 
@@ -143,7 +143,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         }
         getHelpGame().setEnabledMenu(true);
         if (partie_.availableSwitchingCards()) {
-            Numbers<Byte> l_ = partie_.getLoosers(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+            Bytes l_ = partie_.getLoosers(new Bytes(DealPresident.NUMERO_UTILISATEUR));
             if (!l_.isEmpty()) {
                 getReceivedCards().supprimerCartes();
                 getReceivedCards().ajouterCartes(partie_.getSwitchedCards().getVal(partie_.getMatchingWinner(DealPresident.NUMERO_UTILISATEUR)));
@@ -152,7 +152,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
                 getGivenCards().ajouterCartes(partie_.getSwitchedCards().getVal(DealPresident.NUMERO_UTILISATEUR));
                 updateCardsInPanelPresidentGiven();
             }
-            Numbers<Byte> w_ = partie_.getWinners(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+            Bytes w_ = partie_.getWinners(new Bytes(DealPresident.NUMERO_UTILISATEUR));
             if (!w_.isEmpty()) {
                 getReceivedCards().supprimerCartes();
                 getReceivedCards().ajouterCartes(partie_.getSwitchedCards().getVal(partie_.getMatchingLoser(DealPresident.NUMERO_UTILISATEUR)));
@@ -342,8 +342,8 @@ public class ContainerSinglePresident extends ContainerPresident implements
         setEvents(new JTextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
         panneau2_.add(new JScrollPane(getEvents()));
-        setHandfuls(new NumberMap<Byte,JLabel>());
-        setDeclaredHandfuls(new NumberMap<Byte,Panel>());
+        setHandfuls(new ByteMap<JLabel>());
+        setDeclaredHandfuls(new ByteMap<Panel>());
 //        JPanel declaredHandfuls_ = new JPanel(new GridLayout(0,1));
 //        int nbPlayers_ = partie_.getNombreDeJoueurs();
         Panel sousPanneau_=new Panel();
@@ -385,7 +385,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         game_.initCartesEchanges();
         game_.donnerMeilleuresCartes();
         if (game_.availableSwitchingCards()) {
-            Numbers<Byte> w_ = game_.getWinners(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+            Bytes w_ = game_.getWinners(new Bytes(DealPresident.NUMERO_UTILISATEUR));
             if (!w_.isEmpty()) {
                 game_.giveWorstCards(w_);
                 setCanDiscard(true);
@@ -402,7 +402,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
                 return;
             }
             game_.giveWorstCards();
-            Numbers<Byte> l_ = game_.getLoosers(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+            Bytes l_ = game_.getLoosers(new Bytes(DealPresident.NUMERO_UTILISATEUR));
             if (!l_.isEmpty()) {
                 getReceivedCards().supprimerCartes();
                 getReceivedCards().ajouterCartes(game_.getSwitchedCards().getVal(game_.getMatchingWinner(DealPresident.NUMERO_UTILISATEUR)));
@@ -446,10 +446,10 @@ public class ContainerSinglePresident extends ContainerPresident implements
             donne_=new DealPresident(nb_,pile_);
             donne_.setRandomDealer(getReglesPresident());
             donne_.initDonne(getReglesPresident());
-            getPar().jouerPresident(new GamePresident(GameType.RANDOM,donne_,getReglesPresident(), new Numbers<Byte>()));
+            getPar().jouerPresident(new GamePresident(GameType.RANDOM,donne_,getReglesPresident(), new Bytes()));
         } else {
             GamePresident partie_=partiePresident();
-            Numbers<Byte> newRanks_ = partie_.getNewRanks();
+            Bytes newRanks_ = partie_.getNewRanks();
             donne_=new DealPresident(nb_,partie_.empiler());
             donne_.donneurSuivant(partie_.getDistribution().getDonneur(),partie_.getRegles());
             donne_.initDonne(partie_.getRegles());
@@ -620,7 +620,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             if(nombreJoueurs_>9) {
                 couleurs_.add(new Color(128,0,255));
             }
-            Graphic graphique_=new Graphic(getScores(),new Numbers<Long>(res_.getSums()),new EqList<Rate>(res_.getSigmas()),couleurs_);
+            Graphic graphique_=new Graphic(getScores(),new Longs(res_.getSums()),new EqList<Rate>(res_.getSigmas()),couleurs_);
             Rate derniereMoyenne_=new Rate(res_.getSums().last(),nombreJoueurs_);
             EqList<Rate> scoresCentresMoyenne_=new EqList<Rate>();
             for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
@@ -827,7 +827,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         GamePresident partie_=partiePresident();
         partie_.setNombre();
         HandPresident main_=partie_.empiler();
-        Numbers<Byte> newRanks_ = partie_.getNewRanks();
+        Bytes newRanks_ = partie_.getNewRanks();
         DealPresident donne_=new DealPresident(0L,main_);
         donne_.donneurSuivant(partie_.getDistribution().getDonneur(),partie_.getRegles());
         donne_.initDonne(partie_.getRegles());

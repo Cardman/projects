@@ -3,7 +3,7 @@ import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.SortableCustList;
 import code.util.TreeMap;
 import code.util.ints.Cmp;
@@ -37,7 +37,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     /**
     Un entier est represente par un groupe de chiffres tous inferieurs a la base (10^9).
     */
-    private Numbers<Long> grDigits;
+    private Longs grDigits;
 
     /**
     signe valant true si et seulement si le nombre entier est positif ou nul.
@@ -45,7 +45,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     private boolean signum;
 
     private LgInt() {
-        grDigits = new Numbers<Long>();
+        grDigits = new Longs();
     }
 
     /**
@@ -91,7 +91,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
                 un entier de type <i>long</i>
     */
     public LgInt(long _entierL) {
-        grDigits = new Numbers<Long>();
+        grDigits = new Longs();
         long nombre_;
         if (_entierL < 0) {
             nombre_ = -_entierL;
@@ -115,13 +115,13 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         signum = (_entierL >= 0) == SIGNE_POSITIF;
     }
 
-    private LgInt(Numbers<Long> _grChiffre, boolean _signe) {
-        grDigits = new Numbers<Long>(_grChiffre);
+    private LgInt(Longs _grChiffre, boolean _signe) {
+        grDigits = new Longs(_grChiffre);
         signum = _signe;
     }
 
-    private static Numbers<Long> tryGetDigits(String _string) {
-        Numbers<Long> grDigits_ = new Numbers<Long>(new CollCapacity(_string.length() / LOG_BASE + 1));
+    private static Longs tryGetDigits(String _string) {
+        Longs grDigits_ = new Longs(new CollCapacity(_string.length() / LOG_BASE + 1));
         int powerTen_ = LOG_BASE;
         String nbLu_ = chaineValeurAbsolue(_string);
         // Suppression des 0 au debut du nombre sauf s'il reste un 0 sans autre
@@ -185,7 +185,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     */
     public static LgInt getMaxLongPlusOne() {
         LgInt l_ = new LgInt();
-        l_.grDigits = new Numbers<Long>();
+        l_.grDigits = new Longs();
         long nombre_ = Long.MAX_VALUE;
         long quotient_;
         long reste_;
@@ -787,11 +787,11 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         }
         return _chaine;
     }
-    Numbers<Long> getGrDigits() {
+    Longs getGrDigits() {
         return grDigits;
     }
 
-    void setGrDigits(Numbers<Long> _grDigits) {
+    void setGrDigits(Longs _grDigits) {
         //setModified();
         grDigits = _grDigits;
     }
@@ -807,7 +807,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
 
     private void affecterSansSigne(LgInt _autre) {
         //setModified();
-        grDigits = new Numbers<Long>(_autre.grDigits);
+        grDigits = new Longs(_autre.grDigits);
     }
 
     /**
@@ -821,7 +821,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     public LgInt multiply(double _db) {
         LgInt resultat_ = LgInt.zero();
         double tmp_;
-        Numbers<Long> resultatChiffres_ = resultat_.grDigits;
+        Longs resultatChiffres_ = resultat_.grDigits;
         resultatChiffres_.clear();
         int len_;
         len_ = grDigits.size();
@@ -957,7 +957,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         retrancherChiffres(_autre.grDigits);
     }
 
-    private void retrancherChiffres(Numbers<Long> _chiffresAutre) {
+    private void retrancherChiffres(Longs _chiffresAutre) {
         long retenue_ = 0;
         int longueur_ = grDigits.size();
         int longueurBis_ = _chiffresAutre.size();
@@ -1002,9 +1002,9 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     private QuotMod divisionEuclidienne(LgInt _autre) {
         QuotMod quotientReste_ = new QuotMod();
         if (plusPetitQue(_autre)) {
-            quotientReste_.setQuot(new Numbers<Long>());
+            quotientReste_.setQuot(new Longs());
             quotientReste_.getQuot().add(0l);
-            quotientReste_.setMod(new Numbers<Long>(grDigits));
+            quotientReste_.setMod(new Longs(grDigits));
             return quotientReste_;
         }
         int taille_ = grDigits.size();
@@ -1013,7 +1013,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         long chiffreMax_;
         LgInt reste_ = LgInt.zero();
         reste_.grDigits.clear();
-        Numbers<Long> chiffresQuotient_ = new Numbers<Long>();
+        Longs chiffresQuotient_ = new Longs();
         int indiceChiffre_;
         if (grDigits.first() >= _autre.grDigits.first()) {
             chiffreMax_ = grDigits.first() / _autre.grDigits.first();
@@ -1226,7 +1226,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     }
 
 
-    private static boolean eq(Numbers<Long> _f, Numbers<Long> _s) {
+    private static boolean eq(Longs _f, Longs _s) {
         int len_ = _f.size();
         if (_s.size() != len_) {
             return false;

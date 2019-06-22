@@ -5,10 +5,7 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.util.BoostHpRate;
 import aiki.fight.util.EfficiencyRate;
 import code.maths.Rate;
-import code.util.EntryCust;
-import code.util.EnumMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 
 public final class Berry extends Item {
@@ -55,7 +52,7 @@ public final class Berry extends Item {
 
         }
         for (String s : multFoesDamage.getKeys()) {
-            if (!_data.getTypes().containsObj(s)) {
+            if (!StringList.contains(_data.getTypes(), s)) {
                 _data.setError(true);
                 return;
 
@@ -142,7 +139,7 @@ public final class Berry extends Item {
 
         }
         if (!categoryBoosting.isEmpty()) {
-            if (!_data.getAllCategories().containsObj(categoryBoosting)) {
+            if (!StringList.contains(_data.getAllCategories(), categoryBoosting)) {
                 _data.setError(true);
                 return;
 

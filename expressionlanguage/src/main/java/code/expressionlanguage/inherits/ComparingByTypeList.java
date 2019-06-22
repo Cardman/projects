@@ -12,7 +12,7 @@ public class ComparingByTypeList implements Comparing<String> {
 
     @Override
     public int compare(String _o1, String _o2) {
-        return types.indexOfObj(_o1) - types.indexOfObj(_o2);
+        return StringList.indexOf(types,_o1) - StringList.indexOf(types,_o2);
     }
 
 }

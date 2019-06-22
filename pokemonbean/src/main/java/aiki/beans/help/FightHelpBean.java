@@ -50,7 +50,7 @@ import code.util.EnumList;
 import code.util.EqList;
 import code.util.NatCmpTreeMap;
 import code.util.NatStringTreeMap;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -201,8 +201,8 @@ public class FightHelpBean extends CommonBean {
     private String rateFormula;
     private String rateFormulaCh;
     private StringList itemsTypesDef;
-    private NatTreeMap<Long,Rate> boosts = new NatTreeMap<Long,Rate>();
-    private NatTreeMap<Long,Rate> boostsCh = new NatTreeMap<Long,Rate>();
+    private LongTreeMap<Rate> boosts = new LongTreeMap<Rate>();
+    private LongTreeMap<Rate> boostsCh = new LongTreeMap<Rate>();
     private TreeMap<TypesDuo,Rate> efficiency;
     private StringList types;
     private Rate minHpNotKo;
@@ -368,7 +368,7 @@ public class FightHelpBean extends CommonBean {
         }
         movesTypesDefItem.sortElts(new ComparatorTrStrings(translatedMoves_));
         itemsTypesDef.removeDuplicates();
-        itemsTypesDef.removeObj(DataBase.EMPTY_STRING);
+        StringList.removeObj(itemsTypesDef, DataBase.EMPTY_STRING);
         itemsTypesDef.sortElts(new ComparatorTrStrings(translatedItems_));
         movesTypesDefWeather = new StringList();
         for (String m: data_.getMoves().getKeys()) {
@@ -5125,7 +5125,7 @@ public class FightHelpBean extends CommonBean {
         return rateFormula;
     }
 
-    public NatTreeMap<Long,Rate> getBoosts() {
+    public LongTreeMap<Rate> getBoosts() {
         return boosts;
     }
 
@@ -5133,7 +5133,7 @@ public class FightHelpBean extends CommonBean {
         return rateFormulaCh;
     }
 
-    public NatTreeMap<Long,Rate> getBoostsCh() {
+    public LongTreeMap<Rate> getBoostsCh() {
         return boostsCh;
     }
 

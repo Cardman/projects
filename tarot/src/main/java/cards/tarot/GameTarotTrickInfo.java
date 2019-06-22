@@ -16,7 +16,7 @@ public final class GameTarotTrickInfo {
     private EqList<HandTarot> handfuls;
     private BidTarot bid;
     private HandTarot calledCards;
-    private Numbers<Integer> handLengths;
+    private Ints handLengths;
 
     private HandTarot lastSeenHand = new HandTarot();
     private byte nbPlayers;
@@ -27,7 +27,7 @@ public final class GameTarotTrickInfo {
     public GameTarotTrickInfo(TrickTarot _progressingTrick, CustList<TrickTarot> _tricks,
                               EqList<EnumList<Miseres>> _declaresMiseres,
                               EqList<HandTarot> _handfuls, BidTarot _bid, HandTarot _calledCards,
-                              Numbers<Integer> _handLengths) {
+                              Ints _handLengths) {
         progressingTrick = _progressingTrick;
         tricks = _tricks;
         declaresMiseres = _declaresMiseres;
@@ -290,7 +290,7 @@ public final class GameTarotTrickInfo {
                 if (joueur_ == next_) {
                     continue;
                 }
-                Numbers<Byte> joueursAvant_ = pli_.joueursAyantJoueAvant(joueur_, rules.getDealing());
+                Bytes joueursAvant_ = pli_.joueursAyantJoueAvant(joueur_, rules.getDealing());
                 byte forceLoc_ = c.strength(couleurDemande_);
                 byte max_ = 0;
                 byte ramasseurVirtuel_ = joueur_;
@@ -589,10 +589,10 @@ public final class GameTarotTrickInfo {
      */
     public EnumMap<Hypothesis,EnumMap<Suit,EqList<HandTarot>>> cartesCertaines(
             EnumMap<Suit, EqList<HandTarot>> _cartesPossibles) {
-        Numbers<Byte> joueursRepartitionConnue_ = new Numbers<Byte>();
-        Numbers<Byte> joueursRepartitionConnue2_ = new Numbers<Byte>();
-        Numbers<Byte> joueursRepartitionConnueMemo_ = new Numbers<Byte>();
-        Numbers<Byte> joueursRepartitionInconnue_ = new Numbers<Byte>();
+        Bytes joueursRepartitionConnue_ = new Bytes();
+        Bytes joueursRepartitionConnue2_ = new Bytes();
+        Bytes joueursRepartitionConnueMemo_ = new Bytes();
+        Bytes joueursRepartitionInconnue_ = new Bytes();
         EnumMap<Suit,EqList<HandTarot>> cartesCertaines_ = new EnumMap<Suit,EqList<HandTarot>>();
         EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = new EnumMap<Suit,EqList<HandTarot>>(
                 _cartesPossibles);
@@ -694,7 +694,7 @@ public final class GameTarotTrickInfo {
 
     void addToKnown(EnumList<Suit> _all,EnumMap<Suit,EqList<HandTarot>> _poss,byte _player,
                     EnumMap<Suit,EqList<HandTarot>> _sure,
-                    Numbers<Byte> _joueursRepartitionConnue, Numbers<Byte> _joueursRepartitionConnueMemo) {
+                    Bytes _joueursRepartitionConnue, Bytes _joueursRepartitionConnueMemo) {
         int nombreCartesPossiblesJoueur_ = 0;
         for (Suit couleur_: _all) {
             nombreCartesPossiblesJoueur_ += _poss.getVal(couleur_)
@@ -727,7 +727,7 @@ public final class GameTarotTrickInfo {
         HandTarot retour_ = new HandTarot();
         retour_.ajouterCartes(_probablyCharacterCard);
         HandTarot playedCards_ = new HandTarot();
-        NumberMap<Byte,Boolean> defausses_ = new NumberMap<Byte,Boolean>();
+        ByteMap<Boolean> defausses_ = new ByteMap<Boolean>();
         for (byte j = CustList.FIRST_INDEX;j<nbPlayers;j++) {
             defausses_.put(j, GameTarotTrickInfo.defausseTarot(j, _unionPlis));
         }
@@ -905,8 +905,8 @@ public final class GameTarotTrickInfo {
         retour_.ajouterCartes(_atoutsPossibles);
         HandTarot cartesJouees_ = cartesJoueesEnCours(_joueurCourant);
         CustList<TrickTarot> plis_ = new CustList<TrickTarot>();
-        NumberMap<Byte,HandTarot> atoutsJouesPlis_ = new NumberMap<Byte,HandTarot>();
-        NumberMap<Byte,Boolean> defausses_ = new NumberMap<Byte,Boolean>();
+        ByteMap<HandTarot> atoutsJouesPlis_ = new ByteMap<HandTarot>();
+        ByteMap<Boolean> defausses_ = new ByteMap<Boolean>();
         for (byte j = CustList.FIRST_INDEX;j<nbPlayers;j++) {
             defausses_.put(j, GameTarotTrickInfo.defausseTarot(j, tricks));
         }
@@ -1189,9 +1189,9 @@ public final class GameTarotTrickInfo {
 
         return false;
     }
-    static boolean plisTousFaitsPar(Numbers<Byte> _joueurs,
+    static boolean plisTousFaitsPar(Bytes _joueurs,
                                     CustList<TrickTarot> _unionPlis, byte _nombreJoueurs) {
-        Numbers<Byte> autresJoueurs_ = GameTarotTeamsRelation.autresJoueurs(_joueurs, _nombreJoueurs);
+        Bytes autresJoueurs_ = GameTarotTeamsRelation.autresJoueurs(_joueurs, _nombreJoueurs);
         for (TrickTarot pli_ : _unionPlis) {
             if (!pli_.getVuParToutJoueur()) {
                 continue;

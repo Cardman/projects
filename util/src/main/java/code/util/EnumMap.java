@@ -21,15 +21,6 @@ public final class EnumMap<K extends Enum<K>, V> extends AbsMap<K,V> {
     }
 
     @Override
-    public EnumList<K> getKeys() {
-        EnumList<K> s_ = new EnumList<K>();
-        for (EntryCust<K, V> e: getList()) {
-            s_.add(e.getKey());
-        }
-        return s_;
-    }
-
-    @Override
     int indexOfEntry(K _key) {
         int index_ = CustList.FIRST_INDEX;
         for (EntryCust<K, V> e:getList()) {

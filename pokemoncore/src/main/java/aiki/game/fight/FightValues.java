@@ -9,10 +9,7 @@ import aiki.fight.util.TypesDuo;
 import aiki.game.UsesOfMove;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.EqList;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 final class FightValues {
 
@@ -124,7 +121,7 @@ final class FightValues {
         StringList attaquesPp_ = _import.getVarParamsMove(Fight.FIGHTER_PP);
         attaquesPp_.removeDuplicates();
         for(String c:attaquesPp_){
-            if(!creatureCbtLanceur_.attaquesUtilisables().containsObj(c)){
+            if(!StringList.contains(creatureCbtLanceur_.attaquesUtilisables(), c)){
                 variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.FIGHTER_PP,DataBase.SEP_BETWEEN_KEYS,c),Fight.ZERO);
             }else{
                 short ppActuel_=creatureCbtLanceur_.powerPointsMove(c);
@@ -254,7 +251,7 @@ final class FightValues {
         StringList attaquesPp_ = _import.getVarParamsMove(Fight.CIBLE_PP);
         attaquesPp_.removeDuplicates();
         for(String c:attaquesPp_){
-            if(!creatureCbtCible_.attaquesUtilisables().containsObj(c)){
+            if(!StringList.contains(creatureCbtCible_.attaquesUtilisables(), c)){
                 variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_PP,DataBase.SEP_BETWEEN_KEYS,c),Fight.ZERO);
             }else{
                 short ppActuel_=creatureCbtCible_.powerPointsMove(c);
@@ -387,7 +384,7 @@ final class FightValues {
         attaquesPp_ = _import.getVarParamsMove(Fight.LANCEUR_PP);
         attaquesPp_.removeDuplicates();
         for(String c:attaquesPp_){
-            if(!creatureCbtLanceur_.attaquesUtilisables().containsObj(c)){
+            if(!StringList.contains(creatureCbtLanceur_.attaquesUtilisables(), c)){
                 variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_PP,DataBase.SEP_BETWEEN_KEYS,c),Fight.ZERO);
             }else{
                 short ppActuel_=creatureCbtLanceur_.powerPointsMove(c);
@@ -574,7 +571,7 @@ final class FightValues {
                 }
                 continue;
             }
-            if (_import.getMovesActingMoveUses().containsStr(c)) {
+            if (StringList.contains(_import.getMovesActingMoveUses(), c)) {
                 boolean enabledMove_ = false;
                 for (MoveTeamPosition m: creatureCbtCible_.getTrackingMoves().getKeys()) {
                     if (!StringList.quickEq(m.getMove(), c)) {
@@ -704,7 +701,7 @@ final class FightValues {
                 }
                 continue;
             }
-            if (_import.getMovesActingMoveUses().containsStr(c)) {
+            if (StringList.contains(_import.getMovesActingMoveUses(), c)) {
                 boolean enabledMove_ = false;
                 for (MoveTeamPosition m: creatureCbtLanceur_.getTrackingMoves().getKeys()) {
                     if (!StringList.quickEq(m.getMove(), c)) {

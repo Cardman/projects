@@ -9,7 +9,7 @@ import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 
 public final class FirstOptOperation extends AbstractUnaryOperation implements FirstOptOperable {
 
@@ -21,7 +21,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation implements F
 
     @Override
     void calculateChildren() {
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        IntTreeMap< String> vs_ = getOperations().getValues();
         offset = vs_.firstKey();
         vs_.removeKey(vs_.firstKey());
         getChildren().putAllMap(vs_);

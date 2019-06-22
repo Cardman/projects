@@ -136,7 +136,7 @@ public final class StreamTextFile {
             current_ = new StringList(new_);
         }
         files_.replaceBackSlashesInStrings();
-        files_.removePrefixInStrings(folder_);
+        StringList.removePrefixInStrings(files_,folder_);
         return files_;
     }
 

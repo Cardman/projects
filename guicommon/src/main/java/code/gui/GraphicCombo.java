@@ -15,7 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 
-import code.util.Numbers;
+import code.util.*;
+import code.util.Ints;
 import code.util.StringList;
 
 public class GraphicCombo extends CustComponent implements GraphicComboInt, Input  {
@@ -209,11 +210,11 @@ public class GraphicCombo extends CustComponent implements GraphicComboInt, Inpu
     }
 
     @Override
-    public Numbers<Integer> getSelectedIndexes() {
+    public Ints getSelectedIndexes() {
         if (selectedIndex == -1) {
-            return new Numbers<Integer>();
+            return new Ints();
         }
-        return new Numbers<Integer>(selectedIndex);
+        return new Ints(selectedIndex);
     }
 
     @Override

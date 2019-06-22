@@ -1,6 +1,6 @@
 package cards.tarot.enumerations;
 import code.util.EnumList;
-import code.util.NumberMap;
+import code.util.*;
 
 /**Poignees utilisees au tarot*/
 public enum Handfuls {
@@ -42,8 +42,8 @@ public enum Handfuls {
         return liste_;
     }
 
-    public static NumberMap<Integer,Integer> getConfigurationParDefautAnnoncePoignee(Handfuls _poignee){
-        NumberMap<Integer,Integer> configuration_ = new NumberMap<Integer,Integer>();
+    public static IntMap<Integer> getConfigurationParDefautAnnoncePoignee(Handfuls _poignee){
+        IntMap<Integer> configuration_ = new IntMap<Integer>();
         if (_poignee == Handfuls.ONE) {
             configuration_.put(12,6);
             configuration_.put(14,8);

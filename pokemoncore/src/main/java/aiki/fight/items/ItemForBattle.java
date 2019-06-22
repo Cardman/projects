@@ -5,7 +5,6 @@ import aiki.fight.effects.EffectWhileSending;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectEndRound;
 import aiki.fight.moves.effects.EffectEndRoundIndividual;
-import aiki.fight.moves.effects.EffectEndRoundTeam;
 import aiki.fight.util.StatisticPokemon;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
@@ -81,7 +80,7 @@ public final class ItemForBattle extends Item {
             return;
 
         }
-        hatching.retainAllElements(_data.getPokedex().getKeys());
+        hatching = StringList.intersect(hatching,_data.getPokedex().getKeys());
         if (effectEndRound.size() > 1) {
             _data.setError(true);
             return;
@@ -176,7 +175,7 @@ public final class ItemForBattle extends Item {
             }
         }
         for (String t : boostStatisTypes.getKeys()) {
-            if (!_data.getTypes().containsObj(t)) {
+            if (!StringList.contains(_data.getTypes(), t)) {
                 _data.setError(true);
                 return;
 

@@ -20,7 +20,7 @@ import aiki.map.util.PlaceInterConnect;
 import aiki.util.Coords;
 import aiki.util.Point;
 import code.util.EqList;
-import code.util.NumberMap;
+import code.util.*;
 import code.util.ObjectMap;
 
 
@@ -72,7 +72,7 @@ public class BuildingAreaTest {
     public void initialize1Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new NumberMap<Short,Place>());
+        dataMap_.setPlaces(new ShortMap<Place>());
         City city_ = city();
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
         BuildingArea area_ = new BuildingArea();
@@ -91,7 +91,7 @@ public class BuildingAreaTest {
     public void isValid1Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new NumberMap<Short,Place>());
+        dataMap_.setPlaces(new ShortMap<Place>());
         City city_ = city();
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
         BuildingArea area_ = new BuildingArea();
@@ -108,7 +108,7 @@ public class BuildingAreaTest {
     public void isValid2Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new NumberMap<Short,Place>());
+        dataMap_.setPlaces(new ShortMap<Place>());
         City city_ = city();
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
         BuildingArea area_ = new BuildingArea();

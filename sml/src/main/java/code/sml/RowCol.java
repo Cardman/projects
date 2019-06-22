@@ -1,5 +1,5 @@
 package code.sml;
-import code.util.Numbers;
+import code.util.*;
 import code.util.ints.Cmp;
 import code.util.ints.Displayable;
 

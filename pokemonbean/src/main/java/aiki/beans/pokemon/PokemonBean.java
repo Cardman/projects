@@ -37,8 +37,8 @@ import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
 import code.util.NatStringTreeMap;
-import code.util.NatTreeMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -71,8 +71,8 @@ public class PokemonBean extends CommonBean {
     private String expEvo;
     private long expRate;
     private EqList<LevelMove> levMoves;
-    private NatTreeMap<Short, String> technicalMoves;
-    private NatTreeMap<Short, String> hiddenMoves;
+    private ShortTreeMap< String> technicalMoves;
+    private ShortTreeMap< String> hiddenMoves;
     private StringList moveTutors;
     private LgInt hatchingSteps;
     private StringList eggGroupsPk;
@@ -82,7 +82,7 @@ public class PokemonBean extends CommonBean {
 
     private TreeMap<MiniMapCoords, String> namesPlaces;
 
-    private Numbers<Short> placesAppears;
+    private Shorts placesAppears;
 
     @Override
     public void beforeDisplaying() {
@@ -103,7 +103,7 @@ public class PokemonBean extends CommonBean {
         places.sortElts(new ComparatorPlaceIndex());
         images = data_.getMap().getImages(data_);
         namesPlaces = new TreeMap<MiniMapCoords, String>(new ComparatorMiniMapCoords());
-        placesAppears = new Numbers<Short>();
+        placesAppears = new Shorts();
         for (MiniMapCoords m: images.getKeys()) {
             namesPlaces.put(m, data_.getMap().getName(m.getXcoords(), m.getYcoords()));
         }
@@ -174,11 +174,11 @@ public class PokemonBean extends CommonBean {
             l_.setLevel(l.getLevel());
             levMoves.add(l_);
         }
-        technicalMoves = new NatTreeMap<Short, String>();
+        technicalMoves = new ShortTreeMap< String>();
         for (Short s: pk_.getTechnicalMoves()) {
             technicalMoves.put(s, translationsMoves_.getVal(data_.getTm().getVal(s)));
         }
-        hiddenMoves = new NatTreeMap<Short, String>();
+        hiddenMoves = new ShortTreeMap< String>();
         for (Short s: pk_.getHiddenMoves()) {
             hiddenMoves.put(s, translationsMoves_.getVal(data_.getHm().getVal(s)));
         }
@@ -192,14 +192,14 @@ public class PokemonBean extends CommonBean {
             //eggGroups.add(translationsEggs_.getVal(e));
             for (String p: data_.getPokedex().getKeys()) {
                 PokemonData pkData_ = data_.getPokemon(p);
-                if (pkData_.getEggGroups().containsStr(e)) {
+                if (StringList.contains(pkData_.getEggGroups(), e)) {
                     eggGroupsPk.add(p);
                 }
             }
         }
         for (String p: data_.getPokedex().getKeys()) {
             PokemonData pkData_ = data_.getPokemon(p);
-            if (pkData_.getEggGroups().containsStr(data_.getDefaultEggGroup())) {
+            if (StringList.contains(pkData_.getEggGroups(), data_.getDefaultEggGroup())) {
                 eggGroupsPk.add(p);
             }
         }
@@ -495,11 +495,11 @@ public class PokemonBean extends CommonBean {
         return levMoves;
     }
 
-    public NatTreeMap<Short,String> getTechnicalMoves() {
+    public ShortTreeMap<String> getTechnicalMoves() {
         return technicalMoves;
     }
 
-    public NatTreeMap<Short,String> getHiddenMoves() {
+    public ShortTreeMap<String> getHiddenMoves() {
         return hiddenMoves;
     }
 

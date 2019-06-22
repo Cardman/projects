@@ -125,7 +125,7 @@ public abstract class AbstractTernaryOperation extends ReflectableOpering {
         StringList two_ = clMatchThree_.getNames();
         StringMap<StringList> vars_ = _conf.getCurrentConstraints();
         String void_ = stds_.getAliasVoid();
-        if (one_.containsStr(void_)) {
+        if (StringList.contains(one_, void_)) {
             setRelativeOffsetPossibleAnalyzable(opTwo_.getIndexInEl(), _conf);
             ClassArgumentMatching cl_ = opTwo_.getResultClass();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
@@ -135,7 +135,7 @@ public abstract class AbstractTernaryOperation extends ReflectableOpering {
             un_.setOperands(cl_);
             _conf.getClasses().addError(un_);
         }
-        if (two_.containsStr(void_)) {
+        if (StringList.contains(two_, void_)) {
             setRelativeOffsetPossibleAnalyzable(opThree_.getIndexInEl(), _conf);
             ClassArgumentMatching cl_ = opThree_.getResultClass();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();

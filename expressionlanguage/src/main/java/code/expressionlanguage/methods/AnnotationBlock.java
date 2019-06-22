@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringList;
 
 public final class AnnotationBlock extends RootBlock {
@@ -16,7 +16,7 @@ public final class AnnotationBlock extends RootBlock {
     private StringList importedDirectSuperInterfaces = new StringList();
     public AnnotationBlock(int _idRowCol, int _categoryOffset, String _name,
                            String _packageName, OffsetAccessInfo _access, String _templateDef,
-                           NatTreeMap<Integer, String> _directSuperTypes, OffsetsBlock _offset) {
+                           IntTreeMap< String> _directSuperTypes, OffsetsBlock _offset) {
         super(_idRowCol, _categoryOffset, _name,
                 _packageName, _access, _templateDef, _directSuperTypes, _offset);
     }

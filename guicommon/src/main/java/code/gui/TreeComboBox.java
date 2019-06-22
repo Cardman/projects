@@ -1,4 +1,5 @@
 package code.gui;
+import code.util.AbsMap;
 import code.util.TreeMap;
 
 public abstract class TreeComboBox<T> extends GraphicCombo {
@@ -12,23 +13,23 @@ public abstract class TreeComboBox<T> extends GraphicCombo {
 
 //    private Class<T> enumClass;
 
-    private TreeMap<T,String> elements;
+    private AbsMap<T,String> elements;
 
     private boolean withDefaultValue;
     public TreeComboBox(){
     }
 
-    public TreeComboBox(TreeMap<T,String> _tr){
+    public TreeComboBox(AbsMap<T,String> _tr){
         elements = _tr;
     }
 
-    protected TreeMap<T, String> getElements() {
+    protected AbsMap<T, String> getElements() {
         return elements;
     }
 
     @Override
     public void removeItem(int _anIndex) {
-        TreeMap<T, String> tr_;
+        AbsMap<T, String> tr_;
         tr_ = getElements();
         T e_ = tr_.getKey(_anIndex);
         tr_.removeKey(e_);

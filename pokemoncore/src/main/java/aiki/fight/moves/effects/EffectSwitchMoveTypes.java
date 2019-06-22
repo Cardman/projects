@@ -15,12 +15,12 @@ public final class EffectSwitchMoveTypes extends Effect {
     public void validate(DataBase _data) {
         super.validate(_data);
         for (String k : changeTypes.getKeys()) {
-            if (!_data.getTypes().containsObj(k)) {
+            if (!StringList.contains(_data.getTypes(), k)) {
                 _data.setError(true);
                 return;
 
             }
-            if (!_data.getTypes().containsObj(changeTypes.getVal(k))) {
+            if (!StringList.contains(_data.getTypes(), changeTypes.getVal(k))) {
                 _data.setError(true);
                 return;
 

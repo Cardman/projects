@@ -29,7 +29,7 @@ import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.NumberMap;
+import code.util.*;
 import code.util.ObjectMap;
 
 
@@ -118,7 +118,7 @@ public class PlaceAreaTest {
     public void initialize1Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new NumberMap<Short,Place>());
+        dataMap_.setPlaces(new ShortMap<Place>());
         City city_ = city();
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
         PlaceArea areaPl_ = new PlaceArea();
@@ -165,7 +165,7 @@ public class PlaceAreaTest {
     public void initialize2Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new NumberMap<Short,Place>());
+        dataMap_.setPlaces(new ShortMap<Place>());
         Road road_ = vroad();
         AreaApparition areaApp_ = new AreaApparition();
         areaApp_.setMultFight((byte) 1);
@@ -215,7 +215,7 @@ public class PlaceAreaTest {
     public void isValid1Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new NumberMap<Short,Place>());
+        dataMap_.setPlaces(new ShortMap<Place>());
         City city_ = city();
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
         PlaceArea areaPl_ = new PlaceArea();
@@ -227,7 +227,7 @@ public class PlaceAreaTest {
     public void isValid2Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new NumberMap<Short,Place>());
+        dataMap_.setPlaces(new ShortMap<Place>());
         City city_ = city();
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
         PlaceArea areaPl_ = new PlaceArea();
@@ -239,7 +239,7 @@ public class PlaceAreaTest {
     public void isValid3Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new NumberMap<Short,Place>());
+        dataMap_.setPlaces(new ShortMap<Place>());
         Road road_ = vroad();
         AreaApparition areaApp_ = new AreaApparition();
         areaApp_.setMultFight((byte) 1);

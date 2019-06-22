@@ -24,7 +24,7 @@ import code.images.Image;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.comparators.ComparatorBoolean;
 
@@ -276,7 +276,7 @@ public abstract class Level {
 
     public static void translateBlockLineData(ObjectMap<Point, Block> _data,
             short _y, short _dir) {
-        EqList<Point> links_ = _data.getKeys();
+        CustList<Point> links_ = _data.getKeys();
         ObjectMap<Point, Point> deplLinks_ = new ObjectMap<Point, Point>();
         for (Point c : links_) {
             if (c.gety() < _y) {
@@ -288,7 +288,7 @@ public abstract class Level {
         while (!links_.isEmpty()) {
             for (Point c : links_) {
                 Point dest_ = deplLinks_.getVal(c);
-                if (!links_.containsObj(dest_)) {
+                if (!containsPt(links_,dest_)) {
                     Block movedBlock_ = _data.getVal(c);
                     _data.removeKey(c);
                     _data.put(dest_, movedBlock_);
@@ -310,7 +310,7 @@ public abstract class Level {
 
     public static void translateWildPkLineData(ObjectMap<Point, WildPk> _data,
             short _y, short _dir) {
-        EqList<Point> links_ = _data.getKeys();
+        CustList<Point> links_ = _data.getKeys();
         ObjectMap<Point, Point> deplLinks_ = new ObjectMap<Point, Point>();
         for (Point c : links_) {
             if (c.gety() < _y) {
@@ -322,7 +322,7 @@ public abstract class Level {
         while (!links_.isEmpty()) {
             for (Point c : links_) {
                 Point dest_ = deplLinks_.getVal(c);
-                if (!links_.containsObj(dest_)) {
+                if (!containsPt(links_,dest_)) {
                     WildPk movedBlock_ = _data.getVal(c);
                     _data.removeKey(c);
                     _data.put(dest_, movedBlock_);
@@ -344,7 +344,7 @@ public abstract class Level {
 
     public static void translateDualFightLineData(
             ObjectMap<Point, DualFight> _data, short _y, short _dir) {
-        EqList<Point> links_ = _data.getKeys();
+        CustList<Point> links_ = _data.getKeys();
         ObjectMap<Point, Point> deplLinks_ = new ObjectMap<Point, Point>();
         for (Point c : links_) {
             if (c.gety() < _y) {
@@ -356,7 +356,7 @@ public abstract class Level {
         while (!links_.isEmpty()) {
             for (Point c : links_) {
                 Point dest_ = deplLinks_.getVal(c);
-                if (!links_.containsObj(dest_)) {
+                if (!containsPt(links_,dest_)) {
                     DualFight movedBlock_ = _data.getVal(c);
                     _data.removeKey(c);
                     _data.put(dest_, movedBlock_);
@@ -375,7 +375,7 @@ public abstract class Level {
 
     public static void translateCharacterInRoadCaveLineData(
             ObjectMap<Point, CharacterInRoadCave> _data, short _y, short _dir) {
-        EqList<Point> links_ = _data.getKeys();
+        CustList<Point> links_ = _data.getKeys();
         ObjectMap<Point, Point> deplLinks_ = new ObjectMap<Point, Point>();
         for (Point c : links_) {
             if (c.gety() < _y) {
@@ -387,7 +387,7 @@ public abstract class Level {
         while (!links_.isEmpty()) {
             for (Point c : links_) {
                 Point dest_ = deplLinks_.getVal(c);
-                if (!links_.containsObj(dest_)) {
+                if (!containsPt(links_,dest_)) {
                     CharacterInRoadCave movedBlock_ = _data.getVal(c);
                     _data.removeKey(c);
                     _data.put(dest_, movedBlock_);
@@ -406,7 +406,7 @@ public abstract class Level {
 
     public static void translateGymTrainerLineData(
             ObjectMap<Point, GymTrainer> _data, short _y, short _dir) {
-        EqList<Point> links_ = _data.getKeys();
+        CustList<Point> links_ = _data.getKeys();
         ObjectMap<Point, Point> deplLinks_ = new ObjectMap<Point, Point>();
         for (Point c : links_) {
             if (c.gety() < _y) {
@@ -418,7 +418,7 @@ public abstract class Level {
         while (!links_.isEmpty()) {
             for (Point c : links_) {
                 Point dest_ = deplLinks_.getVal(c);
-                if (!links_.containsObj(dest_)) {
+                if (!containsPt(links_,dest_)) {
                     GymTrainer movedBlock_ = _data.getVal(c);
                     _data.removeKey(c);
                     _data.put(dest_, movedBlock_);
@@ -437,7 +437,7 @@ public abstract class Level {
 
     public static void translatePersonLineData(ObjectMap<Point, Person> _data,
             short _y, short _dir) {
-        EqList<Point> links_ = _data.getKeys();
+        CustList<Point> links_ = _data.getKeys();
         ObjectMap<Point, Point> deplLinks_ = new ObjectMap<Point, Point>();
         for (Point c : links_) {
             if (c.gety() < _y) {
@@ -449,7 +449,7 @@ public abstract class Level {
         while (!links_.isEmpty()) {
             for (Point c : links_) {
                 Point dest_ = deplLinks_.getVal(c);
-                if (!links_.containsObj(dest_)) {
+                if (!containsPt(links_,dest_)) {
                     Person movedBlock_ = _data.getVal(c);
                     _data.removeKey(c);
                     _data.put(dest_, movedBlock_);
@@ -468,7 +468,7 @@ public abstract class Level {
 
     public static void translateLinkLineData(ObjectMap<Point, Link> _data,
             short _y, short _dir) {
-        EqList<Point> links_ = _data.getKeys();
+        CustList<Point> links_ = _data.getKeys();
         ObjectMap<Point, Point> deplLinks_ = new ObjectMap<Point, Point>();
         for (Point c : links_) {
             if (c.gety() < _y) {
@@ -480,7 +480,7 @@ public abstract class Level {
         while (!links_.isEmpty()) {
             for (Point c : links_) {
                 Point dest_ = deplLinks_.getVal(c);
-                if (!links_.containsObj(dest_)) {
+                if (!containsPt(links_,dest_)) {
                     Link movedBlock_ = _data.getVal(c);
                     _data.removeKey(c);
                     _data.put(dest_, movedBlock_);
@@ -499,7 +499,7 @@ public abstract class Level {
 
     public static void translateShortLineData(ObjectMap<Point, Short> _data,
             short _y, short _dir) {
-        EqList<Point> links_ = _data.getKeys();
+        CustList<Point> links_ = _data.getKeys();
         ObjectMap<Point, Point> deplLinks_ = new ObjectMap<Point, Point>();
         for (Point c : links_) {
             if (c.gety() < _y) {
@@ -511,7 +511,7 @@ public abstract class Level {
         while (!links_.isEmpty()) {
             for (Point c : links_) {
                 Point dest_ = deplLinks_.getVal(c);
-                if (!links_.containsObj(dest_)) {
+                if (!containsPt(links_,dest_)) {
                     Short movedBlock_ = _data.getVal(c);
                     _data.removeKey(c);
                     _data.put(dest_, movedBlock_);
@@ -533,7 +533,7 @@ public abstract class Level {
 
     public static void translateStringLineData(ObjectMap<Point, String> _data,
             short _y, short _dir) {
-        EqList<Point> links_ = _data.getKeys();
+        CustList<Point> links_ = _data.getKeys();
         ObjectMap<Point, Point> deplLinks_ = new ObjectMap<Point, Point>();
         for (Point c : links_) {
             if (c.gety() < _y) {
@@ -545,7 +545,7 @@ public abstract class Level {
         while (!links_.isEmpty()) {
             for (Point c : links_) {
                 Point dest_ = deplLinks_.getVal(c);
-                if (!links_.containsObj(dest_)) {
+                if (!containsPt(links_,dest_)) {
                     String movedBlock_ = _data.getVal(c);
                     _data.removeKey(c);
                     _data.put(dest_, movedBlock_);
@@ -564,7 +564,7 @@ public abstract class Level {
 
     public static void translateLinkColumnData(ObjectMap<Point, Link> _data,
             short _x, short _dir) {
-        EqList<Point> links_ = _data.getKeys();
+        CustList<Point> links_ = _data.getKeys();
         ObjectMap<Point, Point> deplLinks_ = new ObjectMap<Point, Point>();
         for (Point c : links_) {
             if (c.getx() < _x) {
@@ -576,7 +576,7 @@ public abstract class Level {
         while (!links_.isEmpty()) {
             for (Point c : links_) {
                 Point dest_ = deplLinks_.getVal(c);
-                if (!links_.containsObj(dest_)) {
+                if (!containsPt(links_,dest_)) {
                     Link movedBlock_ = _data.getVal(c);
                     _data.removeKey(c);
                     _data.put(dest_, movedBlock_);
@@ -595,7 +595,7 @@ public abstract class Level {
 
     public static void translateGymTrainerColumnData(
             ObjectMap<Point, GymTrainer> _data, short _x, short _dir) {
-        EqList<Point> links_ = _data.getKeys();
+        CustList<Point> links_ = _data.getKeys();
         ObjectMap<Point, Point> deplLinks_ = new ObjectMap<Point, Point>();
         for (Point c : links_) {
             if (c.getx() < _x) {
@@ -607,7 +607,7 @@ public abstract class Level {
         while (!links_.isEmpty()) {
             for (Point c : links_) {
                 Point dest_ = deplLinks_.getVal(c);
-                if (!links_.containsObj(dest_)) {
+                if (!containsPt(links_,dest_)) {
                     GymTrainer movedBlock_ = _data.getVal(c);
                     _data.removeKey(c);
                     _data.put(dest_, movedBlock_);
@@ -626,7 +626,7 @@ public abstract class Level {
 
     public static void translatePersonColumnData(
             ObjectMap<Point, Person> _data, short _x, short _dir) {
-        EqList<Point> links_ = _data.getKeys();
+        CustList<Point> links_ = _data.getKeys();
         ObjectMap<Point, Point> deplLinks_ = new ObjectMap<Point, Point>();
         for (Point c : links_) {
             if (c.getx() < _x) {
@@ -638,7 +638,7 @@ public abstract class Level {
         while (!links_.isEmpty()) {
             for (Point c : links_) {
                 Point dest_ = deplLinks_.getVal(c);
-                if (!links_.containsObj(dest_)) {
+                if (!containsPt(links_,dest_)) {
                     Person movedBlock_ = _data.getVal(c);
                     _data.removeKey(c);
                     _data.put(dest_, movedBlock_);
@@ -657,7 +657,7 @@ public abstract class Level {
 
     public static void translateBlockColumnData(ObjectMap<Point, Block> _data,
             short _x, short _dir) {
-        EqList<Point> links_ = _data.getKeys();
+        CustList<Point> links_ = _data.getKeys();
         ObjectMap<Point, Point> deplLinks_ = new ObjectMap<Point, Point>();
         for (Point c : links_) {
             if (c.getx() < _x) {
@@ -669,7 +669,7 @@ public abstract class Level {
         while (!links_.isEmpty()) {
             for (Point c : links_) {
                 Point dest_ = deplLinks_.getVal(c);
-                if (!links_.containsObj(dest_)) {
+                if (!containsPt(links_,dest_)) {
                     Block movedBlock_ = _data.getVal(c);
                     _data.removeKey(c);
                     _data.put(dest_, movedBlock_);
@@ -688,7 +688,7 @@ public abstract class Level {
 
     public static void translateShortColumnData(ObjectMap<Point, Short> _data,
             short _x, short _dir) {
-        EqList<Point> links_ = _data.getKeys();
+        CustList<Point> links_ = _data.getKeys();
         ObjectMap<Point, Point> deplLinks_ = new ObjectMap<Point, Point>();
         for (Point c : links_) {
             if (c.getx() < _x) {
@@ -700,7 +700,7 @@ public abstract class Level {
         while (!links_.isEmpty()) {
             for (Point c : links_) {
                 Point dest_ = deplLinks_.getVal(c);
-                if (!links_.containsObj(dest_)) {
+                if (!containsPt(links_,dest_)) {
                     Short movedBlock_ = _data.getVal(c);
                     _data.removeKey(c);
                     _data.put(dest_, movedBlock_);
@@ -722,7 +722,7 @@ public abstract class Level {
 
     public static void translateDualFightColumnData(
             ObjectMap<Point, DualFight> _data, short _x, short _dir) {
-        EqList<Point> links_ = _data.getKeys();
+        CustList<Point> links_ = _data.getKeys();
         ObjectMap<Point, Point> deplLinks_ = new ObjectMap<Point, Point>();
         for (Point c : links_) {
             if (c.getx() < _x) {
@@ -734,7 +734,7 @@ public abstract class Level {
         while (!links_.isEmpty()) {
             for (Point c : links_) {
                 Point dest_ = deplLinks_.getVal(c);
-                if (!links_.containsObj(dest_)) {
+                if (!containsPt(links_,dest_)) {
                     DualFight movedBlock_ = _data.getVal(c);
                     _data.removeKey(c);
                     _data.put(dest_, movedBlock_);
@@ -756,7 +756,7 @@ public abstract class Level {
 
     public static void translateStringColumnData(
             ObjectMap<Point, String> _data, short _x, short _dir) {
-        EqList<Point> links_ = _data.getKeys();
+        CustList<Point> links_ = _data.getKeys();
         ObjectMap<Point, Point> deplLinks_ = new ObjectMap<Point, Point>();
         for (Point c : links_) {
             if (c.getx() < _x) {
@@ -768,7 +768,7 @@ public abstract class Level {
         while (!links_.isEmpty()) {
             for (Point c : links_) {
                 Point dest_ = deplLinks_.getVal(c);
-                if (!links_.containsObj(dest_)) {
+                if (!containsPt(links_,dest_)) {
                     String movedBlock_ = _data.getVal(c);
                     _data.removeKey(c);
                     _data.put(dest_, movedBlock_);
@@ -787,7 +787,7 @@ public abstract class Level {
 
     public static void translateWildPkColumnData(
             ObjectMap<Point, WildPk> _data, short _x, short _dir) {
-        EqList<Point> links_ = _data.getKeys();
+        CustList<Point> links_ = _data.getKeys();
         ObjectMap<Point, Point> deplLinks_ = new ObjectMap<Point, Point>();
         for (Point c : links_) {
             if (c.getx() < _x) {
@@ -799,7 +799,7 @@ public abstract class Level {
         while (!links_.isEmpty()) {
             for (Point c : links_) {
                 Point dest_ = deplLinks_.getVal(c);
-                if (!links_.containsObj(dest_)) {
+                if (!containsPt(links_,dest_)) {
                     WildPk movedBlock_ = _data.getVal(c);
                     _data.removeKey(c);
                     _data.put(dest_, movedBlock_);
@@ -818,7 +818,7 @@ public abstract class Level {
 
     public static void translateCharacterInRoadCaveColumnData(
             ObjectMap<Point, CharacterInRoadCave> _data, short _x, short _dir) {
-        EqList<Point> links_ = _data.getKeys();
+        CustList<Point> links_ = _data.getKeys();
         ObjectMap<Point, Point> deplLinks_ = new ObjectMap<Point, Point>();
         for (Point c : links_) {
             if (c.getx() < _x) {
@@ -830,7 +830,7 @@ public abstract class Level {
         while (!links_.isEmpty()) {
             for (Point c : links_) {
                 Point dest_ = deplLinks_.getVal(c);
-                if (!links_.containsObj(dest_)) {
+                if (!containsPt(links_,dest_)) {
                     CharacterInRoadCave movedBlock_ = _data.getVal(c);
                     _data.removeKey(c);
                     _data.put(dest_, movedBlock_);
@@ -864,7 +864,7 @@ public abstract class Level {
     }
 
     public void insertLine(short _nb, short _y) {
-        EqList<Point> id_ = blocks.getKeys();
+        CustList<Point> id_ = blocks.getKeys();
         for (Point i : id_) {
             short yi_ = i.gety();
             Block block_ = blocks.getVal(i);
@@ -905,7 +905,7 @@ public abstract class Level {
 
     public void insertColumn(short _nb, short _x) {
         translateByColumn(_x, _nb);
-        EqList<Point> id_ = blocks.getKeys();
+        CustList<Point> id_ = blocks.getKeys();
         for (Point i : id_) {
             short yi_ = i.gety();
             short xi_ = i.getx();
@@ -1139,7 +1139,7 @@ public abstract class Level {
     public Limits limits() {
         Point leftTopPoint_ = new Point((short) 0, (short) 0);
         Point rightBottomPoint_ = new Point((short) 0, (short) 0);
-        EqList<Point> cles_ = blocks.getKeys();
+        CustList<Point> cles_ = blocks.getKeys();
         for (Point p : cles_) {
             leftTopPoint_.affect(p);
             rightBottomPoint_.affect(p);
@@ -1173,4 +1173,12 @@ public abstract class Level {
         blocks = _blocks;
     }
 
+    private static boolean containsPt(CustList<Point> _l, Point _pt) {
+        for (Point p: _l) {
+            if (_pt.eq(p)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

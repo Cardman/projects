@@ -41,8 +41,9 @@ import code.maths.Rate;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
+import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -57,9 +58,9 @@ public class FightSimulation {
 
     private int noFight;
 
-    private Numbers<Byte> mult;
+    private Bytes mult;
 
-    private Numbers<Integer> maxActions;
+    private Ints maxActions;
 
     private CustList<CustList<PkTrainer>> foeTeams;
 
@@ -86,42 +87,42 @@ public class FightSimulation {
     private CustList<EqList<NameLevel>> evolutions;
 
     /**for each fight, for each round of fight, positions and possible substitute (position before fight) of front fighters*/
-    private CustList<CustList<NumberMap<Byte,Byte>>> frontFighters;
+    private CustList<CustList<ByteMap<Byte>>> frontFighters;
 
     private CustList<EqList<NameLevel>> infosRealEvolutions;
 
     private CustList<EqList<StringList>> usedStones;
 
-    private NumberMap<Byte,TreeMap<KeyFightRound,StringList>> moves;
+    private ByteMap<TreeMap<KeyFightRound,StringList>> moves;
 
-    private NumberMap<Byte,TreeMap<KeyFightRound,StringList>> abilities;
+    private ByteMap<TreeMap<KeyFightRound,StringList>> abilities;
 
-    private NumberMap<Byte,TreeMap<KeyFightRound,String>> evolutionsWhileFight;
+    private ByteMap<TreeMap<KeyFightRound,String>> evolutionsWhileFight;
 
     /**position init before fights, fight - stone evolution*/
-    private NumberMap<Byte,CustList<EqList<StringList>>> movesBetweenFights;
+    private ByteMap<CustList<EqList<StringList>>> movesBetweenFights;
 
-    private NumberMap<Byte,CustList<EqList<StringList>>> abilitiesBetweenFights;
+    private ByteMap<CustList<EqList<StringList>>> abilitiesBetweenFights;
 
-    private NumberMap<Byte,EqList<StringList>> evolutionsBetweenFights;
+    private ByteMap<EqList<StringList>> evolutionsBetweenFights;
 
-    private NumberMap<Byte,AvailableMovesInfos> availableMoves;
+    private ByteMap<AvailableMovesInfos> availableMoves;
 
     //private Map<Byte, Pair<Pair<Byte,Byte>, StringList>> availableAbilities;
 
-    private NumberMap<Byte,StringMap<Boolean>> availableMovesBetweenFights;
+    private ByteMap<StringMap<Boolean>> availableMovesBetweenFights;
 
     //private Map<Byte, StringList> availableAbilitiesBetweenFights;
 
-    private NumberMap<Byte,TreeMap<KeyFightRound,StringList>> keptMoves;
+    private ByteMap<TreeMap<KeyFightRound,StringList>> keptMoves;
 
-    private NumberMap<Byte,TreeMap<KeyFightRound,String>> keptAbilities;
+    private ByteMap<TreeMap<KeyFightRound,String>> keptAbilities;
 
-    private NumberMap<Byte,CustList<EqList<StringList>>> keptMovesBetweenFights;
+    private ByteMap<CustList<EqList<StringList>>> keptMovesBetweenFights;
 
-    private NumberMap<Byte,EqList<StringList>> keptAbilitiesBetweenFights;
+    private ByteMap<EqList<StringList>> keptAbilitiesBetweenFights;
 
-    private NumberMap<Byte,Byte> currentFights;
+    private ByteMap<Byte> currentFights;
 
     //private CustList<CustList<Pair<Pair<String,Short>, Pair<StringList,StringList>>>> availableMovesAbilities;
 
@@ -131,7 +132,7 @@ public class FightSimulation {
 
     /**for each fight - round: map of positions at begin of fight and choices of
     evolution, learnt moves, learnt ability at level*/
-    private CustList<CustList<NumberMap<Byte,ChoiceOfEvolutionAndMoves>>> movesAbilities;
+    private CustList<CustList<ByteMap<ChoiceOfEvolutionAndMoves>>> movesAbilities;
 
     private CustList<CustList<CustList<ActionMove>>> actionsBeforeRound;
 
@@ -153,29 +154,29 @@ public class FightSimulation {
         team = new CustList<PokemonPlayer>();
         items = new EqList<StringList>();
         evolutions = new CustList<EqList<NameLevel>>();
-        frontFighters = new CustList<CustList<NumberMap<Byte,Byte>>>();
-        mult = new Numbers<Byte>();
-        maxActions = new Numbers<Integer>();
+        frontFighters = new CustList<CustList<ByteMap<Byte>>>();
+        mult = new Bytes();
+        maxActions = new Ints();
         infosRealEvolutions = new CustList<EqList<NameLevel>>();
         usedStones = new CustList<EqList<StringList>>();
         foeTeams = new CustList<CustList<PkTrainer>>();
-        moves = new NumberMap<Byte,TreeMap<KeyFightRound,StringList>>();
-        abilities = new NumberMap<Byte,TreeMap<KeyFightRound,StringList>>();
-        movesBetweenFights = new NumberMap<Byte,CustList<EqList<StringList>>>();
-        abilitiesBetweenFights = new NumberMap<Byte,CustList<EqList<StringList>>>();
-        evolutionsBetweenFights = new NumberMap<Byte,EqList<StringList>>();
-        keptAbilities = new NumberMap<Byte,TreeMap<KeyFightRound,String>>();
-        keptMoves = new NumberMap<Byte,TreeMap<KeyFightRound,StringList>>();
-        keptAbilitiesBetweenFights = new NumberMap<Byte,EqList<StringList>>();
-        keptMovesBetweenFights = new NumberMap<Byte,CustList<EqList<StringList>>>();
-        availableMoves = new NumberMap<Byte,AvailableMovesInfos>();
-        availableMovesBetweenFights = new NumberMap<Byte,StringMap<Boolean>>();
-        currentFights = new NumberMap<Byte,Byte>();
+        moves = new ByteMap<TreeMap<KeyFightRound,StringList>>();
+        abilities = new ByteMap<TreeMap<KeyFightRound,StringList>>();
+        movesBetweenFights = new ByteMap<CustList<EqList<StringList>>>();
+        abilitiesBetweenFights = new ByteMap<CustList<EqList<StringList>>>();
+        evolutionsBetweenFights = new ByteMap<EqList<StringList>>();
+        keptAbilities = new ByteMap<TreeMap<KeyFightRound,String>>();
+        keptMoves = new ByteMap<TreeMap<KeyFightRound,StringList>>();
+        keptAbilitiesBetweenFights = new ByteMap<EqList<StringList>>();
+        keptMovesBetweenFights = new ByteMap<CustList<EqList<StringList>>>();
+        availableMoves = new ByteMap<AvailableMovesInfos>();
+        availableMovesBetweenFights = new ByteMap<StringMap<Boolean>>();
+        currentFights = new ByteMap<Byte>();
         actionsBeforeRound = new CustList<CustList<CustList<ActionMove>>>();
         actionsSubstitutingBack = new CustList<CustList<CustList<ActionSwitch>>>();
         actionsSubstitutingFront = new CustList<CustList<CustList<ActionSwitch>>>();
-        movesAbilities = new CustList<CustList<NumberMap<Byte,ChoiceOfEvolutionAndMoves>>>();
-        evolutionsWhileFight = new NumberMap<Byte,TreeMap<KeyFightRound,String>>();
+        movesAbilities = new CustList<CustList<ByteMap<ChoiceOfEvolutionAndMoves>>>();
+        evolutionsWhileFight = new ByteMap<TreeMap<KeyFightRound,String>>();
     }
 
     public void initializeFights(Coords _foeCoords, int _index, DataBase _import) {
@@ -584,12 +585,12 @@ public class FightSimulation {
         frontFighters.clear();
         int nb_ = foeTeams.size();
         for (int k = CustList.FIRST_INDEX; k < nb_; k++) {
-            CustList<NumberMap<Byte,Byte>> rounds_;
-            rounds_ = new CustList<NumberMap<Byte,Byte>>();
+            CustList<ByteMap<Byte>> rounds_;
+            rounds_ = new CustList<ByteMap<Byte>>();
             int nbRounds_ = nbRound(mult.get(k), foeTeams.get(k).size());
             for (int i = CustList.FIRST_INDEX; i < nbRounds_; i++) {
-                NumberMap<Byte,Byte> round_;
-                round_ = new NumberMap<Byte,Byte>();
+                ByteMap<Byte> round_;
+                round_ = new ByteMap<Byte>();
                 int nbMembers_ = team.size();
                 for (byte j = CustList.FIRST_INDEX; j < nbMembers_; j++) {
                     round_.put(j, Fighter.BACK);
@@ -707,7 +708,7 @@ public class FightSimulation {
             PseudoFight pseudoFight_;
             pseudoFight_ = new PseudoFight(foeTeams.get(i), pseudoPlayer_, mult.get(i), frontFighters.get(i));
             pseudoFight_.presimulateFight(game.getDifficulty(), _import);
-            //Numbers<Byte> indexes_ = indexesFight(i);
+            //Bytes indexes_ = indexesFight(i);
             byte i_ = CustList.FIRST_INDEX;
             for (PseudoPlayerFighter f: pseudoFight_.getPlayerFighters()) {
                 infosRealEvolutions.get(i_).addAllElts(f.getInfosRealEvolutions());
@@ -903,11 +904,11 @@ public class FightSimulation {
 
     boolean validFrontFighters() {
         int index_ = CustList.FIRST_INDEX;
-        for (CustList<NumberMap<Byte,Byte>> r: frontFighters) {
+        for (CustList<ByteMap<Byte>> r: frontFighters) {
             int nbActions_ = maxActions.get(index_);
-            for (NumberMap<Byte,Byte> r2_: r) {
-                Numbers<Byte> front_ = new Numbers<Byte>();
-                Numbers<Byte> places_ = new Numbers<Byte>();
+            for (ByteMap<Byte> r2_: r) {
+                Bytes front_ = new Bytes();
+                Bytes places_ = new Bytes();
                 for (byte f: r2_.getKeys()) {
                     byte a_ = r2_.getVal(f);
                     if (Numbers.eq(a_, Fighter.BACK)) {
@@ -968,13 +969,13 @@ public class FightSimulation {
         return nbRounds_;
     }
 
-    Numbers<Byte> indexesFight(byte _fight) {
-        NumberMap<Byte,Byte> fighters_;
+    Bytes indexesFight(byte _fight) {
+        ByteMap<Byte> fighters_;
         fighters_ = frontFighters.get(_fight).first();
-        Numbers<Byte> indexes_;
-        indexes_ = new Numbers<Byte>();
-        Numbers<Byte> indexesBack_;
-        indexesBack_ = new Numbers<Byte>();
+        Bytes indexes_;
+        indexes_ = new Bytes();
+        Bytes indexesBack_;
+        indexesBack_ = new Bytes();
         for (EntryCust<Byte, Byte> e: fighters_.entryList()) {
             if (!Numbers.eq(e.getValue(), Fighter.BACK)) {
                 indexes_.add(e.getKey());
@@ -1050,14 +1051,14 @@ public class FightSimulation {
         key_ = availableMoves.getVal((byte) _index).getKey();
         availableMoves.getVal((byte) _index).getMoves().put(_move, false);
         StringList moves_ = keptMoves.getVal((byte) _index).getVal(key_);
-        moves_.removeObj(_move);
+        StringList.removeObj(moves_, _move);
     }
 
     void deleteMoveBetweenFights(int _index, int _indexStone, String _move) {
         byte currentFight_ = currentFights.getVal((byte) _index);
         availableMovesBetweenFights.getVal((byte) _index).put(_move, false);
         StringList moves_ = keptMovesBetweenFights.getVal((byte) _index).get(currentFight_).get(_indexStone);
-        moves_.removeObj(_move);
+        StringList.removeObj(moves_, _move);
     }
 
     public void cancelAllMovesOneFight(int _index, DataBase _import) {
@@ -1232,13 +1233,13 @@ public class FightSimulation {
         int nb_ = foeTeams.size();
         movesAbilities.clear();
         for (byte i = CustList.FIRST_INDEX; i < nb_; i++) {
-            Numbers<Byte> indexes_ = indexesFight(i);
+            Bytes indexes_ = indexesFight(i);
             int nbRounds_ = nbRound(mult.get(i), foeTeams.get(i).size());
-            CustList<NumberMap<Byte,ChoiceOfEvolutionAndMoves>> list_;
-            list_ = new CustList<NumberMap<Byte,ChoiceOfEvolutionAndMoves>>();
+            CustList<ByteMap<ChoiceOfEvolutionAndMoves>> list_;
+            list_ = new CustList<ByteMap<ChoiceOfEvolutionAndMoves>>();
             for (byte j = CustList.FIRST_INDEX; j < nbRounds_; j++) {
-                NumberMap<Byte,ChoiceOfEvolutionAndMoves> map_;
-                map_ = new NumberMap<Byte,ChoiceOfEvolutionAndMoves>();
+                ByteMap<ChoiceOfEvolutionAndMoves> map_;
+                map_ = new ByteMap<ChoiceOfEvolutionAndMoves>();
                 for (byte k: keptMoves.getKeys()) {
                     ChoiceOfEvolutionAndMoves choice_;
                     choice_ = new ChoiceOfEvolutionAndMoves();
@@ -1264,7 +1265,7 @@ public class FightSimulation {
             actionsSubstitutingBackFight_ = new CustList<CustList<ActionSwitch>>();
             CustList<CustList<ActionMove>> actionsBeforeRoundFight_;
             actionsBeforeRoundFight_ = new CustList<CustList<ActionMove>>();
-            Numbers<Byte> nextFront_;
+            Bytes nextFront_;
             int nbFrontFightersFight_ = frontFighters.get(f).size();
             for (byte i = CustList.SECOND_INDEX; i < nbFrontFightersFight_; i++) {
                 CustList<ActionSwitch> actionsSubstitutingFrontRound_;
@@ -1273,7 +1274,7 @@ public class FightSimulation {
                 actionsSubstitutingBackRound_ = new CustList<ActionSwitch>();
                 byte current_ = i;
                 current_--;
-                NumberMap<Byte,Byte> currentActions_ = frontFighters.get(f).get(current_);
+                ByteMap<Byte> currentActions_ = frontFighters.get(f).get(current_);
                 CustList<KeyFightRound> orderedFronts_;
                 orderedFronts_ = new CustList<KeyFightRound>();
                 for (byte k: currentActions_.getKeys()) {
@@ -1281,8 +1282,8 @@ public class FightSimulation {
                         orderedFronts_.add(new KeyFightRound(currentActions_.getVal(k),k));
                     }
                 }
-                NumberMap<Byte,Byte> nextActions_ = frontFighters.get(f).get(i);
-                nextFront_ = new Numbers<Byte>();
+                ByteMap<Byte> nextActions_ = frontFighters.get(f).get(i);
+                nextFront_ = new Bytes();
                 for (byte k: nextActions_.getKeys()) {
                     if (!Numbers.eq(nextActions_.getVal(k), Fighter.BACK)) {
                         nextFront_.add(k);
@@ -1328,7 +1329,7 @@ public class FightSimulation {
             for (byte i = CustList.FIRST_INDEX; i < nbFrontFightersFight_; i++) {
                 CustList<ActionMove> actionsBeforeRound_;
                 actionsBeforeRound_ = new CustList<ActionMove>();
-                NumberMap<Byte,Byte> map_;
+                ByteMap<Byte> map_;
                 map_ = frontFighters.get(f).get(i);
                 int nbOrderFronts_ = getNbFrontFighters(map_);
                 for (byte k = CustList.FIRST_INDEX; k < nbOrderFronts_; k++) {
@@ -1344,7 +1345,7 @@ public class FightSimulation {
         }
     }
 
-    private static int getNbFrontFighters(NumberMap<Byte,Byte> _m) {
+    private static int getNbFrontFighters(ByteMap<Byte> _m) {
         int i_ = CustList.FIRST_INDEX;
         for (EntryCust<Byte, Byte> e: _m.entryList()) {
             if (e.getValue() != Fighter.BACK) {
@@ -1392,7 +1393,7 @@ public class FightSimulation {
         StringList movesToBeLearnt_ = new StringList(_allMoves);
         StringMap<Boolean> choicesMoves_;
         choicesMoves_ = new StringMap<Boolean>();
-        movesToBeLearnt_.removeAllElements(_currentMoves);
+        StringList.removeAllElements(movesToBeLearnt_, _currentMoves);
         for (String m: _currentMoves) {
             choicesMoves_.put(m, true);
         }
@@ -1524,7 +1525,7 @@ public class FightSimulation {
             }
         }
         Player player_ = game.getPlayer();
-        Numbers<Byte> indexes_ = indexesFight(CustList.FIRST_INDEX);
+        Bytes indexes_ = indexesFight(CustList.FIRST_INDEX);
         player_.swap(indexes_);
         Fightable trainer_;
         trainer_ = trainers_.get(CustList.FIRST_INDEX);
@@ -1615,7 +1616,7 @@ public class FightSimulation {
             int nbFoes_ = foeTeams.size();
             for (byte i = CustList.FIRST_INDEX; i < nbFoes_; i++) {
                 Player player_ = game.getPlayer();
-                Numbers<Byte> indexes_ = indexesFight(i);
+                Bytes indexes_ = indexesFight(i);
                 player_.swap(indexes_);
                 FightFacade.initFight(game.getFight(), player_, game.getDifficulty(), duals_.first(), _import);
                 FightFacade.initTypeEnv(game.getFight(), foeCoords, game.getDifficulty(), _import);
@@ -1636,7 +1637,7 @@ public class FightSimulation {
             int index_ = i;
             index_++;
             Player player_ = game.getPlayer();
-            Numbers<Byte> indexes_ = indexesFight(i);
+            Bytes indexes_ = indexesFight(i);
             player_.swap(indexes_);
             Trainer trainer_;
             trainer_ = trainers_.get(i);
@@ -1777,11 +1778,11 @@ public class FightSimulation {
         return foeTeams.first();
     }
 
-    public Numbers<Byte> getMult() {
+    public Bytes getMult() {
         return mult;
     }
 
-    public Numbers<Integer> getMaxActions() {
+    public Ints getMaxActions() {
         return maxActions;
     }
 
@@ -1801,7 +1802,7 @@ public class FightSimulation {
         return items;
     }
 
-    public CustList<CustList<NumberMap<Byte,Byte>>> getFrontFighters() {
+    public CustList<CustList<ByteMap<Byte>>> getFrontFighters() {
         return frontFighters;
     }
 
@@ -1821,59 +1822,59 @@ public class FightSimulation {
         return infosRealEvolutions;
     }
 
-    public NumberMap<Byte,TreeMap<KeyFightRound,StringList>> getMoves() {
+    public ByteMap<TreeMap<KeyFightRound,StringList>> getMoves() {
         return moves;
     }
 
-    public NumberMap<Byte,TreeMap<KeyFightRound,StringList>> getAbilities() {
+    public ByteMap<TreeMap<KeyFightRound,StringList>> getAbilities() {
         return abilities;
     }
 
-    public NumberMap<Byte,TreeMap<KeyFightRound,String>> getEvolutionsWhileFight() {
+    public ByteMap<TreeMap<KeyFightRound,String>> getEvolutionsWhileFight() {
         return evolutionsWhileFight;
     }
 
-    public NumberMap<Byte,CustList<EqList<StringList>>> getMovesBetweenFights() {
+    public ByteMap<CustList<EqList<StringList>>> getMovesBetweenFights() {
         return movesBetweenFights;
     }
 
-    public NumberMap<Byte,CustList<EqList<StringList>>> getAbilitiesBetweenFights() {
+    public ByteMap<CustList<EqList<StringList>>> getAbilitiesBetweenFights() {
         return abilitiesBetweenFights;
     }
 
-    public NumberMap<Byte,EqList<StringList>> getEvolutionsBetweenFights() {
+    public ByteMap<EqList<StringList>> getEvolutionsBetweenFights() {
         return evolutionsBetweenFights;
     }
 
-    public NumberMap<Byte,AvailableMovesInfos> getAvailableMoves() {
+    public ByteMap<AvailableMovesInfos> getAvailableMoves() {
         return availableMoves;
     }
 
-    public NumberMap<Byte,StringMap<Boolean>> getAvailableMovesBetweenFights() {
+    public ByteMap<StringMap<Boolean>> getAvailableMovesBetweenFights() {
         return availableMovesBetweenFights;
     }
 
-    public NumberMap<Byte,TreeMap<KeyFightRound,StringList>> getKeptMoves() {
+    public ByteMap<TreeMap<KeyFightRound,StringList>> getKeptMoves() {
         return keptMoves;
     }
 
-    public NumberMap<Byte,TreeMap<KeyFightRound,String>> getKeptAbilities() {
+    public ByteMap<TreeMap<KeyFightRound,String>> getKeptAbilities() {
         return keptAbilities;
     }
 
-    public NumberMap<Byte,CustList<EqList<StringList>>> getKeptMovesBetweenFights() {
+    public ByteMap<CustList<EqList<StringList>>> getKeptMovesBetweenFights() {
         return keptMovesBetweenFights;
     }
 
-    public NumberMap<Byte,EqList<StringList>> getKeptAbilitiesBetweenFights() {
+    public ByteMap<EqList<StringList>> getKeptAbilitiesBetweenFights() {
         return keptAbilitiesBetweenFights;
     }
 
-    NumberMap<Byte,Byte> getCurrentFights() {
+    ByteMap<Byte> getCurrentFights() {
         return currentFights;
     }
 
-    public CustList<CustList<NumberMap<Byte,ChoiceOfEvolutionAndMoves>>> getMovesAbilities() {
+    public CustList<CustList<ByteMap<ChoiceOfEvolutionAndMoves>>> getMovesAbilities() {
         return movesAbilities;
     }
 

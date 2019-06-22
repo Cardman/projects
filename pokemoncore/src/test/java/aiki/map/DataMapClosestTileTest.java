@@ -20,7 +20,7 @@ import aiki.map.util.PlaceInterConnect;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
-import code.util.NumberMap;
+import code.util.*;
 import code.util.ObjectMap;
 
 public class DataMapClosestTileTest {
@@ -79,7 +79,7 @@ public class DataMapClosestTileTest {
         City cityOne_ = city();
         Road roadOne_ = vroad();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setPlaces(new NumberMap<Short,Place>());
+        dataMap_.setPlaces(new ShortMap<Place>());
         dataMap_.getPlaces().put((short)0,cityOne_);
         dataMap_.getPlaces().put((short)1,roadOne_);
         dataMap_.join((short)0, (short)1, new Point((short)4,(short)0), new Point((short)1,(short)5), Direction.UP);

@@ -7,7 +7,7 @@ import cards.consts.EndGameState;
 import code.util.BooleanList;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 
 public final class EndBeloteGame {
     private GameBeloteTeamsRelation relations;
@@ -42,7 +42,7 @@ public final class EndBeloteGame {
     }
     public int pointsAttackWithBonus() {
         int nbPoints_ = pointsAttaqueSansPrime();
-        for (Numbers<Byte> t: relations.playersBelongingToSameTeam()) {
+        for (Bytes t: relations.playersBelongingToSameTeam()) {
             if (t.containsObj(relations.getTaker())) {
                 for (byte p: t) {
                     for (short s: pointsAnnoncesPrimes(p)) {
@@ -65,7 +65,7 @@ public final class EndBeloteGame {
     }
     public int pointsDefenseWithBonus() {
         int nbPoints_ = pointsDefenseSansPrime();
-        for (Numbers<Byte> t: relations.playersBelongingToSameTeam()) {
+        for (Bytes t: relations.playersBelongingToSameTeam()) {
             if (!t.containsObj(relations.getTaker())) {
                 for (byte p: t) {
                     for (short s: pointsAnnoncesPrimes(p)) {
@@ -76,8 +76,8 @@ public final class EndBeloteGame {
         }
         return nbPoints_;
     }
-    Numbers<Short> pointsAnnoncesPrimes(byte _joueur) {
-        Numbers<Short> totaux_=new Numbers<Short>();
+    Shorts pointsAnnoncesPrimes(byte _joueur) {
+        Shorts totaux_=new Shorts();
         if(bid.getCouleurDominante()) {
             if(declaresBeloteRebelote.get(_joueur).contientCartes(GameBeloteCommonPlaying.cartesBeloteRebelote(bid))) {
                 totaux_.add((short) DeclaresBeloteRebelote.BELOTE_REBELOTE.getPoints());
@@ -96,7 +96,7 @@ public final class EndBeloteGame {
         }
         return 0;
     }
-    public int getDiffAttackPointsMinusDefensePoints(Numbers<Short> _scores) {
+    public int getDiffAttackPointsMinusDefensePoints(Shorts _scores) {
         int scoreDef_;
         int foe_ = relations.adversaires(relations.getTaker()).first();
         scoreDef_ = _scores.get(foe_);
@@ -130,9 +130,9 @@ public final class EndBeloteGame {
         }
         return _scoreTmpDefense;
     }
-    Numbers<Short> scores(int _scoreDefinitifAttaque,int _scoreDefinitifDefense) {
+    Shorts scores(int _scoreDefinitifAttaque,int _scoreDefinitifDefense) {
         byte nombreJoueurs_=getNombreDeJoueurs();
-        Numbers<Short> scores_=new Numbers<Short>();
+        Shorts scores_=new Shorts();
         for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
             if(!relations.aPourDefenseur(joueur_)) {
                 scores_.set(joueur_,(short)_scoreDefinitifAttaque);
@@ -145,7 +145,7 @@ public final class EndBeloteGame {
     /**Renvoie 1, si l utilisateur gagne la partie,<br>
      0, s il y a match nul,<br>
      -1, sinon*/
-    public EndGameState getUserState(byte _user, Numbers<Short> _scores) {
+    public EndGameState getUserState(byte _user, Shorts _scores) {
         short userScore_ = _scores.get(_user);
         boolean slam_ = getPlisDefense().isEmpty();
         for (byte p: relations.adversaires(_user)) {

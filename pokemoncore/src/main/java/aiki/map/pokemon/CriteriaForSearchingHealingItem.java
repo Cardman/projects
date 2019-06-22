@@ -9,10 +9,7 @@ import aiki.fight.items.HealingPp;
 import aiki.fight.items.HealingStatus;
 import aiki.fight.items.Item;
 import code.maths.Rate;
-import code.util.EnumList;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import aiki.facade.enums.SearchingMode;
 import aiki.facade.enums.SelectedBoolean;
 
@@ -157,7 +154,7 @@ public final class CriteriaForSearchingHealingItem extends CriteriaForSearchingI
                     }
                     return false;
                 }
-                Numbers<Long> values_ = new Numbers<Long>();
+                Longs values_ = new Longs();
                 values_.add(healing_.getHealedMovePp());
                 values_.add(healing_.getHealingAllMovesFullpp());
                 values_.removeDuplicates();
@@ -204,7 +201,7 @@ public final class CriteriaForSearchingHealingItem extends CriteriaForSearchingI
             if (healing_.isHealingAllMovesPp()) {
                 return true;
             }
-            Numbers<Long> values_ = new Numbers<Long>();
+            Longs values_ = new Longs();
             values_.add(healing_.getHealedMovePp());
             values_.add(healing_.getHealingAllMovesFullpp());
             values_.removeDuplicates();
@@ -244,7 +241,7 @@ public final class CriteriaForSearchingHealingItem extends CriteriaForSearchingI
         if (statistic == null) {
             return true;
         }
-        EnumList<Statistic> statistics_;
+        CustList<Statistic> statistics_;
         if (_item instanceof Berry) {
             statistics_ = ((Berry)_item).getMultStat().getKeys();
             for (Statistic s: statistics_) {

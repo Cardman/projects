@@ -164,8 +164,8 @@ public class TeamTest extends InitializationDataBase {
         assertTrue(!stack_.isLastStacked());
         assertEq(1, team_.getHealAfterSet().size());
         assertEq(1, team_.getMovesAnticipationSet().size());
-        assertTrue(team_.getMovesAnticipationSet().containsObj(PRESCIENCE));
-        assertTrue(team_.getHealAfterSet().containsObj(VOEU));
+        assertTrue(StringList.contains(team_.getMovesAnticipationSet(), PRESCIENCE));
+        assertTrue(StringList.contains(team_.getHealAfterSet(), VOEU));
     }
 
     @Test
@@ -881,7 +881,7 @@ public class TeamTest extends InitializationDataBase {
         team_.initEquipeUtilisateur(player_, diff_, (short) 2, _data_);
         team_.getMembers().getVal((byte) 1).setGroundPlace((byte) 0);
         team_.getMembers().getVal((byte) 0).setGroundPlace((byte) 1);
-        Numbers<Byte> positions_ = team_.fightersAtCurrentPlace((short) 0);
+        Bytes positions_ = team_.fightersAtCurrentPlace((short) 0);
         assertEq(1, positions_.size());
         assertTrue(positions_.containsObj((byte) 1));
         positions_ = team_.fightersAtCurrentPlace((short) 1);
@@ -919,7 +919,7 @@ public class TeamTest extends InitializationDataBase {
         team_.initEquipeUtilisateur(player_, diff_, (short) 2, _data_);
         team_.getMembers().getVal((byte) 1).setGroundPlace((byte) 0);
         team_.getMembers().getVal((byte) 0).setGroundPlace((byte) 1);
-        Numbers<Byte> positions_ = team_.fightersAtCurrentPlaceIndex((short) 0, true);
+        Bytes positions_ = team_.fightersAtCurrentPlaceIndex((short) 0, true);
         assertEq(1, positions_.size());
         assertTrue(positions_.containsObj((byte) 1));
         positions_ = team_.fightersAtCurrentPlaceIndex((short) 1, true);
@@ -961,7 +961,7 @@ public class TeamTest extends InitializationDataBase {
         team_.getMembers().getVal((byte) 5).setGroundPlace((byte) 0);
         team_.getMembers().getVal((byte) 0).setGroundPlaceSubst((byte) 1);
         team_.getMembers().getVal((byte) 5).setGroundPlaceSubst((byte) 0);
-        Numbers<Byte> positions_ = team_.fightersAtCurrentPlaceIndex((short) 0, true);
+        Bytes positions_ = team_.fightersAtCurrentPlaceIndex((short) 0, true);
         assertEq(1, positions_.size());
         assertTrue(positions_.containsObj((byte) 0));
         positions_ = team_.fightersAtCurrentPlaceIndex((short) 1, true);
@@ -996,7 +996,7 @@ public class TeamTest extends InitializationDataBase {
         team_.initEquipeUtilisateur(player_, diff_, (short) 2, _data_);
         team_.getMembers().getVal((byte) 1).setGroundPlace((byte) 0);
         team_.getMembers().getVal((byte) 0).setGroundPlace((byte) 1);
-        Numbers<Byte> positions_ = team_.fightersAtCurrentPlaceIndex((short) 0, false);
+        Bytes positions_ = team_.fightersAtCurrentPlaceIndex((short) 0, false);
         assertEq(1, positions_.size());
         assertTrue(positions_.containsObj((byte) 1));
         positions_ = team_.fightersAtCurrentPlaceIndex((short) 1, false);
@@ -1038,7 +1038,7 @@ public class TeamTest extends InitializationDataBase {
         team_.getMembers().getVal((byte) 5).setGroundPlace((byte) 0);
         team_.getMembers().getVal((byte) 0).setGroundPlaceSubst((byte) 1);
         team_.getMembers().getVal((byte) 5).setGroundPlaceSubst((byte) 0);
-        Numbers<Byte> positions_ = team_.fightersAtCurrentPlaceIndex((short) 0, false);
+        Bytes positions_ = team_.fightersAtCurrentPlaceIndex((short) 0, false);
         assertEq(1, positions_.size());
         assertTrue(positions_.containsObj((byte) 5));
         positions_ = team_.fightersAtCurrentPlaceIndex((short) 1, false);
@@ -1534,7 +1534,7 @@ public class TeamTest extends InitializationDataBase {
         lasPk_.initPvRestants(_data_);
         player_.getTeam().add(lasPk_);
         team_.initEquipeUtilisateur(player_, diff_, (short) 1, _data_);
-        Numbers<Byte> list_ = team_.notKoPartnersWithoutStatus((byte) 0);
+        Bytes list_ = team_.notKoPartnersWithoutStatus((byte) 0);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj((byte) 3));
     }

@@ -1,13 +1,13 @@
 package code.sml;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringMap;
 
 public final class ElementOffsetsNext {
 
     private final StringMap<RowCol> attributes = new StringMap<RowCol>();
-    private final StringMap<Numbers<Integer>> offsets = new StringMap<Numbers<Integer>>();
+    private final StringMap<Ints> offsets = new StringMap<Ints>();
 
-    private final StringMap<Numbers<Integer>> tabs = new StringMap<Numbers<Integer>>();
+    private final StringMap<Ints> tabs = new StringMap<Ints>();
 
     private final RowCol nextCol;
 
@@ -19,8 +19,8 @@ public final class ElementOffsetsNext {
 
 //    private final int nextEltLineReturn;
 //    public ElementOffsetsNext(Map<String,RowCol> _attributes, RowCol _rc, int _nextElt, int _n)
-    public ElementOffsetsNext(StringMap<Numbers<Integer>> _tabs,
-            StringMap<Numbers<Integer>> _ret, StringMap<RowCol> _attributes,
+    public ElementOffsetsNext(StringMap<Ints> _tabs,
+            StringMap<Ints> _ret, StringMap<RowCol> _attributes,
             RowCol _rc, RowCol _endHeader, int _nextElt, int _begin) {
         this(_rc, _nextElt, _begin);
         endHeader = _endHeader;
@@ -41,11 +41,11 @@ public final class ElementOffsetsNext {
         return endHeader;
     }
 
-    public StringMap<Numbers<Integer>> getTabs() {
+    public StringMap<Ints> getTabs() {
         return tabs;
     }
 
-    public StringMap<Numbers<Integer>> getOffsets() {
+    public StringMap<Ints> getOffsets() {
         return offsets;
     }
 

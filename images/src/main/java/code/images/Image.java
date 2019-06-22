@@ -1,6 +1,7 @@
 package code.images;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.Ints;
+import code.util.*;
 import code.util.StringList;
 import code.util.ints.Displayable;
 
@@ -20,13 +21,13 @@ public final class Image implements Displayable {
 
     private int width;
 
-    private Numbers<Integer> pixels;
+    private Ints pixels;
 
     private Image() {
-        pixels = new Numbers<Integer>();
+        pixels = new Ints();
     }
     public Image(String _contentFile) {
-        pixels = new Numbers<Integer>();
+        pixels = new Ints();
 //        String string_ = _contentFile.replace(RETURN_LINE, EMPTY_STRING);
 //        string_ = string_.replace(RETURN_LINE2, EMPTY_STRING);
         String string_ = StringList.removeStrings(_contentFile, RETURN_LINE, RETURN_LINE2);
@@ -222,7 +223,7 @@ public final class Image implements Displayable {
     }
 
 
-    public Numbers<Integer> getPixels() {
+    public Ints getPixels() {
         return pixels;
     }
 

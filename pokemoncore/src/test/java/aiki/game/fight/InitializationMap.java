@@ -51,7 +51,7 @@ import aiki.util.Point;
 import code.images.Image;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 
@@ -429,17 +429,17 @@ final class InitializationMap {
         Seller seller_;
         seller_ = new Seller();
         seller_.setItems(new StringList(POKE_BALL,HYPER_BALL,PT_DE_MIRE, PIERRE_EAU,ROCHE_ROYALE,PIERRE_LUNE,PIERRE_SOLEIL,PIERRE_GLACE));
-        seller_.setTm(new Numbers<Short>());
+        seller_.setTm(new Shorts());
         seller_.setSell(SellType.ITEM);
         pk_.getLevel().getGerants().put(newPoint(8, 4), seller_);
         seller_ = new Seller();
         seller_.setItems(new StringList());
-        seller_.setTm(new Numbers<Short>((short)2));
+        seller_.setTm(new Shorts((short)2));
         seller_.setSell(SellType.TM);
         pk_.getLevel().getGerants().put(newPoint(8, 5), seller_);
         seller_ = new Seller();
         seller_.setItems(new StringList());
-        seller_.setTm(new Numbers<Short>());
+        seller_.setTm(new Shorts());
         seller_.setSell(SellType.MOVE);
         pk_.getLevel().getGerants().put(newPoint(8, 6), seller_);
     }
@@ -1179,7 +1179,7 @@ final class InitializationMap {
     static void initOtherCharactersFirstRoad(DataBase _data) {
         DataMap map_ = _data.getMap();
         Road road_ = (Road) map_.getPlaces().getVal((short) 0);
-        road_.addPerson(newCoords(0, 0, 0, 1), newDealerObject(new StringList(HYPER_BALL), new Numbers<Short>((short)5)));
+        road_.addPerson(newCoords(0, 0, 0, 1), newDealerObject(new StringList(HYPER_BALL), new Shorts((short)5)));
         //map_.getTakenObjects().add(newCoords(0, 0, 0, 1));
 //        City city_ = (City) map_.getPlaces().getVal((short) 1);
 //        PokemonCenter pk_;
@@ -1863,7 +1863,7 @@ final class InitializationMap {
         return gerant_;
     }
 
-    private static DealerItem newDealerObject(StringList _obj, Numbers<Short> _tm) {
+    private static DealerItem newDealerObject(StringList _obj, Shorts _tm) {
         DealerItem dealer_ = new DealerItem();
         dealer_.setItems(new StringList(_obj));
         dealer_.setTechnicalMoves(_tm);
@@ -1968,7 +1968,7 @@ final class InitializationMap {
 
     private static int[][] getImageByString(String _string) {
         Image i_ = new Image(_string);
-        Numbers<Integer> pixels_ = i_.getPixels();
+        Ints pixels_ = i_.getPixels();
         int width_ = i_.getWidth();
         int height_ = i_.getHeight();
         int[][] img_ = new int[height_][width_];

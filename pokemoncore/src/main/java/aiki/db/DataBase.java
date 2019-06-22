@@ -121,8 +121,8 @@ import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
 import code.util.NatStringTreeMap;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -247,11 +247,11 @@ public class DataBase implements WithMathFactory {
 
     private StringMap<MoveData> moves = new StringMap<MoveData>();
 
-    private NumberMap<Short, String> tm = new NumberMap<Short, String>();
+    private ShortMap< String> tm = new ShortMap< String>();
 
-    private NumberMap<Short, LgInt> tmPrice = new NumberMap<Short, LgInt>();
+    private ShortMap< LgInt> tmPrice = new ShortMap< LgInt>();
 
-    private NumberMap<Short, String> hm = new NumberMap<Short, String>();
+    private ShortMap< String> hm = new ShortMap< String>();
 
     private StringMap<Item> items = new StringMap<Item>();
 
@@ -844,7 +844,7 @@ public class DataBase implements WithMathFactory {
                 }
             }
         }
-        if (getCategories().containsObj(AUTRE)) {
+        if (StringList.contains(getCategories(), AUTRE)) {
             setError(true);
             return;
         }
@@ -902,7 +902,7 @@ public class DataBase implements WithMathFactory {
                 if (!(e instanceof EvolutionMove)) {
                     continue;
                 }
-                if (!moves_.containsObj(((EvolutionMove) e).getMove())) {
+                if (!StringList.contains(moves_, ((EvolutionMove) e).getMove())) {
                     setError(true);
                     return;
                 }
@@ -945,8 +945,8 @@ public class DataBase implements WithMathFactory {
                 return;
             }
         }
-        Numbers<Short> incrementNbRound_ = new Numbers<Short>();
-        Numbers<Short> nonIncrementNbRound_ = new Numbers<Short>();
+        Shorts incrementNbRound_ = new Shorts();
+        Shorts nonIncrementNbRound_ = new Shorts();
         for (EndRoundMainElements e : getEvtEndRound()) {
             if (e.isIncrementNumberOfRounds()) {
                 incrementNbRound_.add(e.getNumberIncrement());
@@ -1449,7 +1449,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         for (Gender g : Gender.values()) {
-            if (!distinct_.containsObj(g.name())) {
+            if (!StringList.contains(distinct_, g.name())) {
                 distinct_.add(g.name());
             } else {
                 homonyms_.add(g.name());
@@ -1538,7 +1538,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         for (EnvironmentType g : EnvironmentType.values()) {
-            if (!distinct_.containsObj(g.name())) {
+            if (!StringList.contains(distinct_, g.name())) {
                 distinct_.add(g.name());
             } else {
                 homonyms_.add(g.name());
@@ -1564,7 +1564,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         for (Statistic g : Statistic.values()) {
-            if (!distinct_.containsObj(g.name())) {
+            if (!StringList.contains(distinct_, g.name())) {
                 distinct_.add(g.name());
             } else {
                 homonyms_.add(g.name());
@@ -1587,7 +1587,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         for (String g : types) {
-            if (!distinct_.containsObj(g)) {
+            if (!StringList.contains(distinct_, g)) {
                 distinct_.add(g);
             } else {
                 homonyms_.add(g);
@@ -1610,7 +1610,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         for (String g : allCategories) {
-            if (!distinct_.containsObj(g)) {
+            if (!StringList.contains(distinct_, g)) {
                 distinct_.add(g);
             } else {
                 homonyms_.add(g);
@@ -1633,7 +1633,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         for (String g : pokedex.getKeys()) {
-            if (!distinct_.containsObj(g)) {
+            if (!StringList.contains(distinct_, g)) {
                 distinct_.add(g);
             } else {
                 homonyms_.add(g);
@@ -1656,7 +1656,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         for (String g : items.getKeys()) {
-            if (!distinct_.containsObj(g)) {
+            if (!StringList.contains(distinct_, g)) {
                 distinct_.add(g);
             } else {
                 homonyms_.add(g);
@@ -1679,7 +1679,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         for (String g : abilities.getKeys()) {
-            if (!distinct_.containsObj(g)) {
+            if (!StringList.contains(distinct_, g)) {
                 distinct_.add(g);
             } else {
                 homonyms_.add(g);
@@ -1702,7 +1702,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         for (String g : moves.getKeys()) {
-            if (!distinct_.containsObj(g)) {
+            if (!StringList.contains(distinct_, g)) {
                 distinct_.add(g);
             } else {
                 homonyms_.add(g);
@@ -1725,7 +1725,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         for (String g : status.getKeys()) {
-            if (!distinct_.containsObj(g)) {
+            if (!StringList.contains(distinct_, g)) {
                 distinct_.add(g);
             } else {
                 homonyms_.add(g);
@@ -1842,7 +1842,7 @@ public class DataBase implements WithMathFactory {
             return;
         }
         for (String n : allStandardKeys_) {
-            if (allCustKeys_.containsObj(n)) {
+            if (StringList.contains(allCustKeys_, n)) {
                 setError(true);
                 return;
             }
@@ -1893,13 +1893,13 @@ public class DataBase implements WithMathFactory {
                         }
                     }
                     if (StringList.quickEq(k_,CAT_FORMULA)) {
-                        if (!categories.containsStr(infosVar_.get(i))) {
+                        if (!StringList.contains(categories, infosVar_.get(i))) {
                             setError(true);
                             return;
                         }
                     }
                     if (StringList.quickEq(k_,TYPE_FORMULA)) {
-                        if (!types.containsStr(infosVar_.get(i))) {
+                        if (!StringList.contains(types, infosVar_.get(i))) {
                             setError(true);
                             return;
                         }
@@ -2100,15 +2100,15 @@ public class DataBase implements WithMathFactory {
         types = moveTypes_;
     }
 
-    public void setTm(NumberMap<Short, String> _tm) {
+    public void setTm(ShortMap< String> _tm) {
         tm = _tm;
     }
 
-    public void setTmPrice(NumberMap<Short, LgInt> _tmPrice) {
+    public void setTmPrice(ShortMap< LgInt> _tmPrice) {
         tmPrice = _tmPrice;
     }
 
-    public void setHm(NumberMap<Short, String> _hm) {
+    public void setHm(ShortMap< String> _hm) {
         hm = _hm;
     }
 
@@ -2423,10 +2423,10 @@ public class DataBase implements WithMathFactory {
         filesNamesWithSameCase_ = new StringList();
         for (String s : _files) {
             String upperCase_ = toUpperCase(s);
-            if (filesNamesWithSameCase_.containsObj(upperCase_)) {
+            if (StringList.contains(filesNamesWithSameCase_, upperCase_)) {
                 String name_ = StringList.concat(_folderName, SEPARATOR_FILES,
                         upperCase_);
-                if (!filesWithSameNameDifferentCase.containsObj(name_)) {
+                if (!StringList.contains(filesWithSameNameDifferentCase, name_)) {
                     filesWithSameNameDifferentCase.add(name_);
                 }
             }
@@ -2443,9 +2443,9 @@ public class DataBase implements WithMathFactory {
         moves = new StringMap<MoveData>();
         items = new StringMap<Item>();
         status = new StringMap<Status>();
-        tm = new NumberMap<Short, String>();
-        tmPrice = new NumberMap<Short, LgInt>();
-        hm = new NumberMap<Short, String>();
+        tm = new ShortMap< String>();
+        tmPrice = new ShortMap< LgInt>();
+        hm = new ShortMap< String>();
         abilities = new StringMap<AbilityData>();
         avgWeight = Rate.zero();
         movesProtAgainstPrio = new StringList();
@@ -2499,32 +2499,32 @@ public class DataBase implements WithMathFactory {
     }
 
     public void removeMoveFromLists(String _moveName, MoveData _move) {
-        categories.removeObj(_move.getCategory());
-        allCategories.removeObj(_move.getCategory());
-        movesCopyingTemp.removeObj(_moveName);
-        movesProtAgainstPrio.removeObj(_moveName);
-        movesProtAgainstMultiTarget.removeObj(_moveName);
-        movesProtSingleTarget.removeObj(_moveName);
-        movesProtSingleTargetAgainstKo.removeObj(_moveName);
-        movesAccuracy.removeObj(_moveName);
-        movesEffectAlly.removeObj(_moveName);
-        trappingMoves.removeObj(_moveName);
-        movesEffEndRoundIndiv.removeObj(_moveName);
-        movesEffEndRoundIndivIncr.removeObj(_moveName);
-        movesAnticipation.removeObj(_moveName);
-        movesHealingAfter.removeObj(_moveName);
-        movesEffectUnprot.removeObj(_moveName);
-        movesEffectProt.removeObj(_moveName);
-        movesEffectIndivIncr.removeObj(_moveName);
-        movesActingMoveUses.removeObj(_moveName);
-        movesForbidding.removeObj(_moveName);
-        movesEffectIndiv.removeObj(_moveName);
-        movesEffectIndivIncr.removeObj(_moveName);
-        movesEffectTeam.removeObj(_moveName);
-        movesEffectGlobalWeather.removeObj(_moveName);
-        movesEffectGlobal.removeObj(_moveName);
-        movesFullHeal.removeObj(_moveName);
-        movesEffectWhileSending.removeObj(_moveName);
+        StringList.removeObj(categories, _move.getCategory());
+        StringList.removeObj(allCategories, _move.getCategory());
+        StringList.removeObj(movesCopyingTemp, _moveName);
+        StringList.removeObj(movesProtAgainstPrio, _moveName);
+        StringList.removeObj(movesProtAgainstMultiTarget, _moveName);
+        StringList.removeObj(movesProtSingleTarget, _moveName);
+        StringList.removeObj(movesProtSingleTargetAgainstKo, _moveName);
+        StringList.removeObj(movesAccuracy, _moveName);
+        StringList.removeObj(movesEffectAlly, _moveName);
+        StringList.removeObj(trappingMoves, _moveName);
+        StringList.removeObj(movesEffEndRoundIndiv, _moveName);
+        StringList.removeObj(movesEffEndRoundIndivIncr, _moveName);
+        StringList.removeObj(movesAnticipation, _moveName);
+        StringList.removeObj(movesHealingAfter, _moveName);
+        StringList.removeObj(movesEffectUnprot, _moveName);
+        StringList.removeObj(movesEffectProt, _moveName);
+        StringList.removeObj(movesEffectIndivIncr, _moveName);
+        StringList.removeObj(movesActingMoveUses, _moveName);
+        StringList.removeObj(movesForbidding, _moveName);
+        StringList.removeObj(movesEffectIndiv, _moveName);
+        StringList.removeObj(movesEffectIndivIncr, _moveName);
+        StringList.removeObj(movesEffectTeam, _moveName);
+        StringList.removeObj(movesEffectGlobalWeather, _moveName);
+        StringList.removeObj(movesEffectGlobal, _moveName);
+        StringList.removeObj(movesFullHeal, _moveName);
+        StringList.removeObj(movesEffectWhileSending, _moveName);
     }
 
     public void completeMembers(String _moveName, MoveData _move) {
@@ -2727,8 +2727,8 @@ public class DataBase implements WithMathFactory {
                 movesInvoking.add(_moveName);
             }
         }
-        if (!movesEffectIndiv.containsObj(_moveName)) {
-            if (!movesEffEndRoundIndiv.containsObj(_moveName)) {
+        if (!StringList.contains(movesEffectIndiv, _moveName)) {
+            if (!StringList.contains(movesEffEndRoundIndiv, _moveName)) {
                 if (_move.getRepeatRoundLaw().events().size() > 0) {
                     if (_move.getConstUserChoice()) {
                         movesConstChoices.add(_moveName);
@@ -2900,10 +2900,10 @@ public class DataBase implements WithMathFactory {
             if (status.contains(_newName)) {
                 return;
             }
-            if (types_.containsObj(_newName)) {
+            if (StringList.contains(types_, _newName)) {
                 return;
             }
-            if (categories_.containsObj(_newName)) {
+            if (StringList.contains(categories_, _newName)) {
                 return;
             }
             changeNameInNumericExpressions(_oldName, _newName);
@@ -3019,10 +3019,10 @@ public class DataBase implements WithMathFactory {
             if (status.contains(_newName)) {
                 return;
             }
-            if (types_.containsObj(_newName)) {
+            if (StringList.contains(types_, _newName)) {
                 return;
             }
-            if (categories_.containsObj(_newName)) {
+            if (StringList.contains(categories_, _newName)) {
                 return;
             }
             changeNameInNumericExpressions(_oldName, _newName);
@@ -3092,7 +3092,7 @@ public class DataBase implements WithMathFactory {
                 eff2_.getUnusableMoves().replace(_oldName, _newName);
                 eff2_.getDisableFoeTeamEffects().replace(_oldName, _newName);
             }
-            if (l.containsObj(_oldName)) {
+            if (StringList.contains(l, _oldName)) {
                 StringList l_ = new StringList(l);
                 l_.replace(_oldName, _newName);
                 effects_.put(l_, eff_);
@@ -3227,10 +3227,10 @@ public class DataBase implements WithMathFactory {
             if (status.contains(_newName)) {
                 return;
             }
-            if (types_.containsObj(_newName)) {
+            if (StringList.contains(types_, _newName)) {
                 return;
             }
-            if (categories_.containsObj(_newName)) {
+            if (StringList.contains(categories_, _newName)) {
                 return;
             }
             changeNameInNumericExpressions(_oldName, _newName);
@@ -3375,10 +3375,10 @@ public class DataBase implements WithMathFactory {
             if (status.contains(_newName)) {
                 return;
             }
-            if (types_.containsObj(_newName)) {
+            if (StringList.contains(types_, _newName)) {
                 return;
             }
-            if (categories_.containsObj(_newName)) {
+            if (StringList.contains(categories_, _newName)) {
                 return;
             }
             changeNameInNumericExpressions(_oldName, _newName);
@@ -3507,10 +3507,10 @@ public class DataBase implements WithMathFactory {
             if (status.contains(_newName)) {
                 return;
             }
-            if (types_.containsObj(_newName)) {
+            if (StringList.contains(types_, _newName)) {
                 return;
             }
-            if (categories_.containsObj(_newName)) {
+            if (StringList.contains(categories_, _newName)) {
                 return;
             }
             changeNameInNumericExpressions(_oldName, _newName);
@@ -3626,7 +3626,7 @@ public class DataBase implements WithMathFactory {
 
     public void renameType(String _oldName, String _newName, boolean _homonym) {
         StringList types_ = getTypes();
-        if (types_.containsObj(_newName)) {
+        if (StringList.contains(types_, _newName)) {
             return;
         }
         StringList categories_ = getCategories();
@@ -3646,7 +3646,7 @@ public class DataBase implements WithMathFactory {
             if (abilities.contains(_newName)) {
                 return;
             }
-            if (categories_.containsObj(_newName)) {
+            if (StringList.contains(categories_, _newName)) {
                 return;
             }
             changeNameInNumericExpressions(_oldName, _newName);
@@ -3882,7 +3882,7 @@ public class DataBase implements WithMathFactory {
             return;
         }
         StringList categories_ = getCategories();
-        if (categories_.containsObj(_newName)) {
+        if (StringList.contains(categories_, _newName)) {
             return;
         }
         StringList types_ = getTypes();
@@ -3902,7 +3902,7 @@ public class DataBase implements WithMathFactory {
             if (abilities.contains(_newName)) {
                 return;
             }
-            if (types_.containsObj(_newName)) {
+            if (StringList.contains(types_, _newName)) {
                 return;
             }
             changeNameInNumericExpressions(_oldName, _newName);
@@ -3976,8 +3976,8 @@ public class DataBase implements WithMathFactory {
         if (StringList.quickEq(_newName, AUTRE)) {
             return;
         }
-        getCategories().removeObj(_oldName);
-        getAllCategories().removeObj(_oldName);
+        StringList.removeObj(getCategories(), _oldName);
+        StringList.removeObj(getAllCategories(), _oldName);
         getCategories().add(_newName);
         getAllCategories().add(_newName);
         getCategories().removeDuplicates();
@@ -4280,7 +4280,7 @@ public class DataBase implements WithMathFactory {
                     return;
                 }
             }
-            if (p.getMoveTutors().containsObj(_name)) {
+            if (StringList.contains(p.getMoveTutors(), _name)) {
                 return;
             }
             for (Evolution e : p.getEvolutions().values()) {
@@ -4293,13 +4293,13 @@ public class DataBase implements WithMathFactory {
             }
         }
         for (AbilityData a : abilities.values()) {
-            if (a.getImmuMove().containsObj(_name)) {
+            if (StringList.contains(a.getImmuMove(), _name)) {
                 return;
             }
-            if (a.getIgnFoeTeamMove().containsObj(_name)) {
+            if (StringList.contains(a.getIgnFoeTeamMove(), _name)) {
                 return;
             }
-            if (a.getImmuWeather().containsObj(_name)) {
+            if (StringList.contains(a.getImmuWeather(), _name)) {
                 return;
             }
             if (a.getImmuMoveTypesByWeather().contains(_name)) {
@@ -4350,14 +4350,14 @@ public class DataBase implements WithMathFactory {
             EffectCombo eff_ = combos.getEffects().getVal(l);
             if (eff_.estActifEquipe()) {
                 EffectTeam eff2_ = eff_.getTeamMove().first();
-                if (eff2_.getUnusableMoves().containsObj(_name)) {
+                if (StringList.contains(eff2_.getUnusableMoves(), _name)) {
                     return;
                 }
-                if (eff2_.getDisableFoeTeamEffects().containsObj(_name)) {
+                if (StringList.contains(eff2_.getDisableFoeTeamEffects(), _name)) {
                     return;
                 }
             }
-            if (l.containsObj(_name)) {
+            if (StringList.contains(l, _name)) {
                 return;
             }
         }
@@ -4365,51 +4365,49 @@ public class DataBase implements WithMathFactory {
             if (StringList.quickEq(m.getKey(), _name)) {
                 continue;
             }
-            if (m.getValue().getAchieveDisappearedPkUsingMove()
-                    .containsObj(_name)) {
+            if (StringList.contains(m.getValue().getAchieveDisappearedPkUsingMove(), _name)) {
                 return;
             }
             for (Effect e : m.getValue().getEffects()) {
                 if (e instanceof EffectUnprotectFromTypes) {
                     EffectUnprotectFromTypes eff_ = (EffectUnprotectFromTypes) e;
-                    if (eff_.getDisableImmuFromMoves().containsObj(_name)) {
+                    if (StringList.contains(eff_.getDisableImmuFromMoves(), _name)) {
                         return;
                     }
                 }
                 if (e instanceof EffectCopyMove) {
                     EffectCopyMove eff_ = (EffectCopyMove) e;
-                    if (eff_.getMovesNotToBeCopied().containsObj(_name)) {
+                    if (StringList.contains(eff_.getMovesNotToBeCopied(), _name)) {
                         return;
                     }
                 }
                 if (e instanceof EffectTeam) {
                     EffectTeam eff_ = (EffectTeam) e;
-                    if (eff_.getUnusableMoves().containsObj(_name)) {
+                    if (StringList.contains(eff_.getUnusableMoves(), _name)) {
                         return;
                     }
-                    if (eff_.getDisableFoeTeamEffects().containsObj(_name)) {
+                    if (StringList.contains(eff_.getDisableFoeTeamEffects(), _name)) {
                         return;
                     }
                 }
                 if (e instanceof EffectGlobal) {
                     EffectGlobal eff_ = (EffectGlobal) e;
-                    if (eff_.getCancelEffects().containsObj(_name)) {
+                    if (StringList.contains(eff_.getCancelEffects(), _name)) {
                         return;
                     }
                     if (eff_.getMultPowerMoves().contains(_name)) {
                         return;
                     }
-                    if (eff_.getUnusableMoves().containsObj(_name)) {
+                    if (StringList.contains(eff_.getUnusableMoves(), _name)) {
                         return;
                     }
-                    if (eff_.getMovesUsedByTargetedFighters()
-                            .containsObj(_name)) {
+                    if (StringList.contains(eff_.getMovesUsedByTargetedFighters(), _name)) {
                         return;
                     }
                 }
                 if (e instanceof EffectInvoke) {
                     EffectInvoke eff_ = (EffectInvoke) e;
-                    if (eff_.getMovesNotToBeInvoked().containsObj(_name)) {
+                    if (StringList.contains(eff_.getMovesNotToBeInvoked(), _name)) {
                         return;
                     }
                     if (containsStr(eff_.getMoveFctEnv().values(), _name)) {
@@ -4432,7 +4430,7 @@ public class DataBase implements WithMathFactory {
                             TrainerMultiFights t_ = (TrainerMultiFights) t;
                             for (PokemonTeam t2_ : t_.getTeamsRewards()) {
                                 for (PkTrainer p2_ : t2_.getTeam()) {
-                                    if (p2_.getMoves().containsObj(_name)) {
+                                    if (StringList.contains(p2_.getMoves(), _name)) {
                                         return;
                                     }
                                 }
@@ -4442,13 +4440,13 @@ public class DataBase implements WithMathFactory {
                     for (DualFight d : level_.getDualFights().values()) {
                         Ally a_ = d.getAlly();
                         for (PkTrainer p2_ : a_.getTeam()) {
-                            if (p2_.getMoves().containsObj(_name)) {
+                            if (StringList.contains(p2_.getMoves(), _name)) {
                                 return;
                             }
                         }
                         TempTrainer tmp_ = d.getFoeTrainer();
                         for (PkTrainer p2_ : tmp_.getTeam()) {
-                            if (p2_.getMoves().containsObj(_name)) {
+                            if (StringList.contains(p2_.getMoves(), _name)) {
                                 return;
                             }
                         }
@@ -4457,13 +4455,13 @@ public class DataBase implements WithMathFactory {
                 if (l instanceof LevelIndoorGym) {
                     LevelIndoorGym level_ = (LevelIndoorGym) l;
                     for (PkTrainer p2_ : level_.getGymLeader().getTeam()) {
-                        if (p2_.getMoves().containsObj(_name)) {
+                        if (StringList.contains(p2_.getMoves(), _name)) {
                             return;
                         }
                     }
                     for (GymTrainer t : level_.getGymTrainers().values()) {
                         for (PkTrainer p2_ : t.getTeam()) {
-                            if (p2_.getMoves().containsObj(_name)) {
+                            if (StringList.contains(p2_.getMoves(), _name)) {
                                 return;
                             }
                         }
@@ -4472,7 +4470,7 @@ public class DataBase implements WithMathFactory {
                 if (l instanceof LevelLeague) {
                     LevelLeague level_ = (LevelLeague) l;
                     for (PkTrainer p2_ : level_.getTrainer().getTeam()) {
-                        if (p2_.getMoves().containsObj(_name)) {
+                        if (StringList.contains(p2_.getMoves(), _name)) {
                             return;
                         }
                     }
@@ -4561,7 +4559,7 @@ public class DataBase implements WithMathFactory {
                         }
                         if (t instanceof DealerItem) {
                             DealerItem d_ = (DealerItem) t;
-                            if (d_.getItems().containsObj(_name)) {
+                            if (StringList.contains(d_.getItems(), _name)) {
                                 return;
                             }
                         }
@@ -4601,7 +4599,7 @@ public class DataBase implements WithMathFactory {
                     for (Person g : level_.getGerants().values()) {
                         if (g instanceof Seller) {
                             Seller s_ = (Seller) g;
-                            if (s_.getItems().containsObj(_name)) {
+                            if (StringList.contains(s_.getItems(), _name)) {
                                 return;
                             }
                         }
@@ -4634,7 +4632,7 @@ public class DataBase implements WithMathFactory {
                 }
                 if (e instanceof EffectGlobal) {
                     EffectGlobal eff_ = (EffectGlobal) e;
-                    if (eff_.getCancelProtectingAbilities().containsObj(_name)) {
+                    if (StringList.contains(eff_.getCancelProtectingAbilities(), _name)) {
                         return;
                     }
                 }
@@ -4646,15 +4644,15 @@ public class DataBase implements WithMathFactory {
          * (i_.getSansEffetCapacite().containsObj(_name)) { return; } } }
          */
         for (PokemonData p : pokedex.values()) {
-            if (p.getAbilities().containsObj(_name)) {
+            if (StringList.contains(p.getAbilities(), _name)) {
                 return;
             }
         }
         for (AbilityData a : abilities.values()) {
-            if (a.getImmuAbility().containsObj(_name)) {
+            if (StringList.contains(a.getImmuAbility(), _name)) {
                 return;
             }
-            if (a.getIgnAbility().containsObj(_name)) {
+            if (StringList.contains(a.getIgnAbility(), _name)) {
                 return;
             }
         }
@@ -4741,10 +4739,10 @@ public class DataBase implements WithMathFactory {
             return;
         }
         for (MoveData m : moves.values()) {
-            if (m.getDeletedStatus().containsObj(_name)) {
+            if (StringList.contains(m.getDeletedStatus(), _name)) {
                 return;
             }
-            if (m.getRequiredStatus().containsObj(_name)) {
+            if (StringList.contains(m.getRequiredStatus(), _name)) {
                 return;
             }
             for (Effect e : m.getEffects()) {
@@ -4755,7 +4753,7 @@ public class DataBase implements WithMathFactory {
                 }
                 if (e instanceof EffectTeam) {
                     EffectTeam eff_ = (EffectTeam) e;
-                    if (eff_.getProtectAgainstStatus().containsObj(_name)) {
+                    if (StringList.contains(eff_.getProtectAgainstStatus(), _name)) {
                         return;
                     }
                 }
@@ -4767,7 +4765,7 @@ public class DataBase implements WithMathFactory {
                 }
                 if (e instanceof EffectGlobal) {
                     EffectGlobal eff_ = (EffectGlobal) e;
-                    if (eff_.getPreventStatus().containsObj(_name)) {
+                    if (StringList.contains(eff_.getPreventStatus(), _name)) {
                         return;
                     }
                 }
@@ -4787,7 +4785,7 @@ public class DataBase implements WithMathFactory {
         for (Item o : items.values()) {
             if (o instanceof Berry) {
                 Berry b_ = (Berry) o;
-                if (b_.getHealStatus().containsObj(_name)) {
+                if (StringList.contains(b_.getHealStatus(), _name)) {
                     return;
                 }
             }
@@ -4796,10 +4794,10 @@ public class DataBase implements WithMathFactory {
                 if (i_.getFailStatus().contains(_name)) {
                     return;
                 }
-                if (i_.getImmuStatus().containsObj(_name)) {
+                if (StringList.contains(i_.getImmuStatus(), _name)) {
                     return;
                 }
-                if (i_.getSynchroStatus().containsObj(_name)) {
+                if (StringList.contains(i_.getSynchroStatus(), _name)) {
                     return;
                 }
                 if (!i_.getEffectEndRound().isEmpty()) {
@@ -4811,7 +4809,7 @@ public class DataBase implements WithMathFactory {
             }
             if (o instanceof HealingStatus) {
                 HealingStatus s_ = (HealingStatus) o;
-                if (s_.getStatus().containsObj(_name)) {
+                if (StringList.contains(s_.getStatus(), _name)) {
                     return;
                 }
             }
@@ -4863,15 +4861,15 @@ public class DataBase implements WithMathFactory {
             return;
         }
         for (PokemonData p : pokedex.values()) {
-            if (p.getTypes().containsObj(_name)) {
+            if (StringList.contains(p.getTypes(), _name)) {
                 return;
             }
         }
         for (MoveData p : moves.values()) {
-            if (p.getTypes().containsObj(_name)) {
+            if (StringList.contains(p.getTypes(), _name)) {
                 return;
             }
-            if (p.getBoostedTypes().containsObj(_name)) {
+            if (StringList.contains(p.getBoostedTypes(), _name)) {
                 return;
             }
             if (containsStr(p.getTypesByWeather().values(), _name)) {
@@ -4883,10 +4881,10 @@ public class DataBase implements WithMathFactory {
             for (Effect e : p.getEffects()) {
                 if (e instanceof EffectUnprotectFromTypes) {
                     EffectUnprotectFromTypes eff_ = (EffectUnprotectFromTypes) e;
-                    if (eff_.getAttackTargetWithTypes().containsObj(_name)) {
+                    if (StringList.contains(eff_.getAttackTargetWithTypes(), _name)) {
                         return;
                     }
-                    if (eff_.getDisableImmuAgainstTypes().containsObj(_name)) {
+                    if (StringList.contains(eff_.getDisableImmuAgainstTypes(), _name)) {
                         return;
                     }
                     for (TypesDuo t : eff_.getTypes()) {
@@ -4900,7 +4898,7 @@ public class DataBase implements WithMathFactory {
                 }
                 if (e instanceof EffectSwitchTypes) {
                     EffectSwitchTypes eff_ = (EffectSwitchTypes) e;
-                    if (eff_.getConstTypes().containsObj(_name)) {
+                    if (StringList.contains(eff_.getConstTypes(), _name)) {
                         return;
                     }
                     if (containsStr(eff_.getChgtTypeByEnv().values(), _name)) {
@@ -4909,13 +4907,13 @@ public class DataBase implements WithMathFactory {
                 }
                 if (e instanceof EffectTeamWhileSendFoe) {
                     EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) e;
-                    if (eff_.getDeletedByFoeTypes().containsObj(_name)) {
+                    if (StringList.contains(eff_.getDeletedByFoeTypes(), _name)) {
                         return;
                     }
                 }
                 if (e instanceof EffectGlobal) {
                     EffectGlobal eff_ = (EffectGlobal) e;
-                    if (eff_.getImmuneTypes().containsObj(_name)) {
+                    if (StringList.contains(eff_.getImmuneTypes(), _name)) {
                         return;
                     }
                     if (eff_.getMultDamagePrepaRound().contains(_name)) {
@@ -4924,7 +4922,7 @@ public class DataBase implements WithMathFactory {
                     if (eff_.getMultDamageTypesMoves().contains(_name)) {
                         return;
                     }
-                    if (eff_.getDisableImmuAgainstTypes().containsObj(_name)) {
+                    if (StringList.contains(eff_.getDisableImmuAgainstTypes(), _name)) {
                         return;
                     }
                     for (TypesDuo t : eff_.getEfficiencyMoves().getKeys()) {
@@ -4944,7 +4942,7 @@ public class DataBase implements WithMathFactory {
                 }
                 if (e instanceof EffectProtectFromTypes) {
                     EffectProtectFromTypes eff_ = (EffectProtectFromTypes) e;
-                    if (eff_.getImmuAgainstTypes().containsObj(_name)) {
+                    if (StringList.contains(eff_.getImmuAgainstTypes(), _name)) {
                         return;
                     }
                 }
@@ -4976,10 +4974,10 @@ public class DataBase implements WithMathFactory {
             }
             if (o instanceof ItemForBattle) {
                 ItemForBattle i_ = (ItemForBattle) o;
-                if (i_.getTypesPk().containsObj(_name)) {
+                if (StringList.contains(i_.getTypesPk(), _name)) {
                     return;
                 }
-                if (i_.getImmuTypes().containsObj(_name)) {
+                if (StringList.contains(i_.getImmuTypes(), _name)) {
                     return;
                 }
                 if (!i_.getEffectEndRound().isEmpty()) {
@@ -5013,7 +5011,7 @@ public class DataBase implements WithMathFactory {
                 return;
             }
             for (StringList l : a.getImmuMoveTypesByWeather().values()) {
-                if (l.containsObj(_name)) {
+                if (StringList.contains(l, _name)) {
                     return;
                 }
             }
@@ -5041,7 +5039,7 @@ public class DataBase implements WithMathFactory {
             table_.put(p, value_);
         }
         tableTypes = table_;
-        types.removeObj(_name);
+        StringList.removeObj(types, _name);
     }
 
     static boolean containsStr(Listable<String> _l, String _s) {
@@ -5332,7 +5330,7 @@ public class DataBase implements WithMathFactory {
 
     private static boolean containsWord(String _string, String _word) {
         StringList tokens_ = StringList.getWordsSeparators(_string);
-        return tokens_.containsObj(_word);
+        return StringList.contains(tokens_, _word);
     }
 
     public String getExpGrowth(ExpType _exp) {
@@ -5690,12 +5688,12 @@ public class DataBase implements WithMathFactory {
         return moves;
     }
 
-    public NumberMap<Short, String> getTm() {
+    public ShortMap< String> getTm() {
         return tm;
     }
 
-    public Numbers<Short> getTmByMove(String _move) {
-        Numbers<Short> tms_ = new Numbers<Short>();
+    public Shorts getTmByMove(String _move) {
+        Shorts tms_ = new Shorts();
         for (EntryCust<Short, String> e : tm.entryList()) {
             if (StringList.quickEq(e.getValue(), _move)) {
                 tms_.add(e.getKey());
@@ -5704,16 +5702,16 @@ public class DataBase implements WithMathFactory {
         return tms_;
     }
 
-    public NumberMap<Short, LgInt> getTmPrice() {
+    public ShortMap< LgInt> getTmPrice() {
         return tmPrice;
     }
 
-    public NumberMap<Short, String> getHm() {
+    public ShortMap< String> getHm() {
         return hm;
     }
 
-    public Numbers<Short> getHmByMove(String _move) {
-        Numbers<Short> tms_ = new Numbers<Short>();
+    public Shorts getHmByMove(String _move) {
+        Shorts tms_ = new Shorts();
         for (EntryCust<Short, String> e : hm.entryList()) {
             if (StringList.quickEq(e.getValue(), _move)) {
                 tms_.add(e.getKey());

@@ -46,8 +46,8 @@ public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation
         if (array) {
             int nbCh_ = chidren_.size();
             Argument a_ = new Argument();
-            Numbers<Integer> dims_;
-            dims_ = new Numbers<Integer>();
+            Ints dims_;
+            dims_ = new Ints();
             dims_.add(nbCh_);
             String className_ = PrimitiveTypeUtil.getQuickComponentType(className);
             Struct str_ = PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf);

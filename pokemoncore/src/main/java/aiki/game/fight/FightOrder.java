@@ -24,8 +24,8 @@ import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.comparators.ComparatorBoolean;
 
 final class FightOrder {
@@ -438,7 +438,7 @@ final class FightOrder {
     static EqList<TeamPosition> fightersBelongingToUser(Fight _fight,
             boolean _user) {
         EqList<TeamPosition> list_ = new EqList<TeamPosition>();
-        NumberMap<Byte,Fighter> map_ = _fight.getUserTeam().getMembers();
+        ByteMap<Fighter> map_ = _fight.getUserTeam().getMembers();
         for(byte c:map_.getKeys()){
             if (ComparatorBoolean.diff(map_.getVal(c).isBelongingToPlayer(), _user)) {
                 continue;
@@ -448,9 +448,9 @@ final class FightOrder {
         return list_;
     }
 
-    static Numbers<Byte> fightersBelongingToUserHavingBeaten(Fight _fight,byte _pos) {
+    static Bytes fightersBelongingToUserHavingBeaten(Fight _fight,byte _pos) {
         Team equipeUt_=_fight.getUserTeam();
-        Numbers<Byte> liste_=new Numbers<Byte>();
+        Bytes liste_=new Bytes();
         for(TeamPosition c: fightersBelongingToUser(_fight,true)){
             if(!equipeUt_.playerFightersAgainstFoeHas(c.getPosition(), _pos)){
                 continue;
@@ -483,7 +483,7 @@ final class FightOrder {
             if(ciblesChoisies_.isEmpty()){
                 return cbts_;
             }
-            Numbers<Byte> cbtsEq_=equipe_.fightersAtCurrentPlace(ciblesChoisies_.first().getPosition());
+            Bytes cbtsEq_=equipe_.fightersAtCurrentPlace(ciblesChoisies_.first().getPosition());
             if(cbtsEq_.isEmpty()){
                 return cbts_;
             }
@@ -491,7 +491,7 @@ final class FightOrder {
             return cbts_;
         }
         if(_choice == TargetChoice.ALLIES){
-            NumberMap<Byte,Fighter> membres_=_fight.getTeams().getVal(noEq_).getMembers();
+            ByteMap<Fighter> membres_=_fight.getTeams().getVal(noEq_).getMembers();
             for(byte c:membres_.getKeys()){
                 Fighter membre_=membres_.getVal(c);
                 if(!membre_.estArriere()){
@@ -501,7 +501,7 @@ final class FightOrder {
             return cbts_;
         }
         if(_choice == TargetChoice.TOUS_ADV){
-            NumberMap<Byte,Fighter> membres_=_fight.getTeams().getVal(noEqAdv_).getMembers();
+            ByteMap<Fighter> membres_=_fight.getTeams().getVal(noEqAdv_).getMembers();
             for(byte c:membres_.getKeys()){
                 Fighter membre_=membres_.getVal(c);
                 if(!membre_.estArriere()){
@@ -512,7 +512,7 @@ final class FightOrder {
         }
         if(_choice == TargetChoice.GLOBALE){
             for(byte c:_fight.getTeams().getKeys()){
-                NumberMap<Byte,Fighter> membres_=_fight.getTeams().getVal(c).getMembers();
+                ByteMap<Fighter> membres_=_fight.getTeams().getVal(c).getMembers();
                 for(byte c2_:membres_.getKeys()){
                     Fighter membre_=membres_.getVal(c2_);
                     if(!membre_.estArriere()){
@@ -523,7 +523,7 @@ final class FightOrder {
             return cbts_;
         }
         if(_choice == TargetChoice.PSEUDO_GLOBALE){
-            NumberMap<Byte,Fighter> membres_=_fight.getTeams().getVal(noEqAdv_).getMembers();
+            ByteMap<Fighter> membres_=_fight.getTeams().getVal(noEqAdv_).getMembers();
             for(byte c2_:membres_.getKeys()){
                 Fighter membre_=membres_.getVal(c2_);
                 if(!membre_.estArriere()){
@@ -556,9 +556,9 @@ final class FightOrder {
         }
         if(Numbers.eq(ciblesChoisies_.first().getTeam(),noEqAdv_)){
             //existence partenaire non ko de la cible initial vise. ce partenaire utilise PAR_ICI ou POUDREFUREUR
-            Numbers<Byte> combattantsAttirant_ = new Numbers<Byte>();
+            Bytes combattantsAttirant_ = new Bytes();
             Team foeTeam_ = _fight.getTeams().getVal(noEqAdv_);
-            NumberMap<Byte,Fighter> membres_=foeTeam_.getMembers();
+            ByteMap<Fighter> membres_=foeTeam_.getMembers();
             for(byte c:membres_.getKeys()){
                 Fighter creatureCbt_=membres_.getVal(c);
                 if(creatureCbt_.estArriere()){
@@ -575,8 +575,8 @@ final class FightOrder {
             //attraction des effets
             if(!combattantsAttirant_.isEmpty()){
                 EqList<TeamPosition> cbtsModif_=closestFightersAmongList(_fight,_lanceur,combattantsAttirant_);
-                Numbers<Byte> cbtsListe_ = new Numbers<Byte>();
-                NumberMap<Byte,TeamPosition> positions_ = new NumberMap<Byte,TeamPosition>();
+                Bytes cbtsListe_ = new Bytes();
+                ByteMap<TeamPosition> positions_ = new ByteMap<TeamPosition>();
                 for(TeamPosition c:cbtsModif_){
                     Fighter creatureCbt_=membres_.getVal(c.getPosition());
                     byte key_= creatureCbt_.getGroundPlace();
@@ -589,7 +589,7 @@ final class FightOrder {
                 }
                 return cbts_;
             }
-            Numbers<Byte> cbtsEq_=foeTeam_.fightersAtCurrentPlace(ciblesChoisies_.first().getPosition());
+            Bytes cbtsEq_=foeTeam_.fightersAtCurrentPlace(ciblesChoisies_.first().getPosition());
             if(cbtsEq_.isEmpty()){
                 cbts_=closestFoeFighter(_fight,_lanceur);
             }else{
@@ -597,7 +597,7 @@ final class FightOrder {
             }
             return cbts_;
         }
-        Numbers<Byte> cbtsEq_=equipe_.fightersAtCurrentPlace(ciblesChoisies_.first().getPosition());
+        Bytes cbtsEq_=equipe_.fightersAtCurrentPlace(ciblesChoisies_.first().getPosition());
         if(cbtsEq_.isEmpty()){
             return cbts_;
         }
@@ -632,7 +632,7 @@ final class FightOrder {
 
     static EqList<TeamPosition> closestFigthersTeam(byte _fighterPlace,byte _noTeam, Team _team, Difficulty _diff) {
         EqList<TeamPosition> cbts_ = new EqList<TeamPosition>();
-        NumberMap<Byte,Fighter> membresAdv_=_team.getMembers();
+        ByteMap<Fighter> membresAdv_=_team.getMembers();
         for(byte c:membresAdv_.getKeys()){
             Fighter membre_=membresAdv_.getVal(c);
             if(membre_.estArriere()){
@@ -650,19 +650,19 @@ final class FightOrder {
         byte noEquipe_=_cbt.getTeam();
         byte noEquipeAdv_=Fight.foe(noEquipe_);
         Team equipeAdvCbt_=_fight.getTeams().getVal(noEquipeAdv_);
-        NumberMap<Byte,Fighter> membresEquipeAdv_=equipeAdvCbt_.getMembers();
+        ByteMap<Fighter> membresEquipeAdv_=equipeAdvCbt_.getMembers();
         return closestFightersAmongList(_fight,_cbt,membresEquipeAdv_.getKeys());
     }
 
-    static EqList<TeamPosition> closestFightersAmongList(Fight _fight,TeamPosition _cbt,Numbers<Byte> _liste){
+    static EqList<TeamPosition> closestFightersAmongList(Fight _fight,TeamPosition _cbt,CustList<Byte> _liste){
         byte noEquipe_=_cbt.getTeam();
         byte noEquipeAdv_=Fight.foe(noEquipe_);
         Team equipeAdvCbt_=_fight.getTeams().getVal(noEquipeAdv_);
         Fighter creatureCbt_=_fight.getFighter(_cbt);
         byte posCbt_=creatureCbt_.getGroundPlace();
-        Numbers<Byte> posAdv_ = new Numbers<Byte>();
+        Bytes posAdv_ = new Bytes();
         byte diff_=Fighter.BACK;
-        NumberMap<Byte,Fighter> membresEquipeAdv_=equipeAdvCbt_.getMembers();
+        ByteMap<Fighter> membresEquipeAdv_=equipeAdvCbt_.getMembers();
         for(byte e:_liste){
             Fighter membre_=membresEquipeAdv_.getVal(e);
             if(!membre_.estArriere()){

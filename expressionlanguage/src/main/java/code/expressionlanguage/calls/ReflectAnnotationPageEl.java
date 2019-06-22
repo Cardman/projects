@@ -18,6 +18,7 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
+import code.util.StringList;
 
 public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
     private boolean retrievedAnnot;
@@ -118,7 +119,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 String idClass_ = Templates.getIdFromAllTypes(cl_);
                 GeneType type_ = _context.getClassBody(idClass_);
                 for (GeneField f: ContextEl.getFieldBlocks(type_)) {
-                    if (!f.getFieldName().containsStr(fieldId_)) {
+                    if (!StringList.contains(f.getFieldName(), fieldId_)) {
                         continue;
                     }
                     if (f instanceof AnnotableBlock) {

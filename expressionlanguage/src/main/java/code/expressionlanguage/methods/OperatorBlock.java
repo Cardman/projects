@@ -9,18 +9,18 @@ import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringList;
 
 public final class OperatorBlock extends NamedFunctionBlock implements GeneMethod, AccessingImportingBlock {
 
     private StringList imports = new StringList();
 
-    private Numbers<Integer> importsOffset = new Numbers<Integer>();
+    private Ints importsOffset = new Ints();
 
     public OperatorBlock(OffsetStringInfo _retType, OffsetStringInfo _fctName,
-                         StringList _paramTypes, Numbers<Integer> _paramTypesOffset,
-                         StringList _paramNames, Numbers<Integer> _paramNamesOffset,
+                         StringList _paramTypes, Ints _paramTypesOffset,
+                         StringList _paramNames, Ints _paramNamesOffset,
                          OffsetsBlock _offset) {
         super(new OffsetAccessInfo(0, AccessEnum.PUBLIC),
                 _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset);
@@ -76,7 +76,7 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
     public StringList getImports() {
         return imports;
     }
-    public Numbers<Integer> getImportsOffset() {
+    public Ints getImportsOffset() {
         return importsOffset;
     }
     @Override

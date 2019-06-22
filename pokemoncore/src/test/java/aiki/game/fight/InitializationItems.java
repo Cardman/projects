@@ -30,7 +30,7 @@ import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.util.CustList;
 import code.util.EnumMap;
-import code.util.Numbers;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -808,7 +808,7 @@ final class InitializationItems {
         object_.setUserStatusEndRound(NULL_REF);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         object_.setFailEndRound(NULL_REF);
         return object_;
     }

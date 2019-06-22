@@ -1,6 +1,6 @@
 package aiki.util;
 import aiki.map.enums.Direction;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;

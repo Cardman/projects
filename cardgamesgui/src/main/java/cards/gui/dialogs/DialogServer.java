@@ -22,7 +22,7 @@ import code.network.ComboBoxIpType;
 import code.network.enums.IpType;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringMap;
 
 public final class DialogServer extends DialogCards implements AbstractDialogServer{
@@ -72,7 +72,7 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
         Panel panel_ = new Panel();
         panel_.setLayout(new GridLayout(0, 2));
         if (_game == GameEnum.TAROT) {
-            Numbers<Integer> nombreJoueursPossible_=new Numbers<Integer>();
+            Ints nombreJoueursPossible_=new Ints();
             EnumList<DealingTarot> repValides_ = new EnumList<DealingTarot>(DealingTarot.getRepartitionsValides());
             int minJoueurs_=repValides_.get(0).getNombreJoueurs();
             int maxJoueurs_=repValides_.get(0).getNombreJoueurs();
@@ -92,7 +92,7 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
             panel_.add(new JLabel(messages.getVal(NUMBER_PLAYERS)));
             panel_.add(nbPlayers);
         } else if (_game == GameEnum.PRESIDENT) {
-            Numbers<Integer> nombreJoueursPossible_=new Numbers<Integer>();
+            Ints nombreJoueursPossible_=new Ints();
             int minJoueurs_ = RulesPresident.getNbMinPlayers();
             int maxJoueurs_ = RulesPresident.getNbMaxPlayers();
             for (int i = minJoueurs_; i <= maxJoueurs_; i++) {
@@ -102,7 +102,7 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
             panel_.add(new JLabel(messages.getVal(NUMBER_PLAYERS)));
             panel_.add(nbPlayers);
         } else {
-            Numbers<Integer> nombreJoueursPossible_=new Numbers<Integer>();
+            Ints nombreJoueursPossible_=new Ints();
             EnumList<DealingBelote> repValides_ = new EnumList<DealingBelote>(DealingBelote.getRepartitionsValides());
             int minJoueurs_=repValides_.get(0).getNombreJoueurs();
             int maxJoueurs_=repValides_.get(0).getNombreJoueurs();

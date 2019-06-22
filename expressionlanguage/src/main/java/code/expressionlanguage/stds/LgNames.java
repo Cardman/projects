@@ -172,7 +172,7 @@ public abstract class LgNames {
                     _cont.getClasses().addStdError(err_);
                     continue;
                 }
-                if (_prims.containsStr(p)) {
+                if (StringList.contains(_prims, p)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.concat("primitive ", p));
                     err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
@@ -627,7 +627,7 @@ public abstract class LgNames {
                     err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
                     _cont.getClasses().addStdError(err_);
                 }
-                if (_prims.containsStr(k)) {
+                if (StringList.contains(_prims, k)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.concat("primitive ", k));
                     err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
@@ -705,7 +705,7 @@ public abstract class LgNames {
                     err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
                     _cont.getClasses().addStdError(err_);
                 }
-                if (_prims.containsStr(k)) {
+                if (StringList.contains(_prims, k)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.concat("primitive ", k));
                     err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);

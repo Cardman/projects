@@ -21,8 +21,8 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
 
     public ConstructorBlock(OffsetAccessInfo _access,
                             OffsetStringInfo _retType, OffsetStringInfo _fctName,
-                            StringList _paramTypes, Numbers<Integer> _paramTypesOffset,
-                            StringList _paramNames, Numbers<Integer> _paramNamesOffset, OffsetsBlock _offset) {
+                            StringList _paramTypes, Ints _paramTypesOffset,
+                            StringList _paramNames, Ints _paramNamesOffset, OffsetsBlock _offset) {
         super(_access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset);
     }
 

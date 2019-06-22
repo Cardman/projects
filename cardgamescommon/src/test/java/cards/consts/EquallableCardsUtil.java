@@ -1,6 +1,6 @@
 package cards.consts;
 
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 import org.junit.Assert;
 

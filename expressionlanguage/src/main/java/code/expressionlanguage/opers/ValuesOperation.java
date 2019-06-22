@@ -10,7 +10,7 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.util.NatTreeMap;
+import code.util.*;
 
 public final class ValuesOperation extends VariableLeafOperation {
 
@@ -20,7 +20,7 @@ public final class ValuesOperation extends VariableLeafOperation {
     public ValuesOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        IntTreeMap< String> vs_ = getOperations().getValues();
         vs_.removeKey(vs_.firstKey());
         className = vs_.firstValue();
         argOffset = vs_.firstKey();

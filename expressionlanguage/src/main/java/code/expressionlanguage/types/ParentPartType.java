@@ -2,7 +2,7 @@ package code.expressionlanguage.types;
 
 import code.expressionlanguage.ExecutableCode;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 
 abstract class ParentPartType extends PartType {
 
@@ -31,5 +31,5 @@ abstract class ParentPartType extends PartType {
         return firstChild;
     }
 
-    abstract boolean analyzeTree(ExecutableCode _an, CustList<NatTreeMap<Integer,String>> _dels);
+    abstract boolean analyzeTree(ExecutableCode _an, CustList<IntTreeMap<String>> _dels);
 }

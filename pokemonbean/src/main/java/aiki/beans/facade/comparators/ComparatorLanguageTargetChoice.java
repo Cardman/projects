@@ -4,7 +4,7 @@ import aiki.db.DataBase;
 import aiki.fight.moves.enums.TargetChoice;
 import code.util.CustList;
 import code.util.EnumMap;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
@@ -37,7 +37,7 @@ public final class ComparatorLanguageTargetChoice implements Comparing<LanguageE
         }
         String langOne_ = _o1.getLanguage();
         String langTwo_ = _o2.getLanguage();
-        return Numbers.compareLg(languages.indexOfObj(langOne_), languages.indexOfObj(langTwo_));
+        return Numbers.compareLg(StringList.indexOf(languages,langOne_), StringList.indexOf(languages,langTwo_));
     }
 
     private static int compare(EnumMap<TargetChoice,String> _translator, TargetChoice _e1, TargetChoice _e2) {

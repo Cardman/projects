@@ -46,9 +46,9 @@ public final class BooleanList extends CustList<Boolean> implements Equallable<B
         return true;
     }
 
-    public Numbers<Integer> indexesOfObj(boolean _element) {
-        Numbers<Integer> indexes_;
-        indexes_ = new Numbers<Integer>();
+    public Ints indexesOfObj(boolean _element) {
+        Ints indexes_;
+        indexes_ = new Ints();
         int i_ = FIRST_INDEX;
         while (true) {
             int found_ = indexOfObj(_element, i_);

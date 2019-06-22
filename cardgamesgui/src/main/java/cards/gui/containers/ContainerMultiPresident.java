@@ -69,9 +69,9 @@ import code.gui.ScrollPane;
 import code.gui.TabbedPane;
 import code.gui.document.RenderedPage;
 import code.util.CustList;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
+import code.util.*;
 import code.util.StringList;
 import code.util.comparators.ComparatorBoolean;
 
@@ -92,8 +92,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
     private CustList<JLabel> playersPlaces = new CustList<JLabel>();
     private CustList<JCheckBox> playersReady = new CustList<JCheckBox>();
     private RenderedPage editor;
-    private NatTreeMap<Integer, Byte> playersPlacesForGame = new NatTreeMap<Integer, Byte>();
-    private NumberMap<Integer,String> playersPseudosForGame = new NumberMap<Integer,String>();
+    private IntTreeMap< Byte> playersPlacesForGame = new IntTreeMap< Byte>();
+    private IntMap<String> playersPseudosForGame = new IntMap<String>();
     private HandPresident playerHandPresident = new HandPresident();
     private JLabel canPlayLabel = new JLabel();
     private int nbCardsDiscard;
@@ -163,7 +163,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         container_.add(scroll_);
 
         playersPlacesForGame = _players.getPlacesPlayers();
-        playersPseudosForGame = new NumberMap<Integer,String>(_players.getPseudos());
+        playersPseudosForGame = new IntMap<String>(_players.getPseudos());
         for (int i : _players.getPseudos().getKeys()) {
             playersPseudos.get(i).setText(_players.getPseudos().getVal(i));
         }
@@ -198,7 +198,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         ChoosenPlace choice_ = new ChoosenPlace();
         choice_.setIndex(noClient);
         choice_.setPlace(indexInGame);
-        choice_.setPlacesPlayers(new NatTreeMap<Integer, Byte>());
+        choice_.setPlacesPlayers(new IntTreeMap< Byte>());
         getOwner().sendObject(choice_);
     }
 
@@ -218,7 +218,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
     @Override
     public void updateAfter(PlayersNamePresent _players) {
         playersPlacesForGame = _players.getPlacesPlayers();
-        playersPseudosForGame = new NumberMap<Integer,String>(_players.getPseudos());
+        playersPseudosForGame = new IntMap<String>(_players.getPseudos());
         for (int i : _players.getPseudos().getKeys()) {
             playersPseudos.get(i).setText(_players.getPseudos().getVal(i));
         }
@@ -380,7 +380,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         String lg_ = getOwner().getLanguageKey();
         canPlayLabel.setText(EMPTY_STRING);
         byte relative_ = relative(_card.getNextPlayer());
-        NumberMap<Byte,Playing> status_ = new NumberMap<Byte,Playing>();
+        ByteMap<Playing> status_ = new ByteMap<Playing>();
         for (byte p: _card.getStatus().getKeys()) {
             status_.put(relative(p), _card.getStatus().getVal(p));
         }
@@ -412,7 +412,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         pl_.setPass(true);
         pl_.setPlayedCard(CardPresident.WHITE);
         pl_.setPlayedHand(new HandPresident());
-        pl_.setStatus(new NumberMap<Byte, Playing>());
+        pl_.setStatus(new ByteMap< Playing>());
         getOwner().sendObject(pl_);
     }
 
@@ -467,7 +467,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
     }
 
     public void showTricksHands(TricksHandsPresident _tricks) {
-        NatTreeMap<Byte, String> pseudos_ = new NatTreeMap<Byte, String>();
+        ByteTreeMap< String> pseudos_ = new ByteTreeMap< String>();
         byte p_ = 0;
         for (String s : pseudosPresident((byte) nbChoosenPlayers)) {
             pseudos_.put(p_, s);
@@ -494,14 +494,14 @@ public class ContainerMultiPresident extends ContainerPresident implements
         return noClient;
     }
 
-    private void placerIhmPresidentMulti(NumberMap<Byte,Playing> _status, int _nbMax) {
+    private void placerIhmPresidentMulti(ByteMap<Playing> _status, int _nbMax) {
         Panel container_ = new Panel();
         container_.setLayout(new BorderLayout());
         container_.add(new JLabel(getMessages().getVal(MainWindow.HELP_GO_MENU),
                 SwingConstants.CENTER), BorderLayout.NORTH);
         String lg_ = getOwner().getLanguageKey();
         CarpetPresident tapis_ = new CarpetPresident();
-        NatTreeMap<Byte, String> pseudos_ = new NatTreeMap<Byte, String>();
+        ByteTreeMap< String> pseudos_ = new ByteTreeMap< String>();
         byte p_ = 0;
         for (String s : pseudosPresident((byte) nbChoosenPlayers)) {
             pseudos_.put(p_, s);
@@ -511,7 +511,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
             byte relative_ = relative(p);
             pseudos_.put(relative_, getPseudoByPlace(p));
         }
-        NumberMap<Byte,Playing> status_ = new NumberMap<Byte,Playing>();
+        ByteMap<Playing> status_ = new ByteMap<Playing>();
         for (byte p: _status.getKeys()) {
             status_.put(relative(p), _status.getVal(p));
         }
@@ -529,8 +529,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
         setEvents(new JTextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
         panneau2_.add(new ScrollPane(getEvents()));
-        setHandfuls(new NumberMap<Byte,JLabel>());
-        setDeclaredHandfuls(new NumberMap<Byte,Panel>());
+        setHandfuls(new ByteMap<JLabel>());
+        setDeclaredHandfuls(new ByteMap<Panel>());
 //        JPanel declaredHandfuls_ = new JPanel(new GridLayout(0,1));
 //        int nbPlayers_ = partie_.getNombreDeJoueurs();
         Panel sousPanneau_=new Panel();
@@ -722,7 +722,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         }
         long nb_=chargerNombreDeParties(GameEnum.PRESIDENT);
         GamePresident game_=Net.getGames().partiePresident();
-        Numbers<Byte> rk_ = game_.getNewRanks();
+        Bytes rk_ = game_.getNewRanks();
         DealPresident deal_=new DealPresident(nb_,game_.empiler());
         deal_.donneurSuivant(game_.getDistribution().getDonneur(),game_.getRegles());
         deal_.initDonne(game_.getRegles());
@@ -796,7 +796,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         deal_.setRandomDealer(rulesPresidentMulti);
         deal_.initDonne(rulesPresidentMulti);
         Net.getGames().jouerPresident(new GamePresident(
-                GameType.RANDOM, deal_, rulesPresidentMulti, new Numbers<Byte>()));
+                GameType.RANDOM, deal_, rulesPresidentMulti, new Bytes()));
         getOwner().sendObject(new PlayGame());
     }
 }

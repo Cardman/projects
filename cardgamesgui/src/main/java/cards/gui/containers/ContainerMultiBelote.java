@@ -89,9 +89,9 @@ import code.gui.TabbedPane;
 import code.gui.document.RenderedPage;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
+import code.util.Ints;
 import code.util.StringList;
 import code.util.comparators.ComparatorBoolean;
 
@@ -114,8 +114,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
     private CustList<JLabel> playersPlaces = new CustList<JLabel>();
     private CustList<JCheckBox> playersReady = new CustList<JCheckBox>();
     private RenderedPage editor;
-    private NatTreeMap<Integer, Byte> playersPlacesForGame = new NatTreeMap<Integer, Byte>();
-    private NumberMap<Integer,String> playersPseudosForGame = new NumberMap<Integer,String>();
+    private IntTreeMap< Byte> playersPlacesForGame = new IntTreeMap< Byte>();
+    private IntMap<String> playersPseudosForGame = new IntMap<String>();
     private HandBelote playerHandBelote = new HandBelote();
     private BidBeloteSuit bidMax = new BidBeloteSuit();
     private JLabel canPlayLabel = new JLabel();
@@ -132,7 +132,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     private void addButtonsForCoinche(int _pts, EqList<BidBeloteSuit> _bids) {
         int square_ = 1;
-        Numbers<Integer> points_ = RulesBelote.getPoints();
+        Ints points_ = RulesBelote.getPoints();
         int size_ = points_.size();
         while (square_ * square_ < size_) {
             square_++;
@@ -300,7 +300,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         container_.add(scroll_);
 
         playersPlacesForGame = _players.getPlacesPlayers();
-        playersPseudosForGame = new NumberMap<Integer,String>(_players.getPseudos());
+        playersPseudosForGame = new IntMap<String>(_players.getPseudos());
         for (int i : _players.getPseudos().getKeys()) {
             playersPseudos.get(i).setText(_players.getPseudos().getVal(i));
         }
@@ -334,7 +334,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         ChoosenPlace choice_ = new ChoosenPlace();
         choice_.setIndex(noClient);
         choice_.setPlace(indexInGame);
-        choice_.setPlacesPlayers(new NatTreeMap<Integer, Byte>());
+        choice_.setPlacesPlayers(new IntTreeMap< Byte>());
         getOwner().sendObject(choice_);
     }
     @Override
@@ -353,7 +353,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     @Override
     public void updateAfter(PlayersNamePresent _players) {
         playersPlacesForGame = _players.getPlacesPlayers();
-        playersPseudosForGame = new NumberMap<Integer,String>(_players.getPseudos());
+        playersPseudosForGame = new IntMap<String>(_players.getPseudos());
         for (int i : _players.getPseudos().getKeys()) {
             playersPseudos.get(i).setText(_players.getPseudos().getVal(i));
         }
@@ -663,7 +663,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     }
 
     public void showTricksHands(TricksHandsBelote _tricks) {
-        NatTreeMap<Byte, String> pseudos_ = new NatTreeMap<Byte, String>();
+        ByteTreeMap< String> pseudos_ = new ByteTreeMap< String>();
         byte p_ = 0;
         for (String s : pseudosBelote((byte) nbChoosenPlayers)) {
             pseudos_.put(p_, s);
@@ -681,7 +681,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     }
 
     public void showTeams(TeamsPlayers _teams) {
-        NatTreeMap<Byte, String> pseudos_ = new NatTreeMap<Byte, String>();
+        ByteTreeMap< String> pseudos_ = new ByteTreeMap< String>();
         byte p_ = 0;
         for (String s : pseudosBelote((byte) nbChoosenPlayers)) {
             pseudos_.put(p_, s);
@@ -711,7 +711,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         container_.add(new JLabel(getMessages().getVal(MainWindow.HELP_GO_MENU),
                 SwingConstants.CENTER), BorderLayout.NORTH);
         CarpetBelote tapis_ = new CarpetBelote();
-        NatTreeMap<Byte, String> pseudos_ = new NatTreeMap<Byte, String>();
+        ByteTreeMap< String> pseudos_ = new ByteTreeMap< String>();
         byte p_ = 0;
         for (String s : pseudosBelote((byte) nbChoosenPlayers)) {
             pseudos_.put(p_, s);
@@ -741,8 +741,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
         getEvents().setEditable(false);
         panneau2_.add(new ScrollPane(getEvents()));
         panneau2_.add(getMini());
-        setHandfuls(new NumberMap<Byte,JLabel>());
-        setDeclaredHandfuls(new NumberMap<Byte,Panel>());
+        setHandfuls(new ByteMap<JLabel>());
+        setDeclaredHandfuls(new ByteMap<Panel>());
         Panel declaredHandfuls_ = new Panel(new GridLayout(0, 1));
         for (byte i = CustList.FIRST_INDEX; i < nbChoosenPlayers; i++) {
             Panel declaredHandfulGroup_ = new Panel(new FlowLayout());

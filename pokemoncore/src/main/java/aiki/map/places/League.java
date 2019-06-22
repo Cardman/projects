@@ -9,7 +9,7 @@ import aiki.map.tree.Tree;
 import aiki.util.Coords;
 import aiki.util.Point;
 import code.util.CustList;
-import code.util.NumberMap;
+import code.util.*;
 
 
 public final class League extends Place {
@@ -115,8 +115,8 @@ public final class League extends Place {
     }
 
     @Override
-    public NumberMap<Byte, Level> getLevelsMap() {
-        NumberMap<Byte, Level> levels_ = new NumberMap<Byte, Level>();
+    public ByteMap< Level> getLevelsMap() {
+        ByteMap< Level> levels_ = new ByteMap< Level>();
         for (LevelLeague l : rooms) {
             levels_.put((byte) levels_.size(), l);
         }

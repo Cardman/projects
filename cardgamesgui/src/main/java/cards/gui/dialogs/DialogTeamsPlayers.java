@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 import cards.gui.MainWindow;
 import cards.network.common.select.TeamsPlayers;
 import code.gui.Panel;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -38,7 +38,7 @@ public final class DialogTeamsPlayers extends DialogCards {
         Panel panel_ = new Panel(new GridLayout(0,1));
         int i_ = 1;
         String stringTeam_ = messages.getVal(TEAM);
-        for (Numbers<Byte> t: _teamsPlayers.getTeams()) {
+        for (Bytes t: _teamsPlayers.getTeams()) {
             String stringTeamLoc_ = StringList.simpleNumberFormat(stringTeam_, i_);
             Panel team_ = new Panel(new GridLayout(0,1));
             team_.setBorder(BorderFactory.createTitledBorder(stringTeamLoc_));

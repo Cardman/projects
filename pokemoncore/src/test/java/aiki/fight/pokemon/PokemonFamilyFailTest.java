@@ -15,7 +15,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -49,8 +49,8 @@ public class PokemonFamilyFailTest {
         pk_.setBaseEvo(_base);
         pk_.setCatchingRate((short) 200);
         pk_.setExpEvo(ExpType.P);
-        pk_.setTechnicalMoves(new Numbers<Short>());
-        pk_.setHiddenMoves(new Numbers<Short>());
+        pk_.setTechnicalMoves(new Shorts());
+        pk_.setHiddenMoves(new Shorts());
         pk_.setMoveTutors(new StringList("VIVE_ATTAQUE"));
         pk_.setExpRate(100l);
         pk_.setHatchingSteps(new LgInt(200));

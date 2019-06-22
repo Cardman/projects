@@ -6,15 +6,6 @@ package code.util;
 public final class NatStringTreeMap<V> extends AbsMap<String, V> {
 
     @Override
-    public StringList getKeys() {
-        StringList s_ = new StringList();
-        for (EntryCust<String, V> e: getList()) {
-            s_.add(e.getKey());
-        }
-        return s_;
-    }
-
-    @Override
     public void put(String _key, V _value) {
         int index_ = 0;
         while (true) {

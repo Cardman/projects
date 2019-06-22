@@ -16,7 +16,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.NumberMap;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -75,7 +75,7 @@ final class FightInitialization {
         _fight.setAcceptableChoices(false);
         _fight.setFightType(FightType.NOTHING);
         _fight.setUsedItemsWhileRound(new StringMap<Short>());
-        _fight.setChoices(new NumberMap<Byte,ChoiceOfEvolutionAndMoves>());
+        _fight.setChoices(new ByteMap<ChoiceOfEvolutionAndMoves>());
         _fight.setAllyChoice(new ObjectMap<MoveTarget,MoveTarget>());
         _fight.setCaughtEvolutions(new StringList());
         _fight.clearComments();
@@ -90,7 +90,7 @@ final class FightInitialization {
 
     static void initPositionsForUserTeam(Fight _fight) {
         Team userTeam_=_fight.getUserTeam();
-        _fight.setFirstPositPlayerFighters(new NumberMap<Byte,Byte>());
+        _fight.setFirstPositPlayerFighters(new ByteMap<Byte>());
         for(TeamPosition c: FightFacade.fightersBelongingToUser(_fight,true)){
             byte pos_ = c.getPosition();
             _fight.getFirstPositPlayerFighters().put(pos_,userTeam_.getMembers().getVal(pos_).getGroundPlaceSubst());
@@ -103,7 +103,7 @@ final class FightInitialization {
 
     static void initPositionsForFoeTeam(Fight _fight) {
         Team userTeam_=_fight.getFoeTeam();
-        _fight.setFirstPositFoeFighters(new NumberMap<Byte,Byte>());
+        _fight.setFirstPositFoeFighters(new ByteMap<Byte>());
         for (byte k: userTeam_.getMembers().getKeys()) {
             Fighter f_ = userTeam_.getMembers().getVal(k);
             _fight.getFirstPositFoeFighters().put(k, f_.getGroundPlaceSubst());
@@ -116,7 +116,7 @@ final class FightInitialization {
         //lanceursGlobaux = new Map<>();
         for(String e:_import.getMovesEffectGlobal()){
             _fight.getEnabledMoves().put(e,new ActivityOfMove());
-            if(_import.getMovesEffectGlobalWeather().containsObj(e)){
+            if(StringList.contains(_import.getMovesEffectGlobalWeather(), e)){
                 _fight.getStillEnabledMoves().put(e,false);
 //                lanceursGlobaux.put(e,new TeamPosition());
             }
@@ -131,7 +131,7 @@ final class FightInitialization {
     }
 
     static void initMultiplicity(Fight _fight,byte _multiplicity) {
-        _fight.setTeams(new NumberMap<Byte,Team>());
+        _fight.setTeams(new ByteMap<Team>());
         _fight.setSimulation(false);
         _fight.setAcceptableChoices(true);
         _fight.setIssue(IssueSimulation.NOTHING);
@@ -141,7 +141,7 @@ final class FightInitialization {
         _fight.setFullHealing(false);
         _fight.setEndRound(false);
         _fight.setState(FightState.ATTAQUES);
-        _fight.setKos(new NumberMap<Byte,Boolean>());
+        _fight.setKos(new ByteMap<Boolean>());
         _fight.getKos().put(Fight.PLAYER,false);
         _fight.getKos().put(Fight.FOE,false);
         _fight.setNbFleeAttempt((short) 0);

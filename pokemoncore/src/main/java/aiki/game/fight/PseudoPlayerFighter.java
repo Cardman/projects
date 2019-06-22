@@ -8,8 +8,8 @@ import aiki.game.fight.util.LevelExpPoints;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -23,7 +23,7 @@ public class PseudoPlayerFighter extends PseudoFighter {
 
     private boolean front;
 
-    private Numbers<Byte> foes;
+    private Bytes foes;
 
     private EqList<NameLevel> evoLevels;
 
@@ -31,7 +31,7 @@ public class PseudoPlayerFighter extends PseudoFighter {
 
     private EqList<StringList> abilities;
 
-    private NumberMap<Byte,String> evolutions;
+    private ByteMap<String> evolutions;
 
     private EqList<NameLevel> infosRealEvolutions;
 
@@ -41,11 +41,11 @@ public class PseudoPlayerFighter extends PseudoFighter {
         wonExp = Rate.zero();
         wonExpSinceLastLevel = new Rate(_pseudo.getWonPointsSinceLastLevel());
         front = _front;
-        foes = new Numbers<Byte>();
+        foes = new Bytes();
         evoLevels = _evoLevels;
         moves = new EqList<StringList>();
         abilities = new EqList<StringList>();
-        evolutions = new NumberMap<Byte,String>();
+        evolutions = new ByteMap<String>();
         infosRealEvolutions = new EqList<NameLevel>();
     }
 
@@ -204,7 +204,7 @@ public class PseudoPlayerFighter extends PseudoFighter {
         return abilities;
     }
 
-    public NumberMap<Byte,String> getEvolutions() {
+    public ByteMap<String> getEvolutions() {
         return evolutions;
     }
 
@@ -240,7 +240,7 @@ public class PseudoPlayerFighter extends PseudoFighter {
         front = _front;
     }
 
-    public Numbers<Byte> getFoes() {
+    public Bytes getFoes() {
         return foes;
     }
 }

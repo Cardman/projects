@@ -47,7 +47,8 @@ import code.maths.montecarlo.MonteCarloBoolean;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
+import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -358,7 +359,7 @@ final class FightRound {
         }
         attaqueLanceur_=creature_.getFinalChosenMove();
         if (FightOrder.nbBackPartners(_fight,_lanceur) == 0) {
-            if (_import.getMovesFullHeal().containsObj(attaqueLanceur_)) {
+            if (StringList.contains(_import.getMovesFullHeal(), attaqueLanceur_)) {
                 endRoundThrower(_fight, _lanceur, attaqueLanceur_, false, _import);
                 return;
             }
@@ -399,8 +400,8 @@ final class FightRound {
         } else {
             firstMove_ = creature_.getFinalChosenMove();
         }
-        Numbers<Integer> previousEffects_;
-        previousEffects_ = new Numbers<Integer>();
+        Ints previousEffects_;
+        previousEffects_ = new Ints();
         for(int i=CustList.FIRST_INDEX; i<nbEffets_; i++){
             Effect effet_=fAttFinal_.getEffet(i);
             if(preliminaire_) {
@@ -437,7 +438,7 @@ final class FightRound {
     }
 
     static void processEffectTargets(Fight _fight, TeamPosition _initialThrower, TeamPosition _finalThrower,
-            boolean _firstEffect, int _index, Numbers<Integer> _previousEffect,Difficulty _diff,DataBase _import) {
+            boolean _firstEffect, int _index, Ints _previousEffect,Difficulty _diff,DataBase _import) {
         Rate tauxMultPv_ = FightStatistic.multiplyByLoveBetweenFighters(_fight,_import);
         Fighter creature_=_fight.getFighter(_initialThrower);
         String attaqueLanceur_=creature_.getFinalChosenMove();
@@ -612,7 +613,7 @@ final class FightRound {
                 MonteCarloBoolean loiModif_=lawNbRound_.knowingGreater(new Rate(nbTour_));
                 String moveName_ = creature_.getFinalChosenMove();
                 MoveData move_ = _import.getMove(moveName_);
-                if (move_.getDeletedStatus().containsObj(_nomStatut)) {
+                if (StringList.contains(move_.getDeletedStatus(), _nomStatut)) {
                     fini_= true;
                 } else {
                     if(_fight.getSimulation()){
@@ -640,7 +641,7 @@ final class FightRound {
                     String moveName_ = creature_.getFinalChosenMove();
                     MoveData move_ = _import.getMove(moveName_);
                     boolean fini_;
-                    if (move_.getDeletedStatus().containsObj(_nomStatut)) {
+                    if (StringList.contains(move_.getDeletedStatus(), _nomStatut)) {
                         fini_= true;
                     } else {
                         if(_fight.getSimulation()){
@@ -664,7 +665,7 @@ final class FightRound {
         //immu "paralysie totale"
         if(creature_.capaciteActive()){
             AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
-            if(fCapac_.getImmuStatusBeginRound().containsObj(_nomStatut)){
+            if(StringList.contains(fCapac_.getImmuStatusBeginRound(), _nomStatut)){
                 tirageGuerison_=true;
             }
         }
@@ -672,9 +673,9 @@ final class FightRound {
         if(!tirageGuerison_&&!lawUseMove_.events().isEmpty()){
             String moveName_ = creature_.getFinalChosenMove();
             MoveData move_ = _import.getMove(moveName_);
-            if (move_.getRequiredStatus().containsObj(_nomStatut)) {
+            if (StringList.contains(move_.getRequiredStatus(), _nomStatut)) {
                 tirageGuerison_=true;
-            } else if (move_.getDeletedStatus().containsObj(_nomStatut)) {
+            } else if (StringList.contains(move_.getDeletedStatus(), _nomStatut)) {
                 tirageGuerison_=true;
             } else if(_fight.getSimulation()){
                 if(Numbers.eq(_combattant.getTeam(),Fight.PLAYER)){
@@ -911,7 +912,7 @@ final class FightRound {
         }
         StringList activeWeathers_ = FightMoves.climatsActifs(_fight,_import);
         for(WeatherType k: fCapac_.getHealHpByTypeIfWeather().getKeys()){
-            if (!typeAttaque_.containsObj(k.getType())) {
+            if (!StringList.contains(typeAttaque_, k.getType())) {
                 continue;
             }
             for (String w: activeWeathers_) {
@@ -1097,7 +1098,7 @@ final class FightRound {
         }
         TargetCoords targetCoords_ = creature_.getChosenTargets().first();
         Team equipeCbt_=_fight.getTeams().getVal((byte) targetCoords_.getTeam());
-        Numbers<Byte> ciblesEquipe_=equipeCbt_.fightersAtCurrentPlace(targetCoords_.getPosition());
+        Bytes ciblesEquipe_=equipeCbt_.fightersAtCurrentPlace(targetCoords_.getPosition());
         EqList<TeamPosition> fighters_ = new EqList<TeamPosition>();
         fighters_.addAllElts(FightOrder.fightersHavingToAct(_fight, false, _import));
         fighters_.addAllElts(FightOrder.fightersHavingToAct(_fight, true, _import));
@@ -1158,7 +1159,7 @@ final class FightRound {
                     EqList<TeamPosition> pkPlayers_;
                     pkPlayers_ = FightOrder.fightersBelongingToUser(_fight, true);
                     _fight.setFullHealing(true);
-                    Numbers<Byte> ally_ = new Numbers<Byte>();
+                    Bytes ally_ = new Bytes();
                     int mult_ = _fight.getMult();
                     for (byte m = CustList.FIRST_INDEX; m < mult_; m++) {
                         ally_.addAllElts(_fight.getUserTeam().fightersAtCurrentPlace(m));
@@ -1216,7 +1217,7 @@ final class FightRound {
                 if(Numbers.eq(creatureLanceur_.getStatusNbRoundShort(c), 0)){
                     continue;
                 }
-                if(berry_.getHealStatus().containsObj(c)){
+                if(StringList.contains(berry_.getHealStatus(), c)){
                     creatureLanceur_.supprimerStatut(c);
                     _fight.addDisabledStatusMessage(c, _lanceur, _import);
                 }
@@ -1468,7 +1469,7 @@ final class FightRound {
     static StringMap<String> calculateCatchingVariables(Fight _fight,boolean _dejaCapture,DataBase _import) {
         Fighter creatureSauvage_=_fight.wildPokemon();
 //        CustList<Byte> cbts_=_fight.getUserTeam().fightersAtCurrentPlace((short) CustList.FIRST_INDEX);
-        Numbers<Byte> cbts_=_fight.getUserTeam().fightersAtCurrentPlaceIndex(CustList.FIRST_INDEX, true);
+        Bytes cbts_=_fight.getUserTeam().fightersAtCurrentPlaceIndex(CustList.FIRST_INDEX, true);
         Fighter creatureUt_=_fight.getUserTeam().refPartMembres(cbts_.first());
         StringMap<String> variables_=new StringMap<String>();
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LIEU_COMBAT),_fight.getEnvType().name());
@@ -1541,7 +1542,7 @@ final class FightRound {
     static StringMap<String> calculateFleeingVariable(Fight _fight, DataBase _import){
         Fighter creatureSauvage_=_fight.wildPokemon();
 //        CustList<Byte> cbts_=_fight.getUserTeam().fightersAtCurrentPlace((short) CustList.FIRST_INDEX);
-        Numbers<Byte> cbts_=_fight.getUserTeam().fightersAtCurrentPlaceIndex(CustList.FIRST_INDEX, true);
+        Bytes cbts_=_fight.getUserTeam().fightersAtCurrentPlaceIndex(CustList.FIRST_INDEX, true);
         Fighter creatureUt_=_fight.getUserTeam().refPartMembres(cbts_.first());
         StringMap<String> variables_=new StringMap<String>();
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LIEU_COMBAT),_fight.getEnvType().name());

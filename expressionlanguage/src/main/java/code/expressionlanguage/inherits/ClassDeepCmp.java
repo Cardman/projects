@@ -1,7 +1,7 @@
 package code.expressionlanguage.inherits;
 
 import code.expressionlanguage.methods.RootBlock;
-import code.util.Numbers;
+import code.util.*;
 import code.util.ints.Comparing;
 
 public class ClassDeepCmp implements Comparing<RootBlock> {

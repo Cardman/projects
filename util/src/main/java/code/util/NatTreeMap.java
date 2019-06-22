@@ -3,7 +3,7 @@ package code.util;
 /**
     @author Cardman
 */
-public final class NatTreeMap<K extends Number, V> extends AbsMap<K, V>  {
+public abstract class NatTreeMap<K, V> extends AbsMap<K, V>  {
 
     public NatTreeMap() {
     }
@@ -13,16 +13,8 @@ public final class NatTreeMap<K extends Number, V> extends AbsMap<K, V>  {
     }
 
     @Override
-    public CustList<K> getKeys() {
-        CustList<K> s_ = new CustList<K>();
-        for (EntryCust<K, V> e: getList()) {
-            s_.add(e.getKey());
-        }
-        return s_;
-    }
-
-    @Override
     public void put(K _key, V _value) {
+        long convert_ = convert(_key);
         int index_ = 0;
         while (true) {
             if (index_ >= getList().size()) {
@@ -30,7 +22,7 @@ public final class NatTreeMap<K extends Number, V> extends AbsMap<K, V>  {
                 return;
             }
             EntryCust<K, V> c_ = getList().get(index_);
-            int res_ = Numbers.compareLg(_key.longValue(),c_.getKey().longValue());
+            int res_ = Numbers.compareLg(convert_,convert(c_.getKey()));
             if (res_ < 0) {
                 getList().add(index_, new EntryCust<K, V>(_key, _value));
                 return;
@@ -45,16 +37,16 @@ public final class NatTreeMap<K extends Number, V> extends AbsMap<K, V>  {
 
     @Override
     int indexOfEntry(K _key) {
-        int index_ = CustList.FIRST_INDEX;
-        for (EntryCust<K, V> e:getList()) {
-            Number c_ = _key;
-            int res_ = Numbers.compareLg(c_.longValue(),e.getKey().longValue());
+        long convert_ = convert(_key);
+        int s_ = size();
+        for (int i = 0; i < s_; i++) {
+            int res_ = Numbers.compareLg(convert_,convert(getKey(i)));
             if (res_ == CustList.EQ_CMP) {
-                return index_;
+                return i;
             }
-            index_++;
         }
         return CustList.INDEX_NOT_FOUND_ELT;
     }
 
+    abstract long convert(K _key);
 }

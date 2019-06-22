@@ -27,7 +27,7 @@ public final class CompoundAffectationOperation extends ReflectableOpering {
 
     @Override
     void calculateChildren() {
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        IntTreeMap< String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
     }
 
@@ -49,7 +49,7 @@ public final class CompoundAffectationOperation extends ReflectableOpering {
             return;
         }
         settable = elt_;
-        NatTreeMap<Integer, String> ops_ = getOperations().getOperators();
+        IntTreeMap< String> ops_ = getOperations().getOperators();
         ClassArgumentMatching c_ = chidren_.last().getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
         String op_ = ops_.firstValue();

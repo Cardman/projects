@@ -84,7 +84,7 @@ public class GeneralHelpBean extends CommonBean {
         pokemonDefaultEggGroup = new StringList();
         for (String p: data_.getPokedex().getKeys()) {
             PokemonData pkData_ = data_.getPokemon(p);
-            if (pkData_.getEggGroups().containsObj(data_.getDefaultEggGroup())) {
+            if (StringList.contains(pkData_.getEggGroups(), data_.getDefaultEggGroup())) {
                 pokemonDefaultEggGroup.add(p);
             }
         }

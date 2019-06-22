@@ -6,7 +6,7 @@ import cards.network.president.actions.PlayingCardPresident;
 import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
-import code.util.NumberMap;
+import code.util.*;
 
 public class ListenerCardPresidentMultiGame extends
         AbstractListenerCardPresident {
@@ -40,7 +40,7 @@ public class ListenerCardPresidentMultiGame extends
         pl_.setPass(false);
         String lg_ = container.getOwner().getLanguageKey();
         pl_.setLocale(lg_);
-        pl_.setStatus(new NumberMap<Byte, Playing>());
+        pl_.setStatus(new ByteMap< Playing>());
         container.getOwner().sendObject(pl_);
     }
 }

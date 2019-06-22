@@ -1,21 +1,21 @@
 package code.maths;
 
-import code.util.Numbers;
+import code.util.Longs;
 
 class QuotMod {
 
-    private Numbers<Long> quot;
-    private Numbers<Long> mod;
-    public Numbers<Long> getQuot() {
+    private Longs quot;
+    private Longs mod;
+    public Longs getQuot() {
         return quot;
     }
-    public void setQuot(Numbers<Long> _quot) {
+    public void setQuot(Longs _quot) {
         quot = _quot;
     }
-    public Numbers<Long> getMod() {
+    public Longs getMod() {
         return mod;
     }
-    public void setMod(Numbers<Long> _mod) {
+    public void setMod(Longs _mod) {
         mod = _mod;
     }
 

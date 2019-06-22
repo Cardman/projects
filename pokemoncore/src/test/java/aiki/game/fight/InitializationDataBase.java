@@ -20,7 +20,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.EnumMap;
-import code.util.NumberMap;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringMap;
 
@@ -799,7 +799,7 @@ public class InitializationDataBase {
     protected static DataBase initDataBase() {
         DataBase data_ = coreDataBase();
         data_.sortEndRound();
-        data_.getMap().setPlaces(new NumberMap<Short,Place>());
+        data_.getMap().setPlaces(new ShortMap<Place>());
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         data_.getMap().setUnlockedCity(NULL_REF);
         data_.getMap().setSideLength(2);

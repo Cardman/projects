@@ -1058,7 +1058,7 @@ public final class DocumentReaderAikiCoreUtil {
         _perCentLoading.set(0);
         _d.initializeMembers();
         StringMap<String> files_;
-        StringList listRelativePaths_;
+        CustList<String> listRelativePaths_;
         String common_ = EMPTY_STRING;
         files_ = _files;
         listRelativePaths_ = files_.getKeys();
@@ -1077,7 +1077,7 @@ public final class DocumentReaderAikiCoreUtil {
         foldersBase_.removeDuplicates();
         if (foldersBase_.size() == 1) {
             common_ = StringList.concat(foldersBase_.first(), SEPARATOR_FILES);
-            listRelativePaths_.removePrefixInStrings(common_);
+            StringList.removePrefixInStrings(listRelativePaths_,common_);
         }
         StringList listCopy_ = new StringList();
         for (String s : listRelativePaths_) {
@@ -2850,7 +2850,7 @@ public final class DocumentReaderAikiCoreUtil {
         return true;
     }
 
-    public static StringList filterBeginIgnoreCase(StringList _instance,String _regExp) {
+    public static StringList filterBeginIgnoreCase(CustList<String> _instance,String _regExp) {
         StringList list_ = new StringList();
         String patt_ = DataBase.toUpperCase(_regExp);
         for (String s: _instance) {
@@ -2862,7 +2862,7 @@ public final class DocumentReaderAikiCoreUtil {
         return list_;
     }
 
-    public static StringList filterStrictBeginIgnoreCase(StringList _instance,String _regExp) {
+    public static StringList filterStrictBeginIgnoreCase(CustList<String> _instance,String _regExp) {
         StringList list_ = new StringList();
         String patt_ = DataBase.toUpperCase(_regExp);
         for (String s: _instance) {
@@ -8117,11 +8117,11 @@ public final class DocumentReaderAikiCoreUtil {
         return list_;
     }
 
-    public static NatTreeMap<Byte,PokemonPlayer> getMapBytePokemonPlayer(Element _elt) {
+    public static ByteTreeMap<PokemonPlayer> getMapBytePokemonPlayer(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        NatTreeMap<Byte,PokemonPlayer> map_ = new NatTreeMap<Byte,PokemonPlayer>(cap_);
+        ByteTreeMap<PokemonPlayer> map_ = new ByteTreeMap<PokemonPlayer>(cap_);
         CustList<Byte> keys_ = new CustList<Byte>(cap_);
         CustList<PokemonPlayer> values_ = new CustList<PokemonPlayer>(cap_);
         for (Element c: childElements_) {
@@ -8137,11 +8137,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static NumberMap<Byte,Anticipation> getMapByteAnticipation(Element _elt) {
+    private static ByteMap<Anticipation> getMapByteAnticipation(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        NumberMap<Byte,Anticipation> map_ = new NumberMap<Byte,Anticipation>(cap_);
+        ByteMap<Anticipation> map_ = new ByteMap<Anticipation>(cap_);
         CustList<Byte> keys_ = new CustList<Byte>(cap_);
         CustList<Anticipation> values_ = new CustList<Anticipation>(cap_);
         for (Element c: childElements_) {
@@ -8157,11 +8157,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static NumberMap<Byte,ChoiceOfEvolutionAndMoves> getMapByteChoiceOfEvolutionAndMoves(Element _elt) {
+    private static ByteMap<ChoiceOfEvolutionAndMoves> getMapByteChoiceOfEvolutionAndMoves(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        NumberMap<Byte,ChoiceOfEvolutionAndMoves> map_ = new NumberMap<Byte,ChoiceOfEvolutionAndMoves>(cap_);
+        ByteMap<ChoiceOfEvolutionAndMoves> map_ = new ByteMap<ChoiceOfEvolutionAndMoves>(cap_);
         CustList<Byte> keys_ = new CustList<Byte>(cap_);
         CustList<ChoiceOfEvolutionAndMoves> values_ = new CustList<ChoiceOfEvolutionAndMoves>(cap_);
         for (Element c: childElements_) {
@@ -8177,11 +8177,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static NumberMap<Byte,Fighter> getMapByteFighter(Element _elt) {
+    private static ByteMap<Fighter> getMapByteFighter(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        NumberMap<Byte,Fighter> map_ = new NumberMap<Byte,Fighter>(cap_);
+        ByteMap<Fighter> map_ = new ByteMap<Fighter>(cap_);
         CustList<Byte> keys_ = new CustList<Byte>(cap_);
         CustList<Fighter> values_ = new CustList<Fighter>(cap_);
         for (Element c: childElements_) {
@@ -8197,11 +8197,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static NumberMap<Byte,StacksOfUses> getMapByteStacksOfUses(Element _elt) {
+    private static ByteMap<StacksOfUses> getMapByteStacksOfUses(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        NumberMap<Byte,StacksOfUses> map_ = new NumberMap<Byte,StacksOfUses>(cap_);
+        ByteMap<StacksOfUses> map_ = new ByteMap<StacksOfUses>(cap_);
         CustList<Byte> keys_ = new CustList<Byte>(cap_);
         CustList<StacksOfUses> values_ = new CustList<StacksOfUses>(cap_);
         for (Element c: childElements_) {
@@ -8217,11 +8217,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static NumberMap<Byte,Team> getMapByteTeam(Element _elt) {
+    private static ByteMap<Team> getMapByteTeam(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        NumberMap<Byte,Team> map_ = new NumberMap<Byte,Team>(cap_);
+        ByteMap<Team> map_ = new ByteMap<Team>(cap_);
         CustList<Byte> keys_ = new CustList<Byte>(cap_);
         CustList<Team> values_ = new CustList<Team>(cap_);
         for (Element c: childElements_) {
@@ -8237,11 +8237,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static NumberMap<Byte,LevelCave> getMapByteLevelCave(Element _elt) {
+    private static ByteMap<LevelCave> getMapByteLevelCave(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        NumberMap<Byte,LevelCave> map_ = new NumberMap<Byte,LevelCave>(cap_);
+        ByteMap<LevelCave> map_ = new ByteMap<LevelCave>(cap_);
         CustList<Byte> keys_ = new CustList<Byte>(cap_);
         CustList<LevelCave> values_ = new CustList<LevelCave>(cap_);
         for (Element c: childElements_) {
@@ -8257,11 +8257,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static NumberMap<Short,Place> getMapShortPlace(Element _elt) {
+    private static ShortMap<Place> getMapShortPlace(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        NumberMap<Short,Place> map_ = new NumberMap<Short,Place>(cap_);
+        ShortMap<Place> map_ = new ShortMap<Place>(cap_);
         CustList<Short> keys_ = new CustList<Short>(cap_);
         CustList<Place> values_ = new CustList<Place>(cap_);
         for (Element c: childElements_) {
@@ -8277,11 +8277,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static NumberMap<Short,EqList<Point>> getMapShortListPoint(Element _elt) {
+    private static ShortMap<EqList<Point>> getMapShortListPoint(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        NumberMap<Short,EqList<Point>> map_ = new NumberMap<Short,EqList<Point>>(cap_);
+        ShortMap<EqList<Point>> map_ = new ShortMap<EqList<Point>>(cap_);
         CustList<Short> keys_ = new CustList<Short>(cap_);
         CustList<EqList<Point>> values_ = new CustList<EqList<Point>>(cap_);
         for (Element c: childElements_) {
@@ -9177,13 +9177,13 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static StringMap<NumberMap<Byte,Anticipation>> getStringMapMapByteAnticipation(Element _elt) {
+    private static StringMap<ByteMap<Anticipation>> getStringMapMapByteAnticipation(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        StringMap<NumberMap<Byte,Anticipation>> map_ = new StringMap<NumberMap<Byte,Anticipation>>(cap_);
+        StringMap<ByteMap<Anticipation>> map_ = new StringMap<ByteMap<Anticipation>>(cap_);
         StringList keys_ = new StringList(cap_);
-        CustList<NumberMap<Byte,Anticipation>> values_ = new CustList<NumberMap<Byte,Anticipation>>(cap_);
+        CustList<ByteMap<Anticipation>> values_ = new CustList<ByteMap<Anticipation>>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(DocumentReaderCoreUtil.getString(c));
@@ -9197,13 +9197,13 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static StringMap<NumberMap<Byte,StacksOfUses>> getStringMapMapByteStacksOfUses(Element _elt) {
+    private static StringMap<ByteMap<StacksOfUses>> getStringMapMapByteStacksOfUses(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        StringMap<NumberMap<Byte,StacksOfUses>> map_ = new StringMap<NumberMap<Byte,StacksOfUses>>(cap_);
+        StringMap<ByteMap<StacksOfUses>> map_ = new StringMap<ByteMap<StacksOfUses>>(cap_);
         StringList keys_ = new StringList(cap_);
-        CustList<NumberMap<Byte,StacksOfUses>> values_ = new CustList<NumberMap<Byte,StacksOfUses>>(cap_);
+        CustList<ByteMap<StacksOfUses>> values_ = new CustList<ByteMap<StacksOfUses>>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(DocumentReaderCoreUtil.getString(c));

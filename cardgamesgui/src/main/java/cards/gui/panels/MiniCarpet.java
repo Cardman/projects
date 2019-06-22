@@ -7,14 +7,14 @@ import java.awt.GridLayout;
 import cards.consts.Status;
 import cards.gui.labels.CellPlayer;
 import code.gui.Panel;
-import code.util.NumberMap;
+import code.util.*;
 import code.util.StringList;
 
 public class MiniCarpet extends Panel {
 
     private boolean horaire;
 
-    private NumberMap<Integer,CellPlayer> cellsPlayers = new NumberMap<Integer,CellPlayer>();
+    private IntMap<CellPlayer> cellsPlayers = new IntMap<CellPlayer>();
 
     public MiniCarpet(int _nombreDeJoueurs,boolean _horaire,StringList _pseudos) {
         horaire=_horaire;

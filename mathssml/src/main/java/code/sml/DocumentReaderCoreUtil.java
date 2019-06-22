@@ -3,9 +3,9 @@ package code.sml;
 import code.util.BooleanList;
 import code.util.CollCapacity;
 import code.util.CustList;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -61,40 +61,40 @@ public final class DocumentReaderCoreUtil {
         return list_;
     }
 
-    public static Numbers<Byte> getListByte(Element _elt) {
+    public static Bytes getListByte(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
-        Numbers<Byte> list_ = new Numbers<Byte>(new CollCapacity(len_));
+        Bytes list_ = new Bytes(new CollCapacity(len_));
         for (Element c: childElements_) {
             list_.add(getByte(c));
         }
         return list_;
     }
 
-    public static Numbers<Short> getListShort(Element _elt) {
+    public static Shorts getListShort(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
-        Numbers<Short> list_ = new Numbers<Short>(new CollCapacity(len_));
+        Shorts list_ = new Shorts(new CollCapacity(len_));
         for (Element c: childElements_) {
             list_.add(getShort(c));
         }
         return list_;
     }
 
-    public static Numbers<Integer> getListInteger(Element _elt) {
+    public static Ints getListInteger(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
-        Numbers<Integer> list_ = new Numbers<Integer>(new CollCapacity(len_));
+        Ints list_ = new Ints(new CollCapacity(len_));
         for (Element c: childElements_) {
             list_.add(getInteger(c));
         }
         return list_;
     }
 
-    public static Numbers<Long> getListLong(Element _elt) {
+    public static Longs getListLong(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
-        Numbers<Long> list_ = new Numbers<Long>(new CollCapacity(len_));
+        Longs list_ = new Longs(new CollCapacity(len_));
         for (Element c: childElements_) {
             list_.add(getLong(c));
         }
@@ -111,20 +111,20 @@ public final class DocumentReaderCoreUtil {
         return list_;
     }
 
-    public static CustList<Numbers<Long>> getListListLong(Element _elt) {
+    public static CustList<Longs> getListListLong(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
-        CustList<Numbers<Long>> list_ = new CustList<Numbers<Long>>(new CollCapacity(len_));
+        CustList<Longs> list_ = new CustList<Longs>(new CollCapacity(len_));
         for (Element c: childElements_) {
             list_.add(getListLong(c));
         }
         return list_;
     }
 
-    public static CustList<Numbers<Byte>> getListListByte(Element _elt) {
+    public static CustList<Bytes> getListListByte(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
-        CustList<Numbers<Byte>> list_ = new CustList<Numbers<Byte>>(new CollCapacity(len_));
+        CustList<Bytes> list_ = new CustList<Bytes>(new CollCapacity(len_));
         for (Element c: childElements_) {
             list_.add(getListByte(c));
         }
@@ -158,7 +158,7 @@ public final class DocumentReaderCoreUtil {
         CollCapacity cap_ = new CollCapacity(len_/2);
         StringMap<Short> map_ = new StringMap<Short>(cap_);
         StringList keys_ = new StringList(cap_);
-        Numbers<Short> values_ = new Numbers<Short>(cap_);
+        Shorts values_ = new Shorts(cap_);
         for (Element c: childElements_) {
             if (hasKey(c)) {
                 keys_.add(getString(c));
@@ -179,7 +179,7 @@ public final class DocumentReaderCoreUtil {
         CollCapacity cap_ = new CollCapacity(len_/2);
         StringMap<Integer> map_ = new StringMap<Integer>(cap_);
         StringList keys_ = new StringList(cap_);
-        Numbers<Integer> values_ = new Numbers<Integer>(cap_);
+        Ints values_ = new Ints(cap_);
         for (Element c: childElements_) {
             if (hasKey(c)) {
                 keys_.add(getString(c));
@@ -236,13 +236,13 @@ public final class DocumentReaderCoreUtil {
         return map_;
     }
 
-    public static StringMap<Numbers<Integer>> getStringMapListInteger(Element _elt) {
+    public static StringMap<Ints> getStringMapListInteger(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        StringMap<Numbers<Integer>> map_ = new StringMap<Numbers<Integer>>(cap_);
+        StringMap<Ints> map_ = new StringMap<Ints>(cap_);
         StringList keys_ = new StringList(cap_);
-        CustList<Numbers<Integer>> values_ = new CustList<Numbers<Integer>>(cap_);
+        CustList<Ints> values_ = new CustList<Ints>(cap_);
         for (Element c: childElements_) {
             if (hasKey(c)) {
                 keys_.add(getString(c));
@@ -277,13 +277,13 @@ public final class DocumentReaderCoreUtil {
         }
         return map_;
     }
-    public static NatTreeMap<Integer,Byte> getMapIntegerByte(Element _elt) {
+    public static IntTreeMap<Byte> getMapIntegerByte(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        NatTreeMap<Integer,Byte> map_ = new NatTreeMap<Integer,Byte>(cap_);
-        Numbers<Integer> keys_ = new Numbers<Integer>(cap_);
-        Numbers<Byte> values_ = new Numbers<Byte>(cap_);
+        IntTreeMap<Byte> map_ = new IntTreeMap<Byte>(cap_);
+        Ints keys_ = new Ints(cap_);
+        Bytes values_ = new Bytes(cap_);
         for (Element c: childElements_) {
             if (hasKey(c)) {
                 keys_.add(getInteger(c));
@@ -297,13 +297,13 @@ public final class DocumentReaderCoreUtil {
         }
         return map_;
     }
-    public static NumberMap<Byte,Byte> getMapByteByte(Element _elt) {
+    public static ByteMap<Byte> getMapByteByte(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        NumberMap<Byte,Byte> map_ = new NumberMap<Byte,Byte>(cap_);
-        Numbers<Byte> keys_ = new Numbers<Byte>(cap_);
-        Numbers<Byte> values_ = new Numbers<Byte>(cap_);
+        ByteMap<Byte> map_ = new ByteMap<Byte>(cap_);
+        Bytes keys_ = new Bytes(cap_);
+        Bytes values_ = new Bytes(cap_);
         for (Element c: childElements_) {
             if (hasKey(c)) {
                 keys_.add(getByte(c));
@@ -317,13 +317,13 @@ public final class DocumentReaderCoreUtil {
         }
         return map_;
     }
-    public static NumberMap<Byte,Numbers<Byte>> getMapByteListByte(Element _elt) {
+    public static ByteMap<Bytes> getMapByteListByte(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        NumberMap<Byte,Numbers<Byte>> map_ = new NumberMap<Byte,Numbers<Byte>>(cap_);
-        Numbers<Byte> keys_ = new Numbers<Byte>(cap_);
-        CustList<Numbers<Byte>> values_ = new CustList<Numbers<Byte>>(cap_);
+        ByteMap<Bytes> map_ = new ByteMap<Bytes>(cap_);
+        Bytes keys_ = new Bytes(cap_);
+        CustList<Bytes> values_ = new CustList<Bytes>(cap_);
         for (Element c: childElements_) {
             if (hasKey(c)) {
                 keys_.add(getByte(c));
@@ -337,12 +337,12 @@ public final class DocumentReaderCoreUtil {
         }
         return map_;
     }
-    public static NumberMap<Short,Boolean> getMapShortBoolean(Element _elt) {
+    public static ShortMap<Boolean> getMapShortBoolean(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        NumberMap<Short,Boolean> map_ = new NumberMap<Short,Boolean>(cap_);
-        Numbers<Short> keys_ = new Numbers<Short>(cap_);
+        ShortMap<Boolean> map_ = new ShortMap<Boolean>(cap_);
+        Shorts keys_ = new Shorts(cap_);
         BooleanList values_ = new BooleanList(cap_);
         for (Element c: childElements_) {
             if (hasKey(c)) {
@@ -357,12 +357,12 @@ public final class DocumentReaderCoreUtil {
         }
         return map_;
     }
-    public static NumberMap<Short,String> getMapShortString(Element _elt) {
+    public static ShortMap<String> getMapShortString(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        NumberMap<Short,String> map_ = new NumberMap<Short,String>(cap_);
-        Numbers<Short> keys_ = new Numbers<Short>(cap_);
+        ShortMap<String> map_ = new ShortMap<String>(cap_);
+        Shorts keys_ = new Shorts(cap_);
         StringList values_ = new StringList(cap_);
         for (Element c: childElements_) {
             if (hasKey(c)) {
@@ -377,12 +377,12 @@ public final class DocumentReaderCoreUtil {
         }
         return map_;
     }
-    public static NumberMap<Integer,Boolean> getMapIntegerBoolean(Element _elt) {
+    public static IntMap<Boolean> getMapIntegerBoolean(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        NumberMap<Integer,Boolean> map_ = new NumberMap<Integer,Boolean>(cap_);
-        Numbers<Integer> keys_ = new Numbers<Integer>(cap_);
+        IntMap<Boolean> map_ = new IntMap<Boolean>(cap_);
+        Ints keys_ = new Ints(cap_);
         BooleanList values_ = new BooleanList(cap_);
         for (Element c: childElements_) {
             if (hasKey(c)) {
@@ -397,12 +397,12 @@ public final class DocumentReaderCoreUtil {
         }
         return map_;
     }
-    public static NumberMap<Integer,String> getMapIntegerString(Element _elt) {
+    public static IntMap<String> getMapIntegerString(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        NumberMap<Integer,String> map_ = new NumberMap<Integer,String>(cap_);
-        Numbers<Integer> keys_ = new Numbers<Integer>(cap_);
+        IntMap<String> map_ = new IntMap<String>(cap_);
+        Ints keys_ = new Ints(cap_);
         StringList values_ = new StringList(cap_);
         for (Element c: childElements_) {
             if (hasKey(c)) {

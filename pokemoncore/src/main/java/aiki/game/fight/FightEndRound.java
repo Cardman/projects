@@ -37,8 +37,8 @@ import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CustList;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -720,7 +720,7 @@ final class FightEndRound {
 
     static void effectEndRoundGlobal(Fight _fight,String _attaqueClimat,Difficulty _diff,DataBase _import){
         //classer les climats actifs par dominance
-        if (!FightMoves.enabledGlobalMoves(_fight, _import).containsObj(_attaqueClimat)) {
+        if (!StringList.contains(FightMoves.enabledGlobalMoves(_fight, _import), _attaqueClimat)) {
             return;
         }
         _fight.addGlobalMoveEndRoundMessage(_attaqueClimat, _import);
@@ -741,10 +741,10 @@ final class FightEndRound {
                 boolean soinType_=false;
                 if(creature_.capaciteActive()){
                     AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
-                    if(fCapac_.getImmuWeather().containsObj(_attaqueClimat)){
+                    if(StringList.contains(fCapac_.getImmuWeather(), _attaqueClimat)){
                         immu_=true;
                     }
-                    ko_ = !fCapac_.getImmuMove().containsStr(_attaqueClimat);
+                    ko_ = !StringList.contains(fCapac_.getImmuMove(), _attaqueClimat);
                     if(fCapac_.getHealHpByWeather().contains(_attaqueClimat)){
                         soinCapacite_=true;
                     }
@@ -774,13 +774,13 @@ final class FightEndRound {
                     Item it_ = creature_.ficheObjet(_import);
                     if (it_ instanceof ItemForBattle) {
                         ItemForBattle itBattle_ = (ItemForBattle) it_;
-                        if (itBattle_.getImmuWeather().containsObj(_attaqueClimat)) {
+                        if (StringList.contains(itBattle_.getImmuWeather(), _attaqueClimat)) {
                             immu_=true;
                         }
                     }
                 }
                 for(String e:creature_.getTypes()){
-                    if(effetGl_.getImmuneTypes().containsObj(e)){
+                    if(StringList.contains(effetGl_.getImmuneTypes(), e)){
                         immu_=true;
                         soinType_=true;
                     }
@@ -899,7 +899,7 @@ final class FightEndRound {
             boolean immu_=false;
             if(creature_.capaciteActive()){
                 AbilityData fCapac_=creature_.ficheCapaciteActuelle(_import);
-                if(fCapac_.getImmuAbility().containsObj(creatureLanceur_.getCurrentAbility())){
+                if(StringList.contains(fCapac_.getImmuAbility(), creatureLanceur_.getCurrentAbility())){
                     immu_=!FightAbilities.ignoreTargetAbility(_fight,_combattant,c,_import);
                 }
             }
@@ -1447,7 +1447,7 @@ final class FightEndRound {
     }
 
     static void learnAndEvolve(Fight _fight,DataBase _import) {
-        NumberMap<Byte,ChoiceOfEvolutionAndMoves> choices_ = _fight.getChoices();
+        ByteMap<ChoiceOfEvolutionAndMoves> choices_ = _fight.getChoices();
         for (byte k: choices_.getKeys()) {
             ChoiceOfEvolutionAndMoves choice_ = choices_.getVal(k);
             Fighter fighter_ = _fight.getUserTeam().refPartMembres(k);
@@ -1455,9 +1455,9 @@ final class FightEndRound {
             StringList keptMoves_ = new StringList(oldMoves_);
             keptMoves_.retainAllElements(choice_.getKeptMoves());
             StringList forgottenMoves_ = new StringList(oldMoves_);
-            forgottenMoves_.removeAllElements(choice_.getKeptMoves());
+            StringList.removeAllElements(forgottenMoves_, choice_.getKeptMoves());
             StringList learntMoves_ = new StringList(choice_.getKeptMoves());
-            learntMoves_.removeAllElements(oldMoves_);
+            StringList.removeAllElements(learntMoves_, oldMoves_);
             for (String m: forgottenMoves_) {
                 _fight.addForgetMoveEvolutionMessage(Fight.toUserFighter(k), m, _import);
             }

@@ -3,7 +3,7 @@ import aiki.db.DataBase;
 import aiki.map.places.Place;
 import aiki.util.Coords;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.ints.Comparing;
 
 public final class ComparatorCoords implements Comparing<Coords> {

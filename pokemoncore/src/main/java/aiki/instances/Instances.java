@@ -194,8 +194,9 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
+import code.util.Ints;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -445,7 +446,7 @@ public final class Instances {
         object_.setAccuracy(DataBase.EMPTY_STRING);
         object_.setEffects(new CustList<Effect>(cap_));
         object_.setRepeatRoundLaw(new MonteCarloNumber(cap_));
-        object_.setSecEffectsByItem(new StringMap<Numbers<Integer>>(cap_));
+        object_.setSecEffectsByItem(new StringMap<Ints>(cap_));
         object_.setAchieveDisappearedPkUsingMove(new StringList(cap_));
         object_.setSwitchType(SwitchType.NOTHING);
         object_.setTypesByOwnedItem(new StringMap<String>(cap_));
@@ -465,7 +466,7 @@ public final class Instances {
         object_.setAccuracy(DataBase.EMPTY_STRING);
         object_.setEffects(new CustList<Effect>(cap_));
         object_.setRepeatRoundLaw(new MonteCarloNumber(cap_));
-        object_.setSecEffectsByItem(new StringMap<Numbers<Integer>>(cap_));
+        object_.setSecEffectsByItem(new StringMap<Ints>(cap_));
         object_.setAchieveDisappearedPkUsingMove(new StringList(cap_));
         object_.setSwitchType(SwitchType.NOTHING);
         object_.setTypesByOwnedItem(new StringMap<String>(cap_));
@@ -481,7 +482,7 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -491,7 +492,7 @@ public final class Instances {
         object_.setMultAllyDamage(Rate.zero());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -500,7 +501,7 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -510,7 +511,7 @@ public final class Instances {
         object_.setHpRateClone(Rate.zero());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -530,7 +531,7 @@ public final class Instances {
         object_.setCommonValue(new EnumMap<Statistic,String>(cap_));
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -539,7 +540,7 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -549,7 +550,7 @@ public final class Instances {
         object_.setMovesNotToBeCopied(new StringList(cap_));
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -563,7 +564,7 @@ public final class Instances {
         object_.setCounterFail(DataBase.EMPTY_STRING);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -582,7 +583,7 @@ public final class Instances {
         object_.setBoostStatisOnceKoFoe(new EnumMap<Statistic,Byte>(cap_));
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -592,7 +593,7 @@ public final class Instances {
         object_.setRateDamage(Rate.zero());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -603,7 +604,7 @@ public final class Instances {
         object_.setFailEndRound(DataBase.EMPTY_STRING);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -613,7 +614,7 @@ public final class Instances {
         object_.setFailEndRound(DataBase.EMPTY_STRING);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -629,7 +630,7 @@ public final class Instances {
         object_.setFailEndRound(DataBase.EMPTY_STRING);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -641,7 +642,7 @@ public final class Instances {
         object_.setFailEndRound(DataBase.EMPTY_STRING);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -652,7 +653,7 @@ public final class Instances {
         object_.setFailEndRound(DataBase.EMPTY_STRING);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -662,19 +663,19 @@ public final class Instances {
         object_.setFailEndRound(DataBase.EMPTY_STRING);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
     public static EffectEndRoundSingleRelation newEffectEndRoundSingleRelation() {
         EffectEndRoundSingleRelation object_ = new EffectEndRoundSingleRelation();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setRateDamageFunctionOfNbRounds(new NumberMap<Long,Rate>(cap_));
+        object_.setRateDamageFunctionOfNbRounds(new LongMap<Rate>(cap_));
         object_.setLawForEnablingEffect(new MonteCarloNumber(cap_));
         object_.setFailEndRound(DataBase.EMPTY_STRING);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -686,7 +687,7 @@ public final class Instances {
         object_.setFailEndRound(DataBase.EMPTY_STRING);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -698,7 +699,7 @@ public final class Instances {
         object_.setFailEndRound(DataBase.EMPTY_STRING);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -710,7 +711,7 @@ public final class Instances {
         object_.setFailEndRound(DataBase.EMPTY_STRING);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -722,7 +723,7 @@ public final class Instances {
         object_.setClosestFoeDamageRateHp(Rate.zero());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -751,7 +752,7 @@ public final class Instances {
         object_.setChangedTypesTerrain(new StringList(cap_));
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -764,7 +765,7 @@ public final class Instances {
         object_.setRateInvokationMove(Rate.zero());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -774,7 +775,7 @@ public final class Instances {
         object_.setMultMovePowerFctType(new StringMap<Rate>(cap_));
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -784,7 +785,7 @@ public final class Instances {
         object_.setMultMovePowerFctType(new StringMap<Rate>(cap_));
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -793,7 +794,7 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -803,7 +804,7 @@ public final class Instances {
         object_.setImmuAgainstTypes(new StringList(cap_));
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -813,7 +814,7 @@ public final class Instances {
         object_.setProtSingleAgainstKo(Rate.zero());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -823,7 +824,7 @@ public final class Instances {
         object_.setRateHp(Rate.zero());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -833,7 +834,7 @@ public final class Instances {
         object_.setChoiceRestriction(MoveChoiceRestrictionType.NOTHING);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -851,7 +852,7 @@ public final class Instances {
         object_.setCancelChgtStat(new EnumList<Statistic>(cap_));
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -863,7 +864,7 @@ public final class Instances {
         object_.setLocalFailStatus(new StringMap<String>(cap_));
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -874,7 +875,7 @@ public final class Instances {
         object_.setConstAbility(DataBase.EMPTY_STRING);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -884,7 +885,7 @@ public final class Instances {
         object_.setMoveObject(MoveItemType.EXCHANGE_OBJECTS);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -895,7 +896,7 @@ public final class Instances {
         object_.setReplacingTypes(new StringList(cap_));
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -905,7 +906,7 @@ public final class Instances {
         object_.setPointViewChangement(PointViewChangementType.NOTHING);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -914,7 +915,7 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -928,7 +929,7 @@ public final class Instances {
         object_.setAddedTypes(new StringList(cap_));
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -948,7 +949,7 @@ public final class Instances {
         object_.setDisableFoeTeamStatus(new StringList(cap_));
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -956,13 +957,13 @@ public final class Instances {
         EffectTeamWhileSendFoe object_ = new EffectTeamWhileSendFoe();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setFailSending(DataBase.EMPTY_STRING);
-        object_.setStatusByNbUses(new NumberMap<Short,String>(cap_));
+        object_.setStatusByNbUses(new ShortMap<String>(cap_));
         object_.setDeletedByFoeTypes(new StringList(cap_));
         object_.setDamageRateAgainstFoe(DataBase.EMPTY_STRING);
         object_.setStatistics(new EnumMap<Statistic,Byte>(cap_));
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -975,7 +976,7 @@ public final class Instances {
         object_.setAttackTargetWithTypes(new StringList(cap_));
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -984,7 +985,7 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -994,7 +995,7 @@ public final class Instances {
         object_.setWinningRateBySumTargetUser(Rate.zero());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>(cap_));
+        object_.setRequiredSuccessfulEffects(new Ints(cap_));
         return object_;
     }
 
@@ -1009,8 +1010,8 @@ public final class Instances {
         object_.setGenderRep(GenderRepartition.NO_GENDER);
         object_.setAbilities(new StringList(cap_));
         object_.setMoveTutors(new StringList(cap_));
-        object_.setHiddenMoves(new Numbers<Short>(cap_));
-        object_.setTechnicalMoves(new Numbers<Short>(cap_));
+        object_.setHiddenMoves(new Shorts(cap_));
+        object_.setTechnicalMoves(new Shorts(cap_));
         object_.setBaseEvo(DataBase.EMPTY_STRING);
         object_.setEvolutions(new StringMap<Evolution>(cap_));
         object_.setHeight(Rate.zero());
@@ -1134,7 +1135,7 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setZippedRom(DataBase.EMPTY_STRING);
         object_.setPlayer(newPlayer());
-        object_.setBeatGymTrainer(new NumberMap<Short,EqList<Point>>(cap_));
+        object_.setBeatGymTrainer(new ShortMap<EqList<Point>>(cap_));
         object_.setBeatGymLeader(new ObjectMap<Coords,Boolean>(cap_));
         object_.setBeatTrainer(new ObjectMap<NbFightCoords,Boolean>(cap_));
         object_.setTakenObjects(new ObjectMap<Coords,Boolean>(cap_));
@@ -1171,18 +1172,18 @@ public final class Instances {
         object_.setEnvType(EnvironmentType.ROAD);
         object_.setEnabledMoves(new StringMap<ActivityOfMove>(cap_));
         object_.setStillEnabledMoves(new StringMap<Boolean>(cap_));
-        object_.setTeams(new NumberMap<Byte,Team>(cap_));
+        object_.setTeams(new ByteMap<Team>(cap_));
         object_.setNbRounds(LgInt.zero());
         object_.setWinningMoney(Rate.zero());
         object_.setCatchingBall(DataBase.EMPTY_STRING);
         object_.setCurrentUser(new TeamPosition());
         object_.setState(FightState.RIEN);
         object_.setUsedItemsWhileRound(new StringMap<Short>(cap_));
-        object_.setFirstPositPlayerFighters(new NumberMap<Byte,Byte>(cap_));
-        object_.setFirstPositFoeFighters(new NumberMap<Byte,Byte>(cap_));
+        object_.setFirstPositPlayerFighters(new ByteMap<Byte>(cap_));
+        object_.setFirstPositFoeFighters(new ByteMap<Byte>(cap_));
         object_.setAllyChoice(new ObjectMap<MoveTarget,MoveTarget>(cap_));
         object_.setLostObjects(new StringList(cap_));
-        object_.setChoices(new NumberMap<Byte,ChoiceOfEvolutionAndMoves>(cap_));
+        object_.setChoices(new ByteMap<ChoiceOfEvolutionAndMoves>(cap_));
         object_.setCaughtEvolutions(new StringList(cap_));
         return object_;
     }
@@ -1257,10 +1258,10 @@ public final class Instances {
         object_.setEnabledMovesWhileSendingFoeUses(new StringMap<LgInt>(cap_));
         object_.setNbUsesMoves(new StringMap<Integer>(cap_));
         object_.setNbUsesMovesRound(new StringMap<Integer>(cap_));
-        object_.setHealAfter(new StringMap<NumberMap<Byte,StacksOfUses>>(cap_));
-        object_.setMovesAnticipation(new StringMap<NumberMap<Byte,Anticipation>>(cap_));
-        object_.setMembers(new NumberMap<Byte,Fighter>(cap_));
-        object_.setPlayerFightersAgainstFoe(new NumberMap<Byte,Numbers<Byte>>(cap_));
+        object_.setHealAfter(new StringMap<ByteMap<StacksOfUses>>(cap_));
+        object_.setMovesAnticipation(new StringMap<ByteMap<Anticipation>>(cap_));
+        object_.setMembers(new ByteMap<Fighter>(cap_));
+        object_.setPlayerFightersAgainstFoe(new ByteMap<Bytes>(cap_));
         object_.setSuccessfulMovesRound(new StringList(cap_));
         return object_;
     }
@@ -1314,8 +1315,8 @@ public final class Instances {
         Inventory object_ = new Inventory();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setItems(new StringMap<LgInt>(cap_));
-        object_.setTm(new NumberMap<Short,Boolean>(cap_));
-        object_.setHm(new NumberMap<Short,Boolean>(cap_));
+        object_.setTm(new ShortMap<Boolean>(cap_));
+        object_.setHm(new ShortMap<Boolean>(cap_));
         return object_;
     }
 
@@ -1339,7 +1340,7 @@ public final class Instances {
     public static DataMap newDataMap() {
         DataMap object_ = new DataMap();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setPlaces(new NumberMap<Short,Place>(cap_));
+        object_.setPlaces(new ShortMap<Place>(cap_));
         object_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>(cap_));
         object_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>(cap_));
         object_.setUnlockedCity(DataBase.EMPTY_STRING);
@@ -1375,7 +1376,7 @@ public final class Instances {
         DealerItem object_ = new DealerItem();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setItems(new StringList(cap_));
-        object_.setTechnicalMoves(new Numbers<Short>(cap_));
+        object_.setTechnicalMoves(new Shorts(cap_));
         object_.setImageMiniFileName(DataBase.EMPTY_STRING);
         return object_;
     }
@@ -1427,7 +1428,7 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setSell(SellType.ITEM);
         object_.setItems(new StringList(cap_));
-        object_.setTm(new Numbers<Short>(cap_));
+        object_.setTm(new Shorts(cap_));
         object_.setImageMiniFileName(DataBase.EMPTY_STRING);
         return object_;
     }
@@ -1547,7 +1548,7 @@ public final class Instances {
         Cave object_ = new Cave();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setName(DataBase.EMPTY_STRING);
-        object_.setLevels(new NumberMap<Byte,LevelCave>(cap_));
+        object_.setLevels(new ByteMap<LevelCave>(cap_));
         object_.setLinksWithOtherPlaces(new ObjectMap<LevelPoint,Link>(cap_));
         return object_;
     }

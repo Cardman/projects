@@ -3,7 +3,7 @@ package cards.belote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 
 public final class CheckerGameBeloteWithRules {
 
@@ -77,7 +77,7 @@ public final class CheckerGameBeloteWithRules {
             _loadedGame.setError(TRICK_WITH_BAD_COUNT);
             return;
         }
-        Numbers<Byte> players_ = _loadedGame.orderedPlayers(_loadedGame
+        Bytes players_ = _loadedGame.orderedPlayers(_loadedGame
                 .getDistribution().getDonneur());
         DealBelote deal_ = new DealBelote(_loadedGame.getDistribution());
         for (TrickBelote t : allTricks_) {

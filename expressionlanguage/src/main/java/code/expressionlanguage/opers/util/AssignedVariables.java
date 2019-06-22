@@ -41,7 +41,7 @@ public class AssignedVariables {
         return getList(_filter, _all, mutableLoopBefore.getKeys());
     }
 
-    private IdList<AffectationOperation> getList(Block _filter, boolean _all, IdList<OperationNode> _list) {
+    private IdList<AffectationOperation> getList(Block _filter, boolean _all, CustList<OperationNode> _list) {
         if (_all) {
             return filter(_list);
         }
@@ -56,7 +56,7 @@ public class AssignedVariables {
         }
         return filter(_list);
     }
-    private IdList<AffectationOperation> filter(IdList<OperationNode> _ops) {
+    private IdList<AffectationOperation> filter(CustList<OperationNode> _ops) {
         IdList<AffectationOperation> out_ = new IdList<AffectationOperation>();
         for (OperationNode o: _ops) {
             if (o instanceof AffectationOperation) {

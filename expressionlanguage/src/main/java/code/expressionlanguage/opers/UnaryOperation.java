@@ -17,7 +17,7 @@ import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringList;
 
 public final class UnaryOperation extends AbstractUnaryOperation implements SymbolOperation {
@@ -119,7 +119,7 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
     }
     @Override
     void calculateChildren() {
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        IntTreeMap< String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
     }
 

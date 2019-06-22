@@ -1,7 +1,8 @@
 package code.sml;
 
-import code.util.NatTreeMap;
-import code.util.Numbers;
+import code.util.Ints;
+import code.util.*;
+import code.util.*;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -16,7 +17,7 @@ public class IndexesTest {
         String html_ = "<tag>&#233;</tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
-        Numbers<Integer> indexes_ = DocumentBuilder.getIndexes(node_);
+        Ints indexes_ = DocumentBuilder.getIndexes(node_);
         assertEq(0, indexes_.size());
     }
 
@@ -25,7 +26,7 @@ public class IndexesTest {
         String html_ = "<tag>&#233;</tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
-        Numbers<Integer> indexes_ = DocumentBuilder.getIndexes(node_.getFirstChild());
+        Ints indexes_ = DocumentBuilder.getIndexes(node_.getFirstChild());
         assertEq(1, indexes_.size());
         assertEq(0, indexes_.get(0));
     }
@@ -35,7 +36,7 @@ public class IndexesTest {
         String html_ = "<tag>&#233;<ta>&#234;</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
-        Numbers<Integer> indexes_ = DocumentBuilder.getIndexes(node_.getFirstChild().getNextSibling().getFirstChild());
+        Ints indexes_ = DocumentBuilder.getIndexes(node_.getFirstChild().getNextSibling().getFirstChild());
         assertEq(2, indexes_.size());
         assertEq(1, indexes_.get(0));
         assertEq(0, indexes_.get(1));
@@ -50,7 +51,7 @@ public class IndexesTest {
         node_.setLastChild(node_.getLastChild());
         node_.getLastChild().setPreviousSibling(node_.getFirstChild());
         node_.getFirstChild().setNextSibling(node_.getLastChild());
-        Numbers<Integer> indexes_ = DocumentBuilder.getIndexes(node_.getFirstChild());
+        Ints indexes_ = DocumentBuilder.getIndexes(node_.getFirstChild());
         assertEq(1, indexes_.size());
         assertEq(0, indexes_.get(0));
     }
@@ -1000,13 +1001,13 @@ public class IndexesTest {
         Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling();
-        StringMap<NatTreeMap<Integer,Integer>> t_ = DocumentBuilder.getSpecialChars(html_, (Element) n_);
+        StringMap<IntTreeMap<Integer>> t_ = DocumentBuilder.getSpecialChars(html_, (Element) n_);
         assertEq(2, t_.size());
-        NatTreeMap<Integer, Integer> aOne_ = t_.getVal("where");
+        IntTreeMap< Integer> aOne_ = t_.getVal("where");
         assertEq(2, aOne_.size());
         assertEq(5, aOne_.getVal(1));
         assertEq(7, aOne_.getVal(11));
-        NatTreeMap<Integer, Integer> aTwo_ = t_.getVal("when");
+        IntTreeMap< Integer> aTwo_ = t_.getVal("when");
         assertEq(2, aTwo_.size());
         assertEq(5, aTwo_.getVal(4));
         assertEq(7, aTwo_.getVal(12));
@@ -1021,7 +1022,7 @@ public class IndexesTest {
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
-        StringMap<NatTreeMap<Integer,Integer>> s_;
+        StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
         RowCol rc_ = DocumentBuilder.getOffset("", e_.getAttributes(), s_, 0, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(2, rc_.getRow());
@@ -1038,7 +1039,7 @@ public class IndexesTest {
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
-        StringMap<NatTreeMap<Integer,Integer>> s_;
+        StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
         RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 0, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(2, rc_.getRow());
@@ -1054,7 +1055,7 @@ public class IndexesTest {
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
-        StringMap<NatTreeMap<Integer,Integer>> s_;
+        StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
         RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 1, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(2, rc_.getRow());
@@ -1070,7 +1071,7 @@ public class IndexesTest {
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
-        StringMap<NatTreeMap<Integer,Integer>> s_;
+        StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
         RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 2, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(2, rc_.getRow());
@@ -1086,7 +1087,7 @@ public class IndexesTest {
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
-        StringMap<NatTreeMap<Integer,Integer>> s_;
+        StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
         RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 3, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(2, rc_.getRow());
@@ -1102,7 +1103,7 @@ public class IndexesTest {
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
-        StringMap<NatTreeMap<Integer,Integer>> s_;
+        StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
         RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 6, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(2, rc_.getRow());
@@ -1119,7 +1120,7 @@ public class IndexesTest {
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
-        StringMap<NatTreeMap<Integer,Integer>> s_;
+        StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
         RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 7, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(2, rc_.getRow());
@@ -1136,7 +1137,7 @@ public class IndexesTest {
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
-        StringMap<NatTreeMap<Integer,Integer>> s_;
+        StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
         RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 0, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
@@ -1152,7 +1153,7 @@ public class IndexesTest {
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
-        StringMap<NatTreeMap<Integer,Integer>> s_;
+        StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
         RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 1, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
@@ -1168,7 +1169,7 @@ public class IndexesTest {
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
-        StringMap<NatTreeMap<Integer,Integer>> s_;
+        StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
         RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 2, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
@@ -1184,7 +1185,7 @@ public class IndexesTest {
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
-        StringMap<NatTreeMap<Integer,Integer>> s_;
+        StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
         RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 3, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
@@ -1200,7 +1201,7 @@ public class IndexesTest {
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
-        StringMap<NatTreeMap<Integer,Integer>> s_;
+        StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
         RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 6, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
@@ -1217,7 +1218,7 @@ public class IndexesTest {
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
-        StringMap<NatTreeMap<Integer,Integer>> s_;
+        StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
         RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 7, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
@@ -1233,7 +1234,7 @@ public class IndexesTest {
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
-        StringMap<NatTreeMap<Integer,Integer>> s_;
+        StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
         RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 8, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
@@ -1250,7 +1251,7 @@ public class IndexesTest {
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
-        StringMap<NatTreeMap<Integer,Integer>> s_;
+        StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
         RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 0, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(2, rc_.getRow());
@@ -1266,7 +1267,7 @@ public class IndexesTest {
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
-        StringMap<NatTreeMap<Integer,Integer>> s_;
+        StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
         RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 1, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
@@ -1282,7 +1283,7 @@ public class IndexesTest {
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
-        StringMap<NatTreeMap<Integer,Integer>> s_;
+        StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
         RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 2, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
@@ -1298,7 +1299,7 @@ public class IndexesTest {
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
-        StringMap<NatTreeMap<Integer,Integer>> s_;
+        StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
         RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 3, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
@@ -1314,7 +1315,7 @@ public class IndexesTest {
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
-        StringMap<NatTreeMap<Integer,Integer>> s_;
+        StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
         RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 6, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
@@ -1331,7 +1332,7 @@ public class IndexesTest {
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
-        StringMap<NatTreeMap<Integer,Integer>> s_;
+        StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
         RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 7, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
@@ -1347,7 +1348,7 @@ public class IndexesTest {
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
-        StringMap<NatTreeMap<Integer,Integer>> s_;
+        StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
         RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 8, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
@@ -1363,7 +1364,7 @@ public class IndexesTest {
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
-        StringMap<NatTreeMap<Integer,Integer>> s_;
+        StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
         RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 4, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
@@ -1379,7 +1380,7 @@ public class IndexesTest {
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
-        StringMap<NatTreeMap<Integer,Integer>> s_;
+        StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
         RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 9, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
@@ -1395,7 +1396,7 @@ public class IndexesTest {
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
-        StringMap<NatTreeMap<Integer,Integer>> s_;
+        StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
         RowCol rc_ = DocumentBuilder.getOffset("how", e_.getAttributes(), s_, 0, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(3, rc_.getRow());
@@ -1411,7 +1412,7 @@ public class IndexesTest {
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
         node_ = node_.getFirstChild().getNextSibling();
         e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, (Element) node_, 4);
-        StringMap<NatTreeMap<Integer,Integer>> s_;
+        StringMap<IntTreeMap<Integer>> s_;
         s_ = DocumentBuilder.getSpecialChars(html_, (Element) node_);
         RowCol rc_ = DocumentBuilder.getOffset("where", e_.getAttributes(), s_, 1, e_.getOffsets(), e_.getTabs(), e_.getEndHeader(), 4);
         assertEq(2, rc_.getRow());

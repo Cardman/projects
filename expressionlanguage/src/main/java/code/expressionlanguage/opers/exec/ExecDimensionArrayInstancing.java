@@ -9,7 +9,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringList;
 
 public final class ExecDimensionArrayInstancing extends
@@ -52,8 +52,8 @@ public final class ExecDimensionArrayInstancing extends
             i_++;
         }
         Argument a_ = new Argument();
-        Numbers<Integer> dims_;
-        dims_ = new Numbers<Integer>();
+        Ints dims_;
+        dims_ = new Ints();
         for (int d: args_) {
             dims_.add(d);
         }

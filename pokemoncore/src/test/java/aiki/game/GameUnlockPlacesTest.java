@@ -35,7 +35,7 @@ import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.NumberMap;
+import code.util.*;
 import code.util.ObjectMap;
 
 
@@ -96,7 +96,7 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         roadSix_.setName(ROAD_6);
         DataMap dataMap_ = _dataCore_.getMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new NumberMap<Short,Place>());
+        dataMap_.setPlaces(new ShortMap<Place>());
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),cityOne_);
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),roadOne_);
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),cityTwo_);

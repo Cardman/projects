@@ -2,6 +2,7 @@ package aiki.fight.moves.effects;
 
 import aiki.db.DataBase;
 import code.maths.Rate;
+import code.util.StringList;
 import code.util.StringMap;
 
 
@@ -13,7 +14,7 @@ public final class EffectMultUsedMovePower extends Effect {
     public void validate(DataBase _data) {
         super.validate(_data);
         for (String s : multMovePowerFctType.getKeys()) {
-            if (!_data.getTypes().containsObj(s)) {
+            if (!StringList.contains(_data.getTypes(), s)) {
                 _data.setError(true);
                 return;
 

@@ -29,7 +29,7 @@ public final class GameTarotDeclaring {
         // autorisees
         HandTarot atouts_ = GameTarotCommonPlaying.atoutsPoignee(repartition_);
         if (teamsRelation.getTaker() != next_ || !curHand.contientCartes(_calledCards) || GameTarotBid.estUnJeuDeChelemSur(repartition_,doneTrickInfo.cartesJoueesEnCours(next_).couleurs())) {
-            EnumList<Handfuls> poigneesOrdonnees_ = teamsRelation.getRules().getPoigneesOrdonnees();
+            CustList<Handfuls> poigneesOrdonnees_ = teamsRelation.getRules().getPoigneesOrdonnees();
             EnumList<Handfuls> poigneesAutorisees_ = new EnumList<Handfuls>();
             for(Handfuls p: poigneesOrdonnees_) {
                 if(!teamsRelation.getRules().poigneeAutorisee(p)) {

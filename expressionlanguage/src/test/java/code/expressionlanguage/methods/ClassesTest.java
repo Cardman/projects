@@ -1242,7 +1242,7 @@ public final class ClassesTest {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
         StringList types_ = ((InterfaceBlock) context_.getClassBody("pkg.Outer..InnerTwo")).getImportedDirectSuperInterfaces();
-        assertTrue(types_.containsStr("pkg.OuterThree..InnerThree"));
+        assertTrue(StringList.contains(types_, "pkg.OuterThree..InnerThree"));
     }
     @Test
     public void resolve39FailTest() {

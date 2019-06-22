@@ -4,14 +4,14 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 
 final class BeloteInfoPliEnCours {
 
     private HandBelote playableCards;
     private HandBelote cardsToBePlayed;
-    private Numbers<Byte> joueursNonJoue;
-    private Numbers<Byte> joueursJoue;
+    private Bytes joueursNonJoue;
+    private Bytes joueursJoue;
     private CustList<TrickBelote> plisFaits;
     private TrickBelote progressingTrick;
     private HandBelote cartesJouees;
@@ -27,8 +27,8 @@ final class BeloteInfoPliEnCours {
     private boolean maitreJeu;
     private EnumList<Suit> coupesFranches;
     private BidBeloteSuit contrat;
-    private Numbers<Byte> joueursConfiance;
-    private Numbers<Byte> joueursNonConfiance;
+    private Bytes joueursConfiance;
+    private Bytes joueursNonConfiance;
     private byte nextPlayer;
     private byte nbPlayers;
 
@@ -51,19 +51,19 @@ final class BeloteInfoPliEnCours {
         cardsToBePlayed = _cartesAJouer;
     }
 
-    public Numbers<Byte> getJoueursNonJoue() {
+    public Bytes getJoueursNonJoue() {
         return joueursNonJoue;
     }
 
-    public void setJoueursNonJoue(Numbers<Byte> _joueursNonJoue) {
+    public void setJoueursNonJoue(Bytes _joueursNonJoue) {
         joueursNonJoue = _joueursNonJoue;
     }
 
-    public Numbers<Byte> getJoueursJoue() {
+    public Bytes getJoueursJoue() {
         return joueursJoue;
     }
 
-    public void setJoueursJoue(Numbers<Byte> _joueursJoue) {
+    public void setJoueursJoue(Bytes _joueursJoue) {
         joueursJoue = _joueursJoue;
     }
 
@@ -191,19 +191,19 @@ final class BeloteInfoPliEnCours {
         contrat = _contrat;
     }
 
-    public Numbers<Byte> getJoueursConfiance() {
+    public Bytes getJoueursConfiance() {
         return joueursConfiance;
     }
 
-    public void setJoueursConfiance(Numbers<Byte> _joueursConfiance) {
+    public void setJoueursConfiance(Bytes _joueursConfiance) {
         joueursConfiance = _joueursConfiance;
     }
 
-    public Numbers<Byte> getJoueursNonConfiance() {
+    public Bytes getJoueursNonConfiance() {
         return joueursNonConfiance;
     }
 
-    public void setJoueursNonConfiance(Numbers<Byte> _joueursNonConfiance) {
+    public void setJoueursNonConfiance(Bytes _joueursNonConfiance) {
         joueursNonConfiance = _joueursNonConfiance;
     }
 

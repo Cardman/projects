@@ -50,15 +50,7 @@ import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.EnumMap;
-import code.util.EqList;
-import code.util.NatStringTreeMap;
-import code.util.Numbers;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 
 public final class Fighter {
@@ -351,7 +343,7 @@ public final class Fighter {
             if (_import.getStatus(e).getStatusType() != StatusType.INDIVIDUEL) {
                 continue;
             }
-            if(_pokemon.getStatus().containsObj(e)){
+            if(StringList.contains(_pokemon.getStatus(), e)){
                 status.put(e,(short) 1);
             }else{
                 status.put(e,(short) 0);
@@ -505,16 +497,16 @@ public final class Fighter {
         changed=false;
         enabledMoves = new StringMap<ActivityOfMove>();
         for(String e:_import.getMovesEffectIndiv()){
-            enabledMoves.put(e, new ActivityOfMove(_import.getMovesEffectIndivIncr().containsObj(e)));
+            enabledMoves.put(e, new ActivityOfMove(StringList.contains(_import.getMovesEffectIndivIncr(), e)));
         }
         protectedAgainstMoveTypes = new StringList();
         enabledMovesProt = new StringMap<ActivityOfMove>();
         for(String e:_import.getMovesEffectProt()){
-            enabledMovesProt.put(e, new ActivityOfMove(_import.getMovesEffectIndivIncr().containsObj(e)));
+            enabledMovesProt.put(e, new ActivityOfMove(StringList.contains(_import.getMovesEffectIndivIncr(), e)));
         }
         enabledMovesUnprot = new StringMap<ActivityOfMove>();
         for(String e:_import.getMovesEffectUnprot()){
-            enabledMovesUnprot.put(e, new ActivityOfMove(_import.getMovesEffectIndivIncr().containsObj(e)));
+            enabledMovesUnprot.put(e, new ActivityOfMove(StringList.contains(_import.getMovesEffectIndivIncr(), e)));
         }
         enabledMovesForAlly = new StringMap<Boolean>();
         for(String e:_import.getMovesEffectAlly()){
@@ -522,7 +514,7 @@ public final class Fighter {
         }
         enabledMovesEndRound = new StringMap<ActivityOfMove>();
         for(String e:_import.getMovesEffEndRoundIndiv()){
-            enabledMovesEndRound.put(e, new ActivityOfMove(_import.getMovesEffEndRoundIndivIncr().containsObj(e)));
+            enabledMovesEndRound.put(e, new ActivityOfMove(StringList.contains(_import.getMovesEffEndRoundIndivIncr(), e)));
         }
         enabledMovesConstChoices = new StringMap<ActivityOfMove>();
         for(String e:_import.getMovesConstChoices()){
@@ -604,7 +596,7 @@ public final class Fighter {
             return false;
         }
         for (String t: types) {
-            if (!_data.getTypes().containsObj(t)) {
+            if (!StringList.contains(_data.getTypes(), t)) {
                 return false;
             }
         }
@@ -665,14 +657,14 @@ public final class Fighter {
             }
         }
         Team team_ = _fight.getTeams().getVal(_numberTeam);
-        Numbers<Byte> partners_ = team_.getMembers().getKeys();
+        ByteMap< Fighter> members_ = team_.getMembers();
         if (action instanceof ActionMove) {
             ActionMove actionMove_ = (ActionMove) action;
             if (!_data.getMoves().contains(actionMove_.getFirstChosenMove())) {
                 return false;
             }
             if (!Numbers.eq(actionMove_.getSubstitute(),BACK)) {
-                if (!partners_.containsObj(actionMove_.getSubstitute())) {
+                if (!members_.contains(actionMove_.getSubstitute())) {
                     return false;
                 }
             }
@@ -696,7 +688,7 @@ public final class Fighter {
             if (Numbers.eq(actionSwitch_.getSubstitute(),BACK)) {
                 return false;
             }
-            if (!partners_.containsObj(actionSwitch_.getSubstitute())) {
+            if (!members_.contains(actionSwitch_.getSubstitute())) {
                 return false;
             }
         }
@@ -930,7 +922,7 @@ public final class Fighter {
             }
             MovesAbilities movesAbilities_ = movesAbilitiesEvos.getVal(e);
             for (String m: moves.getKeys()) {
-                if (movesAbilities_.getMoves().containsObj(m)) {
+                if (StringList.contains(movesAbilities_.getMoves(), m)) {
                     return false;
                 }
             }
@@ -1100,7 +1092,7 @@ public final class Fighter {
             if (!_data.getMoves().contains(usedMoveLastRound)) {
                 return false;
             }
-            if (!attaquesUtilisables().containsStr(usedMoveLastRound)) {
+            if (!StringList.contains(attaquesUtilisables(), usedMoveLastRound)) {
                 return false;
             }
         }
@@ -1239,7 +1231,7 @@ public final class Fighter {
             }
             if(evo_ instanceof EvolutionTeam){
                 EvolutionTeam evoPlace_=(EvolutionTeam)evo_;
-                if(_pkNamesBegin.containsObj(evoPlace_.getPokemon())){
+                if(StringList.contains(_pkNamesBegin, evoPlace_.getPokemon())){
                     evos_.add(e);
                 }
                 continue;
@@ -1344,8 +1336,8 @@ public final class Fighter {
             return 0;
         }
         StringList listIntersectMoves_;
-        listIntersectMoves_ = moves.getKeys().intersect(currentMoves.getKeys());
-        if (!listIntersectMoves_.containsObj(_attaque)) {
+        listIntersectMoves_ = StringList.intersect(moves.getKeys(),currentMoves.getKeys());
+        if (!StringList.contains(listIntersectMoves_, _attaque)) {
             return 0;
         }
         //moves.contains(_attaque) && currentMoves.contains(_attaque)
@@ -1728,7 +1720,7 @@ public final class Fighter {
                 break;
             }
         }
-        if (!_import.getMovesCopyingTemp().containsObj(_ancienneAttaque)) {
+        if (!StringList.contains(_import.getMovesCopyingTemp(), _ancienneAttaque)) {
             return;
         }
         copiedMoves.put(_ancienneAttaque,new CopiedMove(_nouvelleAttaque,pp_));
@@ -1737,8 +1729,8 @@ public final class Fighter {
     void apprendreAttaqueEcrasantDef(String _nouvelleAttaque,String _ancienneAttaque,DataBase _import){
         short pp_=_import.getMove(_nouvelleAttaque).getPp();
         StringList listIntersectMoves_;
-        listIntersectMoves_ = moves.getKeys().intersect(currentMoves.getKeys());
-        if (!listIntersectMoves_.containsObj(_ancienneAttaque)) {
+        listIntersectMoves_ = StringList.intersect(moves.getKeys(),currentMoves.getKeys());
+        if (!StringList.contains(listIntersectMoves_, _ancienneAttaque)) {
             return;
         }
         //currentMoves.contains(_ancienneAttaque) && moves.contains(_ancienneAttaque)
@@ -1959,7 +1951,7 @@ public final class Fighter {
         StringList attaquesConnues_=new StringList(moves.getKeys());
         PokemonData fPk_=fichePokemon(_import);
         for(LevelMove nivAtt_: fPk_.getLevMoves()){
-            if(attaquesConnues_.containsObj(nivAtt_.getMove())){
+            if(StringList.contains(attaquesConnues_, nivAtt_.getMove())){
                 continue;
             }
             if(nivAtt_.getLevel()>_niveauTmp){
@@ -2022,13 +2014,13 @@ public final class Fighter {
             PokemonData fPkEvo_=_import.getPokemon(e);
             StringList attaquesApprendreEvos_=new StringList();
             for (String m : _attaquesApprendre) {
-                if (_attaquesConnues.containsObj(m)) {
+                if (StringList.contains(_attaquesConnues, m)) {
                     continue;
                 }
                 attaquesApprendreEvos_.add(m);
             }
             for(LevelMove l: fPkEvo_.getLevMoves()){
-                if(_attaquesConnues.containsObj(l.getMove())){
+                if(StringList.contains(_attaquesConnues, l.getMove())){
                     continue;
                 }
                 if(l.getLevel()>level){
@@ -2098,7 +2090,7 @@ public final class Fighter {
         StringList attaquesRemplacees_ = new StringList();
         StringList attaquesRemplacant_ = new StringList();
         for(String c:moves.getKeys()){
-            if(_attaquesRetenues.containsObj(c)){
+            if(StringList.contains(_attaquesRetenues, c)){
                 continue;
             }
             attaquesRemplacees_.add(c);
@@ -2303,7 +2295,7 @@ public final class Fighter {
         boolean pasPpAttaqueCible_=false;
         if(usedMoveLastRound.isEmpty()){
             pasPpAttaqueCible_=true;
-        }else if(!attaquesUtilisables().containsObj(usedMoveLastRound)){
+        }else if(!StringList.contains(attaquesUtilisables(), usedMoveLastRound)){
             pasPpAttaqueCible_=true;
         }else if(powerPointsMove(usedMoveLastRound) == 0){
             pasPpAttaqueCible_=true;
@@ -2605,7 +2597,7 @@ public final class Fighter {
         return status;
     }
 
-    public StringList getStatusSet() {
+    public CustList<String> getStatusSet() {
         return status.getKeys();
     }
 
@@ -2633,7 +2625,7 @@ public final class Fighter {
         return statusRelat;
     }
 
-    public EqList<MoveTeamPosition> getStatusRelatSet() {
+    public CustList<MoveTeamPosition> getStatusRelatSet() {
         return statusRelat.getKeys();
     }
 
@@ -2665,7 +2657,7 @@ public final class Fighter {
         return moves.size();
     }
 
-    public StringList getMovesSet() {
+    public CustList<String> getMovesSet() {
         return moves.getKeys();
     }
 
@@ -2681,7 +2673,7 @@ public final class Fighter {
         return currentMoves.getVal(_move);
     }
 
-    public StringList getCurrentMovesSet() {
+    public CustList<String> getCurrentMovesSet() {
         return currentMoves.getKeys();
     }
 

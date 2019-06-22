@@ -8,7 +8,7 @@ import aiki.fight.moves.effects.EffectInvoke;
 import aiki.game.params.Difficulty;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 
 final class FightInvoke {
@@ -27,7 +27,7 @@ final class FightInvoke {
         creature_.setLastUsedMove(creature_.getFinalChosenMove());
         while(true){
             String attaqueInvoque_=creature_.getFinalChosenMove();
-            if (!_import.getMovesInvoking().containsObj(attaqueInvoque_)) {
+            if (!StringList.contains(_import.getMovesInvoking(), attaqueInvoque_)) {
                 _fight.addFirstMoveMessage(_lanceur, attaqueInvoque_, _import);
                 break;
             }
@@ -142,8 +142,8 @@ final class FightInvoke {
             }
         }
         attaquesInvocables_.removeDuplicates();
-        attaquesInvocables_.removeAllElements(_effet.getMovesNotToBeInvoked());
-        attaquesInvocables_.removeAllElements(creatureLanceur_.getAlreadyInvokedMovesRound());
+        StringList.removeAllElements(attaquesInvocables_, _effet.getMovesNotToBeInvoked());
+        StringList.removeAllElements(attaquesInvocables_, creatureLanceur_.getAlreadyInvokedMovesRound());
         return attaquesInvocables_;
     }
 
@@ -170,8 +170,8 @@ final class FightInvoke {
                 attaquesCopiables_.removeString(c);
             }
         }
-        attaquesCopiables_.removeAllElements(_effet.getMovesNotToBeCopied());
-        attaquesCopiables_.removeObj(_import.getDefaultMove());
+        StringList.removeAllElements(attaquesCopiables_, _effet.getMovesNotToBeCopied());
+        StringList.removeObj(attaquesCopiables_, _import.getDefaultMove());
         return attaquesCopiables_;
     }
 }

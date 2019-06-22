@@ -9,8 +9,7 @@ import cards.consts.Status;
 import cards.consts.Suit;
 import code.bean.Bean;
 import code.format.Format;
-import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 
 abstract class BeloteBean extends Bean {
@@ -21,7 +20,7 @@ abstract class BeloteBean extends Bean {
 
     private StringList nicknames;
 
-    private CustList<Numbers<Long>> scores;
+    private CustList<Longs> scores;
 
     private byte user;
 
@@ -92,11 +91,11 @@ abstract class BeloteBean extends Bean {
         nicknames = _nicknames;
     }
 
-    protected final CustList<Numbers<Long>> getScores() {
+    protected final CustList<Longs> getScores() {
         return scores;
     }
 
-    protected final void setScores(CustList<Numbers<Long>> _scores) {
+    protected final void setScores(CustList<Longs> _scores) {
         scores = _scores;
     }
 

@@ -209,7 +209,7 @@ public class FightSuccessTest extends InitializationDataBase {
         fight_.enableGlobalMove(ZENITH);
         StringList list_ = FightSuccess.forbiddenStatus(fight_,_data_);
         assertEq(1, list_.size());
-        assertTrue(list_.containsObj(GEL));
+        assertTrue(StringList.contains(list_, GEL));
     }
 
     @Test

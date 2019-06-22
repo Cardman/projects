@@ -13,7 +13,7 @@ import code.formathtml.util.NodeContainer;
 import code.formathtml.util.StdStruct;
 import code.formathtml.util.ValueChangeEvent;
 import code.sml.DocumentBuilder;
-import code.util.Numbers;
+import code.util.Longs;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -73,7 +73,7 @@ final class HtmlRequest {
 
     static void setObject(Configuration _conf, NodeContainer _nodeContainer,
             Struct _attribute,
-            Numbers<Long> _indexes) {
+            Longs _indexes) {
         Struct obj_ = _nodeContainer.getStruct();
         if (obj_ == NullStruct.NULL_VALUE) {
             String err_ = _conf.getStandards().getAliasNullPe();
@@ -176,7 +176,7 @@ final class HtmlRequest {
     }
     private static ValueChangeEvent calculateChange(NodeContainer _nodeContainer,
             Struct _attribute,
-            Numbers<Long> _indexes) {
+            Longs _indexes) {
         String varMethod_ = _nodeContainer.getNodeInformation().getVarMethod();
         if (!varMethod_.isEmpty()) {
             return null;

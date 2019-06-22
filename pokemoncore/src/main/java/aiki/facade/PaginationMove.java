@@ -9,8 +9,8 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.map.pokemon.CriteriaForSearchingMove;
 import aiki.util.SortingMove;
 import code.util.CustList;
-import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -69,7 +69,7 @@ public final class PaginationMove extends
             MoveData i_ = _data.getMove(_list.get(i));
             int price_ = 0;
             // CustList<Short> tmKeys_ = _data.getTm().getKeys(_list.get(i));
-            Numbers<Short> tmKeys_ = _data.getTmByMove(_list.get(i));
+            Shorts tmKeys_ = _data.getTmByMove(_list.get(i));
             if (!tmKeys_.isEmpty()) {
                 short tm_ = tmKeys_.first();
                 if (_data.getTmPrice().contains(tm_)) {
@@ -145,8 +145,8 @@ public final class PaginationMove extends
 
     @Override
     protected boolean sortable() {
-        Numbers<Integer> priorities_;
-        priorities_ = new Numbers<Integer>();
+        Ints priorities_;
+        priorities_ = new Ints();
         if (cmpPrice.getPriority() != NO_PRIORITY) {
             priorities_.add(cmpPrice.getPriority());
         }

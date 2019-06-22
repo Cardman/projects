@@ -4,7 +4,7 @@ import java.util.Iterator;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 
 
 public final class TrickBelote implements Iterable<CardBelote> {
@@ -85,11 +85,11 @@ public final class TrickBelote implements Iterable<CardBelote> {
         byte position_=(byte)cards.position(_c);
         return (byte)((position_+getEntameur())%_nombreDeJoueurs);
     }
-    Numbers<Byte> joueursAyantJoueAvant(byte _pnumero) {
+    Bytes joueursAyantJoueAvant(byte _pnumero) {
         return joueursAyantJoueAvant(_pnumero, (byte) total());
     }
-    Numbers<Byte> joueursAyantJoueAvant(byte _pnumero,byte _nombreDeJoueurs) {
-        Numbers<Byte> joueurs_=new Numbers<Byte>();
+    Bytes joueursAyantJoueAvant(byte _pnumero,byte _nombreDeJoueurs) {
+        Bytes joueurs_=new Bytes();
         boolean arreter_ = false;
         for(byte j = starter; j< _nombreDeJoueurs;j++) {
             if(!aJoue(j, _nombreDeJoueurs)) {
@@ -157,8 +157,8 @@ public final class TrickBelote implements Iterable<CardBelote> {
     <ol><li>si la couleur demandee est de l'atout alors on cherche l'ensemble des joueurs n'ayant pas joue de l'atout(Excuse incluse)</li>
     <li>sinon on cherche les joueurs ayant joue de l'atout sur une couleur</li></ol>
     Ces joueurs sont classes par ordre chronologique de jeu*/
-    Numbers<Byte> joueursCoupes(Suit _couleurAtout) {
-        Numbers<Byte> coupes_=new Numbers<Byte>();
+    Bytes joueursCoupes(Suit _couleurAtout) {
+        Bytes coupes_=new Bytes();
         Suit couleur_;
         if(total()<=CustList.ONE_ELEMENT) {
             return coupes_;
@@ -180,8 +180,8 @@ public final class TrickBelote implements Iterable<CardBelote> {
         }
         return coupes_;
     }
-    Numbers<Byte> joueursDefausses(Suit _couleurAtout) {
-        Numbers<Byte> coupes_=new Numbers<Byte>();
+    Bytes joueursDefausses(Suit _couleurAtout) {
+        Bytes coupes_=new Bytes();
         Suit couleur_;
         if(total()<=CustList.ONE_ELEMENT) {
             return coupes_;
@@ -203,8 +203,8 @@ public final class TrickBelote implements Iterable<CardBelote> {
         }
         return coupes_;
     }
-    public Numbers<Byte> playersHavingPlayed(byte _numberPlayers) {
-        Numbers<Byte> players_ = new Numbers<Byte>();
+    public Bytes playersHavingPlayed(byte _numberPlayers) {
+        Bytes players_ = new Bytes();
         for (CardBelote c: cards) {
             players_.add(joueurAyantJoue(c,_numberPlayers));
         }

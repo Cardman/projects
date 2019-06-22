@@ -32,7 +32,7 @@ import code.gui.Panel;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringMap;
 import code.util.ints.Listable;
 
@@ -218,7 +218,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         sousPanneau_.add(new JLabel(getMessages().getVal(NUMBER_PLAYERS)));
         sousPanneau_.add(new JLabel(getMessages().getVal(REPARTITION_PLAYERS)));
 
-        Numbers<Integer> nombreJoueursPossible_=new Numbers<Integer>();
+        Ints nombreJoueursPossible_=new Ints();
         EnumList<DealingTarot> repValides_ = new EnumList<DealingTarot>(DealingTarot.getRepartitionsValides());
         int minJoueurs_=repValides_.get(0).getNombreJoueurs();
         int maxJoueurs_=repValides_.get(0).getNombreJoueurs();

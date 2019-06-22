@@ -2,7 +2,7 @@ package code.images;
 
 import org.junit.Assert;
 
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 
 public final class EquallableImageUtil {

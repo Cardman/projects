@@ -21,7 +21,7 @@ import cards.president.enumerations.EqualtyPlaying;
 import code.gui.Panel;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.ints.Listable;
@@ -161,7 +161,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         players_.add(new JLabel(getMessages().getVal(NUMBER_PLAYERS)));
         players_.add(new JLabel(getMessages().getVal(NUMBER_STACKS)));
 
-        Numbers<Integer> nombreJoueursPossible_=new Numbers<Integer>();
+        Ints nombreJoueursPossible_=new Ints();
         int minJoueurs_ = RulesPresident.getNbMinPlayers();
         int maxJoueurs_ = RulesPresident.getNbMaxPlayers();
         for (int i = minJoueurs_; i <= maxJoueurs_; i++) {
@@ -180,7 +180,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
             nbJoueurs.setEnabled(false);
         }
         players_.add(nbJoueurs);
-        Numbers<Integer> stacks_ = new Numbers<Integer>();
+        Ints stacks_ = new Ints();
         int minStacks_ = getReglesPresident().getNbMinStacks();
         int maxStacks_ = getReglesPresident().getNbMaxStacks();
         for (int i = minStacks_; i <= maxStacks_; i++) {
@@ -204,7 +204,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
 
     @Override
     public void validateNbPlayers(MainWindow _window) {
-        Numbers<Integer> stacks_ = new Numbers<Integer>();
+        Ints stacks_ = new Ints();
         int minStacks_ = RulesPresident.getNbMinStacks((Integer) nbJoueurs.getValue());
         int maxStacks_ = RulesPresident.getNbMaxStacks((Integer) nbJoueurs.getValue());
         for (int i = minStacks_; i <= maxStacks_; i++) {

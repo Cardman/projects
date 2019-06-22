@@ -11,9 +11,9 @@ import cards.network.common.Quit;
 import cards.network.sml.DocumentWriterCardsMultiUtil;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
+import code.util.*;
 
 public final class Net {
 
@@ -31,20 +31,20 @@ public final class Net {
     private static Games _games_ = new Games();
 
 
-    private static NumberMap<Integer,Socket> _sockets_=new NumberMap<Integer,Socket>();
+    private static IntMap<Socket> _sockets_=new IntMap<Socket>();
 
-    private static NatTreeMap<Integer, Byte> _placesPlayers_ = new NatTreeMap<Integer, Byte>();
+    private static IntTreeMap< Byte> _placesPlayers_ = new IntTreeMap< Byte>();
 
-    private static NumberMap<Integer,Boolean> _readyPlayers_ = new NumberMap<Integer,Boolean>();
+    private static IntMap<Boolean> _readyPlayers_ = new IntMap<Boolean>();
 
 
-    private static NumberMap<Integer,String> _nicknames_=new NumberMap<Integer,String>();
+    private static IntMap<String> _nicknames_=new IntMap<String>();
 
-    private static NumberMap<Integer,SendReceiveServer> _connectionsServer_=new NumberMap<Integer,SendReceiveServer>();
+    private static IntMap<SendReceiveServer> _connectionsServer_=new IntMap<SendReceiveServer>();
 
-    private static NumberMap<Integer,String> _playersLocales_ = new NumberMap<Integer,String>();
+    private static IntMap<String> _playersLocales_ = new IntMap<String>();
 
-    private static CustList<Numbers<Long>> _scores_ = new CustList<Numbers<Long>>();
+    private static CustList<Longs> _scores_ = new CustList<Longs>();
 
 //    private static final String NET_ZERO = "net0";
 //    private static final String WLAN_ZERO = "wlan0";
@@ -53,8 +53,8 @@ public final class Net {
 //    // network: socket allowing a player to send and receive informations which is use for a game
 //    private static Socket _socket_;
 //    private static String _ipHost_;
-    private static NumberMap<Byte,Boolean> _activePlayers_;
-    private static NumberMap<Byte,Boolean> _received_;
+    private static ByteMap<Boolean> _activePlayers_;
+    private static ByteMap<Boolean> _received_;
 
 //    private static ConnectionToServer _connection_;
 
@@ -118,7 +118,7 @@ public final class Net {
     @return true &hArr; the players are correctly placed around the "table"*/
     public static boolean distinctPlaces() {
         boolean distinct_ = true;
-        Numbers<Byte> places_ = new Numbers<Byte>();
+        Bytes places_ = new Bytes();
         for (byte r: activePlayers()) {
             if (places_.containsObj(r)) {
                 distinct_ = false;
@@ -150,7 +150,7 @@ public final class Net {
     //bk: synchronized
     /**server*/
     static void initAllPresent() {
-        _activePlayers_ = new NumberMap<Byte,Boolean>();
+        _activePlayers_ = new ByteMap<Boolean>();
         for (byte r: Net.getPlacesPlayers().values()) {
 //            _activePlayers_.synchronizedPut(r, true);
             _activePlayers_.put(r, true);
@@ -160,7 +160,7 @@ public final class Net {
     /**server*/
     static void initAllReceived() {
         if (_received_ == null) {
-            _received_ = new NumberMap<Byte,Boolean>();
+            _received_ = new ByteMap<Boolean>();
         }
         for (byte r: Net.getPlacesPlayers().values()) {
 //            if (_activePlayers_.synchronizedGet(r)) {
@@ -198,7 +198,7 @@ public final class Net {
 
     //bk: synchronized
     /**server*/
-    static boolean allReceivedAmong(Numbers<Byte> _players) {
+    static boolean allReceivedAmong(Bytes _players) {
         boolean allReceived_ = true;
         for (byte p: Net._received_.getKeys()) {
             if (!_players.containsObj(p)) {
@@ -227,21 +227,21 @@ public final class Net {
     /**server
     @return true &hArr; the connected players are belonging to a seam team*/
     static boolean isSameTeam() {
-        Numbers<Byte> players_ = new Numbers<Byte>(activePlayers());
+        Bytes players_ = new Bytes(activePlayers());
         return Net.getGames().isSameTeam(players_);
     }
     /**server
     bk: synchronized, called from mouse events or server loop
     @return the connected players*/
-    static Numbers<Byte> activePlayers() {
+    static Bytes activePlayers() {
         if (_activePlayers_ == null) {
-            Numbers<Byte> activePlayers_ = new Numbers<Byte>();
+            Bytes activePlayers_ = new Bytes();
             for (byte i: getPlacesPlayers().values()) {
                 activePlayers_.add(i);
             }
             return activePlayers_;
         }
-        Numbers<Byte> activePlayers_ = new Numbers<Byte>();
+        Bytes activePlayers_ = new Bytes();
         for (byte i: getPlacesPlayers().values()) {
 //            if (!_activePlayers_.synchronizedGet(i)) {
 //            }
@@ -291,7 +291,7 @@ public final class Net {
             }
             DelegateServer d_ = new DelegateServer();
             d_.setGames(Net.getGames());
-            d_.setNicknames(new NumberMap<Integer,String>());
+            d_.setNicknames(new IntMap<String>());
             Net.sendObject(Net.getSocketByPlace(p),d_);
             return true;
         }
@@ -326,7 +326,7 @@ public final class Net {
     }
 
     /**server*/
-    public static NumberMap<Integer,SendReceiveServer> getConnectionsServer() {
+    public static IntMap<SendReceiveServer> getConnectionsServer() {
         return _connectionsServer_;
     }
 
@@ -351,28 +351,28 @@ public final class Net {
     }
 
     /**server*/
-    public static NumberMap<Integer,String> getNicknames() {
+    public static IntMap<String> getNicknames() {
         return _nicknames_;
     }
 
     /**server*/
-    public static NumberMap<Integer,Socket> getSockets() {
+    public static IntMap<Socket> getSockets() {
         return _sockets_;
     }
 
     /**server*/
-    public static NumberMap<Integer,Boolean> getReadyPlayers() {
+    public static IntMap<Boolean> getReadyPlayers() {
         return _readyPlayers_;
     }
 
     /**server*/
-    public static NatTreeMap<Integer, Byte> getPlacesPlayers() {
+    public static IntTreeMap< Byte> getPlacesPlayers() {
         return _placesPlayers_;
     }
     /**server*/
-    public static Numbers<Integer> getPlacesPlayersByValue(byte _value) {
-        Numbers<Integer> l_;
-        l_ = new Numbers<Integer>();
+    public static Ints getPlacesPlayersByValue(byte _value) {
+        Ints l_;
+        l_ = new Ints();
         for (EntryCust<Integer, Byte> e: _placesPlayers_.entryList()) {
             if (e.getValue().byteValue() != _value) {
                 continue;
@@ -393,12 +393,12 @@ public final class Net {
     }
 
     /**server*/
-    public static CustList<Numbers<Long>> getScores() {
+    public static CustList<Longs> getScores() {
         return _scores_;
     }
 
     /**server*/
-    public static NumberMap<Integer,String> getPlayersLocales() {
+    public static IntMap<String> getPlayersLocales() {
         return _playersLocales_;
     }
 }

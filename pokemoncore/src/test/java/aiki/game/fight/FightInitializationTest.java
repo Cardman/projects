@@ -1082,7 +1082,7 @@ public class FightInitializationTest extends InitializationDataBase {
         assertTrue(!fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         StringList list_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getTypes();
         assertEq(1, list_.size());
-        assertTrue(list_.containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(list_, ELECTRIQUE));
     }
 
     @Test

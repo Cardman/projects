@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import aiki.facade.FacadeGame;
 import aiki.util.SortingItem;
 import code.gui.images.ConverterGraphicBufferedImage;
-import code.util.Numbers;
+import code.util.Ints;
 
 public class ItemLabel extends SelectableLabel {
 
@@ -38,7 +38,7 @@ public class ItemLabel extends SelectableLabel {
         if (h_ < FOURTH_LINE) {
             h_ = FOURTH_LINE;
         }
-        Numbers<Integer> widths_ = new Numbers<Integer>();
+        Ints widths_ = new Ints();
         widths_.add(getFontMetrics(getFont()).stringWidth(item.getName()));
         widths_.add(getFontMetrics(getFont()).stringWidth(item.getItemClass()));
         widths_.add(getFontMetrics(getFont()).stringWidth(Integer.toString(item.getPrice())));

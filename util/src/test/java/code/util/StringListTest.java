@@ -618,7 +618,7 @@ public class StringListTest {
     }
     @Test
     public void indexesOfSubString1Test(){
-        Numbers<Integer> indexes_;
+        Ints indexes_;
         indexes_ = StringList.indexesOfSubString("HELLO WORLD", "L");
         assertEq(3, indexes_.size());
         assertEq(2, indexes_.get(0));
@@ -627,34 +627,34 @@ public class StringListTest {
     }
     @Test
     public void indexesOfSubString2Test(){
-        Numbers<Integer> indexes_;
+        Ints indexes_;
         indexes_ = StringList.indexesOfSubString("HELLO WORLD", "LL");
         assertEq(1, indexes_.size());
         assertEq(2, indexes_.get(0));
     }
     @Test
     public void indexesOfSubString3Test(){
-        Numbers<Integer> indexes_;
+        Ints indexes_;
         indexes_ = StringList.indexesOfSubString("HELLO WORLD", "LD");
         assertEq(1, indexes_.size());
         assertEq(9, indexes_.get(0));
     }
     @Test
     public void indexesOfSubString4Test(){
-        Numbers<Integer> indexes_;
+        Ints indexes_;
         indexes_ = StringList.indexesOfSubString("HELLO WORLD", "OO");
         assertEq(0, indexes_.size());
     }
     @Test
     public void indexesOfSubString5Test(){
-        Numbers<Integer> indexes_;
+        Ints indexes_;
         indexes_ = StringList.indexesOfSubString("HELLO WORLD", "");
         assertEq(1, indexes_.size());
         assertEq(0, indexes_.get(0));
     }
     @Test
     public void indexesOfSubString6Test(){
-        Numbers<Integer> indexes_;
+        Ints indexes_;
         indexes_ = StringList.indexesOfSubString("AAAA", "AA");
         assertEq(2, indexes_.size());
         assertEq(0, indexes_.get(0));
@@ -662,14 +662,14 @@ public class StringListTest {
     }
     @Test
     public void indexesOfSubString7Test(){
-        Numbers<Integer> indexes_;
+        Ints indexes_;
         indexes_ = StringList.indexesOfSubString("AAA", "AA");
         assertEq(1, indexes_.size());
         assertEq(0, indexes_.get(0));
     }
     @Test
     public void indexesOfChar1Test(){
-        Numbers<Integer> indexes_;
+        Ints indexes_;
         indexes_ = StringList.indexesOfChar("HELLO WORLD", 'L');
         assertEq(3, indexes_.size());
         assertEq(2, indexes_.get(0));
@@ -678,13 +678,13 @@ public class StringListTest {
     }
     @Test
     public void indexesOfChar2Test(){
-        Numbers<Integer> indexes_;
+        Ints indexes_;
         indexes_ = StringList.indexesOfChar("HELLO WORLD", 'Z');
         assertEq(0, indexes_.size());
     }
     @Test
     public void indexesOfChar3Test(){
-        Numbers<Integer> indexes_;
+        Ints indexes_;
         indexes_ = StringList.indexesOfChar("", 'Z');
         assertEq(0, indexes_.size());
     }
@@ -2608,7 +2608,7 @@ public class StringListTest {
         StringList listTwo_ = new StringList();
         listTwo_.add("hellos");
         listTwo_.add("world");
-        StringList f_ = list_.intersect(listTwo_);
+        StringList f_ = StringList.intersect(list_,listTwo_);
         assertEq(1, f_.size());
         assertEq("world", f_.get(0));
     }
@@ -2655,7 +2655,7 @@ public class StringListTest {
         StringList list_ = new StringList();
         list_.add("hello");
         list_.add("world");
-        list_.removePrefixInStrings("h");
+        StringList.removePrefixInStrings(list_,"h");
         assertEq(2, list_.size());
         assertEq("ello", list_.get(0));
         assertEq("world", list_.get(1));
@@ -2696,7 +2696,7 @@ public class StringListTest {
         StringList listTwo_ = new StringList();
         listTwo_.add("hello");
         listTwo_.add("worlds");
-        list_.removeAllElements(listTwo_);
+        StringList.removeAllElements(list_, listTwo_);
         assertEq(1, list_.size());
         assertEq("world", list_.get(0));
     }

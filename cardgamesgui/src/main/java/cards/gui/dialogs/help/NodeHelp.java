@@ -1,6 +1,6 @@
 package cards.gui.dialogs.help;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.ints.Displayable;
 
 public class NodeHelp implements Displayable {

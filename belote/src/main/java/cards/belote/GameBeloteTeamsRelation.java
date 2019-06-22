@@ -3,7 +3,7 @@ package cards.belote;
 import cards.belote.enumerations.BeloteTrumpPartner;
 import cards.consts.Status;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 
 public final class GameBeloteTeamsRelation {
     private byte taker;
@@ -16,8 +16,8 @@ public final class GameBeloteTeamsRelation {
     byte playerAfter(byte _player) {
         return rules.getRepartition().getNextPlayer(_player);
     }
-    public Numbers<Byte> adversaires(byte _numero) {
-        Numbers<Byte> adversaires_ = new Numbers<Byte>();
+    public Bytes adversaires(byte _numero) {
+        Bytes adversaires_ = new Bytes();
         byte player_ = playerAfter(_numero);
         adversaires_.add(player_);
         player_ = playerAfter(player_);
@@ -25,8 +25,8 @@ public final class GameBeloteTeamsRelation {
         adversaires_.add(player_);
         return adversaires_;
     }
-    public Numbers<Byte> partenaires(byte _numero) {
-        Numbers<Byte> partenaires_ = new Numbers<Byte>();
+    public Bytes partenaires(byte _numero) {
+        Bytes partenaires_ = new Bytes();
         byte player_ = playerAfter(_numero);
         player_ = playerAfter(player_);
         partenaires_.add(player_);
@@ -43,12 +43,20 @@ public final class GameBeloteTeamsRelation {
         return Status.DEFENDER;
     }
 
-
+    static boolean contientJoueurs(Bytes _joueurs1, Bytes _joueurs2) {
+        for (Number e: _joueurs2) {
+            long nb_ = e.longValue();
+            if (!_joueurs1.contains(nb_)) {
+                return false;
+            }
+        }
+        return true;
+    }
     /**@throws NullPointerException si un des arguments est null*/
-    static boolean egaliteJoueurs(Numbers<Byte> _joueurs1, Numbers<Byte> _joueurs2) {
+    static boolean egaliteJoueurs(Bytes _joueurs1, Bytes _joueurs2) {
         return Numbers.equalsSetBytes(_joueurs1,_joueurs2);
     }
-    boolean isSameTeam(Numbers<Byte> _players) {
+    boolean isSameTeam(Bytes _players) {
         int nbPlayers_ = _players.size();
         for (byte i = CustList.SECOND_INDEX; i<nbPlayers_; i++) {
             if (!memeEquipe(_players.getPrev(i), _players.get(i))) {
@@ -63,20 +71,20 @@ public final class GameBeloteTeamsRelation {
         }
         return !aPourDefenseur(_numero2);
     }
-    public CustList<Numbers<Byte>> playersBelongingToSameTeam() {
-        CustList<Numbers<Byte>> teams_ = new CustList<Numbers<Byte>>();
-        Numbers<Byte> takerTeam_ = partenaires(taker);
+    public CustList<Bytes> playersBelongingToSameTeam() {
+        CustList<Bytes> teams_ = new CustList<Bytes>();
+        Bytes takerTeam_ = partenaires(taker);
         takerTeam_.add(taker);
         teams_.add(takerTeam_);
-        Numbers<Byte> takerFoeTeam_ = adversaires(taker);
+        Bytes takerFoeTeam_ = adversaires(taker);
         teams_.add(takerFoeTeam_);
         return teams_;
     }
     boolean aPourDefenseur(byte _numero) {
         return _numero!=taker&&!partenaires(taker).containsObj(_numero);
     }
-    static Numbers<Byte> intersectionJoueurs(Numbers<Byte> _joueurs1, Numbers<Byte> _joueurs2) {
-        Numbers<Byte> joueurs_ = new Numbers<Byte>();
+    static Bytes intersectionJoueurs(Bytes _joueurs1, Bytes _joueurs2) {
+        Bytes joueurs_ = new Bytes();
         for (byte j : _joueurs1) {
             if(!_joueurs2.containsObj(j)) {
                 continue;
@@ -86,9 +94,9 @@ public final class GameBeloteTeamsRelation {
         return joueurs_;
     }
 
-    static Numbers<Byte> autresJoueurs(Numbers<Byte> _joueurs,
+    static Bytes autresJoueurs(Bytes _joueurs,
                                                byte _nombreJoueurs) {
-        Numbers<Byte> joueurs_ = new Numbers<Byte>();
+        Bytes joueurs_ = new Bytes();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
             if (!_joueurs.containsObj(joueur_)) {
                 joueurs_.add(joueur_);

@@ -4,7 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringList;
 
 public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
@@ -22,7 +22,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     private final boolean staticType;
 
     public ClassBlock(int _idRowCol, int _categoryOffset, String _name, String _packageName, OffsetAccessInfo _access,
-                      String _templateDef, NatTreeMap<Integer, String> _directSuperTypes,
+                      String _templateDef, IntTreeMap< String> _directSuperTypes,
                       boolean _finalType,
                       boolean _abstractType, boolean _staticType,
                       OffsetsBlock _offset) {
@@ -87,7 +87,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
 
     @Override
     public void buildDirectGenericSuperTypes(ContextEl _classes) {
-        NatTreeMap<Integer, String> rcs_;
+        IntTreeMap< String> rcs_;
         rcs_ = getRowColDirectSuperTypes();
         int i_ = 0;
         importedDirectSuperInterfaces.clear();

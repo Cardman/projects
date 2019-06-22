@@ -7,7 +7,7 @@ import cards.consts.MixCardsChoice;
 import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.Numbers;
+import code.util.Ints;
 
 
 public final class RulesBelote {
@@ -64,8 +64,8 @@ public final class RulesBelote {
         return dealing.getRemainingCards() == 0;
     }
 
-    public static Numbers<Integer> getPoints() {
-        Numbers<Integer> list_ = new Numbers<Integer>();
+    public static Ints getPoints() {
+        Ints list_ = new Ints();
         int sum_ = HandBelote.pointsTotauxDixDeDer();
         int min_ = sum_ / 2;
         if (min_ % DIVISIONS != 0) {

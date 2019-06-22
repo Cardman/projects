@@ -12,7 +12,7 @@ import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.Panel;
 import code.util.CustList;
-import code.util.NumberMap;
+import code.util.*;
 
 public class CarpetTarot extends Panel {
 
@@ -20,7 +20,7 @@ public class CarpetTarot extends Panel {
     private boolean horaire;
     private Panel centerDeck;
 
-    private NumberMap<Integer,GraphicTarotCard> cards = new NumberMap<Integer,GraphicTarotCard>();
+    private IntMap<GraphicTarotCard> cards = new IntMap<GraphicTarotCard>();
 
     public CarpetTarot() {
     }

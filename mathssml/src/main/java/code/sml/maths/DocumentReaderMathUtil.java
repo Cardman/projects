@@ -16,8 +16,8 @@ import code.util.BooleanMap;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -184,12 +184,12 @@ public final class DocumentReaderMathUtil {
         }
         return law_;
     }
-    public static NumberMap<Long,Rate> getMapLongRate(Element _elt) {
+    public static LongMap<Rate> getMapLongRate(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        NumberMap<Long,Rate> map_ = new NumberMap<Long,Rate>(cap_);
-        Numbers<Long> keys_ = new Numbers<Long>(cap_);
+        LongMap<Rate> map_ = new LongMap<Rate>(cap_);
+        Longs keys_ = new Longs(cap_);
         EqList<Rate> values_ = new EqList<Rate>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {

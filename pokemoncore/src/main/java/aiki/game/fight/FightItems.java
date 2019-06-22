@@ -11,7 +11,7 @@ import aiki.fight.moves.effects.EffectRestriction;
 import aiki.game.fight.util.NbEffectFighterCoords;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 
 final class FightItems {
@@ -181,7 +181,7 @@ final class FightItems {
             if(Numbers.eq(creature_.getStatusNbRoundShort(c), 0)){
                 continue;
             }
-            if(berry_.getHealStatus().containsObj(c)){
+            if(StringList.contains(berry_.getHealStatus(), c)){
                 statuts_.add(c);
                 creature_.supprimerStatut(c);
                 _fight.addDisabledStatusMessage(c, _combattant, _import);

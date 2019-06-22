@@ -16,14 +16,14 @@ public final class ResultsPresident {
 
     private String loc;
 
-    public void initialize(StringList _pseudos, CustList<Numbers<Long>> _scores, Numbers<Byte> _r) {
+    public void initialize(StringList _pseudos, CustList<Longs> _scores, Bytes _r) {
         res.setScores(_scores);
         nicknames = _pseudos;
-        Numbers<Short> scoresDeal_ = new Numbers<Short>();
+        Shorts scoresDeal_ = new Shorts();
         for (byte b: _r) {
             scoresDeal_.add((short) b);
         }
-        res.getScores().add(new Numbers<Long>());
+        res.getScores().add(new Longs());
         for(short score_:scoresDeal_) {
             res.getScores().last().add((long)score_);
         }
@@ -40,10 +40,10 @@ public final class ResultsPresident {
 //        }
     }
 
-    public void initialize(StringList _pseudos, CustList<Numbers<Long>> _scores) {
+    public void initialize(StringList _pseudos, CustList<Longs> _scores) {
         res.setScores(_scores);
         nicknames = _pseudos;
-        Numbers<Short> scoresDeal_ = new Numbers<Short>();
+        Shorts scoresDeal_ = new Shorts();
         for (byte b: game.getNewRanks()) {
             scoresDeal_.add((short) b);
         }
@@ -51,7 +51,7 @@ public final class ResultsPresident {
         if(game.getType()==GameType.RANDOM&&game.getNombre()==0|| game.getType() == GameType.EDIT && game.getNombre() <= game.getRegles().getNbDeals()) {
             long variance9_=0;
             long esperance_=0;
-            res.getScores().add(new Numbers<Long>());
+            res.getScores().add(new Longs());
             for(short score_:scoresDeal_) {
                 res.getScores().last().add((long)score_);
             }
@@ -135,15 +135,15 @@ public final class ResultsPresident {
         return res.getSigmas();
     }
 
-    public Numbers<Long> getSums() {
+    public Longs getSums() {
         return res.getSums();
     }
 
-    public CustList<Numbers<Long>> getScores() {
+    public CustList<Longs> getScores() {
         return res.getScores();
     }
 
-    public void setScores(CustList<Numbers<Long>> _scores) {
+    public void setScores(CustList<Longs> _scores) {
         res.setScores(_scores);
     }
 
@@ -155,7 +155,7 @@ public final class ResultsPresident {
         res.setSigmas(_sigmas);
     }
 
-    public void setSums(Numbers<Long> _sums) {
+    public void setSums(Longs _sums) {
         res.setSums(_sums);
     }
 }

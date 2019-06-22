@@ -1402,7 +1402,7 @@ public final class AliasReflection {
                     result_.setError(lgNames_.getAliasIllegalArg());
                     return result_;
                 }
-                Numbers<Integer> dims_ = new Numbers<Integer>();
+                Ints dims_ = new Ints();
                 String size_;
                 size_ = lgNames_.getAliasBadSize();
                 Struct inst_ = args_[0];

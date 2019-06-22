@@ -1,7 +1,8 @@
 package cards.tarot.enumerations;
 import code.util.EnumList;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
+import code.util.Ints;
 
 public enum DealingTarot {
     DEAL_1_VS_2(3,CallingCard.WITHOUT,Numbers.wrapIntArray(3,3,3,3,3,3,3,3),6,0),
@@ -43,8 +44,8 @@ public enum DealingTarot {
         next_++;
         return (byte) (next_%nombreJoueurs);
     }
-    public Numbers<Byte> getSortedPlayers(int _player) {
-        Numbers<Byte> players_ = new Numbers<Byte>();
+    public Bytes getSortedPlayers(int _player) {
+        Bytes players_ = new Bytes();
         int next_ = _player;
         next_ = (byte) (next_%nombreJoueurs);
         while (players_.size() < nombreJoueurs) {
@@ -53,8 +54,8 @@ public enum DealingTarot {
         }
         return players_;
     }
-    public Numbers<Byte> getSortedPlayersAfter(int _player) {
-        Numbers<Byte> players_ = new Numbers<Byte>();
+    public Bytes getSortedPlayersAfter(int _player) {
+        Bytes players_ = new Bytes();
         int next_ = _player;
         next_++;
         next_ = (byte) (next_%nombreJoueurs);
@@ -64,8 +65,8 @@ public enum DealingTarot {
         }
         return players_;
     }
-    public Numbers<Integer> getDistribution(){
-        Numbers<Integer> distribution_ = new Numbers<Integer>();
+    public Ints getDistribution(){
+        Ints distribution_ = new Ints();
         for(int i: distribution){
             distribution_.add(i);
         }
@@ -82,8 +83,8 @@ public enum DealingTarot {
         return repartitions_;
     }
 
-    public NumberMap<Integer,Integer> getDistributionAuChien(){
-        NumberMap<Integer,Integer> indices_ = new NumberMap<Integer,Integer>();
+    public IntMap<Integer> getDistributionAuChien(){
+        IntMap<Integer> indices_ = new IntMap<Integer>();
         int nbToursTot_ = distribution.length * nombreJoueurs;
         for(int i=1;i<=nombreCartesChien;i++) {
             indices_.put((nbToursTot_*i)/(nombreCartesChien+1)-1,1);
@@ -97,11 +98,11 @@ public enum DealingTarot {
         }
         return nombreCartesParJoueur_;
     }
-    public Numbers<Byte> getAppelesDetermines(byte _preneur) {
+    public Bytes getAppelesDetermines(byte _preneur) {
         if(appel != CallingCard.DEFINED) {
-            return new Numbers<Byte>();
+            return new Bytes();
         }
-        Numbers<Byte> appeles_ = new Numbers<Byte>();
+        Bytes appeles_ = new Bytes();
         int delta_ = nombreJoueurs/(nbAppeles+1);
         for(int i=0;i<nbAppeles;i++) {
             appeles_.add((byte) ((_preneur+(i+1)*delta_)%nombreJoueurs));

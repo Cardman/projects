@@ -2,7 +2,7 @@ package code.maths.litteral;
 import code.maths.MathList;
 import code.maths.Rate;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -68,7 +68,7 @@ public final class EqOperation extends PrimitiveBoolOperation {
 
     @Override
     void calculateChildren() {
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        IntTreeMap< String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
     }
 

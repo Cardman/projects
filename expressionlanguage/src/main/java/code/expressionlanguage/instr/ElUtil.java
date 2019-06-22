@@ -257,7 +257,7 @@ public final class ElUtil {
         if (p_ == null) {
             return null;
         }
-        NatTreeMap<Integer,String> children_ = p_.getChildren();
+        IntTreeMap<String> children_ = p_.getChildren();
         int delta_ = 1;
         if (p_ instanceof StandardInstancingOperation) {
             if (p_.getFirstChild() instanceof StaticInitOperation) {
@@ -494,7 +494,7 @@ public final class ElUtil {
             sub_ = nodes_;
         } else {
             ExecMethodOperation m_ = (ExecMethodOperation)root_;
-            int index_ = _field.getFieldName().indexOfObj(_fieldName);
+            int index_ = StringList.indexOf(_field.getFieldName(),_fieldName);
             CustList<ExecOperationNode> ch_ = m_.getChildrenNodes();
             ExecOperationNode rootLoc_ = ch_.get(index_);
             int from_;

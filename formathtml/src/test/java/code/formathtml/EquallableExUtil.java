@@ -4,7 +4,7 @@ import org.junit.Assert;
 
 import code.formathtml.classes.EnumNumber;
 import code.formathtml.classes.Rate;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 
 public final class EquallableExUtil {

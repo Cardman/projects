@@ -54,7 +54,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     private CustList<ExecOperationNode> opValue;
     private StringList annotations = new StringList();
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
-    private Numbers<Integer> annotationsIndexes = new Numbers<Integer>();
+    private Ints annotationsIndexes = new Ints();
 
     public FieldBlock(OffsetAccessInfo _access,
                       OffsetBooleanInfo _static, OffsetBooleanInfo _final,
@@ -264,7 +264,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         return annotationsOps;
     }
     @Override
-    public Numbers<Integer> getAnnotationsIndexes() {
+    public Ints getAnnotationsIndexes() {
         return annotationsIndexes;
     }
 
@@ -277,7 +277,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         }
         EqList<ClassField> eq_;
         ExecMethodOperation m_ = (ExecMethodOperation)last_;
-        int index_ = fieldName.indexOfObj(_name);
+        int index_ = StringList.indexOf(fieldName,_name);
         CustList<ExecOperationNode> ch_ = m_.getChildrenNodes();
         int from_;
         int to_ = ch_.get(index_).getOrder();

@@ -6,12 +6,12 @@ import aiki.fight.moves.enums.TargetChoice;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.EntryCust;
-import code.util.NumberMap;
+import code.util.*;
 
 
 public final class EffectEndRoundSingleRelation extends EffectEndRound {
 
-    private NumberMap<Long, Rate> rateDamageFunctionOfNbRounds;
+    private LongMap< Rate> rateDamageFunctionOfNbRounds;
     private MonteCarloNumber lawForEnablingEffect;
 
     @Override
@@ -69,12 +69,12 @@ public final class EffectEndRoundSingleRelation extends EffectEndRound {
         return RelationType.RELATION_UNIQUE;
     }
 
-    public NumberMap<Long, Rate> getRateDamageFunctionOfNbRounds() {
+    public LongMap< Rate> getRateDamageFunctionOfNbRounds() {
         return rateDamageFunctionOfNbRounds;
     }
 
     public void setRateDamageFunctionOfNbRounds(
-            NumberMap<Long, Rate> _rateDamageFunctionOfNbRounds) {
+            LongMap< Rate> _rateDamageFunctionOfNbRounds) {
         rateDamageFunctionOfNbRounds = _rateDamageFunctionOfNbRounds;
     }
 

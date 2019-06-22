@@ -4,7 +4,7 @@ import aiki.facade.FacadeGame;
 import aiki.game.fight.Fight;
 import aiki.game.fight.TeamPosition;
 import code.maths.Rate;
-import code.util.Numbers;
+import code.util.*;
 import code.util.comparators.ComparatorBoolean;
 import code.util.ints.Cmp;
 import code.util.ints.Displayable;

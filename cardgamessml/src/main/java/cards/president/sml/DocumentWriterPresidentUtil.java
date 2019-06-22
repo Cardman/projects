@@ -20,7 +20,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EqList;
-import code.util.NumberMap;
+import code.util.*;
 public final class DocumentWriterPresidentUtil {
 
     private static final String ATTR_VALUE = "value";
@@ -270,7 +270,7 @@ public final class DocumentWriterPresidentUtil {
         }
         return elt_;
     }
-    private static Element setMapByteHandPresident(NumberMap<Byte,HandPresident> _object, String _fieldName, Document _document) {
+    private static Element setMapByteHandPresident(ByteMap<HandPresident> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Byte, HandPresident> s: _object.entryList()) {
@@ -283,7 +283,7 @@ public final class DocumentWriterPresidentUtil {
         return elt_;
     }
 
-    public static Element setMapBytePlaying(NumberMap<Byte,Playing> _object, String _fieldName, Document _document) {
+    public static Element setMapBytePlaying(ByteMap<Playing> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Byte, Playing> s: _object.entryList()) {

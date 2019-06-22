@@ -149,7 +149,7 @@ public final class AbilityData {
 
         }
         StringList events_ = new StringList(singleStatus.events());
-        events_.removeObj(DataBase.EMPTY_STRING);
+        StringList.removeObj(events_, DataBase.EMPTY_STRING);
         if (!_data.getStatus().containsAllAsKeys(events_)) {
             _data.setError(true);
             return;
@@ -163,13 +163,12 @@ public final class AbilityData {
             }
         }
         for (WeatherType t : healHpByTypeIfWeather.getKeys()) {
-            if (!_data.getMovesEffectGlobalWeather()
-                    .containsObj(t.getWeather()) && !t.getWeather().isEmpty()) {
+            if (!StringList.contains(_data.getMovesEffectGlobalWeather(), t.getWeather()) && !t.getWeather().isEmpty()) {
                 _data.setError(true);
                 return;
 
             }
-            if (!_data.getTypes().containsObj(t.getType())) {
+            if (!StringList.contains(_data.getTypes(), t.getType())) {
                 _data.setError(true);
                 return;
 
@@ -191,7 +190,7 @@ public final class AbilityData {
                 return;
 
             }
-            if (!_data.getAllCategories().containsObj(t.getCategory())) {
+            if (!StringList.contains(_data.getAllCategories(), t.getCategory())) {
                 _data.setError(true);
                 return;
 
@@ -215,12 +214,12 @@ public final class AbilityData {
             }
         }
         for (TypesDuo t : breakFoeImmune) {
-            if (!_data.getTypes().containsObj(t.getDamageType())) {
+            if (!StringList.contains(_data.getTypes(), t.getDamageType())) {
                 _data.setError(true);
                 return;
 
             }
-            if (!_data.getTypes().containsObj(t.getPokemonType())) {
+            if (!StringList.contains(_data.getTypes(), t.getPokemonType())) {
                 _data.setError(true);
                 return;
 
@@ -231,9 +230,9 @@ public final class AbilityData {
             return;
 
         }
-        StringList keys_ = chgtTypeByWeather.getKeys();
+        CustList<String> keys_ = chgtTypeByWeather.getKeys();
         if (!keys_.isEmpty()) {
-            keys_.removeObj(DataBase.EMPTY_STRING);
+            StringList.removeObj(keys_, DataBase.EMPTY_STRING);
             if (!_data.getMovesEffectGlobalWeather().containsAllObj(keys_)) {
                 _data.setError(true);
                 return;
@@ -247,7 +246,7 @@ public final class AbilityData {
         }
         keys_ = immuStatus.getKeys();
         if (!keys_.isEmpty()) {
-            keys_.removeObj(DataBase.EMPTY_STRING);
+            StringList.removeObj(keys_, DataBase.EMPTY_STRING);
             if (!_data.getMovesEffectGlobal().containsAllObj(keys_)) {
                 _data.setError(true);
                 return;
@@ -263,7 +262,7 @@ public final class AbilityData {
         }
         keys_ = immuMoveTypesByWeather.getKeys();
         if (!keys_.isEmpty()) {
-            keys_.removeObj(DataBase.EMPTY_STRING);
+            StringList.removeObj(keys_, DataBase.EMPTY_STRING);
             if (!_data.getMovesEffectGlobal().containsAllObj(keys_)) {
                 _data.setError(true);
                 return;
@@ -279,7 +278,7 @@ public final class AbilityData {
         }
         keys_ = healHpByWeather.getKeys();
         if (!keys_.isEmpty()) {
-            keys_.removeObj(DataBase.EMPTY_STRING);
+            StringList.removeObj(keys_, DataBase.EMPTY_STRING);
             if (!_data.getMovesEffectGlobalWeather().containsAllObj(keys_)) {
                 _data.setError(true);
                 return;
@@ -420,7 +419,7 @@ public final class AbilityData {
 
         }
         if (!typeForMoves.isEmpty()) {
-            if (!_data.getTypes().containsObj(typeForMoves)) {
+            if (!StringList.contains(_data.getTypes(), typeForMoves)) {
                 _data.setError(true);
                 return;
 
@@ -519,7 +518,7 @@ public final class AbilityData {
                 return;
 
             }
-            if (!_data.getCategories().containsObj(k.getCategory())) {
+            if (!StringList.contains(_data.getCategories(), k.getCategory())) {
                 _data.setError(true);
                 return;
 
@@ -531,7 +530,7 @@ public final class AbilityData {
                 return;
 
             }
-            if (!_data.getTypes().containsObj(k.getType())) {
+            if (!StringList.contains(_data.getTypes(), k.getType())) {
                 _data.setError(true);
                 return;
 
@@ -548,13 +547,13 @@ public final class AbilityData {
 
         }
         for (String k : changingBoostTypes.getKeys()) {
-            if (!_data.getTypes().containsObj(k)) {
+            if (!StringList.contains(_data.getTypes(), k)) {
                 _data.setError(true);
                 return;
 
             }
             TypeDamageBoost type_ = changingBoostTypes.getVal(k);
-            if (!_data.getTypes().containsObj(type_.getType())) {
+            if (!StringList.contains(_data.getTypes(), type_.getType())) {
                 _data.setError(true);
                 return;
 
@@ -571,7 +570,7 @@ public final class AbilityData {
 
         }
         for (String k : immuStatusTypes.getKeys()) {
-            if (!_data.getTypes().containsObj(k)) {
+            if (!StringList.contains(_data.getTypes(), k)) {
                 _data.setError(true);
                 return;
 
@@ -584,7 +583,7 @@ public final class AbilityData {
         }
         for (EntryCust<String, EnumList<Statistic>> e : immuLowStatisTypes
                 .entryList()) {
-            if (!_data.getTypes().containsObj(e.getKey())) {
+            if (!StringList.contains(_data.getTypes(), e.getKey())) {
                 _data.setError(true);
                 return;
 

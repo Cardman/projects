@@ -10,8 +10,8 @@ import code.util.BooleanList;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.NatTreeMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -25,7 +25,7 @@ public final class MetaDocument {
     private int rowGroup;
     private CustList<MetaContainer> containers;
     private CustList<MetaTable> tables;
-    private Numbers<Integer> lis;
+    private Ints lis;
     private BooleanList ordered;
     private CustList<MetaContainer> dynamicNewLines = new CustList<MetaContainer>();
     private StringMap<Integer> indexesButtons = new StringMap<Integer>();
@@ -56,12 +56,12 @@ public final class MetaDocument {
         tables = new CustList<MetaTable>();
         partGroup = 0;
         rowGroup = 0;
-        lis = new Numbers<Integer>();
+        lis = new Ints();
         ordered = new BooleanList();
         while (true) {
             MetaStyle styleLoc_ = new MetaStyle();
             Element parStyle_ = current_.getParentNode();
-            NatTreeMap<Integer, String> tags_ = new NatTreeMap<Integer, String>(new CollCapacity(tagsClasses.size()));
+            IntTreeMap< String> tags_ = new IntTreeMap< String>(new CollCapacity(tagsClasses.size()));
             for (EntryCust<String, Integer> e: tagsClasses.entryList()) {
                 tags_.put(e.getValue(), e.getKey());
             }
@@ -347,7 +347,7 @@ public final class MetaDocument {
                     rowGroup = 0;
                     partGroup++;
                     if (elt_.hasAttribute("multiple")) {
-                        Numbers<Integer> selected_ = new Numbers<Integer>();
+                        Ints selected_ = new Ints();
                         StringList values_ = new StringList();
                         StringList strings_ = new StringList();
                         int i_ = 0;
@@ -749,7 +749,7 @@ public final class MetaDocument {
             }
             if (StringList.quickEq(key_, "color")) {
                 if (value_.startsWith("rgb")) {
-                    Numbers<Integer> rates_ = new Numbers<Integer>();
+                    Ints rates_ = new Ints();
                     for (String c: StringList.splitChars(value_, ',')) {
                         Long l_ = NumParsers.parseLongTen(c.trim());
                         if (l_ != null) {
@@ -795,7 +795,7 @@ public final class MetaDocument {
                 }
             } else if (StringList.quickEq(key_, "background")) {
                 if (value_.startsWith("rgb")) {
-                    Numbers<Integer> rates_ = new Numbers<Integer>();
+                    Ints rates_ = new Ints();
                     for (String c: StringList.splitChars(value_, ',')) {
                         Long l_ = NumParsers.parseLongTen(c.trim());
                         if (l_ != null) {
@@ -853,7 +853,7 @@ public final class MetaDocument {
                         continue;
                     }
                     if (v.startsWith("rgb")) {
-                        Numbers<Integer> rates_ = new Numbers<Integer>();
+                        Ints rates_ = new Ints();
                         for (String c: StringList.splitChars(value_, ',')) {
                             Long l_ = NumParsers.parseLongTen(c.trim());
                             if (l_ != null) {

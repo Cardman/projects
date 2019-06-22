@@ -12,18 +12,18 @@ import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.AssignmentsUtil;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringMap;
 
 public abstract class MethodOperation extends OperationNode implements ReductibleOperable, ParentOperable {
 
     private OperationNode firstChild;
 
-    private NatTreeMap<Integer,String> children;
+    private IntTreeMap<String> children;
 
     public MethodOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        children = new NatTreeMap<Integer,String>();
+        children = new IntTreeMap<String>();
         calculateChildren();
     }
 
@@ -183,7 +183,7 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
         return firstChild;
     }
 
-    public final NatTreeMap<Integer, String> getChildren() {
+    public final IntTreeMap< String> getChildren() {
         return children;
     }
 }

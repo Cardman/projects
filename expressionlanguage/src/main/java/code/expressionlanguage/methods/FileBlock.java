@@ -1,18 +1,18 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.files.OffsetsBlock;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringList;
 
 public final class FileBlock extends BracedBlock implements ImportingBlock {
 
-    private Numbers<Integer> lineReturns = new Numbers<Integer>();
-    private Numbers<Integer> leftSpaces = new Numbers<Integer>();
-    private Numbers<Integer> tabulations = new Numbers<Integer>();
+    private Ints lineReturns = new Ints();
+    private Ints leftSpaces = new Ints();
+    private Ints tabulations = new Ints();
 
     private StringList imports = new StringList();
 
-    private Numbers<Integer> importsOffset = new Numbers<Integer>();
+    private Ints importsOffset = new Ints();
 
     private String fileName;
 
@@ -62,14 +62,14 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         return predefined;
     }
 
-    public Numbers<Integer> getLeftSpaces() {
+    public Ints getLeftSpaces() {
         return leftSpaces;
     }
 
-    public Numbers<Integer> getTabulations() {
+    public Ints getTabulations() {
         return tabulations;
     }
-    public Numbers<Integer> getLineReturns() {
+    public Ints getLineReturns() {
         return lineReturns;
     }
 
@@ -78,7 +78,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         return imports;
     }
 
-    public Numbers<Integer> getImportsOffset() {
+    public Ints getImportsOffset() {
         return importsOffset;
     }
 

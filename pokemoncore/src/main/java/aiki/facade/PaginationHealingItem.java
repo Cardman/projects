@@ -18,8 +18,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EnumMap;
-import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -94,7 +93,7 @@ public final class PaginationHealingItem extends
 
     public void search(Listable<String> _list, DataBase _data) {
         items.clear();
-        Numbers<Short> pps_ = new Numbers<Short>();
+        Shorts pps_ = new Shorts();
         for (MoveData f : _data.getMoves().values()) {
             pps_.add(f.getPp());
         }
@@ -262,8 +261,8 @@ public final class PaginationHealingItem extends
 
     @Override
     protected boolean sortable() {
-        Numbers<Integer> priorities_;
-        priorities_ = new Numbers<Integer>();
+        Ints priorities_;
+        priorities_ = new Ints();
         if (cmpPrice.getPriority() != NO_PRIORITY) {
             priorities_.add(cmpPrice.getPriority());
         }

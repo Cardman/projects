@@ -23,7 +23,7 @@ import aiki.map.pokemon.enums.Gender;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EnumMap;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -1087,7 +1087,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
         StringList list_ = pk_.directEvolutionsByStone(PTITARD, _data_);
         assertEq(1, list_.size());
-        assertTrue(list_.containsObj(PTITARD));
+        assertTrue(StringList.contains(list_, PTITARD));
     }
 
     @Test
@@ -1102,9 +1102,9 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
         StringList list_ = pk_.directEvolutionsByStone(MELOFEE, _data_);
         assertEq(3, list_.size());
-        assertTrue(list_.containsObj(MELOFEE));
-        assertTrue(list_.containsObj(MELODELFE));
-        assertTrue(list_.containsObj(MELODELFE_2));
+        assertTrue(StringList.contains(list_, MELOFEE));
+        assertTrue(StringList.contains(list_, MELODELFE));
+        assertTrue(StringList.contains(list_, MELODELFE_2));
     }
 
     @Test
@@ -1201,8 +1201,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(new Rate("1873/100"), pk_.getRemainingHp());
         pk_.evolve(PIERRE_SOLEIL, data_);
         assertEq(2, pk_.getNewAbilitiesToBeChosen().size());
-        assertTrue(pk_.getNewAbilitiesToBeChosen().containsObj(GARDE_MYSTIK));
-        assertTrue(pk_.getNewAbilitiesToBeChosen().containsObj(GARDE_MAGIK));
+        assertTrue(StringList.contains(pk_.getNewAbilitiesToBeChosen(), GARDE_MYSTIK));
+        assertTrue(StringList.contains(pk_.getNewAbilitiesToBeChosen(), GARDE_MAGIK));
         assertEq(0, pk_.getMovesToBeKeptEvo().size());
         assertEq(MELODELFE_2, pk_.getPossibleEvolution());
         assertEq(MELOFEE, pk_.getName());
@@ -1299,8 +1299,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         pk_.getMovesToBeKeptEvo().put(VIVE_ATTAQUE, false);
         pk_.learnMovesAfterEvolving(GARDE_MAGIK,data_);
         assertEq(2, pk_.getNewAbilitiesToBeChosen().size());
-        assertTrue(pk_.getNewAbilitiesToBeChosen().containsStr(GARDE_MAGIK));
-        assertTrue(pk_.getNewAbilitiesToBeChosen().containsStr(GARDE_MYSTIK));
+        assertTrue(StringList.contains(pk_.getNewAbilitiesToBeChosen(), GARDE_MAGIK));
+        assertTrue(StringList.contains(pk_.getNewAbilitiesToBeChosen(), GARDE_MYSTIK));
         assertEq(5, pk_.getMovesToBeKeptEvo().size());
         assertTrue(pk_.getMovesToBeKeptEvo().getVal(JACKPOT));
         assertTrue(!pk_.getMovesToBeKeptEvo().getVal(ECLAIR));
@@ -1943,7 +1943,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertTrue(sent_.getEv().contains(Statistic.SPECIAL_DEFENSE));
         assertTrue(sent_.getEv().contains(Statistic.SPEED));
         assertTrue(sent_.getEv().contains(Statistic.HP));
-        Numbers<Short> n_ = new Numbers<Short>(sent_.getEv().values());
+        Shorts n_ = new Shorts(sent_.getEv().values());
         assertEq(0, n_.getMaximum((short) 0));
         assertEq(0, n_.getMinimum((short) 0));
         assertTrue(sent_.getIv().contains(Statistic.ATTACK));
@@ -1952,7 +1952,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertTrue(sent_.getIv().contains(Statistic.SPECIAL_DEFENSE));
         assertTrue(sent_.getIv().contains(Statistic.SPEED));
         assertTrue(sent_.getIv().contains(Statistic.HP));
-        n_ = new Numbers<Short>(sent_.getIv().values());
+        n_ = new Shorts(sent_.getIv().values());
         assertEq(31, n_.getMaximum((short) 31));
         assertEq(31, n_.getMinimum((short) 31));
         assertEq(70, sent_.getHappiness());
@@ -1999,14 +1999,14 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(0, sent_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
         assertEq(1, sent_.getEv().getVal(Statistic.SPEED));
         assertEq(0, sent_.getEv().getVal(Statistic.HP));
-        Numbers<Short> n_ = new Numbers<Short>(sent_.getEv().values());
+        Shorts n_ = new Shorts(sent_.getEv().values());
         assertTrue(sent_.getIv().contains(Statistic.ATTACK));
         assertTrue(sent_.getIv().contains(Statistic.DEFENSE));
         assertTrue(sent_.getIv().contains(Statistic.SPECIAL_ATTACK));
         assertTrue(sent_.getIv().contains(Statistic.SPECIAL_DEFENSE));
         assertTrue(sent_.getIv().contains(Statistic.SPEED));
         assertTrue(sent_.getIv().contains(Statistic.HP));
-        n_ = new Numbers<Short>(sent_.getIv().values());
+        n_ = new Shorts(sent_.getIv().values());
         assertEq(31, n_.getMaximum((short) 31));
         assertEq(31, n_.getMinimum((short) 31));
         assertEq(70, sent_.getHappiness());
@@ -2050,7 +2050,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertTrue(sent_.getEv().contains(Statistic.SPECIAL_DEFENSE));
         assertTrue(sent_.getEv().contains(Statistic.SPEED));
         assertTrue(sent_.getEv().contains(Statistic.HP));
-        Numbers<Short> n_ = new Numbers<Short>(sent_.getEv().values());
+        Shorts n_ = new Shorts(sent_.getEv().values());
         assertEq(0, n_.getMaximum((short) 0));
         assertEq(0, n_.getMinimum((short) 0));
         assertTrue(sent_.getIv().contains(Statistic.ATTACK));
@@ -2059,7 +2059,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertTrue(sent_.getIv().contains(Statistic.SPECIAL_DEFENSE));
         assertTrue(sent_.getIv().contains(Statistic.SPEED));
         assertTrue(sent_.getIv().contains(Statistic.HP));
-        n_ = new Numbers<Short>(sent_.getIv().values());
+        n_ = new Shorts(sent_.getIv().values());
         assertEq(31, n_.getMaximum((short) 31));
         assertEq(31, n_.getMinimum((short) 31));
         assertEq(70, sent_.getHappiness());
@@ -2100,7 +2100,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertTrue(sent_.getEv().contains(Statistic.SPECIAL_DEFENSE));
         assertTrue(sent_.getEv().contains(Statistic.SPEED));
         assertTrue(sent_.getEv().contains(Statistic.HP));
-        Numbers<Short> n_ = new Numbers<Short>(sent_.getEv().values());
+        Shorts n_ = new Shorts(sent_.getEv().values());
         assertEq(0, n_.getMaximum((short) 0));
         assertEq(0, n_.getMinimum((short) 0));
         assertTrue(sent_.getIv().contains(Statistic.ATTACK));
@@ -2109,7 +2109,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertTrue(sent_.getIv().contains(Statistic.SPECIAL_DEFENSE));
         assertTrue(sent_.getIv().contains(Statistic.SPEED));
         assertTrue(sent_.getIv().contains(Statistic.HP));
-        n_ = new Numbers<Short>(sent_.getIv().values());
+        n_ = new Shorts(sent_.getIv().values());
         assertEq(31, n_.getMaximum((short) 31));
         assertEq(31, n_.getMinimum((short) 31));
         assertEq(70, sent_.getHappiness());
@@ -2150,14 +2150,14 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(0, sent_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
         assertEq(0, sent_.getEv().getVal(Statistic.SPEED));
         assertEq(0, sent_.getEv().getVal(Statistic.HP));
-        Numbers<Short> n_ = new Numbers<Short>(sent_.getEv().values());
+        Shorts n_ = new Shorts(sent_.getEv().values());
         assertTrue(sent_.getIv().contains(Statistic.ATTACK));
         assertTrue(sent_.getIv().contains(Statistic.DEFENSE));
         assertTrue(sent_.getIv().contains(Statistic.SPECIAL_ATTACK));
         assertTrue(sent_.getIv().contains(Statistic.SPECIAL_DEFENSE));
         assertTrue(sent_.getIv().contains(Statistic.SPEED));
         assertTrue(sent_.getIv().contains(Statistic.HP));
-        n_ = new Numbers<Short>(sent_.getIv().values());
+        n_ = new Shorts(sent_.getIv().values());
         assertEq(31, n_.getMaximum((short) 31));
         assertEq(31, n_.getMinimum((short) 31));
         assertEq(70, sent_.getHappiness());
@@ -2204,14 +2204,14 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(0, sent_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
         assertEq(1, sent_.getEv().getVal(Statistic.SPEED));
         assertEq(0, sent_.getEv().getVal(Statistic.HP));
-        Numbers<Short> n_ = new Numbers<Short>(sent_.getEv().values());
+        Shorts n_ = new Shorts(sent_.getEv().values());
         assertTrue(sent_.getIv().contains(Statistic.ATTACK));
         assertTrue(sent_.getIv().contains(Statistic.DEFENSE));
         assertTrue(sent_.getIv().contains(Statistic.SPECIAL_ATTACK));
         assertTrue(sent_.getIv().contains(Statistic.SPECIAL_DEFENSE));
         assertTrue(sent_.getIv().contains(Statistic.SPEED));
         assertTrue(sent_.getIv().contains(Statistic.HP));
-        n_ = new Numbers<Short>(sent_.getIv().values());
+        n_ = new Shorts(sent_.getIv().values());
         assertEq(31, n_.getMaximum((short) 31));
         assertEq(31, n_.getMinimum((short) 31));
         assertEq(70, sent_.getHappiness());
@@ -2257,14 +2257,14 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(0, sent_.getEv().getVal(Statistic.SPECIAL_DEFENSE));
         assertEq(0, sent_.getEv().getVal(Statistic.SPEED));
         assertEq(1, sent_.getEv().getVal(Statistic.HP));
-        Numbers<Short> n_ = new Numbers<Short>(sent_.getEv().values());
+        Shorts n_ = new Shorts(sent_.getEv().values());
         assertTrue(sent_.getIv().contains(Statistic.ATTACK));
         assertTrue(sent_.getIv().contains(Statistic.DEFENSE));
         assertTrue(sent_.getIv().contains(Statistic.SPECIAL_ATTACK));
         assertTrue(sent_.getIv().contains(Statistic.SPECIAL_DEFENSE));
         assertTrue(sent_.getIv().contains(Statistic.SPEED));
         assertTrue(sent_.getIv().contains(Statistic.HP));
-        n_ = new Numbers<Short>(sent_.getIv().values());
+        n_ = new Shorts(sent_.getIv().values());
         assertEq(31, n_.getMaximum((short) 31));
         assertEq(31, n_.getMinimum((short) 31));
         assertEq(70, sent_.getHappiness());

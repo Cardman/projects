@@ -21,13 +21,7 @@ import aiki.fight.util.TypeDamageBoost;
 import aiki.fight.util.TypesDuo;
 import aiki.fight.util.WeatherType;
 import code.maths.Rate;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.EqList;
-import code.util.NatStringTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
+import code.util.*;
 
 public class AbilityBean extends CommonBean {
     static final String EFFECT_SEND_BEAN="web/html/sending/effsending.html";
@@ -131,7 +125,7 @@ public class AbilityBean extends CommonBean {
         DataBase data_ = (DataBase) getDataBase();
         for (String p: data_.getPokedex().getKeys()) {
             PokemonData pk_ = data_.getPokemon(p);
-            if (!pk_.getAbilities().containsObj(name)) {
+            if (!StringList.contains(pk_.getAbilities(), name)) {
                 continue;
             }
             pokemon.add(p);

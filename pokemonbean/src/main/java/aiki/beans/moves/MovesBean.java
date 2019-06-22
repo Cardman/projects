@@ -77,10 +77,10 @@ public class MovesBean extends CommonBean {
             boolean selectedLearn_ = (Boolean) getForms().getVal(LEARNT);
             StringList learntMoves_ = (StringList) getForms().getVal(LEARNT_MOVES);
             for (String k: data_.getMoves().getKeys()) {
-                if (learntMoves_.containsObj(k) && !selectedLearn_) {
+                if (StringList.contains(learntMoves_, k) && !selectedLearn_) {
                     continue;
                 }
-                if (!learntMoves_.containsObj(k) && selectedLearn_) {
+                if (!StringList.contains(learntMoves_, k) && selectedLearn_) {
                     continue;
                 }
                 MoveData moveData_ = data_.getMoves().getVal(k);

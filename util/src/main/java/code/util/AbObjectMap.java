@@ -11,14 +11,4 @@ public abstract class AbObjectMap<K extends Equallable<K>, V> extends AbsMap<K, 
         super(_capacity);
     }
 
-    @Override
-    public EqList<K> getKeys() {
-        EqList<K> s_ = new EqList<K>();
-        for (EntryCust<K, V> e: getList()) {
-            s_.add(e.getKey());
-        }
-        return s_;
-    }
-
-
 }

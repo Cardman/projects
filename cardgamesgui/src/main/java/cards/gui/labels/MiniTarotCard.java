@@ -9,7 +9,7 @@ import cards.consts.Suit;
 import cards.facade.Games;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.PaintableLabel;
-import code.util.Numbers;
+import code.util.*;
 
 public class MiniTarotCard extends PaintableLabel {
 

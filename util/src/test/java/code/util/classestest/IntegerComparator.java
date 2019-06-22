@@ -1,5 +1,5 @@
 package code.util.classestest;
-import code.util.Numbers;
+import code.util.*;
 import code.util.ints.Comparing;
 
 public class IntegerComparator implements Comparing<Integer> {

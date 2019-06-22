@@ -10,7 +10,7 @@ import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.RootBlock;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringList;
 
 final class NamePartType extends LeafPartType {
@@ -21,7 +21,7 @@ final class NamePartType extends LeafPartType {
 
     @Override
     void analyzeDepends(Analyzable _an,
-            int _index, CustList<NatTreeMap<Integer, String>> _dels,
+            int _index, CustList<IntTreeMap< String>> _dels,
             RootBlock _rooted, boolean _exact) {
         CustList<PartType> previous_ = new CustList<PartType>();
         InnerPartType i_ = null;
@@ -136,7 +136,7 @@ final class NamePartType extends LeafPartType {
         setAnalyzedType(out_);
     }
     private String getFoundInnerDepends(Analyzable _an,
-                                        int _index, CustList<NatTreeMap<Integer, String>> _dels,
+                                        int _index, CustList<IntTreeMap< String>> _dels,
                                         RootBlock _rooted) {
         InnerPartType i_ = null;
         int sizeDels_ = -1;
@@ -205,7 +205,7 @@ final class NamePartType extends LeafPartType {
 
     @Override
     void analyzeInherits(Analyzable _an, int _index,
-            CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
+            CustList<IntTreeMap< String>> _dels, String _globalType,
             RootBlock _rooted,
             boolean _protected) {
         CustList<PartType> previous_ = new CustList<PartType>();
@@ -299,7 +299,7 @@ final class NamePartType extends LeafPartType {
         lookupSimpleType(_an, _rooted, type_);
     }
     private boolean isMethodFound(Analyzable _an, int _index,
-                                  CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
+                                  CustList<IntTreeMap< String>> _dels, String _globalType,
                                   RootBlock _rooted) {
         InnerPartType i_ = null;
         int sizeDels_ = -1;
@@ -374,7 +374,7 @@ final class NamePartType extends LeafPartType {
         return false;
     }
     @Override
-    void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted) {
+    void analyze(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _rooted) {
         CustList<PartType> previous_ = new CustList<PartType>();
         InnerPartType i_ = null;
         PartType parCur_ = null;
@@ -461,7 +461,7 @@ final class NamePartType extends LeafPartType {
     }
 
     @Override
-    void analyzeLine(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted) {
+    void analyzeLine(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _rooted) {
         CustList<PartType> previous_ = new CustList<PartType>();
         InnerPartType i_ = null;
         PartType parCur_ = null;
@@ -525,7 +525,7 @@ final class NamePartType extends LeafPartType {
         lookupSimpleType(_an, _rooted, type_);
     }
 
-    private boolean processFctVoid(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels) {
+    private boolean processFctVoid(Analyzable _an, CustList<IntTreeMap< String>> _dels) {
         PartType prev_ = getParent().getFirstChild();
         if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
             String base_ = prev_.getAnalyzedType();
@@ -614,7 +614,7 @@ final class NamePartType extends LeafPartType {
     }
 
     @Override
-    void analyzeAccessibleId(Analyzable _an, CustList<NatTreeMap<Integer,String>> _dels, AccessingImportingBlock _rooted) {
+    void analyzeAccessibleId(Analyzable _an, CustList<IntTreeMap<String>> _dels, AccessingImportingBlock _rooted) {
         CustList<PartType> previous_ = new CustList<PartType>();
         InnerPartType i_ = null;
         PartType parCur_ = null;
@@ -694,7 +694,7 @@ final class NamePartType extends LeafPartType {
         setAnalyzedType(out_);
     }
     @Override
-    void checkDynExistence(Analyzable _an,CustList<NatTreeMap<Integer, String>>_dels) {
+    void checkDynExistence(Analyzable _an,CustList<IntTreeMap< String>>_dels) {
         StringList pr_ = new StringList();
         InnerPartType i_ = null;
         PartType parCur_ = null;

@@ -3,7 +3,7 @@ import code.bean.Bean;
 import code.formathtml.util.ValueChangeEvent;
 import code.util.CustList;
 import code.util.NatStringTreeMap;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -18,7 +18,7 @@ public class BeanOne extends Bean {
 
     private TreeMap<EnumNumber, String> translations = new TreeMap<EnumNumber, String>(new ComparatorEnum<EnumNumber>());
 
-    private NatStringTreeMap<Numbers<Integer>> numbers = new NatStringTreeMap<Numbers<Integer>>();
+    private NatStringTreeMap<Ints> numbers = new NatStringTreeMap<Ints>();
 
     private EnumNumber chosenNumber = EnumNumber.ONE;
 
@@ -45,9 +45,9 @@ public class BeanOne extends Bean {
         for (EnumNumber e: EnumNumber.values()) {
             translations.put(e, Integer.toString(e.ordinal() + 1));
         }
-        numbers.put("ONE", new Numbers<Integer>(1));
-        numbers.put("TWO", new Numbers<Integer>(2,3));
-        numbers.put("THREE", new Numbers<Integer>(4,5,6));
+        numbers.put("ONE", new Ints(1));
+        numbers.put("TWO", new Ints(2,3));
+        numbers.put("THREE", new Ints(4,5,6));
         for (int i = 0; i < 2; i++) {
             Composite c_ = new Composite();
             c_.setString(String.valueOf(i));
@@ -139,7 +139,7 @@ public class BeanOne extends Bean {
         return 2 * _index.intValue();
     }
 
-    public Numbers<Integer> getList(Long _index) {
+    public Ints getList(Long _index) {
         if (_index >= numbers.size()) {
             return numbers.getValue(numbers.size() - 1);
         }
@@ -181,11 +181,11 @@ public class BeanOne extends Bean {
         translations = _translations;
     }
 
-    public NatStringTreeMap< Numbers<Integer>> getNumbers() {
+    public NatStringTreeMap<Ints> getNumbers() {
         return numbers;
     }
 
-    public void setNumbers(NatStringTreeMap< Numbers<Integer>> _numbers) {
+    public void setNumbers(NatStringTreeMap<Ints> _numbers) {
         numbers = _numbers;
     }
 

@@ -26,10 +26,7 @@ import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.BeanStruct;
 import code.formathtml.util.StdStruct;
 import code.formathtml.util.ValueChangeEvent;
-import code.util.CustList;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.ints.SimpleIterable;
 
 public final class CustBeanLgNames extends BeanLgNames {

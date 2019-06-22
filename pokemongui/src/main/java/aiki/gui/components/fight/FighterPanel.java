@@ -14,7 +14,7 @@ import aiki.gui.listeners.FighterSelection;
 import aiki.gui.listeners.FrontFighterSelection;
 import code.gui.GraphicList;
 import code.gui.Panel;
-import code.util.NatTreeMap;
+import code.util.*;
 
 public class FighterPanel extends Panel {
 
@@ -24,7 +24,7 @@ public class FighterPanel extends Panel {
 
     private FacadeGame facade;
 
-    public FighterPanel(int _nb, String _titre, FacadeGame _facade, NatTreeMap<Byte,Fighter> _fighters) {
+    public FighterPanel(int _nb, String _titre, FacadeGame _facade, ByteTreeMap<Fighter> _fighters) {
         liste = new GraphicList<Fighter>(false,true);
         facade = _facade;
         setLayout(new BorderLayout());
@@ -40,7 +40,7 @@ public class FighterPanel extends Panel {
         setPreferredSize(new Dimension(150,64*_nb));
     }
 
-    public void initFighters(NatTreeMap<Byte,Fighter> _fighters) {
+    public void initFighters(ByteTreeMap<Fighter> _fighters) {
         liste.clear();
         for (Fighter f: _fighters.values()) {
             liste.add(f);
@@ -67,7 +67,7 @@ public class FighterPanel extends Panel {
 
     public void initFighters() {
         liste.clear();
-        NatTreeMap<Byte,Fighter> fronts_ = facade.getPlayerTeam();
+        ByteTreeMap<Fighter> fronts_ = facade.getPlayerTeam();
         for (Fighter f: fronts_.values()) {
             liste.add(f);
         }

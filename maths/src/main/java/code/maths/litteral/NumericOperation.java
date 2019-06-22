@@ -2,7 +2,7 @@ package code.maths.litteral;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringMap;
 
 public abstract class NumericOperation extends MethodOperation {
@@ -90,7 +90,7 @@ public abstract class NumericOperation extends MethodOperation {
 
     @Override
     void calculateChildren() {
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        IntTreeMap< String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
     }
 }

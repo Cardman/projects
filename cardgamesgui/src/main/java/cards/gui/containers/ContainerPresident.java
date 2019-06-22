@@ -17,7 +17,7 @@ import code.gui.LabelButton;
 import code.gui.Panel;
 import code.stream.StreamTextFile;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 
 public class ContainerPresident extends ContainerGame {
@@ -29,7 +29,7 @@ public class ContainerPresident extends ContainerGame {
     private Panel panelGivenCards;
 
     /**Renvoie tous les scores de toutes les parties non solitaires*/
-    private CustList<Numbers<Long>> scores=new CustList<Numbers<Long>>();
+    private CustList<Longs> scores=new CustList<Longs>();
     /**Maximum des valeurs absolues des scores centr&eacute;s par rapport &agrave; la moyenne*/
     private long maxAbsoluScore;
     /**Est vrai si et seulement si une partie vient d'etre sauvegardee*/
@@ -158,10 +158,10 @@ public class ContainerPresident extends ContainerGame {
     public void setArretDemo(boolean _arretDemo) {
         arretDemo.set(_arretDemo);
     }
-    public CustList<Numbers<Long>> getScores() {
+    public CustList<Longs> getScores() {
         return scores;
     }
-    protected void setScores(CustList<Numbers<Long>> _scores) {
+    protected void setScores(CustList<Longs> _scores) {
         scores = _scores;
     }
 

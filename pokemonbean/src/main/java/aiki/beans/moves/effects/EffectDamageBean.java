@@ -8,7 +8,7 @@ import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.NatCmpTreeMap;
 import code.util.NatStringTreeMap;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -19,7 +19,7 @@ public class EffectDamageBean extends EffectBean {
     private NatStringTreeMap< Rate> damageLaw;
     private NatStringTreeMap< Rate> multDamageAgainst;
     private NatCmpTreeMap<Rate, Rate> chLaw;
-    private NatTreeMap<Long, Rate> hitsLaw;
+    private LongTreeMap< Rate> hitsLaw;
     private long nbHits;
     private String power;
     private boolean randMax;
@@ -83,15 +83,15 @@ public class EffectDamageBean extends EffectBean {
 //            power = power.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
             damageLaw.clear();
         }
-        NatTreeMap<Long, Rate> hitsLaw_;
-        hitsLaw_ = new NatTreeMap<Long, Rate>();
+        LongTreeMap< Rate> hitsLaw_;
+        hitsLaw_ = new LongTreeMap< Rate>();
         for (Rate e: effect_.getHitsLaw().events()) {
             hitsLaw_.put(e.ll(), effect_.getHitsLaw().normalizedRate(e));
         }
         hitsLaw = hitsLaw_;
         if (hitsLaw.size() == DataBase.ONE_POSSIBLE_CHOICE) {
             nbHits = hitsLaw.firstKey();
-            hitsLaw = new NatTreeMap<Long, Rate>();
+            hitsLaw = new LongTreeMap< Rate>();
         }
         chRate = effect_.getChRate();
         NatCmpTreeMap<Rate, Rate> chLaw_;
@@ -176,7 +176,7 @@ public class EffectDamageBean extends EffectBean {
         return translatedStatistics_.getVal(st_);
     }
 
-    public NatTreeMap<Long,Rate> getHitsLaw() {
+    public LongTreeMap<Rate> getHitsLaw() {
         return hitsLaw;
     }
 

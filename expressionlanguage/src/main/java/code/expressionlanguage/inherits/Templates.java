@@ -1413,12 +1413,12 @@ public final class Templates {
             for (String b: bounds_) {
                 if (PrimitiveTypeUtil.isPrimitive(b, _context)) {
                     String pName_ = p_.getName();
-                    return prims_.getVal(b).getAllPrimSuperType(_context).containsStr(pName_);
+                    return StringList.contains(prims_.getVal(b).getAllPrimSuperType(_context), pName_);
                 }
                 if (PrimitiveTypeUtil.isWrapper(b, _context)) {
                     String aPrim_ = PrimitiveTypeUtil.toPrimitive(b, stds_);
                     String pName_ = p_.getName();
-                    return prims_.getVal(aPrim_).getAllSuperType(_context).containsStr(pName_);
+                    return StringList.contains(prims_.getVal(aPrim_).getAllSuperType(_context), pName_);
                 }
             }
             return false;
@@ -1428,7 +1428,7 @@ public final class Templates {
             String aName_ = a_.getName();
             ClassArgumentMatching pPrim_  = PrimitiveTypeUtil.toPrimitive(p_, _context);
             String pName_ = pPrim_.getName();
-            return prims_.getVal(aName_).getAllPrimSuperType(_context).containsStr(pName_);
+            return StringList.contains(prims_.getVal(aName_).getAllPrimSuperType(_context), pName_);
         }
         if (_m.getArg().isVariable()) {
             return true;
@@ -1888,7 +1888,7 @@ public final class Templates {
     }
 
     private static void addTypeIdNotYet(StringList _visitedClasses, StringList _nextClasses, String _geneSuperInterface) {
-        if (!_visitedClasses.containsStr(_geneSuperInterface)) {
+        if (!StringList.contains(_visitedClasses, _geneSuperInterface)) {
             _nextClasses.add(_geneSuperInterface);
             _visitedClasses.add(_geneSuperInterface);
         }

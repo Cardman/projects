@@ -2,7 +2,7 @@ package aiki.game.fight.animations;
 import aiki.game.fight.Fight;
 import aiki.game.fight.Fighter;
 import aiki.game.fight.TargetCoords;
-import code.util.Numbers;
+import code.util.*;
 
 public class AnimationHealing implements AnimationInt {
 

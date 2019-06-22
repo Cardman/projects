@@ -30,7 +30,7 @@ import code.gui.SetStyle;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.LgInt;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringMap;
 
 public class FrontBattle extends PaintableLabel {
@@ -40,14 +40,10 @@ public class FrontBattle extends PaintableLabel {
     private static final int NB_IMAGES_SWITCH = 64;
 
 //    private CustList<TargetLabel> foeTargets = new CustList<>();
-    private NatTreeMap<Byte,TargetLabel> foeTargets = new NatTreeMap<Byte,TargetLabel>();
+    private ByteTreeMap<TargetLabel> foeTargets = new ByteTreeMap<TargetLabel>();
 
 //    private CustList<TargetLabel> playerTargets = new CustList<>();
-    private NatTreeMap<Byte,TargetLabel> playerTargets = new NatTreeMap<Byte,TargetLabel>();
-
-    //private Numbers<Byte> koPlayerTargets = new Numbers<>();
-
-    //private Numbers<Byte> koFoeTargets = new Numbers<>();
+    private ByteTreeMap<TargetLabel> playerTargets = new ByteTreeMap<TargetLabel>();
 
     private int maxWidth;
 
@@ -131,7 +127,7 @@ public class FrontBattle extends PaintableLabel {
         playerTargets.clear();
         maxWidth = facade.getMaxWidthPk();
         maxHeight = facade.getMaxHeightPk();
-        NatTreeMap<Byte,Fighter> teamPl_ = new NatTreeMap<Byte, Fighter>();
+        ByteTreeMap<Fighter> teamPl_ = new ByteTreeMap< Fighter>();
         teamPl_.putAllMap(facade.getUnionFrontTeam());
         for (byte k: teamPl_.getKeys()) {
             TargetLabel target_ = new TargetLabel();
@@ -148,7 +144,7 @@ public class FrontBattle extends PaintableLabel {
             }
             playerTargets.put(k, target_);
         }
-        NatTreeMap<Byte,Fighter> teamFoe_ = facade.getFoeFrontTeam();
+        ByteTreeMap<Fighter> teamFoe_ = facade.getFoeFrontTeam();
         for (byte k: teamFoe_.getKeys()) {
             TargetLabel target_ = new TargetLabel();
             Fighter fighter_ = teamFoe_.getVal(k);

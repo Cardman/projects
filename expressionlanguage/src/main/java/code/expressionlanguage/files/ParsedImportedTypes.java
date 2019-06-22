@@ -1,6 +1,6 @@
 package code.expressionlanguage.files;
 
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringList;
 
 public final class ParsedImportedTypes {
@@ -9,10 +9,10 @@ public final class ParsedImportedTypes {
     private static final char END_IMPORTS = ';';
 
     private final StringList importedTypes = new StringList();
-    private final Numbers<Integer> offsetsImports = new Numbers<Integer>();
+    private final Ints offsetsImports = new Ints();
     private int nextIndex;
     private boolean ok;
-    public ParsedImportedTypes(int _nextIndex, String _fullFile, Numbers<Integer> _badIndexes, EnablingSpaces _enabledSpaces) {
+    public ParsedImportedTypes(int _nextIndex, String _fullFile, Ints _badIndexes, EnablingSpaces _enabledSpaces) {
         nextIndex = _nextIndex;
         if (_nextIndex >= _fullFile.length()) {
             return;
@@ -61,7 +61,7 @@ public final class ParsedImportedTypes {
     public StringList getImportedTypes() {
         return importedTypes;
     }
-    public Numbers<Integer> getOffsetsImports() {
+    public Ints getOffsetsImports() {
         return offsetsImports;
     }
     public int getNextIndex() {

@@ -19,8 +19,8 @@ import aiki.util.Point;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.ObjectMap;
 
 
@@ -28,7 +28,7 @@ public final class Cave extends Campaign {
 
     private String name;
 
-    private NumberMap<Byte, LevelCave> levels;
+    private ByteMap< LevelCave> levels;
 
     private ObjectMap<LevelPoint, Link> linksWithOtherPlaces;
 
@@ -199,7 +199,7 @@ public final class Cave extends Campaign {
     }
 
     byte indexOfAddedLevel() {
-        Numbers<Byte> keys_ = new Numbers<Byte>(levels.getKeys());
+        Bytes keys_ = new Bytes(levels.getKeys());
         if (keys_.isEmpty()) {
             return (short) CustList.FIRST_INDEX;
         }
@@ -237,15 +237,15 @@ public final class Cave extends Campaign {
     }
 
     @Override
-    public NumberMap<Byte, Level> getLevelsMap() {
-        NumberMap<Byte, Level> levels_ = new NumberMap<Byte, Level>();
+    public ByteMap< Level> getLevelsMap() {
+        ByteMap< Level> levels_ = new ByteMap< Level>();
         for (EntryCust<Byte, LevelCave> e : levels.entryList()) {
             levels_.put(e.getKey(), e.getValue());
         }
         return levels_;
     }
 
-    public NumberMap<Byte, LevelCave> getLevels() {
+    public ByteMap< LevelCave> getLevels() {
         return levels;
     }
 
@@ -392,7 +392,7 @@ public final class Cave extends Campaign {
         }
     }
 
-    public void setLevels(NumberMap<Byte, LevelCave> _levels) {
+    public void setLevels(ByteMap< LevelCave> _levels) {
         levels = _levels;
     }
 

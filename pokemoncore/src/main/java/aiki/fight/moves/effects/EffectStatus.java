@@ -95,7 +95,7 @@ public final class EffectStatus extends Effect {
 
         }
         StringList events_ = new StringList(lawStatus.events());
-        events_.removeObj(DataBase.EMPTY_STRING);
+        StringList.removeObj(events_, DataBase.EMPTY_STRING);
         if (!_data.getStatus().containsAllAsKeys(events_)) {
             _data.setError(true);
 

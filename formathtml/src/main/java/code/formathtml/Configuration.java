@@ -41,7 +41,7 @@ import code.resources.ResourceFiles;
 import code.sml.Document;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -1027,7 +1027,7 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
-    public Numbers<Integer> getCurrentBadIndexes() {
+    public Ints getCurrentBadIndexes() {
         return context.getCurrentBadIndexes();
     }
 

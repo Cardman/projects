@@ -14,15 +14,6 @@ public final class TreeMap<K, V> extends AbsMap<K, V> {
     }
 
     @Override
-    public CustList<K> getKeys() {
-        CustList<K> l_ = new CustList<K>();
-        for (EntryCust<K, V> e: getList()) {
-            l_.add(e.getKey());
-        }
-        return l_;
-    }
-
-    @Override
     public void put(K _key, V _value) {
         int index_ = 0;
         while (true) {

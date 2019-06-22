@@ -1,6 +1,6 @@
 package aiki.game.fight;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 import code.util.ints.Displayable;
 

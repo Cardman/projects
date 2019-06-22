@@ -28,8 +28,8 @@ import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.gui.ThreadInvoker;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.StringList;
 
 /**Thread safe class*/
@@ -47,7 +47,7 @@ public final class SimulationGamePresident extends Thread implements SimulationG
         donne_.setRandomDealer(regles_);
         regles_.setMixedCards(MixCardsChoice.EACH_DEAL);
         donne_.initDonne(regles_);
-        GamePresident gp_ = new GamePresident(GameType.EDIT,donne_,regles_, new Numbers<Byte>());
+        GamePresident gp_ = new GamePresident(GameType.EDIT,donne_,regles_, new Bytes());
         partieSimulee.jouerPresident(gp_);
         gp_.setChargementSimulation(0);
 //        partieSimulee.sauvegarderPartieEnCours("demos/deal10.cdgame");
@@ -139,8 +139,8 @@ public final class SimulationGamePresident extends Thread implements SimulationG
         container.setEvents(new JTextArea(ContainerPresident.EMPTY,8, 30));
         container.getEvents().setEditable(false);
         panneau2_.add(new ScrollPane(container.getEvents()));
-        container.setHandfuls(new NumberMap<Byte,JLabel>());
-        container.setDeclaredHandfuls(new NumberMap<Byte,Panel>());
+        container.setHandfuls(new ByteMap<JLabel>());
+        container.setDeclaredHandfuls(new ByteMap<Panel>());
         Panel sousPanneau_=new Panel(new GridLayout(0,1));
         Panel panelCards_ = new Panel();
         Panel panelDiscard_ = new Panel();

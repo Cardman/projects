@@ -152,7 +152,7 @@ public class FightMovesTest extends InitializationDataBase {
         fight_.enableGlobalMove(DISTORSION);
         StringList list_ = FightMoves.enabledGlobalMoves(fight_, _data_);
         assertEq(1, list_.size());
-        assertTrue(list_.containsObj(DISTORSION));
+        assertTrue(StringList.contains(list_, DISTORSION));
     }
 
     @Test
@@ -242,7 +242,7 @@ public class FightMovesTest extends InitializationDataBase {
         fight_.enableGlobalMove(ZENITH);
         StringList list_ = FightMoves.climatsActifs(fight_,_data_);
         assertEq(1, list_.size());
-        assertTrue(list_.containsObj(ZENITH));
+        assertTrue(StringList.contains(list_, ZENITH));
     }
 
     @Test
@@ -335,7 +335,7 @@ public class FightMovesTest extends InitializationDataBase {
         fight_.enableGlobalMove(ZENITH);
         StringList list_ = FightMoves.enabledGlobalNonWeatherMove(fight_,_data_);
         assertEq(1, list_.size());
-        assertTrue(list_.containsObj(GRAVITE));
+        assertTrue(StringList.contains(list_, GRAVITE));
     }
 
     private static Fight moveTypes() {
@@ -382,13 +382,13 @@ public class FightMovesTest extends InitializationDataBase {
         Fight fight_ = moveTypes();
         StringList types_ = FightMoves.moveTypes(fight_,POKEMON_PLAYER_FIGHTER_ZERO, SEISME, _data_);
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(SOL));
+        assertTrue(StringList.contains(types_, SOL));
         types_ = FightMoves.moveTypes(fight_,POKEMON_PLAYER_FIGHTER_ZERO, BALL_METEO, _data_);
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(NORMAL));
+        assertTrue(StringList.contains(types_, NORMAL));
         types_ = FightMoves.moveTypes(fight_,POKEMON_PLAYER_FIGHTER_ZERO, DON_NATUREL, _data_);
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(NORMAL));
+        assertTrue(StringList.contains(types_, NORMAL));
     }
 
     @Test
@@ -397,10 +397,10 @@ public class FightMovesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(BAIE_MEPO);
         StringList types_ = FightMoves.moveTypes(fight_,POKEMON_PLAYER_FIGHTER_ZERO, SEISME, _data_);
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(SOL));
+        assertTrue(StringList.contains(types_, SOL));
         types_ = FightMoves.moveTypes(fight_,POKEMON_PLAYER_FIGHTER_ZERO, DON_NATUREL, _data_);
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(COMBAT));
+        assertTrue(StringList.contains(types_, COMBAT));
     }
 
     @Test
@@ -409,7 +409,7 @@ public class FightMovesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(NORMALISE);
         StringList types_ = FightMoves.moveTypes(fight_,POKEMON_PLAYER_FIGHTER_ZERO, SEISME, _data_);
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(NORMAL));
+        assertTrue(StringList.contains(types_, NORMAL));
     }
 
     @Test
@@ -418,7 +418,7 @@ public class FightMovesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
         StringList types_ = FightMoves.moveTypes(fight_,POKEMON_PLAYER_FIGHTER_ZERO, SEISME, _data_);
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(SOL));
+        assertTrue(StringList.contains(types_, SOL));
     }
 
     @Test
@@ -428,8 +428,8 @@ public class FightMovesTest extends InitializationDataBase {
         fight_.enableGlobalMove(ORAGE);
         StringList types_ = FightMoves.moveTypes(fight_,POKEMON_PLAYER_FIGHTER_ZERO, BALL_METEO, _data_);
         assertEq(2, types_.size());
-        assertTrue(types_.containsObj(FEU));
-        assertTrue(types_.containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(types_, FEU));
+        assertTrue(StringList.contains(types_, ELECTRIQUE));
     }
 
     @Test
@@ -438,7 +438,7 @@ public class FightMovesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(MULTI_EXP);
         StringList types_ = FightMoves.moveTypes(fight_,POKEMON_PLAYER_FIGHTER_ZERO, DEGOMMAGE, _data_);
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(NORMAL));
+        assertTrue(StringList.contains(types_, NORMAL));
     }
 
     @Test
@@ -447,7 +447,7 @@ public class FightMovesTest extends InitializationDataBase {
         fight_.enableGlobalMove(ZENITH);
         StringList types_ = FightMoves.moveTypes(fight_,POKEMON_PLAYER_FIGHTER_ZERO, BALL_ORAGE, _data_);
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(NORMAL));
+        assertTrue(StringList.contains(types_, NORMAL));
     }
 
     @Test
@@ -456,7 +456,7 @@ public class FightMovesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(PEAU_FEERIQUE);
         StringList types_ = FightMoves.moveTypes(fight_,POKEMON_PLAYER_FIGHTER_ZERO, RELAIS, _data_);
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(FEE));
+        assertTrue(StringList.contains(types_, FEE));
     }
 
     @Test
@@ -465,7 +465,7 @@ public class FightMovesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(PEAU_FEERIQUE);
         StringList types_ = FightMoves.moveTypes(fight_,POKEMON_PLAYER_FIGHTER_ZERO, DEGOMMAGE, _data_);
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(TENEBRE));
+        assertTrue(StringList.contains(types_, TENEBRE));
     }
 
     @Test
@@ -474,7 +474,7 @@ public class FightMovesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).enableChangingMovesTypes(ELECTRISATION);
         StringList types_ = FightMoves.moveTypes(fight_,POKEMON_PLAYER_FIGHTER_ZERO, SEISME, _data_);
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(types_, ELECTRIQUE));
     }
 
     @Test
@@ -483,7 +483,7 @@ public class FightMovesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).enableChangingMovesTypes(DELUGE_PLASMIQUE);
         StringList types_ = FightMoves.moveTypes(fight_,POKEMON_PLAYER_FIGHTER_ZERO, SEISME, _data_);
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(SOL));
+        assertTrue(StringList.contains(types_, SOL));
     }
 
     @Test
@@ -493,7 +493,7 @@ public class FightMovesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(NORMALISE);
         StringList types_ = FightMoves.moveTypes(fight_,POKEMON_PLAYER_FIGHTER_ZERO, SEISME, _data_);
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(types_, ELECTRIQUE));
     }
 
     @Test
@@ -502,7 +502,7 @@ public class FightMovesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).enableChangingMovesTypes(DELUGE_PLASMIQUE);
         StringList types_ = FightMoves.moveTypes(fight_,POKEMON_PLAYER_FIGHTER_ZERO, COMBO_GRIFFE, _data_);
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(ELECTRIQUE));
+        assertTrue(StringList.contains(types_, ELECTRIQUE));
     }
 
     @Test
@@ -511,6 +511,6 @@ public class FightMovesTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).enableChangingMovesTypes(DELUGE_GLACIAL);
         StringList types_ = FightMoves.moveTypes(fight_,POKEMON_PLAYER_FIGHTER_ZERO, COMBO_GRIFFE, _data_);
         assertEq(1, types_.size());
-        assertTrue(types_.containsObj(GLACE));
+        assertTrue(StringList.contains(types_, GLACE));
     }
 }

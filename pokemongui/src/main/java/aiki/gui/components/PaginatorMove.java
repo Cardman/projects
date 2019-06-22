@@ -374,7 +374,7 @@ public final class PaginatorMove extends Paginator {
 //        results.setLayout(new BoxLayout(results, BoxLayout.PAGE_AXIS));
         results.setLayout(new GridLayout(0, 1));
 //        int side_ = getFacade().getData().getMap().getSideLength();
-        //Numbers<Integer> widths_ = new Numbers<Integer>();
+        //Ints widths_ = new Ints();
         int nameWidth_ = getHeader().width(getMessages().getVal(NAME));
         int typesWidth_ = getHeader().width(StringList.concat(SPACE,getMessages().getVal(TYPES)));
         int prioWidth_ = getHeader().width(StringList.concat(SPACE,getMessages().getVal(PRIORITY)));

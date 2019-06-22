@@ -96,8 +96,8 @@ import code.stream.StreamTextFile;
 import code.stream.StreamZipFile;
 import code.util.CustList;
 import code.util.EnumMap;
-import code.util.NatTreeMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -1208,7 +1208,7 @@ public final class MainWindow extends NetGroupFrame {
         }
         if (_readObject instanceof Ok) {
             facade.applyTrading();
-            NatTreeMap<Byte, PokemonPlayer> tree_ = facade.getExchangeData().getTeam(facade.getGame().getPlayer().getTeam());
+            ByteTreeMap< PokemonPlayer> tree_ = facade.getExchangeData().getTeam(facade.getGame().getPlayer().getTeam());
             scenePanel.setTradableAfterTrading(tree_);
             pack();
             return;

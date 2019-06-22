@@ -11,7 +11,7 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringList;
 
 public final class AssocationOperation extends AbstractUnaryOperation implements PreAnalyzableOperation {
@@ -26,7 +26,7 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
 
     @Override
     void calculateChildren() {
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        IntTreeMap< String> vs_ = getOperations().getValues();
         vs_.removeKey(vs_.firstKey());
         getChildren().putAllMap(vs_);
     }

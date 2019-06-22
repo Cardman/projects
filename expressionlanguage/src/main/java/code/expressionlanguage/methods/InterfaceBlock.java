@@ -6,7 +6,7 @@ import code.expressionlanguage.common.GeneInterface;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringList;
 
 public final class InterfaceBlock extends RootBlock implements GeneInterface {
@@ -18,7 +18,7 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     private final boolean staticType;
 
     public InterfaceBlock(int _idRowCol, int _categoryOffset, String _name, String _packageName, OffsetAccessInfo _access,
-                          String _templateDef, NatTreeMap<Integer, String> _directSuperTypes, boolean _staticType, OffsetsBlock _offset) {
+                          String _templateDef, IntTreeMap< String> _directSuperTypes, boolean _staticType, OffsetsBlock _offset) {
         super(_idRowCol, _categoryOffset, _name, _packageName, _access, _templateDef, _directSuperTypes, _offset);
         staticType = _staticType;
     }
@@ -71,7 +71,7 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
 
     @Override
     public void buildDirectGenericSuperTypes(ContextEl _classes) {
-        NatTreeMap<Integer, String> rcs_;
+        IntTreeMap< String> rcs_;
         rcs_ = getRowColDirectSuperTypes();
         int i_ = 0;
         importedDirectSuperInterfaces.clear();

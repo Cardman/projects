@@ -20,8 +20,8 @@ import aiki.map.pokemon.UsablePokemon;
 import code.gui.GraphicList;
 import code.gui.Panel;
 import code.util.CustList;
-import code.util.NatTreeMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -38,13 +38,13 @@ public class TeamPanel extends Panel {
 
     private GraphicList<UsablePokemon> liste;
 
-    private Numbers<Byte> indexes = new Numbers<Byte>();
+    private Bytes indexes = new Bytes();
 
     private FacadeGame facade;
 
     private JLabel nbRemainPlaces;
 
-    public TeamPanel(int _nb, String _titre, FacadeGame _facade, NatTreeMap<Byte,UsablePokemon> _team, boolean _single, StringMap<String> _mess) {
+    public TeamPanel(int _nb, String _titre, FacadeGame _facade, ByteTreeMap<UsablePokemon> _team, boolean _single, StringMap<String> _mess) {
         facade = _facade;
         liste = new GraphicList<UsablePokemon>(false,true);
         setLayout(new BorderLayout());
@@ -65,7 +65,7 @@ public class TeamPanel extends Panel {
         setPreferredSize(new Dimension(getDeltaName(_team) * 2 + side_ * 2,side_*2*_nb));
     }
 
-    public void initFighters(NatTreeMap<Byte,UsablePokemon> _fighters, StringMap<String> _mess) {
+    public void initFighters(ByteTreeMap<UsablePokemon> _fighters, StringMap<String> _mess) {
         liste.clear();
         int maxPixName_ = getDeltaName(_fighters);
         renderer.setCoords(maxPixName_);
@@ -86,7 +86,7 @@ public class TeamPanel extends Panel {
         nbRemainPlaces.setText(StringList.simpleNumberFormat(message_, rem_));
     }
 
-    int getDeltaName(NatTreeMap<Byte,UsablePokemon> _team) {
+    int getDeltaName(ByteTreeMap<UsablePokemon> _team) {
         int maxPixName_ = 0;
         JLabel ex_ = new JLabel();
         for (UsablePokemon l: _team.values()) {

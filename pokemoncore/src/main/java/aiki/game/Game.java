@@ -128,7 +128,7 @@ public final class Game {
     /**nombre de dresseurs de la ligue battus (remis a zero une fois la ligue battue)*/
     private byte rankLeague;
 
-    private NumberMap<Short,EqList<Point>> beatGymTrainer;
+    private ShortMap<EqList<Point>> beatGymTrainer;
 
     private ObjectMap<Coords,Boolean> beatGymLeader;
 
@@ -184,7 +184,7 @@ public final class Game {
 
     public Game(){
         difficulty = new Difficulty();
-        setBeatGymTrainer(new NumberMap<Short,EqList<Point>>());
+        setBeatGymTrainer(new ShortMap<EqList<Point>>());
         reinitInteraction=false;
         setInterfaceType(InterfaceType.RIEN);
         setVisitedPlaces(new ObjectMap<Coords,Boolean>());
@@ -199,7 +199,7 @@ public final class Game {
 
     public Game(DataBase _d){
         fight = FightFacade.newFight();
-        beatGymTrainer = new NumberMap<Short,EqList<Point>>();
+        beatGymTrainer = new ShortMap<EqList<Point>>();
         difficulty = new Difficulty();
         reinitInteraction=false;
         interfaceType=InterfaceType.RIEN;
@@ -223,7 +223,7 @@ public final class Game {
         for (NbFightCoords c: d_.getBeatTrainer()) {
             beatTrainer.put(c, false);
         }
-        beatGymTrainer = new NumberMap<Short,EqList<Point>>();
+        beatGymTrainer = new ShortMap<EqList<Point>>();
         for (Short c: d_.getBeatGymTrainer().getKeys()){
             beatGymTrainer.put(c, new EqList<Point>());
         }
@@ -745,10 +745,10 @@ public final class Game {
                     canStore_ = false;
                     _commentGame.addMessage(mess_.getVal(SAME_GENDER));
                 }
-                if (groupsOne_.containsObj(_d.getDefaultEggGroup())) {
+                if (StringList.contains(groupsOne_, _d.getDefaultEggGroup())) {
                     return canStore_;
                 }
-                if (groupsTwo_.containsObj(_d.getDefaultEggGroup())) {
+                if (StringList.contains(groupsTwo_, _d.getDefaultEggGroup())) {
                     return canStore_;
                 }
                 if (StringList.quickEq(pkDataOne_.getBaseEvo(), pkDataTwo_.getBaseEvo())) {
@@ -756,7 +756,7 @@ public final class Game {
                 }
                 boolean vide_=true;
                 for(String e:groupsOne_){
-                    if(groupsTwo_.containsObj(e)){
+                    if(StringList.contains(groupsTwo_, e)){
                         vide_=false;
                         break;
                     }
@@ -767,23 +767,23 @@ public final class Game {
                 }
                 return canStore_;
             }
-            if (groupsTwo_.containsObj(_d.getDefaultEggGroup())) {
+            if (StringList.contains(groupsTwo_, _d.getDefaultEggGroup())) {
                 return true;
             }
             _commentGame.addMessage(mess_.getVal(NO_COMMON_EGG));
             return false;
         }
         if(Gender.getGendersWithSex().containsObj(_pkTwo.getGender())){
-            if (groupsOne_.containsObj(_d.getDefaultEggGroup())) {
+            if (StringList.contains(groupsOne_, _d.getDefaultEggGroup())) {
                 return true;
             }
             _commentGame.addMessage(mess_.getVal(NO_COMMON_EGG));
             return false;
         }
-        if (groupsOne_.containsObj(_d.getDefaultEggGroup())) {
+        if (StringList.contains(groupsOne_, _d.getDefaultEggGroup())) {
             return true;
         }
-        if (groupsTwo_.containsObj(_d.getDefaultEggGroup())) {
+        if (StringList.contains(groupsTwo_, _d.getDefaultEggGroup())) {
             return true;
         }
         _commentGame.addMessage(mess_.getVal(NO_COMMON_EGG));
@@ -876,7 +876,7 @@ public final class Game {
             return law_;
         }
         PokemonData fPk_ = _d.getPokemon(firstPokemon_.getName());
-        if (fPk_.getEggGroups().containsObj(_d.getDefaultEggGroup())) {
+        if (StringList.contains(fPk_.getEggGroups(), _d.getDefaultEggGroup())) {
             fPk_ = _d.getPokemon(secondPokemon_.getName());
         }
         law_.addEvent(fPk_.getBaseEvo(), DataBase.defElementaryEvent());
@@ -1526,12 +1526,12 @@ public final class Game {
                 inaccessible_.add(c);
             }
         }
-        Numbers<Short> accessiblePlaces_ = new Numbers<Short>();
+        Shorts accessiblePlaces_ = new Shorts();
         for (Coords c: accessible_) {
             accessiblePlaces_.add(c.getNumberPlace());
         }
         accessiblePlaces_.removeDuplicates();
-        Numbers<Short> inaccessiblePlaces_ = new Numbers<Short>();
+        Shorts inaccessiblePlaces_ = new Shorts();
         for (Coords c: inaccessible_) {
             inaccessiblePlaces_.add(c.getNumberPlace());
         }
@@ -1651,31 +1651,31 @@ public final class Game {
         }
     }
 
-    public NatTreeMap<Byte,Fighter> getPlayerTeam() {
+    public ByteTreeMap<Fighter> getPlayerTeam() {
         return FightFacade.getPlayerTeam(fight);
     }
 
-    public NatTreeMap<Byte,Fighter> getFoeFrontTeam() {
+    public ByteTreeMap<Fighter> getFoeFrontTeam() {
         return FightFacade.getFoeFrontTeam(fight);
     }
 
-    public NatTreeMap<Byte,Fighter> getUnionFrontTeam() {
+    public ByteTreeMap<Fighter> getUnionFrontTeam() {
         return FightFacade.getUnionFrontTeam(fight);
     }
 
-    public NatTreeMap<Byte,Fighter> getPlayerFrontTeam() {
+    public ByteTreeMap<Fighter> getPlayerFrontTeam() {
         return FightFacade.getPlayerFrontTeam(fight);
     }
 
-    public NatTreeMap<Byte,Fighter> getPlayerBackTeam() {
+    public ByteTreeMap<Fighter> getPlayerBackTeam() {
         return FightFacade.getPlayerBackTeam(fight);
     }
 
-    public NatTreeMap<Byte,Fighter> getPlayerFrontTeamForSubstituting() {
+    public ByteTreeMap<Fighter> getPlayerFrontTeamForSubstituting() {
         return FightFacade.getPlayerFrontTeamForSubstituting(fight);
     }
 
-    public NatTreeMap<Byte,Fighter> getPlayerBackTeamForSubstituting() {
+    public ByteTreeMap<Fighter> getPlayerBackTeamForSubstituting() {
         return FightFacade.getPlayerBackTeamForSubstituting(fight);
     }
 
@@ -1893,7 +1893,7 @@ public final class Game {
     public void simuler(CustList<CustList<ActionMove>> _actionsTour,
             CustList<CustList<ActionSwitch>> _actionsSubstitutingFront,
             CustList<CustList<ActionSwitch>> _actionsSubstitutingBack,
-            CustList<NumberMap<Byte,ChoiceOfEvolutionAndMoves>> _evolutions,
+            CustList<ByteMap<ChoiceOfEvolutionAndMoves>> _evolutions,
             DataBase _import){
         //_evolutions for each round: key position before fight, value choices
         FightFacade.simulate(fight,_actionsTour,
@@ -2650,7 +2650,7 @@ public final class Game {
         interfaceType = _interfaceType;
     }
 
-    public void setBeatGymTrainer(NumberMap<Short,EqList<Point>> _beatGymTrainer) {
+    public void setBeatGymTrainer(ShortMap<EqList<Point>> _beatGymTrainer) {
         beatGymTrainer = _beatGymTrainer;
     }
 
@@ -2674,7 +2674,7 @@ public final class Game {
         return fullAccessiblePlaces;
     }
 
-    public NumberMap<Short,EqList<Point>> getBeatGymTrainer() {
+    public ShortMap<EqList<Point>> getBeatGymTrainer() {
         return beatGymTrainer;
     }
 

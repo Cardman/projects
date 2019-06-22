@@ -20,8 +20,8 @@ import code.sml.*;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdList;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
+import code.util.*;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -533,10 +533,10 @@ public final class FormatHtml {
         rw_.setWrite(doc_);
         ip_.setRoot(r_);
         ip_.setReadWrite(rw_);
-        NumberMap<Long,NatTreeMap<Long,NodeContainer>> containersMap_;
-        containersMap_ = new NumberMap<Long,NatTreeMap<Long,NodeContainer>>();
-        NatTreeMap<Long,NodeContainer> containers_;
-        containers_ = new NatTreeMap<Long,NodeContainer>();
+        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        containersMap_ = new LongMap<LongTreeMap<NodeContainer>>();
+        LongTreeMap<NodeContainer> containers_;
+        containers_ = new LongTreeMap<NodeContainer>();
         IndexesFormInput indexes_ = new IndexesFormInput();
         Element curForm_ = null;
         long currentAnchor_ = 0;
@@ -594,7 +594,7 @@ public final class FormatHtml {
                 if (StringList.quickEq(((Element) en_).getTagName(),TAG_FORM)) {
                     curForm_ = tag_;
                     containersMap_.put(currentForm_, containers_);
-                    containers_ = new NatTreeMap<Long, NodeContainer>();
+                    containers_ = new LongTreeMap< NodeContainer>();
                     currentForm_++;
                     indexes_.setInput(0);
                 }
@@ -767,15 +767,15 @@ public final class FormatHtml {
 
     private static ImportingPage processProcessingTags(String _lg, Configuration _conf, Document _doc,
             ImportingPage _ip,
-            NumberMap<Long,NatTreeMap<Long,NodeContainer>> _containersMap,
-            NatTreeMap<Long,NodeContainer> _containers,
+            LongMap<LongTreeMap<NodeContainer>> _containersMap,
+            LongTreeMap<NodeContainer> _containers,
             IndexesFormInput _indexes,
             long _currentForm,
             Struct _mainBean,
             String _loc, StringMap<String> _files, String... _resourcesFolder) {
-        NumberMap<Long,NatTreeMap<Long,NodeContainer>> containersMap_ = _containersMap;
+        LongMap<LongTreeMap<NodeContainer>> containersMap_ = _containersMap;
         String prefix_ = _conf.getLastPage().getPrefix();
-        NatTreeMap<Long,NodeContainer> containers_ = _containers;
+        LongTreeMap<NodeContainer> containers_ = _containers;
         ReadWriteHtml rw_ = _ip.getReadWrite();
         IndexesFormInput indexes_ = _indexes;
         long currentAnchor_ = _indexes.getAnchor();
@@ -2115,8 +2115,8 @@ public final class FormatHtml {
         int indexGlobal_ = _html.indexOf(LT_BEGIN_TAG)+1;
         CustList<StringList> vars_ = new CustList<StringList>();
         StringList catchVars_ = new StringList();
-        ObjectMap<NodeAttribute, NatTreeMap<Integer, Integer>> infos_;
-        infos_ = new ObjectMap<NodeAttribute, NatTreeMap<Integer, Integer>>();
+        ObjectMap<NodeAttribute, IntTreeMap< Integer>> infos_;
+        infos_ = new ObjectMap<NodeAttribute, IntTreeMap< Integer>>();
         String prefix_ = _conf.getLastPage().getPrefix();
         while (true) {
             _conf.getLastPage().setProcessingNode(en_);
@@ -2129,7 +2129,7 @@ public final class FormatHtml {
                     }
                     for (StringList l: vars_) {
                         for (String v: l) {
-                            if (varsLoc_.containsStr(v)) {
+                            if (StringList.contains(varsLoc_, v)) {
                                 StringList alls_ = new StringList();
                                 for (StringList g: vars_) {
                                     alls_.addAllElts(g);
@@ -2526,8 +2526,8 @@ public final class FormatHtml {
         Node root_ = _doc.getDocumentElement();
         Node en_ = root_;
         int indexGlobal_ = _html.indexOf(LT_BEGIN_TAG)+1;
-        ObjectMap<NodeAttribute, NatTreeMap<Integer, Integer>> infos_;
-        infos_ = new ObjectMap<NodeAttribute, NatTreeMap<Integer, Integer>>();
+        ObjectMap<NodeAttribute, IntTreeMap< Integer>> infos_;
+        infos_ = new ObjectMap<NodeAttribute, IntTreeMap< Integer>>();
         while (true) {
             _conf.getLastPage().setProcessingNode(en_);
             if (en_ instanceof Element) {
@@ -2594,7 +2594,7 @@ public final class FormatHtml {
         }
     }
 
-    private static NatTreeMap<Integer, Integer> getIndexesSpecChars(String _html, boolean _realAttr, AttributePart _att, int _beginNode) {
+    private static IntTreeMap< Integer> getIndexesSpecChars(String _html, boolean _realAttr, AttributePart _att, int _beginNode) {
         int begin_ = _att.getBegin();
         int end_ = _att.getEnd();
         int i_ = begin_;
@@ -2603,8 +2603,8 @@ public final class FormatHtml {
             delta_ = begin_ - _beginNode;
         }
         int beginEscaped_ = i_;
-        NatTreeMap<Integer, Integer> indexes_;
-        indexes_ = new NatTreeMap<Integer, Integer>();
+        IntTreeMap< Integer> indexes_;
+        indexes_ = new IntTreeMap< Integer>();
         while (i_ < end_) {
             if (_html.charAt(i_) == ENCODED) {
                 beginEscaped_ = i_;
@@ -2779,8 +2779,8 @@ public final class FormatHtml {
     private static void setIndexes(IndexesFormInput _indexes,
             Configuration _conf,
             ImportingPage _ip,
-            NumberMap<Long,NatTreeMap<Long,NodeContainer>> _containersMap,
-            NatTreeMap<Long,NodeContainer> _containers,
+            LongMap<LongTreeMap<NodeContainer>> _containersMap,
+            LongTreeMap<NodeContainer> _containers,
             Element _input, String _name) {
         String name_ = _name;
         if (name_.endsWith(GET_LOC_VAR)) {
@@ -2971,8 +2971,8 @@ public final class FormatHtml {
     private static void processAttributes(Configuration _conf, String _loc, StringMap< String> _files,
                 ImportingPage _ip,Document _doc, Element _tag,
                 IndexesFormInput _indexes,
-                NumberMap<Long,NatTreeMap<Long,NodeContainer>> _containersMap,
-                NatTreeMap<Long,NodeContainer> _containers,
+                LongMap<LongTreeMap<NodeContainer>> _containersMap,
+                LongTreeMap<NodeContainer> _containers,
             String... _resourcesFolder) {
         String prefixWrite_ = _conf.getPrefix();
         String beanName_ = _ip.getBeanName();

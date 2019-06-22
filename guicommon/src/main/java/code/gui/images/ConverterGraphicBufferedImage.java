@@ -9,7 +9,7 @@ import code.images.Image;
 import code.images.IntPoint;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 
 public final class ConverterGraphicBufferedImage {

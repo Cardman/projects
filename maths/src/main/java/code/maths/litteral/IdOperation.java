@@ -1,6 +1,6 @@
 package code.maths.litteral;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringMap;
 
 public final class IdOperation extends MethodOperation {
@@ -29,7 +29,7 @@ public final class IdOperation extends MethodOperation {
 
     @Override
     void calculateChildren() {
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        IntTreeMap< String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
     }
 }

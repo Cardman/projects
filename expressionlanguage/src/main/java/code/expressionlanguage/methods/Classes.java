@@ -169,14 +169,14 @@ public final class Classes {
                 badCl_.setIndexFile(_root.getIdRowCol());
                 addError(badCl_);
             }
-            if (varTypes_.containsStr(id_)) {
+            if (StringList.contains(varTypes_, id_)) {
                 BadClassName badCl_ = new BadClassName();
                 badCl_.setClassName(fullDef_);
                 badCl_.setFileName(_root.getFile().getFileName());
                 badCl_.setIndexFile(_root.getIdRowCol());
                 addError(badCl_);
             }
-            if (namesFromParent_.containsStr(id_)) {
+            if (StringList.contains(namesFromParent_, id_)) {
                 BadClassName badCl_ = new BadClassName();
                 badCl_.setClassName(fullDef_);
                 badCl_.setFileName(_root.getFile().getFileName());
@@ -317,7 +317,7 @@ public final class Classes {
                 }
             }
         }
-        StringList all_ = cl_.classesBodies.getKeys();
+        CustList<String> all_ = cl_.classesBodies.getKeys();
         _context.setInitEnums(true);
         while (true) {
             StringList new_ = new StringList();
@@ -331,7 +331,7 @@ public final class Classes {
                     new_.add(c);
                 }
             }
-            all_.removeAllElements(new_);
+            StringList.removeAllElements(all_, new_);
             if (new_.isEmpty()) {
                 break;
             }
@@ -777,7 +777,7 @@ public final class Classes {
                 }
                 break;
             }
-            stClNames_.removeAllElements(next_);
+            StringList.removeAllElements(stClNames_, next_);
         }
         if (instClBodies_.isEmpty()) {
             return;
@@ -989,7 +989,7 @@ public final class Classes {
         String objectClassName_ = _context.getStandards().getAliasObject();
         StringList line_ = new StringList();
         while (true) {
-            if (line_.containsStr(s_)) {
+            if (StringList.contains(line_, s_)) {
                 break;
             }
             line_.add(s_);
@@ -1273,7 +1273,7 @@ public final class Classes {
                     b_.setParamName(v);
                     _context.getClasses().addError(b_);
                 }
-                if (seen_.containsStr(v)){
+                if (StringList.contains(seen_, v)){
                     DuplicateParamName b_;
                     b_ = new DuplicateParamName();
                     b_.setFileName(_context.getCurrentFileName());
@@ -1382,7 +1382,7 @@ public final class Classes {
             CustList<Block> bl_ = getDirectChildren((Block) access_);
             for (Block b: bl_) {
                 if (b instanceof InfoBlock) {
-                    if (((InfoBlock)b).getFieldName().containsStr(_name)) {
+                    if (StringList.contains(((InfoBlock) b).getFieldName(), _name)) {
                         return !canAccess(_className, (InfoBlock) b, _context);
                     }
                 }
@@ -1652,7 +1652,7 @@ public final class Classes {
                     //error
                     for (Block b: bl_) {
                         if (b instanceof InfoBlock) {
-                            if (((InfoBlock)b).getFieldName().containsStr(fieldName_)) {
+                            if (StringList.contains(((InfoBlock) b).getFieldName(), fieldName_)) {
                                 UnassignedFinalField un_ = new UnassignedFinalField(key_);
                                 un_.setFileName(c.getFile().getFileName());
                                 un_.setIndexFile(((InfoBlock) b).getFieldNameOffset());
@@ -1669,12 +1669,12 @@ public final class Classes {
                 UniqueRootedBlock un_ = (UniqueRootedBlock)c;
                 StringList all_ = un_.getAllInterfaces();
                 StringList allCopy_ = new StringList(all_);
-                allCopy_.removeAllElements(_context.getStandards().getPredefinedInterfacesInitOrder());
+                StringList.removeAllElements(allCopy_, _context.getStandards().getPredefinedInterfacesInitOrder());
                 String superClass_ = un_.getImportedDirectGenericSuperClass();
                 String superClassId_ = Templates.getIdFromAllTypes(superClass_);
                 RootBlock superType_ = classes_.getClassBody(superClassId_);
                 if (superType_ instanceof UniqueRootedBlock) {
-                    allCopy_.removeAllElements(((UniqueRootedBlock)superType_).getAllInterfaces());
+                    StringList.removeAllElements(allCopy_, ((UniqueRootedBlock)superType_).getAllInterfaces());
                 }
                 for (String i: allCopy_) {
                     RootBlock int_ = classes_.getClassBody(i);
@@ -2048,7 +2048,7 @@ public final class Classes {
                     continue;
                 }
                 FieldBlock f_ = (FieldBlock) b;
-                if (f_.getFieldName().containsStr(fieldName_)) {
+                if (StringList.contains(f_.getFieldName(), fieldName_)) {
                     ElUtil.tryCalculate(f_, _context, fieldName_);
                 }
             }
@@ -2317,7 +2317,7 @@ public final class Classes {
                         continue;
                     }
                     String c_ = method_.getImportedClassName();
-                    if (method_.getFieldName().containsStr(sfn_)) {
+                    if (StringList.contains(method_.getFieldName(), sfn_)) {
                         return PrimitiveTypeUtil.defaultClass(c_, _context);
                     }
                 }

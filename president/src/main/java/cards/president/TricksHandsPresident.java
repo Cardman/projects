@@ -1,9 +1,9 @@
 package cards.president;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
+import code.util.*;
 
 
 public final class TricksHandsPresident {
@@ -18,9 +18,9 @@ public final class TricksHandsPresident {
 
     private int numberMaxSwitchedCards;
 
-    private Numbers<Byte> ranks;
+    private Bytes ranks;
 
-    private NumberMap<Byte,HandPresident> switchedCards;
+    private ByteMap<HandPresident> switchedCards;
 
     private EqList<HandPresident> cardsHandsAtInitialState;
 
@@ -219,19 +219,19 @@ public final class TricksHandsPresident {
         numberMaxSwitchedCards = _numberMaxSwitchedCards;
     }
 
-    public Numbers<Byte> getRanks() {
+    public Bytes getRanks() {
         return ranks;
     }
 
-    public void setRanks(Numbers<Byte> _ranks) {
+    public void setRanks(Bytes _ranks) {
         ranks = _ranks;
     }
 
-    public NumberMap<Byte,HandPresident> getSwitchedCards() {
+    public ByteMap<HandPresident> getSwitchedCards() {
         return switchedCards;
     }
 
-    public void setSwitchedCards(NumberMap<Byte,HandPresident> _switchedCards) {
+    public void setSwitchedCards(ByteMap<HandPresident> _switchedCards) {
         switchedCards = _switchedCards;
     }
 
@@ -278,16 +278,16 @@ public final class TricksHandsPresident {
         return getLoosers().get(ind_);
     }
 
-    public Numbers<Byte> getWinners() {
+    public Bytes getWinners() {
         if (ranks.isEmpty()) {
-            return new Numbers<Byte>();
+            return new Bytes();
         }
-        NatTreeMap<Byte,Byte> players_ = new NatTreeMap<Byte,Byte>();
+        ByteTreeMap<Byte> players_ = new ByteTreeMap<Byte>();
         int r_ = ranks.size();
         for (byte i = CustList.FIRST_INDEX; i < r_; i++) {
             players_.put(ranks.get(i), i);
         }
-        Numbers<Byte> w_ = new Numbers<Byte>();
+        Bytes w_ = new Bytes();
         int nb_ = numberMaxSwitchedCards;
         for (byte i = CustList.FIRST_INDEX; i < nb_; i++) {
             w_.add(players_.getValue(i));
@@ -295,16 +295,16 @@ public final class TricksHandsPresident {
         return w_;
     }
 
-    public Numbers<Byte> getLoosers() {
+    public Bytes getLoosers() {
         if (ranks.isEmpty()) {
-            return new Numbers<Byte>();
+            return new Bytes();
         }
-        NatTreeMap<Byte,Byte> players_ = new NatTreeMap<Byte,Byte>();
+        ByteTreeMap<Byte> players_ = new ByteTreeMap<Byte>();
         int r_ = ranks.size();
         for (byte i = CustList.FIRST_INDEX; i < r_; i++) {
             players_.put(ranks.get(i), i);
         }
-        Numbers<Byte> l_ = new Numbers<Byte>();
+        Bytes l_ = new Bytes();
         int nb_ = numberMaxSwitchedCards;
         int i_ = players_.size() - 1;
         while (l_.size() < nb_) {

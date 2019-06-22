@@ -9,7 +9,7 @@ import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.tree.util.Dims;
 import aiki.util.Point;
 import code.images.Image;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 
 
@@ -153,7 +153,7 @@ public class BlockTest {
     }
     private static int[][] getImageByString(String _string) {
         Image i_ = new Image(_string);
-        Numbers<Integer> pixels_ = i_.getPixels();
+        Ints pixels_ = i_.getPixels();
         int width_ = i_.getWidth();
         int height_ = i_.getHeight();
         int[][] img_ = new int[height_][width_];

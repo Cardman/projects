@@ -24,11 +24,11 @@ public final class PokemonFamily {
                         _data.setError(true);
                         return;
                     }
-                    if (evolutionsLevels_.containsObj(e_)) {
+                    if (StringList.contains(evolutionsLevels_, e_)) {
                         _data.setError(true);
                         return;
                     }
-                    if (newEvolutions_.containsObj(e_)) {
+                    if (StringList.contains(newEvolutions_, e_)) {
                         _data.setError(true);
                         return;
                     }

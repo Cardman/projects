@@ -119,7 +119,7 @@ public abstract class CommonGameTarot {
         return new GameTarotProgTrickClassic(_done,_teamsRelation,_calledCards,_currentHand);
     }
 
-    private static int det(EnumMap<Suit,EqList<HandTarot>> _foundHands, Numbers<Integer> _lengths) {
+    private static int det(EnumMap<Suit,EqList<HandTarot>> _foundHands, Ints _lengths) {
         int nb_ = _lengths.size();
         for (int i = 0;i < nb_; i++) {
             int s_ = 0;
@@ -139,7 +139,7 @@ public abstract class CommonGameTarot {
     }
     private static void check(GameTarot _g,
                               HandTarot _calledCards, HandTarot _currentHand) {
-        Numbers<Integer> handLengths_ = new Numbers<Integer>();
+        Ints handLengths_ = new Ints();
         int nombreCartesParJoueur_ = _g.getRegles().getRepartition().getNombreCartesParJoueur();
         int nbPl_ = _g.getRegles().getRepartition().getNombreJoueurs();
         for (int i = 0; i < nbPl_; i++) {
@@ -286,7 +286,7 @@ public abstract class CommonGameTarot {
     }
     protected static GameTarotTrickInfo newGameTarotTrickInfo(GameTarot _g, HandTarot _currentHand) {
         check(_g,_g.getCalledCards(),_currentHand);
-        Numbers<Integer> handLengths_ = new Numbers<Integer>();
+        Ints handLengths_ = new Ints();
         int nombreCartesParJoueur_ = _g.getRegles().getRepartition().getNombreCartesParJoueur();
         int nbPl_ = _g.getRegles().getRepartition().getNombreJoueurs();
         for (int i = 0; i < nbPl_; i++) {
@@ -308,7 +308,7 @@ public abstract class CommonGameTarot {
         return gameTarotTrickInfo_;
     }
     protected static GameTarotTrickInfo newGameTarotTrickInfo(GameTarot _g) {
-        Numbers<Integer> handLengths_ = new Numbers<Integer>();
+        Ints handLengths_ = new Ints();
         int nombreCartesParJoueur_ = _g.getRegles().getRepartition().getNombreCartesParJoueur();
         int nbPl_ = _g.getRegles().getRepartition().getNombreJoueurs();
         for (int i = 0; i < nbPl_; i++) {

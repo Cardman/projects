@@ -2,6 +2,7 @@ package aiki.fight.effects;
 
 import aiki.db.DataBase;
 import code.maths.Rate;
+import code.util.StringList;
 
 
 public class EffectWhileSending {
@@ -26,8 +27,7 @@ public class EffectWhileSending {
             }
         } else {
             if (!enabledWeather.isEmpty()) {
-                if (!_data.getMovesEffectGlobalWeather().containsObj(
-                        enabledWeather)) {
+                if (!StringList.contains(_data.getMovesEffectGlobalWeather(), enabledWeather)) {
                     _data.setError(true);
                     return;
 

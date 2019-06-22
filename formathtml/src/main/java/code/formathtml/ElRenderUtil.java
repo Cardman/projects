@@ -31,7 +31,7 @@ import code.formathtml.exec.ExecSemiAffectationOperation;
 import code.formathtml.exec.InternGlobalOperation;
 import code.formathtml.util.BadElRender;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringList;
 
 public final class ElRenderUtil {
@@ -307,7 +307,7 @@ public final class ElRenderUtil {
         if (p_ == null) {
             return null;
         }
-        NatTreeMap<Integer,String> children_ = p_.getChildren();
+        IntTreeMap<String> children_ = p_.getChildren();
         int delta_ = 1;
         if (p_ instanceof StandardInstancingOperation) {
             if (p_.getFirstChild() instanceof StaticInitOperation) {
@@ -352,7 +352,7 @@ public final class ElRenderUtil {
                 if (StringList.quickEq(sub_, keyWordIntern_)) {
                     OperationsSequence op_ = new OperationsSequence();
                     op_.setConstType(ConstType.WORD);
-                    op_.setOperators(new NatTreeMap<Integer, String>());
+                    op_.setOperators(new IntTreeMap< String>());
                     op_.setValue(_string, firstPrintChar_);
                     op_.setDelimiter(_d);
                     return op_;

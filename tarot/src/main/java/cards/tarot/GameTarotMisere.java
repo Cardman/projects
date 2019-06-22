@@ -14,8 +14,8 @@ public final class GameTarotMisere {
     private HandTarot currentHand;
     private GameTarotCommonPlaying common;
     private HandTarot playableCards;
-    private Numbers<Byte> confidentPlayers;
-    private Numbers<Byte> notConfidentPlayers;
+    private Bytes confidentPlayers;
+    private Bytes notConfidentPlayers;
 
     public GameTarotMisere(GameTarotTrickInfo _done, GameTarotTeamsRelation _teamsRelation,
                            HandTarot _currentHand) {
@@ -64,7 +64,7 @@ public final class GameTarotMisere {
             return repartition_.getVal(Suit.TRUMP).premiereCarte();
         }
         boolean coupeSure_ = false;
-        Numbers<Byte> joueursNonJoue_ = info_.getJoueursNonJoue();
+        Bytes joueursNonJoue_ = info_.getJoueursNonJoue();
         for (Suit couleur_ : Suit.couleursOrdinaires()) {
             for (byte joueur_ : joueursNonJoue_) {
                 if (GameTarotTrickHypothesis.vaCouper(couleur_, joueur_, cartesPossibles_, cartesCertaines_)) {
@@ -209,7 +209,7 @@ public final class GameTarotMisere {
         Suit couleurDemandee_ = doneTrickInfo.getProgressingTrick().couleurDemandee();
         EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = info_.getCartesPossibles();
         EnumMap<Suit,EqList<HandTarot>> cartesCertaines_ = info_.getCartesCertaines();
-        Numbers<Byte> joueursNonJoue_ = info_.getJoueursNonJoue();
+        Bytes joueursNonJoue_ = info_.getJoueursNonJoue();
         byte ramasseurVirtuel_ = info_.getRamasseurVirtuel();
         byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
         CardTarot carteForte_ = doneTrickInfo.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_, nombreDeJoueurs_);

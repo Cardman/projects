@@ -1,10 +1,10 @@
 package code.formathtml.render;
 
-import code.util.Numbers;
+import code.util.Ints;
 
 public final class MetaTable extends MetaContainer {
 
-    private final Numbers<Integer> remainders = new Numbers<Integer>();
+    private final Ints remainders = new Ints();
     public MetaTable(MetaContainer _parent) {
         super(_parent, MetaLayout.BAG);
     }
@@ -18,7 +18,7 @@ public final class MetaTable extends MetaContainer {
     public boolean isRemainder(int _index) {
         return remainders.containsObj(_index);
     }
-    public Numbers<Integer> getRemainders() {
+    public Ints getRemainders() {
         return remainders;
     }
 }

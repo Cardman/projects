@@ -3,26 +3,26 @@ package code.expressionlanguage.types;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.options.Options;
 import code.util.CustList;
-import code.util.NatTreeMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.Ints;
 import code.util.StringList;
 
 public final class AnalyzingType {
 
-    private Numbers<Integer> indexes = new Numbers<Integer>();
-    private NatTreeMap<Integer, String> operators = new NatTreeMap<Integer, String>();
-    private NatTreeMap<Integer, String> values = new NatTreeMap<Integer, String>();
+    private Ints indexes = new Ints();
+    private IntTreeMap< String> operators = new IntTreeMap< String>();
+    private IntTreeMap< String> values = new IntTreeMap< String>();
     private boolean error;
     private KindPartType kind = KindPartType.NOTHING;
     private int prio;
 
     public void setupValue(String _string) {
-        values = new NatTreeMap<Integer,String>();
+        values = new IntTreeMap<String>();
         values.put((int)CustList.FIRST_INDEX, _string);
     }
 
     public void setupValues(String _string, Options _options) {
-        values = new NatTreeMap<Integer,String>();
+        values = new IntTreeMap<String>();
         if (operators.isEmpty()) {
             values.put((int)CustList.FIRST_INDEX, _string);
             error = true;
@@ -49,7 +49,7 @@ public final class AnalyzingType {
         beginValuePart_ = endValuePart_ + operators.lastValue().length();
         str_ = _string.substring(beginValuePart_);
         if (!str_.trim().isEmpty() && prio == ParserType.TMP_PRIO) {
-            values = new NatTreeMap<Integer,String>();
+            values = new IntTreeMap<String>();
             values.put((int)CustList.FIRST_INDEX, _string);
             error = true;
             return;
@@ -57,7 +57,7 @@ public final class AnalyzingType {
         values.put(beginValuePart_, str_);
     }
     public void setupValueExec(String _string) {
-        values = new NatTreeMap<Integer,String>();
+        values = new IntTreeMap<String>();
         values.put((int)CustList.FIRST_INDEX, _string);
     }
     public void setupArrayValuesExec(String _string) {
@@ -71,9 +71,9 @@ public final class AnalyzingType {
             error = true;
         }
         String str_ = _string.substring(first_);
-        values = new NatTreeMap<Integer,String>();
+        values = new IntTreeMap<String>();
         values.put(first_, str_);
-        operators = new NatTreeMap<Integer,String>();
+        operators = new IntTreeMap<String>();
         operators.put(arr_, Templates.ARR_BEG_STRING);
     }
     public void setupWildCardValues(String _op,String _string) {
@@ -87,13 +87,13 @@ public final class AnalyzingType {
             error = true;
         }
         String str_ = _string.substring(first_);
-        values = new NatTreeMap<Integer,String>();
+        values = new IntTreeMap<String>();
         values.put(first_, str_);
-        operators = new NatTreeMap<Integer,String>();
+        operators = new IntTreeMap<String>();
         operators.put(arr_, _op);
     }
     public void setupValuesExec(String _string) {
-        values = new NatTreeMap<Integer,String>();
+        values = new IntTreeMap<String>();
         if (operators.isEmpty()) {
             values.put((int)CustList.FIRST_INDEX, _string);
             error = true;
@@ -120,7 +120,7 @@ public final class AnalyzingType {
         beginValuePart_ = endValuePart_ + operators.lastValue().length();
         str_ = _string.substring(beginValuePart_);
         if (!str_.trim().isEmpty() && prio == ParserType.TMP_PRIO) {
-            values = new NatTreeMap<Integer,String>();
+            values = new IntTreeMap<String>();
             values.put((int)CustList.FIRST_INDEX, _string);
             error = true;
             return;
@@ -137,13 +137,13 @@ public final class AnalyzingType {
         kind = _kind;
     }
 
-    public Numbers<Integer> getIndexes() {
+    public Ints getIndexes() {
         return indexes;
     }
-    public NatTreeMap<Integer, String> getOperators() {
+    public IntTreeMap< String> getOperators() {
         return operators;
     }
-    public NatTreeMap<Integer, String> getValues() {
+    public IntTreeMap< String> getValues() {
         return values;
     }
     public boolean isError() {

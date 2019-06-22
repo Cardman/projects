@@ -44,7 +44,7 @@ public final class EffectSwitchTypes extends Effect {
                     return;
 
                 }
-                if (!_data.getTypes().containsStr(e.getValue())) {
+                if (!StringList.contains(_data.getTypes(), e.getValue())) {
                     _data.setError(true);
                     return;
 

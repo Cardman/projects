@@ -27,7 +27,7 @@ import code.gui.TextLabel;
 import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.NatCmpTreeMap;
-import code.util.NumberMap;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -126,8 +126,8 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
 //        int nbNumbers_ = nbTricks_ + 2;
         int nbNumbers_ = nbTricks_ + 1;
 //        numerosPlis_=new Integer[nbNumbers_];
-        NumberMap<Integer,String> map_ = new NumberMap<Integer,String>();
-//        Numbers<Integer> list_ = new Numbers<Integer>();
+        IntMap<String> map_ = new IntMap<String>();
+//        Ints list_ = new Ints();
         for(byte indicePli_=CustList.FIRST_INDEX;indicePli_<nbNumbers_;indicePli_++) {
 //            numerosPlis_[indicePli_]=indicePli_-1;
 //            list_.add(indicePli_-1);

@@ -11,8 +11,8 @@ import code.maths.Rate;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -48,7 +48,7 @@ final class FightKo {
             _fight.getFirstPositPlayerFighters().put(_combattant.getPosition(),Fighter.BACK);
         }else if(Numbers.eq(_combattant.getTeam(),Fight.FOE)){
             Team equipeUt_=_fight.getUserTeam();
-            Numbers<Byte> liste_ = FightOrder.fightersBelongingToUserHavingBeaten(_fight,_combattant.getPosition());
+            Bytes liste_ = FightOrder.fightersBelongingToUserHavingBeaten(_fight,_combattant.getPosition());
             addExpEvsFighters(_fight,liste_,_combattant.getPosition(),_diff,_import);
             equipeUt_.toutSupprimerCombattantsContreAdv(_combattant.getPosition());
         }
@@ -84,7 +84,7 @@ final class FightKo {
         return false;
     }
 
-    static void addExpEvsFighters(Fight _fight,Numbers<Byte> _membres,byte _adv,Difficulty _diff,DataBase _import){
+    static void addExpEvsFighters(Fight _fight,Bytes _membres,byte _adv,Difficulty _diff,DataBase _import){
         EqList<TeamPosition> fightersBelongingToUser_ = FightOrder.fightersBelongingToUser(_fight,true);
         EqList<TeamPosition> porteursMultExp_ = FightOrder.fightersWearingExpObject(_fight,fightersBelongingToUser_, _import);
         Rate points_ = pointsFoe(_fight,_adv, _diff, _import);
@@ -119,7 +119,7 @@ final class FightKo {
 
     static void addEv(Fight _fight,
             TeamPosition _fighter,
-            Numbers<Byte> _membres,
+            Bytes _membres,
             byte _adv, DataBase _import) {
         Fighter membre_=_fight.getFighter(_fighter);
         Fighter creatureAdv_=_fight.getFoeTeam().getMembers().getVal(_adv);
@@ -158,7 +158,7 @@ final class FightKo {
     }
 
     static void addExp(Fight _fight,TeamPosition _fighter,
-            Numbers<Byte> _members, EqList<TeamPosition> _porteursMultExp,
+            Bytes _members, EqList<TeamPosition> _porteursMultExp,
             TeamPosition _foe, Rate _points,
             Difficulty _diff, boolean _showMessage, DataBase _import) {
         //If the fighter _fighter is KO then it cannot win exp even by MULTI_EXP
@@ -237,7 +237,7 @@ final class FightKo {
         //Apres chaque ko
         byte nbCombattantsAvantUt_=0;
         Team equipeUt_=_fight.getUserTeam();
-        NumberMap<Byte,Fighter> membresEquipeUt_=equipeUt_.getMembers();
+        ByteMap<Fighter> membresEquipeUt_=equipeUt_.getMembers();
         for(byte c:membresEquipeUt_.getKeys()){
             Fighter membre_=membresEquipeUt_.getVal(c);
             if(!membre_.estArriere()){
@@ -246,7 +246,7 @@ final class FightKo {
         }
         byte nbCombattantsAvantAdv_=0;
         Team equipeAdv_=_fight.getFoeTeam();
-        NumberMap<Byte,Fighter> membresEquipeAdv_=equipeAdv_.getMembers();
+        ByteMap<Fighter> membresEquipeAdv_=equipeAdv_.getMembers();
         for(byte c:membresEquipeAdv_.getKeys()){
             Fighter membre_=membresEquipeAdv_.getVal(c);
             if(!membre_.estArriere()){

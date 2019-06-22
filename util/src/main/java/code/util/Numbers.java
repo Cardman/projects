@@ -1,8 +1,7 @@
 package code.util;
-import code.util.comparators.ComparatorNatNumber;
 import code.util.ints.Listable;
 
-public final class Numbers<T extends Number> extends CustList<T> {
+public abstract class Numbers<T> extends CustList<T> {
 
     private static final int DEFAULT_RADIX = 10;
 
@@ -194,47 +193,29 @@ public final class Numbers<T extends Number> extends CustList<T> {
         return -result_;
     }
 
-    public CustList<Numbers<Integer>> getAllIndexes() {
-        CustList<Numbers<Integer>> e_;
-        e_ = new CustList<Numbers<Integer>>();
-        if (isEmpty()) {
-            return e_;
-        }
-        int f_ = first().intValue();
-        int sdims_ = size();
-        for (int i = 0; i < f_; i++) {
-            Numbers<Integer> nbs_ = new Numbers<Integer>(i);
-            e_.add(nbs_);
-        }
-        for (int i = 1; i < sdims_; i++) {
-            CustList<Numbers<Integer>> newIndexes_;
-            newIndexes_ = new CustList<Numbers<Integer>>();
-            for (Numbers<Integer> p: e_) {
-                int d_ = get(i).intValue();
-                for (int j = 0; j < d_; j++) {
-                    Numbers<Integer> n_;
-                    n_ = new Numbers<Integer>(p);
-                    n_.add(j);
-                    newIndexes_.add(n_);
-                }
-            }
-            e_ = newIndexes_;
-        }
-        return e_;
-    }
     public void sort() {
         //setModified();
-        sortElts(new ComparatorNatNumber<T>());
+        int len_ = size();
+        for (int i = FIRST_INDEX; i <len_; i++) {
+            for (int j = i + 1; j <len_; j++) {
+                long one_ = getLong(i);
+                long two_ = getLong(j);
+                int res_ = Numbers.compareLg(one_, two_);
+                if (res_ > EQ_CMP) {
+                    swapIndexes(i,j);
+                }
+            }
+        }
     }
 
     public long getMinimum(long _def) {
         if (isEmpty()) {
             return _def;
         }
-        long min_ = get(FIRST_INDEX).longValue();
+        long min_ = getLong(FIRST_INDEX);
         int size_ = size();
         for (int i=SECOND_INDEX;i<size_;i++) {
-            long cur_ = get(i).longValue();
+            long cur_ = getLong(i);
             if (min_> cur_) {
                 min_ = cur_;
             }
@@ -246,10 +227,10 @@ public final class Numbers<T extends Number> extends CustList<T> {
         if (isEmpty()) {
             return _def;
         }
-        long max_ = get(FIRST_INDEX).longValue();
+        long max_ = getLong(FIRST_INDEX);
         int size_ = size();
         for (int i=SECOND_INDEX;i<size_;i++) {
-            long cur_ = get(i).longValue();
+            long cur_ = getLong(i);
             if (max_< cur_) {
                 max_ = cur_;
             }
@@ -257,8 +238,9 @@ public final class Numbers<T extends Number> extends CustList<T> {
         return max_;
     }
     public void removeOneNumber(long _n) {
-        for (Number e:this) {
-            long lg_ = e.longValue();
+        int s_ = size();
+        for (int i = 0; i < s_; i++) {
+            long lg_ = getLong(i);
             if (eq(lg_,_n)) {
                 removeObj(lg_);
                 break;
@@ -271,28 +253,13 @@ public final class Numbers<T extends Number> extends CustList<T> {
     public int indexOf(long _element) {
         int s_ = size();
         for (int i = 0; i < s_; i++) {
-            if (_element == get(i).longValue()) {
+            if (_element == getLong(i)) {
                 return i;
             }
         }
         return INDEX_NOT_FOUND_ELT;
     }
 
-
-    public void removeAllElements(Listable<T> _c) {
-        for (Number s: _c) {
-            long lg_ = s.longValue();
-            if (containsObj(lg_)) {
-                removeAllObj(lg_);
-            }
-        }
-    }
-
-    public void removeAllObj(long _obj) {
-        while (containsObj(_obj)) {
-            removeObj(_obj);
-        }
-    }
 
     public void removeObj(long _obj) {
         int index_ = indexOfObj(_obj);
@@ -301,15 +268,7 @@ public final class Numbers<T extends Number> extends CustList<T> {
         }
         removeAt(index_);
     }
-    public boolean containsAllObj(Listable<T> _list) {
-        for (Number e: _list) {
-            long nb_ = e.longValue();
-            if (!containsObj(nb_)) {
-                return false;
-            }
-        }
-        return true;
-    }
+
     public boolean containsObj(long _obj) {
         return indexOfObj(_obj) != INDEX_NOT_FOUND_ELT;
     }
@@ -320,7 +279,7 @@ public final class Numbers<T extends Number> extends CustList<T> {
             if(i_ >= size()) {
                 break;
             }
-            long e_ = get(i_).longValue();
+            long e_ = getLong(i_);
             boolean rem_ = false;
             int next_ = indexOfObj(e_, i_ + 1);
             while (next_ != INDEX_NOT_FOUND_ELT) {
@@ -339,16 +298,16 @@ public final class Numbers<T extends Number> extends CustList<T> {
     public int indexOfObj(long _element, int _from) {
         int s_ = size();
         for (int i = _from; i < s_; i++) {
-            long e_ = get(i).longValue();
+            long e_ = getLong(i);
             if (eq(_element, e_)) {
                 return i;
             }
         }
         return INDEX_NOT_FOUND_ELT;
     }
-    public Numbers<Integer> indexesOfObj(long _element) {
-        Numbers<Integer> indexes_;
-        indexes_ = new Numbers<Integer>();
+    public Ints indexesOfObj(long _element) {
+        Ints indexes_;
+        indexes_ = new Ints();
         int i_ = FIRST_INDEX;
         while (true) {
             int found_ = indexOfObj(_element, i_);
@@ -364,7 +323,7 @@ public final class Numbers<T extends Number> extends CustList<T> {
     public void removeAllLong(long _obj) {
         int i_ = FIRST_INDEX;
         while (i_ < size()) {
-            long elt_ = get(i_).longValue();
+            long elt_ = getLong(i_);
             if (elt_ == _obj) {
                 remove(i_);
             } else {
@@ -373,15 +332,5 @@ public final class Numbers<T extends Number> extends CustList<T> {
         }
     }
 
-    public void retainAllElements(Numbers<T> _c) {
-        int i_ = FIRST_INDEX;
-        while (i_ < size()) {
-            long e_ = get(i_).longValue();
-            if (!_c.containsObj(e_)) {
-                removeAt(i_);
-            } else {
-                i_++;
-            }
-        }
-    }
+    abstract long getLong(int _index);
 }

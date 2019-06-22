@@ -11,11 +11,7 @@ import aiki.fight.util.StatBaseEv;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.EnumMap;
-import code.util.EqList;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 
 public final class PokemonData {
@@ -59,10 +55,10 @@ public final class PokemonData {
     private StringList moveTutors;
 
     /** DONE */
-    private Numbers<Short> hiddenMoves;
+    private Shorts hiddenMoves;
 
     /** DONE */
-    private Numbers<Short> technicalMoves;
+    private Shorts technicalMoves;
 
     /** DONE */
     private String baseEvo;
@@ -189,7 +185,7 @@ public final class PokemonData {
             return;
 
         }
-        if (moveTutors.containsObj(_data.getDefaultMove())) {
+        if (StringList.contains(moveTutors, _data.getDefaultMove())) {
             _data.setError(true);
             return;
 
@@ -442,19 +438,19 @@ public final class PokemonData {
         moveTutors = _moveTutors;
     }
 
-    public Numbers<Short> getHiddenMoves() {
+    public Shorts getHiddenMoves() {
         return hiddenMoves;
     }
 
-    public void setHiddenMoves(Numbers<Short> _hiddenMoves) {
+    public void setHiddenMoves(Shorts _hiddenMoves) {
         hiddenMoves = _hiddenMoves;
     }
 
-    public Numbers<Short> getTechnicalMoves() {
+    public Shorts getTechnicalMoves() {
         return technicalMoves;
     }
 
-    public void setTechnicalMoves(Numbers<Short> _technicalMoves) {
+    public void setTechnicalMoves(Shorts _technicalMoves) {
         technicalMoves = _technicalMoves;
     }
 

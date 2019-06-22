@@ -8,8 +8,7 @@ import aiki.map.pokemon.UsablePokemon;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.SortingPokemonPlayer;
 import code.util.CustList;
-import code.util.EqList;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -151,8 +150,8 @@ public final class PaginationPokemonPlayer
     }
     @Override
     public boolean sortable() {
-        Numbers<Integer> priorities_;
-        priorities_ = new Numbers<Integer>();
+        Ints priorities_;
+        priorities_ = new Ints();
         if (cmpLevel.getPriority() != NO_PRIORITY) {
             priorities_.add(cmpLevel.getPriority());
         }

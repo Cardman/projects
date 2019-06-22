@@ -10,7 +10,7 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 
 public final class GameTarotCommonPlaying {
     private GameTarotTrickInfo doneTrickInfo;
@@ -85,10 +85,10 @@ public final class GameTarotCommonPlaying {
     TarotInfoPliEnCours initInformations(
             HandTarot _cartes,
             HandTarot _cartesJouables,
-            Numbers<Byte> _confident, Numbers<Byte> _notConfident) {
+            Bytes _confident, Bytes _notConfident) {
         byte nextPlayer_ = doneTrickInfo.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
         EnumMap<Suit,HandTarot> repartition_ = _cartes.couleurs();
-        Numbers<Byte> joueursNonJoue_ = joueursNAyantPasJoue(nextPlayer_);
+        Bytes joueursNonJoue_ = joueursNAyantPasJoue(nextPlayer_);
         CustList<TrickTarot> plisFaits_ = unionPlis();
         HandTarot cartesJouees_ = doneTrickInfo.cartesJoueesEnCours(nextPlayer_);
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = cartesJouees_.couleurs();
@@ -170,8 +170,8 @@ public final class GameTarotCommonPlaying {
         }
         return couleurs_;
     }
-    Numbers<Byte> joueursNAyantPasJoue(byte _numero) {
-        Numbers<Byte> joueursNAyantPasJoue_ = new Numbers<Byte>();
+    Bytes joueursNAyantPasJoue(byte _numero) {
+        Bytes joueursNAyantPasJoue_ = new Bytes();
         byte nombreJoueurs_ = teamsRelation.getNombreDeJoueurs();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
             if (joueur_ != _numero && !doneTrickInfo.getProgressingTrick().aJoue(joueur_, nombreJoueurs_)) {
@@ -563,8 +563,8 @@ public final class GameTarotCommonPlaying {
         }
         return tricksNumbers_;
     }
-    static Numbers<Byte> ramasseurs(CustList<TrickTarot> _plisFaits) {
-        Numbers<Byte> ramasseurs_ = new Numbers<Byte>();
+    static Bytes ramasseurs(CustList<TrickTarot> _plisFaits) {
+        Bytes ramasseurs_ = new Bytes();
         for(TrickTarot pli_: _plisFaits) {
             if(!pli_.getVuParToutJoueur()) {
                 continue;
@@ -578,24 +578,24 @@ public final class GameTarotCommonPlaying {
         return ramasseurs_;
     }
     static EnumList<Suit> couleursLesPlusEntameesParJoueurs(
-            CustList<TrickTarot> _plisFaits, Numbers<Byte> _joueurs, EnumList<Suit> _couleurs) {
+            CustList<TrickTarot> _plisFaits, Bytes _joueurs, EnumList<Suit> _couleurs) {
         return couleursTrieesPlusEntameesParJoueurs(_plisFaits, _joueurs, _couleurs).first();
     }
 
     private static CustList<EnumList<Suit>> couleursTrieesPlusEntameesParJoueurs(
-            CustList<TrickTarot> _plisFaits, Numbers<Byte> _joueurs, EnumList<Suit> _couleurs) {
+            CustList<TrickTarot> _plisFaits, Bytes _joueurs, EnumList<Suit> _couleurs) {
         return _couleurs.getGroupsSameCompare(new GameTarotMostDemandedSuitComparator(_plisFaits, _joueurs));
     }
 
     static EnumList<Suit> couleursLesMoinsEntameesParJoueurs(
-            CustList<TrickTarot> _plisFaits, Numbers<Byte> _joueurs, EnumList<Suit> _couleurs) {
+            CustList<TrickTarot> _plisFaits, Bytes _joueurs, EnumList<Suit> _couleurs) {
         return couleursTrieesPlusEntameesParJoueurs(_plisFaits, _joueurs, _couleurs).last();
     }
 
     static EqList<HandTarot> cartesRelativementMaitreEncours(
             EqList<HandTarot> _suites,
             EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,
-            Numbers<Byte> _joueursNAyantPasJoue, Suit _couleurJoueur,
+            Bytes _joueursNAyantPasJoue, Suit _couleurJoueur,
             Suit _couleurDemandee, EnumMap<Suit,EqList<HandTarot>> _cartesCertaines,
             CardTarot _carteForte) {
         byte maxForce_ = 0;

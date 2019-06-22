@@ -1,11 +1,6 @@
 package code.sml;
 
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.NatTreeMap;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public final class DocumentBuilder {
 
@@ -2272,12 +2267,12 @@ public final class DocumentBuilder {
                     Element _node, int _tabWidth) {
         int next_ = CustList.INDEX_NOT_FOUND_ELT;
         StringMap<RowCol> m_ = new StringMap<RowCol>();
-        StringMap<Numbers<Integer>> offsetsMap_;
-        offsetsMap_ = new StringMap<Numbers<Integer>>();
-        Numbers<Integer> offsets_ = new Numbers<Integer>();
-        StringMap<Numbers<Integer>> tabsMap_;
-        tabsMap_ = new StringMap<Numbers<Integer>>();
-        Numbers<Integer> tabs_ = new Numbers<Integer>();
+        StringMap<Ints> offsetsMap_;
+        offsetsMap_ = new StringMap<Ints>();
+        Ints offsets_ = new Ints();
+        StringMap<Ints> tabsMap_;
+        tabsMap_ = new StringMap<Ints>();
+        Ints tabs_ = new Ints();
         int index_ = _previous.getNextElt();
         String nodeName_ = _node.getTagName();
         int found_ = _xml.indexOf(StringList.concat(String.valueOf(LT),nodeName_), index_);
@@ -2338,9 +2333,9 @@ public final class DocumentBuilder {
                         delimiter_ = null;
                         m_.put(str_.toString(), rc_);
                         offsetsMap_.put(str_.toString(), offsets_);
-                        offsets_ = new Numbers<Integer>();
+                        offsets_ = new Ints();
                         tabsMap_.put(str_.toString(), tabs_);
-                        tabs_ = new Numbers<Integer>();
+                        tabs_ = new Ints();
                         str_ = new StringBuilder();
                     } else if (ch_ == LINE_RETURN) {
                         offsets_.add(offset_);
@@ -2374,10 +2369,10 @@ public final class DocumentBuilder {
     public static RowCol getOffset(
             String _attribute,
             StringMap<RowCol> _attributes,
-            StringMap<NatTreeMap<Integer,Integer>> _specialChars,
+            StringMap<IntTreeMap<Integer>> _specialChars,
             int _offset,
-            StringMap<Numbers<Integer>> _offsets,
-            StringMap<Numbers<Integer>> _tabs,
+            StringMap<Ints> _offsets,
+            StringMap<Ints> _tabs,
             RowCol _endHeader,
             int _tabWidth) {
         if (!_attributes.contains(_attribute)) {
@@ -2388,14 +2383,14 @@ public final class DocumentBuilder {
             return offset_;
         }
         int delta_ = 0;
-        NatTreeMap<Integer, Integer> esc_ = _specialChars.getVal(_attribute);
+        IntTreeMap< Integer> esc_ = _specialChars.getVal(_attribute);
         int nbIndexes_ = getIndexesCount(_offset, esc_);
         for (int i = 0; i < nbIndexes_; i++) {
             delta_ += esc_.getValue(i);
         }
         delta_ += _offset;
-        Numbers<Integer> offsets_ = _offsets.getVal(_attribute);
-        Numbers<Integer> tabs_ = _tabs.getVal(_attribute);
+        Ints offsets_ = _offsets.getVal(_attribute);
+        Ints tabs_ = _tabs.getVal(_attribute);
         RowCol ret_ = new RowCol();
         boolean exist_ = false;
         int index_ = CustList.FIRST_INDEX;
@@ -2430,7 +2425,7 @@ public final class DocumentBuilder {
         }
         return ret_;
     }
-    private static int getIndexesCount(int _offset, NatTreeMap<Integer, Integer> _t) {
+    private static int getIndexesCount(int _offset, IntTreeMap< Integer> _t) {
         int delta_ = 0;
         int count_ = 0;
         for (EntryCust<Integer, Integer> e: _t.entryList()) {
@@ -2442,9 +2437,9 @@ public final class DocumentBuilder {
         }
         return count_;
     }
-    static StringMap<NatTreeMap<Integer,Integer>> getSpecialChars(String _html, Element _element) {
-        StringMap<NatTreeMap<Integer,Integer>> encoded_;
-        encoded_ = new StringMap<NatTreeMap<Integer,Integer>>();
+    static StringMap<IntTreeMap<Integer>> getSpecialChars(String _html, Element _element) {
+        StringMap<IntTreeMap<Integer>> encoded_;
+        encoded_ = new StringMap<IntTreeMap<Integer>>();
         int index_ = getIndexOfNodeOrAttribute(_html, _element, EMPTY_STRING);
         int endHeader_ = _html.indexOf(GT, index_);
         int beginHeader_ = index_ + _element.getTagName().length();
@@ -2455,14 +2450,14 @@ public final class DocumentBuilder {
         }
         return encoded_;
     }
-    private static NatTreeMap<Integer, Integer> getIndexesSpecChars(
+    private static IntTreeMap< Integer> getIndexesSpecChars(
             String _html, AttributePart _att, int _beginNode) {
         int begin_ = _att.getBegin();
         int end_ = _att.getEnd();
         int i_ = begin_;
         int delta_ = begin_ - _beginNode;
-        NatTreeMap<Integer, Integer> indexes_;
-        indexes_ = new NatTreeMap<Integer, Integer>();
+        IntTreeMap< Integer> indexes_;
+        indexes_ = new IntTreeMap< Integer>();
         while (i_ < end_) {
             if (_html.charAt(i_) == ENCODED) {
                 int beginEscaped_ = i_;
@@ -2730,9 +2725,9 @@ public final class DocumentBuilder {
         return nodes_;
     }
 
-    public static Numbers<Integer> getIndexes(Node _node) {
+    public static Ints getIndexes(Node _node) {
         Node par_ = _node.getParentNode();
-        Numbers<Integer> indexes_ = new Numbers<Integer>();
+        Ints indexes_ = new Ints();
         if (par_ == null) {
             return indexes_;
         }

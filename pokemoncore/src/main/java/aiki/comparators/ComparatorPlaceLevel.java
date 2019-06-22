@@ -1,7 +1,7 @@
 package aiki.comparators;
 import aiki.map.util.PlaceLevel;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.ints.Comparing;
 
 public final class ComparatorPlaceLevel implements Comparing<PlaceLevel> {

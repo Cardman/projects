@@ -7,7 +7,7 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 import org.junit.Test;
 
 import static cards.tarot.EquallableTarotUtil.assertEq;
@@ -25,7 +25,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         playable_.ajouter(CardTarot.DIAMOND_KING);
         TrickTarot current_ = new TrickTarot((byte)2,true);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
         addPossibleCard(t_,1,CardTarot.HEART_JACK);
@@ -35,7 +35,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addSureCard(t_,3, CardTarot.TRUMP_12);
         addPossibleCard(t_,4,CardTarot.HEART_KNIGHT);
         addSureCard(t_,4, CardTarot.HEART_KNIGHT);
-        Numbers<Byte> players_ = GameTarotTrickHypothesis.joueursPouvantCouperCouleurs(hand_, GameTarotTeamsRelation.tousJoueurs((byte) 5), t_.getCartesPossibles(), Suit.couleursOrdinaires());
+        Bytes players_ = GameTarotTrickHypothesis.joueursPouvantCouperCouleurs(hand_, GameTarotTeamsRelation.tousJoueurs((byte) 5), t_.getCartesPossibles(), Suit.couleursOrdinaires());
         assertEq(2, players_.size());
         assertTrue(players_.contains(1));
         assertTrue(players_.contains(3));
@@ -52,7 +52,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_5);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
         addPossibleCard(t_,1,CardTarot.DIAMOND_2);
@@ -61,7 +61,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addSureCard(t_,1, CardTarot.TRUMP_11);
         addPossibleCard(t_,0,CardTarot.TRUMP_3);
         addSureCard(t_,0, CardTarot.TRUMP_3);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 0);
         beat_.add((byte) 1);
         assertTrue(beatByTrumpNormalSuitStrength(t_,beat_));
@@ -78,7 +78,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_5);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
         addPossibleCard(t_,1,CardTarot.DIAMOND_2);
@@ -87,7 +87,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addSureCard(t_,1, CardTarot.TRUMP_11);
         addPossibleCard(t_,0,CardTarot.TRUMP_13);
         addSureCard(t_,0, CardTarot.TRUMP_13);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 0);
         beat_.add((byte) 1);
         assertTrue(!beatByTrumpNormalSuitStrength(t_,beat_));
@@ -104,14 +104,14 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_5);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
         addPossibleCard(t_,1,CardTarot.DIAMOND_2);
         addSureCard(t_,1,CardTarot.DIAMOND_2);
         addPossibleCard(t_,1,CardTarot.TRUMP_11);
         addSureCard(t_,1, CardTarot.TRUMP_11);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 0);
         beat_.add((byte) 1);
         assertTrue(beatByTrumpNormalSuitStrength(t_,beat_));
@@ -128,14 +128,14 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_5);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
         addPossibleCard(t_,1,CardTarot.TRUMP_11);
         addSureCard(t_,1, CardTarot.TRUMP_11);
         addPossibleCard(t_,0,CardTarot.TRUMP_13);
         addSureCard(t_,0, CardTarot.TRUMP_13);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         assertTrue(beatByTrumpNormalSuit(t_,beat_,0));
     }
@@ -151,14 +151,14 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_5);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
         addPossibleCard(t_,1,CardTarot.TRUMP_13);
         addSureCard(t_,1, CardTarot.TRUMP_13);
         addPossibleCard(t_,0,CardTarot.TRUMP_11);
         addSureCard(t_,0, CardTarot.TRUMP_11);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         assertTrue(!beatByTrumpNormalSuit(t_,beat_,0));
     }
@@ -174,7 +174,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -183,9 +183,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addSureCard(t_,0, CardTarot.TRUMP_14);
         addPossibleCard(t_,1,CardTarot.TRUMP_15);
         addSureCard(t_,1, CardTarot.TRUMP_15);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
-        Numbers<Byte> dom_ = new Numbers<Byte>();
+        Bytes dom_ = new Bytes();
         dom_.add((byte) 0);
         assertTrue(!beatSureListTrumpNormalSuit(t_,dom_,beat_));
     }
@@ -201,7 +201,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -210,9 +210,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addSureCard(t_,0, CardTarot.TRUMP_15);
         addPossibleCard(t_,1,CardTarot.TRUMP_14);
         addSureCard(t_,1, CardTarot.TRUMP_14);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
-        Numbers<Byte> dom_ = new Numbers<Byte>();
+        Bytes dom_ = new Bytes();
         dom_.add((byte) 0);
         assertTrue(beatSureListTrumpNormalSuit(t_,dom_,beat_));
     }
@@ -228,7 +228,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -237,9 +237,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addSureCard(t_,0, CardTarot.TRUMP_4);
         addPossibleCard(t_,1,CardTarot.TRUMP_5);
         addSureCard(t_,1, CardTarot.TRUMP_5);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
-        Numbers<Byte> dom_ = new Numbers<Byte>();
+        Bytes dom_ = new Bytes();
         dom_.add((byte) 0);
         assertTrue(!beatSureListTrumpNormalSuit(t_,dom_,beat_));
     }
@@ -255,7 +255,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -264,9 +264,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addSureCard(t_,0, CardTarot.TRUMP_5);
         addPossibleCard(t_,1,CardTarot.TRUMP_4);
         addSureCard(t_,1, CardTarot.TRUMP_4);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
-        Numbers<Byte> dom_ = new Numbers<Byte>();
+        Bytes dom_ = new Bytes();
         dom_.add((byte) 0);
         assertTrue(!beatSureListTrumpNormalSuit(t_,dom_,beat_));
     }
@@ -282,7 +282,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -293,9 +293,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addSureCard(t_,1, CardTarot.TRUMP_15);
         addPossibleCard(t_,1,CardTarot.DIAMOND_2);
         addSureCard(t_,1, CardTarot.DIAMOND_2);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
-        Numbers<Byte> dom_ = new Numbers<Byte>();
+        Bytes dom_ = new Bytes();
         dom_.add((byte) 0);
         assertTrue(beatSureListTrumpNormalSuit(t_,dom_,beat_));
     }
@@ -311,7 +311,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -320,9 +320,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addSureCard(t_,1, CardTarot.TRUMP_15);
         addPossibleCard(t_,1,CardTarot.DIAMOND_2);
         addSureCard(t_,1, CardTarot.DIAMOND_2);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
-        Numbers<Byte> dom_ = new Numbers<Byte>();
+        Bytes dom_ = new Bytes();
         dom_.add((byte) 0);
         assertTrue(!beatSureListTrumpNormalSuit(t_,dom_,beat_));
     }
@@ -338,16 +338,16 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
         addPossibleCard(t_,0,CardTarot.DIAMOND_2);
         addSureCard(t_,0, CardTarot.DIAMOND_2);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
-        Numbers<Byte> dom_ = new Numbers<Byte>();
+        Bytes dom_ = new Bytes();
         dom_.add((byte) 0);
         assertTrue(!beatSureListTrumpNormalSuit(t_,dom_,beat_));
     }
@@ -363,14 +363,14 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_5);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
         addPossibleCard(t_,1,CardTarot.TRUMP_15);
         addSureCard(t_,1, CardTarot.TRUMP_15);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         assertTrue(!beatSureListTrumpDemandPast(t_,beat_));
     }
@@ -386,14 +386,14 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_5);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
         addPossibleCard(t_,1,CardTarot.TRUMP_8);
         addSureCard(t_,1, CardTarot.TRUMP_8);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         assertTrue(beatSureListTrumpDemandPast(t_,beat_));
     }
@@ -409,12 +409,12 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_5);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         assertTrue(beatSureListTrumpDemandPast(t_,beat_));
     }
@@ -430,7 +430,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_5);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -439,9 +439,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addSureCard(t_,0, CardTarot.TRUMP_21);
         addPossibleCard(t_,1,CardTarot.TRUMP_20);
         addSureCard(t_,1, CardTarot.TRUMP_20);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
-        Numbers<Byte> dom_ = new Numbers<Byte>();
+        Bytes dom_ = new Bytes();
         dom_.add((byte) 0);
         assertTrue(beatSureListTrumpDemand(t_,dom_,beat_));
     }
@@ -457,7 +457,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_5);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -466,9 +466,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addSureCard(t_,0, CardTarot.TRUMP_20);
         addPossibleCard(t_,1,CardTarot.TRUMP_21);
         addSureCard(t_,1, CardTarot.TRUMP_21);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
-        Numbers<Byte> dom_ = new Numbers<Byte>();
+        Bytes dom_ = new Bytes();
         dom_.add((byte) 0);
         assertTrue(!beatSureListTrumpDemand(t_,dom_,beat_));
     }
@@ -484,7 +484,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_5);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -493,9 +493,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addSureCard(t_,0, CardTarot.TRUMP_11);
         addPossibleCard(t_,1,CardTarot.TRUMP_10);
         addSureCard(t_,1, CardTarot.TRUMP_10);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
-        Numbers<Byte> dom_ = new Numbers<Byte>();
+        Bytes dom_ = new Bytes();
         dom_.add((byte) 0);
         assertTrue(!beatSureListTrumpDemand(t_,dom_,beat_));
     }
@@ -511,16 +511,16 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_5);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
         addPossibleCard(t_,1,CardTarot.TRUMP_21);
         addSureCard(t_,1, CardTarot.TRUMP_21);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
-        Numbers<Byte> dom_ = new Numbers<Byte>();
+        Bytes dom_ = new Bytes();
         dom_.add((byte) 0);
         assertTrue(!beatSureListTrumpDemand(t_,dom_,beat_));
     }
@@ -536,14 +536,14 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_KING);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
         addPossibleCard(t_,1,CardTarot.TRUMP_21);
         addSureCard(t_,1, CardTarot.TRUMP_21);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         assertTrue(!ramasseurBatSsCprAdv(t_,beat_));
     }
@@ -559,7 +559,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_KING);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -568,7 +568,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addSureCard(t_,1, CardTarot.TRUMP_21);
         addPossibleCard(t_,1,CardTarot.DIAMOND_2);
         addSureCard(t_,1, CardTarot.DIAMOND_2);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         assertTrue(ramasseurBatSsCprAdv(t_,beat_));
     }
@@ -584,12 +584,12 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_KING);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         assertTrue(ramasseurBatSsCprAdv(t_,beat_));
     }
@@ -605,14 +605,14 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_QUEEN);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
         addPossibleCard(t_,1,CardTarot.DIAMOND_KING);
         addSureCard(t_,1, CardTarot.DIAMOND_KING);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         assertTrue(!ramasseurBatSsCprAdv(t_,beat_));
     }
@@ -628,13 +628,13 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_KING);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
         addPossibleCard(t_,1,CardTarot.DIAMOND_JACK);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         assertTrue(ramasseurBatSsCprAdv(t_,beat_));
     }
@@ -650,13 +650,13 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_JACK);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
         addPossibleCard(t_,1,CardTarot.DIAMOND_KING);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
         assertTrue(!ramasseurBatSsCprAdv(t_,beat_));
     }
@@ -672,7 +672,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_QUEEN);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -681,9 +681,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addSureCard(t_,1, CardTarot.DIAMOND_KING);
         addPossibleCard(t_,0,CardTarot.TRUMP_2);
         addSureCard(t_,0, CardTarot.TRUMP_2);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
-        Numbers<Byte> dom_ = new Numbers<Byte>();
+        Bytes dom_ = new Bytes();
         dom_.add((byte) 0);
         assertTrue(existeJoueurNonJoueBattantAdv(t_,dom_,beat_));
     }
@@ -699,7 +699,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_QUEEN);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -708,9 +708,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addSureCard(t_,1, CardTarot.DIAMOND_KING);
         addPossibleCard(t_,0,CardTarot.DIAMOND_KNIGHT);
         addSureCard(t_,0, CardTarot.DIAMOND_KNIGHT);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
-        Numbers<Byte> dom_ = new Numbers<Byte>();
+        Bytes dom_ = new Bytes();
         dom_.add((byte) 0);
         assertTrue(!existeJoueurNonJoueBattantAdv(t_,dom_,beat_));
     }
@@ -726,7 +726,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_QUEEN);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -735,9 +735,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addSureCard(t_,1, CardTarot.TRUMP_21);
         addPossibleCard(t_,0,CardTarot.TRUMP_11);
         addSureCard(t_,0, CardTarot.TRUMP_11);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
-        Numbers<Byte> dom_ = new Numbers<Byte>();
+        Bytes dom_ = new Bytes();
         dom_.add((byte) 0);
         assertTrue(!existeJoueurNonJoueBattantAdv(t_,dom_,beat_));
     }
@@ -753,7 +753,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_14);
         current_.ajouter(CardTarot.TRUMP_12);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -762,9 +762,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addSureCard(t_,1, CardTarot.TRUMP_21);
         addPossibleCard(t_,0,CardTarot.TRUMP_11);
         addSureCard(t_,0, CardTarot.TRUMP_11);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
-        Numbers<Byte> dom_ = new Numbers<Byte>();
+        Bytes dom_ = new Bytes();
         dom_.add((byte) 0);
         assertTrue(!existeJouBatAdvDemat(t_,dom_,beat_));
     }
@@ -780,7 +780,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_14);
         current_.ajouter(CardTarot.TRUMP_12);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -789,9 +789,9 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addSureCard(t_,1, CardTarot.TRUMP_16);
         addPossibleCard(t_,0,CardTarot.TRUMP_21);
         addSureCard(t_,0, CardTarot.TRUMP_21);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
-        Numbers<Byte> dom_ = new Numbers<Byte>();
+        Bytes dom_ = new Bytes();
         dom_.add((byte) 0);
         assertTrue(existeJouBatAdvDemat(t_,dom_,beat_));
     }
@@ -807,16 +807,16 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_14);
         current_.ajouter(CardTarot.TRUMP_12);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
         addPossibleCard(t_,1,CardTarot.TRUMP_21);
         addSureCard(t_,1, CardTarot.TRUMP_21);
-        Numbers<Byte> beat_ = new Numbers<Byte>();
+        Bytes beat_ = new Bytes();
         beat_.add((byte) 1);
-        Numbers<Byte> dom_ = new Numbers<Byte>();
+        Bytes dom_ = new Bytes();
         dom_.add((byte) 0);
         assertTrue(!existeJouBatAdvDemat(t_,dom_,beat_));
     }
@@ -832,7 +832,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_14);
         current_.ajouter(CardTarot.TRUMP_12);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -853,7 +853,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_14);
         current_.ajouter(CardTarot.TRUMP_12);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -876,7 +876,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_14);
         current_.ajouter(CardTarot.TRUMP_12);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -899,7 +899,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_14);
         current_.ajouter(CardTarot.TRUMP_12);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -922,7 +922,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_14);
         current_.ajouter(CardTarot.TRUMP_12);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -945,7 +945,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_14);
         current_.ajouter(CardTarot.TRUMP_12);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -970,7 +970,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_14);
         current_.ajouter(CardTarot.TRUMP_12);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -995,7 +995,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_14);
         current_.ajouter(CardTarot.TRUMP_12);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1020,7 +1020,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_12);
         current_.ajouter(CardTarot.TRUMP_14);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1043,7 +1043,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_12);
         current_.ajouter(CardTarot.TRUMP_14);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1068,7 +1068,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_12);
         current_.ajouter(CardTarot.TRUMP_14);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1093,7 +1093,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_12);
         current_.ajouter(CardTarot.TRUMP_14);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1118,7 +1118,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_12);
         current_.ajouter(CardTarot.TRUMP_14);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1141,7 +1141,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_12);
         current_.ajouter(CardTarot.TRUMP_14);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1166,7 +1166,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_12);
         current_.ajouter(CardTarot.TRUMP_14);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1191,7 +1191,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_12);
         current_.ajouter(CardTarot.TRUMP_14);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1218,7 +1218,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_8);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1243,7 +1243,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_8);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1268,7 +1268,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_8);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1293,7 +1293,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1318,7 +1318,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1343,7 +1343,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1368,7 +1368,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_8);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1393,7 +1393,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1418,7 +1418,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1443,7 +1443,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_8);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1468,7 +1468,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1493,7 +1493,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1518,7 +1518,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1543,7 +1543,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1566,7 +1566,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1592,7 +1592,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1617,7 +1617,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1644,7 +1644,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1673,7 +1673,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1704,7 +1704,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1733,7 +1733,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1760,7 +1760,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1789,7 +1789,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_8);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1818,7 +1818,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_8);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1847,7 +1847,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_8);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1876,7 +1876,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_8);
         current_.ajouter(CardTarot.DIAMOND_1);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1905,7 +1905,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_8);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1933,7 +1933,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_8);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1961,7 +1961,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -1989,7 +1989,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -2018,7 +2018,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -2047,7 +2047,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -2076,7 +2076,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 2);
         team_.add((byte) 3);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
@@ -2104,7 +2104,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 2);
         team_.add((byte) 3);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
@@ -2133,7 +2133,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 2);
         team_.add((byte) 3);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
@@ -2162,7 +2162,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 2);
         team_.add((byte) 3);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
@@ -2191,7 +2191,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.HEART_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -2220,7 +2220,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.HEART_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -2248,7 +2248,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.HEART_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,1,played_,team_,5);
@@ -2276,7 +2276,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.HEART_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 1);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,1,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
@@ -2301,7 +2301,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.HEART_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 2);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,1,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
@@ -2327,7 +2327,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.HEART_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 2);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
@@ -2352,7 +2352,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.HEART_1);
         current_.ajouter(CardTarot.TRUMP_3);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 2);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,1,played_,team_,5);
         t_.getCalledSuits().add(Suit.HEART);
@@ -2377,7 +2377,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 2);
         team_.add((byte) 3);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
@@ -2402,7 +2402,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_13);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 2);
         team_.add((byte) 3);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
@@ -2423,7 +2423,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_8);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 2);
         team_.add((byte) 3);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
@@ -2448,7 +2448,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_8);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 2);
         team_.add((byte) 3);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
@@ -2473,7 +2473,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_8);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 2);
         team_.add((byte) 3);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
@@ -2498,7 +2498,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_8);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 0);
         team_.add((byte) 3);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -2523,7 +2523,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_8);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 0);
         team_.add((byte) 3);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -2546,7 +2546,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.TRUMP_8);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 2);
         team_.add((byte) 3);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,4,played_,team_,5);
@@ -2575,7 +2575,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.DIAMOND_1);
         current_.ajouter(CardTarot.DIAMOND_8);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -2601,7 +2601,7 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         current_.ajouter(CardTarot.TRUMP_14);
         current_.ajouter(CardTarot.TRUMP_12);
         HandTarot played_ = new HandTarot();
-        Numbers<Byte> team_ = new Numbers<Byte>();
+        Bytes team_ = new Bytes();
         team_.add((byte) 3);
         team_.add((byte) 0);
         TarotInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,team_,5);
@@ -2610,19 +2610,19 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         addSureCard(t_,1, CardTarot.TRUMP_21);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameTarotTrickHypothesis.equipeQuiVaFairePli(t_));
     }
-    static boolean existeJouBatAdvDemat(TarotInfoPliEnCours _t,Numbers<Byte> _dom,Numbers<Byte> _beat) {
+    static boolean existeJouBatAdvDemat(TarotInfoPliEnCours _t,Bytes _dom,Bytes _beat) {
         EnumMap<Suit, EqList<HandTarot>> poss_ = _t.getCartesPossibles();
         EnumMap<Suit, EqList<HandTarot>> sure_ = _t.getCartesCertaines();
         return GameTarotTrickHypothesis.existeJouBatAdvDemat(_beat,_dom,poss_,sure_);
     }
-    static boolean existeJoueurNonJoueBattantAdv(TarotInfoPliEnCours _t,Numbers<Byte> _dom,Numbers<Byte> _beat) {
+    static boolean existeJoueurNonJoueBattantAdv(TarotInfoPliEnCours _t,Bytes _dom,Bytes _beat) {
         EnumMap<Suit, EqList<HandTarot>> poss_ = _t.getCartesPossibles();
         EnumMap<Suit, EqList<HandTarot>> sure_ = _t.getCartesCertaines();
         TrickTarot cur_ = _t.getProgressingTrick();
         Suit suit_ = cur_.couleurDemandee();
         return GameTarotTrickHypothesis.existeJoueurNonJoueBattantAdv(_beat,_dom,suit_,poss_,sure_);
     }
-    static boolean ramasseurBatSsCprAdv(TarotInfoPliEnCours _t,Numbers<Byte> _beat) {
+    static boolean ramasseurBatSsCprAdv(TarotInfoPliEnCours _t,Bytes _beat) {
         EnumMap<Suit, EqList<HandTarot>> poss_ = _t.getCartesPossibles();
         EnumMap<Suit, EqList<HandTarot>> sure_ = _t.getCartesCertaines();
         TrickTarot cur_ = _t.getProgressingTrick();
@@ -2631,55 +2631,55 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
         byte strength_ = cur_.carteDuJoueur(cur_.getRamasseur(nbPlayers_),nbPlayers_).strength(suit_);
         return GameTarotTrickHypothesis.ramasseurBatSsCprAdv(_beat,suit_,strength_,poss_,sure_);
     }
-    static boolean beatSureListTrumpDemand(TarotInfoPliEnCours _t,Numbers<Byte> _dom,Numbers<Byte> _beat) {
+    static boolean beatSureListTrumpDemand(TarotInfoPliEnCours _t,Bytes _dom,Bytes _beat) {
         TrickTarot cur_ = _t.getProgressingTrick();
         Suit suit_ = cur_.couleurDemandee();
         byte nbPlayers_ = _t.getNbPlayers();
         byte strength_ = cur_.carteDuJoueur(cur_.getRamasseur(nbPlayers_),nbPlayers_).strength(suit_);
         return beatSureListTrumpDemand(_t,_dom,_beat, strength_);
     }
-    static boolean beatSureListTrumpDemand(TarotInfoPliEnCours _t,Numbers<Byte> _dom,Numbers<Byte> _beat,int _str) {
+    static boolean beatSureListTrumpDemand(TarotInfoPliEnCours _t,Bytes _dom,Bytes _beat,int _str) {
         EnumMap<Suit, EqList<HandTarot>> poss_ = _t.getCartesPossibles();
         EnumMap<Suit, EqList<HandTarot>> sure_ = _t.getCartesCertaines();
         return GameTarotTrickHypothesis.beatSureListTrumpDemand(_beat,_dom,poss_,sure_, (byte) _str);
     }
-    static boolean beatSureListTrumpDemandPast(TarotInfoPliEnCours _t,Numbers<Byte> _beat) {
+    static boolean beatSureListTrumpDemandPast(TarotInfoPliEnCours _t,Bytes _beat) {
         TrickTarot cur_ = _t.getProgressingTrick();
         Suit suit_ = cur_.couleurDemandee();
         byte nbPlayers_ = _t.getNbPlayers();
         byte strength_ = cur_.carteDuJoueur(cur_.getRamasseur(nbPlayers_),nbPlayers_).strength(suit_);
         return beatSureListTrumpDemandPast(_t,_beat, strength_);
     }
-    static boolean beatSureListTrumpDemandPast(TarotInfoPliEnCours _t,Numbers<Byte> _beat,int _str) {
+    static boolean beatSureListTrumpDemandPast(TarotInfoPliEnCours _t,Bytes _beat,int _str) {
         EnumMap<Suit, EqList<HandTarot>> poss_ = _t.getCartesPossibles();
         return GameTarotTrickHypothesis.beatSureListTrumpDemandPast(_beat,poss_, (byte) _str);
     }
-    static boolean beatSureListTrumpNormalSuit(TarotInfoPliEnCours _t, Numbers<Byte> _dom,Numbers<Byte> _beat) {
+    static boolean beatSureListTrumpNormalSuit(TarotInfoPliEnCours _t, Bytes _dom,Bytes _beat) {
         TrickTarot cur_ = _t.getProgressingTrick();
         Suit suit_ = cur_.couleurDemandee();
         byte nbPlayers_ = _t.getNbPlayers();
         byte strength_ = cur_.carteDuJoueur(cur_.getRamasseur(nbPlayers_),nbPlayers_).strength(suit_);
         return beatSureListTrumpNormalSuit(_t,_dom,_beat, strength_);
     }
-    static boolean beatSureListTrumpNormalSuit(TarotInfoPliEnCours _t, Numbers<Byte> _dom,Numbers<Byte> _beat,int _str) {
+    static boolean beatSureListTrumpNormalSuit(TarotInfoPliEnCours _t, Bytes _dom,Bytes _beat,int _str) {
         EnumMap<Suit, EqList<HandTarot>> poss_ = _t.getCartesPossibles();
         EnumMap<Suit, EqList<HandTarot>> sure_ = _t.getCartesCertaines();
         Suit suit_ = _t.getProgressingTrick().couleurDemandee();
         return GameTarotTrickHypothesis.beatSureListTrumpNormalSuit(_beat,_dom,suit_,poss_,sure_, (byte) _str);
     }
-    static boolean beatByTrumpNormalSuitStrength(TarotInfoPliEnCours _t, Numbers<Byte> _beat) {
+    static boolean beatByTrumpNormalSuitStrength(TarotInfoPliEnCours _t, Bytes _beat) {
         byte nbPlayers_ = _t.getNbPlayers();
         TrickTarot cur_ = _t.getProgressingTrick();
         byte strength_ = cur_.carteDuJoueur(cur_.getRamasseur(nbPlayers_),nbPlayers_).strength(cur_.couleurDemandee());
         return beatByTrumpNormalSuitStrength(_t, _beat, strength_);
     }
-    static boolean beatByTrumpNormalSuitStrength(TarotInfoPliEnCours _t, Numbers<Byte> _beat,int _str) {
+    static boolean beatByTrumpNormalSuitStrength(TarotInfoPliEnCours _t, Bytes _beat,int _str) {
         EnumMap<Suit, EqList<HandTarot>> poss_ = _t.getCartesPossibles();
         EnumMap<Suit, EqList<HandTarot>> sure_ = _t.getCartesCertaines();
         Suit suit_ = _t.getProgressingTrick().couleurDemandee();
         return GameTarotTrickHypothesis.beatByTrumpNormalSuitStrength(_beat,suit_,poss_,sure_, (byte) _str);
     }
-    static boolean beatByTrumpNormalSuit(TarotInfoPliEnCours _t, Numbers<Byte> _beat,int _pl) {
+    static boolean beatByTrumpNormalSuit(TarotInfoPliEnCours _t, Bytes _beat,int _pl) {
         EnumMap<Suit, EqList<HandTarot>> poss_ = _t.getCartesPossibles();
         EnumMap<Suit, EqList<HandTarot>> sure_ = _t.getCartesCertaines();
         Suit suit_ = _t.getProgressingTrick().couleurDemandee();
@@ -2691,14 +2691,14 @@ public final class GameTarotTrickHypothesisProgTest extends CommonGameTarot {
             TrickTarot _current,
             int _taker,
             HandTarot _playedCard,
-            Numbers<Byte> _team, int _nbPlayers) {
-        Numbers<Byte> played_ = _current.joueursAyantJoue((byte) _nbPlayers);
+            Bytes _team, int _nbPlayers) {
+        Bytes played_ = _current.joueursAyantJoue((byte) _nbPlayers);
         byte nextPlayer_ = _current.getNextPlayer((byte) _nbPlayers);
         _team.add(nextPlayer_);
         EnumMap<Suit,HandTarot> repartition_ = _cartes.couleurs();
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = _playedCard.couleurs();
-        Numbers<Byte> notConfident_ = GameTarotTeamsRelation.autresJoueurs(_team, (byte) _nbPlayers);
-        Numbers<Byte> joueursNonJoue_ = GameTarotTeamsRelation.autresJoueurs(played_, (byte) _nbPlayers);
+        Bytes notConfident_ = GameTarotTeamsRelation.autresJoueurs(_team, (byte) _nbPlayers);
+        Bytes joueursNonJoue_ = GameTarotTeamsRelation.autresJoueurs(played_, (byte) _nbPlayers);
         EnumMap<Suit,EqList<HandTarot>> suitesTouteCouleur_ = _cartes.eclaterToutEnCours(repartitionCartesJouees_);
 
         EnumMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(

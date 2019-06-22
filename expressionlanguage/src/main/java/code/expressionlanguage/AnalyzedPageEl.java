@@ -10,7 +10,8 @@ import code.expressionlanguage.methods.MemberCallingsBlock;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.Ints;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -63,7 +64,7 @@ public final class AnalyzedPageEl {
     private boolean annotAnalysis;
     private String lookLocalClass = "";
     private boolean okNumOp;
-    private Numbers<Integer> currentBadIndexes = new Numbers<Integer>();
+    private Ints currentBadIndexes = new Ints();
     public AnalyzedPageEl() {
         setCatchVars(new CustList<StringMap<LocalVariable>>());
         setLocalVars(new CustList<StringMap<LocalVariable>>());
@@ -433,7 +434,7 @@ public final class AnalyzedPageEl {
         okNumOp = _okNumOp;
     }
 
-    public Numbers<Integer> getCurrentBadIndexes() {
+    public Ints getCurrentBadIndexes() {
         return currentBadIndexes;
     }
 }

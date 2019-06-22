@@ -221,7 +221,7 @@ public final class StreamZipFile {
 
             StringMap<String> files_ = new StringMap<String>();
             for (ZipEntry entry_ :Collections.list(zipFile_.entries())) {
-                if (!_relativePathZippedFiles.containsObj(entry_.getName())&&!_relativePathZippedFiles.isEmpty()) {
+                if (!StringList.contains(_relativePathZippedFiles, entry_.getName()) &&!_relativePathZippedFiles.isEmpty()) {
                     continue;
                 }
                 String file_ = getContentOfZippedFile(zipFile_, entry_);

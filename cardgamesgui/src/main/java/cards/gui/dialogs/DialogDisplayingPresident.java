@@ -23,7 +23,7 @@ import code.gui.LabelButton;
 import code.gui.Panel;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringMap;
 import code.util.ints.Listable;
 
@@ -128,7 +128,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         Panel sousPanneau_=new Panel();
         sousPanneau_.setLayout(new GridLayout(0,1));
         sousPanneau_.add(new JLabel(messages.getVal(NB_DEALS_DEMO)));
-        Numbers<Integer> decks_ = new Numbers<Integer>();
+        Ints decks_ = new Ints();
         //Panneau Distribution
         for(int b=FileConst.MIN_DEALS;b<=FileConst.MAX_DEALS;b++) {
             decks_.add(b);

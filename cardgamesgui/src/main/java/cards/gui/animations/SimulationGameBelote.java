@@ -31,7 +31,7 @@ import code.gui.ScrollPane;
 import code.gui.ThreadInvoker;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.NumberMap;
+import code.util.*;
 import code.util.StringList;
 
 /**This class thread is independant from EDT,
@@ -160,8 +160,8 @@ public final class SimulationGameBelote extends Thread implements SimulationGame
         panneau2_.add(new ScrollPane(container.getEvents()));
         container.setMini(new MiniCarpet(partie_.getNombreDeJoueurs(),container.getDisplayingBelote().getHoraire(),pseudos_));
         panneau2_.add(container.getMini());
-        container.setHandfuls(new NumberMap<Byte,JLabel>());
-        container.setDeclaredHandfuls(new NumberMap<Byte,Panel>());
+        container.setHandfuls(new ByteMap<JLabel>());
+        container.setDeclaredHandfuls(new ByteMap<Panel>());
         Panel declaredHandfuls_ = new Panel(new GridLayout(0,1));
         int nbPlayers_ = partie_.getNombreDeJoueurs();
         for (byte i=CustList.FIRST_INDEX;i<nbPlayers_;i++) {

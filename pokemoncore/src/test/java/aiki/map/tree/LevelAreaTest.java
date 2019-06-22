@@ -29,7 +29,7 @@ import aiki.util.Coords;
 import aiki.util.Point;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.NumberMap;
+import code.util.*;
 import code.util.ObjectMap;
 
 
@@ -100,7 +100,7 @@ public class LevelAreaTest {
     public void initialize1Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new NumberMap<Short,Place>());
+        dataMap_.setPlaces(new ShortMap<Place>());
         City city_ = city();
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
         LevelArea area_ = new LevelArea();
@@ -135,7 +135,7 @@ public class LevelAreaTest {
     public void initialize2Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new NumberMap<Short,Place>());
+        dataMap_.setPlaces(new ShortMap<Place>());
         Road road_ = vroad();
         AreaApparition areaApp_ = new AreaApparition();
         areaApp_.setMultFight((byte) 1);
@@ -182,7 +182,7 @@ public class LevelAreaTest {
     public void initialize3Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new NumberMap<Short,Place>());
+        dataMap_.setPlaces(new ShortMap<Place>());
         Road road_ = vroad();
         AreaApparition areaApp_ = new AreaApparition();
         areaApp_.setMultFight((byte) 1);
@@ -229,7 +229,7 @@ public class LevelAreaTest {
     public void getPokemon1Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new NumberMap<Short,Place>());
+        dataMap_.setPlaces(new ShortMap<Place>());
         City city_ = city();
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
         LevelArea area_ = new LevelArea();
@@ -244,7 +244,7 @@ public class LevelAreaTest {
     public void getPokemon2Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new NumberMap<Short,Place>());
+        dataMap_.setPlaces(new ShortMap<Place>());
         Road road_ = vroad();
         AreaApparition areaApp_ = new AreaApparition();
         areaApp_.setMultFight((byte) 1);
@@ -284,7 +284,7 @@ public class LevelAreaTest {
     public void isValid1Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new NumberMap<Short,Place>());
+        dataMap_.setPlaces(new ShortMap<Place>());
         City city_ = city();
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
         LevelArea area_ = new LevelArea();
@@ -301,7 +301,7 @@ public class LevelAreaTest {
     public void isValid2Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new NumberMap<Short,Place>());
+        dataMap_.setPlaces(new ShortMap<Place>());
         City city_ = city();
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
         LevelArea area_ = new LevelArea();
@@ -318,7 +318,7 @@ public class LevelAreaTest {
     public void size1Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new NumberMap<Short,Place>());
+        dataMap_.setPlaces(new ShortMap<Place>());
         City city_ = city();
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
         LevelArea area_ = new LevelArea();
@@ -330,7 +330,7 @@ public class LevelAreaTest {
     public void allAccessible1Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new NumberMap<Short,Place>());
+        dataMap_.setPlaces(new ShortMap<Place>());
         City city_ = city();
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
         LevelArea area_ = new LevelArea();
@@ -342,7 +342,7 @@ public class LevelAreaTest {
     public void allAccessible2Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new NumberMap<Short,Place>());
+        dataMap_.setPlaces(new ShortMap<Place>());
         Road road_ = vroad();
         AreaApparition areaApp_ = new AreaApparition();
         areaApp_.setMultFight((byte) 1);
@@ -376,7 +376,7 @@ public class LevelAreaTest {
     public void isAccessible1Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new NumberMap<Short,Place>());
+        dataMap_.setPlaces(new ShortMap<Place>());
         City city_ = city();
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
         LevelArea area_ = new LevelArea();
@@ -388,7 +388,7 @@ public class LevelAreaTest {
     public void isAccessible2Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new NumberMap<Short,Place>());
+        dataMap_.setPlaces(new ShortMap<Place>());
         City city_ = city();
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
         LevelArea area_ = new LevelArea();

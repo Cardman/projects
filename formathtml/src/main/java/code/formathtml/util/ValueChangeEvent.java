@@ -1,22 +1,22 @@
 package code.formathtml.util;
 import code.expressionlanguage.structs.Struct;
-import code.util.Numbers;
+import code.util.Longs;
 
 public class ValueChangeEvent {
 
-    private final Numbers<Long> indexes;
+    private final Longs indexes;
 
     private final Struct oldValue;
 
     private final Struct newValue;
 
-    public ValueChangeEvent(Numbers<Long> _indexes,Struct _oldValue, Struct _newValue) {
+    public ValueChangeEvent(Longs _indexes,Struct _oldValue, Struct _newValue) {
         indexes = _indexes;
         oldValue = _oldValue;
         newValue = _newValue;
     }
 
-    public Numbers<Long> getIndexes() {
+    public Longs getIndexes() {
         return indexes;
     }
 

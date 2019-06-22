@@ -4990,7 +4990,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         StringList types_ = fighter_.getTypes();
         assertEq(1,types_.size());
-        assertTrue(types_.containsObj(TENEBRE));
+        assertTrue(StringList.contains(types_, TENEBRE));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.DEFENSE));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
@@ -5017,7 +5017,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         StringList types_ = fighter_.getTypes();
         assertEq(1,types_.size());
-        assertTrue(types_.containsObj(FEU));
+        assertTrue(StringList.contains(types_, FEU));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.DEFENSE));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
@@ -5044,7 +5044,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         StringList types_ = fighter_.getTypes();
         assertEq(1,types_.size());
-        assertTrue(types_.containsObj(FEU));
+        assertTrue(StringList.contains(types_, FEU));
         assertEq(6, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.DEFENSE));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
@@ -5071,7 +5071,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         StringList types_ = fighter_.getTypes();
         assertEq(1,types_.size());
-        assertTrue(types_.containsObj(FEU));
+        assertTrue(StringList.contains(types_, FEU));
         assertEq(2, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.DEFENSE));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
@@ -5098,7 +5098,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         StringList types_ = fighter_.getTypes();
         assertEq(1,types_.size());
-        assertTrue(types_.containsObj(FEU));
+        assertTrue(StringList.contains(types_, FEU));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.DEFENSE));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));

@@ -33,7 +33,7 @@ import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.NumberMap;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 
@@ -207,7 +207,7 @@ public class StepTest {
         Road roadSix_ = hroad();
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new NumberMap<Short,Place>());
+        dataMap_.setPlaces(new ShortMap<Place>());
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),cityOne_);
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),roadOne_);
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),cityTwo_);

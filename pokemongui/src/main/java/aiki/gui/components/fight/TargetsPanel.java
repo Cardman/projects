@@ -11,7 +11,7 @@ import aiki.gui.listeners.SelectPlayerTarget;
 import code.gui.Panel;
 import code.util.BooleanList;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 
 public class TargetsPanel extends Panel {
 
@@ -23,7 +23,7 @@ public class TargetsPanel extends Panel {
         byte mult_ = _facade.getFight().getMult();
         foeTargets.clear();
         playerTargets.clear();
-        NatTreeMap<Byte,Fighter> teamPl_ = new NatTreeMap<Byte, Fighter>();
+        ByteTreeMap<Fighter> teamPl_ = new ByteTreeMap< Fighter>();
 //        teamPl_.putAllMap(_facade.getPlayerFrontTeam());
 //        teamPl_.putAllMap(_facade.getAllyFrontTeam());
         teamPl_.putAllMap(_facade.getUnionFrontTeam());
@@ -42,7 +42,7 @@ public class TargetsPanel extends Panel {
         }
         //TreeMap<Byte,Fighter> teamFoe_ = _facade.getFoeFrontTeam();
         i_ = CustList.FIRST_INDEX;
-        NatTreeMap<Byte,Fighter> teamFoe_ = _facade.getFoeFrontTeam();
+        ByteTreeMap<Fighter> teamFoe_ = _facade.getFoeFrontTeam();
         BooleanList chosableFoe_ = _facade.getFight().getChosableFoeTargets();
         for (byte k: teamFoe_.getKeys()) {
             MiniTargetLabel target_ = new MiniTargetLabel();

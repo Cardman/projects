@@ -10,7 +10,7 @@ import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 
 public final class EnumValueOfOperation extends AbstractUnaryOperation {
 
@@ -24,7 +24,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
 
     @Override
     void calculateChildren() {
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        IntTreeMap< String> vs_ = getOperations().getValues();
         vs_.removeKey(vs_.firstKey());
         className = vs_.firstValue();
         argOffset = vs_.firstKey();

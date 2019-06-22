@@ -2,7 +2,7 @@ package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 
 abstract class LeafPartType extends PartType {
 
@@ -12,7 +12,7 @@ abstract class LeafPartType extends PartType {
         super(_parent, _index, _indexInType);
         typeName = _type;
     }
-    abstract void checkDynExistence(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels);
+    abstract void checkDynExistence(Analyzable _an, CustList<IntTreeMap< String>>_dels);
     final String exportHeader() {
         return importedTypeName;
     }

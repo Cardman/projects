@@ -3,18 +3,18 @@ import aiki.fight.moves.effects.EffectEndRoundSingleRelation;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.NatCmpTreeMap;
-import code.util.NatTreeMap;
+import code.util.*;
 
 public class EffectEndRoundSingleRelationBean extends EffectEndRoundBean {
-    private NatTreeMap<Long, Rate> rateDamageFunctionOfNbRounds;
+    private LongTreeMap< Rate> rateDamageFunctionOfNbRounds;
     private NatCmpTreeMap<LgInt, Rate> lawForEnablingEffect;
 
     @Override
     public void beforeDisplaying() {
         super.beforeDisplaying();
         EffectEndRoundSingleRelation effect_ = (EffectEndRoundSingleRelation) getEffect();
-        NatTreeMap<Long, Rate> rateDamageFunctionOfNbRounds_;
-        rateDamageFunctionOfNbRounds_ = new NatTreeMap<Long, Rate>();
+        LongTreeMap< Rate> rateDamageFunctionOfNbRounds_;
+        rateDamageFunctionOfNbRounds_ = new LongTreeMap< Rate>();
         for (Long k: effect_.getRateDamageFunctionOfNbRounds().getKeys()) {
             rateDamageFunctionOfNbRounds_.put(k, effect_.getRateDamageFunctionOfNbRounds().getVal(k));
         }
@@ -27,7 +27,7 @@ public class EffectEndRoundSingleRelationBean extends EffectEndRoundBean {
         lawForEnablingEffect = lawForEnablingEffect_;
     }
 
-    public NatTreeMap<Long,Rate> getRateDamageFunctionOfNbRounds() {
+    public LongTreeMap<Rate> getRateDamageFunctionOfNbRounds() {
         return rateDamageFunctionOfNbRounds;
     }
 

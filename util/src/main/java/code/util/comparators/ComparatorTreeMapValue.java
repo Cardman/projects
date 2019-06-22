@@ -1,13 +1,14 @@
 package code.util.comparators;
-import code.util.Numbers;
+import code.util.AbsMap;
+import code.util.*;
 import code.util.TreeMap;
 import code.util.ints.Comparing;
 
 public final class ComparatorTreeMapValue<T> implements Comparing<T> {
 
-    private TreeMap<T, Integer> map;
+    private AbsMap<T, Integer> map;
 
-    public ComparatorTreeMapValue(TreeMap<T, Integer> _map) {
+    public ComparatorTreeMapValue(AbsMap<T, Integer> _map) {
         map = _map;
     }
 

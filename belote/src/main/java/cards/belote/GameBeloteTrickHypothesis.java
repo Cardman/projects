@@ -5,7 +5,7 @@ import cards.consts.PossibleTrickWinner;
 import cards.consts.Suit;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 
 public final class GameBeloteTrickHypothesis {
     private GameBeloteTrickHypothesis() {
@@ -30,20 +30,20 @@ public final class GameBeloteTrickHypothesis {
             BeloteInfoPliEnCours _info) {
         EnumMap<Suit,EqList<HandBelote>> cartesPossibles_=_info.getCartesPossibles();
         EnumMap<Suit,EqList<HandBelote>> cartesCertaines_=_info.getCartesCertaines();
-        Numbers<Byte> joueursNonJoue_=_info.getJoueursNonJoue();
+        Bytes joueursNonJoue_=_info.getJoueursNonJoue();
         byte ramasseurVirtuel_=_info.getRamasseurVirtuel();
         byte next_ = _info.getNextPlayer();
-        Numbers<Byte> joueursConfiance_=new Numbers<Byte>();
-        Numbers<Byte> partenaire_ = _info.getJoueursConfiance();
-        Numbers<Byte> adversaires_=_info.getJoueursNonConfiance();
+        Bytes joueursConfiance_=new Bytes();
+        Bytes partenaire_ = _info.getJoueursConfiance();
+        Bytes adversaires_=_info.getJoueursNonConfiance();
         Suit couleurDemandee_=_info.getProgressingTrick().couleurDemandee();
         Suit couleurAtout_=_info.getCouleurAtout();
         boolean ramasseurVirtuelEgalCertain_=false;
         byte nbPlayers_ = _info.getNbPlayers();
         CardBelote carteForte_=_info.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_,nbPlayers_);
-        Numbers<Byte> joueursNonConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, adversaires_);
-        Numbers<Byte> joueursConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, partenaire_);
-        Numbers<Byte> joueursJoue_=GameBeloteTeamsRelation.autresJoueurs(joueursNonJoue_, nbPlayers_);
+        Bytes joueursNonConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, adversaires_);
+        Bytes joueursConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, partenaire_);
+        Bytes joueursJoue_=GameBeloteTeamsRelation.autresJoueurs(joueursNonJoue_, nbPlayers_);
         /*Le contrat n est ni sans-atout ni tout atout.*/
         BidBeloteSuit bid_ = _info.getContrat();
         if(carteForte_.couleur()==couleurAtout_&&couleurDemandee_!=couleurAtout_) {
@@ -319,14 +319,14 @@ public final class GameBeloteTrickHypothesis {
             BeloteInfoPliEnCours _info) {
 
         EnumMap<Suit,EqList<HandBelote>> cartesPossibles_=_info.getCartesPossibles();
-        Numbers<Byte> joueursNonJoue_=_info.getJoueursNonJoue();
+        Bytes joueursNonJoue_=_info.getJoueursNonJoue();
         byte ramasseurVirtuel_=_info.getRamasseurVirtuel();
         byte next_ = _info.getNextPlayer();
-        Numbers<Byte> partenaire_ = _info.getJoueursConfiance();
-        Numbers<Byte> adversaires_=_info.getJoueursNonConfiance();
+        Bytes partenaire_ = _info.getJoueursConfiance();
+        Bytes adversaires_=_info.getJoueursNonConfiance();
         Suit couleurDemandee_=_info.getProgressingTrick().couleurDemandee();
-        Numbers<Byte> joueursNonConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, adversaires_);
-        Numbers<Byte> joueursConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, partenaire_);
+        Bytes joueursNonConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, adversaires_);
+        Bytes joueursConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, partenaire_);
         byte nbPlayers_ = _info.getNbPlayers();
         CardBelote carteForte_=_info.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_,nbPlayers_);
 
@@ -364,17 +364,17 @@ public final class GameBeloteTrickHypothesis {
             BeloteInfoPliEnCours _info) {
 
         EnumMap<Suit,EqList<HandBelote>> cartesCertaines_=_info.getCartesCertaines();
-        Numbers<Byte> joueursNonJoue_=_info.getJoueursNonJoue();
+        Bytes joueursNonJoue_=_info.getJoueursNonJoue();
         byte ramasseurVirtuel_=_info.getRamasseurVirtuel();
         byte next_ = _info.getNextPlayer();
-        Numbers<Byte> partenaire_ = _info.getJoueursConfiance();
-        Numbers<Byte> adversaires_=_info.getJoueursNonConfiance();
+        Bytes partenaire_ = _info.getJoueursConfiance();
+        Bytes adversaires_=_info.getJoueursNonConfiance();
         Suit couleurDemandee_=_info.getProgressingTrick().couleurDemandee();
-        Numbers<Byte> joueursNonConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, adversaires_);
-        Numbers<Byte> joueursConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, partenaire_);
+        Bytes joueursNonConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, adversaires_);
+        Bytes joueursConfianceNonJoue_=GameBeloteTeamsRelation.intersectionJoueurs(joueursNonJoue_, partenaire_);
         byte nbPlayers_ = _info.getNbPlayers();
         CardBelote carteForte_=_info.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_,nbPlayers_);
-        Numbers<Byte> joueursJoue_=GameBeloteTeamsRelation.autresJoueurs(joueursNonJoue_, nbPlayers_);
+        Bytes joueursJoue_=GameBeloteTeamsRelation.autresJoueurs(joueursNonJoue_, nbPlayers_);
 
         /*Le pli n'est pas coupe et la couleur demandee est l'atout*/
         BidBeloteSuit bid_ = _info.getContrat();
@@ -462,9 +462,9 @@ public final class GameBeloteTrickHypothesis {
     }
     static boolean existeJouBatPtmNumDemat(
             BeloteInfoPliEnCours _info,
-            Numbers<Byte> _equipeABattre,
-            Numbers<Byte> _equipeDom,
-            Numbers<Byte> _joueursJoue,byte _numero,
+            Bytes _equipeABattre,
+            Bytes _equipeDom,
+            Bytes _joueursJoue,byte _numero,
             Suit _couleurDemandee) {
         boolean ramasseurDeter_=false;
         boolean ramasseurVirtuelEgalCertain_;
@@ -508,8 +508,8 @@ public final class GameBeloteTrickHypothesis {
     }
     static boolean existeJouBatAdvNumDemat(
             BeloteInfoPliEnCours _info,
-            Numbers<Byte> _equipeABattre,
-            Numbers<Byte> _equipeDom,
+            Bytes _equipeABattre,
+            Bytes _equipeDom,
             byte _numero,
             Suit _couleurDemandee) {
         BidBeloteSuit contrat_ = _info.getContrat();
@@ -544,9 +544,9 @@ public final class GameBeloteTrickHypothesis {
     }
     static boolean existeJouBatPtmSurDemat(
             BeloteInfoPliEnCours _info,
-            Numbers<Byte> _equipeABattre,
-            Numbers<Byte> _equipeDom,
-            Numbers<Byte> _joueursJoue,
+            Bytes _equipeABattre,
+            Bytes _equipeDom,
+            Bytes _joueursJoue,
             CardBelote _carteForte,
             Suit _couleurDemandee) {
         BidBeloteSuit contrat_ = _info.getContrat();
@@ -591,8 +591,8 @@ public final class GameBeloteTrickHypothesis {
     }
     static boolean existeJouBatAdvSurDemat(
             BeloteInfoPliEnCours _info,
-            Numbers<Byte> _equipeABattre,
-            Numbers<Byte> _equipeDom,
+            Bytes _equipeABattre,
+            Bytes _equipeDom,
             CardBelote _carteForte,
             Suit _couleurDemadee) {
         BidBeloteSuit contrat_ = _info.getContrat();
@@ -627,9 +627,9 @@ public final class GameBeloteTrickHypothesis {
     }
     static boolean existeJouBatPtmDemat(
             BeloteInfoPliEnCours _info,
-            Numbers<Byte> _equipeABattre,
-            Numbers<Byte> _equipeDom,
-            Numbers<Byte> _joueursJoue,
+            Bytes _equipeABattre,
+            Bytes _equipeDom,
+            Bytes _joueursJoue,
             Suit _couleurDemandee) {
         BidBeloteSuit contrat_ = _info.getContrat();
         EnumMap<Suit,EqList<HandBelote>> cartesPossibles_ = _info.getCartesPossibles();
@@ -670,8 +670,8 @@ public final class GameBeloteTrickHypothesis {
     }
     static boolean existeJouBatAdvDemat(
             BeloteInfoPliEnCours _info,
-            Numbers<Byte> _equipeABattre,
-            Numbers<Byte> _equipeDom,
+            Bytes _equipeABattre,
+            Bytes _equipeDom,
             Suit _couleurDemandee) {
         BidBeloteSuit contrat_ = _info.getContrat();
         EnumMap<Suit,EqList<HandBelote>> cartesPossibles_ = _info.getCartesPossibles();
@@ -703,7 +703,7 @@ public final class GameBeloteTrickHypothesis {
     }
     static boolean ramasseurBatAdvDemat(
             BeloteInfoPliEnCours _info,
-            Numbers<Byte> _equipeABattre,
+            Bytes _equipeABattre,
             Suit _couleurDemandee,CardBelote _carteForte) {
         BidBeloteSuit contrat_ = _info.getContrat();
         EnumMap<Suit,EqList<HandBelote>> cartesPossibles_ = _info.getCartesPossibles();
@@ -725,9 +725,9 @@ public final class GameBeloteTrickHypothesis {
     }
     static boolean existeJoueurBatPtmNum(
             BeloteInfoPliEnCours _info,
-            Numbers<Byte> _equipeABattre,
-            Numbers<Byte> _equipeDom,
-            Numbers<Byte> _joueursJoue,
+            Bytes _equipeABattre,
+            Bytes _equipeDom,
+            Bytes _joueursJoue,
             byte _numero,
             Suit _couleurDemandee) {
         BidBeloteSuit contrat_ = _info.getContrat();
@@ -777,8 +777,8 @@ public final class GameBeloteTrickHypothesis {
     }
     static boolean existeJoueurBatAdvNum(
             BeloteInfoPliEnCours _info,
-            Numbers<Byte> _equipeABattre,
-            Numbers<Byte> _equipeDom,
+            Bytes _equipeABattre,
+            Bytes _equipeDom,
             byte _numero,
             Suit _couleurDemandee) {
         BidBeloteSuit contrat_ = _info.getContrat();
@@ -817,8 +817,8 @@ public final class GameBeloteTrickHypothesis {
     }
     static boolean existeJoueurAdvRamBatAdvSur(
             BeloteInfoPliEnCours _info,
-            Numbers<Byte> _equipeABattre,
-            Numbers<Byte> _equipeDom,
+            Bytes _equipeABattre,
+            Bytes _equipeDom,
             Suit _couleurDemandee,
             CardBelote _carteForte) {
         BidBeloteSuit contrat_ = _info.getContrat();
@@ -856,9 +856,9 @@ public final class GameBeloteTrickHypothesis {
     }
     static boolean existeJoueurNonJoueBattantPtm(
             BeloteInfoPliEnCours _info,
-            Numbers<Byte> _equipeABattre,
-            Numbers<Byte> _equipeDom,
-            Numbers<Byte> _joueursJoue,
+            Bytes _equipeABattre,
+            Bytes _equipeDom,
+            Bytes _joueursJoue,
             Suit _couleurDemandee) {
         BidBeloteSuit contrat_ = _info.getContrat();
         EnumMap<Suit,EqList<HandBelote>> cartesPossibles_ = _info.getCartesPossibles();
@@ -904,8 +904,8 @@ public final class GameBeloteTrickHypothesis {
     }
     static boolean existeJoueurNonJoueBattantAdv(
             BeloteInfoPliEnCours _info,
-            Numbers<Byte> _equipeABattre,
-            Numbers<Byte> _equipeDom,
+            Bytes _equipeABattre,
+            Bytes _equipeDom,
             Suit _couleurDemandee) {
         BidBeloteSuit contrat_ = _info.getContrat();
         EnumMap<Suit,EqList<HandBelote>> cartesPossibles_ = _info.getCartesPossibles();
@@ -940,7 +940,7 @@ public final class GameBeloteTrickHypothesis {
     }
     static boolean ramasseurBatAdvSur(
             BeloteInfoPliEnCours _info,
-            Numbers<Byte> _equipeABattre,
+            Bytes _equipeABattre,
             Suit _couleurDemandee,
             CardBelote _carteForte) {
         BidBeloteSuit contrat_ = _info.getContrat();
@@ -968,7 +968,7 @@ public final class GameBeloteTrickHypothesis {
     }
     static boolean ramasseurBatSsCprAdv(
             BeloteInfoPliEnCours _info,
-            Numbers<Byte> _equipeABattre,
+            Bytes _equipeABattre,
             Suit _couleurDemandee,
             CardBelote _carteForte) {
         BidBeloteSuit contrat_ = _info.getContrat();
@@ -993,7 +993,7 @@ public final class GameBeloteTrickHypothesis {
         }
         return ramasseurDeter_;
     }
-    static boolean pasAtoutJoueurs(Numbers<Byte> _joueurs,
+    static boolean pasAtoutJoueurs(Bytes _joueurs,
                                    EnumMap<Suit,EqList<HandBelote>> _cartesPossibles,
                                    Suit _couleurAtout) {
         for (byte j: _joueurs) {

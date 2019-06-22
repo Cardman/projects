@@ -1,6 +1,6 @@
 package code.formathtml.render;
 
-import code.util.Numbers;
+import code.util.Ints;
 
 public final class MetaNumberedLabel extends MetaLabel {
 
@@ -19,7 +19,7 @@ public final class MetaNumberedLabel extends MetaLabel {
             } else {
                 firstLetter_ = 'A';
             }
-            Numbers<Integer> parts_ = new Numbers<Integer>();
+            Ints parts_ = new Ints();
             int current_ = _number;
             while (current_ > 0) {
                 parts_.add(current_ % 26);
@@ -42,7 +42,7 @@ public final class MetaNumberedLabel extends MetaLabel {
             char thirdDemi_ = 'd';
             char fourthUnit_ = 'm';
             char fourthDemi_ = 'q';
-            Numbers<Integer> parts_ = new Numbers<Integer>();
+            Ints parts_ = new Ints();
             int current_ = _number;
             while (current_ > 0) {
                 parts_.add(current_ % 10000);

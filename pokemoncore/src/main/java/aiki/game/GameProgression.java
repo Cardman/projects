@@ -12,7 +12,7 @@ import aiki.util.Coords;
 import code.maths.LgInt;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.NumberMap;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -26,7 +26,7 @@ public final class GameProgression {
     private final StringMap<EqList<StringList>> fullFamiliesBase;
     private final EqList<TrainerPlaceNames> beatenImportantTrainers;
     private final EqList<TrainerPlaceNames> unBeatenImportantTrainers;
-    private final NumberMap<Short,Integer> remainingOtherTrainerPlaces;
+    private final ShortMap<Integer> remainingOtherTrainerPlaces;
     private final StringList visitedPlaces;
     private final StringList unVisitedPlaces;
     private final LgInt money;
@@ -85,7 +85,7 @@ public final class GameProgression {
             Place pl_ = _data.getMap().getPlaces().getVal(c.getNumberPlace());
             unBeatenImportantTrainers.add(new TrainerPlaceNames(_data.getMap().getTrainerName(c), pl_.getName()));
         }
-        remainingOtherTrainerPlaces = new NumberMap<Short,Integer>();
+        remainingOtherTrainerPlaces = new ShortMap<Integer>();
         for (NbFightCoords k: _game.getBeatTrainer().getKeys()) {
             Coords coords_ = k.getCoords();
             Campaign place_ = (Campaign) _data.getMap().getPlaces().getVal(coords_.getNumberPlace());
@@ -173,7 +173,7 @@ public final class GameProgression {
         return unBeatenImportantTrainers;
     }
 
-    public NumberMap<Short,Integer> getRemainingOtherTrainerPlaces() {
+    public ShortMap<Integer> getRemainingOtherTrainerPlaces() {
         return remainingOtherTrainerPlaces;
     }
 

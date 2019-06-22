@@ -6,7 +6,7 @@ import aiki.game.fight.Team;
 import aiki.game.fight.TeamPosition;
 import code.bean.Bean;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 
 public class CommonFightBean extends Bean {
@@ -23,7 +23,7 @@ public class CommonFightBean extends Bean {
         DataBase data_ = _facade.getData();
         Team team_ = _facade.getGame().getFight().getTeams().getVal(_teamPosition.getTeam());
         Fighter fighter_ = _facade.getGame().getFight().getFighter(_teamPosition);
-        Numbers<Byte> membersIndex_ = getMembers(_facade,_teamPosition.getTeam());
+        Bytes membersIndex_ = getMembers(_facade,_teamPosition.getTeam());
         byte i_ = CustList.FIRST_INDEX;
         byte nb_ = CustList.FIRST_INDEX;
         while (true) {
@@ -47,9 +47,9 @@ public class CommonFightBean extends Bean {
         return StringList.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
     }
 
-    protected static Numbers<Byte> getMembers(FacadeGame _facade, byte _noTeam) {
+    protected static Bytes getMembers(FacadeGame _facade, byte _noTeam) {
         Team team_ = _facade.getGame().getFight().getTeams().getVal(_noTeam);
-        Numbers<Byte> numbers_ = new Numbers<Byte>(team_.getMembers().getKeys());
+        Bytes numbers_ = new Bytes(team_.getMembers().getKeys());
         numbers_.sort();
         return numbers_;
     }

@@ -2,7 +2,7 @@ package aiki.beans.facade.comparators;
 import aiki.beans.help.LanguageElementStringKey;
 import aiki.db.DataBase;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
@@ -35,7 +35,7 @@ public final class ComparatorLanguageString implements Comparing<LanguageElement
         }
         String langOne_ = _o1.getLanguage();
         String langTwo_ = _o2.getLanguage();
-        return Numbers.compareLg(languages.indexOfObj(langOne_), languages.indexOfObj(langTwo_));
+        return Numbers.compareLg(StringList.indexOf(languages,langOne_), StringList.indexOf(languages,langTwo_));
     }
 
     private static int compare(StringMap<String> _translator, String _e1, String _e2) {

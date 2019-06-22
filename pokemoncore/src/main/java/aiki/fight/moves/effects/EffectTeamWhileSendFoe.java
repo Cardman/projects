@@ -6,14 +6,14 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.status.StatusType;
 import code.util.EntryCust;
 import code.util.EnumMap;
-import code.util.NumberMap;
+import code.util.*;
 import code.util.StringList;
 
 
 public final class EffectTeamWhileSendFoe extends Effect {
 
     private String failSending;
-    private NumberMap<Short, String> statusByNbUses;
+    private ShortMap< String> statusByNbUses;
     private StringList deletedByFoeTypes;
     private String damageRateAgainstFoe;
 
@@ -61,11 +61,11 @@ public final class EffectTeamWhileSendFoe extends Effect {
         failSending = _failSending;
     }
 
-    public NumberMap<Short, String> getStatusByNbUses() {
+    public ShortMap< String> getStatusByNbUses() {
         return statusByNbUses;
     }
 
-    public void setStatusByNbUses(NumberMap<Short, String> _statusByNbUses) {
+    public void setStatusByNbUses(ShortMap< String> _statusByNbUses) {
         statusByNbUses = _statusByNbUses;
     }
 

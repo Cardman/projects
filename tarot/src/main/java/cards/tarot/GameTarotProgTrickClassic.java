@@ -16,11 +16,11 @@ public final class GameTarotProgTrickClassic {
     private HandTarot currentHand;
     private GameTarotCommonPlaying common;
     private Status currentStatus;
-    private Numbers<Byte> confidentPlayers;
-    private Numbers<Byte> notConfidentPlayers;
-    private Numbers<Byte> played;
-    private Numbers<Byte> notPlayed;
-    private Numbers<Byte> notConfidentPlayersNotPlay;
+    private Bytes confidentPlayers;
+    private Bytes notConfidentPlayers;
+    private Bytes played;
+    private Bytes notPlayed;
+    private Bytes notConfidentPlayersNotPlay;
     private HandTarot playableCards;
     private HandTarot discarded = new HandTarot();
     public GameTarotProgTrickClassic(GameTarotTrickInfo _done, GameTarotTeamsRelation _teamsRelation,
@@ -122,7 +122,7 @@ public final class GameTarotProgTrickClassic {
         CustList<TrickTarot> plisFaits_ = _info.getPlisFaits();
         EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         EnumMap<Suit,EqList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
-        Numbers<Byte> joueursNonJoue_ = _info.getJoueursNonJoue();
+        Bytes joueursNonJoue_ = _info.getJoueursNonJoue();
         HandTarot repartitionCouleDem_ = _info.getCartesJouables().couleurs().getVal(couleurDemandee_);
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = _info.getRepartitionCartesJouees();
         EqList<HandTarot> suites_ = repartitionCouleDem_
@@ -206,7 +206,7 @@ public final class GameTarotProgTrickClassic {
         CustList<TrickTarot> plisFaits_ = _info.getPlisFaits();
         EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         EnumMap<Suit,EqList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
-        Numbers<Byte> joueursNonJoue_ = _info.getJoueursNonJoue();
+        Bytes joueursNonJoue_ = _info.getJoueursNonJoue();
         EqList<HandTarot> cartesRelMaitres_;
         cartesRelMaitres_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(
                 suites_, cartesPossibles_, joueursNonJoue_,
@@ -243,13 +243,13 @@ public final class GameTarotProgTrickClassic {
         }
         TrickTarot dernierPli_;
         dernierPli_ = tours_.last();
-        Numbers<Byte> dernieresDefausses_;
+        Bytes dernieresDefausses_;
         dernieresDefausses_ = dernierPli_.joueursDefausses(nombreDeJoueurs_);
             /*
             Deuxieme tour pour un appele ne coupant pas la
             couleur demandee differente de l'atout
             */
-        Numbers<Byte> joueursSusceptiblesDeCouper_;
+        Bytes joueursSusceptiblesDeCouper_;
         joueursSusceptiblesDeCouper_ = GameTarotTrickHypothesis.joueursSusceptiblesCoupe(cartesPossibles_,couleurDemandee_,joueursNonJoue_);
         if (!joueursSusceptiblesDeCouper_.isEmpty()) {
             return processWhenPossibleTrumps(suites_, joueursSusceptiblesDeCouper_, maitreJeu_);
@@ -265,7 +265,7 @@ public final class GameTarotProgTrickClassic {
         return tryLeadTrick(cartesMaitresses_, couleurDemandee_, repartitionCouleDem_, suites_, cartesRelMaitres_);
     }
 
-    private static boolean discardAtSecondRound(CustList<TrickTarot> _tours, Numbers<Byte> _dernieresDefausses) {
+    private static boolean discardAtSecondRound(CustList<TrickTarot> _tours, Bytes _dernieresDefausses) {
         return !_dernieresDefausses.isEmpty() && _tours.size() == 1;
     }
 
@@ -281,7 +281,7 @@ public final class GameTarotProgTrickClassic {
         CustList<TrickTarot> plisFaits_ = _info.getPlisFaits();
         EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         EnumMap<Suit,EqList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
-        Numbers<Byte> joueursNonJoue_ = _info.getJoueursNonJoue();
+        Bytes joueursNonJoue_ = _info.getJoueursNonJoue();
         CustList<TrickTarot> tours_ = GameTarotCommonPlaying.tours(couleurDemandee_, plisFaits_);
         if (tours_.isEmpty()) {
             return playWhenLastDiscard(_info);
@@ -297,9 +297,9 @@ public final class GameTarotProgTrickClassic {
         /* C'est au moins le deuxieme tour */
         TrickTarot dernierPli_;
         dernierPli_ = tours_.last();
-        Numbers<Byte> dernieresDefausses_;
+        Bytes dernieresDefausses_;
         dernieresDefausses_ = dernierPli_.joueursDefausses(nombreDeJoueurs_);
-        Numbers<Byte> joueursSusceptiblesDeCouper_;
+        Bytes joueursSusceptiblesDeCouper_;
         joueursSusceptiblesDeCouper_ = GameTarotTrickHypothesis.joueursSusceptiblesCoupe(cartesPossibles_,couleurDemandee_,joueursNonJoue_);
         boolean maitreJeu_ = _info.isMaitreJeu();
         if (!joueursSusceptiblesDeCouper_.isEmpty()) {
@@ -356,7 +356,7 @@ public final class GameTarotProgTrickClassic {
         return tryLeadTrick(cartesMaitresses_, couleurDemandee_, repartitionCouleDem_, suites_, cartesRelMaitres_);
     }
 
-    private CardTarot processWhenPossibleTrumps(EqList<HandTarot> _suites, Numbers<Byte> _joueursSusceptiblesDeCouper, boolean _maitreJeu) {
+    private CardTarot processWhenPossibleTrumps(EqList<HandTarot> _suites, Bytes _joueursSusceptiblesDeCouper, boolean _maitreJeu) {
         if (!GameTarotTeamsRelation.intersectionJoueurs(notConfidentPlayers, _joueursSusceptiblesDeCouper).isEmpty()) {
             return carteLaPlusPetite(_suites);
         }
@@ -401,7 +401,7 @@ public final class GameTarotProgTrickClassic {
         EnumMap<Suit,EqList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
         boolean maitreJeu_ = _info.isMaitreJeu();
         byte ramasseurVirtuel_ = _info.getRamasseurVirtuel();
-        Numbers<Byte> joueursNonJoue_ = _info.getJoueursNonJoue();
+        Bytes joueursNonJoue_ = _info.getJoueursNonJoue();
         byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
         boolean joueurConfianceRamasseur_ = confidentPlayers.containsObj(ramasseurVirtuel_);
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = _info.getRepartitionCartesJouees();
@@ -524,7 +524,7 @@ public final class GameTarotProgTrickClassic {
             CustList<TrickTarot> plisFaits_ = _info.getPlisFaits();
             EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
             EnumMap<Suit,EqList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
-            Numbers<Byte> joueursNonJoue_ = _info.getJoueursNonJoue();
+            Bytes joueursNonJoue_ = _info.getJoueursNonJoue();
             EqList<HandTarot> cartesRelMaitres_;
             cartesRelMaitres_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(
                     suites_, cartesPossibles_, joueursNonJoue_,
@@ -535,8 +535,8 @@ public final class GameTarotProgTrickClassic {
                 return cartesRelMaitres_.last()
                         .premiereCarte();
             }
-            Numbers<Byte> joueursNonConfiance_ = teamsRelation.joueursNonConfiance(_info.getCurrentPlayer(),GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_));
-            Numbers<Byte> joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonConfiance_,joueursNonJoue_);
+            Bytes joueursNonConfiance_ = teamsRelation.joueursNonConfiance(_info.getCurrentPlayer(),GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_));
+            Bytes joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonConfiance_,joueursNonJoue_);
             if (aucunePriseMainPossibleParFigure(
                     cartesPossibles_,couleurDemandee_,joueursNonConfianceNonJoue_)) {
                 if (!cartesRelMaitres_.isEmpty()) {
@@ -666,7 +666,7 @@ public final class GameTarotProgTrickClassic {
                 || maitreJeu_) {
             return atoutLePlusPetit(suites_, contientExcuse_);
         }
-        Numbers<Byte> joueursNonConfiance_ = teamsRelation.joueursNonConfiance(_info.getCurrentPlayer(),GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_));
+        Bytes joueursNonConfiance_ = teamsRelation.joueursNonConfiance(_info.getCurrentPlayer(),GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_));
         if (GameTarotTrickHypothesis.pasAtout(joueursNonConfiance_, cartesPossibles_)) {
             return atoutLePlusPetit(suites_);
         }
@@ -684,7 +684,7 @@ public final class GameTarotProgTrickClassic {
                         repartitionCartesJouees_, couleurDemandee_), contientExcuse_);
     }
 
-    static boolean leadTrumps(EnumMap<Suit, EqList<HandTarot>> _cartesPossibles, CardTarot _carteForte, Numbers<Byte> _players) {
+    static boolean leadTrumps(EnumMap<Suit, EqList<HandTarot>> _cartesPossibles, CardTarot _carteForte, Bytes _players) {
         boolean carteMaitresse_;
         carteMaitresse_ = true;
         for (byte joueur_ : _players) {
@@ -764,7 +764,7 @@ public final class GameTarotProgTrickClassic {
         if (nombreDeJoueurs_ < 5) {
             CustList<TrickTarot> tours_ = GameTarotCommonPlaying.tours(couleurDemandee_, _info.getPlisFaits());
             if (tours_.size() == 1) {
-                Numbers<Byte> joueursCoupePreTour_ = tours_.first().joueursCoupes();
+                Bytes joueursCoupePreTour_ = tours_.first().joueursCoupes();
                 if (GameTarotTeamsRelation.intersectionJoueurs(notConfidentPlayers, joueursCoupePreTour_).isEmpty()) {
                     return CardTarot.petit();
                 }
@@ -795,13 +795,13 @@ public final class GameTarotProgTrickClassic {
         EqList<HandTarot> suites_;
         suites_ = atoutsCoupe_.eclaterEnCours(
                 repartitionCartesJouees_, couleurDemandee_);
-        Numbers<Byte> joueursNonJoue_ = _info.getJoueursNonJoue();
+        Bytes joueursNonJoue_ = _info.getJoueursNonJoue();
         EqList<HandTarot> cartesRelMaitres_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(
                 suites_, cartesPossibles_, joueursNonJoue_,
                 Suit.TRUMP, couleurDemandee_, cartesCertaines_,
                 carteForte_);
-        Numbers<Byte> joueursNonConfiance_ = teamsRelation.joueursNonConfiance(_info.getCurrentPlayer(),GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_));
-        Numbers<Byte> joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonConfiance_, joueursNonJoue_);
+        Bytes joueursNonConfiance_ = teamsRelation.joueursNonConfiance(_info.getCurrentPlayer(),GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_));
+        Bytes joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonConfiance_, joueursNonJoue_);
         if (!atoutsCoupe_.contient(CardTarot.petit())) {
         /*
         Si
@@ -921,7 +921,7 @@ public final class GameTarotProgTrickClassic {
         return CardTarot.petit();
     }
 
-    private boolean noOverTrump(Suit _couleurDemandee, EnumMap<Suit, EqList<HandTarot>> _cartesPossibles, EnumMap<Suit, EqList<HandTarot>> _cartesCertaines, Numbers<Byte> _joueursNonConfianceNonJoue) {
+    private boolean noOverTrump(Suit _couleurDemandee, EnumMap<Suit, EqList<HandTarot>> _cartesPossibles, EnumMap<Suit, EqList<HandTarot>> _cartesCertaines, Bytes _joueursNonConfianceNonJoue) {
         boolean carteMaitresse_;
         carteMaitresse_ = true;
         for (byte joueur_ : _joueursNonConfianceNonJoue) {
@@ -947,7 +947,7 @@ public final class GameTarotProgTrickClassic {
             EqList<HandTarot> suites_;
             suites_ = atoutsCoupe_.eclaterEnCours(
                     repartitionCartesJouees_, couleurDemandee_);
-            Numbers<Byte> joueursNonJoue_ = _info.getJoueursNonJoue();
+            Bytes joueursNonJoue_ = _info.getJoueursNonJoue();
 
             EqList<HandTarot> cartesRelMaitres_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(
                     suites_, cartesPossibles_, joueursNonJoue_,
@@ -1067,7 +1067,7 @@ public final class GameTarotProgTrickClassic {
             return atoutLePlusPetit(suites_, contientExcuse_);
         }
         boolean carteMaitresse_ = true;
-        Numbers<Byte> joueursNonConfiance_ = teamsRelation.joueursNonConfiance(_info.getCurrentPlayer(),GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_));
+        Bytes joueursNonConfiance_ = teamsRelation.joueursNonConfiance(_info.getCurrentPlayer(),GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_));
         for (byte joueur_ : joueursNonConfiance_) {
             if (!cartesPossibles_.getVal(Suit.TRUMP).get(joueur_).estVide()) {
                 carteMaitresse_ = false;
@@ -1166,10 +1166,10 @@ public final class GameTarotProgTrickClassic {
     CardTarot playIfPartnersWin(TarotInfoPliEnCours _info) {
         HandTarot cartesJouables_ = _info.getCartesJouables();
         CustList<TrickTarot> plisFaits_ = _info.getPlisFaits();
-        Numbers<Byte> equipeNumero_ = new Numbers<Byte>();
+        Bytes equipeNumero_ = new Bytes();
         equipeNumero_.addAllElts(confidentPlayers);
         equipeNumero_.add(_info.getCurrentPlayer());
-        if (equipeNumero_.containsAllObj(GameTarotCommonPlaying.ramasseurs(plisFaits_))) {
+        if (GameTarotTeamsRelation.contientJoueurs(equipeNumero_,GameTarotCommonPlaying.ramasseurs(plisFaits_))) {
             HandTarot noExc_ = new HandTarot();
             noExc_.ajouterCartes(cartesJouables_);
             noExc_.removeCardIfPresent(CardTarot.EXCUSE);
@@ -1230,10 +1230,10 @@ public final class GameTarotProgTrickClassic {
         if (hasExcPlusCard(_currentHand) && GameTarotTrickHypothesis.equipeQuiVaFairePli(_info) == PossibleTrickWinner.TEAM) {
             HandTarot cartesJouables_ = _info.getCartesJouables();
             CustList<TrickTarot> plisFaits_ = _info.getPlisFaits();
-            Numbers<Byte> equipeNumero_ = new Numbers<Byte>();
+            Bytes equipeNumero_ = new Bytes();
             equipeNumero_.addAllElts(confidentPlayers);
             equipeNumero_.add(_info.getCurrentPlayer());
-            if (equipeNumero_.containsAllObj(GameTarotCommonPlaying.ramasseurs(plisFaits_))) {
+            if (GameTarotTeamsRelation.contientJoueurs(equipeNumero_,GameTarotCommonPlaying.ramasseurs(plisFaits_))) {
                 HandTarot noExc_ = new HandTarot();
                 noExc_.ajouterCartes(cartesJouables_);
                 noExc_.removeCardIfPresent(CardTarot.EXCUSE);
@@ -1258,7 +1258,7 @@ public final class GameTarotProgTrickClassic {
      temporairement du pli)
      */
     static boolean joueurConfianceRamasseurProbaPli(
-            Numbers<Byte> _joueursNonConfianceNonJoue, Suit _couleurDemandee,
+            Bytes _joueursNonConfianceNonJoue, Suit _couleurDemandee,
             EnumMap<Suit,EqList<HandTarot>> _cartesPossibles, CardTarot _carteForte) {
         boolean bat_ = true;
         for (byte joueur_ : _joueursNonConfianceNonJoue) {
@@ -1278,7 +1278,7 @@ public final class GameTarotProgTrickClassic {
     static boolean aucunePriseMainPossibleParFigure(
             EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,
             Suit _couleurDemandee,
-            Numbers<Byte> _joueursNonConfianceNonJoue) {
+            Bytes _joueursNonConfianceNonJoue) {
         boolean carteMaitresse_ = true;
         for (byte joueur_ : _joueursNonConfianceNonJoue) {
             if (!GameTarotTrickHypothesis.defausse(_cartesPossibles, joueur_,
@@ -1296,7 +1296,7 @@ public final class GameTarotProgTrickClassic {
             EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,
             Suit _couleurDemandee,
             CardTarot _carteForte,
-            Numbers<Byte> _joueursNonConfianceNonJoue) {
+            Bytes _joueursNonConfianceNonJoue) {
         byte max_ = 0;
         for (byte joueur_ : _joueursNonConfianceNonJoue) {
             if (_cartesPossibles.getVal(_couleurDemandee)
@@ -1318,7 +1318,7 @@ public final class GameTarotProgTrickClassic {
             EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,
             Suit _couleurDemandee,
             HandTarot _cartesChien,
-            Numbers<Byte> _joueursNonConfianceNonJoue,
+            Bytes _joueursNonConfianceNonJoue,
             boolean _figure) {
         if(!_figure) {
             return false;
@@ -1347,7 +1347,7 @@ public final class GameTarotProgTrickClassic {
             EqList<HandTarot> _suites,
             EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,
             Suit _couleurDemandee,
-            Numbers<Byte> _joueurs) {
+            Bytes _joueurs) {
         if(!_suites.first().premiereCarte().isCharacter()) {
             return false;
         }
@@ -1369,7 +1369,7 @@ public final class GameTarotProgTrickClassic {
     static boolean peutRamasserDemandeAtoutNonMaitre(
             EnumMap<Suit, EqList<HandTarot>> _cartesPossibles,
             EnumMap<Suit, EqList<HandTarot>> _cartesCertaines, byte _numero,
-            Numbers<Byte> _joueursNonJoue, Numbers<Byte> _joueursJoue) {
+            Bytes _joueursNonJoue, Bytes _joueursJoue) {
         boolean existe_ = false;
         EqList<HandTarot> atoutsCertains_ = _cartesCertaines.getVal(Suit.TRUMP);
         byte maxAtoutNumero_ = atoutsCertains_.get(_numero)
@@ -1412,7 +1412,7 @@ public final class GameTarotProgTrickClassic {
     static CardTarot sauveQuiPeutFigure(
             EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,
             EqList<HandTarot> _suites, EqList<HandTarot> _cartesRelMaitres,
-            Numbers<Byte> _joueursDeNonConfianceNonJoue,
+            Bytes _joueursDeNonConfianceNonJoue,
             Suit _couleurDemandee) {
         boolean pasFigure_ = true;
         for (byte joueur_ : _joueursDeNonConfianceNonJoue) {

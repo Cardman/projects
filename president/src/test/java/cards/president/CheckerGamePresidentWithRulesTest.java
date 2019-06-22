@@ -9,7 +9,7 @@ import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import cards.president.enumerations.Playing;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 
 
 public class CheckerGamePresidentWithRulesTest {
@@ -17,7 +17,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check1Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -47,7 +47,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check2Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -82,7 +82,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check3Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -119,7 +119,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check4Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -157,7 +157,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check5Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -198,7 +198,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check6Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -244,7 +244,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check7Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -294,7 +294,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check8Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -350,7 +350,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check9Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -464,7 +464,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check10Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -580,7 +580,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check11Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -702,7 +702,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check12Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -848,7 +848,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check13Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1022,7 +1022,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check14Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1200,7 +1200,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check15Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1357,7 +1357,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check16Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1511,7 +1511,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check17Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1717,7 +1717,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check18Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -1897,7 +1897,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check19Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2051,7 +2051,7 @@ public class CheckerGamePresidentWithRulesTest {
         g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(new Bytes(DealPresident.NUMERO_UTILISATEUR));
         //
         transientFields(g_);
         //
@@ -2077,7 +2077,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check20Test() {
         RulesPresident r_ = new RulesPresident(3);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal4();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2105,7 +2105,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check21Test() {
         RulesPresident r_ = new RulesPresident(3);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         rk_.add((byte) 1);
         rk_.add((byte) 2);
         rk_.add((byte) 3);
@@ -2114,7 +2114,7 @@ public class CheckerGamePresidentWithRulesTest {
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(new Bytes(DealPresident.NUMERO_UTILISATEUR));
         //
         transientFields(g_);
         //
@@ -2138,7 +2138,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check22Test() {
         RulesPresident r_ = new RulesPresident(3);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         rk_.add((byte) 2);
         rk_.add((byte) 1);
         rk_.add((byte) 3);
@@ -2171,7 +2171,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check23Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         rk_.add((byte) 1);
         rk_.add((byte) 2);
         rk_.add((byte) 3);
@@ -2181,7 +2181,7 @@ public class CheckerGamePresidentWithRulesTest {
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(new Bytes(DealPresident.NUMERO_UTILISATEUR));
         //
         transientFields(g_);
         //
@@ -2208,7 +2208,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check24Test() {
         RulesPresident r_ = new RulesPresident(3);
         r_.setLooserStartsFirst(true);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         rk_.add((byte) 2);
         rk_.add((byte) 1);
         rk_.add((byte) 3);
@@ -2246,7 +2246,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check25Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         rk_.add((byte) 1);
         rk_.add((byte) 4);
         rk_.add((byte) 3);
@@ -2256,7 +2256,7 @@ public class CheckerGamePresidentWithRulesTest {
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(new Bytes(DealPresident.NUMERO_UTILISATEUR));
         //
         transientFields(g_);
         //
@@ -2282,7 +2282,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check26Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         rk_.add((byte) 1);
         rk_.add((byte) 4);
         rk_.add((byte) 3);
@@ -2318,7 +2318,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check27Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         rk_.add((byte) 3);
         rk_.add((byte) 2);
         rk_.add((byte) 1);
@@ -2355,7 +2355,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check28Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setLoosingIfFinishByBestCards(true);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2562,7 +2562,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check29Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setLoosingIfFinishByBestCards(false);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2769,7 +2769,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check30Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setLoosingIfFinishByBestCards(true);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -2978,7 +2978,7 @@ public class CheckerGamePresidentWithRulesTest {
         r_.setPossibleReversing(true);
         r_.setLoosingIfFinishByBestCards(true);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal3();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -3213,7 +3213,7 @@ public class CheckerGamePresidentWithRulesTest {
         r_.setPossibleReversing(true);
         r_.setLoosingIfFinishByBestCards(true);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal3();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -3430,7 +3430,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check33Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setSwitchCards(false);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -3611,7 +3611,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check34Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setSwitchCards(false);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -3765,7 +3765,7 @@ public class CheckerGamePresidentWithRulesTest {
         g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(new Bytes(DealPresident.NUMERO_UTILISATEUR));
         //
         transientFields(g_);
         //
@@ -3793,7 +3793,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(false);
         r_.setLooserStartsFirst(true);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         rk_.add((byte) 2);
         rk_.add((byte) 1);
         rk_.add((byte) 3);
@@ -3831,7 +3831,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check36Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -3872,7 +3872,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check37Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_ALWAYS_NEXT);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -3910,7 +3910,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check1FailTest() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -3935,7 +3935,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check2FailTest() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -3959,7 +3959,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check3FailTest() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -3984,7 +3984,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check4FailTest() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -4011,7 +4011,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check5FailTest() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setHasToPlay(true);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -4037,7 +4037,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(false);
         r_.setLooserStartsFirst(true);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         rk_.add((byte) 2);
         rk_.add((byte) 1);
         rk_.add((byte) 3);
@@ -4068,7 +4068,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         rk_.add((byte) 2);
         rk_.add((byte) 1);
         rk_.add((byte) 3);
@@ -4099,7 +4099,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         rk_.add((byte) 2);
         rk_.add((byte) 1);
         rk_.add((byte) 3);
@@ -4127,7 +4127,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         rk_.add((byte) 2);
         rk_.add((byte) 1);
         rk_.add((byte) 3);
@@ -4154,7 +4154,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         rk_.add((byte) 2);
         rk_.add((byte) 1);
         rk_.add((byte) 3);
@@ -4182,7 +4182,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         rk_.add((byte) 2);
         rk_.add((byte) 1);
         rk_.add((byte) 3);
@@ -4215,7 +4215,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         rk_.add((byte) 2);
         rk_.add((byte) 1);
         rk_.add((byte) 3);
@@ -4245,7 +4245,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check13FailTest() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = badDeal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -4262,7 +4262,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         rk_.add((byte) 1);
         rk_.add((byte) 2);
         rk_.add((byte) 3);
@@ -4294,7 +4294,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         rk_.add((byte) 1);
         rk_.add((byte) 2);
         rk_.add((byte) 3);
@@ -4326,7 +4326,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         rk_.add((byte) 1);
         rk_.add((byte) 2);
         EqList<HandPresident> hs_ = deal4();
@@ -4346,7 +4346,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         rk_.add((byte) 1);
         rk_.add((byte) 2);
         rk_.add((byte) 2);
@@ -4367,7 +4367,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         rk_.add((byte) 1);
         rk_.add((byte) 2);
         rk_.add((byte) 2);
@@ -4388,7 +4388,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal4();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -4407,7 +4407,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         rk_.add((byte) 1);
         rk_.add((byte) 2);
         rk_.add((byte) 3);
@@ -4416,7 +4416,7 @@ public class CheckerGamePresidentWithRulesTest {
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(new Bytes(DealPresident.NUMERO_UTILISATEUR));
         //
         transientFields(g_);
         //
@@ -4434,7 +4434,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         rk_.add((byte) 1);
         rk_.add((byte) 2);
         rk_.add((byte) 3);
@@ -4443,7 +4443,7 @@ public class CheckerGamePresidentWithRulesTest {
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(new Bytes(DealPresident.NUMERO_UTILISATEUR));
         //
         transientFields(g_);
         //
@@ -4457,7 +4457,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check22FailTest() {
         RulesPresident r_ = new RulesPresident(3);
         r_.setNbStacks(2);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal4();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -4474,7 +4474,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(4);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         rk_.add((byte) 1);
         rk_.add((byte) 2);
         rk_.add((byte) 3);
@@ -4484,7 +4484,7 @@ public class CheckerGamePresidentWithRulesTest {
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(new Bytes(DealPresident.NUMERO_UTILISATEUR));
         //
         transientFields(g_);
         //
@@ -4504,7 +4504,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check24FailTest() {
         RulesPresident r_ = new RulesPresident(3);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = badDeal2();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -4519,7 +4519,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check25FailTest() {
         RulesPresident r_ = new RulesPresident(3);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = badDeal3();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -4534,7 +4534,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check26FailTest() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         rk_.add((byte) 1);
         rk_.add((byte) 4);
         rk_.add((byte) 3);
@@ -4544,7 +4544,7 @@ public class CheckerGamePresidentWithRulesTest {
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(new Bytes(DealPresident.NUMERO_UTILISATEUR));
         //
         HandPresident del_ = new HandPresident();
         del_.ajouter(CardPresident.DIAMOND_8);
@@ -4565,7 +4565,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check27FailTest() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
@@ -4701,7 +4701,7 @@ public class CheckerGamePresidentWithRulesTest {
     @Test
     public void check28FailTest() {
         RulesPresident r_ = new RulesPresident(4);
-        Numbers<Byte> rk_ = new Numbers<Byte>();
+        Bytes rk_ = new Bytes();
         EqList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);

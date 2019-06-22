@@ -1,7 +1,7 @@
 package cards.network.president.displaying;
 import cards.president.HandPresident;
 import cards.president.enumerations.Playing;
-import code.util.NumberMap;
+import code.util.*;
 
 
 public final class DealtHandPresident {
@@ -10,7 +10,7 @@ public final class DealtHandPresident {
 
     private int maxCards;
 
-    private NumberMap<Byte,Playing> status;
+    private ByteMap<Playing> status;
 
     private byte dealer;
 
@@ -30,11 +30,11 @@ public final class DealtHandPresident {
         maxCards = _maxCards;
     }
 
-    public NumberMap<Byte,Playing> getStatus() {
+    public ByteMap<Playing> getStatus() {
         return status;
     }
 
-    public void setStatus(NumberMap<Byte,Playing> _status) {
+    public void setStatus(ByteMap<Playing> _status) {
         status = _status;
     }
 

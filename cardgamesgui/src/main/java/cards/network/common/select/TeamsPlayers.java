@@ -1,17 +1,17 @@
 package cards.network.common.select;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 
 
 public final class TeamsPlayers {
 
-    private CustList<Numbers<Byte>> teams;
+    private CustList<Bytes> teams;
 
-    public CustList<Numbers<Byte>> getTeams() {
+    public CustList<Bytes> getTeams() {
         return teams;
     }
 
-    public void setTeams(CustList<Numbers<Byte>> _teams) {
+    public void setTeams(CustList<Bytes> _teams) {
         teams = _teams;
     }
 }

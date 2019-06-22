@@ -9,7 +9,7 @@ import aiki.fight.moves.enums.TargetChoice;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -36,7 +36,7 @@ public abstract class MoveData {
     private boolean stoppableMoveMulti;
     private boolean stoppableMovePrio;
     private boolean secEffectIfNoDamage;
-    private StringMap<Numbers<Integer>> secEffectsByItem;
+    private StringMap<Ints> secEffectsByItem;
     private boolean ignVarAccurUserNeg;
     private boolean ignVarEvasTargetPos;
     private boolean breakImmuTypeAbility;
@@ -105,8 +105,8 @@ public abstract class MoveData {
                 return;
 
             }
-            StringList keys_ = typesByOwnedItem.getKeys();
-            keys_.removeObj(DataBase.EMPTY_STRING);
+            CustList<String> keys_ = typesByOwnedItem.getKeys();
+            StringList.removeObj(keys_, DataBase.EMPTY_STRING);
             if (!_data.getItems().containsAllAsKeys(keys_)) {
                 _data.setError(true);
                 return;
@@ -119,15 +119,15 @@ public abstract class MoveData {
             }
         }
         if (!secEffectsByItem.isEmpty()) {
-            StringList keys_ = secEffectsByItem.getKeys();
-            keys_.removeObj(DataBase.EMPTY_STRING);
+            CustList<String> keys_ = secEffectsByItem.getKeys();
+            StringList.removeObj(keys_, DataBase.EMPTY_STRING);
             if (!_data.getItems().containsAllAsKeys(keys_)) {
                 _data.setError(true);
                 return;
 
             }
             int index_ = indexOfPrimaryEffect();
-            for (Numbers<Integer> e : secEffectsByItem.values()) {
+            for (Ints e : secEffectsByItem.values()) {
                 if (e.isEmpty()) {
                     _data.setError(true);
                     return;
@@ -146,8 +146,8 @@ public abstract class MoveData {
                 return;
 
             }
-            StringList keys_ = typesByWeather.getKeys();
-            keys_.removeObj(DataBase.EMPTY_STRING);
+            CustList<String> keys_ = typesByWeather.getKeys();
+            StringList.removeObj(keys_, DataBase.EMPTY_STRING);
             if (!_data.getMovesEffectGlobalWeather().containsAllObj(keys_)) {
                 _data.setError(true);
                 return;
@@ -429,12 +429,12 @@ public abstract class MoveData {
         secEffectIfNoDamage = _secEffectIfNoDamage;
     }
 
-    public StringMap<Numbers<Integer>> getSecEffectsByItem() {
+    public StringMap<Ints> getSecEffectsByItem() {
         return secEffectsByItem;
     }
 
     public void setSecEffectsByItem(
-            StringMap<Numbers<Integer>> _secEffectsByItem) {
+            StringMap<Ints> _secEffectsByItem) {
         secEffectsByItem = _secEffectsByItem;
     }
 

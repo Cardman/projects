@@ -1,8 +1,7 @@
 package cards.consts;
 import code.maths.Rate;
-import code.util.CustList;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringMap;
 
 
@@ -13,8 +12,8 @@ public final class ResultsGame {
     /**Ecarts types des parties cumule&eacute;es*/
     private EqList<Rate> sigmas=new EqList<Rate>();
     /**Sommes des scores des joueurs*/
-    private Numbers<Long> sums=new Numbers<Long>();
-    private CustList<Numbers<Long>> scores;
+    private Longs sums=new Longs();
+    private CustList<Longs> scores;
 
     public String getGlobalResultsPageTitle() {
         return globalResultsPageTitle;
@@ -40,16 +39,16 @@ public final class ResultsGame {
         return sigmas;
     }
 
-    public Numbers<Long> getSums() {
+    public Longs getSums() {
         return sums;
     }
 
-    public CustList<Numbers<Long>> getScores() {
+    public CustList<Longs> getScores() {
         return scores;
     }
 
-    public void setScores(CustList<Numbers<Long>> _scores) {
-        scores = new CustList<Numbers<Long>>(_scores);
+    public void setScores(CustList<Longs> _scores) {
+        scores = new CustList<Longs>(_scores);
     }
 
     public void setRenderedPages(StringMap<String> _renderedPages) {
@@ -60,7 +59,7 @@ public final class ResultsGame {
         sigmas = _sigmas;
     }
 
-    public void setSums(Numbers<Long> _sums) {
+    public void setSums(Longs _sums) {
         sums = _sums;
     }
 }

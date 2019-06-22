@@ -9,7 +9,7 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 
 public abstract class NumericOperation extends ReflectableOpering implements SymbolOperation {
     private ClassMethodId classMethodId;
@@ -76,7 +76,7 @@ public abstract class NumericOperation extends ReflectableOpering implements Sym
         CustList<OperationNode> chidren_ = getChildrenNodes();
         ClassArgumentMatching a_ = chidren_.first().getResultClass();
         ResultOperand r_;
-        NatTreeMap<Integer, String> ops_ = getOperations().getOperators();
+        IntTreeMap< String> ops_ = getOperations().getOperators();
         ClassArgumentMatching c_ = chidren_.last().getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
         ClassMethodIdReturn cust_ = getOperator(_conf, ops_.firstValue(), a_, c_);
@@ -123,7 +123,7 @@ public abstract class NumericOperation extends ReflectableOpering implements Sym
         }
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument a_ = chidren_.first().getArgument();
-        NatTreeMap<Integer, String> ops_ = getOperations().getOperators();
+        IntTreeMap< String> ops_ = getOperations().getOperators();
         Argument c_ = chidren_.last().getArgument();
         Argument r_;
         r_ = calculateOperAna(a_, ops_.firstValue(), c_, _conf);
@@ -136,7 +136,7 @@ public abstract class NumericOperation extends ReflectableOpering implements Sym
 
     @Override
     final void calculateChildren() {
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        IntTreeMap< String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
     }
     abstract void setCatenize(ResultOperand _res);

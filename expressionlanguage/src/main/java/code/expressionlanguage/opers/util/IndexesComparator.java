@@ -1,13 +1,14 @@
 package code.expressionlanguage.opers.util;
 
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.Ints;
+import code.util.*;
 import code.util.ints.Comparing;
 
-public final class IndexesComparator implements Comparing<Numbers<Integer>>{
+public final class IndexesComparator implements Comparing<Ints>{
 
     @Override
-    public int compare(Numbers<Integer> _one, Numbers<Integer> _two) {
+    public int compare(Ints _one, Ints _two) {
         int res_ = Numbers.compareLg(_one.size(), _two.size());
         if (res_ != CustList.EQ_CMP) {
             return -res_;

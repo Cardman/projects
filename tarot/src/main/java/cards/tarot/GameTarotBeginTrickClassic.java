@@ -17,11 +17,11 @@ public final class GameTarotBeginTrickClassic {
     private HandTarot currentHand;
     private GameTarotCommonPlaying common;
     private Status currentStatus;
-    private Numbers<Byte> confidentPlayers;
-    private Numbers<Byte> notConfidentPlayers;
-    private Numbers<Byte> notPlayed;
-    private Numbers<Byte> confidentPlayersNotPlay;
-    private Numbers<Byte> notConfidentPlayersNotPlay;
+    private Bytes confidentPlayers;
+    private Bytes notConfidentPlayers;
+    private Bytes notPlayed;
+    private Bytes confidentPlayersNotPlay;
+    private Bytes notConfidentPlayersNotPlay;
     private HandTarot playableCards;
 
     public GameTarotBeginTrickClassic(GameTarotTrickInfo _done, GameTarotTeamsRelation _teamsRelation, HandTarot _calledCards, HandTarot _currentHand) {
@@ -32,7 +32,7 @@ public final class GameTarotBeginTrickClassic {
         common = new GameTarotCommonPlaying(_done,_teamsRelation);
         byte nbPlayers_ = _teamsRelation.getNombreDeJoueurs();
         TrickTarot trTarot_ = _done.getProgressingTrick();
-        Numbers<Byte> played_ = trTarot_.joueursAyantJoue(nbPlayers_);
+        Bytes played_ = trTarot_.joueursAyantJoue(nbPlayers_);
         notPlayed = GameTarotTeamsRelation.autresJoueurs(played_,nbPlayers_);
         byte nextPlayer_ = trTarot_.getNextPlayer(nbPlayers_);
         playableCards = common.cartesJouables(currentHand.couleurs());
@@ -284,7 +284,7 @@ public final class GameTarotBeginTrickClassic {
                     .atoutsMaitres(repartitionCartesJouees_);
             EnumList<Suit> couleurs_ = GameTarotCommon.couleursNonAtoutNonVides(currentHand, Suit.couleursOrdinaires());
             CardTarot carteCouleur_ = repartition_.getVal(couleurs_.first()).premiereCarte();
-            Numbers<Byte> partenaires_ = GameTarotTrickHypothesis.joueursPouvantCouperCouleurs(currentHand, confidentPlayersNotPlay,
+            Bytes partenaires_ = GameTarotTrickHypothesis.joueursPouvantCouperCouleurs(currentHand, confidentPlayersNotPlay,
                     cartesPossibles_, couleurs_);
             partenaires_ = GameTarotTrickHypothesis.joueursPossedantAtoutMaitre(partenaires_, cartesCertaines_,
                     cartesJouees_);
@@ -520,7 +520,7 @@ public final class GameTarotBeginTrickClassic {
         return touteCouleurPossedeCarteMaitresse_;
     }
 
-    static boolean noTrumping(EnumMap<Suit, HandTarot> _repartition, EnumMap<Suit, EqList<HandTarot>> _cartesPossibles, Numbers<Byte> _joueursNonJoue) {
+    static boolean noTrumping(EnumMap<Suit, HandTarot> _repartition, EnumMap<Suit, EqList<HandTarot>> _cartesPossibles, Bytes _joueursNonJoue) {
         boolean aucuneCoupe_ = true;
         for (Suit couleur_ : Suit.couleursOrdinaires()) {
             boolean plusCartesCouleurAutres_ = true;
@@ -660,7 +660,7 @@ public final class GameTarotBeginTrickClassic {
             if(saveLeading_) {
                 return jeuAtoutOffensif(currentHand, cartesJouees_);
             }
-            Numbers<Byte> partenaires_ = new Numbers<Byte>();
+            Bytes partenaires_ = new Bytes();
             partenaires_.add(taker_);
             couleurs_ = GameTarotCommonPlaying.couleursLesPlusEntameesParJoueurs(plisFaits_, partenaires_, couleursNonVides_);
             couleurs_ = GameTarotCommon.couleursLesPlusCourtes(cartesJouees_, couleurs_);
@@ -668,7 +668,7 @@ public final class GameTarotBeginTrickClassic {
             couleurs_ = GameTarotCommon.couleursLesPlusBasses(currentHand, couleurs_);
             return repartition_.getVal(couleurs_.first()).derniereCarte();
         }
-        Numbers<Byte> defenseurs_ = joueursAvantAppeleApresPreneur(next_);
+        Bytes defenseurs_ = joueursAvantAppeleApresPreneur(next_);
         boolean defausseTousDefenseursIntermediaire_ = true;
         EqList<HandTarot> atoutsJoueurs_ = cartesPossibles_.getVal(Suit.TRUMP);
         for(byte joueur_: defenseurs_) {
@@ -684,7 +684,7 @@ public final class GameTarotBeginTrickClassic {
             couleurs_ = GameTarotCommon.couleursLesPlusBasses(currentHand, couleurs_);
             return repartition_.getVal(couleurs_.first()).derniereCarte();
         }
-        Numbers<Byte> partenaires_ = new Numbers<Byte>();
+        Bytes partenaires_ = new Bytes();
         partenaires_.add(taker_);
         couleurs_ = couleursEntameesParJoueurs(plisFaits_, partenaires_, couleursNonVidesAjouer_);
         couleurs_ = GameTarotCommon.couleursSansFigures(currentHand, couleurs_);
@@ -952,7 +952,7 @@ public final class GameTarotBeginTrickClassic {
             }
             return CardTarot.excuse();
         }
-        Numbers<Byte> joueursConfianceNumero_ = new Numbers<Byte>(confidentPlayers);
+        Bytes joueursConfianceNumero_ = new Bytes(confidentPlayers);
         joueursConfianceNumero_.add(next_);
         if(GameTarotTrickInfo.plisTousFaitsPar(joueursConfianceNumero_,plisFaits_,nbPlayers_)) {
             return jeuMainMaitresse(currentHand,cartesJouees_);
@@ -971,7 +971,7 @@ public final class GameTarotBeginTrickClassic {
                 playExc_ = false;
             }
         } else {
-            Numbers<Byte> joueursRamasseurs_ = new Numbers<Byte>();
+            Bytes joueursRamasseurs_ = new Bytes();
             joueursRamasseurs_.add(teamsRelation.getTaker());
             if(GameTarotTrickInfo.plisTousFaitsPar(joueursRamasseurs_, _plisFaits, _nbPlayers)) {
                 playExc_ = false;
@@ -1000,8 +1000,8 @@ public final class GameTarotBeginTrickClassic {
         }
         return GameTarotTeamsRelation.justeApresJoueur(teamsRelation.getTaker(), _joueur, nombreDeJoueurs_);
     }
-    Numbers<Byte> joueursAvantAppeleApresPreneur(byte _appele) {
-        Numbers<Byte> joueurs_ = new Numbers<Byte>();
+    Bytes joueursAvantAppeleApresPreneur(byte _appele) {
+        Bytes joueurs_ = new Bytes();
         byte player_ = common.playerAfter(teamsRelation.getTaker());
         //called player exists
         while (!Numbers.eq(player_, _appele)) {
@@ -1011,7 +1011,7 @@ public final class GameTarotBeginTrickClassic {
         return joueurs_;
     }
     static EnumList<Suit> couleursEntameesParJoueurs(
-            CustList<TrickTarot> _plisFaits, Numbers<Byte> _joueurs, EnumList<Suit> _couleurs) {
+            CustList<TrickTarot> _plisFaits, Bytes _joueurs, EnumList<Suit> _couleurs) {
         EnumList<Suit> couleurs_ = new EnumList<Suit>();
         for (Suit couleur_ : _couleurs) {
             boolean couleurEntamee_ = false;
@@ -1091,7 +1091,7 @@ public final class GameTarotBeginTrickClassic {
         return couleurAppeleePossedee_.premiereCarte();
     }
     static EnumList<Suit> couleursCoupeeParJoueurs(HandTarot _main,
-                                                   Numbers<Byte> _joueurs, EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,
+                                                   Bytes _joueurs, EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,
                                                    EnumMap<Suit,EqList<HandTarot>> _cartesCertaines, EnumList<Suit> _couleurs) {
         EnumList<Suit> couleurs_ = new EnumList<Suit>();
 
@@ -1226,7 +1226,7 @@ public final class GameTarotBeginTrickClassic {
         return couleurs_;
     }
     static EnumList<Suit> couleursNonCoupeeParJoueurs(HandTarot _main,
-                                                      Numbers<Byte> _joueurs, EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,
+                                                      Bytes _joueurs, EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,
                                                       EnumMap<Suit,EqList<HandTarot>> _cartesCertaines, EnumList<Suit> _couleurs) {
         EnumList<Suit> couleursCoupees_ = new EnumList<Suit>();
 
@@ -1249,7 +1249,7 @@ public final class GameTarotBeginTrickClassic {
         return couleurs_;
     }
     static EnumList<Suit> couleursNonOuvertesAttaque(HandTarot _main,
-                                                             CustList<TrickTarot> _plis, Numbers<Byte> _attaquants,
+                                                             CustList<TrickTarot> _plis, Bytes _attaquants,
                                                              EnumList<Suit> _couleurs) {
         EnumList<Suit> couleurs_ = new EnumList<Suit>();
         EnumList<Suit> couleursOuvertes_ = new EnumList<Suit>();
@@ -1313,11 +1313,11 @@ public final class GameTarotBeginTrickClassic {
 
     static boolean plisTousFaitsParPreneurJoueur(byte _preneur,
                                                  CustList<TrickTarot> _unionPlis, byte _nombreJoueurs) {
-        Numbers<Byte> joueurs_ = new Numbers<Byte>();
+        Bytes joueurs_ = new Bytes();
         joueurs_.add(_preneur);
-        Numbers<Byte> autresJoueurs_ = GameTarotTeamsRelation.autresJoueurs(joueurs_, _nombreJoueurs);
+        Bytes autresJoueurs_ = GameTarotTeamsRelation.autresJoueurs(joueurs_, _nombreJoueurs);
         for (byte joueur_ : autresJoueurs_) {
-            Numbers<Byte> joueursLoc_ = new Numbers<Byte>(joueurs_);
+            Bytes joueursLoc_ = new Bytes(joueurs_);
             joueursLoc_.add(joueur_);
             if (GameTarotTrickInfo.plisTousFaitsPar(joueursLoc_, _unionPlis, _nombreJoueurs)) {
                 return true;

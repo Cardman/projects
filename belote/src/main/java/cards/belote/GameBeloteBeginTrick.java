@@ -8,7 +8,7 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 
 public final class GameBeloteBeginTrick {
     private GameBeloteTeamsRelation teamsRelation;
@@ -59,8 +59,8 @@ public final class GameBeloteBeginTrick {
         boolean strictMaitreAtout_;
         EnumList<Suit> couleursMaitres_=info_.getCouleursMaitresses();
         EnumMap<Suit,HandBelote> cartesMaitresses_=info_.getCartesMaitresses();
-        Numbers<Byte> partenaire_=info_.getJoueursConfiance();
-        Numbers<Byte> adversaire_ =info_.getJoueursNonConfiance();
+        Bytes partenaire_=info_.getJoueursConfiance();
+        Bytes adversaire_ =info_.getJoueursNonConfiance();
         boolean maitreJeu_;
 
         strictMaitreAtout_=info_.isMaitreAtout();
@@ -119,7 +119,7 @@ public final class GameBeloteBeginTrick {
                 return GameBeloteCommon.hand(repartition_,couleurAtout_).premiereCarte();
             }
             if(GameBeloteCommon.hand(repartition_,couleurAtout_).total()==GameBeloteCommon.hand(cartesMaitresses_,couleurAtout_).total()) {
-                Numbers<Byte> joueursPouvantCouper_ = GameBeloteCommonPlaying.joueursPouvantCouperCouleurs(currentHand, adversaire_, bid, cartesPossibles_, couleursNonAtoutNonVides_);
+                Bytes joueursPouvantCouper_ = GameBeloteCommonPlaying.joueursPouvantCouperCouleurs(currentHand, adversaire_, bid, cartesPossibles_, couleursNonAtoutNonVides_);
                 if(GameBeloteTeamsRelation.egaliteJoueurs(joueursPouvantCouper_,adversaire_)) {
                     return GameBeloteCommon.hand(repartition_,couleurAtout_).premiereCarte();
                 }
@@ -297,7 +297,7 @@ public final class GameBeloteBeginTrick {
         EnumMap<Suit,EqList<HandBelote>> cartesCertaines_=info_.getCartesCertaines();
         EnumList<Suit> couleursMaitres_=info_.getCouleursMaitresses();
         EnumMap<Suit,HandBelote> cartesMaitresses_=info_.getCartesMaitresses();
-        Numbers<Byte> adversaire_ =info_.getJoueursNonConfiance();
+        Bytes adversaire_ =info_.getJoueursNonConfiance();
         boolean maitreJeu_;
         /*Jeu sans atout ou tout atout*/
         maitreJeu_=info_.isMaitreJeu();

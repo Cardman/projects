@@ -11,7 +11,7 @@ import code.util.BooleanList;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 /**
  */
 
@@ -50,7 +50,7 @@ public final class GameBelote {
     private byte trickWinner;
     /**Scores cumules au cours des parties
     Chaque nombre (Short) represente un score pour le joueur*/
-    private Numbers<Short> scores=new Numbers<Short>();
+    private Shorts scores=new Shorts();
     private boolean simulationWithBids;
     /**Nombre de fois qu'a ete joue la partie (partie fini)*/
     private long number;
@@ -141,8 +141,8 @@ public final class GameBelote {
     public void setNombre() {
         number++;
     }
-    public Numbers<Short> getScores() {
-        return new Numbers<Short>(scores);
+    public Shorts getScores() {
+        return new Shorts(scores);
     }
 
     public GameType getType() {
@@ -187,7 +187,7 @@ public final class GameBelote {
         endBidsFirstRound=false;
         bid=new BidBeloteSuit();
         progressingTrick=new TrickBelote((byte) -1);
-        Numbers<Short> scores_=getScores();
+        Shorts scores_=getScores();
         byte nombreJoueurs_=getNombreDeJoueurs();
         for (int joueur_ = CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
             /*Initialise les annonces*/
@@ -201,7 +201,7 @@ public final class GameBelote {
     public void simuler() {
         simulationWithBids = false;
         BidBeloteSuit contratTmp_;
-        Numbers<Byte> players_ = orderedPlayers(playerAfter(getDistribution().getDonneur()));
+        Bytes players_ = orderedPlayers(playerAfter(getDistribution().getDonneur()));
         if (rules.dealAll()) {
             byte joueur_ = playerAfter(getDistribution().getDonneur());
             while (true) {
@@ -596,7 +596,7 @@ public final class GameBelote {
     }
 
     public GameBeloteTrickInfo getDoneTrickInfo() {
-        Numbers<Integer> handLengths_ = new Numbers<Integer>();
+        Ints handLengths_ = new Ints();
         for (HandBelote h: deal) {
             handLengths_.add(h.total());
         }
@@ -685,7 +685,7 @@ public final class GameBelote {
         }
     }
 
-    Numbers<Byte> orderedPlayers(byte _leader) {
+    Bytes orderedPlayers(byte _leader) {
         return rules.getRepartition().getSortedPlayers(_leader);
     }
 
@@ -706,11 +706,11 @@ public final class GameBelote {
     }
 
 
-    public boolean isSameTeam(Numbers<Byte> _players) {
+    public boolean isSameTeam(Bytes _players) {
         GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation(taker,rules);
         return g_.isSameTeam(_players);
     }
-    public CustList<Numbers<Byte>> playersBelongingToSameTeam() {
+    public CustList<Bytes> playersBelongingToSameTeam() {
         GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation(taker,rules);
         return g_.playersBelongingToSameTeam();
     }
@@ -804,7 +804,7 @@ public final class GameBelote {
         type = _type;
     }
 
-    public void setScores(Numbers<Short> _scores) {
+    public void setScores(Shorts _scores) {
         scores = _scores;
     }
 

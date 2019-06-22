@@ -6,7 +6,7 @@ import cards.tarot.enumerations.CardTarot;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.Numbers;
+import code.util.*;
 import org.junit.Test;
 
 import static cards.tarot.EquallableTarotUtil.assertEq;
@@ -1891,7 +1891,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         t_.ajouter(CardTarot.HEART_5);
         t_.ajouter(CardTarot.HEART_6);
         trs_.add(t_);
-        Numbers<Byte> all_ = GameTarotTeamsRelation.tousJoueurs((byte) 5);
+        Bytes all_ = GameTarotTeamsRelation.tousJoueurs((byte) 5);
         all_.removeObj(0);
         all_.removeObj(2);
         EnumList<Suit> suits_ = GameTarotBeginTrickClassic.couleursEntameesParJoueurs(trs_, all_, Suit.couleursOrdinaires());
@@ -2377,7 +2377,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(curHand_,r_, trs_, pr_, 0, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        Numbers<Byte> att_ = new Numbers<Byte>();
+        Bytes att_ = new Bytes();
         att_.add(team_.getTaker());
         att_.addAllElts(team_.getCalledPlayers());
         EnumList<Suit> suits_ = GameTarotBeginTrickClassic.couleursNonOuvertesAttaque(curHand_, trs_, att_, Suit.couleursOrdinaires());
@@ -2448,7 +2448,7 @@ public final class GameTarotBeginTrickClassicUtilTest extends CommonGameTarot {
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(curHand_,r_, trs_, pr_, 0, bids_, calledCards_, 1, last_);
         GameTarotTeamsRelation team_ = g_.getTeamsRelation();
-        Numbers<Byte> att_ = new Numbers<Byte>();
+        Bytes att_ = new Bytes();
         att_.add(team_.getTaker());
         att_.addAllElts(team_.getCalledPlayers());
         EnumList<Suit> suits_ = GameTarotBeginTrickClassic.couleursOuvertes(curHand_, trs_, Suit.couleursOrdinaires());

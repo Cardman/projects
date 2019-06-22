@@ -24,12 +24,12 @@ public final class GameBeloteCommonPlaying {
         TrickBelote prog_ = doneTrickInfo.getProgressingTrick();
         byte nextPlayer_ = prog_.getNextPlayer(nbPlayers_);
         EnumMap<Suit,HandBelote> repartition_ = _cartes.couleurs(doneTrickInfo.getBid());
-        Numbers<Byte> joueursNonJoue_ = joueursNAyantPasJoue(nextPlayer_);
+        Bytes joueursNonJoue_ = joueursNAyantPasJoue(nextPlayer_);
         CustList<TrickBelote> plisFaits_ = unionPlis();
         HandBelote cartesJouees_ = doneTrickInfo.cartesJouees();
         cartesJouees_.ajouterCartes(prog_.getCartes());
         EnumMap<Suit,HandBelote> repartitionCartesJouees_ = cartesJouees_.couleurs(doneTrickInfo.getBid());
-        Numbers<Byte> joueursJoue_ = new Numbers<Byte>();
+        Bytes joueursJoue_ = new Bytes();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nbPlayers_; joueur_++) {
             if (!joueursNonJoue_.containsObj(joueur_) && joueur_ != nextPlayer_) {
                 joueursJoue_.add(joueur_);
@@ -516,10 +516,10 @@ public final class GameBeloteCommonPlaying {
         }
         return cartes_;
     }
-    static Numbers<Byte> joueursPouvantCouperCouleurs(HandBelote _main,
-                                                              Numbers<Byte> _joueurs, BidBeloteSuit _contrat,
+    static Bytes joueursPouvantCouperCouleurs(HandBelote _main,
+                                                              Bytes _joueurs, BidBeloteSuit _contrat,
                                                               EnumMap<Suit,EqList<HandBelote>> _cartesPossibles, EnumList<Suit> _couleurs) {
-        Numbers<Byte> joueurs_ = new Numbers<Byte>();
+        Bytes joueurs_ = new Bytes();
         for (byte joueur_ : _joueurs) {
             if(joueurs_.containsObj(joueur_)) {
                 continue;
@@ -537,12 +537,12 @@ public final class GameBeloteCommonPlaying {
         return joueurs_;
     }
 
-    static Numbers<Byte> joueursSusceptiblesCoupe(
+    static Bytes joueursSusceptiblesCoupe(
             EnumMap<Suit,EqList<HandBelote>> _cartesPossibles,
             Suit _couleurDemandee,
             Suit _couleurAtout,
-            Numbers<Byte> _joueurs) {
-        Numbers<Byte> joueursSusceptiblesDeCouper_ = new Numbers<Byte>();
+            Bytes _joueurs) {
+        Bytes joueursSusceptiblesDeCouper_ = new Bytes();
         for (byte joueur_ : _joueurs) {
             if (peutCouper(_couleurDemandee, joueur_, _cartesPossibles, _couleurAtout)) {
                 joueursSusceptiblesDeCouper_
@@ -636,7 +636,7 @@ public final class GameBeloteCommonPlaying {
     }
 
     static EnumList<Suit> couleursPouvantEtreCoupees(
-            Numbers<Byte> _joueurs,
+            Bytes _joueurs,
             EnumMap<Suit,EqList<HandBelote>> _cartesPossibles,
             Suit _couleurAtout, EnumList<Suit> _couleurs) {
         EnumList<Suit> couleurs_ = new EnumList<Suit>();
@@ -650,7 +650,7 @@ public final class GameBeloteCommonPlaying {
     }
 
     static EnumList<Suit> couleursDefausseeParJoueurs(
-            Numbers<Byte> _joueurs, BidBeloteSuit _contrat, EnumMap<Suit,EqList<HandBelote>> _cartesPossibles,
+            Bytes _joueurs, BidBeloteSuit _contrat, EnumMap<Suit,EqList<HandBelote>> _cartesPossibles,
             EnumList<Suit> _couleurs) {
         EnumList<Suit> couleursDefausses_ = new EnumList<Suit>();
 
@@ -668,7 +668,7 @@ public final class GameBeloteCommonPlaying {
         return couleursDefausses_;
     }
     static EnumList<Suit> couleursNonCoupeeParJoueurs(HandBelote _main,
-                                                              Numbers<Byte> _joueurs, BidBeloteSuit _contrat, EnumMap<Suit,EqList<HandBelote>> _cartesPossibles,
+                                                              Bytes _joueurs, BidBeloteSuit _contrat, EnumMap<Suit,EqList<HandBelote>> _cartesPossibles,
                                                               EnumMap<Suit,EqList<HandBelote>> _cartesCertaines, EnumList<Suit> _couleurs) {
         EnumList<Suit> couleursCoupees_ = new EnumList<Suit>();
 
@@ -708,8 +708,8 @@ public final class GameBeloteCommonPlaying {
     static boolean egaliteCouleurs(EnumList<Suit> _couleurs1, EnumList<Suit> _couleurs2) {
         return _couleurs1.containsAllObj(_couleurs2) && _couleurs2.containsAllObj(_couleurs1);
     }
-    Numbers<Byte> joueursNAyantPasJoue(byte _numero) {
-        Numbers<Byte> joueursNAyantPasJoue_ = new Numbers<Byte>();
+    Bytes joueursNAyantPasJoue(byte _numero) {
+        Bytes joueursNAyantPasJoue_ = new Bytes();
         byte nombreJoueurs_ = teamsRelation.getNombreDeJoueurs();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
             if (joueur_ != _numero && !doneTrickInfo.getProgressingTrick().aJoue(joueur_, nombreJoueurs_)) {

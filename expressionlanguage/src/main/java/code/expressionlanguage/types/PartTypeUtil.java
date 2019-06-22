@@ -6,8 +6,8 @@ import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.options.Options;
 import code.util.CustList;
-import code.util.NatTreeMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.Ints;
 import code.util.StringList;
 
 public final class PartTypeUtil {
@@ -15,14 +15,14 @@ public final class PartTypeUtil {
     private PartTypeUtil() {}
     public static StringList processAnalyzeDepends(String _input, int _index, Analyzable _an, RootBlock _rooted, boolean _exact) {
         Options options_ = _an.getOptions();
-        Numbers<Integer> indexes_ = ParserType.getIndexes(_input, _an);
+        Ints indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {
             _an.getCurrentBadIndexes().add(0);
             return new StringList();
         }
         AnalyzingType loc_ = ParserType.analyzeLocal(0, _input, indexes_, options_);
-        CustList<NatTreeMap<Integer, String>> dels_;
-        dels_ = new CustList<NatTreeMap<Integer, String>>();
+        CustList<IntTreeMap< String>> dels_;
+        dels_ = new CustList<IntTreeMap< String>>();
         boolean rem_ = loc_.isRemovedEmptyFirstChild();
         PartType root_ = PartType.createPartType(_an,null, 0, 0, loc_, loc_.getValues(), rem_, options_);
         addValues(root_, dels_, loc_);
@@ -70,14 +70,14 @@ public final class PartTypeUtil {
     }
     public static String processAnalyzeInherits(String _input, int _index, String _globalType, Analyzable _an, RootBlock _rooted, boolean _protectedInc) {
         Options options_ = _an.getOptions();
-        Numbers<Integer> indexes_ = ParserType.getIndexes(_input, _an);
+        Ints indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {
             _an.getCurrentBadIndexes().add(0);
             return "";
         }
         AnalyzingType loc_ = ParserType.analyzeLocal(0, _input, indexes_, options_);
-        CustList<NatTreeMap<Integer, String>> dels_;
-        dels_ = new CustList<NatTreeMap<Integer, String>>();
+        CustList<IntTreeMap< String>> dels_;
+        dels_ = new CustList<IntTreeMap< String>>();
         boolean rem_ = loc_.isRemovedEmptyFirstChild();
         PartType root_ = PartType.createPartType(_an,null, 0, 0, loc_, loc_.getValues(), rem_, options_);
         addValues(root_, dels_, loc_);
@@ -123,14 +123,14 @@ public final class PartTypeUtil {
 
     public static String processAnalyze(String _input, String _globalType, Analyzable _an, AccessingImportingBlock _rooted) {
         Options options_ = _an.getOptions();
-        Numbers<Integer> indexes_ = ParserType.getIndexes(_input, _an);
+        Ints indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {
             _an.getCurrentBadIndexes().add(0);
             return "";
         }
         AnalyzingType loc_ = ParserType.analyzeLocal(0, _input, indexes_, options_);
-        CustList<NatTreeMap<Integer, String>> dels_;
-        dels_ = new CustList<NatTreeMap<Integer, String>>();
+        CustList<IntTreeMap< String>> dels_;
+        dels_ = new CustList<IntTreeMap< String>>();
         boolean rem_ = loc_.isRemovedEmptyFirstChild();
         PartType root_ = PartType.createPartType(_an,null, 0, 0, loc_, loc_.getValues(), rem_, options_);
         addValues(root_, dels_, loc_);
@@ -176,14 +176,14 @@ public final class PartTypeUtil {
 
     public static String processAnalyzeLine(String _input, String _globalType, Analyzable _an, AccessingImportingBlock _rooted) {
         Options options_ = _an.getOptions();
-        Numbers<Integer> indexes_ = ParserType.getIndexes(_input, _an);
+        Ints indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {
             _an.getCurrentBadIndexes().add(0);
             return "";
         }
         AnalyzingType loc_ = ParserType.analyzeLocal(0, _input, indexes_, options_);
-        CustList<NatTreeMap<Integer, String>> dels_;
-        dels_ = new CustList<NatTreeMap<Integer, String>>();
+        CustList<IntTreeMap< String>> dels_;
+        dels_ = new CustList<IntTreeMap< String>>();
         boolean rem_ = loc_.isRemovedEmptyFirstChild();
         PartType root_ = PartType.createPartType(_an,null, 0, 0, loc_, loc_.getValues(), rem_, options_);
         addValues(root_, dels_, loc_);
@@ -228,14 +228,14 @@ public final class PartTypeUtil {
     }
     public static String processAnalyzeAccessibleId(String _input, Analyzable _an, AccessingImportingBlock _rooted) {
         Options options_ = _an.getOptions();
-        Numbers<Integer> indexes_ = ParserType.getIndexes(_input, _an);
+        Ints indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {
             _an.getCurrentBadIndexes().add(0);
             return "";
         }
         AnalyzingType loc_ = ParserType.analyzeLocal(0, _input, indexes_, options_);
-        CustList<NatTreeMap<Integer, String>> dels_;
-        dels_ = new CustList<NatTreeMap<Integer, String>>();
+        CustList<IntTreeMap< String>> dels_;
+        dels_ = new CustList<IntTreeMap< String>>();
         boolean rem_ = loc_.isRemovedEmptyFirstChild();
         PartType root_ = PartType.createPartType(_an, null, 0, 0, loc_, loc_.getValues(), rem_, options_);
         addValues(root_, dels_, loc_);
@@ -280,10 +280,10 @@ public final class PartTypeUtil {
     }
     public static String processPrettyType(String _input) {
         StringBuilder out_ = new StringBuilder();
-        Numbers<Integer> indexes_ = ParserType.getIndexesExec(_input);
+        Ints indexes_ = ParserType.getIndexesExec(_input);
         AnalyzingType loc_ = ParserType.analyzeLocalExec(0, _input, indexes_);
-        CustList<NatTreeMap<Integer, String>> dels_;
-        dels_ = new CustList<NatTreeMap<Integer, String>>();
+        CustList<IntTreeMap< String>> dels_;
+        dels_ = new CustList<IntTreeMap< String>>();
         boolean rem_ = loc_.isRemovedEmptyFirstChild();
         PartType root_ = PartType.createPartTypeExec(null, 0, 0, loc_, loc_.getValues(), rem_);
         addValues(root_, dels_, loc_);
@@ -331,13 +331,13 @@ public final class PartTypeUtil {
     }
     public static String processExec(String _input,ExecutableCode _an) {
         StringBuilder out_ = new StringBuilder();
-        Numbers<Integer> indexes_ = ParserType.getIndexesExec(_input);
+        Ints indexes_ = ParserType.getIndexesExec(_input);
         if (indexes_ == null) {
             return "";
         }
         AnalyzingType loc_ = ParserType.analyzeLocalExec(0, _input, indexes_);
-        CustList<NatTreeMap<Integer, String>> dels_;
-        dels_ = new CustList<NatTreeMap<Integer, String>>();
+        CustList<IntTreeMap< String>> dels_;
+        dels_ = new CustList<IntTreeMap< String>>();
         boolean rem_ = loc_.isRemovedEmptyFirstChild();
         PartType root_ = PartType.createPartTypeExec(null, 0, 0, loc_, loc_.getValues(), rem_);
         addValues(root_, dels_, loc_);
@@ -395,7 +395,7 @@ public final class PartTypeUtil {
         }
         return out_.toString();
     }
-    static PartType createFirstChild(Analyzable _an, PartType _parent, AnalyzingType _analyze, CustList<NatTreeMap<Integer, String>> _dels, Options _options) {
+    static PartType createFirstChild(Analyzable _an, PartType _parent, AnalyzingType _analyze, CustList<IntTreeMap< String>> _dels, Options _options) {
         if (!(_parent instanceof ParentPartType)) {
             return null;
         }
@@ -404,13 +404,13 @@ public final class PartTypeUtil {
         int off_ = 0;
         PartType g_ = par_;
         for (int i = _dels.size()-1; i >= 0; i--) {
-            NatTreeMap<Integer, String> befLast_;
+            IntTreeMap< String> befLast_;
             befLast_ = _dels.get(i);
             off_ += befLast_.getKey(indexPar_);
             indexPar_ = g_.getIndex();
             g_ = g_.getParent();
         }
-        NatTreeMap<Integer, String> last_ = _dels.last();
+        IntTreeMap< String> last_ = _dels.last();
         String v_ = last_.firstValue();
         AnalyzingType an_ = ParserType.analyzeLocal(off_, v_, _analyze.getIndexes(), _options);
         boolean rem_ = an_.isRemovedEmptyFirstChild();
@@ -418,7 +418,7 @@ public final class PartTypeUtil {
         addValues(p_, _dels, an_);
         return p_;
     }
-    static PartType createFirstChildExec(PartType _parent, AnalyzingType _analyze, CustList<NatTreeMap<Integer, String>> _dels) {
+    static PartType createFirstChildExec(PartType _parent, AnalyzingType _analyze, CustList<IntTreeMap< String>> _dels) {
         if (!(_parent instanceof ParentPartType)) {
             return null;
         }
@@ -427,13 +427,13 @@ public final class PartTypeUtil {
         int off_ = 0;
         PartType g_ = par_;
         for (int i = _dels.size()-1; i >= 0; i--) {
-            NatTreeMap<Integer, String> befLast_;
+            IntTreeMap< String> befLast_;
             befLast_ = _dels.get(i);
             off_ += befLast_.getKey(indexPar_);
             indexPar_ = g_.getIndex();
             g_ = g_.getParent();
         }
-        NatTreeMap<Integer, String> last_ = _dels.last();
+        IntTreeMap< String> last_ = _dels.last();
         String v_ = last_.firstValue();
         AnalyzingType an_ = ParserType.analyzeLocalExec(off_, v_, _analyze.getIndexes());
         boolean rem_ = an_.isRemovedEmptyFirstChild();
@@ -441,7 +441,7 @@ public final class PartTypeUtil {
         addValues(p_, _dels, an_);
         return p_;
     }
-    static PartType createNextSibling(Analyzable _an, PartType _parent, AnalyzingType _analyze, CustList<NatTreeMap<Integer, String>> _dels, Options _options) {
+    static PartType createNextSibling(Analyzable _an, PartType _parent, AnalyzingType _analyze, CustList<IntTreeMap< String>> _dels, Options _options) {
         ParentPartType par_ = _parent.getParent();
         if (!(par_ instanceof BinaryType)) {
             return null;
@@ -449,7 +449,7 @@ public final class PartTypeUtil {
         BinaryType b_ = (BinaryType) par_;
         int indexCur_ = _parent.getIndex();
         int indexNext_ = indexCur_ + 1;
-        NatTreeMap<Integer, String> last_ = _dels.last();
+        IntTreeMap< String> last_ = _dels.last();
         if (last_.size() <= indexNext_) {
             return null;
         }
@@ -457,7 +457,7 @@ public final class PartTypeUtil {
         int off_ = 0;
         PartType g_ = par_;
         for (int i = _dels.size()-1; i >= 0; i--) {
-            NatTreeMap<Integer, String> befLast_;
+            IntTreeMap< String> befLast_;
             befLast_ = _dels.get(i);
             off_ += befLast_.getKey(indexPar_);
             indexPar_ = g_.getIndex();
@@ -471,7 +471,7 @@ public final class PartTypeUtil {
         addValues(p_, _dels, an_);
         return p_;
     }
-    static PartType createNextSiblingExec(PartType _parent, AnalyzingType _analyze, CustList<NatTreeMap<Integer, String>> _dels) {
+    static PartType createNextSiblingExec(PartType _parent, AnalyzingType _analyze, CustList<IntTreeMap< String>> _dels) {
         ParentPartType par_ = _parent.getParent();
         if (!(par_ instanceof BinaryType)) {
             return null;
@@ -479,7 +479,7 @@ public final class PartTypeUtil {
         BinaryType b_ = (BinaryType) par_;
         int indexCur_ = _parent.getIndex();
         int indexNext_ = indexCur_ + 1;
-        NatTreeMap<Integer, String> last_ = _dels.last();
+        IntTreeMap< String> last_ = _dels.last();
         if (last_.size() <= indexNext_) {
             return null;
         }
@@ -487,7 +487,7 @@ public final class PartTypeUtil {
         int off_ = 0;
         PartType g_ = par_;
         for (int i = _dels.size()-1; i >= 0; i--) {
-            NatTreeMap<Integer, String> befLast_;
+            IntTreeMap< String> befLast_;
             befLast_ = _dels.get(i);
             off_ += befLast_.getKey(indexPar_);
             indexPar_ = g_.getIndex();
@@ -501,19 +501,19 @@ public final class PartTypeUtil {
         addValues(p_, _dels, an_);
         return p_;
     }
-    private static void addValues(PartType _p, CustList<NatTreeMap<Integer, String>> _dels, AnalyzingType _an) {
+    private static void addValues(PartType _p, CustList<IntTreeMap< String>> _dels, AnalyzingType _an) {
         if (!(_p instanceof ParentPartType)) {
             return;
         }
         if (_p instanceof TemplatePartType) {
-            NatTreeMap<Integer,String> values_;
-            values_ = new NatTreeMap<Integer, String>();
+            IntTreeMap<String> values_;
+            values_ = new IntTreeMap< String>();
             values_.putAllMap(_an.getValues());
             values_.removeKey(values_.lastKey());
             _dels.add(values_);
         } else if (_p instanceof InnerPartType) {
-            NatTreeMap<Integer,String> values_;
-            values_ = new NatTreeMap<Integer, String>();
+            IntTreeMap<String> values_;
+            values_ = new IntTreeMap< String>();
             values_.putAllMap(_an.getValues());
             if (values_.firstValue().trim().isEmpty()) {
                 values_.removeKey(values_.firstKey());

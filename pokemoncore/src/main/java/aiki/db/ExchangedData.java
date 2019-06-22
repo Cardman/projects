@@ -3,7 +3,7 @@ import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -27,8 +27,8 @@ public final class ExchangedData {
         setItems(new StringList(_dataBase.getItems().getKeys()));
     }
 
-    public NatTreeMap<Byte,PokemonPlayer> getTeam(CustList<UsablePokemon> _otherTeam) {
-        NatTreeMap<Byte,PokemonPlayer> team_ = new NatTreeMap<Byte,PokemonPlayer>();
+    public ByteTreeMap<PokemonPlayer> getTeam(CustList<UsablePokemon> _otherTeam) {
+        ByteTreeMap<PokemonPlayer> team_ = new ByteTreeMap<PokemonPlayer>();
         byte i_ = CustList.FIRST_INDEX;
         i_--;
         for (UsablePokemon u: _otherTeam) {
@@ -52,12 +52,12 @@ public final class ExchangedData {
             pokemon = null;
             return;
         }
-        if (!getAbilities().containsObj(pokemon.getAbility())) {
+        if (!StringList.contains(getAbilities(), pokemon.getAbility())) {
             pokemon = null;
             return;
         }
         if (!pokemon.getItem().isEmpty()) {
-            if (!getItems().containsObj(pokemon.getItem())) {
+            if (!StringList.contains(getItems(), pokemon.getItem())) {
                 pokemon = null;
                 return;
             }

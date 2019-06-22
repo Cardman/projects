@@ -489,7 +489,7 @@ public final class KeyWords {
     }
     public boolean isKeyWord(String _word) {
         StringList keyWords_ = allKeyWords();
-        return keyWords_.containsStr(_word);
+        return StringList.contains(keyWords_, _word);
     }
     public StringMap<Character> getSuffixes() {
         StringMap<Character> keyWords_ = new StringMap<Character>();

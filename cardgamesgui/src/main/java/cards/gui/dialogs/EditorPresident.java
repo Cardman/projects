@@ -35,7 +35,7 @@ import code.maths.montecarlo.AbMonteCarlo;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 
 public final class EditorPresident extends DialogPresident implements SetterSelectedCardList {
@@ -128,7 +128,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         Panel container_=new Panel();
         container_.setLayout(new BorderLayout());
         initMessageName(_window);
-        Numbers<Integer> decks_ = new Numbers<Integer>();
+        Ints decks_ = new Ints();
         //Panneau Distribution
         for(int b=FileConst.MIN_DEALS;b<=FileConst.MAX_DEALS;b++) {
             decks_.add(b);
@@ -309,7 +309,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
             donneur_=(byte)AbMonteCarlo.randomLong(nombreDeJoueurs_);
         }
         DealPresident donne_=new DealPresident(mains_,donneur_);
-        partie = new GamePresident(GameType.EDIT,donne_,getReglesPresident(), new Numbers<Byte>());
+        partie = new GamePresident(GameType.EDIT,donne_,getReglesPresident(), new Bytes());
     }
 
     private String validerEgalite() {

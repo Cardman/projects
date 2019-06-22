@@ -1,8 +1,8 @@
 package code.gui;
-import code.util.NumberMap;
+import code.util.*;
+import code.util.*;
 import code.util.TreeMap;
 import code.util.comparators.ComparatorMapValue;
-import code.util.comparators.ComparatorNatNumber;
 import code.util.ints.ListableEntries;
 
 public final class IntTreeComboBox extends GraphicCombo {
@@ -37,7 +37,7 @@ public final class IntTreeComboBox extends GraphicCombo {
 
     public void refresh(ListableEntries<Integer,String> _tr) {
         super.removeAllItems();
-        NumberMap<Integer,String> m_ = createMap(_tr);
+        IntMap<String> m_ = createMap(_tr);
         elements = new TreeMap<Integer,String>(new ComparatorMapValue<Integer>(m_));
         elements.putAllMap(m_);
         for (Integer e: elements.getKeys()) {
@@ -45,8 +45,8 @@ public final class IntTreeComboBox extends GraphicCombo {
         }
     }
 
-    private NumberMap<Integer,String> createMap(ListableEntries<Integer,String> _tr) {
-        NumberMap<Integer,String> m_ = new NumberMap<Integer,String>(_tr);
+    private IntMap<String> createMap(ListableEntries<Integer,String> _tr) {
+        IntMap<String> m_ = new IntMap<String>(_tr);
         if (withDefaultValue) {
             m_.put(null, EMPTY_STRING);
         }
@@ -69,9 +69,9 @@ public final class IntTreeComboBox extends GraphicCombo {
         }
         refresh(getTree(_numerosPlis));
     }
-    private static TreeMap<Integer, String> getTree(Integer... _ints) {
-        TreeMap<Integer, String> tr_;
-        tr_ = new TreeMap<Integer, String>(new ComparatorNatNumber<Integer>());
+    private static IntTreeMap< String> getTree(Integer... _ints) {
+        IntTreeMap< String> tr_;
+        tr_ = new IntTreeMap< String>();
         for (Integer i: _ints) {
             tr_.put(i, i.toString());
         }

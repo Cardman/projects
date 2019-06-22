@@ -2,14 +2,14 @@ package code.formathtml;
 import code.formathtml.util.FormInputCoords;
 import code.formathtml.util.NodeContainer;
 import code.util.CustList;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
+import code.util.*;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 
 public class HtmlPage {
 
-    private NumberMap<Long,NatTreeMap<Long,NodeContainer>> containers = new NumberMap<Long,NatTreeMap<Long,NodeContainer>>();
+    private LongMap<LongTreeMap<NodeContainer>> containers = new LongMap<LongTreeMap<NodeContainer>>();
 
     private ObjectMap<FormInputCoords,StringList> selects = new ObjectMap<FormInputCoords,StringList>();
 
@@ -19,11 +19,11 @@ public class HtmlPage {
 
     private String usedFieldUrl;
 
-    public NumberMap<Long,NatTreeMap<Long,NodeContainer>> getContainers() {
+    public LongMap<LongTreeMap<NodeContainer>> getContainers() {
         return containers;
     }
 
-    public void setContainers(NumberMap<Long,NatTreeMap<Long,NodeContainer>> _containers) {
+    public void setContainers(LongMap<LongTreeMap<NodeContainer>> _containers) {
         containers = _containers;
     }
 

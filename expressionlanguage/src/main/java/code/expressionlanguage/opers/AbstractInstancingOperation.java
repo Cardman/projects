@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.instr.OperationsSequence;
-import code.util.NatTreeMap;
+import code.util.*;
 
 public abstract class AbstractInstancingOperation extends ReflectableInvokingOperation {
 
@@ -12,7 +12,7 @@ public abstract class AbstractInstancingOperation extends ReflectableInvokingOpe
 
     @Override
     final void calculateChildren() {
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        IntTreeMap< String> vs_ = getOperations().getValues();
         vs_.removeKey(vs_.firstKey());
         getChildren().putAllMap(vs_);
     }

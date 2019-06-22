@@ -216,8 +216,8 @@ import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
+import code.util.*;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -4431,7 +4431,7 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    public static Element setMapBytePokemonPlayer(NatTreeMap<Byte,PokemonPlayer> _object, String _fieldName, Document _document) {
+    public static Element setMapBytePokemonPlayer(ByteTreeMap<PokemonPlayer> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Byte, PokemonPlayer> s: _object.entryList()) {
@@ -4444,7 +4444,7 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapByteAnticipation(NumberMap<Byte,Anticipation> _object, String _fieldName, Document _document) {
+    private static Element setMapByteAnticipation(ByteMap<Anticipation> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Byte, Anticipation> s: _object.entryList()) {
@@ -4457,7 +4457,7 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapByteChoiceOfEvolutionAndMoves(NumberMap<Byte,ChoiceOfEvolutionAndMoves> _object, String _fieldName, Document _document) {
+    private static Element setMapByteChoiceOfEvolutionAndMoves(ByteMap<ChoiceOfEvolutionAndMoves> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Byte, ChoiceOfEvolutionAndMoves> s: _object.entryList()) {
@@ -4470,7 +4470,7 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapByteFighter(NumberMap<Byte,Fighter> _object, String _fieldName, Document _document) {
+    private static Element setMapByteFighter(ByteMap<Fighter> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Byte, Fighter> s: _object.entryList()) {
@@ -4483,7 +4483,7 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapByteStacksOfUses(NumberMap<Byte,StacksOfUses> _object, String _fieldName, Document _document) {
+    private static Element setMapByteStacksOfUses(ByteMap<StacksOfUses> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Byte, StacksOfUses> s: _object.entryList()) {
@@ -4496,7 +4496,7 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapByteTeam(NumberMap<Byte,Team> _object, String _fieldName, Document _document) {
+    private static Element setMapByteTeam(ByteMap<Team> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Byte, Team> s: _object.entryList()) {
@@ -4509,7 +4509,7 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapByteLevelCave(NumberMap<Byte,LevelCave> _object, String _fieldName, Document _document) {
+    private static Element setMapByteLevelCave(ByteMap<LevelCave> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Byte, LevelCave> s: _object.entryList()) {
@@ -4522,7 +4522,7 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapShortPlace(NumberMap<Short,Place> _object, String _fieldName, Document _document) {
+    private static Element setMapShortPlace(ShortMap<Place> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Short, Place> s: _object.entryList()) {
@@ -4535,7 +4535,7 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapShortListPoint(NumberMap<Short,EqList<Point>> _object, String _fieldName, Document _document) {
+    private static Element setMapShortListPoint(ShortMap<EqList<Point>> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EntryCust<Short, EqList<Point>> s: _object.entryList()) {
@@ -5120,10 +5120,10 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setStringMapMapByteAnticipation(StringMap<NumberMap<Byte,Anticipation>> _object, String _fieldName, Document _document) {
+    private static Element setStringMapMapByteAnticipation(StringMap<ByteMap<Anticipation>> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<String, NumberMap<Byte,Anticipation>> s: _object.entryList()) {
+        for (EntryCust<String, ByteMap<Anticipation>> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setString(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
@@ -5133,10 +5133,10 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setStringMapMapByteStacksOfUses(StringMap<NumberMap<Byte,StacksOfUses>> _object, String _fieldName, Document _document) {
+    private static Element setStringMapMapByteStacksOfUses(StringMap<ByteMap<StacksOfUses>> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<String, NumberMap<Byte,StacksOfUses>> s: _object.entryList()) {
+        for (EntryCust<String, ByteMap<StacksOfUses>> s: _object.entryList()) {
             Element sub_ = DocumentWriterCoreUtil.setString(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);

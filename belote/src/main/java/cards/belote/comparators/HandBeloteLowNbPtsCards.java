@@ -4,7 +4,7 @@ import cards.belote.GameBeloteBeginTrick;
 import cards.belote.HandBelote;
 import cards.consts.Suit;
 import code.util.EnumMap;
-import code.util.Numbers;
+import code.util.*;
 import code.util.ints.Comparing;
 
 public final class HandBeloteLowNbPtsCards implements Comparing<Suit> {

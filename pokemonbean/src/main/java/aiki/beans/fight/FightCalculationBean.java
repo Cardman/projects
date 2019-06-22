@@ -11,7 +11,7 @@ import aiki.game.fight.util.MoveTarget;
 import code.maths.Rate;
 import code.util.EqList;
 import code.util.NatStringTreeMap;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.SortableCustList;
 import code.util.StringMap;
@@ -19,9 +19,9 @@ import code.util.TreeMap;
 
 public class FightCalculationBean extends CommonFightBean {
     private TreeMap<MoveTarget, MoveTarget> allyChoice;
-    private NatTreeMap<Byte,MoveTarget> foeChoices;
+    private ByteTreeMap<MoveTarget> foeChoices;
 
-    private NatTreeMap<Byte,Boolean> foeChoicesTargets;
+    private ByteTreeMap<Boolean> foeChoicesTargets;
     private SortableCustList<KeyHypothesis> damage;
     private EqList<TeamPosition> sortedFighters;
     private NatStringTreeMap<EqList<TeamPosition>> sortedFightersWildFight;
@@ -79,10 +79,10 @@ public class FightCalculationBean extends CommonFightBean {
             allyChoice_.put(key_, value_);
         }
         allyChoice = allyChoice_;
-        NatTreeMap<Byte,MoveTarget> foeChoices_;
-        foeChoices_ = new NatTreeMap<Byte,MoveTarget>();
-        NatTreeMap<Byte,Boolean> foeChoicesTargets_;
-        foeChoicesTargets_ = new NatTreeMap<Byte,Boolean>();
+        ByteTreeMap<MoveTarget> foeChoices_;
+        foeChoices_ = new ByteTreeMap<MoveTarget>();
+        ByteTreeMap<Boolean> foeChoicesTargets_;
+        foeChoicesTargets_ = new ByteTreeMap<Boolean>();
         for (byte k: fight_.getFoeTeam().getMembers().getKeys()) {
             MoveTarget value_;
             value_ = new MoveTarget();
@@ -178,7 +178,7 @@ public class FightCalculationBean extends CommonFightBean {
         return allyChoice;
     }
 
-    public NatTreeMap<Byte,MoveTarget> getFoeChoices() {
+    public ByteTreeMap<MoveTarget> getFoeChoices() {
         return foeChoices;
     }
 }

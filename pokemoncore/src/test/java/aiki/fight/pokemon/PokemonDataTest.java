@@ -2,6 +2,7 @@ package aiki.fight.pokemon;
 import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import code.util.*;
 import org.junit.Test;
 
 import aiki.fight.enums.Statistic;
@@ -15,11 +16,6 @@ import aiki.fight.util.StatBaseEv;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.EnumMap;
-import code.util.EqList;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
 
 
 public class PokemonDataTest {
@@ -51,8 +47,8 @@ public class PokemonDataTest {
         pk_.setBaseEvo("PIKACHU");
         pk_.setCatchingRate((short) 200);
         pk_.setExpEvo(ExpType.P);
-        pk_.setTechnicalMoves(new Numbers<Short>());
-        pk_.setHiddenMoves(new Numbers<Short>());
+        pk_.setTechnicalMoves(new Shorts());
+        pk_.setHiddenMoves(new Shorts());
         pk_.setMoveTutors(new StringList("VIVE_ATTAQUE"));
         pk_.setExpRate(100l);
         pk_.setHatchingSteps(new LgInt(200));
@@ -134,9 +130,9 @@ public class PokemonDataTest {
         PokemonData pk_ = dataBase(evos_);
         StringList evosRes_ = pk_.getDirectEvolutions(Gender.NO_GENDER, false);
         assertEq(3, evosRes_.size());
-        assertTrue(evosRes_.containsObj("RAICHU"));
-        assertTrue(evosRes_.containsObj("PIKA"));
-        assertTrue(evosRes_.containsObj("CHU"));
+        assertTrue(StringList.contains(evosRes_, "RAICHU"));
+        assertTrue(StringList.contains(evosRes_, "PIKA"));
+        assertTrue(StringList.contains(evosRes_, "CHU"));
     }
 
     @Test
@@ -152,9 +148,9 @@ public class PokemonDataTest {
         PokemonData pk_ = dataBase(evos_);
         StringList evosRes_ = pk_.getDirectEvolutions(Gender.FEMALE, false);
         assertEq(3, evosRes_.size());
-        assertTrue(evosRes_.containsObj("RAICHU"));
-        assertTrue(evosRes_.containsObj("PIKA"));
-        assertTrue(evosRes_.containsObj("CHU"));
+        assertTrue(StringList.contains(evosRes_, "RAICHU"));
+        assertTrue(StringList.contains(evosRes_, "PIKA"));
+        assertTrue(StringList.contains(evosRes_, "CHU"));
     }
 
     @Test
@@ -170,9 +166,9 @@ public class PokemonDataTest {
         PokemonData pk_ = dataBase(evos_);
         StringList evosRes_ = pk_.getDirectEvolutions(Gender.MALE, false);
         assertEq(3, evosRes_.size());
-        assertTrue(evosRes_.containsObj("RAICHU"));
-        assertTrue(evosRes_.containsObj("PIKA"));
-        assertTrue(evosRes_.containsObj("CHU"));
+        assertTrue(StringList.contains(evosRes_, "RAICHU"));
+        assertTrue(StringList.contains(evosRes_, "PIKA"));
+        assertTrue(StringList.contains(evosRes_, "CHU"));
     }
 
     @Test
@@ -188,7 +184,7 @@ public class PokemonDataTest {
         PokemonData pk_ = dataBase(evos_);
         StringList evosRes_ = pk_.getDirectEvolutions(Gender.NO_GENDER, true);
         assertEq(1, evosRes_.size());
-        assertTrue(evosRes_.containsObj("RAICHU"));
+        assertTrue(StringList.contains(evosRes_, "RAICHU"));
     }
 
     @Test
@@ -204,8 +200,8 @@ public class PokemonDataTest {
         PokemonData pk_ = dataBase(evos_);
         StringList evosRes_ = pk_.getDirectEvolutions(Gender.FEMALE, true);
         assertEq(2, evosRes_.size());
-        assertTrue(evosRes_.containsObj("RAICHU"));
-        assertTrue(evosRes_.containsObj("PIKA"));
+        assertTrue(StringList.contains(evosRes_, "RAICHU"));
+        assertTrue(StringList.contains(evosRes_, "PIKA"));
     }
 
     @Test
@@ -221,8 +217,8 @@ public class PokemonDataTest {
         PokemonData pk_ = dataBase(evos_);
         StringList evosRes_ = pk_.getDirectEvolutions(Gender.MALE, true);
         assertEq(2, evosRes_.size());
-        assertTrue(evosRes_.containsObj("RAICHU"));
-        assertTrue(evosRes_.containsObj("CHU"));
+        assertTrue(StringList.contains(evosRes_, "RAICHU"));
+        assertTrue(StringList.contains(evosRes_, "CHU"));
     }
 
     @Test
@@ -238,8 +234,8 @@ public class PokemonDataTest {
         PokemonData pk_ = dataBase(evos_);
         StringList evosRes_ = pk_.getDirectEvolutions();
         assertEq(3, evosRes_.size());
-        assertTrue(evosRes_.containsObj("RAICHU"));
-        assertTrue(evosRes_.containsObj("PIKA"));
-        assertTrue(evosRes_.containsObj("CHU"));
+        assertTrue(StringList.contains(evosRes_, "RAICHU"));
+        assertTrue(StringList.contains(evosRes_, "PIKA"));
+        assertTrue(StringList.contains(evosRes_, "CHU"));
     }
 }

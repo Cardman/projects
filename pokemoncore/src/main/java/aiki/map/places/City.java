@@ -21,7 +21,7 @@ import aiki.util.Point;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
-import code.util.NumberMap;
+import code.util.*;
 import code.util.ObjectMap;
 
 
@@ -177,8 +177,8 @@ public final class City extends Place implements InitializedPlace {
     }
 
     @Override
-    public NumberMap<Byte, Level> getLevelsMap() {
-        NumberMap<Byte, Level> levels_ = new NumberMap<Byte, Level>();
+    public ByteMap< Level> getLevelsMap() {
+        ByteMap< Level> levels_ = new ByteMap< Level>();
         levels_.put(CustList.FIRST_INDEX, level);
         return levels_;
     }

@@ -1,6 +1,6 @@
 package code.maths.litteral;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -55,8 +55,8 @@ public final class MathResolver {
 
     static Delimiters checkSyntax(String _string, ErrorStatus _error) {
         Delimiters d_ = new Delimiters();
-        NatTreeMap<Integer,Character> parsBrackets_;
-        parsBrackets_ = new NatTreeMap<Integer,Character>();
+        IntTreeMap<Character> parsBrackets_;
+        parsBrackets_ = new IntTreeMap<Character>();
         boolean constString_ = false;
         boolean escapedMeta_ = false;
         int len_ = _string.length();
@@ -331,10 +331,10 @@ public final class MathResolver {
     }
     static OperationsSequence getOperationsSequence(int _offset, String _string,
             StringMap<String> _conf, Delimiters _d) {
-        NatTreeMap<Integer,String> operators_;
-        operators_ = new NatTreeMap<Integer,String>();
-        NatTreeMap<Integer,Character> parsBrackets_;
-        parsBrackets_ = new NatTreeMap<Integer,Character>();
+        IntTreeMap<String> operators_;
+        operators_ = new IntTreeMap<String>();
+        IntTreeMap<Character> parsBrackets_;
+        parsBrackets_ = new IntTreeMap<Character>();
         int prioMax_ = FCT_OPER_PRIO;
         int prio_ = prioMax_;
         int len_ = _string.length();
@@ -347,7 +347,7 @@ public final class MathResolver {
         }
         if (i_ >= len_) {
             OperationsSequence op_ = new OperationsSequence();
-            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setOperators(new IntTreeMap< String>());
             op_.setupValue(_string);
             op_.setDelimiter(_d);
             return op_;
@@ -366,7 +366,7 @@ public final class MathResolver {
             OperationsSequence op_ = new OperationsSequence();
             op_.setIndexCst(begin_/2);
             op_.setConstType(ConstType.STRING);
-            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setOperators(new IntTreeMap< String>());
             op_.setupValue(_string);
             op_.setDelimiter(_d);
             return op_;
@@ -377,7 +377,7 @@ public final class MathResolver {
             OperationsSequence op_ = new OperationsSequence();
             op_.setIndexCst(begin_/2);
             op_.setConstType(ConstType.NUMBER);
-            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setOperators(new IntTreeMap< String>());
             op_.setupValue(_string);
             op_.setDelimiter(_d);
             return op_;
@@ -385,14 +385,14 @@ public final class MathResolver {
         String sub_ = _string.substring(firstPrintChar_, len_);
         if (StringList.quickEq(sub_,TRUE)) {
             OperationsSequence op_ = new OperationsSequence();
-            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setOperators(new IntTreeMap< String>());
             op_.setupValue(_string);
             op_.setDelimiter(_d);
             return op_;
         }
         if (StringList.quickEq(sub_, FALSE)) {
             OperationsSequence op_ = new OperationsSequence();
-            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setOperators(new IntTreeMap< String>());
             op_.setupValue(_string);
             op_.setDelimiter(_d);
             return op_;
@@ -407,7 +407,7 @@ public final class MathResolver {
             }
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.LOC_VAR);
-            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setOperators(new IntTreeMap< String>());
             op_.setupValue(v.getName());
             op_.setDelimiter(_d);
             return op_;

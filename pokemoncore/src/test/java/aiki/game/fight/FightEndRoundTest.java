@@ -243,7 +243,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertTrue(activity_.isIncrementCount());
         StringList protected_ = fight_.getFighter(thrower_).getProtectedAgainstMoveTypes();
         assertEq(1, protected_.size());
-        assertTrue(protected_.containsObj(SOL));
+        assertTrue(StringList.contains(protected_, SOL));
     }
 
     @Test
@@ -316,7 +316,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertTrue(activity_.isIncrementCount());
         StringList protected_ = fight_.getFighter(thrower_).getProtectedAgainstMoveTypes();
         assertEq(1, protected_.size());
-        assertTrue(protected_.containsObj(VOL));
+        assertTrue(StringList.contains(protected_, VOL));
         activity_ = fight_.getFighter(thrower_).getEnabledMovesUnprot().getVal(RACINES);
         assertEq(0, activity_.getNbTurn());
         assertTrue(!activity_.isEnabled());
@@ -724,7 +724,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertTrue(activity_.isIncrementCount());
         StringList protected_ = fight_.getFighter(thrower_).getProtectedAgainstMoveTypes();
         assertEq(1, protected_.size());
-        assertTrue(protected_.containsObj(SOL));
+        assertTrue(StringList.contains(protected_, SOL));
     }
 
     @Test
@@ -794,7 +794,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertTrue(activity_.isIncrementCount());
         StringList protected_ = fight_.getFighter(thrower_).getProtectedAgainstMoveTypes();
         assertEq(1, protected_.size());
-        assertTrue(protected_.containsObj(VOL));
+        assertTrue(StringList.contains(protected_, VOL));
         activity_ = fight_.getFighter(thrower_).getEnabledMovesUnprot().getVal(RACINES);
         assertEq(0, activity_.getNbTurn());
         assertTrue(!activity_.isEnabled());
@@ -10137,7 +10137,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(0, map_.size());
         StringList moves_ = fighter_.getMovesToBeLearnt();
         assertEq(1,moves_.size());
-        assertTrue(moves_.containsObj(DANSE_PLUIE));
+        assertTrue(StringList.contains(moves_, DANSE_PLUIE));
     }
 
     @Test
@@ -10175,16 +10175,16 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertTrue(map_.contains(TETARTE));
         StringList evoMoves_ = map_.getVal(TETARTE).getMoves();
         assertEq(4, evoMoves_.size());
-        assertTrue(evoMoves_.containsObj(TOURNIQUET));
-        assertTrue(evoMoves_.containsObj(ECUME));
-        assertTrue(evoMoves_.containsObj(HYPNOSE));
-        assertTrue(evoMoves_.containsObj(BULLES_D_O));
+        assertTrue(StringList.contains(evoMoves_, TOURNIQUET));
+        assertTrue(StringList.contains(evoMoves_, ECUME));
+        assertTrue(StringList.contains(evoMoves_, HYPNOSE));
+        assertTrue(StringList.contains(evoMoves_, BULLES_D_O));
         StringList abilities_ = map_.getVal(TETARTE).getAbilities();
-        assertTrue(abilities_.containsObj(MOITEUR));
-        assertTrue(abilities_.containsObj(ABSORB_EAU));
+        assertTrue(StringList.contains(abilities_, MOITEUR));
+        assertTrue(StringList.contains(abilities_, ABSORB_EAU));
         StringList moves_ = fighter_.getMovesToBeLearnt();
         assertEq(1,moves_.size());
-        assertTrue(moves_.containsObj(BULLES_D_O));
+        assertTrue(StringList.contains(moves_, BULLES_D_O));
     }
 
     private static Fight proponeMovesEvolutions(
@@ -11499,7 +11499,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         Fight fight_ = learnAndEvolve(partnersMoves_, foesMoves_, player_, diff_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getWonExp().affect(new Rate("18"));
         FightEndRound.proponeMovesEvolutions(fight_, player_, diff_, _data_);
-        fight_.getChoices().getVal((byte) 0).getKeptMoves().removeObj(HYPNOSE);
+        StringList.removeObj(fight_.getChoices().getVal((byte) 0).getKeptMoves(), HYPNOSE);
         fight_.getChoices().getVal((byte) 0).getKeptMoves().add(DANSE_PLUIE);
         assertTrue(FightFacade.possibleChoices(fight_, _data_));
         FightEndRound.learnAndEvolve(fight_, _data_);

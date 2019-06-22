@@ -11,7 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.Ints;
 
 public class GraphicList<T> extends CustComponent implements GraphicListable {
 
@@ -19,7 +19,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
     private CustList<JComponent> listComponents = new CustList<JComponent>();
     private CustList<IndexableListener> indexableMouse = new CustList<IndexableListener>();
     private CustList<IndexableListener> indexableKey = new CustList<IndexableListener>();
-    private Numbers<Integer> selectedIndexes = new Numbers<Integer>();
+    private Ints selectedIndexes = new Ints();
 
     private CustCellRender render;
 
@@ -39,11 +39,11 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
     private boolean owned;
 
     public GraphicList(boolean _owned, boolean _simple, T... _objects) {
-        this(_owned, _simple, new Numbers<Integer>(), _objects);
+        this(_owned, _simple, new Ints(), _objects);
     }
 
-    public GraphicList(boolean _owned, boolean _simple, Numbers<Integer> _selectedIndexes, T... _objects) {
-        selectedIndexes = new Numbers<Integer>(_selectedIndexes);
+    public GraphicList(boolean _owned, boolean _simple, Ints _selectedIndexes, T... _objects) {
+        selectedIndexes = new Ints(_selectedIndexes);
         owned = _owned;
         list = new CustList<T>(_objects);
         simple = _simple;
@@ -256,7 +256,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         SwingUtilities.invokeLater(sel_);
     }
     @Override
-    public Numbers<Integer> getSelectedIndexes() {
+    public Ints getSelectedIndexes() {
         return selectedIndexes;
     }
     @Override

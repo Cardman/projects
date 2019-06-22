@@ -66,8 +66,9 @@ import code.maths.Rate;
 import code.util.CustList;
 import code.util.NatCmpTreeMap;
 import code.util.NatStringTreeMap;
-import code.util.NatTreeMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
+import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -117,7 +118,7 @@ public class MoveBean extends CommonBean {
     private StringList boostedTypes;
     private byte priority;
     private String accuracy;
-    private Numbers<Integer> effects;
+    private Ints effects;
     private short nbPrepaRound;
     private boolean disappearBeforeUse;
     private NatCmpTreeMap<LgInt,Rate> repeatRoundLaw;
@@ -125,7 +126,7 @@ public class MoveBean extends CommonBean {
     private boolean rechargeRound;
     private boolean constUserChoice;
     private boolean secEffectIfNoDamage;
-    private TreeMap<String, Numbers<Integer>> secEffectsByItem;
+    private TreeMap<String, Ints> secEffectsByItem;
     private boolean ignVarAccurUserNeg;
     private boolean ignVarEvasTargetPos;
     private StringList achieveDisappearedPkUsingMove;
@@ -141,7 +142,7 @@ public class MoveBean extends CommonBean {
     private NatStringTreeMap<String> mapVarsAccuracy;
     private boolean cannotKo;
     private StringList affectedByMoves;
-    private NatTreeMap<Short,StringList> movesLevelLearntByPokemon;
+    private ShortTreeMap<StringList> movesLevelLearntByPokemon;
     private StringList movesTmLearntByPokemon;
     private StringList movesHmLearntByPokemon;
     private StringList movesMtLearntByPokemon;
@@ -266,7 +267,7 @@ public class MoveBean extends CommonBean {
         StringList abilities_ = new StringList();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
-            if (ab_.getImmuMove().containsObj(name_)) {
+            if (StringList.contains(ab_.getImmuMove(), name_)) {
                 abilities_.add(a);
             }
         }
@@ -279,7 +280,7 @@ public class MoveBean extends CommonBean {
                 continue;
             }
             ItemForBattle itBattle_ = (ItemForBattle) it_;
-            if (itBattle_.getImmuMoves().containsObj(name_)) {
+            if (StringList.contains(itBattle_.getImmuMoves(), name_)) {
                 items_.add(a);
             }
         }
@@ -334,7 +335,7 @@ public class MoveBean extends CommonBean {
         affectedByMoves_.sortElts(new ComparatorTrStrings(translatedMoves_));
         affectedByMoves_.removeDuplicates();
         affectedByMoves = affectedByMoves_;
-        Numbers<Integer> effects_ = new Numbers<Integer>();
+        Ints effects_ = new Ints();
         int nbEffects_ = moveData_.nbEffets();
         for (int i = CustList.FIRST_INDEX; i < nbEffects_; i++) {
             effects_.add(i);
@@ -365,14 +366,14 @@ public class MoveBean extends CommonBean {
         }
         requiredStatus_.sortElts(new ComparatorTrStrings(translatedStatus_));
         requiredStatus = requiredStatus_;
-        TreeMap<String, Numbers<Integer>> secEffectsByItem_;
-        secEffectsByItem_ = new TreeMap<String, Numbers<Integer>>(new ComparatorTrStrings(translatedItems_));
+        TreeMap<String, Ints> secEffectsByItem_;
+        secEffectsByItem_ = new TreeMap<String, Ints>(new ComparatorTrStrings(translatedItems_));
         for (String s: moveData_.getSecEffectsByItem().getKeys()) {
             secEffectsByItem_.put(s, moveData_.getSecEffectsByItem().getVal(s));
         }
         secEffectsByItem = secEffectsByItem_;
-        NatTreeMap<Short,StringList> movesLevelLearntByPokemon_;
-        movesLevelLearntByPokemon_ = new NatTreeMap<Short,StringList>();
+        ShortTreeMap<StringList> movesLevelLearntByPokemon_;
+        movesLevelLearntByPokemon_ = new ShortTreeMap<StringList>();
         for (String p: data_.getPokedex().getKeys()) {
             PokemonData pkData_ = data_.getPokemon(p);
             for (LevelMove l: pkData_.getLevMoves()) {
@@ -392,7 +393,7 @@ public class MoveBean extends CommonBean {
         movesLevelLearntByPokemon = movesLevelLearntByPokemon_;
         StringList movesTmLearntByPokemon_;
         movesTmLearntByPokemon_ = new StringList();
-        Numbers<Short> tms_ = data_.getTmByMove(name_);
+        Shorts tms_ = data_.getTmByMove(name_);
 //        if (Map.<Short>hasString(data_.getTm(), name_))
         if (!tms_.isEmpty()) {
 //            short tm_ = data_.getTm().getKeys(name_).first();
@@ -409,7 +410,7 @@ public class MoveBean extends CommonBean {
         movesTmLearntByPokemon = movesTmLearntByPokemon_;
         StringList movesHmLearntByPokemon_;
         movesHmLearntByPokemon_ = new StringList();
-        Numbers<Short> hms_ = data_.getHmByMove(name_);
+        Shorts hms_ = data_.getHmByMove(name_);
 //        if (Map.<Short>hasString(data_.getHm(), name_))
         if (!hms_.isEmpty()) {
 //            short tm_ = data_.getHm().getKeys(name_).first();
@@ -428,7 +429,7 @@ public class MoveBean extends CommonBean {
         movesMtLearntByPokemon_ = new StringList();
         for (String p: data_.getPokedex().getKeys()) {
             PokemonData pkData_ = data_.getPokemon(p);
-            if (pkData_.getMoveTutors().containsObj(name_)) {
+            if (StringList.contains(pkData_.getMoveTutors(), name_)) {
                 movesMtLearntByPokemon_.add(p);
             }
         }
@@ -1109,11 +1110,11 @@ public class MoveBean extends CommonBean {
         return affectedByMoves;
     }
 
-    public TreeMap<String,Numbers<Integer>> getSecEffectsByItem() {
+    public TreeMap<String,Ints> getSecEffectsByItem() {
         return secEffectsByItem;
     }
 
-    public Numbers<Integer> getEffects() {
+    public Ints getEffects() {
         return effects;
     }
 
@@ -1141,7 +1142,7 @@ public class MoveBean extends CommonBean {
         return repeatRoundLaw;
     }
 
-    public NatTreeMap<Short,StringList> getMovesLevelLearntByPokemon() {
+    public ShortTreeMap<StringList> getMovesLevelLearntByPokemon() {
         return movesLevelLearntByPokemon;
     }
 

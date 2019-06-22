@@ -1,6 +1,6 @@
 package code.expressionlanguage.instr;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringList;
 
 public final class Delimiters {
@@ -11,30 +11,30 @@ public final class Delimiters {
     private char begin;
     private char end;
     private boolean partOfString;
-    private Numbers<Integer> allowedOperatorsIndexes = new Numbers<Integer>();
-    private Numbers<Integer> delStringsChars = new Numbers<Integer>();
-    private Numbers<Integer> delNumbers = new Numbers<Integer>();
-    private Numbers<Integer> delKeyWordSuper = new Numbers<Integer>();
-    private Numbers<Integer> delKeyWordSuperAccess = new Numbers<Integer>();
-    private Numbers<Integer> delKeyWordClassChoice = new Numbers<Integer>();
-    private Numbers<Integer> delKeyWordStatic = new Numbers<Integer>();
+    private Ints allowedOperatorsIndexes = new Ints();
+    private Ints delStringsChars = new Ints();
+    private Ints delNumbers = new Ints();
+    private Ints delKeyWordSuper = new Ints();
+    private Ints delKeyWordSuperAccess = new Ints();
+    private Ints delKeyWordClassChoice = new Ints();
+    private Ints delKeyWordStatic = new Ints();
     private StringList delKeyWordStaticExtract = new StringList();
-    private Numbers<Integer> delCast = new Numbers<Integer>();
+    private Ints delCast = new Ints();
     private StringList delCastExtract = new StringList();
-    private Numbers<Integer> delInstanceof = new Numbers<Integer>();
-    private Numbers<Integer> delLambda = new Numbers<Integer>();
-    private Numbers<Integer> delIds = new Numbers<Integer>();
-    private Numbers<Integer> delLoopVars = new Numbers<Integer>();
-    private Numbers<Integer> delVararg = new Numbers<Integer>();
-    private Numbers<Integer> delClass = new Numbers<Integer>();
-    private Numbers<Integer> delSimpleAnnotations = new Numbers<Integer>();
-    private Numbers<Integer> callings = new Numbers<Integer>();
+    private Ints delInstanceof = new Ints();
+    private Ints delLambda = new Ints();
+    private Ints delIds = new Ints();
+    private Ints delLoopVars = new Ints();
+    private Ints delVararg = new Ints();
+    private Ints delClass = new Ints();
+    private Ints delSimpleAnnotations = new Ints();
+    private Ints callings = new Ints();
     private CustList<StringInfo> stringInfo = new CustList<StringInfo>();
     private CustList<NumberInfos> nbInfos = new CustList<NumberInfos>();
     private CustList<VariableInfo> variables = new CustList<VariableInfo>();
-    private Numbers<Integer> dimsAddonIndexes = new Numbers<Integer>();
-    private Numbers<Integer> escapings = new Numbers<Integer>();
-    private Numbers<Integer> delAccessIndexers = new Numbers<Integer>();
+    private Ints dimsAddonIndexes = new Ints();
+    private Ints escapings = new Ints();
+    private Ints delAccessIndexers = new Ints();
 
     public int getBadOffset() {
         return badOffset;
@@ -44,31 +44,31 @@ public final class Delimiters {
         badOffset = Math.max(_badOffset,0);
     }
 
-    public Numbers<Integer> getAllowedOperatorsIndexes() {
+    public Ints getAllowedOperatorsIndexes() {
         return allowedOperatorsIndexes;
     }
 
-    public Numbers<Integer> getDelStringsChars() {
+    public Ints getDelStringsChars() {
         return delStringsChars;
     }
 
-    public Numbers<Integer> getDelNumbers() {
+    public Ints getDelNumbers() {
         return delNumbers;
     }
 
-    public Numbers<Integer> getDelKeyWordSuper() {
+    public Ints getDelKeyWordSuper() {
         return delKeyWordSuper;
     }
 
-    public Numbers<Integer> getDelKeyWordSuperAccess() {
+    public Ints getDelKeyWordSuperAccess() {
         return delKeyWordSuperAccess;
     }
 
-    public Numbers<Integer> getDelKeyWordClassChoice() {
+    public Ints getDelKeyWordClassChoice() {
         return delKeyWordClassChoice;
     }
 
-    public Numbers<Integer> getDelKeyWordStatic() {
+    public Ints getDelKeyWordStatic() {
         return delKeyWordStatic;
     }
 
@@ -76,7 +76,7 @@ public final class Delimiters {
         return delKeyWordStaticExtract;
     }
 
-    public Numbers<Integer> getDelCast() {
+    public Ints getDelCast() {
         return delCast;
     }
 
@@ -84,35 +84,35 @@ public final class Delimiters {
         return delCastExtract;
     }
 
-    public Numbers<Integer> getDelInstanceof() {
+    public Ints getDelInstanceof() {
         return delInstanceof;
     }
 
-    public Numbers<Integer> getDelLambda() {
+    public Ints getDelLambda() {
         return delLambda;
     }
 
-    public Numbers<Integer> getDelIds() {
+    public Ints getDelIds() {
         return delIds;
     }
 
-    public Numbers<Integer> getDelLoopVars() {
+    public Ints getDelLoopVars() {
         return delLoopVars;
     }
 
-    public Numbers<Integer> getDelVararg() {
+    public Ints getDelVararg() {
         return delVararg;
     }
 
-    public Numbers<Integer> getDelClass() {
+    public Ints getDelClass() {
         return delClass;
     }
 
-    public Numbers<Integer> getDelSimpleAnnotations() {
+    public Ints getDelSimpleAnnotations() {
         return delSimpleAnnotations;
     }
 
-    public Numbers<Integer> getCallings() {
+    public Ints getCallings() {
         return callings;
     }
 
@@ -160,15 +160,15 @@ public final class Delimiters {
         return variables.last().getKind() == ConstType.WORD;
     }
 
-    public Numbers<Integer> getDimsAddonIndexes() {
+    public Ints getDimsAddonIndexes() {
         return dimsAddonIndexes;
     }
 
-    public Numbers<Integer> getEscapings() {
+    public Ints getEscapings() {
         return escapings;
     }
 
-    public Numbers<Integer> getDelAccessIndexers() {
+    public Ints getDelAccessIndexers() {
         return delAccessIndexers;
     }
 }

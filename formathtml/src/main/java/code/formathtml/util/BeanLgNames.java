@@ -17,7 +17,7 @@ import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.Replacement;
 import code.util.SimpleItr;
@@ -609,7 +609,7 @@ public abstract class BeanLgNames extends LgNames {
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_INDEXES)) {
-                Numbers<Long> value_ = db_.getIndexes();
+                Longs value_ = db_.getIndexes();
                 res_.setResult(StdStruct.newListLong(value_, StringList.concat(custList,Templates.TEMPLATE_BEGIN,getAliasLong(),Templates.TEMPLATE_END)));
                 return res_;
             }

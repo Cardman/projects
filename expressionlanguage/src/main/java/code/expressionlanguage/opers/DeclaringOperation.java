@@ -4,7 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.exec.DeclaringOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.util.NatTreeMap;
+import code.util.*;
 
 public final class DeclaringOperation extends MethodOperation implements DeclaringOperable {
 
@@ -22,7 +22,7 @@ public final class DeclaringOperation extends MethodOperation implements Declari
 
     @Override
     void calculateChildren() {
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        IntTreeMap< String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
     }
 

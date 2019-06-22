@@ -9,7 +9,7 @@ import cards.consts.Suit;
 import cards.facade.Games;
 import cards.president.enumerations.CardPresident;
 import code.gui.PaintableLabel;
-import code.util.Numbers;
+import code.util.*;
 import code.util.consts.Constants;
 
 public class MiniPresidentCard extends PaintableLabel {

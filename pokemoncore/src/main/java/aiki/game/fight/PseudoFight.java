@@ -7,8 +7,8 @@ import aiki.map.pokemon.PkTrainer;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -20,21 +20,21 @@ public class PseudoFight {
 
     private byte mult;
 
-    private CustList<NumberMap<Byte,Byte>> actions;
+    private CustList<ByteMap<Byte>> actions;
 
     public PseudoFight(CustList<PkTrainer> _foes,
             PseudoPlayer _pseudoPlayer,
             int _mult,
-            CustList<NumberMap<Byte,Byte>> _actions) {
+            CustList<ByteMap<Byte>> _actions) {
         foes = new CustList<PseudoFoeFighter>();
         for (PkTrainer p: _foes) {
             foes.add(new PseudoFoeFighter(p));
         }
         playerFighters = new CustList<PseudoPlayerFighter>();
-        actions = new CustList<NumberMap<Byte,Byte>>();
-        for (NumberMap<Byte,Byte> a: _actions) {
-            NumberMap<Byte,Byte> map_;
-            map_ = new NumberMap<Byte,Byte>(a);
+        actions = new CustList<ByteMap<Byte>>();
+        for (ByteMap<Byte> a: _actions) {
+            ByteMap<Byte> map_;
+            map_ = new ByteMap<Byte>(a);
             actions.add(map_);
         }
         byte index_ = CustList.FIRST_INDEX;
@@ -88,8 +88,8 @@ public class PseudoFight {
                 if (i >= foes.size()) {
                     continue;
                 }
-                Numbers<Byte> playerFighters_;
-                playerFighters_ = new Numbers<Byte>();
+                Bytes playerFighters_;
+                playerFighters_ = new Bytes();
                 byte indexPlayer_ = CustList.FIRST_INDEX;
                 for (PseudoPlayerFighter p: playerFighters) {
                     if (p.getFoes().containsObj(i)) {
@@ -119,7 +119,7 @@ public class PseudoFight {
             if (indexFoe_ < CustList.FIRST_INDEX) {
                 break;
             }
-            Numbers<Byte> foes_ = new Numbers<Byte>();
+            Bytes foes_ = new Bytes();
             maxIndex_ = indexFoe_ + mult;
             for (byte i = indexFoe_; i < maxIndex_; i++) {
                 if (i >= foes.size()) {
@@ -127,7 +127,7 @@ public class PseudoFight {
                 }
                 foes_.add(i);
             }
-            Numbers<Byte> fronts_ = new Numbers<Byte>();
+            Bytes fronts_ = new Bytes();
             for (byte k: actions.get(indexAction_).getKeys()) {
                 if (Numbers.eq(actions.get(indexAction_).getVal(k), Fighter.BACK)) {
                     continue;
@@ -145,13 +145,13 @@ public class PseudoFight {
         }
     }
 
-    void addExpFighters(Numbers<Byte> _membres,byte _adv,Difficulty _diff,DataBase _import){
-        Numbers<Byte> fightersBelongingToUser_ = new Numbers<Byte>();
+    void addExpFighters(Bytes _membres,byte _adv,Difficulty _diff,DataBase _import){
+        Bytes fightersBelongingToUser_ = new Bytes();
         int nbFighters_ = playerFighters.size();
         for (byte i = CustList.FIRST_INDEX; i < nbFighters_; i++) {
             fightersBelongingToUser_.add(i);
         }
-        Numbers<Byte> porteursMultExp_ = fightersWearingExpObject(fightersBelongingToUser_, _import);
+        Bytes porteursMultExp_ = fightersWearingExpObject(fightersBelongingToUser_, _import);
         PseudoFoeFighter foe_ = foes.get(_adv);
         Rate points_ = foe_.pointsFoe(mult, _diff, _import);
         Rate sumMaxLevel_ = Rate.zero();
@@ -177,9 +177,9 @@ public class PseudoFight {
         }
     }
 
-    Numbers<Byte> fightersWearingExpObject(
-            Numbers<Byte> _list, DataBase _import) {
-        Numbers<Byte> list_ = new Numbers<Byte>();
+    Bytes fightersWearingExpObject(
+            Bytes _list, DataBase _import) {
+        Bytes list_ = new Bytes();
         for (byte f: _list) {
             PseudoPlayerFighter membre_= playerFighters.get(f);
             if (membre_.getItem().isEmpty()) {
@@ -198,7 +198,7 @@ public class PseudoFight {
     }
 
     void addExp(byte _fighter,
-            Numbers<Byte> _membres, Numbers<Byte> _porteursMultExp,
+            Bytes _membres, Bytes _porteursMultExp,
             byte _foe, Rate _points,
             Difficulty _diff, DataBase _import) {
         byte nbPorteursMultExp_=(byte) _porteursMultExp.size();
@@ -262,7 +262,7 @@ public class PseudoFight {
         return mult;
     }
 
-    CustList<NumberMap<Byte,Byte>> getActions() {
+    CustList<ByteMap<Byte>> getActions() {
         return actions;
     }
 }

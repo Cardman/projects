@@ -8,7 +8,7 @@ import aiki.fight.status.StatusType;
 import aiki.fight.util.StatisticStatus;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 
 final class FightAbilities {
@@ -26,7 +26,7 @@ final class FightAbilities {
             return false;
         }
         AbilityData fCapac_=creatureLanceur_.ficheCapaciteActuelle(_import);
-        return fCapac_.getIgnAbility().containsObj(creatureCible_.getCurrentAbility());
+        return StringList.contains(fCapac_.getIgnAbility(), creatureCible_.getCurrentAbility());
     }
 
     static void enableAbility(Fight _fight,TeamPosition _cbt,DataBase _import){

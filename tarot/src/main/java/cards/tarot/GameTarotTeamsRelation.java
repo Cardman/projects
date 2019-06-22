@@ -8,11 +8,11 @@ import code.util.*;
 public final class GameTarotTeamsRelation {
 
     private byte taker;
-    private Numbers<Byte> calledPlayers;
+    private Bytes calledPlayers;
     private CustList<BooleanList> confidence;
     private RulesTarot rules;
 
-    public GameTarotTeamsRelation(byte _taker, Numbers<Byte> _calledPlayers,
+    public GameTarotTeamsRelation(byte _taker, Bytes _calledPlayers,
                                   CustList<BooleanList> _confidence, RulesTarot _rules) {
         taker = _taker;
         calledPlayers = _calledPlayers;
@@ -20,18 +20,18 @@ public final class GameTarotTeamsRelation {
         rules = _rules;
     }
 
-    CustList<Numbers<Byte>> teams() {
-        CustList<Numbers<Byte>> teams_ =new CustList<Numbers<Byte>>();
+    CustList<Bytes> teams() {
+        CustList<Bytes> teams_ =new CustList<Bytes>();
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
-        Numbers<Byte> all_ =tousJoueurs(nombreDeJoueurs_);
-        Numbers<Byte> done_ =new Numbers<Byte>();
+        Bytes all_ =tousJoueurs(nombreDeJoueurs_);
+        Bytes done_ =new Bytes();
         while(!all_.isEmpty()) {
             byte pl_ = all_.first();
             if (done_.contains(pl_)) {
                 all_.remove(0);
                 continue;
             }
-            Numbers<Byte> parts_ = coequipiers(pl_, all_);
+            Bytes parts_ = coequipiers(pl_, all_);
             parts_.add(pl_);
             teams_.add(parts_);
             done_.addAllElts(parts_);
@@ -44,8 +44,17 @@ public final class GameTarotTeamsRelation {
     byte getNombreDeJoueurs() {
         return (byte) rules.getRepartition().getNombreJoueurs();
     }
-    static Numbers<Byte> intersectionJoueurs(Numbers<Byte> _joueurs1, Numbers<Byte> _joueurs2) {
-        Numbers<Byte> joueurs_ = new Numbers<Byte>();
+    static boolean contientJoueurs(Bytes _joueurs1, Bytes _joueurs2) {
+        for (Number e: _joueurs2) {
+            long nb_ = e.longValue();
+            if (!_joueurs1.contains(nb_)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    static Bytes intersectionJoueurs(Bytes _joueurs1, Bytes _joueurs2) {
+        Bytes joueurs_ = new Bytes();
         for (byte j : _joueurs1) {
             if(!_joueurs2.containsObj(j)) {
                 continue;
@@ -54,9 +63,9 @@ public final class GameTarotTeamsRelation {
         }
         return joueurs_;
     }
-    static Numbers<Byte> autresJoueurs(Numbers<Byte> _joueurs,
+    static Bytes autresJoueurs(Bytes _joueurs,
                                                byte _nombreJoueurs) {
-        Numbers<Byte> joueurs_ = new Numbers<Byte>();
+        Bytes joueurs_ = new Bytes();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
             if (!_joueurs.containsObj(joueur_)) {
                 joueurs_.add(joueur_);
@@ -65,12 +74,12 @@ public final class GameTarotTeamsRelation {
         return joueurs_;
     }
 
-    Numbers<Byte> autresJoueurs(byte _numero) {
+    Bytes autresJoueurs(byte _numero) {
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
-        return autresJoueurs(new Numbers<Byte>(_numero), nombreDeJoueurs_);
+        return autresJoueurs(new Bytes(_numero), nombreDeJoueurs_);
     }
-    static Numbers<Byte> tousJoueurs(byte _nombreJoueurs) {
-        Numbers<Byte> joueurs_ = new Numbers<Byte>();
+    static Bytes tousJoueurs(byte _nombreJoueurs) {
+        Bytes joueurs_ = new Bytes();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
             joueurs_.add(joueur_);
         }
@@ -81,8 +90,8 @@ public final class GameTarotTeamsRelation {
         return _joueur == (_joueurPrecedent + 1) % _nombreJoueurs;
     }
 
-    Numbers<Byte> tousCoequipiers(byte _joueur) {
-        Numbers<Byte> equipe_ = new Numbers<Byte>();
+    Bytes tousCoequipiers(byte _joueur) {
+        Bytes equipe_ = new Bytes();
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
         for (byte joueur_ : tousJoueurs(nombreDeJoueurs_)) {
             if (joueur_ == _joueur) {
@@ -94,8 +103,8 @@ public final class GameTarotTeamsRelation {
         }
         return equipe_;
     }
-    Numbers<Byte> coequipiers(byte _joueur, Numbers<Byte> _joueurs) {
-        Numbers<Byte> equipe_ = new Numbers<Byte>();
+    Bytes coequipiers(byte _joueur, Bytes _joueurs) {
+        Bytes equipe_ = new Bytes();
         for (byte joueur_ : _joueurs) {
             if (joueur_ == _joueur) {
                 continue;
@@ -106,20 +115,20 @@ public final class GameTarotTeamsRelation {
         }
         return equipe_;
     }
-    public CustList<Numbers<Byte>> playersBelongingToSameTeam() {
-        CustList<Numbers<Byte>> teams_ = new CustList<Numbers<Byte>>();
+    public CustList<Bytes> playersBelongingToSameTeam() {
+        CustList<Bytes> teams_ = new CustList<Bytes>();
         if (existePreneur()) {
-            Numbers<Byte> takerTeam_ = tousCoequipiers(taker);
+            Bytes takerTeam_ = tousCoequipiers(taker);
             takerTeam_.add(taker);
             teams_.add(takerTeam_);
             byte nombreDeJoueurs_ = getNombreDeJoueurs();
-            Numbers<Byte> takerFoeTeam_ = adversaires(taker, tousJoueurs(nombreDeJoueurs_));
+            Bytes takerFoeTeam_ = adversaires(taker, tousJoueurs(nombreDeJoueurs_));
             teams_.add(takerFoeTeam_);
         }
         return teams_;
     }
-    Numbers<Byte> adversaires(byte _joueur, Numbers<Byte> _joueurs) {
-        Numbers<Byte> equipe_ = new Numbers<Byte>();
+    Bytes adversaires(byte _joueur, Bytes _joueurs) {
+        Bytes equipe_ = new Bytes();
         for (byte joueur_ : _joueurs) {
             if (!memeEquipe(_joueur, joueur_)) {
                 equipe_.add(joueur_);
@@ -129,8 +138,8 @@ public final class GameTarotTeamsRelation {
     }
 
     /** Utilise l'attribut confiance */
-    Numbers<Byte> joueursNonConfiance(byte _joueur, Numbers<Byte> _joueurs) {
-        Numbers<Byte> joueurs_ = new Numbers<Byte>();
+    Bytes joueursNonConfiance(byte _joueur, Bytes _joueurs) {
+        Bytes joueurs_ = new Bytes();
         for (byte joueur_ : _joueurs) {
             if (confidence.get(_joueur).get(joueur_)) {
                 continue;
@@ -141,8 +150,8 @@ public final class GameTarotTeamsRelation {
     }
 
     /** Utilise l'attribut confiance */
-    Numbers<Byte> joueursConfiance(byte _joueur, Numbers<Byte> _joueurs) {
-        Numbers<Byte> joueurs_ = new Numbers<Byte>();
+    Bytes joueursConfiance(byte _joueur, Bytes _joueurs) {
+        Bytes joueurs_ = new Bytes();
         for (byte joueur_ : _joueurs) {
             if (joueur_ == _joueur) {
                 continue;
@@ -208,7 +217,7 @@ public final class GameTarotTeamsRelation {
         return appelesTousConnus_;
     }
 
-    public boolean isSameTeam(Numbers<Byte> _players) {
+    public boolean isSameTeam(Bytes _players) {
         int nbPlayers_ = _players.size();
         for (byte i=CustList.SECOND_INDEX;i<nbPlayers_;i++) {
             if (!memeEquipe(_players.getPrev(i), _players.get(i))) {
@@ -222,7 +231,7 @@ public final class GameTarotTeamsRelation {
     }
     boolean aucunPliAdverse(byte _joueur, CustList<TrickTarot> _unionPlis) {
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
-        Numbers<Byte> partenaires_ = coequipiers(_joueur,
+        Bytes partenaires_ = coequipiers(_joueur,
                 GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_));
         partenaires_.add(_joueur);
         return GameTarotTrickInfo.plisTousFaitsPar(partenaires_, _unionPlis, nombreDeJoueurs_);
@@ -247,7 +256,7 @@ public final class GameTarotTeamsRelation {
         return taker > -1;
     }
 
-    Numbers<Byte> getCalledPlayers() {
+    Bytes getCalledPlayers() {
         return calledPlayers;
     }
 

@@ -17,7 +17,7 @@ import code.sml.Element;
 import code.sml.Node;
 import code.sml.RowCol;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -339,12 +339,12 @@ public final class ImportingPage {
         tabWidth = _tabWidth;
     }
 
-    public ObjectMap<NodeAttribute,NatTreeMap<Integer,Integer>> getEncodedChars() {
+    public ObjectMap<NodeAttribute,IntTreeMap<Integer>> getEncodedChars() {
         return processingHtml.getEncodedChars();
     }
 
     public void setEncodedChars(
-            ObjectMap<NodeAttribute,NatTreeMap<Integer,Integer>> _encodedChars) {
+            ObjectMap<NodeAttribute,IntTreeMap<Integer>> _encodedChars) {
         processingHtml.setEncodedChars(_encodedChars);
     }
 

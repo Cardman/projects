@@ -12,9 +12,9 @@ import code.maths.LgInt;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
-import code.util.Numbers;
+import code.util.*;
+import code.util.*;
+import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -52,17 +52,17 @@ public final class Team {
 
     /***/
 //    private Map<Pair<String,Byte>,Pair<Byte,Pair<Boolean,Boolean> > > healAfter;
-    private StringMap<NumberMap<Byte,StacksOfUses>> healAfter;
+    private StringMap<ByteMap<StacksOfUses>> healAfter;
 
     /***/
     //private Map<Pair<String,Byte>,Anticipation> movesAnticipation;
-    private StringMap<NumberMap<Byte,Anticipation>> movesAnticipation;
+    private StringMap<ByteMap<Anticipation>> movesAnticipation;
 
     /***/
-    private NumberMap<Byte,Fighter> members;
+    private ByteMap<Fighter> members;
 
     /***/
-    private NumberMap<Byte,Numbers<Byte>> playerFightersAgainstFoe;
+    private ByteMap<Bytes> playerFightersAgainstFoe;
 
     /***/
     private byte nbKoRound;
@@ -112,9 +112,9 @@ public final class Team {
         for(String e:attaques_){
             nbUsesMovesRound.put(e,0);
         }
-        members = new NumberMap<Byte,Fighter>();
-        healAfter = new StringMap<NumberMap<Byte,StacksOfUses>>();
-        movesAnticipation = new StringMap<NumberMap<Byte,Anticipation>>();
+        members = new ByteMap<Fighter>();
+        healAfter = new StringMap<ByteMap<StacksOfUses>>();
+        movesAnticipation = new StringMap<ByteMap<Anticipation>>();
         successfulMovesRound = new StringList();
     }
 
@@ -122,7 +122,7 @@ public final class Team {
             byte _maxNumberFrontFighters,
             byte _mult,
             DataBase _import, CustList<PkTrainer> _team) {
-        playerFightersAgainstFoe = new NumberMap<Byte,Numbers<Byte>>();
+        playerFightersAgainstFoe = new ByteMap<Bytes>();
         byte nbPks_=(byte) _utilisateur.getTeam().size();
         byte i_=CustList.FIRST_INDEX;
         byte place_;
@@ -147,7 +147,7 @@ public final class Team {
             creatureCbt_.initIvUt(_diff);
             max_ = i;
             members.put(i,creatureCbt_);
-            playerFightersAgainstFoe.put(i,new Numbers<Byte>());
+            playerFightersAgainstFoe.put(i,new Bytes());
         }
         nbPks_=(byte) _team.size();
         i_=CustList.FIRST_INDEX;
@@ -172,16 +172,16 @@ public final class Team {
             members.put((byte) (i+dec_),creatureCbt_);
         }
         for (String e: _import.getMovesHealingAfter()) {
-            NumberMap<Byte,StacksOfUses> map_;
-            map_ = new NumberMap<Byte,StacksOfUses>();
+            ByteMap<StacksOfUses> map_;
+            map_ = new ByteMap<StacksOfUses>();
             for(byte i=CustList.FIRST_INDEX;i<_mult;i++){
                 map_.put(i,new StacksOfUses());
             }
             healAfter.put(e, map_);
         }
         for (String e: _import.getMovesAnticipation()) {
-            NumberMap<Byte,Anticipation> map_;
-            map_ = new NumberMap<Byte,Anticipation>();
+            ByteMap<Anticipation> map_;
+            map_ = new ByteMap<Anticipation>();
             for(byte i=CustList.FIRST_INDEX;i<_mult;i++){
                 Anticipation ant_ = new Anticipation();
                 ant_.setTargetPosition(new TargetCoords((short) 0, Fighter.BACK));
@@ -192,7 +192,7 @@ public final class Team {
     }
 
     void initEquipeUtilisateur(Player _utilisateur,Difficulty _diff,short _multiplicite,DataBase _import){
-        playerFightersAgainstFoe = new NumberMap<Byte,Numbers<Byte>>();
+        playerFightersAgainstFoe = new ByteMap<Bytes>();
         byte nbPks_=(byte) _utilisateur.getTeam().size();
         byte i_=CustList.FIRST_INDEX;
         byte place_;
@@ -211,19 +211,19 @@ public final class Team {
             Fighter creatureCbt_= new Fighter(posPk_,_import,place_);
             creatureCbt_.initIvUt(_diff);
             members.put(i,creatureCbt_);
-            playerFightersAgainstFoe.put(i,new Numbers<Byte>());
+            playerFightersAgainstFoe.put(i,new Bytes());
         }
         for (String e: _import.getMovesHealingAfter()) {
-            NumberMap<Byte,StacksOfUses> map_;
-            map_ = new NumberMap<Byte,StacksOfUses>();
+            ByteMap<StacksOfUses> map_;
+            map_ = new ByteMap<StacksOfUses>();
             for(byte i=CustList.FIRST_INDEX;i<_multiplicite;i++){
                 map_.put(i,new StacksOfUses());
             }
             healAfter.put(e, map_);
         }
         for (String e: _import.getMovesAnticipation()) {
-            NumberMap<Byte,Anticipation> map_;
-            map_ = new NumberMap<Byte,Anticipation>();
+            ByteMap<Anticipation> map_;
+            map_ = new ByteMap<Anticipation>();
             for(byte i=CustList.FIRST_INDEX;i<_multiplicite;i++){
                 Anticipation ant_ = new Anticipation();
                 ant_.setTargetPosition(new TargetCoords((short) 0, Fighter.BACK));
@@ -234,7 +234,7 @@ public final class Team {
     }
 
     void initPokemonSauvage(Player _utilisateur,Difficulty _diff, int _index, WildPk _pokemon,DataBase _import){
-        playerFightersAgainstFoe = new NumberMap<Byte,Numbers<Byte>>();
+        playerFightersAgainstFoe = new ByteMap<Bytes>();
         Fighter creatureCbt_= new Fighter(_pokemon,_import, (byte) _index);
         if(_utilisateur.estAttrape(_pokemon.getName())){
             creatureCbt_.initIvAdv(_diff,_import.getDefaultBall());
@@ -243,14 +243,14 @@ public final class Team {
         }
         members.put((byte)_index,creatureCbt_);
         for (String e: _import.getMovesHealingAfter()) {
-            NumberMap<Byte,StacksOfUses> map_;
-            map_ = new NumberMap<Byte,StacksOfUses>();
+            ByteMap<StacksOfUses> map_;
+            map_ = new ByteMap<StacksOfUses>();
             map_.put((byte)_index,new StacksOfUses());
             healAfter.put(e, map_);
         }
         for (String e: _import.getMovesAnticipation()) {
-            NumberMap<Byte,Anticipation> map_;
-            map_ = new NumberMap<Byte,Anticipation>();
+            ByteMap<Anticipation> map_;
+            map_ = new ByteMap<Anticipation>();
             Anticipation ant_ = new Anticipation();
             ant_.setTargetPosition(new TargetCoords((short) 0, Fighter.BACK));
             map_.put((byte)_index,ant_);
@@ -259,7 +259,7 @@ public final class Team {
     }
 
     void initEquipeAdversaire(Player _utilisateur,CustList<PkTrainer> _equipe,Difficulty _diff, short _multiplicite,DataBase _import){
-        playerFightersAgainstFoe = new NumberMap<Byte,Numbers<Byte>>();
+        playerFightersAgainstFoe = new ByteMap<Bytes>();
         byte nbPks_=(byte) _equipe.size();
         byte back_ = Fighter.BACK;
         for(byte i=CustList.FIRST_INDEX;i<nbPks_;i++){
@@ -279,16 +279,16 @@ public final class Team {
             members.put(i,creatureCbt_);
         }
         for (String e: _import.getMovesHealingAfter()) {
-            NumberMap<Byte,StacksOfUses> map_;
-            map_ = new NumberMap<Byte,StacksOfUses>();
+            ByteMap<StacksOfUses> map_;
+            map_ = new ByteMap<StacksOfUses>();
             for(byte i=CustList.FIRST_INDEX;i<_multiplicite;i++){
                 map_.put(i,new StacksOfUses());
             }
             healAfter.put(e, map_);
         }
         for (String e: _import.getMovesAnticipation()) {
-            NumberMap<Byte,Anticipation> map_;
-            map_ = new NumberMap<Byte,Anticipation>();
+            ByteMap<Anticipation> map_;
+            map_ = new ByteMap<Anticipation>();
             for(byte i=CustList.FIRST_INDEX;i<_multiplicite;i++){
                 Anticipation ant_ = new Anticipation();
                 ant_.setTargetPosition(new TargetCoords((short) 0, Fighter.BACK));
@@ -380,7 +380,7 @@ public final class Team {
                 return false;
             }
         }
-        Numbers<Byte> keysMovesLatter_ = new Numbers<Byte>();
+        Bytes keysMovesLatter_ = new Bytes();
         for (byte i=CustList.FIRST_INDEX;i<mult_;i++) {
             keysMovesLatter_.add(i);
         }
@@ -395,7 +395,7 @@ public final class Team {
             }
         }
         relMovesExp_ = new EqList<MoveUsesTeam>();
-        for (EntryCust<String,NumberMap<Byte,StacksOfUses>> k: healAfter.entryList()) {
+        for (EntryCust<String,ByteMap<StacksOfUses>> k: healAfter.entryList()) {
             for (byte b: k.getValue().getKeys()) {
                 relMovesExp_.add(new MoveUsesTeam(k.getKey(),b));
             }
@@ -412,7 +412,7 @@ public final class Team {
                 relMovesTh_.add(new MoveUsesTeam(m, f));
             }
         }
-        for (EntryCust<String,NumberMap<Byte,Anticipation>> k: movesAnticipation.entryList()) {
+        for (EntryCust<String,ByteMap<Anticipation>> k: movesAnticipation.entryList()) {
             for (byte b: k.getValue().getKeys()) {
                 relMovesExp_.add(new MoveUsesTeam(k.getKey(),b));
             }
@@ -420,14 +420,14 @@ public final class Team {
         if (!MoveUsesTeam.equalsSet(relMovesTh_, relMovesExp_)) {
             return false;
         }
-        for (NumberMap<Byte,StacksOfUses> k: healAfter.values()) {
+        for (ByteMap<StacksOfUses> k: healAfter.values()) {
             for (StacksOfUses s: k.values()) {
                 if (!s.isValid()) {
                     return false;
                 }
             }
         }
-        for (NumberMap<Byte,Anticipation> k: movesAnticipation.values()) {
+        for (ByteMap<Anticipation> k: movesAnticipation.values()) {
             for (Anticipation s: k.values()) {
                 if (!s.isValid()) {
                     return false;
@@ -439,13 +439,13 @@ public final class Team {
                 }
             }
         }
-        Numbers<Byte> foes_ = new Numbers<Byte>(_fight.getFoeTeam().getMembers().getKeys());
+        ByteMap< Fighter> members_ = _fight.getFoeTeam().getMembers();
         if (_numberTeam == Fight.PLAYER) {
             for (byte b:_fight.getUserTeam().getMembers().getKeys()) {
                 if (!_fight.getUserTeam().getMembers().getVal(b).isBelongingToPlayer()) {
                     continue;
                 }
-                if (!foes_.containsAllObj(playerFightersAgainstFoe.getVal(b))) {
+                if (!members_.containsAllAsKeys(playerFightersAgainstFoe.getVal(b))) {
                     return false;
                 }
             }
@@ -455,7 +455,7 @@ public final class Team {
                 return false;
             }
         }
-        if (members.isEmpty()) {
+        if (this.members.isEmpty()) {
             return false;
         }
         return true;
@@ -539,8 +539,8 @@ public final class Team {
         }
     }
 
-    Numbers<Byte> notKoPartnersWithoutStatus(byte _position) {
-        Numbers<Byte> list_ = new Numbers<Byte>();
+    Bytes notKoPartnersWithoutStatus(byte _position) {
+        Bytes list_ = new Bytes();
         for (byte c: members.getKeys()) {
             if (Numbers.eq(c, _position)) {
                 continue;
@@ -609,8 +609,8 @@ public final class Team {
         }
     }
 
-    Numbers<Byte> fightersAtCurrentPlace(short _place){
-        Numbers<Byte> cbts_ = new Numbers<Byte>();
+    Bytes fightersAtCurrentPlace(short _place){
+        Bytes cbts_ = new Bytes();
         for(byte c:members.getKeys()){
             Fighter membre_=members.getVal(c);
             if(Numbers.eq(membre_.getGroundPlace(),_place)){
@@ -620,8 +620,8 @@ public final class Team {
         return cbts_;
     }
 
-    Numbers<Byte> fightersAtCurrentPlaceIndex(short _index, boolean _belongToPlayer){
-        NatTreeMap<Byte,Byte> cbts_ = new NatTreeMap<Byte,Byte>();
+    Bytes fightersAtCurrentPlaceIndex(short _index, boolean _belongToPlayer){
+        ByteTreeMap<Byte> cbts_ = new ByteTreeMap<Byte>();
         for(byte c:members.getKeys()){
             Fighter membre_=members.getVal(c);
             if (membre_.estArriere()) {
@@ -634,7 +634,7 @@ public final class Team {
             }
             cbts_.put(membre_.getGroundPlace(), c);
         }
-        Numbers<Byte> res_ = new Numbers<Byte>();
+        Bytes res_ = new Bytes();
         if (cbts_.getKeys().isValidIndex(_index)) {
             res_.add(cbts_.getValue(_index));
         }
@@ -644,7 +644,7 @@ public final class Team {
     byte substituteAtIndex(short _index) {
         byte substitute_ = Fighter.BACK;
         byte i_ = CustList.FIRST_INDEX;
-        Numbers<Byte> list_ = new Numbers<Byte>(members.getKeys());
+        Bytes list_ = new Bytes(members.getKeys());
         list_.sort();
         for (byte k: list_) {
             Fighter fighter_ = members.getVal(k);
@@ -661,7 +661,7 @@ public final class Team {
     }
 
     int indexOfSubstitute(byte _sub) {
-        Numbers<Byte> list_ = new Numbers<Byte>(members.getKeys());
+        Bytes list_ = new Bytes(members.getKeys());
         list_.sort();
         int ind_ = CustList.INDEX_NOT_FOUND_ELT;
         int i_ = CustList.FIRST_INDEX;
@@ -682,7 +682,7 @@ public final class Team {
     byte fighterAtIndex(short _index) {
         byte index_ = Fighter.BACK;
         byte i_ = CustList.FIRST_INDEX;
-        Numbers<Byte> list_ = new Numbers<Byte>(members.getKeys());
+        Bytes list_ = new Bytes(members.getKeys());
         list_.sort();
         for (byte k: list_) {
             if (!members.getVal(k).isBelongingToPlayer()) {
@@ -728,8 +728,8 @@ public final class Team {
         return list_;
     }
 
-    Numbers<Byte> frontFighters(){
-        Numbers<Byte> cbts_ = new Numbers<Byte>();
+    Bytes frontFighters(){
+        Bytes cbts_ = new Bytes();
         for(byte c2_: members.getKeys()){
             if(!members.getVal(c2_).estArriere()){
                 cbts_.add(c2_);
@@ -798,11 +798,11 @@ public final class Team {
         nbUsesMovesRound = _nbUsesMovesRound;
     }
 
-    public StringList getHealAfterSet() {
+    public CustList<String> getHealAfterSet() {
         return healAfter.getKeys();
     }
 
-    public Numbers<Byte> getHealAfterSet(String _move) {
+    public CustList<Byte> getHealAfterSet(String _move) {
         return healAfter.getVal(_move).getKeys();
     }
 
@@ -810,19 +810,19 @@ public final class Team {
         return healAfter.getVal(_move).getVal(_key);
     }
 
-    public StringMap<NumberMap<Byte,StacksOfUses>> getHealAfter() {
+    public StringMap<ByteMap<StacksOfUses>> getHealAfter() {
         return healAfter;
     }
 
-    public void setHealAfter(StringMap<NumberMap<Byte,StacksOfUses>> _healAfter) {
+    public void setHealAfter(StringMap<ByteMap<StacksOfUses>> _healAfter) {
         healAfter = _healAfter;
     }
 
-    public StringList getMovesAnticipationSet() {
+    public CustList<String> getMovesAnticipationSet() {
         return movesAnticipation.getKeys();
     }
 
-    public Numbers<Byte> getMovesAnticipationSet(String _move) {
+    public CustList<Byte> getMovesAnticipationSet(String _move) {
         return movesAnticipation.getVal(_move).getKeys();
     }
 
@@ -831,31 +831,31 @@ public final class Team {
     }
 
     /**Only for checking player actions*/
-    CustList<NumberMap<Byte,Anticipation>> getMovesAnticipationValues() {
+    CustList<ByteMap<Anticipation>> getMovesAnticipationValues() {
         return movesAnticipation.values();
     }
 
-    public StringMap<NumberMap<Byte,Anticipation>> getMovesAnticipation() {
+    public StringMap<ByteMap<Anticipation>> getMovesAnticipation() {
         return movesAnticipation;
     }
 
-    public void setMovesAnticipation(StringMap<NumberMap<Byte,Anticipation>> _movesAnticipation) {
+    public void setMovesAnticipation(StringMap<ByteMap<Anticipation>> _movesAnticipation) {
         movesAnticipation = _movesAnticipation;
     }
 
-    public NumberMap<Byte,Fighter> getMembers() {
+    public ByteMap<Fighter> getMembers() {
         return members;
     }
 
-    public void setMembers(NumberMap<Byte,Fighter> _members) {
+    public void setMembers(ByteMap<Fighter> _members) {
         members = _members;
     }
 
-    public Numbers<Byte> getPlayerFightersAgainstFoeSet() {
+    public CustList<Byte> getPlayerFightersAgainstFoeSet() {
         return playerFightersAgainstFoe.getKeys();
     }
 
-    public Numbers<Byte> getPlayerFightersAgainstFoeVal(byte _key) {
+    public Bytes getPlayerFightersAgainstFoeVal(byte _key) {
         return playerFightersAgainstFoe.getVal(_key);
     }
 
@@ -863,11 +863,11 @@ public final class Team {
         return playerFightersAgainstFoe.getVal(_key).containsObj(_value);
     }
 
-    public NumberMap<Byte,Numbers<Byte>> getPlayerFightersAgainstFoe() {
+    public ByteMap<Bytes> getPlayerFightersAgainstFoe() {
         return playerFightersAgainstFoe;
     }
 
-    public void setPlayerFightersAgainstFoe(NumberMap<Byte,Numbers<Byte>> _playerFightersAgainstFoe) {
+    public void setPlayerFightersAgainstFoe(ByteMap<Bytes> _playerFightersAgainstFoe) {
         playerFightersAgainstFoe = _playerFightersAgainstFoe;
     }
 

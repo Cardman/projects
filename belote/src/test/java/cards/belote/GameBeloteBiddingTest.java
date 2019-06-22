@@ -1717,8 +1717,6 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         assertTrue(BidBeloteSuit.equalsSet(expected_,bids_));
     }
 
-
-    //TODO change later
     private void asserting(EqList<BidBeloteSuit> _exp, EqList<BidBeloteSuit> _res) {
         assertEq(_exp.size(), _res.size());
         int s_ = _exp.size();

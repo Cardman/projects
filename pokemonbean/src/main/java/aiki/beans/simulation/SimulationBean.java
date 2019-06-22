@@ -52,7 +52,7 @@ import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.NatCmpTreeMap;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -113,12 +113,12 @@ public class SimulationBean extends CommonBean {
 
     private int noFight;
     private int selectedRound;
-    private NatTreeMap<Integer, Integer> round = new NatTreeMap<Integer, Integer>();
+    private IntTreeMap< Integer> round = new IntTreeMap< Integer>();
 
     private int placeFight = Fighter.BACK;
-    private NatTreeMap<Integer, String> placesFight = new NatTreeMap<Integer, String>();
+    private IntTreeMap< String> placesFight = new IntTreeMap< String>();
     private int target;
-    private NatTreeMap<Integer, String> targetFight = new NatTreeMap<Integer, String>();
+    private IntTreeMap< String> targetFight = new IntTreeMap< String>();
     private String currentAbility = DataBase.EMPTY_STRING;
     private TreeMap<String,String> abilities;
     private CustList<SelectLineMove> keptMoves = new CustList<SelectLineMove>();
@@ -299,8 +299,8 @@ public class SimulationBean extends CommonBean {
                 getForms().removeKey(POKEMON_LEVEL_EDIT);
             }
         } else if (simu_ == SimulationSteps.FRONT) {
-            round = new NatTreeMap<Integer, Integer>();
-            placesFight = new NatTreeMap<Integer, String>();
+            round = new IntTreeMap< Integer>();
+            placesFight = new IntTreeMap< String>();
             int nbRounds_ = simulation.nbRounds();
             for (int i = CustList.FIRST_INDEX; i < nbRounds_; i++) {
                 round.put(i, i);
@@ -362,7 +362,7 @@ public class SimulationBean extends CommonBean {
 
         } else if (simu_ == SimulationSteps.MOVES_FIGHT) {
             if (selectedPk != CustList.INDEX_NOT_FOUND_ELT) {
-                targetFight = new NatTreeMap<Integer, String>();
+                targetFight = new IntTreeMap< String>();
                 int mult_ = simulation.getFirstMult();
                 for (int i = CustList.FIRST_INDEX; i < mult_; i++) {
                     targetFight.put(i, Integer.toString(i));
@@ -1822,7 +1822,7 @@ public class SimulationBean extends CommonBean {
         return levelEvo;
     }
 
-    public NatTreeMap<Integer,Integer> getRound() {
+    public IntTreeMap<Integer> getRound() {
         return round;
     }
 
@@ -1834,7 +1834,7 @@ public class SimulationBean extends CommonBean {
         selectedRound = _selectedRound;
     }
 
-    public NatTreeMap<Integer,String> getPlacesFight() {
+    public IntTreeMap<String> getPlacesFight() {
         return placesFight;
     }
 
@@ -1886,7 +1886,7 @@ public class SimulationBean extends CommonBean {
         return allyChoice;
     }
 
-    public NatTreeMap<Integer,String> getTargetFight() {
+    public IntTreeMap<String> getTargetFight() {
         return targetFight;
     }
 

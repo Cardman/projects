@@ -1,13 +1,13 @@
 package code.expressionlanguage.files;
 
-import code.util.Numbers;
+import code.util.Ints;
 
 public final class InputTypeCreation {
 
     private int nextIndex;
 
     private EnablingSpaces enabledSpaces;
-    private Numbers<Integer> badIndexes = new Numbers<Integer>();
+    private Ints badIndexes = new Ints();
 
     public int getNextIndex() {
         return nextIndex;
@@ -24,7 +24,7 @@ public final class InputTypeCreation {
     public void setEnabledSpaces(EnablingSpaces _enabledSpaces) {
         enabledSpaces = _enabledSpaces;
     }
-    public Numbers<Integer> getBadIndexes() {
+    public Ints getBadIndexes() {
         return badIndexes;
     }
 }

@@ -6,16 +6,16 @@ import java.awt.FontMetrics;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import code.util.Numbers;
+import code.util.Ints;
 import code.util.StringList;
 
 public class GraphicStringList extends GraphicList<String> implements Input {
 
     public GraphicStringList(boolean _owned, boolean _simple, StringList _objects) {
-        this(_owned, _simple, _objects, new Numbers<Integer>());
+        this(_owned, _simple, _objects, new Ints());
     }
 
-    public GraphicStringList(boolean _owned, boolean _simple, StringList _objects, Numbers<Integer> _selectedIndexes) {
+    public GraphicStringList(boolean _owned, boolean _simple, StringList _objects, Ints _selectedIndexes) {
         super(_owned, _simple, _selectedIndexes, _objects.toArray());
     }
 

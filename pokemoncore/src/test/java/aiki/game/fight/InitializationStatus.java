@@ -18,7 +18,7 @@ import code.maths.montecarlo.MonteCarloBoolean;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CustList;
 import code.util.EnumMap;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringMap;
 
 final class InitializationStatus {
@@ -374,7 +374,7 @@ final class InitializationStatus {
         object_.setInflictedRateHpTarget(Rate.zero());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         object_.setFailEndRound(NULL_REF);
         return object_;
     }
@@ -400,7 +400,7 @@ final class InitializationStatus {
         object_.setInflictedRateHpTarget(Rate.zero());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
-        object_.setRequiredSuccessfulEffects(new Numbers<Integer>());
+        object_.setRequiredSuccessfulEffects(new Ints());
         object_.setFailEndRound(NULL_REF);
         return object_;
     }

@@ -1,6 +1,6 @@
 package code.util.graphs;
 
-import code.util.Numbers;
+import code.util.*;
 import code.util.ints.Comparing;
 import code.util.ints.SortedEdge;
 

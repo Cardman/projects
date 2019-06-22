@@ -6,7 +6,7 @@ import aiki.facade.StringFieldComparator;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.SortingPokemonPlayer;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.ints.Comparing;
 
 public final class ComparatorPokemonPlayer implements

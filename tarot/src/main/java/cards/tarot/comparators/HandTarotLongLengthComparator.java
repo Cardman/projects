@@ -1,7 +1,7 @@
 package cards.tarot.comparators;
 import cards.consts.Suit;
 import cards.tarot.HandTarot;
-import code.util.Numbers;
+import code.util.*;
 import code.util.ints.Comparing;
 
 public final class HandTarotLongLengthComparator implements Comparing<Suit> {

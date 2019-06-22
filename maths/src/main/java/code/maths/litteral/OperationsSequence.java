@@ -1,6 +1,6 @@
 package code.maths.litteral;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringList;
 
 public final class OperationsSequence {
@@ -12,9 +12,9 @@ public final class OperationsSequence {
 
     private int priority;
 
-    private NatTreeMap<Integer,String> values;
+    private IntTreeMap<String> values;
 
-    private NatTreeMap<Integer,String> operators;
+    private IntTreeMap<String> operators;
 
     private Delimiters delimiter;
 
@@ -23,11 +23,11 @@ public final class OperationsSequence {
     private int indexCst;
 
     public void setupValue(String _string) {
-        values = new NatTreeMap<Integer,String>();
+        values = new IntTreeMap<String>();
         values.put((int)CustList.FIRST_INDEX, _string);
     }
     public void setupValues(String _string) {
-        values = new NatTreeMap<Integer,String>();
+        values = new IntTreeMap<String>();
         if (operators.isEmpty()) {
             values.put((int)CustList.FIRST_INDEX, _string);
             return;
@@ -98,15 +98,15 @@ public final class OperationsSequence {
         priority = _priority;
     }
 
-    public NatTreeMap<Integer, String> getValues() {
+    public IntTreeMap< String> getValues() {
         return values;
     }
 
-    public NatTreeMap<Integer, String> getOperators() {
+    public IntTreeMap< String> getOperators() {
         return operators;
     }
 
-    public void setOperators(NatTreeMap<Integer, String> _operators) {
+    public void setOperators(IntTreeMap< String> _operators) {
         operators = _operators;
     }
 

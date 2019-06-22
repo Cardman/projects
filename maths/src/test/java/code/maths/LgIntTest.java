@@ -4,7 +4,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 import code.util.EqList;
-import code.util.Numbers;
+import code.util.*;
 import code.util.SortableCustList;
 import code.util.TreeMap;
 import org.junit.Test;
@@ -30,154 +30,154 @@ public class LgIntTest {
     @Test
     public void new_LgInt_long_1Test(){
         LgInt int_ = new LgInt(1L);
-        Numbers<Long> resDigits_ = int_.getGrDigits();
-        assertEqDigits(new Numbers<Long>(1L), resDigits_);
+        Longs resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Longs(1L), resDigits_);
         assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
     }
     @Test
     public void new_LgInt_long_2Test(){
         LgInt int_ = new LgInt(0L);
-        Numbers<Long> resDigits_ = int_.getGrDigits();
-        assertEqDigits(new Numbers<Long>(0L), resDigits_);
+        Longs resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Longs(0L), resDigits_);
         assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
     }
     @Test
     public void new_LgInt_long_3Test(){
         LgInt int_ = new LgInt(-1L);
-        Numbers<Long> resDigits_ = int_.getGrDigits();
-        assertEqDigits(new Numbers<Long>(1L), resDigits_);
+        Longs resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Longs(1L), resDigits_);
         assertEq(!LgInt.SIGNE_POSITIF, int_.getSignum());
     }
     @Test
     public void new_LgInt_long_4Test(){
         LgInt int_ = new LgInt(1234567890L);
-        Numbers<Long> resDigits_ = int_.getGrDigits();
-        assertEqDigits(new Numbers<Long>(1L,234567890L), resDigits_);
+        Longs resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Longs(1L,234567890L), resDigits_);
         assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
     }
     @Test
     public void new_LgInt_long_5Test(){
         LgInt int_ = new LgInt(-1234567890L);
-        Numbers<Long> resDigits_ = int_.getGrDigits();
-        assertEqDigits(new Numbers<Long>(1L,234567890L), resDigits_);
+        Longs resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Longs(1L,234567890L), resDigits_);
         assertEq(!LgInt.SIGNE_POSITIF, int_.getSignum());
     }
     @Test
     public void new_LgInt_long_6Test(){
         LgInt int_ = new LgInt(Long.MAX_VALUE);
-        Numbers<Long> resDigits_ = int_.getGrDigits();
-        assertEqDigits(new Numbers<Long>(9L,223372036L,854775807L), resDigits_);
+        Longs resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Longs(9L,223372036L,854775807L), resDigits_);
         assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
     }
     @Test
     public void new_LgInt_String_1Test(){
         LgInt int_ = new LgInt("1");
-        Numbers<Long> resDigits_ = int_.getGrDigits();
-        assertEqDigits(new Numbers<Long>(1L), resDigits_);
+        Longs resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Longs(1L), resDigits_);
         assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
     }
     @Test
     public void new_LgInt_String_2Test(){
         LgInt int_ = new LgInt("0");
-        Numbers<Long> resDigits_ = int_.getGrDigits();
-        assertEqDigits(new Numbers<Long>(0L), resDigits_);
+        Longs resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Longs(0L), resDigits_);
         assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
     }
     @Test
     public void new_LgInt_String_3Test(){
         LgInt int_ = new LgInt("-1");
-        Numbers<Long> resDigits_ = int_.getGrDigits();
-        assertEqDigits(new Numbers<Long>(1L), resDigits_);
+        Longs resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Longs(1L), resDigits_);
         assertEq(!LgInt.SIGNE_POSITIF, int_.getSignum());
     }
     @Test
     public void new_LgInt_String_4Test(){
         LgInt int_ = new LgInt("1234567890");
-        Numbers<Long> resDigits_ = int_.getGrDigits();
-        assertEqDigits(new Numbers<Long>(1L,234567890L), resDigits_);
+        Longs resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Longs(1L,234567890L), resDigits_);
         assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
     }
     @Test
     public void new_LgInt_String_5Test(){
         LgInt int_ = new LgInt("-1234567890");
-        Numbers<Long> resDigits_ = int_.getGrDigits();
-        assertEqDigits(new Numbers<Long>(1L,234567890L), resDigits_);
+        Longs resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Longs(1L,234567890L), resDigits_);
         assertEq(!LgInt.SIGNE_POSITIF, int_.getSignum());
     }
     @Test
     public void new_LgInt_String_6Test(){
         LgInt int_ = new LgInt("1000000000");
-        Numbers<Long> resDigits_ = int_.getGrDigits();
-        assertEqDigits(new Numbers<Long>(1L,0L), resDigits_);
+        Longs resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Longs(1L,0L), resDigits_);
         assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
     }
     @Test
     public void new_LgInt_String_7Test(){
         LgInt int_ = new LgInt("-1000000000");
-        Numbers<Long> resDigits_ = int_.getGrDigits();
-        assertEqDigits(new Numbers<Long>(1L,0L), resDigits_);
+        Longs resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Longs(1L,0L), resDigits_);
         assertEq(!LgInt.SIGNE_POSITIF, int_.getSignum());
     }
     @Test
     public void new_LgInt_String_8Test(){
         LgInt int_ = new LgInt("12345678901234567890");
-        Numbers<Long> resDigits_ = int_.getGrDigits();
-        assertEqDigits(new Numbers<Long>(12L,345678901L,234567890L), resDigits_);
+        Longs resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Longs(12L,345678901L,234567890L), resDigits_);
         assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
     }
     @Test
     public void new_LgInt_String_9Test(){
         LgInt int_ = new LgInt("-12345678901234567890");
-        Numbers<Long> resDigits_ = int_.getGrDigits();
-        assertEqDigits(new Numbers<Long>(12L,345678901L,234567890L), resDigits_);
+        Longs resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Longs(12L,345678901L,234567890L), resDigits_);
         assertEq(!LgInt.SIGNE_POSITIF, int_.getSignum());
     }
     @Test
     public void new_LgInt_String_10Test(){
         LgInt int_ = new LgInt("12000000000234567890");
-        Numbers<Long> resDigits_ = int_.getGrDigits();
-        assertEqDigits(new Numbers<Long>(12L,0L,234567890L), resDigits_);
+        Longs resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Longs(12L,0L,234567890L), resDigits_);
         assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
     }
     @Test
     public void new_LgInt_String_11Test(){
         LgInt int_ = new LgInt("-12000000000234567890");
-        Numbers<Long> resDigits_ = int_.getGrDigits();
-        assertEqDigits(new Numbers<Long>(12L,0L,234567890L), resDigits_);
+        Longs resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Longs(12L,0L,234567890L), resDigits_);
         assertEq(!LgInt.SIGNE_POSITIF, int_.getSignum());
     }
     @Test
     public void new_LgInt_String_12Test(){
         LgInt int_ = new LgInt("12000000001234567890");
-        Numbers<Long> resDigits_ = int_.getGrDigits();
-        assertEqDigits(new Numbers<Long>(12L,1L,234567890L), resDigits_);
+        Longs resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Longs(12L,1L,234567890L), resDigits_);
         assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
     }
     @Test
     public void new_LgInt_String_13Test(){
         LgInt int_ = new LgInt("-12000000001234567890");
-        Numbers<Long> resDigits_ = int_.getGrDigits();
-        assertEqDigits(new Numbers<Long>(12L,1L,234567890L), resDigits_);
+        Longs resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Longs(12L,1L,234567890L), resDigits_);
         assertEq(!LgInt.SIGNE_POSITIF, int_.getSignum());
     }
     @Test
     public void new_LgInt_String_14Test(){
         LgInt int_ = new LgInt("");
-        Numbers<Long> resDigits_ = int_.getGrDigits();
-        assertEqDigits(new Numbers<Long>(0L), resDigits_);
+        Longs resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Longs(0L), resDigits_);
         assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
     }
     @Test
     public void new_LgInt_copy_Test() {
         LgInt i_ = new LgInt(2);
         LgInt j_ = new LgInt(i_);
-        Numbers<Long> resDigits_ = j_.getGrDigits();
-        assertEqDigits(new Numbers<Long>(2L), resDigits_);
+        Longs resDigits_ = j_.getGrDigits();
+        assertEqDigits(new Longs(2L), resDigits_);
         assertEq(LgInt.SIGNE_POSITIF, j_.getSignum());
         assertNotSame(i_.getGrDigits(),resDigits_);
     }
 
-    private static void assertEqDigits(Numbers<Long> _expected, Numbers<Long> _result) {
+    private static void assertEqDigits(Longs _expected, Longs _result) {
         int expectedLen_ = _expected.size();
         assertEq(expectedLen_,_result.size());
         for (int i = 0; i < expectedLen_; i++) {

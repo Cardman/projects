@@ -120,8 +120,8 @@ public final class ElResolver {
         boolean partOfString_ = _d.isPartOfString();
 
         Delimiters d_ = new Delimiters();
-        NatTreeMap<Integer,Character> parsBrackets_;
-        parsBrackets_ = new NatTreeMap<Integer,Character>();
+        IntTreeMap<Character> parsBrackets_;
+        parsBrackets_ = new IntTreeMap<Character>();
         ResultAfterOperators resOpers_ = new ResultAfterOperators();
         resOpers_.setParsBrackets(parsBrackets_);
         resOpers_.setPartOfString(partOfString_);
@@ -1430,7 +1430,7 @@ public final class ElResolver {
                     break;
                 }
                 int prIndex_ = -1;
-                Numbers<Integer> indexes_ = _d.getAllowedOperatorsIndexes();
+                Ints indexes_ = _d.getAllowedOperatorsIndexes();
                 if (!indexes_.isEmpty()) {
                     int lastOp_ = indexes_.last();
                     if (lastOp_ == prChar_ && _string.charAt(lastOp_) == DOT_VAR) {
@@ -1530,7 +1530,7 @@ public final class ElResolver {
         char begin_ = _din.getBegin();
         char end_ = _din.getEnd();
         boolean partOfString_ = _out.isPartOfString();
-        NatTreeMap<Integer,Character> parsBrackets_;
+        IntTreeMap<Character> parsBrackets_;
         parsBrackets_ = _out.getParsBrackets();
 
         int len_ = _string.length();
@@ -1982,11 +1982,11 @@ public final class ElResolver {
             _d.getVariables().add(infoLoc_);
             return _to;
         }
-        Numbers<Integer> indexes_ = new Numbers<Integer>();
+        Ints indexes_ = new Ints();
         StringList parts_ = new StringList();
         StringList partsFields_ = new StringList();
-        Numbers<Integer> begins_ = new Numbers<Integer>();
-        Numbers<Integer> ends_ = new Numbers<Integer>();
+        Ints begins_ = new Ints();
+        Ints ends_ = new Ints();
         int fChar_ = -1;
         int lChar_ = -1;
         BooleanList doubleDotted_ = new BooleanList();
@@ -2099,7 +2099,7 @@ public final class ElResolver {
             while (ik_ < lenk_) {
                 String p_ = partsFields_.get(ik_);
                 idType_.append(p_.trim());
-                if (!allPkg_.containsStr(idType_.toString())) {
+                if (!StringList.contains(allPkg_, idType_.toString())) {
                     break;
                 }
                 found_ = true;
@@ -2794,10 +2794,10 @@ public final class ElResolver {
         if (seq_ != null) {
             return seq_;
         }
-        NatTreeMap<Integer,String> operators_;
-        operators_ = new NatTreeMap<Integer,String>();
-        NatTreeMap<Integer,Character> parsBrackets_;
-        parsBrackets_ = new NatTreeMap<Integer,Character>();
+        IntTreeMap<String> operators_;
+        operators_ = new IntTreeMap<String>();
+        IntTreeMap<Character> parsBrackets_;
+        parsBrackets_ = new IntTreeMap<Character>();
         int prio_ = FCT_OPER_PRIO;
         int len_ = _string.length();
         int i_ = CustList.FIRST_INDEX;
@@ -2870,7 +2870,7 @@ public final class ElResolver {
         if (_string.charAt(firstPrintChar_) == ANN_ARR_LEFT) {
             instance_ = true;
         }
-        Numbers<Integer> laterIndexesDouble_ = new Numbers<Integer>();
+        Ints laterIndexesDouble_ = new Ints();
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
             if (_d.getDimsAddonIndexes().containsObj(i_+_offset)) {
@@ -3195,7 +3195,7 @@ public final class ElResolver {
         return op_;
     }
 
-    private static void addOperIfBegin(NatTreeMap<Integer, String> _operators, int _i, int _first, String _arr) {
+    private static void addOperIfBegin(IntTreeMap< String> _operators, int _i, int _first, String _arr) {
         if (_first == _i) {
             _operators.put(_i, _arr);
         } else {
@@ -3203,7 +3203,7 @@ public final class ElResolver {
         }
     }
 
-    private static void addOperIfNotEmpty(NatTreeMap<Integer, String> _operators, int _i, char _op) {
+    private static void addOperIfNotEmpty(IntTreeMap< String> _operators, int _i, char _op) {
         if (!_operators.lastValue().isEmpty()) {
             _operators.put(_i, String.valueOf(_op));
         }
@@ -3247,7 +3247,7 @@ public final class ElResolver {
         if (i_ >= len_) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.ERROR);
-            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setOperators(new IntTreeMap< String>());
             op_.setValue(_string, 0);
             op_.setDelimiter(_d);
             return op_;
@@ -3275,7 +3275,7 @@ public final class ElResolver {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.STATIC_ACCESS);
             op_.setExtractType(extracted_);
-            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setOperators(new IntTreeMap< String>());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
@@ -3285,7 +3285,7 @@ public final class ElResolver {
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.SIMPLE_ANNOTATION);
-            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setOperators(new IntTreeMap< String>());
             op_.setValue(_string, firstPrintChar_);
             op_.setFctName(_string);
             op_.setDelimiter(_d);
@@ -3296,7 +3296,7 @@ public final class ElResolver {
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.VARARG);
-            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setOperators(new IntTreeMap< String>());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
@@ -3306,7 +3306,7 @@ public final class ElResolver {
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.LAMBDA);
-            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setOperators(new IntTreeMap< String>());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
@@ -3316,7 +3316,7 @@ public final class ElResolver {
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.ID);
-            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setOperators(new IntTreeMap< String>());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
@@ -3326,7 +3326,7 @@ public final class ElResolver {
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.CLASS_INFO);
-            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setOperators(new IntTreeMap< String>());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
@@ -3336,7 +3336,7 @@ public final class ElResolver {
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.SUPER_KEYWORD);
-            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setOperators(new IntTreeMap< String>());
             op_.setValue(_string.substring(firstPrintChar_+keyWordSuper_.length() + 1, lastPrintChar_ + 1), firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
@@ -3346,7 +3346,7 @@ public final class ElResolver {
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.CLASSCHOICE_KEYWORD);
-            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setOperators(new IntTreeMap< String>());
             op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ + 1),firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
@@ -3357,7 +3357,7 @@ public final class ElResolver {
             String name_ = StringList.getDollarWordSeparators(_string.substring(firstPrintChar_+1, lastPrintChar_)).get(1);
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.LOOP_INDEX);
-            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setOperators(new IntTreeMap< String>());
             op_.setValue(name_, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
@@ -3367,7 +3367,7 @@ public final class ElResolver {
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.SUPER_ACCESS_KEYWORD);
-            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setOperators(new IntTreeMap< String>());
             op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ + 1),firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
@@ -3377,7 +3377,7 @@ public final class ElResolver {
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.ACCESS_INDEXER);
-            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setOperators(new IntTreeMap< String>());
             op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ + 1),firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
@@ -3386,7 +3386,7 @@ public final class ElResolver {
         if (StringList.quickEq(sub_, keyWordThis_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.THIS_KEYWORD);
-            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setOperators(new IntTreeMap< String>());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
@@ -3394,7 +3394,7 @@ public final class ElResolver {
         if (StringList.quickEq(sub_, keyWordNull_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.NULL_CST);
-            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setOperators(new IntTreeMap< String>());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
@@ -3402,7 +3402,7 @@ public final class ElResolver {
         if (StringList.quickEq(sub_, keyWordTrue_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.TRUE_CST);
-            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setOperators(new IntTreeMap< String>());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
@@ -3410,7 +3410,7 @@ public final class ElResolver {
         if (StringList.quickEq(sub_, keyWordFalse_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.FALSE_CST);
-            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setOperators(new IntTreeMap< String>());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
@@ -3421,7 +3421,7 @@ public final class ElResolver {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.NUMBER);
             int indexNb_ = begin_/2;
-            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setOperators(new IntTreeMap< String>());
             op_.setNbInfos(_d.getNbInfos().get(indexNb_));
             op_.getNbInfos().setPositive(true);
             op_.setValue(_string, firstPrintChar_);
@@ -3441,7 +3441,7 @@ public final class ElResolver {
             if (_string.charAt(firstPrintChar_) == DELIMITER_CHAR) {
                 OperationsSequence op_ = new OperationsSequence();
                 op_.setConstType(ConstType.CHARACTER);
-                op_.setOperators(new NatTreeMap<Integer, String>());
+                op_.setOperators(new IntTreeMap< String>());
                 op_.setValue(new String(str_), firstPrintChar_);
                 op_.setDelimiter(_d);
                 return op_;
@@ -3449,14 +3449,14 @@ public final class ElResolver {
             if (_string.charAt(firstPrintChar_) == DELIMITER_STRING) {
                 OperationsSequence op_ = new OperationsSequence();
                 op_.setConstType(ConstType.STRING);
-                op_.setOperators(new NatTreeMap<Integer, String>());
+                op_.setOperators(new IntTreeMap< String>());
                 op_.setValue(new String(str_), firstPrintChar_);
                 op_.setDelimiter(_d);
                 return op_;
             }
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.STRING);
-            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setOperators(new IntTreeMap< String>());
             op_.setValue(new String(str_), firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
@@ -3471,7 +3471,7 @@ public final class ElResolver {
             }
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(v.getKind());
-            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setOperators(new IntTreeMap< String>());
             op_.setValue(v.getName(), firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
@@ -3587,11 +3587,11 @@ public final class ElResolver {
         }
         int count_ = 0;
         boolean foundLtGt_ = false;
-        Numbers<Integer> indexes_ = new Numbers<Integer>();
+        Ints indexes_ = new Ints();
         StringBuilder part_ = new StringBuilder();
         StringList partsFields_ = new StringList();
-        Numbers<Integer> begins_ = new Numbers<Integer>();
-        Numbers<Integer> ends_ = new Numbers<Integer>();
+        Ints begins_ = new Ints();
+        Ints ends_ = new Ints();
         int fChar_ = -1;
         int lChar_ = -1;
         if (cast_ && !strType_) {

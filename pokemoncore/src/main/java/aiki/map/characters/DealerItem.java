@@ -1,7 +1,7 @@
 package aiki.map.characters;
 
 import aiki.db.DataBase;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 
 
@@ -9,7 +9,7 @@ public final class DealerItem extends Person implements CharacterInRoadCave {
 
     private StringList items;
 
-    private Numbers<Short> technicalMoves;
+    private Shorts technicalMoves;
 
     @Override
     public void validate(DataBase _data) {
@@ -25,13 +25,6 @@ public final class DealerItem extends Person implements CharacterInRoadCave {
         }
     }
 
-    @Override
-    public void validateForEditing(DataBase _data) {
-        super.validateForEditing(_data);
-        items.retainAllElements(_data.getItems().getKeys());
-        technicalMoves.retainAllElements(_data.getTm().getKeys());
-    }
-
     public StringList getItems() {
         return items;
     }
@@ -40,11 +33,11 @@ public final class DealerItem extends Person implements CharacterInRoadCave {
         items = _items;
     }
 
-    public Numbers<Short> getTechnicalMoves() {
+    public Shorts getTechnicalMoves() {
         return technicalMoves;
     }
 
-    public void setTechnicalMoves(Numbers<Short> _technicalMoves) {
+    public void setTechnicalMoves(Shorts _technicalMoves) {
         technicalMoves = _technicalMoves;
     }
 }

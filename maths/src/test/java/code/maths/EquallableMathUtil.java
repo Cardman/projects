@@ -4,7 +4,7 @@ import org.junit.Assert;
 
 import code.maths.geo.CustPoint;
 import code.maths.geo.CustPointThreeDims;
-import code.util.Numbers;
+import code.util.*;
 import code.util.StringList;
 
 import java.math.BigDecimal;

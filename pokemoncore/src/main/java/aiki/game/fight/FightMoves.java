@@ -4,7 +4,7 @@ import aiki.fight.abilities.AbilityData;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectSwitchMoveTypes;
-import code.util.NumberMap;
+import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -29,7 +29,7 @@ final class FightMoves {
             if(!_fight.getEnabledMoves().getVal(c).isEnabled()){
                 continue;
             }
-            if(!_import.getMovesEffectGlobalWeather().containsObj(c)){
+            if(!StringList.contains(_import.getMovesEffectGlobalWeather(), c)){
                 continue;
             }
             climats_.add(c);
@@ -39,7 +39,7 @@ final class FightMoves {
 
     static boolean existenceAntiClimatActif(Fight _fight,DataBase _import){
         for(byte c:_fight.getTeams().getKeys()){
-            NumberMap<Byte,Fighter> membres_=_fight.getTeams().getVal(c).getMembers();
+            ByteMap<Fighter> membres_=_fight.getTeams().getVal(c).getMembers();
             for(byte c2_:membres_.getKeys()){
                 Fighter membre_=membres_.getVal(c2_);
                 if (membre_.canDisableWeather(_import)) {
@@ -56,7 +56,7 @@ final class FightMoves {
             if(!_fight.getEnabledMoves().getVal(m).isEnabled()){
                 continue;
             }
-            if(_import.getMovesEffectGlobalWeather().containsObj(m)){
+            if(StringList.contains(_import.getMovesEffectGlobalWeather(), m)){
                 continue;
             }
             list_.add(m);

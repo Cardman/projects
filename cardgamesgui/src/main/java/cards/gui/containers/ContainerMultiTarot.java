@@ -99,8 +99,8 @@ import code.gui.TabbedPane;
 import code.gui.document.RenderedPage;
 import code.util.CustList;
 import code.util.EnumMap;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
+import code.util.*;
+import code.util.*;
 import code.util.StringList;
 import code.util.comparators.ComparatorBoolean;
 
@@ -122,8 +122,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     private CustList<JLabel> playersPlaces = new CustList<JLabel>();
     private CustList<JCheckBox> playersReady = new CustList<JCheckBox>();
     private RenderedPage editor;
-    private NatTreeMap<Integer,Byte> playersPlacesForGame = new NatTreeMap<Integer,Byte>();
-    private NumberMap<Integer,String> playersPseudosForGame = new NumberMap<Integer,String>();
+    private IntTreeMap<Byte> playersPlacesForGame = new IntTreeMap<Byte>();
+    private IntMap<String> playersPseudosForGame = new IntMap<String>();
     private RulesTarot rulesTarotMulti=new RulesTarot();
 
     private EnumMap<Handfuls,Integer> requiredTrumps = new EnumMap<Handfuls,Integer>();
@@ -290,7 +290,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         scroll_.setPreferredSize(new Dimension(300,400));
         container_.add(scroll_);
         playersPlacesForGame = _players.getPlacesPlayers();
-        playersPseudosForGame = new NumberMap<Integer,String>(_players.getPseudos());
+        playersPseudosForGame = new IntMap<String>(_players.getPseudos());
         for (int i:_players.getPseudos().getKeys()) {
             playersPseudos.get(i).setText(_players.getPseudos().getVal(i));
         }
@@ -325,13 +325,13 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         ChoosenPlace choice_ = new ChoosenPlace();
         choice_.setIndex(noClient);
         choice_.setPlace(indexInGame);
-        choice_.setPlacesPlayers(new NatTreeMap<Integer, Byte>());
+        choice_.setPlacesPlayers(new IntTreeMap< Byte>());
         getOwner().sendObject(choice_);
     }
     @Override
     public void updateAfter(PlayersNamePresent _players) {
         playersPlacesForGame = _players.getPlacesPlayers();
-        playersPseudosForGame = new NumberMap<Integer,String>(_players.getPseudos());
+        playersPseudosForGame = new IntMap<String>(_players.getPseudos());
         for (int i:_players.getPseudos().getKeys()) {
             playersPseudos.get(i).setText(_players.getPseudos().getVal(i));
         }
@@ -740,7 +740,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getOwner().sendObject(select_);
     }
     public void showTricksHands(TricksHandsTarot _tricks) {
-        NatTreeMap<Byte,String> pseudos_ = new NatTreeMap<Byte,String>();
+        ByteTreeMap<String> pseudos_ = new ByteTreeMap<String>();
         byte p_ = 0;
         for (String s: pseudosTarot((byte) nbChoosenPlayers)) {
             pseudos_.put(p_, s);
@@ -755,7 +755,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         DialogTricksTarot.init(_tricks, (byte)nbChoosenPlayers, list_, getDisplayingTarot(),ow_);
     }
     public void showTeams(TeamsPlayers _teams) {
-        NatTreeMap<Byte,String> pseudos_ = new NatTreeMap<Byte,String>();
+        ByteTreeMap<String> pseudos_ = new ByteTreeMap<String>();
         byte p_ = 0;
         for (String s: pseudosTarot((byte) nbChoosenPlayers)) {
             pseudos_.put(p_, s);
@@ -787,7 +787,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         container_.setLayout(new BorderLayout());
         container_.add(new JLabel(getMessages().getVal(MainWindow.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         CarpetTarot tapis_=new CarpetTarot();
-        NatTreeMap<Byte,String> pseudos_ = new NatTreeMap<Byte,String>();
+        ByteTreeMap<String> pseudos_ = new ByteTreeMap<String>();
         byte p_ = 0;
         for (String s: pseudosTarot((byte) nbChoosenPlayers)) {
             pseudos_.put(p_, s);
@@ -835,8 +835,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getScrollDeclaringHandful().setPreferredSize(new Dimension(250,60));
         getScrollDeclaringHandful().setVisible(false);
         panneau2_.add(getScrollDeclaringHandful());
-        setHandfuls(new NumberMap<Byte,JLabel>());
-        setDeclaredHandfuls(new NumberMap<Byte,Panel>());
+        setHandfuls(new ByteMap<JLabel>());
+        setDeclaredHandfuls(new ByteMap<Panel>());
         Panel declaredHandfuls_ = new Panel(new GridLayout(0,1));
         for (byte i = CustList.FIRST_INDEX;i<nbChoosenPlayers;i++) {
             relative_ = relative(i);

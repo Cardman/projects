@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringList;
 
 public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
@@ -20,7 +20,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     private StringList importedDirectSuperInterfaces = new StringList();
 
     public EnumBlock(int _idRowCol, int _categoryOffset, String _name, String _packageName, OffsetAccessInfo _access,
-                     String _templateDef, NatTreeMap<Integer, String> _directSuperTypes, OffsetsBlock _offset) {
+                     String _templateDef, IntTreeMap< String> _directSuperTypes, OffsetsBlock _offset) {
         super(_idRowCol, _categoryOffset, _name, _packageName, _access, _templateDef, _directSuperTypes, _offset);
     }
 
@@ -85,7 +85,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
 
     @Override
     public void buildDirectGenericSuperTypes(ContextEl _classes) {
-        NatTreeMap<Integer, String> rcs_;
+        IntTreeMap< String> rcs_;
         rcs_ = getRowColDirectSuperTypes();
         int i_ = 0;
         importedDirectSuperInterfaces.clear();

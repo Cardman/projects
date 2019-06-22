@@ -15,7 +15,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.*;
 import code.util.StringMap;
 
 public final class UnaryBooleanOperation extends AbstractUnaryOperation {
@@ -69,7 +69,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
     }
     @Override
     void calculateChildren() {
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        IntTreeMap< String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
     }
 

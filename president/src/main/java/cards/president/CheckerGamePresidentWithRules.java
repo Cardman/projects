@@ -3,7 +3,7 @@ package cards.president;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
 import code.util.CustList;
-import code.util.Numbers;
+import code.util.*;
 
 public final class CheckerGamePresidentWithRules {
 
@@ -66,7 +66,7 @@ public final class CheckerGamePresidentWithRules {
                 _loadedGame.setError(MESSAGE_ERROR);
                 return;
             }
-            Numbers<Byte> copyRanks_ = new Numbers<Byte>(_loadedGame.getRanks());
+            Bytes copyRanks_ = new Bytes(_loadedGame.getRanks());
             int len_ = copyRanks_.size();
             copyRanks_.removeDuplicates();
             if (len_ != copyRanks_.size()) {
@@ -302,7 +302,7 @@ public final class CheckerGamePresidentWithRules {
                 for (int i = CustList.FIRST_INDEX; i < nbHands_; i++) {
                     byte player_ = trick_.getPlayer(i, nbPlayers_);
                     HandPresident curHand_ = trick_.carte(i);
-                    Numbers<Byte> str_ = new Numbers<Byte>();
+                    Bytes str_ = new Bytes();
                     for (CardPresident c : curHand_) {
                         str_.add(c.strength(loadedGameCopy_.isReversed()));
                     }

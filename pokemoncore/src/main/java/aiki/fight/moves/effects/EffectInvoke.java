@@ -3,10 +3,7 @@ package aiki.fight.moves.effects;
 import aiki.db.DataBase;
 import aiki.map.levels.enums.EnvironmentType;
 import code.maths.Rate;
-import code.util.EntryCust;
-import code.util.EnumMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 
 public final class EffectInvoke extends Effect {
@@ -43,7 +40,7 @@ public final class EffectInvoke extends Effect {
             }
         }
         for (String k : invokingMoveByUserTypes.getKeys()) {
-            if (!k.isEmpty() && !_data.getTypes().containsObj(k)) {
+            if (!k.isEmpty() && !StringList.contains(_data.getTypes(), k)) {
                 _data.setError(true);
                 return;
 

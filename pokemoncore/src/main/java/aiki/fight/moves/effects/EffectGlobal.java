@@ -6,10 +6,7 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.util.StatisticType;
 import aiki.fight.util.TypesDuo;
 import code.maths.Rate;
-import code.util.EnumList;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 
 public final class EffectGlobal extends Effect {
@@ -88,7 +85,7 @@ public final class EffectGlobal extends Effect {
 
         }
         for (String k : multDamagePrepaRound.getKeys()) {
-            if (!_data.getTypes().containsObj(k)) {
+            if (!StringList.contains(_data.getTypes(), k)) {
                 _data.setError(true);
                 return;
 
@@ -100,7 +97,7 @@ public final class EffectGlobal extends Effect {
             }
         }
         for (String k : multDamageTypesMoves.getKeys()) {
-            if (!_data.getTypes().containsObj(k)) {
+            if (!StringList.contains(_data.getTypes(), k)) {
                 _data.setError(true);
                 return;
 
@@ -124,12 +121,12 @@ public final class EffectGlobal extends Effect {
             }
         }
         for (TypesDuo k : efficiencyMoves.getKeys()) {
-            if (!_data.getTypes().containsObj(k.getDamageType())) {
+            if (!StringList.contains(_data.getTypes(), k.getDamageType())) {
                 _data.setError(true);
                 return;
 
             }
-            if (!_data.getTypes().containsObj(k.getPokemonType())) {
+            if (!StringList.contains(_data.getTypes(), k.getPokemonType())) {
                 _data.setError(true);
                 return;
 
@@ -146,7 +143,7 @@ public final class EffectGlobal extends Effect {
                 return;
 
             }
-            if (!_data.getTypes().containsObj(k.getType())) {
+            if (!StringList.contains(_data.getTypes(), k.getType())) {
                 _data.setError(true);
                 return;
 

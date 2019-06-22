@@ -2,6 +2,7 @@ package aiki.fight.pokemon;
 import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import code.util.*;
 import org.junit.Test;
 
 import aiki.db.DataBase;
@@ -14,11 +15,6 @@ import aiki.fight.util.LevelMove;
 import aiki.fight.util.StatBaseEv;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.EnumMap;
-import code.util.EqList;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
 
 
 public class PokemonFamilyTest {
@@ -38,9 +34,9 @@ public class PokemonFamilyTest {
         assertTrue(!dataBase_.isError());
         assertEq(1, pk_.getStages().size());
         assertEq(1, pk_.getStages().first().size());
-        assertTrue(pk_.getStages().first().containsObj("PIKACHU"));
+        assertTrue(StringList.contains(pk_.getStages().first(), "PIKACHU"));
         assertEq(1, pk_.getAllPokemon().size());
-        assertTrue(pk_.getAllPokemon().containsObj("PIKACHU"));
+        assertTrue(StringList.contains(pk_.getAllPokemon(), "PIKACHU"));
     }
 
     @Test
@@ -65,17 +61,17 @@ public class PokemonFamilyTest {
         assertTrue(!dataBase_.isError());
         assertEq(3, pk_.getStages().size());
         assertEq(1, pk_.getStages().first().size());
-        assertTrue(pk_.getStages().first().containsObj("PTITARD"));
+        assertTrue(StringList.contains(pk_.getStages().first(), "PTITARD"));
         assertEq(1, pk_.getStages().get(1).size());
-        assertTrue(pk_.getStages().get(1).containsObj("TETARTE"));
+        assertTrue(StringList.contains(pk_.getStages().get(1), "TETARTE"));
         assertEq(2, pk_.getStages().get(2).size());
-        assertTrue(pk_.getStages().get(2).containsObj("TARTARD"));
-        assertTrue(pk_.getStages().get(2).containsObj("TARPAUD"));
+        assertTrue(StringList.contains(pk_.getStages().get(2), "TARTARD"));
+        assertTrue(StringList.contains(pk_.getStages().get(2), "TARPAUD"));
         assertEq(4, pk_.getAllPokemon().size());
-        assertTrue(pk_.getAllPokemon().containsObj("PTITARD"));
-        assertTrue(pk_.getAllPokemon().containsObj("TETARTE"));
-        assertTrue(pk_.getAllPokemon().containsObj("TARTARD"));
-        assertTrue(pk_.getAllPokemon().containsObj("TARPAUD"));
+        assertTrue(StringList.contains(pk_.getAllPokemon(), "PTITARD"));
+        assertTrue(StringList.contains(pk_.getAllPokemon(), "TETARTE"));
+        assertTrue(StringList.contains(pk_.getAllPokemon(), "TARTARD"));
+        assertTrue(StringList.contains(pk_.getAllPokemon(), "TARPAUD"));
     }
 
     @Test
@@ -153,8 +149,8 @@ public class PokemonFamilyTest {
         pk_.setBaseEvo(_base);
         pk_.setCatchingRate((short) 200);
         pk_.setExpEvo(ExpType.P);
-        pk_.setTechnicalMoves(new Numbers<Short>());
-        pk_.setHiddenMoves(new Numbers<Short>());
+        pk_.setTechnicalMoves(new Shorts());
+        pk_.setHiddenMoves(new Shorts());
         pk_.setMoveTutors(new StringList("VIVE_ATTAQUE"));
         pk_.setExpRate(100l);
         pk_.setHatchingSteps(new LgInt(200));

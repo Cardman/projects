@@ -287,7 +287,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             if (e.getValue()) {
                 continue;
             }
-            if (!suppliedFields_.containsStr(e.getKey())) {
+            if (!StringList.contains(suppliedFields_, e.getKey())) {
                 //ERROR
                 BadConstructorCall cast_ = new BadConstructorCall();
                 cast_.setLocalOffset(_conf.getCurrentLocationIndex());
@@ -331,7 +331,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
 
     @Override
     void calculateChildren() {
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        IntTreeMap< String> vs_ = getOperations().getValues();
         vs_.removeKey(vs_.firstKey());
         getChildren().putAllMap(vs_);
     }
