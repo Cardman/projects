@@ -161,7 +161,7 @@ public abstract class FileDialog extends Dialog {
                 String path_ = f.getAbsolutePath();
                 path_ = StringList.replaceBackSlash(path_);
 //                default_.add(new DefaultMutableTreeNode(StringList.splitStrings(f.getAbsolutePath(), StreamTextFile.SEPARATEUR_WIN, StreamTextFile.SEPARATEUR).join(EMPTY_STRING)));
-                default_.add(new DefaultMutableTreeNode(StringList.splitStrings(path_, StreamTextFile.SEPARATEUR).join(EMPTY_STRING)));
+                default_.add(new DefaultMutableTreeNode(StringList.join(StringList.splitStrings(path_, StreamTextFile.SEPARATEUR), EMPTY_STRING)));
             }
             folderSystem = new JTree(default_);
             folderSystem.setRootVisible(false);

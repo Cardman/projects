@@ -379,21 +379,21 @@ public final class Games {
         for (CardBelote c: _b.getCards()) {
             retString_.add(toString(c,_lg));
         }
-        return retString_.join(SEPARATOR);
+        return StringList.join(retString_, SEPARATOR);
     }
     public static String toString(HandPresident _b, String _lg) {
         StringList retString_= new StringList();
         for (CardPresident c: _b.getCards()) {
             retString_.add(toString(c,_lg));
         }
-        return retString_.join(SEPARATOR);
+        return StringList.join(retString_, SEPARATOR);
     }
     public static String toString(HandTarot _t, String _lg) {
         StringList retString_= new StringList();
         for (CardTarot c: _t.getCards()) {
             retString_.add(toString(c,_lg));
         }
-        return retString_.join(SEPARATOR);
+        return StringList.join(retString_, SEPARATOR);
     }
     public static String getSymbol(CardTarot _c,String _loc) {
         if (_c.getNomFigure() != CardChar.UNDEFINED) {

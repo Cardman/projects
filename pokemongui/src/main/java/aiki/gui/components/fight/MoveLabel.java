@@ -42,7 +42,7 @@ public class MoveLabel extends PaintableLabel {
             colorsTypes.put(type_, c_);
             types_.add(type_);
         }
-        text = StringList.concat(move,SPACE,types_.join(SPACE),SPACE,usesStr_);
+        text = StringList.concat(move,SPACE, StringList.join(types_, SPACE),SPACE,usesStr_);
         setOpaque(true);
         setPreferredSize(new Dimension(150, 20));
     }

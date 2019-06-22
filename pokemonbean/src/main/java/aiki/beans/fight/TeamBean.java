@@ -13,7 +13,6 @@ import code.maths.LgInt;
 import code.util.CustList;
 import code.util.NatStringTreeMap;
 import code.util.*;
-import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -161,7 +160,7 @@ public class TeamBean extends CommonFightBean {
         return FIGHTER;
     }
     public String getKey(Long _index) {
-        return enabledMovesByGroup.getKey(_index.intValue()).join(MOVES_SEPARATOR);
+        return StringList.join(enabledMovesByGroup.getKey(_index.intValue()), MOVES_SEPARATOR);
     }
     public boolean isFoeMovesAnticipationTeam(Long _indexOne,Long _indexTwo) {
         return movesAnticipation.getValue(_indexOne.intValue()).getValue(_indexTwo.intValue()).getTargetPosition().getTeam() == Fight.FOE;

@@ -75,7 +75,7 @@ public class ImageTest {
     @Test
     public void isValid6Test() {
         StringList pixels_ = new StringList("1","2","1","2","1","2");
-        Image img_ = new Image(StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR)));
+        Image img_ = new Image(StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR)));
         assertTrue(img_.isValid());
     }
 
@@ -94,8 +94,8 @@ public class ImageTest {
     @Test
     public void toString3Test() {
         StringList pixels_ = new StringList("1","2","1","2","1","2");
-        Image img_ = new Image(StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR)));
-        assertEq(StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR)), img_.display());
+        Image img_ = new Image(StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR)));
+        assertEq(StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR)), img_.display());
     }
 
     @Test
@@ -107,14 +107,14 @@ public class ImageTest {
     @Test
     public void getHeight2Test() {
         StringList pixels_ = new StringList("1","2","1","2","1","2");
-        Image img_ = new Image(StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR)));
+        Image img_ = new Image(StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR)));
         assertEq(2, img_.getHeight());
     }
 
     @Test
     public void getDimensions1Test() {
         StringList pixels_ = new StringList("1","2","6","9","-1","12");
-        IntPoint dims_ = Image.getDimensions(StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR)), 1);
+        IntPoint dims_ = Image.getDimensions(StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR)), 1);
         assertEq(3, dims_.getXcoords());
         assertEq(2, dims_.getYcoords());
     }
@@ -122,7 +122,7 @@ public class ImageTest {
     @Test
     public void getPixel1Test() {
         StringList pixels_ = new StringList("1","2","6","9","-1","12");
-        Image img_ = new Image(StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR)));
+        Image img_ = new Image(StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR)));
         assertEq(1, img_.getPixel(0, 0));
         assertEq(2, img_.getPixel(1, 0));
         assertEq(6, img_.getPixel(2, 0));
@@ -140,21 +140,21 @@ public class ImageTest {
     @Test
     public void clip2Test() {
         StringList pixels_ = new StringList("1","2","6","9","-1","12");
-        Image img_ = new Image(StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR)));
+        Image img_ = new Image(StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR)));
         assertEq(new Image("0").display(), img_.clip(2, 2, 1, 1).display());
     }
 
     @Test
     public void clip3Test() {
         StringList pixels_ = new StringList("1","2","6","9","-1","12");
-        Image img_ = new Image(StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR)));
+        Image img_ = new Image(StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR)));
         assertEq(new Image("0").display(), img_.clip(3, 1, 1, 1).display());
     }
 
     @Test
     public void clip4Test() {
         StringList pixels_ = new StringList("1","2","6","9","-1","12");
-        Image img_ = new Image(StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR)));
+        Image img_ = new Image(StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR)));
         Image res_ = new Image(StringList.concat("2",String.valueOf(Image.SEPARATOR_CHAR),"-1",String.valueOf(Image.SEPARATOR_CHAR),"12"));
         assertEq(res_.display(), img_.clip(1, 1, 2, 2).display());
     }
@@ -162,7 +162,7 @@ public class ImageTest {
     @Test
     public void clip5Test() {
         StringList pixels_ = new StringList("1","2","6","9","-1","12");
-        Image img_ = new Image(StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR)));
+        Image img_ = new Image(StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR)));
         Image res_ = new Image(StringList.concat("2",String.valueOf(Image.SEPARATOR_CHAR),"2",String.valueOf(Image.SEPARATOR_CHAR),"6",String.valueOf(Image.SEPARATOR_CHAR),"-1",String.valueOf(Image.SEPARATOR_CHAR),"12"));
         assertEq(res_.display(), img_.clip(1, 0, 2, 2).display());
     }
@@ -170,7 +170,7 @@ public class ImageTest {
     @Test
     public void clip6Test() {
         StringList pixels_ = new StringList("1","2","6","9","-1","12");
-        Image img_ = new Image(StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR)));
+        Image img_ = new Image(StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR)));
         Image res_ = new Image(StringList.concat("2",String.valueOf(Image.SEPARATOR_CHAR),"2",String.valueOf(Image.SEPARATOR_CHAR),"6",String.valueOf(Image.SEPARATOR_CHAR),"-1",String.valueOf(Image.SEPARATOR_CHAR),"12"));
         assertEq(res_.display(), img_.clip(1, 0, 3, 3).display());
     }
@@ -178,7 +178,7 @@ public class ImageTest {
     @Test
     public void clip7Test() {
         StringList pixels_ = new StringList("1","2","6","9","-1","12");
-        String img_ = StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         String res_ = StringList.concat("2",String.valueOf(Image.SEPARATOR_CHAR),"2",String.valueOf(Image.SEPARATOR_CHAR),"6",String.valueOf(Image.SEPARATOR_CHAR),"-1",String.valueOf(Image.SEPARATOR_CHAR),"12");
         assertEq(res_, Image.clip(img_, 1, 0, 3, 3));
     }
@@ -270,7 +270,7 @@ public class ImageTest {
     @Test
     public void isValidNotEmpty1Test() {
         StringList pixels_ = new StringList();
-        String img_ = StringList.concat("0",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("0",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         assertTrue(!Image.isValidNotEmpty(img_, 5));
     }
 
@@ -292,49 +292,49 @@ public class ImageTest {
     @Test
     public void isValidNotEmpty5Test() {
         StringList pixels_ = new StringList("a");
-        String img_ = StringList.concat("1",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("1",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         assertTrue(!Image.isValidNotEmpty(img_, 5));
     }
 
     @Test
     public void isValidNotEmpty6Test() {
         StringList pixels_ = new StringList("1","");
-        String img_ = StringList.concat("1",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("1",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         assertTrue(!Image.isValidNotEmpty(img_, 5));
     }
 
     @Test
     public void isValidNotEmpty7Test() {
         StringList pixels_ = new StringList("1");
-        String img_ = StringList.concat("-1",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("-1",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         assertTrue(!Image.isValidNotEmpty(img_, 5));
     }
 
     @Test
     public void isValidNotEmpty8Test() {
         StringList pixels_ = new StringList("1");
-        String img_ = StringList.concat("1",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("1",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         assertTrue(!Image.isValidNotEmpty(img_, 5));
     }
 
     @Test
     public void isValidNotEmpty9Test() {
         StringList pixels_ = new StringList("1");
-        String img_ = StringList.concat("5",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("5",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         assertTrue(!Image.isValidNotEmpty(img_, 5));
     }
 
     @Test
     public void isValidNotEmpty10Test() {
         StringList pixels_ = new StringList("1","2","3","4","-5","-6","-7","-8","-9");
-        String img_ = StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         assertTrue(Image.isValidNotEmpty(img_, 3));
     }
 
     @Test
     public void isValidNotEmpty11Test() {
         StringList pixels_ = new StringList();
-        String img_ = StringList.concat("0",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("0",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         assertTrue(!Image.isValidNotEmpty(img_, 5, 3));
     }
 
@@ -356,49 +356,49 @@ public class ImageTest {
     @Test
     public void isValidNotEmpty15Test() {
         StringList pixels_ = new StringList("a");
-        String img_ = StringList.concat("1",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("1",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         assertTrue(!Image.isValidNotEmpty(img_, 5, 3));
     }
 
     @Test
     public void isValidNotEmpty16Test() {
         StringList pixels_ = new StringList("1","");
-        String img_ = StringList.concat("1",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("1",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         assertTrue(!Image.isValidNotEmpty(img_, 5, 3));
     }
 
     @Test
     public void isValidNotEmpty17Test() {
         StringList pixels_ = new StringList("1");
-        String img_ = StringList.concat("-1",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("-1",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         assertTrue(!Image.isValidNotEmpty(img_, 5, 3));
     }
 
     @Test
     public void isValidNotEmpty18Test() {
         StringList pixels_ = new StringList("1");
-        String img_ = StringList.concat("1",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("1",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         assertTrue(!Image.isValidNotEmpty(img_, 5, 3));
     }
 
     @Test
     public void isValidNotEmpty19Test() {
         StringList pixels_ = new StringList("1");
-        String img_ = StringList.concat("5",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("5",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         assertTrue(!Image.isValidNotEmpty(img_, 5, 3));
     }
 
     @Test
     public void isValidNotEmpty20Test() {
         StringList pixels_ = new StringList("4","-5","-6","7","-8","9");
-        String img_ = StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         assertTrue(Image.isValidNotEmpty(img_, 3, 2));
     }
 
     @Test
     public void isValidNotEmptyLower1Test() {
         StringList pixels_ = new StringList();
-        String img_ = StringList.concat("0",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("0",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         assertTrue(!Image.isValidNotEmptyLower(img_, 5));
     }
 
@@ -420,7 +420,7 @@ public class ImageTest {
     @Test
     public void isValidNotEmptyLower5Test() {
         StringList pixels_ = new StringList("a");
-        String img_ = StringList.concat("1",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("1",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         assertTrue(!Image.isValidNotEmptyLower(img_, 5));
     }
 
@@ -428,63 +428,63 @@ public class ImageTest {
     public void isValidNotEmptyLower6Test() {
         StringList pixels_ = new StringList("1","");
         //StringList pixels_ = new StringList("1");
-        String img_ = StringList.concat("1",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("1",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         assertTrue(!Image.isValidNotEmptyLower(img_, 5));
     }
 
     @Test
     public void isValidNotEmptyLower7Test() {
         StringList pixels_ = new StringList("1");
-        String img_ = StringList.concat("-1",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("-1",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         assertTrue(!Image.isValidNotEmptyLower(img_, 5));
     }
 
     @Test
     public void isValidNotEmptyLower8Test() {
         StringList pixels_ = new StringList("1");
-        String img_ = StringList.concat("1",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("1",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         assertTrue(Image.isValidNotEmptyLower(img_, 5));
     }
 
     @Test
     public void isValidNotEmptyLower9Test() {
         StringList pixels_ = new StringList("1");
-        String img_ = StringList.concat("5",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("5",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         assertTrue(!Image.isValidNotEmptyLower(img_, 5));
     }
 
     @Test
     public void isValidNotEmptyLower10Test() {
         StringList pixels_ = new StringList("1","2","3","4","-5","-6","-7","-8","-9");
-        String img_ = StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         assertTrue(Image.isValidNotEmptyLower(img_, 3));
     }
 
     @Test
     public void isValidNotEmptyLower11Test() {
         StringList pixels_ = new StringList("1","2","3","4","-5","-6","-7","-8","-9");
-        String img_ = StringList.concat("4",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("4",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         assertTrue(!Image.isValidNotEmptyLower(img_, 3));
     }
 
     @Test
     public void isValidNotEmptyLower12Test() {
         StringList pixels_ = new StringList("1","2","3","4","-5","-6","-7","-8","-9");
-        String img_ = StringList.concat("2",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("2",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         assertTrue(!Image.isValidNotEmptyLower(img_, 3));
     }
 
     @Test
     public void isValidNotEmptyLower13Test() {
         StringList pixels_ = new StringList("1","2","3","1","2","3","4","-5","-6","-7","-8","-9");
-        String img_ = StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("3",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         assertTrue(!Image.isValidNotEmptyLower(img_, 3));
     }
 
     @Test
     public void isValidNotEmptyLower14Test() {
         StringList pixels_ = new StringList("1","2","3","1","2","3","4","-5","-6","-7","-8","-9");
-        String img_ = StringList.concat("6",String.valueOf(Image.SEPARATOR_CHAR),pixels_.join(Image.SEPARATOR_CHAR));
+        String img_ = StringList.concat("6",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(pixels_, Image.SEPARATOR_CHAR));
         assertTrue(!Image.isValidNotEmptyLower(img_, 3));
     }
 }

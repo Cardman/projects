@@ -129,14 +129,14 @@ public class HealingItemLabel extends SelectableLabel {
             infos_.add(StringList.concat(messages.getVal(PP),item.getPp().toNumberString()));
         }
         if (!item.getStatus().isEmpty()) {
-            infos_.add(StringList.concat(messages.getVal(STATUS),item.getStatus().join(SEPARATOR)));
+            infos_.add(StringList.concat(messages.getVal(STATUS), StringList.join(item.getStatus(), SEPARATOR)));
         }
         if (!item.getStatistics().isEmpty()) {
-            infos_.add(StringList.concat(messages.getVal(STATISTICS),item.getStatistics().join(SEPARATOR)));
+            infos_.add(StringList.concat(messages.getVal(STATISTICS), StringList.join(item.getStatistics(), SEPARATOR)));
         }
         if (item.isKo()) {
             infos_.add(messages.getVal(KO));
         }
-        return infos_.join(SEPARATOR);
+        return StringList.join(infos_, SEPARATOR);
     }
 }

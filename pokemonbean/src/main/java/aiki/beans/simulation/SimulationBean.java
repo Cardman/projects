@@ -528,7 +528,7 @@ public class SimulationBean extends CommonBean {
         if (level_ instanceof LevelWithWildPokemon) {
             LevelWithWildPokemon w_ = (LevelWithWildPokemon) level_;
             if (w_.getDualFights().contains(_coords.getLevel().getPoint())) {
-                return w_.getDualFights().getVal(_coords.getLevel().getPoint()).getNames().join(SPACE);
+                return StringList.join(w_.getDualFights().getVal(_coords.getLevel().getPoint()).getNames(), SPACE);
             }
         }
         return DataBase.EMPTY_STRING;

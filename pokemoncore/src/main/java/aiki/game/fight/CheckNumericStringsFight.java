@@ -205,7 +205,7 @@ public final class CheckNumericStringsFight {
                     loc_.put(StringList.concat(DataBase.VAR_PREFIX,
                             Fight.LANCEUR_NOM), userFighterLoc_.getName());
                     loc_.put(StringList.concat(DataBase.VAR_PREFIX,
-                            Fight.ATTAQUE_TYPES), types_.join(_data
+                            Fight.ATTAQUE_TYPES), StringList.join(types_, _data
                             .getSepartorSetChar()));
                     loc_.put(StringList.concat(DataBase.VAR_PREFIX,
                             Fight.ATTAQUE_NOM), _data.getDefaultMove());
@@ -226,7 +226,7 @@ public final class CheckNumericStringsFight {
                     loc_.put(StringList.concat(DataBase.VAR_PREFIX,
                             Fight.LANCEUR_NOM), userFighterLoc_.getName());
                     loc_.put(StringList.concat(DataBase.VAR_PREFIX,
-                            Fight.ATTAQUE_TYPES), types_.join(_data
+                            Fight.ATTAQUE_TYPES), StringList.join(types_, _data
                             .getSepartorSetChar()));
                     loc_.put(StringList.concat(DataBase.VAR_PREFIX,
                             Fight.ATTAQUE_NOM), _data.getDefaultMove());
@@ -271,7 +271,7 @@ public final class CheckNumericStringsFight {
                         loc_.put(StringList.concat(DataBase.VAR_PREFIX,
                                 Fight.LANCEUR_NOM), userFighterLoc_.getName());
                         loc_.put(StringList.concat(DataBase.VAR_PREFIX,
-                                Fight.ATTAQUE_TYPES), types_.join(_data
+                                Fight.ATTAQUE_TYPES), StringList.join(types_, _data
                                 .getSepartorSetChar()));
                         loc_.put(StringList.concat(DataBase.VAR_PREFIX,
                                 Fight.ATTAQUE_NOM), _data.getDefaultMove());
@@ -364,7 +364,7 @@ public final class CheckNumericStringsFight {
                 loc_.put(StringList.concat(DataBase.VAR_PREFIX,
                         Fight.LANCEUR_NOM), userFighterLoc_.getName());
                 loc_.put(StringList.concat(DataBase.VAR_PREFIX,
-                        Fight.ATTAQUE_TYPES), types_.join(_data
+                        Fight.ATTAQUE_TYPES), StringList.join(types_, _data
                         .getSepartorSetChar()));
                 loc_.put(StringList.concat(DataBase.VAR_PREFIX,
                         Fight.ATTAQUE_NOM), _data.getDefaultMove());
@@ -385,7 +385,7 @@ public final class CheckNumericStringsFight {
                 loc_.put(StringList.concat(DataBase.VAR_PREFIX,
                         Fight.LANCEUR_NOM), userFighterLoc_.getName());
                 loc_.put(StringList.concat(DataBase.VAR_PREFIX,
-                        Fight.ATTAQUE_TYPES), types_.join(_data
+                        Fight.ATTAQUE_TYPES), StringList.join(types_, _data
                         .getSepartorSetChar()));
                 loc_.put(StringList.concat(DataBase.VAR_PREFIX,
                         Fight.ATTAQUE_NOM), _data.getDefaultMove());
@@ -429,7 +429,7 @@ public final class CheckNumericStringsFight {
                     loc_.put(StringList.concat(DataBase.VAR_PREFIX,
                             Fight.LANCEUR_NOM), userFighterLoc_.getName());
                     loc_.put(StringList.concat(DataBase.VAR_PREFIX,
-                            Fight.ATTAQUE_TYPES), types_.join(_data
+                            Fight.ATTAQUE_TYPES), StringList.join(types_, _data
                             .getSepartorSetChar()));
                     loc_.put(StringList.concat(DataBase.VAR_PREFIX,
                             Fight.ATTAQUE_NOM), _data.getDefaultMove());

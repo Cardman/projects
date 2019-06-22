@@ -46,7 +46,7 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
         if (vararg) {
             suf_ = VARARG;
         }
-        return StringList.concat(name,LEFT,classNames.join(SEP_TYPE),suf_,RIGHT);
+        return StringList.concat(name,LEFT, StringList.join(classNames, SEP_TYPE),suf_,RIGHT);
     }
 
     @Override

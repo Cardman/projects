@@ -157,7 +157,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             if (!r_.withoutInstance()) {
                 //From analyze
                 StringList parts_ = Templates.getAllInnerTypes(_className);
-                String param_ = parts_.sub(0, parts_.size()-1).join("..");
+                String param_ = StringList.join(parts_.sub(0, parts_.size()-1), "..");
                 if (_previous.isNull()) {
                     String npe_;
                     npe_ = stds_.getAliasNullPe();
@@ -423,7 +423,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                         String argCl_ = stds_.getStructClassName(par_, _conf.getContextEl());
                         //From analyze
                         StringList inners_ = Templates.getAllInnerTypes(className_);
-                        String param_ = inners_.mid(0, inners_.size() - 1).join("..");
+                        String param_ = StringList.join(inners_.mid(0, inners_.size() - 1), "..");
                         if (!Templates.isCorrectExecute(argCl_, param_, cont_)) {
                             _conf.setException(new ErrorStruct(_conf,cast_));
                             return Argument.createVoid();
@@ -574,7 +574,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         LgNames lgNames_ = _conf.getStandards();
         String typeFct_ = lgNames_.getStructClassName(ls_, _conf.getContextEl());
         StringList parts_ = Templates.getAllTypes(typeFct_);
-        StringList paramsFct_ = parts_.mid(1, parts_.size() - 2);
+        CustList<String> paramsFct_ = parts_.mid(1, parts_.size() - 2);
         int valuesSize_ = _values.size();
         if (valuesSize_ != paramsFct_.size()) {
             String null_;

@@ -16,7 +16,7 @@ public final class CyclicInheritingGraph extends FoundErrorInterpret {
             cycle_.add(c);
         }
         cycle_.removeDuplicates();
-        return StringList.concat(super.display(_classes),CLASS_NAME,SEP_KEY_VAL,cycle_.join(";"),SEP_INFO);
+        return StringList.concat(super.display(_classes),CLASS_NAME,SEP_KEY_VAL, StringList.join(cycle_, ";"),SEP_INFO);
     }
 
     public void setClassName(StringList _className) {

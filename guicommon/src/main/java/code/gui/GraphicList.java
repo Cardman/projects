@@ -38,11 +38,11 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
 
     private boolean owned;
 
-    public GraphicList(boolean _owned, boolean _simple, T... _objects) {
-        this(_owned, _simple, new Ints(), _objects);
+    public GraphicList(boolean _owned, boolean _simple) {
+        this(_owned, _simple, new Ints(), new CustList<T>());
     }
 
-    public GraphicList(boolean _owned, boolean _simple, Ints _selectedIndexes, T... _objects) {
+    protected GraphicList(boolean _owned, boolean _simple, Ints _selectedIndexes, CustList<T> _objects) {
         selectedIndexes = new Ints(_selectedIndexes);
         owned = _owned;
         list = new CustList<T>(_objects);
@@ -53,7 +53,6 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         scroll = new JScrollPane(panel);
         buildList();
     }
-
     protected void buildList() {
         rebuild();
     }

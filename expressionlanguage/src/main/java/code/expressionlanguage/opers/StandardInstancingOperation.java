@@ -290,7 +290,7 @@ public final class StandardInstancingOperation extends
         if (partsArgs_.isEmpty()) {
             realClassName_ = StringList.concat(sup_,"..",idClass_);
         } else {
-            realClassName_ = StringList.concat(sup_,"..",idClass_,"<",partsArgs_.join(","),">");
+            realClassName_ = StringList.concat(sup_,"..",idClass_,"<", StringList.join(partsArgs_, ","),">");
         }
         StringMap<StringList> vars_ = _conf.getCurrentConstraints();
         if (!Templates.isCorrectTemplateAll(realClassName_, vars_, _conf, true)) {

@@ -44,7 +44,7 @@ public final class CallDynMethodOperation extends ReflectableInvokingOperation {
         String fct_ = clCur_.getName();
         StringList all_ = Templates.getAllTypes(fct_);
         String ret_ = all_.last();
-        StringList param_ = all_.mid(1, all_.size() - 2);
+        CustList<String> param_ = all_.mid(1, all_.size() - 2);
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
         for (OperationNode o: chidren_) {
@@ -68,7 +68,7 @@ public final class CallDynMethodOperation extends ReflectableInvokingOperation {
         if (firstArgs_.size() != param_.size()) {
             StringList classesNames_ = new StringList();
             for (ClassArgumentMatching c: firstArgs_) {
-                classesNames_.add(c.getNames().join(""));
+                classesNames_.add(StringList.join(c.getNames(), ""));
             }
             BadNumberArgMethod undefined_ = new BadNumberArgMethod();
             undefined_.setNbVars(chidren_.size());

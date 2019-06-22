@@ -3,7 +3,6 @@ import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 import java.net.Socket;
 
 import javax.swing.JLabel;
@@ -164,7 +163,6 @@ import code.network.enums.IpType;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EnumMap;
-import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -778,7 +776,7 @@ public final class MainWindow extends NetGroupFrame {
         if(reglesTarot.getCartesBattues()==MixCardsChoice.EACH_LAUNCHING) {
             vl_.set(GameEnum.TAROT.ordinal(), "0");
         }
-        StreamTextFile.saveTextFile(fileName_, vl_.join(LINE_RETURN));
+        StreamTextFile.saveTextFile(fileName_, StringList.join(vl_, LINE_RETURN));
     }
     private void ecrireCoordonnees() {
         Point point_=getLocation();

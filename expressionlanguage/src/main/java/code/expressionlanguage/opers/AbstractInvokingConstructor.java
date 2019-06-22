@@ -70,12 +70,12 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         if (ctorRes_.getRealId() == null) {
             StringList cl_ = new StringList();
             for (ClassArgumentMatching c: firstArgs_) {
-                cl_.add(c.getNames().join(""));
+                cl_.add(StringList.join(c.getNames(), ""));
             }
-            ConstructorId constId_ = new ConstructorId(clArg_.getNames().join(""), cl_, false);
+            ConstructorId constId_ = new ConstructorId(StringList.join(clArg_.getNames(), ""), cl_, false);
             UndefinedConstructorError und_ = new UndefinedConstructorError();
             und_.setId(constId_.getSignature(_conf));
-            und_.setClassName(clArg_.getNames().join(""));
+            und_.setClassName(StringList.join(clArg_.getNames(), ""));
             und_.setIndexFile(_conf.getCurrentLocationIndex());
             und_.setFileName(_conf.getCurrentFileName());
             _conf.getClasses().addError(und_);

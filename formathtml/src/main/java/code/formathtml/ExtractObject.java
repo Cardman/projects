@@ -710,7 +710,7 @@ final class ExtractObject {
                 return EMPTY_STRING;
             }
         }
-        return StringList.simpleStringsFormat(preformatted_, objects_.toArray());
+        return StringList.simpleStringsFormat(preformatted_, objects_);
     }
 
     private static String escapeParam(Configuration _conf, String _arg) {

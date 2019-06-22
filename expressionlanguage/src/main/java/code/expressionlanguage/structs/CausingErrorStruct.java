@@ -70,6 +70,6 @@ public final class CausingErrorStruct implements ErroneousStruct {
         for (Struct s: calls_) {
             str_.add(((StackTraceElementStruct)s).getStringRep());
         }
-        return str_.join("\n");
+        return StringList.join(str_, "\n");
     }
 }

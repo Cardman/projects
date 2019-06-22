@@ -38,7 +38,6 @@ import code.maths.montecarlo.MonteCarloBoolean;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CustList;
 import code.util.*;
-import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -258,7 +257,7 @@ final class FightEndRound {
                     for(byte c:_fight.getTeams().getKeys()){
                         Team equipe_=_fight.getTeams().getVal(c);
                         for(StringList c2_:equipe_.getEnabledMovesByGroup().getKeys()){
-                            if(!StringList.quickEq(c2_.join(DataBase.SEPARATOR_MOVES),elt_.getElement())){
+                            if(!StringList.quickEq(StringList.join(c2_, DataBase.SEPARATOR_MOVES),elt_.getElement())){
                                 continue;
                             }
                             incrementNumberRoundsTeamComboMoves(_fight, c, c2_, _import);
@@ -1453,7 +1452,7 @@ final class FightEndRound {
             Fighter fighter_ = _fight.getUserTeam().refPartMembres(k);
             StringList oldMoves_ = new StringList(fighter_.getMovesSet());
             StringList keptMoves_ = new StringList(oldMoves_);
-            keptMoves_.retainAllElements(choice_.getKeptMoves());
+            StringList.retainAllElements(keptMoves_, choice_.getKeptMoves());
             StringList forgottenMoves_ = new StringList(oldMoves_);
             StringList.removeAllElements(forgottenMoves_, choice_.getKeptMoves());
             StringList learntMoves_ = new StringList(choice_.getKeptMoves());

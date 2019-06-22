@@ -48,7 +48,7 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         if (vararg) {
             suf_ = VARARG;
         }
-        return StringList.concat(pref_,name,LEFT,classNames.join(SEP_TYPE),suf_,RIGHT);
+        return StringList.concat(pref_,name,LEFT, StringList.join(classNames, SEP_TYPE),suf_,RIGHT);
     }
 
     @Override

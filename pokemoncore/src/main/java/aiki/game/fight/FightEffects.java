@@ -1111,7 +1111,7 @@ final class FightEffects {
         String nomActuelLanceur_=creatureLanceur_.getCurrentName();
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_CATEGORIE), fAtt_.getCategory());
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_NOM), nomActuelLanceur_);
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_TYPES), typeAtt_.join(_import.getSepartorSetChar()));
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_TYPES), StringList.join(typeAtt_, _import.getSepartorSetChar()));
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_NOM), _attaqueLanceur);
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PUISSANCE_BASE), basePower_.toNumberString());
         Rate finalPower_ = new Rate(basePower_);

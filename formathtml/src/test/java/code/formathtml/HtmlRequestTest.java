@@ -428,7 +428,7 @@ public class HtmlRequestTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         setup(conf_);
-        String render_ = HtmlRequest.formatErrorMessage(conf_, "msg_example,three", false, locale_, files_, "", "EX");
+        String render_ = HtmlRequest.formatErrorMessage(conf_, "msg_example,three", false, locale_, files_, "", new StringList("EX"));
         assertEq("desc &lt;EX&gt;", render_);
     }
 
@@ -462,7 +462,7 @@ public class HtmlRequestTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         setup(conf_);
-        String render_ = HtmlRequest.formatErrorMessage(conf_, "sample/file,three", false, locale_, files_, "", "EX");
+        String render_ = HtmlRequest.formatErrorMessage(conf_, "sample/file,three", false, locale_, files_, "", new StringList("EX"));
         assertEq("desc &lt;EX&gt;", render_);
     }
 

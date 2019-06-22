@@ -16,7 +16,7 @@ public class GraphicStringList extends GraphicList<String> implements Input {
     }
 
     public GraphicStringList(boolean _owned, boolean _simple, StringList _objects, Ints _selectedIndexes) {
-        super(_owned, _simple, _selectedIndexes, _objects.toArray());
+        super(_owned, _simple, _selectedIndexes, _objects);
     }
 
     @Override

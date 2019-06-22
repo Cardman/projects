@@ -36,7 +36,6 @@ import code.util.EnumList;
 import code.util.EqList;
 import code.util.NatStringTreeMap;
 import code.util.*;
-import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -1677,9 +1676,9 @@ public final class Fight {
             moves_.add(_import.translateMove(m));
         }
         if (Numbers.eq(_team, FOE)) {
-            addMessage(_import, COMBO_MOVE_END_ROUND_FOE, moves_.join(SEPARATOR_COMMENTS));
+            addMessage(_import, COMBO_MOVE_END_ROUND_FOE, StringList.join(moves_, SEPARATOR_COMMENTS));
         } else {
-            addMessage(_import, COMBO_MOVE_END_ROUND, moves_.join(SEPARATOR_COMMENTS));
+            addMessage(_import, COMBO_MOVE_END_ROUND, StringList.join(moves_, SEPARATOR_COMMENTS));
         }
     }
 
@@ -1864,7 +1863,7 @@ public final class Fight {
             types_.add(_import.translateType(t));
         }
         String move_ = _import.translateMove(_move);
-        addMessage(_import, MOVE_TYPES, name_, types_.join(SEPARATOR_COMMENTS), move_);
+        addMessage(_import, MOVE_TYPES, name_, StringList.join(types_, SEPARATOR_COMMENTS), move_);
     }
     public void addChangedTypesMessage(TeamPosition _fighter, StringList _types, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
@@ -1872,7 +1871,7 @@ public final class Fight {
         for (String t: _types) {
             types_.add(_import.translateType(t));
         }
-        addMessage(_import, CHANGED_TYPES, name_, types_.join(SEPARATOR_COMMENTS));
+        addMessage(_import, CHANGED_TYPES, name_, StringList.join(types_, SEPARATOR_COMMENTS));
     }
 
     public void addSwitchItemsMessage(TeamPosition _fighter, String _oldItem, String _newItem, DataBase _import) {

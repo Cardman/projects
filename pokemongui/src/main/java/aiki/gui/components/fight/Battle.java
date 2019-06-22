@@ -575,7 +575,7 @@ public class Battle extends ChildFrame {
         facade.roundAllThrowers(enableAnimation);
         if (facade.isErrorFight()) {
             enabledClicked = true;
-            commentsErrors.setText(facade.getComment().getMessages().join(RETURN_LINE));
+            commentsErrors.setText(StringList.join(facade.getComment().getMessages(), RETURN_LINE));
             return;
         }
         window.setSavedGame(false);
@@ -600,7 +600,7 @@ public class Battle extends ChildFrame {
         facade.sendSubstitutes();
         if (facade.isErrorFight()) {
             enabledClicked = true;
-            commentsErrors.setText(facade.getComment().getMessages().join(RETURN_LINE));
+            commentsErrors.setText(StringList.join(facade.getComment().getMessages(), RETURN_LINE));
             return;
         }
         window.setSavedGame(false);
@@ -617,7 +617,7 @@ public class Battle extends ChildFrame {
         facade.learnAndEvolve();
         if (facade.isErrorFight()) {
             enabledClicked = true;
-            commentsErrors.setText(facade.getComment().getMessages().join(RETURN_LINE));
+            commentsErrors.setText(StringList.join(facade.getComment().getMessages(), RETURN_LINE));
             return;
         }
         window.setSavedGame(false);
@@ -702,7 +702,7 @@ public class Battle extends ChildFrame {
             }
         } else {
             refresh();
-            commentsRound.setText(facade.getComment().getMessages().join(RETURN_LINE));
+            commentsRound.setText(StringList.join(facade.getComment().getMessages(), RETURN_LINE));
             pack();
         }
     }
@@ -747,12 +747,12 @@ public class Battle extends ChildFrame {
     }
 
     public void setComments() {
-        commentsRound.setText(StringList.concat(facade.getComment().getMessages().join(RETURN_LINE),RETURN_LINE));
+        commentsRound.setText(StringList.concat(StringList.join(facade.getComment().getMessages(), RETURN_LINE),RETURN_LINE));
         window.setNoPaintingScene();
     }
 
     public void appendComments() {
-        commentsRound.append(StringList.concat(facade.getComment().getMessages().join(RETURN_LINE),RETURN_LINE));
+        commentsRound.append(StringList.concat(StringList.join(facade.getComment().getMessages(), RETURN_LINE),RETURN_LINE));
     }
 
     public void afterRound() {

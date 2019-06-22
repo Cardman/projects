@@ -431,7 +431,7 @@ public abstract class OperationNode implements Operable {
             return fr_;
         }
         StaticAccessFieldError access_ = new StaticAccessFieldError();
-        access_.setClassName(_class.getNames().join(""));
+        access_.setClassName(StringList.join(_class.getNames(), ""));
         access_.setId(_name);
         access_.setFileName(_cont.getCurrentFileName());
         access_.setIndexFile(_cont.getCurrentLocationIndex());
@@ -688,7 +688,7 @@ public abstract class OperationNode implements Operable {
         if (cInfo_ == null) {
             StringList classesNames_ = new StringList();
             for (ClassArgumentMatching c: _args) {
-                classesNames_.add(c.getNames().join(""));
+                classesNames_.add(StringList.join(c.getNames(), ""));
             }
             UndefinedConstructorError undefined_ = new UndefinedConstructorError();
             undefined_.setClassName(clCurName_);
@@ -729,7 +729,7 @@ public abstract class OperationNode implements Operable {
         ClassMethodIdReturn return_ = new ClassMethodIdReturn(false);
         StringList classesNames_ = new StringList();
         for (ClassArgumentMatching c: _argsClass) {
-            classesNames_.add(c.getNames().join(""));
+            classesNames_.add(StringList.join(c.getNames(), ""));
         }
         UndefinedMethodError undefined_ = new UndefinedMethodError();
         MethodModifier mod_;

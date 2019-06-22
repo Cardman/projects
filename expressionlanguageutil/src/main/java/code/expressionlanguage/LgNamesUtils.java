@@ -599,7 +599,7 @@ public class LgNamesUtils extends LgNames {
                     }
                 }
                 if (_args[0] instanceof StringStruct) {
-                    stringAppFile_ = StringList.simpleStringsFormat(((StringStruct)_args[0]).getInstance(), values_.toArray());
+                    stringAppFile_ = StringList.simpleStringsFormat(((StringStruct)_args[0]).getInstance(), values_);
                 } else {
                     stringAppFile_ = _cont.getStandards().getNullString();
                 }

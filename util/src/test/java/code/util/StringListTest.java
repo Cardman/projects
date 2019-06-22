@@ -11,14 +11,14 @@ public class StringListTest {
     @Test
     public void sub1Test(){
         StringList s_ = new StringList();
-        StringList out_ = s_.sub(0, 0);
+        CustList<String> out_ = s_.sub(0, 0);
         assertEq(0, out_.size());
     }
     @Test
     public void sub2Test(){
         StringList s_ = new StringList();
         s_.add("hello");
-        StringList out_ = s_.sub(1, 0);
+        CustList<String> out_ = s_.sub(1, 0);
         assertEq(0, out_.size());
     }
     @Test
@@ -26,7 +26,7 @@ public class StringListTest {
         StringList s_ = new StringList();
         s_.add("hello");
         s_.add("world");
-        StringList out_ = s_.sub(1, 2);
+        CustList<String> out_ = s_.sub(1, 2);
         assertEq(1, out_.size());
         assertEq("world", out_.get(0));
     }
@@ -445,7 +445,7 @@ public class StringListTest {
         strings_.add("SUB");
         strings_.add("STRING");
         strings_.add("ONE");
-        StringList list_ = strings_.mid(1, 3);
+        CustList<String> list_ = strings_.mid(1, 3);
         assertEq(3,list_.size());
         assertEq("SUB",list_.first());
         assertEq("STRING",list_.get(1));
@@ -458,7 +458,7 @@ public class StringListTest {
         strings_.add("SUB");
         strings_.add("STRING");
         strings_.add("ONE");
-        StringList list_ = strings_.mid(1, 2);
+        CustList<String> list_ = strings_.mid(1, 2);
         assertEq(2,list_.size());
         assertEq("SUB",list_.first());
         assertEq("STRING",list_.get(1));
@@ -470,7 +470,7 @@ public class StringListTest {
         strings_.add("SUB");
         strings_.add("STRING");
         strings_.add("ONE");
-        StringList list_ = strings_.mid(1, 4);
+        CustList<String> list_ = strings_.mid(1, 4);
         assertEq(3,list_.size());
         assertEq("SUB",list_.first());
         assertEq("STRING",list_.get(1));
@@ -481,36 +481,36 @@ public class StringListTest {
         StringList list_ = new StringList();
         list_.add("MY_STRING_ONE");
         list_.add("MY_STRING_TWO");
-        assertEq("MY_STRING_ONE;MY_STRING_TWO",list_.join(";"));
+        assertEq("MY_STRING_ONE;MY_STRING_TWO", StringList.join(list_, ";"));
     }
     @Test
     public void join2Test(){
         StringList list_ = new StringList();
         list_.add("MY_STRING_ONE");
         list_.add("MY_STRING_TWO");
-        assertEq("MY_STRING_ONE;MY_STRING_TWO",list_.join(';'));
+        assertEq("MY_STRING_ONE;MY_STRING_TWO", StringList.join(list_, ';'));
     }
     @Test
     public void join3Test(){
         StringList list_ = new StringList();
         list_.add("MY_STRING_ONE");
-        assertEq("MY_STRING_ONE",list_.join(";"));
+        assertEq("MY_STRING_ONE", StringList.join(list_, ";"));
     }
     @Test
     public void join4Test(){
         StringList list_ = new StringList();
         list_.add("MY_STRING_ONE");
-        assertEq("MY_STRING_ONE",list_.join(';'));
+        assertEq("MY_STRING_ONE", StringList.join(list_, ';'));
     }
     @Test
     public void join5Test(){
         StringList list_ = new StringList();
-        assertEq("",list_.join(";"));
+        assertEq("", StringList.join(list_, ";"));
     }
     @Test
     public void join6Test(){
         StringList list_ = new StringList();
-        assertEq("",list_.join(';'));
+        assertEq("", StringList.join(list_, ';'));
     }
     @Test
     public void isNumber1Test(){
@@ -953,6 +953,12 @@ public class StringListTest {
         String pattern_ = "With variables {-1} in string";
         String outPut_ = "With variables {-1} in string";
         assertEq(outPut_, StringList.simpleStringsFormat(pattern_, "zero"));
+    }
+    @Test
+    public void simpleFormat14Test(){
+        String pattern_ = "With variables {0} {1} in string";
+        String outPut_ = "With variables zero one in string";
+        assertEq(outPut_, StringList.simpleStringsFormat(pattern_, new StringList("zero", "one")));
     }
     @Test
     public void simpleFormatNb1Test(){
@@ -2646,7 +2652,7 @@ public class StringListTest {
         StringList listTwo_ = new StringList();
         listTwo_.add("hellos");
         listTwo_.add("world");
-        list_.retainAllElements(listTwo_);
+        StringList.retainAllElements(list_, listTwo_);
         assertEq(1, list_.size());
         assertEq("world", list_.get(0));
     }
@@ -2673,7 +2679,7 @@ public class StringListTest {
         StringList list_ = new StringList();
         list_.add("hello");
         list_.add("world");
-        StringList f_ = list_.getReverse();
+        CustList<String> f_ = list_.getReverse();
         assertEq(2, f_.size());
         assertEq("world", f_.get(0));
         assertEq("hello", f_.get(1));
@@ -2766,14 +2772,6 @@ public class StringListTest {
         list_.replaceBackSlashesInStrings();
         assertEq(1, list_.size());
         assertEq("hello/world", list_.get(0));
-    }
-    @Test
-    public void toArrayTest() {
-        StringList list_ = new StringList(new CollCapacity(1));
-        list_.add("hello");
-        String[] arr_ = list_.toArray();
-        assertEq(1, arr_.length);
-        assertEq("hello", arr_[0]);
     }
     @Test
     public void formatQuoteTest() {

@@ -411,7 +411,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     vars_.add(Templates.SUB_TYPE);
                 }
                 generic_.append(Templates.TEMPLATE_BEGIN);
-                generic_.append(vars_.join(Templates.TEMPLATE_SEP));
+                generic_.append(StringList.join(vars_, Templates.TEMPLATE_SEP));
                 generic_.append(Templates.TEMPLATE_END);
             }
             appendSepInner(generic_, r);
@@ -450,7 +450,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t.getName()));
                 }
                 generic_.append(Templates.TEMPLATE_BEGIN);
-                generic_.append(vars_.join(Templates.TEMPLATE_SEP));
+                generic_.append(StringList.join(vars_, Templates.TEMPLATE_SEP));
                 generic_.append(Templates.TEMPLATE_END);
             }
             appendSepInner(generic_, r);
@@ -501,7 +501,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         if (packageName_.isEmpty()) {
             return getName();
         }
-        return StringList.concat(packageName_,DOT,names_.getReverse().join(".."));
+        return StringList.concat(packageName_,DOT, StringList.join(names_.getReverse(), ".."));
     }
 
     public final void validateIds(ContextEl _context) {

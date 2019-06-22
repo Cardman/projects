@@ -24,7 +24,6 @@ import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.images.Image;
 import code.util.*;
-import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -477,17 +476,17 @@ public class DataMapScreenTest {
         for (int i = 0; i < 9; i++) {
             voie_.addAllElts(list_);
         }
-        images_.put(VOIE, getImageByString(voie_.join(Image.SEPARATOR_CHAR)));
+        images_.put(VOIE, getImageByString(StringList.join(voie_, Image.SEPARATOR_CHAR)));
         StringList voieTwo_ = new StringList("12");
         for (int i = 0; i < 18; i++) {
             voieTwo_.addAllElts(list_);
         }
-        images_.put(VOIE2, getImageByString(voieTwo_.join(Image.SEPARATOR_CHAR)));
+        images_.put(VOIE2, getImageByString(StringList.join(voieTwo_, Image.SEPARATOR_CHAR)));
         StringList voieThree_ = new StringList("6");
         for (int i = 0; i < 18; i++) {
             voieThree_.addAllElts(list_);
         }
-        images_.put(VOIE3, getImageByString(voieThree_.join(Image.SEPARATOR_CHAR)));
+        images_.put(VOIE3, getImageByString(StringList.join(voieThree_, Image.SEPARATOR_CHAR)));
         data_.getImages().putAllMap(images_);
         data_.setMap(dataMap);
         data_.setupPseudoImages();
@@ -557,17 +556,17 @@ public class DataMapScreenTest {
         for (int i = 0; i < 9; i++) {
             voie_.addAllElts(list_);
         }
-        images_.put(VOIE, getImageByString(voie_.join(Image.SEPARATOR_CHAR)));
+        images_.put(VOIE, getImageByString(StringList.join(voie_, Image.SEPARATOR_CHAR)));
         StringList voieTwo_ = new StringList("12");
         for (int i = 0; i < 18; i++) {
             voieTwo_.addAllElts(list_);
         }
-        images_.put(VOIE2, getImageByString(voieTwo_.join(Image.SEPARATOR_CHAR)));
+        images_.put(VOIE2, getImageByString(StringList.join(voieTwo_, Image.SEPARATOR_CHAR)));
         StringList voieThree_ = new StringList("6");
         for (int i = 0; i < 18; i++) {
             voieThree_.addAllElts(list_);
         }
-        images_.put(VOIE3, getImageByString(voieThree_.join(Image.SEPARATOR_CHAR)));
+        images_.put(VOIE3, getImageByString(StringList.join(voieThree_, Image.SEPARATOR_CHAR)));
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
@@ -634,17 +633,17 @@ public class DataMapScreenTest {
         for (int i = 0; i < 9; i++) {
             voie_.addAllElts(list_);
         }
-        images_.put(VOIE, getImageByString(voie_.join(Image.SEPARATOR_CHAR)));
+        images_.put(VOIE, getImageByString(StringList.join(voie_, Image.SEPARATOR_CHAR)));
         StringList voieTwo_ = new StringList("12");
         for (int i = 0; i < 18; i++) {
             voieTwo_.addAllElts(list_);
         }
-        images_.put(VOIE2, getImageByString(voieTwo_.join(Image.SEPARATOR_CHAR)));
+        images_.put(VOIE2, getImageByString(StringList.join(voieTwo_, Image.SEPARATOR_CHAR)));
         StringList voieThree_ = new StringList("6");
         for (int i = 0; i < 18; i++) {
             voieThree_.addAllElts(list_);
         }
-        images_.put(VOIE3, getImageByString(voieThree_.join(Image.SEPARATOR_CHAR)));
+        images_.put(VOIE3, getImageByString(StringList.join(voieThree_, Image.SEPARATOR_CHAR)));
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
@@ -705,17 +704,17 @@ public class DataMapScreenTest {
         for (int i = 0; i < 9; i++) {
             voie_.addAllElts(list_);
         }
-        images_.put(VOIE, getImageByString(voie_.join(Image.SEPARATOR_CHAR)));
+        images_.put(VOIE, getImageByString(StringList.join(voie_, Image.SEPARATOR_CHAR)));
         StringList voieTwo_ = new StringList("12");
         for (int i = 0; i < 18; i++) {
             voieTwo_.addAllElts(list_);
         }
-        images_.put(VOIE2, getImageByString(voieTwo_.join(Image.SEPARATOR_CHAR)));
+        images_.put(VOIE2, getImageByString(StringList.join(voieTwo_, Image.SEPARATOR_CHAR)));
         StringList voieThree_ = new StringList("6");
         for (int i = 0; i < 18; i++) {
             voieThree_.addAllElts(list_);
         }
-        images_.put(VOIE3, getImageByString(voieThree_.join(Image.SEPARATOR_CHAR)));
+        images_.put(VOIE3, getImageByString(StringList.join(voieThree_, Image.SEPARATOR_CHAR)));
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());

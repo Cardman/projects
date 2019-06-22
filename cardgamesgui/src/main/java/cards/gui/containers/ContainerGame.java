@@ -33,7 +33,6 @@ import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.*;
-import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -138,7 +137,7 @@ public class ContainerGame implements Packable, Containable {
         //de logiciel alors le nombre de parties est remis a zero lors
         //d'une fermeture de logiciel
         vl_.set(_game.ordinal(), Long.toString(_nbGames + 1));
-        StreamTextFile.saveTextFile(fileName_, vl_.join(LINE_RETURN));
+        StreamTextFile.saveTextFile(fileName_, StringList.join(vl_, LINE_RETURN));
     }
 
     public void ajouterTexteDansZone(String _texte) {

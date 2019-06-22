@@ -13,6 +13,7 @@ import code.formathtml.util.NodeContainer;
 import code.formathtml.util.StdStruct;
 import code.formathtml.util.ValueChangeEvent;
 import code.sml.DocumentBuilder;
+import code.util.CustList;
 import code.util.Longs;
 import code.util.StringList;
 import code.util.StringMap;
@@ -29,7 +30,7 @@ final class HtmlRequest {
     }
 
 
-    static String formatErrorMessage(Configuration _conf,String _textId, boolean _escapeAmp,String _loc, StringMap<String> _files, String _resourcesFolder, String... _args) {
+    static String formatErrorMessage(Configuration _conf,String _textId, boolean _escapeAmp,String _loc, StringMap<String> _files, String _resourcesFolder, CustList<String> _args) {
         String value_ = _textId;
         StringList elts_ = StringList.splitStrings(value_, FormatHtml.COMMA);
         String var_ = elts_.first();
@@ -61,7 +62,7 @@ final class HtmlRequest {
             varNames_.add(StringList.concat(locName_,GET_LOC_VAR));
             ip_.putLocalVar(locName_, locVar_);
         }
-        Argument arg_ = ElRenderUtil.processEl(StringList.concat(commandExtract_,LEFT_PAR,varNames_.join(COMMA),RIGHT_PAR), 0, _conf);
+        Argument arg_ = ElRenderUtil.processEl(StringList.concat(commandExtract_,LEFT_PAR, StringList.join(varNames_, COMMA),RIGHT_PAR), 0, _conf);
         if (_conf.getContext().getException() != null || !_conf.getClasses().getErrorsDet().isEmpty()) {
             return NullStruct.NULL_VALUE;
         }

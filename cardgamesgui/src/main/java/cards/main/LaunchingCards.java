@@ -23,7 +23,6 @@ import code.gui.ThreadInvoker;
 import code.gui.TopLeftFrame;
 import code.stream.StreamTextFile;
 import code.util.CustList;
-import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 /**
@@ -109,7 +108,7 @@ public class LaunchingCards extends SoftApplicationCore {
             for (int i=CustList.FIRST_INDEX;i<nbGames_;i++) {
                 dealsNumbers_.add("0");
             }
-            StreamTextFile.saveTextFile(f.getAbsolutePath(), dealsNumbers_.join(LINE_RETURN));
+            StreamTextFile.saveTextFile(f.getAbsolutePath(), StringList.join(dealsNumbers_, LINE_RETURN));
         }
     }
 

@@ -16,7 +16,7 @@ public class WarningList extends CustList<FoundWarningInterpret> {
         for (FoundWarningInterpret f: this) {
             l_.add(f.display(_classes));
         }
-        return l_.join(SEP_INFO);
+        return StringList.join(l_, SEP_INFO);
     }
 
 }

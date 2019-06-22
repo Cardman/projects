@@ -75,7 +75,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
         }
         return bytes_;
     }
-    public static Bytes encodeList(char[] _input) {
+    private static Bytes encodeList(char[] _input) {
         Bytes expBytes_ = new Bytes();
         for (char c: _input) {
             if (c < 128) {
@@ -530,6 +530,14 @@ public final class StringList extends CustList<String> implements Equallable<Str
         }
     }
 
+    public static String simpleStringsFormat(String _format, CustList<String> _args) {
+        int len_ = _args.size();
+        String[] arr_ = new String[len_];
+        for (int i = FIRST_INDEX; i < len_; i++) {
+            arr_[i] = _args.get(i);
+        }
+        return simpleStringsFormat(_format,arr_);
+    }
     public static String simpleStringsFormat(String _format, String... _args) {
         StringBuilder str_ = new StringBuilder();
         StringBuilder arg_ = new StringBuilder();
@@ -697,8 +705,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
 
     public static int getLastPrintableCharIndex(String _string) {
         int i_ = _string.length() - 1;
-        int min_ = CustList.FIRST_INDEX;
-        while (i_ >= min_) {
+        while (i_ >= CustList.FIRST_INDEX) {
             if (Character.isWhitespace(_string.charAt(i_))) {
                 i_--;
                 continue;
@@ -720,11 +727,11 @@ public final class StringList extends CustList<String> implements Equallable<Str
 
     /**Not empty _old string*/
     public static String removeStrings(String _string, String... _strings) {
-        return splitStrings(_string, _strings).join(EMPTY_STRING);
+        return StringList.join(splitStrings(_string, _strings), EMPTY_STRING);
     }
 
     public static String removeChars(String _string, char... _chars) {
-        return splitChars(_string, _chars).join(EMPTY_STRING);
+        return StringList.join(splitChars(_string, _chars), EMPTY_STRING);
     }
 
     public static String replaceMult(String _string, Replacement... _strings) {
@@ -752,7 +759,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
                 parts_.add(t);
             }
         }
-        return parts_.join(CustList.EMPTY_STRING);
+        return StringList.join(parts_, CustList.EMPTY_STRING);
     }
 
     /**Not empty _old string*/
@@ -788,7 +795,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
                 list_.add(String.valueOf(c));
                 list_.add(_new);
             }
-            return list_.join(EMPTY_STRING);
+            return StringList.join(list_, EMPTY_STRING);
         }
         StringBuilder list_ = new StringBuilder();
         int i_ = FIRST_INDEX;
@@ -950,11 +957,6 @@ public final class StringList extends CustList<String> implements Equallable<Str
         removeObj(this, _string);
     }
 
-    @Override
-    public StringList mid(int _beginIndex) {
-        return new StringList(sub(_beginIndex,size()));
-    }
-
     public static boolean startsWith(String _string,String _filter) {
         return _string.startsWith(_filter.trim());
     }
@@ -1010,10 +1012,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
         if(index_==_string.length()){
             return true;
         }
-        if(separators_.get(i_).contains(String.valueOf(SPACE_CHAR))){
-            return true;
-        }
-        return false;
+        return separators_.get(i_).contains(String.valueOf(SPACE_CHAR));
     }
     public static boolean match(String _string,String _filter){
         if(_filter.isEmpty()){
@@ -1044,9 +1043,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
                 if(lastSep_.contains(String.valueOf(STRING))){
                     return true;
                 }
-                if(_string.length()<=index_+nbZeroOne_){
-                    return true;
-                }
+                return _string.length() <= index_ + nbZeroOne_;
             }
             return false;
         }
@@ -1058,8 +1055,6 @@ public final class StringList extends CustList<String> implements Equallable<Str
         }
         int i_=FIRST_INDEX;
         int index_=FIRST_INDEX;
-        int indiceRDecalePt_=0;
-        int indiceNext_=0;
         for(String e:words_){
             String sep_ = separators_.get(i_);
             int nbPts_ = 0;
@@ -1072,7 +1067,8 @@ public final class StringList extends CustList<String> implements Equallable<Str
                     nbZeroOne_++;
                 }
             }
-            indiceRDecalePt_=index_+nbPts_;
+            int indiceRDecalePt_ = index_ + nbPts_;
+            int indiceNext_;
             if(separators_.get(i_).contains(String.valueOf(STRING))){
                 //indiceNext_=_string.indexOf(e,indiceRDecalePt_);
                 //indiceNext_ = greatestIndex(_string, e, indiceRDecalePt_);
@@ -1130,7 +1126,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
             return CustList.INDEX_NOT_FOUND_ELT;
         }
         int index_ = CustList.FIRST_INDEX;
-        int return_ = CustList.FIRST_INDEX;
+        int return_;
         while (true) {
             return_ = index_;
             return_--;
@@ -1287,7 +1283,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return index_;
     }
 
-    public static CharList getMetaCharacters() {
+    private static CharList getMetaCharacters() {
         return new CharList(CHARACTER, STRING, POSSIBLE_CHAR);
     }
 
@@ -1295,27 +1291,16 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return new CharList(SPACE_CHAR);
     }
 
-    @Override
-    public StringList mid(int _beginIndex, int _nbElements) {
-        if (_beginIndex+_nbElements > size()) {
-            return new StringList(sub(_beginIndex,size()));
-        }
-        return new StringList(sub(_beginIndex, _beginIndex+_nbElements));
-    }
-
     public void removeDuplicates() {
         int i_ = FIRST_INDEX;
-        while (true) {
-            if(i_ >= size()) {
-                break;
-            }
+        while (i_ < size()) {
             String e_ = get(i_);
             boolean rem_ = false;
-            int next_ = indexOf(this,e_, i_ + 1);
+            int next_ = indexOf(this, e_, i_ + 1);
             while (next_ != INDEX_NOT_FOUND_ELT) {
                 removeAt(next_);
                 rem_ = true;
-                next_ = indexOf(this,e_, next_ + 1);
+                next_ = indexOf(this, e_, next_ + 1);
             }
             if (!rem_) {
                 i_++;
@@ -1323,72 +1308,40 @@ public final class StringList extends CustList<String> implements Equallable<Str
         }
     }
 
-    public void retainAllElements(StringList _c) {
+    public static void retainAllElements(CustList<String> _strings, CustList<String> _c) {
         int i_ = FIRST_INDEX;
-        while (i_ < size()) {
-            String e_ = get(i_);
+        while (i_ < _strings.size()) {
+            String e_ = _strings.get(i_);
             if (!contains(_c, e_)) {
-                removeAt(i_);
+                _strings.removeAt(i_);
             } else {
                 i_++;
             }
         }
     }
 
-    @Override
-    public StringList sub(int _from, int _to) {
-        if (_from > _to) {
-            return new StringList();
-        }
-        return new StringList(super.sub(_from, _to));
-    }
-
-    @Override
-    public StringList getReverse() {
-        StringList list_ = new StringList(this);
-        int i_ = FIRST_INDEX;
-        int j_ = list_.size();
-        j_--;
-        while (i_ < j_) {
-            list_.swapIndexes(i_, j_);
-            i_++;
-            j_--;
-        }
-        return list_;
-    }
-
-    @Override
-    public String[] toArray() {
-        int size_ = size();
-        String[] array_ = new String[size_];
-        for (int i = FIRST_INDEX; i < size_; i++) {
-            array_[i] = get(i);
-        }
-        return array_;
-    }
-
-    public String join(String _join) {
-        if (isEmpty()) {
+    public static String join(CustList<String> _strings, String _join) {
+        if (_strings.isEmpty()) {
             return EMPTY_STRING;
         }
-        StringBuilder return_ = new StringBuilder(first());
-        int size_ = size();
+        StringBuilder return_ = new StringBuilder(_strings.first());
+        int size_ = _strings.size();
         for (int i=SECOND_INDEX;i<size_;i++) {
             return_.append(_join);
-            return_.append(get(i));
+            return_.append(_strings.get(i));
         }
         return return_.toString();
     }
 
-    public String join(char _join) {
-        if (isEmpty()) {
+    public static String join(CustList<String> _strings, char _join) {
+        if (_strings.isEmpty()) {
             return EMPTY_STRING;
         }
-        StringBuilder return_ = new StringBuilder(first());
-        int size_ = size();
+        StringBuilder return_ = new StringBuilder(_strings.first());
+        int size_ = _strings.size();
         for (int i=SECOND_INDEX;i<size_;i++) {
             return_.append(_join);
-            return_.append(get(i));
+            return_.append(_strings.get(i));
         }
         return return_.toString();
     }
@@ -1408,7 +1361,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return true;
     }
 
-    public boolean disjoint(CustList<String> _list) {
+    private boolean disjoint(CustList<String> _list) {
         for (String s: _list) {
             if (contains(this,s)) {
                 return false;
@@ -1544,7 +1497,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return str_.toString();
     }
 
-    private static String wrapLine(StringList _lineParts, int _maxCols) {
+    private static String wrapLine(CustList<String> _lineParts, int _maxCols) {
         StringBuilder str_ = new StringBuilder();
         boolean entered_ = false;
         int pos_ = SIZE_EMPTY;
@@ -1698,7 +1651,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
     }
 
     public static String replaceWordsJoin(String _str, ListableEntries<String,String> _map) {
-        return replaceWords(_str, _map).join(EMPTY_STRING);
+        return StringList.join(replaceWords(_str, _map), EMPTY_STRING);
     }
 
     private static StringList replaceWords(String _str, ListableEntries<String, String> _map) {
@@ -2037,7 +1990,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
     public String display() {
         StringBuilder str_ = new StringBuilder();
         str_.append("[");
-        str_.append(join(","));
+        str_.append(join(this, ","));
         str_.append("]");
         return str_.toString();
     }

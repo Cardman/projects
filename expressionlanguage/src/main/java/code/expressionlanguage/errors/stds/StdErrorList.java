@@ -14,7 +14,7 @@ public class StdErrorList extends CustList<StdWordError> implements Displayable 
         for (StdWordError f: this) {
             l_.add(f.display());
         }
-        return l_.join(SEP_INFO);
+        return StringList.join(l_, SEP_INFO);
     }
 
 }

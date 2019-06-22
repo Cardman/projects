@@ -122,7 +122,6 @@ import code.util.EnumMap;
 import code.util.EqList;
 import code.util.NatStringTreeMap;
 import code.util.*;
-import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -1857,7 +1856,7 @@ public class DataBase implements WithMathFactory {
                 boolean f_ = false;
                 String line_ = EMPTY_STRING;
                 StringList varParts_ = StringList.splitStrings(v, SEP_BETWEEN_KEYS);
-                String var_ = varParts_.sub(0, 2).join(SEP_BETWEEN_KEYS);
+                String var_ = StringList.join(varParts_.sub(0, 2), SEP_BETWEEN_KEYS);
                 for (EntryCust<String,String> e: m.getValue().entryList()) {
                     if (StringList.quickEq(var_,StringList.concat(VAR_PREFIX ,e.getKey()))) {
                         f_ = true;
@@ -1874,7 +1873,7 @@ public class DataBase implements WithMathFactory {
                     setError(true);
                     return;
                 }
-                StringList infosVar_ = varParts_.mid(2);
+                CustList<String> infosVar_ = varParts_.mid(2);
                 if (infosVar_.isEmpty()) {
                     continue;
                 }
@@ -2754,12 +2753,12 @@ public class DataBase implements WithMathFactory {
                 evtEndRound.add(endTurn_);
             }
 
-            variables.addAllElts(getVariableWords(new StringList(obj_
-                    .getMultStat().values()).join(EMPTY_STRING)));
+            variables.addAllElts(getVariableWords(StringList.join(new StringList(obj_
+                    .getMultStat().values()), EMPTY_STRING)));
             variables.addAllElts(getVariableWords(obj_.getMultDamage()));
             variables.addAllElts(getVariableWords(obj_.getMultPower()));
-            variables.addAllElts(getVariableWords(new StringList(obj_
-                    .getFailStatus().values()).join(EMPTY_STRING)));
+            variables.addAllElts(getVariableWords(StringList.join(new StringList(obj_
+                    .getFailStatus().values()), EMPTY_STRING)));
         }
         items.put(_objectName, _object);
     }
@@ -2777,12 +2776,12 @@ public class DataBase implements WithMathFactory {
             evtEndRound.add(endTurn_);
         }
 
-        variables.addAllElts(getVariableWords(new StringList(_ability
-                .getMultStat().values()).join(EMPTY_STRING)));
+        variables.addAllElts(getVariableWords(StringList.join(new StringList(_ability
+                .getMultStat().values()), EMPTY_STRING)));
         variables.addAllElts(getVariableWords(_ability.getMultDamage()));
         variables.addAllElts(getVariableWords(_ability.getMultPower()));
-        variables.addAllElts(getVariableWords(new StringList(_ability
-                .getFailStatus().values()).join(EMPTY_STRING)));
+        variables.addAllElts(getVariableWords(StringList.join(new StringList(_ability
+                .getFailStatus().values()), EMPTY_STRING)));
         abilities.put(_abilityName, _ability);
     }
 
@@ -2832,7 +2831,7 @@ public class DataBase implements WithMathFactory {
             endTurn_.setNumberIncrement(_effect.getRankIncrementNbRound());
             endTurn_.setIncrementNumberOfRounds(true);
             endTurn_.setEndRoundType(EndTurnType.ATTAQUE_COMBI);
-            endTurn_.setElement(_moves.join(SEPARATOR_MOVES));
+            endTurn_.setElement(StringList.join(_moves, SEPARATOR_MOVES));
             endTurn_.setRelation(RelationType.EQUIPE);
             evtEndRound.add(endTurn_);
         }
@@ -2844,7 +2843,7 @@ public class DataBase implements WithMathFactory {
                 .getEndRoundRank());
         endTurn_.setIncrementNumberOfRounds(false);
         endTurn_.setEndRoundType(EndTurnType.ATTAQUE_COMBI);
-        endTurn_.setElement(_moves.join(SEPARATOR_MOVES));
+        endTurn_.setElement(StringList.join(_moves, SEPARATOR_MOVES));
         endTurn_.setRelation(_effect.getEffectEndRound().first().getRelation());
         evtEndRound.add(endTurn_);
     }
@@ -2855,9 +2854,9 @@ public class DataBase implements WithMathFactory {
         for (String e : variables) {
             StringList infos_ = StringList.splitStrings(e, SEP_BETWEEN_KEYS);
             String key_ = infos_.get(CustList.SECOND_INDEX);
-            String element_ = new StringList(infos_.sub(
-                    CustList.SECOND_INDEX + 1, infos_.size()))
-                    .join(SEP_BETWEEN_KEYS);
+            String element_ = StringList
+                    .join(new StringList(infos_.sub(
+                            CustList.SECOND_INDEX + 1, infos_.size())), SEP_BETWEEN_KEYS);
             if (varParamsMove.contains(key_)) {
                 StringList ref_ = varParamsMove.getVal(key_);
                 ref_.add(element_);
@@ -5374,12 +5373,12 @@ public class DataBase implements WithMathFactory {
                     String pattern_ = infos_.get(1);
 
                     String format_ = StringList.simpleStringsFormat(pattern_,
-                            objDisplay_.toArray());
+                            objDisplay_);
                     list_.add(format_);
                 }
                 if (cur_ == '}') {
                     list_.sort();
-                    str_.append(list_.join(getSepartorSetChar()));
+                    str_.append(StringList.join(list_, getSepartorSetChar()));
                     list_.clear();
                     br_ = false;
                 }
@@ -5425,7 +5424,7 @@ public class DataBase implements WithMathFactory {
                 String pattern_ = infos_.get(1);
 
                 String format_ = StringList.simpleStringsFormat(pattern_,
-                        objDisplay_.toArray());
+                        objDisplay_);
                 str_.append(format_);
                 i_ = j_;
                 continue;
@@ -5482,11 +5481,11 @@ public class DataBase implements WithMathFactory {
             StringList objDisplay_ = getVars(tokens_.get(i), _language);
 
             String formatKey_ = StringList.simpleStringsFormat(key_,
-                    objDisplay_.toArray());
+                    objDisplay_);
             String pattern_ = infos_.get(2);
 
             String format_ = StringList.simpleStringsFormat(pattern_,
-                    objDisplay_.toArray());
+                    objDisplay_);
             desc_.put(formatKey_, format_);
         }
         return desc_;

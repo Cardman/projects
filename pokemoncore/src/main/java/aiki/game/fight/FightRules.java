@@ -28,7 +28,6 @@ import code.maths.Rate;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.*;
-import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.comparators.ComparatorBoolean;
@@ -173,7 +172,7 @@ final class FightRules {
             StringList.removeAllElements(liste_, _import.getMovesFullHeal());
         }
         liste_.removeString(_import.getDefaultMove());
-        liste_.retainAllElements(usablesMoves_);
+        StringList.retainAllElements(liste_, usablesMoves_);
         return liste_;
     }
 

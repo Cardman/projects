@@ -62,14 +62,14 @@ final class FightValues {
             variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.NB_TOUR_GLOBAL,DataBase.SEP_BETWEEN_KEYS,c),String.valueOf(_fight.getEnabledMoves().getVal(c).getNbTurn()));
         }
         StringList clesLanceurAttaquesActuelles_=creatureCbtLanceur_.attaquesUtilisables();
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.FIGHTER_ATTAQUES),clesLanceurAttaquesActuelles_.join(_import.getSepartorSetChar()));
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.FIGHTER_ATTAQUES), StringList.join(clesLanceurAttaquesActuelles_, _import.getSepartorSetChar()));
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.FIGHTER_ATTAQUE_CHOISIE),creatureCbtLanceur_.getFinalChosenMove());
         StringList lanceurAttaquesActuellesTypes_ = new StringList();
         for(String c:clesLanceurAttaquesActuelles_){
             lanceurAttaquesActuellesTypes_.addAllElts(FightMoves.moveTypes(_fight, _fighter,c,_import));
         }
         lanceurAttaquesActuellesTypes_.removeDuplicates();
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.FIGHTER_ATTAQUES_TYPES),lanceurAttaquesActuellesTypes_.join(_import.getSepartorSetChar()));
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.FIGHTER_ATTAQUES_TYPES), StringList.join(lanceurAttaquesActuellesTypes_, _import.getSepartorSetChar()));
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.FIGHTER_CLONE),creatureCbtLanceur_.getClone().toNumberString());
         Rate sommeLanceurDegatsSubis_=Rate.zero();
         for(String c:creatureCbtLanceur_.getDamageSufferedCateg().getKeys()){
@@ -114,9 +114,9 @@ final class FightValues {
                 statutsLanceur_.add(c);
             }
         }
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.FIGHTER_STATUTS),statutsLanceur_.join(_import.getSepartorSetChar()));
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.FIGHTER_TYPES),creatureCbtLanceur_.getTypes().join(_import.getSepartorSetChar()));
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CLIMATS),FightMoves.climatsActifs(_fight,_import).join(_import.getSepartorSetChar()));
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.FIGHTER_STATUTS), StringList.join(statutsLanceur_, _import.getSepartorSetChar()));
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.FIGHTER_TYPES), StringList.join(creatureCbtLanceur_.getTypes(), _import.getSepartorSetChar()));
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CLIMATS), StringList.join(FightMoves.climatsActifs(_fight,_import), _import.getSepartorSetChar()));
         //variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CLIMAT_DOMINANT),climatDominant(_import));
         StringList attaquesPp_ = _import.getVarParamsMove(Fight.FIGHTER_PP);
         attaquesPp_.removeDuplicates();
@@ -192,7 +192,7 @@ final class FightValues {
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.SOMME_BOOST_POS_CIBLE),sommeCibleBoostsPositifs_.toNumberString());
         StringList clesCibleAttaquesActuelles_=creatureCbtCible_.attaquesUtilisables();
         clesCibleAttaquesActuelles_.sort();
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_ATTAQUES),clesCibleAttaquesActuelles_.join(_import.getSepartorSetChar()));
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_ATTAQUES), StringList.join(clesCibleAttaquesActuelles_, _import.getSepartorSetChar()));
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_ATTAQUE_CHOISIE),creatureCbtCible_.getFinalChosenMove());
         StringList cibleAttaquesActuellesTypes_ = new StringList();
         for(String c:clesCibleAttaquesActuelles_){
@@ -200,7 +200,7 @@ final class FightValues {
         }
         cibleAttaquesActuellesTypes_.removeDuplicates();
         cibleAttaquesActuellesTypes_.sort();
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_ATTAQUES_TYPES),cibleAttaquesActuellesTypes_.join(_import.getSepartorSetChar()));
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_ATTAQUES_TYPES), StringList.join(cibleAttaquesActuellesTypes_, _import.getSepartorSetChar()));
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_CLONE),creatureCbtCible_.getClone().toNumberString());
         Rate sommeCibleDegatsSubis_=Rate.zero();
         for(String c:creatureCbtCible_.getDamageSufferedCateg().getKeys()){
@@ -244,10 +244,10 @@ final class FightValues {
         }
         statutsCible_.removeDuplicates();
         statutsCible_.sort();
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_STATUTS),statutsCible_.join(_import.getSepartorSetChar()));
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_STATUTS), StringList.join(statutsCible_, _import.getSepartorSetChar()));
         StringList types_ = new StringList(creatureCbtCible_.getTypes());
         types_.sort();
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_TYPES),types_.join(_import.getSepartorSetChar()));
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CIBLE_TYPES), StringList.join(types_, _import.getSepartorSetChar()));
         StringList attaquesPp_ = _import.getVarParamsMove(Fight.CIBLE_PP);
         attaquesPp_.removeDuplicates();
         for(String c:attaquesPp_){
@@ -312,7 +312,7 @@ final class FightValues {
         }
         StringList clesLanceurAttaquesActuelles_=creatureCbtLanceur_.attaquesUtilisables();
         clesLanceurAttaquesActuelles_.sort();
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_ATTAQUES),clesLanceurAttaquesActuelles_.join(_import.getSepartorSetChar()));
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_ATTAQUES), StringList.join(clesLanceurAttaquesActuelles_, _import.getSepartorSetChar()));
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_ATTAQUE_CHOISIE),creatureCbtLanceur_.getFinalChosenMove());
         StringList lanceurAttaquesActuellesTypes_ = new StringList();
         for(String c:clesLanceurAttaquesActuelles_){
@@ -320,7 +320,7 @@ final class FightValues {
         }
         lanceurAttaquesActuellesTypes_.removeDuplicates();
         lanceurAttaquesActuellesTypes_.sort();
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_ATTAQUES_TYPES),lanceurAttaquesActuellesTypes_.join(_import.getSepartorSetChar()));
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_ATTAQUES_TYPES), StringList.join(lanceurAttaquesActuellesTypes_, _import.getSepartorSetChar()));
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_CLONE),creatureCbtLanceur_.getClone().toNumberString());
         Rate sommeLanceurDegatsSubis_=Rate.zero();
         for(String c:creatureCbtLanceur_.getDamageSufferedCateg().getKeys()){
@@ -373,13 +373,13 @@ final class FightValues {
         }
         statutsLanceur_.removeDuplicates();
         statutsLanceur_.sort();
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_STATUTS),statutsLanceur_.join(_import.getSepartorSetChar()));
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_STATUTS), StringList.join(statutsLanceur_, _import.getSepartorSetChar()));
         types_ = new StringList(creatureCbtLanceur_.getTypes());
         types_.sort();
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_TYPES),types_.join(_import.getSepartorSetChar()));
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_TYPES), StringList.join(types_, _import.getSepartorSetChar()));
         StringList weathers_ = FightMoves.climatsActifs(_fight,_import);
         weathers_.sort();
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CLIMATS),weathers_.join(_import.getSepartorSetChar()));
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CLIMATS), StringList.join(weathers_, _import.getSepartorSetChar()));
         //variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.CLIMAT_DOMINANT),climatDominant(_import));
         attaquesPp_ = _import.getVarParamsMove(Fight.LANCEUR_PP);
         attaquesPp_.removeDuplicates();
@@ -787,7 +787,7 @@ final class FightValues {
         Team equipeAdvCbtEnvoye_=_fight.getTeams().getVal(Fight.foe(_lanceur.getTeam()));
         StringMap<LgInt> nbUtilisationsEntreeAdv_=equipeAdvCbtEnvoye_.getEnabledMovesWhileSendingFoeUses();
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.COMBATTANT_ENTRANT_CLONE),creatureCbtLanceur_.getClone().toNumberString());
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.COMBATTANT_ENTRANT_TYPES),creatureCbtLanceur_.getTypes().join(_import.getSepartorSetChar()));
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.COMBATTANT_ENTRANT_TYPES), StringList.join(creatureCbtLanceur_.getTypes(), _import.getSepartorSetChar()));
         StringList coeffTypes_=_import.getVarParamsMove(Fight.COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT);
         for(String e:coeffTypes_){
             Rate coeffEnvoye_=DataBase.defRateProduct();

@@ -721,7 +721,7 @@ public final class Navigation {
                 String error_ = _errors.getVal(i);
                 String valueMessage_ = elt_.getAttribute(StringList.concat(session.getPrefix(),ATTRIBUTE_VALUE_MESSAGE));
                 if (!valueMessage_.isEmpty()) {
-                    error_ = HtmlRequest.formatErrorMessage(session, valueMessage_, elt_.hasAttribute(StringList.concat(session.getPrefix(),ATTRIBUTE_ESCAPED_EAMP)), language, files, resourcesFolder, _errorsArgs.getVal(i).toArray());
+                    error_ = HtmlRequest.formatErrorMessage(session, valueMessage_, elt_.hasAttribute(StringList.concat(session.getPrefix(),ATTRIBUTE_ESCAPED_EAMP)), language, files, resourcesFolder, _errorsArgs.getVal(i));
                 }
                 if (session.getContext().getException() != null) {
                     return;

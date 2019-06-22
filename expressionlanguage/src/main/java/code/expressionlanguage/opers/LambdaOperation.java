@@ -545,7 +545,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             if (!g_.isStaticType()) {
                 //From analyze
                 StringList innerParts_ = Templates.getAllInnerTypes(cl_);
-                parts_.add(innerParts_.mid(0, innerParts_.size() - 1).join(".."));
+                parts_.add(StringList.join(innerParts_.mid(0, innerParts_.size() - 1), ".."));
             }
             StringList params_ = fid_.getParametersTypes();
             if (fid_.isVararg()) {
@@ -563,7 +563,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             parts_.add(cl_);
             StringBuilder fct_ = new StringBuilder(_stds.getAliasFct());
             fct_.append(Templates.TEMPLATE_BEGIN);
-            fct_.append(parts_.join(Templates.TEMPLATE_SEP));
+            fct_.append(StringList.join(parts_, Templates.TEMPLATE_SEP));
             fct_.append(Templates.TEMPLATE_END);
             setResultClass(new ClassArgumentMatching(fct_.toString()));
             return;
@@ -642,7 +642,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         if (partsArgs_.isEmpty()) {
             cl_ = StringList.concat(sup_,"..",idClass_);
         } else {
-            cl_ = StringList.concat(sup_,"..",idClass_,"<",partsArgs_.join(","),">");
+            cl_ = StringList.concat(sup_,"..",idClass_,"<", StringList.join(partsArgs_, ","),">");
         }
         StringMap<StringList> vars_ = _conf.getCurrentConstraints();
         if (!Templates.isCorrectTemplateAll(cl_, vars_, _conf, true)) {
@@ -711,7 +711,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         parts_.add(_cl);
         StringBuilder fct_ = new StringBuilder(_stds.getAliasFct());
         fct_.append(Templates.TEMPLATE_BEGIN);
-        fct_.append(parts_.join(Templates.TEMPLATE_SEP));
+        fct_.append(StringList.join(parts_, Templates.TEMPLATE_SEP));
         fct_.append(Templates.TEMPLATE_END);
         setResultClass(new ClassArgumentMatching(fct_.toString()));
     }
@@ -1043,7 +1043,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         parts_.add(out_);
         StringBuilder fct_ = new StringBuilder(_stds.getAliasFct());
         fct_.append(Templates.TEMPLATE_BEGIN);
-        fct_.append(parts_.join(Templates.TEMPLATE_SEP));
+        fct_.append(StringList.join(parts_, Templates.TEMPLATE_SEP));
         fct_.append(Templates.TEMPLATE_END);
         setResultClass(new ClassArgumentMatching(fct_.toString()));
     }
@@ -1164,7 +1164,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             }
         }
         paramsReturn_.add(returnType_);
-        return StringList.concat(fctBase_, Templates.TEMPLATE_BEGIN, paramsReturn_.join(Templates.TEMPLATE_SEP), Templates.TEMPLATE_END);
+        return StringList.concat(fctBase_, Templates.TEMPLATE_BEGIN, StringList.join(paramsReturn_, Templates.TEMPLATE_SEP), Templates.TEMPLATE_END);
     }
     private String formatFieldReturn(Analyzable _an, boolean _static, StringList _params, String _returnType, boolean _demand) {
         LgNames stds_ = _an.getStandards();
@@ -1175,7 +1175,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
         }
         paramsReturn_.addAllElts(_params);
         paramsReturn_.add(_returnType);
-        return StringList.concat(fctBase_, Templates.TEMPLATE_BEGIN, paramsReturn_.join(Templates.TEMPLATE_SEP), Templates.TEMPLATE_END);
+        return StringList.concat(fctBase_, Templates.TEMPLATE_BEGIN, StringList.join(paramsReturn_, Templates.TEMPLATE_SEP), Templates.TEMPLATE_END);
     }
 
     @Override

@@ -67,7 +67,6 @@ import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EqList;
 import code.util.*;
-import code.util.*;
 import code.util.Ints;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -1829,8 +1828,8 @@ public final class DataMap {
         if (level_ instanceof LevelWithWildPokemon) {
             LevelWithWildPokemon w_ = (LevelWithWildPokemon) level_;
             if (w_.getDualFights().contains(_coords.getLevel().getPoint())) {
-                return w_.getDualFights().getVal(_coords.getLevel().getPoint())
-                        .getNames().join(SPACE);
+                return StringList.join(w_.getDualFights().getVal(_coords.getLevel().getPoint())
+                        .getNames(), SPACE);
             }
         }
         return DataBase.EMPTY_STRING;

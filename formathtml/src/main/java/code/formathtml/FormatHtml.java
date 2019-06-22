@@ -21,7 +21,6 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdList;
 import code.util.*;
-import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -3053,7 +3052,7 @@ public final class FormatHtml {
             }
             attributesNames_.removeAllString(ATTRIBUTE_VALUE);
             attributesNames_.removeAllString(ATTRIBUTE_TYPE);
-            _tag.setAttribute(ATTRIBUTE_VALUE, StringList.simpleStringsFormat(preformatted_, objects_.toArray()));
+            _tag.setAttribute(ATTRIBUTE_VALUE, StringList.simpleStringsFormat(preformatted_, objects_));
             _tag.setAttribute(ATTRIBUTE_TYPE, SUBMIT_TYPE);
             _doc.renameNode(_tag, INPUT_TAG);
         }
@@ -3105,7 +3104,7 @@ public final class FormatHtml {
                 i_++;
             }
             attributesNames_.removeAllString(ATTRIBUTE_TITLE);
-            _tag.setAttribute(ATTRIBUTE_TITLE, StringList.simpleStringsFormat(preformatted_, objects_.toArray()));
+            _tag.setAttribute(ATTRIBUTE_TITLE, StringList.simpleStringsFormat(preformatted_, objects_));
             _doc.renameNode(_tag, TAG_A);
         }
         if (StringList.quickEq(_tag.getTagName(),StringList.concat(prefixWrite_,TAG_IMG)) && !prefixWrite_.isEmpty()) {
@@ -3175,7 +3174,7 @@ public final class FormatHtml {
                     return;
                 }
                 if (!objects_.isEmpty()) {
-                    fileContent_ = StringList.simpleStringsFormat(fileContent_, objects_.toArray());
+                    fileContent_ = StringList.simpleStringsFormat(fileContent_, objects_);
                 }
                 boolean successAdd_ = children_.isEmpty();
                 if (!successAdd_) {
@@ -3216,11 +3215,11 @@ public final class FormatHtml {
             }
             NodeList chNode_ = _tag.getChildNodes();
             if (chNode_.isEmpty()) {
-                Text text_ = _doc.createTextNode(filesContents_.join(RETURN_LINE));
+                Text text_ = _doc.createTextNode(StringList.join(filesContents_, RETURN_LINE));
                 _tag.appendChild(text_);
             } else {
                 Text text_ = (Text) chNode_.last();
-                text_.appendData(filesContents_.join(RETURN_LINE));
+                text_.appendData(StringList.join(filesContents_, RETURN_LINE));
             }
         }
         if (StringList.quickEq(_tag.getTagName(),SCRIPT)) {

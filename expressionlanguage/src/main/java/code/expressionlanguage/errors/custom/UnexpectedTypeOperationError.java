@@ -11,7 +11,7 @@ public final class UnexpectedTypeOperationError extends FoundErrorInterpret {
 
     @Override
     public String display(Classes _classes) {
-        return StringList.concat(super.display(_classes),SEP_INFO,operands.join(";"),SEP_INFO,expectedResult);
+        return StringList.concat(super.display(_classes),SEP_INFO, StringList.join(operands, ";"),SEP_INFO,expectedResult);
     }
 
     public void setOperands(StringList _operands) {

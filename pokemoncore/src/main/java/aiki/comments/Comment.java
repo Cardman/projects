@@ -32,10 +32,10 @@ public class Comment {
     }
 
     public String joinLines() {
-        return messages.join(RETURN_LINE);
+        return StringList.join(messages, RETURN_LINE);
     }
 
     public String join() {
-        return messages.join(DataBase.EMPTY_STRING);
+        return StringList.join(messages, DataBase.EMPTY_STRING);
     }
 }

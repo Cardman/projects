@@ -484,11 +484,11 @@ public class ScenePanel extends Panel {
     }
 
     public void addToArea() {
-        commentsWalking.setText(facade.getComment().getMessages().join(RETURN_LINE));
+        commentsWalking.setText(StringList.join(facade.getComment().getMessages(), RETURN_LINE));
     }
 
     public String getComment() {
-        return facade.getComment().getMessages().join(RETURN_LINE);
+        return StringList.join(facade.getComment().getMessages(), RETURN_LINE);
     }
 
     public void removeListeners() {
@@ -848,7 +848,7 @@ public class ScenePanel extends Panel {
         } else if (interaction != null) {
             buttonInteract.setEnabledLabel(false);
         }
-        setTextArea(facade.getGame().getCommentGame().getMessages().join(RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
+        setTextArea(StringList.join(facade.getGame().getCommentGame().getMessages(), RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
         setPaintingScene(false);
     }
 
@@ -881,7 +881,7 @@ public class ScenePanel extends Panel {
         }
         facade.interact();
         if (!facade.isChangeToFightScene()) {
-            setTextArea(facade.getGame().getCommentGame().getMessages().join(RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
+            setTextArea(StringList.join(facade.getGame().getCommentGame().getMessages(), RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
         }
         showOptions();
         window.pack();
@@ -1051,7 +1051,7 @@ public class ScenePanel extends Panel {
     public void hostPokemon() {
         facade.attemptForStoringPokemonToHost();
         boolean exited_ = false;
-        String info_ = facade.getGame().getCommentGame().getMessages().join(RETURN_LINE);
+        String info_ = StringList.join(facade.getGame().getCommentGame().getMessages(), RETURN_LINE);
         if (facade.getFirstSelectPkToHost() == CustList.INDEX_NOT_FOUND_ELT) {
             if (facade.getSecondSelectPkToHost() == CustList.INDEX_NOT_FOUND_ELT) {
                 window.setSavedGame(false);
@@ -1068,7 +1068,7 @@ public class ScenePanel extends Panel {
     public void receiveFromHost(boolean _onlyEgg) {
         facade.receiveFromHost(_onlyEgg);
         window.setSavedGame(false);
-        String info_ = facade.getGame().getCommentGame().getMessages().join(RETURN_LINE);
+        String info_ = StringList.join(facade.getGame().getCommentGame().getMessages(), RETURN_LINE);
         if (!facade.getGame().isReinitInteraction()) {
             setTextArea(info_, JOptionPane.INFORMATION_MESSAGE);
             exitInteractionPack();
@@ -1298,7 +1298,7 @@ public class ScenePanel extends Panel {
     public void takeItemFromTeam() {
         facade.takeObjectFromTeam();
         window.setSavedGame(false);
-        setTextArea(facade.getComment().getMessages().join(RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
+        setTextArea(StringList.join(facade.getComment().getMessages(), RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
         refreshTeam();
         //disable the button after taking
         takeItemTeam.setEnabledLabel(false);
@@ -1339,12 +1339,12 @@ public class ScenePanel extends Panel {
             facade.selectPokemon((short) teamPan.getSelectedIndexSingle());
             if (facade.getPlayer().getSelectedObject().isEmpty()) {
                 window.setSavedGame(false);
-                setTextArea(facade.getComment().getMessages().join(RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
+                setTextArea(StringList.join(facade.getComment().getMessages(), RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
             if (facade.getPlayer().getChosenMoves().isEmpty()) {
                 window.setSavedGame(false);
-                setTextArea(facade.getComment().getMessages().join(RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
+                setTextArea(StringList.join(facade.getComment().getMessages(), RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
             SelectHealedMove.setSelectHealedMove(window, facade);
@@ -1404,7 +1404,7 @@ public class ScenePanel extends Panel {
 
     public void validateMt() {
         facade.learnMovesByMoveTutor();
-        String comment_ = facade.getComment().getMessages().join(RETURN_LINE);
+        String comment_ = StringList.join(facade.getComment().getMessages(), RETURN_LINE);
         if (facade.getPlayer().getChosenTeamPokemon() != CustList.INDEX_NOT_FOUND_ELT) {
             setTextArea(comment_, JOptionPane.ERROR_MESSAGE);
             return;
@@ -1497,7 +1497,7 @@ public class ScenePanel extends Panel {
             return;
         }
         if (facade.getPlayer().getSelectedObject().isEmpty()) {
-            setTextArea(facade.getComment().getMessages().join(RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
+            setTextArea(StringList.join(facade.getComment().getMessages(), RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
             window.setSavedGame(false);
             exitInteractionPack();
             return;
@@ -1516,7 +1516,7 @@ public class ScenePanel extends Panel {
             used_ = true;
         }
         if (!used_) {
-            setTextArea(facade.getComment().getMessages().join(RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
+            setTextArea(StringList.join(facade.getComment().getMessages(), RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
             window.setSavedGame(false);
             exitInteractionPack();
             return;
@@ -1582,7 +1582,7 @@ public class ScenePanel extends Panel {
 
     public void evolvePokemon() {
         facade.evolvePokemon();
-        String info_ = facade.getComment().getMessages().join(RETURN_LINE);
+        String info_ = StringList.join(facade.getComment().getMessages(), RETURN_LINE);
         if (!facade.usedObjectForEvolving()) {
             setTextArea(info_, JOptionPane.INFORMATION_MESSAGE);
             window.setSavedGame(false);
@@ -1645,14 +1645,14 @@ public class ScenePanel extends Panel {
     public void healMove(String _move) {
         facade.healMove(_move);
         window.setSavedGame(false);
-        setTextArea(facade.getPlayer().getCommentGame().getMessages().join(RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
+        setTextArea(StringList.join(facade.getPlayer().getCommentGame().getMessages(), RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
         exitInteractionPack();
     }
 
     public void boostMove(String _move) {
         facade.gainPpMax(_move);
         window.setSavedGame(false);
-        setTextArea(facade.getPlayer().getCommentGame().getMessages().join(RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
+        setTextArea(StringList.join(facade.getPlayer().getCommentGame().getMessages(), RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
         exitInteractionPack();
     }
 
@@ -1677,7 +1677,7 @@ public class ScenePanel extends Panel {
         facade.choosePokemonForLearningMove((byte) teamPan.getSelectedIndex());
         if (facade.getPlayer().getSelectedMove().isEmpty()) {
             window.setSavedGame(false);
-            setTextArea(facade.getComment().getMessages().join(RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
+            setTextArea(StringList.join(facade.getComment().getMessages(), RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
             exitInteractionPack();
             return;
         }
@@ -1707,7 +1707,7 @@ public class ScenePanel extends Panel {
     public void learntMove(String _move) {
         facade.learnMove(_move);
         window.setSavedGame(false);
-        setTextArea(facade.getComment().getMessages().join(RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
+        setTextArea(StringList.join(facade.getComment().getMessages(), RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
         exitInteractionPack();
     }
 

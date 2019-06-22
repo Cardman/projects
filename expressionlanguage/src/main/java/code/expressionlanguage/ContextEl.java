@@ -1510,7 +1510,7 @@ public abstract class ContextEl implements ExecutableCode {
             }
             return localSolve(inners_, 1, _root, _index, _readyTypes, _static);
         }
-        String joined_ = removeDottedSpaces(inners_.join(".."));
+        String joined_ = removeDottedSpaces(StringList.join(inners_, ".."));
         boolean outer_ = inners_.size() == 1;
         RootBlock b_ = classes.getClassBody(joined_);
         if (b_ != null) {
@@ -1774,7 +1774,7 @@ public abstract class ContextEl implements ExecutableCode {
                     pre_ = keyWordStatic_;
                 }
                 String typeInner_ = StringList.concat(beginImp_, look_);
-                String foundCandidate_ = Templates.getAllInnerTypesSingleDotted(typeInner_, this).join("..");
+                String foundCandidate_ = StringList.join(Templates.getAllInnerTypesSingleDotted(typeInner_, this), "..");
                 String typeLoc_ = removeDottedSpaces(StringList.concat(pre_," ", foundCandidate_));
                 types_.add(typeLoc_);
             }
@@ -1804,7 +1804,7 @@ public abstract class ContextEl implements ExecutableCode {
                     pre_ = keyWordStatic_;
                 }
                 String typeInner_ = StringList.concat(beginImp_, look_);
-                String foundCandidate_ = Templates.getAllInnerTypesSingleDotted(typeInner_, this).join("..");
+                String foundCandidate_ = StringList.join(Templates.getAllInnerTypesSingleDotted(typeInner_, this), "..");
                 String typeLoc_ = removeDottedSpaces(StringList.concat(pre_," ", foundCandidate_));
                 types_.add(typeLoc_);
             }
@@ -1842,7 +1842,7 @@ public abstract class ContextEl implements ExecutableCode {
                     pre_ = keyWordStatic_;
                 }
                 String typeInner_ = StringList.concat(beginImp_, look_);
-                String foundCandidate_ = Templates.getAllInnerTypesSingleDotted(typeInner_, this).join("..");
+                String foundCandidate_ = StringList.join(Templates.getAllInnerTypesSingleDotted(typeInner_, this), "..");
                 String typeLoc_ = removeDottedSpaces(StringList.concat(pre_," ", foundCandidate_));
                 TypeOwnersDepends deps_ = exist(typeLoc_, _rooted);
                 if (deps_ == null) {
@@ -1878,7 +1878,7 @@ public abstract class ContextEl implements ExecutableCode {
                     pre_ = keyWordStatic_;
                 }
                 String typeInner_ = StringList.concat(beginImp_, look_);
-                String foundCandidate_ = Templates.getAllInnerTypesSingleDotted(typeInner_, this).join("..");
+                String foundCandidate_ = StringList.join(Templates.getAllInnerTypesSingleDotted(typeInner_, this), "..");
                 String typeLoc_ = removeDottedSpaces(StringList.concat(pre_," ", foundCandidate_));
                 TypeOwnersDepends deps_ = exist(typeLoc_, _rooted);
                 if (deps_ == null) {
@@ -1978,7 +1978,7 @@ public abstract class ContextEl implements ExecutableCode {
                     pre_ = keyWordStatic_;
                 }
                 String typeInner_ = StringList.concat(beginImp_, look_);
-                String foundCandidate_ = Templates.getAllInnerTypesSingleDotted(typeInner_, this).join("..");
+                String foundCandidate_ = StringList.join(Templates.getAllInnerTypesSingleDotted(typeInner_, this), "..");
                 String typeLoc_ = removeDottedSpaces(StringList.concat(pre_," ", foundCandidate_));
                 String ft_ = exist(typeLoc_, _rooted, _inherits);
                 if (ft_.isEmpty()) {
@@ -2015,7 +2015,7 @@ public abstract class ContextEl implements ExecutableCode {
                     pre_ = keyWordStatic_;
                 }
                 String typeInner_ = StringList.concat(beginImp_, look_);
-                String foundCandidate_ = Templates.getAllInnerTypesSingleDotted(typeInner_, this).join("..");
+                String foundCandidate_ = StringList.join(Templates.getAllInnerTypesSingleDotted(typeInner_, this), "..");
                 String typeLoc_ = removeDottedSpaces(StringList.concat(pre_," ", foundCandidate_));
                 String ft_ = exist(typeLoc_, _rooted, _inherits);
                 if (ft_.isEmpty()) {
@@ -2127,7 +2127,7 @@ public abstract class ContextEl implements ExecutableCode {
                     continue;
                 }
                 String typeLoc_ = removeDottedSpaces(StringList.concat(begin_, look_));
-                String foundCandidate_ = Templates.getAllInnerTypesSingleDotted(typeLoc_, this).join("..");
+                String foundCandidate_ = StringList.join(Templates.getAllInnerTypesSingleDotted(typeLoc_, this), "..");
                 if (getClassBody(foundCandidate_) == null) {
                     continue;
                 }
@@ -2160,7 +2160,7 @@ public abstract class ContextEl implements ExecutableCode {
                 }
                 String begin_ = removeDottedSpaces(typeImp_.substring(0, typeImp_.lastIndexOf('.')+1));
                 String typeLoc_ = StringList.concat(begin_,look_);
-                String foundCandidate_ = Templates.getAllInnerTypesSingleDotted(typeLoc_, this).join("..");
+                String foundCandidate_ = StringList.join(Templates.getAllInnerTypesSingleDotted(typeLoc_, this), "..");
                 if (getClassBody(foundCandidate_) == null) {
                     continue;
                 }

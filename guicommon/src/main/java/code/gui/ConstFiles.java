@@ -74,7 +74,7 @@ public final class ConstFiles {
                 StringList lastFolders_ = new StringList();
                 lastFolders_.add(folders_.get(1));
                 lastFolders_.add(folders_.last());
-                virtualStore_ = StringList.concat(virtualStore_, lastFolders_.join(SEPARATEUR));
+                virtualStore_ = StringList.concat(virtualStore_, StringList.join(lastFolders_, SEPARATEUR));
                 new File(StringList.concat(virtualStore_, SEPARATEUR)).mkdirs();
                 return virtualStore_;
             }

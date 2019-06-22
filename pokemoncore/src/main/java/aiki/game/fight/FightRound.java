@@ -1489,7 +1489,7 @@ final class FightRound {
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_NIVEAU),Integer.toString(creatureSauvage_.getLevel()));
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_VITESSE),FightOrder.speed(_fight,Fight.toFoeFighter(CustList.FIRST_INDEX),_import).toNumberString());
         PokemonData fPk_=creatureSauvage_.fichePokemon(_import);
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_TYPES_BASE),fPk_.getTypes().join(_import.getSepartorSetChar()));
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_TYPES_BASE), StringList.join(fPk_.getTypes(), _import.getSepartorSetChar()));
         StringList pierresEvo_ = new StringList();
         for(String c:fPk_.getEvolutions().getKeys()){
             Evolution evo_=fPk_.getEvolution(c);
@@ -1499,7 +1499,7 @@ final class FightRound {
             EvolutionStone pierreEvo_=(EvolutionStone)evo_;
             pierresEvo_.add(pierreEvo_.getStone());
         }
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_PIERRES_EVOS),pierresEvo_.join(_import.getSepartorSetChar()));
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_PIERRES_EVOS), StringList.join(pierresEvo_, _import.getSepartorSetChar()));
         return variables_;
     }
 
@@ -1558,7 +1558,7 @@ final class FightRound {
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_NIVEAU),Integer.toString(creatureSauvage_.getLevel()));
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_VITESSE),FightOrder.speed(_fight,Fight.toFoeFighter(CustList.FIRST_INDEX),_import).toNumberString());
         PokemonData fPk_=creatureSauvage_.fichePokemon(_import);
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_TYPES_BASE),fPk_.getTypes().join(_import.getSepartorSetChar()));
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_TYPES_BASE), StringList.join(fPk_.getTypes(), _import.getSepartorSetChar()));
         StringList pierresEvo_ = new StringList();
         for(String c:fPk_.getEvolutions().getKeys()){
             Evolution evo_=fPk_.getEvolution(c);
@@ -1568,7 +1568,7 @@ final class FightRound {
             EvolutionStone pierreEvo_=(EvolutionStone)evo_;
             pierresEvo_.add(pierreEvo_.getStone());
         }
-        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_PIERRES_EVOS),pierresEvo_.join(_import.getSepartorSetChar()));
+        variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.PK_SAUVAGE_PIERRES_EVOS), StringList.join(pierresEvo_, _import.getSepartorSetChar()));
         return variables_;
     }
 }

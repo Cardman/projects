@@ -67,7 +67,7 @@ public class TmLabel extends SelectableLabel {
         }
         types_.sort();
         String target_ = _facade.translatedTargets(_move.getTargetChoice());
-        types = StringList.concat(SPACE,types_.join(SPACE));
+        types = StringList.concat(SPACE, StringList.join(types_, SPACE));
         priority = StringList.concatNbs(SPACE,move_.getPriority());
         pp = StringList.concatNbs(SPACE,move_.getPp());
         target = StringList.concat(SPACE,target_);

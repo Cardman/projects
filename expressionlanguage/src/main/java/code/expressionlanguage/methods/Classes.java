@@ -204,7 +204,7 @@ public final class Classes {
                     vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t.getName()));
                 }
                 generic_.append(Templates.TEMPLATE_BEGIN);
-                generic_.append(vars_.join(Templates.TEMPLATE_SEP));
+                generic_.append(StringList.join(vars_, Templates.TEMPLATE_SEP));
                 generic_.append(Templates.TEMPLATE_END);
             }
             StringBuilder sBuild_ = new StringBuilder(_context.getStandards().getAliasEnumParam());

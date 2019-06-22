@@ -367,7 +367,7 @@ public class FighterBean extends CommonFightBean {
             movesPr_.sort();
             String move_ = translationsMoves_.getVal(m.getMove());
             MoveTeamPosition m_ = new MoveTeamPosition(move_, m.getTeamPosition());
-            privateMoves_.put(m_, movesPr_.join(MOVES_SEPARATOR));
+            privateMoves_.put(m_, StringList.join(movesPr_, MOVES_SEPARATOR));
         }
         privateMoves = privateMoves_;
         TreeMap<MoveTeamPosition,ActivityOfMove> trappingMoves_;

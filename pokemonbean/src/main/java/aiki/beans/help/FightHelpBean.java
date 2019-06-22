@@ -4546,7 +4546,7 @@ public class FightHelpBean extends CommonBean {
         for (String m: comboMultStat.get(_index.intValue())) {
             moves_.add(translatedMoves_.getVal(m));
         }
-        return moves_.join(SEP_DASH);
+        return StringList.join(moves_, SEP_DASH);
     }
     public String clickComboMultStat(Long _index) {
         getForms().put(COMBO, comboMultStat.get(_index.intValue()));
@@ -4559,7 +4559,7 @@ public class FightHelpBean extends CommonBean {
         for (String m: comboEvtStat.get(_index.intValue())) {
             moves_.add(translatedMoves_.getVal(m));
         }
-        return moves_.join(SEP_DASH);
+        return StringList.join(moves_, SEP_DASH);
     }
     public String clickComboEvtStat(Long _index) {
         getForms().put(COMBO, comboEvtStat.get(_index.intValue()));

@@ -42,7 +42,6 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.*;
-import code.util.*;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
@@ -381,7 +380,7 @@ public class FightSimulation {
         for (int i = CustList.SECOND_INDEX; i < nbPaths_; i++) {
             String beforeEvo_ = path_.get(index_);
             PokemonData dataBeforeEvo_ = _import.getPokemon(beforeEvo_);
-            short level_ = evos_.getVal(path_.mid(CustList.FIRST_INDEX, i + 1).join(PokemonPlayer.SEPARATOR));
+            short level_ = evos_.getVal(StringList.join(path_.mid(CustList.FIRST_INDEX, i + 1), PokemonPlayer.SEPARATOR));
             for (LevelMove p: dataBeforeEvo_.getLevMoves()) {
                 if (p.getLevel() > level_) {
                     break;

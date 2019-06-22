@@ -132,7 +132,7 @@ public final class CmpOperation extends ReflectableOpering implements SymbolOper
         UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
         un_.setIndexFile(_conf.getCurrentLocationIndex());
         un_.setFileName(_conf.getCurrentFileName());
-        un_.setExpectedResult(expectedTypes_.join(";"));
+        un_.setExpectedResult(StringList.join(expectedTypes_, ";"));
         un_.setOperands(first_,second_);
         _conf.getClasses().addError(un_);
         setResultClass(new ClassArgumentMatching(res_));

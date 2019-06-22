@@ -695,7 +695,7 @@ final class NamePartType extends LeafPartType {
     }
     @Override
     void checkDynExistence(Analyzable _an,CustList<IntTreeMap< String>>_dels) {
-        StringList pr_ = new StringList();
+        CustList<String> pr_ = new CustList<String>();
         InnerPartType i_ = null;
         PartType parCur_ = null;
         if (getParent() instanceof InnerPartType) {
@@ -721,7 +721,7 @@ final class NamePartType extends LeafPartType {
         typeName_ = ContextEl.removeDottedSpaces(typeName_);
         String type_ = typeName_;
         if (!pr_.isEmpty()) {
-            type_ = StringList.concat(pr_.join(".."),"..",type_);
+            type_ = StringList.concat(StringList.join(pr_, ".."),"..",type_);
         }
         if (_an.getClasses().isCustomType(type_)) {
             setImportedTypeName(typeName_);

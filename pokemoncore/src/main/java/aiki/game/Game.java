@@ -1552,10 +1552,10 @@ public final class Game {
         partiallyAccessiblePlaces = partiallyAccessiblePlaces_;
         StringMap<String> mess_ = _import.getMessagesGame();
         if (!fullAccessiblePlaces_.isEmpty()) {
-            commentGame.addMessage(mess_.getVal(BEATEN_TRAINER_FULL), fullAccessiblePlaces_.join(SEPARATOR_TRAINERS));
+            commentGame.addMessage(mess_.getVal(BEATEN_TRAINER_FULL), StringList.join(fullAccessiblePlaces_, SEPARATOR_TRAINERS));
         }
         if (!partiallyAccessiblePlaces_.isEmpty()) {
-            commentGame.addMessage(mess_.getVal(BEATEN_TRAINER), partiallyAccessiblePlaces_.join(SEPARATOR_TRAINERS));
+            commentGame.addMessage(mess_.getVal(BEATEN_TRAINER), StringList.join(partiallyAccessiblePlaces_, SEPARATOR_TRAINERS));
         }
     }
 

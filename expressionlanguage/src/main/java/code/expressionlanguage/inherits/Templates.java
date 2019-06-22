@@ -234,7 +234,7 @@ public final class Templates {
         }
         StringMap<StringList> mapping_ = new StringMap<StringList>();
         if (_wildCard) {
-            StringList allArgTypes_ = getAllTypes(className_).mid(1);
+            CustList<String> allArgTypes_ = getAllTypes(className_).mid(1);
             for (String m: allArgTypes_) {
                 if (m.startsWith(SUB_TYPE)) {
                     return "";
@@ -675,7 +675,7 @@ public final class Templates {
             }
             StringBuilder str_ = new StringBuilder(fct_);
             str_.append(Templates.TEMPLATE_BEGIN);
-            str_.append(parts_.join(Templates.TEMPLATE_SEP));
+            str_.append(StringList.join(parts_, Templates.TEMPLATE_SEP));
             str_.append(Templates.TEMPLATE_END);
             return str_.toString();
         }

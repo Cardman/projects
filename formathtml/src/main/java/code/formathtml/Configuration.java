@@ -458,7 +458,7 @@ public class Configuration implements ExecutableCode {
         for (ImportingPage p: importing) {
             l_.add(p.getInfos(this));
         }
-        return l_.join(RETURN_LINE);
+        return StringList.join(l_, RETURN_LINE);
     }
     public final boolean noPages() {
         return importing.isEmpty();

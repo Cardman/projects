@@ -1831,9 +1831,9 @@ public final class DocumentReaderAikiCoreUtil {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 litteral_
                         .put(infos_.first(), DocumentBuilder
-                                .transformSpecialChars(infos_.mid(
-                                        CustList.SECOND_INDEX, infos_.size())
-                                        .join(TAB)));
+                                .transformSpecialChars(StringList
+                                        .join(infos_.mid(
+                                                CustList.SECOND_INDEX, infos_.size()), TAB)));
             }
             _d.getLitterals().put(l, litteral_);
         }
@@ -2372,9 +2372,9 @@ public final class DocumentReaderAikiCoreUtil {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 litteral_
                         .put(infos_.first(), DocumentBuilder
-                                .transformSpecialChars(infos_.mid(
-                                        CustList.SECOND_INDEX, infos_.size())
-                                        .join(TAB)));
+                                .transformSpecialChars(StringList
+                                        .join(infos_.mid(
+                                                CustList.SECOND_INDEX, infos_.size()), TAB)));
             }
             _d.getLitterals().put(l, litteral_);
         }
