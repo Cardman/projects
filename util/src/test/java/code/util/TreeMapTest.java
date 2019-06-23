@@ -15,7 +15,7 @@ public class TreeMapTest {
     @Test
     public void put1Test() {
         TreeMap<String,Integer> map_ = new TreeMap<String,Integer>(new NaturalComparator());
-        Listable<EntryCust<String,Integer>> l_ = map_.getList();
+        CustList<EntryCust<String,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put("ONE", 1);
         assertEq(1, l_.size());
@@ -46,7 +46,7 @@ public class TreeMapTest {
     @Test
     public void put2Test() {
         TreeMap<String,Integer> map_ = new TreeMap<String,Integer>(new MyStringComparator(-1));
-        Listable<EntryCust<String,Integer>> l_ = map_.getList();
+        CustList<EntryCust<String,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put("ONE", 1);
         assertEq(1, l_.size());

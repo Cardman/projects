@@ -67,8 +67,8 @@ public class PlaceAreaTest {
         gym_.getLevel().setBlocks(new ObjectMap<Point,Block>());
         block_ = new Block((short)6,(short)6, EnvironmentType.BUILDING, "voie");
         gym_.getLevel().getBlocks().put(new Point((short)0,(short)0), block_);
-        gym_.getLevel().setGymLeaderCoords(new Point((short)1,(short)1));
-        gym_.getLevel().setGymTrainers(new ObjectMap<Point,GymTrainer>());
+        gym_.getIndoor().setGymLeaderCoords(new Point((short)1,(short)1));
+        gym_.getIndoor().setGymTrainers(new ObjectMap<Point,GymTrainer>());
         c_.getBuildings().put(new Point((short)4,(short)5), gym_);
         return c_;
     }
@@ -187,7 +187,7 @@ public class PlaceAreaTest {
         pk_.setLevel((short) 2);
         areaApp_.getWildPokemon().add(pk_);
         areaApp_.initializeWildPokemon();
-        road_.getLevel().getWildPokemonAreas().add(areaApp_);
+        road_.getLevelRoad().getWildPokemonAreas().add(areaApp_);
         road_.getLevel().getBlocks().getVal(point(0,0)).setIndexApparition((short) 0);
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), road_);
         PlaceArea areaPl_ = new PlaceArea();
@@ -261,7 +261,7 @@ public class PlaceAreaTest {
         pk_.setLevel((short) 2);
         areaApp_.getWildPokemon().add(pk_);
         areaApp_.initializeWildPokemon();
-        road_.getLevel().getWildPokemonAreas().add(areaApp_);
+        road_.getLevelRoad().getWildPokemonAreas().add(areaApp_);
         road_.getLevel().getBlocks().getVal(point(0,0)).setIndexApparition((short) 0);
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), road_);
         PlaceArea areaPl_ = new PlaceArea();

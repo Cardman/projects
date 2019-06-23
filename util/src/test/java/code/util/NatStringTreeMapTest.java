@@ -12,7 +12,7 @@ public final class NatStringTreeMapTest {
     @Test
     public void put1Test() {
         NatStringTreeMap<Integer> map_ = new NatStringTreeMap<Integer>();
-        Listable<EntryCust<String,Integer>> l_ = map_.getList();
+        CustList<EntryCust<String,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put("ONE", 1);
         assertEq(1, l_.size());
@@ -43,7 +43,7 @@ public final class NatStringTreeMapTest {
     @Test
     public void put2Test() {
         NatStringTreeMap<Integer> map_ = new NatStringTreeMap<Integer>();
-        Listable<EntryCust<String,Integer>> l_ = map_.getList();
+        CustList<EntryCust<String,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put("ONE", 2);
         map_.put("ONE", 1);
@@ -75,7 +75,7 @@ public final class NatStringTreeMapTest {
     @Test
     public void put3Test() {
         NatStringTreeMap<Integer> map_ = new NatStringTreeMap<Integer>();
-        Listable<EntryCust<String,Integer>> l_ = map_.getList();
+        CustList<EntryCust<String,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put("ONE", 2);
         map_.put("ONE", 1);

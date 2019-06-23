@@ -58,8 +58,8 @@ public class BuildingAreaTest {
         gym_.getLevel().setBlocks(new ObjectMap<Point,Block>());
         block_ = new Block((short)6,(short)6, EnvironmentType.BUILDING, "voie");
         gym_.getLevel().getBlocks().put(new Point((short)0,(short)0), block_);
-        gym_.getLevel().setGymLeaderCoords(new Point((short)1,(short)1));
-        gym_.getLevel().setGymTrainers(new ObjectMap<Point,GymTrainer>());
+        gym_.getIndoor().setGymLeaderCoords(new Point((short)1,(short)1));
+        gym_.getIndoor().setGymTrainers(new ObjectMap<Point,GymTrainer>());
         c_.getBuildings().put(new Point((short)4,(short)5), gym_);
         return c_;
     }

@@ -27,7 +27,6 @@ import code.gui.CheckBoxMenuItem;
 import code.gui.Menu;
 import code.gui.MenuItem;
 import code.gui.Ownable;
-import code.gui.Packable;
 import code.gui.Panel;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -36,7 +35,7 @@ import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
-public class ContainerGame implements Packable, Containable {
+public class ContainerGame implements Containable {
 
     public static final String INTRODUCTION_PTS = ":";
 
@@ -155,11 +154,11 @@ public class ContainerGame implements Packable, Containable {
     public void revalidate() {
         getWindow().revalidateFrame();
     }
-    @Override
+
     public void pack() {
         getWindow().pack();
     }
-    @Override
+
     public final MainWindow getOwner() {
         return getWindow();
     }
@@ -492,7 +491,6 @@ public class ContainerGame implements Packable, Containable {
         return window.getGeneralHelp();
     }
 
-    @Override
     public void setOwner(Ownable _owner) {
         window.setOwner(_owner);
     }

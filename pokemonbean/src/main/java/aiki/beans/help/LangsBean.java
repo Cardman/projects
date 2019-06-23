@@ -12,13 +12,8 @@ import aiki.fight.items.Item;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.Gender;
-import code.util.EntryCust;
-import code.util.EnumList;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
+import code.util.*;
 import code.util.consts.Constants;
-import code.util.ints.Listable;
 import aiki.facade.enums.SelectedBoolean;
 
 public class LangsBean extends CommonBean {
@@ -288,7 +283,7 @@ public class LangsBean extends CommonBean {
         int nbLangs_ = _languages.size();
         int begin_ = _index * nbLangs_;
         int end_ = begin_ + nbLangs_;
-        Listable<String> entries_;
+        CustList<String> entries_;
         entries_ = _treeMap.values();
         for (int i = begin_; i < end_; i++) {
             list_.add(entries_.get(i));
@@ -302,7 +297,7 @@ public class LangsBean extends CommonBean {
         int nbLangs_ = _languages.size();
         int begin_ = _index * nbLangs_;
         int end_ = begin_ + nbLangs_;
-        Listable<String> entries_;
+        CustList<String> entries_;
         entries_ = _treeMap.values();
         for (int i = begin_; i < end_; i++) {
             list_.add(entries_.get(i));
@@ -316,7 +311,7 @@ public class LangsBean extends CommonBean {
         int nbLangs_ = _languages.size();
         int begin_ = _index * nbLangs_;
         int end_ = begin_ + nbLangs_;
-        Listable<String> entries_;
+        CustList<String> entries_;
         entries_ = _treeMap.values();
         for (int i = begin_; i < end_; i++) {
             list_.add(entries_.get(i));
@@ -330,7 +325,7 @@ public class LangsBean extends CommonBean {
         int nbLangs_ = _languages.size();
         int begin_ = _index * nbLangs_;
         int end_ = begin_ + nbLangs_;
-        Listable<String> entries_;
+        CustList<String> entries_;
         entries_ = _treeMap.values();
         for (int i = begin_; i < end_; i++) {
             list_.add(entries_.get(i));
@@ -345,7 +340,7 @@ public class LangsBean extends CommonBean {
         int nbLangs_ = _languages.size();
         int begin_ = _index * nbLangs_;
         int end_ = begin_ + nbLangs_;
-        Listable<String> entries_;
+        CustList<String> entries_;
         entries_ = _treeMap.values();
         for (int i = begin_; i < end_; i++) {
             list_.add(entries_.get(i));
@@ -358,7 +353,7 @@ public class LangsBean extends CommonBean {
         int nbLangs_ = _languages.size();
         int begin_ = _index * nbLangs_;
         int end_ = begin_ + nbLangs_;
-        Listable<String> entries_;
+        CustList<String> entries_;
         entries_ = _treeMap.values();
         for (int i = begin_; i < end_; i++) {
             list_.add(entries_.get(i));

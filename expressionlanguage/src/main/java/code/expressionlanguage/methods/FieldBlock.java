@@ -6,6 +6,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.FieldInitPageEl;
 import code.expressionlanguage.calls.StaticInitPageEl;
+import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.BadFieldName;
 import code.expressionlanguage.errors.custom.BadParamName;
 import code.expressionlanguage.errors.custom.DuplicateField;
@@ -332,7 +333,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     @Override
-    public RootBlock belong() {
+    public GeneType belong() {
         return (RootBlock) getParent();
     }
 

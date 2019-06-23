@@ -10,8 +10,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
 
-import javax.swing.Icon;
-import javax.swing.JLabel;
+import javax.swing.*;
 
 public abstract class PaintableLabel extends CustComponent {
 
@@ -174,7 +173,7 @@ public abstract class PaintableLabel extends CustComponent {
     }
 
     @Override
-    public JLabel getComponent() {
+    public JComponent getComponent() {
         return label;
     }
 }

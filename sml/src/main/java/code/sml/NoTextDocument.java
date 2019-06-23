@@ -7,7 +7,7 @@ public final class NoTextDocument extends CoreDocument {
         super(_tabWidth);
     }
     @Override
-    public NotTextElement createElement(String _tagName) {
+    public Element createElement(String _tagName) {
         NotTextElement element_ = new NotTextElement(this);
         element_.setTagName(_tagName);
         return element_;

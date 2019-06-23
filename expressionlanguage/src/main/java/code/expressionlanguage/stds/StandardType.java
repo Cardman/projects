@@ -110,7 +110,7 @@ public abstract class StandardType implements GeneType {
     }
 
     @Override
-    public final StandardType belong() {
+    public final GeneType belong() {
         return this;
     }
 

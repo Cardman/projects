@@ -3,7 +3,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import code.sml.stream.ExtractFromFiles;
@@ -200,7 +200,11 @@ public class FileTable extends CustComponent {
     }
 
     @Override
-    public JTable getComponent() {
+    public JComponent getComponent() {
+        return getTable();
+    }
+
+    public JTable getTable() {
         return table;
     }
 }

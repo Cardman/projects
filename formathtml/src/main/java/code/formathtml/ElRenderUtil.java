@@ -47,7 +47,7 @@ public final class ElRenderUtil {
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+            _conf.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
             context_.setAnalyzing(null);
             return Argument.createVoid();
         }
@@ -75,7 +75,7 @@ public final class ElRenderUtil {
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+            _conf.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
             context_.setAnalyzing(null);
             return Argument.createVoid();
         }
@@ -99,7 +99,7 @@ public final class ElRenderUtil {
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+            _conf.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
             context_.setAnalyzing(null);
             return Argument.createVoid();
         }
@@ -112,7 +112,7 @@ public final class ElRenderUtil {
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+            _conf.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
             context_.setAnalyzing(null);
             return Argument.createVoid();
         }

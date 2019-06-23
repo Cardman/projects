@@ -24,7 +24,7 @@ public final class ReadConfiguration {
     private ReadConfiguration(){
     }
     public static void load(Configuration _configuration, Document _document) {
-        BeanLgNames stds_ = _configuration.getStandards();
+        BeanLgNames stds_ = _configuration.getAdvStandards();
         boolean found_ = false;
         for (Element c: _document.getDocumentElement().getChildElements()) {
             String fieldName_ = c.getAttribute("field");

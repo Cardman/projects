@@ -235,7 +235,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         id_.put(nextSibling_, assBl_);
     }
     @Override
-    protected AssignedBooleanVariables buildNewAssignedVariable() {
+    protected AssignedVariables buildNewAssignedVariable() {
         return new AssignedBooleanLoopVariables();
     }
     @Override

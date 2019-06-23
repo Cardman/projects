@@ -2576,7 +2576,7 @@ public final class DocumentReaderAikiCoreUtil {
                 for (Building b : c_.getBuildings().values()) {
                     if (b instanceof Gym) {
                         Gym g_ = (Gym) b;
-                        for (Trainer t : g_.getLevel().getGymTrainers()
+                        for (Trainer t : g_.getIndoor().getGymTrainers()
                                 .values()) {
                             String f_ = t.getImageMaxiFileName();
                             String file_ = StringList.concat(TRAINERS_FOLDER,
@@ -2593,7 +2593,7 @@ public final class DocumentReaderAikiCoreUtil {
                                             .ressourceFichier(StringList
                                                     .concat(common_, file_))));
                         }
-                        String f_ = g_.getLevel().getGymLeader()
+                        String f_ = g_.getIndoor().getGymLeader()
                                 .getImageMaxiFileName();
                         String file_ = StringList.concat(TRAINERS_FOLDER,
                                 SEPARATOR_FILES, f_);
@@ -2601,7 +2601,7 @@ public final class DocumentReaderAikiCoreUtil {
                                 .getImageByString(ResourceFiles
                                         .ressourceFichier(StringList.concat(
                                                 common_, file_))));
-                        f_ = g_.getLevel().getGymLeader()
+                        f_ = g_.getIndoor().getGymLeader()
                                 .getImageMiniFileName();
                         file_ = StringList.concat(PEOPLE_FOLDER,
                                 SEPARATOR_FILES, f_);
@@ -2612,7 +2612,7 @@ public final class DocumentReaderAikiCoreUtil {
                     }
                     if (b instanceof PokemonCenter) {
                         PokemonCenter pkCenter_ = (PokemonCenter) b;
-                        for (Person g : pkCenter_.getLevel().getGerants()
+                        for (Person g : pkCenter_.getIndoor().getGerants()
                                 .values()) {
                             String f_ = g.getImageMiniFileName();
                             String file_ = StringList.concat(PEOPLE_FOLDER,

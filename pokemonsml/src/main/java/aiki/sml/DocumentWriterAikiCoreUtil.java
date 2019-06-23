@@ -3583,12 +3583,12 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static void setGym(Gym _object, Element _element, Document _document) {
-        _element.appendChild(setLevelIndoorGym(_object.getLevel(),FIELD_LEVEL,_document));
+        _element.appendChild(setLevelIndoorGym(_object.getIndoor(),FIELD_LEVEL,_document));
         setBuilding(_object, _element, _document);
     }
 
     private static void setPokemonCenter(PokemonCenter _object, Element _element, Document _document) {
-        _element.appendChild(setLevelIndoorPokemonCenter(_object.getLevel(),FIELD_LEVEL,_document));
+        _element.appendChild(setLevelIndoorPokemonCenter(_object.getIndoor(),FIELD_LEVEL,_document));
         setBuilding(_object, _element, _document);
     }
 
@@ -3942,7 +3942,7 @@ public final class DocumentWriterAikiCoreUtil {
 
     private static void setCity(City _object, Element _element, Document _document) {
         _element.appendChild(setMapPointBuilding(_object.getBuildings(),FIELD_BUILDINGS,_document));
-        _element.appendChild(setLevelOutdoor(_object.getLevel(),FIELD_LEVEL,_document));
+        _element.appendChild(setLevelOutdoor(_object.getLevelOutdoor(),FIELD_LEVEL,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getName(),FIELD_NAME,_document));
         _element.appendChild(setMapPlaceInterConnectCoords(_object.getSavedlinks(),FIELD_SAVEDLINKS,_document));
         _element.appendChild(setMapPointLink(_object.getLinksWithCaves(),FIELD_LINKS_WITH_CAVES,_document));
@@ -3986,7 +3986,7 @@ public final class DocumentWriterAikiCoreUtil {
 
     private static void setRoad(Road _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getName(),FIELD_NAME,_document));
-        _element.appendChild(setLevelRoad(_object.getLevel(),FIELD_LEVEL,_document));
+        _element.appendChild(setLevelRoad(_object.getLevelRoad(),FIELD_LEVEL,_document));
         _element.appendChild(setMapPointLink(_object.getLinksWithCaves(),FIELD_LINKS_WITH_CAVES,_document));
         _element.appendChild(setMapPlaceInterConnectCoords(_object.getSavedlinks(),FIELD_SAVEDLINKS,_document));
     }

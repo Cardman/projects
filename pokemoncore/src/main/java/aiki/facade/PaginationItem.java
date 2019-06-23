@@ -54,7 +54,7 @@ public final class PaginationItem extends
                 .getVal(_language);
     }
 
-    public void search(Listable<String> _list, DataBase _data) {
+    public void search(CustList<String> _list, DataBase _data) {
         items.clear();
         int len_ = _list.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -112,7 +112,6 @@ public final class PaginationItem extends
         return true;
     }
 
-    @Override
     public CriteriaForSearchingItem getCriteria() {
         return criteria;
     }

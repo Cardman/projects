@@ -339,7 +339,7 @@ public final class Navigation {
                         badEl_.setErrors(session.getClasses().getErrorsDet());
                         badEl_.setFileName(session.getCurrentFileName());
                         badEl_.setIndexFile(session.getCurrentLocationIndex());
-                        session.getContext().setException(new ErrorStruct(session, badEl_.display(session.getClasses()), session.getStandards().getErrorEl()));
+                        session.getContext().setException(new ErrorStruct(session, badEl_.display(session.getClasses()), session.getAdvStandards().getErrorEl()));
                         return;
                     }
                     args_.add(a_);
@@ -567,7 +567,7 @@ public final class Navigation {
             }
             StringList v_ = nInfos_.getValue();
             String className_ = nInfos_.getInputClass();
-            ResultErrorStd resError_ = session.getStandards().getStructToBeValidated(v_, className_, session.getContext());
+            ResultErrorStd resError_ = session.getAdvStandards().getStructToBeValidated(v_, className_, session.getContext());
             if (resError_.getError() != null) {
                 String err_ = resError_.getError();
                 session.getContext().setException(new ErrorStruct(session,err_));
@@ -670,7 +670,7 @@ public final class Navigation {
                 ContextEl context_ = session.getContext();
                 className_ = context_.getStandards().getStructClassName(obj_, context_);
             }
-            ResultErrorStd res_ = session.getStandards().getStructToBeValidated(v_, className_, session.getContext());
+            ResultErrorStd res_ = session.getAdvStandards().getStructToBeValidated(v_, className_, session.getContext());
             if (res_.getError() != null) {
                 String err_ = res_.getError();
                 session.getContext().setException(new ErrorStruct(session,err_));

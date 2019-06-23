@@ -1,7 +1,7 @@
 package aiki.gui.components.checks;
 import java.awt.Color;
 
-import javax.swing.JCheckBox;
+import javax.swing.*;
 
 import code.gui.CustComponent;
 
@@ -34,7 +34,7 @@ public abstract class CheckBox extends CustComponent {
     }
 
     @Override
-    public JCheckBox getComponent() {
+    public JComponent getComponent() {
         return component;
     }
 

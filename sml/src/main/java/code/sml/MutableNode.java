@@ -2,14 +2,6 @@ package code.sml;
 
 public interface MutableNode extends Node {
 
-    MutableNode getNextSibling();
-
-    MutableNode getPreviousSibling();
-
-    MutableNode getFirstChild();
-
-    MutableNode getLastChild();
-
     void setParentNode(Element _parentNode);
     void setNextSibling(MutableNode _node);
 

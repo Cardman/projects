@@ -5,10 +5,12 @@ import java.awt.GridBagLayout;
 
 import code.formathtml.render.MetaCell;
 import code.formathtml.render.MetaTable;
+import code.util.Ints;
 
 public final class DualTable extends DualContainer {
 
     private GridBagConstraints constraints;
+    private Ints remainders;
 
     public DualTable(DualContainer _container, MetaTable _component, RenderedPage _page) {
         super(_container, _component, _page);
@@ -16,6 +18,7 @@ public final class DualTable extends DualContainer {
         getGraphic().setLayout(lay_);
         constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.BOTH;
+        remainders = _component.getRemainders();
     }
 
     public GridBagConstraints getConstraints() {
@@ -23,14 +26,8 @@ public final class DualTable extends DualContainer {
     }
 
     @Override
-    public MetaTable getComponent() {
-        return (MetaTable) super.getComponent();
-    }
-
-    @Override
     public void add(DualComponent _dual) {
-        MetaTable table_ = getComponent();
-        boolean rem_ = table_.getRemainders().containsObj(getComponentCount());
+        boolean rem_ = remainders.containsObj(getComponentCount());
         if (rem_) {
             constraints.gridwidth = GridBagConstraints.REMAINDER;
             if (_dual.getComponent() instanceof MetaCell) {

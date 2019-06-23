@@ -19,8 +19,8 @@ public final class DualAnchoredLabel extends DualLabel {
     private String href;
 
     public DualAnchoredLabel(DualContainer _container, MetaAnchorLabel _component, RenderedPage _page) {
-        super(_container, _component, new JLabel(), _page);
-        JLabel label_ = getGraphic();
+        super(_container, _component, _page);
+        JLabel label_ = getLabel();
         label_.setCursor(new Cursor(Cursor.HAND_CURSOR));
         label_.addMouseListener(new AnchorEvent(_component.getAnchor(), _page, this));
         String prefix_ = getPage().getNavigation().getSession().getPrefix();
@@ -41,12 +41,12 @@ public final class DualAnchoredLabel extends DualLabel {
 
     @Override
     public void paint() {
-        JLabel lab_ = getGraphic();
+        JLabel lab_ = getLabel();
         MetaStyle style_ = getComponent().getStyle();
-        Font copy_ = new Font(style_.getFontFamily(), style_.getBold() + style_.getItalic(), style_.getRealSize());
+        Font copy_ =  newFont(style_);
         FontMetrics fontMetrics_ = lab_.getFontMetrics(copy_);
         int h_ = fontMetrics_.getHeight();
-        String text_ = getComponent().getText();
+        String text_ = getText();
         int w_ = fontMetrics_.stringWidth(text_);
         BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_RGB);
         Graphics2D gr_ = img_.createGraphics();

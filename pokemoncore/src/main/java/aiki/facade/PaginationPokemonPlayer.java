@@ -144,7 +144,6 @@ public final class PaginationPokemonPlayer
         return true;
     }
 
-    @Override
     public CriteriaForSearchingPokemon getCriteria() {
         return criteria;
     }

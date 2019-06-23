@@ -28,7 +28,7 @@ public final class TranslatorStruct implements RealInstanceStruct {
     }
 
     @Override
-    public Translator getInstance() {
+    public Object getInstance() {
         return translator;
     }
 

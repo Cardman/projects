@@ -1,24 +1,27 @@
 package code.gui.document;
 
-import javax.swing.JCheckBox;
+import javax.swing.*;
 
 import code.formathtml.render.MetaCheckedBox;
 
 public final class DualCheckedBox extends DualInput {
 
+    private final JCheckBox check;
+
     public DualCheckedBox(DualContainer _container, MetaCheckedBox _component,
-            RenderedPage _page) {
-        super(_container, _component, new JCheckBox("",_component.isChecked()), _page);
+                          RenderedPage _page) {
+        super(_container, _component, _page);
+        check = new JCheckBox("", _component.isChecked());
+        updateGraphics(check,_component);
     }
 
     @Override
-    public JCheckBox getGraphic() {
-        return (JCheckBox) super.getGraphic();
+    public JComponent getGraphic() {
+        return check;
     }
 
-    @Override
     public String getValue() {
-        if (getGraphic().isSelected()) {
+        if (check.isSelected()) {
             return "on";
         }
         return "off";

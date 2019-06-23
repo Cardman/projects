@@ -156,6 +156,10 @@ public class CustList<T> implements Listable<T> {
     }
 
     @Override
+    public Object getObj(int _index) {
+        return get(_index);
+    }
+
     public T get(int _index) {
         return list.get(_index);
     }

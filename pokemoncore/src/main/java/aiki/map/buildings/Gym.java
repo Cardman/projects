@@ -1,6 +1,8 @@
 package aiki.map.buildings;
 import aiki.db.DataBase;
+import aiki.map.levels.Level;
 import aiki.map.levels.LevelIndoorGym;
+import aiki.map.levels.LevelIndoorPokemonCenter;
 import aiki.map.tree.BuildingArea;
 import aiki.util.Point;
 
@@ -27,10 +29,12 @@ public final class Gym extends Building {
     }
 
     @Override
-    public LevelIndoorGym getLevel() {
+    public Level getLevel() {
+        return getIndoor();
+    }
+    public LevelIndoorGym getIndoor() {
         return level;
     }
-
     public void setLevel(LevelIndoorGym _level) {
         level = _level;
     }

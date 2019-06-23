@@ -23,8 +23,6 @@ public abstract class CoreDocument implements Node,Document {
         return text_;
     }
 
-    public abstract Element createElement(String _tagName);
-
     public int getTabWidth() {
         return tabWidth;
     }
@@ -39,11 +37,13 @@ public abstract class CoreDocument implements Node,Document {
         return null;
     }
 
-    public Node getNextSibling() {
+    @Override
+    public MutableNode getNextSibling() {
         return null;
     }
 
-    public Node getPreviousSibling() {
+    @Override
+    public MutableNode getPreviousSibling() {
         return null;
     }
 
@@ -52,21 +52,26 @@ public abstract class CoreDocument implements Node,Document {
         return attr_;
     }
 
-    public Node getFirstChild() {
+    @Override
+    public MutableNode getFirstChild() {
         return documentElement;
     }
 
-    public Node getLastChild() {
+    @Override
+    public MutableNode getLastChild() {
         return documentElement;
     }
+    @Override
     public Element getDocumentElement() {
         return documentElement;
     }
 
+    @Override
     public NamedNodeMap getAttributes() {
         return null;
     }
 
+    @Override
     public NodeList getChildNodes() {
         NodeList list_ = new NodeList();
         if (documentElement != null) {
@@ -75,6 +80,7 @@ public abstract class CoreDocument implements Node,Document {
         return list_;
     }
 
+    @Override
     public ElementList getChildElements() {
         ElementList list_ = new ElementList();
         if (documentElement != null) {
@@ -83,6 +89,7 @@ public abstract class CoreDocument implements Node,Document {
         return list_;
     }
 
+    @Override
     public void appendChild(Node _newChild) {
         Element element_ = (Element) _newChild;
         documentElement = element_;

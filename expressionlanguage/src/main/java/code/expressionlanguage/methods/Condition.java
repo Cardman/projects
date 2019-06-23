@@ -11,6 +11,7 @@ import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
+import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
@@ -34,7 +35,7 @@ public abstract class Condition extends BracedStack implements WithNotEmptyEl, B
     }
 
     @Override
-    public AssignedBooleanVariables buildNewAssignedVariable() {
+    public AssignedVariables buildNewAssignedVariable() {
         return new AssignedBooleanVariables();
     }
     

@@ -205,7 +205,7 @@ public class GraphicCombo extends CustComponent implements GraphicComboInt, Inpu
     }
 
     @Override
-    public JPanel getGlobal() {
+    public JComponent getGlobal() {
         return getPanel();
     }
 
@@ -215,14 +215,6 @@ public class GraphicCombo extends CustComponent implements GraphicComboInt, Inpu
             return new Ints();
         }
         return new Ints(selectedIndex);
-    }
-
-    @Override
-    public StringList getSelectedValues() {
-        if (selectedIndex == -1) {
-            return new StringList();
-        }
-        return new StringList(getSelectedItem());
     }
 
     @Override

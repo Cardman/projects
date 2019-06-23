@@ -12,7 +12,7 @@ public final class NatCmpTreeMapTest {
     @Test
     public void put1Test() {
         NatCmpTreeMap<MyCmp,Integer> map_ = new NatCmpTreeMap<MyCmp,Integer>();
-        Listable<EntryCust<MyCmp,Integer>> l_ = map_.getList();
+        CustList<EntryCust<MyCmp,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put(new MyCmp(2), 1);
         assertEq(1, l_.size());
@@ -43,7 +43,7 @@ public final class NatCmpTreeMapTest {
     @Test
     public void put2Test() {
         NatCmpTreeMap<MyCmp,Integer> map_ = new NatCmpTreeMap<MyCmp,Integer>();
-        Listable<EntryCust<MyCmp,Integer>> l_ = map_.getList();
+        CustList<EntryCust<MyCmp,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put(new MyCmp(2), 2);
         map_.put(new MyCmp(2), 1);
@@ -75,7 +75,7 @@ public final class NatCmpTreeMapTest {
     @Test
     public void put3Test() {
         NatCmpTreeMap<MyCmp,Integer> map_ = new NatCmpTreeMap<MyCmp,Integer>();
-        Listable<EntryCust<MyCmp,Integer>> l_ = map_.getList();
+        CustList<EntryCust<MyCmp,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put(new MyCmp(2), 2);
         map_.put(new MyCmp(2), 1);

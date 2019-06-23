@@ -6,6 +6,7 @@ import aiki.map.characters.DualFight;
 import aiki.map.characters.Person;
 import aiki.map.levels.Level;
 import aiki.map.levels.LevelRoad;
+import aiki.map.levels.LevelWithWildPokemon;
 import aiki.map.levels.Link;
 import aiki.map.pokemon.WildPk;
 import aiki.map.tree.LevelArea;
@@ -71,12 +72,12 @@ public final class Road extends Campaign implements InitializedPlace {
 
             }
         }
-        level.validate(_data, levelArea_);
+        getLevelRoad().validate(_data, levelArea_);
     }
 
     @Override
     public void validateForEditing(DataBase _data) {
-        level.validateForEditing(_data);
+        getLevelRoad().validateForEditing(_data);
     }
 
     @Override
@@ -105,126 +106,130 @@ public final class Road extends Campaign implements InitializedPlace {
     @Override
     public ByteMap< Level> getLevelsMap() {
         ByteMap< Level> levels_ = new ByteMap< Level>();
-        levels_.put(CustList.FIRST_INDEX, level);
+        levels_.put(CustList.FIRST_INDEX, getLevelRoad());
         return levels_;
     }
 
     @Override
     public CustList<Level> getLevelsList() {
-        return new CustList<Level>(level);
+        return new CustList<Level>(getLevelRoad());
     }
 
     @Override
     public boolean containsPokemon(Coords _coords) {
-        return level.containsPokemon(_coords.getLevel().getPoint());
+        return getLevelRoad().containsPokemon(_coords.getLevel().getPoint());
     }
 
     @Override
     public void addPokemon(Coords _coords, WildPk _pk) {
-        level.getLegendaryPks().put(_coords.getLevel().getPoint(), _pk);
+        getLevelRoad().getLegendaryPks().put(_coords.getLevel().getPoint(), _pk);
     }
 
     @Override
     public WildPk getPokemon(Coords _coords) {
-        return level.getPokemon(_coords.getLevel().getPoint());
+        return getLevelRoad().getPokemon(_coords.getLevel().getPoint());
     }
 
     @Override
     public boolean containsObject(Coords _coords) {
-        return level.containsObject(_coords.getLevel().getPoint());
+        return getLevelRoad().containsObject(_coords.getLevel().getPoint());
     }
 
     @Override
     public void addObject(Coords _coords, String _object) {
-        level.getItems().put(_coords.getLevel().getPoint(), _object);
+        getLevelRoad().getItems().put(_coords.getLevel().getPoint(), _object);
     }
 
     @Override
     public String getObject(Coords _coords) {
-        return level.getObject(_coords.getLevel().getPoint());
+        return getLevelRoad().getObject(_coords.getLevel().getPoint());
     }
 
     @Override
     public boolean containsPerson(Coords _coords) {
-        return level.containsPerson(_coords.getLevel().getPoint());
+        return getLevelRoad().containsPerson(_coords.getLevel().getPoint());
     }
 
     @Override
     public void addPerson(Coords _coords, Person _person) {
-        level.getCharacters().put(_coords.getLevel().getPoint(),
+        getLevelRoad().getCharacters().put(_coords.getLevel().getPoint(),
                 (CharacterInRoadCave) _person);
     }
 
     @Override
     public Person getPerson(Coords _coords) {
-        return level.getPerson(_coords.getLevel().getPoint());
+        return getLevelRoad().getPerson(_coords.getLevel().getPoint());
     }
 
     @Override
     public boolean containsDualFight(Coords _coords) {
-        return level.containsDualFight(_coords.getLevel().getPoint());
+        return getLevelRoad().containsDualFight(_coords.getLevel().getPoint());
     }
 
     @Override
     public void addDualFight(Coords _coords, DualFight _dualFight) {
-        level.getDualFights().put(_coords.getLevel().getPoint(), _dualFight);
+        getLevelRoad().getDualFights().put(_coords.getLevel().getPoint(), _dualFight);
     }
 
     @Override
     public DualFight getDualFight(Coords _coords) {
-        return level.getDualFight(_coords.getLevel().getPoint());
+        return getLevelRoad().getDualFight(_coords.getLevel().getPoint());
     }
 
     @Override
     public boolean containsHm(Coords _coords) {
-        return level.containsHm(_coords.getLevel().getPoint());
+        return getLevelRoad().containsHm(_coords.getLevel().getPoint());
     }
 
     @Override
     public void addHm(Coords _coords, short _hm) {
-        level.getHm().put(_coords.getLevel().getPoint(), _hm);
+        getLevelRoad().getHm().put(_coords.getLevel().getPoint(), _hm);
     }
 
     @Override
     public short getHm(Coords _coords) {
-        return level.getHm(_coords.getLevel().getPoint());
+        return getLevelRoad().getHm(_coords.getLevel().getPoint());
     }
 
     @Override
     public boolean containsTm(Coords _coords) {
-        return level.containsTm(_coords.getLevel().getPoint());
+        return getLevelRoad().containsTm(_coords.getLevel().getPoint());
     }
 
     @Override
     public void addTm(Coords _coords, short _tm) {
-        level.getTm().put(_coords.getLevel().getPoint(), _tm);
+        getLevelRoad().getTm().put(_coords.getLevel().getPoint(), _tm);
     }
 
     @Override
     public short getTm(Coords _coords) {
-        return level.getTm(_coords.getLevel().getPoint());
+        return getLevelRoad().getTm(_coords.getLevel().getPoint());
     }
 
     @Override
     public void setItem(Coords _coords, String _object) {
-        level.setItem(_coords.getLevel().getPoint(), _object);
+        getLevelRoad().setItem(_coords.getLevel().getPoint(), _object);
     }
 
     @Override
     public void setTm(Coords _coords, short _tm) {
-        level.setTm(_coords.getLevel().getPoint(), _tm);
+        getLevelRoad().setTm(_coords.getLevel().getPoint(), _tm);
     }
 
     @Override
     public void setHm(Coords _coords, short _object) {
-        level.setHm(_coords.getLevel().getPoint(), _object);
+        getLevelRoad().setHm(_coords.getLevel().getPoint(), _object);
     }
 
     @Override
-    public LevelRoad getLevelByCoords(Coords _coords) {
-        return getLevel();
+    public Level getLevelByCoords(Coords _coords) {
+        return getLevelCompaignByCoords(_coords);
     }
 
+    @Override
+    public LevelWithWildPokemon getLevelCompaignByCoords(Coords _coords) {
+        return getLevelRoad();
+    }
     @Override
     public String getName() {
         return name;
@@ -236,7 +241,11 @@ public final class Road extends Campaign implements InitializedPlace {
     }
 
     @Override
-    public LevelRoad getLevel() {
+    public Level getLevel() {
+        return getLevelRoad();
+    }
+
+    public LevelRoad getLevelRoad() {
         return level;
     }
 
@@ -246,7 +255,7 @@ public final class Road extends Campaign implements InitializedPlace {
 
     @Override
     public void initializeWildPokemon() {
-        level.initializeWildPokemon();
+        getLevelRoad().initializeWildPokemon();
     }
 
     @Override

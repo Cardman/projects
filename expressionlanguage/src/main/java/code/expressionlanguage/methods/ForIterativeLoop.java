@@ -346,7 +346,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
     }
     @Override
-    protected AssignedBooleanVariables buildNewAssignedVariable() {
+    protected AssignedVariables buildNewAssignedVariable() {
         return new AssignedBooleanVariables();
     }
     @Override

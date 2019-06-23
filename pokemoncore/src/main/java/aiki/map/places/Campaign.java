@@ -7,8 +7,7 @@ import aiki.util.Coords;
 
 public abstract class Campaign extends Place {
 
-    @Override
-    public abstract LevelWithWildPokemon getLevelByCoords(Coords _coords);
+    public abstract LevelWithWildPokemon getLevelCompaignByCoords(Coords _coords);
     public abstract void initializeWildPokemon();
     public abstract void addPerson(Coords _coords, Person _person);
     public abstract boolean containsPokemon(Coords _coords);

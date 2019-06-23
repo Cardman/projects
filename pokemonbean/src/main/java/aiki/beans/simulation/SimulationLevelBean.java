@@ -125,7 +125,7 @@ public class SimulationLevelBean extends CommonBean {
             Point ptInside_ = (Point) getForms().getVal(INSIDE);
             Building b_ = c_.getBuildings().getVal(ptInside_);
             Gym g_ = (Gym) b_;
-            if (g_.getLevel().getGymTrainers().contains(pt_)) {
+            if (g_.getIndoor().getGymTrainers().contains(pt_)) {
                 Coords coords_ = new Coords();
                 coords_.setNumberPlace(pl_);
                 coords_.setLevel(new LevelPoint());
@@ -135,7 +135,7 @@ public class SimulationLevelBean extends CommonBean {
                 getForms().put(NO_FIGHT, noFight);
                 return SIMULATION;
             }
-            if (Point.eq(g_.getLevel().getGymLeaderCoords(), pt_)) {
+            if (Point.eq(g_.getIndoor().getGymLeaderCoords(), pt_)) {
                 Coords coords_ = new Coords();
                 coords_.setNumberPlace(pl_);
                 coords_.setLevel(new LevelPoint());

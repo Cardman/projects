@@ -15,25 +15,21 @@ import code.formathtml.render.MetaStyle;
 
 public final class DualMetaPointLabel extends DualLabel {
 
+    private MetaPointForm form;
     public DualMetaPointLabel(DualContainer _container, MetaPointLabel _component,
             RenderedPage _page) {
-        super(_container, _component, new JLabel(), _page);
+        super(_container, _component, _page);
         getGraphic().setOpaque(true);
-    }
-
-    @Override
-    public MetaPointLabel getComponent() {
-        return (MetaPointLabel) super.getComponent();
+        form = _component.getForm();
     }
 
     @Override
     public void paint() {
-        JLabel lab_ = getGraphic();
+        JLabel lab_ = getLabel();
         MetaStyle style_ = getComponent().getStyle();
-        Font copy_ = new Font(style_.getFontFamily(), style_.getBold() + style_.getItalic(), style_.getRealSize());
+        Font copy_ =  newFont(style_);
         FontMetrics fontMetrics_ = lab_.getFontMetrics(copy_);
         int h_ = fontMetrics_.getHeight();
-        MetaPointForm form_ = getComponent().getForm();
         int w_ = h_;
         BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_RGB);
         Graphics2D gr_ = img_.createGraphics();
@@ -41,11 +37,11 @@ public final class DualMetaPointLabel extends DualLabel {
         gr_.setColor(new Color(style_.getBgColor()));
         gr_.fillRect(0, 0, w_, h_);
         gr_.setColor(new Color(style_.getFgColor()));
-        if (form_ == MetaPointForm.DISK) {
+        if (form == MetaPointForm.DISK) {
             gr_.fillOval(0, 0, w_, h_);
-        } else if (form_ == MetaPointForm.CIRCLE) {
+        } else if (form == MetaPointForm.CIRCLE) {
             gr_.drawOval(0, 0, w_, h_);
-        } else if (form_ == MetaPointForm.SQUARRE) {
+        } else if (form == MetaPointForm.SQUARRE) {
             gr_.fillRect(2, 2, w_ - 4, h_ - 4);
         } else {
             gr_.drawRect(2, 2, w_ - 4, h_ - 4);

@@ -129,7 +129,7 @@ public final class City extends Place implements InitializedPlace {
 
             }
         }
-        level.validate(_data, levelArea_);
+        getLevelOutdoor().validate(_data, levelArea_);
     }
 
     @Override
@@ -137,7 +137,7 @@ public final class City extends Place implements InitializedPlace {
         for (EntryCust<Point, Building> e : buildings.entryList()) {
             e.getValue().validateForEditing(_data);
         }
-        level.validateForEditing(_data);
+        getLevelOutdoor().validateForEditing(_data);
     }
 
     @Override
@@ -179,13 +179,13 @@ public final class City extends Place implements InitializedPlace {
     @Override
     public ByteMap< Level> getLevelsMap() {
         ByteMap< Level> levels_ = new ByteMap< Level>();
-        levels_.put(CustList.FIRST_INDEX, level);
+        levels_.put(CustList.FIRST_INDEX, getLevelOutdoor());
         return levels_;
     }
 
     @Override
     public CustList<Level> getLevelsList() {
-        return new CustList<Level>(level);
+        return new CustList<Level>(getLevelOutdoor());
     }
 
     @Override
@@ -194,7 +194,7 @@ public final class City extends Place implements InitializedPlace {
             Point bIncome_ = _coords.getInsideBuilding();
             return buildings.getVal(bIncome_).getLevel();
         }
-        return level;
+        return getLevelOutdoor();
     }
 
     @Override
@@ -257,7 +257,11 @@ public final class City extends Place implements InitializedPlace {
     }
 
     @Override
-    public LevelOutdoor getLevel() {
+    public Level getLevel() {
+        return getLevelOutdoor();
+    }
+
+    public LevelOutdoor getLevelOutdoor() {
         return level;
     }
 

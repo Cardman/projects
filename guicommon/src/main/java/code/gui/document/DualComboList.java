@@ -7,27 +7,20 @@ import code.util.StringList;
 
 public final class DualComboList extends DualInput {
 
+    private final StringList choicesValues;
+
     public DualComboList(DualContainer _container, MetaComboList _component,
-             RenderedPage _page) {
+                         RenderedPage _page) {
         super(_container, _component, new GraphicStringList(false, false, new StringList(_component.getChoicesStrings()), _component.getSelected()), _page);
+        choicesValues = _component.getChoicesValues();
+        updateGraphics(getSelect().getGlobal(),_component);
     }
 
-    @Override
-    public MetaComboList getComponent() {
-        return (MetaComboList) super.getComponent();
-    }
-
-    public Ints getSelectedIndexes() {
-        return getSelect().getSelectedIndexes();
-    }
-
-    @Override
     public StringList getValue() {
         Ints indexes_ = getSelect().getSelectedIndexes();
         StringList values_ = new StringList();
-        MetaComboList combo_ = getComponent();
         for (int i: indexes_) {
-            values_.add(combo_.getChoicesValues().get(i));
+            values_.add(choicesValues.get(i));
         }
         return values_;
     }

@@ -4,6 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneConstructor;
+import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.BadInheritedClass;
 import code.expressionlanguage.errors.custom.UnassignedFinalField;
 import code.expressionlanguage.files.OffsetAccessInfo;
@@ -13,7 +14,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.*;
 import code.util.*;
 
-public final class ConstructorBlock extends NamedFunctionBlock implements GeneConstructor {
+public final class ConstructorBlock extends NamedFunctionBlock implements GeneConstructor,ReturnableWithSignature {
 
     private ConstructorId constIdSameClass;
 
@@ -24,6 +25,11 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
                             StringList _paramTypes, Ints _paramTypesOffset,
                             StringList _paramNames, Ints _paramNamesOffset, OffsetsBlock _offset) {
         super(_access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset);
+    }
+
+    @Override
+    public String getSignature(Analyzable _ana) {
+        return getId().getSignature(_ana);
     }
 
     @Override
@@ -100,7 +106,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     }
 
     @Override
-    public RootBlock belong() {
+    public GeneType belong() {
         return (RootBlock) getParent();
     }
 

@@ -6,8 +6,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+import javax.swing.*;
 
 import code.formathtml.render.MetaLabel;
 import code.formathtml.render.MetaStyle;
@@ -18,8 +17,14 @@ public abstract class DualLabel extends DualLeaf {
 
     private CustList<SegmentPart> segments = new CustList<SegmentPart>();
 
-    public DualLabel(DualContainer _container, MetaLabel _component, JLabel _label, RenderedPage _page) {
-        super(_container, _component, _label, _page);
+    private String text;
+    private JLabel label;
+
+    public DualLabel(DualContainer _container, MetaLabel _component, RenderedPage _page) {
+        super(_container, _component, _page);
+        text = _component.getText();
+        label = new JLabel();
+        updateGraphics(label,_component);
     }
 
     public final void clearSegments() {
@@ -36,32 +41,28 @@ public abstract class DualLabel extends DualLeaf {
 
     @Override
     protected void postAdd() {
-        JLabel current_ = getGraphic();
-        Color bGr_ = current_.getParent().getBackground();
-        Color fGr_ = current_.getParent().getForeground();
-        current_.setBackground(bGr_);
-        current_.setForeground(fGr_);
+        Color bGr_ = label.getParent().getBackground();
+        Color fGr_ = label.getParent().getForeground();
+        label.setBackground(bGr_);
+        label.setForeground(fGr_);
         paint();
     }
 
     @Override
-    public JLabel getGraphic() {
-        return (JLabel) super.getGraphic();
+    public JComponent getGraphic() {
+        return getLabel();
     }
 
-    @Override
-    public MetaLabel getComponent() {
-        return (MetaLabel) super.getComponent();
+    public JLabel getLabel() {
+        return label;
     }
 
     public void paint() {
-        JLabel lab_ = getGraphic();
         MetaStyle style_ = getComponent().getStyle();
-        Font copy_ = new Font(style_.getFontFamily(), style_.getBold() + style_.getItalic(), style_.getRealSize());
-        FontMetrics fontMetrics_ = lab_.getFontMetrics(copy_);
+        Font copy_ = newFont(style_);
+        FontMetrics fontMetrics_ = label.getFontMetrics(copy_);
         int h_ = fontMetrics_.getHeight();
-        String text_ = getComponent().getText();
-        int w_ = fontMetrics_.stringWidth(text_);
+        int w_ = fontMetrics_.stringWidth(text);
         BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_RGB);
         Graphics2D gr_ = img_.createGraphics();
         gr_.setFont(copy_);
@@ -70,13 +71,31 @@ public abstract class DualLabel extends DualLeaf {
         gr_.setColor(Color.ORANGE);
         for (SegmentPart s: segments) {
             int beginIndex_ = s.getBegin();
-            int b_ = fontMetrics_.stringWidth(text_.substring(0, beginIndex_));
-            int d_ = fontMetrics_.stringWidth(text_.substring(beginIndex_, s.getEnd()));
+            int b_ = fontMetrics_.stringWidth(text.substring(0, beginIndex_));
+            int d_ = fontMetrics_.stringWidth(text.substring(beginIndex_, s.getEnd()));
             gr_.fillRect(b_, 0, d_, h_);
         }
         gr_.setColor(new Color(style_.getFgColor()));
-        gr_.drawString(text_, 0, h_ - 1);
-        lab_.setIcon(new ImageIcon(img_));
+        gr_.drawString(text, 0, h_ - 1);
+        label.setIcon(new ImageIcon(img_));
         gr_.dispose();
+    }
+
+    public String getText() {
+        return text;
+    }
+    protected Font newFont(MetaStyle _style) {
+        String fontFamily_ = _style.getFontFamily();
+        int realSize_ = _style.getRealSize();
+        if (_style.getBold() == Font.BOLD) {
+            if (_style.getItalic() == Font.ITALIC) {
+                return new Font(fontFamily_,Font.BOLD+Font.ITALIC,realSize_);
+            }
+            return new Font(fontFamily_,Font.BOLD,realSize_);
+        }
+        if (_style.getItalic() == Font.ITALIC) {
+            return new Font(fontFamily_,Font.ITALIC,realSize_);
+        }
+        return new Font(fontFamily_,Font.PLAIN,realSize_);
     }
 }

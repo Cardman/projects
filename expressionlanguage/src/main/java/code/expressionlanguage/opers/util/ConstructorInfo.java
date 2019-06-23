@@ -80,6 +80,10 @@ public final class ConstructorInfo implements Parametrable {
     }
 
     @Override
+    public Identifiable getGeneFormatted() {
+        return getFormatted();
+    }
+
     public ConstructorId getFormatted() {
         return formatted;
     }

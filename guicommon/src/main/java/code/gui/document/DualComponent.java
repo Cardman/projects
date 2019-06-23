@@ -16,22 +16,24 @@ public abstract class DualComponent {
     private final CustList<DualComponent> children = new CustList<DualComponent>();
     private final MetaComponent component;
 
-    private final JComponent graphic;
-
     private RenderedPage page;
 
-    public DualComponent(DualContainer _container, MetaComponent _component, JComponent _graphic, RenderedPage _page) {
+    public DualComponent(DualContainer _container, MetaComponent _component, RenderedPage _page) {
         container = _container;
         component = _component;
-        graphic = _graphic;
         page = _page;
-        setTitle(_component);
-        MetaStyle style_ = _component.getStyle();
-        if (style_.getBorder() == BorderEnum.SOLID) {
-            graphic.setBorder(BorderFactory.createLineBorder(new Color(style_.getBorderColor()), style_.getBorderSize()));
-        }
     }
 
+    protected void updateGraphics(JComponent _component,MetaComponent _metaComponent) {
+        MetaStyle style_ = _metaComponent.getStyle();
+        if (style_.getBorder() == BorderEnum.SOLID) {
+            _component.setBorder(BorderFactory.createLineBorder(new Color(style_.getBorderColor()), style_.getBorderSize()));
+        }
+        String title_ = _metaComponent.getTitle();
+        if (!title_.isEmpty()) {
+            _component.setToolTipText(title_);
+        }
+    }
     public CustList<DualComponent> getChildren() {
         return children;
     }
@@ -40,27 +42,21 @@ public abstract class DualComponent {
         return container;
     }
 
-    private void setTitle(MetaComponent _component) {
-        String title_ = _component.getTitle();
-        if (!title_.isEmpty()) {
-            graphic.setToolTipText(title_);
-        }
-    }
     public int getComponentCount() {
-        return graphic.getComponentCount();
+        return getGraphic().getComponentCount();
     }
 
     public JComponent getParent() {
-        return (JComponent) graphic.getParent();
+        return (JComponent) getGraphic().getParent();
     }
     public JComponent getComponent(int _index) {
-        return (JComponent) graphic.getComponent(_index);
+        return (JComponent) getGraphic().getComponent(_index);
     }
 
     public void add(DualComponent _dual) {
         page.getRefs().put(_dual.getComponent(), _dual);
         children.add(_dual);
-        graphic.add(_dual.graphic);
+        getGraphic().add(_dual.getGraphic());
         if (_dual instanceof DualAnimatedImage) {
             page.getAnims().add((DualAnimatedImage) _dual);
         }
@@ -74,9 +70,7 @@ public abstract class DualComponent {
         return component;
     }
 
-    public JComponent getGraphic() {
-        return graphic;
-    }
+    public abstract JComponent getGraphic();
 
     public RenderedPage getPage() {
         return page;

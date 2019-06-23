@@ -63,7 +63,7 @@ public class DataMapScreenTest {
         Gym gym_ = new Gym();
         gym_.setExitCity(new Point((short)1,(short)1));
         gym_.setLevel(new LevelIndoorGym());
-        gym_.getLevel().setGymLeaderCoords(new Point((short)1,(short)1));
+        gym_.getIndoor().setGymLeaderCoords(new Point((short)1,(short)1));
         c_.getBuildings().put(new Point((short)4,(short)5), gym_);
         return c_;
     }

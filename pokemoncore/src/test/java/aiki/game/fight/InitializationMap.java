@@ -146,27 +146,6 @@ final class InitializationMap {
     private static final String POKE_BALL = InitializationItems.POKE_BALL;
     private static final String NULL_REF = InitializationDataBase.NULL_REF;
 
-//    static void initPlaces(DataBase _data) {
-//        DataMap map_ = _data.getMap();
-//        Road road_;
-//        map_.addRoad();
-//        road_ =(Road) map_.getPlaces().getVal((short) 0);
-//        road_.setName(R_1);
-//        map_.addCity(CITY);
-//        map_.addRoad();
-//        road_ =(Road) map_.getPlaces().getVal((short) 2);
-//        road_.setName(R_2);
-//        map_.addCity(CITY_TWO);
-//        map_.addRoad();
-//        road_ =(Road) map_.getPlaces().getVal((short) 4);
-//        road_.setName(R_4);
-//        map_.addCave();
-//        Cave cave_ =(Cave) map_.getPlaces().getVal((short) 5);
-//        cave_.setName(CAVE);
-        //map map_.addLevelCave((short) 5);
-//        map_.addLevelCave((short) 5);
-//        map_.setSideLength(2);
-//    }
 
     private InitializationMap() {
     }
@@ -252,7 +231,7 @@ final class InitializationMap {
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
         area_.getWildPokemon().add(wild_);
-        road_.getLevel().getWildPokemonAreas().add(area_);
+        road_.getLevelRoad().getWildPokemonAreas().add(area_);
         area_ = new AreaApparition();
         area_.setAvgNbSteps((short) 1);
         area_.setMultFight((byte) 1);
@@ -264,7 +243,7 @@ final class InitializationMap {
         area_.setWildPokemon(new EqList<WildPk>());
         area_.setWildPokemonFishing(new EqList<WildPk>());
         area_.getWildPokemon().add(wild_);
-        road_.getLevel().getWildPokemonAreas().add(area_);
+        road_.getLevelRoad().getWildPokemonAreas().add(area_);
         area_ = new AreaApparition();
         area_.setAvgNbSteps((short) 2);
         area_.setMultFight((byte) 1);
@@ -276,7 +255,7 @@ final class InitializationMap {
         area_.setWildPokemon(new EqList<WildPk>());
         area_.setWildPokemonFishing(new EqList<WildPk>());
         area_.getWildPokemon().add(wild_);
-        road_.getLevel().getWildPokemonAreas().add(area_);
+        road_.getLevelRoad().getWildPokemonAreas().add(area_);
         area_ = new AreaApparition();
         area_.setAvgNbSteps((short) 2);
         area_.setMultFight((byte) 1);
@@ -294,7 +273,7 @@ final class InitializationMap {
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
         area_.getWildPokemon().add(wild_);
-        road_.getLevel().getWildPokemonAreas().add(area_);
+        road_.getLevelRoad().getWildPokemonAreas().add(area_);
         area_ = new AreaApparition();
         area_.setAvgNbSteps((short) 1);
         area_.setMultFight((byte) 1);
@@ -324,7 +303,7 @@ final class InitializationMap {
         wild_.setAbility(ABSORB_EAU);
         wild_.setGender(Gender.NO_GENDER);
         area_.getWildPokemonFishing().add(wild_);
-        road_.getLevel().getWildPokemonAreas().add(area_);
+        road_.getLevelRoad().getWildPokemonAreas().add(area_);
         area_ = new AreaApparition();
         area_.setAvgNbSteps((short) 1);
         area_.setMultFight((byte) 1);
@@ -342,7 +321,7 @@ final class InitializationMap {
         wild_.setAbility(ABSORB_EAU);
         wild_.setGender(Gender.NO_GENDER);
         area_.getWildPokemonFishing().add(wild_);
-        road_.getLevel().getWildPokemonAreas().add(area_);
+        road_.getLevelRoad().getWildPokemonAreas().add(area_);
     }
 
     static void initBlockFirstCity(DataBase _data) {
@@ -379,7 +358,7 @@ final class InitializationMap {
         gym_.setExitCity(newPoint(4,8));
         gym_.getLevel().setBlocks(new ObjectMap<Point,Block>());
         gym_.getLevel().getBlocks().put(newPoint(0,0), newBuildingBlock(9, 9));
-        gym_.getLevel().setGymTrainers(new ObjectMap<Point,GymTrainer>());
+        gym_.getIndoor().setGymTrainers(new ObjectMap<Point,GymTrainer>());
         city_.setBuildings(new ObjectMap<Point,Building>());
         city_.getBuildings().put(newPoint(5, 1), gym_);
         PokemonCenter pkCenter_;
@@ -388,8 +367,8 @@ final class InitializationMap {
         pkCenter_.setExitCity(newPoint(4,8));
         pkCenter_.getLevel().setBlocks(new ObjectMap<Point,Block>());
         pkCenter_.getLevel().getBlocks().put(newPoint(0,0), newBuildingBlock(9, 9));
-        pkCenter_.getLevel().setStorageCoords(newPoint(4, 0));
-        pkCenter_.getLevel().setGerants(new ObjectMap<Point,Person>());
+        pkCenter_.getIndoor().setStorageCoords(newPoint(4, 0));
+        pkCenter_.getIndoor().setGerants(new ObjectMap<Point,Person>());
         city_.getBuildings().put(newPoint(1, 1), pkCenter_);
     }
 
@@ -405,19 +384,19 @@ final class InitializationMap {
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,3),new StringList(JACKPOT)));
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,4),new StringList(JACKPOT)));
         gymTrainer_ = newGymTrainer(list_, 200, 1);
-        gym_.getLevel().getGymTrainers().put(newPoint(1, 7), gymTrainer_);
+        gym_.getIndoor().getGymTrainers().put(newPoint(1, 7), gymTrainer_);
         list_ = new CustList<NameLevelMoves>();
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,3),new StringList(JACKPOT)));
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,4),new StringList(JACKPOT)));
         gymTrainer_ = newGymTrainer(list_, 200, 1);
-        gym_.getLevel().getGymTrainers().put(newPoint(7, 7), gymTrainer_);
-        gym_.getLevel().setGymLeaderCoords(newPoint(4, 1));
+        gym_.getIndoor().getGymTrainers().put(newPoint(7, 7), gymTrainer_);
+        gym_.getIndoor().setGymLeaderCoords(newPoint(4, 1));
         list_ = new CustList<NameLevelMoves>();
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,5),new StringList(JACKPOT)));
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,8),new StringList(JACKPOT)));
         gymLeader_ = newGymLeader(list_, 500, 1);
         gymLeader_.setName(GYM_TR_ONE);
-        gym_.getLevel().setGymLeader(gymLeader_);
+        gym_.getIndoor().setGymLeader(gymLeader_);
     }
 
     static void initPokemonCenterFirstCity(DataBase _data) {
@@ -425,23 +404,23 @@ final class InitializationMap {
         City city_ = (City) map_.getPlaces().getVal((short) 1);
         PokemonCenter pk_;
         pk_ = (PokemonCenter) city_.getBuildings().getVal(newPoint(1, 1));
-        pk_.getLevel().getGerants().put(newPoint(0, 4), newGerantPokemon(GeranceType.HEAL));
+        pk_.getIndoor().getGerants().put(newPoint(0, 4), newGerantPokemon(GeranceType.HEAL));
         Seller seller_;
         seller_ = new Seller();
         seller_.setItems(new StringList(POKE_BALL,HYPER_BALL,PT_DE_MIRE, PIERRE_EAU,ROCHE_ROYALE,PIERRE_LUNE,PIERRE_SOLEIL,PIERRE_GLACE));
         seller_.setTm(new Shorts());
         seller_.setSell(SellType.ITEM);
-        pk_.getLevel().getGerants().put(newPoint(8, 4), seller_);
+        pk_.getIndoor().getGerants().put(newPoint(8, 4), seller_);
         seller_ = new Seller();
         seller_.setItems(new StringList());
         seller_.setTm(new Shorts((short)2));
         seller_.setSell(SellType.TM);
-        pk_.getLevel().getGerants().put(newPoint(8, 5), seller_);
+        pk_.getIndoor().getGerants().put(newPoint(8, 5), seller_);
         seller_ = new Seller();
         seller_.setItems(new StringList());
         seller_.setTm(new Shorts());
         seller_.setSell(SellType.MOVE);
-        pk_.getLevel().getGerants().put(newPoint(8, 6), seller_);
+        pk_.getIndoor().getGerants().put(newPoint(8, 6), seller_);
     }
 
     static void initBlockSecondRoad(DataBase _data) {
@@ -539,14 +518,14 @@ final class InitializationMap {
         wild_.setLevel((short) 1);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
-        road_.getLevel().getLegendaryPks().put(newPoint(11, 2), wild_);
+        road_.getLevelRoad().getLegendaryPks().put(newPoint(11, 2), wild_);
         //map_.getTakenPokemon().add(newCoords(2, 0, 11, 2));
         wild_ = new WildPk();
         wild_.setName(ARTIKODIN);
         wild_.setLevel((short) 1);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
-        road_.getLevel().getLegendaryPks().put(newPoint(9, 5), wild_);
+        road_.getLevelRoad().getLegendaryPks().put(newPoint(9, 5), wild_);
     }
 
     static void initItemsSecondRoad(DataBase _data) {
@@ -587,32 +566,15 @@ final class InitializationMap {
     static void initBuildingsSecondCity(DataBase _data) {
         DataMap map_ = _data.getMap();
         City city_;
-        // = (City) map_.getPlaces().getVal((short) 1);
         Gym gym_;
-//        gym_ = new Gym();
-//        gym_.setLevel(new LevelIndoorGym());
-//        gym_.setExitCity(newPoint(4,8));
-//        gym_.getLevel().setBlocks(new Map<Point,Block>());
-//        gym_.getLevel().getBlocks().put(newPoint(0,0), newBuildingBlock(9, 9));
-//        gym_.getLevel().setGymTrainers(new Map<Point,GymTrainer>());
-//        city_.setBuildings(new Map<Point,Building>());
-//        city_.getBuildings().put(newPoint(5, 1), gym_);
         PokemonCenter pkCenter_;
-//        pkCenter_ = new PokemonCenter();
-//        pkCenter_.setLevel(new LevelIndoorPokemonCenter());
-//        pkCenter_.setExitCity(newPoint(4,8));
-//        pkCenter_.getLevel().setBlocks(new Map<Point,Block>());
-//        pkCenter_.getLevel().getBlocks().put(newPoint(0,0), newBuildingBlock(9, 9));
-//        pkCenter_.getLevel().setStorageCoords(newPoint(4, 0));
-//        pkCenter_.getLevel().setGerants(new Map<Point,Person>());
-//        city_.getBuildings().put(newPoint(1, 1), pkCenter_);
         city_ = (City) map_.getPlaces().getVal((short) 3);
         gym_ = new Gym();
         gym_.setLevel(new LevelIndoorGym());
         gym_.setExitCity(newPoint(4,8));
         gym_.getLevel().setBlocks(new ObjectMap<Point,Block>());
         gym_.getLevel().getBlocks().put(newPoint(0,0), newBuildingBlock(9, 9));
-        gym_.getLevel().setGymTrainers(new ObjectMap<Point,GymTrainer>());
+        gym_.getIndoor().setGymTrainers(new ObjectMap<Point,GymTrainer>());
         city_.setBuildings(new ObjectMap<Point,Building>());
         city_.getBuildings().put(newPoint(4, 1), gym_);
         pkCenter_ = new PokemonCenter();
@@ -620,8 +582,8 @@ final class InitializationMap {
         pkCenter_.setExitCity(newPoint(4,8));
         pkCenter_.getLevel().setBlocks(new ObjectMap<Point,Block>());
         pkCenter_.getLevel().getBlocks().put(newPoint(0,0), newBuildingBlock(9, 9));
-        pkCenter_.getLevel().setStorageCoords(newPoint(4, 0));
-        pkCenter_.getLevel().setGerants(new ObjectMap<Point,Person>());
+        pkCenter_.getIndoor().setStorageCoords(newPoint(4, 0));
+        pkCenter_.getIndoor().setGerants(new ObjectMap<Point,Person>());
         city_.getBuildings().put(newPoint(2, 1), pkCenter_);
 //        map_.getCities().add(newCoords(1, 0, 1, 2));
 //        map_.getCities().add(newCoords(3, 0, 2, 2));
@@ -638,19 +600,19 @@ final class InitializationMap {
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,3),new StringList(JACKPOT)));
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,4),new StringList(JACKPOT)));
         gymTrainer_ = newGymTrainer(list_, 200, 1);
-        gym_.getLevel().getGymTrainers().put(newPoint(1, 7), gymTrainer_);
+        gym_.getIndoor().getGymTrainers().put(newPoint(1, 7), gymTrainer_);
         list_ = new CustList<NameLevelMoves>();
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,3),new StringList(JACKPOT)));
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,4),new StringList(JACKPOT)));
         gymTrainer_ = newGymTrainer(list_, 200, 1);
-        gym_.getLevel().getGymTrainers().put(newPoint(7, 7), gymTrainer_);
-        gym_.getLevel().setGymLeaderCoords(newPoint(4, 1));
+        gym_.getIndoor().getGymTrainers().put(newPoint(7, 7), gymTrainer_);
+        gym_.getIndoor().setGymLeaderCoords(newPoint(4, 1));
         list_ = new CustList<NameLevelMoves>();
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,5),new StringList(JACKPOT)));
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,8),new StringList(JACKPOT)));
         gymLeader_ = newGymLeader(list_, 500, 1);
         gymLeader_.setName(GYM_TR_TWO);
-        gym_.getLevel().setGymLeader(gymLeader_);
+        gym_.getIndoor().setGymLeader(gymLeader_);
     }
 
     static void initPokemonCenterSecondCity(DataBase _data) {
@@ -660,8 +622,8 @@ final class InitializationMap {
         PokemonCenter pk_;
         city_ = (City) map_.getPlaces().getVal((short) 3);
         pk_ = (PokemonCenter) city_.getBuildings().getVal(newPoint(2, 1));
-        pk_.getLevel().getGerants().put(newPoint(0, 4), newGerantPokemon(GeranceType.FOSSILE));
-        pk_.getLevel().getGerants().put(newPoint(8, 4), newGerantPokemon(GeranceType.HOST));
+        pk_.getIndoor().getGerants().put(newPoint(0, 4), newGerantPokemon(GeranceType.FOSSILE));
+        pk_.getIndoor().getGerants().put(newPoint(8, 4), newGerantPokemon(GeranceType.HOST));
     }
 
     static void initBlockThirdRoad(DataBase _data) {
@@ -749,136 +711,6 @@ final class InitializationMap {
         block_ = newRockBlock(2, 2);
         level_.getBlocks().put(newPoint(6,4), block_);
     }
-
-//    static void initRoadAreas(DataBase _data) {
-//        DataMap map_ = _data.getMap();
-//        Road road_;// = (Road) map_.getPlaces().getVal((short) 0);
-//        //AreaApparition area_;
-//        Pokemon wild_;
-////        area_ = new AreaApparition();
-////        area_.setAvgNbSteps((short) 1);
-////        area_.setMultFight((byte) 1);
-////        wild_ = new Pokemon();
-////        wild_.setName("PIKACHU");
-////        wild_.setLevel((short) 1);
-////        wild_.setAbility("PARATONNERRE");
-////        wild_.setGender(Gender.NO_GENDER);
-////        area_.setWildPokemon(new List<Pokemon>());
-////        area_.setWildPokemonFishing(new List<Pokemon>());
-////        area_.getWildPokemon().add(wild_);
-////        wild_ = new Pokemon();
-////        wild_.setName("PIKACHU");
-////        wild_.setLevel((short) 3);
-////        wild_.setAbility("PARATONNERRE");
-////        wild_.setGender(Gender.NO_GENDER);
-////        area_.getWildPokemon().add(wild_);
-////        road_.getLevel().getWildPokemonAreas().add(area_);
-////        area_ = new AreaApparition();
-////        area_.setAvgNbSteps((short) 1);
-////        area_.setMultFight((byte) 1);
-////        wild_ = new Pokemon();
-////        wild_.setName("ARTIKODIN");
-////        wild_.setLevel((short) 1);
-////        wild_.setAbility("PARATONNERRE");
-////        wild_.setGender(Gender.NO_GENDER);
-////        area_.setWildPokemon(new List<Pokemon>());
-////        area_.setWildPokemonFishing(new List<Pokemon>());
-////        area_.getWildPokemon().add(wild_);
-////        road_.getLevel().getWildPokemonAreas().add(area_);
-////        area_ = new AreaApparition();
-////        area_.setAvgNbSteps((short) 2);
-////        area_.setMultFight((byte) 1);
-////        wild_ = new Pokemon();
-////        wild_.setName("ARTIKODIN");
-////        wild_.setLevel((short) 1);
-////        wild_.setAbility("PARATONNERRE");
-////        wild_.setGender(Gender.NO_GENDER);
-////        area_.setWildPokemon(new List<Pokemon>());
-////        area_.setWildPokemonFishing(new List<Pokemon>());
-////        area_.getWildPokemon().add(wild_);
-////        road_.getLevel().getWildPokemonAreas().add(area_);
-////        area_ = new AreaApparition();
-////        area_.setAvgNbSteps((short) 2);
-////        area_.setMultFight((byte) 1);
-////        wild_ = new Pokemon();
-////        wild_.setName("ARTIKODIN");
-////        wild_.setLevel((short) 1);
-////        wild_.setAbility("PARATONNERRE");
-////        wild_.setGender(Gender.NO_GENDER);
-////        area_.setWildPokemon(new List<Pokemon>());
-////        area_.setWildPokemonFishing(new List<Pokemon>());
-////        area_.getWildPokemon().add(wild_);
-////        wild_ = new Pokemon();
-////        wild_.setName("MEW");
-////        wild_.setLevel((short) 1);
-////        wild_.setAbility("PARATONNERRE");
-////        wild_.setGender(Gender.NO_GENDER);
-////        area_.getWildPokemon().add(wild_);
-////        road_.getLevel().getWildPokemonAreas().add(area_);
-////        area_ = new AreaApparition();
-////        area_.setAvgNbSteps((short) 1);
-////        area_.setMultFight((byte) 1);
-////        area_.setWildPokemon(new List<Pokemon>());
-////        area_.setWildPokemonFishing(new List<Pokemon>());
-////        wild_ = new Pokemon();
-////        wild_.setName("PTITARD");
-////        wild_.setLevel((short) 1);
-////        wild_.setAbility("ABSORB_EAU");
-////        wild_.setGender(Gender.NO_GENDER);
-////        area_.getWildPokemon().add(wild_);
-////        wild_ = new Pokemon();
-////        wild_.setName("PTITARD");
-////        wild_.setLevel((short) 1);
-////        wild_.setAbility("ABSORB_EAU");
-////        wild_.setGender(Gender.NO_GENDER);
-////        area_.getWildPokemonFishing().add(wild_);
-////        wild_ = new Pokemon();
-////        wild_.setName("TETARTE");
-////        wild_.setLevel((short) 26);
-////        wild_.setAbility("ABSORB_EAU");
-////        wild_.setGender(Gender.NO_GENDER);
-////        area_.getWildPokemon().add(wild_);
-////        wild_ = new Pokemon();
-////        wild_.setName("TETARTE");
-////        wild_.setLevel((short) 26);
-////        wild_.setAbility("ABSORB_EAU");
-////        wild_.setGender(Gender.NO_GENDER);
-////        area_.getWildPokemonFishing().add(wild_);
-////        road_.getLevel().getWildPokemonAreas().add(area_);
-////        area_ = new AreaApparition();
-////        area_.setAvgNbSteps((short) 1);
-////        area_.setMultFight((byte) 1);
-////        area_.setWildPokemon(new List<Pokemon>());
-////        area_.setWildPokemonFishing(new List<Pokemon>());
-////        wild_ = new Pokemon();
-////        wild_.setName("TETARTE");
-////        wild_.setLevel((short) 26);
-////        wild_.setAbility("ABSORB_EAU");
-////        wild_.setGender(Gender.NO_GENDER);
-////        area_.getWildPokemon().add(wild_);
-////        wild_ = new Pokemon();
-////        wild_.setName("TETARTE");
-////        wild_.setLevel((short) 26);
-////        wild_.setAbility("ABSORB_EAU");
-////        wild_.setGender(Gender.NO_GENDER);
-////        area_.getWildPokemonFishing().add(wild_);
-////        road_.getLevel().getWildPokemonAreas().add(area_);
-//        road_ = (Road) map_.getPlaces().getVal((short) 2);
-//        wild_ = new Pokemon();
-//        wild_.setName("MEW");
-//        wild_.setLevel((short) 1);
-//        wild_.setAbility("PARATONNERRE");
-//        wild_.setGender(Gender.NO_GENDER);
-//        road_.getLevel().getLegendaryPks().put(newPoint(11, 2), wild_);
-//        //map_.getTakenPokemon().add(newCoords(2, 0, 11, 2));
-//        wild_ = new Pokemon();
-//        wild_.setName("ARTIKODIN");
-//        wild_.setLevel((short) 1);
-//        wild_.setAbility("PARATONNERRE");
-//        wild_.setGender(Gender.NO_GENDER);
-//        road_.getLevel().getLegendaryPks().put(newPoint(9, 5), wild_);
-//        //map_.getTakenPokemon().add(newCoords(2, 0, 9, 5));
-//    }
 
     static void initCaveAreas(DataBase _data) {
         DataMap map_ = _data.getMap();
@@ -1052,98 +884,9 @@ final class InitializationMap {
         PokemonTeam foeTeamList_;
         CustList<NameLevelMoves> list_;
         CustList<PokemonTeam> foeTeamsList_;
-//        foeTeamsList_ = new List<PokemonTeam>();
-//        list_ = new List<NameLevelMoves>();
-//        list_.add(new Pair<>(new Pair<>("PIKACHU",3),new StringList("JACKPOT")));
-//        list_.add(new Pair<>(new Pair<>("PIKACHU",4),new StringList("JACKPOT")));
-//        foeTeamList_ = newTeam(list_, 200);
-//        foeTeamsList_.add(foeTeamList_);
-//        list_ = new List<NameLevelMoves>();
-//        list_.add(new Pair<>(new Pair<>("PIKACHU",13),new StringList("JACKPOT")));
-//        list_.add(new Pair<>(new Pair<>("PIKACHU",14),new StringList("JACKPOT")));
-//        foeTeamList_ = newTeam(list_, 200);
-//        foeTeamsList_.add(foeTeamList_);
         TrainerMultiFights trainer_;
-//        trainer_ = newTrainer(foeTeamsList_, 1);
-//        road_.addPerson(newCoords(0, 0, 1, 1), trainer_);
-        //map_.getBeatTrainer().add(new NbFightCoords(newCoords(0, 0, 1, 1),0));
-        //map_.getBeatTrainer().add(new NbFightCoords(newCoords(0, 0, 1, 1),1));
-//        City city_ = (City) map_.getPlaces().getVal((short) 1);
-//        Gym gym_;
-//        GymTrainer gymTrainer_;
-//        GymLeader gymLeader_;
-//        gym_ = (Gym) city_.getBuildings().getVal(newPoint(5, 1));
-//        list_ = new List<NameLevelMoves>();
-//        list_.add(new Pair<>(new Pair<>("PIKACHU",3),new StringList("JACKPOT")));
-//        list_.add(new Pair<>(new Pair<>("PIKACHU",4),new StringList("JACKPOT")));
-//        gymTrainer_ = newGymTrainer(list_, 200, 1);
-//        gym_.getLevel().getGymTrainers().put(newPoint(1, 7), gymTrainer_);
-//        list_ = new List<NameLevelMoves>();
-//        list_.add(new Pair<>(new Pair<>("PIKACHU",3),new StringList("JACKPOT")));
-//        list_.add(new Pair<>(new Pair<>("PIKACHU",4),new StringList("JACKPOT")));
-//        gymTrainer_ = newGymTrainer(list_, 200, 1);
-//        gym_.getLevel().getGymTrainers().put(newPoint(7, 7), gymTrainer_);
-//        gym_.getLevel().setGymLeaderCoords(newPoint(4, 1));
-//        list_ = new List<NameLevelMoves>();
-//        list_.add(new Pair<>(new Pair<>("PIKACHU",5),new StringList("JACKPOT")));
-//        list_.add(new Pair<>(new Pair<>("PIKACHU",8),new StringList("JACKPOT")));
-//        gymLeader_ = newGymLeader(list_, 500, 1);
-//        gym_.getLevel().setGymLeader(gymLeader_);
-        //map_.getBeatGymTrainer().put((short) 1, new List<>(newPoint(1, 7),newPoint(7, 7)));
-        //map_.getBeatGymLeader().add(newCoords(1, 0, 5, 1, 4, 1));
         CustList<NameLevelMoves> allyList_;
-//        allyList_ = new List<NameLevelMoves>();
-//        allyList_.add(new Pair<>(new Pair<>("PIKACHU",25),new StringList("JACKPOT","CHARGE")));
-//        allyList_.add(new Pair<>(new Pair<>("PIKACHU",28),new StringList("TONNERRE")));
-//        list_ = new List<NameLevelMoves>();
-//        list_.add(new Pair<>(new Pair<>("PIKACHU",5),new StringList("JACKPOT")));
-//        list_.add(new Pair<>(new Pair<>("PIKACHU",8),new StringList("JACKPOT")));
-//        road_ = (Road) map_.getPlaces().getVal((short) 2);
         DualFight dual_;
-//        dual_ = newDualFight(allyList_, list_, 300);
-//        dual_.setPt(newPoint(3, 0));
-//        road_.addDualFight(newCoords(2, 0, 2, 0), dual_);
-//        //map_.getBeatGymLeader().add(newCoords(2, 0, 2, 0));
-//        allyList_ = new List<NameLevelMoves>();
-//        allyList_.add(new Pair<>(new Pair<>("PIKACHU",25),new StringList("JACKPOT","CHARGE")));
-//        allyList_.add(new Pair<>(new Pair<>("PIKACHU",28),new StringList("TONNERRE")));
-//        list_ = new List<NameLevelMoves>();
-//        list_.add(new Pair<>(new Pair<>("PIKACHU",5),new StringList("JACKPOT")));
-//        list_.add(new Pair<>(new Pair<>("PIKACHU",8),new StringList("JACKPOT")));
-//        road_ = (Road) map_.getPlaces().getVal((short) 2);
-//        dual_ = newDualFight(allyList_, list_, 300);
-//        dual_.setPt(newPoint(5, 0));
-//        road_.addDualFight(newCoords(2, 0, 4, 0), dual_);
-//        //map_.getBeatGymLeader().add(newCoords(2, 0, 4, 0));
-//        foeTeamsList_ = new List<PokemonTeam>();
-//        list_ = new List<NameLevelMoves>();
-//        list_.add(new Pair<>(new Pair<>("PIKACHU",3),new StringList("JACKPOT")));
-//        list_.add(new Pair<>(new Pair<>("PIKACHU",4),new StringList("JACKPOT")));
-//        foeTeamList_ = newTeam(list_, 200);
-//        foeTeamsList_.add(foeTeamList_);
-//        trainer_ = newTrainer(foeTeamsList_, 1);
-//        road_.addPerson(newCoords(2, 0, 11, 4), trainer_);
-        //map_.getBeatTrainer().add(new NbFightCoords(newCoords(2, 0, 11, 4),0));
-//        city_ = (City) map_.getPlaces().getVal((short) 3);
-//        gym_ = (Gym) city_.getBuildings().getVal(newPoint(4, 1));
-//        list_ = new List<NameLevelMoves>();
-//        list_.add(new Pair<>(new Pair<>("PIKACHU",3),new StringList("JACKPOT")));
-//        list_.add(new Pair<>(new Pair<>("PIKACHU",4),new StringList("JACKPOT")));
-//        gymTrainer_ = newGymTrainer(list_, 200, 1);
-//        gym_.getLevel().getGymTrainers().put(newPoint(1, 7), gymTrainer_);
-//        list_ = new List<NameLevelMoves>();
-//        list_.add(new Pair<>(new Pair<>("PIKACHU",3),new StringList("JACKPOT")));
-//        list_.add(new Pair<>(new Pair<>("PIKACHU",4),new StringList("JACKPOT")));
-//        gymTrainer_ = newGymTrainer(list_, 200, 1);
-//        gym_.getLevel().getGymTrainers().put(newPoint(7, 7), gymTrainer_);
-//        gym_.getLevel().setGymLeaderCoords(newPoint(4, 1));
-//        list_ = new List<NameLevelMoves>();
-//        list_.add(new Pair<>(new Pair<>("PIKACHU",5),new StringList("JACKPOT")));
-//        list_.add(new Pair<>(new Pair<>("PIKACHU",8),new StringList("JACKPOT")));
-//        gymLeader_ = newGymLeader(list_, 500, 1);
-//        gym_.getLevel().setGymLeader(gymLeader_);
-        //map_.getBeatGymTrainer().put((short) 3, new List<>(newPoint(1, 7),newPoint(7, 7)));
-        //map_.getBeatGymLeader().add(newCoords(3, 0, 4, 1, 4, 1));
         Cave cave_ = (Cave) map_.getPlaces().getVal((short) 5);
         allyList_ = new CustList<NameLevelMoves>();
         allyList_.add(new NameLevelMoves(new NameLevel(PIKACHU,35),new StringList(JACKPOT,CHARGE)));
@@ -1180,62 +923,7 @@ final class InitializationMap {
         DataMap map_ = _data.getMap();
         Road road_ = (Road) map_.getPlaces().getVal((short) 0);
         road_.addPerson(newCoords(0, 0, 0, 1), newDealerObject(new StringList(HYPER_BALL), new Shorts((short)5)));
-        //map_.getTakenObjects().add(newCoords(0, 0, 0, 1));
-//        City city_ = (City) map_.getPlaces().getVal((short) 1);
-//        PokemonCenter pk_;
-//        pk_ = (PokemonCenter) city_.getBuildings().getVal(newPoint(1, 1));
-//        pk_.getLevel().getGerants().put(newPoint(0, 4), newGerantPokemon(GeranceType.HEAL));
-//        Seller seller_;
-//        seller_ = new Seller();
-//        seller_.setItems(new StringList("HYPER_BALL","PT_DE_MIRE"));
-//        seller_.setTm(new List<Short>());
-//        seller_.setSell(SellType.ITEM);
-//        pk_.getLevel().getGerants().put(newPoint(8, 4), seller_);
-//        seller_ = new Seller();
-//        seller_.setItems(new StringList("PIERRE_EAU","ROCHE_ROYALE","PIERRE_LUNE","PIERRE_SOLEIL","PIERRE_GLACE"));
-//        seller_.setTm(new List<>((short)1,(short)2));
-//        seller_.setTm(new List<>((short)2));
-//        seller_.setSell(SellType.TM);
-//        pk_.getLevel().getGerants().put(newPoint(8, 5), seller_);
-//        seller_ = new Seller();
-//        seller_.setItems(new StringList());
-//        seller_.setTm(new List<Short>());
-//        seller_.setSell(SellType.MOVE);
-//        pk_.getLevel().getGerants().put(newPoint(8, 6), seller_);
-//        city_ = (City) map_.getPlaces().getVal((short) 3);
-//        pk_ = (PokemonCenter) city_.getBuildings().getVal(newPoint(2, 1));
-//        pk_.getLevel().getGerants().put(newPoint(0, 4), newGerantPokemon(GeranceType.FOSSILE));
-//        pk_.getLevel().getGerants().put(newPoint(8, 4), newGerantPokemon(GeranceType.HOST));
-        //map_.getHostPokemons().add(newCoords(3, 0, 2, 1, 8, 4));
     }
-
-//    static void initObjects(DataBase _data) {
-//        DataMap map_ = _data.getMap();
-//        Road road_ = (Road) map_.getPlaces().getVal((short) 2);
-//        road_.addObject(newCoords(2, 0, 6, 5), "HYPER_BALL");
-//        //map_.getTakenObjects().add(newCoords(2, 0, 6, 5));
-//        road_.addTm(newCoords(2, 0, 7, 5), (short) 2);
-//        //map_.getTakenObjects().add(newCoords(2, 0, 7, 5));
-//        road_.addHm(newCoords(2, 0, 8, 5), (short) 1);
-//        //map_.getTakenObjects().add(newCoords(2, 0, 8, 5));
-//    }
-
-//    static void joinPlaces(DataBase _data) {
-//        DataMap map_ = _data.getMap();
-//        map_.join((short)0,(short) 1, newPoint(0,0), newPoint(0,5), Direction.UP);
-//        map_.join((short)0,(short) 2, newPoint(5,0), newPoint(0,0), Direction.RIGHT);
-//        map_.join((short)2,(short) 3, newPoint(0,0), newPoint(0,5), Direction.UP);
-//        map_.join((short)4,(short) 2, newPoint(0,0), newPoint(0,5), Direction.UP);
-//        // right of cave
-//        map_.joinCavePlace(newCoords(5, 0, 7, 2), newCoords(4, 0, 0, 2), "file", "file");
-//        map_.joinLevelCave((short) 5, newLevelPoint(0,7,5), newLevelPoint(1,7,5), "file", "file");
-//        map_.joinLevelCave((short) 5, newLevelPoint(0,2,3), newLevelPoint(1,2,3), "file", "file");
-//        //    map_.addLeague("file", newCoords(4, 0, 4, 5));
-////        map_.addLeague("file", newCoords(4, 0, 5, 4));
-////        League league_ =(League) map_.getPlaces().getVal((short) 6);
-////        league_.setName("ligue");
-////        map_.addLevelLeague((short) 6);
-//    }
 
     static void initLeague(DataBase _data) {
         DataMap map_ = _data.getMap();
@@ -1324,9 +1012,9 @@ final class InitializationMap {
         pkCenter_.setExitCity(newPoint(4,8));
         pkCenter_.getLevel().setBlocks(new ObjectMap<Point,Block>());
         pkCenter_.getLevel().getBlocks().put(newPoint(0,0), newBuildingBlock(9, 9));
-        pkCenter_.getLevel().setStorageCoords(newPoint(4, 0));
-        pkCenter_.getLevel().setGerants(new ObjectMap<Point,Person>());
-        pkCenter_.getLevel().getGerants().put(newPoint(0, 4), newGerantPokemon(GeranceType.FOSSILE));
+        pkCenter_.getIndoor().setStorageCoords(newPoint(4, 0));
+        pkCenter_.getIndoor().setGerants(new ObjectMap<Point,Person>());
+        pkCenter_.getIndoor().getGerants().put(newPoint(0, 4), newGerantPokemon(GeranceType.FOSSILE));
         city_.getBuildings().put(newPoint(3,3), pkCenter_);
         //5, 1, 4, 0
     }
@@ -1365,9 +1053,9 @@ final class InitializationMap {
         pkCenter_.setExitCity(newPoint(4,8));
         pkCenter_.getLevel().setBlocks(new ObjectMap<Point,Block>());
         pkCenter_.getLevel().getBlocks().put(newPoint(0,0), newBuildingBlock(9, 9));
-        pkCenter_.getLevel().setStorageCoords(newPoint(4, 0));
-        pkCenter_.getLevel().setGerants(new ObjectMap<Point,Person>());
-        pkCenter_.getLevel().getGerants().put(newPoint(0, 4), newGerantPokemon(GeranceType.HOST));
+        pkCenter_.getIndoor().setStorageCoords(newPoint(4, 0));
+        pkCenter_.getIndoor().setGerants(new ObjectMap<Point,Person>());
+        pkCenter_.getIndoor().getGerants().put(newPoint(0, 4), newGerantPokemon(GeranceType.HOST));
         city_.getBuildings().put(newPoint(3,3), pkCenter_);
         //5, 1, 4, 0
     }

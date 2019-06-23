@@ -918,12 +918,12 @@ public final class DataMap {
                         c_.affectInside(b.getKey());
                         c_.getLevel().setLevelIndex((byte) 0);
                         c_.getLevel().setPoint(
-                                ((Gym) b.getValue()).getLevel()
+                                ((Gym) b.getValue()).getIndoor()
                                         .getGymLeaderCoords());
                         beatGymLeader.add(c_);
                         beatGymTrainer
                                 .put(s, new EqList<Point>(((Gym) b.getValue())
-                                        .getLevel().getGymTrainers().getKeys()));
+                                        .getIndoor().getGymTrainers().getKeys()));
                         break;
                     }
                 }
@@ -943,7 +943,7 @@ public final class DataMap {
                         cities.add(coordsCity_);
                         boolean add_ = false;
                         for (EntryCust<Point, Person> g : ((PokemonCenter) b
-                                .getValue()).getLevel().getGerants()
+                                .getValue()).getIndoor().getGerants()
                                 .entryList()) {
                             if (!(g.getValue() instanceof GerantPokemon)) {
                                 continue;
@@ -961,7 +961,7 @@ public final class DataMap {
                 }
             }
             if (place_ instanceof Road) {
-                for (Point p : ((Road) place_).getLevel().getLegendaryPks()
+                for (Point p : ((Road) place_).getLevelRoad().getLegendaryPks()
                         .getKeys()) {
                     Coords c_ = new Coords();
                     c_.setNumberPlace(s);
@@ -970,7 +970,7 @@ public final class DataMap {
                     c_.getLevel().setPoint(p);
                     takenPokemon.add(c_);
                 }
-                for (Point p : ((Road) place_).getLevel().getItems().getKeys()) {
+                for (Point p : ((Road) place_).getLevelRoad().getItems().getKeys()) {
                     Coords c_ = new Coords();
                     c_.setNumberPlace(s);
                     c_.setLevel(new LevelPoint());
@@ -978,7 +978,7 @@ public final class DataMap {
                     c_.getLevel().setPoint(p);
                     takenObjects.add(c_);
                 }
-                for (Point p : ((Road) place_).getLevel().getTm().getKeys()) {
+                for (Point p : ((Road) place_).getLevelRoad().getTm().getKeys()) {
                     Coords c_ = new Coords();
                     c_.setNumberPlace(s);
                     c_.setLevel(new LevelPoint());
@@ -986,7 +986,7 @@ public final class DataMap {
                     c_.getLevel().setPoint(p);
                     takenObjects.add(c_);
                 }
-                for (Point p : ((Road) place_).getLevel().getHm().getKeys()) {
+                for (Point p : ((Road) place_).getLevelRoad().getHm().getKeys()) {
                     Coords c_ = new Coords();
                     c_.setNumberPlace(s);
                     c_.setLevel(new LevelPoint());
@@ -994,7 +994,7 @@ public final class DataMap {
                     c_.getLevel().setPoint(p);
                     takenObjects.add(c_);
                 }
-                for (Point p : ((Road) place_).getLevel().getDualFights()
+                for (Point p : ((Road) place_).getLevelRoad().getDualFights()
                         .getKeys()) {
                     Coords c_ = new Coords();
                     c_.setNumberPlace(s);
@@ -1108,12 +1108,12 @@ public final class DataMap {
                         c_.affectInside(b.getKey());
                         c_.getLevel().setLevelIndex((byte) 0);
                         c_.getLevel().setPoint(
-                                ((Gym) b.getValue()).getLevel()
+                                ((Gym) b.getValue()).getIndoor()
                                         .getGymLeaderCoords());
                         beatGymLeader.add(c_);
                         beatGymTrainer
                                 .put(s, new EqList<Point>(((Gym) b.getValue())
-                                        .getLevel().getGymTrainers().getKeys()));
+                                        .getIndoor().getGymTrainers().getKeys()));
                         break;
                     }
                 }
@@ -1130,7 +1130,7 @@ public final class DataMap {
                                 .moveTo(Direction.DOWN);
                         cities.add(coordsCity_);
                         for (EntryCust<Point, Person> g : ((PokemonCenter) b
-                                .getValue()).getLevel().getGerants()
+                                .getValue()).getIndoor().getGerants()
                                 .entryList()) {
                             if (!(g.getValue() instanceof GerantPokemon)) {
                                 continue;
@@ -1150,7 +1150,7 @@ public final class DataMap {
                 }
             }
             if (place_ instanceof Road) {
-                for (Point p : ((Road) place_).getLevel().getLegendaryPks()
+                for (Point p : ((Road) place_).getLevelRoad().getLegendaryPks()
                         .getKeys()) {
                     Coords c_ = new Coords();
                     c_.setNumberPlace(s);
@@ -1159,9 +1159,9 @@ public final class DataMap {
                     c_.getLevel().setPoint(p);
                     takenPokemon.add(c_);
                 }
-                for (Point p : ((Road) place_).getLevel().getCharacters()
+                for (Point p : ((Road) place_).getLevelRoad().getCharacters()
                         .getKeys()) {
-                    if (!(((Road) place_).getLevel().getCharacters().getVal(p) instanceof DealerItem)) {
+                    if (!(((Road) place_).getLevelRoad().getCharacters().getVal(p) instanceof DealerItem)) {
                         continue;
                     }
                     Coords c_ = new Coords();
@@ -1171,7 +1171,7 @@ public final class DataMap {
                     c_.getLevel().setPoint(p);
                     takenObjects.add(c_);
                 }
-                for (Point p : ((Road) place_).getLevel().getItems().getKeys()) {
+                for (Point p : ((Road) place_).getLevelRoad().getItems().getKeys()) {
                     Coords c_ = new Coords();
                     c_.setNumberPlace(s);
                     c_.setLevel(new LevelPoint());
@@ -1179,7 +1179,7 @@ public final class DataMap {
                     c_.getLevel().setPoint(p);
                     takenObjects.add(c_);
                 }
-                for (Point p : ((Road) place_).getLevel().getTm().getKeys()) {
+                for (Point p : ((Road) place_).getLevelRoad().getTm().getKeys()) {
                     Coords c_ = new Coords();
                     c_.setNumberPlace(s);
                     c_.setLevel(new LevelPoint());
@@ -1187,7 +1187,7 @@ public final class DataMap {
                     c_.getLevel().setPoint(p);
                     takenObjects.add(c_);
                 }
-                for (Point p : ((Road) place_).getLevel().getHm().getKeys()) {
+                for (Point p : ((Road) place_).getLevelRoad().getHm().getKeys()) {
                     Coords c_ = new Coords();
                     c_.setNumberPlace(s);
                     c_.setLevel(new LevelPoint());
@@ -1195,7 +1195,7 @@ public final class DataMap {
                     c_.getLevel().setPoint(p);
                     takenObjects.add(c_);
                 }
-                for (Point p : ((Road) place_).getLevel().getDualFights()
+                for (Point p : ((Road) place_).getLevelRoad().getDualFights()
                         .getKeys()) {
                     Coords c_ = new Coords();
                     c_.setNumberPlace(s);
@@ -1206,8 +1206,8 @@ public final class DataMap {
                 }
             }
             if (place_ instanceof Cave) {
-                for (byte k : ((Cave) place_).getLevelsMap().getKeys()) {
-                    LevelCave levelCave_ = (LevelCave) ((Cave) place_)
+                for (byte k : place_.getLevelsMap().getKeys()) {
+                    LevelCave levelCave_ = (LevelCave) place_
                             .getLevelsMap().getVal(k);
                     for (Point p : levelCave_.getLegendaryPks().getKeys()) {
                         Coords c_ = new Coords();
@@ -2828,7 +2828,7 @@ public final class DataMap {
             c_.setLevel(new LevelPoint());
             c_.affectInside(_pt);
             c_.getLevel().setLevelIndex((byte) 0);
-            c_.getLevel().setPoint(gym_.getLevel().getGymLeaderCoords());
+            c_.getLevel().setPoint(gym_.getIndoor().getGymLeaderCoords());
             beatGymLeader.removeObj(c_);
         }
     }

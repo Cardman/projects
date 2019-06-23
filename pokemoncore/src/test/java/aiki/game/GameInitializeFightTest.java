@@ -33,7 +33,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
         Coords current_ = game_.getPlayerCoords();
-        LevelWithWildPokemon level_ = pl_.getLevelByCoords(current_);
+        LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         MonteCarloEq<WildPk> law_ = game_.lawCopy(area_.getWildPokemonRand(), _data_);
@@ -62,7 +62,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)2,(short)0));
-        LevelWithWildPokemon level_ = pl_.getLevelByCoords(current_);
+        LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         MonteCarloEq<WildPk> law_ = game_.lawCopy(area_.getWildPokemonRand(), _data_);
@@ -84,7 +84,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)0,(short)2));
-        LevelWithWildPokemon level_ = pl_.getLevelByCoords(current_);
+        LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         MonteCarloEq<WildPk> law_ = game_.lawCopy(area_.getWildPokemonRand(), _data_);
@@ -119,7 +119,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)0,(short)2));
-        LevelWithWildPokemon level_ = pl_.getLevelByCoords(current_);
+        LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         MonteCarloEq<WildPk> law_ = game_.lawCopy(area_.getWildPokemonRand(), _data_);
@@ -157,7 +157,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)2,(short)2));
-        LevelWithWildPokemon level_ = pl_.getLevelByCoords(current_);
+        LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         MonteCarloEq<WildPk> law_ = game_.lawCopy(area_.getWildPokemonRand(), _data_);
@@ -195,7 +195,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)2,(short)2));
-        LevelWithWildPokemon level_ = pl_.getLevelByCoords(current_);
+        LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newRandomPokemon(area_.getWildPokemonRand(), _data_);
@@ -210,7 +210,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)2,(short)0));
-        LevelWithWildPokemon level_ = pl_.getLevelByCoords(current_);
+        LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newRandomPokemon(area_.getWildPokemonRand(), _data_);
@@ -226,7 +226,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
         Coords current_ = game_.getPlayerCoords();
-        LevelWithWildPokemon level_ = pl_.getLevelByCoords(current_);
+        LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 0, area_, _data_);
@@ -243,7 +243,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
         Coords current_ = game_.getPlayerCoords();
-        LevelWithWildPokemon level_ = pl_.getLevelByCoords(current_);
+        LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 1, area_, _data_);
@@ -260,7 +260,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
         Coords current_ = game_.getPlayerCoords();
-        LevelWithWildPokemon level_ = pl_.getLevelByCoords(current_);
+        LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 2, area_, _data_);
@@ -278,7 +278,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)2,(short)0));
-        LevelWithWildPokemon level_ = pl_.getLevelByCoords(current_);
+        LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 0, area_, _data_);
@@ -307,7 +307,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)0,(short)2));
-        LevelWithWildPokemon level_ = pl_.getLevelByCoords(current_);
+        LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 0, area_, _data_);
@@ -336,7 +336,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         current_.getLevel().getPoint().affect(new Point((short)3,(short)2));
         game_.setPlayerOrientation(Direction.RIGHT);
         Coords next_ = game_.closestTile(map_);
-        LevelWithWildPokemon level_ = pl_.getLevelByCoords(next_);
+        LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(next_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(next_.getLevel().getPoint());
         game_.newIndex(false, 0, area_, _data_);
@@ -368,7 +368,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         current_.getLevel().getPoint().affect(new Point((short)3,(short)2));
         game_.setPlayerOrientation(Direction.RIGHT);
         Coords next_ = game_.closestTile(map_);
-        LevelWithWildPokemon level_ = pl_.getLevelByCoords(next_);
+        LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(next_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(next_.getLevel().getPoint());
         game_.newIndex(false, 1, area_, _data_);
@@ -386,7 +386,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
         Coords current_ = game_.getPlayerCoords();
-        LevelWithWildPokemon level_ = pl_.getLevelByCoords(current_);
+        LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.incrementPeriod(area_, _data_);
@@ -405,7 +405,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)0,(short)2));
-        LevelWithWildPokemon level_ = pl_.getLevelByCoords(current_);
+        LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.incrementPeriod(area_, _data_);

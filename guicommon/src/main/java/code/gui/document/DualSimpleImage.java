@@ -12,13 +12,15 @@ import code.sml.Element;
 
 public class DualSimpleImage extends DualImage {
     private String href;
+    private int[][] image;
 
     public DualSimpleImage(DualContainer _container, MetaSimpleImage _component, RenderedPage _page) {
         super(_container, _component, _page);
         Element anchor_ = _component.getAnchor();
+        image = _component.getImage();
         href = "";
         if (anchor_ != null) {
-            JLabel label_ = getGraphic();
+            JLabel label_ = getLabel();
             String prefix_ = getPage().getNavigation().getSession().getPrefix();
             String command_ = new StringBuilder(prefix_).append("command").toString();
             command_ = _component.getAnchor().getAttribute(command_);
@@ -37,19 +39,13 @@ public class DualSimpleImage extends DualImage {
     }
 
     @Override
-    public MetaSimpleImage getComponent() {
-        return (MetaSimpleImage) super.getComponent();
-    }
-
-    @Override
     public void paint() {
-        int[][] img_ = getComponent().getImage();
-        if (img_.length == 0) {
+        if (image.length == 0) {
             return;
         }
-        BufferedImage imgBuf_ = new BufferedImage(img_[0].length, img_.length, BufferedImage.TYPE_INT_RGB);
+        BufferedImage imgBuf_ = new BufferedImage(image[0].length, image.length, BufferedImage.TYPE_INT_RGB);
         int y_ = 0;
-        for (int[] r: img_) {
+        for (int[] r: image) {
             int x_ = 0;
             for (int p: r) {
                 imgBuf_.setRGB(x_, y_, p);
@@ -57,7 +53,7 @@ public class DualSimpleImage extends DualImage {
             }
             y_++;
         }
-        getGraphic().setIcon(new ImageIcon(imgBuf_));
+        getLabel().setIcon(new ImageIcon(imgBuf_));
     }
     public String getHref() {
         return href;

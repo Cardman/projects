@@ -14,17 +14,25 @@ public final class EntryCust<K, V> implements SimpleEntry {
         value = _v;
     }
 
-    @Override
     public K getKey() {
         return key;
     }
 
-    @Override
     public V getValue() {
         return value;
     }
 
     public void setValue(V _v) {
         value = _v;
+    }
+
+    @Override
+    public Object getSimpleKey() {
+        return getKey();
+    }
+
+    @Override
+    public Object getSimpleValue() {
+        return getValue();
     }
 }

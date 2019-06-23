@@ -10,5 +10,4 @@ public interface GeneFunction extends AccessibleBlock {
     boolean isVarargs();
 
     String getName();
-    Identifiable getId();
 }

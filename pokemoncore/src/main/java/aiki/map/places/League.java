@@ -45,9 +45,9 @@ public final class League extends Place {
         }
         int nbRooms_ = rooms.size();
         for (byte i = CustList.SECOND_INDEX; i < nbRooms_; i++) {
-            rooms.get(i).validate(_data, _placeArea.getLevel(i));
-            Point next_ = rooms.get(i - 1).getNextLevelTarget();
-            if (!rooms.get(i).isEmpty(next_)) {
+            getLevelLeague(i).validate(_data, _placeArea.getLevel(i));
+            Point next_ = getLevelLeague((byte) (i - 1)).getNextLevelTarget();
+            if (!getLevelLeague(i).isEmpty(next_)) {
                 _data.setError(true);
                 return;
 
@@ -93,14 +93,14 @@ public final class League extends Place {
     }
 
     public void deleteRoom(int _index) {
-        LevelLeague level_ = rooms.get(_index);
+        LevelLeague level_ = getLevelLeague((byte) _index);
         if (_index > CustList.FIRST_INDEX) {
-            LevelLeague previousLevel_ = rooms.get(_index - 1);
+            LevelLeague previousLevel_ = getLevelLeague((byte) (_index - 1));
             previousLevel_.getNextLevelTarget().affect(
                     level_.getNextLevelTarget());
             rooms.removeAt(_index);
         } else if (rooms.size() > CustList.SECOND_INDEX) {
-            LevelLeague nextLevel_ = rooms.get(CustList.SECOND_INDEX);
+            LevelLeague nextLevel_ = getLevelLeague(CustList.SECOND_INDEX);
             if (nextLevel_.isEmptyForAdding(begin)) {
                 rooms.removeAt(_index);
             }
@@ -110,8 +110,12 @@ public final class League extends Place {
     }
 
     @Override
-    public LevelLeague getLevelByCoords(Coords _coords) {
-        return rooms.get(_coords.getLevel().getLevelIndex());
+    public Level getLevelByCoords(Coords _coords) {
+        return getLevelLeague(_coords.getLevel().getLevelIndex());
+    }
+
+    public LevelLeague getLevelLeague(byte _levelIndex) {
+        return rooms.get(_levelIndex);
     }
 
     @Override
@@ -134,7 +138,7 @@ public final class League extends Place {
 
     @Override
     public boolean containsPerson(Coords _coords) {
-        LevelLeague level_ = getLevelByCoords(_coords);
+        LevelLeague level_ = getLevelLeague(_coords.getLevel().getLevelIndex());
         if (Point.eq(_coords.getLevel().getPoint(), level_.getTrainerCoords())) {
             return true;
         }
@@ -143,7 +147,7 @@ public final class League extends Place {
 
     @Override
     public Person getPerson(Coords _coords) {
-        LevelLeague level_ = getLevelByCoords(_coords);
+        LevelLeague level_ = getLevelLeague(_coords.getLevel().getLevelIndex());
         if (Point.eq(_coords.getLevel().getPoint(), level_.getTrainerCoords())) {
             return level_.getTrainer();
         }

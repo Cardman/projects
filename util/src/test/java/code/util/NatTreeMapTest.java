@@ -12,7 +12,7 @@ public final class NatTreeMapTest {
     @Test
     public void put1Test() {
         IntTreeMap<Integer> map_ = new IntTreeMap<Integer>();
-        Listable<EntryCust<Integer,Integer>> l_ = map_.getList();
+        CustList<EntryCust<Integer,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put(2, 1);
         assertEq(1, l_.size());
@@ -43,7 +43,7 @@ public final class NatTreeMapTest {
     @Test
     public void put2Test() {
         IntTreeMap<Integer> map_ = new IntTreeMap<Integer>(new CollCapacity(2));
-        Listable<EntryCust<Integer,Integer>> l_ = map_.getList();
+        CustList<EntryCust<Integer,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put(2, 2);
         map_.put(2, 1);
@@ -75,7 +75,7 @@ public final class NatTreeMapTest {
     @Test
     public void put3Test() {
         IntTreeMap<Integer> map_ = new IntTreeMap<Integer>();
-        Listable<EntryCust<Integer,Integer>> l_ = map_.getList();
+        CustList<EntryCust<Integer,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put(2, 2);
         map_.put(2, 1);
@@ -93,7 +93,7 @@ public final class NatTreeMapTest {
     @Test
     public void put4Test() {
         ByteTreeMap<Integer> map_ = new ByteTreeMap<Integer>(new CollCapacity(2));
-        Listable<EntryCust<Byte,Integer>> l_ = map_.getList();
+        CustList<EntryCust<Byte,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put((byte) 2, 2);
         map_.put((byte) 2, 1);
@@ -127,7 +127,7 @@ public final class NatTreeMapTest {
     @Test
     public void put5Test() {
         LongTreeMap<Integer> map_ = new LongTreeMap<Integer>();
-        Listable<EntryCust<Long,Integer>> l_ = map_.getList();
+        CustList<EntryCust<Long,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put(2L, 2);
         map_.put(2L, 1);
@@ -159,7 +159,7 @@ public final class NatTreeMapTest {
     @Test
     public void put6Test() {
         ShortTreeMap<Integer> map_ = new ShortTreeMap<Integer>();
-        Listable<EntryCust<Short,Integer>> l_ = map_.getList();
+        CustList<EntryCust<Short,Integer>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put((short) 2, 2);
         map_.put((short) 2, 1);

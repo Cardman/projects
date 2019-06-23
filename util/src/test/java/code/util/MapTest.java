@@ -518,7 +518,8 @@ public class MapTest {
         assertEq(1,map_.lastValue());
         map_.setKey(0,new KeyExample(0, 2));
         assertEq(new KeyExample(0, 2),map_.firstKey());
-        assertEq(new KeyExample(0, 2),map_.get(0).getKey());
+        assertNotNull(map_.getObj(0));
+        assertEq(new KeyExample(0, 2),map_.getKey(0));
         assertEq(new KeyExample(0, 1),map_.lastKey());
         assertNotNull(map_.entries());
     }

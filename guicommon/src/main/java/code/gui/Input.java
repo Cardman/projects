@@ -10,5 +10,4 @@ public interface Input {
     JComponent getGlobal();
 
     Ints getSelectedIndexes();
-    StringList getSelectedValues();
 }

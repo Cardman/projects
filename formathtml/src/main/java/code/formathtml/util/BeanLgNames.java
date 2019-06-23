@@ -527,7 +527,7 @@ public abstract class BeanLgNames extends LgNames {
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), SET_FORMS)) {
-                ((Bean)instance_).setForms(((StringMapObjectStruct)_args[0]).getInstance());
+                ((Bean)instance_).setForms((StringMapObject)((StringMapObjectStruct)_args[0]).getInstance());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -563,7 +563,7 @@ public abstract class BeanLgNames extends LgNames {
                 return res_;
             }
             if (StringList.quickEq(name_, getAliasGet())) {
-                res_.setResult(StdStruct.wrapStd(((Countable) instance_).get(((NumberStruct) _args[0]).intStruct()), _cont));
+                res_.setResult(StdStruct.wrapStd(((Countable) instance_).getObj(((NumberStruct) _args[0]).intStruct()), _cont));
                 return res_;
             }
         }
@@ -588,12 +588,12 @@ public abstract class BeanLgNames extends LgNames {
         if (instance_ instanceof SimpleEntry) {
             SimpleEntry db_ = (SimpleEntry)instance_;
             if (StringList.quickEq(_method.getConstraints().getName(), GET_KEY)) {
-                Object key_ = db_.getKey();
+                Object key_ = db_.getSimpleKey();
                 res_.setResult(StdStruct.wrapStd(key_, _cont));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_VALUE)) {
-                Object value_ = db_.getValue();
+                Object value_ = db_.getSimpleValue();
                 res_.setResult(StdStruct.wrapStd(value_, _cont));
                 return res_;
             }

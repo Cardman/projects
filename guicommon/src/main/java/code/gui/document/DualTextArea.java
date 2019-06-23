@@ -1,23 +1,26 @@
 package code.gui.document;
 
-import javax.swing.JTextArea;
+import javax.swing.*;
 
 import code.formathtml.render.MetaTextArea;
 
 public final class DualTextArea extends DualInput {
 
+    private final JTextArea area;
+
     public DualTextArea(DualContainer _container, MetaTextArea _component, RenderedPage _page) {
-        super(_container, _component, new JTextArea(_component.getValue(),_component.getRows(),_component.getCols()), _page);
+        super(_container, _component, _page);
+        area = new JTextArea(_component.getValue(), _component.getRows(), _component.getCols());
+        updateGraphics(area,_component);
     }
 
     @Override
-    public JTextArea getGraphic() {
-        return (JTextArea) super.getGraphic();
+    public JComponent getGraphic() {
+        return area;
     }
 
-    @Override
     public String getValue() {
-        return getGraphic().getText();
+        return area.getText();
     }
 
 }

@@ -251,19 +251,19 @@ public class MapLevelBean extends CommonBean {
                 }
                 if (b_ instanceof Gym) {
                     Gym g_ = (Gym) b_;
-                    if (g_.getLevel().getGymTrainers().contains(pt_)) {
-                        getForms().put(TRAINER, g_.getLevel().getGymTrainers().getVal(pt_));
+                    if (g_.getIndoor().getGymTrainers().contains(pt_)) {
+                        getForms().put(TRAINER, g_.getIndoor().getGymTrainers().getVal(pt_));
                         return TRAINER_ONE_FIGHT;
                     }
-                    if (Point.eq(g_.getLevel().getGymLeaderCoords(), pt_)) {
-                        getForms().put(TRAINER, g_.getLevel().getGymLeader());
+                    if (Point.eq(g_.getIndoor().getGymLeaderCoords(), pt_)) {
+                        getForms().put(TRAINER, g_.getIndoor().getGymLeader());
                         return TRAINER_ONE_FIGHT;
                     }
                 }
                 if (b_ instanceof PokemonCenter) {
                     PokemonCenter pk_ = (PokemonCenter) b_;
-                    if (pk_.getLevel().getGerants().contains(pt_)) {
-                        Person pers_ = pk_.getLevel().getGerants().getVal(pt_);
+                    if (pk_.getIndoor().getGerants().contains(pt_)) {
+                        Person pers_ = pk_.getIndoor().getGerants().getVal(pt_);
                         if (pers_ instanceof Seller) {
                             Seller seller_ = (Seller) pers_;
                             if (!seller_.getItems().isEmpty()) {
@@ -612,7 +612,7 @@ public class MapLevelBean extends CommonBean {
                 Building b_ = c_.getBuildings().getVal(ptInside_);
                 if (b_ instanceof PokemonCenter) {
                     PokemonCenter pk_ = (PokemonCenter) b_;
-                    if (Point.eq(pk_.getLevel().getStorageCoords(),pt_)) {
+                    if (Point.eq(pk_.getIndoor().getStorageCoords(),pt_)) {
                         return true;
                     }
                     return false;
@@ -633,10 +633,10 @@ public class MapLevelBean extends CommonBean {
                 Building b_ = c_.getBuildings().getVal(ptInside_);
                 if (b_ instanceof PokemonCenter) {
                     PokemonCenter pk_ = (PokemonCenter) b_;
-                    if (!pk_.getLevel().getGerants().contains(pt_)) {
+                    if (!pk_.getIndoor().getGerants().contains(pt_)) {
                         return false;
                     }
-                    Person pers_ = pk_.getLevel().getGerants().getVal(pt_);
+                    Person pers_ = pk_.getIndoor().getGerants().getVal(pt_);
                     if (!(pers_ instanceof GerantPokemon)) {
                         return false;
                     }
@@ -662,10 +662,10 @@ public class MapLevelBean extends CommonBean {
                 Building b_ = c_.getBuildings().getVal(ptInside_);
                 if (b_ instanceof PokemonCenter) {
                     PokemonCenter pk_ = (PokemonCenter) b_;
-                    if (!pk_.getLevel().getGerants().contains(pt_)) {
+                    if (!pk_.getIndoor().getGerants().contains(pt_)) {
                         return false;
                     }
-                    Person pers_ = pk_.getLevel().getGerants().getVal(pt_);
+                    Person pers_ = pk_.getIndoor().getGerants().getVal(pt_);
                     if (!(pers_ instanceof GerantPokemon)) {
                         return false;
                     }
@@ -691,10 +691,10 @@ public class MapLevelBean extends CommonBean {
                 Building b_ = c_.getBuildings().getVal(ptInside_);
                 if (b_ instanceof PokemonCenter) {
                     PokemonCenter pk_ = (PokemonCenter) b_;
-                    if (!pk_.getLevel().getGerants().contains(pt_)) {
+                    if (!pk_.getIndoor().getGerants().contains(pt_)) {
                         return false;
                     }
-                    Person pers_ = pk_.getLevel().getGerants().getVal(pt_);
+                    Person pers_ = pk_.getIndoor().getGerants().getVal(pt_);
                     if (!(pers_ instanceof GerantPokemon)) {
                         return false;
                     }
@@ -720,10 +720,10 @@ public class MapLevelBean extends CommonBean {
                 Building b_ = c_.getBuildings().getVal(ptInside_);
                 if (b_ instanceof PokemonCenter) {
                     PokemonCenter pk_ = (PokemonCenter) b_;
-                    if (!pk_.getLevel().getGerants().contains(pt_)) {
+                    if (!pk_.getIndoor().getGerants().contains(pt_)) {
                         return false;
                     }
-                    Person pers_ = pk_.getLevel().getGerants().getVal(pt_);
+                    Person pers_ = pk_.getIndoor().getGerants().getVal(pt_);
                     if (!(pers_ instanceof Seller)) {
                         return false;
                     }

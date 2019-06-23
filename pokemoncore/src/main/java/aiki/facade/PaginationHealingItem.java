@@ -91,7 +91,7 @@ public final class PaginationHealingItem extends
         inventory = _inventory;
     }
 
-    public void search(Listable<String> _list, DataBase _data) {
+    public void search(CustList<String> _list, DataBase _data) {
         items.clear();
         Shorts pps_ = new Shorts();
         for (MoveData f : _data.getMoves().values()) {
@@ -247,7 +247,6 @@ public final class PaginationHealingItem extends
         calculateRendered();
     }
 
-    @Override
     public CriteriaForSearchingHealingItem getCriteria() {
         return criteria;
     }

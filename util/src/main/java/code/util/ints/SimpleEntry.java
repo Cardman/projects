@@ -2,6 +2,6 @@ package code.util.ints;
 
 public interface SimpleEntry {
 
-    Object getKey();
-    Object getValue();
+    Object getSimpleKey();
+    Object getSimpleValue();
 }

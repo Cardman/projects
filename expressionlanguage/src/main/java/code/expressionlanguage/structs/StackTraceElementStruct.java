@@ -5,11 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.FileBlock;
-import code.expressionlanguage.methods.FunctionBlock;
-import code.expressionlanguage.methods.NamedFunctionBlock;
-import code.expressionlanguage.opers.util.Identifiable;
+import code.expressionlanguage.methods.*;
 import code.util.*;
 import code.util.StringList;
 
@@ -38,9 +34,8 @@ public final class StackTraceElementStruct implements DisplayableStruct {
         Block bl_ = _page.getBlockRoot();
         if (bl_ != null) {
             FunctionBlock fct_ = bl_.getFunction();
-            if (fct_ instanceof NamedFunctionBlock) {
-                Identifiable id_ = ((NamedFunctionBlock)fct_).getId();
-                signature =id_.getSignature(_context);
+            if (fct_ instanceof ReturnableWithSignature) {
+                signature =((ReturnableWithSignature)fct_).getSignature(_context);
                 return;
             }
         }

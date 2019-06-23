@@ -43,7 +43,7 @@ public class MapBean extends CommonBean {
     public boolean isGym(Long _indexOne, Long _indexTwo) {
         return buildings(_indexOne).get(_indexTwo.intValue()) instanceof Gym;
     }
-    public Listable<Building> buildings(Long _index) {
+    public CustList<Building> buildings(Long _index) {
         Place pl_ = places.get(_index.intValue()).getPlace();
         if (!(pl_ instanceof City)) {
             return new CustList<Building>();

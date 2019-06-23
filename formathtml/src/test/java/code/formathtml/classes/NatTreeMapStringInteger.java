@@ -20,8 +20,8 @@ public final class NatTreeMapStringInteger implements ListableEntries<String,Int
     }
 
     @Override
-    public EntryCust<String,Integer> get(int _index) {
-        return tree.get(_index);
+    public Object getObj(int _index) {
+        return tree.getObj(_index);
     }
 
     @Override
@@ -106,15 +106,17 @@ public final class NatTreeMapStringInteger implements ListableEntries<String,Int
     void applyChanges() {
         for (int i = CustList.FIRST_INDEX; i < tree.size(); i++) {
             for (int j = i + 1; j < tree.size(); j++) {
-                String c_ = tree.get(i).getKey();
-                int res_ = c_.compareTo(tree.get(j).getKey());
+                String c_ = tree.getKey(i);
+                int res_ = c_.compareTo(tree.getKey(j));
                 if (res_ > CustList.EQ_CMP) {
-                    EntryCust<String, Integer> e_ = tree.get(i);
-                    EntryCust<String, Integer> f_ = tree.get(j);
-                    tree.setKey(j,e_.getKey());
-                    tree.setKey(i,f_.getKey());
-                    tree.setValue(j, e_.getValue());
-                    tree.setValue(i, f_.getValue());
+                    String firstKey_ = tree.getKey(i);
+                    String secondKey_ = tree.getKey(j);
+                    Integer firstValue_ = tree.getValue(i);
+                    Integer secondValue_ = tree.getValue(j);
+                    tree.setKey(j,firstKey_);
+                    tree.setKey(i,secondKey_);
+                    tree.setValue(j, firstValue_);
+                    tree.setValue(i, secondValue_);
                 }
             }
         }

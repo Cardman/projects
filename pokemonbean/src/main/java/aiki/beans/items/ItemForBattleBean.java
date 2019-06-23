@@ -70,7 +70,7 @@ public class ItemForBattleBean extends ItemBean {
     public void beforeDisplaying() {
         super.beforeDisplaying();
         DataBase data_ = (DataBase) getDataBase();
-        ItemForBattle item_ = getItem();
+        ItemForBattle item_ = (ItemForBattle)getItem();
         if (!item_.getEffectEndRound().isEmpty()) {
             endRound = true;
             EffectEndRound effect_ = item_.getEffectEndRound().first();
@@ -474,12 +474,7 @@ public class ItemForBattleBean extends ItemBean {
     }
 
     public EffectWhileSending getEffectSending() {
-        return getItem().getEffectSending().first();
-    }
-
-    @Override
-    public ItemForBattle getItem() {
-        return (ItemForBattle) super.getItem();
+        return ((ItemForBattle)getItem()).getEffectSending().first();
     }
 
     public boolean getEndRound() {

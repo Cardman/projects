@@ -14,25 +14,23 @@ import code.formathtml.render.MetaStyle;
 
 public final class DualNumberedLabel extends DualLabel {
 
-    public DualNumberedLabel(DualContainer _container, MetaNumberedLabel _component,
-            RenderedPage _page) {
-        super(_container, _component, new JLabel(), _page);
-        getGraphic().setOpaque(true);
-    }
+    private String number;
 
-    @Override
-    public MetaNumberedLabel getComponent() {
-        return (MetaNumberedLabel) super.getComponent();
+    public DualNumberedLabel(DualContainer _container, MetaNumberedLabel _component,
+                             RenderedPage _page) {
+        super(_container, _component, _page);
+        getGraphic().setOpaque(true);
+        number = _component.getNumber();
     }
 
     @Override
     public void paint() {
-        JLabel lab_ = getGraphic();
+        JLabel lab_ = getLabel();
         MetaStyle style_ = getComponent().getStyle();
-        Font copy_ = new Font(style_.getFontFamily(), style_.getBold() + style_.getItalic(), style_.getRealSize());
+        Font copy_ =  newFont(style_);
         FontMetrics fontMetrics_ = lab_.getFontMetrics(copy_);
         int h_ = fontMetrics_.getHeight();
-        String tr_ = new StringBuilder(getComponent().getNumber()).append("  ").toString();
+        String tr_ = new StringBuilder(number).append("  ").toString();
         int diff_ = fontMetrics_.stringWidth(tr_);
         BufferedImage img_ = new BufferedImage(diff_, h_, BufferedImage.TYPE_INT_RGB);
         Graphics2D gr_ = img_.createGraphics();

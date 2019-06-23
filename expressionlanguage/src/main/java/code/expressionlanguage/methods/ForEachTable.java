@@ -491,7 +491,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         return out_;
     }
     @Override
-    protected AssignedBooleanVariables buildNewAssignedVariable() {
+    protected AssignedVariables buildNewAssignedVariable() {
         return new AssignedBooleanVariables();
     }
 

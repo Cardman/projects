@@ -87,7 +87,7 @@ final class HtmlRequest {
         if (index_ >= 0) {
             boolean key_ = _nodeContainer.isKey();
             ContextEl context_ = _conf.getContext();
-            ResultErrorStd res_ = _conf.getStandards().setElementAtIndex(obj_, (int) index_, key_, _attribute, context_);
+            ResultErrorStd res_ = _conf.getAdvStandards().setElementAtIndex(obj_, (int) index_, key_, _attribute, context_);
             if (res_.getError() != null) {
                 String err_ = res_.getError();
                 context_.setException(new ErrorStruct(_conf,err_));
@@ -113,7 +113,7 @@ final class HtmlRequest {
                     badEl_.setErrors(_conf.getClasses().getErrorsDet());
                     badEl_.setFileName(_conf.getCurrentFileName());
                     badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                     return;
                 }
                 className_ = res_;
@@ -162,7 +162,7 @@ final class HtmlRequest {
             ip_.setGlobalArgumentStruct(obj_, _conf);
             String tmp_ = ip_.getNextTempVar();
             LocalVariable locVar_ = new LocalVariable();
-            locVar_.setClassName(_conf.getStandards().getValueChangedEvent());
+            locVar_.setClassName(_conf.getAdvStandards().getValueChangedEvent());
             locVar_.setStruct(StdStruct.wrapStd(chg_, _conf.getContext()));
             ip_.putLocalVar(tmp_, locVar_);
             StringBuilder str_ = new StringBuilder(method_);

@@ -82,7 +82,6 @@ public final class PaginationEgg extends
         return true;
     }
 
-    @Override
     public CriteriaForSearchingEgg getCriteria() {
         return criteria;
     }

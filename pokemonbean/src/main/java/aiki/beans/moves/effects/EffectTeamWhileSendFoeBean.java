@@ -98,7 +98,7 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(st_);
     }
-    public Listable<Statistic> getSortedStatistics() {
+    public CustList<Statistic> getSortedStatistics() {
         EnumList<Statistic> list_;
         list_ = new EnumList<Statistic>(statistics.getKeys());
         DataBase data_ = (DataBase) getDataBase();

@@ -29,7 +29,7 @@ public final class BeanStruct implements RealInstanceStruct {
     }
 
     @Override
-    public Bean getInstance() {
+    public Object getInstance() {
         return bean;
     }
 

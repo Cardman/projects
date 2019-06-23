@@ -51,7 +51,7 @@ final class ExtractCondition {
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+            _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
             return false;
         }
         if (StringList.quickEq(_en.getTagName(), StringList.concat(prefix_,TAG_IF_DEF_PARAM)) || StringList.quickEq(_en.getTagName(), StringList.concat(prefix_,TAG_ELSE_IF_DEF_PARAM))) {
@@ -173,7 +173,7 @@ final class ExtractCondition {
                 badEl_.setErrors(_conf.getClasses().getErrorsDet());
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                 return false;
             }
             Boolean b_ = ((BooleanStruct) o_).getInstance();

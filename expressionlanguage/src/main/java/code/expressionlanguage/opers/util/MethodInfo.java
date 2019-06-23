@@ -106,6 +106,10 @@ public final class MethodInfo implements Parametrable {
     }
 
     @Override
+    public Identifiable getGeneFormatted() {
+        return getFormatted();
+    }
+
     public MethodId getFormatted() {
         return formatted;
     }

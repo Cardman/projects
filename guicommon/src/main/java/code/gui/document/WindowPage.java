@@ -138,7 +138,7 @@ public class WindowPage implements Runnable {
                 MetaRadioButton radio_ = (MetaRadioButton) meta_;
                 DualRadionButton dual_ = new DualRadionButton((DualContainer) cur_,radio_, page);
                 cur_.add(dual_);
-                JRadioButton radioButton_ = dual_.getGraphic();
+                JRadioButton radioButton_ = dual_.getRadio();
                 if (!radiosGroup_.isEmpty()) {
                     StringMap<ButtonGroup> grs_ = radiosGroup_.last();
                     if (radio_.getIndexButton() == 0) {

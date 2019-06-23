@@ -29,7 +29,7 @@ public final class ValidatorStruct implements RealInstanceStruct {
     }
 
     @Override
-    public Validator getInstance() {
+    public Object getInstance() {
         return translator;
     }
 

@@ -143,8 +143,6 @@ public abstract class Pagination<T extends Sorting,U> {
 
     protected abstract CustList<T> getRendered();
 
-    public abstract CriteriaForSearching getCriteria();
-
     public int getNumberPage() {
         return numberPage;
     }

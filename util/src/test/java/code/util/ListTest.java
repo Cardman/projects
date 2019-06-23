@@ -249,6 +249,7 @@ public class ListTest {
     public void clearTest() {
         CustList<Integer> integers_ = new CustList<Integer>();
         integers_.add(5);
+        assertNotNull(integers_.getObj(0));
         integers_.clear();
         assertTrue(integers_.isEmpty());
         assertNotNull(integers_.getList());

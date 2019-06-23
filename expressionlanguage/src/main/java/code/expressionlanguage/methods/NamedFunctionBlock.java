@@ -130,7 +130,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
                 MissingReturnMethod miss_ = new MissingReturnMethod();
                 miss_.setIndexFile(getOffset().getOffsetTrim());
                 miss_.setFileName(getFile().getFileName());
-                miss_.setId(getId().getSignature(_an));
+                miss_.setId(getPseudoSignature(_an));
                 miss_.setReturning(getImportedReturnType());
                 _an.getClasses().addError(miss_);
             }

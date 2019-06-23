@@ -176,7 +176,7 @@ public final class DocumentWriterMathUtil {
         return elt_;
     }
 
-    private static Element setListCustPoint(EqList<CustPoint> _object, String _fieldName, Document _document) {
+    private static Element setListCustPoint(CustList<CustPoint> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (CustPoint s: _object) {

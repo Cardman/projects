@@ -1,27 +1,33 @@
 package code.gui.document;
 
-import javax.swing.JRadioButton;
+import javax.swing.*;
 
 import code.formathtml.render.MetaRadioButton;
 
 public final class DualRadionButton extends DualInput {
 
+    private final JRadioButton radio;
     private String value;
 
     public DualRadionButton(DualContainer _container, MetaRadioButton _component,
             RenderedPage _page) {
-        super(_container, _component, new JRadioButton("",_component.isChecked()), _page);
+        super(_container, _component, _page);
         value = _component.getValue();
+        radio = new JRadioButton("", _component.isChecked());
+        updateGraphics(radio,_component);
     }
 
     @Override
-    public JRadioButton getGraphic() {
-        return (JRadioButton) super.getGraphic();
+    public JComponent getGraphic() {
+        return getRadio();
     }
 
-    @Override
+    public JRadioButton getRadio() {
+        return radio;
+    }
+
     public String getValue() {
-        if (getGraphic().isSelected()) {
+        if (radio.isSelected()) {
             return value;
         }
         return "";

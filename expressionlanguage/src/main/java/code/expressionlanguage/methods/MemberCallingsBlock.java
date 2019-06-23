@@ -70,11 +70,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 DeadCodeMethod deadCode_ = new DeadCodeMethod();
                 deadCode_.setFileName(getFile().getFileName());
                 deadCode_.setIndexFile(en_.getOffset().getOffsetTrim());
-                if (this instanceof Returnable) {
-                    deadCode_.setId(((Returnable)this).getId().getSignature(_cont));
-                } else {
-                    deadCode_.setId(EMPTY_STRING);
-                }
+                deadCode_.setId(getPseudoSignature(_cont));
                 _cont.getClasses().addError(deadCode_);
             }
             Block n_ = en_.getFirstChild();
@@ -172,6 +168,12 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         }
     }
 
+    public String getPseudoSignature(Analyzable _an) {
+        if (this instanceof ReturnableWithSignature) {
+            return ((ReturnableWithSignature)this).getSignature(_an);
+        }
+        return EMPTY_STRING;
+    }
     public abstract void setAssignmentBeforeCall(Analyzable _an, AnalyzingEl _anEl);
     public abstract void setAssignmentAfterCall(Analyzable _an, AnalyzingEl _anEl);
     @Override

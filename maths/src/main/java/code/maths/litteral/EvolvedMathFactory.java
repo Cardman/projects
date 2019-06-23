@@ -4,6 +4,7 @@ import code.maths.Rate;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.ints.AdvancedMathFactory;
+import code.util.ints.NumericableString;
 
 public final class EvolvedMathFactory implements AdvancedMathFactory<Rate> {
 
@@ -55,13 +56,13 @@ public final class EvolvedMathFactory implements AdvancedMathFactory<Rate> {
     }
 
     @Override
-    public EvolvedNumString createNumericableString(String _chaineNumerique,
-            StringMap<String> _vars) {
+    public NumericableString<Rate> createNumericableString(String _chaineNumerique,
+                                                           StringMap<String> _vars) {
         return new EvolvedNumString(_chaineNumerique, _vars);
     }
 
     @Override
-    public EvolvedBooleanString createBooleanString(String _chaineBooleenne,
+    public NumericableString<Boolean> createBooleanString(String _chaineBooleenne,
             StringMap<String> _vars) {
         return new EvolvedBooleanString(_chaineBooleenne, _vars);
     }

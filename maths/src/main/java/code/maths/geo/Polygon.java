@@ -79,7 +79,7 @@ public final class Polygon implements Iterable<CustPoint>, HasEdges, Displayable
     }
 
     @Override
-    public EqList<CustPoint> getPoints() {
+    public CustList<CustPoint> getPoints() {
         return points;
     }
 

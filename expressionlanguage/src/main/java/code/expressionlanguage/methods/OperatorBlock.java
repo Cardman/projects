@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.common.GeneMethod;
+import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -12,7 +13,7 @@ import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 
-public final class OperatorBlock extends NamedFunctionBlock implements GeneMethod, AccessingImportingBlock {
+public final class OperatorBlock extends NamedFunctionBlock implements GeneMethod, AccessingImportingBlock,ReturnableWithSignature {
 
     private StringList imports = new StringList();
 
@@ -32,6 +33,11 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
 
     public String getDeclaringType() {
         return EMPTY_STRING;
+    }
+
+    @Override
+    public String getSignature(Analyzable _ana) {
+        return getId().getSignature(_ana);
     }
 
     @Override
@@ -68,7 +74,7 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
     }
 
     @Override
-    public RootBlock belong() {
+    public GeneType belong() {
         return null;
     }
 

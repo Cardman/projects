@@ -46,7 +46,7 @@ public abstract class CustComponent {
             int h_ = _cust.getHeight();
             BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
             p_.paintComponent(img_.getGraphics());
-            p_.getComponent().setIcon(new ImageIcon(img_));
+            p_.setIcon(new ImageIcon(img_));
             return;
         }
         _cust.getComponent().repaint();

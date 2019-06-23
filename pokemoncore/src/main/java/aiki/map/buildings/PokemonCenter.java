@@ -1,5 +1,6 @@
 package aiki.map.buildings;
 import aiki.db.DataBase;
+import aiki.map.levels.Level;
 import aiki.map.levels.LevelIndoorPokemonCenter;
 import aiki.map.tree.BuildingArea;
 import aiki.util.Point;
@@ -26,7 +27,10 @@ public final class PokemonCenter extends Building {
         level.clearElements(_point);
     }
     @Override
-    public LevelIndoorPokemonCenter getLevel() {
+    public Level getLevel() {
+        return getIndoor();
+    }
+    public LevelIndoorPokemonCenter getIndoor() {
         return level;
     }
 

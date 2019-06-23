@@ -4,11 +4,7 @@ import aiki.db.DataBase;
 import aiki.map.characters.CharacterInRoadCave;
 import aiki.map.characters.DualFight;
 import aiki.map.characters.Person;
-import aiki.map.levels.AreaApparition;
-import aiki.map.levels.Block;
-import aiki.map.levels.Level;
-import aiki.map.levels.LevelCave;
-import aiki.map.levels.Link;
+import aiki.map.levels.*;
 import aiki.map.pokemon.WildPk;
 import aiki.map.tree.LevelArea;
 import aiki.map.tree.PlaceArea;
@@ -76,7 +72,7 @@ public final class Cave extends Campaign {
                     return;
 
                 }
-                LevelCave levelTarget_ = levels.getVal(target_.getLevelIndex());
+                LevelCave levelTarget_ = getLevelCave(target_);
                 if (!levelTarget_.isEmptyForAdding(target_.getPoint())) {
                     _data.setError(true);
                     return;
@@ -151,7 +147,7 @@ public final class Cave extends Campaign {
                     return false;
                 }
                 LevelPoint lPoint_ = coords_.getLevel();
-                LevelCave otherLevel_ = levels.getVal(lPoint_.getLevelIndex());
+                LevelCave otherLevel_ = getLevelCave(lPoint_);
                 if (!otherLevel_.getLinksOtherLevels().contains(
                         lPoint_.getPoint())) {
                     return false;
@@ -214,7 +210,7 @@ public final class Cave extends Campaign {
     }
 
     public void clearElements(LevelPoint _point) {
-        LevelCave l_ = levels.getVal(_point.getLevelIndex());
+        LevelCave l_ = getLevelCave(_point);
         l_.clearElements(_point.getPoint());
     }
 
@@ -227,13 +223,22 @@ public final class Cave extends Campaign {
                 }
             }
         }
-        LevelCave l_ = levels.getVal(_point.getLevelIndex());
+        LevelCave l_ = getLevelCave(_point);
         l_.getLinksOtherLevels().removeKey(_point.getPoint());
     }
 
     @Override
-    public LevelCave getLevelByCoords(Coords _coords) {
-        return levels.getVal(_coords.getLevel().getLevelIndex());
+    public Level getLevelByCoords(Coords _coords) {
+        return getLevelCompaignByCoords(_coords);
+    }
+
+    @Override
+    public LevelWithWildPokemon getLevelCompaignByCoords(Coords _coords) {
+        return getLevelCave(_coords.getLevel());
+    }
+
+    public LevelCave getLevelCave(LevelPoint _level) {
+        return levels.getVal(_level.getLevelIndex());
     }
 
     @Override
@@ -260,128 +265,128 @@ public final class Cave extends Campaign {
 
     @Override
     public boolean containsPokemon(Coords _coords) {
-        LevelCave level_ = getLevelByCoords(_coords);
+        LevelCave level_ = getLevelCave(_coords.getLevel());
         return level_.containsPokemon(_coords.getLevel().getPoint());
     }
 
     @Override
     public void addPokemon(Coords _coords, WildPk _pk) {
-        LevelCave level_ = getLevelByCoords(_coords);
+        LevelCave level_ = getLevelCave(_coords.getLevel());
         level_.getLegendaryPks().put(_coords.getLevel().getPoint(), _pk);
     }
 
     @Override
     public WildPk getPokemon(Coords _coords) {
-        LevelCave level_ = getLevelByCoords(_coords);
+        LevelCave level_ = getLevelCave(_coords.getLevel());
         return level_.getPokemon(_coords.getLevel().getPoint());
     }
 
     @Override
     public boolean containsObject(Coords _coords) {
-        LevelCave level_ = getLevelByCoords(_coords);
+        LevelCave level_ = getLevelCave(_coords.getLevel());
         return level_.containsObject(_coords.getLevel().getPoint());
     }
 
     @Override
     public void addObject(Coords _coords, String _object) {
-        LevelCave level_ = getLevelByCoords(_coords);
+        LevelCave level_ = getLevelCave(_coords.getLevel());
         level_.getItems().put(_coords.getLevel().getPoint(), _object);
     }
 
     @Override
     public String getObject(Coords _coords) {
-        LevelCave level_ = getLevelByCoords(_coords);
+        LevelCave level_ = getLevelCave(_coords.getLevel());
         return level_.getObject(_coords.getLevel().getPoint());
     }
 
     @Override
     public boolean containsPerson(Coords _coords) {
-        LevelCave level_ = getLevelByCoords(_coords);
+        LevelCave level_ = getLevelCave(_coords.getLevel());
         return level_.containsPerson(_coords.getLevel().getPoint());
     }
 
     @Override
     public void addPerson(Coords _coords, Person _person) {
-        LevelCave level_ = getLevelByCoords(_coords);
+        LevelCave level_ = getLevelCave(_coords.getLevel());
         level_.getCharacters().put(_coords.getLevel().getPoint(),
                 (CharacterInRoadCave) _person);
     }
 
     @Override
     public Person getPerson(Coords _coords) {
-        LevelCave level_ = getLevelByCoords(_coords);
+        LevelCave level_ = getLevelCave(_coords.getLevel());
         return level_.getPerson(_coords.getLevel().getPoint());
     }
 
     @Override
     public boolean containsDualFight(Coords _coords) {
-        LevelCave level_ = getLevelByCoords(_coords);
+        LevelCave level_ = getLevelCave(_coords.getLevel());
         return level_.containsDualFight(_coords.getLevel().getPoint());
     }
 
     @Override
     public void addDualFight(Coords _coords, DualFight _dualFight) {
-        LevelCave level_ = getLevelByCoords(_coords);
+        LevelCave level_ = getLevelCave(_coords.getLevel());
         level_.getDualFights().put(_coords.getLevel().getPoint(), _dualFight);
     }
 
     @Override
     public DualFight getDualFight(Coords _coords) {
-        LevelCave level_ = getLevelByCoords(_coords);
+        LevelCave level_ = getLevelCave(_coords.getLevel());
         return level_.getDualFight(_coords.getLevel().getPoint());
     }
 
     @Override
     public boolean containsHm(Coords _coords) {
-        LevelCave level_ = getLevelByCoords(_coords);
+        LevelCave level_ = getLevelCave(_coords.getLevel());
         return level_.containsHm(_coords.getLevel().getPoint());
     }
 
     @Override
     public void addHm(Coords _coords, short _hm) {
-        LevelCave level_ = getLevelByCoords(_coords);
+        LevelCave level_ = getLevelCave(_coords.getLevel());
         level_.getHm().put(_coords.getLevel().getPoint(), _hm);
     }
 
     @Override
     public short getHm(Coords _coords) {
-        LevelCave level_ = getLevelByCoords(_coords);
+        LevelCave level_ = getLevelCave(_coords.getLevel());
         return level_.getHm(_coords.getLevel().getPoint());
     }
 
     @Override
     public boolean containsTm(Coords _coords) {
-        LevelCave level_ = getLevelByCoords(_coords);
+        LevelCave level_ = getLevelCave(_coords.getLevel());
         return level_.containsTm(_coords.getLevel().getPoint());
     }
 
     @Override
     public void addTm(Coords _coords, short _tm) {
-        LevelCave level_ = getLevelByCoords(_coords);
+        LevelCave level_ = getLevelCave(_coords.getLevel());
         level_.getTm().put(_coords.getLevel().getPoint(), _tm);
     }
 
     @Override
     public short getTm(Coords _coords) {
-        LevelCave level_ = getLevelByCoords(_coords);
+        LevelCave level_ = getLevelCave(_coords.getLevel());
         return level_.getTm(_coords.getLevel().getPoint());
     }
 
     @Override
     public void setItem(Coords _coords, String _object) {
-        LevelCave level_ = getLevelByCoords(_coords);
+        LevelCave level_ = getLevelCave(_coords.getLevel());
         level_.setItem(_coords.getLevel().getPoint(), _object);
     }
 
     @Override
     public void setTm(Coords _coords, short _tm) {
-        LevelCave level_ = getLevelByCoords(_coords);
+        LevelCave level_ = getLevelCave(_coords.getLevel());
         level_.setTm(_coords.getLevel().getPoint(), _tm);
     }
 
     @Override
     public void setHm(Coords _coords, short _object) {
-        LevelCave level_ = getLevelByCoords(_coords);
+        LevelCave level_ = getLevelCave(_coords.getLevel());
         level_.setHm(_coords.getLevel().getPoint(), _object);
     }
 

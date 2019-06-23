@@ -74,8 +74,8 @@ public class StepTest {
         gym_.getLevel().setBlocks(new ObjectMap<Point,Block>());
         block_ = new Block((short)6,(short)6, EnvironmentType.BUILDING, VOIE);
         gym_.getLevel().getBlocks().put(new Point((short)0,(short)0), block_);
-        gym_.getLevel().setGymLeaderCoords(new Point((short)1,(short)1));
-        gym_.getLevel().setGymTrainers(new ObjectMap<Point,GymTrainer>());
+        gym_.getIndoor().setGymLeaderCoords(new Point((short)1,(short)1));
+        gym_.getIndoor().setGymTrainers(new ObjectMap<Point,GymTrainer>());
         c_.getBuildings().put(new Point((short)4,(short)5), gym_);
         return c_;
     }
@@ -187,7 +187,7 @@ public class StepTest {
         pk_.setLevel((short) 2);
         areaApp_.getWildPokemon().add(pk_);
         areaApp_.initializeWildPokemon();
-        roadOne_.getLevel().getWildPokemonAreas().add(areaApp_);
+        roadOne_.getLevelRoad().getWildPokemonAreas().add(areaApp_);
         roadOne_.getLevel().getBlocks().getVal(point(0,0)).setIndexApparition((short) 0);
         Road roadTwo_ = hroad();
         Road roadThree_ = vroad();
@@ -198,12 +198,12 @@ public class StepTest {
         pk_.setAbility("STATIK");
         pk_.setGender(Gender.NO_GENDER);
         pk_.setLevel((short) 2);
-        roadFour_.getLevel().getLegendaryPks().put(point(5, 0), pk_);
+        roadFour_.getLevelRoad().getLegendaryPks().put(point(5, 0), pk_);
         Road roadFive_ = hroad();
         DualFight dual_ = new DualFight();
         dual_.setNames(new StringList("TRAINER_ONE","TRAINER_TWO"));
         dual_.setPt(point(1, 1));
-        roadFive_.getLevel().getDualFights().put(point(2, 1), dual_);
+        roadFive_.getLevelRoad().getDualFights().put(point(2, 1), dual_);
         Road roadSix_ = hroad();
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());

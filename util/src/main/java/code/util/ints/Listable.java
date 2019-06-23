@@ -15,9 +15,6 @@ public interface Listable<T> extends Iterable<T>,SimpleIterable , Countable, Sim
 
     boolean isValidIndex(int _index);
 
-    @Override
-    T get(int _index);
-
     void set(int _index, T _element);
 
     void add(int _index, T _element);

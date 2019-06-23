@@ -252,11 +252,11 @@ public final class FormatHtml {
         }
         ImportingPage ip_ = _conf.getLastPage();
         String prefix_ = ip_.getPrefix();
-        StringMapObject forms_ = ((StringMapObjectStruct) ExtractObject.getForms(_conf, bean_)).getInstance();
+        StringMapObject forms_ = (StringMapObject) ((StringMapObjectStruct) ExtractObject.getForms(_conf, bean_)).getInstance();
         if (_conf.getContext().getException() != null) {
             return;
         }
-        StringMapObject formsMap_ = ((StringMapObjectStruct) ExtractObject.getForms(_conf, _mainBean)).getInstance();
+        StringMapObject formsMap_ = (StringMapObject) ((StringMapObjectStruct) ExtractObject.getForms(_conf, _mainBean)).getInstance();
         if (_conf.getContext().getException() != null) {
             return;
         }
@@ -315,7 +315,7 @@ public final class FormatHtml {
                     badEl_.setErrors(_conf.getClasses().getErrorsDet());
                     badEl_.setFileName(_conf.getCurrentFileName());
                     badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                     return;
                 }
                 if (!PrimitiveTypeUtil.canBeUseAsArgument(res_, lgNames_.getStructClassName(bean_, context_), context_)) {
@@ -331,7 +331,7 @@ public final class FormatHtml {
                     badEl_.setErrors(_conf.getClasses().getErrorsDet());
                     badEl_.setFileName(_conf.getCurrentFileName());
                     badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                     return;
                 }
                 for (Element nThree_: nTwo_.getChildElements()) {
@@ -384,7 +384,7 @@ public final class FormatHtml {
                 badEl_.setErrors(_conf.getClasses().getErrorsDet());
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                 return parameters_;
             }
             VariableInformation vi_ = tryToGetVariableInformation(_conf, ip_, n);
@@ -429,7 +429,7 @@ public final class FormatHtml {
                 badEl_.setErrors(_conf.getClasses().getErrorsDet());
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                 return parameters_;
             }
             VariableInformation vi_ = tryToGetVoidVariable(_conf, ip_, n);
@@ -1577,7 +1577,7 @@ public final class FormatHtml {
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+            _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
             return;
         }
         className_ = res_;
@@ -1608,7 +1608,7 @@ public final class FormatHtml {
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+            _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
             return;
         }
         VariableInformation vi_ = tryToGetVariableInformation(_conf, _ip, _set);
@@ -1638,7 +1638,7 @@ public final class FormatHtml {
                 badEl_.setErrors(_conf.getClasses().getErrorsDet());
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                 className_ = _conf.getStandards().getAliasObject();
             } else {
                 className_ = res_;
@@ -1731,7 +1731,7 @@ public final class FormatHtml {
                     badEl_.setErrors(_conf.getClasses().getErrorsDet());
                     badEl_.setFileName(_conf.getCurrentFileName());
                     badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                 }
                 className_ = res_;
             }
@@ -1795,7 +1795,7 @@ public final class FormatHtml {
                         badEl_.setErrors(_conf.getClasses().getErrorsDet());
                         badEl_.setFileName(_conf.getCurrentFileName());
                         badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                        _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                        _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                         className_ = _conf.getStandards().getAliasObject();
                     }
                 } else if (_element.hasAttribute(IS_CHAR_CONST_ATTRIBUTE)){
@@ -1820,7 +1820,7 @@ public final class FormatHtml {
                         badEl_.setErrors(_conf.getClasses().getErrorsDet());
                         badEl_.setFileName(_conf.getCurrentFileName());
                         badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                        _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                        _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                         className_ = _conf.getStandards().getAliasObject();
                     }
                 } else if (_element.hasAttribute(IS_BOOL_CONST_ATTRIBUTE)){
@@ -1845,7 +1845,7 @@ public final class FormatHtml {
                         badEl_.setErrors(_conf.getClasses().getErrorsDet());
                         badEl_.setFileName(_conf.getCurrentFileName());
                         badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                        _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                        _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                         className_ = _conf.getStandards().getAliasObject();
                     }
                 } else if (StringList.isNumber(expression_)) {
@@ -1869,7 +1869,7 @@ public final class FormatHtml {
                         badEl_.setErrors(_conf.getClasses().getErrorsDet());
                         badEl_.setFileName(_conf.getCurrentFileName());
                         badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                        _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                        _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                         className_ = _conf.getStandards().getAliasObject();
                     }
                 } else {
@@ -1893,7 +1893,7 @@ public final class FormatHtml {
                             badEl_.setErrors(_conf.getClasses().getErrorsDet());
                             badEl_.setFileName(_conf.getCurrentFileName());
                             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                            _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                            _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                             className_ = _conf.getStandards().getAliasObject();
                         } else {
                             className_ = res_;
@@ -1927,7 +1927,7 @@ public final class FormatHtml {
                 badEl_.setErrors(_conf.getClasses().getErrorsDet());
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                 LocalVariable loc_ = new LocalVariable();
                 loc_.setClassName(_className);
                 loc_.setStruct(_object);
@@ -1949,7 +1949,7 @@ public final class FormatHtml {
                 badEl_.setErrors(_conf.getClasses().getErrorsDet());
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                 loc_.setStruct(_object);
                 return loc_;
             }
@@ -1969,7 +1969,7 @@ public final class FormatHtml {
                     badEl_.setErrors(_conf.getClasses().getErrorsDet());
                     badEl_.setFileName(_conf.getCurrentFileName());
                     badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                     loc_.setStruct(_object);
                     return loc_;
                 }
@@ -1987,7 +1987,7 @@ public final class FormatHtml {
                     badEl_.setErrors(_conf.getClasses().getErrorsDet());
                     badEl_.setFileName(_conf.getCurrentFileName());
                     badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                     loc_.setStruct(_object);
                     return loc_;
                 }
@@ -2020,7 +2020,7 @@ public final class FormatHtml {
         badEl_.setErrors(_conf.getClasses().getErrorsDet());
         badEl_.setFileName(_conf.getCurrentFileName());
         badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-        _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+        _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
         LocalVariable loc_ = new LocalVariable();
         loc_.setClassName(_className);
         return loc_;
@@ -2039,7 +2039,7 @@ public final class FormatHtml {
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+            _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
             return;
         }
         if (_object == NullStruct.NULL_VALUE) {
@@ -2066,7 +2066,7 @@ public final class FormatHtml {
                 badEl_.setErrors(_conf.getClasses().getErrorsDet());
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                 return;
             }
         } else {
@@ -2084,7 +2084,7 @@ public final class FormatHtml {
                     badEl_.setErrors(_conf.getClasses().getErrorsDet());
                     badEl_.setFileName(_conf.getCurrentFileName());
                     badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                     return;
                 }
             } else {
@@ -2102,7 +2102,7 @@ public final class FormatHtml {
                     badEl_.setErrors(_conf.getClasses().getErrorsDet());
                     badEl_.setFileName(_conf.getCurrentFileName());
                     badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                     return;
                 }
             }
@@ -2142,7 +2142,7 @@ public final class FormatHtml {
                                 badEl_.setErrors(_conf.getClasses().getErrorsDet());
                                 badEl_.setFileName(_conf.getCurrentFileName());
                                 badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                                 return;
                             }
                         }
@@ -2240,7 +2240,7 @@ public final class FormatHtml {
                         badEl_.setErrors(_conf.getClasses().getErrorsDet());
                         badEl_.setFileName(_conf.getCurrentFileName());
                         badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                        _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                        _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                         return;
                     }
                     className_ = res_;
@@ -2255,7 +2255,7 @@ public final class FormatHtml {
                         badEl_.setErrors(_conf.getClasses().getErrorsDet());
                         badEl_.setFileName(_conf.getCurrentFileName());
                         badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                        _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                        _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                         return;
                     }
                     Node prev_ = elt_.getPreviousSibling();
@@ -2294,7 +2294,7 @@ public final class FormatHtml {
                             badEl_.setErrors(_conf.getClasses().getErrorsDet());
                             badEl_.setFileName(_conf.getCurrentFileName());
                             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                            _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                            _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                             return;
                         }
                     }
@@ -2686,7 +2686,7 @@ public final class FormatHtml {
                 badEl_.setErrors(_conf.getClasses().getErrorsDet());
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                 return vars_;
             }
             vars_.add(varName_);
@@ -2704,7 +2704,7 @@ public final class FormatHtml {
                 badEl_.setErrors(_conf.getClasses().getErrorsDet());
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                 return vars_;
             }
             String value_ = _node.getAttribute(ATTRIBUTE_VALUE);
@@ -2718,7 +2718,7 @@ public final class FormatHtml {
                 badEl_.setErrors(_conf.getClasses().getErrorsDet());
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                 return vars_;
             }
             if (StringList.quickEq(key_,value_)) {
@@ -2731,7 +2731,7 @@ public final class FormatHtml {
                 badEl_.setErrors(_conf.getClasses().getErrorsDet());
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                 return vars_;
             }
             vars_.add(key_);
@@ -2752,7 +2752,7 @@ public final class FormatHtml {
                         badEl_.setErrors(_conf.getClasses().getErrorsDet());
                         badEl_.setFileName(_conf.getCurrentFileName());
                         badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                        _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                        _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                         return vars_;
                     }
                     vars_.add(varName_);
@@ -2922,7 +2922,7 @@ public final class FormatHtml {
                 if (StringList.quickEq(_input.getTagName(), SELECT_TAG)) {
                     type_ = SELECT_TAG;
                     if (_input.hasAttribute(ATTRIBUTE_MULTIPLE)) {
-                        class_ = _conf.getStandards().getCustList();
+                        class_ = _conf.getAdvStandards().getCustList();
                     } else {
                         class_ = _conf.getStandards().getAliasString();
                     }
@@ -3532,7 +3532,7 @@ public final class FormatHtml {
                 badEl_.setErrors(_conf.getClasses().getErrorsDet());
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                 return EMPTY_STRING;
             }
             if (curChar_ == ESCAPED) {
@@ -3548,7 +3548,7 @@ public final class FormatHtml {
                     badEl_.setErrors(_conf.getClasses().getErrorsDet());
                     badEl_.setFileName(_conf.getCurrentFileName());
                     badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                     return EMPTY_STRING;
                 }
                 calculateVariables_.append(ExtractObject.valueOf(_conf, arg_.getStruct()));
@@ -3916,7 +3916,7 @@ public final class FormatHtml {
         StringList names_ = new StringList();
         if (!_className.isEmpty()) {
             ContextEl cont_ = _conf.getContext();
-            names_ = _conf.getStandards().getDefaultValues(cont_, _className, _default);
+            names_ = _conf.getAdvStandards().getDefaultValues(cont_, _className, _default);
         } else {
             names_ = new StringList(_default);
         }
@@ -4609,7 +4609,7 @@ public final class FormatHtml {
                 badEl_.setErrors(_conf.getClasses().getErrorsDet());
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                 return;
             }
             _ip.setProcessingAttribute(ATTRIBUTE_TO);
@@ -4632,7 +4632,7 @@ public final class FormatHtml {
                 badEl_.setErrors(_conf.getClasses().getErrorsDet());
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                 return;
             }
             _ip.setProcessingAttribute(ATTRIBUTE_STEP);
@@ -4655,7 +4655,7 @@ public final class FormatHtml {
                 badEl_.setErrors(_conf.getClasses().getErrorsDet());
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                 return;
             }
             realFromValue_ = argFrom_.getLong();
@@ -4778,7 +4778,7 @@ public final class FormatHtml {
                 badEl_.setErrors(_conf.getClasses().getErrorsDet());
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                 return;
             }
             indexClassName_ = rest_;
@@ -4801,7 +4801,7 @@ public final class FormatHtml {
                 badEl_.setErrors(_conf.getClasses().getErrorsDet());
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                 return;
             }
             className_ = rest_;
@@ -4825,7 +4825,7 @@ public final class FormatHtml {
                     badEl_.setErrors(_conf.getClasses().getErrorsDet());
                     badEl_.setFileName(_conf.getCurrentFileName());
                     badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                     return;
                 }
                 className_ = rest_;
@@ -4850,7 +4850,7 @@ public final class FormatHtml {
                     badEl_.setErrors(_conf.getClasses().getErrorsDet());
                     badEl_.setFileName(_conf.getCurrentFileName());
                     badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                     return;
                 }
                 className_ = rest_;
@@ -4877,7 +4877,7 @@ public final class FormatHtml {
                     badEl_.setErrors(_conf.getClasses().getErrorsDet());
                     badEl_.setFileName(_conf.getCurrentFileName());
                     badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
+                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
                     return;
                 }
                 className_ = rest_;

@@ -62,7 +62,7 @@ public final class PaginationMove extends
                 translatedDescription.size());
     }
 
-    public void search(Listable<String> _list, DataBase _data) {
+    public void search(CustList<String> _list, DataBase _data) {
         moves.clear();
         int len_ = _list.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -138,7 +138,7 @@ public final class PaginationMove extends
         }
         return true;
     }
-    @Override
+
     public CriteriaForSearchingMove getCriteria() {
         return criteria;
     }

@@ -117,7 +117,7 @@ public abstract class FileDialog extends Dialog {
             currentTitle = StringList.concat(currentTitle, SPACE, currentFolder);
         }
         setTitle(currentTitle);
-        fileTable = fileModel.getComponent();
+        fileTable = fileModel.getTable();
         fileTable.getTableHeader().setReorderingAllowed(false);
         fileTable.getTableHeader().addMouseListener(new ClickHeaderEvent(this));
         fileTable.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

@@ -8625,7 +8625,7 @@ public class NavigationTest {
     private static void setupBeansAfter(Configuration _conf) {
         cleanBeans(_conf);
         for (EntryCust<String, Struct> e: _conf.getBuiltBeans().entryList()) {
-            _conf.getBeans().put(e.getKey(), ((BeanStruct) e.getValue()).getInstance());
+            _conf.getBeans().put(e.getKey(), (Bean) ((BeanStruct) e.getValue()).getInstance());
         }
     }
 

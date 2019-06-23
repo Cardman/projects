@@ -3,6 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneMethod;
+import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.MissingReturnMethod;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -16,7 +17,7 @@ import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 
-public abstract class OverridableBlock extends NamedFunctionBlock implements GeneMethod {
+public abstract class OverridableBlock extends NamedFunctionBlock implements GeneMethod,ReturnableWithSignature {
 
     private int modifierOffset;
 
@@ -45,6 +46,11 @@ public abstract class OverridableBlock extends NamedFunctionBlock implements Gen
         finalMethod = StringList.quickEq(modifier_, keyWordFinal_);
         abstractMethod = StringList.quickEq(modifier_, keyWordAbstract_);
         normalMethod = StringList.quickEq(modifier_, keyWordNormal_);
+    }
+
+    @Override
+    public String getSignature(Analyzable _ana) {
+        return getId().getSignature(_ana);
     }
 
     public int getModifierOffset() {
@@ -107,7 +113,7 @@ public abstract class OverridableBlock extends NamedFunctionBlock implements Gen
     }
 
     @Override
-    public RootBlock belong() {
+    public GeneType belong() {
         return (RootBlock) getParent();
     }
     @Override

@@ -25,6 +25,7 @@ import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -572,10 +573,13 @@ public class Configuration implements ExecutableCode {
         return getContext().getClassBody(_type);
     }
     @Override
-    public final BeanLgNames getStandards() {
-        return standards;
+    public final LgNames getStandards() {
+        return getAdvStandards();
     }
 
+    public final BeanLgNames getAdvStandards() {
+        return standards;
+    }
     public final void setStandards(BeanLgNames _standards) {
         standards = _standards;
     }

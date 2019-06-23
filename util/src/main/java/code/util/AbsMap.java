@@ -65,7 +65,7 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
     }
 
     @Override
-    public EntryCust<K, V> get(int _index) {
+    public Object getObj(int _index) {
         return list.get(_index);
     }
 

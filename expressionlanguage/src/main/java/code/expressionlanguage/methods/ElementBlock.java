@@ -6,6 +6,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.StaticInitPageEl;
+import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.ElUtil;
@@ -217,7 +218,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     }
 
     @Override
-    public RootBlock belong() {
+    public GeneType belong() {
         return (RootBlock) getParent();
     }
 

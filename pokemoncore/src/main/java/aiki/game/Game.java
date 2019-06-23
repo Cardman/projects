@@ -1564,7 +1564,7 @@ public final class Game {
         City city_ = (City) _import.getMap().getPlaces().getVal(next_.getNumberPlace());
         Gym building_ = (Gym) city_.getBuildings().getVal(next_.getInsideBuilding());
         LevelIndoorGym lev_ = (LevelIndoorGym) city_.getLevelByCoords(next_);
-        boolean canBeat_ = beatGymTrainer.getVal(next_.getNumberPlace()).containsAllObj(building_.getLevel().getGymTrainers().getKeys());
+        boolean canBeat_ = beatGymTrainer.getVal(next_.getNumberPlace()).containsAllObj(building_.getIndoor().getGymTrainers().getKeys());
         if (canBeat_) {
              StringMap<String> mess_ = _import.getMessagesGame();
             commentGame.addMessage(mess_.getVal(POSSIBLE_BEAT_LEADER), lev_.getGymLeader().getName());
@@ -1856,7 +1856,7 @@ public final class Game {
         for (NbFightCoords k: beatTrainer.getKeys()) {
             Coords coords_ = k.getCoords();
             Campaign place_ = (Campaign) _d.getMap().getPlaces().getVal(coords_.getNumberPlace());
-            LevelWithWildPokemon level_ = place_.getLevelByCoords(coords_);
+            LevelWithWildPokemon level_ = place_.getLevelCompaignByCoords(coords_);
             TrainerMultiFights trainer_ = (TrainerMultiFights) level_.getCharacters().getVal(coords_.getLevel().getPoint());
             if (k.getNbFight() == trainer_.getTeamsRewards().getLastIndex()) {
                 if (!beatTrainer.getVal(k)) {
@@ -2150,7 +2150,7 @@ public final class Game {
             if (_voisin.isInside()) {
                 Building building_ = ((City)pl_).getBuildings().getVal(_voisin.getInsideBuilding());
                 if (building_ instanceof Gym) {
-                    if (((Gym)building_).getLevel().getGymTrainers().contains(_voisin.getLevel().getPoint())) {
+                    if (((Gym)building_).getIndoor().getGymTrainers().contains(_voisin.getLevel().getPoint())) {
                         if (!beatGymTrainer.getVal(_voisin.getNumberPlace()).containsObj(_voisin.getLevel().getPoint())) {
                             interfaceType=InterfaceType.DRESSEUR;
                             return;
@@ -2158,8 +2158,8 @@ public final class Game {
                         interfaceType=InterfaceType.RIEN;
                         return;
                     }
-                    if (Point.eq(((Gym)building_).getLevel().getGymLeaderCoords(),_voisin.getLevel().getPoint())) {
-                        if (beatGymTrainer.getVal(_voisin.getNumberPlace()).containsAllObj(((Gym)building_).getLevel().getGymTrainers().getKeys())) {
+                    if (Point.eq(((Gym)building_).getIndoor().getGymLeaderCoords(),_voisin.getLevel().getPoint())) {
+                        if (beatGymTrainer.getVal(_voisin.getNumberPlace()).containsAllObj(((Gym)building_).getIndoor().getGymTrainers().getKeys())) {
                             if (!beatGymLeader.getVal(_voisin)) {
                                 interfaceType=InterfaceType.DRESSEUR;
                             } else {
@@ -2174,7 +2174,7 @@ public final class Game {
                     return;
                 }
                 //building_ instanceof PokemonCenter
-                ObjectMap<Point,Person> gerants_ =((PokemonCenter)building_).getLevel().getGerants();
+                ObjectMap<Point,Person> gerants_ =((PokemonCenter)building_).getIndoor().getGerants();
                 if (gerants_.contains(_voisin.getLevel().getPoint())) {
                     Person gear_ = gerants_.getVal(_voisin.getLevel().getPoint());
                     if (gear_ instanceof Seller) {
@@ -2204,7 +2204,7 @@ public final class Game {
                     }
                     return;
                 }
-                if (Point.eq(((PokemonCenter)building_).getLevel().getStorageCoords(),_voisin.getLevel().getPoint())) {
+                if (Point.eq(((PokemonCenter)building_).getIndoor().getStorageCoords(),_voisin.getLevel().getPoint())) {
                     interfaceType = InterfaceType.ECH_BOITE;
                     return;
                 }

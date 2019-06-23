@@ -1378,10 +1378,11 @@ public abstract class OperationNode implements Operable {
         if (allMax_.isEmpty()) {
             return null;
         }
+        MethodInfo first_ = (MethodInfo) allMax_.first();
         if (allMax_.size() == 1) {
-            return (MethodInfo) allMax_.first();
+            return first_;
         }
-        Identifiable id_ = allMax_.first().getFormatted();
+        MethodId id_ = first_.getFormatted();
         int lenMax_ = allMax_.size();
         boolean allOvEq_ = true;
         for (int i = 1; i < lenMax_; i++) {
@@ -1550,8 +1551,8 @@ public abstract class OperationNode implements Operable {
         map_ = _context.getMap();
         int len_ = _one.getParameters().size();
         boolean all_ = true;
-        Identifiable idOne_ = _one.getFormatted();
-        Identifiable idTwo_ = _two.getFormatted();
+        Identifiable idOne_ = _one.getGeneFormatted();
+        Identifiable idTwo_ = _two.getGeneFormatted();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String wcOne_ = idOne_.getParametersTypes().get(i);
             String wcTwo_ = idTwo_.getParametersTypes().get(i);
@@ -1585,16 +1586,16 @@ public abstract class OperationNode implements Operable {
         if (lenOne_ >= lenTwo_) {
             int pr_ = lenTwo_-1;
             for (int i = CustList.FIRST_INDEX; i < pr_; i++) {
-                String wcOne_ = _one.getFormatted().getParametersTypes().get(i);
-                String wcTwo_ = _two.getFormatted().getParametersTypes().get(i);
+                String wcOne_ = _one.getGeneFormatted().getParametersTypes().get(i);
+                String wcTwo_ = _two.getGeneFormatted().getParametersTypes().get(i);
                 if (swapCasePreferred(wcOne_, wcTwo_, map_, context_) == CustList.SWAP_SORT) {
                     all_ = false;
                     break;
                 }
             }
-            String wcTwo_ = _two.getFormatted().getParametersTypes().last();
+            String wcTwo_ = _two.getGeneFormatted().getParametersTypes().last();
             for (int i = pr_; i < lenOne_; i++) {
-                String wcOne_ = _one.getFormatted().getParametersTypes().get(i);
+                String wcOne_ = _one.getGeneFormatted().getParametersTypes().get(i);
                 if (swapCasePreferred(wcOne_, wcTwo_, map_, context_) == CustList.SWAP_SORT) {
                     all_ = false;
                     break;
@@ -1603,16 +1604,16 @@ public abstract class OperationNode implements Operable {
         } else {
             int pr_ = lenOne_-1;
             for (int i = CustList.FIRST_INDEX; i < pr_; i++) {
-                String wcOne_ = _one.getFormatted().getParametersTypes().get(i);
-                String wcTwo_ = _two.getFormatted().getParametersTypes().get(i);
+                String wcOne_ = _one.getGeneFormatted().getParametersTypes().get(i);
+                String wcTwo_ = _two.getGeneFormatted().getParametersTypes().get(i);
                 if (swapCasePreferred(wcOne_, wcTwo_, map_, context_) == CustList.SWAP_SORT) {
                     all_ = false;
                     break;
                 }
             }
-            String wcOne_ = _one.getFormatted().getParametersTypes().last();
+            String wcOne_ = _one.getGeneFormatted().getParametersTypes().last();
             for (int i = pr_; i < lenTwo_; i++) {
-                String wcTwo_ = _two.getFormatted().getParametersTypes().get(i);
+                String wcTwo_ = _two.getGeneFormatted().getParametersTypes().get(i);
                 if (swapCasePreferred(wcOne_, wcTwo_, map_, context_) == CustList.SWAP_SORT) {
                     all_ = false;
                     break;
@@ -1688,17 +1689,17 @@ public abstract class OperationNode implements Operable {
             len_--;
         }
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            String wcOne_ = _o1.getFormatted().getParametersTypes().get(i);
-            String wcTwo_ = _o2.getFormatted().getParametersTypes().get(i);
+            String wcOne_ = _o1.getGeneFormatted().getParametersTypes().get(i);
+            String wcTwo_ = _o2.getGeneFormatted().getParametersTypes().get(i);
             int res_ = checkPreferred(wcOne_, wcTwo_, map_, context_, _o1, _o2);
             if (res_ != CustList.EQ_CMP) {
                 return res_;
             }
         }
         if (vararg_) {
-            String paramOne_ = _o1.getFormatted().getParametersTypes().last();
+            String paramOne_ = _o1.getGeneFormatted().getParametersTypes().last();
             paramOne_ = PrimitiveTypeUtil.getPrettyArrayType(paramOne_);
-            String paramTwo_ = _o2.getFormatted().getParametersTypes().last();
+            String paramTwo_ = _o2.getGeneFormatted().getParametersTypes().last();
             paramTwo_ = PrimitiveTypeUtil.getPrettyArrayType(paramTwo_);
             int res_ = checkPreferred(paramOne_, paramTwo_, map_, context_, _o1, _o2);
             if (res_ != CustList.EQ_CMP) {

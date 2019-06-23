@@ -7,15 +7,27 @@ import code.gui.Input;
 
 public abstract class DualInput extends DualLeaf {
     private Input select;
+    private int group;
+    private String name;
+
     public DualInput(DualContainer _container, MetaInput _component,
-            JComponent _graphic, RenderedPage _page) {
-        super(_container, _component, _graphic, _page);
+                     RenderedPage _page) {
+        super(_container, _component, _page);
+        group = _component.getGroup();
+        name = _component.getName();
     }
 
     public DualInput(DualContainer _container, MetaInput _component,
             Input _graphic, RenderedPage _page) {
-        super(_container, _component, _graphic.getGlobal(), _page);
+        super(_container, _component, _page);
         select = _graphic;
+        group = _component.getGroup();
+        name = _component.getName();
+    }
+
+    @Override
+    public JComponent getGraphic() {
+        return select.getGlobal();
     }
 
     public Input getSelect() {
@@ -34,17 +46,12 @@ public abstract class DualInput extends DualLeaf {
     }
 
     public int getGroup() {
-        return getComponent().getGroup();
+        return group;
     }
 
     public String getName() {
-        return getComponent().getName();
+        return name;
     }
 
-    @Override
-    public MetaInput getComponent() {
-        return (MetaInput) super.getComponent();
-    }
 
-    public abstract Object getValue();
 }

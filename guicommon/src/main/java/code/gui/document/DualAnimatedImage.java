@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import code.formathtml.render.MetaAnimatedImage;
 import code.gui.ThreadUtil;
 import code.sml.Element;
+import code.util.CustList;
 
 
 public class DualAnimatedImage extends DualImage {
@@ -20,12 +21,15 @@ public class DualAnimatedImage extends DualImage {
 
     private AnimateImage imageThread;
 
+    private CustList<int[][]> images;
+
     public DualAnimatedImage(DualContainer _container, MetaAnimatedImage _component, RenderedPage _page) {
         super(_container, _component, _page);
+        images = _component.getImages();
         Element anchor_ = _component.getAnchor();
         href = "";
         if (anchor_ != null) {
-            JLabel label_ = getGraphic();
+            JLabel label_ = getLabel();
             label_.setCursor(new Cursor(Cursor.HAND_CURSOR));
             label_.addMouseListener(new AnchorEvent(anchor_, _page, this));
             if (!anchor_.getAttribute("command").isEmpty()) {
@@ -52,23 +56,18 @@ public class DualAnimatedImage extends DualImage {
         imageThread.start();
     }
 
-    @Override
-    public MetaAnimatedImage getComponent() {
-        return (MetaAnimatedImage) super.getComponent();
-    }
-
     public void increment() {
         paint();
         ThreadUtil.sleep(delay);
         index++;
-        if (index >= getComponent().getImages().size()) {
+        if (index >= images.size()) {
             index = 0;
         }
     }
 
     @Override
     public void paint() {
-        int[][] img_ = getComponent().getImages().get(index);
+        int[][] img_ = images.get(index);
         if (img_.length == 0) {
             return;
         }
@@ -82,7 +81,7 @@ public class DualAnimatedImage extends DualImage {
             }
             y_++;
         }
-        getGraphic().setIcon(new ImageIcon(imgBuf_));
+        getLabel().setIcon(new ImageIcon(imgBuf_));
     }
     public String getHref() {
         return href;

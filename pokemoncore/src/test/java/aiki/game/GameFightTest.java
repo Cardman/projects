@@ -50,7 +50,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.directInteraction(game_.closestTile(_data_.getMap()), _data_.getMap());
         Coords closest_ = game_.closestTile(_data_.getMap());
         Road road_ = (Road) _data_.getMap().getPlaces().getVal((short) 0);
-        LevelRoad l_ = road_.getLevelByCoords(closest_);
+        LevelRoad l_ = road_.getLevelRoad();
         TrainerMultiFights t_ = (TrainerMultiFights) l_.getCharacters().getVal(closest_.getLevel().getPoint());
         String fileName_ = t_.getImageMaxiFileName();
         int[][] img_ = _data_.getTrainer(fileName_);
@@ -64,9 +64,8 @@ public class GameFightTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
         game_.directInteraction(game_.closestTile(_data_.getMap()), _data_.getMap());
-        Coords closest_ = game_.closestTile(_data_.getMap());
         Road road_ = (Road) _data_.getMap().getPlaces().getVal((short) 2);
-        LevelRoad l_ = road_.getLevelByCoords(closest_);
+        LevelRoad l_ = road_.getLevelRoad();
         DualFight t_ = l_.getDualFights().getVal(newPoint(2, 0));
         String fileName_ = t_.getFoeTrainer().getImageMaxiFileName();
         int[][] img_ = _data_.getTrainer(fileName_);
@@ -80,9 +79,8 @@ public class GameFightTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
         game_.directInteraction(game_.closestTile(_data_.getMap()), _data_.getMap());
-        Coords closest_ = game_.closestTile(_data_.getMap());
         Road road_ = (Road) _data_.getMap().getPlaces().getVal((short) 2);
-        LevelRoad l_ = road_.getLevelByCoords(closest_);
+        LevelRoad l_ = road_.getLevelRoad();
         DualFight t_ = l_.getDualFights().getVal(newPoint(2, 0));
         String fileName_ = t_.getFoeTrainer().getImageMaxiFileName();
         int[][] img_ = _data_.getTrainer(fileName_);
@@ -133,7 +131,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.directInteraction(game_.closestTile(_data_.getMap()), _data_.getMap());
         Coords closest_ = game_.closestTile(_data_.getMap());
         League city_ = (League) _data_.getMap().getPlaces().getVal((short) 6);
-        LevelLeague l_ = city_.getLevelByCoords(closest_);
+        LevelLeague l_ = city_.getLevelLeague(closest_.getLevel().getLevelIndex());
         TrainerLeague t_ = l_.getTrainer();
         String fileName_ = t_.getImageMaxiFileName();
         int[][] img_ = _data_.getTrainer(fileName_);
@@ -157,9 +155,8 @@ public class GameFightTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
         game_.directInteraction(game_.closestTile(_data_.getMap()), _data_.getMap());
-        Coords closest_ = game_.closestTile(_data_.getMap());
         Road road_ = (Road) _data_.getMap().getPlaces().getVal((short) 2);
-        LevelRoad l_ = road_.getLevelByCoords(closest_);
+        LevelRoad l_ = road_.getLevelRoad();
         DualFight t_ = l_.getDualFights().getVal(newPoint(4, 0));
         String fileName_ = t_.getFoeTrainer().getImageMaxiFileName();
         int[][] img_ = _data_.getTrainer(fileName_);
@@ -173,9 +170,8 @@ public class GameFightTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
         game_.directInteraction(game_.closestTile(_data_.getMap()), _data_.getMap());
-        Coords closest_ = game_.closestTile(_data_.getMap());
         Road road_ = (Road) _data_.getMap().getPlaces().getVal((short) 2);
-        LevelRoad l_ = road_.getLevelByCoords(closest_);
+        LevelRoad l_ = road_.getLevelRoad();
         DualFight t_ = l_.getDualFights().getVal(newPoint(4, 0));
         String fileName_ = t_.getFoeTrainer().getImageMaxiFileName();
         int[][] img_ = _data_.getTrainer(fileName_);

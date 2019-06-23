@@ -29,7 +29,7 @@ public final class StringMapObjectStruct implements RealInstanceStruct {
     }
 
     @Override
-    public StringMapObject getInstance() {
+    public Object getInstance() {
         return bean;
     }
 

@@ -3,8 +3,7 @@ package code.gui;
 import java.awt.Font;
 import java.awt.FontMetrics;
 
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 
 import code.util.Ints;
 import code.util.StringList;
@@ -39,16 +38,8 @@ public class GraphicStringList extends GraphicList<String> implements Input {
     }
 
     @Override
-    public JScrollPane getGlobal() {
+    public JComponent getGlobal() {
         return getScroll();
     }
 
-    @Override
-    public StringList getSelectedValues() {
-        StringList values_ = new StringList();
-        for (int i: getSelectedIndexes()) {
-            values_.add(getList().get(i));
-        }
-        return values_;
-    }
 }
