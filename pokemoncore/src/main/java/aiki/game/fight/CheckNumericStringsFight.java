@@ -31,12 +31,13 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.maths.litteral.EvolvedBooleanString;
+import code.maths.litteral.EvolvedNumString;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.SortableCustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.ints.NumericableString;
 
 public final class CheckNumericStringsFight {
 
@@ -119,7 +120,7 @@ public final class CheckNumericStringsFight {
     private static void checkDamageStr(DataBase _data) {
         String numericExp_;
         numericExp_ = _data.getDamageFormula();
-        NumericableString<Rate> num_;
+        EvolvedNumString num_;
         StringMap<String> varLocs_ = new StringMap<String>();
         varLocs_.put(StringList.concat(DataBase.VAR_PREFIX, Fight.ATTACK),
                 DataBase.defRateProduct().toNumberString());
@@ -168,7 +169,7 @@ public final class CheckNumericStringsFight {
             }
             String fail_ = s.getFail();
             if (!fail_.isEmpty()) {
-                NumericableString<Boolean> chBool_;
+                EvolvedBooleanString chBool_;
                 StringMap<String> map_ = new StringMap<String>();
                 map_.putAllMap(_varsFighter);
                 chBool_ = _data.createBooleanString(fail_, map_);
@@ -503,7 +504,7 @@ public final class CheckNumericStringsFight {
             StringMap<String> _boolVarsNotSending,
             StringMap<String> _boolVarsDiffNotSending,
             StringMap<String> _boolVarsSending, StringMap<String> _varsSending) {
-        NumericableString<Rate> chNum_;
+        EvolvedNumString chNum_;
         for (String m : _data.getMoves().getKeys()) {
             MoveData m_ = _data.getMove(m);
             for (TeamPosition t : FightOrder.targetsEffect(_fight,
@@ -532,7 +533,7 @@ public final class CheckNumericStringsFight {
                 }
                 for (TeamPosition t : FightOrder.targetsEffect(_fight,
                         _userFighter, e, _diff, _data)) {
-                    NumericableString<Boolean> chBool_;
+                    EvolvedBooleanString chBool_;
                     if (TeamPosition.eq(t, _userFighter)) {
                         StringMap<String> map_ = new StringMap<String>();
                         map_.putAllMap(_varsSame);
@@ -721,7 +722,7 @@ public final class CheckNumericStringsFight {
                                 Fight.LEVEL_WINNER), Long.toString(levelWin_));
                         vars_.put(StringList.concat(DataBase.VAR_PREFIX,
                                 Fight.LEVEL_LOOSER), Long.toString(levelLoose_));
-                        NumericableString<Rate> chNum_ = _data
+                        EvolvedNumString chNum_ = _data
                                 .createNumericableString(_data.getRates()
                                         .getVal(d), vars_);
                         chNum_.evaluateExp(false);
@@ -749,7 +750,7 @@ public final class CheckNumericStringsFight {
                         Fight.LEVEL_WINNER), LgInt.one().toNumberString());
                 vars_.put(StringList.concat(DataBase.VAR_PREFIX,
                         Fight.LEVEL_LOOSER), LgInt.one().toNumberString());
-                NumericableString<Rate> chNum_ = _data.createNumericableString(
+                EvolvedNumString chNum_ = _data.createNumericableString(
                         _data.getRates().getVal(d), vars_);
                 chNum_.evaluateExp(true);
                 if (!chNum_.isValid()) {
@@ -764,7 +765,7 @@ public final class CheckNumericStringsFight {
     private static void checkBoolStrings(DataBase _data,
             StringMap<String> _variablesSame,
             StringMap<String> _boolVarsSending, String _fail) {
-        NumericableString<Boolean> chBool_;
+        EvolvedBooleanString chBool_;
         StringMap<String> map_ = new StringMap<String>();
         map_.putAllMap(_variablesSame);
         map_.putAllMap(_boolVarsSending);
@@ -788,7 +789,7 @@ public final class CheckNumericStringsFight {
             StringMap<String> variables_ = new StringMap<String>();
             variables_.put(StringList.concat(DataBase.VAR_PREFIX, Fight.BOOST),
                     Long.toString(b));
-            NumericableString<Rate> chNum_ = _data.createNumericableString(
+            EvolvedNumString chNum_ = _data.createNumericableString(
                     rateBoost_, variables_);
             chNum_.evaluateExp(false);
             if (!chNum_.isValid()) {
@@ -828,7 +829,7 @@ public final class CheckNumericStringsFight {
             StringMap<String> variables_ = new StringMap<String>();
             variables_.put(StringList.concat(DataBase.VAR_PREFIX, Fight.BOOST),
                     Long.toString(b));
-            NumericableString<Rate> chNum_ = _data.createNumericableString(
+            EvolvedNumString chNum_ = _data.createNumericableString(
                     rateBoost_, variables_);
             chNum_.evaluateExp(false);
             if (!chNum_.isValid()) {
@@ -859,7 +860,7 @@ public final class CheckNumericStringsFight {
 
     private static void checkNumString(DataBase _data,
             StringMap<String> _variablesDiff, String _numString) {
-        NumericableString<Rate> num_ = _data.createNumericableString(
+        EvolvedNumString num_ = _data.createNumericableString(
                 _numString, _variablesDiff);
         checkIfVarPresent(_data, num_.beforeEvaluated());
         checkTranslations(_data, num_.beforeEvaluated());
@@ -880,7 +881,7 @@ public final class CheckNumericStringsFight {
             StringMap<String> vars_ = new StringMap<String>();
 
             vars_.put(varName_, String.valueOf(minLevel_));
-            NumericableString<Rate> chNum_ = _data.createNumericableString(
+            EvolvedNumString chNum_ = _data.createNumericableString(
                     formula_, vars_);
             chNum_.evaluateExp(false);
             if (!chNum_.isValid()) {
@@ -920,7 +921,7 @@ public final class CheckNumericStringsFight {
         vars_.put(Fight.FOE_PK_MAX_HP, LgInt.one().toNumberString());
         vars_.put(Fight.FOE_PK_REMOTE_HP, LgInt.one().toNumberString());
         String numericExp_ = _data.getCatchingFormula();
-        NumericableString<Rate> num_;
+        EvolvedNumString num_;
         num_ = _data.createNumericableString(numericExp_, vars_);
         num_.evaluateExp(true);
         if (!num_.isValid()) {

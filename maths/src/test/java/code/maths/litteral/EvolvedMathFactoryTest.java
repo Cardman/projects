@@ -2,7 +2,6 @@ package code.maths.litteral;
 
 import code.maths.Rate;
 import code.util.StringMap;
-import code.util.ints.NumericableString;
 import org.junit.Test;
 
 import static code.maths.EquallableMathUtil.assertEq;
@@ -28,7 +27,7 @@ public class EvolvedMathFactoryTest {
     @Test
     public void evaluateExpRate1Test() {
         EvolvedMathFactory e_ = new EvolvedMathFactory();
-        NumericableString<Rate> n_ = e_.createNumericableString("0", new StringMap<String>());
+        EvolvedNumString n_ = e_.createNumericableString("0", new StringMap<String>());
         n_.evaluateExp(false);
         assertEq(new Rate("0"),n_.getResult());
         assertEq("0",n_.beforeEvaluated());
@@ -39,7 +38,7 @@ public class EvolvedMathFactoryTest {
         EvolvedMathFactory e_ = new EvolvedMathFactory();
         StringMap<String> vars_ = new StringMap<String>();
         vars_.put("VARIABLE","0");
-        NumericableString<Rate> n_ = e_.createNumericableString("VARIABLE", vars_);
+        EvolvedNumString n_ = e_.createNumericableString("VARIABLE", vars_);
         n_.evaluateExp(false);
         assertEq(new Rate("0"),n_.getResult());
         assertEq("0",n_.beforeEvaluated());
@@ -49,7 +48,7 @@ public class EvolvedMathFactoryTest {
     public void evaluateExpRate3Test() {
         EvolvedMathFactory e_ = new EvolvedMathFactory();
         StringMap<String> vars_ = new StringMap<String>();
-        NumericableString<Rate> n_ = e_.createNumericableString("++", vars_);
+        EvolvedNumString n_ = e_.createNumericableString("++", vars_);
         n_.evaluateExp(false);
         assertEq(false,n_.isValid());
     }
@@ -61,7 +60,7 @@ public class EvolvedMathFactoryTest {
     @Test
     public void evaluateExpBoolean1Test() {
         EvolvedMathFactory e_ = new EvolvedMathFactory();
-        NumericableString<Boolean> n_ = e_.createBooleanString("F", new StringMap<String>());
+        EvolvedBooleanString n_ = e_.createBooleanString("F", new StringMap<String>());
         n_.evaluateExp(false);
         assertEq(false,n_.getResult());
         assertEq("F",n_.beforeEvaluated());
@@ -72,7 +71,7 @@ public class EvolvedMathFactoryTest {
         EvolvedMathFactory e_ = new EvolvedMathFactory();
         StringMap<String> vars_ = new StringMap<String>();
         vars_.put("VARIABLE","F");
-        NumericableString<Boolean> n_ = e_.createBooleanString("VARIABLE", vars_);
+        EvolvedBooleanString n_ = e_.createBooleanString("VARIABLE", vars_);
         n_.evaluateExp(false);
         assertEq(false,n_.getResult());
         assertEq("F",n_.beforeEvaluated());
@@ -82,7 +81,7 @@ public class EvolvedMathFactoryTest {
     public void evaluateExpBoolean3Test() {
         EvolvedMathFactory e_ = new EvolvedMathFactory();
         StringMap<String> vars_ = new StringMap<String>();
-        NumericableString<Boolean> n_ = e_.createBooleanString("++", vars_);
+        EvolvedBooleanString n_ = e_.createBooleanString("++", vars_);
         n_.evaluateExp(false);
         assertEq(false,n_.isValid());
     }

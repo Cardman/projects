@@ -113,7 +113,9 @@ import code.images.ConverterBufferedImage;
 import code.images.Image;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.maths.litteral.EvolvedBooleanString;
 import code.maths.litteral.EvolvedMathFactory;
+import code.maths.litteral.EvolvedNumString;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -129,7 +131,6 @@ import code.util.consts.Constants;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 import code.util.ints.MathFactory;
-import code.util.ints.NumericableString;
 import code.util.ints.WithMathFactory;
 import aiki.facade.enums.SelectedBoolean;
 
@@ -434,13 +435,13 @@ public class DataBase implements WithMathFactory {
         return standardMathFactory.getMaxRandomNb();
     }
 
-    public NumericableString<Rate> createNumericableString(
+    public EvolvedNumString createNumericableString(
             String _chaineNumerique, StringMap<String> _vars) {
         return standardMathFactory.createNumericableString(_chaineNumerique,
                 _vars);
     }
 
-    public NumericableString<Boolean> createBooleanString(
+    public EvolvedBooleanString createBooleanString(
             String _chaineBooleenne, StringMap<String> _vars) {
         return standardMathFactory.createBooleanString(_chaineBooleenne, _vars);
     }

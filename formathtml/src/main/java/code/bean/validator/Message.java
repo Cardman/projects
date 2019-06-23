@@ -20,7 +20,7 @@ public class Message {
     public static Message newStandardMessage(String _message) {
         Message message_ = new Message();
         message_.setMessage(_message);
-        message_.setArgs(new String[0]);
+        message_.setArgs();
         return message_;
     }
 

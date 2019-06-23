@@ -1,5 +1,6 @@
 package minirts.rts;
 
+import code.util.CustList;
 import code.util.EqList;
 
 public final class Facade {
@@ -76,7 +77,7 @@ public final class Facade {
         game.setyTopLeftScreen(_yTopLeftScreen);
     }
 
-    public EqList<UnitMapKey> getSoldierKeys() {
+    public CustList<UnitMapKey> getSoldierKeys() {
         return game.getSoldierKeys();
     }
 

@@ -3,10 +3,9 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.ints.AdvancedMathFactory;
-import code.util.ints.NumericableString;
+import code.util.ints.MathFactory;
 
-public final class EvolvedMathFactory implements AdvancedMathFactory<Rate> {
+public final class EvolvedMathFactory implements MathFactory {
 
     private final LgInt maxRd = LgInt.getMaxLongPlusOne();
 
@@ -55,34 +54,28 @@ public final class EvolvedMathFactory implements AdvancedMathFactory<Rate> {
         return (Boolean) MathUtil.processEl(_booleanExp, false, new StringMap<String>()).getObject();
     }
 
-    @Override
-    public NumericableString<Rate> createNumericableString(String _chaineNumerique,
+    public EvolvedNumString createNumericableString(String _chaineNumerique,
                                                            StringMap<String> _vars) {
         return new EvolvedNumString(_chaineNumerique, _vars);
     }
 
-    @Override
-    public NumericableString<Boolean> createBooleanString(String _chaineBooleenne,
+    public EvolvedBooleanString createBooleanString(String _chaineBooleenne,
             StringMap<String> _vars) {
         return new EvolvedBooleanString(_chaineBooleenne, _vars);
     }
 
-    @Override
     public String getTrueString() {
         return OperationNode.TRUE_STRING;
     }
 
-    @Override
     public String getFalseString() {
         return OperationNode.FALSE_STRING;
     }
 
-    @Override
     public char getSepartorSetChar() {
         return OperationNode.DELIMITER_STRING_SEP;
     }
 
-    @Override
     public Rate evaluateNumericable(String _numericString, StringMap<String> _variables,
             Rate _default) {
         Object obj_ = MathUtil.processEl(_numericString, false, _variables).getObject();
@@ -92,7 +85,6 @@ public final class EvolvedMathFactory implements AdvancedMathFactory<Rate> {
         return new Rate(_default);
     }
 
-    @Override
     public Rate evaluatePositiveOrZeroExp(String _numericString,
             StringMap<String> _variables, Rate _default) {
         Object obj_ = MathUtil.processEl(_numericString, false, _variables).getObject();
@@ -106,7 +98,6 @@ public final class EvolvedMathFactory implements AdvancedMathFactory<Rate> {
         return r_;
     }
 
-    @Override
     public Rate evaluatePositiveExp(String _numericString,
             StringMap<String> _variables, Rate _default) {
         Object obj_ = MathUtil.processEl(_numericString, false, _variables).getObject();
@@ -123,7 +114,6 @@ public final class EvolvedMathFactory implements AdvancedMathFactory<Rate> {
         return r_;
     }
 
-    @Override
     public Boolean evaluateBoolean(String _booleanString,
             StringMap<String> _variables, Boolean _default) {
         Object obj_ = MathUtil.processEl(_booleanString, false, _variables).getObject();

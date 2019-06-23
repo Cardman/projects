@@ -1,5 +1,6 @@
 package minirts.rts;
 
+import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.ObjectMap;
@@ -259,7 +260,7 @@ public final class Game {
         return new Rect(xTopLeftSelect, yTopLeftSelect, widthSelect, heightSelect);
     }
 
-    public EqList<UnitMapKey> getSoldierKeys() {
+    public CustList<UnitMapKey> getSoldierKeys() {
         return soldiers.getKeys();
     }
 
