@@ -1473,6 +1473,43 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         assertEq("pkg/Ex:5,48:224\npkg.Ex.$static catching();:0,0:0\n.;2", ret_.getString());
     }
     @Test
+    public void calculateArgument971Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String catching(){\n");
+        xml_.append("  $try{\n");
+        xml_.append("   MyValue n = $new MyValue():\n");
+        xml_.append("   n;.value = 1:\n");
+        xml_.append("   MyValue d = $new MyValue():\n");
+        xml_.append("   d;.value = 0:\n");
+        xml_.append("   $var i = (n;./d;.).value:\n");
+        xml_.append("   $return \"\":\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch(java.lang.Exception e){\n");
+        xml_.append("   $return e;..current()[0].toString()+';'+e;..current()[1].toString()+';'+e;..current().length:\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$operator/ pkg.MyValue(pkg.MyValue n, pkg.MyValue d){\n");
+        xml_.append(" pkg.MyValue r = $new pkg.MyValue():\n");
+        xml_.append(" r;.value = n;.;value/d;.;value:\n");
+        xml_.append(" $return r;.:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyValue {\n");
+        xml_.append(" $public $int value:\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq("pkg/Ex:8,9:172\npkg.Ex.$static catching();pkg/Ex:18,22:463\n.$static /(pkg.MyValue,pkg.MyValue);2", ret_.getString());
+    }
+    @Test
     public void calculateArgument98Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
