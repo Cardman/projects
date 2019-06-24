@@ -292,7 +292,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     String retBase_ = supCl_.getImportedReturnType();
                     String formattedRetDer_ = Templates.quickFormat(nameCl_, retBase_, _context);
                     String formattedRetBase_ = Templates.quickFormat(name_, retInt_, _context);
-                    if (supCl_ instanceof IndexerBlock) {
+                    if (((OverridableBlock)supCl_).getKind() != MethodKind.STD_METHOD) {
                         if (!StringList.quickEq(formattedRetBase_, formattedRetDer_)) {
                             BadReturnTypeInherit err_;
                             err_ = new BadReturnTypeInherit();
@@ -506,8 +506,8 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
 
     public final void validateIds(ContextEl _context) {
         EqList<MethodId> idMethods_ = new EqList<MethodId>();
-        CustList<IndexerBlock> indexersGet_ = new CustList<IndexerBlock>();
-        CustList<IndexerBlock> indexersSet_ = new CustList<IndexerBlock>();
+        CustList<OverridableBlock> indexersGet_ = new CustList<OverridableBlock>();
+        CustList<OverridableBlock> indexersSet_ = new CustList<OverridableBlock>();
         EqList<ConstructorId> idConstructors_ = new EqList<ConstructorId>();
         StringList idsField_ = new StringList();
         StringList idsAnnotMethods_ = new StringList();
@@ -562,41 +562,41 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             if (b instanceof Returnable) {
                 Returnable method_ = (Returnable) b;
                 String name_ = method_.getName();
-                if (method_ instanceof MethodBlock) {
-                    MethodBlock m_ = (MethodBlock) method_;
-                    m_.buildImportedTypes(_context);
-                    if (!_context.isValidToken(name_)) {
-                        int r_ = m_.getNameOffset();
-                        BadMethodName badMeth_ = new BadMethodName();
-                        badMeth_.setFileName(getFile().getFileName());
-                        badMeth_.setIndexFile(r_);
-                        badMeth_.setName(name_);
-                        _context.getClasses().addError(badMeth_);
-                    }
-                }
-                if (method_ instanceof IndexerBlock) {
-                    IndexerBlock i_ = (IndexerBlock) method_;
-                    if (i_.isStaticMethod()) {
-                        int where_ = b.getOffset().getOffsetTrim();
-                        UnexpectedTagName unexp_ = new UnexpectedTagName();
-                        unexp_.setFileName(getFile().getFileName());
-                        unexp_.setFoundTag(EMPTY_STRING);
-                        unexp_.setIndexFile(where_);
-                        _context.getClasses().addError(unexp_);
-                    }
-                    if (i_.getParametersTypes().isEmpty()) {
-                        int where_ = b.getOffset().getOffsetTrim();
-                        UnexpectedTagName unexp_ = new UnexpectedTagName();
-                        unexp_.setFileName(getFile().getFileName());
-                        unexp_.setFoundTag(EMPTY_STRING);
-                        unexp_.setIndexFile(where_);
-                        _context.getClasses().addError(unexp_);
-                    }
-                    i_.buildImportedTypes(_context);
-                    if (i_.isIndexerGet()) {
-                        indexersGet_.add(i_);
+                if (method_ instanceof OverridableBlock) {
+                    OverridableBlock m_ = (OverridableBlock) method_;
+                    if (m_.getKind() == MethodKind.STD_METHOD) {
+                        m_.buildImportedTypes(_context);
+                        if (!_context.isValidToken(name_)) {
+                            int r_ = m_.getNameOffset();
+                            BadMethodName badMeth_ = new BadMethodName();
+                            badMeth_.setFileName(getFile().getFileName());
+                            badMeth_.setIndexFile(r_);
+                            badMeth_.setName(name_);
+                            _context.getClasses().addError(badMeth_);
+                        }
                     } else {
-                        indexersSet_.add(i_);
+                        if (m_.isStaticMethod()) {
+                            int where_ = b.getOffset().getOffsetTrim();
+                            UnexpectedTagName unexp_ = new UnexpectedTagName();
+                            unexp_.setFileName(getFile().getFileName());
+                            unexp_.setFoundTag(EMPTY_STRING);
+                            unexp_.setIndexFile(where_);
+                            _context.getClasses().addError(unexp_);
+                        }
+                        if (m_.getParametersTypes().isEmpty()) {
+                            int where_ = b.getOffset().getOffsetTrim();
+                            UnexpectedTagName unexp_ = new UnexpectedTagName();
+                            unexp_.setFileName(getFile().getFileName());
+                            unexp_.setFoundTag(EMPTY_STRING);
+                            unexp_.setIndexFile(where_);
+                            _context.getClasses().addError(unexp_);
+                        }
+                        m_.buildImportedTypes(_context);
+                        if (m_.getKind() == MethodKind.GET_INDEX) {
+                            indexersGet_.add(m_);
+                        } else {
+                            indexersSet_.add(m_);
+                        }
                     }
                 }
                 if (method_ instanceof AnnotationMethodBlock) {
@@ -611,78 +611,80 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         _context.getClasses().addError(badMeth_);
                     }
                 }
-                if (method_ instanceof MethodBlock) {
-                    MethodId id_ = ((MethodBlock) method_).getId();
-                    if (this instanceof EnumBlock || this instanceof InnerElementBlock) {
-                        String aliasName_ = _context.getStandards().getAliasEnumName();
-                        String ordinal_ = _context.getStandards().getAliasEnumOrdinal();
-                        String valueOf_ = _context.getStandards().getAliasEnumPredValueOf();
-                        String values_ = _context.getStandards().getAliasEnumValues();
-                        String string_ = _context.getStandards().getAliasString();
-                        if (id_.eq(new MethodId(false, aliasName_, new StringList()))) {
-                            int r_ = method_.getOffset().getOffsetTrim();
-                            DuplicateMethod duplicate_;
-                            duplicate_ = new DuplicateMethod();
-                            duplicate_.setIndexFile(r_);
-                            duplicate_.setFileName(getFile().getFileName());
-                            duplicate_.setId(id_.getSignature(_context));
-                            _context.getClasses().addError(duplicate_);
+                if (method_ instanceof OverridableBlock) {
+                    OverridableBlock m_ = (OverridableBlock) method_;
+                    if (m_.getKind() == MethodKind.STD_METHOD) {
+                        MethodId id_ = m_.getId();
+                        if (this instanceof EnumBlock || this instanceof InnerElementBlock) {
+                            String aliasName_ = _context.getStandards().getAliasEnumName();
+                            String ordinal_ = _context.getStandards().getAliasEnumOrdinal();
+                            String valueOf_ = _context.getStandards().getAliasEnumPredValueOf();
+                            String values_ = _context.getStandards().getAliasEnumValues();
+                            String string_ = _context.getStandards().getAliasString();
+                            if (id_.eq(new MethodId(false, aliasName_, new StringList()))) {
+                                int r_ = m_.getOffset().getOffsetTrim();
+                                DuplicateMethod duplicate_;
+                                duplicate_ = new DuplicateMethod();
+                                duplicate_.setIndexFile(r_);
+                                duplicate_.setFileName(getFile().getFileName());
+                                duplicate_.setId(id_.getSignature(_context));
+                                _context.getClasses().addError(duplicate_);
+                            }
+                            if (id_.eq(new MethodId(false, ordinal_, new StringList()))) {
+                                int r_ = m_.getOffset().getOffsetTrim();
+                                DuplicateMethod duplicate_;
+                                duplicate_ = new DuplicateMethod();
+                                duplicate_.setIndexFile(r_);
+                                duplicate_.setFileName(getFile().getFileName());
+                                duplicate_.setId(id_.getSignature(_context));
+                                _context.getClasses().addError(duplicate_);
+                            }
+                            if (id_.eq(new MethodId(true, valueOf_, new StringList(string_)))) {
+                                int r_ = m_.getOffset().getOffsetTrim();
+                                DuplicateMethod duplicate_;
+                                duplicate_ = new DuplicateMethod();
+                                duplicate_.setIndexFile(r_);
+                                duplicate_.setFileName(getFile().getFileName());
+                                duplicate_.setId(id_.getSignature(_context));
+                                _context.getClasses().addError(duplicate_);
+                            }
+                            if (id_.eq(new MethodId(true, values_, new StringList()))) {
+                                int r_ = m_.getOffset().getOffsetTrim();
+                                DuplicateMethod duplicate_;
+                                duplicate_ = new DuplicateMethod();
+                                duplicate_.setIndexFile(r_);
+                                duplicate_.setFileName(className_);
+                                duplicate_.setId(id_.getSignature(_context));
+                                _context.getClasses().addError(duplicate_);
+                            }
                         }
-                        if (id_.eq(new MethodId(false, ordinal_, new StringList()))) {
-                            int r_ = method_.getOffset().getOffsetTrim();
-                            DuplicateMethod duplicate_;
-                            duplicate_ = new DuplicateMethod();
-                            duplicate_.setIndexFile(r_);
-                            duplicate_.setFileName(getFile().getFileName());
-                            duplicate_.setId(id_.getSignature(_context));
-                            _context.getClasses().addError(duplicate_);
+                        for (MethodId m: idMethods_) {
+                            if (m.eq(id_)) {
+                                int r_ = m_.getOffset().getOffsetTrim();
+                                DuplicateMethod duplicate_;
+                                duplicate_ = new DuplicateMethod();
+                                duplicate_.setIndexFile(r_);
+                                duplicate_.setFileName(getFile().getFileName());
+                                duplicate_.setId(id_.getSignature(_context));
+                                _context.getClasses().addError(duplicate_);
+                            }
                         }
-                        if (id_.eq(new MethodId(true, valueOf_, new StringList(string_)))) {
-                            int r_ = method_.getOffset().getOffsetTrim();
-                            DuplicateMethod duplicate_;
-                            duplicate_ = new DuplicateMethod();
-                            duplicate_.setIndexFile(r_);
-                            duplicate_.setFileName(getFile().getFileName());
-                            duplicate_.setId(id_.getSignature(_context));
-                            _context.getClasses().addError(duplicate_);
+                        idMethods_.add(id_);
+                    } else {
+                        MethodId id_ = m_.getId();
+                        for (MethodId m: idMethods_) {
+                            if (m.eq(id_)) {
+                                int r_ = m_.getOffset().getOffsetTrim();
+                                DuplicateMethod duplicate_;
+                                duplicate_ = new DuplicateMethod();
+                                duplicate_.setIndexFile(r_);
+                                duplicate_.setFileName(getFile().getFileName());
+                                duplicate_.setId(id_.getSignature(_context));
+                                _context.getClasses().addError(duplicate_);
+                            }
                         }
-                        if (id_.eq(new MethodId(true, values_, new StringList()))) {
-                            int r_ = method_.getOffset().getOffsetTrim();
-                            DuplicateMethod duplicate_;
-                            duplicate_ = new DuplicateMethod();
-                            duplicate_.setIndexFile(r_);
-                            duplicate_.setFileName(className_);
-                            duplicate_.setId(id_.getSignature(_context));
-                            _context.getClasses().addError(duplicate_);
-                        }
+                        idMethods_.add(id_);
                     }
-                    for (MethodId m: idMethods_) {
-                        if (m.eq(id_)) {
-                            int r_ = method_.getOffset().getOffsetTrim();
-                            DuplicateMethod duplicate_;
-                            duplicate_ = new DuplicateMethod();
-                            duplicate_.setIndexFile(r_);
-                            duplicate_.setFileName(getFile().getFileName());
-                            duplicate_.setId(id_.getSignature(_context));
-                            _context.getClasses().addError(duplicate_);
-                        }
-                    }
-                    idMethods_.add(id_);
-                }
-                if (method_ instanceof IndexerBlock) {
-                    MethodId id_ = ((IndexerBlock) method_).getId();
-                    for (MethodId m: idMethods_) {
-                        if (m.eq(id_)) {
-                            int r_ = method_.getOffset().getOffsetTrim();
-                            DuplicateMethod duplicate_;
-                            duplicate_ = new DuplicateMethod();
-                            duplicate_.setIndexFile(r_);
-                            duplicate_.setFileName(getFile().getFileName());
-                            duplicate_.setId(id_.getSignature(_context));
-                            _context.getClasses().addError(duplicate_);
-                        }
-                    }
-                    idMethods_.add(id_);
                 }
                 if (method_ instanceof AnnotationMethodBlock) {
                     String id_ = method_.getName();
@@ -726,9 +728,9 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         b_.setParamName(v);
                         _context.getClasses().addError(b_);
                     }
-                    if (method_ instanceof IndexerBlock) {
-                        IndexerBlock i_ = (IndexerBlock) method_;
-                        if (!i_.isIndexerGet()) {
+                    if (method_ instanceof OverridableBlock) {
+                        OverridableBlock i_ = (OverridableBlock) method_;
+                        if (i_.getKind() == MethodKind.SET_INDEX) {
                             if (StringList.quickEq(v,keyWordValue_)) {
                                 BadParamName b_;
                                 b_ = new BadParamName();
@@ -779,11 +781,11 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 }
             }
         }
-        for (IndexerBlock i: indexersGet_) {
+        for (OverridableBlock i: indexersGet_) {
             MethodId iOne_ = i.getId();
             boolean ok_ = false;
-            IndexerBlock set_ = null;
-            for (IndexerBlock j: indexersSet_) {
+            OverridableBlock set_ = null;
+            for (OverridableBlock j: indexersSet_) {
                 MethodId iTwo_ = j.getId();
                 if (iOne_.eqPartial(iTwo_)) {
                     ok_ = true;
@@ -816,10 +818,10 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 }
             }
         }
-        for (IndexerBlock i: indexersSet_) {
+        for (OverridableBlock i: indexersSet_) {
             MethodId iOne_ = i.getId();
             boolean ok_ = false;
-            for (IndexerBlock j: indexersGet_) {
+            for (OverridableBlock j: indexersGet_) {
                 MethodId iTwo_ = j.getId();
                 if (iOne_.eqPartial(iTwo_)) {
                     ok_ = true;
@@ -1070,10 +1072,10 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             vars_.put(t.getName(), t.getConstraints());
         }
         for (Block b: Classes.getDirectChildren(this)) {
-            if (!(b instanceof MethodBlock)) {
+            if (!(b instanceof OverridableBlock)) {
                 continue;
             }
-            MethodBlock mDer_ = (MethodBlock) b;
+            OverridableBlock mDer_ = (OverridableBlock) b;
             MethodId idFor_ = mDer_.getId();
             if (mDer_.isAbstractMethod()) {
                 if (mDer_.getFirstChild() != null) {

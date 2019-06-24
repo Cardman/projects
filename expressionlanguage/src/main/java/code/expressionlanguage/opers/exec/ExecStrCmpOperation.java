@@ -8,7 +8,7 @@ import code.expressionlanguage.opers.CmpOperation;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class ExecStrCmpOperation extends ExecReflectableOpering {
+public final class ExecStrCmpOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
 
     private String oper;
     private int opOffset;

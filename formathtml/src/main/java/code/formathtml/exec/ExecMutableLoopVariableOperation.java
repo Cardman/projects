@@ -9,7 +9,7 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LoopVariable;
 
-public final class ExecMutableLoopVariableOperation extends ExecVariableLeafOperation implements ExecSettableElResult {
+public final class ExecMutableLoopVariableOperation extends ExecLeafOperation implements DirectExecCalculableOperation,ExecSettableElResult {
 
     private boolean variable;
 

@@ -449,11 +449,8 @@ public final class Classes {
     public static CustList<GeneMethod> getMethodBlocks(RootBlock _element) {
         CustList<GeneMethod> methods_ = new CustList<GeneMethod>();
         for (Block b: Classes.getDirectChildren(_element)) {
-            if (b instanceof MethodBlock) {
-                methods_.add((MethodBlock) b);
-            }
-            if (b instanceof IndexerBlock) {
-                methods_.add((IndexerBlock) b);
+            if (b instanceof OverridableBlock) {
+                methods_.add((GeneMethod) b);
             }
             if (b instanceof AnnotationMethodBlock) {
                 methods_.add((AnnotationMethodBlock) b);
@@ -1760,9 +1757,12 @@ public final class Classes {
             String fullName_ = c.getFullName();
             CustList<Block> bl_ = getDirectChildren(c);
             for (Block b: bl_) {
-                if (b instanceof MethodBlock) {
+                if (!(b instanceof OverridableBlock)) {
+                    continue;
+                }
+                OverridableBlock method_ = (OverridableBlock) b;
+                if (method_.getKind() == MethodKind.STD_METHOD) {
                     page_.setGlobalClass(c.getGenericString());
-                    MethodBlock method_ = (MethodBlock) b;
                     _context.getCoverage().putCalls(_context,fullName_,method_);
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
@@ -1792,10 +1792,8 @@ public final class Classes {
                     method_.buildFctInstructions(_context);
                     page_.getParameters().clear();
                     page_.clearAllLocalVars();
-                }
-                if (b instanceof IndexerBlock) {
+                } else {
                     page_.setGlobalClass(c.getGenericString());
-                    IndexerBlock method_ = (IndexerBlock) b;
                     _context.getCoverage().putCalls(_context,fullName_,method_);
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
@@ -1822,15 +1820,15 @@ public final class Classes {
                         lv_.setClassName(StringList.concat(c_,VARARG));
                         page_.getParameters().put(p_, lv_);
                     }
-                    if (!method_.isIndexerGet()) {
+                    if (method_.getKind() == MethodKind.SET_INDEX) {
                         String p_ = _context.getKeyWords().getKeyWordValue();
-                        CustList<IndexerBlock> getIndexers_ = new CustList<IndexerBlock>();
+                        CustList<OverridableBlock> getIndexers_ = new CustList<OverridableBlock>();
                         for (Block d: Classes.getDirectChildren(c)) {
-                            if (!(d instanceof IndexerBlock)) {
+                            if (!(d instanceof OverridableBlock)) {
                                 continue;
                             }
-                            IndexerBlock i_ = (IndexerBlock) d;
-                            if (!i_.isIndexerGet()) {
+                            OverridableBlock i_ = (OverridableBlock) d;
+                            if (i_.getKind() == MethodKind.SET_INDEX) {
                                 continue;
                             }
                             if (!i_.getId().eqPartial(method_.getId())) {
@@ -1839,7 +1837,7 @@ public final class Classes {
                             getIndexers_.add(i_);
                         }
                         if (getIndexers_.size() == 1) {
-                            IndexerBlock matching_ = getIndexers_.first();
+                            OverridableBlock matching_ = getIndexers_.first();
                             String c_ = matching_.getImportedReturnType();
                             LocalVariable lv_ = new LocalVariable();
                             lv_.setClassName(c_);

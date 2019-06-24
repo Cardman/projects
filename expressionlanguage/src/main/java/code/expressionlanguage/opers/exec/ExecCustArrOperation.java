@@ -17,7 +17,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class ExecCustArrOperation extends ExecReflectableInvokingOperation implements ExecSettableElResult {
+public final class ExecCustArrOperation extends ExecInvokingOperation implements ExecSettableElResult {
 
     private boolean variable;
 
@@ -158,11 +158,10 @@ public final class ExecCustArrOperation extends ExecReflectableInvokingOperation
             methodId_ = methodToCall_.getConstraints();
             classNameFound_ = methodToCall_.getClassName();
         }
-        int offLoc_ = chidren_.last().getIndexInEl() + getIndexBegin();
         if (_right != null) {
             methodId_ = new MethodId(false,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
         }
-        return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, offLoc_,_right);
+        return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, _right);
     }
 
 }

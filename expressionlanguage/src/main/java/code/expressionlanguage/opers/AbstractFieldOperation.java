@@ -6,7 +6,7 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
 import code.util.StringList;
 
-public abstract class AbstractFieldOperation extends VariableLeafOperation implements PossibleIntermediateDotted {
+public abstract class AbstractFieldOperation extends LeafOperation implements PossibleIntermediateDotted {
 
     private ClassArgumentMatching previousResultClass;
     private boolean intermediate;

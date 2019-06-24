@@ -17,7 +17,7 @@ import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class SuperFctOperation extends ReflectableInvokingOperation {
+public final class SuperFctOperation extends InvokingOperation {
 
     private String methodName;
 

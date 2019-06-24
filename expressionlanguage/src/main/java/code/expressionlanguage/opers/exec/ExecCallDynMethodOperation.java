@@ -7,7 +7,7 @@ import code.expressionlanguage.opers.CallDynMethodOperation;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class ExecCallDynMethodOperation extends ExecReflectableInvokingOperation {
+public final class ExecCallDynMethodOperation extends ExecInvokingOperation {
 
     public ExecCallDynMethodOperation(CallDynMethodOperation _call) {
         super(_call);

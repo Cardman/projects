@@ -5,10 +5,9 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.ThisOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.structs.Struct;
 
-public final class ExecThisOperation extends ExecVariableLeafOperation implements ExecPossibleIntermediateDotted {
+public final class ExecThisOperation extends ExecLeafOperation implements DirectExecCalculableOperation,ExecPossibleIntermediateDotted {
 
     private boolean intermediate;
     private int nbAncestors;

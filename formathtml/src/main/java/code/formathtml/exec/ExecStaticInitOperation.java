@@ -6,7 +6,7 @@ import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.opers.StaticInitOperation;
 
-public final class ExecStaticInitOperation extends ExecVariableLeafOperation {
+public final class ExecStaticInitOperation extends ExecLeafOperation implements DirectExecCalculableOperation {
 
     private boolean possibleInitClass;
 

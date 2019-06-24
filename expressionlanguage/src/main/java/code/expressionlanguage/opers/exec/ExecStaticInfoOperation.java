@@ -6,7 +6,8 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.StaticInfoOperation;
 import code.util.IdMap;
 
-public final class ExecStaticInfoOperation extends ExecVariableLeafOperation {
+public final class ExecStaticInfoOperation extends ExecLeafOperation implements
+        AtomicExecCalculableOperation {
 
     private String className;
 

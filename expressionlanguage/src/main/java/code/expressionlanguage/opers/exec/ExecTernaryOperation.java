@@ -10,7 +10,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class ExecTernaryOperation extends ExecReflectableOpering {
+public final class ExecTernaryOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
 
     private int offsetLocal;
 

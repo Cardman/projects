@@ -11,7 +11,7 @@ import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class ExecArrOperation extends ExecReflectableInvokingOperation implements ExecSettableElResult {
+public final class ExecArrOperation extends ExecInvokingOperation implements ExecSettableElResult {
 
     private boolean variable;
 

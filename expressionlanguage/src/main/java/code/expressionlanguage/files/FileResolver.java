@@ -1958,17 +1958,24 @@ public final class FileResolver {
             if (meth_) {
                 String retType_ = declaringType_.trim();
                 String trimMeth_ = methodName_.trim();
+                MethodKind kind_;
+                OverridableBlock ov_;
                 if (StringList.quickEq(trimMeth_,_context.getKeyWords().getKeyWordThis())) {
                     boolean get_ = !StringList.quickEq(retType_,_context.getStandards().getAliasVoid());
                     if (!get_) {
+                        kind_ = MethodKind.SET_INDEX;
                         trimMeth_ = "[]=";
                     } else {
+                        kind_ = MethodKind.GET_INDEX;
                         trimMeth_ = "[]";
                     }
-                    br_ = new IndexerBlock(_context,get_, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(typeOffset_, retType_), new OffsetStringInfo(methodNameOffest_, trimMeth_), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_, modifier_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                    ov_ = new OverridableBlock(_context, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(typeOffset_, retType_), new OffsetStringInfo(methodNameOffest_, trimMeth_), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_, modifier_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                 } else {
-                    br_ = new MethodBlock(_context, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(typeOffset_, retType_), new OffsetStringInfo(methodNameOffest_, trimMeth_), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_, modifier_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                    kind_ = MethodKind.STD_METHOD;
+                    ov_ = new OverridableBlock(_context, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(typeOffset_, retType_), new OffsetStringInfo(methodNameOffest_, trimMeth_), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_, modifier_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                 }
+                ov_.setKind(kind_);
+                br_ = ov_;
             } else {
                 br_ = new ConstructorBlock(new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(accessOffest_, EMPTY_STRING), new OffsetStringInfo(accessOffest_, EMPTY_STRING), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
             }

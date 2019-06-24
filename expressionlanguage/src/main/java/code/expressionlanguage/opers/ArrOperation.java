@@ -18,7 +18,7 @@ import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
 
-public final class ArrOperation extends ReflectableInvokingOperation implements SettableElResult {
+public final class ArrOperation extends InvokingOperation implements SettableElResult {
 
     private boolean variable;
 

@@ -10,7 +10,7 @@ import code.util.CustList;
 import code.util.IdMap;
 
 
-public abstract class ExecQuickOperation extends ExecReflectableOpering {
+public abstract class ExecQuickOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
 
     public ExecQuickOperation(QuickOperation _q) {
         super(_q);

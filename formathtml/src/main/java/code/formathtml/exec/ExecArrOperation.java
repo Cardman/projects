@@ -9,7 +9,7 @@ import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
-public final class ExecArrOperation extends ExecReflectableInvokingOperation implements ExecSettableElResult {
+public final class ExecArrOperation extends ExecInvokingOperation implements DirectExecCalculableOperation,ExecSettableElResult {
 
     private boolean variable;
 

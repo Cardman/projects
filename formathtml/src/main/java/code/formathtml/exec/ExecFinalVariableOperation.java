@@ -13,7 +13,7 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 
-public final class ExecFinalVariableOperation extends ExecVariableLeafOperation {
+public final class ExecFinalVariableOperation extends ExecLeafOperation implements DirectExecCalculableOperation {
 
     private String variableName;
     private int off;

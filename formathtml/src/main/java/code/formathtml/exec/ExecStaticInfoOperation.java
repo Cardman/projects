@@ -7,7 +7,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.StaticInfoOperation;
 import code.expressionlanguage.opers.exec.ReductibleOperable;
 
-public final class ExecStaticInfoOperation extends ExecVariableLeafOperation implements ReductibleOperable {
+public final class ExecStaticInfoOperation extends ExecLeafOperation implements DirectExecCalculableOperation,ReductibleOperable {
 
     private String className;
 

@@ -10,7 +10,7 @@ import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.opers.CallDynMethodOperation;
 import code.util.CustList;
 
-public final class ExecCallDynMethodOperation extends ExecReflectableInvokingOperation {
+public final class ExecCallDynMethodOperation extends ExecInvokingOperation implements DirectExecCalculableOperation {
 
     public ExecCallDynMethodOperation(CallDynMethodOperation _call) {
         super(_call);

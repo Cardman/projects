@@ -3,14 +3,11 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.IndexerBlock;
-import code.expressionlanguage.methods.MemberCallingsBlock;
+import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
 
-public final class ValueOperation extends VariableLeafOperation {
+public final class ValueOperation extends LeafOperation {
     public ValueOperation(int _indexInEl, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
     }
@@ -18,16 +15,16 @@ public final class ValueOperation extends VariableLeafOperation {
     @Override
     public void analyze(Analyzable _conf) {
         MemberCallingsBlock fct_ = _conf.getAnalyzing().getCurrentFct();
-        IndexerBlock indexer_ = (IndexerBlock) fct_;
+        OverridableBlock indexer_ = (OverridableBlock) fct_;
         String gl_ = _conf.getGlobalClass();
         gl_ = Templates.getIdFromAllTypes(gl_);
-        CustList<IndexerBlock> getIndexers_ = new CustList<IndexerBlock>();
+        CustList<OverridableBlock> getIndexers_ = new CustList<OverridableBlock>();
         for (Block b: Classes.getDirectChildren(_conf.getClasses().getClassBody(gl_))) {
-            if (!(b instanceof IndexerBlock)) {
+            if (!(b instanceof OverridableBlock)) {
                 continue;
             }
-            IndexerBlock i_ = (IndexerBlock) b;
-            if (!i_.isIndexerGet()) {
+            OverridableBlock i_ = (OverridableBlock) b;
+            if (i_.getKind() == MethodKind.SET_INDEX) {
                 continue;
             }
             if (!i_.getId().eqPartial(indexer_.getId())) {
@@ -39,7 +36,7 @@ public final class ValueOperation extends VariableLeafOperation {
             setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
             return;
         }
-        IndexerBlock matching_ = getIndexers_.first();
+        OverridableBlock matching_ = getIndexers_.first();
         setResultClass(new ClassArgumentMatching(matching_.getImportedReturnType()));
     }
 }

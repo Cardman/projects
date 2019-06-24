@@ -20,7 +20,7 @@ import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
 
-public final class CmpOperation extends ReflectableOpering implements SymbolOperation {
+public final class CmpOperation extends MethodOperation implements SymbolOperation {
 
     private boolean stringCompare;
     private ClassMethodId classMethodId;

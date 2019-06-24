@@ -7,7 +7,7 @@ import code.expressionlanguage.opers.DotOperation;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class ExecDotOperation extends ExecReflectableOpering {
+public final class ExecDotOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
 
     public ExecDotOperation(DotOperation _d) {
         super(_d);

@@ -6,7 +6,7 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.ForwardOperation;
 import code.util.IdMap;
 
-public final class ExecForwardOperation extends ExecVariableLeafOperation implements ExecPossibleIntermediateDotted {
+public final class ExecForwardOperation extends ExecLeafOperation implements AtomicExecCalculableOperation,ExecPossibleIntermediateDotted {
     private boolean intermediate;
 
     ExecForwardOperation(ForwardOperation _v) {

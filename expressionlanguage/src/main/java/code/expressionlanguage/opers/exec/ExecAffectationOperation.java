@@ -7,7 +7,7 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AffectationOperation;
 import code.util.IdMap;
 
-public final class ExecAffectationOperation extends ExecReflectableOpering implements AffectationOperable {
+public final class ExecAffectationOperation extends ExecMethodOperation implements AtomicExecCalculableOperation, AffectationOperable {
 
     private ExecSettableElResult settable;
 

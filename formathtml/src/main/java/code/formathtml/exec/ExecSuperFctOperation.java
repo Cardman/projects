@@ -15,7 +15,7 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class ExecSuperFctOperation extends ExecReflectableInvokingOperation {
+public final class ExecSuperFctOperation extends ExecInvokingOperation implements DirectExecCalculableOperation {
 
     private String methodName;
 
@@ -109,10 +109,6 @@ public final class ExecSuperFctOperation extends ExecReflectableInvokingOperatio
                 return Argument.createVoid();
             }
         }
-        int offLoc_ = -1;
-        if (!chidren_.isEmpty()) {
-            offLoc_ = chidren_.last().getIndexInEl() + getIndexBegin();
-        }
-        return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, offLoc_, null);
+        return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
     }
 }

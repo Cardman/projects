@@ -647,11 +647,8 @@ public abstract class ContextEl implements ExecutableCode {
         }
         if (_element instanceof RootBlock) {
             for (Block b: Classes.getDirectChildren((RootBlock)_element)) {
-                if (b instanceof MethodBlock) {
+                if (b instanceof OverridableBlock) {
                     methods_.add((GeneMethod) b);
-                }
-                if (b instanceof IndexerBlock) {
-                    methods_.add((IndexerBlock) b);
                 }
                 if (b instanceof AnnotationMethodBlock) {
                     methods_.add((GeneMethod) b);

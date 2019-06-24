@@ -15,7 +15,7 @@ import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class CallDynMethodOperation extends ReflectableInvokingOperation {
+public final class CallDynMethodOperation extends InvokingOperation {
 
     public CallDynMethodOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {

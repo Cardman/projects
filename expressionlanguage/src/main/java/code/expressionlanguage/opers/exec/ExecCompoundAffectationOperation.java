@@ -10,7 +10,7 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class ExecCompoundAffectationOperation extends ExecReflectableOpering implements CallExecSimpleOperation {
+public final class ExecCompoundAffectationOperation extends ExecMethodOperation implements AtomicExecCalculableOperation, CallExecSimpleOperation {
 
     private ExecSettableElResult settable;
     private String oper;
@@ -41,7 +41,7 @@ public final class ExecCompoundAffectationOperation extends ExecReflectableOperi
             arguments_.add(rightArg_);
             CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
             MethodId id_ = classMethodId.getConstraints();
-            ExecInvokingOperation.checkParameters(_conf, "", id_, null, firstArgs_, 0,false,false,null,null);
+            ExecInvokingOperation.checkParameters(_conf, "", id_, null, firstArgs_, false,false,null,null);
             return;
         }
         Argument arg_ = settable.calculateCompoundSetting(_nodes, _conf, oper, rightArg_);

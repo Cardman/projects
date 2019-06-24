@@ -125,7 +125,7 @@ public final class StandardInstancingOperation extends
             m_ = current_.getParent();
         }
         while (m_ != null) {
-            if (!(m_ instanceof AbstractArrayElementOperation)) {
+            if (!(m_ instanceof ElementArrayInstancing) && !(m_ instanceof InferArrayInstancing)) {
                 if (m_ instanceof IdOperation) {
                     current_ = current_.getParent();
                     m_ = m_.getParent();

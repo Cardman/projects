@@ -1439,7 +1439,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("pkg/Ex:4,47:114\npkg.Ex.$static catching();pkg/Ex:13,2:310\npkg.ExTwo.;2", ret_.getString());
+        assertEq("pkg/Ex:4,27:94\npkg.Ex.$static catching();pkg/Ex:13,2:310\npkg.ExTwo.;2", ret_.getString());
     }
     @Test
     public void calculateArgument97Test() {
@@ -1470,7 +1470,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("pkg/Ex:5,48:224\npkg.Ex.$static catching();:0,0:0\n.;2", ret_.getString());
+        assertEq("pkg/Ex:5,23:199\npkg.Ex.$static catching();:0,0:0\n.;2", ret_.getString());
     }
     @Test
     public void calculateArgument971Test() {
@@ -1507,7 +1507,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("pkg/Ex:8,9:172\npkg.Ex.$static catching();pkg/Ex:18,22:463\n.$static /(pkg.MyValue,pkg.MyValue);2", ret_.getString());
+        assertEq("pkg/Ex:8,17:180\npkg.Ex.$static catching();pkg/Ex:18,22:463\n.$static /(pkg.MyValue,pkg.MyValue);2", ret_.getString());
     }
     @Test
     public void calculateArgument98Test() {
@@ -1569,7 +1569,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("java.lang.$invokeTaget\n\npkg/Ex:5,48:224\npkg.Ex.$static catching()\n:0,0:0\n.", ret_.getString());
+        assertEq("java.lang.$invokeTaget\n\npkg/Ex:5,23:199\npkg.Ex.$static catching()\n:0,0:0\n.", ret_.getString());
     }
     @Test
     public void calculateArgument100Test() {

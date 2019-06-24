@@ -3,7 +3,7 @@ package code.formathtml.exec;
 import code.expressionlanguage.opers.IdFctOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
 
-public final class ExecIdFctOperation extends ExecConstLeafOperation {
+public final class ExecIdFctOperation extends ExecLeafOperation {
 
     private ClassMethodId method;
 

@@ -13,7 +13,7 @@ import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.util.*;
 
-public final class CompoundAffectationOperation extends ReflectableOpering {
+public final class CompoundAffectationOperation extends MethodOperation {
 
     private SettableElResult settable;
     private String oper;

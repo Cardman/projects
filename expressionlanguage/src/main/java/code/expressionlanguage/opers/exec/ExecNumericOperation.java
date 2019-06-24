@@ -12,7 +12,7 @@ import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.StringList;
 
-public abstract class ExecNumericOperation extends ExecReflectableOpering {
+public abstract class ExecNumericOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
     private int opOffset;
 
     public ExecNumericOperation(SymbolOperation _n) {

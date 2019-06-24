@@ -11,7 +11,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.*;
 
-public abstract class NumericOperation extends ReflectableOpering implements SymbolOperation {
+public abstract class NumericOperation extends MethodOperation implements SymbolOperation {
     private ClassMethodId classMethodId;
     private String op;
     private int opOffset;

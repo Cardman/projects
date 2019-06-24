@@ -15,8 +15,7 @@ import code.expressionlanguage.stds.ResultErrorStd;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class ExecStandardInstancingOperation extends
-        ExecAbstractInstancingOperation {
+public final class ExecStandardInstancingOperation extends ExecInvokingOperation implements DirectExecCalculableOperation {
 
     private boolean possibleInitClass;
 

@@ -2622,10 +2622,10 @@ public final class FormatHtml {
         attributes_ = new StringMap<AttributePart>();
         StringBuilder str_ = new StringBuilder();
         int beginToken_ = _from;
-        char delimiter_ = 0;
+        int delimiter_ = -1;
         for (int i = _from; i < _to; i++) {
             char ch_ = _html.charAt(i);
-            if (delimiter_ == 0) {
+            if (delimiter_ == -1) {
                 if (ch_ == APOS) {
                     delimiter_ = ch_;
                     beginToken_ = i + 1;
@@ -2640,11 +2640,11 @@ public final class FormatHtml {
                     attrPart_.setEnd(i);
                     attributes_.put(str_.toString(), attrPart_);
                     str_ = new StringBuilder();
-                    delimiter_ = 0;
+                    delimiter_ = -1;
                     continue;
                 }
             }
-            if (delimiter_ == 0) {
+            if (delimiter_ == -1) {
                 if (Character.isWhitespace(ch_) || ch_ == EQUALS) {
                     continue;
                 }

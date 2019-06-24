@@ -18,7 +18,7 @@ import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class VariableOperation extends VariableLeafOperation implements
+public final class VariableOperation extends LeafOperation implements
         SettableElResult {
 
     private boolean variable;

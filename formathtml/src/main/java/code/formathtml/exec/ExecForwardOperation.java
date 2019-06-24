@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.ForwardOperation;
 
-public final class ExecForwardOperation extends ExecVariableLeafOperation implements ExecPossibleIntermediateDotted {
+public final class ExecForwardOperation extends ExecLeafOperation implements DirectExecCalculableOperation,ExecPossibleIntermediateDotted {
     private boolean intermediate;
     private Argument previousArgument;
 

@@ -10,7 +10,7 @@ import code.expressionlanguage.opers.ThisOperation;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
-public final class ExecThisOperation extends ExecVariableLeafOperation implements ExecPossibleIntermediateDotted {
+public final class ExecThisOperation extends ExecLeafOperation implements AtomicExecCalculableOperation,ExecPossibleIntermediateDotted {
 
     private boolean intermediate;
     private int nbAncestors;

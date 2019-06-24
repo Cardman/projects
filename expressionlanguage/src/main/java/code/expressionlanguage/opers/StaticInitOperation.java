@@ -8,7 +8,7 @@ import code.expressionlanguage.opers.exec.StaticInitOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.StringList;
 
-public final class StaticInitOperation extends VariableLeafOperation implements StaticInitOperable {
+public final class StaticInitOperation extends LeafOperation implements StaticInitOperable {
 
     private boolean possibleInitClass;
     private String methodName;

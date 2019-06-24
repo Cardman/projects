@@ -12,7 +12,7 @@ import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class FinalVariableOperation extends VariableLeafOperation {
+public final class FinalVariableOperation extends LeafOperation {
 
     private String variableName = EMPTY_STRING;
     private int off;

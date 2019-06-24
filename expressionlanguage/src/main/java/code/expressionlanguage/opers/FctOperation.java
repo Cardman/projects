@@ -25,7 +25,7 @@ import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class FctOperation extends ReflectableInvokingOperation {
+public final class FctOperation extends InvokingOperation {
 
     private String methodName;
 

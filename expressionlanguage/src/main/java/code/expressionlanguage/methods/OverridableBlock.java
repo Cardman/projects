@@ -17,7 +17,7 @@ import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 
-public abstract class OverridableBlock extends NamedFunctionBlock implements GeneMethod,ReturnableWithSignature {
+public final class OverridableBlock extends NamedFunctionBlock implements GeneMethod,ReturnableWithSignature {
 
     private int modifierOffset;
 
@@ -27,6 +27,7 @@ public abstract class OverridableBlock extends NamedFunctionBlock implements Gen
     private final boolean abstractMethod;
 
     private final boolean normalMethod;
+    private MethodKind kind;
 
     public OverridableBlock(ContextEl _importingPage,
                             OffsetAccessInfo _access,
@@ -148,5 +149,13 @@ public abstract class OverridableBlock extends NamedFunctionBlock implements Gen
             pTypes_.add(formatted_);
         }
         return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
+    }
+
+    public MethodKind getKind() {
+        return kind;
+    }
+
+    public void setKind(MethodKind _kind) {
+        kind = _kind;
     }
 }

@@ -139,11 +139,11 @@ public abstract class ExecDynOperationNode implements Operable {
         }
         if (_anaNode instanceof InferArrayInstancing) {
             InferArrayInstancing i_ = (InferArrayInstancing) _anaNode;
-            return new ExecInferArrayInstancing(i_);
+            return new ExecArrayElementOperation(i_);
         }
         if (_anaNode instanceof ElementArrayInstancing) {
             ElementArrayInstancing e_ = (ElementArrayInstancing) _anaNode;
-            return new ExecElementArrayInstancing(e_);
+            return new ExecArrayElementOperation(e_);
         }
         if (_anaNode instanceof DimensionArrayInstancing) {
             DimensionArrayInstancing d_ = (DimensionArrayInstancing) _anaNode;

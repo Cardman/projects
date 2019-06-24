@@ -14,7 +14,7 @@ import code.util.IdMap;
 import code.util.StringList;
 
 public final class ExecStandardInstancingOperation extends
-        ExecAbstractInstancingOperation {
+        ExecInvokingOperation {
 
     private boolean possibleInitClass;
 

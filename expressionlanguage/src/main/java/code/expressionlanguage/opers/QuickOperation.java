@@ -12,7 +12,7 @@ import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 
-public abstract class QuickOperation extends ReflectableOpering {
+public abstract class QuickOperation extends MethodOperation {
 
     private boolean okNum;
 

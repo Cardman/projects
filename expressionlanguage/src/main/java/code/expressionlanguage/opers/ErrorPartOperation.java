@@ -5,7 +5,7 @@ import code.expressionlanguage.errors.custom.EmptyPartError;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 
-public final class ErrorPartOperation extends ConstLeafOperation {
+public final class ErrorPartOperation extends LeafOperation {
 
     public ErrorPartOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {

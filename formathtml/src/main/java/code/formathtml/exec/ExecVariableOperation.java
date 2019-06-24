@@ -9,8 +9,8 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 
-public final class ExecVariableOperation extends ExecVariableLeafOperation implements
-        ExecSettableElResult {
+public final class ExecVariableOperation extends ExecLeafOperation implements
+        DirectExecCalculableOperation,ExecSettableElResult {
 
     private boolean variable;
 

@@ -14,7 +14,7 @@ import code.expressionlanguage.structs.LambdaFieldStruct;
 import code.expressionlanguage.structs.LambdaMethodStruct;
 import code.util.IdMap;
 
-public final class ExecLambdaOperation extends ExecVariableLeafOperation implements ExecPossibleIntermediateDotted {
+public final class ExecLambdaOperation extends ExecLeafOperation implements AtomicExecCalculableOperation,ExecPossibleIntermediateDotted {
 
     private boolean intermediate;
     private Argument previousArgument;

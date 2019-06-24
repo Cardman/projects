@@ -8,7 +8,7 @@ import code.expressionlanguage.opers.AbstractArrayInstancingOperation;
 import code.util.CustList;
 import code.util.IdMap;
 
-public abstract class ExecAbstractArrayInstancingOperation extends ExecAbstractInstancingOperation {
+public abstract class ExecAbstractArrayInstancingOperation extends ExecInvokingOperation {
     private String methodName;
 
     private String className;

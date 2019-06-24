@@ -7,7 +7,7 @@ import code.expressionlanguage.opers.exec.ParentOperable;
 import code.util.CustList;
 import code.util.*;
 
-public final class DotOperation extends ReflectableOpering {
+public final class DotOperation extends MethodOperation {
 
     public DotOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {

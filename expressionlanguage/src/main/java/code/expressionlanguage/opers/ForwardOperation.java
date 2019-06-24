@@ -14,7 +14,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class ForwardOperation extends VariableLeafOperation implements PossibleIntermediateDotted {
+public final class ForwardOperation extends LeafOperation implements PossibleIntermediateDotted {
 
     private ClassArgumentMatching previousResultClass;
     private boolean intermediate;

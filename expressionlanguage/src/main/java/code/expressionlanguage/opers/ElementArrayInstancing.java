@@ -13,7 +13,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class ElementArrayInstancing extends AbstractArrayElementOperation {
+public final class ElementArrayInstancing extends AbstractArrayInstancingOperation {
 
     public ElementArrayInstancing(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {

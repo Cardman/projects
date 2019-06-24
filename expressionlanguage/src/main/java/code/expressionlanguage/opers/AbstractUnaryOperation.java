@@ -9,7 +9,7 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 
-public abstract class AbstractUnaryOperation extends ReflectableOpering {
+public abstract class AbstractUnaryOperation extends MethodOperation {
 
     public AbstractUnaryOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {

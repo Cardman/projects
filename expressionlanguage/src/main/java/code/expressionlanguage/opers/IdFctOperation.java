@@ -12,7 +12,7 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.util.StringList;
 
-public final class IdFctOperation extends ConstLeafOperation {
+public final class IdFctOperation extends LeafOperation {
 
     private String className;
     private int offset;

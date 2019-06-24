@@ -14,7 +14,7 @@ import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class ConstantOperation extends ConstLeafOperation {
+public final class ConstantOperation extends LeafOperation {
 
     public ConstantOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);

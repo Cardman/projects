@@ -23,7 +23,7 @@ import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 
-public abstract class AbstractTernaryOperation extends ReflectableOpering {
+public abstract class AbstractTernaryOperation extends MethodOperation {
 
     private static final int BOOLEAN_ARGS = 3;
 

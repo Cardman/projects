@@ -6,9 +6,8 @@ import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.opers.AbstractFieldOperation;
 import code.expressionlanguage.opers.exec.ReductibleOperable;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
 
-public abstract class ExecAbstractFieldOperation extends ExecVariableLeafOperation implements ExecPossibleIntermediateDotted, ReductibleOperable {
+public abstract class ExecAbstractFieldOperation extends ExecLeafOperation implements DirectExecCalculableOperation,ExecPossibleIntermediateDotted, ReductibleOperable {
 
     private boolean intermediate;
 

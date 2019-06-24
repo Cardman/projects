@@ -9,7 +9,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class ExecEqOperation extends ExecReflectableOpering {
+public final class ExecEqOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
 
     private String oper;
     public ExecEqOperation(EqOperation _e) {

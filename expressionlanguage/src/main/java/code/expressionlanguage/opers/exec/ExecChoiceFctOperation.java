@@ -15,7 +15,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class ExecChoiceFctOperation extends ExecReflectableInvokingOperation {
+public final class ExecChoiceFctOperation extends ExecInvokingOperation {
 
     private String methodName;
 
@@ -86,11 +86,7 @@ public final class ExecChoiceFctOperation extends ExecReflectableInvokingOperati
                 return Argument.createVoid();
             }
         }
-        int offLoc_ = -1;
-        if (!chidren_.isEmpty()) {
-            offLoc_ = chidren_.last().getIndexInEl() + getIndexBegin();
-        }
-        return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, offLoc_,null);
+        return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
     }
 
     public ClassMethodId getClassMethodId() {

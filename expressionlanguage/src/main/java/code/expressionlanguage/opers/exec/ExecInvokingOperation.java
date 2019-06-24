@@ -180,7 +180,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (_format) {
             className_ = page_.formatVarType(className_, _conf);
         }
-        if (!Templates.okArgs(_constId,className_,_arguments,-1,_conf,null)) {
+        if (!Templates.okArgs(_constId,className_,_arguments, _conf,null)) {
             return new Argument();
         }
         if (!_conf.getClasses().isCustomType(base_)) {
@@ -224,8 +224,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         return new ClassMethodId(classNameFound_, methodId_);
     }
-    public static Argument callPrepare(ExecutableCode _conf, String _classNameFound, MethodId _methodId, Argument _previous, CustList<Argument> _firstArgs, int _possibleOffset, Argument _right) {
-        checkParameters(_conf, _classNameFound, _methodId, _previous, _firstArgs, _possibleOffset,false,true,null, _right);
+    public static Argument callPrepare(ExecutableCode _conf, String _classNameFound, MethodId _methodId, Argument _previous, CustList<Argument> _firstArgs, Argument _right) {
+        checkParameters(_conf, _classNameFound, _methodId, _previous, _firstArgs, false,true,null, _right);
         LgNames stds_ = _conf.getStandards();
         String cast_;
         cast_ = stds_.getAliasCast();
@@ -541,7 +541,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return Argument.createVoid();
     }
 
-    static void checkParameters(ExecutableCode _conf, String _classNameFound, Identifiable _methodId, Argument _previous, CustList<Argument> _firstArgs, int _possibleOffset, boolean _ctor, boolean _method,InstancingStep _kindCall, Argument _right) {
+    static void checkParameters(ExecutableCode _conf, String _classNameFound, Identifiable _methodId, Argument _previous, CustList<Argument> _firstArgs, boolean _ctor, boolean _method, InstancingStep _kindCall, Argument _right) {
         LgNames stds_ = _conf.getStandards();
         String cast_;
         cast_ = stds_.getAliasCast();
@@ -556,7 +556,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 }
             }
         }
-        if (!Templates.okArgs(_methodId,classFormat_,_firstArgs,_possibleOffset,_conf, _right)) {
+        if (!Templates.okArgs(_methodId,classFormat_,_firstArgs, _conf, _right)) {
             return;
         }
         if (_method) {

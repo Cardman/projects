@@ -50,7 +50,7 @@ public final class DimensionArrayInstancing extends
         current_ = this;
         m_ = getParent();
         while (m_ != null) {
-            if (!(m_ instanceof AbstractArrayElementOperation)) {
+            if (!(m_ instanceof ElementArrayInstancing) && !(m_ instanceof InferArrayInstancing)) {
                 if (m_ instanceof IdOperation) {
                     current_ = current_.getParent();
                     m_ = m_.getParent();

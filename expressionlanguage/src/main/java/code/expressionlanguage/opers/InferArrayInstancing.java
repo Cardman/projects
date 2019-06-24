@@ -15,7 +15,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class InferArrayInstancing extends AbstractArrayElementOperation {
+public final class InferArrayInstancing extends AbstractArrayInstancingOperation {
 
     InferArrayInstancing(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -32,7 +32,7 @@ public final class InferArrayInstancing extends AbstractArrayElementOperation {
         OperationNode current_ = this;
         MethodOperation m_ = getParent();
         while (m_ != null) {
-            if (!(m_ instanceof AbstractArrayElementOperation)) {
+            if (!(m_ instanceof ElementArrayInstancing) && !(m_ instanceof InferArrayInstancing)) {
                 if (m_ instanceof IdOperation) {
                     current_ = current_.getParent();
                     m_ = m_.getParent();

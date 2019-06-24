@@ -12,7 +12,7 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.IdMap;
 
-public final class ExecMutableLoopVariableOperation extends ExecVariableLeafOperation implements ExecSettableElResult {
+public final class ExecMutableLoopVariableOperation extends ExecLeafOperation implements AtomicExecCalculableOperation,ExecSettableElResult {
 
     private boolean variable;
 

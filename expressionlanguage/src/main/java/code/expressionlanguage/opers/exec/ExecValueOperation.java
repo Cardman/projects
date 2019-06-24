@@ -7,7 +7,8 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.ValueOperation;
 import code.util.IdMap;
 
-public final class ExecValueOperation extends ExecVariableLeafOperation {
+public final class ExecValueOperation extends ExecLeafOperation implements
+        AtomicExecCalculableOperation {
     public ExecValueOperation(ValueOperation _v) {
         super(_v);
     }

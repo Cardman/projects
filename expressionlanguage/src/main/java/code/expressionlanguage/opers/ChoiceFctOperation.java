@@ -13,7 +13,7 @@ import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
 
-public final class ChoiceFctOperation extends ReflectableInvokingOperation {
+public final class ChoiceFctOperation extends InvokingOperation {
 
     private String methodName;
 

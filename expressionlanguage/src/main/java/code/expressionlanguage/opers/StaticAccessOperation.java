@@ -11,7 +11,7 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class StaticAccessOperation extends ConstLeafOperation {
+public final class StaticAccessOperation extends LeafOperation {
 
     public StaticAccessOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {

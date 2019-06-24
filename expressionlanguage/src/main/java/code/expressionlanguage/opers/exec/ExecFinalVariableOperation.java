@@ -16,7 +16,8 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.IdMap;
 
-public final class ExecFinalVariableOperation extends ExecVariableLeafOperation {
+public final class ExecFinalVariableOperation extends ExecLeafOperation implements
+        AtomicExecCalculableOperation {
 
     private String variableName;
     private int off;

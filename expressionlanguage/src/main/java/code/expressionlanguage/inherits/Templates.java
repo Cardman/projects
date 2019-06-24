@@ -1103,7 +1103,7 @@ public final class Templates {
             arr_[i] = _args.get(i).getStruct();
         }
     }
-    public static boolean okArgs(Identifiable _id, String _classNameFound,CustList<Argument> _firstArgs, int _possibleOffset,ExecutableCode _conf, Argument _right) {
+    public static boolean okArgs(Identifiable _id, String _classNameFound, CustList<Argument> _firstArgs, ExecutableCode _conf, Argument _right) {
         StringList params_ = new StringList();
         if (!_id.isStaticMethod()) {
             int i_ = 0;
@@ -1129,9 +1129,6 @@ public final class Templates {
         }
         int i_ = CustList.FIRST_INDEX;
         for (Argument a: _firstArgs) {
-            if (_possibleOffset > -1) {
-                _conf.setOffset(_possibleOffset);
-            }
             String param_ = params_.get(i_);
             if (!Templates.checkObject(param_, a, _conf)) {
                 return false;

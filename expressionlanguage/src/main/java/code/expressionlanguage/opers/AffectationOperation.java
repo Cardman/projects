@@ -21,7 +21,7 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.*;
 
-public final class AffectationOperation extends ReflectableOpering implements AffectationOperable {
+public final class AffectationOperation extends MethodOperation implements AffectationOperable {
 
     private SettableElResult settable;
 

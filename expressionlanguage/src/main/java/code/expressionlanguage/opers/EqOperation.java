@@ -14,7 +14,7 @@ import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
 
-public final class EqOperation extends ReflectableOpering implements SymbolOperation {
+public final class EqOperation extends MethodOperation implements SymbolOperation {
 
     private String oper;
     private ClassMethodId classMethodId;

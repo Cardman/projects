@@ -3,7 +3,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.util.*;
 
-public abstract class AbstractInstancingOperation extends ReflectableInvokingOperation {
+public abstract class AbstractInstancingOperation extends InvokingOperation {
 
     public AbstractInstancingOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {

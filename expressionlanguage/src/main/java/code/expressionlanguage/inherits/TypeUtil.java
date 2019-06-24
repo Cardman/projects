@@ -381,7 +381,7 @@ public final class TypeUtil {
                         classesRef_.addError(err_);
                         continue;
                     }
-                    if (sub_ instanceof IndexerBlock) {
+                    if (((OverridableBlock)sub_).getKind() != MethodKind.STD_METHOD) {
                         if (!StringList.quickEq(formattedRetBase_, formattedRetDer_)) {
                             BadReturnTypeInherit err_;
                             err_ = new BadReturnTypeInherit();

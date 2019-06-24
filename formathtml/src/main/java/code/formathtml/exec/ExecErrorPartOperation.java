@@ -2,7 +2,7 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.opers.ErrorPartOperation;
 
-public final class ExecErrorPartOperation extends ExecConstLeafOperation {
+public final class ExecErrorPartOperation extends ExecLeafOperation {
 
     public ExecErrorPartOperation(ErrorPartOperation _e) {
         super(_e);

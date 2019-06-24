@@ -16,7 +16,7 @@ import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class MutableLoopVariableOperation extends VariableLeafOperation implements SettableElResult {
+public final class MutableLoopVariableOperation extends LeafOperation implements SettableElResult {
 
     private boolean variable;
 

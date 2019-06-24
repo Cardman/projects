@@ -203,9 +203,9 @@ public abstract class OperationNode implements Operable {
             }
             if (ct_ == ConstType.PARAM) {
                 MemberCallingsBlock fct_ = _an.getAnalyzing().getCurrentFct();
-                if (fct_ instanceof IndexerBlock) {
-                    IndexerBlock indexer_ = (IndexerBlock) fct_;
-                    if (!indexer_.isIndexerGet()) {
+                if (fct_ instanceof OverridableBlock) {
+                    OverridableBlock indexer_ = (OverridableBlock) fct_;
+                    if (indexer_.getKind() == MethodKind.SET_INDEX) {
                         String keyWordValue_ = keyWords_.getKeyWordValue();
                         if (StringList.quickEq(keyWordValue_, str_)) {
                             return new ValueOperation(_index, _indexChild, _m, _op);

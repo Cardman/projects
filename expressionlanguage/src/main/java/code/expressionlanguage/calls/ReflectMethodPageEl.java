@@ -102,7 +102,7 @@ public final class ReflectMethodPageEl extends AbstractReflectPageEl {
                 args_ = args_.mid(0,args_.size()-1);
             }
             setWrapException(false);
-            Argument arg_ = ExecInvokingOperation.callPrepare(_context, className_, mid_, instance_, args_, -1,right_);
+            Argument arg_ = ExecInvokingOperation.callPrepare(_context, className_, mid_, instance_, args_, right_);
             if (_context.getInitClass() != null) {
                 setWrapException(true);
                 return false;

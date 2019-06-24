@@ -10,10 +10,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.methods.AccessingImportingBlock;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.IndexerBlock;
+import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
@@ -21,7 +18,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class LambdaOperation extends VariableLeafOperation implements PossibleIntermediateDotted {
+public final class LambdaOperation extends LeafOperation implements PossibleIntermediateDotted {
 
     private ClassArgumentMatching previousResultClass;
     private boolean intermediate;
@@ -1140,14 +1137,14 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
             }
         }
         if (StringList.quickEq(id_.getName(),"[]=")) {
-            CustList<IndexerBlock> getIndexers_ = new CustList<IndexerBlock>();
+            CustList<OverridableBlock> getIndexers_ = new CustList<OverridableBlock>();
             String idCl_ = Templates.getIdFromAllTypes(_id.getRealClass());
             for (Block b: Classes.getDirectChildren(_an.getClasses().getClassBody(idCl_))) {
-                if (!(b instanceof IndexerBlock)) {
+                if (!(b instanceof OverridableBlock)) {
                     continue;
                 }
-                IndexerBlock i_ = (IndexerBlock) b;
-                if (!i_.isIndexerGet()) {
+                OverridableBlock i_ = (OverridableBlock) b;
+                if (i_.getKind() == MethodKind.SET_INDEX) {
                     continue;
                 }
                 if (!i_.getId().eqPartial(_id.getRealId())) {
@@ -1156,7 +1153,7 @@ public final class LambdaOperation extends VariableLeafOperation implements Poss
                 getIndexers_.add(i_);
             }
             if (getIndexers_.size() == 1) {
-                IndexerBlock matching_ = getIndexers_.first();
+                OverridableBlock matching_ = getIndexers_.first();
                 String importedReturnType_ = matching_.getImportedReturnType();
                 String real_ = _id.getRealClass();
                 importedReturnType_ = Templates.wildCardFormatReturn(false, real_, importedReturnType_, _an);

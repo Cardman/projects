@@ -6,7 +6,7 @@ import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.opers.ValuesOperation;
 
-public final class ExecValuesOperation extends ExecVariableLeafOperation {
+public final class ExecValuesOperation extends ExecLeafOperation implements DirectExecCalculableOperation {
 
     private String className;
     private int argOffset;

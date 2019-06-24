@@ -12,8 +12,8 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.IdMap;
 
-public final class ExecVariableOperation extends ExecVariableLeafOperation implements
-        ExecSettableElResult {
+public final class ExecVariableOperation extends ExecLeafOperation implements
+        AtomicExecCalculableOperation,ExecSettableElResult {
 
     private boolean variable;
 

@@ -6,7 +6,7 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.StaticInitOperation;
 import code.util.IdMap;
 
-public final class ExecStaticInitOperation extends ExecVariableLeafOperation implements StaticInitOperable {
+public final class ExecStaticInitOperation extends ExecLeafOperation implements AtomicExecCalculableOperation,StaticInitOperable {
 
     private boolean possibleInitClass;
 

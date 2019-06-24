@@ -10,7 +10,7 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class StaticInfoOperation extends VariableLeafOperation implements ReductibleOperable {
+public final class StaticInfoOperation extends LeafOperation implements ReductibleOperable {
 
     private String className;
 

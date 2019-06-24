@@ -5,7 +5,7 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.AbstractArrayInstancingOperation;
 import code.util.CustList;
 
-public abstract class ExecAbstractArrayInstancingOperation extends ExecAbstractInstancingOperation {
+public abstract class ExecAbstractArrayInstancingOperation extends ExecInvokingOperation implements DirectExecCalculableOperation {
     private String methodName;
 
     private String className;

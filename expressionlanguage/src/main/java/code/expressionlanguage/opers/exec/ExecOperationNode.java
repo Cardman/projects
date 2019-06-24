@@ -55,7 +55,7 @@ public abstract class ExecOperationNode implements Operable {
         indexInEl = _oper.getIndexInEl();
         indexBegin = _oper.getIndexBegin();
         indexChild = _oper.getIndexChild();
-        resultClass = ((OperationNode)_oper).getResultClass();
+        resultClass = _oper.getResultClass();
         argument = _oper.getArgument();
         order = _oper.getOrder();
     }
@@ -65,7 +65,7 @@ public abstract class ExecOperationNode implements Operable {
     }
 
     public final void setRelativeOffsetPossibleLastPage(int _offset, ExecutableCode _cont) {
-        _cont.setOffset(indexBegin+_offset);
+        _cont.setOffset(getIndexBegin()+_offset);
     }
 
     @Override
@@ -107,11 +107,11 @@ public abstract class ExecOperationNode implements Operable {
         }
         if (_anaNode instanceof InferArrayInstancing) {
             InferArrayInstancing i_ = (InferArrayInstancing) _anaNode;
-            return new ExecInferArrayInstancing(i_);
+            return new ExecArrayElementOperation(i_);
         }
         if (_anaNode instanceof ElementArrayInstancing) {
             ElementArrayInstancing e_ = (ElementArrayInstancing) _anaNode;
-            return new ExecElementArrayInstancing(e_);
+            return new ExecArrayElementOperation(e_);
         }
         if (_anaNode instanceof DimensionArrayInstancing) {
             DimensionArrayInstancing d_ = (DimensionArrayInstancing) _anaNode;

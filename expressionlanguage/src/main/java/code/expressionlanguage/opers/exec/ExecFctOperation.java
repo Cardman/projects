@@ -16,7 +16,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class ExecFctOperation extends ExecReflectableInvokingOperation {
+public final class ExecFctOperation extends ExecInvokingOperation {
 
     private String methodName;
 
@@ -70,9 +70,8 @@ public final class ExecFctOperation extends ExecReflectableInvokingOperation {
             classNameFound_ = classMethodId.getClassName();
             Struct argPrev_ = _previous.getStruct();
             if (argPrev_ instanceof ArrayStruct) {
-                int offLoc_ = -1;
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
-                return callPrepare(_conf, classNameFound_, methodId_, _previous, firstArgs_, offLoc_,null);
+                return callPrepare(_conf, classNameFound_, methodId_, _previous, firstArgs_, null);
             }
             prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, argPrev_, _conf));
             if (_conf.getContextEl().hasExceptionOrFailInit()) {
@@ -103,11 +102,7 @@ public final class ExecFctOperation extends ExecReflectableInvokingOperation {
                 return Argument.createVoid();
             }
         }
-        int offLoc_ = -1;
-        if (!chidren_.isEmpty()) {
-            offLoc_ = chidren_.last().getIndexInEl() + getIndexBegin();
-        }
-        return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, offLoc_,null);
+        return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
     }
 
     public ClassMethodId getClassMethodId() {

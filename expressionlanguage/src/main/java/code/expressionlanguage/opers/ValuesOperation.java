@@ -12,7 +12,7 @@ import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.*;
 
-public final class ValuesOperation extends VariableLeafOperation {
+public final class ValuesOperation extends LeafOperation {
 
     private String className;
     private int argOffset;
