@@ -1,8 +1,9 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.instr.OperationsSequence;
+import code.util.IntTreeMap;
 
-public abstract class AbstractArrayInstancingOperation extends AbstractInstancingOperation {
+public abstract class AbstractArrayInstancingOperation extends InvokingOperation {
     private String methodName;
 
     private String className;

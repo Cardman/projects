@@ -148,7 +148,7 @@ public final class PaginationPokemonPlayer
         return criteria;
     }
     @Override
-    public boolean sortable() {
+    protected boolean sortable() {
         Ints priorities_;
         priorities_ = new Ints();
         if (cmpLevel.getPriority() != NO_PRIORITY) {
@@ -175,7 +175,7 @@ public final class PaginationPokemonPlayer
     }
 
     @Override
-    public void sort() {
+    protected void sort() {
         TreeMap<SortingPokemonPlayer, PokemonPlayer> eggs_ = new TreeMap<SortingPokemonPlayer, PokemonPlayer>(
                 new ComparatorPokemonPlayer(cmpLevel, cmpName, cmpAbility,
                         cmpItem, cmpGender, cmpPossEvos, NB_COMPARATORS));
@@ -208,7 +208,7 @@ public final class PaginationPokemonPlayer
     }
 
     @Override
-    public CustList<SortingPokemonPlayer> getRendered() {
+    protected CustList<SortingPokemonPlayer> getRendered() {
         return rendered;
     }
 

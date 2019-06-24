@@ -1,6 +1,5 @@
 package code.util;
 import code.util.ints.Equallable;
-import code.util.ints.ListableEntries;
 
 public abstract class AbObjectMap<K extends Equallable<K>, V> extends AbsMap<K, V> {
 
@@ -12,7 +11,7 @@ public abstract class AbObjectMap<K extends Equallable<K>, V> extends AbsMap<K, 
     }
 
     @Override
-    int indexOfEntry(K _key) {
+    protected int indexOfEntry(K _key) {
         int index_ = CustList.FIRST_INDEX;
         for (EntryCust<K, V> e:getList()) {
             K key_ = e.getKey();

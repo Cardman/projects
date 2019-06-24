@@ -188,7 +188,6 @@ public final class AikiBeansItemsStd {
         buildEvolvingStoneBean(_std);
         buildFossilBean(_std);
         buildHealingHpBean(_std);
-        buildHealingHpStatusBean(_std);
         buildHealingItemBean(_std);
         buildHealingPpBean(_std);
         buildHealingStatusBean(_std);
@@ -360,18 +359,7 @@ public final class AikiBeansItemsStd {
         fields_.put(HP,new StandardField(HP,PokemonStandards.TYPE_RATE,false,false,type_));
         _std.getStandards().put(TYPE_HEALING_HP_BEAN, type_);
     }
-    private static void buildHealingHpStatusBean(BeanLgNames _std) {
-        StandardClass type_;
-        StringMap<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        type_ = new StandardClass(TYPE_HEALING_HP_STATUS_BEAN, fields_, constructors_, methods_, AikiBeansItemsStd.TYPE_HEALING_STATUS_BEAN, MethodModifier.NORMAL);
-        fields_.put(HEALED_HP_RATE,new StandardField(HEALED_HP_RATE,PokemonStandards.TYPE_RATE,false,false,type_));
-        _std.getStandards().put(TYPE_HEALING_HP_STATUS_BEAN, type_);
-    }
+
     private static void buildHealingItemBean(BeanLgNames _std) {
         StandardClass type_;
         StringMap<StandardField> fields_;
@@ -434,6 +422,7 @@ public final class AikiBeansItemsStd {
         fields_.put(HEALING_STATUS_BEAN,new StandardField(HEALING_STATUS_BEAN,_std.getAliasString(),false,false,type_));
         fields_.put(HEALING_KO,new StandardField(HEALING_KO,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(STATUS,new StandardField(STATUS,_std.getCustList(),false,false,type_));
+        fields_.put(HEALED_HP_RATE,new StandardField(HEALED_HP_RATE,PokemonStandards.TYPE_RATE,false,false,type_));
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(CLICK_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
@@ -808,16 +797,6 @@ public final class AikiBeansItemsStd {
         }
         return AikiBeansItemsStd.getResultHealingItemBean(_cont, _classField, _instance);
     }
-    public static ResultErrorStd getResultHealingHpStatusBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        HealingHpStatusBean instance_ = (HealingHpStatusBean) ((RealInstanceStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringList.quickEq(fieldName_,HEALED_HP_RATE)) {
-            res_.setResult(new StdStruct(instance_.getHealedHpRate(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        return AikiBeansItemsStd.getResultHealingStatusBean(_cont, _classField, _instance);
-    }
     public static ResultErrorStd getResultHealingItemBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -864,6 +843,10 @@ public final class AikiBeansItemsStd {
         ResultErrorStd res_ = new ResultErrorStd();
         HealingStatusBean instance_ = (HealingStatusBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
+        if (StringList.quickEq(fieldName_,HEALED_HP_RATE)) {
+            res_.setResult(new StdStruct(instance_.getHealedHpRate(),PokemonStandards.TYPE_RATE));
+            return res_;
+        }
         if (StringList.quickEq(fieldName_,HEALING_STATUS_BEAN)) {
             res_.setResult(new StringStruct(HealingStatusBean.HEALING_STATUS_BEAN));
             return res_;

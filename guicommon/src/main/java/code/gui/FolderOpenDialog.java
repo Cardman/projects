@@ -66,7 +66,7 @@ public final class FolderOpenDialog extends FileDialog implements SingleFileSele
     }
 
     @Override
-    public String getSelectedPath() {
+    protected String getSelectedPath() {
         return super.getCurrentFolder();
     }
 }

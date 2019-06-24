@@ -18,7 +18,7 @@ public final class IdMap<K,V> extends AbsMap<K,V> {
     }
 
     @Override
-    int indexOfEntry(K _key) {
+    protected int indexOfEntry(K _key) {
         int index_ = CustList.FIRST_INDEX;
         for (EntryCust<K, V> e:getList()) {
             if (e.getKey() == _key) {

@@ -98,7 +98,7 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
         return getLaw().getKey(i_);
     }
 
-    protected abstract AbsMap<E,LgInt> getLaw();
+    public abstract AbsMap<E,LgInt> getLaw();
 
     public boolean isValid() {
         if (getLaw().isEmpty()) {

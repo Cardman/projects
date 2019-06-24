@@ -329,13 +329,6 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         setResultClass(new ClassArgumentMatching(className));
     }
 
-    @Override
-    void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        vs_.removeKey(vs_.firstKey());
-        getChildren().putAllMap(vs_);
-    }
-
     public boolean isPossibleInitClass() {
         return possibleInitClass;
     }

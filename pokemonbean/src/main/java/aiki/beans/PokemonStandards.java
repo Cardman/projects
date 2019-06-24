@@ -104,7 +104,6 @@ import aiki.beans.items.EvolvingItemBean;
 import aiki.beans.items.EvolvingStoneBean;
 import aiki.beans.items.FossilBean;
 import aiki.beans.items.HealingHpBean;
-import aiki.beans.items.HealingHpStatusBean;
 import aiki.beans.items.HealingItemBean;
 import aiki.beans.items.HealingPpBean;
 import aiki.beans.items.HealingStatusBean;
@@ -1258,9 +1257,6 @@ public final class PokemonStandards extends BeanLgNames {
         if (instance_ instanceof HealingHpBean) {
             return AikiBeansItemsStd.getResultHealingHpBean(_cont, _classField, _instance);
         }
-        if (instance_ instanceof HealingHpStatusBean) {
-            return AikiBeansItemsStd.getResultHealingHpStatusBean(_cont, _classField, _instance);
-        }
         if (instance_ instanceof HealingPpBean) {
             return AikiBeansItemsStd.getResultHealingPpBean(_cont, _classField, _instance);
         }
@@ -2154,8 +2150,8 @@ public final class PokemonStandards extends BeanLgNames {
             return res_;
         }
         if (StringList.quickEq(name_,AikiBeansItemsStd.TYPE_HEALING_HP_STATUS_BEAN)) {
-            HealingHpStatusBean bean_ = new HealingHpStatusBean();
-            bean_.setClassName(AikiBeansItemsStd.TYPE_HEALING_HP_STATUS_BEAN);
+            HealingStatusBean bean_ = new HealingStatusBean();
+            bean_.setClassName(AikiBeansItemsStd.TYPE_HEALING_STATUS_BEAN);
             res_.setResult(new BeanStruct(bean_));
             return res_;
         }

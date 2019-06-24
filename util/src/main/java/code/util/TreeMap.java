@@ -36,7 +36,7 @@ public final class TreeMap<K, V> extends AbsMap<K, V> {
     }
 
     @Override
-    int indexOfEntry(K _key) {
+    protected int indexOfEntry(K _key) {
         int index_ = CustList.FIRST_INDEX;
         K key_ = _key;
         for (EntryCust<K, V> e:getList()) {

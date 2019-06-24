@@ -28,7 +28,7 @@ public final class NatStringTreeMap<V> extends AbsMap<String, V> {
     }
 
     @Override
-    int indexOfEntry(String _key) {
+    protected int indexOfEntry(String _key) {
         int index_ = CustList.FIRST_INDEX;
         for (EntryCust<String, V> e:getList()) {
             String c_ = _key;

@@ -36,7 +36,7 @@ public class LaunchingPokecards extends SoftApplicationCore {
     }
 
     @Override
-    protected final void launchWithoutLanguage(String _language, StringMap<Object> _args) {
+    public final void launchWithoutLanguage(String _language, StringMap<Object> _args) {
         launch(_language, _args);
     }
 

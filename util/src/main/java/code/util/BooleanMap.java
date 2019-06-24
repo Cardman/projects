@@ -16,7 +16,7 @@ public final class BooleanMap<V> extends AbsMap<Boolean,V> {
     }
 
     @Override
-    int indexOfEntry(Boolean _key) {
+    protected int indexOfEntry(Boolean _key) {
         int index_ = CustList.FIRST_INDEX;
         for (EntryCust<Boolean, V> e:getList()) {
             if (e.getKey() == _key) {

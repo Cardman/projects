@@ -23,13 +23,6 @@ public final class CallDynMethodOperation extends InvokingOperation {
     }
 
     @Override
-    void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        vs_.removeKey(vs_.firstKey());
-        getChildren().putAllMap(vs_);
-    }
-
-    @Override
     public void analyze(Analyzable _conf) {
         LgNames stds_ = _conf.getStandards();
         String fctName_ = getOperations().getFctName().trim();

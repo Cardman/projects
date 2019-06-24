@@ -3,7 +3,7 @@ package code.util;
 public final class StringMapObject extends AbsMap<String,Object> {
 
     @Override
-    int indexOfEntry(String _key) {
+    protected int indexOfEntry(String _key) {
         int index_ = CustList.FIRST_INDEX;
         for (EntryCust<String, Object> e:getList()) {
             String k_ = e.getKey();

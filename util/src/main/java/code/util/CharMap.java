@@ -22,7 +22,7 @@ public final class CharMap<V> extends AbsMap<Character,V> {
     }
 
     @Override
-    int indexOfEntry(Character _key) {
+    protected int indexOfEntry(Character _key) {
         int index_ = CustList.FIRST_INDEX;
         for (EntryCust<Character, V> e:getList()) {
             Character key_ = e.getKey();

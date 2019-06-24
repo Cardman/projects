@@ -70,7 +70,7 @@ final class TemplatePartType extends BinaryType {
         setAnalyzedType(t_);
     }
     @Override
-    public void analyzeInherits(Analyzable _an, int _index,
+    void analyzeInherits(Analyzable _an, int _index,
             CustList<IntTreeMap< String>> _dels, String _globalType,
             RootBlock _rooted,
             boolean _protected) {

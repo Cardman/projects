@@ -67,11 +67,6 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
         a_.setObject(b_);
         _par.setSimpleArgumentAna(a_, _conf);
     }
-    @Override
-    void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        getChildren().putAllMap(vs_);
-    }
 
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {

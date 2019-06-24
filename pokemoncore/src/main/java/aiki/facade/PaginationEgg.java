@@ -86,7 +86,7 @@ public final class PaginationEgg extends
         return criteria;
     }
     @Override
-    public boolean sortable() {
+    protected boolean sortable() {
         Ints priorities_;
         priorities_ = new Ints();
         if (cmpSteps.getPriority() != NO_PRIORITY) {
@@ -101,7 +101,7 @@ public final class PaginationEgg extends
     }
 
     @Override
-    public void sort() {
+    protected void sort() {
         TreeMap<SortingEgg, Egg> eggs_ = new TreeMap<SortingEgg, Egg>(
                 new ComparatorEgg(cmpSteps, cmpName, NB_COMPARATORS));
         eggs_.putAllMap(eggs);
@@ -117,7 +117,7 @@ public final class PaginationEgg extends
     }
 
     @Override
-    public CustList<SortingEgg> getRendered() {
+    protected CustList<SortingEgg> getRendered() {
         return rendered;
     }
 

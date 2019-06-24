@@ -25,15 +25,15 @@ public class ListenerCardTarotSingleHandful extends AbstractListenerCardTarot {
         included = _included;
     }
     @Override
-    public boolean canListen() {
+    protected boolean canListen() {
         return container.isCanExcludeTrumps();
     }
     @Override
-    public boolean playCardExited(MouseEvent _event) {
+    protected boolean playCardExited(MouseEvent _event) {
         return _event.getPoint().y < 0;
     }
     @Override
-    public void verifierRegles() {
+    protected void verifierRegles() {
         String lg_ = container.getOwner().getLanguageKey();
         if(StringList.quickEq(container.getRaisonCourante(),ContainerTarot.EMPTY)) {
             if (included) {

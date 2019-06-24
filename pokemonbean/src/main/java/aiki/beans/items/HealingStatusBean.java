@@ -1,7 +1,9 @@
 package aiki.beans.items;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
+import aiki.fight.items.HealingHpStatus;
 import aiki.fight.items.HealingStatus;
+import code.maths.Rate;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -9,7 +11,7 @@ public class HealingStatusBean extends HealingItemBean {
     static final String HEALING_STATUS_BEAN="web/html/items/healingstatus.html";
     private StringList status;
     private boolean healingKo;
-
+    private Rate healedHpRate;
     @Override
     public void beforeDisplaying() {
         super.beforeDisplaying();
@@ -24,7 +26,17 @@ public class HealingStatusBean extends HealingItemBean {
         }
         status_.sortElts(new ComparatorTrStrings(translatedStatus_));
         status = status_;
+        if (item_ instanceof HealingHpStatus) {
+            healedHpRate = ((HealingHpStatus)item_).getHealedHpRate();
+        } else {
+            healedHpRate = Rate.zero();
+        }
     }
+
+    public Rate getHealedHpRate() {
+        return healedHpRate;
+    }
+
     public String getTrStatus(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());

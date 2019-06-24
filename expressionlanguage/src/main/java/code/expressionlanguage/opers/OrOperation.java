@@ -18,12 +18,6 @@ public final class OrOperation extends QuickOperation {
     }
 
     @Override
-    void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        getChildren().putAllMap(vs_);
-    }
-
-    @Override
     public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
             OperationNode _nextSibling, OperationNode _previous) {
         analyzeFalseAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);

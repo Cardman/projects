@@ -60,7 +60,7 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
         return getList().last().getValue();
     }
 
-    final CustList<EntryCust<K, V>> getList() {
+    protected final CustList<EntryCust<K, V>> getList() {
         return list;
     }
 
@@ -175,7 +175,7 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
         geneRemove(_key);
     }
 
-    abstract int indexOfEntry(K _key);
+    protected abstract int indexOfEntry(K _key);
 
     void geneRemove(K _key) {
         int index_ = indexOfEntry(_key);

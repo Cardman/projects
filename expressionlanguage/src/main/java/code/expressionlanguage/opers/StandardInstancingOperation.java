@@ -25,11 +25,12 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
+import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
 public final class StandardInstancingOperation extends
-        AbstractInstancingOperation implements PreAnalyzableOperation {
+        InvokingOperation implements PreAnalyzableOperation {
 
     private boolean possibleInitClass;
 

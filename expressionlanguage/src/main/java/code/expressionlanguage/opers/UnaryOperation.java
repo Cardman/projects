@@ -117,11 +117,6 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
         }
         _par.setSimpleArgumentAna(out_, _conf);
     }
-    @Override
-    void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        getChildren().putAllMap(vs_);
-    }
 
     @Override
     public ClassMethodId getClassMethodId() {

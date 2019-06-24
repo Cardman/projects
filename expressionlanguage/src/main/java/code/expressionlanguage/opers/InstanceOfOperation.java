@@ -16,14 +16,8 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
     public InstanceOfOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-    }
-
-    @Override
-    void calculateChildren() {
         offset = getOperations().getOperators().firstKey();
         className = getOperations().getOperators().firstValue();
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        getChildren().putAllMap(vs_);
     }
 
     @Override

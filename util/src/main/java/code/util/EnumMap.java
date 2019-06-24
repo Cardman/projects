@@ -21,7 +21,7 @@ public final class EnumMap<K, V> extends AbsMap<K,V> {
     }
 
     @Override
-    int indexOfEntry(K _key) {
+    protected int indexOfEntry(K _key) {
         int index_ = CustList.FIRST_INDEX;
         for (EntryCust<K, V> e:getList()) {
             if (e.getKey() == _key) {

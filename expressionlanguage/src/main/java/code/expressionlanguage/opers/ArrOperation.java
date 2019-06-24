@@ -197,12 +197,6 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         }
         return null;
     }
-    @Override
-    void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        vs_.removeKey(vs_.firstKey());
-        getChildren().putAllMap(vs_);
-    }
 
     public boolean isVariable() {
         return variable;

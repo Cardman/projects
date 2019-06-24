@@ -243,13 +243,6 @@ public final class FctOperation extends InvokingOperation {
         return classMethodId;
     }
 
-    @Override
-    void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        vs_.removeKey(vs_.firstKey());
-        getChildren().putAllMap(vs_);
-    }
-
     public String getMethodName() {
         return methodName;
     }

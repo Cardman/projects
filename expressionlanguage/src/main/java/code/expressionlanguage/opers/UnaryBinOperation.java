@@ -96,12 +96,6 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
     }
 
     @Override
-    void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        getChildren().putAllMap(vs_);
-    }
-
-    @Override
     public ClassMethodId getClassMethodId() {
         return classMethodId;
     }

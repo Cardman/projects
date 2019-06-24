@@ -366,7 +366,7 @@ public class LgNamesUtils extends LgNames {
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
-            	CustInitializer cust_ = (CustInitializer) _cont.getInit();
+            	CustInitializer cust_ = ((RunnableContextEl)_cont).getCustInit();
                 String dtPart_ = cust_.getCurrentFileThread((RunnableContextEl)_cont);
                 log(dtPart_, (RunnableContextEl)_cont, _method, _args);
                 ResultErrorStd out_ = new ResultErrorStd();
@@ -398,7 +398,7 @@ public class LgNamesUtils extends LgNames {
             }
             if (StringList.quickEq(name_,aliasJoin)) {
                 Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
-                CustInitializer cust_ = (CustInitializer) _cont.getInit();
+                CustInitializer cust_ = ((RunnableContextEl)_cont).getCustInit();
                 boolean alive_ = cust_.isAlive(thread_);
                 try {
                     thread_.join();
@@ -410,7 +410,7 @@ public class LgNamesUtils extends LgNames {
             }
             if (StringList.quickEq(name_,aliasIsAlive)) {
                 Thread thread_ = (Thread) ((StdStruct) _instance).getInstance();
-                CustInitializer cust_ = (CustInitializer) _cont.getInit();
+                CustInitializer cust_ = ((RunnableContextEl)_cont).getCustInit();
                 boolean alive_ = cust_.isAlive(thread_);
                 res_.setResult(new BooleanStruct(alive_));
                 return res_;

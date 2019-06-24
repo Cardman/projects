@@ -29,7 +29,7 @@ public final class NatCmpTreeMap<K extends Cmp<K>, V> extends AbsMap<K, V> {
     }
 
     @Override
-    int indexOfEntry(K _key) {
+    protected int indexOfEntry(K _key) {
         int index_ = CustList.FIRST_INDEX;
         for (EntryCust<K, V> e:getList()) {
             Cmp<K> c_ = _key;

@@ -33,13 +33,6 @@ public final class ChoiceFctOperation extends InvokingOperation {
     }
 
     @Override
-    void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        vs_.removeKey(vs_.firstKey());
-        getChildren().putAllMap(vs_);
-    }
-
-    @Override
     public void analyze(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);

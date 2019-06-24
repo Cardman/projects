@@ -36,7 +36,7 @@ public abstract class NatTreeMap<K, V> extends AbsMap<K, V>  {
     }
 
     @Override
-    int indexOfEntry(K _key) {
+    protected int indexOfEntry(K _key) {
         long convert_ = convert(_key);
         int s_ = size();
         for (int i = 0; i < s_; i++) {

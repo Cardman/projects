@@ -48,13 +48,8 @@ public class BeanEight extends Bean {
     @Override
     public void beforeDisplaying() {
         if (getDataBase() != null) {
-            getDataBase().setValue(8);
+            ((SimpleDataBase)getDataBase()).setValue(8);
         }
-    }
-
-    @Override
-    public SimpleDataBase getDataBase() {
-        return (SimpleDataBase) super.getDataBase();
     }
 
     public String setup() {

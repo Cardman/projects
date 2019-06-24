@@ -35,7 +35,7 @@ public abstract class Condition extends BracedStack implements WithNotEmptyEl, B
     }
 
     @Override
-    public AssignedVariables buildNewAssignedVariable() {
+    protected AssignedVariables buildNewAssignedVariable() {
         return new AssignedBooleanVariables();
     }
     

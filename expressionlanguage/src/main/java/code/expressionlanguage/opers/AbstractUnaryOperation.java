@@ -8,6 +8,7 @@ import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
+import code.util.IntTreeMap;
 
 public abstract class AbstractUnaryOperation extends MethodOperation {
 
@@ -28,6 +29,11 @@ public abstract class AbstractUnaryOperation extends MethodOperation {
             return;
         }
         analyzeUnary(_conf);
+    }
+    @Override
+    void calculateChildren() {
+        IntTreeMap< String> vs_ = getOperations().getValues();
+        getChildren().putAllMap(vs_);
     }
     public abstract void analyzeUnary(Analyzable _conf);
     @Override

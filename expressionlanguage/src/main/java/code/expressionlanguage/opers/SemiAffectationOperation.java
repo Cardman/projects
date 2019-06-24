@@ -27,12 +27,6 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     }
 
     @Override
-    void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        getChildren().putAllMap(vs_);
-    }
-
-    @Override
     public void analyzeUnary(Analyzable _conf) {
         OperationNode leftEl_ = getFirstChild();
         LgNames stds_ = _conf.getStandards();

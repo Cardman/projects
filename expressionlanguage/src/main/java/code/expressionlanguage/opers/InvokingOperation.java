@@ -17,6 +17,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
+import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -31,6 +32,13 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         previousResultClass = new ClassArgumentMatching(EMPTY_STRING);
+    }
+
+    @Override
+    final void calculateChildren() {
+        IntTreeMap< String> vs_ = getOperations().getValues();
+        vs_.removeKey(vs_.firstKey());
+        getChildren().putAllMap(vs_);
     }
 
     CustList<ClassArgumentMatching> listClasses(CustList<OperationNode> _children, Analyzable _conf) {

@@ -34,14 +34,18 @@ public final class RunnableContextEl extends ContextEl {
         setCoverage(_context.getCoverage());
         executingOptions = ((RunnableContextEl)_context).executingOptions;
         interrupt = ((RunnableContextEl)_context).interrupt;
-        custInit = (CustInitializer) _context.getInit();
+        custInit = ((RunnableContextEl)_context).getCustInit();
     }
     @Override
     public void initError() {
         setMemoryError(new ErrorStruct(this, getStandards().getAliasError()));
     }
     @Override
-    public CustInitializer getInit() {
+    public Initializer getInit() {
+        return getCustInit();
+    }
+
+    public CustInitializer getCustInit() {
         return custInit;
     }
 

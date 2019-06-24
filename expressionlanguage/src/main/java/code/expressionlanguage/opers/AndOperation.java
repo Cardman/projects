@@ -18,12 +18,6 @@ public final class AndOperation extends QuickOperation {
     }
 
     @Override
-    void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        getChildren().putAllMap(vs_);
-    }
-
-    @Override
     public BooleanStruct absorbingStruct() {
         return new BooleanStruct(false);
     }

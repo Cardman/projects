@@ -169,7 +169,7 @@ public abstract class SoftApplicationCore {
 
     public abstract Object getObject(String _fileName);
 
-    protected abstract void launchWithoutLanguage(String _language, StringMap<Object> _obj);
+    public abstract void launchWithoutLanguage(String _language, StringMap<Object> _obj);
 
     protected abstract void launch(String _language, StringMap<Object> _args);
 

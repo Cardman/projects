@@ -23,9 +23,4 @@ public final class IdOperation extends AbstractUnaryOperation implements IdOpera
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setSimpleArgumentAna(chidren_.first().getArgument(), _conf);
     }
-    @Override
-    void calculateChildren() {
-        IntTreeMap< String> vs_ = getOperations().getValues();
-        getChildren().putAllMap(vs_);
-    }
 }
