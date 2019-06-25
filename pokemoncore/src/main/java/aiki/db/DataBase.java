@@ -596,7 +596,7 @@ public class DataBase implements WithMathFactory {
         _perCentLoading.set(60);
         validateConstants();
         setCheckTranslation(true);
-        CheckNumericStringsFight.validateNumericBooleanStrings(this, false);
+        CheckNumericStringsFight.validateNumericBooleanStrings(this);
         if (!_loading.get()) {
             return;
         }
@@ -5527,6 +5527,47 @@ public class DataBase implements WithMathFactory {
         return objDisplay_;
     }
 
+    public void checkTranslations(String _string) {
+        if (!isCheckTranslation()) {
+            return;
+        }
+        String emptySet_ = StringList.concat(DataBase.EMPTY_STRING,
+                String.valueOf(StringList.LEFT_BRACE),
+                String.valueOf(StringList.RIGHT_BRACE));
+        StringList sets_ = StringList.getTokensSets(StringList.removeStrings(
+                _string, emptySet_));
+        for (String s : sets_) {
+            if (StringList.quickEq(s, emptySet_)) {
+                continue;
+            }
+            if (!s.startsWith(StringList.concat(DataBase.EMPTY_STRING,
+                    String.valueOf(StringList.LEFT_BRACE)))) {
+                continue;
+            }
+            String insideSet_ = s.substring(CustList.SECOND_INDEX,
+                    s.length() - 1);
+            StringList words_ = StringList.getWordsSeparators(insideSet_);
+            for (String w : words_) {
+                if (!StringList.isWord(w)) {
+                    if (w.isEmpty()) {
+                        continue;
+                    }
+                    if (StringList.quickEq(w,
+                            String.valueOf(getSepartorSetChar()))) {
+                        continue;
+                    }
+                    setError(true);
+                    return;
+
+                }
+                if (!isTranslatable(w)) {
+                    setError(true);
+                    return;
+
+                }
+            }
+        }
+    }
     public boolean isTranslatable(String _key) {
         for (String l : Constants.getAvailableLanguages()) {
             if (translate(_key, l).isEmpty()) {

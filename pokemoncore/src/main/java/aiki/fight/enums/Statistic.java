@@ -4,21 +4,23 @@ import code.util.StringList;
 import code.util.ints.Listable;
 
 public enum Statistic {
-    HP(true,false),
-    ATTACK(true,true),
-    DEFENSE(true,true),
-    SPECIAL_ATTACK(true,true),
-    SPECIAL_DEFENSE(true,true),
-    SPEED(true,true),
-    ACCURACY(false,true),
-    EVASINESS(false,true),
-    CRITICAL_HIT(false,true),
-    PV_RESTANTS(false,false);
+    HP(true,false,true),
+    ATTACK(true,true,false),
+    DEFENSE(true,true,false),
+    SPECIAL_ATTACK(true,true,false),
+    SPECIAL_DEFENSE(true,true,false),
+    SPEED(true,true,true),
+    ACCURACY(false,true,true),
+    EVASINESS(false,true,true),
+    CRITICAL_HIT(false,true,false),
+    PV_RESTANTS(false,false,true);
     private final boolean withBaseStatistic;
     private final boolean boost;
-    Statistic(boolean _withBaseStatistic, boolean _boost) {
+    private final boolean special;
+    Statistic(boolean _withBaseStatistic, boolean _boost, boolean _special) {
         withBaseStatistic = _withBaseStatistic;
         boost = _boost;
+        special = _special;
     }
     public static boolean equalsSet(Listable<Statistic> _list1,Listable<Statistic> _list2) {
         for (Statistic a: _list2) {
@@ -83,5 +85,9 @@ public enum Statistic {
     }
     public boolean isBoost() {
         return boost;
+    }
+
+    public boolean isSpecial() {
+        return special;
     }
 }

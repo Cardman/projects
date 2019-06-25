@@ -884,7 +884,7 @@ public class InitializationDataBase {
         data_.validateConstants();
         assertTrue(!data_.isError());
         data_.setCheckTranslation(false);
-        CheckNumericStringsFight.validateNumericBooleanStrings(data_, false);
+        CheckNumericStringsFight.validateNumericBooleanStrings(data_);
         assertTrue(!data_.isError());
         data_.getMap().validate(data_);
         assertTrue(!data_.isError());
