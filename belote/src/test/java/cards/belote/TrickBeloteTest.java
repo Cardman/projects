@@ -2,6 +2,7 @@ package cards.belote;
 import static cards.belote.EquallableBeloteUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import cards.belote.enumerations.DealingBelote;
 import org.junit.Test;
 
 import cards.belote.enumerations.BidBelote;
@@ -12,31 +13,28 @@ import code.util.*;
 
 public class TrickBeloteTest {
     @Test
+    public void new_PliBelote_byte_0Test(){
+        TrickBelote pli_ = new TrickBelote();
+        assertTrue(pli_.estVide());
+    }
+    @Test
     public void new_PliBelote_byte_1Test(){
         TrickBelote pli_ = new TrickBelote((byte) 0);
-        assertTrue(pli_.estVide());
-        pli_ = new TrickBelote((byte) 0);
         assertTrue(pli_.estVide());
     }
     @Test
     public void new_PliBelote_byte_2Test(){
         TrickBelote pli_ = new TrickBelote((byte) 1);
         assertTrue(pli_.estVide());
-        pli_ = new TrickBelote((byte) 1);
-        assertTrue(pli_.estVide());
     }
     @Test
     public void new_PliBelote_byte_3Test(){
         TrickBelote pli_ = new TrickBelote((byte) 2);
         assertTrue(pli_.estVide());
-        pli_ = new TrickBelote((byte) 2);
-        assertTrue(pli_.estVide());
     }
     @Test
     public void new_PliBelote_byte_4Test(){
         TrickBelote pli_ = new TrickBelote((byte) 3);
-        assertTrue(pli_.estVide());
-        pli_ = new TrickBelote((byte) 3);
         assertTrue(pli_.estVide());
     }
     @Test
@@ -159,9 +157,9 @@ public class TrickBeloteTest {
         byte nombreJoueurs_ = 4;
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
         assertTrue(pli_.aJoue((byte) 0, nombreJoueurs_));
-        assertTrue(!pli_.aJoue((byte) ((0+1)%nombreJoueurs_), nombreJoueurs_));
-        assertTrue(!pli_.aJoue((byte) ((0+2)%nombreJoueurs_), nombreJoueurs_));
-        assertTrue(!pli_.aJoue((byte) ((0+3)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) (1 %nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) (2 %nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) (3 %nombreJoueurs_), nombreJoueurs_));
     }
     @Test
     public void aJoue10Test(){
@@ -200,9 +198,9 @@ public class TrickBeloteTest {
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
         pli_.getCartes().ajouter(CardBelote.SPADE_JACK);
         assertTrue(pli_.aJoue((byte) 0, nombreJoueurs_));
-        assertTrue(pli_.aJoue((byte) ((0+1)%nombreJoueurs_), nombreJoueurs_));
-        assertTrue(!pli_.aJoue((byte) ((0+2)%nombreJoueurs_), nombreJoueurs_));
-        assertTrue(!pli_.aJoue((byte) ((0+3)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) (1 %nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) (2 %nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) (3 %nombreJoueurs_), nombreJoueurs_));
     }
     @Test
     public void aJoue14Test(){
@@ -245,9 +243,9 @@ public class TrickBeloteTest {
         pli_.getCartes().ajouter(CardBelote.SPADE_JACK);
         pli_.getCartes().ajouter(CardBelote.HEART_KING);
         assertTrue(pli_.aJoue((byte) 0, nombreJoueurs_));
-        assertTrue(pli_.aJoue((byte) ((0+1)%nombreJoueurs_), nombreJoueurs_));
-        assertTrue(pli_.aJoue((byte) ((0+2)%nombreJoueurs_), nombreJoueurs_));
-        assertTrue(!pli_.aJoue((byte) ((0+3)%nombreJoueurs_), nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) (1 %nombreJoueurs_), nombreJoueurs_));
+        assertTrue(pli_.aJoue((byte) (2 %nombreJoueurs_), nombreJoueurs_));
+        assertTrue(!pli_.aJoue((byte) (3 %nombreJoueurs_), nombreJoueurs_));
     }
     @Test
     public void aJoue18Test(){
@@ -321,6 +319,18 @@ public class TrickBeloteTest {
         assertEq(CardBelote.CLUB_7, pli_.carteDuJoueur((byte) 0, nombreJoueurs_));
     }
     @Test
+    public void carteDuJoueur2(){
+        TrickBelote pli_ = new TrickBelote((byte) 1);
+        pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
+        pli_.getCartes().ajouter(CardBelote.SPADE_JACK);
+        pli_.getCartes().ajouter(CardBelote.HEART_KING);
+        pli_.getCartes().ajouter(CardBelote.CLUB_7);
+        assertEq(CardBelote.DIAMOND_1, pli_.carteDuJoueur((byte) 1));
+        assertEq(CardBelote.SPADE_JACK, pli_.carteDuJoueur((byte) 2));
+        assertEq(CardBelote.HEART_KING, pli_.carteDuJoueur((byte) 3));
+        assertEq(CardBelote.CLUB_7, pli_.carteDuJoueur((byte) 0));
+    }
+    @Test
     public void joueurAyantJoue1(){
         TrickBelote pli_ = new TrickBelote((byte) 0);
         //nombreTotal++;
@@ -362,133 +372,177 @@ public class TrickBeloteTest {
     public void joueursAyantJoueAvant1(){
         TrickBelote pli_ = new TrickBelote((byte) 0);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
-        Bytes joueurs_ = pli_.joueursAyantJoueAvant((byte) 1);
         pli_.getCartes().ajouter(CardBelote.SPADE_JACK);
         pli_.getCartes().ajouter(CardBelote.HEART_KING);
         pli_.getCartes().ajouter(CardBelote.CLUB_7);
-        assertEq(0,pli_.joueursAyantJoueAvant((byte) 0).size());
-        joueurs_ = pli_.joueursAyantJoueAvant((byte) 1);
+        assertEq(0,pli_.joueursAyantJoueAvant((byte) 0,DealingBelote.CLASSIC_2_VS_2).size());
+        Bytes joueurs_;
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 1,DealingBelote.CLASSIC_2_VS_2);
         assertEq(1, joueurs_.size());
         assertTrue(joueurs_.containsObj((byte) 0));
-        joueurs_ = pli_.joueursAyantJoueAvant((byte) 2);
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 2,DealingBelote.CLASSIC_2_VS_2);
         assertEq(2, joueurs_.size());
         assertTrue(joueurs_.containsObj((byte) 0));
         assertTrue(joueurs_.containsObj((byte) 1));
-        joueurs_ = pli_.joueursAyantJoueAvant((byte) 3);
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 3,DealingBelote.CLASSIC_2_VS_2);
         assertEq(3, joueurs_.size());
         assertTrue(joueurs_.containsObj((byte) 0));
         assertTrue(joueurs_.containsObj((byte) 1));
         assertTrue(joueurs_.containsObj((byte) 2));
         pli_ = new TrickBelote((byte) 1);
-        //nombreTotal++;
-        //        assertEq(0,pli_.joueursAyantJoueAvant((byte) 1).size());
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
         pli_.getCartes().ajouter(CardBelote.SPADE_JACK);
         pli_.getCartes().ajouter(CardBelote.HEART_KING);
         pli_.getCartes().ajouter(CardBelote.CLUB_7);
-        assertEq(0,pli_.joueursAyantJoueAvant((byte) 1).size());
-        joueurs_ = pli_.joueursAyantJoueAvant((byte) 2);
+        assertEq(0,pli_.joueursAyantJoueAvant((byte) 1,DealingBelote.CLASSIC_2_VS_2).size());
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 2,DealingBelote.CLASSIC_2_VS_2);
         assertEq(1, joueurs_.size());
         assertTrue(joueurs_.containsObj((byte) 1));
-        joueurs_ = pli_.joueursAyantJoueAvant((byte) 3);
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 3,DealingBelote.CLASSIC_2_VS_2);
         assertEq(2, joueurs_.size());
         assertTrue(joueurs_.containsObj((byte) 1));
         assertTrue(joueurs_.containsObj((byte) 2));
-        joueurs_ = pli_.joueursAyantJoueAvant((byte) 0);
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 0,DealingBelote.CLASSIC_2_VS_2);
         assertEq(3, joueurs_.size());
         assertTrue(joueurs_.containsObj((byte) 1));
         assertTrue(joueurs_.containsObj((byte) 2));
         assertTrue(joueurs_.containsObj((byte) 3));
         pli_ = new TrickBelote((byte) 2);
-        //nombreTotal++;
-        //assertEq(0,pli_.joueursAyantJoueAvant((byte) 2).size());
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
-        //        assertEq(0,pli_.joueursAyantJoueAvant((byte) 2).size());
-        //        joueurs_ = pli_.joueursAyantJoueAvant((byte) 3);
-        //        assertEq(1, joueurs_.size());
-        //        assertTrue(joueurs_.contains((byte) 2));
         pli_.getCartes().ajouter(CardBelote.SPADE_JACK);
-        //        assertEq(0,pli_.joueursAyantJoueAvant((byte) 2).size());
-        //        joueurs_ = pli_.joueursAyantJoueAvant((byte) 3);
-        //        assertEq(1, joueurs_.size());
-        //        assertTrue(joueurs_.contains((byte) 2));
-        //        joueurs_ = pli_.joueursAyantJoueAvant((byte) 0);
-        //        assertEq(2, joueurs_.size());
-        //        assertTrue(joueurs_.contains((byte) 2));
-        //        assertTrue(joueurs_.contains((byte) 3));
         pli_.getCartes().ajouter(CardBelote.HEART_KING);
-        //        assertEq(0,pli_.joueursAyantJoueAvant((byte) 2).size());
-        //        joueurs_ = pli_.joueursAyantJoueAvant((byte) 3);
-        //        assertEq(1, joueurs_.size());
-        //        assertTrue(joueurs_.contains((byte) 2));
-        //        joueurs_ = pli_.joueursAyantJoueAvant((byte) 0);
-        //        assertEq(2, joueurs_.size());
-        //        assertTrue(joueurs_.contains((byte) 2));
-        //        assertTrue(joueurs_.contains((byte) 3));
-        //        joueurs_ = pli_.joueursAyantJoueAvant((byte) 1);
-        //        assertEq(3, joueurs_.size());
-        //        assertTrue(joueurs_.contains((byte) 2));
-        //        assertTrue(joueurs_.contains((byte) 3));
-        //        assertTrue(joueurs_.contains((byte) 0));
         pli_.getCartes().ajouter(CardBelote.CLUB_7);
-        assertEq(0,pli_.joueursAyantJoueAvant((byte) 2).size());
-        joueurs_ = pli_.joueursAyantJoueAvant((byte) 3);
+        assertEq(0,pli_.joueursAyantJoueAvant((byte) 2,DealingBelote.CLASSIC_2_VS_2).size());
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 3,DealingBelote.CLASSIC_2_VS_2);
         assertEq(1, joueurs_.size());
         assertTrue(joueurs_.containsObj((byte) 2));
-        joueurs_ = pli_.joueursAyantJoueAvant((byte) 0);
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 0,DealingBelote.CLASSIC_2_VS_2);
         assertEq(2, joueurs_.size());
         assertTrue(joueurs_.containsObj((byte) 2));
         assertTrue(joueurs_.containsObj((byte) 3));
-        joueurs_ = pli_.joueursAyantJoueAvant((byte) 1);
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 1,DealingBelote.CLASSIC_2_VS_2);
         assertEq(3, joueurs_.size());
         assertTrue(joueurs_.containsObj((byte) 2));
         assertTrue(joueurs_.containsObj((byte) 3));
         assertTrue(joueurs_.containsObj((byte) 0));
         pli_ = new TrickBelote((byte) 3);
-        //nombreTotal++;
-        //assertEq(0,pli_.joueursAyantJoueAvant((byte) 3).size());
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
-        //        assertEq(0,pli_.joueursAyantJoueAvant((byte) 3).size());
-        //        joueurs_ = pli_.joueursAyantJoueAvant((byte) 0);
-        //        assertEq(1, joueurs_.size());
-        //        assertTrue(joueurs_.contains((byte) 3));
         pli_.getCartes().ajouter(CardBelote.SPADE_JACK);
-        //        assertEq(0,pli_.joueursAyantJoueAvant((byte) 3).size());
-        //        joueurs_ = pli_.joueursAyantJoueAvant((byte) 0);
-        //        assertEq(1, joueurs_.size());
-        //        assertTrue(joueurs_.contains((byte) 3));
-        //        joueurs_ = pli_.joueursAyantJoueAvant((byte) 1);
-        //        assertEq(2, joueurs_.size());
-        //        assertTrue(joueurs_.contains((byte) 3));
-        //        assertTrue(joueurs_.contains((byte) 0));
         pli_.getCartes().ajouter(CardBelote.HEART_KING);
-        //        assertEq(0,pli_.joueursAyantJoueAvant((byte) 3).size());
-        //        joueurs_ = pli_.joueursAyantJoueAvant((byte) 0);
-        //        assertEq(1, joueurs_.size());
-        //        assertTrue(joueurs_.contains((byte) 3));
-        //        joueurs_ = pli_.joueursAyantJoueAvant((byte) 1);
-        //        assertEq(2, joueurs_.size());
-        //        assertTrue(joueurs_.contains((byte) 3));
-        //        assertTrue(joueurs_.contains((byte) 0));
-        //        joueurs_ = pli_.joueursAyantJoueAvant((byte) 2);
-        //        assertEq(3, joueurs_.size());
-        //        assertTrue(joueurs_.contains((byte) 3));
-        //        assertTrue(joueurs_.contains((byte) 0));
-        //        assertTrue(joueurs_.contains((byte) 1));
         pli_.getCartes().ajouter(CardBelote.CLUB_7);
-        assertEq(0,pli_.joueursAyantJoueAvant((byte) 3).size());
-        joueurs_ = pli_.joueursAyantJoueAvant((byte) 0);
+        assertEq(0,pli_.joueursAyantJoueAvant((byte) 3,DealingBelote.CLASSIC_2_VS_2).size());
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 0,DealingBelote.CLASSIC_2_VS_2);
         assertEq(1, joueurs_.size());
         assertTrue(joueurs_.containsObj((byte) 3));
-        joueurs_ = pli_.joueursAyantJoueAvant((byte) 1);
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 1,DealingBelote.CLASSIC_2_VS_2);
         assertEq(2, joueurs_.size());
         assertTrue(joueurs_.containsObj((byte) 3));
         assertTrue(joueurs_.containsObj((byte) 0));
-        joueurs_ = pli_.joueursAyantJoueAvant((byte) 2);
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 2,DealingBelote.CLASSIC_2_VS_2);
         assertEq(3, joueurs_.size());
         assertTrue(joueurs_.containsObj((byte) 3));
         assertTrue(joueurs_.containsObj((byte) 0));
         assertTrue(joueurs_.containsObj((byte) 1));
+    }
+    @Test
+    public void joueursAyantJoueAvant2(){
+        TrickBelote pli_ = new TrickBelote((byte) 0);
+        pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
+        Bytes joueurs_;
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 2,DealingBelote.CLASSIC_2_VS_2);
+        assertEq(1, joueurs_.size());
+        assertTrue(joueurs_.containsObj(0));
+    }
+    @Test
+    public void joueursAyantJoueAvant3(){
+        TrickBelote pli_ = new TrickBelote((byte) 0);
+        Bytes joueurs_;
+        joueurs_ = pli_.joueursAyantJoueAvant((byte) 2,DealingBelote.CLASSIC_2_VS_2);
+        assertEq(0, joueurs_.size());
+    }
+    @Test
+    public void playersHavingPlayed1(){
+        Bytes joueurs_;
+        TrickBelote pli_ = new TrickBelote((byte) 0);
+        assertEq(0,pli_.playersHavingPlayed((byte) 4).size());
+        pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
+        joueurs_ = pli_.playersHavingPlayed((byte)4);
+        assertEq(1, joueurs_.size());
+        assertTrue(joueurs_.containsObj((byte) 0));
+        pli_.getCartes().ajouter(CardBelote.SPADE_JACK);
+        joueurs_ = pli_.playersHavingPlayed((byte) 4);
+        assertEq(2, joueurs_.size());
+        assertTrue(joueurs_.containsObj((byte) 0));
+        assertTrue(joueurs_.containsObj((byte) 1));
+        pli_.getCartes().ajouter(CardBelote.HEART_KING);
+        joueurs_ = pli_.playersHavingPlayed((byte) 4);
+        assertEq(3, joueurs_.size());
+        assertTrue(joueurs_.containsObj((byte) 0));
+        assertTrue(joueurs_.containsObj((byte) 1));
+        assertTrue(joueurs_.containsObj((byte) 2));
+        pli_.getCartes().ajouter(CardBelote.CLUB_7);
+        joueurs_ = pli_.playersHavingPlayed((byte) 4);
+        assertEq(4, joueurs_.size());
+        pli_ = new TrickBelote((byte) 1);
+        assertEq(0,pli_.playersHavingPlayed((byte) 4).size());
+        pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
+        joueurs_ = pli_.playersHavingPlayed((byte)4);
+        assertEq(1, joueurs_.size());
+        assertTrue(joueurs_.containsObj((byte) 1));
+        pli_.getCartes().ajouter(CardBelote.SPADE_JACK);
+        joueurs_ = pli_.playersHavingPlayed((byte) 4);
+        assertEq(2, joueurs_.size());
+        assertTrue(joueurs_.containsObj((byte) 1));
+        assertTrue(joueurs_.containsObj((byte) 2));
+        pli_.getCartes().ajouter(CardBelote.HEART_KING);
+        joueurs_ = pli_.playersHavingPlayed((byte) 4);
+        assertEq(3, joueurs_.size());
+        assertTrue(joueurs_.containsObj((byte) 1));
+        assertTrue(joueurs_.containsObj((byte) 2));
+        assertTrue(joueurs_.containsObj((byte) 3));
+        pli_.getCartes().ajouter(CardBelote.CLUB_7);
+        joueurs_ = pli_.playersHavingPlayed((byte) 4);
+        assertEq(4, joueurs_.size());
+        pli_ = new TrickBelote((byte) 2);
+        assertEq(0,pli_.playersHavingPlayed((byte) 4).size());
+        pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
+        joueurs_ = pli_.playersHavingPlayed((byte)4);
+        assertEq(1, joueurs_.size());
+        assertTrue(joueurs_.containsObj((byte) 2));
+        pli_.getCartes().ajouter(CardBelote.SPADE_JACK);
+        joueurs_ = pli_.playersHavingPlayed((byte) 4);
+        assertEq(2, joueurs_.size());
+        assertTrue(joueurs_.containsObj((byte) 2));
+        assertTrue(joueurs_.containsObj((byte) 3));
+        pli_.getCartes().ajouter(CardBelote.HEART_KING);
+        joueurs_ = pli_.playersHavingPlayed((byte) 4);
+        assertEq(3, joueurs_.size());
+        assertTrue(joueurs_.containsObj((byte) 2));
+        assertTrue(joueurs_.containsObj((byte) 3));
+        assertTrue(joueurs_.containsObj((byte) 0));
+        pli_.getCartes().ajouter(CardBelote.CLUB_7);
+        joueurs_ = pli_.playersHavingPlayed((byte) 4);
+        assertEq(4, joueurs_.size());
+        pli_ = new TrickBelote((byte) 3);
+        assertEq(0,pli_.playersHavingPlayed((byte) 4).size());
+        pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
+        joueurs_ = pli_.playersHavingPlayed((byte)4);
+        assertEq(1, joueurs_.size());
+        assertTrue(joueurs_.containsObj((byte) 3));
+        pli_.getCartes().ajouter(CardBelote.SPADE_JACK);
+        joueurs_ = pli_.playersHavingPlayed((byte) 4);
+        assertEq(2, joueurs_.size());
+        assertTrue(joueurs_.containsObj((byte) 3));
+        assertTrue(joueurs_.containsObj((byte) 0));
+        pli_.getCartes().ajouter(CardBelote.HEART_KING);
+        joueurs_ = pli_.playersHavingPlayed((byte) 4);
+        assertEq(3, joueurs_.size());
+        assertTrue(joueurs_.containsObj((byte) 3));
+        assertTrue(joueurs_.containsObj((byte) 0));
+        assertTrue(joueurs_.containsObj((byte) 1));
+        pli_.getCartes().ajouter(CardBelote.CLUB_7);
+        joueurs_ = pli_.playersHavingPlayed((byte) 4);
+        assertEq(4, joueurs_.size());
     }
     @Test
     public void getRamasseurPliEnCours_BeloteToutAtout1Test(){
@@ -504,7 +558,7 @@ public class TrickBeloteTest {
         pli_.getCartes().ajouter(CardBelote.HEART_KING);
         assertEq(0, pli_.getRamasseurPliEnCours(nombreDeJoueurs_, enchereCouleur_));
         pli_.getCartes().ajouter(CardBelote.DIAMOND_JACK);
-        byte j_ = (byte) ((0 + 3) % nombreDeJoueurs_);
+        byte j_ = (byte) (3 % nombreDeJoueurs_);
         assertEq(j_, pli_.getRamasseurPliEnCours(nombreDeJoueurs_, enchereCouleur_));
     }
     @Test
@@ -629,7 +683,7 @@ public class TrickBeloteTest {
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setEnchere(e);
         enchereCouleur_.setCouleur(Suit.HEART);
-        byte jTwo_ = (byte) ((0 + 2) % nombreDeJoueurs_);
+        byte jTwo_ = (byte) (2 % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 0);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
@@ -741,7 +795,7 @@ public class TrickBeloteTest {
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setEnchere(e);
         enchereCouleur_.setCouleur(Suit.SPADE);
-        byte j_ = (byte) ((0 + 1) % nombreDeJoueurs_);
+        byte j_ = (byte) (1 % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 0);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
@@ -853,7 +907,7 @@ public class TrickBeloteTest {
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setEnchere(e);
         enchereCouleur_.setCouleur(Suit.DIAMOND);
-        byte jThree_ = (byte) ((0 + 3) % nombreDeJoueurs_);
+        byte jThree_ = (byte) (3 % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 0);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
@@ -1077,7 +1131,7 @@ public class TrickBeloteTest {
         pli_.getCartes().ajouter(CardBelote.SPADE_7);
         pli_.getCartes().ajouter(CardBelote.HEART_KING);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_JACK);
-        byte j_ = (byte) ((0 + 3) % nombreDeJoueurs_);
+        byte j_ = (byte) (3 % nombreDeJoueurs_);
         assertEq(j_, pli_.getRamasseur(enchereCouleur_));
     }
     @Test
@@ -1177,7 +1231,7 @@ public class TrickBeloteTest {
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setEnchere(e);
         enchereCouleur_.setCouleur(Suit.HEART);
-        byte jTwo_ = (byte) ((0 + 2) % nombreDeJoueurs_);
+        byte jTwo_ = (byte) (2 % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 0);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
@@ -1265,7 +1319,7 @@ public class TrickBeloteTest {
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setEnchere(e);
         enchereCouleur_.setCouleur(Suit.SPADE);
-        byte j_ = (byte) ((0 + 1) % nombreDeJoueurs_);
+        byte j_ = (byte) (1 % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 0);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
@@ -1353,7 +1407,7 @@ public class TrickBeloteTest {
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setEnchere(e);
         enchereCouleur_.setCouleur(Suit.DIAMOND);
-        byte jThree_ = (byte) ((0 + 3) % nombreDeJoueurs_);
+        byte jThree_ = (byte) (3 % nombreDeJoueurs_);
 
         TrickBelote pli_ = new TrickBelote((byte) 0);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_1);
@@ -1566,7 +1620,7 @@ public class TrickBeloteTest {
         pli_.getCartes().ajouter(CardBelote.HEART_KING);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_8);
         Bytes joueurs_ = pli_.joueursCoupes(Suit.HEART);
-        byte j_ = (byte) ((0 + 2) % nombreDeJoueurs_);
+        byte j_ = (byte) (2 % nombreDeJoueurs_);
         assertEq(1, joueurs_.size());
         assertTrue(joueurs_.containsObj(j_));
         pli_ = new TrickBelote((byte) 1);
@@ -1610,7 +1664,7 @@ public class TrickBeloteTest {
         pli_.getCartes().ajouter(CardBelote.HEART_KING);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_JACK);
         Bytes joueurs_ = pli_.joueursDefausses(Suit.UNDEFINED);
-        byte j_ = (byte) ((0 + 1) % nombreDeJoueurs_);
+        byte j_ = (byte) (1 % nombreDeJoueurs_);
         assertEq(2, joueurs_.size());
         assertTrue(joueurs_.containsObj(j_));
         j_ = (byte) ((j_ + 1) % nombreDeJoueurs_);
@@ -1661,7 +1715,7 @@ public class TrickBeloteTest {
         pli_.getCartes().ajouter(CardBelote.HEART_KING);
         pli_.getCartes().ajouter(CardBelote.DIAMOND_8);
         Bytes joueurs_ = pli_.joueursDefausses(Suit.HEART);
-        byte j_ = (byte) ((0 + 1) % nombreDeJoueurs_);
+        byte j_ = (byte) (1 % nombreDeJoueurs_);
         assertEq(1, joueurs_.size());
         assertTrue(joueurs_.containsObj(j_));
         pli_ = new TrickBelote((byte) 1);

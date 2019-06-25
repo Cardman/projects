@@ -19,6 +19,7 @@ public final class GameBeloteTrickInfo {
     private byte taker;
     private HandBelote lastSeenHand = new HandBelote();
     private GameBeloteTeamsRelation relations;
+    private RulesBelote rules;
 
     public GameBeloteTrickInfo(TrickBelote _progressingTrick, CustList<TrickBelote> _tricks,
                                EqList<DeclareHandBelote> _declares,
@@ -34,6 +35,7 @@ public final class GameBeloteTrickInfo {
     }
 
     void addSeenDeck(HandBelote _h, GameBeloteTeamsRelation _rel) {
+        rules = _rel.getRules();
         relations = _rel;
         nbPlayers = _rel.getNombreDeJoueurs();
         taker = _rel.getTaker();
@@ -297,7 +299,7 @@ public final class GameBeloteTrickInfo {
                     if(joueur_ == next_) {
                         continue;
                     }
-                    Bytes joueursAvant_ = pli_.joueursAyantJoueAvant(joueur_,nbPlayers);
+                    Bytes joueursAvant_ = pli_.joueursAyantJoueAvant(joueur_,rules.getRepartition());
                     byte forceLoc_ = c.strength(couleurDemande_, bid);
                     byte max_ = 0;
                     byte ramasseurVirtuel_ = joueur_;
@@ -429,7 +431,7 @@ public final class GameBeloteTrickInfo {
                 if(joueur_ == next_) {
                     continue;
                 }
-                Bytes joueursAvant_ = pli_.joueursAyantJoueAvant(joueur_,nbPlayers);
+                Bytes joueursAvant_ = pli_.joueursAyantJoueAvant(joueur_,rules.getRepartition());
                 byte forceLoc_ = c.strength(couleurDemande_, bid);
                 byte max_ = 0;
                 byte ramasseurVirtuel_ = joueur_;
@@ -623,7 +625,7 @@ public final class GameBeloteTrickInfo {
                         continue;
                     }
                     //defausse de joueur
-                    Bytes joueurs_=pli_.joueursAyantJoueAvant(_joueur);
+                    Bytes joueurs_=pli_.joueursAyantJoueAvant(_joueur,rules.getRepartition());
                     if(joueurs_.isEmpty()) {
                         continue;
                     }

@@ -66,14 +66,15 @@ public final class CheckerGameBeloteWithRules {
                 return;
             }
         }
+        byte nbPl_ = _loadedGame
+                .getNombreDeJoueurs();
         for (TrickBelote t : allTricks_) {
-            if (t.total() != _loadedGame.getNombreDeJoueurs()) {
+            if (t.total() != nbPl_) {
                 _loadedGame.setError(TRICK_WITH_BAD_COUNT);
                 return;
             }
         }
-        if (_loadedGame.getPliEnCours().total() > _loadedGame
-                .getNombreDeJoueurs()) {
+        if (_loadedGame.getPliEnCours().total() > nbPl_) {
             _loadedGame.setError(TRICK_WITH_BAD_COUNT);
             return;
         }
@@ -88,7 +89,7 @@ public final class CheckerGameBeloteWithRules {
         }
         for (CardBelote c : _loadedGame.getPliEnCours()) {
             byte player_ = _loadedGame.getPliEnCours().joueurAyantJoue(c,
-                    _loadedGame.getNombreDeJoueurs());
+                    nbPl_);
             deal_.main(player_).ajouter(c);
         }
         boolean completed_ = false;
@@ -323,8 +324,7 @@ public final class CheckerGameBeloteWithRules {
         loadedGameCopy_.setPliEnCours();
         HandBelote playedCards_ = _loadedGame.getDoneTrickInfo().cartesJouees();
         playedCards_.ajouterCartes(_loadedGame.getPliEnCours().getCartes());
-        int nbPlayers_ = _loadedGame.getNombreDeJoueurs();
-        for (byte b = CustList.FIRST_INDEX; b < nbPlayers_; b++) {
+        for (byte b = CustList.FIRST_INDEX; b < nbPl_; b++) {
             for (CardBelote c : _loadedGame.getAnnoncesBeloteRebelote(b)) {
                 if (!_loadedGame.cartesBeloteRebelote().contient(c)) {
                     _loadedGame.setError(BAD_DECLARING);
@@ -379,11 +379,11 @@ public final class CheckerGameBeloteWithRules {
             }
             for (byte p : loadedGameCopy_.orderedPlayers(loadedGameCopy_
                     .getEntameur())) {
-                if (!trick_.aJoue(p, loadedGameCopy_.getNombreDeJoueurs())) {
+                if (!trick_.aJoue(p, nbPl_)) {
                     return;
                 }
                 CardBelote ct_ = trick_.carteDuJoueur(p,
-                        _loadedGame.getNombreDeJoueurs());
+                        nbPl_);
                 if (!loadedGameCopy_.autorise(ct_)) {
                     _loadedGame.setError(BAD_PLAYING);
                     return;

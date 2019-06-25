@@ -20,28 +20,20 @@ public class TrickTarotTest {
     public void new_PliTarot_byte_Boolean_1Test(){
         TrickTarot pli_ = new TrickTarot((byte) 0,true);
         assertTrue(pli_.estVide());
-        pli_ = new TrickTarot((byte) 0,true);
-        assertTrue(pli_.estVide());
     }
     @Test
     public void new_PliTarot_byte_Boolean_2Test(){
         TrickTarot pli_ = new TrickTarot((byte) 1,true);
-        assertTrue(pli_.estVide());
-        pli_ = new TrickTarot((byte) 1,true);
         assertTrue(pli_.estVide());
     }
     @Test
     public void new_PliTarot_byte_Boolean_3Test(){
         TrickTarot pli_ = new TrickTarot((byte) 2,true);
         assertTrue(pli_.estVide());
-        pli_ = new TrickTarot((byte) 2,true);
-        assertTrue(pli_.estVide());
     }
     @Test
     public void new_PliTarot_byte_Boolean_4Test(){
         TrickTarot pli_ = new TrickTarot((byte) 3,true);
-        assertTrue(pli_.estVide());
-        pli_ = new TrickTarot((byte) 3,true);
         assertTrue(pli_.estVide());
     }
     @Test

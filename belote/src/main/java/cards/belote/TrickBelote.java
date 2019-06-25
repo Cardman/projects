@@ -2,6 +2,7 @@ package cards.belote;
 import java.util.Iterator;
 
 import cards.belote.enumerations.CardBelote;
+import cards.belote.enumerations.DealingBelote;
 import cards.consts.Suit;
 import code.util.CustList;
 import code.util.*;
@@ -18,20 +19,20 @@ public final class TrickBelote implements Iterable<CardBelote> {
     }
     public TrickBelote(HandBelote _pm,byte _pentameur) {
         initPli(_pentameur);
-        cards=_pm;
+        setCards(_pm);
     }
     void initPli(byte _pentameur) {
-        starter=_pentameur;
+        setStarter(_pentameur);
     }
 
 
     /**Retourne l'entameur du pli*/
     public byte getEntameur() {
-        return starter;
+        return getStarter();
     }
 
     public HandBelote getCartes() {
-        return cards;
+        return getCards();
     }
     /**Indique le joueur qui doit ramasser le pli &agrave; la belote
     pour entamer l'eventuel suivant
@@ -85,27 +86,11 @@ public final class TrickBelote implements Iterable<CardBelote> {
         byte position_=(byte)cards.position(_c);
         return (byte)((position_+getEntameur())%_nombreDeJoueurs);
     }
-    Bytes joueursAyantJoueAvant(byte _pnumero) {
-        return joueursAyantJoueAvant(_pnumero, (byte) total());
-    }
-    Bytes joueursAyantJoueAvant(byte _pnumero,byte _nombreDeJoueurs) {
+
+    Bytes joueursAyantJoueAvant(byte _pnumero, DealingBelote _d) {
         Bytes joueurs_=new Bytes();
-        boolean arreter_ = false;
-        for(byte j = starter; j< _nombreDeJoueurs;j++) {
-            if(!aJoue(j, _nombreDeJoueurs)) {
-                continue;
-            }
-            if(j == _pnumero) {
-                arreter_ = true;
-                break;
-            }
-            joueurs_.add(j);
-        }
-        if(arreter_) {
-            return joueurs_;
-        }
-        for(byte j = CustList.FIRST_INDEX; j< starter;j++) {
-            if(!aJoue(j, _nombreDeJoueurs)) {
+        for(byte j : _d.getSortedPlayers(starter)) {
+            if(!aJoue(j, (byte) _d.getNombreJoueurs())) {
                 continue;
             }
             if(j == _pnumero) {
@@ -157,23 +142,9 @@ public final class TrickBelote implements Iterable<CardBelote> {
     Ces joueurs sont classes par ordre chronologique de jeu*/
     Bytes joueursCoupes(Suit _couleurAtout) {
         Bytes coupes_=new Bytes();
-        Suit couleur_;
-        if(total()<=CustList.ONE_ELEMENT) {
-            return coupes_;
-        }
-        couleur_=couleurDemandee();
-        byte nombreDeJoueurs_ = (byte) total();
-        if(couleur_==_couleurAtout) {
-            for(CardBelote c: cards) {
-                if(c.couleur()!=_couleurAtout) {
-                    coupes_.add(joueurAyantJoue(c,nombreDeJoueurs_));
-                }
-            }
-        } else {
-            for(CardBelote c: cards) {
-                if(c.couleur()==_couleurAtout) {
-                    coupes_.add(joueurAyantJoue(c,nombreDeJoueurs_));
-                }
+        for(CardBelote c: cards) {
+            if(c.couleur()==_couleurAtout) {
+                coupes_.add(joueurAyantJoue(c));
             }
         }
         return coupes_;
@@ -181,22 +152,10 @@ public final class TrickBelote implements Iterable<CardBelote> {
     Bytes joueursDefausses(Suit _couleurAtout) {
         Bytes coupes_=new Bytes();
         Suit couleur_;
-        if(total()<=CustList.ONE_ELEMENT) {
-            return coupes_;
-        }
         couleur_=couleurDemandee();
-        byte nombreDeJoueurs_ = (byte) total();
-        if(couleur_==_couleurAtout) {
-            for(CardBelote c: cards) {
-                if(c.couleur()!=_couleurAtout) {
-                    coupes_.add(joueurAyantJoue(c,nombreDeJoueurs_));
-                }
-            }
-        } else {
-            for(CardBelote c: cards) {
-                if(c.couleur()!=_couleurAtout&&c.couleur()!=couleur_) {
-                    coupes_.add(joueurAyantJoue(c,nombreDeJoueurs_));
-                }
+        for(CardBelote c: cards) {
+            if(c.couleur()!=_couleurAtout&&c.couleur()!=couleur_) {
+                coupes_.add(joueurAyantJoue(c));
             }
         }
         return coupes_;
