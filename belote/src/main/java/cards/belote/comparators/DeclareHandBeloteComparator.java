@@ -8,7 +8,7 @@ import code.util.ints.Comparing;
 
 public final class DeclareHandBeloteComparator implements Comparing<DeclareHandBelote> {
 
-    private Suit trumpSuit = Suit.UNDEFINED;
+    private Suit trumpSuit;
     public DeclareHandBeloteComparator(
             Suit _couleurAtout){
         trumpSuit = _couleurAtout;

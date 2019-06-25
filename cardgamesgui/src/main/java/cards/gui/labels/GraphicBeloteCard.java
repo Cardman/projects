@@ -78,7 +78,7 @@ public class GraphicBeloteCard extends PaintableLabel {
         g_.fillRect(0,0,100, 150);
         g_.setColor(Color.BLACK);
         g_.drawRect(0,0, 99, 149);
-        if(!_card.isCharacter()) {
+        if(_card.getNomFigure() == CardChar.UNDEFINED) {
             //Cartes chiffrees
             if(_card.valeur()>1) {
                 int[][] coordonnees_=coordonnees(_card);

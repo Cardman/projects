@@ -1,5 +1,6 @@
 package cards.belote;
 import static cards.belote.EquallableBeloteUtil.assertEq;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
@@ -23,6 +24,27 @@ public class HandBeloteTest {
         HandBelote main_ = HandBelote.pileBase();
         assertEq(CardBelote.values().length-1, main_.total());
         assertTrue(!main_.contient(CardBelote.WHITE));
+        assertNotNull(CardBelote.WHITE.getImageFileName(""));
+        EnumList<CardBelote> one_ = new EnumList<CardBelote>();
+        one_.add(CardBelote.DIAMOND_1);
+        EnumList<CardBelote> two_ = new EnumList<CardBelote>();
+        assertTrue(!CardBelote.equalsCards(one_,two_));
+    }
+    @Test
+    public void pileBase2(){
+        EnumList<CardBelote> one_ = new EnumList<CardBelote>();
+        one_.add(CardBelote.DIAMOND_1);
+        EnumList<CardBelote> two_ = new EnumList<CardBelote>();
+        two_.add(CardBelote.SPADE_7);
+        assertTrue(!CardBelote.equalsCards(one_,two_));
+    }
+    @Test
+    public void pileBase3(){
+        EnumList<CardBelote> one_ = new EnumList<CardBelote>();
+        one_.add(CardBelote.DIAMOND_1);
+        EnumList<CardBelote> two_ = new EnumList<CardBelote>();
+        two_.add(CardBelote.DIAMOND_1);
+        assertTrue(CardBelote.equalsCards(one_,two_));
     }
     @Test
     public void trierUnicolore1(){
@@ -95,7 +117,8 @@ public class HandBeloteTest {
         main_.ajouter(CardBelote.SPADE_JACK);
         main_.ajouter(CardBelote.HEART_9);
         return main_;
-    }    @Test
+    }
+    @Test
     public void trier1(){
         HandBelote main_ = trier();
         EnumList<Suit> couleurs_ = new EnumList<Suit>();
@@ -188,7 +211,8 @@ public class HandBeloteTest {
         main_.ajouter(CardBelote.HEART_JACK);
         main_.ajouter(CardBelote.SPADE_KING);
         return main_;
-    }    @Test
+    }
+    @Test
     public void couleurs1(){
         HandBelote main_ = new HandBelote();
         EnumMap<Suit,HandBelote> hash_ = new EnumMap<Suit,HandBelote>();
@@ -742,7 +766,8 @@ public class HandBeloteTest {
     private HandBelote initCartesJoueesVideEclaterTest(){
         HandBelote main_ = new HandBelote();
         return main_;
-    }    @Test
+    }
+    @Test
     public void eclater1(){
         HandBelote main_ = eclater();
         EqList<HandBelote> suites_ = new EqList<HandBelote>();
@@ -1216,6 +1241,136 @@ public class HandBeloteTest {
         EnumList<DealingBelote> repartitionsValides_ = DealingBelote.getRepartitionsValides();
         assertTrue(!repartitionsValides_.isEmpty());
         assertEq(DealingBelote.values().length,repartitionsValides_.size());
+    }
+    @Test
+    public void vientAvant1Test() {
+        EnumList<Suit> suits_ = new EnumList<Suit>();
+        suits_.add(Suit.SPADE);
+        suits_.add(Suit.HEART);
+        suits_.add(Suit.CLUB);
+        suits_.add(Suit.DIAMOND);
+        assertTrue(CardBelote.SPADE_KING.vientAvant(CardBelote.HEART_KING,false,Order.SUIT,suits_));
+    }
+    @Test
+    public void vientAvant2Test() {
+        EnumList<Suit> suits_ = new EnumList<Suit>();
+        suits_.add(Suit.SPADE);
+        suits_.add(Suit.HEART);
+        suits_.add(Suit.CLUB);
+        suits_.add(Suit.DIAMOND);
+        assertTrue(CardBelote.SPADE_QUEEN.vientAvant(CardBelote.SPADE_KING,false,Order.SUIT,suits_));
+    }
+    @Test
+    public void vientAvant3Test() {
+        EnumList<Suit> suits_ = new EnumList<Suit>();
+        suits_.add(Suit.SPADE);
+        suits_.add(Suit.HEART);
+        suits_.add(Suit.CLUB);
+        suits_.add(Suit.DIAMOND);
+        assertTrue(CardBelote.SPADE_KING.vientAvant(CardBelote.HEART_KING,true,Order.SUIT,suits_));
+    }
+    @Test
+    public void vientAvant4Test() {
+        EnumList<Suit> suits_ = new EnumList<Suit>();
+        suits_.add(Suit.SPADE);
+        suits_.add(Suit.HEART);
+        suits_.add(Suit.CLUB);
+        suits_.add(Suit.DIAMOND);
+        assertTrue(!CardBelote.SPADE_QUEEN.vientAvant(CardBelote.SPADE_KING,true,Order.SUIT,suits_));
+    }
+    @Test
+    public void vientAvant5Test() {
+        EnumList<Suit> suits_ = new EnumList<Suit>();
+        suits_.add(Suit.SPADE);
+        suits_.add(Suit.HEART);
+        suits_.add(Suit.CLUB);
+        suits_.add(Suit.DIAMOND);
+        assertTrue(CardBelote.SPADE_KING.vientAvant(CardBelote.HEART_KING,false,Order.TRUMP,suits_));
+    }
+    @Test
+    public void vientAvant6Test() {
+        EnumList<Suit> suits_ = new EnumList<Suit>();
+        suits_.add(Suit.SPADE);
+        suits_.add(Suit.HEART);
+        suits_.add(Suit.CLUB);
+        suits_.add(Suit.DIAMOND);
+        assertTrue(CardBelote.SPADE_QUEEN.vientAvant(CardBelote.SPADE_KING,false,Order.TRUMP,suits_));
+    }
+    @Test
+    public void vientAvant7Test() {
+        EnumList<Suit> suits_ = new EnumList<Suit>();
+        suits_.add(Suit.SPADE);
+        suits_.add(Suit.HEART);
+        suits_.add(Suit.CLUB);
+        suits_.add(Suit.DIAMOND);
+        assertTrue(CardBelote.SPADE_KING.vientAvant(CardBelote.HEART_KING,true,Order.TRUMP,suits_));
+    }
+    @Test
+    public void vientAvant8Test() {
+        EnumList<Suit> suits_ = new EnumList<Suit>();
+        suits_.add(Suit.SPADE);
+        suits_.add(Suit.HEART);
+        suits_.add(Suit.CLUB);
+        suits_.add(Suit.DIAMOND);
+        assertTrue(!CardBelote.SPADE_QUEEN.vientAvant(CardBelote.SPADE_KING,true,Order.TRUMP,suits_));
+    }
+    @Test
+    public void vientAvant9Test() {
+        EnumList<Suit> suits_ = new EnumList<Suit>();
+        suits_.add(Suit.SPADE);
+        suits_.add(Suit.HEART);
+        suits_.add(Suit.CLUB);
+        suits_.add(Suit.DIAMOND);
+        assertTrue(!CardBelote.HEART_KING.vientAvant(CardBelote.SPADE_KING,true,Order.SUIT,suits_));
+    }
+    @Test
+    public void vientAvant10Test() {
+        EnumList<Suit> suits_ = new EnumList<Suit>();
+        suits_.add(Suit.SPADE);
+        suits_.add(Suit.HEART);
+        suits_.add(Suit.CLUB);
+        suits_.add(Suit.DIAMOND);
+        assertTrue(!CardBelote.HEART_KING.vientAvant(CardBelote.SPADE_KING,true,Order.TRUMP,suits_));
+    }
+    @Test
+    public void nombreCartesPoints1Test() {
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_7);
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.HEART_9);
+        h_.ajouter(CardBelote.SPADE_7);
+        h_.ajouter(CardBelote.SPADE_10);
+        h_.ajouter(CardBelote.SPADE_9);
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.SUIT);
+        b_.setSuit(Suit.HEART);
+        assertEq(3, h_.nombreCartesPoints(b_));
+    }
+    @Test
+    public void nombreCartesPoints2Test() {
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_7);
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.HEART_9);
+        h_.ajouter(CardBelote.SPADE_7);
+        h_.ajouter(CardBelote.SPADE_10);
+        h_.ajouter(CardBelote.SPADE_9);
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.NO_TRUMP);
+        assertEq(2, h_.nombreCartesPoints(b_));
+    }
+    @Test
+    public void nombreCartesPoints3Test() {
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_7);
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.HEART_9);
+        h_.ajouter(CardBelote.SPADE_7);
+        h_.ajouter(CardBelote.SPADE_10);
+        h_.ajouter(CardBelote.SPADE_9);
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setEnchere(BidBelote.ALL_TRUMP);
+        assertEq(4, h_.nombreCartesPoints(b_));
     }
     private void asserting(EqList<HandBelote> _exp, EqList<HandBelote> _res) {
         assertEq(_exp.size(), _res.size());

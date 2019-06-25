@@ -218,10 +218,6 @@ public enum CardBelote {
         return false;
     }
 
-    public boolean isCharacter() {
-        return nomFigure != CardChar.UNDEFINED;
-    }
-
     public boolean isPlayable() {
         return jouable;
     }

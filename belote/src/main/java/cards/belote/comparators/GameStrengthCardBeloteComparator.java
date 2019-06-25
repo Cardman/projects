@@ -3,6 +3,7 @@ import cards.belote.BidBeloteSuit;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
+import code.util.Numbers;
 import code.util.ints.Comparing;
 
 public final class GameStrengthCardBeloteComparator implements Comparing<CardBelote> {
@@ -31,9 +32,6 @@ public final class GameStrengthCardBeloteComparator implements Comparing<CardBel
         decreasing = _decroissant;
     }
 
-    public boolean bienClasse(CardBelote _arg0, CardBelote _arg1){
-        return compare(_arg0,_arg1)<=0;
-    }
     @Override
     public int compare(CardBelote _arg0, CardBelote _arg1) {
         int mult_ = 1;
@@ -41,21 +39,9 @@ public final class GameStrengthCardBeloteComparator implements Comparing<CardBel
             mult_ = -1;
         }
         if(bid.getEnchere() == BidBelote.FOLD){
-            if(_arg0.strength(trumpSuit, demandedSuit) > _arg1.strength(trumpSuit, demandedSuit)){
-                return mult_;
-            }
-            if(_arg0.strength(trumpSuit, demandedSuit) < _arg1.strength(trumpSuit, demandedSuit)){
-                return -mult_;
-            }
-            return 0;
+            return mult_*Numbers.compareLg(_arg0.strength(trumpSuit, demandedSuit), _arg1.strength(trumpSuit, demandedSuit));
         }
-        if(_arg0.strength(demandedSuit, bid) > _arg1.strength(demandedSuit, bid)){
-            return mult_;
-        }
-        if(_arg0.strength(demandedSuit, bid) < _arg1.strength(demandedSuit, bid)){
-            return -mult_;
-        }
-        return 0;
+        return mult_*Numbers.compareLg(_arg0.strength(demandedSuit, bid) , _arg1.strength(demandedSuit, bid));
     }
 
 }

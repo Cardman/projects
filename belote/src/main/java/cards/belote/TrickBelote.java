@@ -115,9 +115,7 @@ public final class TrickBelote implements Iterable<CardBelote> {
         }
         return joueurs_;
     }
-    public boolean aJoue(byte _nombreDeJoueurs) {
-        return aJoue(DealBelote.NUMERO_UTILISATEUR, _nombreDeJoueurs);
-    }
+
     boolean aJoue(byte _joueur,byte _nombreDeJoueurs) {
         if(total()<_nombreDeJoueurs) {
             //Pli en_ cours_

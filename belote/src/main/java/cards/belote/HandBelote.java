@@ -16,7 +16,6 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.StringList;
 import code.util.ints.Equallable;
 /**
  */
@@ -38,7 +37,7 @@ public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBe
     }
 
     public boolean validStack() {
-        return CardBelote.equalsCards(cards, pileBase().cards);
+        return equalsSet(this, pileBase());
         //        return CustList.equalsSet(cards, pileBase().cards, true);
     }
 
@@ -325,41 +324,22 @@ public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBe
                 continue;
             }
             if(ajouterVec_) {
-                if(!suites_.isEmpty()) {
-                    suites_.last().trierUnicolore(true);
-                }
+                sortIfNotEmpty(suites_);
                 suites_.add(new HandBelote(ordre_));
             }
             ajouterVec_ = false;
             suites_.last().ajouter(carte_);
         }
-        if(!suites_.isEmpty()) {
-            suites_.last().trierUnicolore(true);
-        }
+        sortIfNotEmpty(suites_);
         return suites_;
     }
 
-    HandBelote couleurNonTriee(Suit _couleur) {
-        return couleursNonTriees().getVal(_couleur);
+    private static void sortIfNotEmpty(EqList<HandBelote> _suites) {
+        if(!_suites.isEmpty()) {
+            _suites.last().trierUnicolore(true);
+        }
     }
 
-    EnumMap<Suit,HandBelote> couleursNonTriees() {
-
-        EnumMap<Suit,HandBelote> mains_=new EnumMap<Suit,HandBelote>();
-        for(CardBelote c: cards) {
-            if(!mains_.contains(c.couleur())) {
-                mains_.put(c.couleur(), new HandBelote());
-            }
-            mains_.getVal(c.couleur()).ajouter(c);
-        }
-        for(Suit c:Suit.couleursOrdinaires()) {
-            if(mains_.contains(c)) {
-                continue;
-            }
-            mains_.put(c, new HandBelote());
-        }
-        return mains_;
-    }
     HandBelote couleur(BidBeloteSuit _contrat, Suit _couleur) {
         return couleurs(_contrat).getVal(_couleur);
     }

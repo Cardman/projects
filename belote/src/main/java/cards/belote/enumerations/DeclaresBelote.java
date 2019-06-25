@@ -76,16 +76,11 @@ public enum DeclaresBelote {
     public int getPoints() {
         return points;
     }
-    public byte getTaille() {
-        return taille;
-    }
+
     public static EnumList<DeclaresBelote> annoncesValides(){
         EnumList<DeclaresBelote> liste_ = new EnumList<DeclaresBelote>();
         for(DeclaresBelote a: DeclaresBelote.values()){
             if(!a.estAnnoncable()){
-                continue;
-            }
-            if(a.nombreCartes() == 0){
                 continue;
             }
             liste_.add(a);
