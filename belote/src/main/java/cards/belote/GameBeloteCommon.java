@@ -136,8 +136,8 @@ public final class GameBeloteCommon {
         return couleursTrieesPlusPetitNbPoints(_main,_contrat,_couleurs).first();
     }
 
-    static CustList<EnumList<Suit>> couleursTrieesPlusPetitNbPoints(
-            EnumMap<Suit,HandBelote> _main,
+    private static CustList<EnumList<Suit>> couleursTrieesPlusPetitNbPoints(
+            EnumMap<Suit, HandBelote> _main,
             BidBeloteSuit _contrat,
             EnumList<Suit> _couleurs) {
         EnumList<Suit> couleurs_ = new EnumList<Suit>(_couleurs);
@@ -150,8 +150,8 @@ public final class GameBeloteCommon {
         return couleursTrieesPlusLongues(_main, _couleurs).first();
     }
 
-    static CustList<EnumList<Suit>> couleursTrieesPlusLongues(
-            EnumMap<Suit,HandBelote> _main, EnumList<Suit> _couleurs) {
+    private static CustList<EnumList<Suit>> couleursTrieesPlusLongues(
+            EnumMap<Suit, HandBelote> _main, EnumList<Suit> _couleurs) {
         return _couleurs.getGroupsSameCompare(new HandBeloteLongLengthComparator(_main));
     }
     static EnumList<Suit> couleursAvecLePlusGrandNbPoints(
@@ -161,8 +161,8 @@ public final class GameBeloteCommon {
         return couleursTrieesPlusGrandNbPoints(_main,_contrat,_couleurs).first();
     }
 
-    static CustList<EnumList<Suit>> couleursTrieesPlusGrandNbPoints(
-            EnumMap<Suit,HandBelote> _main,
+    private static CustList<EnumList<Suit>> couleursTrieesPlusGrandNbPoints(
+            EnumMap<Suit, HandBelote> _main,
             BidBeloteSuit _contrat,
             EnumList<Suit> _couleurs) {
         return _couleurs.getGroupsSameCompare(new HandBeloteGreatNbPtsCards(_main, _contrat));
@@ -176,8 +176,8 @@ public final class GameBeloteCommon {
         return couleursTrieesPlusBasses(_main, _contrat,_couleurs).first();
     }
 
-    static CustList<EnumList<Suit>> couleursTrieesPlusBasses(
-            EnumMap<Suit,HandBelote> _main,BidBeloteSuit _contrat,
+    private static CustList<EnumList<Suit>> couleursTrieesPlusBasses(
+            EnumMap<Suit, HandBelote> _main, BidBeloteSuit _contrat,
             EnumList<Suit> _couleurs) {
         return _couleurs.getGroupsSameCompare(new GameStrengthLowHandBeloteComparator(_main, _contrat));
     }
@@ -189,8 +189,8 @@ public final class GameBeloteCommon {
         return couleursTrieesPlusHautes(_main, _contrat, _couleurs).first();
     }
 
-    static CustList<EnumList<Suit>> couleursTrieesPlusHautes(
-            EnumMap<Suit,HandBelote> _main, BidBeloteSuit _contrat,
+    private static CustList<EnumList<Suit>> couleursTrieesPlusHautes(
+            EnumMap<Suit, HandBelote> _main, BidBeloteSuit _contrat,
             EnumList<Suit> _couleurs) {
         return _couleurs.getGroupsSameCompare(new GameStrengthGreatHandBeloteComparator(_main, _contrat));
     }
@@ -202,8 +202,8 @@ public final class GameBeloteCommon {
         return couleursTrieesAvecLaPlusPetiteCarteBasse(_main, _contrat, _couleurs).first();
     }
 
-    static CustList<EnumList<Suit>> couleursTrieesAvecLaPlusPetiteCarteBasse(
-            EnumMap<Suit,HandBelote> _main, BidBeloteSuit _contrat, EnumList<Suit> _couleurs) {
+    private static CustList<EnumList<Suit>> couleursTrieesAvecLaPlusPetiteCarteBasse(
+            EnumMap<Suit, HandBelote> _main, BidBeloteSuit _contrat, EnumList<Suit> _couleurs) {
         return _couleurs.getGroupsSameCompare(new GameStrengthLowLastHandBeloteComparator(_main, _contrat));
     }
     static EnumList<Suit> couleursAvecLaPlusGrandeFigure(EnumMap<Suit,HandBelote> _main,
@@ -212,8 +212,8 @@ public final class GameBeloteCommon {
         return couleursTrieesAvecLaPlusGrandeFigure(_main, _contrat, _couleurs).first();
     }
 
-    static CustList<EnumList<Suit>> couleursTrieesAvecLaPlusGrandeFigure(
-            EnumMap<Suit,HandBelote> _main, BidBeloteSuit _contrat, EnumList<Suit> _couleurs) {
+    private static CustList<EnumList<Suit>> couleursTrieesAvecLaPlusGrandeFigure(
+            EnumMap<Suit, HandBelote> _main, BidBeloteSuit _contrat, EnumList<Suit> _couleurs) {
         return _couleurs.getGroupsSameCompare(new GameStrengthGreatFirstHandBeloteComparator(_main, _contrat));
     }
     static EnumMap<Suit,HandBelote> cartesMaitresses(

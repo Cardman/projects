@@ -3,6 +3,7 @@ package cards.belote;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
+import code.util.EnumList;
 import code.util.EnumMap;
 import org.junit.Test;
 
@@ -181,5 +182,365 @@ public final class GameBeloteCommonTest {
         assertTrue(leading_.getVal(Suit.DIAMOND).contient(CardBelote.DIAMOND_JACK));
         assertEq(1, leading_.getVal(Suit.CLUB).total());
         assertTrue(leading_.getVal(Suit.CLUB).contient(CardBelote.CLUB_JACK));
+    }
+    @Test
+    public void couleursNonAtoutAyantNbCartesSupEgTest() {
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setBid(BidBelote.ALL_TRUMP);
+        b_.setSuit(Suit.UNDEFINED);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_1);
+        h_.ajouter(CardBelote.HEART_JACK);
+        h_.ajouter(CardBelote.SPADE_1);
+        h_.ajouter(CardBelote.SPADE_JACK);
+        h_.ajouter(CardBelote.DIAMOND_1);
+        h_.ajouter(CardBelote.DIAMOND_JACK);
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.CLUB_JACK);
+        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        EnumList<Suit> suits_ = GameBeloteCommon.couleursNonAtoutAyantNbCartesSupEg(h_, GameBeloteCommon.couleurs(), 2);
+        assertEq(3, suits_.size());
+        assertTrue(suits_.containsObj(Suit.DIAMOND));
+        assertTrue(suits_.containsObj(Suit.HEART));
+        assertTrue(suits_.containsObj(Suit.SPADE));
+        suits_ = GameBeloteCommon.couleursNonAtoutAyantNbCartesSupEg(hr_,GameBeloteCommon.couleurs(),2);
+        assertEq(3, suits_.size());
+        assertTrue(suits_.containsObj(Suit.DIAMOND));
+        assertTrue(suits_.containsObj(Suit.HEART));
+        assertTrue(suits_.containsObj(Suit.SPADE));
+    }
+    @Test
+    public void couleursAvecNbPointsInfEg1Test() {
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setBid(BidBelote.ALL_TRUMP);
+        b_.setSuit(Suit.UNDEFINED);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_1);
+        h_.ajouter(CardBelote.HEART_JACK);
+        h_.ajouter(CardBelote.SPADE_1);
+        h_.ajouter(CardBelote.SPADE_JACK);
+        h_.ajouter(CardBelote.DIAMOND_1);
+        h_.ajouter(CardBelote.DIAMOND_JACK);
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.CLUB_JACK);
+        EnumList<Suit> suits_ = GameBeloteCommon.couleursAvecNbPointsInfEg(h_,b_,GameBeloteCommon.couleurs(),2);
+        assertEq(3, suits_.size());
+        assertTrue(suits_.containsObj(Suit.DIAMOND));
+        assertTrue(suits_.containsObj(Suit.SPADE));
+        assertTrue(suits_.containsObj(Suit.CLUB));
+    }
+    @Test
+    public void couleursAvecLaPlusGrandeFigure1Test() {
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setBid(BidBelote.ALL_TRUMP);
+        b_.setSuit(Suit.UNDEFINED);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_1);
+        h_.ajouter(CardBelote.HEART_JACK);
+        h_.ajouter(CardBelote.SPADE_1);
+        h_.ajouter(CardBelote.SPADE_JACK);
+        h_.ajouter(CardBelote.DIAMOND_1);
+        h_.ajouter(CardBelote.DIAMOND_JACK);
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.CLUB_JACK);
+        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        EnumList<Suit> suits_ = GameBeloteCommon.couleursAvecLaPlusGrandeFigure(hr_,b_,GameBeloteCommon.couleurs());
+        assertEq(4, suits_.size());
+        assertTrue(suits_.containsObj(Suit.DIAMOND));
+        assertTrue(suits_.containsObj(Suit.SPADE));
+        assertTrue(suits_.containsObj(Suit.HEART));
+        assertTrue(suits_.containsObj(Suit.CLUB));
+    }
+    @Test
+    public void couleursAvecLaPlusGrandeFigure2Test() {
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setBid(BidBelote.ALL_TRUMP);
+        b_.setSuit(Suit.UNDEFINED);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_1);
+        h_.ajouter(CardBelote.HEART_JACK);
+        h_.ajouter(CardBelote.SPADE_1);
+        h_.ajouter(CardBelote.SPADE_JACK);
+        h_.ajouter(CardBelote.DIAMOND_1);
+        h_.ajouter(CardBelote.DIAMOND_9);
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.CLUB_JACK);
+        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        EnumList<Suit> suits_ = GameBeloteCommon.couleursAvecLaPlusGrandeFigure(hr_,b_,GameBeloteCommon.couleurs());
+        assertEq(3, suits_.size());
+        assertTrue(suits_.containsObj(Suit.SPADE));
+        assertTrue(suits_.containsObj(Suit.HEART));
+        assertTrue(suits_.containsObj(Suit.CLUB));
+    }
+    @Test
+    public void couleursAvecLaPlusGrandeFigure4Test() {
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setBid(BidBelote.ALL_TRUMP);
+        b_.setSuit(Suit.UNDEFINED);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_1);
+        h_.ajouter(CardBelote.HEART_JACK);
+        h_.ajouter(CardBelote.SPADE_1);
+        h_.ajouter(CardBelote.SPADE_JACK);
+        h_.ajouter(CardBelote.DIAMOND_1);
+        h_.ajouter(CardBelote.DIAMOND_9);
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.HEART_9);
+        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        EnumList<Suit> suits_ = GameBeloteCommon.couleursAvecLaPlusGrandeFigure(hr_,b_,GameBeloteCommon.couleurs());
+        assertEq(2, suits_.size());
+        assertTrue(suits_.containsObj(Suit.SPADE));
+        assertTrue(suits_.containsObj(Suit.HEART));
+    }
+    @Test
+    public void couleursAvecLaPlusGrandeFigure5Test() {
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setBid(BidBelote.ALL_TRUMP);
+        b_.setSuit(Suit.UNDEFINED);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_1);
+        h_.ajouter(CardBelote.HEART_JACK);
+        h_.ajouter(CardBelote.DIAMOND_10);
+        h_.ajouter(CardBelote.DIAMOND_JACK);
+        h_.ajouter(CardBelote.DIAMOND_1);
+        h_.ajouter(CardBelote.DIAMOND_9);
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.HEART_9);
+        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        EnumList<Suit> suits_ = GameBeloteCommon.couleursAvecLaPlusGrandeFigure(hr_,b_,GameBeloteCommon.couleurs());
+        assertEq(2, suits_.size());
+        assertTrue(suits_.containsObj(Suit.HEART));
+        assertTrue(suits_.containsObj(Suit.DIAMOND));
+    }
+    @Test
+    public void couleursAvecLaPlusPetiteCarteBasse1Test() {
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setBid(BidBelote.ALL_TRUMP);
+        b_.setSuit(Suit.UNDEFINED);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_1);
+        h_.ajouter(CardBelote.HEART_7);
+        h_.ajouter(CardBelote.SPADE_1);
+        h_.ajouter(CardBelote.SPADE_7);
+        h_.ajouter(CardBelote.DIAMOND_1);
+        h_.ajouter(CardBelote.DIAMOND_7);
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.CLUB_7);
+        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        EnumList<Suit> suits_ = GameBeloteCommon.couleursAvecLaPlusPetiteCarteBasse(hr_,b_,GameBeloteCommon.couleurs());
+        assertEq(4, suits_.size());
+        assertTrue(suits_.containsObj(Suit.DIAMOND));
+        assertTrue(suits_.containsObj(Suit.SPADE));
+        assertTrue(suits_.containsObj(Suit.HEART));
+        assertTrue(suits_.containsObj(Suit.CLUB));
+    }
+    @Test
+    public void couleursAvecLaPlusPetiteCarteBasse2Test() {
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setBid(BidBelote.ALL_TRUMP);
+        b_.setSuit(Suit.UNDEFINED);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_1);
+        h_.ajouter(CardBelote.HEART_7);
+        h_.ajouter(CardBelote.SPADE_1);
+        h_.ajouter(CardBelote.SPADE_7);
+        h_.ajouter(CardBelote.DIAMOND_1);
+        h_.ajouter(CardBelote.DIAMOND_9);
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.CLUB_7);
+        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        EnumList<Suit> suits_ = GameBeloteCommon.couleursAvecLaPlusPetiteCarteBasse(hr_,b_,GameBeloteCommon.couleurs());
+        assertEq(3, suits_.size());
+        assertTrue(suits_.containsObj(Suit.SPADE));
+        assertTrue(suits_.containsObj(Suit.HEART));
+        assertTrue(suits_.containsObj(Suit.CLUB));
+    }
+    @Test
+    public void couleursAvecLaPlusPetiteCarteBasse4Test() {
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setBid(BidBelote.ALL_TRUMP);
+        b_.setSuit(Suit.UNDEFINED);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_1);
+        h_.ajouter(CardBelote.HEART_7);
+        h_.ajouter(CardBelote.SPADE_1);
+        h_.ajouter(CardBelote.SPADE_7);
+        h_.ajouter(CardBelote.DIAMOND_1);
+        h_.ajouter(CardBelote.DIAMOND_9);
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.HEART_9);
+        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        EnumList<Suit> suits_ = GameBeloteCommon.couleursAvecLaPlusPetiteCarteBasse(hr_,b_,GameBeloteCommon.couleurs());
+        assertEq(2, suits_.size());
+        assertTrue(suits_.containsObj(Suit.SPADE));
+        assertTrue(suits_.containsObj(Suit.HEART));
+    }
+    @Test
+    public void couleursAvecLaPlusPetiteCarteBasse5Test() {
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setBid(BidBelote.ALL_TRUMP);
+        b_.setSuit(Suit.UNDEFINED);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_1);
+        h_.ajouter(CardBelote.HEART_7);
+        h_.ajouter(CardBelote.DIAMOND_10);
+        h_.ajouter(CardBelote.DIAMOND_7);
+        h_.ajouter(CardBelote.DIAMOND_1);
+        h_.ajouter(CardBelote.DIAMOND_9);
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.HEART_9);
+        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        EnumList<Suit> suits_ = GameBeloteCommon.couleursAvecLaPlusPetiteCarteBasse(hr_,b_,GameBeloteCommon.couleurs());
+        assertEq(2, suits_.size());
+        assertTrue(suits_.containsObj(Suit.HEART));
+        assertTrue(suits_.containsObj(Suit.DIAMOND));
+    }
+    @Test
+    public void couleursLesPlusLonguesTest() {
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setBid(BidBelote.ALL_TRUMP);
+        b_.setSuit(Suit.UNDEFINED);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_1);
+        h_.ajouter(CardBelote.HEART_7);
+        h_.ajouter(CardBelote.DIAMOND_10);
+        h_.ajouter(CardBelote.DIAMOND_7);
+        h_.ajouter(CardBelote.DIAMOND_1);
+        h_.ajouter(CardBelote.DIAMOND_9);
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.HEART_9);
+        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        EnumList<Suit> suits_ = GameBeloteCommon.couleursLesPlusLongues(hr_,GameBeloteCommon.couleurs());
+        assertEq(2, suits_.size());
+        assertTrue(suits_.containsObj(Suit.HEART));
+        assertTrue(suits_.containsObj(Suit.DIAMOND));
+    }
+    @Test
+    public void couleursLesPlusCourtesTest() {
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setBid(BidBelote.ALL_TRUMP);
+        b_.setSuit(Suit.UNDEFINED);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_1);
+        h_.ajouter(CardBelote.HEART_7);
+        h_.ajouter(CardBelote.DIAMOND_10);
+        h_.ajouter(CardBelote.SPADE_1);
+        h_.ajouter(CardBelote.CLUB_1);
+        h_.ajouter(CardBelote.DIAMOND_9);
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.HEART_9);
+        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        EnumList<Suit> suits_ = GameBeloteCommon.couleursLesPlusCourtes(hr_,GameBeloteCommon.couleurs());
+        assertEq(2, suits_.size());
+        assertTrue(suits_.containsObj(Suit.SPADE));
+        assertTrue(suits_.containsObj(Suit.CLUB));
+    }
+    @Test
+    public void couleursAvecLePlusGrandNbPointsTest() {
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setBid(BidBelote.ALL_TRUMP);
+        b_.setSuit(Suit.UNDEFINED);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_1);
+        h_.ajouter(CardBelote.HEART_7);
+        h_.ajouter(CardBelote.DIAMOND_10);
+        h_.ajouter(CardBelote.DIAMOND_7);
+        h_.ajouter(CardBelote.DIAMOND_1);
+        h_.ajouter(CardBelote.DIAMOND_9);
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.HEART_9);
+        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        EnumList<Suit> suits_ = GameBeloteCommon.couleursAvecLePlusGrandNbPoints(hr_,b_,GameBeloteCommon.couleurs());
+        assertEq(2, suits_.size());
+        assertTrue(suits_.containsObj(Suit.HEART));
+        assertTrue(suits_.containsObj(Suit.DIAMOND));
+    }
+    @Test
+    public void couleursAvecLePlusPetitNbPointsTest() {
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setBid(BidBelote.ALL_TRUMP);
+        b_.setSuit(Suit.UNDEFINED);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_1);
+        h_.ajouter(CardBelote.HEART_7);
+        h_.ajouter(CardBelote.DIAMOND_10);
+        h_.ajouter(CardBelote.DIAMOND_7);
+        h_.ajouter(CardBelote.DIAMOND_1);
+        h_.ajouter(CardBelote.DIAMOND_9);
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.HEART_9);
+        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        EnumList<Suit> s_ = GameBeloteCommon.couleurs();
+        s_ = GameBeloteCommon.couleursNonAtoutNonVides(h_,s_);
+        EnumList<Suit> suits_ = GameBeloteCommon.couleursAvecLePlusPetitNbPoints(hr_,b_, s_);
+        assertEq(2, suits_.size());
+        assertTrue(suits_.containsObj(Suit.HEART));
+        assertTrue(suits_.containsObj(Suit.DIAMOND));
+    }
+    @Test
+    public void couleursAvecCarteMaitresseTest() {
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setBid(BidBelote.ALL_TRUMP);
+        b_.setSuit(Suit.UNDEFINED);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_1);
+        h_.ajouter(CardBelote.HEART_7);
+        h_.ajouter(CardBelote.DIAMOND_10);
+        h_.ajouter(CardBelote.DIAMOND_7);
+        h_.ajouter(CardBelote.DIAMOND_1);
+        h_.ajouter(CardBelote.DIAMOND_9);
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.HEART_9);
+        HandBelote p_ = new HandBelote();
+        p_.ajouter(CardBelote.HEART_JACK);
+        EnumList<Suit> s_ = GameBeloteCommon.couleurs();
+        EnumList<Suit> suits_ = GameBeloteCommon.couleursAvecCarteMaitresse(h_,p_,b_,s_);
+        assertEq(1, suits_.size());
+        assertTrue(suits_.containsObj(Suit.HEART));
+    }
+    @Test
+    public void couleursAvecPointsTest() {
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setBid(BidBelote.ALL_TRUMP);
+        b_.setSuit(Suit.UNDEFINED);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_1);
+        h_.ajouter(CardBelote.HEART_JACK);
+        h_.ajouter(CardBelote.SPADE_1);
+        h_.ajouter(CardBelote.SPADE_JACK);
+        h_.ajouter(CardBelote.DIAMOND_1);
+        h_.ajouter(CardBelote.DIAMOND_JACK);
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.CLUB_7);
+        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        EnumList<Suit> suits_ = GameBeloteCommon.couleursAvecPoints(h_,b_, GameBeloteCommon.couleurs());
+        assertEq(3, suits_.size());
+        assertTrue(suits_.containsObj(Suit.DIAMOND));
+        assertTrue(suits_.containsObj(Suit.HEART));
+        assertTrue(suits_.containsObj(Suit.SPADE));
+        suits_ = GameBeloteCommon.couleursAvecPoints(hr_,b_, GameBeloteCommon.couleurs());
+        assertEq(3, suits_.size());
+        assertTrue(suits_.containsObj(Suit.DIAMOND));
+        assertTrue(suits_.containsObj(Suit.HEART));
+        assertTrue(suits_.containsObj(Suit.SPADE));
+    }
+    @Test
+    public void couleursSansPointTest() {
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setBid(BidBelote.ALL_TRUMP);
+        b_.setSuit(Suit.UNDEFINED);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_1);
+        h_.ajouter(CardBelote.HEART_JACK);
+        h_.ajouter(CardBelote.SPADE_1);
+        h_.ajouter(CardBelote.SPADE_JACK);
+        h_.ajouter(CardBelote.DIAMOND_1);
+        h_.ajouter(CardBelote.DIAMOND_JACK);
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.CLUB_7);
+        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
+        EnumList<Suit> suits_ = GameBeloteCommon.couleursSansPoint(hr_,b_, GameBeloteCommon.couleurs());
+        assertEq(1, suits_.size());
+        assertTrue(suits_.containsObj(Suit.CLUB));
     }
 }
