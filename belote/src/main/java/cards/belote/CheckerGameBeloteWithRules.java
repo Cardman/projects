@@ -183,7 +183,6 @@ public final class CheckerGameBeloteWithRules {
                     return;
                 }
                 boolean found_ = false;
-                int pts_ = 0;
                 for (BidBeloteSuit bid_ : loadedGameCopy_.getGameBeloteBid().allowedBids()) {
                     if (bid_.getEnchere() != _loadedGame.contrat(i_)
                             .getEnchere()) {
@@ -194,14 +193,9 @@ public final class CheckerGameBeloteWithRules {
                         continue;
                     }
                     found_ = true;
-                    pts_ = bid_.getPoints();
                     break;
                 }
                 if (!found_) {
-                    _loadedGame.setError(INVALID_BID);
-                    return;
-                }
-                if (pts_ > _loadedGame.contrat(i_).getPoints()) {
                     _loadedGame.setError(INVALID_BID);
                     return;
                 }
@@ -227,7 +221,6 @@ public final class CheckerGameBeloteWithRules {
                         return;
                     }
                     boolean found_ = false;
-                    int pts_ = 0;
                     for (BidBeloteSuit bid_ : loadedGameCopy_.getGameBeloteBid().allowedBids()) {
                         if (bid_.getEnchere() != _loadedGame.contrat(i_)
                                 .getEnchere()) {
@@ -238,14 +231,9 @@ public final class CheckerGameBeloteWithRules {
                             continue;
                         }
                         found_ = true;
-                        pts_ = bid_.getPoints();
                         break;
                     }
                     if (!found_) {
-                        _loadedGame.setError(INVALID_BID);
-                        return;
-                    }
-                    if (pts_ > _loadedGame.contrat(i_).getPoints()) {
                         _loadedGame.setError(INVALID_BID);
                         return;
                     }

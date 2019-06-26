@@ -35,20 +35,12 @@ final class GameBeloteDeclaring {
     void annulerAnnonces() {
         EqList<DeclareHandBelote> annoncesLoc_ = new EqList<DeclareHandBelote>(declares);
         DeclareHandBeloteComparator comparateur_ =
-                new DeclareHandBeloteComparator(doneTrickInfo.getBid().getCouleur());
-        EqList<DeclareHandBelote> declarationsTakerTeam_ = new EqList<DeclareHandBelote>();
+                new DeclareHandBeloteComparator(doneTrickInfo.getBid());
         Bytes takerTeam_ = teamsRelation.partenaires(teamsRelation.getTaker());
         takerTeam_.add(teamsRelation.getTaker());
-        for (byte p: takerTeam_) {
-            declarationsTakerTeam_.add(new DeclareHandBelote(annoncesLoc_.get(p)));
-        }
-        declarationsTakerTeam_.sortElts(new DeclareHandBeloteComparator(doneTrickInfo.getBid().getCouleur()));
-        EqList<DeclareHandBelote> declarationsTakerFoesTeam_ = new EqList<DeclareHandBelote>();
+        EqList<DeclareHandBelote> declarationsTakerTeam_ = filterSort(annoncesLoc_, comparateur_, takerTeam_);
         Bytes takerFoesTeam_ = teamsRelation.adversaires(teamsRelation.getTaker());
-        for (byte p: takerFoesTeam_) {
-            declarationsTakerFoesTeam_.add(new DeclareHandBelote(annoncesLoc_.get(p)));
-        }
-        declarationsTakerFoesTeam_.sortElts(new DeclareHandBeloteComparator(doneTrickInfo.getBid().getCouleur()));
+        EqList<DeclareHandBelote> declarationsTakerFoesTeam_ = filterSort(annoncesLoc_, comparateur_, takerFoesTeam_);
         if (!declarationsTakerTeam_.isEmpty()) {
             if (declarationsTakerFoesTeam_.isEmpty()) {
                 for (byte p: takerFoesTeam_) {
@@ -102,5 +94,18 @@ final class GameBeloteDeclaring {
             }
         }
         //annuler les annonces de l'equipe les plus faibles a la fin du premier tour
+    }
+
+    private static EqList<DeclareHandBelote> filterSort(EqList<DeclareHandBelote> _annoncesLoc, DeclareHandBeloteComparator _comparateur, Bytes _team) {
+        EqList<DeclareHandBelote> declarationsTeam_ = new EqList<DeclareHandBelote>();
+        for (byte p: _team) {
+            DeclareHandBelote annonceMainBelote_ = _annoncesLoc.get(p);
+            if (annonceMainBelote_.getMain().estVide()) {
+                continue;
+            }
+            declarationsTeam_.add(new DeclareHandBelote(annonceMainBelote_));
+        }
+        declarationsTeam_.sortElts(_comparateur);
+        return declarationsTeam_;
     }
 }

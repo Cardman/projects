@@ -233,15 +233,14 @@ public final class GameBeloteCommon {
             }
             HandBelote couleurTotale_ = HandBelote.couleurComplete(couleur_, ordre_);
             HandBelote cartes_= hand(_couleurs,couleur_);
-            HandBelote suite_=new HandBelote();
-            HandBelote cartesJoueesOuPossedees_=new HandBelote();
+            HandBelote cartesJoueesOuPossedees_=new HandBelote(ordre_);
             cartesJoueesOuPossedees_.ajouterCartes(hand(_cartesJouees,couleur_));
             //C'est la reunion des cartes jouees dans le jeu et de celles du joueur
             cartesJoueesOuPossedees_.ajouterCartes(cartes_);
             cartesJoueesOuPossedees_.trierUnicolore(true);
 
 
-            HandBelote cartesMaitresses_ = new HandBelote();
+            HandBelote cartesMaitresses_ = new HandBelote(ordre_);
             int nbPlayedOrOwnedCards_ = cartesJoueesOuPossedees_.total();
             for (byte c = CustList.FIRST_INDEX; c < nbPlayedOrOwnedCards_; c++) {
                 if (!CardBelote.eq(cartesJoueesOuPossedees_.carte(c),
@@ -262,8 +261,8 @@ public final class GameBeloteCommon {
                     }
                 }
             }
-
-            suits_.put(couleur_,suite_);
+            cartesMaitresses_.trierUnicolore(true);
+            suits_.put(couleur_,cartesMaitresses_);
         }
         return suits_;
     }

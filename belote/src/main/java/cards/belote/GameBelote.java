@@ -1,9 +1,7 @@
 package cards.belote;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import cards.belote.comparators.DeclareHandBeloteComparator;
 import cards.belote.enumerations.CardBelote;
-import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.CardChar;
 import cards.consts.GameType;
 import cards.consts.Suit;
@@ -390,7 +388,7 @@ public final class GameBelote {
         if (!rules.dealAll()) {
             last_.ajouter(deal.derniereMain().premiereCarte());
         }
-        return new GameBeloteBid(mj_,rules,bids,bid,endBidsFirstRound,last_);
+        return new GameBeloteBid(mj_,rules, bid,endBidsFirstRound,last_);
     }
 
     public void finEncherePremierTour() {

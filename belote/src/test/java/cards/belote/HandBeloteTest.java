@@ -1235,6 +1235,69 @@ public class HandBeloteTest {
         res_.ajouter(CardBelote.CLUB_KING);
         assertEq(res_, annonceMain_.getMain());
         assertEq(DeclaresBelote.FOUR_KING, annonceMain_.getAnnonce());
+        couleurAtout_ = Suit.HEART;
+        enchere_ = BidBelote.SUIT;
+        enchereCouleur_.setEnchere(enchere_);
+        enchereCouleur_.setCouleur(couleurAtout_);
+        main_ = new HandBelote(Order.SUIT);
+        main_.ajouter(CardBelote.DIAMOND_1);
+        main_.ajouter(CardBelote.DIAMOND_JACK);
+        main_.ajouter(CardBelote.DIAMOND_KING);
+        main_.ajouter(CardBelote.DIAMOND_QUEEN);
+        main_.ajouter(CardBelote.HEART_JACK);
+        main_.ajouter(CardBelote.SPADE_1);
+        main_.ajouter(CardBelote.SPADE_KING);
+        main_.ajouter(CardBelote.SPADE_QUEEN);
+        annonceMain_ = main_.annonce(annoncesAutorisees_, enchereCouleur_);
+        res_ = new HandBelote();
+        res_.ajouter(CardBelote.DIAMOND_1);
+        res_.ajouter(CardBelote.DIAMOND_KING);
+        res_.ajouter(CardBelote.DIAMOND_QUEEN);
+        res_.ajouter(CardBelote.DIAMOND_JACK);
+        assertEq(res_, annonceMain_.getMain());
+        assertEq(DeclaresBelote.FIFTY, annonceMain_.getAnnonce());
+        couleurAtout_ = Suit.HEART;
+        enchere_ = BidBelote.SUIT;
+        enchereCouleur_.setEnchere(enchere_);
+        enchereCouleur_.setCouleur(couleurAtout_);
+        main_ = new HandBelote(Order.SUIT);
+        main_.ajouter(CardBelote.DIAMOND_KING);
+        main_.ajouter(CardBelote.HEART_1);
+        main_.ajouter(CardBelote.DIAMOND_JACK);
+        main_.ajouter(CardBelote.DIAMOND_1);
+        main_.ajouter(CardBelote.DIAMOND_QUEEN);
+        main_.ajouter(CardBelote.CLUB_1);
+        main_.ajouter(CardBelote.DIAMOND_10);
+        main_.ajouter(CardBelote.SPADE_1);
+        annonceMain_ = main_.annonce(annoncesAutorisees_, enchereCouleur_);
+        res_ = new HandBelote();
+        res_.ajouter(CardBelote.HEART_1);
+        res_.ajouter(CardBelote.SPADE_1);
+        res_.ajouter(CardBelote.DIAMOND_1);
+        res_.ajouter(CardBelote.CLUB_1);
+        assertEq(res_, annonceMain_.getMain());
+        assertEq(DeclaresBelote.FOUR_1, annonceMain_.getAnnonce());
+        couleurAtout_ = Suit.UNDEFINED;
+        enchere_ = BidBelote.NO_TRUMP;
+        enchereCouleur_.setEnchere(enchere_);
+        enchereCouleur_.setCouleur(couleurAtout_);
+        main_ = new HandBelote(Order.TRUMP);
+        main_.ajouter(CardBelote.DIAMOND_1);
+        main_.ajouter(CardBelote.DIAMOND_KING);
+        main_.ajouter(CardBelote.DIAMOND_QUEEN);
+        main_.ajouter(CardBelote.DIAMOND_JACK);
+        main_.ajouter(CardBelote.HEART_1);
+        main_.ajouter(CardBelote.HEART_KING);
+        main_.ajouter(CardBelote.HEART_QUEEN);
+        main_.ajouter(CardBelote.HEART_JACK);
+        annonceMain_ = main_.annonce(annoncesAutorisees_, enchereCouleur_);
+        res_ = new HandBelote();
+        res_.ajouter(CardBelote.DIAMOND_1);
+        res_.ajouter(CardBelote.DIAMOND_KING);
+        res_.ajouter(CardBelote.DIAMOND_QUEEN);
+        res_.ajouter(CardBelote.DIAMOND_JACK);
+        assertEq(res_, annonceMain_.getMain());
+        assertEq(DeclaresBelote.FIFTY, annonceMain_.getAnnonce());
     }
     @Test
     public void getRepartitionsValides_repartitionsToutesValides1(){
@@ -1371,6 +1434,240 @@ public class HandBeloteTest {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setEnchere(BidBelote.ALL_TRUMP);
         assertEq(4, h_.nombreCartesPoints(b_));
+    }
+    @Test
+    public void cartesPlisAssures1Test() {
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_7);
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.HEART_9);
+        h_.ajouter(CardBelote.SPADE_7);
+        h_.ajouter(CardBelote.SPADE_10);
+        h_.ajouter(CardBelote.SPADE_9);
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setSuit(Suit.HEART);
+        b_.setBid(BidBelote.SUIT);
+        EnumMap<Suit, HandBelote> rep_ = h_.couleurs(b_);
+        assertEq(0, rep_.getVal(Suit.CLUB).cartesPlisAssures(b_).total());
+    }
+    @Test
+    public void cartesPlisAssures2Test() {
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_7);
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.HEART_9);
+        h_.ajouter(CardBelote.SPADE_7);
+        h_.ajouter(CardBelote.SPADE_10);
+        h_.ajouter(CardBelote.SPADE_9);
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setSuit(Suit.HEART);
+        b_.setBid(BidBelote.SUIT);
+        EnumMap<Suit, HandBelote> rep_ = h_.couleurs(b_);
+        assertEq(0, rep_.getVal(Suit.SPADE).cartesPlisAssures(b_).total());
+    }
+    @Test
+    public void cartesPlisAssures3Test() {
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_7);
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.HEART_9);
+        h_.ajouter(CardBelote.SPADE_7);
+        h_.ajouter(CardBelote.SPADE_1);
+        h_.ajouter(CardBelote.SPADE_9);
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setSuit(Suit.HEART);
+        b_.setBid(BidBelote.SUIT);
+        EnumMap<Suit, HandBelote> rep_ = h_.couleurs(b_);
+        HandBelote cards_ = rep_.getVal(Suit.SPADE).cartesPlisAssures(b_);
+        assertEq(1, cards_.total());
+        assertTrue(cards_.contient(CardBelote.SPADE_1));
+    }
+    @Test
+    public void cartesPlisAssures4Test() {
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_7);
+        h_.ajouter(CardBelote.HEART_1);
+        h_.ajouter(CardBelote.HEART_9);
+        h_.ajouter(CardBelote.SPADE_7);
+        h_.ajouter(CardBelote.SPADE_1);
+        h_.ajouter(CardBelote.SPADE_9);
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setSuit(Suit.HEART);
+        b_.setBid(BidBelote.SUIT);
+        EnumMap<Suit, HandBelote> rep_ = h_.couleurs(b_);
+        HandBelote cards_ = rep_.getVal(Suit.HEART).cartesPlisAssures(b_);
+        assertEq(1, cards_.total());
+        assertTrue(cards_.contient(CardBelote.HEART_9));
+    }
+    @Test
+    public void cartesPlisAssures5Test() {
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_JACK);
+        h_.ajouter(CardBelote.HEART_1);
+        h_.ajouter(CardBelote.HEART_9);
+        h_.ajouter(CardBelote.SPADE_7);
+        h_.ajouter(CardBelote.SPADE_1);
+        h_.ajouter(CardBelote.SPADE_9);
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setSuit(Suit.HEART);
+        b_.setBid(BidBelote.SUIT);
+        EnumMap<Suit, HandBelote> rep_ = h_.couleurs(b_);
+        HandBelote cards_ = rep_.getVal(Suit.HEART).cartesPlisAssures(b_);
+        assertEq(3, cards_.total());
+        assertTrue(cards_.contient(CardBelote.HEART_JACK));
+        assertTrue(cards_.contient(CardBelote.HEART_9));
+        assertTrue(cards_.contient(CardBelote.HEART_1));
+    }
+    @Test
+    public void cartesPlisAssures6Test() {
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.HEART_1);
+        h_.ajouter(CardBelote.HEART_9);
+        h_.ajouter(CardBelote.SPADE_7);
+        h_.ajouter(CardBelote.SPADE_1);
+        h_.ajouter(CardBelote.SPADE_9);
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setSuit(Suit.HEART);
+        b_.setBid(BidBelote.SUIT);
+        EnumMap<Suit, HandBelote> rep_ = h_.couleurs(b_);
+        HandBelote cards_ = rep_.getVal(Suit.HEART).cartesPlisAssures(b_);
+        assertEq(2, cards_.total());
+        assertTrue(cards_.contient(CardBelote.HEART_9));
+        assertTrue(cards_.contient(CardBelote.HEART_1));
+    }
+    @Test
+    public void cartesPlisAssures7Test() {
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_KING);
+        h_.ajouter(CardBelote.HEART_1);
+        h_.ajouter(CardBelote.HEART_9);
+        h_.ajouter(CardBelote.HEART_QUEEN);
+        h_.ajouter(CardBelote.SPADE_1);
+        h_.ajouter(CardBelote.SPADE_9);
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setSuit(Suit.HEART);
+        b_.setBid(BidBelote.SUIT);
+        EnumMap<Suit, HandBelote> rep_ = h_.couleurs(b_);
+        HandBelote cards_ = rep_.getVal(Suit.HEART).cartesPlisAssures(b_);
+        assertEq(2, cards_.total());
+        assertTrue(cards_.contient(CardBelote.HEART_9));
+        assertTrue(cards_.contient(CardBelote.HEART_KING));
+    }
+    @Test
+    public void cartesPlisAssures8Test() {
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_KING);
+        h_.ajouter(CardBelote.HEART_1);
+        h_.ajouter(CardBelote.HEART_9);
+        h_.ajouter(CardBelote.HEART_QUEEN);
+        h_.ajouter(CardBelote.SPADE_1);
+        h_.ajouter(CardBelote.SPADE_9);
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setSuit(Suit.UNDEFINED);
+        b_.setBid(BidBelote.NO_TRUMP);
+        EnumMap<Suit, HandBelote> rep_ = h_.couleurs(b_);
+        HandBelote cards_ = rep_.getVal(Suit.HEART).cartesPlisAssures(b_);
+        assertEq(2, cards_.total());
+        assertTrue(cards_.contient(CardBelote.HEART_1));
+        assertTrue(cards_.contient(CardBelote.HEART_KING));
+    }
+    @Test
+    public void pointsAvg1Test() {
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_KING);
+        h_.ajouter(CardBelote.HEART_JACK);
+        h_.ajouter(CardBelote.HEART_9);
+        h_.ajouter(CardBelote.HEART_QUEEN);
+        h_.ajouter(CardBelote.SPADE_1);
+        h_.ajouter(CardBelote.SPADE_9);
+        EnumMap<Suit, Long> res_ = h_.pointsAvg(4,8);
+        assertEq(122, res_.getVal(Suit.HEART));
+        assertEq(69, res_.getVal(Suit.SPADE));
+        assertEq(62, res_.getVal(Suit.DIAMOND));
+        assertEq(62, res_.getVal(Suit.CLUB));
+    }
+    @Test
+    public void pointsAvg2Test() {
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_KING);
+        h_.ajouter(CardBelote.HEART_1);
+        h_.ajouter(CardBelote.HEART_9);
+        h_.ajouter(CardBelote.HEART_QUEEN);
+        h_.ajouter(CardBelote.SPADE_1);
+        h_.ajouter(CardBelote.SPADE_9);
+        EnumMap<Suit, Long> res_ = h_.pointsAvg(4, 8);
+        assertEq(97, res_.getVal(Suit.HEART));
+        assertEq(77, res_.getVal(Suit.SPADE));
+        assertEq(73, res_.getVal(Suit.DIAMOND));
+        assertEq(73, res_.getVal(Suit.CLUB));
+    }
+    @Test
+    public void pointsAvg3Test() {
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_KING);
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.HEART_9);
+        h_.ajouter(CardBelote.HEART_QUEEN);
+        h_.ajouter(CardBelote.SPADE_10);
+        h_.ajouter(CardBelote.SPADE_9);
+        EnumMap<Suit, Long> res_ = h_.pointsAvg(4, 8);
+        assertEq(65, res_.getVal(Suit.HEART));
+        assertEq(42, res_.getVal(Suit.SPADE));
+        assertEq(42, res_.getVal(Suit.DIAMOND));
+        assertEq(42, res_.getVal(Suit.CLUB));
+    }
+    @Test
+    public void pointsAvg4Test() {
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_8);
+        h_.ajouter(CardBelote.HEART_10);
+        h_.ajouter(CardBelote.HEART_9);
+        h_.ajouter(CardBelote.HEART_QUEEN);
+        h_.ajouter(CardBelote.SPADE_10);
+        h_.ajouter(CardBelote.SPADE_9);
+        EnumMap<Suit, Long> res_ = h_.pointsAvg(4, 8);
+        assertEq(17, res_.getVal(Suit.HEART));
+        assertEq(13, res_.getVal(Suit.SPADE));
+        assertEq(13, res_.getVal(Suit.DIAMOND));
+        assertEq(13, res_.getVal(Suit.CLUB));
+    }
+    @Test
+    public void pointsAvg5Test() {
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_1);
+        h_.ajouter(CardBelote.HEART_JACK);
+        h_.ajouter(CardBelote.HEART_9);
+        h_.ajouter(CardBelote.CLUB_1);
+        h_.ajouter(CardBelote.SPADE_1);
+        h_.ajouter(CardBelote.DIAMOND_1);
+        EnumMap<Suit, Long> res_ = h_.pointsAvg(4,8);
+        assertEq(168, res_.getVal(Suit.HEART));
+        assertEq(76, res_.getVal(Suit.SPADE));
+        assertEq(76, res_.getVal(Suit.DIAMOND));
+        assertEq(76, res_.getVal(Suit.CLUB));
+    }
+    @Test
+    public void pointsBid1Test() {
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_1);
+        h_.ajouter(CardBelote.HEART_JACK);
+        h_.ajouter(CardBelote.HEART_9);
+        h_.ajouter(CardBelote.CLUB_1);
+        h_.ajouter(CardBelote.SPADE_1);
+        h_.ajouter(CardBelote.DIAMOND_1);
+        assertEq(144, h_.pointsBid(4,8,BidBelote.NO_TRUMP));
+    }
+    @Test
+    public void pointsBid2Test() {
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.HEART_7);
+        h_.ajouter(CardBelote.HEART_8);
+        h_.ajouter(CardBelote.HEART_JACK);
+        h_.ajouter(CardBelote.CLUB_JACK);
+        h_.ajouter(CardBelote.SPADE_JACK);
+        h_.ajouter(CardBelote.DIAMOND_JACK);
+        assertEq(133, h_.pointsBid(4,8,BidBelote.ALL_TRUMP));
     }
     private void asserting(EqList<HandBelote> _exp, EqList<HandBelote> _res) {
         assertEq(_exp.size(), _res.size());

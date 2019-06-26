@@ -4,18 +4,13 @@ import java.util.Iterator;
 import cards.belote.comparators.DeclareHandBeloteComparator;
 import cards.belote.comparators.DeclareStrengthCardBeloteComparator;
 import cards.belote.comparators.GameStrengthCardBeloteComparator;
-import cards.belote.enumerations.BidBelote;
-import cards.belote.enumerations.BonusBelote;
-import cards.belote.enumerations.CardBelote;
-import cards.belote.enumerations.DeclaresBelote;
+import cards.belote.enumerations.*;
 import cards.consts.CardChar;
 import cards.consts.Order;
 import cards.consts.Suit;
+import code.maths.Rate;
 import code.maths.montecarlo.AbMonteCarlo;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.EqList;
+import code.util.*;
 import code.util.ints.Equallable;
 /**
  */
@@ -72,6 +67,13 @@ public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBe
             liste_.ajouter(carte_);
         }
         return liste_;
+    }
+    public static HandBelote reunion(EnumMap<Suit,HandBelote> _all) {
+        HandBelote h_ = new HandBelote();
+        for (EntryCust<Suit,HandBelote> e: _all.entryList()) {
+            h_.ajouterCartes(e.getValue());
+        }
+        return h_;
     }
     public static HandBelote couleurComplete(Suit _couleur, Order _ordre) {
         HandBelote liste_ = new HandBelote(_ordre);
@@ -178,14 +180,6 @@ public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBe
     int position(CardBelote _c) {
         return cards.indexOfObj(_c);
     }
-    private void changer(CardBelote _c,int _i) {
-        cards.set(_i, _c);
-    }
-    void echanger(int _a,int _b) {
-        CardBelote c=carte(_a);
-        changer(carte(_b),_a);
-        changer(c,_b);
-    }
 
     int tailleCouleur(Suit _couleur) {
         int taille_=0;
@@ -196,29 +190,104 @@ public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBe
         }
         return taille_;
     }
-    int tailleValeur(byte _valeur) {
-        int taille_=0;
-        for(CardBelote c:cards) {
-            if(c.valeur()==_valeur) {
-                taille_++;
-            }
-        }
-        return taille_;
-    }
 
-    int tailleValets() {
-        int taille_=0;
-        for(CardBelote c:cards) {
-            if(c.getNomFigure() == CardChar.JACK) {
-                taille_++;
-            }
-        }
-        return taille_;
-    }
     public boolean estVide() {
         return cards.isEmpty();
     }
 
+    long pointsBid(int _nbPlayers, int _nbFinalCards, BidBelote _b) {
+        Suit c_ = Suit.UNDEFINED;
+        int count_ = total();
+        BidBeloteSuit enchereBeloteLoc_ = new BidBeloteSuit();
+        enchereBeloteLoc_.setCouleur(c_);
+        enchereBeloteLoc_.setEnchere(_b);
+        EnumMap<Suit,HandBelote> repartition_=couleurs(enchereBeloteLoc_);
+        HandBelote rem_ = HandBelote.pileBase();
+        rem_.supprimerCartes(this);
+        EnumMap<Suit,HandBelote> other_ = rem_.couleurs(enchereBeloteLoc_);
+        int pointsFictifs_ = 0;
+        for(Suit c2_: GameBeloteCommon.couleurs()) {
+            pointsFictifs_ += getPointsCount(_nbPlayers,enchereBeloteLoc_,c2_,repartition_,other_);
+        }
+        pointsFictifs_ *= _nbFinalCards;
+        pointsFictifs_ /= count_;
+        return pointsFictifs_;
+    }
+    EnumMap<Suit,Long> pointsAvg(int _nbPlayers, int _nbFinalCards) {
+        EnumMap<Suit,Long> couleurPointsFictifs_ = new EnumMap<Suit,Long>();
+        HandBelote rem_ = HandBelote.pileBase();
+        rem_.supprimerCartes(this);
+        int count_ = total();
+        for(Suit c: GameBeloteCommon.couleurs()) {
+            //c: couleur atout
+            BidBeloteSuit enchereBeloteLoc_ = new BidBeloteSuit();
+            enchereBeloteLoc_.setCouleur(c);
+            enchereBeloteLoc_.setEnchere(BidBelote.SUIT);
+            EnumMap<Suit,HandBelote> repartition_=couleurs(enchereBeloteLoc_);
+            EnumMap<Suit,HandBelote> other_ = rem_.couleurs(enchereBeloteLoc_);
+            //repartition est la repartition des cartes a la couleur d'atout c
+            long pointsFictifs_ = 0;
+            for(Suit c2_: GameBeloteCommon.couleurs()) {
+                if(c2_ == c) {
+                    continue;
+                }
+                pointsFictifs_ += getPointsCount(_nbPlayers,enchereBeloteLoc_,c2_,repartition_,other_);
+            }
+            pointsFictifs_ += getPointsCount(_nbPlayers,enchereBeloteLoc_,c,repartition_,other_);
+            pointsFictifs_ *= _nbFinalCards;
+            pointsFictifs_ /= count_;
+            HandBelote cartes_ = new HandBelote();
+            for(CardBelote t: GameBeloteCommonPlaying.cartesAtouts(c)) {
+                if(t.getNomFigure() == CardChar.KING) {
+                    cartes_.ajouter(t);
+                }
+                if(t.getNomFigure() == CardChar.QUEEN) {
+                    cartes_.ajouter(t);
+                }
+            }
+            if (contientCartes(cartes_)) {
+                pointsFictifs_ += DeclaresBeloteRebelote.BELOTE_REBELOTE.getPoints();
+            }
+            couleurPointsFictifs_.put(c, pointsFictifs_);
+        }
+        return couleurPointsFictifs_;
+    }
+    static long getPointsCount(int _nbPlayers, BidBeloteSuit _bid, Suit _curSuit, EnumMap<Suit,HandBelote> _currHand, EnumMap<Suit,HandBelote> _other) {
+        Suit trumSuit_ = _bid.getCouleur();
+        long pointsFictifs_ = 0;
+        HandBelote zerosLoc_ = new HandBelote();
+        for(Suit c3_: GameBeloteCommon.couleurs()) {
+            if (c3_ == trumSuit_) {
+                continue;
+            }
+            if (c3_ == _curSuit) {
+                continue;
+            }
+            zerosLoc_.ajouterCartes(_other.getVal(c3_));
+        }
+        //c2: couleur ordinaire
+        HandBelote otherLoc_ = _other.getVal(_curSuit);
+        HandBelote suit_ = _currHand.getVal(_curSuit);
+
+        HandBelote cartesAssurantMax_ = suit_.cartesPlisAssures(_bid);
+        for(CardBelote c3_: cartesAssurantMax_) {
+            HandBelote all_ = new HandBelote();
+            all_.ajouterCartes(zerosLoc_);
+            for (CardBelote c4_: otherLoc_) {
+                if (c4_.strength(_curSuit,_bid) < c3_.strength(_curSuit,_bid)) {
+                    all_.ajouter(c4_);
+                }
+            }
+            long sum_ = 0;
+            for (CardBelote c4_: all_) {
+                sum_ += c4_.points(_bid);
+            }
+            sum_ *= _nbPlayers - 1;
+            sum_ /= all_.total();
+            pointsFictifs_+=c3_.points(_bid)+sum_;
+        }
+        return pointsFictifs_;
+    }
     HandBelote cartesPlisAssures(BidBeloteSuit _enchere) {
         if(estVide()) {
             return new HandBelote();
@@ -231,9 +300,6 @@ public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBe
             ordre_ = Order.TRUMP;
         }else {
             ordre_ = Order.SUIT;
-        }
-        if(estVide()) {
-            return new HandBelote(ordre_);
         }
         HandBelote cartesAssurantMin_ = cartesPlisAssuresMin(ordre_);
         EnumMap<Suit,HandBelote> repartitionCartesJouees_ = new HandBelote().couleurs(_enchere);
@@ -249,20 +315,13 @@ public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBe
                     cartesAssurantMax_.ajouterCartes(m);
                     continue;
                 }
-                int nbCartesAjoutees_ = 0;
-                for(CardBelote c3_: m2_) {
-                    if(nbCartesAjoutees_ == m.total()) {
-                        break;
-                    }
-                    cartesAssurantMax_.ajouter(c3_);
-                    nbCartesAjoutees_++;
-                }
+                cartesAssurantMax_.getCards().addAllElts(m2_.getCards().sub(0,m.total()));
                 break;
             }
         }
         return cartesAssurantMax_;
     }
-    HandBelote cartesPlisAssuresMin(Order _ordre) {
+    private HandBelote cartesPlisAssuresMin(Order _ordre) {
         if(estVide()) {
             return new HandBelote(_ordre);
         }
@@ -365,36 +424,28 @@ public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBe
 
     public DeclareHandBelote annonce(EnumList<DeclaresBelote> _annoncesAutorisees,
             BidBeloteSuit _enchere) {
-        DeclareHandBelote annonce_ = new DeclareHandBelote();
         EqList<DeclareHandBelote> annoncesPossibles_ = new EqList<DeclareHandBelote>();
         for(DeclaresBelote a: _annoncesAutorisees) {
             if(a.estConstante()) {
+                HandBelote cartesMemeHauteur_ = new HandBelote();
                 if(a.getFigure() != CardChar.UNDEFINED) {
-                    HandBelote cartesMemeHauteur_ = new HandBelote();
                     for(CardBelote c: HandBelote.pileBase()) {
                         if(c.getNomFigure() == a.getFigure()) {
                             cartesMemeHauteur_.ajouter(c);
                         }
                     }
-                    if(cards.containsAllObj(cartesMemeHauteur_.cards)) {
-                        DeclareHandBelote annonceLoc_ = new DeclareHandBelote();
-                        annonceLoc_.setMain(cartesMemeHauteur_);
-                        annonceLoc_.setAnnonce(a);
-                        annoncesPossibles_.add(annonceLoc_);
-                    }
                 }else {
-                    HandBelote cartesMemeHauteur_ = new HandBelote();
                     for(CardBelote c: HandBelote.pileBase()) {
                         if(c.valeur() == a.getValeur()) {
                             cartesMemeHauteur_.ajouter(c);
                         }
                     }
-                    if(cards.containsAllObj(cartesMemeHauteur_.cards)) {
-                        DeclareHandBelote annonceLoc_ = new DeclareHandBelote();
-                        annonceLoc_.setMain(cartesMemeHauteur_);
-                        annonceLoc_.setAnnonce(a);
-                        annoncesPossibles_.add(annonceLoc_);
-                    }
+                }
+                if(cards.containsAllObj(cartesMemeHauteur_.cards)) {
+                    DeclareHandBelote annonceLoc_ = new DeclareHandBelote();
+                    annonceLoc_.setMain(cartesMemeHauteur_);
+                    annonceLoc_.setAnnonce(a);
+                    annoncesPossibles_.add(annonceLoc_);
                 }
                 continue;
             }
@@ -444,7 +495,8 @@ public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBe
                 }
             }
         }
-        annoncesPossibles_.sortElts(new DeclareHandBeloteComparator(_enchere.getCouleur()));
+        annoncesPossibles_.sortElts(new DeclareHandBeloteComparator(_enchere));
+        DeclareHandBelote annonce_ = new DeclareHandBelote();
         if(!annoncesPossibles_.isEmpty()) {
             annonce_= annoncesPossibles_.get(0);
         }

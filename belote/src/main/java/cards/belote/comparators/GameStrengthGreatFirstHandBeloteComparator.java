@@ -31,7 +31,7 @@ public final class GameStrengthGreatFirstHandBeloteComparator implements
                 aussiHaut_ = false;
                 permuter_ = true;
             }
-            if(!main1_.estVide() && main2_.estVide()) {
+            if(!main1_.estVide()) {
                 aussiHaut_ = false;
             }
         }else{
