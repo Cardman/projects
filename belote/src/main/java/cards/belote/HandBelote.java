@@ -602,4 +602,8 @@ public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBe
     public void setCards(EnumList<CardBelote> _cards) {
         cards = _cards;
     }
+
+    public void removeCardIfPresent(CardBelote _c) {
+        cards.removeObj(_c);
+    }
 }

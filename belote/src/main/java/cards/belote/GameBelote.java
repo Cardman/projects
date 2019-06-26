@@ -253,11 +253,17 @@ public final class GameBelote {
                 if(annoncerBeloteRebelote(joueur_,ct_)) {
                     setAnnoncesBeloteRebelote(joueur_,ct_);
                 }
+                if (premierTour()) {
+                    annoncer(joueur_);
+                }
                 if(!passe_) {
                     passe_=true;
                 }
                 getDistribution().jouer(joueur_,ct_);
                 ajouterUneCarteDansPliEnCours(ct_);
+            }
+            if(premierTour()) {
+                annulerAnnonces();
             }
             if(getDistribution().main().estVide()) {
                 /*Il y a dix de der*/
@@ -500,6 +506,15 @@ public final class GameBelote {
     public void setEntameur(byte _i) {
         starter=_i;
     }
+
+    void setTrickWinner(byte _trickWinner) {
+        trickWinner = _trickWinner;
+    }
+
+    void setEndBidsFirstRound(boolean _endBidsFirstRound) {
+        endBidsFirstRound = _endBidsFirstRound;
+    }
+
     public boolean premierTour() {
         return tricks.size()==0;
     }

@@ -201,7 +201,7 @@ public final class GameBeloteTrickInfo {
         for(Suit couleur_:GameBeloteCommon.couleurs()) {
             //On fait une boucle sur les couleurs autres que l'atout
             if(bid.getCouleur()!=couleur_&&!bid.ordreAtout()) {
-                m.put(couleur_,cartesPossibles(couleur_, _curHand));
+                m.put(couleur_, cartesPossiblesRegles(couleur_, _curHand));
             } else {
                 m.put(couleur_,atoutsPossibles(couleur_,_curHand));
             }
@@ -220,6 +220,23 @@ public final class GameBeloteTrickInfo {
     /**Retourne l'ensemble des atouts probablement possedes par les autres joueurs
      @param numero*/
     EqList<HandBelote> atoutsPossibles(
+            Suit _couleurAtout,
+            HandBelote _curHand) {
+        EqList<HandBelote> m = atoutsPossiblesRegles(_couleurAtout,_curHand);
+        byte joueur_ = 0;
+        for (HandBelote main_ : m) {
+            if (main_.estVide()) {
+                joueur_++;
+                continue;
+            }
+            HandBelote atoutsFiltres_ = sousCoupeBelote(_couleurAtout, _curHand,joueur_,
+                    main_);
+            m.set(joueur_, atoutsFiltres_);
+            joueur_++;
+        }
+        return m;
+    }
+    EqList<HandBelote> atoutsPossiblesRegles(
             Suit _couleurAtout,
             HandBelote _curHand) {
         EnumMap<Suit,HandBelote> repartition_ = _curHand.couleurs(bid);
@@ -463,20 +480,6 @@ public final class GameBeloteTrickInfo {
             }
 
         }
-        byte joueur_ = 0;
-        for (HandBelote main_ : m) {
-            if (joueur_ == nbPlayers) {
-                break;
-            }
-            if (m.get(joueur_).estVide()) {
-                joueur_++;
-                continue;
-            }
-            HandBelote atoutsFiltres_ = sousCoupeBelote(_couleurAtout, _curHand,joueur_,
-                    main_);
-            m.set(joueur_, atoutsFiltres_);
-            joueur_++;
-        }
         return m;
     }
     private HandBelote sousCoupeBelote(Suit _couleur, HandBelote _curHand, byte _numero,
@@ -537,7 +540,7 @@ public final class GameBeloteTrickInfo {
     }
     /**Retourne l'ensemble des cartes d'une meme couleur autre que l'atout probablement possedees par les autres joueurs on tient compte du pli en cours
      @param numero*/
-    private EqList<HandBelote> cartesPossibles(Suit _couleur, HandBelote _cartesJoueur) {
+    EqList<HandBelote> cartesPossiblesRegles(Suit _couleur, HandBelote _cartesJoueur) {
         EnumMap<Suit,HandBelote> repartition_ = _cartesJoueur.couleurs(bid);
         HandBelote suitCards_ = GameBeloteCommon.hand(repartition_,_couleur);
         HandBelote cartesJouees_ = cartesJouees();
