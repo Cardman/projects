@@ -119,6 +119,7 @@ public final class GameBeloteBid {
         BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
         BidBelote enchereCouleurDominante_ = BidBelote.FOLD;
         EnumList<Suit> suits_ = new EnumList<Suit>();
+        int minPointsMinusOne_ = RulesBelote.getPoints().first() - 1;
         for(BidBeloteSuit e: allowedBids()) {
             if(!e.getCouleurDominante()) {
                 continue;
@@ -268,7 +269,7 @@ public final class GameBeloteBid {
                 long pts_ = couleursCandidates_.getVal(couleurMax_);
                 pts_ /= RulesBelote.DIVISIONS;
                 pts_ *= RulesBelote.DIVISIONS;
-                if (pts_ > bid.getPoints()) {
+                if (pts_ > Math.max(minPointsMinusOne_, bid.getPoints())) {
                     enchereCouleur_.setEnchere(enchereCouleurDominante_);
                     enchereCouleur_.setCouleur(couleurMax_);
                     enchereCouleur_.setPoints((int) pts_);
@@ -279,7 +280,7 @@ public final class GameBeloteBid {
                 long pts_ = couleurPointsFictifsContrats_.getVal(e_);
                 pts_ /= RulesBelote.DIVISIONS;
                 pts_ *= RulesBelote.DIVISIONS;
-                if (pts_ > bid.getPoints()) {
+                if (pts_ > Math.max(minPointsMinusOne_, bid.getPoints())) {
                     enchereCouleur_.setEnchere(e_);
                     enchereCouleur_.setPoints((int) pts_);
                     return enchereCouleur_;

@@ -1,6 +1,5 @@
 package cards.belote;
 
-import cards.belote.enumerations.BeloteTrumpPartner;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.CardChar;
 import cards.consts.Hypothesis;
@@ -612,22 +611,16 @@ public final class GameBeloteCommonPlaying {
     }
 
 
-    static EnumList<Suit> couleursCoupeePar(HandBelote _main,
-                                                    byte _joueur, BidBeloteSuit _contrat, EnumMap<Suit,EqList<HandBelote>> _cartesPossibles,
-                                                    EnumMap<Suit,EqList<HandBelote>> _cartesCertaines, EnumList<Suit> _couleurs) {
+    static EnumList<Suit> couleursCoupeePar(byte _joueur, BidBeloteSuit _contrat, EnumMap<Suit, EqList<HandBelote>> _cartesPossibles,
+                                            EnumMap<Suit, EqList<HandBelote>> _cartesCertaines, EnumList<Suit> _couleurs) {
         EnumList<Suit> couleurs_ = new EnumList<Suit>();
-        EnumMap<Suit,HandBelote> couleursMains_ = _main.couleurs(_contrat);
-        for (Suit couleur_ : _couleurs) {
-            if (!_cartesPossibles.getVal(couleur_).get(_joueur).estVide()) {
-                continue;
+        if (!_cartesCertaines.getVal(_contrat.getCouleur()).get(_joueur).estVide()) {
+            for (Suit couleur_ : _couleurs) {
+                if (!_cartesPossibles.getVal(couleur_).get(_joueur).estVide()) {
+                    continue;
+                }
+                couleurs_.add(couleur_);
             }
-            if (_cartesCertaines.getVal(_contrat.getCouleur()).get(_joueur).estVide()) {
-                continue;
-            }
-            if (couleursMains_.getVal(couleur_).estVide()) {
-                continue;
-            }
-            couleurs_.add(couleur_);
         }
         return couleurs_;
     }
@@ -653,33 +646,28 @@ public final class GameBeloteCommonPlaying {
 
         for (byte joueur_ : _joueurs) {
             for (Suit couleur_ : _couleurs) {
-                if(couleursDefausses_.containsObj(couleur_)) {
-                    continue;
-                }
                 if(!defausse(couleur_, joueur_, _cartesPossibles, _contrat)) {
                     continue;
                 }
                 couleursDefausses_.add(couleur_);
             }
         }
+        couleursDefausses_.removeDuplicates();
         return couleursDefausses_;
     }
-    static EnumList<Suit> couleursNonCoupeeParJoueurs(HandBelote _main,
-                                                              Bytes _joueurs, BidBeloteSuit _contrat, EnumMap<Suit,EqList<HandBelote>> _cartesPossibles,
-                                                              EnumMap<Suit,EqList<HandBelote>> _cartesCertaines, EnumList<Suit> _couleurs) {
+    static EnumList<Suit> couleursNonCoupeeParJoueurs(Bytes _joueurs, BidBeloteSuit _contrat, EnumMap<Suit, EqList<HandBelote>> _cartesPossibles,
+                                                      EnumMap<Suit, EqList<HandBelote>> _cartesCertaines, EnumList<Suit> _couleurs) {
         EnumList<Suit> couleursCoupees_ = new EnumList<Suit>();
 
         for (byte joueur_ : _joueurs) {
-            EnumList<Suit> couleursLoc_ = couleursCoupeePar(_main,
+            EnumList<Suit> couleursLoc_ = couleursCoupeePar(
                     joueur_, _contrat, _cartesPossibles,
                     _cartesCertaines, _couleurs);
             for (Suit couleur_ : couleursLoc_) {
-                if(couleursCoupees_.containsObj(couleur_)) {
-                    continue;
-                }
                 couleursCoupees_.add(couleur_);
             }
         }
+        couleursCoupees_.removeDuplicates();
         EnumList<Suit> couleurs_ = new EnumList<Suit>();
         for (Suit couleur_ : _couleurs) {
             if(couleursCoupees_.containsObj(couleur_)) {
