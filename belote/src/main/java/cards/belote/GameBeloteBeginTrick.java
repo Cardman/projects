@@ -286,7 +286,7 @@ public final class GameBeloteBeginTrick {
             return GameBeloteCommon.hand(repartition_,couleurAtout_).premiereCarte();
         }
         if(GameBeloteCommon.hand(repartition_,couleurAtout_).total()==GameBeloteCommon.hand(cartesMaitresses_,couleurAtout_).total()) {
-            Bytes joueursPouvantCouper_ = GameBeloteCommonPlaying.joueursPouvantCouperCouleurs(currentHand, adversaire_, bid, cartesPossibles_, couleursNonAtoutNonVides_);
+            Bytes joueursPouvantCouper_ = GameBeloteCommonPlaying.joueursSusceptiblesCoupe(cartesPossibles_,couleurNonAtout_,couleurAtout_,adversaire_);
             if(GameBeloteTeamsRelation.egaliteJoueurs(joueursPouvantCouper_,adversaire_)) {
                 return GameBeloteCommon.hand(repartition_,couleurAtout_).premiereCarte();
             }

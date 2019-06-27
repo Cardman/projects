@@ -349,6 +349,18 @@ public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBe
     byte nombreDePlisMinAssures(Order _ordre) {
         return (byte) cartesPlisAssuresMin(_ordre).total();
     }
+    EnumMap<Suit,EqList<HandBelote>> eclaterTout(EnumMap<Suit,HandBelote> _repartitionCartesJouees,
+                                                 BidBeloteSuit _enchere) {
+        EnumMap<Suit,EqList<HandBelote>> suitesTouteCouleur_ = new EnumMap<Suit,EqList<HandBelote>>();
+
+        EnumMap<Suit, HandBelote> couleurs_ = couleurs(_enchere);
+        for (Suit i : GameBeloteCommon.couleurs()) {
+            suitesTouteCouleur_.put(i,couleurs_.getVal(i).eclater(
+                    _repartitionCartesJouees, _enchere));
+            //les couleurs sont classees comme si elles etaient demandees
+        }
+        return suitesTouteCouleur_;
+    }
     EqList<HandBelote> eclater(
             EnumMap<Suit,HandBelote> _repartitionCartesJouees,
             BidBeloteSuit _enchere) {
