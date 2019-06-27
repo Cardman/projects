@@ -49,7 +49,6 @@ public final class SimulationGamePresident extends Thread implements SimulationG
         donne_.initDonne(regles_);
         GamePresident gp_ = new GamePresident(GameType.EDIT,donne_,regles_, new Bytes());
         partieSimulee.jouerPresident(gp_);
-        gp_.setChargementSimulation(0);
 //        partieSimulee.sauvegarderPartieEnCours("demos/deal10.cdgame");
         stopButton=new LabelButton(container.getMessages().getVal(MainWindow.STOP_DEMO));
         stopButton.addMouseListener(new StopEvent(this));

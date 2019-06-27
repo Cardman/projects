@@ -62,7 +62,6 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
     public void run() {
         String lg_ = container.getOwner().getLanguageKey();
         GamePresident partie_=partiePresidentSimulee();
-        partie_.setChargementSimulation(100);
         ThreadUtil.sleep(500);
         String event_;
         event_ = StringList.concat(container.getMessages().getVal(MainWindow.BEGIN_DEMO),ContainerGame.RETURN_LINE);

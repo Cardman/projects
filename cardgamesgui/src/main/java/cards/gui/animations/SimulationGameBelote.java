@@ -50,7 +50,6 @@ public final class SimulationGameBelote extends Thread implements SimulationGame
         regles_.setCartesBattues(MixCardsChoice.EACH_DEAL);
         donne_.initDonne(regles_,container.getDisplayingBelote());
         GameBelote gb_ = new GameBelote(GameType.EDIT,donne_,regles_);
-        gb_.setChargementSimulation(0);
         partieSimulee.jouerBelote(gb_);
         stopButton=new LabelButton(container.getMessages().getVal(MainWindow.STOP_DEMO));
         stopButton.addMouseListener(new StopEvent(this));

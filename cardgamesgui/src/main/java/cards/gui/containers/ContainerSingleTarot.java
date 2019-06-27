@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -30,7 +29,6 @@ import cards.gui.animations.AddTextEvents;
 import cards.gui.animations.AnimationBidTarot;
 import cards.gui.animations.AnimationCardTarot;
 import cards.gui.animations.HandfulThread;
-import cards.gui.animations.LoadingVideo;
 import cards.gui.animations.SettingText;
 import cards.gui.containers.events.EndDealEvent;
 import cards.gui.containers.events.KeepPlayingEditedEvent;
@@ -87,17 +85,13 @@ import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
 import code.util.*;
-import code.util.*;
 import code.util.StringList;
 
 public class ContainerSingleTarot extends ContainerTarot implements ContainerSingle {
 
-
-    private ChoiceTarot choixTarot;
     private AnimationCardTarot animCarteTarot;
     private AnimationBidTarot animContratTarot;
     private BidTarot contratUtilisateur = BidTarot.FOLD;
-    private AtomicInteger advTarot = new AtomicInteger();
 
     public ContainerSingleTarot(MainWindow _window) {
         super(_window);
@@ -206,24 +200,17 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         return getPar().partieTarot();
     }
     public void jouerDonneEntrainement(ChoiceTarot _ct) {
-        choixTarot = _ct;
         //desactiver le menu Partie/aide au jeu
         getHelpGame().setEnabledMenu(false);
         setChangerPileFin(false);
 
-        advTarot.set(0);
-        setAnimChargement(new LoadingVideo(this,advTarot));
-        getAnimChargement().start();
         setPasse(false);
         //Desactiver le menu Partie/Pause
         getPause().setEnabledMenu(false);
         setaJoueCarte(false);
-        byte nombreJoueurs_=(byte) getReglesTarot().getRepartition().getNombreJoueurs();
-        byte nombreCartes_=(byte) getReglesTarot().getRepartition().getNombreCartesParJoueur();
         DealTarot donne_=new DealTarot(0L);
-        donne_.initDonne(choixTarot,nombreCartes_,nombreJoueurs_,getReglesTarot(),advTarot);
+        donne_.initDonne(_ct, getReglesTarot());
         getPar().jouerTarot(new GameTarot(GameType.TRAINING,donne_,getReglesTarot()));
-        advTarot.set(100);
         mettreEnPlaceIhmTarot();
     }
     /**Met en place l'ihm pour l'utilisateur lorsqu'une partie est editee ou chargee d'un fichier*/

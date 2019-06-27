@@ -4573,6 +4573,10 @@ public class FightHelpBean extends CommonBean {
         TypesDuo typesNext_ = efficiency.getKey(_index.intValue() - 1);
         return !StringList.quickEq(types_.getPokemonType(),typesNext_.getPokemonType());
     }
+    public String getEfficiency(Long _def, Long _off) {
+        int i_ = (int) (_def * types.size() + _off);
+        return efficiency.getValue(i_).toNumberString();
+    }
     public String getTypes(Long _index) {
         return types.get(_index.intValue());
     }

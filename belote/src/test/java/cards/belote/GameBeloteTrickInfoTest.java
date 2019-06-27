@@ -4325,6 +4325,169 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         assertTrue(tr_.get(3).contient(CardBelote.DIAMOND_7));
     }
     @Test
+    public void joueCartePoint1Test() {
+        RulesBelote r_ = new RulesBelote();
+        r_.setSousCoupeAdv(true);
+        HandBelote cur_ = new HandBelote();
+        cur_.ajouter(CardBelote.HEART_9);
+        cur_.ajouter(CardBelote.SPADE_8);
+        cur_.ajouter(CardBelote.SPADE_7);
+        cur_.ajouter(CardBelote.CLUB_8);
+        cur_.ajouter(CardBelote.SPADE_1);
+        cur_.ajouter(CardBelote.CLUB_1);
+        cur_.ajouter(CardBelote.CLUB_7);
+        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setBid(BidBelote.SUIT);
+        b_.setSuit(Suit.HEART);
+        bids_.add(b_);
+        HandBelote last_ = new HandBelote();
+        last_.ajouter(CardBelote.HEART_JACK);
+        byte d_ = 2;
+        CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
+        TrickBelote t_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
+        t_.ajouter(CardBelote.DIAMOND_1);
+        t_.ajouter(CardBelote.DIAMOND_8);
+        t_.ajouter(CardBelote.DIAMOND_7);
+        t_.ajouter(CardBelote.DIAMOND_KING);
+        trs_.add(t_);
+        TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
+        pr_.ajouter(CardBelote.DIAMOND_QUEEN);
+        GameBelote game_ = newGameBelote(cur_,r_, trs_, pr_, d_, bids_, last_);
+        GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
+        HandBelote poss_ = new HandBelote(Order.TRUMP);
+        poss_.ajouter(CardBelote.DIAMOND_10);
+        poss_.ajouter(CardBelote.DIAMOND_JACK);
+        poss_.ajouter(CardBelote.DIAMOND_9);
+        HandBelote filter_ = info_.joueCartePoint(Suit.DIAMOND, cur_, (byte)2, poss_);
+        assertEq(1, filter_.total());
+        assertTrue(filter_.contient(CardBelote.DIAMOND_10));
+    }
+    @Test
+    public void joueCartePoint2Test() {
+        RulesBelote r_ = new RulesBelote();
+        r_.setSousCoupeAdv(true);
+        HandBelote cur_ = new HandBelote();
+        cur_.ajouter(CardBelote.HEART_9);
+        cur_.ajouter(CardBelote.SPADE_8);
+        cur_.ajouter(CardBelote.SPADE_7);
+        cur_.ajouter(CardBelote.CLUB_8);
+        cur_.ajouter(CardBelote.SPADE_1);
+        cur_.ajouter(CardBelote.CLUB_1);
+        cur_.ajouter(CardBelote.CLUB_7);
+        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setBid(BidBelote.SUIT);
+        b_.setSuit(Suit.HEART);
+        bids_.add(b_);
+        HandBelote last_ = new HandBelote();
+        last_.ajouter(CardBelote.HEART_JACK);
+        byte d_ = 2;
+        CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
+        TrickBelote t_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
+        t_.ajouter(CardBelote.DIAMOND_1);
+        t_.ajouter(CardBelote.DIAMOND_8);
+        t_.ajouter(CardBelote.DIAMOND_KING);
+        t_.ajouter(CardBelote.DIAMOND_7);
+        trs_.add(t_);
+        TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
+        pr_.ajouter(CardBelote.DIAMOND_QUEEN);
+        GameBelote game_ = newGameBelote(cur_,r_, trs_, pr_, d_, bids_, last_);
+        GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
+        HandBelote poss_ = new HandBelote(Order.TRUMP);
+        poss_.ajouter(CardBelote.DIAMOND_10);
+        poss_.ajouter(CardBelote.DIAMOND_JACK);
+        poss_.ajouter(CardBelote.DIAMOND_9);
+        HandBelote filter_ = info_.joueCartePoint(Suit.DIAMOND, cur_, (byte)1, poss_);
+        assertEq(3, filter_.total());
+        assertTrue(filter_.contient(CardBelote.DIAMOND_10));
+        assertTrue(filter_.contient(CardBelote.DIAMOND_JACK));
+        assertTrue(filter_.contient(CardBelote.DIAMOND_9));
+    }
+    @Test
+    public void joueCartePoint3Test() {
+        RulesBelote r_ = new RulesBelote();
+        r_.setSousCoupeAdv(true);
+        HandBelote cur_ = new HandBelote();
+        cur_.ajouter(CardBelote.HEART_9);
+        cur_.ajouter(CardBelote.SPADE_8);
+        cur_.ajouter(CardBelote.SPADE_7);
+        cur_.ajouter(CardBelote.CLUB_8);
+        cur_.ajouter(CardBelote.SPADE_1);
+        cur_.ajouter(CardBelote.CLUB_1);
+        cur_.ajouter(CardBelote.CLUB_7);
+        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setBid(BidBelote.SUIT);
+        b_.setSuit(Suit.HEART);
+        bids_.add(b_);
+        HandBelote last_ = new HandBelote();
+        last_.ajouter(CardBelote.HEART_JACK);
+        byte d_ = 2;
+        CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
+        TrickBelote t_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
+        t_.ajouter(CardBelote.DIAMOND_1);
+        t_.ajouter(CardBelote.DIAMOND_8);
+        t_.ajouter(CardBelote.DIAMOND_KING);
+        t_.ajouter(CardBelote.DIAMOND_7);
+        trs_.add(t_);
+        TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
+        pr_.ajouter(CardBelote.DIAMOND_QUEEN);
+        GameBelote game_ = newGameBelote(cur_,r_, trs_, pr_, d_, bids_, last_);
+        GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
+        HandBelote poss_ = new HandBelote(Order.TRUMP);
+        poss_.ajouter(CardBelote.DIAMOND_10);
+        poss_.ajouter(CardBelote.DIAMOND_JACK);
+        poss_.ajouter(CardBelote.DIAMOND_9);
+        HandBelote filter_ = info_.joueCartePoint(Suit.DIAMOND, cur_, (byte)2, poss_);
+        assertEq(3, filter_.total());
+        assertTrue(filter_.contient(CardBelote.DIAMOND_10));
+        assertTrue(filter_.contient(CardBelote.DIAMOND_JACK));
+        assertTrue(filter_.contient(CardBelote.DIAMOND_9));
+    }
+    @Test
+    public void joueCartePoint4Test() {
+        RulesBelote r_ = new RulesBelote();
+        r_.setSousCoupeAdv(true);
+        HandBelote cur_ = new HandBelote();
+        cur_.ajouter(CardBelote.HEART_9);
+        cur_.ajouter(CardBelote.SPADE_8);
+        cur_.ajouter(CardBelote.SPADE_7);
+        cur_.ajouter(CardBelote.CLUB_8);
+        cur_.ajouter(CardBelote.SPADE_1);
+        cur_.ajouter(CardBelote.CLUB_1);
+        cur_.ajouter(CardBelote.CLUB_7);
+        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setBid(BidBelote.SUIT);
+        b_.setSuit(Suit.HEART);
+        bids_.add(b_);
+        HandBelote last_ = new HandBelote();
+        last_.ajouter(CardBelote.HEART_JACK);
+        byte d_ = 2;
+        CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
+        TrickBelote t_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
+        t_.ajouter(CardBelote.DIAMOND_1);
+        t_.ajouter(CardBelote.DIAMOND_8);
+        t_.ajouter(CardBelote.DIAMOND_7);
+        t_.ajouter(CardBelote.DIAMOND_KING);
+        trs_.add(t_);
+        TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
+        pr_.ajouter(CardBelote.DIAMOND_QUEEN);
+        GameBelote game_ = newGameBelote(cur_,r_, trs_, pr_, d_, bids_, last_);
+        GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
+        HandBelote poss_ = new HandBelote(Order.TRUMP);
+        poss_.ajouter(CardBelote.CLUB_10);
+        poss_.ajouter(CardBelote.CLUB_JACK);
+        poss_.ajouter(CardBelote.CLUB_9);
+        HandBelote filter_ = info_.joueCartePoint(Suit.CLUB, cur_, (byte)2, poss_);
+        assertEq(3, filter_.total());
+        assertTrue(filter_.contient(CardBelote.CLUB_10));
+        assertTrue(filter_.contient(CardBelote.CLUB_JACK));
+        assertTrue(filter_.contient(CardBelote.CLUB_9));
+    }
+
+    @Test
     public void cartesPossibles1Test() {
         RulesBelote r_ = new RulesBelote();
         r_.setSousCoupeAdv(true);
@@ -4354,7 +4517,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
         GameBelote game_ = newGameBelote(cur_,r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        EqList<HandBelote> tr_ = info_.cartesPossiblesRegles(Suit.DIAMOND, cur_);
+        EqList<HandBelote> tr_ = info_.cartesPossibles(Suit.DIAMOND, cur_);
         assertEq(4, tr_.size());
         assertEq(3, tr_.get(0).total());
         assertTrue(tr_.get(0).contient(CardBelote.DIAMOND_10));
@@ -4396,7 +4559,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         pr_.ajouter(CardBelote.SPADE_7);
         GameBelote game_ = newGameBelote(cur_,r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        EqList<HandBelote> tr_ = info_.cartesPossiblesRegles(Suit.DIAMOND, cur_);
+        EqList<HandBelote> tr_ = info_.cartesPossibles(Suit.DIAMOND, cur_);
         assertEq(4, tr_.size());
         assertEq(0, tr_.get(0).total());
         assertEq(2, tr_.get(1).total());
@@ -4446,7 +4609,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         pr_.ajouter(CardBelote.SPADE_7);
         GameBelote game_ = newGameBelote(cur_,r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        EqList<HandBelote> tr_ = info_.cartesPossiblesRegles(Suit.DIAMOND, cur_);
+        EqList<HandBelote> tr_ = info_.cartesPossibles(Suit.DIAMOND, cur_);
         assertEq(4, tr_.size());
         assertEq(0, tr_.get(0).total());
         assertEq(2, tr_.get(1).total());
@@ -4495,7 +4658,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
         GameBelote game_ = newGameBelote(cur_,r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        EqList<HandBelote> tr_ = info_.cartesPossiblesRegles(Suit.DIAMOND, cur_);
+        EqList<HandBelote> tr_ = info_.cartesPossibles(Suit.DIAMOND, cur_);
         assertEq(4, tr_.size());
         assertEq(3, tr_.get(0).total());
         assertTrue(tr_.get(0).contient(CardBelote.DIAMOND_10));
@@ -4538,7 +4701,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         pr_.ajouter(CardBelote.SPADE_7);
         GameBelote game_ = newGameBelote(cur_,r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        EqList<HandBelote> tr_ = info_.cartesPossiblesRegles(Suit.DIAMOND, cur_);
+        EqList<HandBelote> tr_ = info_.cartesPossibles(Suit.DIAMOND, cur_);
         assertEq(4, tr_.size());
         assertEq(0, tr_.get(0).total());
         assertEq(2, tr_.get(1).total());
@@ -4589,7 +4752,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         pr_.ajouter(CardBelote.SPADE_7);
         GameBelote game_ = newGameBelote(cur_,r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        EqList<HandBelote> tr_ = info_.cartesPossiblesRegles(Suit.DIAMOND, cur_);
+        EqList<HandBelote> tr_ = info_.cartesPossibles(Suit.DIAMOND, cur_);
         assertEq(4, tr_.size());
         assertEq(0, tr_.get(0).total());
         assertEq(2, tr_.get(1).total());
@@ -4873,7 +5036,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         for(Suit couleur_:GameBeloteCommon.couleurs()) {
             //On fait une boucle sur les couleurs autres que l'atout
             if(bid_.getCouleur()!=couleur_&&!bid_.ordreAtout()) {
-                m.put(couleur_, _info.cartesPossiblesRegles(couleur_, _current));
+                m.put(couleur_, _info.cartesPossibles(couleur_, _current));
             } else {
                 m.put(couleur_,_info.atoutsPossibles(couleur_,_current));
             }

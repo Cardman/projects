@@ -1,5 +1,4 @@
 package cards.president;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import cards.consts.GameType;
 import cards.president.comparators.GameStrengthCardPresidentComparator;
@@ -10,23 +9,15 @@ import code.util.BooleanList;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.*;
-import code.util.*;
-import code.util.*;
 import code.util.Ints;
 import code.util.TreeMap;
 
 
 public final class GamePresident {
 
-
     private static final String EMPTY = "";
 
-
-    private static final int PERCENT_MAX = 100;
-
     private static final int NB_SUITS = 4;
-
-    private AtomicInteger chargementSimulation = new AtomicInteger();
 
     /**
     Le type d'une partie est aleatoire ou encore edite ou encore un
@@ -192,7 +183,6 @@ public final class GamePresident {
 //        byte nombreJoueurs_ = getNombreDeJoueurs();
 //        byte donneur_ = getDistribution().getDonneur();
         simulated = true;
-        chargementSimulation.set(CustList.SIZE_EMPTY);
         userHands.clear();
         currentUserHands.clear();
         dealTricks.clear();
@@ -244,7 +234,6 @@ public final class GamePresident {
 //                }
                 HandPresident h_ = playedCards(_lg);
                 nbPlayedCards_ += h_.total();
-                chargementSimulation.set(PERCENT_MAX * nbPlayedCards_ / nbPlayedCardsCount_);
 //                addCardsToCurrentTrick(player_, h_);
                 addCardsToCurrentTrickAndLoop(nextPlayer, h_);
 //                lastStatus_.add(new Map<>(lastStatus));
@@ -272,7 +261,6 @@ public final class GamePresident {
             noDeal_++;
         }
         ranksDeals.add(ranks);
-        chargementSimulation.set(PERCENT_MAX);
     }
 
     void initializeFirstTrick() {
@@ -2567,14 +2555,6 @@ public final class GamePresident {
 
     public CustList<TrickPresident> getTricks() {
         return tricks;
-    }
-
-    public int getChargementSimulation() {
-        return chargementSimulation.get();
-    }
-
-    public void setChargementSimulation(int _chargementSimulation) {
-        chargementSimulation.set(_chargementSimulation);
     }
 
     void setNextPlayer(byte _i) {

@@ -1,8 +1,5 @@
 package aiki.db;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import aiki.comparators.ComparatorEndRoundMainElements;
 import aiki.fight.Combos;
 import aiki.fight.EndRoundMainElements;
@@ -566,7 +563,7 @@ public class DataBase implements WithMathFactory {
         miniItems.put(_fileName, _img);
     }
 
-    public void validate(AtomicInteger _perCentLoading, AtomicBoolean _loading) {
+    public void validate(PerCent _perCentLoading, LoadFlag _loading) {
         imagesDimensions.clear();
         for (LawNumber v : lawsDamageRate.values()) {
             if (v.getLaw().events().isEmpty()) {
@@ -593,14 +590,14 @@ public class DataBase implements WithMathFactory {
         if (!_loading.get()) {
             return;
         }
-        _perCentLoading.set(60);
+        _perCentLoading.setPercent(60);
         validateConstants();
         setCheckTranslation(true);
         CheckNumericStringsFight.validateNumericBooleanStrings(this);
         if (!_loading.get()) {
             return;
         }
-        _perCentLoading.set(70);
+        _perCentLoading.setPercent(70);
         Rate power_ = getStrongMovePower();
         if (Rate.strLower(power_, new Rate(90))) {
             setError(true);
@@ -624,7 +621,7 @@ public class DataBase implements WithMathFactory {
             setError(true);
             return;
         }
-        _perCentLoading.set(85);
+        _perCentLoading.setPercent(85);
         if (!_loading.get()) {
             return;
         }
@@ -633,7 +630,7 @@ public class DataBase implements WithMathFactory {
             return;
         }
         validateTranslations();
-        _perCentLoading.set(95);
+        _perCentLoading.setPercent(95);
 
     }
 
@@ -829,9 +826,9 @@ public class DataBase implements WithMathFactory {
         return next_;
     }
 
-    public void validateCore(AtomicInteger _perCentLoading) {
+    public void validateCore(PerCent _perCentLoading) {
         initTypesByTable();
-        _perCentLoading.set(55);
+        _perCentLoading.setPercent(55);
         for (String t1_ : types) {
             for (String t2_ : types) {
                 if (!tableTypes.contains(new TypesDuo(t1_, t2_))) {

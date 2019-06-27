@@ -4,7 +4,6 @@ import java.awt.Point;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.IOException;
 import java.net.Socket;
 
 import javax.swing.BoxLayout;
@@ -19,10 +18,12 @@ import javax.swing.WindowConstants;
 import aiki.beans.PokemonStandards;
 import aiki.db.DataBase;
 import aiki.db.ImageHeroKey;
-import aiki.sml.Resources;
+import aiki.db.LoadFlag;
+import aiki.db.PerCent;
+import aiki.gui.threads.*;
+import aiki.sml.*;
 import aiki.facade.FacadeGame;
 import aiki.game.Game;
-import aiki.sml.LoadingGame;
 import aiki.game.player.enums.Sex;
 import aiki.gui.components.fight.FrontBattle;
 import aiki.gui.components.fight.FrontClickEvent;
@@ -45,13 +46,6 @@ import aiki.gui.events.SaveGameEvent;
 import aiki.gui.events.ShowDataFightEvent;
 import aiki.gui.events.ShowDataWebEvent;
 import aiki.gui.listeners.HeroSelect;
-import aiki.gui.threads.ChangeEnabledDifficulty;
-import aiki.gui.threads.FightIntroThread;
-import aiki.gui.threads.FightTrainerIntroThread;
-import aiki.gui.threads.FightWildIntroThread;
-import aiki.gui.threads.LoadingThread;
-import aiki.gui.threads.PaintingScene;
-import aiki.gui.threads.ReinitComponents;
 import aiki.main.AfterLoadGame;
 import aiki.main.AfterLoadZip;
 import aiki.main.LaunchingPokemon;
@@ -70,8 +64,6 @@ import aiki.network.stream.NetPokemon;
 import aiki.network.stream.NewPlayer;
 import aiki.network.stream.Ok;
 import aiki.network.stream.Quit;
-import aiki.sml.DocumentReaderAikiCoreUtil;
-import aiki.sml.DocumentWriterAikiCoreUtil;
 import code.gui.Clock;
 import code.gui.ConfirmDialog;
 import code.gui.ConstFiles;
@@ -96,7 +88,6 @@ import code.stream.StreamTextFile;
 import code.stream.StreamZipFile;
 import code.util.CustList;
 import code.util.EnumMap;
-import code.util.*;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -243,6 +234,7 @@ public final class MainWindow extends NetGroupFrame {
     private FightIntroThread fightIntroThread;
 
     private VideoLoading videoLoading = new VideoLoading();
+    private LoadFlag loadFlag = new LoadFlagImpl();
 //    private KeyPadListener keyPadListener;
 
 //    private ForwardingJavaCompiler compiling;
@@ -515,20 +507,20 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     /**thread safe method*/
-    public void loadOnlyRom(String _file) {
+    public void loadOnlyRom(String _file, PerCent _p) {
         if (!_file.isEmpty()) {
             //startThread = true;
             StringMap<String> files_ = StreamZipFile.zippedTextFiles(_file);
-            DocumentReaderAikiCoreUtil.loadRomAndCheck(facade,_file, files_);
+            DocumentReaderAikiCoreUtil.loadRomAndCheck(facade,_file, files_,_p,loadFlag);
             if (!facade.isLoadedData()) {
-                DocumentReaderAikiCoreUtil.loadResources(facade);
+                DocumentReaderAikiCoreUtil.loadResources(facade,_p,loadFlag);
             }
-            if (!facade.isLoading()) {
+            if (!loadFlag.get()) {
                 return;
             }
         } else {
-            DocumentReaderAikiCoreUtil.loadResources(facade);
-            if (!facade.isLoading()) {
+            DocumentReaderAikiCoreUtil.loadResources(facade,_p,loadFlag);
+            if (!loadFlag.get()) {
                 return;
             }
         }
@@ -536,7 +528,7 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     /**thread safe method*/
-    public void loadRomGame(LoadingGame _configuration, String _path, StringMap<Object> _files, boolean _param) {
+    public void loadRomGame(LoadingGame _configuration, String _path, StringMap<Object> _files, boolean _param, PerCent _p) {
         String path_;
         if (!_configuration.getLastRom().isEmpty()) {
             File file_ = new File(StringList.replaceBackSlash(_configuration.getLastRom()));
@@ -547,23 +539,23 @@ public final class MainWindow extends NetGroupFrame {
             }
             path_ = StringList.replaceBackSlash(path_);
             StringMap<String> files_ = StreamZipFile.zippedTextFiles(path_);
-            DocumentReaderAikiCoreUtil.loadRomAndCheck(facade,path_, files_);
+            DocumentReaderAikiCoreUtil.loadRomAndCheck(facade,path_, files_,_p,loadFlag);
             if (!facade.isLoadedData()) {
-                DocumentReaderAikiCoreUtil.loadResources(facade);
+                DocumentReaderAikiCoreUtil.loadResources(facade,_p,loadFlag);
             }
-            if (!facade.isLoading()) {
+            if (!loadFlag.get()) {
                 return;
             }
         } else {
-            DocumentReaderAikiCoreUtil.loadResources(facade);
-            if (!facade.isLoading()) {
+            DocumentReaderAikiCoreUtil.loadResources(facade,_p,loadFlag);
+            if (!loadFlag.get()) {
                 return;
             }
         }
         ThreadInvoker.invokeNow(new AfterLoadZip(this));
         if (!_files.isEmpty() && _files.values().first() instanceof Game) {
             if (!facade.checkAndSetGame((Game) _files.values().first())) {
-                facade.setLoading(false);
+                loadFlag.set(false);
                 if (_param) {
                     setLoadingConf(_configuration, false);
                 }
@@ -580,7 +572,7 @@ public final class MainWindow extends NetGroupFrame {
             DataBase db_ = facade.getData();
             Game game_ = load(path_, db_);
             if (game_ == null) {
-                facade.setLoading(false);
+                loadFlag.set(false);
                 if (_param) {
                     setLoadingConf(_configuration, false);
                 }
@@ -770,9 +762,10 @@ public final class MainWindow extends NetGroupFrame {
         if (fileName_.isEmpty()) {
             return;
         }
-        facade.setLoading(true);
-        LoadingThread load_ = new LoadingThread(this, fileName_);
-        LoadGame opening_ = new LoadGame(this);
+        PerCent p_ = new PerCentIncr();
+        loadFlag.set(true);
+        LoadingThread load_ = new LoadingThread(this, fileName_,p_);
+        LoadGame opening_ = new LoadGame(this,p_);
         load_.start();
         opening_.start();
     }
@@ -814,7 +807,6 @@ public final class MainWindow extends NetGroupFrame {
         }
         boolean error_ = false;
         DataBase db_ = facade.getData();
-        facade.setLoading(true);
         Game game_ = load(fileName_, db_);
         if (game_ != null) {
             facade.load(game_);
@@ -828,7 +820,6 @@ public final class MainWindow extends NetGroupFrame {
         } else {
             error_ = true;
         }
-        facade.setLoading(false);
         if (error_) {
             showErrorMessageDialog(fileName_);
         }
@@ -1030,13 +1021,13 @@ public final class MainWindow extends NetGroupFrame {
         SoftApplicationCore.saveCoords(LaunchingPokemon.getTempFolder(),Resources.COORDS, point_.x,point_.y);
     }
 
-    public void processLoad(String _fileName) {
+    public void processLoad(String _fileName, PerCent _p) {
         StringMap<String> files_ = StreamZipFile.zippedTextFiles(_fileName);
-        DocumentReaderAikiCoreUtil.loadRomAndCheck(facade,_fileName, files_);
+        DocumentReaderAikiCoreUtil.loadRomAndCheck(facade,_fileName, files_,_p,loadFlag);
         if (!facade.isLoadedData()) {
-            DocumentReaderAikiCoreUtil.loadResources(facade);
+            DocumentReaderAikiCoreUtil.loadResources(facade,_p,loadFlag);
         }
-        if (!facade.isLoading()) {
+        if (!loadFlag.get()) {
             return;
         }
         facade.clearGame();
@@ -1541,5 +1532,9 @@ public final class MainWindow extends NetGroupFrame {
     @Override
     public Object getObject(String _object) {
         return DocumentReaderAikiMultiUtil.getObject(_object);
+    }
+
+    public LoadFlag getLoadFlag() {
+        return loadFlag;
     }
 }

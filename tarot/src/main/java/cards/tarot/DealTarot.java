@@ -1,6 +1,5 @@
 package cards.tarot;
 import java.util.Iterator;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
@@ -12,7 +11,6 @@ import code.maths.montecarlo.AbMonteCarlo;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EqList;
-import code.util.*;
 import code.util.*;
 
 
@@ -114,78 +112,50 @@ public final class DealTarot implements Iterable<HandTarot> {
     }
 
     /** Pour l&#39;entra&icirc;nement surtout au tarot */
-    public void initDonne(ChoiceTarot _choix, byte _nombreCartes,
-            byte _nombreJoueurs, RulesTarot _regles, AtomicInteger _at) {
+    public void initDonne(ChoiceTarot _choix,
+                          RulesTarot _regles) {
         /* Les deux_ nombres_ donnent_ le_ nombre_ d atouts_ avec_ Excuse */
         byte minAtout_ = 0;
         byte maxAtout_ = 0;
-        byte atoutsTires_ = 0;
-        byte autresCartesTirer_ = 0;
+        int nbPlayers_ = _regles.getRepartition().getNombreJoueurs();
+        int nbCards_ = _regles.getRepartition().getNombreCartesParJoueur();
+        byte autresCartesTirer_;
         EqList<LgInt> fonctionRepartition_;
         LgInt alea_;
         if (_choix == ChoiceTarot.HUNT_SMALL) {
-            if (_nombreCartes == 24) {
+            if (nbCards_ == 24) {
                 minAtout_ = 15;
                 maxAtout_ = 21;
-            } else if (_nombreCartes == 18) {
+            } else if (nbCards_ == 18) {
                 minAtout_ = 13;
                 maxAtout_ = 18;
-            } else if (_nombreCartes == 15) {
+            } else if (nbCards_ == 15) {
                 minAtout_ = 10;
                 maxAtout_ = 15;
-            } else if (_nombreCartes == 12) {
+            } else if (nbCards_ == 12) {
                 minAtout_ = 9;
                 maxAtout_ = 12;
             } else {
                 minAtout_ = 10;
                 maxAtout_ = 14;
             }
-            //fonctionRepartition_ = new LgInt[maxAtout_ - minAtout_ + 1];
             fonctionRepartition_ = new EqList<LgInt>();
-            _at.set(_at.get()
-                    + 90 / (maxAtout_ - minAtout_ + 1));
             fonctionRepartition_.add(LgInt.multiply(
                     LgInt.among(new LgInt(minAtout_), new LgInt(21)),
-                    LgInt.among(new LgInt(_nombreCartes), new LgInt(56))));
-//            fonctionRepartition_[CustList.FIRST_INDEX] = LgInt.multiply(
-//                    LgInt.among(new LgInt(minAtout_), new LgInt(21)),
-//                    LgInt.among(new LgInt(_nombreCartes), new LgInt(56)));
+                    LgInt.among(new LgInt(nbCards_), new LgInt(56))));
             byte index_ = (byte) (minAtout_ + 1);
             for (byte evenement_ = index_; evenement_ <= maxAtout_; evenement_++) {
-                _at.set(_at.get() + 90 / (maxAtout_ - minAtout_ + 1));
                 fonctionRepartition_.add(LgInt.plus(
                         fonctionRepartition_.last(), LgInt
                         .multiply(LgInt.among(new LgInt(evenement_),
                                 new LgInt(21)), LgInt.among(
-                                new LgInt(_nombreCartes - evenement_),
+                                new LgInt(nbCards_ - evenement_),
                                 new LgInt(56)))));
-//                fonctionRepartition_[evenement_ - minAtout_] = LgInt.plus(
-//                        fonctionRepartition_[evenement_ - minAtout_ - 1], LgInt
-//                                .multiply(LgInt.among(new LgInt(evenement_),
-//                                        new LgInt(21)), LgInt.among(
-//                                        new LgInt(_nombreCartes - evenement_),
-//                                        new LgInt(56))));
             }
-//            alea_ = fonctionRepartition_[fonctionRepartition_.length - 1]
-//                    .multiply(Math.random());
-//            alea_ = fonctionRepartition_.last()
-//                    .multiply(MonteCarlo.randomDouble());
             alea_ = AbMonteCarlo.randomLgInt(fonctionRepartition_.last());
-            _at.set(95);
-            for (byte evenement_ = minAtout_; evenement_ <= maxAtout_; evenement_++) {
-//                if (LgInt.lowerEq(alea_, fonctionRepartition_[evenement_
-//                        - minAtout_])) {
-//                    atoutsTires_ = evenement_;
-//                    break;
-//                }
-                if (LgInt.lowerEq(alea_, fonctionRepartition_.get(evenement_
-                        - minAtout_))) {
-                    atoutsTires_ = evenement_;
-                    break;
-                }
-            }
-            autresCartesTirer_ = (byte) (_nombreCartes - atoutsTires_);
-            for (int i = CustList.FIRST_INDEX; i <= _nombreJoueurs; i++) {
+            byte atoutsTires_ = chosenTrumps(minAtout_, maxAtout_, fonctionRepartition_, alea_);
+            autresCartesTirer_ = (byte) (nbCards_ - atoutsTires_);
+            for (int i = CustList.FIRST_INDEX; i <= nbPlayers_; i++) {
                 deal.add(new HandTarot());
             }
             HandTarot atouts_ = new HandTarot();
@@ -193,21 +163,16 @@ public final class DealTarot implements Iterable<HandTarot> {
             atouts_.ajouter(CardTarot.excuse());
             atouts_.ajouterCartes(HandTarot.atoutsSansExcuse());
             autresCartes_.ajouterCartes(HandTarot.cartesCouleurs());
-            for (byte tirage_ = CustList.SIZE_EMPTY; tirage_ < atoutsTires_; tirage_++) {
-                deal.get(NUMERO_UTILISATEUR).ajouter(atouts_.tirerUneCarteAleatoire());
-            }
-            for (byte tirage_ = CustList.SIZE_EMPTY; tirage_ < autresCartesTirer_; tirage_++) {
-                deal.get(NUMERO_UTILISATEUR).ajouter(autresCartes_.tirerUneCarteAleatoire());
-            }
+            feedUserHand(autresCartesTirer_, atoutsTires_, atouts_, autresCartes_);
             deck = new HandTarot();
             deck.ajouterCartes(atouts_);
             deck.ajouterCartes(autresCartes_);
-            byte reste_ = (byte) (NB_CARDS - _nombreCartes * _nombreJoueurs);
-            for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
+            byte reste_ = (byte) (NB_CARDS - nbCards_ * nbPlayers_);
+            for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nbPlayers_; joueur_++) {
                 if (joueur_ == NUMERO_UTILISATEUR) {
                     continue;
                 }
-                for (byte indiceCarte_ = CustList.SIZE_EMPTY; indiceCarte_ < _nombreCartes; indiceCarte_++) {
+                for (byte indiceCarte_ = CustList.SIZE_EMPTY; indiceCarte_ < nbCards_; indiceCarte_++) {
                     deal.get(joueur_).ajouter(deck.tirerUneCarteAleatoire());
                 }
             }
@@ -218,26 +183,26 @@ public final class DealTarot implements Iterable<HandTarot> {
         } else {
             if (_choix == ChoiceTarot.SAVE_SMALL) {
                 minAtout_ = 1;
-                if (_nombreCartes == 24) {
+                if (nbCards_ == 24) {
                     maxAtout_ = 5;
-                } else if (_nombreCartes == 18) {
+                } else if (nbCards_ == 18) {
                     maxAtout_ = 4;
-                } else if (_nombreCartes == 15 || _nombreCartes == 12) {
+                } else if (nbCards_ == 15 || nbCards_ == 12) {
                     maxAtout_ = 3;
                 } else {
                     maxAtout_ = 2;
                 }
             } else if (_choix == ChoiceTarot.LEAD_SMALL_BOUND) {
-                if (_nombreCartes == 24) {
+                if (nbCards_ == 24) {
                     minAtout_ = 14;
                     maxAtout_ = 21;
-                } else if (_nombreCartes == 18) {
+                } else if (nbCards_ == 18) {
                     minAtout_ = 12;
                     maxAtout_ = 17;
-                } else if (_nombreCartes == 15) {
+                } else if (nbCards_ == 15) {
                     minAtout_ = 9;
                     maxAtout_ = 14;
-                } else if (_nombreCartes == 12) {
+                } else if (nbCards_ == 12) {
                     minAtout_ = 8;
                     maxAtout_ = 11;
                 } else {
@@ -245,55 +210,23 @@ public final class DealTarot implements Iterable<HandTarot> {
                     maxAtout_ = 13;
                 }
             }
-//            fonctionRepartition_ = new LgInt[maxAtout_ - minAtout_ + 1];
             fonctionRepartition_ = new EqList<LgInt>();
-            _at.set(_at.get()
-                    + 90 / (maxAtout_ - minAtout_ + 1));
-//            fonctionRepartition_[0] = LgInt.multiply(LgInt.among(new LgInt(
-//                    minAtout_), new LgInt(21)), LgInt.among(new LgInt(
-//                            _nombreCartes - minAtout_ - 1), new LgInt(56)));
-//            fonctionRepartition_[0] = LgInt.multiply(LgInt.among(new LgInt(
-//                    minAtout_), new LgInt(21)), LgInt.among(new LgInt(
-//                    _nombreCartes - minAtout_ - 1), new LgInt(56)));
             fonctionRepartition_.add(LgInt.multiply(LgInt.among(new LgInt(
                     minAtout_), new LgInt(21)), LgInt.among(new LgInt(
-                    _nombreCartes - minAtout_ - 1), new LgInt(56))));
+                    nbCards_ - minAtout_ - 1), new LgInt(56))));
             byte index_ = (byte) (minAtout_ + 1);
             for (byte evenement_ = index_; evenement_ <= maxAtout_; evenement_++) {
-                _at.set(_at.get() + 90 / (maxAtout_ - minAtout_ + 1));
-//                fonctionRepartition_[evenement_ - minAtout_] = LgInt.plus(
-//                        fonctionRepartition_[evenement_ - minAtout_ - 1], LgInt
-//                        .multiply(LgInt.among(new LgInt(evenement_),
-//                                new LgInt(21)), LgInt.among(
-//                                        new LgInt(_nombreCartes - evenement_
-//                                                - 1), new LgInt(56))));
                 fonctionRepartition_.add(LgInt.plus(
                         fonctionRepartition_.last(), LgInt
                                 .multiply(LgInt.among(new LgInt(evenement_),
                                         new LgInt(21)), LgInt.among(
-                                        new LgInt(_nombreCartes - evenement_
+                                        new LgInt(nbCards_ - evenement_
                                                 - 1), new LgInt(56)))));
             }
-//            alea_ = fonctionRepartition_[fonctionRepartition_.length - 1]
-//                    .multiply(Math.random());
-//            alea_ = fonctionRepartition_.last()
-//                    .multiply(MonteCarlo.randomDouble());
             alea_ = AbMonteCarlo.randomLgInt(fonctionRepartition_.last());
-            _at.set(95);
-            for (byte evenement_ = minAtout_; evenement_ <= maxAtout_; evenement_++) {
-//                if (LgInt.lowerEq(alea_, fonctionRepartition_[evenement_
-//                        - minAtout_])) {
-//                    atoutsTires_ = evenement_;
-//                    break;
-//                }
-                if (LgInt.lowerEq(alea_, fonctionRepartition_.get(evenement_
-                        - minAtout_))) {
-                    atoutsTires_ = evenement_;
-                    break;
-                }
-            }
-            autresCartesTirer_ = (byte) (_nombreCartes - atoutsTires_ - 1);
-            for (int i = CustList.FIRST_INDEX; i <= _nombreJoueurs; i++) {
+            byte atoutsTires_ = chosenTrumps(minAtout_, maxAtout_, fonctionRepartition_, alea_);
+            autresCartesTirer_ = (byte) (nbCards_ - atoutsTires_ - 1);
+            for (int i = CustList.FIRST_INDEX; i <= nbPlayers_; i++) {
                 deal.add(new HandTarot());
             }
             HandTarot atouts_ = new HandTarot();
@@ -302,22 +235,17 @@ public final class DealTarot implements Iterable<HandTarot> {
             atouts_.jouer(CardTarot.petit());
             HandTarot autresCartes_ = new HandTarot();
             autresCartes_.ajouterCartes(HandTarot.cartesCouleurs());
-            for (byte tirage_ = CustList.SIZE_EMPTY; tirage_ < atoutsTires_; tirage_++) {
-                deal.get(NUMERO_UTILISATEUR).ajouter(atouts_.tirerUneCarteAleatoire());
-            }
             deal.first().ajouter(CardTarot.petit());
-            for (byte tirage_ = CustList.SIZE_EMPTY; tirage_ < autresCartesTirer_; tirage_++) {
-                deal.get(NUMERO_UTILISATEUR).ajouter(autresCartes_.tirerUneCarteAleatoire());
-            }
+            feedUserHand(autresCartesTirer_, atoutsTires_, atouts_, autresCartes_);
             deck = new HandTarot();
             deck.ajouterCartes(atouts_);
             deck.ajouterCartes(autresCartes_);
-            byte reste_ = (byte) (NB_CARDS - _nombreCartes * _nombreJoueurs);
-            for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
+            byte reste_ = (byte) (NB_CARDS - nbCards_ * nbPlayers_);
+            for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nbPlayers_; joueur_++) {
                 if (joueur_ == NUMERO_UTILISATEUR) {
                     continue;
                 }
-                for (byte indiceCarte_ = CustList.SIZE_EMPTY; indiceCarte_ < _nombreCartes; indiceCarte_++) {
+                for (byte indiceCarte_ = CustList.SIZE_EMPTY; indiceCarte_ < nbCards_; indiceCarte_++) {
                     deal.get(joueur_).ajouter(deck.tirerUneCarteAleatoire());
                 }
             }
@@ -326,6 +254,27 @@ public final class DealTarot implements Iterable<HandTarot> {
             }
             setRandomDealer(_regles);
         }
+    }
+
+    public void feedUserHand(byte _autresCartesTirer, byte _atoutsTires, HandTarot _atouts, HandTarot _autresCartes) {
+        for (byte tirage_ = CustList.SIZE_EMPTY; tirage_ < _atoutsTires; tirage_++) {
+            deal.get(NUMERO_UTILISATEUR).ajouter(_atouts.tirerUneCarteAleatoire());
+        }
+        for (byte tirage_ = CustList.SIZE_EMPTY; tirage_ < _autresCartesTirer; tirage_++) {
+            deal.get(NUMERO_UTILISATEUR).ajouter(_autresCartes.tirerUneCarteAleatoire());
+        }
+    }
+
+    public byte chosenTrumps(byte _minAtout, byte _maxAtout, EqList<LgInt> _fonctionRepartition, LgInt _alea) {
+        byte atoutsTires_ = 0;
+        for (byte evenement_ = _minAtout; evenement_ <= _maxAtout; evenement_++) {
+            if (LgInt.lowerEq(_alea, _fonctionRepartition.get(evenement_
+                    - _minAtout))) {
+                atoutsTires_ = evenement_;
+                break;
+            }
+        }
+        return atoutsTires_;
     }
 
     /**

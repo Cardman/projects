@@ -312,6 +312,7 @@ public final class AikiBeansHelpStd {
     private static final String CLICK_ITEMS_CANCEL_IMMU = "clickItemsCancelImmu";
     private static final String GET_TR_ITEMS_CANCEL_IMMU = "getTrItemsCancelImmu";
     private static final String NEXT_ROW_AFTER = "nextRowAfter";
+    private static final String GET_EFFICIENCY = "getEfficiency";
     private static final String CLICK_MOVES_IGN_LOW_ATT = "clickMovesIgnLowAtt";
     private static final String GET_TR_MOVES_IGN_LOW_ATT = "getTrMovesIgnLowAtt";
     private static final String CLICK_MOVES_IGN_INC_DEF = "clickMovesIgnIncDef";
@@ -1494,6 +1495,9 @@ public final class AikiBeansHelpStd {
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(NEXT_ROW_AFTER,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL,type_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        method_ = new StandardMethod(GET_EFFICIENCY,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(CLICK_MOVES_IGN_LOW_ATT,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
@@ -3844,6 +3848,10 @@ public final class AikiBeansHelpStd {
         }
         if (StringList.quickEq(methodName_,NEXT_ROW_AFTER)) {
             res_.setResult(new BooleanStruct(instance_.nextRowAfter((Long)_args[0])));
+            return res_;
+        }
+        if (StringList.quickEq(methodName_,GET_EFFICIENCY)) {
+            res_.setResult(new StringStruct(instance_.getEfficiency((Long)_args[0],(Long)_args[1])));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_MOVES_IGN_LOW_ATT)) {

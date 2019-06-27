@@ -110,7 +110,7 @@ public final class Navigation {
     private static final String GET_LOC_VAR =";.";
     private static final String VALIDATE ="validate";
 
-    private Configuration session = new Configuration();
+    private Configuration session;
 
     private String currentBeanName;
 
@@ -144,7 +144,7 @@ public final class Navigation {
         }
     }
 
-    public void loadConfiguration(String _conf, BeanLgNames _lgNames) {
+    public void loadConfiguration(String _conf, BeanLgNames _lgNames, Interrupt _i) {
         error = false;
         boolean found_ = false;
         String fileName_ = EMPTY_STRING;
@@ -169,6 +169,8 @@ public final class Navigation {
             return;
         }
         session = new Configuration();
+        session.setDataBaseClassName(_lgNames.getAliasObject());
+        session.setupInterrupt(_i);
         session.setStandards(_lgNames);
         ReadConfiguration.load(session,doc_);
         session.init();

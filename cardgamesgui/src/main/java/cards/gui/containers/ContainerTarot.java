@@ -7,7 +7,6 @@ import javax.swing.SwingConstants;
 
 import cards.facade.enumerations.GameEnum;
 import cards.gui.MainWindow;
-import cards.gui.animations.LoadingVideo;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicTarotCard;
 import cards.gui.panels.CarpetTarot;
@@ -41,7 +40,6 @@ public class ContainerTarot extends ContainerGame{
     private boolean partieSauvegardee;
     /**Vrai si et seulement si au moins une partie aleatoire a ete jouee depuis le dernier passage dans le menu principal*/
     private boolean partieAleatoireJouee;
-    private LoadingVideo animChargement;
     private AtomicBoolean arretDemo = new AtomicBoolean();
     private boolean canBid;
     private boolean canCall;
@@ -114,12 +112,6 @@ public class ContainerTarot extends ContainerGame{
     public void prendreCartesChien() {
     }
     public void validateDog() {
-    }
-    protected LoadingVideo getAnimChargement() {
-        return animChargement;
-    }
-    protected void setAnimChargement(LoadingVideo _animChargement) {
-        animChargement = _animChargement;
     }
     public Panel getPanelDiscardedTrumps() {
         return panelDiscardedTrumps;

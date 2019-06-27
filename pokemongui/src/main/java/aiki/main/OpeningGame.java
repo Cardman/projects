@@ -1,5 +1,5 @@
 package aiki.main;
-import aiki.facade.FacadeGame;
+import aiki.db.PerCent;
 import aiki.gui.MainWindow;
 import code.gui.ThreadInvoker;
 import code.gui.ThreadUtil;
@@ -11,10 +11,12 @@ public final class OpeningGame extends Thread {
     private static final int WAIT_VIDEO = 1000;
 
     private MainWindow window;
+    private PerCent perCent;
 
     /**This class thread is independant from EDT*/
-    public OpeningGame(MainWindow _window) {
+    public OpeningGame(MainWindow _window, PerCent _p) {
         window = _window;
+        perCent = _p;
     }
 
     @Override
@@ -23,9 +25,8 @@ public final class OpeningGame extends Thread {
         //Avoid to have a null dialog
         ThreadUtil.sleep(WAIT_VIDEO);
         window.getDialog().startAnimation();
-        FacadeGame fg_ = window.getFacade();
-        while (fg_.isLoading()) {
-            setProgress(fg_.getPerCentLoading());
+        while (window.getLoadFlag().get()) {
+            setProgress(perCent.getPercent());
         }
         //Freeing resources
         window.getDialog().stopAnimation();

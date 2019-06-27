@@ -56,7 +56,7 @@ public final class ThreadActions extends Thread {
             return;
         }
         if (usedFirstUrl) {
-            page.getNavigation().loadConfiguration(fileName, stds);
+            page.getNavigation().loadConfiguration(fileName, stds, new InterruptImpl());
             if (!page.getNavigation().isError()) {
                 HtmlPage htmlPage_ = page.getNavigation().getHtmlPage();
                 htmlPage_.setUrl(-1);

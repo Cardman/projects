@@ -4,9 +4,10 @@ import java.io.File;
 import javax.swing.SwingUtilities;
 
 import aiki.db.DataBase;
-import aiki.facade.FacadeGame;
+import aiki.db.PerCent;
 import aiki.sml.LoadingGame;
 import aiki.gui.MainWindow;
+import aiki.gui.threads.PerCentIncr;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -34,7 +35,6 @@ public final class CreateMainWindowParam extends Thread {
     public void run() {
         String loadRom_;
         boolean stoppedLoading_ = false;
-        FacadeGame fg_ = window.getFacade();
         String path_;
         if (!load.getLastRom().isEmpty()) {
             File file_ = new File(StringList.replaceBackSlash(load.getLastRom()));
@@ -48,18 +48,19 @@ public final class CreateMainWindowParam extends Thread {
             path_ = DataBase.EMPTY_STRING;
         }
         loadRom_ = path_;
-        OpeningGame opening_ = new OpeningGame(window);
-        fg_.setLoading(true);
+        PerCent p_ = new PerCentIncr();
+        window.getLoadFlag().set(true);
+        OpeningGame opening_ = new OpeningGame(window,p_);
         opening_.start();
         if (!load.getLastSavedGame().isEmpty()) {
-            window.loadRomGame(load, path, files, true);
+            window.loadRomGame(load, path, files, true,p_);
         } else {
-            window.loadOnlyRom(path_);
+            window.loadOnlyRom(path_,p_);
         }
-        if (!fg_.isLoading()) {
+        if (!window.getLoadFlag().get()) {
             stoppedLoading_ = true;
         }
-        fg_.setLoading(false);
+        window.getLoadFlag().set(false);
         window.setLoadingConf(load, false);
         SwingUtilities.invokeLater(new AfterLoadingBegin(window, stoppedLoading_, false, loadRom_));
     }

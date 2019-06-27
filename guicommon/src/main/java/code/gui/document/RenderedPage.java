@@ -9,6 +9,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import code.formathtml.Configuration;
 import code.formathtml.Navigation;
 import code.formathtml.render.MetaAnchorLabel;
 import code.formathtml.render.MetaComponent;
@@ -53,11 +54,15 @@ public final class RenderedPage implements ProcessingSession {
     public RenderedPage(JScrollPane _frame) {
         scroll = _frame;
         navigation = new Navigation();
+        navigation.setSession(new Configuration());
+        navigation.getSession().setupInterrupt(new InterruptImpl());
     }
 
     public RenderedPage(JScrollPane _frame, LabelButton _find, JTextField _field) {
         scroll = _frame;
         navigation = new Navigation();
+        navigation.setSession(new Configuration());
+        navigation.getSession().setupInterrupt(new InterruptImpl());
         finding = new FindEvent(_field, this);
         _find.addMouseListener(finding);
     }
@@ -91,7 +96,7 @@ public final class RenderedPage implements ProcessingSession {
     public void initialize(String _conf, BeanLgNames _stds) {
         start();
         standards = _stds;
-        navigation.loadConfiguration(_conf, _stds);
+        navigation.loadConfiguration(_conf, _stds, new InterruptImpl());
         if (navigation.isError()) {
             setupText(true);
             directScroll();
@@ -120,7 +125,7 @@ public final class RenderedPage implements ProcessingSession {
     public void initializeHtml(String _conf, BeanLgNames _lgNames) {
         start();
         standards = _lgNames;
-        navigation.loadConfiguration(_conf, _lgNames);
+        navigation.loadConfiguration(_conf, _lgNames, new InterruptImpl());
         if (navigation.isError()) {
             setupText(true);
             finish(false);
@@ -133,7 +138,7 @@ public final class RenderedPage implements ProcessingSession {
     public void initSession(String _conf, BeanLgNames _lgNames) {
         start();
         standards = _lgNames;
-        navigation.loadConfiguration(_conf, _lgNames);
+        navigation.loadConfiguration(_conf, _lgNames, new InterruptImpl());
         if (navigation.isError()) {
             setupText(true);
             directScroll();
@@ -165,7 +170,7 @@ public final class RenderedPage implements ProcessingSession {
     public void reInitSession(String _conf, BeanLgNames _lgNames) {
         start();
         standards = _lgNames;
-        navigation.loadConfiguration(_conf, _lgNames);
+        navigation.loadConfiguration(_conf, _lgNames, new InterruptImpl());
         if (navigation.isError()) {
             setupText(true);
             directScroll();

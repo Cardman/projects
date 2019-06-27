@@ -1,9 +1,9 @@
 package aiki.game.fight;
 import static org.junit.Assert.assertTrue;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import aiki.db.DataBase;
+import aiki.db.PerCent;
+import aiki.db.PerCentImpl;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Item;
 import aiki.fight.moves.enums.TargetChoice;
@@ -878,7 +878,7 @@ public class InitializationDataBase {
         initTranslations(data_);
         data_.setEndGameImage(new int[0][0]);
         //OK data, no homonyms
-        AtomicInteger ai_ = new AtomicInteger();
+        PerCent ai_ = new PerCentImpl();
         data_.validateCore(ai_);
         assertTrue(!data_.isError());
         data_.validateConstants();

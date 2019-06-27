@@ -252,7 +252,7 @@ public final class GameBeloteBid {
             int ls_ = 0;
             for (HandBelote h: leading_.values()) {
                 if (!h.estVide()) {
-                    ls_ ++;
+                    ls_++;
                 }
             }
             if (ls_ <= lim_) {

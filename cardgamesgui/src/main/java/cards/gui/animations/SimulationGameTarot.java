@@ -56,7 +56,6 @@ public final class SimulationGameTarot extends Thread implements SimulationGame 
         donne_.initDonne(regles_);
         GameTarot gt_ = new GameTarot(GameType.EDIT,donne_,regles_);
         partieSimulee.jouerTarot(gt_);
-        gt_.setChargementSimulation(0);
         stopButton=new LabelButton(container.getMessages().getVal(MainWindow.STOP_DEMO));
         stopButton.addMouseListener(new StopEvent(this));
     }

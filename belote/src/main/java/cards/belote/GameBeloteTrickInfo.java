@@ -1,6 +1,7 @@
 package cards.belote;
 
 import cards.belote.enumerations.CardBelote;
+import cards.consts.CardChar;
 import cards.consts.Hypothesis;
 import cards.consts.Order;
 import cards.consts.Suit;
@@ -200,7 +201,7 @@ public final class GameBeloteTrickInfo {
         for(Suit couleur_:GameBeloteCommon.couleurs()) {
             //On fait une boucle sur les couleurs autres que l'atout
             if(bid.getCouleur()!=couleur_&&!bid.ordreAtout()) {
-                m.put(couleur_, cartesPossiblesRegles(couleur_, _curHand));
+                m.put(couleur_, cartesPossibles(couleur_, _curHand));
             } else {
                 m.put(couleur_,atoutsPossibles(couleur_,_curHand));
             }
@@ -481,6 +482,48 @@ public final class GameBeloteTrickInfo {
         }
     }
 
+    HandBelote joueCartePoint(Suit _couleur, HandBelote _curHand, byte _numero,
+                               HandBelote _atoutsPossibles) {
+        HandBelote retour_ = new HandBelote();
+        retour_.ajouterCartes(_atoutsPossibles);
+        HandBelote cartesJouees_ = cartesJouees();
+        cartesJouees_.ajouterCartes(progressingTrick.getCartes());
+        CustList<TrickBelote> plis_ = new CustList<TrickBelote>();
+        for (TrickBelote pli_ : tricks) {
+            CardBelote carteObservee_ = pli_.carteDuJoueur(_numero);
+            if (carteObservee_.couleur() != _couleur) {
+                continue;
+            }
+            if (carteObservee_.points(bid) == 0) {
+                continue;
+            }
+            byte ramasseur_ = pli_.getRamasseur(bid);
+            if (relations.memeEquipe(ramasseur_, _numero)) {
+                continue;
+            }
+            // Plis sous coupes (couleur demandee) ou avec un atout joue en
+            // dessous du ramasseur (demande atout)
+            plis_.add(pli_);
+        }
+        HandBelote cartesVues_ = new HandBelote(Order.TRUMP);
+        cartesVues_.ajouterCartes(cartesJouees_.couleurs(bid).getVal(_couleur));
+        cartesVues_.ajouterCartes(_curHand.couleurs(bid).getVal(_couleur));
+        cartesVues_.trierUnicolore(true);
+        for (TrickBelote pli_ : plis_) {
+            CardBelote carteObservee_ = pli_.carteDuJoueur(_numero);
+            Suit couleurDemandee_ = pli_.couleurDemandee();
+            HandBelote mainLocale_ = new HandBelote();
+            //supprimer les atouts sous la carte observee
+            for(CardBelote carte_: HandBelote.couleurComplete(_couleur,Order.SUIT)) {
+                if (carte_.strength(couleurDemandee_,bid) < carteObservee_
+                        .strength(couleurDemandee_,bid)) {
+                    mainLocale_.ajouter(carte_);
+                }
+            }
+            retour_.supprimerCartes(mainLocale_);
+        }
+        return retour_;
+    }
     HandBelote sousCoupeBelote(Suit _couleur, HandBelote _curHand, byte _numero,
                                        HandBelote _atoutsPossibles) {
         HandBelote retour_ = new HandBelote();
@@ -529,6 +572,21 @@ public final class GameBeloteTrickInfo {
             retour_.supprimerCartes(mainLocale_);
         }
         return retour_;
+    }
+    EqList<HandBelote> cartesPossibles(Suit _couleur, HandBelote _curHand) {
+        EqList<HandBelote> m = cartesPossiblesRegles(_couleur,_curHand);
+        byte joueur_ = 0;
+        for (HandBelote main_ : m) {
+            if (main_.estVide()) {
+                joueur_++;
+                continue;
+            }
+            HandBelote atoutsFiltres_ = joueCartePoint(_couleur, _curHand,joueur_,
+                    main_);
+            m.set(joueur_, atoutsFiltres_);
+            joueur_++;
+        }
+        return m;
     }
     /**Retourne l'ensemble des cartes d'une meme couleur autre que l'atout probablement possedees par les autres joueurs on tient compte du pli en cours
      @param numero*/

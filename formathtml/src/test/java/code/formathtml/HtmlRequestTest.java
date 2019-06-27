@@ -472,7 +472,7 @@ public class HtmlRequestTest {
     }
 
     private static Configuration newConfiguration() {
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = EquallableExUtil.newConfiguration();
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);

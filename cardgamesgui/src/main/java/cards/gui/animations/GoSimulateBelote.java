@@ -98,7 +98,6 @@ public final class GoSimulateBelote extends Thread implements GoSimulate {
             mainsUtilisateurs_.get(0).setOrdre(container.getDisplayingBelote().getOrdreAvantEncheres());
             mainsUtilisateurs_.get(0).trier(container.getDisplayingBelote().getCouleurs(),container.getDisplayingBelote().getDecroissant(),container.getDisplayingBelote().getOrdreAvantEncheres());
         }
-        partie_.setChargementSimulation(100);
         ThreadUtil.sleep(500);
         String event_;
         event_ = StringList.concat(container.getMessages().getVal(MainWindow.BEGIN_DEMO),ContainerGame.RETURN_LINE);

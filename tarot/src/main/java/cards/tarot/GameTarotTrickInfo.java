@@ -661,9 +661,8 @@ public final class GameTarotTrickInfo {
                                 nombreDApparitionCarte_++;
                             }
                         }
-                        if (nombreDApparitionCarte_ == 1
-                                && !cartesCertaines_.getVal(couleur_).get(joueur_)
-                                .contient(carte_)) {
+                        if (nombreDApparitionCarte_ == 1) {
+                            cartesCertaines_.getVal(couleur_).get(joueur_).removeCardIfPresent(carte_);
                             cartesCertaines_.getVal(couleur_).get(joueur_)
                                     .ajouter(carte_);
                         }

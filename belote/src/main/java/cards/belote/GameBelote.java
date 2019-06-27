@@ -1,8 +1,6 @@
 package cards.belote;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import cards.belote.enumerations.CardBelote;
-import cards.consts.CardChar;
 import cards.consts.GameType;
 import cards.consts.Suit;
 import code.util.BooleanList;
@@ -14,8 +12,6 @@ import code.util.*;
  */
 
 public final class GameBelote {
-
-    private AtomicInteger chargementSimulation = new AtomicInteger(0);
 
     /**Le type d'une partie est aleatoire ou encore edite ou encore un entrainement*/
     private GameType type;
@@ -203,77 +199,71 @@ public final class GameBelote {
         if (rules.dealAll()) {
             byte joueur_ = playerAfter(getDistribution().getDonneur());
             while (true) {
-                contratTmp_=strategieContrat();
-                ajouterContrat(contratTmp_,joueur_);
+                contratTmp_ = strategieContrat();
+                ajouterContrat(contratTmp_, joueur_);
                 if (!keepBidding()) {
                     break;
                 }
                 joueur_ = playerAfter(joueur_);
             }
-            setChargementSimulation(getChargementSimulation() + 20);
         } else {
             boolean finished_ = false;
-            for(byte joueur_:players_) {
-                contratTmp_=strategieContrat();
-                ajouterContrat(contratTmp_,joueur_);
+            for (byte joueur_ : players_) {
+                contratTmp_ = strategieContrat();
+                ajouterContrat(contratTmp_, joueur_);
                 if (!keepBidding()) {
                     finished_ = true;
                     break;
                 }
             }
-            setChargementSimulation(getChargementSimulation() + 10);
             if (!finished_) {
                 finEncherePremierTour();
-                for(byte joueur_:players_) {
-                    contratTmp_=strategieContrat();
-                    ajouterContrat(contratTmp_,joueur_);
+                for (byte joueur_ : players_) {
+                    contratTmp_ = strategieContrat();
+                    ajouterContrat(contratTmp_, joueur_);
                     if (!keepBidding()) {
                         break;
                     }
                 }
             }
-            setChargementSimulation(getChargementSimulation() + 10);
         }
-        if(!bid.jouerDonne()) {
-            setChargementSimulation(100);
+        if (!bid.jouerDonne()) {
             return;
         }
-        simulationWithBids=true;
+        simulationWithBids = true;
         completerDonne();
         setPliEnCours();
-        boolean passe_=false;
-        while(true) {
-            if(passe_) {
+        boolean passe_ = false;
+        while (true) {
+            if (passe_) {
                 ajouterPliEnCours();
                 setEntameur();
                 setPliEnCours();
             }
-            for(byte joueur_:orderedPlayers(starter)) {
-                CardBelote ct_=strategieJeuCarteUnique();
-                if(annoncerBeloteRebelote(joueur_,ct_)) {
-                    setAnnoncesBeloteRebelote(joueur_,ct_);
+            for (byte joueur_ : orderedPlayers(starter)) {
+                CardBelote ct_ = strategieJeuCarteUnique();
+                if (annoncerBeloteRebelote(joueur_, ct_)) {
+                    setAnnoncesBeloteRebelote(joueur_, ct_);
                 }
                 if (premierTour()) {
                     annoncer(joueur_);
                 }
-                if(!passe_) {
-                    passe_=true;
+                if (!passe_) {
+                    passe_ = true;
                 }
-                getDistribution().jouer(joueur_,ct_);
+                getDistribution().jouer(joueur_, ct_);
                 ajouterUneCarteDansPliEnCours(ct_);
             }
-            if(premierTour()) {
+            if (premierTour()) {
                 annulerAnnonces();
             }
-            if(getDistribution().main().estVide()) {
+            if (getDistribution().main().estVide()) {
                 /*Il y a dix de der*/
                 ajouterPliEnCours();
                 setDixDeDer(getRamasseur());
                 break;
             }
-            setChargementSimulation(getChargementSimulation() + 10);
         }
-        setChargementSimulation(100);
     }
     public HandBelote mainUtilisateurTriee(DisplayingBelote _regles) {
         HandBelote main_ = new HandBelote();
@@ -723,14 +713,6 @@ public final class GameBelote {
 
     public BidBeloteSuit getBid() {
         return bid;
-    }
-
-    public int getChargementSimulation() {
-        return chargementSimulation.get();
-    }
-
-    public void setChargementSimulation(int _chargementSimulation) {
-        chargementSimulation.set(_chargementSimulation);
     }
 
     public DealBelote getDeal() {

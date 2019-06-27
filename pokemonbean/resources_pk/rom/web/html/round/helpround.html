@@ -1322,16 +1322,16 @@
 		<table>
 			<tr>
 				<td/>
+				<c:for list="types" var="u" className='java.lang.String'>
+					<td>{u;}</td>
+				</c:for>
+			</tr>
+			<tr>
 				<c:for list="types" var="t" className='java.lang.String'>
 					<td>{t;}</td>
-				</c:for>
-				<c:for key="k" keyClassName="aiki.fight.util.TypesDuo" map="efficiency" value="r" varClassName='r'>
-					<c:if condition="nextRowAfter(k;;)">
-						<c:tr_end/>
-						<c:tr_begin/>
-						<td>{k;getPokemonType()}</td>
-					</c:if>
-					<td>{r;}</td>
+					<c:for list="types" var="u" className='java.lang.String'>
+						<td>{getEfficiency(t;;,u;;)}</td>
+					</c:for>
 				</c:for>
 			</tr>
 		</table>

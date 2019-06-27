@@ -5,7 +5,6 @@ import javax.swing.SwingConstants;
 
 import cards.facade.enumerations.GameEnum;
 import cards.gui.MainWindow;
-import cards.gui.animations.LoadingVideo;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicPresidentCard;
 import cards.gui.panels.CarpetPresident;
@@ -36,7 +35,6 @@ public class ContainerPresident extends ContainerGame {
     private boolean partieSauvegardee;
     /**Vrai si et seulement si au moins une partie aleatoire a ete jouee depuis le dernier passage dans le menu principal*/
     private boolean partieAleatoireJouee;
-    private LoadingVideo animChargement;
 
     private AtomicBoolean arretDemo = new AtomicBoolean();
 
@@ -145,12 +143,6 @@ public class ContainerPresident extends ContainerGame {
     }
     public CarpetPresident tapisPresident() {
         return getTapis().getTapisPresident();
-    }
-    protected LoadingVideo getAnimChargement() {
-        return animChargement;
-    }
-    protected void setAnimChargement(LoadingVideo _animChargement) {
-        animChargement = _animChargement;
     }
     public boolean isArretDemo() {
         return arretDemo.get();

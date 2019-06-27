@@ -637,7 +637,7 @@ public final class CheckNumericStringsFight {
         long minLevel_ = _data.getMinLevel();
         long maxLevel_ = _data.getMaxLevel();
         Rate min_ = Rate.zero();
-        for (long l = minLevel_ ; l <= maxLevel_; l++) {
+        for (long l = minLevel_; l <= maxLevel_; l++) {
             vars_.put(varName_, String.valueOf(l));
             EvolvedNumString chNum_;
             chNum_ = _data.createNumericableString(_formula, vars_);

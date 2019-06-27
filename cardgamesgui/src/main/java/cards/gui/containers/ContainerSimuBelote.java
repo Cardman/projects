@@ -1,6 +1,5 @@
 package cards.gui.containers;
 import cards.gui.MainWindow;
-import cards.gui.animations.LoadingVideo;
 import cards.gui.animations.SimulationGameBelote;
 
 public class ContainerSimuBelote extends ContainerBelote implements ContainerSimu {
@@ -9,9 +8,7 @@ public class ContainerSimuBelote extends ContainerBelote implements ContainerSim
     public ContainerSimuBelote(MainWindow _window) {
         super(_window);
         animationSimulation=new SimulationGameBelote(this);
-        setAnimChargement(new LoadingVideo(this,animationSimulation));
         animationSimulation.start();
-        getAnimChargement().start();
     }
 
     @Override

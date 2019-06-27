@@ -1,5 +1,4 @@
 package cards.tarot;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import cards.consts.GameType;
 import cards.consts.Hypothesis;
@@ -15,12 +14,6 @@ import code.util.*;
 /** */
 
 public final class GameTarot {
-
-    private static final int PERCENT_MAX = 100;
-
-    private static final int PERCENT_DELTA = 10;
-
-    private AtomicInteger chargementSimulation = new AtomicInteger();
 
     /**
     Le type d'une partie est aleatoire ou encore edite ou encore un
@@ -286,10 +279,8 @@ public final class GameTarot {
                     break;
                 }
             }
-            setChargementSimulation(getChargementSimulation() + PERCENT_DELTA);
         }
         if (!bid.isJouerDonne() && pasJeuApresPasse()) {
-            setChargementSimulation(PERCENT_MAX);
             return;
         }
         simulationWithBids = true;
@@ -333,7 +324,6 @@ public final class GameTarot {
         */
             starter = (byte) ((donneur_ + 1) % nombreJoueurs_);
         }
-        setChargementSimulation(getChargementSimulation() + PERCENT_DELTA);
         int rapport_ = 75 / getDistribution().main().total();
         setPliEnCours(true);
         for (byte joueur_ : orderedPlayers(starter)) {
@@ -352,7 +342,6 @@ public final class GameTarot {
             jouer(joueur_,ct_);
             ajouterUneCarteDansPliEnCours(ct_);
         }
-        setChargementSimulation(getChargementSimulation() + rapport_);
         while (!getDistribution().main().estVide()) {
             ajouterPliEnCours();
             setPliEnCours(true);
@@ -363,9 +352,7 @@ public final class GameTarot {
                 ajouterUneCarteDansPliEnCours(ct_);
             }
             ajouterPetitAuBoutFinPartie();
-            setChargementSimulation(getChargementSimulation() + rapport_);
         }
-        setChargementSimulation(PERCENT_MAX);
     }
 
     public HandTarot mainUtilisateurTriee(DisplayingTarot _regles) {
@@ -1377,14 +1364,6 @@ public final class GameTarot {
 
     private static EnumList<Suit> couleursOrdinaires() {
         return Suit.couleursOrdinaires();
-    }
-
-    public int getChargementSimulation() {
-        return chargementSimulation.get();
-    }
-
-    public void setChargementSimulation(int _chargementSimulation) {
-        chargementSimulation.set(_chargementSimulation);
     }
 
     public DealTarot getDeal() {

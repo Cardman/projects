@@ -14,6 +14,11 @@ public final class EquallableExUtil {
     private EquallableExUtil() {
     }
 
+    public static Configuration newConfiguration() {
+        Configuration c_ = new Configuration();
+        c_.setupInterrupt(new InterruptValue());
+        return c_;
+    }
     public static String formatFile(String _folder, String _locale, String _relative) {
         return StringList.concat(_folder,"/",_locale,"/",_relative,".properties");
     }

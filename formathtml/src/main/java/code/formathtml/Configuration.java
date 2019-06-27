@@ -1,5 +1,4 @@
 package code.formathtml;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import code.bean.Bean;
 import code.bean.translator.Translator;
@@ -113,7 +112,8 @@ public class Configuration implements ExecutableCode {
 
     private String resourceUrl;
 
-    private AtomicBoolean interrupt = new AtomicBoolean();
+    private Interrupt interrupt;
+
     @Override
     public boolean isMerged() {
         return context.isMerged();
@@ -512,6 +512,9 @@ public class Configuration implements ExecutableCode {
         prefix = _prefix;
     }
 
+    public void setupInterrupt(Interrupt _i) {
+        interrupt = _i;
+    }
     public boolean isInterrupt() {
         return interrupt.get();
     }

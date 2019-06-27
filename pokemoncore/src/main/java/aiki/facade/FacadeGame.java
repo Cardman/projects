@@ -1,8 +1,5 @@
 package aiki.facade;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import aiki.comments.Comment;
 import aiki.comparators.ComparatorCoords;
 import aiki.comparators.ComparatorTrStrings;
@@ -67,8 +64,6 @@ import code.util.EnumMap;
 import code.util.EqList;
 import code.util.NatStringTreeMap;
 import code.util.*;
-import code.util.*;
-import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -81,10 +76,6 @@ import aiki.facade.enums.SelectedBoolean;
 public class FacadeGame implements WithMathFactory {
 
     private DataBase data = new DataBase();
-
-    private AtomicBoolean loading = new AtomicBoolean();
-
-    private AtomicInteger perCentLoading = new AtomicInteger();
 
     private boolean loadedData;
 
@@ -3148,30 +3139,6 @@ public class FacadeGame implements WithMathFactory {
 
     public String getZipName() {
         return zipName;
-    }
-
-    public AtomicBoolean getLoading() {
-        return loading;
-    }
-
-    public boolean isLoading() {
-        return loading.get();
-    }
-
-    public void setLoading(boolean _loading) {
-        loading.set(_loading);
-    }
-
-    public AtomicInteger getAtPerCentLoading() {
-        return perCentLoading;
-    }
-
-    public int getPerCentLoading() {
-        return perCentLoading.get();
-    }
-
-    public void setPerCentLoading(int _perCentLoading) {
-        perCentLoading.set(_perCentLoading);
     }
 
 }

@@ -8639,6 +8639,7 @@ public class NavigationTest {
 
     private static Navigation newNavigation() {
         Navigation nav_ = new Navigation();
+        nav_.setSession(EquallableExUtil.newConfiguration());
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
@@ -8649,7 +8650,7 @@ public class NavigationTest {
     }
 
     private static Configuration newConfiguration() {
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = EquallableExUtil.newConfiguration();
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);

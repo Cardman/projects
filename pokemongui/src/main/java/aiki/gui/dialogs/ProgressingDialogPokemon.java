@@ -1,5 +1,4 @@
 package aiki.gui.dialogs;
-import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import code.gui.ProgressingDialog;
 
@@ -14,7 +13,6 @@ public final class ProgressingDialogPokemon extends ProgressingDialog {
     @Override
     public void closeWindow() {
         super.closeWindow();
-        FacadeGame fg_ = mainWindow.getFacade();
-        fg_.setLoading(false);
+        mainWindow.getLoadFlag().set(false);
     }
 }

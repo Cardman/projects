@@ -37,7 +37,7 @@ import code.util.StringList;
 Thread safe class*/
 public final class GoSimulateTarot extends Thread implements GoSimulate {
 
-    private Games partieSimulee = new Games();
+    private Games partieSimulee;
 
     private ContainerSimuTarot container;
 
@@ -70,7 +70,6 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
         GameTarot partie_=partieTarotSimulee();
         byte nombreJoueurs_=partie_.getNombreDeJoueurs();
         byte indiceMainDepart_;
-        partie_.setChargementSimulation(100);
         String lg_ = container.getOwner().getLanguageKey();
         if(partie_.getSimulationAvecContrats()) {
             CustList<TrickTarot> plisFaits_=partie_.unionPlis();

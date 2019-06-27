@@ -6304,7 +6304,7 @@ public final class ElRenderUtilTest {
         return contextEl(_multiple, true);
     }
     private Configuration contextEl(boolean _multiple, boolean _eqPlus) {
-        Configuration conf_ = new Configuration();
+        Configuration conf_ =  EquallableExUtil.newConfiguration();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -6320,7 +6320,7 @@ public final class ElRenderUtilTest {
         return conf_;
     }
     private Configuration contextEl(boolean _multiple, boolean _eqPlus, boolean _catChars) {
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = EquallableExUtil.newConfiguration();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -6342,7 +6342,7 @@ public final class ElRenderUtilTest {
         return contextEl(_files, _multiple, true);
     }
     private Configuration contextEl(StringMap<String> _files, boolean _multiple, boolean _eqPlus) {
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = EquallableExUtil.newConfiguration();
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
