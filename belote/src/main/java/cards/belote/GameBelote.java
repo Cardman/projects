@@ -311,15 +311,7 @@ public final class GameBelote {
         if(!bid.getCouleurDominante()) {
             return cartes_;
         }
-        for(CardBelote c: GameBeloteCommonPlaying.cartesAtouts(couleurAtout())) {
-            if(c.getNomFigure() == CardChar.KING) {
-                cartes_.ajouter(c);
-            }
-            if(c.getNomFigure() == CardChar.QUEEN) {
-                cartes_.ajouter(c);
-            }
-        }
-        return cartes_;
+        return GameBeloteCommonPlaying.cartesBeloteRebelote(bid);
     }
     public boolean autoriseBeloteRebelote() {
         return autoriseBeloteRebelote(DealBelote.NUMERO_UTILISATEUR);

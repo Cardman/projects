@@ -137,15 +137,6 @@ public abstract class CommonGameBelote {
             } else {
                 cartesPossibles_.put(couleur_,info_.atoutsPossiblesRegles(couleur_,_currentHand));
             }
-            for(DeclareHandBelote a:_g.getDeclares()) {
-                HandBelote mainCouleur_ = a.getMain().couleurs(bid_).getVal(couleur_);
-                for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nbPl_;joueur_++) {
-                    if(joueur_ == a.getJoueur()) {
-                        continue;
-                    }
-                    cartesPossibles_.getVal(couleur_).get(joueur_).supprimerCartes(mainCouleur_);
-                }
-            }
         }
         CustList<TrickBelote> allTr_ = new CustList<TrickBelote>();
         allTr_.addAllElts(_g.getTricks());
@@ -278,7 +269,7 @@ public abstract class CommonGameBelote {
         for (int i = 0; i < nbPl_; i++) {
             handLengths_.add(nombreCartesParJoueur_);
         }
-        int nbTr_ = _g.getTricks().size() - 1;
+        int nbTr_ = _g.getTricks().size();
         for (int i = 0; i < nbPl_; i++) {
             handLengths_.set(i,handLengths_.get(i)-nbTr_);
         }
@@ -299,7 +290,7 @@ public abstract class CommonGameBelote {
         for (int i = 0; i < nbPl_; i++) {
             handLengths_.add(nombreCartesParJoueur_);
         }
-        int nbTr_ = _g.getTricks().size() - 1;
+        int nbTr_ = _g.getTricks().size();
         for (int i = 0; i < nbPl_; i++) {
             handLengths_.set(i,handLengths_.get(i)-nbTr_);
         }

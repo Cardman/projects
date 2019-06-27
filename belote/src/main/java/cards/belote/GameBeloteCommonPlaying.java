@@ -503,9 +503,6 @@ public final class GameBeloteCommonPlaying {
     }
     static HandBelote cartesBeloteRebelote(BidBeloteSuit _bid) {
         HandBelote cartes_ = new HandBelote();
-        if(!_bid.getCouleurDominante()) {
-            return cartes_;
-        }
         for(CardBelote c: GameBeloteCommonPlaying.cartesAtouts(_bid.getCouleur())) {
             if(c.getNomFigure() == CardChar.KING) {
                 cartes_.ajouter(c);

@@ -236,15 +236,7 @@ public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBe
             pointsFictifs_ += getPointsCount(_nbPlayers,enchereBeloteLoc_,c,repartition_,other_);
             pointsFictifs_ *= _nbFinalCards;
             pointsFictifs_ /= count_;
-            HandBelote cartes_ = new HandBelote();
-            for(CardBelote t: GameBeloteCommonPlaying.cartesAtouts(c)) {
-                if(t.getNomFigure() == CardChar.KING) {
-                    cartes_.ajouter(t);
-                }
-                if(t.getNomFigure() == CardChar.QUEEN) {
-                    cartes_.ajouter(t);
-                }
-            }
+            HandBelote cartes_ = GameBeloteCommonPlaying.cartesBeloteRebelote(enchereBeloteLoc_);
             if (contientCartes(cartes_)) {
                 pointsFictifs_ += DeclaresBeloteRebelote.BELOTE_REBELOTE.getPoints();
             }

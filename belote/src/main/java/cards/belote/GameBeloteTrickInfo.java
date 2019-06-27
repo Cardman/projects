@@ -124,9 +124,8 @@ public final class GameBeloteTrickInfo {
                                 nombreDApparitionCarte_++;
                             }
                         }
-                        if (nombreDApparitionCarte_ == 1
-                                && !cartesCertaines_.getVal(couleur_).get(joueur_)
-                                .contient(carte_)) {
+                        if (nombreDApparitionCarte_ == 1) {
+                            cartesCertaines_.getVal(couleur_).get(joueur_).removeCardIfPresent(carte_);
                             cartesCertaines_.getVal(couleur_).get(joueur_)
                                     .ajouter(carte_);
                         }
@@ -204,15 +203,6 @@ public final class GameBeloteTrickInfo {
                 m.put(couleur_, cartesPossiblesRegles(couleur_, _curHand));
             } else {
                 m.put(couleur_,atoutsPossibles(couleur_,_curHand));
-            }
-            for(DeclareHandBelote a:declares) {
-                HandBelote mainCouleur_ = a.getMain().couleurs(bid).getVal(couleur_);
-                for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nbPlayers;joueur_++) {
-                    if(joueur_ == a.getJoueur()) {
-                        continue;
-                    }
-                    m.getVal(couleur_).get(joueur_).supprimerCartes(mainCouleur_);
-                }
             }
         }
         return m;
@@ -399,13 +389,8 @@ public final class GameBeloteTrickInfo {
                                     cartesExclues_.ajouter(c2_);
                                 }
                             }
-                            if(sousCoupeObligAdv_) {
-                                for(CardBelote c2_: m.get(joueur_)) {
-                                    if(c2_.strength(couleurDemande_, bid) > max_) {
-                                        continue;
-                                    }
-                                    cartesExclues_.ajouter(c2_);
-                                }
+                            if(sousCoupeObligPart_) {
+                                filterUnder(m, couleurDemande_, joueur_, max_, cartesExclues_);
                             }
                         }
                         m.get(joueur_).supprimerCartes(cartesExclues_);
@@ -424,12 +409,7 @@ public final class GameBeloteTrickInfo {
                             cartesExclues_.ajouter(c2_);
                         }
                         if(sousCoupeObligAdv_) {
-                            for(CardBelote c2_: m.get(joueur_)) {
-                                if(c2_.strength(couleurDemande_, bid) > max_) {
-                                    continue;
-                                }
-                                cartesExclues_.ajouter(c2_);
-                            }
+                            filterUnder(m, couleurDemande_, joueur_, max_, cartesExclues_);
                         }
                     }
                     m.get(joueur_).supprimerCartes(cartesExclues_);
@@ -480,9 +460,28 @@ public final class GameBeloteTrickInfo {
             }
 
         }
+        for(DeclareHandBelote a:declares) {
+            HandBelote mainCouleur_ = a.getMain().couleurs(bid).getVal(_couleurAtout);
+            for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nbPlayers;joueur_++) {
+                if(joueur_ == a.getJoueur()) {
+                    continue;
+                }
+                m.get(joueur_).supprimerCartes(mainCouleur_);
+            }
+        }
         return m;
     }
-    private HandBelote sousCoupeBelote(Suit _couleur, HandBelote _curHand, byte _numero,
+
+    private void filterUnder(EqList<HandBelote> _m, Suit _couleurDemande, byte _joueur, byte _max, HandBelote _cartesExclues) {
+        for(CardBelote c2_: _m.get(_joueur)) {
+            if(c2_.strength(_couleurDemande, bid) > _max) {
+                continue;
+            }
+            _cartesExclues.ajouter(c2_);
+        }
+    }
+
+    HandBelote sousCoupeBelote(Suit _couleur, HandBelote _curHand, byte _numero,
                                        HandBelote _atoutsPossibles) {
         HandBelote retour_ = new HandBelote();
         retour_.ajouterCartes(_atoutsPossibles);
@@ -494,20 +493,13 @@ public final class GameBeloteTrickInfo {
             if (carteObservee_.couleur() != _couleur) {
                 continue;
             }
-            byte entameur_ = pli_.getEntameur();
             byte ramasseur_ = pli_.getRamasseur(bid);
             boolean ramasseurAvantNumero_ = false;
-            byte i_ = 0;
-            while (i_ < nbPlayers) {
-                byte joueur_ = (byte) ((entameur_ + i_) % nbPlayers);
-                if (joueur_ == ramasseur_) {
+            for (byte p: pli_.joueursAyantJoueAvant(_numero,rules.getDealing())) {
+                if (p == ramasseur_) {
                     ramasseurAvantNumero_ = true;
                     break;
                 }
-                if (joueur_ == _numero) {
-                    break;
-                }
-                i_++;
             }
             if (!ramasseurAvantNumero_) {
                 continue;
@@ -582,7 +574,75 @@ public final class GameBeloteTrickInfo {
                 }
             }
         }
+        for(DeclareHandBelote a:declares) {
+            HandBelote mainCouleur_ = a.getMain().couleurs(bid).getVal(_couleur);
+            for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nbPlayers;joueur_++) {
+                if(joueur_ == a.getJoueur()) {
+                    continue;
+                }
+                m.get(joueur_).supprimerCartes(mainCouleur_);
+            }
+        }
         return m;
+    }
+
+    /**Retourne vrai si et seulement si le joueur ne peut pas jouer atout sur demande d'atout ou couper quand il le faut
+     (sur un adversaire ayant joue une carte de la couleur demandee forte virtuellement)*/
+    boolean defausseBelote(Suit _couleur, byte _joueur,CustList<TrickBelote> _plisFaits) {
+        boolean surCoupeObligPart_=relations.surCoupeObligatoirePartenaire();
+        boolean sousCoupeObligPart_=relations.sousCoupeObligatoirePartenaire();
+        boolean sousCoupeObligAdv_=relations.sousCoupeObligatoireAdversaire();
+        if(!bid.getCouleurDominante() || bid.getCouleur() == _couleur) {
+            return neFournitPas(_couleur,_joueur,_plisFaits);
+        }
+        Suit couleurAtout_=bid.getCouleur();
+        int lastIndex_ = _plisFaits.getLastIndex();
+        for(int indicePli_=lastIndex_;indicePli_>=CustList.FIRST_INDEX;indicePli_--) {
+            TrickBelote pli_=_plisFaits.get(indicePli_);
+            if(pli_.couleurDemandee()!=_couleur) {
+                continue;
+            }
+            Suit couleurJoueur_=pli_.carteDuJoueur(_joueur).couleur();
+            if(couleurJoueur_==_couleur) {
+                continue;
+            }
+            if(couleurJoueur_==couleurAtout_) {
+                continue;
+            }
+            //defausse de joueur
+            Bytes joueurs_=pli_.joueursAyantJoueAvant(_joueur,rules.getRepartition());
+            //Le pli n'est pas vide.
+            CardBelote carteForte_ = pli_.premiereCarte();
+            byte forcePremiereCarte_ = carteForte_.strength(_couleur,bid);
+            byte ramasseurAvant_ = pli_.getEntameur();
+            boolean doitCouper_;
+            for(byte j: joueurs_) {
+                CardBelote carte_ = pli_.carteDuJoueur(j);
+                byte forceCarte_ = carte_.strength(_couleur,bid);
+                if (forceCarte_ > forcePremiereCarte_) {
+                    forcePremiereCarte_ = forceCarte_;
+                    carteForte_ = carte_;
+                    ramasseurAvant_ = j;
+                }
+            }
+            if(relations.memeEquipe(_joueur, ramasseurAvant_)) {
+                if(carteForte_.couleur() == couleurAtout_) {
+                    doitCouper_ = surCoupeObligPart_ && sousCoupeObligPart_;
+                } else {
+                    doitCouper_ = surCoupeObligPart_;
+                }
+            } else {
+                if(carteForte_.couleur() == couleurAtout_) {
+                    doitCouper_ = sousCoupeObligAdv_;
+                } else {
+                    doitCouper_ = true;
+                }
+            }
+            if(doitCouper_) {
+                return true;
+            }
+        }
+        return false;
     }
     static boolean neFournitPas(Suit _couleur, byte _joueur,CustList<TrickBelote> _plisFaits) {
         int lastIndex_ = _plisFaits.getLastIndex();
@@ -596,88 +656,6 @@ public final class GameBeloteTrickInfo {
         }
         return false;
     }
-    /**Retourne vrai si et seulement si le joueur ne peut pas jouer atout sur demande d'atout ou couper quand il le faut
-     (sur un adversaire ayant joue une carte de la couleur demandee forte virtuellement)*/
-    boolean defausseBelote(Suit _couleur, byte _joueur,CustList<TrickBelote> _plisFaits) {
-        if(bid.getCouleurDominante()) {
-            Suit couleurAtout_=bid.getCouleur();
-            boolean surCoupeObligPart_=relations.surCoupeObligatoirePartenaire();
-            boolean sousCoupeObligPart_=relations.sousCoupeObligatoirePartenaire();
-            boolean sousCoupeObligAdv_=relations.sousCoupeObligatoireAdversaire();
-            if(_couleur==couleurAtout_) {
-                /*Si la couleur demandee est celle de l'atout*/
-                int lastIndex_ = _plisFaits.getLastIndex();
-                for(int indicePli_=lastIndex_;indicePli_>=CustList.FIRST_INDEX;indicePli_--) {
-                    TrickBelote pli_=_plisFaits.get(indicePli_);
-                    if(pli_.couleurDemandee()==_couleur) {
-                        if(pli_.carteDuJoueur(_joueur).couleur()!=_couleur) {
-                            return true;
-                        }
-                    }
-                }
-            } else {
-                int lastIndex_ = _plisFaits.getLastIndex();
-                for(int indicePli_=lastIndex_;indicePli_>=CustList.FIRST_INDEX;indicePli_--) {
-                    TrickBelote pli_=_plisFaits.get(indicePli_);
-                    if(pli_.couleurDemandee()!=_couleur) {
-                        continue;
-                    }
-                    Suit couleurJoueur_=pli_.carteDuJoueur(_joueur).couleur();
-                    if(couleurJoueur_==_couleur) {
-                        continue;
-                    }
-                    if(couleurJoueur_==couleurAtout_) {
-                        continue;
-                    }
-                    //defausse de joueur
-                    Bytes joueurs_=pli_.joueursAyantJoueAvant(_joueur,rules.getRepartition());
-                    //Le pli n'est pas vide.
-                    CardBelote carteForte_ = pli_.premiereCarte();
-                    byte forcePremiereCarte_ = carteForte_.strength(_couleur,bid);
-                    byte ramasseurAvant_ = pli_.getEntameur();
-                    boolean doitCouper_;
-                    for(byte j: joueurs_) {
-                        CardBelote carte_ = pli_.carteDuJoueur(j);
-                        byte forceCarte_ = carte_.strength(_couleur,bid);
-                        if (forceCarte_ > forcePremiereCarte_) {
-                            forcePremiereCarte_ = forceCarte_;
-                            carteForte_ = carte_;
-                            ramasseurAvant_ = j;
-                        }
-                    }
-                    if(relations.memeEquipe(_joueur, ramasseurAvant_)) {
-                        if(carteForte_.couleur() == couleurAtout_) {
-                            doitCouper_ = surCoupeObligPart_ && sousCoupeObligPart_;
-                        } else {
-                            doitCouper_ = surCoupeObligPart_;
-                        }
-                    } else {
-                        if(carteForte_.couleur() == couleurAtout_) {
-                            doitCouper_ = sousCoupeObligAdv_;
-                        } else {
-                            doitCouper_ = true;
-                        }
-                    }
-                    if(doitCouper_) {
-                        return true;
-                    }
-                }
-            }
-        } else {
-            int lastIndex_ = _plisFaits.getLastIndex();
-            for(int indicePli_=lastIndex_;indicePli_>=CustList.FIRST_INDEX;indicePli_--) {
-                TrickBelote pli_=_plisFaits.get(indicePli_);
-                if(pli_.couleurDemandee()==_couleur) {
-                    Suit couleurJoueJoueur_=pli_.carteDuJoueur(_joueur).couleur();
-                    if(couleurJoueJoueur_!=_couleur) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
     public HandBelote cartesJouees() {
         HandBelote m = new HandBelote();
         for (TrickBelote t: tricks) {
