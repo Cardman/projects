@@ -2297,6 +2297,9 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         b_.setSuit(Suit.UNDEFINED);
         b_.setPoints(90);
         bids_.add(b_);
+        bids_.add(new BidBeloteSuit());
+        bids_.add(new BidBeloteSuit());
+        bids_.add(new BidBeloteSuit());
         HandBelote last_ = new HandBelote();
         byte d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
@@ -4015,6 +4018,9 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         b_.setSuit(Suit.UNDEFINED);
         b_.setPoints(90);
         bids_.add(b_);
+        bids_.add(new BidBeloteSuit());
+        bids_.add(new BidBeloteSuit());
+        bids_.add(new BidBeloteSuit());
         HandBelote last_ = new HandBelote();
         byte d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
@@ -4199,6 +4205,9 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         b_.setSuit(Suit.HEART);
         b_.setPoints(90);
         bids_.add(b_);
+        bids_.add(new BidBeloteSuit());
+        bids_.add(new BidBeloteSuit());
+        bids_.add(new BidBeloteSuit());
         HandBelote last_ = new HandBelote();
         byte d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
@@ -4246,6 +4255,9 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         b_.setSuit(Suit.HEART);
         b_.setPoints(90);
         bids_.add(b_);
+        bids_.add(new BidBeloteSuit());
+        bids_.add(new BidBeloteSuit());
+        bids_.add(new BidBeloteSuit());
         HandBelote last_ = new HandBelote();
         byte d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
@@ -4646,6 +4658,9 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         b_.setSuit(Suit.HEART);
         b_.setPoints(90);
         bids_.add(b_);
+        bids_.add(new BidBeloteSuit());
+        bids_.add(new BidBeloteSuit());
+        bids_.add(new BidBeloteSuit());
         HandBelote last_ = new HandBelote();
         byte d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
@@ -4693,6 +4708,9 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         b_.setSuit(Suit.HEART);
         b_.setPoints(90);
         bids_.add(b_);
+        bids_.add(new BidBeloteSuit());
+        bids_.add(new BidBeloteSuit());
+        bids_.add(new BidBeloteSuit());
         HandBelote last_ = new HandBelote();
         byte d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();

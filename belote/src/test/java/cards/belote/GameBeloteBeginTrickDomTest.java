@@ -1567,6 +1567,9 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
         b_.setSuit(Suit.HEART);
         b_.setPoints(80);
         bids_.add(b_);
+        bids_.add(new BidBeloteSuit());
+        bids_.add(new BidBeloteSuit());
+        bids_.add(new BidBeloteSuit());
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote pr_ = new TrickBelote(r_.getRepartition().getNextPlayer(d_));
         GameBelote g_ = newGameBeloteWithourDecl(r_, trs_, pr_, d_, bids_, last_);
