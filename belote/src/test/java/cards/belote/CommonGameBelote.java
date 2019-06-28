@@ -207,6 +207,16 @@ public abstract class CommonGameBelote {
         if (_g.getRules().dealAll()) {
             hands_.add(new HandBelote());
         } else {
+            EqList<HandBelote> handsFull_ = new EqList<HandBelote>();
+            for (HandBelote h: hands_) {
+                handsFull_.add(new HandBelote(h));
+            }
+            for (TrickBelote t: allTr_) {
+                for (CardBelote c: t) {
+                    int p_ = t.joueurAyantJoue(c, (byte) nbPl_);
+                    handsFull_.get(p_).ajouter(c);
+                }
+            }
             HandBelote l_ = new HandBelote();
             CardBelote card_ = _g.getDistribution().derniereMain().premiereCarte();
             l_.ajouter(card_);
@@ -218,7 +228,7 @@ public abstract class CommonGameBelote {
                     int k_ = CustList.FIRST_INDEX;
                     int count_ = 0;
                     while (count_ < f_) {
-                        CardBelote c_ = hands_.get(j).carte(k_);
+                        CardBelote c_ = handsFull_.get(j).carte(k_);
                         if (c_ == card_) {
                             k_++;
                             continue;
@@ -229,7 +239,7 @@ public abstract class CommonGameBelote {
                     }
                     if (j != taker_) {
                         while (true) {
-                            CardBelote c_ = hands_.get(j).carte(k_);
+                            CardBelote c_ = handsFull_.get(j).carte(k_);
                             if (c_ == card_) {
                                 k_++;
                                 continue;

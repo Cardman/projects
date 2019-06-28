@@ -1,12 +1,15 @@
 package cards.belote;
 
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
+import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.EnumList;
 import code.util.EnumMap;
+import code.util.EqList;
 import org.junit.Test;
 
 public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
@@ -97,5 +100,67 @@ public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
         EnumList<Suit> s_ = GameBeloteCommon.couleursNonAtoutNonVides(h_, GameBeloteCommon.couleurs());
         EnumMap<Suit, HandBelote> l_ = GameBeloteCommon.cartesMaitresses(hr_, pr_, b_);
         assertSame(CardBelote.CLUB_7,GameBeloteBeginTrick.ouvrir(b_,s_,hr_,pr_,l_));
+    }
+    @Test
+    public void playedLeading1Test() {
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setSuit(Suit.SPADE);
+        b_.setBid(BidBelote.SUIT);
+        EnumMap<Suit, EqList<HandBelote>> sure_ = generate(4, b_);
+        addCard(sure_,3,CardBelote.SPADE_1);
+        HandBelote p_ = new HandBelote();
+        EnumMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
+        assertTrue(!GameBeloteBeginTrick.playedLeading(b_,(byte)3,b_.getCouleur(),pr_,sure_, Order.TRUMP));
+    }
+    @Test
+    public void playedLeading2Test() {
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setSuit(Suit.SPADE);
+        b_.setBid(BidBelote.SUIT);
+        EnumMap<Suit, EqList<HandBelote>> sure_ = generate(4, b_);
+        addCard(sure_,3,CardBelote.SPADE_9);
+        HandBelote p_ = new HandBelote();
+        p_.ajouter(CardBelote.SPADE_JACK);
+        EnumMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
+        assertTrue(GameBeloteBeginTrick.playedLeading(b_,(byte)3,b_.getCouleur(),pr_,sure_, Order.TRUMP));
+    }
+    private static void addCard(EnumMap<Suit, EqList<HandBelote>> _poss, int _p, CardBelote _c) {
+        HandBelote h_ = _poss.getVal(_c.couleur()).get(_p);
+        if (h_.contient(_c)) {
+            return;
+        }
+        h_.ajouter(_c);
+        h_.trierUnicolore(true);
+    }
+    private static EnumMap<Suit,EqList<HandBelote>> generate(int _nbPlayer, BidBeloteSuit _b) {
+        EnumMap<Suit,EqList<HandBelote>> e_ = new EnumMap<Suit,EqList<HandBelote>>();
+        EnumList<Suit> s_ = new EnumList<Suit>();
+        s_.addAllElts(Suit.couleursOrdinaires());
+        for (Suit s: s_) {
+            EqList<HandBelote> l_ = new EqList<HandBelote>();
+            for (int i = 0; i < _nbPlayer; i++) {
+                HandBelote h_ = new HandBelote();
+                if(_b.getCouleurDominante()) {
+                    if(s!=_b.getCouleur()) {
+                        h_.setOrdre(Order.SUIT);
+                    }
+                } else if(_b.ordreCouleur()) {
+                    h_.setOrdre(Order.SUIT);
+                }
+                l_.add(h_);
+            }
+            e_.addEntry(s,l_);
+        }
+        return e_;
+    }
+    private static Order getOrder(Suit _s, BidBeloteSuit _b) {
+        if(_b.getCouleurDominante()) {
+            if(_s!=_b.getCouleur()) {
+                return Order.SUIT;
+            }
+        } else if(_b.ordreCouleur()) {
+            return Order.SUIT;
+        }
+        return Order.TRUMP;
     }
 }

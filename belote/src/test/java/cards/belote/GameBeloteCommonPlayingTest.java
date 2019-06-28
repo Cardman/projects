@@ -1187,10 +1187,9 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
             }
         }
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
-        assertEq(3, suits_.size());
+        assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
         assertTrue(suits_.containsObj(Suit.CLUB));
-        assertTrue(suits_.containsObj(Suit.SPADE));
     }
     @Test
     public void couleursMaitres10Test() {
@@ -1222,9 +1221,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
             }
         }
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
-        assertEq(2, suits_.size());
+        assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
-        assertTrue(suits_.containsObj(Suit.SPADE));
     }
     @Test
     public void couleursMaitres11Test() {
@@ -1256,8 +1254,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
             }
         }
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
-        assertEq(1, suits_.size());
-        assertTrue(suits_.containsObj(Suit.SPADE));
+        assertEq(0, suits_.size());
     }
     @Test
     public void couleursMaitres12Test() {
@@ -1624,6 +1621,38 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouter(CardBelote.SPADE_10);
         p_.ajouter(CardBelote.SPADE_KING);
         p_.ajouter(CardBelote.SPADE_QUEEN);
+        EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
+        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        HandBelote rem_ = new HandBelote();
+        rem_.ajouterCartes(HandBelote.pileBase());
+        rem_.supprimerCartes(cur_);
+        rem_.supprimerCartes(p_);
+        for (int i = 1; i < 4; i++) {
+            for (Suit s: GameBeloteCommon.couleurs()) {
+                for (CardBelote c: rem_.couleur(b_,s)) {
+                    addCard(poss_,i,c);
+                }
+            }
+        }
+        assertTrue(strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
+    }
+    @Test
+    public void strictMaitreAtout11Test() {
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setSuit(Suit.UNDEFINED);
+        b_.setBid(BidBelote.NO_TRUMP);
+        HandBelote cur_ = new HandBelote();
+        cur_.ajouter(CardBelote.CLUB_1);
+        cur_.ajouter(CardBelote.CLUB_KING);
+        cur_.ajouter(CardBelote.SPADE_9);
+        cur_.ajouter(CardBelote.CLUB_QUEEN);
+        cur_.ajouter(CardBelote.CLUB_10);
+        cur_.ajouter(CardBelote.HEART_1);
+        cur_.ajouter(CardBelote.DIAMOND_1);
+        cur_.ajouter(CardBelote.DIAMOND_7);
+        HandBelote p_ = new HandBelote();
+        p_.ajouter(CardBelote.SPADE_JACK);
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
