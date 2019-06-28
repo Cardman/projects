@@ -91,6 +91,7 @@ import code.util.EnumMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.consts.Constants;
 
 public final class MainWindow extends NetGroupFrame {
     //implemented SettingInfosAfterCompiler
@@ -251,6 +252,13 @@ public final class MainWindow extends NetGroupFrame {
         setFocusable(true);
         setFocusableWindowState(true);
         facade = new FacadeGame();
+        StringList lgs_ = Constants.getAvailableLanguages();
+        facade.setLanguages(lgs_);
+        StringMap<String> displayLanguages_ = new StringMap<String>();
+        for (String s: lgs_) {
+            displayLanguages_.put(s, Constants.getDisplayLanguage(s));
+        }
+        facade.setDisplayLanguages(displayLanguages_);
         facade.setSimplyLanguage(_lg);
         setImageIconFrame(LaunchingPokemon.getIcon());
         mainPanel = new Panel();

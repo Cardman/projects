@@ -13,7 +13,6 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.Gender;
 import code.util.*;
-import code.util.consts.Constants;
 import aiki.facade.enums.SelectedBoolean;
 
 public class LangsBean extends CommonBean {
@@ -36,28 +35,30 @@ public class LangsBean extends CommonBean {
     @Override
     public void beforeDisplaying() {
         languages = new StringList();
-        languages.add(getLanguage());
-        for (String l: Constants.getAvailableLanguages()) {
-            if (StringList.quickEq(l,getLanguage())) {
+        String curLg_ = getLanguage();
+        languages.add(curLg_);
+        DataBase data_ = (DataBase) getDataBase();
+        StringList lgs_ = data_.getLanguages();
+        for (String l: lgs_) {
+            if (StringList.quickEq(l, curLg_)) {
                 continue;
             }
             languages.add(l);
         }
-        DataBase data_ = (DataBase) getDataBase();
-        translatedCategories = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedCategories(),getLanguage()));
-        translatedEnvironment = new TreeMap<LanguageElementKey, String>(new ComparatorLanguageEnvType(data_.getTranslatedEnvironment(),getLanguage()));
-        translatedBooleans = new TreeMap<LanguageElementKey, String>(new ComparatorLanguageSelectedBoolean(data_.getTranslatedBooleans(),getLanguage()));
-        translatedGenders = new TreeMap<LanguageElementKey, String>(new ComparatorLanguageGender(data_.getTranslatedGenders(),getLanguage()));
-        translatedStatistics = new TreeMap<LanguageElementKey, String>(new ComparatorLanguageStatisic(data_.getTranslatedStatistics(),getLanguage()));
-        translatedTargets = new TreeMap<LanguageElementKey, String>(new ComparatorLanguageTargetChoice(data_.getTranslatedTargets(),getLanguage()));
-        translatedTypes = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedTypes(),getLanguage()));
-        translatedPokemon = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedPokemon(),getLanguage()));
-        translatedMoves = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedMoves(),getLanguage()));
-        translatedItems = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedItems(),getLanguage()));
-        translatedAbilities = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedAbilities(),getLanguage()));
-        translatedStatus = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedStatus(),getLanguage()));
-        translatedClassesDescriptions = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedClassesDescriptions(),getLanguage()));
-        translatedFctMath = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedFctMath(),getLanguage()));
+        translatedCategories = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedCategories(), curLg_, languages));
+        translatedEnvironment = new TreeMap<LanguageElementKey, String>(new ComparatorLanguageEnvType(data_.getTranslatedEnvironment(), curLg_, languages));
+        translatedBooleans = new TreeMap<LanguageElementKey, String>(new ComparatorLanguageSelectedBoolean(data_.getTranslatedBooleans(), curLg_, languages));
+        translatedGenders = new TreeMap<LanguageElementKey, String>(new ComparatorLanguageGender(data_.getTranslatedGenders(), curLg_, languages));
+        translatedStatistics = new TreeMap<LanguageElementKey, String>(new ComparatorLanguageStatisic(data_.getTranslatedStatistics(), curLg_, languages));
+        translatedTargets = new TreeMap<LanguageElementKey, String>(new ComparatorLanguageTargetChoice(data_.getTranslatedTargets(), curLg_, languages));
+        translatedTypes = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedTypes(), curLg_, languages));
+        translatedPokemon = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedPokemon(), curLg_, languages));
+        translatedMoves = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedMoves(), curLg_, languages));
+        translatedItems = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedItems(), curLg_, languages));
+        translatedAbilities = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedAbilities(), curLg_, languages));
+        translatedStatus = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedStatus(), curLg_, languages));
+        translatedClassesDescriptions = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedClassesDescriptions(), curLg_, languages));
+        translatedFctMath = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedFctMath(), curLg_, languages));
         StringList classesItems_;
         classesItems_ = new StringList();
         for (Item i: data_.getItems().values()) {
@@ -65,7 +66,7 @@ public class LangsBean extends CommonBean {
             classesItems_.add(i.getItemType());
         }
         classesItems_.removeDuplicates();
-        for (String l:Constants.getAvailableLanguages()) {
+        for (String l:lgs_) {
             for (String c: data_.getAllCategories()) {
                 translatedCategories.put(new LanguageElementStringKey(l,c), data_.getTranslatedCategories().getVal(l).getVal(c));
             }
@@ -113,7 +114,8 @@ public class LangsBean extends CommonBean {
     }
     public String getTrLang(Long _index) {
         String lang_ = languages.get(_index.intValue());
-        return Constants.getDisplayLanguage(lang_);
+        DataBase data_ = (DataBase) getDataBase();
+        return data_.getDisplayLanguages().getVal(lang_);
     }
     public StringList getKeysCategories() {
         return getStringKeys(translatedCategories);

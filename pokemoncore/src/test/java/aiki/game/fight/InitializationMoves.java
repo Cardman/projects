@@ -4456,7 +4456,7 @@ final class InitializationMoves {
         //validate:
         effetStatut_.getLawStatus().addEvent(POISON_ST,new LgInt("1"));
         //validate:
-        effetStatut_.getLocalFailStatus().put(POISON_ST,"VAR__CIBLE_POSSEDE_STATUT_RELATION__MAUDIT|VAR__CIBLE_CLONE>0");
+        effetStatut_.getLocalFailStatus().put(POISON_ST,"VAR__CIBLE_POSSEDE_STATUT_RELATION__AMOUR|VAR__CIBLE_CLONE>0");
         effetStatut_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         ficheAttaqueNonOff_.getEffects().add(effetStatut_);
         _data.completeMembers(MALEDICTION_2,ficheAttaqueNonOff_);

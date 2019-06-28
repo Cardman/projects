@@ -86,7 +86,6 @@ import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 import code.util.ints.Listable;
 import code.util.ints.MathFactory;
 import code.util.ints.WithMathFactory;
@@ -130,11 +129,9 @@ public class DataBase implements WithMathFactory {
     public static final String BONUS_BOOST = "BONUS_BOOST";
 
     public static final String SEP_BETWEEN_KEYS = "__";
-    public static final String ZIP_FILES_EXT = ".zip";
     public static final String IMG_FILES_RES_EXT = ".png";
     public static final String IMG_FILES_RES_EXT_TXT = ".txt";
     public static final String FILES_RES_EXT = ".xml";
-    public static final String DASH_FILE_INFO = "-";
     /**
      * The custom beans can be modified but they must have a common base package
      * Avoid to recompile classes in standard packages like java, javax, and
@@ -164,12 +161,6 @@ public class DataBase implements WithMathFactory {
     public static final String END_GAME_IMAGE = "end_game";
     public static final int ONE_POSSIBLE_CHOICE = 1;
     public static final String AUTRE = "AUTRE";
-    public static final String WEB_FOLDER = "web";
-    public static final String WEB_FIGHT = "web_fight";
-    public static final String WEB_GAME = "web_game";
-    public static final String WEB_PROG = "web_prog";
-    public static final String WEB_PK = "web_pk";
-    public static final String BEANS_FOLDER = "java_beans";
 
     public static final String ANIM_STATIS = "anim_statis";
 
@@ -380,6 +371,8 @@ public class DataBase implements WithMathFactory {
     private StringMap<String> messagesTeam = new StringMap<String>();
     private StringMap<String> messagesFight = new StringMap<String>();
     private StringMap<String> messagesGame = new StringMap<String>();
+    private StringList languages = new StringList();
+    private StringMap<String> displayLanguages = new StringMap<String>();
     private String language = "";
 
     @Override
@@ -1384,7 +1377,7 @@ public class DataBase implements WithMathFactory {
         StringList allCustKeys_ = new StringList();
         StringList allStandardKeys_ = new StringList();
         if (!StringList.equalsSet(translatedGenders.getKeys(),
-                Constants.getAvailableLanguages())) {
+                languages)) {
             setError(true);
             return;
         }
@@ -1412,7 +1405,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         if (!StringList.equalsSet(translatedBooleans.getKeys(),
-                Constants.getAvailableLanguages())) {
+                languages)) {
             setError(true);
             return;
         }
@@ -1431,7 +1424,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         if (!StringList.equalsSet(translatedDiffWinPts.getKeys(),
-                Constants.getAvailableLanguages())) {
+                languages)) {
             setError(true);
             return;
         }
@@ -1452,7 +1445,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         if (!StringList.equalsSet(translatedDiffModelLaw.getKeys(),
-                Constants.getAvailableLanguages())) {
+                languages)) {
             setError(true);
             return;
         }
@@ -1474,7 +1467,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         if (!StringList.equalsSet(translatedEnvironment.getKeys(),
-                Constants.getAvailableLanguages())) {
+                languages)) {
             setError(true);
             return;
         }
@@ -1501,7 +1494,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         if (!StringList.equalsSet(translatedStatistics.getKeys(),
-                Constants.getAvailableLanguages())) {
+                languages)) {
             setError(true);
             return;
         }
@@ -1527,7 +1520,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         if (!StringList.equalsSet(translatedTypes.getKeys(),
-                Constants.getAvailableLanguages())) {
+                languages)) {
             setError(true);
             return;
         }
@@ -1550,7 +1543,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         if (!StringList.equalsSet(translatedCategories.getKeys(),
-                Constants.getAvailableLanguages())) {
+                languages)) {
             setError(true);
             return;
         }
@@ -1573,7 +1566,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         if (!StringList.equalsSet(translatedPokemon.getKeys(),
-                Constants.getAvailableLanguages())) {
+                languages)) {
             setError(true);
             return;
         }
@@ -1596,7 +1589,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         if (!StringList.equalsSet(translatedItems.getKeys(),
-                Constants.getAvailableLanguages())) {
+                languages)) {
             setError(true);
             return;
         }
@@ -1619,7 +1612,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         if (!StringList.equalsSet(translatedAbilities.getKeys(),
-                Constants.getAvailableLanguages())) {
+                languages)) {
             setError(true);
             return;
         }
@@ -1642,7 +1635,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         if (!StringList.equalsSet(translatedMoves.getKeys(),
-                Constants.getAvailableLanguages())) {
+                languages)) {
             setError(true);
             return;
         }
@@ -1665,7 +1658,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         if (!StringList.equalsSet(translatedStatus.getKeys(),
-                Constants.getAvailableLanguages())) {
+                languages)) {
             setError(true);
             return;
         }
@@ -1689,7 +1682,7 @@ public class DataBase implements WithMathFactory {
         }
         homonyms_.removeDuplicates();
         if (!StringList.equalsSet(translatedFctMath.getKeys(),
-                Constants.getAvailableLanguages())) {
+                languages)) {
             setError(true);
             return;
         }
@@ -1703,7 +1696,7 @@ public class DataBase implements WithMathFactory {
                 return;
             }
         }
-        for (String l : Constants.getAvailableLanguages()) {
+        for (String l : languages) {
             for (String s : homonyms_) {
                 StringList tr_ = new StringList();
                 if (translatedMoves.getVal(l).contains(s)) {
@@ -1752,7 +1745,7 @@ public class DataBase implements WithMathFactory {
         }
 
         if (!StringList.equalsSet(translatedClassesDescriptions.getKeys(),
-                Constants.getAvailableLanguages())) {
+                languages)) {
             setError(true);
             return;
         }
@@ -1773,7 +1766,7 @@ public class DataBase implements WithMathFactory {
             }
         }
         if (!StringList.equalsSet(translatedTargets.getKeys(),
-                Constants.getAvailableLanguages())) {
+                languages)) {
             setError(true);
             return;
         }
@@ -1804,11 +1797,13 @@ public class DataBase implements WithMathFactory {
             }
         }
         if (!StringList.equalsSet(litterals.getKeys(),
-                Constants.getAvailableLanguages())) {
+                languages)) {
             setError(true);
             return;
         }
+        int j = 0;
         for (String v: variables) {
+            j++;
             for (EntryCust<String,StringMap<String>> m: litterals.entryList()) {
                 boolean f_ = false;
                 String line_ = EMPTY_STRING;
@@ -2907,19 +2902,16 @@ public class DataBase implements WithMathFactory {
                         continue;
                     }
                     setError(true);
-                    return;
-
+                    continue;
                 }
                 if (!isTranslatable(w)) {
                     setError(true);
-                    return;
-
                 }
             }
         }
     }
     public boolean isTranslatable(String _key) {
-        for (String l : Constants.getAvailableLanguages()) {
+        for (String l : languages) {
             if (translate(_key, l).isEmpty()) {
                 return false;
             }
@@ -3779,6 +3771,22 @@ public class DataBase implements WithMathFactory {
 
     public void setError(boolean _error) {
         error = _error;
+    }
+
+    public StringList getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(StringList _languages) {
+        languages = _languages;
+    }
+
+    public StringMap<String> getDisplayLanguages() {
+        return displayLanguages;
+    }
+
+    public void setDisplayLanguages(StringMap<String> _displayLanguages) {
+        displayLanguages = _displayLanguages;
     }
 
     public String getLanguage() {

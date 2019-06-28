@@ -209,7 +209,7 @@ public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTaro
         return c_;
     }
     public void removeCardIfPresent(CardTarot _c) {
-        cards.removeObj(_c);
+        cards.removeAllObj(_c);
     }
     public void jouer(CardTarot _c) {
         cards.remove(cards.indexOfObj(_c));

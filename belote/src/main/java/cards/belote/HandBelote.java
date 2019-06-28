@@ -608,6 +608,6 @@ public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBe
     }
 
     public void removeCardIfPresent(CardBelote _c) {
-        cards.removeObj(_c);
+        cards.removeAllObj(_c);
     }
 }

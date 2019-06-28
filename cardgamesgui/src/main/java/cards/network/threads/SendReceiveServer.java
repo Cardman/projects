@@ -293,51 +293,6 @@ public final class SendReceiveServer extends BasicServer {
             processGameTarot(_input, _readObject);
             return;
         }
-        NewPlayer newPlayer_ = (NewPlayer)_readObject;
-        if (Net.getNbPlayers() == Net.getNicknames().size()) {
-            Bye forcedBye_ = new Bye();
-            forcedBye_.setForced(true);
-            forcedBye_.setClosing(false);
-            Net.removePlayer(newPlayer_.getIndex(), forcedBye_);
-//            Socket socket_ = Net.getSockets().getVal(newPlayer_.getIndex());
-//            Net.getSockets().removeKey(newPlayer_.getIndex());
-//            Net.getConnectionsServer().removeKey(newPlayer_.getIndex());
-//            Net.getReadyPlayers().removeKey(newPlayer_.getIndex());
-//            Net.getPlacesPlayers().removeKey(newPlayer_.getIndex());
-//            Net.sendObject(socket_,forcedBye_);
-            return;
-        }
-        if (Net.isProgressingGame()) {
-            Bye forcedBye_ = new Bye();
-            forcedBye_.setForced(true);
-            forcedBye_.setClosing(false);
-            Net.removePlayer(newPlayer_.getIndex(), forcedBye_);
-//            Socket socket_ = Net.getSockets().getVal(newPlayer_.getIndex());
-//            Net.getSockets().removeKey(newPlayer_.getIndex());
-//            Net.getConnectionsServer().removeKey(newPlayer_.getIndex());
-//            Net.getReadyPlayers().removeKey(newPlayer_.getIndex());
-//            Net.getPlacesPlayers().removeKey(newPlayer_.getIndex());
-//            Net.sendObject(socket_,forcedBye_);
-            return;
-        }
-        Net.getPlayersLocales().put(newPlayer_.getIndex(), newPlayer_.getLanguage());
-        Net.getNicknames().put(newPlayer_.getIndex(),newPlayer_.getPseudo());
-        PlayersNamePresent pl_ = new PlayersNamePresent();
-        if (Net.getGames().getRulesBelote() != null) {
-            pl_.setRulesBelote(Net.getGames().getRulesBelote());
-        } else if (Net.getGames().getRulesPresident() != null) {
-            pl_.setRulesPresident(Net.getGames().getRulesPresident());
-        } else if (Net.getGames().getRulesTarot() != null) {
-            pl_.setRulesTarot(Net.getGames().getRulesTarot());
-        }
-        pl_.setNbPlayers(Net.getNbPlayers());
-        pl_.setPseudos(new IntMap<String>(Net.getNicknames()));
-        pl_.setPlacesPlayers(Net.getPlacesPlayers());
-        pl_.setReadyPlayers(new IntMap<Boolean>(Net.getReadyPlayers()));
-        for (int p:Net.getSockets().getKeys()) {
-            pl_.setFirst(p == newPlayer_.getIndex());
-            Net.sendObject(Net.getSockets().getVal(p),pl_);
-        }
     }
 
     private static void processGameTarot(String _input, Object _readObject) {
@@ -1309,7 +1264,7 @@ public final class SendReceiveServer extends BasicServer {
             return;
         }
         if (_readObject instanceof RefreshedHandPresident) {
-            Net.setReceivedForPlayer(((Dealt)_readObject).getPlace());
+            Net.setReceivedForPlayer(((RefreshedHandPresident)_readObject).getPlace());
             Bytes pl_ = Net.activePlayers();
             GamePresident g_ = Net.getGames().partiePresident();
             if (Net.allReceivedAmong(g_.getLoosers(pl_))) {

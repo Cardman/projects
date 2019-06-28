@@ -131,6 +131,8 @@ public class FacadeGame implements WithMathFactory {
             CustList.INDEX_NOT_FOUND_ELT, CustList.INDEX_NOT_FOUND_ELT);
 
     private String language;
+    private StringList languages = new StringList();
+    private StringMap<String> displayLanguages = new StringMap<String>();
 
     private String zipName = DataBase.EMPTY_STRING;
 
@@ -175,23 +177,6 @@ public class FacadeGame implements WithMathFactory {
 
     public void clearGame() {
         game = null;
-    }
-
-    public void createDataBase(WildPk _firstPokemon) {
-        DataBase data_ = new DataBase();
-        data_.setLanguage(language);
-        DataMap map_ = data_.getMap();
-        map_.setBegin(new Coords());
-        map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap< Place>());
-        map_.setFirstPokemon(_firstPokemon);
-        map_.setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
-        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
-        if (data != null) {
-            data_.setMessages(data);
-        }
-        data = data_;
-        loadedData = true;
     }
 
     public boolean isLoadedData() {
@@ -3141,4 +3126,19 @@ public class FacadeGame implements WithMathFactory {
         return zipName;
     }
 
+    public StringList getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(StringList _languages) {
+        languages = _languages;
+    }
+
+    public StringMap<String> getDisplayLanguages() {
+        return displayLanguages;
+    }
+
+    public void setDisplayLanguages(StringMap<String> _displayLanguages) {
+        displayLanguages = _displayLanguages;
+    }
 }

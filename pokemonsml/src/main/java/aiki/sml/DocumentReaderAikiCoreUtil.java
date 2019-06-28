@@ -219,7 +219,6 @@ import code.sml.Element;
 import code.sml.ElementList;
 import code.sml.stream.ExtractFromFiles;
 import code.util.*;
-import code.util.consts.Constants;
 import aiki.facade.enums.SelectedBoolean;
 
 public final class DocumentReaderAikiCoreUtil {
@@ -1016,6 +1015,8 @@ public final class DocumentReaderAikiCoreUtil {
     // Load rom first
     private static DataBase loadedRom(FacadeGame _f,StringMap<String> _files, PerCent _p, LoadFlag _l) {
         DataBase data_ = new DataBase();
+        data_.setLanguages(_f.getLanguages());
+        data_.setDisplayLanguages(_f.getDisplayLanguages());
         _l.set(true);
         data_.setLanguage(_f.getLanguage());
         loadRom(data_,_files,_p);
@@ -1032,6 +1033,8 @@ public final class DocumentReaderAikiCoreUtil {
     }
     public static void loadResources(FacadeGame _f, PerCent _p,LoadFlag _l) {
         DataBase data_ = new DataBase();
+        data_.setLanguages(_f.getLanguages());
+        data_.setDisplayLanguages(_f.getDisplayLanguages());
         _l.set(true);
         data_.setLanguage(_f.getLanguage());
         loadResources(data_,_p, _f.getLanguage());
@@ -1573,7 +1576,7 @@ public final class DocumentReaderAikiCoreUtil {
         _d.setEndGameImage(BaseSixtyFourUtil.getImageByString(endGame_));
         _d.initTranslations();
         _perCentLoading.setPercent(30);
-        for (String l : Constants.getAvailableLanguages()) {
+        for (String l : _d.getLanguages()) {
             String fileName_ = StringList.concat(TRANSLATION_FOLDER,
                     SEPARATOR_FILES);
             fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);
@@ -2114,7 +2117,7 @@ public final class DocumentReaderAikiCoreUtil {
                 .ressourceFichier(StringList.concat(common_, END_GAME_IMAGE,
                         IMG_FILES_RES_EXT_TXT))));
         _d.initTranslations();
-        for (String l : Constants.getAvailableLanguages()) {
+        for (String l : _d.getLanguages()) {
             String fileName_ = StringList.concat(TRANSLATION_FOLDER,
                     SEPARATOR_FILES);
             fileName_ = StringList.concat(fileName_, l, SEPARATOR_FILES);

@@ -7,24 +7,17 @@ import code.util.EnumMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 import code.util.ints.Comparing;
 
 public final class ComparatorLanguageTargetChoice implements Comparing<LanguageElementKey> {
 
     private EnumMap<TargetChoice,String> translatorCurrentLanguage;
 
-    private StringList languages = new StringList();
+    private StringList languages;
 
-    public ComparatorLanguageTargetChoice(StringMap<EnumMap<TargetChoice,String>> _translatorCurrentLanguage, String _language) {
+    public ComparatorLanguageTargetChoice(StringMap<EnumMap<TargetChoice, String>> _translatorCurrentLanguage, String _language, StringList _sortedLg) {
         translatorCurrentLanguage = _translatorCurrentLanguage.getVal(_language);
-        languages.add(_language);
-        for (String l: Constants.getAvailableLanguages()) {
-            if (StringList.quickEq(l,_language)) {
-                continue;
-            }
-            languages.add(l);
-        }
+        languages = _sortedLg;
     }
 
     @Override
