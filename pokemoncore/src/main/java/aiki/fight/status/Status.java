@@ -91,19 +91,6 @@ public abstract class Status {
         }
     }
 
-    public void validateForEditing() {
-        if (effectEndRound.size() > 1) {
-            EffectEndRoundStatus e_ = effectEndRound.first();
-            effectEndRound.clear();
-            effectEndRound.add(e_);
-        }
-        if (effectsPartner.size() > 1) {
-            EffectPartnerStatus e_ = effectsPartner.first();
-            effectsPartner.clear();
-            effectsPartner.add(e_);
-        }
-    }
-
     public Rate rateHealtHpPartner() {
         if (effectsPartner.isEmpty()) {
             return Rate.zero();

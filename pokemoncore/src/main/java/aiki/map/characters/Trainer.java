@@ -23,18 +23,6 @@ public abstract class Trainer extends Person {
     }
 
     @Override
-    public void validateForEditing(DataBase _data) {
-        super.validateForEditing(_data);
-        if (!imageMaxiFileName.isEmpty()) {
-            if (_data.getTrainer(imageMaxiFileName).length == 0) {
-                _data.setError(true);
-                return;
-
-            }
-        }
-    }
-
-    @Override
     public boolean hasValidImage(DataBase _data) {
         if (!super.hasValidImage(_data)) {
             return false;

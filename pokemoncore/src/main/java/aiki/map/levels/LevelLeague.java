@@ -74,45 +74,6 @@ public final class LevelLeague extends Level {
         return true;
     }
 
-    @Override
-    public void clearElements(Point _point) {
-        if (Point.eq(accessPoint, _point)) {
-            accessPoint = new Point();
-        }
-    }
-
-    @Override
-    public void translateByLine(short _y, short _dir) {
-        super.translateByLine(_y, _dir);
-        if (trainerCoords.gety() > _y) {
-            trainerCoords.sety((short) (trainerCoords.gety() + _dir));
-        }
-        if (accessPoint.gety() > _y) {
-            accessPoint.sety((short) (accessPoint.gety() + _dir));
-        }
-    }
-
-    @Override
-    public void translateByColumn(short _x, short _dir) {
-        super.translateByColumn(_x, _dir);
-        if (trainerCoords.getx() > _x) {
-            trainerCoords.setx((short) (trainerCoords.getx() + _dir));
-        }
-        if (accessPoint.getx() > _x) {
-            accessPoint.setx((short) (accessPoint.getx() + _dir));
-        }
-    }
-
-    @Override
-    public void translateElement(Point _id, Point _target) {
-        if (!isEmptyForAdding(_target)) {
-            return;
-        }
-        if (Point.eq(trainerCoords, _id)) {
-            trainerCoords.affect(_target);
-        }
-    }
-
     public Point getTrainerCoords() {
         return trainerCoords;
     }

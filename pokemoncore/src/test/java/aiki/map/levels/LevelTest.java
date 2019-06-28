@@ -57,6 +57,17 @@ public class LevelTest {
     }
 
     @Test
+    public void translateLineData4Test() {
+        ObjectMap<Point,Short> elements_ = new ObjectMap<Point,Short>();
+        elements_.put(new Point((short)2,(short)1), (short) 5);
+        elements_.put(new Point((short)2,(short)2), (short) 7);
+        Level.translateShortLineData(elements_,(short) 2,(short) -1);
+        assertEq(1, elements_.size());
+        assertTrue(elements_.contains(new Point((short)2,(short)1)));
+        assertEq(7, elements_.getVal(new Point((short)2,(short)1)));
+    }
+
+    @Test
     public void translateColumnData1Test() {
         ObjectMap<Point,Short> elements_ = new ObjectMap<Point,Short>();
         elements_.put(new Point((short)2,(short)1), (short) 5);
@@ -99,5 +110,16 @@ public class LevelTest {
         assertEq(7, elements_.getVal(new Point((short)3,(short)2)));
         assertSame(firstEltOne_, firstEltTwo_);
         assertSame(secondEltOne_, secondEltTwo_);
+    }
+
+    @Test
+    public void translateColumnData4Test() {
+        ObjectMap<Point,Short> elements_ = new ObjectMap<Point,Short>();
+        elements_.put(new Point((short)1,(short)2),(short) 5);
+        elements_.put(new Point((short)2,(short)2),(short) 7);
+        Level.translateShortColumnData(elements_,(short) 2,(short) -1);
+        assertEq(1, elements_.size());
+        assertTrue(elements_.contains(new Point((short)1,(short)2)));
+        assertEq(7, elements_.getVal(new Point((short)1,(short)2)));
     }
 }

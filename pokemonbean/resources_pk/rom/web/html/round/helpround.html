@@ -1326,14 +1326,14 @@
 					<td>{u;}</td>
 				</c:for>
 			</tr>
-			<tr>
-				<c:for list="types" var="t" className='java.lang.String'>
+			<c:for list="types" var="t" className='java.lang.String'>
+				<tr>
 					<td>{t;}</td>
 					<c:for list="types" var="u" className='java.lang.String'>
 						<td>{getEfficiency(t;;,u;;)}</td>
 					</c:for>
-				</c:for>
-			</tr>
+				</tr>
+			</c:for>
 		</table>
 		<br/>
 		<h1><c:message value="msg_helpround,round_process_add_on_5"/></h1>

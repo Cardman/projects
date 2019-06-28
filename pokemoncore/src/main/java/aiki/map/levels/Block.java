@@ -69,52 +69,6 @@ public final class Block {
         return true;
     }
 
-    public boolean isValidForEditing(DataBase _data) {
-        if (width <= 0 || height <= 0) {
-            return false;
-        }
-        int scale_ = _data.getMap().getSideLength();
-        Dims dims_;
-        dims_ = new Dims(width * scale_, height * scale_);
-        if (_data.getImagesDimensions().contains(tileFileName)) {
-            Dims stored_;
-            stored_ = _data.getImagesDimensions().getVal(tileFileName);
-            if (!Numbers.eq(dims_.getWidth(), stored_.getWidth())) {
-                return false;
-            }
-            if (!Numbers.eq(dims_.getHeight(), stored_.getHeight())) {
-                return false;
-            }
-//            return Pair.eq(dims_, _data.getImagesDimensions().getVal(tileFileName));
-            return true;
-        }
-        int[][] image_ = _data.getImage(tileFileName);
-        if (image_.length != height * scale_) {
-            return false;
-        }
-        if (image_[0].length != width * scale_) {
-            return false;
-        }
-        _data.getImagesDimensions().put(tileFileName, dims_);
-        return true;
-    }
-
-    public void addLines(int _nbLines){
-        height += _nbLines;
-    }
-
-    public void addColumns(int _nbColumns){
-        width += _nbColumns;
-    }
-
-    public void removeLines(int _nbLines){
-        height -= _nbLines;
-    }
-
-    public void removeColumns(int _nbColumns){
-        width -= _nbColumns;
-    }
-
     public BlockBounds bounds(Point _leftTop) {
         BlockBounds bounds_ = new BlockBounds();
         bounds_.setxLeftTop(_leftTop.getx());

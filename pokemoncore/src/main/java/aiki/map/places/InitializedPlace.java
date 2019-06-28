@@ -10,7 +10,6 @@ import code.util.ObjectMap;
 
 public interface InitializedPlace {
 
-    void addPerson(Coords _coords, Person _person);
     boolean validLinks(Tree _tree);
 
     ObjectMap<Point,Link> getLinksWithCaves();
@@ -18,7 +17,6 @@ public interface InitializedPlace {
     Level getLevel();
 
     void addSavedLink(PlaceInterConnect _key, Coords _value);
-    void deleteSavedLink(PlaceInterConnect _key);
 
     ObjectMap<PlaceInterConnect,Coords> getSavedlinks();
 

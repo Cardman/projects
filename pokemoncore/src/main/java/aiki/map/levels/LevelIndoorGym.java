@@ -47,20 +47,6 @@ public final class LevelIndoorGym extends Level {
     }
 
     @Override
-    public void validateForEditing(DataBase _data) {
-        super.validateForEditing(_data);
-        for (EntryCust<Point, GymTrainer> e : gymTrainers.entryList()) {
-            e.getValue().validate(_data);
-        }
-        gymLeader.validate(_data);
-        if (gymTrainers.contains(gymLeaderCoords)) {
-            _data.setError(true);
-            return;
-
-        }
-    }
-
-    @Override
     public boolean isEmptyForAdding(Point _point) {
         if (Point.eq(gymLeaderCoords, _point)) {
             return false;
@@ -80,43 +66,6 @@ public final class LevelIndoorGym extends Level {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public void clearElements(Point _point) {
-        gymTrainers.removeKey(_point);
-    }
-
-    @Override
-    public void translateByLine(short _y, short _dir) {
-        super.translateByLine(_y, _dir);
-        Level.translateGymTrainerLineData(gymTrainers, _y, _dir);
-        if (gymLeaderCoords.gety() > _y) {
-            gymLeaderCoords.sety((short) (gymLeaderCoords.gety() + _dir));
-        }
-    }
-
-    @Override
-    public void translateByColumn(short _x, short _dir) {
-        super.translateByColumn(_x, _dir);
-        Level.translateGymTrainerColumnData(gymTrainers, _x, _dir);
-        if (gymLeaderCoords.getx() > _x) {
-            gymLeaderCoords.setx((short) (gymLeaderCoords.getx() + _dir));
-        }
-    }
-
-    @Override
-    public void translateElement(Point _id, Point _target) {
-        if (!isEmptyForAdding(_target)) {
-            return;
-        }
-        if (Point.eq(gymLeaderCoords, _id)) {
-            gymLeaderCoords.affect(_target);
-            return;
-        }
-        if (gymTrainers.contains(_id)) {
-            gymTrainers.move(_id, _target);
-        }
     }
 
     @Override

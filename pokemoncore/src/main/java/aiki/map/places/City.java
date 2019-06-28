@@ -46,15 +46,6 @@ public final class City extends Place implements InitializedPlace {
     }
 
     @Override
-    public void deleteSavedLink(PlaceInterConnect _key) {
-        savedlinks.removeKey(_key);
-    }
-
-    public void clearElements(Point _idBuilding, Point _point) {
-        buildings.getVal(_idBuilding).clearElements(_point);
-    }
-
-    @Override
     public void validate(DataBase _data, PlaceArea _placeArea) {
         LevelArea levelArea_ = _placeArea.getLevel((byte) 0);
         boolean existPkCenter_ = false;
@@ -133,14 +124,6 @@ public final class City extends Place implements InitializedPlace {
     }
 
     @Override
-    public void validateForEditing(DataBase _data) {
-        for (EntryCust<Point, Building> e : buildings.entryList()) {
-            e.getValue().validateForEditing(_data);
-        }
-        getLevelOutdoor().validateForEditing(_data);
-    }
-
-    @Override
     public boolean hasValidImage(DataBase _data) {
         if (!super.hasValidImage(_data)) {
             return false;
@@ -195,57 +178,6 @@ public final class City extends Place implements InitializedPlace {
             return buildings.getVal(bIncome_).getLevel();
         }
         return getLevelOutdoor();
-    }
-
-    @Override
-    public boolean containsPerson(Coords _coords) {
-        Level level_ = getLevelByCoords(_coords);
-        if (level_ instanceof LevelIndoorPokemonCenter) {
-            return ((LevelIndoorPokemonCenter) level_).getGerants().contains(
-                    _coords.getLevel().getPoint());
-        }
-        if (level_ instanceof LevelIndoorGym) {
-            LevelIndoorGym gym_ = (LevelIndoorGym) level_;
-            if (Point.eq(_coords.getLevel().getPoint(),
-                    gym_.getGymLeaderCoords())) {
-                return true;
-            }
-            return gym_.getGymTrainers()
-                    .contains(_coords.getLevel().getPoint());
-        }
-        return false;
-    }
-
-    @Override
-    public void addPerson(Coords _coords, Person _person) {
-        Level level_ = getLevelByCoords(_coords);
-        if (level_ instanceof LevelIndoorPokemonCenter) {
-            ((LevelIndoorPokemonCenter) level_).getGerants().put(
-                    _coords.getLevel().getPoint(), _person);
-        }
-        if (level_ instanceof LevelIndoorGym) {
-            LevelIndoorGym gym_ = (LevelIndoorGym) level_;
-            gym_.getGymTrainers().put(_coords.getLevel().getPoint(),
-                    (GymTrainer) _person);
-        }
-    }
-
-    @Override
-    public Person getPerson(Coords _coords) {
-        Level level_ = getLevelByCoords(_coords);
-        if (level_ instanceof LevelIndoorPokemonCenter) {
-            return ((LevelIndoorPokemonCenter) level_).getGerants().getVal(
-                    _coords.getLevel().getPoint());
-        }
-        if (level_ instanceof LevelIndoorGym) {
-            LevelIndoorGym gym_ = (LevelIndoorGym) level_;
-            if (Point.eq(_coords.getLevel().getPoint(),
-                    gym_.getGymLeaderCoords())) {
-                return gym_.getGymLeader();
-            }
-            return gym_.getGymTrainers().getVal(_coords.getLevel().getPoint());
-        }
-        return null;
     }
 
     public ObjectMap<Point, Building> getBuildings() {

@@ -89,45 +89,6 @@ public final class LevelIndoorPokemonCenter extends Level {
         return true;
     }
 
-    @Override
-    public void clearElements(Point _point) {
-        gerants.removeKey(_point);
-        if (Point.eq(storageCoords, _point)) {
-            storageCoords = new Point();
-        }
-    }
-
-    @Override
-    public void translateByLine(short _y, short _dir) {
-        super.translateByLine(_y, _dir);
-        Level.translatePersonLineData(gerants, _y, _dir);
-        if (storageCoords.gety() > _y) {
-            storageCoords.sety((short) (storageCoords.gety() + _dir));
-        }
-    }
-
-    @Override
-    public void translateByColumn(short _x, short _dir) {
-        super.translateByColumn(_x, _dir);
-        Level.translatePersonColumnData(gerants, _x, _dir);
-        if (storageCoords.getx() > _x) {
-            storageCoords.setx((short) (storageCoords.getx() + _dir));
-        }
-    }
-
-    @Override
-    public void translateElement(Point _id, Point _target) {
-        if (!isEmptyForAdding(_target)) {
-            return;
-        }
-        if (Point.eq(storageCoords, _id)) {
-            storageCoords.affect(_id);
-        }
-        if (gerants.contains(_id)) {
-            gerants.move(_id, _target);
-        }
-    }
-
     public ObjectMap<Point, Person> getGerants() {
         return gerants;
     }

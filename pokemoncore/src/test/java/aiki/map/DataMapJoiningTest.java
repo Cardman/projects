@@ -466,13 +466,4 @@ public class DataMapJoiningTest {
         assertEq(expectedFive_, roadOne_.getSavedlinks().getVal(new PlaceInterConnect(new Point((short)1,(short)5), Direction.DOWN)));
         assertEq(expectedSix_, coordsSix_);
     }
-    @Test
-    public void unjoin1Test() {
-        dataMap.join((short)0, (short)1, new Point((short)4,(short)0), new Point((short)1,(short)5), Direction.UP);
-        dataMap.unjoin((short)0, (short)1);
-        City cityZero_ = (City) dataMap.getPlaces().getVal((short) 0);
-        assertEq(0, cityZero_.getPointsWithCitiesAndOtherRoads().size());
-        Road roadOne_ = (Road) dataMap.getPlaces().getVal((short) 1);
-        assertEq(0, roadOne_.getPointsWithCitiesAndOtherRoads().size());
-    }
 }

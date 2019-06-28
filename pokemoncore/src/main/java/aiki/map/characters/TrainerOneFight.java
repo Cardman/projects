@@ -29,17 +29,6 @@ public abstract class TrainerOneFight extends Trainer {
         }
     }
 
-    @Override
-    public void validateForEditing(DataBase _data) {
-        super.validateForEditing(_data);
-        CustList<PkTrainer> valid_ = new CustList<PkTrainer>();
-        for (PkTrainer p : team) {
-            valid_.add(p);
-        }
-        team.clear();
-        team.addAllElts(valid_);
-    }
-
     public short getReward() {
         return reward;
     }

@@ -242,23 +242,6 @@ public final class PokemonData {
             min_ = p.getLevel();
         }
     }
-
-    public void validateForEditing() {
-        if (!Statistic.equalsSet(statistics.getKeys(),
-                Statistic.getStatisticsWithBase())) {
-            statistics.clear();
-            for (Statistic s : Statistic.getStatisticsWithBase()) {
-                statistics.put(s, new StatBaseEv((byte) 0, (byte) 0));
-            }
-        }
-        // levMoves.sort(new NaturalComparator<LevelMove>() {
-        // @Override
-        // public int compare(LevelMove _arg0, LevelMove _arg1) {
-        // return _arg0.getLevel() - _arg1.getLevel();
-        // }
-        // });
-    }
-
     public Evolution getEvolution(String _name) {
         return evolutions.getVal(_name);
     }

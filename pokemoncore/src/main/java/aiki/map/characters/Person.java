@@ -7,14 +7,6 @@ public abstract class Person {
 
     private String imageMiniFileName;
 
-    public void validateForEditing(DataBase _data) {
-        if (_data.getPerson(imageMiniFileName).length == 0) {
-            _data.setError(true);
-            return;
-
-        }
-    }
-
     public boolean hasValidImage(DataBase _data) {
         if (_data.getPerson(imageMiniFileName).length == 0) {
             return false;

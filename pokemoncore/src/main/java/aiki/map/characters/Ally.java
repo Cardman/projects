@@ -20,15 +20,6 @@ public final class Ally {
         }
     }
 
-    public void validateForEditing() {
-        CustList<PkTrainer> valid_ = new CustList<PkTrainer>();
-        for (PkTrainer p : team) {
-            valid_.add(p);
-        }
-        team.clear();
-        team.addAllElts(valid_);
-    }
-
     public CustList<PkTrainer> getTeam() {
         return team;
     }

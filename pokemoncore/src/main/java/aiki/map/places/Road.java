@@ -8,7 +8,6 @@ import aiki.map.levels.Level;
 import aiki.map.levels.LevelRoad;
 import aiki.map.levels.LevelWithWildPokemon;
 import aiki.map.levels.Link;
-import aiki.map.pokemon.WildPk;
 import aiki.map.tree.LevelArea;
 import aiki.map.tree.PlaceArea;
 import aiki.map.tree.Tree;
@@ -36,11 +35,6 @@ public final class Road extends Campaign implements InitializedPlace {
     @Override
     public void addSavedLink(PlaceInterConnect _key, Coords _value) {
         savedlinks.put(_key, _value);
-    }
-
-    @Override
-    public void deleteSavedLink(PlaceInterConnect _key) {
-        savedlinks.removeKey(_key);
     }
 
     @Override
@@ -73,11 +67,6 @@ public final class Road extends Campaign implements InitializedPlace {
             }
         }
         getLevelRoad().validate(_data, levelArea_);
-    }
-
-    @Override
-    public void validateForEditing(DataBase _data) {
-        getLevelRoad().validateForEditing(_data);
     }
 
     @Override
@@ -116,38 +105,8 @@ public final class Road extends Campaign implements InitializedPlace {
     }
 
     @Override
-    public boolean containsPokemon(Coords _coords) {
-        return getLevelRoad().containsPokemon(_coords.getLevel().getPoint());
-    }
-
-    @Override
-    public void addPokemon(Coords _coords, WildPk _pk) {
-        getLevelRoad().getLegendaryPks().put(_coords.getLevel().getPoint(), _pk);
-    }
-
-    @Override
-    public WildPk getPokemon(Coords _coords) {
-        return getLevelRoad().getPokemon(_coords.getLevel().getPoint());
-    }
-
-    @Override
-    public boolean containsObject(Coords _coords) {
-        return getLevelRoad().containsObject(_coords.getLevel().getPoint());
-    }
-
-    @Override
     public void addObject(Coords _coords, String _object) {
         getLevelRoad().getItems().put(_coords.getLevel().getPoint(), _object);
-    }
-
-    @Override
-    public String getObject(Coords _coords) {
-        return getLevelRoad().getObject(_coords.getLevel().getPoint());
-    }
-
-    @Override
-    public boolean containsPerson(Coords _coords) {
-        return getLevelRoad().containsPerson(_coords.getLevel().getPoint());
     }
 
     @Override
@@ -157,28 +116,8 @@ public final class Road extends Campaign implements InitializedPlace {
     }
 
     @Override
-    public Person getPerson(Coords _coords) {
-        return getLevelRoad().getPerson(_coords.getLevel().getPoint());
-    }
-
-    @Override
-    public boolean containsDualFight(Coords _coords) {
-        return getLevelRoad().containsDualFight(_coords.getLevel().getPoint());
-    }
-
-    @Override
     public void addDualFight(Coords _coords, DualFight _dualFight) {
         getLevelRoad().getDualFights().put(_coords.getLevel().getPoint(), _dualFight);
-    }
-
-    @Override
-    public DualFight getDualFight(Coords _coords) {
-        return getLevelRoad().getDualFight(_coords.getLevel().getPoint());
-    }
-
-    @Override
-    public boolean containsHm(Coords _coords) {
-        return getLevelRoad().containsHm(_coords.getLevel().getPoint());
     }
 
     @Override
@@ -187,38 +126,8 @@ public final class Road extends Campaign implements InitializedPlace {
     }
 
     @Override
-    public short getHm(Coords _coords) {
-        return getLevelRoad().getHm(_coords.getLevel().getPoint());
-    }
-
-    @Override
-    public boolean containsTm(Coords _coords) {
-        return getLevelRoad().containsTm(_coords.getLevel().getPoint());
-    }
-
-    @Override
     public void addTm(Coords _coords, short _tm) {
         getLevelRoad().getTm().put(_coords.getLevel().getPoint(), _tm);
-    }
-
-    @Override
-    public short getTm(Coords _coords) {
-        return getLevelRoad().getTm(_coords.getLevel().getPoint());
-    }
-
-    @Override
-    public void setItem(Coords _coords, String _object) {
-        getLevelRoad().setItem(_coords.getLevel().getPoint(), _object);
-    }
-
-    @Override
-    public void setTm(Coords _coords, short _tm) {
-        getLevelRoad().setTm(_coords.getLevel().getPoint(), _tm);
-    }
-
-    @Override
-    public void setHm(Coords _coords, short _object) {
-        getLevelRoad().setHm(_coords.getLevel().getPoint(), _object);
     }
 
     @Override

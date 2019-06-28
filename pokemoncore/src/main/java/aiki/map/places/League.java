@@ -1,7 +1,6 @@
 package aiki.map.places;
 
 import aiki.db.DataBase;
-import aiki.map.characters.Person;
 import aiki.map.levels.Level;
 import aiki.map.levels.LevelLeague;
 import aiki.map.tree.PlaceArea;
@@ -66,23 +65,6 @@ public final class League extends Place {
     }
 
     @Override
-    public void validateForEditing(DataBase _data) {
-        if (rooms.isEmpty()) {
-            _data.setError(true);
-            return;
-
-        }
-        for (LevelLeague l : rooms) {
-            l.validateForEditing(_data);
-        }
-        if (_data.getLink(fileName).length == 0) {
-            _data.setError(true);
-            return;
-
-        }
-    }
-
-    @Override
     public boolean isEmptyForAdding(Coords _coords) {
         Level level_ = getLevelByCoords(_coords);
         return level_.isEmptyForAdding(_coords.getLevel().getPoint());
@@ -90,23 +72,6 @@ public final class League extends Place {
 
     public boolean validLinks(Tree _tree) {
         return _tree.isValid(accessCoords, true);
-    }
-
-    public void deleteRoom(int _index) {
-        LevelLeague level_ = getLevelLeague((byte) _index);
-        if (_index > CustList.FIRST_INDEX) {
-            LevelLeague previousLevel_ = getLevelLeague((byte) (_index - 1));
-            previousLevel_.getNextLevelTarget().affect(
-                    level_.getNextLevelTarget());
-            rooms.removeAt(_index);
-        } else if (rooms.size() > CustList.SECOND_INDEX) {
-            LevelLeague nextLevel_ = getLevelLeague(CustList.SECOND_INDEX);
-            if (nextLevel_.isEmptyForAdding(begin)) {
-                rooms.removeAt(_index);
-            }
-        } else {
-            rooms.removeAt(_index);
-        }
     }
 
     @Override
@@ -134,24 +99,6 @@ public final class League extends Place {
             levels_.add(l);
         }
         return levels_;
-    }
-
-    @Override
-    public boolean containsPerson(Coords _coords) {
-        LevelLeague level_ = getLevelLeague(_coords.getLevel().getLevelIndex());
-        if (Point.eq(_coords.getLevel().getPoint(), level_.getTrainerCoords())) {
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public Person getPerson(Coords _coords) {
-        LevelLeague level_ = getLevelLeague(_coords.getLevel().getLevelIndex());
-        if (Point.eq(_coords.getLevel().getPoint(), level_.getTrainerCoords())) {
-            return level_.getTrainer();
-        }
-        return null;
     }
 
     @Override

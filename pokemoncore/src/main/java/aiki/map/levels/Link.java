@@ -45,14 +45,6 @@ public final class Link implements Displayable {
         return _data.getLink(getFileName()).length != 0;
     }
 
-    public void validateForEditing(DataBase _data) {
-        if (_data.getLink(getFileName()).length == 0) {
-            _data.setError(true);
-            return;
-
-        }
-    }
-
     public boolean isValidDir() {
         return dir != null;
     }

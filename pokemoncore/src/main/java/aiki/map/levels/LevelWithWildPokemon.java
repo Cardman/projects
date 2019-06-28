@@ -177,38 +177,6 @@ public abstract class LevelWithWildPokemon extends Level {
     }
 
     @Override
-    public void validateForEditing(DataBase _data) {
-        super.validateForEditing(_data);
-        EqList<Point> keys_ = new EqList<Point>();
-        for (EntryCust<Point, String> e : items.entryList()) {
-            if (!_data.getItems().contains(e.getValue())) {
-                keys_.add(e.getKey());
-            }
-        }
-        for (Point p : keys_) {
-            items.removeKey(p);
-        }
-        keys_.clear();
-        for (EntryCust<Point, Short> e : tm.entryList()) {
-            if (!_data.getTm().contains(e.getValue())) {
-                keys_.add(e.getKey());
-            }
-        }
-        for (Point p : keys_) {
-            tm.removeKey(p);
-        }
-        keys_.clear();
-        for (EntryCust<Point, Short> e : hm.entryList()) {
-            if (!_data.getTm().contains(e.getValue())) {
-                keys_.add(e.getKey());
-            }
-        }
-        for (Point p : keys_) {
-            hm.removeKey(p);
-        }
-    }
-
-    @Override
     public boolean isEmptyForAdding(Point _point) {
         if (characters.contains(_point)) {
             return false;
@@ -267,46 +235,6 @@ public abstract class LevelWithWildPokemon extends Level {
         return legendaryPks.getVal(_point);
     }
 
-    public boolean containsObject(Point _point) {
-        return items.contains(_point);
-    }
-
-    public String getObject(Point _point) {
-        return items.getVal(_point);
-    }
-
-    public void setItem(Point _point, String _object) {
-        items.put(_point, _object);
-    }
-
-    public boolean containsTm(Point _point) {
-        return tm.contains(_point);
-    }
-
-    public short getTm(Point _point) {
-        return tm.getVal(_point);
-    }
-
-    public void setTm(Point _pt, short _tm) {
-        tm.put(_pt, _tm);
-    }
-
-    public boolean containsHm(Point _point) {
-        return hm.contains(_point);
-    }
-
-    public short getHm(Point _point) {
-        return hm.getVal(_point);
-    }
-
-    public void setHm(Point _pt, short _hm) {
-        hm.put(_pt, _hm);
-    }
-
-    public boolean containsPerson(Point _point) {
-        return characters.contains(_point);
-    }
-
     public Person getPerson(Point _point) {
         return (Person) characters.getVal(_point);
     }
@@ -319,88 +247,10 @@ public abstract class LevelWithWildPokemon extends Level {
         return dualFights.getVal(_point);
     }
 
-    @Override
-    public void clearElements(Point _point) {
-        characters.removeKey(_point);
-        legendaryPks.removeKey(_point);
-        items.removeKey(_point);
-        tm.removeKey(_point);
-        hm.removeKey(_point);
-        dualFights.removeKey(_point);
-        for (EntryCust<Point, DualFight> e : dualFights.entryList()) {
-            if (Point.eq(e.getValue().getPt(), _point)) {
-                dualFights.removeKey(e.getKey());
-                return;
-            }
-        }
-    }
-
-    @Override
-    public void translateByLine(short _y, short _dir) {
-        super.translateByLine(_y, _dir);
-        Level.translateCharacterInRoadCaveLineData(characters, _y, _dir);
-        Level.translateWildPkLineData(legendaryPks, _y, _dir);
-        Level.translateStringLineData(items, _y, _dir);
-        Level.translateShortLineData(tm, _y, _dir);
-        Level.translateShortLineData(hm, _y, _dir);
-        Level.translateDualFightLineData(dualFights, _y, _dir);
-        for (DualFight k : dualFights.values()) {
-            k.getPt().sety((short) (k.getPt().gety() + _dir));
-        }
-    }
-
-    @Override
-    public void translateByColumn(short _x, short _dir) {
-        super.translateByColumn(_x, _dir);
-        Level.translateCharacterInRoadCaveColumnData(characters, _x, _dir);
-        Level.translateWildPkColumnData(legendaryPks, _x, _dir);
-        Level.translateStringColumnData(items, _x, _dir);
-        Level.translateShortColumnData(tm, _x, _dir);
-        Level.translateShortColumnData(hm, _x, _dir);
-        Level.translateDualFightColumnData(dualFights, _x, _dir);
-        for (DualFight k : dualFights.values()) {
-            k.getPt().setx((short) (k.getPt().getx() + _dir));
-        }
-    }
-
-    @Override
-    public void translateElement(Point _id, Point _target) {
-        if (!isEmptyForAdding(_target)) {
-            return;
-        }
-        if (characters.contains(_id)) {
-            characters.move(_id, _target);
-        }
-        if (legendaryPks.contains(_id)) {
-            legendaryPks.move(_id, _target);
-        }
-        if (items.contains(_id)) {
-            items.move(_id, _target);
-        }
-        if (tm.contains(_id)) {
-            tm.move(_id, _target);
-        }
-        if (hm.contains(_id)) {
-            hm.move(_id, _target);
-        }
-        if (dualFights.contains(_id)) {
-            dualFights.move(_id, _target);
-        }
-    }
-
     public void initializeWildPokemon() {
         for (AreaApparition a : wildPokemonAreas) {
             a.initializeWildPokemon();
         }
-    }
-
-    public void linkBlockAreaApparition(Point _id, int _indexOfApparition) {
-        getBlocks().getVal(_id).setIndexApparition((short) _indexOfApparition);
-    }
-
-    public void unlinkBlockAreaApparition(Point _id) {
-        getBlocks().getVal(_id)
-                .setIndexApparition(CustList.INDEX_NOT_FOUND_ELT);
     }
 
     public AreaApparition getAreaByBlockId(Point _key) {

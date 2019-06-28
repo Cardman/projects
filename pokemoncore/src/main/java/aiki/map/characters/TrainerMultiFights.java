@@ -22,17 +22,6 @@ public final class TrainerMultiFights extends Trainer implements
         }
     }
 
-    @Override
-    public void validateForEditing(DataBase _data) {
-        super.validateForEditing(_data);
-        CustList<PokemonTeam> valid_ = new CustList<PokemonTeam>();
-        for (PokemonTeam p : teamsRewards) {
-            valid_.add(p);
-        }
-        teamsRewards.clear();
-        teamsRewards.addAllElts(valid_);
-    }
-
     public CustList<PokemonTeam> getTeamsRewards() {
         return teamsRewards;
     }

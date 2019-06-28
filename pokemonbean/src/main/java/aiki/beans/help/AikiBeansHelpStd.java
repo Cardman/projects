@@ -1497,7 +1497,7 @@ public final class AikiBeansHelpStd {
         method_ = new StandardMethod(NEXT_ROW_AFTER,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
-        method_ = new StandardMethod(GET_EFFICIENCY,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL,type_);
+        method_ = new StandardMethod(GET_EFFICIENCY,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(CLICK_MOVES_IGN_LOW_ATT,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
