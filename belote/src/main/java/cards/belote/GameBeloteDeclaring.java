@@ -43,26 +43,20 @@ final class GameBeloteDeclaring {
         EqList<DeclareHandBelote> declarationsTakerFoesTeam_ = filterSort(annoncesLoc_, comparateur_, takerFoesTeam_);
         if (!declarationsTakerTeam_.isEmpty()) {
             if (declarationsTakerFoesTeam_.isEmpty()) {
-                for (byte p: takerFoesTeam_) {
-                    declares.get(p).setAnnonce(DeclaresBelote.UNDEFINED);
-                }
+                cancelDeclaring(takerFoesTeam_);
                 return;
             }
             boolean equals_ = true;
-            int min_ = Math.min(takerFoesTeam_.size(), takerTeam_.size());
+            int min_ = Math.min(declarationsTakerFoesTeam_.size(), declarationsTakerTeam_.size());
             for (int i = CustList.FIRST_INDEX; i<min_; i++) {
                 int res_ = comparateur_.compare(declarationsTakerTeam_.get(i), declarationsTakerFoesTeam_.get(i));
                 if (res_ < 0) {
-                    for (byte p: takerFoesTeam_) {
-                        declares.get(p).setAnnonce(DeclaresBelote.UNDEFINED);
-                    }
+                    cancelDeclaring(takerFoesTeam_);
                     equals_ = false;
                     break;
                 }
                 if (res_ > 0) {
-                    for (byte p: takerTeam_) {
-                        declares.get(p).setAnnonce(DeclaresBelote.UNDEFINED);
-                    }
+                    cancelDeclaring(takerTeam_);
                     equals_ = false;
                     break;
                 }
@@ -70,30 +64,26 @@ final class GameBeloteDeclaring {
             if (!equals_) {
                 return;
             }
-            if (takerFoesTeam_.size() > takerTeam_.size()) {
-                for (byte p: takerTeam_) {
-                    declares.get(p).setAnnonce(DeclaresBelote.UNDEFINED);
-                }
-            } else if (takerFoesTeam_.size() < takerTeam_.size()) {
-                for (byte p: takerFoesTeam_) {
-                    declares.get(p).setAnnonce(DeclaresBelote.UNDEFINED);
-                }
+            if (declarationsTakerFoesTeam_.size() > declarationsTakerTeam_.size()) {
+                cancelDeclaring(takerTeam_);
+            } else if (declarationsTakerFoesTeam_.size() < declarationsTakerTeam_.size()) {
+                cancelDeclaring(takerFoesTeam_);
             } else {
-                for (byte p: takerTeam_) {
-                    declares.get(p).setAnnonce(DeclaresBelote.UNDEFINED);
-                }
-                for (byte p: takerFoesTeam_) {
-                    declares.get(p).setAnnonce(DeclaresBelote.UNDEFINED);
-                }
+                cancelDeclaring(takerTeam_);
+                cancelDeclaring(takerFoesTeam_);
             }
             return;
         }
         if (!declarationsTakerFoesTeam_.isEmpty()) {
-            for (byte p: takerTeam_) {
-                declares.get(p).setAnnonce(DeclaresBelote.UNDEFINED);
-            }
+            cancelDeclaring(takerTeam_);
         }
         //annuler les annonces de l'equipe les plus faibles a la fin du premier tour
+    }
+
+    void cancelDeclaring(Bytes _team) {
+        for (byte p: _team) {
+            declares.get(p).setAnnonce(DeclaresBelote.UNDEFINED);
+        }
     }
 
     private static EqList<DeclareHandBelote> filterSort(EqList<DeclareHandBelote> _annoncesLoc, DeclareHandBeloteComparator _comparateur, Bytes _team) {
