@@ -82,7 +82,7 @@ public final class GameBeloteBeginTrick {
                 bid.getCouleur());
     }
 
-    private CardBelote playAsDefenderDom(BeloteInfoPliEnCours _info) {
+    CardBelote playAsDefenderDom(BeloteInfoPliEnCours _info) {
         EnumMap<Suit,HandBelote> repartition_=currentHand.couleurs(bid);
         Suit couleurAtout_=bid.getCouleur();
         Bytes adversaire_ = _info.getJoueursNonConfiance();
@@ -95,6 +95,7 @@ public final class GameBeloteBeginTrick {
         EnumList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(currentHand, couleursNonAtouts_);
         EnumList<Suit> couleurs_=GameBeloteCommonPlaying.couleursNonOuvertesNonVides(currentHand, plisFaits_, couleursNonVides_);
         /*Cas d'un defenseur*/
+        couleurs_ = GameBeloteCommon.couleursNonAtoutNonVides(cartesMaitresses_,couleurs_);
         if(!couleurs_.isEmpty()) {
             return ouvrir(bid, couleurs_, repartition_, repartitionCartesJouees_, cartesMaitresses_);
         }
@@ -111,7 +112,7 @@ public final class GameBeloteBeginTrick {
         return faireCouper(bid, couleursNonVides_,repartition_,repartitionCartesJouees_);
     }
 
-    private CardBelote playAsCalledPlayerDom(BeloteInfoPliEnCours _info) {
+    CardBelote playAsCalledPlayerDom(BeloteInfoPliEnCours _info) {
         EnumList<Suit> couleursNonAtouts_=common.couleursNonAtouts();
         Suit couleurAtout_=bid.getCouleur();
         EnumMap<Suit,HandBelote> repartition_=currentHand.couleurs(bid);
@@ -129,12 +130,9 @@ public final class GameBeloteBeginTrick {
                 Order or_ = Order.TRUMP;
                 boolean cartesMaitressesJouees_ = playedLeading(bid, taker, couleurAtout_, repartitionCartesJouees_, cartesCertaines_, or_);
                 if(cartesMaitressesJouees_) {
-                    return GameBeloteCommon.hand(repartition_,couleurAtout_).premiereCarte();
+                    return GameBeloteCommon.hand(repartition_,couleurAtout_).derniereCarte();
                 }
             }
-        }
-        if(!GameBeloteCommon.hand(repartition_,couleurAtout_).estVide()&&GameBeloteCommon.hand(repartition_,couleurAtout_).derniereCarte().points(bid) < 8) {
-            return GameBeloteCommon.hand(repartition_,couleurAtout_).derniereCarte();
         }
         if (!lastSeenHand.estVide()) {
             CardBelote carteDessus_=lastSeenHand.premiereCarte();
@@ -154,6 +152,7 @@ public final class GameBeloteBeginTrick {
 
 
         EnumList<Suit> couleurs_=GameBeloteCommonPlaying.couleursNonOuvertesNonVides(currentHand, plisFaits_, couleursNonAtouts_);
+        couleurs_ = GameBeloteCommon.couleursNonAtoutNonVides(cartesMaitresses_,couleurs_);
         /*On considere que l'appele est place apres le preneur*/
         if(!couleurs_.isEmpty()) {
             return ouvrir(bid, couleurs_, repartition_, repartitionCartesJouees_, cartesMaitresses_);

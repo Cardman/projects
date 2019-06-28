@@ -31,6 +31,10 @@ public abstract class CommonGameBelote {
                                               int _dealer,
                                               EqList<BidBeloteSuit> _bids, HandBelote _lastHand) {
         EqList<HandBelote> deal_ = new EqList<HandBelote>();
+        byte nombreDeJoueurs_ = (byte) _r.getDealing().getNombreJoueurs();
+        for (int i = 0; i< nombreDeJoueurs_; i++) {
+            deal_.add(new HandBelote());
+        }
         deal_.add(_lastHand);
         GameBelote g_ = new GameBelote(GameType.RANDOM,new DealBelote(deal_, (byte) _dealer),_r);
         g_.setProgressingTrick(_prog);
@@ -49,7 +53,7 @@ public abstract class CommonGameBelote {
             }
             g_.setContrat(bid_);
         } else {
-            g_.setEndBidsFirstRound(_bids.size() >= g_.getNombreDeJoueurs());
+            g_.setEndBidsFirstRound(_bids.size() >= nombreDeJoueurs_);
             for (BidBeloteSuit b: _bids) {
                 if (b.strongerThan(bid_)) {
                     bid_ = b;
