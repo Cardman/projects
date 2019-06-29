@@ -1,7 +1,9 @@
 package aiki.game.fight;
 import aiki.db.DataBase;
 import aiki.db.ImageHeroKey;
+import aiki.fight.enums.Statistic;
 import aiki.fight.pokemon.NameLevel;
+import aiki.fight.util.TypesDuo;
 import aiki.game.player.enums.Sex;
 import aiki.map.DataMap;
 import aiki.map.buildings.Building;
@@ -1240,10 +1242,37 @@ final class InitializationMap {
             }
         }
         for (String p: _data.getPokedex().getKeys()) {
+            _data.getMaxiPkBack().put(p, getImageByString("2;-13;-15;-15;-15"));
+            _data.getMaxiPkFront().put(p, getImageByString("2;-14;-15;-15;-15"));
             _data.getMiniPk().put(p, getImageByString("2;-15;-15;-15;-15"));
         }
         for (String p: _data.getItems().getKeys()) {
             _data.getMiniItems().put(p, getImageByString("2;-16;-16;-16;-16"));
+        }
+        for (String p: _data.getStatus().getKeys()) {
+            _data.getAnimStatus().put(p, getImageByString("2;-17;-16;-16;-16"));
+        }
+        for (Statistic p: Statistic.getStatisticsWithBoost()) {
+            _data.getAnimStatis().put(p.name(), getImageByString("2;-18;-16;-16;-16"));
+        }
+        StringList moveTypes_ = new StringList();
+        for (TypesDuo t : _data.getTableTypes().getKeys()) {
+
+            moveTypes_.add(t.getDamageType());
+        }
+        moveTypes_.removeDuplicates();
+        StringList pkTypes_ = new StringList();
+        for (TypesDuo t : _data.getTableTypes().getKeys()) {
+
+            pkTypes_.add(t.getPokemonType());
+        }
+        pkTypes_.removeDuplicates();
+        int p_ = 1;
+        for (String p: moveTypes_) {
+            String str_ = Long.toString(p_);
+            _data.getTypesColors().put(p, StringList.concat(str_,DataBase.SEPARATOR_RGB, str_,DataBase.SEPARATOR_RGB, str_));
+            _data.getTypesImages().put(p, getImageByString(StringList.concat("2",DataBase.SEPARATOR_RGB,str_,DataBase.SEPARATOR_RGB,str_,DataBase.SEPARATOR_RGB,str_,DataBase.SEPARATOR_RGB,str_)));
+            p_++;
         }
         StringList building_ = new StringList("18");
         for (int i = 0; i < 324; i++) {
@@ -1310,7 +1339,7 @@ final class InitializationMap {
         _data.addTrainerImage(ALLY, getImageByString("2;-19508;-19508;-19508;-19508"));
         //end insertion
 
-        StringList herosBottom_ = new StringList("-2","-2","-2","-2","-2","-2");
+        StringList herosBottom_ = new StringList("-2","-2");
         int iHeros_ = 0;
         int iHerosBis_ = 0;
         for (EnvironmentType e: EnvironmentType.values()) {
@@ -1321,8 +1350,8 @@ final class InitializationMap {
                 for (Sex s: Sex.values()) {
                     ImageHeroKey key_;
                     key_ = new ImageHeroKey(e, d, s);
-                    StringList herosTop_ = new StringList("6");
-                    for (int i = 0; i < 6; i++) {
+                    StringList herosTop_ = new StringList("2");
+                    for (int i = 0; i < 2; i++) {
                         herosTop_.add(String.valueOf(iHeros_));
                     }
                     herosTop_.addAllElts(herosBottom_);
@@ -1333,18 +1362,20 @@ final class InitializationMap {
             for (Sex s: Sex.values()) {
                 ImageHeroKey key_;
                 key_ = new ImageHeroKey(e, s);
-                StringList herosTop_ = new StringList("6");
-                for (int i = 0; i < 6; i++) {
+                StringList herosTop_ = new StringList("2");
+                for (int i = 0; i < 2; i++) {
                     herosTop_.add(String.valueOf(iHerosBis_));
                     iHerosBis_++;
                 }
                 herosTop_.addAllElts(herosBottom_);
                 _data.getBackHeros().put(key_, getImageByString(StringList.join(herosTop_, ";")));
+                _data.getFrontHeros().put(key_, getImageByString(StringList.join(herosTop_, ";")));
                 iHerosBis_++;
             }
         }
         _data.addLink(LINK, getImageByString("2;-255;-255;-255;-255"));
         _data.setImageTmHm(getImageByString("2;-800;-800;-800;-800"));
+        _data.setAnimAbsorb(getImageByString("2;-700;-800;-800;-800"));
         _data.setStorage(getImageByString("2;-3;-3;-3;-3"));
         _data.getMiniMap().put(MINI, getImageByString("2;118;218;112;200"));
         _data.getMiniMap().put(MINI1, getImageByString("2;218;118;112;200"));
@@ -1353,6 +1384,7 @@ final class InitializationMap {
         _data.getMiniMap().put(MINI4, getImageByString("2;218;200;112;118"));
         _data.getMiniMap().put(MINI5, getImageByString("2;200;218;112;118"));
         _data.getMiniMap().put(MINI6, getImageByString("2;200;218;212;118"));
+        _data.setEndGameImage(getImageByString("1;1"));
     }
 
     static void initMiniMap(DataBase _data) {

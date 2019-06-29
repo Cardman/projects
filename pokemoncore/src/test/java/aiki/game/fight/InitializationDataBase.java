@@ -876,7 +876,6 @@ public class InitializationDataBase {
         assertTrue(!data_.isError());
         data_.completeVariables();
         assertTrue(!data_.isError());
-        initTableTypes(data_);
         initConstants(data_);
         initRandomLaws(data_);
         initExpPoints(data_);
@@ -884,7 +883,6 @@ public class InitializationDataBase {
         data_.initTypesByTable();
         assertTrue(!data_.isError());
         initTranslations(data_);
-        data_.setEndGameImage(new int[0][0]);
         //OK data, no homonyms
         PerCent ai_ = new PerCentImpl();
         data_.validateCore(ai_);
@@ -896,6 +894,7 @@ public class InitializationDataBase {
         assertTrue(!data_.isError());
         data_.getMap().validate(data_);
         assertTrue(!data_.isError());
+        data_.validateImages();
         data_.setupPseudoImages();
         data_.validateTranslations();
         assertTrue(!data_.isError());
@@ -913,6 +912,7 @@ public class InitializationDataBase {
         InitializationItems.initAllItems(data_);
         InitializationStatus.initAllStatus(data_);
         InitializationMoves.initAllMoves(data_);
+        initTableTypes(data_);
         return data_;
     }
 
