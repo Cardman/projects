@@ -763,7 +763,7 @@ final class GameTarotTrickHypothesis {
         joueursConfianceNonJoue_.removeObj(player_);
         TrickTarot t_ = _info.getProgressingTrick();
         Suit couleurDemandee_ = t_.couleurDemandee();
-        boolean ramasseurVirtuelEgalCertain_ = false;
+        boolean ramasseurVirtuelEgalCertain_ = true;
         int str_ = _card.strength(couleurDemandee_);
         if (joueursConfiance_.containsObj(ramasseurVirtuel_)) {
             if (ramasseurBatSsCprAdv(joueursNonConfianceNonJoue_,
@@ -772,8 +772,8 @@ final class GameTarotTrickHypothesis {
                 return PossibleTrickWinner.TEAM;
             }
             for (byte joueur_ : joueursNonConfianceNonJoue_) {
-                if (nePeutCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_)) {
-                    ramasseurVirtuelEgalCertain_ = true;
+                if (!nePeutCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_)) {
+                    ramasseurVirtuelEgalCertain_ = false;
                 }
             }
             if (ramasseurVirtuelEgalCertain_) {
@@ -781,9 +781,10 @@ final class GameTarotTrickHypothesis {
                     return PossibleTrickWinner.TEAM;
                 }
             }
+            ramasseurVirtuelEgalCertain_ = true;
             for (byte joueur_ : joueursConfianceNonJoue_) {
-                if (nePeutCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_)) {
-                    ramasseurVirtuelEgalCertain_ = true;
+                if (!nePeutCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_)) {
+                    ramasseurVirtuelEgalCertain_ = false;
                 }
             }
             if (ramasseurVirtuelEgalCertain_) {
@@ -801,8 +802,8 @@ final class GameTarotTrickHypothesis {
             return PossibleTrickWinner.FOE_TEAM;
         }
         for (byte joueur_ : joueursConfianceNonJoue_) {
-            if (nePeutCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_)) {
-                ramasseurVirtuelEgalCertain_ = true;
+            if (!nePeutCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_)) {
+                ramasseurVirtuelEgalCertain_ = false;
             }
         }
         if (ramasseurVirtuelEgalCertain_) {
@@ -810,9 +811,10 @@ final class GameTarotTrickHypothesis {
                 return PossibleTrickWinner.FOE_TEAM;
             }
         }
+        ramasseurVirtuelEgalCertain_ = true;
         for (byte joueur_ : joueursNonConfianceNonJoue_) {
-            if (nePeutCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_)) {
-                ramasseurVirtuelEgalCertain_ = true;
+            if (!nePeutCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_)) {
+                ramasseurVirtuelEgalCertain_ = false;
             }
         }
         if (ramasseurVirtuelEgalCertain_) {

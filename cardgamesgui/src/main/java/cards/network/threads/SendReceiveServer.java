@@ -97,7 +97,6 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.*;
-import code.util.*;
 import code.util.StringList;
 import code.util.consts.Constants;
 
@@ -1494,7 +1493,7 @@ public final class SendReceiveServer extends BasicServer {
             }
             if (game_.getNextPlayer() == player_) {
                 ThreadUtil.sleep(800);
-                if (game_.currentPlayerHasPlayed(player_,Constants.getDefaultLanguage())) {
+                if (game_.currentPlayerHasPlayed(player_)) {
                     return;
                 }
                 PlayingCardPresident cardDto_ = new PlayingCardPresident();
@@ -1775,7 +1774,7 @@ public final class SendReceiveServer extends BasicServer {
             return;
         }
         ThreadUtil.sleep(800);
-        if (game_.currentPlayerHasPlayed(place_, Constants.getDefaultLanguage())) {
+        if (game_.currentPlayerHasPlayed(place_)) {
             return;
         }
         PlayingCardPresident cardDto_ = new PlayingCardPresident();

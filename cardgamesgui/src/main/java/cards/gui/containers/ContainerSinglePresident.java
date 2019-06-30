@@ -64,7 +64,6 @@ import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.*;
-import code.util.*;
 import code.util.StringList;
 import code.util.TreeMap;
 
@@ -90,7 +89,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
     public void jouerPresident(byte _joueur,String _pseudo) {
         GamePresident partie_=partiePresident();
         String lg_ = getOwner().getLanguageKey();
-        partie_.addCardsToCurrentTrick(_joueur,lg_);
+        partie_.addCardsToCurrentTrick(_joueur);
         HandPresident h_ = partie_.getPlayedCards();
         ThreadInvoker.invokeNow(new AddTextEvents(this, StringList.concat(_pseudo,INTRODUCTION_PTS,Games.toString(h_,lg_),RETURN_LINE)));
 //        ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+h_+RETURN_LINE_CHAR);
@@ -781,12 +780,12 @@ public class ContainerSinglePresident extends ContainerPresident implements
             ConfirmDialog.showMessage(getOwner(),message_, getMessages().getVal(MainWindow.CONSULT_TITLE), lg_, JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        HandPresident h_ = game_.playedCards(lg_);
+        HandPresident h_ = game_.playedCards();
         String message_;
         if (h_.estVide()) {
             message_ = getMessages().getVal(MainWindow.CONSULT_PRESIDENT_PASS);
         } else {
-            message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_PRESIDENT_PLAYER), Games.toString(game_.playedCards(lg_),lg_));
+            message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_PRESIDENT_PLAYER), Games.toString(game_.playedCards(),lg_));
         }
         message_=StringList.concat(message_,game_.getReason());
         ConfirmDialog.showMessage(getOwner(),message_, getMessages().getVal(MainWindow.CONSULT_TITLE), lg_, JOptionPane.INFORMATION_MESSAGE);

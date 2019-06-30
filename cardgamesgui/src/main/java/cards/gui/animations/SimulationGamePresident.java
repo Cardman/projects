@@ -29,7 +29,6 @@ import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.gui.ThreadInvoker;
 import code.util.*;
-import code.util.*;
 import code.util.StringList;
 
 /**Thread safe class*/
@@ -116,7 +115,7 @@ public final class SimulationGamePresident extends Thread implements SimulationG
         RulesPresident rules_ = partie_.getRegles();
         int maxDeals_ = Math.min(FileConst.MAX_DEALS, container.getDisplayingPresident().getNbDeals());
         String lg_ = container.getOwner().getLanguageKey();
-        partie_.simulate(maxDeals_,lg_);
+        partie_.simulate(maxDeals_);
         Panel contentPane_ = new Panel();
         contentPane_.setLayout(new BoxLayout(contentPane_.getComponent(), BoxLayout.PAGE_AXIS));
         Panel container_=new Panel();
