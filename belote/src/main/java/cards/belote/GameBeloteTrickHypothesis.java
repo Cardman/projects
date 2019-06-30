@@ -181,36 +181,10 @@ public final class GameBeloteTrickHypothesis {
                 ||GameBeloteCommon.hand(cartesCertaines_,couleurDemandee_,next_).premiereCarte().strength(couleurDemandee_, bid_)< strength_) {
             /*Si le joueur numero ne peut pas prendre la main sur demande d'atout*/
             if(partenaire_.containsObj(ramasseurVirtuel_)) {
-                /*Si le ramasseur virtuel (de confiance, ici) domine certainement les joueurs de non confiance n'ayant pas joue*/
-                if(ramasseurBatAdvDemat(_info,joueursNonConfianceNonJoue_, couleurDemandee_, carteForte_)) {
-                    return PossibleTrickWinner.TEAM;
-                }
-                /*On cherche les joueurs de confiance battant de maniere certaine les joueurs de non confiance n'ayant pas joue
-                ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
-                if(existeJouBatAdvDemat(_info,joueursNonConfianceNonJoue_, joueursConfianceNonJoue_, couleurDemandee_)) {
-                    return PossibleTrickWinner.TEAM;
-                }
-                /*On cherche les joueurs de non confiance battant de maniere certaine les joueurs de confiance n'ayant pas joue
-                ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
-                if(existeJouBatAdvSurDemat(_info,joueursConfianceNonJoue_, joueursNonConfianceNonJoue_, carteForte_, couleurDemandee_)) {
-                    return PossibleTrickWinner.FOE_TEAM;
-                }
-                return PossibleTrickWinner.UNKNOWN;
+                return getPossibleTrickWinnerTrumpDemand(_info,PossibleTrickWinner.TEAM,joueursConfianceNonJoue_,PossibleTrickWinner.FOE_TEAM,joueursNonConfianceNonJoue_);
             }
             /*ramasseurVirtuel n'est pas un joueur de confiance pour le joueur numero*/
-            /*Si le ramasseur virtuel (de non confiance, ici) domine certainement les joueurs de non confiance n'ayant pas joue*/
-            if(ramasseurBatAdvDemat(_info,joueursConfianceNonJoue_, couleurDemandee_, carteForte_)) {
-                return PossibleTrickWinner.FOE_TEAM;
-            }
-            /*On cherche les joueurs de non confiance battant de maniere certaine les joueurs de confiance n'ayant pas joue ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
-            if(existeJouBatAdvDemat(_info,joueursConfianceNonJoue_, joueursNonConfianceNonJoue_, couleurDemandee_)) {
-                return PossibleTrickWinner.FOE_TEAM;
-            }
-            /*On cherche les joueurs de confiance battant de maniere certaine les joueurs de non confiance n'ayant pas joue ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
-            if(existeJouBatAdvSurDemat(_info,joueursNonConfianceNonJoue_, joueursConfianceNonJoue_, carteForte_, couleurDemandee_)) {
-                return PossibleTrickWinner.TEAM;
-            }
-            return PossibleTrickWinner.UNKNOWN;
+            return getPossibleTrickWinnerTrumpDemand(_info,PossibleTrickWinner.FOE_TEAM,joueursNonConfianceNonJoue_,PossibleTrickWinner.TEAM,joueursConfianceNonJoue_);
             /*Fin joueurDeConfiance.contains(ramasseurVirtuel)*/
         }
         /*Fin !cartesCertaines.get(couleurDemandee).get(numero).estVide()||cartesCertaines.get(1).get(numero).estVide()||cartesCertaines.get(1).get(numero).premiereCarte().getValeur()<carteForte.getValeur()
@@ -235,9 +209,25 @@ public final class GameBeloteTrickHypothesis {
         return PossibleTrickWinner.UNKNOWN;
     }
 
+    static PossibleTrickWinner getPossibleTrickWinnerTrumpDemand(BeloteInfoPliEnCours _info,
+                                                                 PossibleTrickWinner _current, Bytes _team,
+                                                                 PossibleTrickWinner _after, Bytes _other) {
+        Suit couleurDemandee_=_info.getProgressingTrick().couleurDemandee();
+        byte ramasseurVirtuel_=_info.getRamasseurVirtuel();
+        byte nbPlayers_ = _info.getNbPlayers();
+        CardBelote carteForte_=_info.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_,nbPlayers_);
+        if(ramasseurBatAdvDemat(_info,_other, couleurDemandee_, carteForte_)) {
+            return _current;
+        }
+        if(existeJouBatAdvDemat(_info,_other, _team, couleurDemandee_)) {
+            return _current;
+        }
+        if(existeJouBatAdvSurDemat(_info,_team, _other, carteForte_, couleurDemandee_)) {
+            return _after;
+        }
+        return PossibleTrickWinner.UNKNOWN;
+    }
     static PossibleTrickWinner getPossibleTrickWinnerNoCurrentTrump(BeloteInfoPliEnCours _info, CardBelote _card) {
-        EnumMap<Suit,EqList<HandBelote>> cartesPossibles_ = _info.getCartesPossibles();
-        EnumMap<Suit,EqList<HandBelote>> cartesCertaines_ = _info.getCartesCertaines();
         byte ramasseurVirtuel_ = _info.getRamasseurVirtuel();
         Bytes joueursNonJoue_ = _info.getJoueursNonJoue();
         Bytes joueursNonConfianceNonJoue_ = new Bytes(
@@ -250,71 +240,52 @@ public final class GameBeloteTrickHypothesis {
         joueursNonConfianceNonJoue_ = GameBeloteTeamsRelation.intersectionJoueurs(joueursNonConfianceNonJoue_,joueursNonConfiance_);
         joueursConfianceNonJoue_ = GameBeloteTeamsRelation.intersectionJoueurs(joueursConfianceNonJoue_,joueursConfiance_);
         joueursConfianceNonJoue_.removeObj(player_);
+        if (joueursConfiance_.containsObj(ramasseurVirtuel_)) {
+            return getPossibleTrickWinnerCurrentNoTrump(_info,_card,PossibleTrickWinner.TEAM,joueursConfianceNonJoue_,PossibleTrickWinner.FOE_TEAM,joueursNonConfianceNonJoue_);
+        }
+        /* Fin joueursDeConfiance.contains(ramasseurVirtuel) */
+        /* Maintenant le ramasseur virtuel n'est pas un joueur de confiance */
+        return getPossibleTrickWinnerCurrentNoTrump(_info,_card,PossibleTrickWinner.FOE_TEAM,joueursNonConfianceNonJoue_,PossibleTrickWinner.TEAM,joueursConfianceNonJoue_);
+    }
+
+    static PossibleTrickWinner getPossibleTrickWinnerCurrentNoTrump(BeloteInfoPliEnCours _info,CardBelote _card,
+                                                                    PossibleTrickWinner _current, Bytes _team,
+                                                                    PossibleTrickWinner _after, Bytes _other) {
+        EnumMap<Suit,EqList<HandBelote>> cartesPossibles_ = _info.getCartesPossibles();
+        EnumMap<Suit,EqList<HandBelote>> cartesCertaines_ = _info.getCartesCertaines();
         TrickBelote t_ = _info.getProgressingTrick();
         Suit couleurDemandee_ = t_.couleurDemandee();
         boolean ramasseurVirtuelEgalCertain_ = true;
         BidBeloteSuit bid_ = _info.getContrat();
         Suit couleurAtout_ = _info.getCouleurAtout();
         int str_ = _card.strength(couleurDemandee_,bid_);
-        if (joueursConfiance_.containsObj(ramasseurVirtuel_)) {
-            if (ramasseurBatSsCprAdv(_info,joueursNonConfianceNonJoue_,
-                    couleurDemandee_, str_)) {
-                return PossibleTrickWinner.TEAM;
-            }
-            for (byte joueur_ : joueursNonConfianceNonJoue_) {
-                if (!nePeutCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_,couleurAtout_)) {
-                    ramasseurVirtuelEgalCertain_ = false;
-                }
-            }
-            if (ramasseurVirtuelEgalCertain_) {
-                if (existPlayerNoTrump(_info,joueursNonConfianceNonJoue_,joueursConfianceNonJoue_,couleurDemandee_, _card,cartesCertaines_)) {
-                    return PossibleTrickWinner.TEAM;
-                }
-            }
-            ramasseurVirtuelEgalCertain_ = true;
-            for (byte joueur_ : joueursConfianceNonJoue_) {
-                if (!nePeutCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_,couleurAtout_)) {
-                    ramasseurVirtuelEgalCertain_ = false;
-                }
-            }
-            if (ramasseurVirtuelEgalCertain_) {
-                if (existPlayerNoTrump(_info,joueursConfianceNonJoue_,joueursNonConfianceNonJoue_,couleurDemandee_, _card,cartesCertaines_)) {
-                    return PossibleTrickWinner.FOE_TEAM;
-                }
-            }
-            return PossibleTrickWinner.UNKNOWN;
-        }
-        /* Fin joueursDeConfiance.contains(ramasseurVirtuel) */
-        /* Maintenant le ramasseur virtuel n'est pas un joueur de confiance */
-        if (ramasseurBatSsCprAdv(_info,joueursConfianceNonJoue_,
+        if (ramasseurBatSsCprAdv(_info,_other,
                 couleurDemandee_, str_)) {
-            return PossibleTrickWinner.FOE_TEAM;
+            return _current;
         }
-        for (byte joueur_ : joueursConfianceNonJoue_) {
+        for (byte joueur_ : _other) {
             if (!nePeutCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_,couleurAtout_)) {
                 ramasseurVirtuelEgalCertain_ = false;
             }
         }
         if (ramasseurVirtuelEgalCertain_) {
-            if (existPlayerNoTrump(_info,joueursConfianceNonJoue_,joueursNonConfianceNonJoue_,couleurDemandee_, _card,cartesCertaines_)) {
-                return PossibleTrickWinner.FOE_TEAM;
+            if (existPlayerNoTrump(_info,_other,_team,couleurDemandee_, _card,cartesCertaines_)) {
+                return _current;
             }
         }
         ramasseurVirtuelEgalCertain_ = true;
-        for (byte joueur_ : joueursNonConfianceNonJoue_) {
+        for (byte joueur_ : _team) {
             if (!nePeutCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_,couleurAtout_)) {
                 ramasseurVirtuelEgalCertain_ = false;
             }
         }
         if (ramasseurVirtuelEgalCertain_) {
-            if (existPlayerNoTrump(_info,joueursNonConfianceNonJoue_,joueursConfianceNonJoue_,couleurDemandee_, _card,cartesCertaines_)) {
-                return PossibleTrickWinner.TEAM;
+            if (existPlayerNoTrump(_info,_team,_other,couleurDemandee_, _card,cartesCertaines_)) {
+                return _after;
             }
-            return PossibleTrickWinner.UNKNOWN;
         }
         return PossibleTrickWinner.UNKNOWN;
     }
-
     static PossibleTrickWinner getPossibleTrickWinnerOtherTrump(BeloteInfoPliEnCours _info,
                                                                 PossibleTrickWinner _current,
                                                                 Bytes _currentNotPl,
@@ -538,7 +509,7 @@ public final class GameBeloteTrickHypothesis {
         return ramasseurDeter_;
     }
 
-    private static boolean beatFoeTrumpDemand(Bytes _equipeABattre, Suit _couleurDemandee, BidBeloteSuit _bid,
+    static boolean beatFoeTrumpDemand(Bytes _equipeABattre, Suit _couleurDemandee, BidBeloteSuit _bid,
                                               EnumMap<Suit, EqList<HandBelote>> _cartesPossibles, byte _strength) {
         boolean joueurBatAdversaire_=true;
         for(byte joueur_:_equipeABattre) {
