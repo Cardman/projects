@@ -41,43 +41,21 @@ public final class GameBeloteTrickHypothesis {
                             < strength_) {
                 /*Le joueur numero ne peut pas prendre la main*/
                 if(partenaire_.containsObj(ramasseurVirtuel_)) {
-                    /*On cherche a savoir si le ramasseur virtuel (joueur de confiance) va avec sa coupe sur la couleur demandee dominer tous les atouts des joueurs de non confiance eventuels*/
-                    if(ramasseurBatAdvSur(_info,joueursNonConfianceNonJoue_, couleurDemandee_, carteForte_)) {
-                        return PossibleTrickWinner.TEAM;
-                    }
-                    /*On cherche les joueurs de confiance battant de maniere certaine les joueurs de non confiance n'ayant pas joue
-                    ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
-                    if(existeJoueurNonJoueBattantAdv(_info,joueursNonConfianceNonJoue_, joueursConfianceNonJoue_, couleurDemandee_)) {
-                        return PossibleTrickWinner.TEAM;
-                    }
-                    /*On cherche les joueurs de non confiance battant de maniere certaine les joueurs de confiance n'ayant pas joue
-                    ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
-                    if(existeJoueurAdvRamBatAdvSur(_info,joueursConfianceNonJoue_, joueursNonConfianceNonJoue_, couleurDemandee_, carteForte_)) {
-                        return PossibleTrickWinner.FOE_TEAM;
-                    }
-                    return PossibleTrickWinner.UNKNOWN;
+                    return getPossibleOverTrump(_info,joueursConfianceNonJoue_,joueursNonConfianceNonJoue_,PossibleTrickWinner.TEAM,PossibleTrickWinner.FOE_TEAM);
                 }
-                /*ramasseurVirtuel n'est pas un joueur de confiance pour le joueur numero*/
-                /*On cherche a savoir si le ramasseur virtuel (joueur de non confiance) bat tous les joueurs de confiance n'ayant pas joue*/
-                if(ramasseurBatAdvSur(_info,joueursConfianceNonJoue_, couleurDemandee_, carteForte_)) {
-                    return PossibleTrickWinner.FOE_TEAM;
-                }
-                /*On cherche les joueurs de non confiance battant de maniere certaine les joueurs de confiance n'ayant pas joue
-                ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
-                if(existeJoueurNonJoueBattantAdv(_info,joueursConfianceNonJoue_, joueursNonConfianceNonJoue_, couleurDemandee_)) {
-                    return PossibleTrickWinner.FOE_TEAM;
-                }
-                /*On cherche les joueurs de confiance battant de maniere certaine les joueurs de non confiance n'ayant pas joue
-                ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
-                if(existeJoueurAdvRamBatAdvSur(_info,joueursNonConfianceNonJoue_, joueursConfianceNonJoue_, couleurDemandee_, carteForte_)) {
-                    return PossibleTrickWinner.TEAM;
-                }
-                return PossibleTrickWinner.UNKNOWN;
-                /*Fin joueurDeConfiance.contains(ramasseurVirtuel)*/
+                return getPossibleOverTrump(_info,joueursNonConfianceNonJoue_,joueursConfianceNonJoue_,PossibleTrickWinner.FOE_TEAM,PossibleTrickWinner.TEAM);
             }
             /*Fin !cartesCertaines.get(couleurDemandee).get(numero).estVide()||cartesCertaines.get(1).get(numero).estVide()||cartesCertaines.get(1).get(numero).premiereCarte().getValeur()<carteForte.getValeur()
             (fin test de possibilite pour le joueur numero de prendre le pli)*/
             /*Le joueur numero peut prendre la main en surcoupant le ramasseur virtuel*/
+            CardBelote cardPl_ = cartesCertaines_.getVal(couleurAtout_).get(next_)
+                    .premiereCarte();
+            Bytes other_ = new Bytes(joueursNonJoue_);
+            other_.removeObj(next_);
+            if (ramasseurBatAdvSur(_info,other_,
+                    couleurDemandee_, cardPl_)) {
+                return PossibleTrickWinner.UNKNOWN;
+            }
             /*On cherche les joueurs de confiance battant de maniere certaine les joueurs de non confiance n'ayant pas joue ou possedant des cartes que les joueurs ayant joue n'ont pas ainsi que les joueurs de non confiance n'ayant pas joue*/
             if(existeJoueurBatAdvNum(_info,joueursNonConfianceNonJoue_, joueursConfianceNonJoue_, next_, couleurDemandee_)) {
                 return PossibleTrickWinner.TEAM;
@@ -143,6 +121,22 @@ public final class GameBeloteTrickHypothesis {
         return overFollowSuit(_info);
     }
 
+    static PossibleTrickWinner getPossibleOverTrump(BeloteInfoPliEnCours _info,Bytes _curTeam,Bytes _otherTeam,PossibleTrickWinner _tmpLeader,PossibleTrickWinner _afterLeader) {
+        byte ramasseurVirtuel_=_info.getRamasseurVirtuel();
+        Suit couleurDemandee_=_info.getProgressingTrick().couleurDemandee();
+        byte nbPlayers_ = _info.getNbPlayers();
+        CardBelote carteForte_=_info.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_,nbPlayers_);
+        if(ramasseurBatAdvSur(_info,_otherTeam, couleurDemandee_, carteForte_)) {
+            return _tmpLeader;
+        }
+        if(existeJoueurNonJoueBattantAdv(_info,_otherTeam, _curTeam, couleurDemandee_)) {
+            return _tmpLeader;
+        }
+        if(existeJoueurAdvRamBatAdvSur(_info,_curTeam, _otherTeam, couleurDemandee_, carteForte_)) {
+            return _afterLeader;
+        }
+        return PossibleTrickWinner.UNKNOWN;
+    }
     static PossibleTrickWinner equipeQuiVaFairePliSansAtout(
             BeloteInfoPliEnCours _info) {
 
@@ -628,6 +622,9 @@ public final class GameBeloteTrickHypothesis {
                                 EnumMap<Suit,EqList<HandBelote>> _cartesPossibles,
                                 EnumMap<Suit,EqList<HandBelote>> _cartesCertaines,
                                 Suit _couleurAtout) {
+        if (_couleurAtout == Suit.UNDEFINED) {
+            return true;
+        }
         return GameBeloteCommon.hand(_cartesPossibles,_couleurAtout,_numero).estVide()||!GameBeloteCommon.hand(_cartesCertaines,_couleur,_numero).estVide();
     }
     /**Retourne vrai si et seulement si le joueur ne peut pas fournir la couleur donnee et peut couper avec un atout*/
