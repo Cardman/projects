@@ -28,7 +28,7 @@ public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         p_.ajouter(CardBelote.DIAMOND_10);
         EnumMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
-        EnumList<Suit> s_ = GameBeloteCommon.couleursNonAtoutNonVides(h_, GameBeloteCommon.couleurs());
+        EnumList<Suit> s_ = GameBeloteCommon.couleursNonAtoutNonVides(h_, nonTrump(b_));
         assertSame(CardBelote.HEART_7,GameBeloteBeginTrick.faireCouperAppele(s_,hr_,pr_));
     }
     @Test
@@ -47,7 +47,7 @@ public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
         p_.ajouter(CardBelote.DIAMOND_10);
         p_.ajouter(CardBelote.HEART_8);
         EnumMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
-        EnumList<Suit> s_ = GameBeloteCommon.couleursNonAtoutNonVides(h_, GameBeloteCommon.couleurs());
+        EnumList<Suit> s_ = GameBeloteCommon.couleursNonAtoutNonVides(h_, nonTrump(b_));
         assertSame(CardBelote.HEART_7,GameBeloteBeginTrick.faireCouper(b_,s_,hr_,pr_));
     }
     @Test
@@ -62,7 +62,7 @@ public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
         h_.ajouter(CardBelote.CLUB_8);
         h_.ajouter(CardBelote.CLUB_7);
         EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
-        EnumList<Suit> s_ = GameBeloteCommon.couleursNonAtoutNonVides(h_, GameBeloteCommon.couleurs());
+        EnumList<Suit> s_ = GameBeloteCommon.couleursNonAtoutNonVides(h_, nonTrump(b_));
         assertSame(CardBelote.CLUB_8,GameBeloteBeginTrick.ouvrirCouleur(b_,s_,hr_));
     }
     @Test
@@ -79,7 +79,7 @@ public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
         EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
-        EnumList<Suit> s_ = GameBeloteCommon.couleursNonAtoutNonVides(h_, GameBeloteCommon.couleurs());
+        EnumList<Suit> s_ = GameBeloteCommon.couleursNonAtoutNonVides(h_, nonTrump(b_));
         EnumMap<Suit, HandBelote> l_ = GameBeloteCommon.cartesMaitresses(hr_, pr_, b_);
         assertSame(CardBelote.HEART_1,GameBeloteBeginTrick.ouvrir(b_,s_,hr_,pr_,l_));
     }
@@ -97,7 +97,7 @@ public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
         EnumMap<Suit, HandBelote> hr_ = h_.couleurs(b_);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
-        EnumList<Suit> s_ = GameBeloteCommon.couleursNonAtoutNonVides(h_, GameBeloteCommon.couleurs());
+        EnumList<Suit> s_ = GameBeloteCommon.couleursNonAtoutNonVides(h_, nonTrump(b_));
         EnumMap<Suit, HandBelote> l_ = GameBeloteCommon.cartesMaitresses(hr_, pr_, b_);
         assertSame(CardBelote.CLUB_7,GameBeloteBeginTrick.ouvrir(b_,s_,hr_,pr_,l_));
     }
@@ -153,14 +153,16 @@ public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
         }
         return e_;
     }
-    private static Order getOrder(Suit _s, BidBeloteSuit _b) {
+    private static EnumList<Suit> nonTrump(BidBeloteSuit _b) {
+        EnumList<Suit> couleursNonAtouts_=new EnumList<Suit>();
         if(_b.getCouleurDominante()) {
-            if(_s!=_b.getCouleur()) {
-                return Order.SUIT;
+            for(Suit couleur_:GameBeloteCommon.couleurs()) {
+                if(couleur_!=_b.getCouleur()) {
+                    couleursNonAtouts_.add(couleur_);
+                }
             }
-        } else if(_b.ordreCouleur()) {
-            return Order.SUIT;
+            return couleursNonAtouts_;
         }
-        return Order.TRUMP;
+        return GameBeloteCommon.couleurs();
     }
 }

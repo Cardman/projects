@@ -1319,6 +1319,911 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         addSureCard(t_,1,CardBelote.DIAMOND_KING);
         assertSame(PossibleTrickWinner.TEAM,getPossibleTrickWinnerNoCurrentTrump(t_));
     }
+    @Test
+    public void getPossibleTrickWinnerTrumpDemand1Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_KING);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_KING);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.HEART_KING);
+        addSureCard(t_,3, CardBelote.HEART_KING);
+        addPossibleCard(t_,0,CardBelote.HEART_10);
+        addSureCard(t_,0, CardBelote.HEART_10);
+        addPossibleCard(t_,1,CardBelote.HEART_1);
+        addSureCard(t_,1, CardBelote.HEART_1);
+        Bytes beat_ = new Bytes();
+        beat_.add((byte) 1);
+        Bytes dom_ = new Bytes();
+        dom_.add((byte) 0);
+        assertSame(PossibleTrickWinner.TEAM,GameBeloteTrickHypothesis.getPossibleTrickWinnerTrumpDemand(t_,PossibleTrickWinner.FOE_TEAM,dom_,PossibleTrickWinner.TEAM,beat_));
+    }
+    @Test
+    public void getPossibleTrickWinnerTrumpDemand2Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_KING);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_KING);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.HEART_KING);
+        addSureCard(t_,3, CardBelote.HEART_KING);
+        addPossibleCard(t_,0,CardBelote.HEART_1);
+        addSureCard(t_,0, CardBelote.HEART_1);
+        addPossibleCard(t_,1,CardBelote.HEART_10);
+        addSureCard(t_,1, CardBelote.HEART_10);
+        Bytes beat_ = new Bytes();
+        beat_.add((byte) 1);
+        Bytes dom_ = new Bytes();
+        dom_.add((byte) 0);
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameBeloteTrickHypothesis.getPossibleTrickWinnerTrumpDemand(t_,PossibleTrickWinner.FOE_TEAM,dom_,PossibleTrickWinner.TEAM,beat_));
+    }
+    @Test
+    public void getPossibleTrickWinnerTrumpDemand3Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_KING);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_KING);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_1);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.HEART_KING);
+        addSureCard(t_,3, CardBelote.HEART_KING);
+        addPossibleCard(t_,0,CardBelote.HEART_QUEEN);
+        addSureCard(t_,0, CardBelote.HEART_QUEEN);
+        addPossibleCard(t_,1,CardBelote.HEART_10);
+        addSureCard(t_,1, CardBelote.HEART_10);
+        Bytes beat_ = new Bytes();
+        beat_.add((byte) 1);
+        Bytes dom_ = new Bytes();
+        dom_.add((byte) 0);
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameBeloteTrickHypothesis.getPossibleTrickWinnerTrumpDemand(t_,PossibleTrickWinner.FOE_TEAM,dom_,PossibleTrickWinner.TEAM,beat_));
+    }
+    @Test
+    public void getPossibleTrickWinnerTrumpDemand4Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_KING);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_KING);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.HEART_KING);
+        addSureCard(t_,3, CardBelote.HEART_KING);
+        addPossibleCard(t_,0,CardBelote.HEART_10);
+        addPossibleCard(t_,0,CardBelote.HEART_1);
+        addPossibleCard(t_,1,CardBelote.HEART_10);
+        addPossibleCard(t_,1,CardBelote.HEART_1);
+        Bytes beat_ = new Bytes();
+        beat_.add((byte) 1);
+        Bytes dom_ = new Bytes();
+        dom_.add((byte) 0);
+        assertSame(PossibleTrickWinner.UNKNOWN,GameBeloteTrickHypothesis.getPossibleTrickWinnerTrumpDemand(t_,PossibleTrickWinner.FOE_TEAM,dom_,PossibleTrickWinner.TEAM,beat_));
+    }
+    @Test
+    public void equipeQuiVaFairePliToutAtout1Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_KING);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_KING);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.HEART_KING);
+        addSureCard(t_,3, CardBelote.HEART_KING);
+        addPossibleCard(t_,0,CardBelote.HEART_10);
+        addPossibleCard(t_,0,CardBelote.HEART_1);
+        addPossibleCard(t_,1,CardBelote.HEART_10);
+        addPossibleCard(t_,1,CardBelote.HEART_1);
+        assertSame(PossibleTrickWinner.UNKNOWN,GameBeloteTrickHypothesis.equipeQuiVaFairePliToutAtout(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliToutAtout2Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_JACK);
+        hand_.ajouter(CardBelote.HEART_KING);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_JACK);
+        playable_.ajouter(CardBelote.HEART_KING);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.HEART_KING);
+        addSureCard(t_,3, CardBelote.HEART_KING);
+        addPossibleCard(t_,3,CardBelote.HEART_JACK);
+        addSureCard(t_,3, CardBelote.HEART_JACK);
+        addPossibleCard(t_,0,CardBelote.HEART_10);
+        addSureCard(t_,0,CardBelote.HEART_10);
+        addPossibleCard(t_,1,CardBelote.HEART_1);
+        addSureCard(t_,1,CardBelote.HEART_1);
+        assertSame(PossibleTrickWinner.UNKNOWN,GameBeloteTrickHypothesis.equipeQuiVaFairePliToutAtout(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliToutAtout3Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_KING);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_KING);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.HEART_KING);
+        addSureCard(t_,3, CardBelote.HEART_KING);
+        addPossibleCard(t_,0,CardBelote.HEART_10);
+        addSureCard(t_,0,CardBelote.HEART_10);
+        addPossibleCard(t_,1,CardBelote.HEART_1);
+        addSureCard(t_,1,CardBelote.HEART_1);
+        assertSame(PossibleTrickWinner.TEAM,GameBeloteTrickHypothesis.equipeQuiVaFairePliToutAtout(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliToutAtout4Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_KING);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_KING);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.HEART_KING);
+        addSureCard(t_,3, CardBelote.HEART_KING);
+        addPossibleCard(t_,0,CardBelote.HEART_1);
+        addSureCard(t_,0,CardBelote.HEART_1);
+        addPossibleCard(t_,1,CardBelote.HEART_10);
+        addSureCard(t_,1,CardBelote.HEART_10);
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameBeloteTrickHypothesis.equipeQuiVaFairePliToutAtout(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliToutAtout5Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_QUEEN);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_KING);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.HEART_QUEEN);
+        addSureCard(t_,3, CardBelote.HEART_QUEEN);
+        addPossibleCard(t_,0,CardBelote.HEART_1);
+        addSureCard(t_,0,CardBelote.HEART_1);
+        addPossibleCard(t_,1,CardBelote.HEART_10);
+        addSureCard(t_,1,CardBelote.HEART_10);
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameBeloteTrickHypothesis.equipeQuiVaFairePliToutAtout(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliToutAtout6Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_QUEEN);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_KING);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.HEART_QUEEN);
+        addSureCard(t_,3, CardBelote.HEART_QUEEN);
+        addPossibleCard(t_,0,CardBelote.HEART_1);
+        addSureCard(t_,0,CardBelote.HEART_1);
+        addPossibleCard(t_,1,CardBelote.HEART_JACK);
+        addSureCard(t_,1,CardBelote.HEART_JACK);
+        assertSame(PossibleTrickWinner.TEAM,GameBeloteTrickHypothesis.equipeQuiVaFairePliToutAtout(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliToutAtout7Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_QUEEN);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_JACK);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.HEART_QUEEN);
+        addSureCard(t_,3, CardBelote.HEART_QUEEN);
+        addPossibleCard(t_,0,CardBelote.HEART_1);
+        addSureCard(t_,0,CardBelote.HEART_1);
+        addPossibleCard(t_,1,CardBelote.HEART_KING);
+        addSureCard(t_,1,CardBelote.HEART_KING);
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameBeloteTrickHypothesis.equipeQuiVaFairePliToutAtout(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliToutAtout8Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_QUEEN);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_KING);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.HEART_QUEEN);
+        addSureCard(t_,3, CardBelote.HEART_QUEEN);
+        addPossibleCard(t_,0,CardBelote.HEART_1);
+        addPossibleCard(t_,0,CardBelote.HEART_JACK);
+        addPossibleCard(t_,1,CardBelote.HEART_1);
+        addPossibleCard(t_,1,CardBelote.HEART_JACK);
+        assertSame(PossibleTrickWinner.UNKNOWN,GameBeloteTrickHypothesis.equipeQuiVaFairePliToutAtout(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliToutAtout9Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_QUEEN);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_KING);
+        current_.ajouter(CardBelote.HEART_8);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,0,CardBelote.HEART_QUEEN);
+        addSureCard(t_,0, CardBelote.HEART_QUEEN);
+        addPossibleCard(t_,1,CardBelote.HEART_10);
+        addSureCard(t_,1,CardBelote.HEART_10);
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameBeloteTrickHypothesis.equipeQuiVaFairePliToutAtout(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliToutAtout10Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_QUEEN);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_KING);
+        current_.ajouter(CardBelote.HEART_8);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,0,CardBelote.HEART_QUEEN);
+        addSureCard(t_,0, CardBelote.HEART_QUEEN);
+        addPossibleCard(t_,1,CardBelote.HEART_7);
+        addSureCard(t_,1,CardBelote.HEART_7);
+        assertSame(PossibleTrickWinner.TEAM,GameBeloteTrickHypothesis.equipeQuiVaFairePliToutAtout(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliToutAtout11Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_QUEEN);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_JACK);
+        current_.ajouter(CardBelote.HEART_8);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,0,CardBelote.HEART_QUEEN);
+        addSureCard(t_,0, CardBelote.HEART_QUEEN);
+        addPossibleCard(t_,1,CardBelote.HEART_1);
+        assertSame(PossibleTrickWinner.TEAM,GameBeloteTrickHypothesis.equipeQuiVaFairePliToutAtout(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliToutAtout12Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_QUEEN);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_KING);
+        current_.ajouter(CardBelote.HEART_8);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,0,CardBelote.HEART_QUEEN);
+        addSureCard(t_,0, CardBelote.HEART_QUEEN);
+        addPossibleCard(t_,1,CardBelote.HEART_1);
+        assertSame(PossibleTrickWinner.UNKNOWN,GameBeloteTrickHypothesis.equipeQuiVaFairePliToutAtout(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliToutAtout13Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_10);
+        hand_.ajouter(CardBelote.HEART_JACK);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_10);
+        playable_.ajouter(CardBelote.HEART_JACK);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_KING);
+        current_.ajouter(CardBelote.HEART_8);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,0,CardBelote.HEART_JACK);
+        addSureCard(t_,0, CardBelote.HEART_JACK);
+        addPossibleCard(t_,0,CardBelote.HEART_10);
+        addSureCard(t_,0, CardBelote.HEART_10);
+        addPossibleCard(t_,1,CardBelote.HEART_1);
+        addSureCard(t_,1,CardBelote.HEART_1);
+        assertSame(PossibleTrickWinner.UNKNOWN,GameBeloteTrickHypothesis.equipeQuiVaFairePliToutAtout(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliToutAtout14Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        HandBelote playable_ = new HandBelote();
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_KING);
+        current_.ajouter(CardBelote.HEART_8);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,1,CardBelote.HEART_1);
+        assertSame(PossibleTrickWinner.UNKNOWN,GameBeloteTrickHypothesis.equipeQuiVaFairePliToutAtout(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliSansAtout1Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.DIAMOND);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_KING);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_KING);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.HEART_KING);
+        addSureCard(t_,3, CardBelote.HEART_KING);
+        addPossibleCard(t_,0,CardBelote.HEART_10);
+        addPossibleCard(t_,0,CardBelote.HEART_1);
+        addPossibleCard(t_,1,CardBelote.HEART_10);
+        addPossibleCard(t_,1,CardBelote.HEART_1);
+        assertSame(PossibleTrickWinner.UNKNOWN,GameBeloteTrickHypothesis.equipeQuiVaFairePliSansAtout(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliSansAtout2Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.DIAMOND);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_8);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_8);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.HEART_8);
+        addSureCard(t_,3, CardBelote.HEART_8);
+        addPossibleCard(t_,0,CardBelote.HEART_10);
+        addSureCard(t_,0,CardBelote.HEART_10);
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameBeloteTrickHypothesis.equipeQuiVaFairePliSansAtout(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliSansAtout3Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.DIAMOND);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_8);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_8);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.HEART_8);
+        addSureCard(t_,3, CardBelote.HEART_8);
+        addPossibleCard(t_,1,CardBelote.HEART_10);
+        addSureCard(t_,1,CardBelote.HEART_10);
+        assertSame(PossibleTrickWinner.TEAM,GameBeloteTrickHypothesis.equipeQuiVaFairePliSansAtout(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliSansAtout4Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.DIAMOND);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        HandBelote playable_ = new HandBelote();
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,0,CardBelote.HEART_10);
+        addSureCard(t_,0,CardBelote.HEART_10);
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameBeloteTrickHypothesis.equipeQuiVaFairePliSansAtout(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliSansAtout5Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.DIAMOND);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        HandBelote playable_ = new HandBelote();
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,1,CardBelote.HEART_10);
+        addSureCard(t_,1,CardBelote.HEART_10);
+        assertSame(PossibleTrickWinner.TEAM,GameBeloteTrickHypothesis.equipeQuiVaFairePliSansAtout(t_));
+    }
+    @Test
+    public void getPossibleTrickWinnerOverTrump1Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.DIAMOND);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.DIAMOND_JACK);
+        hand_.ajouter(CardBelote.DIAMOND_10);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.DIAMOND_JACK);
+        playable_.ajouter(CardBelote.DIAMOND_10);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.DIAMOND_JACK);
+        addSureCard(t_,3,CardBelote.DIAMOND_JACK);
+        addPossibleCard(t_,3,CardBelote.DIAMOND_10);
+        addSureCard(t_,3,CardBelote.DIAMOND_10);
+        addPossibleCard(t_,0,CardBelote.DIAMOND_9);
+        addSureCard(t_,0,CardBelote.DIAMOND_9);
+        addPossibleCard(t_,1,CardBelote.DIAMOND_1);
+        addSureCard(t_,1,CardBelote.DIAMOND_1);
+        assertSame(PossibleTrickWinner.UNKNOWN,GameBeloteTrickHypothesis.getPossibleTrickWinnerOverTrump(t_));
+    }
+    @Test
+    public void getPossibleTrickWinnerOverTrump2Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.DIAMOND);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.DIAMOND_10);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.DIAMOND_10);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.DIAMOND_10);
+        addSureCard(t_,3,CardBelote.DIAMOND_10);
+        addPossibleCard(t_,0,CardBelote.DIAMOND_9);
+        addSureCard(t_,0,CardBelote.DIAMOND_9);
+        addPossibleCard(t_,1,CardBelote.DIAMOND_1);
+        addSureCard(t_,1,CardBelote.DIAMOND_1);
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameBeloteTrickHypothesis.getPossibleTrickWinnerOverTrump(t_));
+    }
+    @Test
+    public void getPossibleTrickWinnerOverTrump3Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.DIAMOND);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.DIAMOND_10);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.DIAMOND_10);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.DIAMOND_10);
+        addSureCard(t_,3,CardBelote.DIAMOND_10);
+        addPossibleCard(t_,0,CardBelote.DIAMOND_1);
+        addSureCard(t_,0,CardBelote.DIAMOND_1);
+        addPossibleCard(t_,1,CardBelote.DIAMOND_9);
+        addSureCard(t_,1,CardBelote.DIAMOND_9);
+        assertSame(PossibleTrickWinner.TEAM,GameBeloteTrickHypothesis.getPossibleTrickWinnerOverTrump(t_));
+    }
+    @Test
+    public void getPossibleTrickWinnerOverTrump4Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.DIAMOND);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.DIAMOND_10);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.DIAMOND_10);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.DIAMOND_10);
+        addSureCard(t_,3,CardBelote.DIAMOND_10);
+        addPossibleCard(t_,0,CardBelote.DIAMOND_1);
+        addPossibleCard(t_,0,CardBelote.DIAMOND_9);
+        addPossibleCard(t_,1,CardBelote.DIAMOND_1);
+        addPossibleCard(t_,1,CardBelote.DIAMOND_9);
+        assertSame(PossibleTrickWinner.UNKNOWN,GameBeloteTrickHypothesis.getPossibleTrickWinnerOverTrump(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliCouleurDominante1Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.DIAMOND);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.DIAMOND_10);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.DIAMOND_10);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        current_.ajouter(CardBelote.HEART_8);
+        current_.ajouter(CardBelote.DIAMOND_JACK);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,1,CardBelote.DIAMOND_10);
+        addSureCard(t_,1,CardBelote.DIAMOND_10);
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameBeloteTrickHypothesis.equipeQuiVaFairePliCouleurDominante(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliCouleurDominante2Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.DIAMOND);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.DIAMOND_10);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.DIAMOND_10);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        current_.ajouter(CardBelote.DIAMOND_JACK);
+        current_.ajouter(CardBelote.HEART_8);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,1,CardBelote.DIAMOND_10);
+        addSureCard(t_,1,CardBelote.DIAMOND_10);
+        assertSame(PossibleTrickWinner.TEAM,GameBeloteTrickHypothesis.equipeQuiVaFairePliCouleurDominante(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliCouleurDominante3Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.DIAMOND);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_10);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_10);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        current_.ajouter(CardBelote.HEART_8);
+        current_.ajouter(CardBelote.DIAMOND_JACK);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,1,CardBelote.HEART_10);
+        addSureCard(t_,1,CardBelote.HEART_10);
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameBeloteTrickHypothesis.equipeQuiVaFairePliCouleurDominante(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliCouleurDominante4Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.DIAMOND);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_10);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_10);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        current_.ajouter(CardBelote.DIAMOND_JACK);
+        current_.ajouter(CardBelote.HEART_8);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,1,CardBelote.HEART_10);
+        addSureCard(t_,1,CardBelote.HEART_10);
+        assertSame(PossibleTrickWinner.TEAM,GameBeloteTrickHypothesis.equipeQuiVaFairePliCouleurDominante(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliCouleurDominante5Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.DIAMOND);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        HandBelote playable_ = new HandBelote();
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        current_.ajouter(CardBelote.HEART_8);
+        current_.ajouter(CardBelote.DIAMOND_JACK);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameBeloteTrickHypothesis.equipeQuiVaFairePliCouleurDominante(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliCouleurDominante6Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.DIAMOND);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        HandBelote playable_ = new HandBelote();
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        current_.ajouter(CardBelote.DIAMOND_JACK);
+        current_.ajouter(CardBelote.HEART_8);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        assertSame(PossibleTrickWinner.TEAM,GameBeloteTrickHypothesis.equipeQuiVaFairePliCouleurDominante(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliCouleurDominante7Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.DIAMOND);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.DIAMOND_JACK);
+        hand_.ajouter(CardBelote.DIAMOND_9);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.DIAMOND_JACK);
+        playable_.ajouter(CardBelote.DIAMOND_9);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        current_.ajouter(CardBelote.HEART_8);
+        current_.ajouter(CardBelote.DIAMOND_10);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,1,CardBelote.DIAMOND_JACK);
+        addSureCard(t_,1,CardBelote.DIAMOND_JACK);
+        addPossibleCard(t_,1,CardBelote.DIAMOND_9);
+        addSureCard(t_,1,CardBelote.DIAMOND_9);
+        assertSame(PossibleTrickWinner.UNKNOWN,GameBeloteTrickHypothesis.equipeQuiVaFairePliCouleurDominante(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliCouleurDominante8Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.DIAMOND);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.DIAMOND_JACK);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.DIAMOND_JACK);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.DIAMOND_JACK);
+        addSureCard(t_,3,CardBelote.DIAMOND_JACK);
+        addPossibleCard(t_,0,CardBelote.DIAMOND_1);
+        addSureCard(t_,0,CardBelote.DIAMOND_1);
+        addPossibleCard(t_,1,CardBelote.DIAMOND_10);
+        addSureCard(t_,1,CardBelote.DIAMOND_10);
+        assertSame(PossibleTrickWinner.UNKNOWN,GameBeloteTrickHypothesis.equipeQuiVaFairePliCouleurDominante(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliCouleurDominante9Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.DIAMOND);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_JACK);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_JACK);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.HEART_JACK);
+        addSureCard(t_,3,CardBelote.HEART_JACK);
+        addPossibleCard(t_,0,CardBelote.DIAMOND_1);
+        addSureCard(t_,0,CardBelote.DIAMOND_1);
+        addPossibleCard(t_,1,CardBelote.DIAMOND_10);
+        addSureCard(t_,1,CardBelote.DIAMOND_10);
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameBeloteTrickHypothesis.equipeQuiVaFairePliCouleurDominante(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliCouleurDominante10Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.DIAMOND);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_JACK);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_JACK);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.HEART_JACK);
+        addSureCard(t_,3,CardBelote.HEART_JACK);
+        addPossibleCard(t_,0,CardBelote.DIAMOND_10);
+        addSureCard(t_,0,CardBelote.DIAMOND_10);
+        addPossibleCard(t_,1,CardBelote.DIAMOND_1);
+        addSureCard(t_,1,CardBelote.DIAMOND_1);
+        assertSame(PossibleTrickWinner.TEAM,GameBeloteTrickHypothesis.equipeQuiVaFairePliCouleurDominante(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliCouleurDominante11Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.DIAMOND);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_JACK);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_JACK);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.HEART_JACK);
+        addSureCard(t_,3,CardBelote.HEART_JACK);
+        addPossibleCard(t_,0,CardBelote.HEART_1);
+        addSureCard(t_,0,CardBelote.HEART_1);
+        addPossibleCard(t_,1,CardBelote.HEART_10);
+        addSureCard(t_,1,CardBelote.HEART_10);
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameBeloteTrickHypothesis.equipeQuiVaFairePliCouleurDominante(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliCouleurDominante12Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.DIAMOND);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_JACK);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_JACK);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.HEART_JACK);
+        addSureCard(t_,3,CardBelote.HEART_JACK);
+        addPossibleCard(t_,0,CardBelote.HEART_10);
+        addSureCard(t_,0,CardBelote.HEART_10);
+        addPossibleCard(t_,1,CardBelote.HEART_1);
+        addSureCard(t_,1,CardBelote.HEART_1);
+        assertSame(PossibleTrickWinner.TEAM,GameBeloteTrickHypothesis.equipeQuiVaFairePliCouleurDominante(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliCouleurDominante13Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.DIAMOND);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_JACK);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_JACK);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.HEART_JACK);
+        addSureCard(t_,3,CardBelote.HEART_JACK);
+        addPossibleCard(t_,0,CardBelote.DIAMOND_10);
+        addSureCard(t_,0,CardBelote.DIAMOND_10);
+        addPossibleCard(t_,1,CardBelote.HEART_KING);
+        addSureCard(t_,1,CardBelote.HEART_KING);
+        assertSame(PossibleTrickWinner.FOE_TEAM,GameBeloteTrickHypothesis.equipeQuiVaFairePliCouleurDominante(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliCouleurDominante14Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.DIAMOND);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_KING);
+        hand_.ajouter(CardBelote.HEART_1);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.HEART_KING);
+        playable_.ajouter(CardBelote.HEART_1);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.HEART_QUEEN);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.HEART_KING);
+        addSureCard(t_,3,CardBelote.HEART_KING);
+        addPossibleCard(t_,3,CardBelote.HEART_1);
+        addSureCard(t_,3,CardBelote.HEART_1);
+        addPossibleCard(t_,0,CardBelote.HEART_10);
+        addPossibleCard(t_,1,CardBelote.HEART_10);
+        assertSame(PossibleTrickWinner.UNKNOWN,GameBeloteTrickHypothesis.equipeQuiVaFairePliCouleurDominante(t_));
+    }
+    @Test
+    public void equipeQuiVaFairePliCouleurDominante15Test() {
+        RulesBelote r_ = new RulesBelote();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.DIAMOND);
+        bid_.setEnchere(BidBelote.SUIT);
+        HandBelote hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.DIAMOND_JACK);
+        HandBelote playable_ = new HandBelote();
+        playable_.ajouter(CardBelote.DIAMOND_JACK);
+        TrickBelote current_ = new TrickBelote((byte)2);
+        current_.ajouter(CardBelote.DIAMOND_QUEEN);
+        HandBelote played_ = new HandBelote();
+        BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
+        addPossibleCard(t_,3,CardBelote.DIAMOND_JACK);
+        addSureCard(t_,3,CardBelote.DIAMOND_JACK);
+        addPossibleCard(t_,0,CardBelote.DIAMOND_10);
+        addPossibleCard(t_,1,CardBelote.DIAMOND_10);
+        assertSame(PossibleTrickWinner.UNKNOWN,GameBeloteTrickHypothesis.equipeQuiVaFairePliCouleurDominante(t_));
+    }
     static PossibleTrickWinner getPossibleTrickWinnerNoCurrentTrump(BeloteInfoPliEnCours _t) {
         TrickBelote cur_ = _t.getProgressingTrick();
         byte nbPlayers_ = _t.getNbPlayers();

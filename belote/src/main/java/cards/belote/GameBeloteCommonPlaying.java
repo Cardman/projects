@@ -573,7 +573,7 @@ public final class GameBeloteCommonPlaying {
         return GameBeloteCommon.hand(_cartesPossibles,_couleur,_joueur).estVide();
     }
     /**Retourne vrai si et seulement si le joueur ne peut pas fournir la couleur donnee et peut couper avec un atout*/
-    private static boolean peutCouper(Suit _couleur, byte _numero, EnumMap<Suit, EqList<HandBelote>> _cartesPossibles, Suit _couleurAtout) {
+    static boolean peutCouper(Suit _couleur, byte _numero, EnumMap<Suit, EqList<HandBelote>> _cartesPossibles, Suit _couleurAtout) {
         return GameBeloteCommon.hand(_cartesPossibles,_couleur,_numero).estVide()&&!GameBeloteCommon.hand(_cartesPossibles,_couleurAtout,_numero).estVide();
     }
 

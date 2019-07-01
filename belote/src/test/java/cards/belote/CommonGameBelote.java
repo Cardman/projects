@@ -88,7 +88,7 @@ public abstract class CommonGameBelote {
         return g_;
     }
 
-    protected static GameBeloteProgTrick newGameBeloteProgTrickClassic(GameBelote _g, GameBeloteTrickInfo _done, GameBeloteTeamsRelation _teamsRelation,
+    protected static GameBeloteProgTrick newGameBeloteProgTrick(GameBelote _g, GameBeloteTrickInfo _done, GameBeloteTeamsRelation _teamsRelation,
                                                                        HandBelote _currentHand) {
         check(_g,_currentHand);
         return new GameBeloteProgTrick(_done,_teamsRelation,_currentHand);
