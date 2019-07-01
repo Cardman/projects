@@ -264,10 +264,9 @@ public final class GameBeloteTrickInfo {
                     //Les joueurs se defaussant sur atout ou couleur demandee ne peuvent pas avoir de l'atout
                     h_.supprimerCartes();
                 }
-            } else {
-                if(neFournitPas(_couleurAtout, j, tricks)) {
-                    h_.supprimerCartes();
-                }
+            }
+            if(neFournitPas(_couleurAtout, j, tricks)) {
+                h_.supprimerCartes();
             }
         }
         if(bid.getCouleurDominante()) {
@@ -460,6 +459,16 @@ public final class GameBeloteTrickInfo {
                 m.get(joueur_).supprimerCartes(cartesExclues_);
             }
 
+        }
+        Suit couleurDemandee_ = progressingTrick.couleurDemandee();
+        if (couleurDemandee_ == _couleurAtout) {
+            for (CardBelote c: progressingTrick) {
+                Suit couleurJoueur_ = c.couleur();
+                if (couleurJoueur_ != _couleurAtout) {
+                    byte p_ = progressingTrick.joueurAyantJoue(c, nbPlayers);
+                    m.get(p_).supprimerCartes();
+                }
+            }
         }
         for(DeclareHandBelote a:declares) {
             HandBelote mainCouleur_ = a.getMain().couleurs(bid).getVal(_couleurAtout);
