@@ -107,8 +107,8 @@ public abstract class CommonGameBelote {
         }
         return -1;
     }
-    protected static GameBeloteBeginTrick newGameBeloteBeginTrickClassic(GameBelote _g, GameBeloteTrickInfo _done, GameBeloteTeamsRelation _teamsRelation,
-                                                                         HandBelote _currentHand) {
+    protected static GameBeloteBeginTrick newGameBeloteBeginTrick(GameBelote _g, GameBeloteTrickInfo _done, GameBeloteTeamsRelation _teamsRelation,
+                                                                  HandBelote _currentHand) {
         check(_g,_currentHand);
         return new GameBeloteBeginTrick(_done,_teamsRelation,_currentHand);
     }

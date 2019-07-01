@@ -1142,6 +1142,262 @@ public final class GameBeloteProgTrickUtilTest extends CommonGameBelote {
         EnumList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(bid_, seqs_, rp_, poss_, (byte) 0);
         assertSame(CardBelote.CLUB_7, gt_.defausseAtoutSurPartenaireCouleurDominante(rp_,hr_,lead_,suits_));
     }
+    @Test
+    public void discardFoe1Test() {
+        RulesBelote r_ = new RulesBelote();
+        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        bids_.add(bid_);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.DIAMOND_1);
+        h_.ajouter(CardBelote.SPADE_1);
+        h_.ajouter(CardBelote.CLUB_7);
+        HandBelote last_ = new HandBelote();
+        last_.ajouter(CardBelote.HEART_JACK);
+        GameBelote g_ = newGameBelote(r_, new CustList<TrickBelote>(), new TrickBelote((byte)2), 1, bids_, last_);
+        GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
+        GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
+        GameBeloteProgTrick gt_ = new GameBeloteProgTrick(info_,team_,h_);
+        HandBelote p_ = new HandBelote();
+        p_.ajouterCartes(HandBelote.couleurComplete(Suit.CLUB,Order.SUIT));
+        p_.removeCardIfPresent(CardBelote.CLUB_7);
+        EnumMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
+        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(bid_);
+        assertSame(CardBelote.CLUB_7, gt_.discardFoe(rp_,hr_));
+    }
+    @Test
+    public void discardFoe2Test() {
+        RulesBelote r_ = new RulesBelote();
+        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        bids_.add(bid_);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.DIAMOND_1);
+        h_.ajouter(CardBelote.SPADE_1);
+        h_.ajouter(CardBelote.CLUB_JACK);
+        HandBelote last_ = new HandBelote();
+        last_.ajouter(CardBelote.HEART_JACK);
+        GameBelote g_ = newGameBelote(r_, new CustList<TrickBelote>(), new TrickBelote((byte)2), 1, bids_, last_);
+        GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
+        GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
+        GameBeloteProgTrick gt_ = new GameBeloteProgTrick(info_,team_,h_);
+        HandBelote p_ = new HandBelote();
+        p_.ajouterCartes(HandBelote.couleurComplete(Suit.CLUB,Order.SUIT));
+        p_.removeCardIfPresent(CardBelote.CLUB_7);
+        EnumMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
+        EnumMap<Suit, HandBelote> hr_ = h_.couleurs(bid_);
+        assertSame(CardBelote.CLUB_JACK, gt_.discardFoe(rp_,hr_));
+    }
+    @Test
+    public void sauveQuiPeutFigure1Test() {
+        RulesBelote r_ = new RulesBelote();
+        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        bids_.add(bid_);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.DIAMOND_1);
+        h_.ajouter(CardBelote.DIAMOND_KING);
+        h_.ajouter(CardBelote.DIAMOND_JACK);
+        HandBelote last_ = new HandBelote();
+        last_.ajouter(CardBelote.HEART_JACK);
+        GameBelote g_ = newGameBelote(r_, new CustList<TrickBelote>(), new TrickBelote((byte)2), 1, bids_, last_);
+        GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
+        GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
+        GameBeloteProgTrick gt_ = new GameBeloteProgTrick(info_,team_,h_);
+        HandBelote p_ = new HandBelote();
+        EnumMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
+        EqList<HandBelote> seq_ = h_.eclater(rp_, bid_);
+        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4);
+        EnumMap<Suit, EqList<HandBelote>> sure_ = generate(4);
+        Bytes notPlayed_ = new Bytes();
+        notPlayed_.add((byte) 1);
+        Suit dem_ = Suit.DIAMOND;
+        EqList<HandBelote> rel_ = gt_.cartesRelativementMaitre(seq_, poss_, notPlayed_, dem_, Suit.DIAMOND, sure_, CardBelote.DIAMOND_QUEEN);
+        assertSame(CardBelote.DIAMOND_KING,gt_.sauveQuiPeutFigure(poss_,seq_,rel_,notPlayed_,dem_));
+    }
+    @Test
+    public void sauveQuiPeutFigure2Test() {
+        RulesBelote r_ = new RulesBelote();
+        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        bids_.add(bid_);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.DIAMOND_1);
+        h_.ajouter(CardBelote.DIAMOND_10);
+        h_.ajouter(CardBelote.DIAMOND_KING);
+        h_.ajouter(CardBelote.DIAMOND_JACK);
+        HandBelote last_ = new HandBelote();
+        last_.ajouter(CardBelote.HEART_JACK);
+        GameBelote g_ = newGameBelote(r_, new CustList<TrickBelote>(), new TrickBelote((byte)2), 1, bids_, last_);
+        GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
+        GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
+        GameBeloteProgTrick gt_ = new GameBeloteProgTrick(info_,team_,h_);
+        HandBelote p_ = new HandBelote();
+        EnumMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
+        EqList<HandBelote> seq_ = h_.eclater(rp_, bid_);
+        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4);
+        EnumMap<Suit, EqList<HandBelote>> sure_ = generate(4);
+        Bytes notPlayed_ = new Bytes();
+        notPlayed_.add((byte) 1);
+        Suit dem_ = Suit.DIAMOND;
+        EqList<HandBelote> rel_ = gt_.cartesRelativementMaitre(seq_, poss_, notPlayed_, dem_, Suit.DIAMOND, sure_, CardBelote.DIAMOND_QUEEN);
+        assertSame(CardBelote.DIAMOND_1,gt_.sauveQuiPeutFigure(poss_,seq_,rel_,notPlayed_,dem_));
+    }
+    @Test
+    public void sauveQuiPeutFigure3Test() {
+        RulesBelote r_ = new RulesBelote();
+        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        bids_.add(bid_);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.DIAMOND_10);
+        h_.ajouter(CardBelote.DIAMOND_KING);
+        h_.ajouter(CardBelote.DIAMOND_JACK);
+        HandBelote last_ = new HandBelote();
+        last_.ajouter(CardBelote.HEART_JACK);
+        GameBelote g_ = newGameBelote(r_, new CustList<TrickBelote>(), new TrickBelote((byte)2), 1, bids_, last_);
+        GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
+        GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
+        GameBeloteProgTrick gt_ = new GameBeloteProgTrick(info_,team_,h_);
+        HandBelote p_ = new HandBelote();
+        EnumMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
+        EqList<HandBelote> seq_ = h_.eclater(rp_, bid_);
+        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4);
+        EnumMap<Suit, EqList<HandBelote>> sure_ = generate(4);
+        Bytes notPlayed_ = new Bytes();
+        notPlayed_.add((byte) 1);
+        Suit dem_ = Suit.DIAMOND;
+        EqList<HandBelote> rel_ = gt_.cartesRelativementMaitre(seq_, poss_, notPlayed_, dem_, Suit.DIAMOND, sure_, CardBelote.DIAMOND_1);
+        assertSame(CardBelote.DIAMOND_JACK,gt_.sauveQuiPeutFigure(poss_,seq_,rel_,notPlayed_,dem_));
+    }
+    @Test
+    public void sauveQuiPeutFigure4Test() {
+        RulesBelote r_ = new RulesBelote();
+        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        bids_.add(bid_);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.DIAMOND_10);
+        h_.ajouter(CardBelote.DIAMOND_KING);
+        h_.ajouter(CardBelote.DIAMOND_QUEEN);
+        HandBelote last_ = new HandBelote();
+        last_.ajouter(CardBelote.HEART_JACK);
+        GameBelote g_ = newGameBelote(r_, new CustList<TrickBelote>(), new TrickBelote((byte)2), 1, bids_, last_);
+        GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
+        GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
+        GameBeloteProgTrick gt_ = new GameBeloteProgTrick(info_,team_,h_);
+        HandBelote p_ = new HandBelote();
+        EnumMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
+        EqList<HandBelote> seq_ = h_.eclater(rp_, bid_);
+        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4);
+        EnumMap<Suit, EqList<HandBelote>> sure_ = generate(4);
+        Bytes notPlayed_ = new Bytes();
+        notPlayed_.add((byte) 1);
+        Suit dem_ = Suit.DIAMOND;
+        EqList<HandBelote> rel_ = gt_.cartesRelativementMaitre(seq_, poss_, notPlayed_, dem_, Suit.DIAMOND, sure_, CardBelote.DIAMOND_1);
+        assertSame(CardBelote.DIAMOND_10,gt_.sauveQuiPeutFigure(poss_,seq_,rel_,notPlayed_,dem_));
+    }
+    @Test
+    public void sauveQuiPeutFigure5Test() {
+        RulesBelote r_ = new RulesBelote();
+        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        bids_.add(bid_);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.DIAMOND_1);
+        h_.ajouter(CardBelote.DIAMOND_KING);
+        h_.ajouter(CardBelote.DIAMOND_JACK);
+        HandBelote last_ = new HandBelote();
+        last_.ajouter(CardBelote.HEART_JACK);
+        GameBelote g_ = newGameBelote(r_, new CustList<TrickBelote>(), new TrickBelote((byte)2), 1, bids_, last_);
+        GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
+        GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
+        GameBeloteProgTrick gt_ = new GameBeloteProgTrick(info_,team_,h_);
+        HandBelote p_ = new HandBelote();
+        EnumMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
+        EqList<HandBelote> seq_ = h_.eclater(rp_, bid_);
+        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4);
+        EnumMap<Suit, EqList<HandBelote>> sure_ = generate(4);
+        Bytes notPlayed_ = new Bytes();
+        notPlayed_.add((byte) 1);
+        addCard(poss_,1,CardBelote.DIAMOND_10,bid_);
+        Suit dem_ = Suit.DIAMOND;
+        EqList<HandBelote> rel_ = gt_.cartesRelativementMaitre(seq_, poss_, notPlayed_, dem_, Suit.DIAMOND, sure_, CardBelote.DIAMOND_QUEEN);
+        assertSame(CardBelote.DIAMOND_1,gt_.sauveQuiPeutFigure(poss_,seq_,rel_,notPlayed_,dem_));
+    }
+    @Test
+    public void sauveQuiPeutFigure6Test() {
+        RulesBelote r_ = new RulesBelote();
+        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        bids_.add(bid_);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.DIAMOND_1);
+        h_.ajouter(CardBelote.DIAMOND_KING);
+        h_.ajouter(CardBelote.DIAMOND_JACK);
+        HandBelote last_ = new HandBelote();
+        last_.ajouter(CardBelote.HEART_JACK);
+        GameBelote g_ = newGameBelote(r_, new CustList<TrickBelote>(), new TrickBelote((byte)2), 1, bids_, last_);
+        GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
+        GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
+        GameBeloteProgTrick gt_ = new GameBeloteProgTrick(info_,team_,h_);
+        HandBelote p_ = new HandBelote();
+        EnumMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
+        EqList<HandBelote> seq_ = h_.eclater(rp_, bid_);
+        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4);
+        EnumMap<Suit, EqList<HandBelote>> sure_ = generate(4);
+        Bytes notPlayed_ = new Bytes();
+        notPlayed_.add((byte) 1);
+        addCard(poss_,1,CardBelote.DIAMOND_7,bid_);
+        Suit dem_ = Suit.DIAMOND;
+        EqList<HandBelote> rel_ = gt_.cartesRelativementMaitre(seq_, poss_, notPlayed_, dem_, Suit.DIAMOND, sure_, CardBelote.DIAMOND_QUEEN);
+        assertSame(CardBelote.DIAMOND_KING,gt_.sauveQuiPeutFigure(poss_,seq_,rel_,notPlayed_,dem_));
+    }
+    @Test
+    public void sauveQuiPeutFigure7Test() {
+        RulesBelote r_ = new RulesBelote();
+        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setEnchere(BidBelote.SUIT);
+        bids_.add(bid_);
+        HandBelote h_ = new HandBelote();
+        h_.ajouter(CardBelote.DIAMOND_KING);
+        h_.ajouter(CardBelote.DIAMOND_QUEEN);
+        HandBelote last_ = new HandBelote();
+        last_.ajouter(CardBelote.HEART_JACK);
+        GameBelote g_ = newGameBelote(r_, new CustList<TrickBelote>(), new TrickBelote((byte)2), 1, bids_, last_);
+        GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
+        GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
+        GameBeloteProgTrick gt_ = new GameBeloteProgTrick(info_,team_,h_);
+        HandBelote p_ = new HandBelote();
+        EnumMap<Suit, HandBelote> rp_ = p_.couleurs(bid_);
+        EqList<HandBelote> seq_ = h_.eclater(rp_, bid_);
+        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4);
+        EnumMap<Suit, EqList<HandBelote>> sure_ = generate(4);
+        Bytes notPlayed_ = new Bytes();
+        notPlayed_.add((byte) 1);
+        addCard(poss_,1,CardBelote.DIAMOND_1,bid_);
+        Suit dem_ = Suit.DIAMOND;
+        EqList<HandBelote> rel_ = gt_.cartesRelativementMaitre(seq_, poss_, notPlayed_, dem_, Suit.DIAMOND, sure_, CardBelote.DIAMOND_10);
+        assertSame(CardBelote.DIAMOND_QUEEN,gt_.sauveQuiPeutFigure(poss_,seq_,rel_,notPlayed_,dem_));
+    }
     private static void addCard(EnumMap<Suit, EqList<HandBelote>> _poss, int _p, CardBelote _c, BidBeloteSuit _bid) {
         HandBelote h_ = _poss.getVal(_c.couleur()).get(_p);
         if (h_.contient(_c)) {
