@@ -404,7 +404,7 @@ public final class GameBeloteProgTrick {
         return defausseCouleurDemandeeSurPartenaireCouleurDominante(repartitionCartesJouees_, repartition_, cartesMaitresses_, couleurDemandee_, couleursStrictementMaitresses_);
     }
 
-    private CardBelote fournirAtoutCouleurDominante(BeloteInfoPliEnCours _info) {
+    CardBelote fournirAtoutCouleurDominante(BeloteInfoPliEnCours _info) {
         PossibleTrickWinner ramasseurCertain_=GameBeloteTrickHypothesis.equipeQuiVaFairePliCouleurDominante(_info);
         //entame atout
         if(ramasseurCertain_==PossibleTrickWinner.FOE_TEAM) {
@@ -444,35 +444,22 @@ public final class GameBeloteProgTrick {
         return GameBeloteCommon.hand(repartitionJouables_,couleurDemandee_).derniereCarte();
     }
 
-    private CardBelote defausseCouleurOrdinaireCouleurDominante(BeloteInfoPliEnCours _info) {
-        byte nombreJoueurs_=teamsRelation.getNombreDeJoueurs();
+    CardBelote defausseCouleurOrdinaireCouleurDominante(BeloteInfoPliEnCours _info) {
         EnumMap<Suit,HandBelote> repartition_=currentHand.couleurs(bid);
         EnumMap<Suit,HandBelote> repartitionCartesJouees_=_info.getRepartitionCartesJouees();
-        CustList<TrickBelote> plisFaits_=_info.getPlisFaits();
-        EnumMap<Suit,EqList<HandBelote>> cartesPossibles_=_info.getCartesPossibles();
         EnumMap<Suit,HandBelote> cartesMaitresses_=_info.getCartesMaitresses();
         EnumList<Suit> couleursStrictementMaitresses_=_info.getStrictCouleursMaitresses();
-        Bytes partenaire_ = _info.getJoueursConfiance();
-        Bytes adversaire_ = _info.getJoueursNonConfiance();
-        Bytes joueursNonJoue_=_info.getJoueursNonJoue();
-        Bytes adversaireNonJoue_ = GameBeloteTeamsRelation.intersectionJoueurs(adversaire_,joueursNonJoue_);
-        byte ramasseurVirtuel_=_info.getRamasseurVirtuel();
-        CardBelote carteForte_=progressingTrick.carteDuJoueur(ramasseurVirtuel_,nombreJoueurs_);
         Suit couleurDemandee_=progressingTrick.couleurDemandee();
-        CustList<TrickBelote> tours_=GameBeloteCommonPlaying.tours(couleurDemandee_, plisFaits_);
-        if(adversaireNonJoue_.isEmpty()) {
-            if(partenaire_.containsObj(ramasseurVirtuel_)) {
-                return defausseCouleurDemandeeSurPartenaireCouleurDominante(repartitionCartesJouees_, repartition_, cartesMaitresses_, couleurDemandee_, couleursStrictementMaitresses_);
-            }
+        PossibleTrickWinner ramasseurCertain_=GameBeloteTrickHypothesis.equipeQuiVaFairePliCouleurDominante(_info);
+        if(ramasseurCertain_==PossibleTrickWinner.FOE_TEAM) {
+            return discardFoe(repartitionCartesJouees_, repartition_);
         }
-        if(tours_.isEmpty()) {
-            if(partenaire_.containsObj(ramasseurVirtuel_)&&leadingPartner(couleurDemandee_,carteForte_, cartesPossibles_,adversaireNonJoue_)) {
-                return defausseCouleurDemandeeSurPartenaireCouleurDominante(repartitionCartesJouees_, repartition_, cartesMaitresses_, couleurDemandee_, couleursStrictementMaitresses_);
-            }
+        if(ramasseurCertain_==PossibleTrickWinner.TEAM) {
+            return defausseCouleurDemandeeSurPartenaireCouleurDominante(repartitionCartesJouees_, repartition_, cartesMaitresses_, couleurDemandee_, couleursStrictementMaitresses_);
         }
         return discardFoe(repartitionCartesJouees_, repartition_);
     }
-    private CardBelote defausseAtoutCouleurDominante(BeloteInfoPliEnCours _info) {
+    CardBelote defausseAtoutCouleurDominante(BeloteInfoPliEnCours _info) {
         EnumMap<Suit,HandBelote> repartition_=currentHand.couleurs(bid);
         EnumMap<Suit,HandBelote> repartitionCartesJouees_=_info.getRepartitionCartesJouees();
         EnumMap<Suit,HandBelote> cartesMaitresses_=_info.getCartesMaitresses();
@@ -598,22 +585,12 @@ public final class GameBeloteProgTrick {
         }
         return CardBelote.WHITE;
     }
-    private CardBelote defausseCouleurOrdinaireSansAtout(BeloteInfoPliEnCours _info) {
-        byte nombreJoueurs_=teamsRelation.getNombreDeJoueurs();
+    CardBelote defausseCouleurOrdinaireSansAtout(BeloteInfoPliEnCours _info) {
         EnumMap<Suit,HandBelote> repartition_=currentHand.couleurs(bid);
         EnumMap<Suit,HandBelote> repartitionCartesJouees_=_info.getRepartitionCartesJouees();
-        CustList<TrickBelote> plisFaits_=_info.getPlisFaits();
-        EnumMap<Suit,EqList<HandBelote>> cartesPossibles_=_info.getCartesPossibles();
 
         EnumMap<Suit,HandBelote> cartesMaitresses_=_info.getCartesMaitresses();
         EnumList<Suit> couleursStrictementMaitresses_=_info.getStrictCouleursMaitresses();
-        Bytes partenaire_ = _info.getJoueursConfiance();
-        Bytes adversaire_ = _info.getJoueursNonConfiance();
-        Bytes joueursNonJoue_=_info.getJoueursNonJoue();
-        Bytes adversaireNonJoue_ = GameBeloteTeamsRelation.intersectionJoueurs(adversaire_,joueursNonJoue_);
-        byte ramasseurVirtuel_=_info.getRamasseurVirtuel();
-        CardBelote carteForte_=progressingTrick.carteDuJoueur(ramasseurVirtuel_,nombreJoueurs_);
-        Suit couleurDemandee_=progressingTrick.couleurDemandee();
         PossibleTrickWinner ramasseurCertain_=GameBeloteTrickHypothesis.equipeQuiVaFairePliSansAtout(_info);
         if(ramasseurCertain_==PossibleTrickWinner.FOE_TEAM) {
             /*Maintenant le joueur se defausse*/
@@ -622,21 +599,9 @@ public final class GameBeloteProgTrick {
         if(ramasseurCertain_==PossibleTrickWinner.TEAM) {
             return defausseCouleurDemandeeSurPartenaireCouleursEgales(repartitionCartesJouees_, repartition_, cartesMaitresses_, couleursStrictementMaitresses_);
         }
-        CustList<TrickBelote> tours_=GameBeloteCommonPlaying.tours(couleurDemandee_, plisFaits_);
-        //Defausse
-        if(adversaireNonJoue_.isEmpty()) {
-            if(partenaire_.containsObj(ramasseurVirtuel_)) {
-                return defausseCouleurDemandeeSurPartenaireCouleursEgales(repartitionCartesJouees_, repartition_, cartesMaitresses_, couleursStrictementMaitresses_);
-            }
-        }
-        if(tours_.isEmpty()) {
-            if(partenaire_.containsObj(ramasseurVirtuel_)&&leadingPartner(couleurDemandee_, carteForte_, cartesPossibles_, adversaireNonJoue_)) {
-                return defausseCouleurDemandeeSurPartenaireCouleursEgales(repartitionCartesJouees_, repartition_, cartesMaitresses_, couleursStrictementMaitresses_);
-            }
-        }
         return discardFoe(repartitionCartesJouees_, repartition_);
     }
-    private CardBelote fournirAtoutToutAtout(BeloteInfoPliEnCours _info) {
+    CardBelote fournirAtoutToutAtout(BeloteInfoPliEnCours _info) {
         PossibleTrickWinner ramasseurCertain_=GameBeloteTrickHypothesis.equipeQuiVaFairePliToutAtout(_info);
         //jeu tout atout
         if(ramasseurCertain_==PossibleTrickWinner.FOE_TEAM) {
@@ -668,7 +633,7 @@ public final class GameBeloteProgTrick {
         return GameBeloteCommon.hand(repartitionJouables_,couleurDemandee_).derniereCarte();
     }
 
-    private CardBelote defausseAtoutToutAtout(BeloteInfoPliEnCours _info) {
+    CardBelote defausseAtoutToutAtout(BeloteInfoPliEnCours _info) {
         EnumMap<Suit,HandBelote> repartition_=currentHand.couleurs(bid);
         EnumMap<Suit,HandBelote> repartitionCartesJouees_=_info.getRepartitionCartesJouees();
         EnumMap<Suit,HandBelote> cartesMaitresses_=_info.getCartesMaitresses();

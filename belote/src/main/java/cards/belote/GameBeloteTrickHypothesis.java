@@ -368,10 +368,9 @@ public final class GameBeloteTrickHypothesis {
         BidBeloteSuit contrat_ = _info.getContrat();
         EnumMap<Suit,EqList<HandBelote>> cartesPossibles_ = _info.getCartesPossibles();
         EnumMap<Suit,EqList<HandBelote>> cartesCertaines_ = _info.getCartesCertaines();
-        Suit couleurAtout_=_info.getCouleurAtout();
         boolean ramasseurDeter_=false;
         for(byte joueur_:_equipeDom) {
-            if(!GameBeloteCommon.hand(cartesCertaines_,couleurAtout_,joueur_).estVide()) {
+            if(!GameBeloteCommon.hand(cartesCertaines_,_couleurDemandee,joueur_).estVide()) {
                 byte maxForce_=GameBeloteCommon.hand(cartesCertaines_,_couleurDemandee,joueur_).premiereCarte().strength(_couleurDemandee,contrat_);
                 boolean joueurBatAdversaire_ = beatFoeTrumpDemand(_equipeABattre, _couleurDemandee, contrat_, cartesPossibles_, maxForce_);
                 if (joueurBatAdversaire_) {
