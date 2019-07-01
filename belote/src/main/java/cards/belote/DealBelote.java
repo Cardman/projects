@@ -166,7 +166,6 @@ public final class DealBelote implements Iterable<HandBelote> {
         }
         main(_preneur).ajouter(talon_.jouer(CustList.FIRST_INDEX));
         //Le preneur_ prend_ la_ carte_ du_ dessus_
-        boolean dejaCommence_ = false;
         Bytes ordreDisributionJoueurs_;
         ordreDisributionJoueurs_ = _regles.getRepartition().getSortedPlayersAfter(dealer);
         for(int i: _regles.getRepartition().getDistributionFin()) {
@@ -174,11 +173,10 @@ public final class DealBelote implements Iterable<HandBelote> {
                 for (int k = CustList.SECOND_INDEX; k < i; k++) {
                     deal.get(j).ajouter(talon_.jouer(CustList.FIRST_INDEX));
                 }
-                if(j!=_preneur || dejaCommence_) {
+                if(j!=_preneur) {
                     deal.get(j).ajouter(talon_.jouer(CustList.FIRST_INDEX));
                 }
             }
-            dejaCommence_ = true;
         }
     }
     /**Renvoie la main de l'utilisateur*/

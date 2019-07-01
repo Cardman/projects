@@ -80,7 +80,7 @@ final class GameBeloteDeclaring {
         //annuler les annonces de l'equipe les plus faibles a la fin du premier tour
     }
 
-    void cancelDeclaring(Bytes _team) {
+    private void cancelDeclaring(Bytes _team) {
         for (byte p: _team) {
             declares.get(p).setAnnonce(DeclaresBelote.UNDEFINED);
         }
@@ -97,5 +97,9 @@ final class GameBeloteDeclaring {
         }
         declarationsTeam_.sortElts(_comparateur);
         return declarationsTeam_;
+    }
+
+    EqList<DeclareHandBelote> getDeclares() {
+        return declares;
     }
 }
