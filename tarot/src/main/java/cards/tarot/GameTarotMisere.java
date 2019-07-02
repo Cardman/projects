@@ -183,9 +183,6 @@ public final class GameTarotMisere {
         TarotInfoPliEnCours info_ = initInformations();
         EnumMap<Suit,HandTarot> repartitionJouables_ = playableCards.couleurs();
 
-        byte ramasseurVirtuel_ = info_.getRamasseurVirtuel();
-        byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
-        CardTarot carteForte_ = doneTrickInfo.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_, nombreDeJoueurs_);
         /*
         CarteTarot temporairement
         maitresse
@@ -210,9 +207,6 @@ public final class GameTarotMisere {
         EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = info_.getCartesPossibles();
         EnumMap<Suit,EqList<HandTarot>> cartesCertaines_ = info_.getCartesCertaines();
         Bytes joueursNonJoue_ = info_.getJoueursNonJoue();
-        byte ramasseurVirtuel_ = info_.getRamasseurVirtuel();
-        byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
-        CardTarot carteForte_ = doneTrickInfo.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_, nombreDeJoueurs_);
         /*
         CarteTarot temporairement
         maitresse

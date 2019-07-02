@@ -324,34 +324,16 @@ public final class GameTarot {
         */
             starter = (byte) ((donneur_ + 1) % nombreJoueurs_);
         }
-        int rapport_ = 75 / getDistribution().main().total();
-        setPliEnCours(true);
-        for (byte joueur_ : orderedPlayers(starter)) {
-            changerConfiance();
-            CardTarot ct_ = strategieJeuCarteUnique();
-            if (pasJeuMisere()) {
-                EnumList<Miseres> annoncesMiseres_ = strategieAnnoncesMiseres(
-                        joueur_);
-                setAnnoncesMiseres(joueur_, annoncesMiseres_);
-                EnumList<Handfuls> annoncesPoignees_ = strategieAnnoncesPoignees(
-                        joueur_);
-                setAnnoncesPoignees(joueur_, annoncesPoignees_);
-                HandTarot poignee_ = strategiePoignee(joueur_);
-                ajouterPoignee(poignee_, joueur_);
-            }
-            jouer(joueur_,ct_);
-            ajouterUneCarteDansPliEnCours(ct_);
-        }
-        while (!getDistribution().main().estVide()) {
-            ajouterPliEnCours();
+        while (true) {
             setPliEnCours(true);
             for (byte joueur_ : orderedPlayers(starter)) {
-                changerConfiance();
-                CardTarot ct_ = strategieJeuCarteUnique();
-                jouer(joueur_,ct_);
-                ajouterUneCarteDansPliEnCours(ct_);
+                currentPlayerHasPlayed(joueur_);
             }
             ajouterPetitAuBoutFinPartie();
+            if (getDistribution().main().estVide()) {
+                break;
+            }
+            ajouterPliEnCours();
         }
     }
 
@@ -1048,6 +1030,18 @@ public final class GameTarot {
     public void changerConfianceJeuCarteUnique() {
         changerConfiance();
         playedCard = strategieJeuCarteUnique();
+        if (premierTourNoMisere())  {
+            byte nombreDeJoueurs_ = getNombreDeJoueurs();
+            byte joueur_ = progressingTrick.getNextPlayer(nombreDeJoueurs_);
+            EnumList<Miseres> annoncesMiseres_ = strategieAnnoncesMiseres(
+                    joueur_);
+            setAnnoncesMiseres(joueur_, annoncesMiseres_);
+            EnumList<Handfuls> annoncesPoignees_ = strategieAnnoncesPoignees(
+                    joueur_);
+            setAnnoncesPoignees(joueur_, annoncesPoignees_);
+            HandTarot poignee_ = strategiePoignee(joueur_);
+            ajouterPoignee(poignee_, joueur_);
+        }
     }
     public void changerConfiance() {
         byte nombreDeJoueurs_ = getNombreDeJoueurs();

@@ -232,27 +232,10 @@ public final class GameBelote {
         }
         simulationWithBids = true;
         completerDonne();
-        setPliEnCours();
-        boolean passe_ = false;
         while (true) {
-            if (passe_) {
-                ajouterPliEnCours();
-                setEntameur();
-                setPliEnCours();
-            }
+            setPliEnCours();
             for (byte joueur_ : orderedPlayers(starter)) {
-                CardBelote ct_ = strategieJeuCarteUnique();
-                if (annoncerBeloteRebelote(joueur_, ct_)) {
-                    setAnnoncesBeloteRebelote(joueur_, ct_);
-                }
-                if (premierTour()) {
-                    annoncer(joueur_);
-                }
-                if (!passe_) {
-                    passe_ = true;
-                }
-                getDistribution().jouer(joueur_, ct_);
-                ajouterUneCarteDansPliEnCours(ct_);
+                currentPlayerHasPlayed(joueur_);
             }
             if (premierTour()) {
                 annulerAnnonces();
@@ -263,6 +246,7 @@ public final class GameBelote {
                 setDixDeDer(getRamasseur());
                 break;
             }
+            ajouterPliEnCours();
         }
     }
     public HandBelote mainUtilisateurTriee(DisplayingBelote _regles) {
@@ -423,15 +407,19 @@ public final class GameBelote {
             }
             if (bids.size() >= getNombreDeJoueurs()) {
                 boolean fold_ = true;
-                for (int i_ = lastBid_; i_ >= CustList.FIRST_INDEX; i_--) {
+                int i_ = lastBid_;
+                while (true) {
                     iter_++;
                     if (iter_ >= getNombreDeJoueurs()) {
                         break;
                     }
+                    //iter_ < getNombreDeJoueurs() <= bids.size() => iter_ < bids.size()
+                    //iter_ + i_ == bids.size() && iter_ <= bids.size() => i_ >= 0
                     if (bids.get(i_).jouerDonne()) {
                         fold_ = false;
                         break;
                     }
+                    i_--;
                 }
                 return !fold_;
             }
@@ -558,8 +546,13 @@ public final class GameBelote {
         if (getPliEnCours().aJoue(_player,getNombreDeJoueurs())) {
             return true;
         }
-        annoncer(_player);
         playedCard = strategieJeuCarteUnique();
+        if (annoncerBeloteRebelote(_player, playedCard)) {
+            setAnnoncesBeloteRebelote(_player, playedCard);
+        }
+        if (premierTour()) {
+            annoncer(_player);
+        }
         ajouterUneCarteDansPliEnCours(_player, getCarteJouee());
         return false;
     }

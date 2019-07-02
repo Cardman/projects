@@ -64,7 +64,7 @@ public final class AnimationCardBelote extends Thread {
             }
             ThreadUtil.sleep(delaiCarte_);
             //Le joueur reflechit pendant 0.5 s
-            container.jouerBelote(player_,pseudos_.get(player_),partie_.premierTour());
+            container.jouerBelote(player_,pseudos_.get(player_));
             container.pause();
         }
         SwingUtilities.invokeLater(new AfterAnimationCardBelote(container));

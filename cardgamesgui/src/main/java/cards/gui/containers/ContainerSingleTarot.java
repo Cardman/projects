@@ -844,12 +844,9 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         CardTarot ct_= partie_.getCarteJoueee();
         String lg_ = getOwner().getLanguageKey();
         if(partie_.premierTourNoMisere()) {
-            EnumList<Handfuls> annoncesPoignees_ = partie_.strategieAnnoncesPoignees(_joueur);
-            partie_.setAnnoncesPoignees(_joueur, annoncesPoignees_);
-            EnumList<Miseres> annoncesMiseres_ = partie_.strategieAnnoncesMiseres(_joueur);
-            partie_.setAnnoncesMiseres(_joueur, annoncesMiseres_);
-            HandTarot poignee_=partie_.strategiePoignee(_joueur);
-            partie_.ajouterPoignee(poignee_,_joueur);
+            EnumList<Handfuls> annoncesPoignees_ = partie_.getAnnoncesPoignees(_joueur);
+            EnumList<Miseres> annoncesMiseres_ = partie_.getAnnoncesMiseres(_joueur);
+            HandTarot poignee_=partie_.getPoignee(_joueur);
             for(Handfuls annonce_:annoncesPoignees_) {
                 ThreadInvoker.invokeNow(new AddTextEvents(this, StringList.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_,lg_),RETURN_LINE)));
 //                    ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+annonce_+RETURN_LINE_CHAR);

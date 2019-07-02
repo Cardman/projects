@@ -94,7 +94,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     public GameBelote partieBelote() {
         return getPar().partieBelote();
     }
-    public void jouerBelote(byte _joueur,String _pseudo,boolean _premierTour) {
+    public void jouerBelote(byte _joueur, String _pseudo) {
         GameBelote partie_=partieBelote();
         CardBelote ct_=partie_.strategieJeuCarteUnique();
         String lg_ = getOwner().getLanguageKey();
@@ -103,7 +103,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             ThreadInvoker.invokeNow(new AddTextEvents(this, StringList.concat(_pseudo,INTRODUCTION_PTS,Games.toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,lg_),RETURN_LINE)));
 //            ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+DeclaresBeloteRebelote.BELOTE_REBELOTE+RETURN_LINE_CHAR);
         }
-        if (_premierTour) {
+        if (partie_.premierTour()) {
             partie_.annoncer(_joueur);
             DeclareHandBelote usDecl_ = partie_.getAnnonce(_joueur);
             ThreadInvoker.invokeNow(new AddTextEvents(this,StringList.concat(_pseudo,INTRODUCTION_PTS,Games.toString(usDecl_.getAnnonce(),lg_),RETURN_LINE)));

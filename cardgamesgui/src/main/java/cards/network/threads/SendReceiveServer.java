@@ -1434,8 +1434,7 @@ public final class SendReceiveServer extends BasicServer {
                     }
                     CardBelote card_ = game_.getCarteJouee();
                     boolean declareBeloteRebelote_ = false;
-                    if(game_.annoncerBeloteRebelote(place_,card_)) {
-                        game_.setAnnoncesBeloteRebelote(place_,card_);
+                    if(game_.getAnnoncesBeloteRebelote(place_).contient(card_)) {
                         declareBeloteRebelote_ = true;
                     }
                     PlayingCardBelote cardDto_ = new PlayingCardBelote();
@@ -1543,12 +1542,9 @@ public final class SendReceiveServer extends BasicServer {
                     PlayingCardTarot cardDto_ = new PlayingCardTarot();
                     cardDto_.setPlace(place_);
                     cardDto_.setPlayedCard(card_);
-                    EnumList<Handfuls> annoncesPoignees_ = game_.strategieAnnoncesPoignees(place_);
-                    game_.setAnnoncesPoignees(place_, annoncesPoignees_);
-                    EnumList<Miseres> annoncesMiseres_ = game_.strategieAnnoncesMiseres(place_);
-                    game_.setAnnoncesMiseres(place_, annoncesMiseres_);
-                    HandTarot poignee_=game_.strategiePoignee(place_);
-                    game_.ajouterPoignee(poignee_,place_);
+                    EnumList<Handfuls> annoncesPoignees_ = game_.getAnnoncesPoignees(place_);
+                    EnumList<Miseres> annoncesMiseres_ = game_.getAnnoncesMiseres(place_);
+                    HandTarot poignee_=game_.getPoignee(place_);
                     if (!annoncesPoignees_.isEmpty()) {
                         cardDto_.setChoosenHandful(annoncesPoignees_.first());
                     } else {
@@ -1740,8 +1736,7 @@ public final class SendReceiveServer extends BasicServer {
         }
         CardBelote card_ = game_.getCarteJouee();
         boolean declareBeloteRebelote_ = false;
-        if(game_.annoncerBeloteRebelote(place_,card_)) {
-            game_.setAnnoncesBeloteRebelote(place_,card_);
+        if(game_.getAnnoncesBeloteRebelote(place_).contient(card_)) {
             declareBeloteRebelote_ = true;
         }
         PlayingCardBelote cardDto_ = new PlayingCardBelote();
@@ -1820,25 +1815,16 @@ public final class SendReceiveServer extends BasicServer {
         cardDto_.setPlace(place_);
         cardDto_.setPlayedCard(card_);
         cardDto_.setLocale(Constants.getDefaultLanguage());
-        if (game_.premierTourNoMisere()) {
-            EnumList<Handfuls> annoncesPoignees_ = game_.strategieAnnoncesPoignees(place_);
-            game_.setAnnoncesPoignees(place_, annoncesPoignees_);
-            EnumList<Miseres> annoncesMiseres_ = game_.strategieAnnoncesMiseres(place_);
-            game_.setAnnoncesMiseres(place_, annoncesMiseres_);
-            HandTarot poignee_=game_.strategiePoignee(place_);
-            game_.ajouterPoignee(poignee_,place_);
-            if (!annoncesPoignees_.isEmpty()) {
-                cardDto_.setChoosenHandful(annoncesPoignees_.first());
-            } else {
-                cardDto_.setChoosenHandful(Handfuls.NO);
-            }
-            cardDto_.setHandful(poignee_);
-            cardDto_.setMiseres(annoncesMiseres_);
+        EnumList<Handfuls> annoncesPoignees_ = game_.getAnnoncesPoignees(place_);
+        EnumList<Miseres> annoncesMiseres_ = game_.getAnnoncesMiseres(place_);
+        HandTarot poignee_=game_.getPoignee(place_);
+        if (!annoncesPoignees_.isEmpty()) {
+            cardDto_.setChoosenHandful(annoncesPoignees_.first());
         } else {
             cardDto_.setChoosenHandful(Handfuls.NO);
-            cardDto_.setMiseres(new EnumList<Miseres>());
-            cardDto_.setHandful(game_.getPoignee(place_));
         }
+        cardDto_.setHandful(poignee_);
+        cardDto_.setMiseres(annoncesMiseres_);
         cardDto_.setExcludedTrumps(new HandTarot());
         Net.initAllReceived();
         for (byte p: Net.activePlayers()) {
