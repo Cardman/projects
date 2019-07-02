@@ -41,74 +41,71 @@ public final class GameTarotMisere {
     private CardTarot entameMiserePetite() {
         TarotInfoPliEnCours info_ = initInformations();
         EnumMap<Suit,HandTarot> repartition_ = currentHand.couleurs();
-        HandTarot cartesJouees_ = info_.getCartesJouees();
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = info_.getRepartitionCartesJouees();
         EnumMap<Suit,EqList<HandTarot>> suites_ = info_.getSuitesTouteCouleur();
-        EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = info_.getCartesPossibles();
-        EnumMap<Suit,EqList<HandTarot>> cartesCertaines_ = info_.getCartesCertaines();
-        HandTarot atoutsMaitres_ = repartition_.getVal(Suit.TRUMP)
+        HandTarot atouts_ = repartition_.getVal(Suit.TRUMP);
+        HandTarot atoutsMaitres_ = atouts_
                 .atoutsMaitres(repartitionCartesJouees_);
 
-        HandTarot atouts_ = repartition_.getVal(Suit.TRUMP);
-        if (repartition_.getVal(Suit.TRUMP).contient(CardTarot.petit())) {
+        if (atouts_.contient(CardTarot.petit())) {
             return CardTarot.petit();
         }
         if (atouts_.total() + repartition_.getVal(CardTarot.excuse().couleur()).total() == currentHand
                 .total()) {
-            if (atoutsMaitres_.estVide()) {
-                return suites_.getVal(Suit.TRUMP).first().derniereCarte();
-            }
-            return repartition_.getVal(Suit.TRUMP).derniereCarte();
+            return discardTrump(suites_, atouts_, atoutsMaitres_);
         }
         if (atouts_.total() == 1 && atoutsMaitres_.estVide()) {
-            return repartition_.getVal(Suit.TRUMP).premiereCarte();
+            return atouts_.premiereCarte();
         }
-        boolean coupeSure_ = false;
-        Bytes joueursNonJoue_ = info_.getJoueursNonJoue();
+        return tryDiscard(info_);
+    }
+
+    CardTarot tryDiscard(TarotInfoPliEnCours _info) {
+        EnumMap<Suit,HandTarot> repartition_ = currentHand.couleurs();
+        HandTarot cartesJouees_ = _info.getCartesJouees();
+        EnumMap<Suit,HandTarot> repartitionCartesJouees_ = _info.getRepartitionCartesJouees();
+        EnumMap<Suit,EqList<HandTarot>> suites_ = _info.getSuitesTouteCouleur();
+        EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
+        EnumMap<Suit,EqList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
+        HandTarot atouts_ = repartition_.getVal(Suit.TRUMP);
+        HandTarot atoutsMaitres_ = atouts_
+                .atoutsMaitres(repartitionCartesJouees_);
+
+        Bytes joueursNonJoue_ = _info.getJoueursNonJoue();
+        EnumList<Suit> suits_  = new EnumList<Suit>();
         for (Suit couleur_ : Suit.couleursOrdinaires()) {
             for (byte joueur_ : joueursNonJoue_) {
                 if (GameTarotTrickHypothesis.vaCouper(couleur_, joueur_, cartesPossibles_, cartesCertaines_)) {
-                    coupeSure_ = true;
+                    suits_.add(couleur_);
                 }
             }
         }
-        EnumList<Suit> couleurs_ = new EnumList<Suit>();
-        if (coupeSure_) {
-            for (Suit couleur_ : Suit.couleursOrdinaires()) {
-                if (!repartition_.getVal(couleur_).estVide()
-                        && repartition_.getVal(couleur_).premiereCarte()
-                        .isCharacter()) {
-                    couleurs_.add(couleur_);
-                }
-            }
+        suits_.removeDuplicates();
+        if (!suits_.isEmpty()) {
+            EnumList<Suit> couleurs_ = GameTarotCommon.couleursAvecFigures(currentHand,suits_);
             if (!couleurs_.isEmpty()) {
                 return depouilleFigure(couleurs_, repartition_,
                         repartitionCartesJouees_);
             }
-            for (Suit couleur_ : Suit.couleursOrdinaires()) {
-                if (!repartition_.getVal(couleur_).estVide()) {
-                    couleurs_.add(couleur_);
-                }
-            }
+            couleurs_ = GameTarotCommon.couleursNonAtoutNonVides(currentHand,suits_);
             return depouillePetiteCarte(couleurs_, repartition_,
                     repartitionCartesJouees_);
         }
-        for (Suit couleur_ : Suit.couleursOrdinaires()) {
-            if (!repartition_.getVal(couleur_).estVide()) {
-                couleurs_.add(couleur_);
-            }
+        if (!atouts_.estVide()) {
+            return discardTrump(suites_, atouts_, atoutsMaitres_);
         }
-        if (!couleurs_.isEmpty() && !repartition_.getVal(Suit.TRUMP).estVide()) {
-            if (atoutsMaitres_.estVide()) {
-                return suites_.getVal(Suit.TRUMP).first().derniereCarte();
-            }
-            return repartition_.getVal(Suit.TRUMP).derniereCarte();
-        }
+        EnumList<Suit> couleurs_ = GameTarotCommon.couleursNonAtoutNonVides(currentHand,Suit.couleursOrdinaires());
         couleurs_ = GameTarotCommon.couleursLesPlusCourtes(currentHand, couleurs_);
         couleurs_ = GameTarotCommon.couleursAvecLePlusPetitNbFigures(currentHand, couleurs_);
         couleurs_ = GameTarotCommon.couleursLesPlusBasses(currentHand, couleurs_);
         couleurs_ = GameTarotCommon.couleursAvecLePlusGrandNbFigures(cartesJouees_, couleurs_);
         return repartition_.getVal(couleurs_.first()).derniereCarte();
+    }
+    private static CardTarot discardTrump(EnumMap<Suit, EqList<HandTarot>> _suites, HandTarot _atouts, HandTarot _atoutsMaitres) {
+        if (_atoutsMaitres.estVide()) {
+            return _suites.getVal(Suit.TRUMP).first().derniereCarte();
+        }
+        return _atouts.derniereCarte();
     }
 
 
@@ -170,12 +167,14 @@ public final class GameTarotMisere {
         if (ramasseurCertain_ == PossibleTrickWinner.FOE_TEAM) {
             return repartitionCouleDem_.premiereCarte();
         }
-        if (repartitionCouleDem_.derniereCarte().strength(couleurDemandee_)< carteForte_
-                .strength(couleurDemandee_)) {
-            return carteInfVirt(suites_, carteForte_,couleurDemandee_);
-        }
-        if (!repartitionCouleDem_.derniereCarte().isCharacter()) {
-            return carteInfFigure(suites_);
+        int i_ = 0;
+        int c_ = repartitionCouleDem_.total();
+        while (i_ < c_) {
+            CardTarot card_ = repartitionCouleDem_.carte(i_);
+            if (card_.strength(couleurDemandee_) < carteForte_.strength(couleurDemandee_)) {
+                return card_;
+            }
+            i_++;
         }
         return suites_.last().derniereCarte();
     }
@@ -200,7 +199,6 @@ public final class GameTarotMisere {
     }
     private CardTarot coupeMisere() {
         TarotInfoPliEnCours info_ = initInformations();
-        CustList<TrickTarot> plisFaits_ = info_.getPlisFaits();
         EnumMap<Suit,HandTarot> repartitionJouables_ = playableCards.couleurs();
         HandTarot trumps_ = repartitionJouables_.getVal(Suit.TRUMP);
         Suit couleurDemandee_ = doneTrickInfo.getProgressingTrick().couleurDemandee();
@@ -230,38 +228,6 @@ public final class GameTarotMisere {
                 && trumps_.contient(CardTarot.petit())) {
             return CardTarot.petit();
         }
-        if (GameTarotCommonPlaying.tours(couleurDemandee_, plisFaits_).isEmpty()) {
-            return trumps_.premiereCarte();
-        }
-        surcoupeSure_ = false;
-        byte valeur_ = 0;
-        for (byte joueur_ : joueursNonJoue_) {
-            if (GameTarotTrickHypothesis.vaCouper(couleurDemandee_, joueur_, cartesPossibles_, cartesCertaines_)) {
-                surcoupeSure_ = true;
-            }
-            if (surcoupeSure_
-                    && cartesCertaines_.getVal(Suit.TRUMP).get(joueur_).premiereCarte()
-                    .strength(couleurDemandee_)> valeur_) {
-                valeur_ = cartesCertaines_.getVal(Suit.TRUMP).get(joueur_)
-                        .premiereCarte().strength(couleurDemandee_);
-            }
-        }
-        if (surcoupeSure_) {
-            if (trumps_.derniereCarte().strength(couleurDemandee_)< valeur_) {
-                byte carteAJouer_ = CustList.INDEX_NOT_FOUND_ELT;
-                byte lastIndex_ = (byte) (trumps_.total() - 1);
-                for (byte indiceCarte_ = lastIndex_; indiceCarte_ >= CustList.FIRST_INDEX; indiceCarte_--) {
-                    if (trumps_.carte(indiceCarte_)
-                            .strength(couleurDemandee_)< valeur_) {
-                        carteAJouer_++;
-                    } else {
-                        break;
-                    }
-                }
-                return trumps_.carte(carteAJouer_);
-            }
-            return trumps_.derniereCarte();
-        }
         return trumps_.premiereCarte();
     }
     private CardTarot defausseMisere() {
@@ -274,7 +240,7 @@ public final class GameTarotMisere {
         EnumList<Suit> couleurs_ = GameTarotCommon.couleursNonAtoutNonVides(currentHand, Suit.couleursOrdinaires());
         boolean contFigureTtClr_ = true;
         for (Suit couleur_ : couleurs_) {
-            if (!(repartition_.getVal(couleur_).premiereCarte().isCharacter())) {
+            if (!repartition_.getVal(couleur_).premiereCarte().isCharacter()) {
                 contFigureTtClr_ = false;
             }
         }
@@ -284,9 +250,6 @@ public final class GameTarotMisere {
         }
         contFigureTtClr_ = true;
         for (Suit couleur_ :  Suit.couleursOrdinaires()) {
-            if (!repartition_.getVal(couleur_).estVide() && repartitionCartesJouees_.getVal(couleur_).total() >= HandTarot.couleurComplete(couleur_).total()) {
-                contFigureTtClr_ = false;
-            }
             if (repartition_.getVal(couleur_).estVide() && repartitionCartesJouees_.getVal(couleur_).total() < HandTarot.couleurComplete(couleur_).total()) {
                 contFigureTtClr_ = false;
             }
@@ -334,35 +297,6 @@ public final class GameTarotMisere {
         couleurs_ = GameTarotCommon.couleursLesPlusHautes(HandTarot.reunion(_repartition), couleurs_);
         couleurs_ = GameTarotCommon.couleursAvecLePlusPetitNbFigures(HandTarot.reunion(_repartitionCartesJouees), couleurs_);
         return _repartition.getVal(couleurs_.first()).derniereCarte();
-    }
-
-    private static CardTarot carteInfFigure(EqList<HandTarot> _suites) {
-        byte indiceSuiteJoue_ = (byte) _suites.size();
-        byte lastIndex_ = (byte) _suites.getLastIndex();
-        for (byte indiceSuite_ = lastIndex_; indiceSuite_ >= CustList.FIRST_INDEX; indiceSuite_--) {
-            if (!_suites.get(indiceSuite_).premiereCarte().isCharacter()) {
-                indiceSuiteJoue_--;
-            } else {
-                break;
-            }
-        }
-        return _suites.get(indiceSuiteJoue_).premiereCarte();
-    }
-
-    private static CardTarot carteInfVirt(EqList<HandTarot> _suites,
-                                          CardTarot _carteVirtuelle,
-                                          Suit _couleurDemandee) {
-        byte indiceSuiteJoue_ = (byte) _suites.size();
-        byte lastIndex_ = (byte) _suites.getLastIndex();
-        for (byte indiceSuite_ = lastIndex_; indiceSuite_ >= CustList.FIRST_INDEX; indiceSuite_--) {
-            if (_suites.get(indiceSuite_).premiereCarte().strength(_couleurDemandee) < _carteVirtuelle
-                    .strength(_couleurDemandee)) {
-                indiceSuiteJoue_--;
-            } else {
-                break;
-            }
-        }
-        return _suites.get(indiceSuiteJoue_).premiereCarte();
     }
 
 

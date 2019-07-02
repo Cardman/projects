@@ -137,6 +137,11 @@ public abstract class CommonGameTarot {
         check(_g,_calledCards,_currentHand);
         return new GameTarotBeginTrickClassic(_done,_teamsRelation,_calledCards,_currentHand);
     }
+    protected static GameTarotMisere newGameTarotMisere(GameTarot _g, GameTarotTrickInfo _done, GameTarotTeamsRelation _teamsRelation,
+                                                        HandTarot _currentHand) {
+        check(_g,_g.getCalledCards(),_currentHand);
+        return new GameTarotMisere(_done,_teamsRelation,_currentHand);
+    }
     private static void check(GameTarot _g,
                               HandTarot _calledCards, HandTarot _currentHand) {
         Ints handLengths_ = new Ints();
