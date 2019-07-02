@@ -183,16 +183,6 @@ public final class HandPresident implements Iterable<CardPresident>, Equallable<
         cards.remove(_index);
     }
 
-    public void supprimerUneCarte(CardPresident _c) {
-        int s_ = cards.size();
-        for (int i = CustList.FIRST_INDEX; i < s_; i++) {
-            if (cards.get(i) == _c) {
-                cards.remove(i);
-                break;
-            }
-        }
-    }
-
     public void supprimerCartes(HandPresident _hand) {
         int s_ = cards.size();
         for (CardPresident c: _hand) {
@@ -209,11 +199,6 @@ public final class HandPresident implements Iterable<CardPresident>, Equallable<
         return cards.isEmpty();
     }
 
-    public static boolean equalsSet(HandPresident _handOne, HandPresident _handTwo) {
-        return CardPresident.equalsCards(_handOne.cards, _handTwo.cards);
-//        return CustList.equalsSet(_handOne.cards, _handTwo.cards, true);
-    }
-
     @Override
     public boolean eq(HandPresident _o) {
         if(_o.total()!=total()) {
@@ -222,7 +207,7 @@ public final class HandPresident implements Iterable<CardPresident>, Equallable<
         boolean id_=true;
         int nbCards_ = total();
         for (int i = CustList.FIRST_INDEX; i < nbCards_; i++) {
-            if (!CardPresident.eq(_o.carte(i), carte(i))) {
+            if (_o.carte(i) != carte(i)) {
                 id_ = false;
             }
         }

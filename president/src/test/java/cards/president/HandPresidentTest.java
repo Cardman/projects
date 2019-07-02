@@ -1,7 +1,11 @@
 package cards.president;
 import static cards.president.EquallablePresidentUtil.assertEq;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertSame;
 
+import cards.consts.CardChar;
+import cards.consts.Suit;
+import code.util.EnumList;
 import org.junit.Test;
 
 import cards.president.enumerations.CardPresident;
@@ -409,5 +413,56 @@ public class HandPresidentTest {
         d_.ajouter(CardPresident.CLUB_7);
         d_.ajouter(CardPresident.CLUB_2);
         assertTrue(!h_.containsCards(d_));
+    }
+    @Test
+    public void simpleTest() {
+        assertSame(CardChar.KING,CardPresident.SPADE_KING.getNomFigure());
+        assertEq(0,CardPresident.SPADE_KING.valeur());
+        assertTrue(!CardPresident.SPADE_KING.getImageFileName("").isEmpty());
+    }
+    @Test
+    public void vientAvant1Test() {
+        EnumList<Suit> suits_ = new EnumList<Suit>();
+        suits_.add(Suit.SPADE);
+        suits_.add(Suit.HEART);
+        suits_.add(Suit.CLUB);
+        suits_.add(Suit.DIAMOND);
+        assertTrue(CardPresident.SPADE_KING.vientAvant(CardPresident.HEART_KING,false,suits_));
+    }
+    @Test
+    public void vientAvant2Test() {
+        EnumList<Suit> suits_ = new EnumList<Suit>();
+        suits_.add(Suit.SPADE);
+        suits_.add(Suit.HEART);
+        suits_.add(Suit.CLUB);
+        suits_.add(Suit.DIAMOND);
+        assertTrue(CardPresident.SPADE_QUEEN.vientAvant(CardPresident.SPADE_KING,false,suits_));
+    }
+    @Test
+    public void vientAvant3Test() {
+        EnumList<Suit> suits_ = new EnumList<Suit>();
+        suits_.add(Suit.SPADE);
+        suits_.add(Suit.HEART);
+        suits_.add(Suit.CLUB);
+        suits_.add(Suit.DIAMOND);
+        assertTrue(CardPresident.SPADE_KING.vientAvant(CardPresident.HEART_KING,true,suits_));
+    }
+    @Test
+    public void vientAvant4Test() {
+        EnumList<Suit> suits_ = new EnumList<Suit>();
+        suits_.add(Suit.SPADE);
+        suits_.add(Suit.HEART);
+        suits_.add(Suit.CLUB);
+        suits_.add(Suit.DIAMOND);
+        assertTrue(!CardPresident.SPADE_QUEEN.vientAvant(CardPresident.SPADE_KING,true,suits_));
+    }
+    @Test
+    public void vientAvant5Test() {
+        EnumList<Suit> suits_ = new EnumList<Suit>();
+        suits_.add(Suit.SPADE);
+        suits_.add(Suit.HEART);
+        suits_.add(Suit.CLUB);
+        suits_.add(Suit.DIAMOND);
+        assertTrue(!CardPresident.HEART_KING.vientAvant(CardPresident.SPADE_KING,false,suits_));
     }
 }

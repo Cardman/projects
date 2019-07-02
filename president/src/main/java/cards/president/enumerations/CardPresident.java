@@ -1,7 +1,6 @@
 package cards.president.enumerations;
 import cards.consts.CardChar;
 import cards.consts.Suit;
-import cards.president.comparators.GameStrengthCardPresidentComparator;
 import code.util.EnumList;
 import code.util.StringList;
 
@@ -91,20 +90,6 @@ public enum CardPresident {
         jouable = true;
         force = (byte) _strength;
     }
-    public static boolean eq(CardPresident _one, CardPresident _two) {
-        return _one == _two;
-    }
-    public static boolean equalsCards(EnumList<CardPresident> _one, EnumList<CardPresident> _two) {
-        if (_one.size() != _two.size()) {
-            return false;
-        }
-        for (CardPresident e: _one) {
-            if (_two.indexesOfObj(e).size() != _one.indexesOfObj(e).size()) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     public static byte getMaxStrength(boolean _reverse) {
         byte max_ = 0;
@@ -118,13 +103,6 @@ public enum CardPresident {
             }
         }
         return max_;
-    }
-
-    public static byte getAvgStrength(boolean _reverse) {
-        if (_reverse) {
-            return GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH_REVERSED;
-        }
-        return GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH_NORMAL;
     }
 
     public boolean vientAvant(CardPresident _c,boolean _decroissant,EnumList<Suit> _couleurs) {
@@ -142,7 +120,7 @@ public enum CardPresident {
     }
 
     private byte forceCouleurDansUnTri(EnumList<Suit> _couleurs) {
-        return (byte) (_couleurs.indexOfObj(suit)+1);
+        return (byte) (_couleurs.indexOfObj(couleur())+1);
     }
 
     public byte forceValeurDansUnTri(boolean _decroissant) {

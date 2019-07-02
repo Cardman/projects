@@ -20,20 +20,6 @@ public final class TrickPresident implements Iterable<HandPresident> {
         initPli(_pentameur);
     }
 
-    TrickPresident(HandPresident _pm, byte _pentameur) {
-        initPli(_pentameur);
-        cards=new EqList<HandPresident>(_pm);
-        players = new Bytes();
-    }
-
-    TrickPresident(TrickPresident _trick) {
-        starter = _trick.starter;
-        cards=new EqList<HandPresident>();
-        for (HandPresident h: _trick) {
-            cards.add(new HandPresident(h));
-        }
-    }
-
     private void initPli(byte _pentameur) {
         starter=_pentameur;
     }
@@ -164,9 +150,6 @@ public final class TrickPresident implements Iterable<HandPresident> {
     }
     public HandPresident carte(int _i) {
         return cards.get(_i);
-    }
-    public HandPresident premiereCarte() {
-        return cards.first();
     }
 
     public byte getNombreDeCartesParJoueur() {

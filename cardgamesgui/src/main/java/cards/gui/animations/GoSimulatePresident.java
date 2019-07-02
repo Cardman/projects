@@ -110,7 +110,7 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
 //                afficherMainUtilisateurSimuPresident(userHandsBef_.get(CustList.SECOND_INDEX));
                 afficherMainUtilisateurSimuPresident();
                 for (byte w: winners_) {
-                    byte l_ = GamePresident.getMatchingLoser(losers_, winners_, w);
+                    byte l_ = GamePresident.getMatchingLoser(winners_, losers_, w);
                     HandPresident h_ = switchedCards_.getVal(w);
                     event_ = StringList.concat(nicknames_.get(w),ContainerGame.INTRODUCTION_PTS,Games.toString(h_,lg_),ContainerGame.RETURN_LINE,nicknames_.get(l_),ContainerGame.RETURN_LINE);
                     ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
@@ -237,7 +237,7 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
         Bytes losers_ = GamePresident.getLoosers(ranksBef_, partie_.nombresCartesEchangesMax());
         Bytes winners_ = GamePresident.getWinners(ranksBef_, partie_.nombresCartesEchangesMax());
         container.getReceivedCards().supprimerCartes();
-        byte l_ = GamePresident.getMatchingLoser(losers_, winners_, DealPresident.NUMERO_UTILISATEUR);
+        byte l_ = GamePresident.getMatchingLoser(winners_, losers_, DealPresident.NUMERO_UTILISATEUR);
         container.getReceivedCards().ajouterCartes(switchedCards_.getVal(l_));
         container.updateCardsInPanelPresidentReceived();
         container.getGivenCards().supprimerCartes();
