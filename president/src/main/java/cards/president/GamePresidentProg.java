@@ -31,39 +31,16 @@ final class GamePresidentProg {
             return playable;
         }
         int nbMaxLen_ = rules.getNbStacks() * GamePresidentCommon.NB_SUITS;
-        ByteTreeMap<HandPresident> m_ = playable.getCardsByStrength(reversed);
-        EqList<HandPresident> notEmpty_ = GamePresidentCommon.getNotEmpty(m_);
-        int nb_ = progressingTrick.getNombreDeCartesParJoueur();
-        if (notEmpty_.size() == 2 && playable.total() == fullHand.total()) {
-            for (byte b: m_.getKeys()) {
-                HandPresident h_ = m_.getVal(b);
-                if (h_.total() != nb_) {
-                    continue;
-                }
-                if (h_.premiereCarte().strength(reversed) == CardPresident.getMaxStrength(reversed)) {
-                    return h_;
-                }
-            }
-        }
         TreeMap<CardPresident,Byte> possibleRep_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(reversed, tricks, progressingTrick,nbMaxLen_);
-        if (notEmpty_.size() == CustList.ONE_ELEMENT && playable.total() == fullHand.total()) {
-            if (notEmpty_.first().total() == nb_) {
-                return notEmpty_.first();
-            }
-            //notEmpty_.first().total() > progressingTrick.getNombreDeCartesParJoueur()
-            if (GamePresidentCommon.dominantGroup(reversed, rules, notEmpty_.first(), nb_, possibleRep_, m_)) {
-                HandPresident h_ = new HandPresident();
-                for (int i = CustList.FIRST_INDEX; i < nb_; i++) {
-                    h_.ajouter(notEmpty_.first().carte(i));
-                }
-                return h_;
+        if (playable.total() == fullHand.total()) {
+            HandPresident all_ = tryPlayWhenAllPossible(playable, progressingTrick, reversed, rules, possibleRep_);
+            if (!all_.estVide()) {
+                return all_;
             }
         }
-        if (!GamePresidentCommon.dominantHand(reversed, rules, fullHand, possibleRep_,false).estVide()) {
-            HandPresident h_ = lastGroup(progressingTrick, m_);
-            if (!h_.estVide()) {
-                return h_;
-            }
+        HandPresident hDom_ = tryPlayDomHand(fullHand, playable, progressingTrick, reversed, rules, possibleRep_);
+        if (!hDom_.estVide()) {
+            return hDom_;
         }
         if (progressingTrick.getBestCards().derniereCarte().strength(reversed) <= GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH) {
             EqList<HandPresident> notEmptyWorst_ = getNotEmptyWorst(playable, progressingTrick, reversed, GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH);
@@ -72,14 +49,68 @@ final class GamePresidentProg {
             }
         }
         int midHand_ = CustList.FIRST_INDEX;
-        for (CardPresident c: playable) {
+        for (CardPresident c: fullHand) {
             midHand_ += c.strength(reversed);
         }
-        midHand_ /= playable.total();
+        midHand_ /= fullHand.total();
         EqList<HandPresident> notEmptyWorst_ = getNotEmptyWorst(playable, progressingTrick, reversed, midHand_);
         if (!notEmptyWorst_.isEmpty()) {
             return notEmptyWorst_.first();
         }
+        notEmptyWorst_ = getHandPresidents(playable, progressingTrick, reversed);
+        if (!notEmptyWorst_.isEmpty()) {
+            return notEmptyWorst_.first();
+        }
+        if (canPass(playable,rules,progressingTrick,fullHand,reversed)) {
+            return new HandPresident();
+        }
+        return getDefaultCards(playable, progressingTrick, reversed);
+    }
+
+    static HandPresident tryPlayWhenAllPossible(HandPresident _playable, TrickPresident _progressingTrick, boolean _reversed, RulesPresident _rules, TreeMap<CardPresident, Byte> _rep) {
+        ByteTreeMap<HandPresident> m_ = _playable.getCardsByStrength(_reversed);
+        EqList<HandPresident> notEmpty_ = GamePresidentCommon.getNotEmpty(m_);
+        int nb_ = _progressingTrick.getNombreDeCartesParJoueur();
+        if (notEmpty_.size() == 2) {
+            for (byte b: m_.getKeys()) {
+                HandPresident h_ = m_.getVal(b);
+                if (h_.total() != nb_) {
+                    continue;
+                }
+                if (h_.premiereCarte().strength(_reversed) == CardPresident.getMaxStrength(_reversed)) {
+                    return h_;
+                }
+            }
+        }
+        if (notEmpty_.size() == CustList.ONE_ELEMENT) {
+            if (notEmpty_.first().total() == nb_) {
+                return notEmpty_.first();
+            }
+            //notEmpty_.first().total() > progressingTrick.getNombreDeCartesParJoueur()
+            if (GamePresidentCommon.dominantGroup(_reversed, _rules, notEmpty_.first(), nb_, _rep, m_)) {
+                HandPresident h_ = new HandPresident();
+                for (int i = CustList.FIRST_INDEX; i < nb_; i++) {
+                    h_.ajouter(notEmpty_.first().carte(i));
+                }
+                return h_;
+            }
+        }
+        return new HandPresident();
+    }
+    static HandPresident tryPlayDomHand(HandPresident _fullHand, HandPresident _playable, TrickPresident _progressingTrick, boolean _reversed, RulesPresident _rules, TreeMap<CardPresident, Byte> _rep) {
+        ByteTreeMap<HandPresident> m_ = _playable.getCardsByStrength(_reversed);
+        if (!GamePresidentCommon.dominantHand(_reversed, _rules, _fullHand, _rep,false).estVide()) {
+            HandPresident h_ = lastGroup(_progressingTrick, m_);
+            if (!h_.estVide()) {
+                return h_;
+            }
+        }
+        return new HandPresident();
+    }
+    static EqList<HandPresident> getHandPresidents(HandPresident _playable, TrickPresident _progressingTrick, boolean _reversed) {
+        ByteTreeMap<HandPresident> m_ = _playable.getCardsByStrength(_reversed);
+        int nb_ = _progressingTrick.getNombreDeCartesParJoueur();
+        EqList<HandPresident> notEmptyWorst_;
         notEmptyWorst_ = new EqList<HandPresident>();
         for (byte b: m_.getKeys()) {
             if (b > GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH) {
@@ -95,25 +126,7 @@ final class GamePresidentProg {
             }
             notEmptyWorst_.add(hSub_);
         }
-        if (!notEmptyWorst_.isEmpty()) {
-            return notEmptyWorst_.first();
-        }
-        HandPresident b_ = progressingTrick.getBestCards();
-        if (b_.total() == playable.total() && rules.isLoosingIfFinishByBestCards()) {
-            boolean existBestCards_ = false;
-            for (CardPresident c: fullHand) {
-                if (c.strength(reversed) == CardPresident.getMaxStrength(reversed)) {
-                    existBestCards_ = true;
-                }
-            }
-            if (existBestCards_) {
-                return new HandPresident();
-            }
-        }
-        if (canPass(playable,rules,progressingTrick,fullHand,reversed)) {
-            return new HandPresident();
-        }
-        return getDefaultCards(playable, progressingTrick, reversed);
+        return notEmptyWorst_;
     }
 
     static EqList<HandPresident> getNotEmptyWorst(HandPresident _playable, TrickPresident _progressingTrick, boolean _reversed, int _str) {
