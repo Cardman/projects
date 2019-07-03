@@ -1296,7 +1296,7 @@ public final class SendReceiveServer extends BasicServer {
                     Net.sendObject(Net.getSocketByPlace(player_),cardDto_);
                 }
             } else {
-                if (!game_.allowPlaying(player_, pl_.getPlayedCard(), pl_.getIndex())) {
+                if (!game_.allowPlaying(player_, pl_.getPlayedCard())) {
                     ErrorPlayingPresident e_ = new ErrorPlayingPresident();
                     e_.setCard(pl_.getPlayedCard());
                     e_.setReason(Games.autorisePresident(game_,player_, pl_.getPlayedCard(), pl_.getIndex(), pl_.getLocale()).toString());

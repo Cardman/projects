@@ -17,17 +17,28 @@ public final class CheckerGamePresidentWithRules {
             _loadedGame.setError(MESSAGE_ERROR);
             return;
         }
-        _loadedGame.loadGame();
         byte nbPlayers_ = (byte) rules_.getNbPlayers();
         if (_loadedGame.getDistribution().nombreDeMains() != nbPlayers_) {
             _loadedGame.setError(MESSAGE_ERROR);
             return;
         }
+        _loadedGame.loadGame();
         CustList<TrickPresident> allTricks_ = _loadedGame.unionPlis();
         HandPresident cards_ = new HandPresident();
         for (TrickPresident t : allTricks_) {
             for (HandPresident c : t) {
                 cards_.ajouterCartes(c);
+            }
+        }
+        CustList<TrickPresident> allTricksPlusCurr_ = new CustList<TrickPresident>(allTricks_);
+        allTricksPlusCurr_.add(_loadedGame.getProgressingTrick());
+        for (TrickPresident t: allTricksPlusCurr_) {
+            byte nbCards_ = t.getNombreDeCartesParJoueur();
+            if (nbCards_ == 0) {
+                if (!t.getBestCards().estVide()) {
+                    _loadedGame.setError(MESSAGE_ERROR);
+                    return;
+                }
             }
         }
         for (HandPresident c : _loadedGame.getProgressingTrick()) {
@@ -287,10 +298,6 @@ public final class CheckerGamePresidentWithRules {
                 for (int i = CustList.FIRST_INDEX; i < nbHands_; i++) {
                     byte player_ = trick_.getPlayer(i, nbPlayers_);
                     HandPresident curHand_ = trick_.carte(i);
-                    if (!curHand_.estVide()) {
-                        _loadedGame.setError(MESSAGE_ERROR);
-                        return;
-                    }
                     loadedGameCopy_.getProgressingTrick().ajouter(curHand_,
                             player_);
                 }
@@ -315,6 +322,10 @@ public final class CheckerGamePresidentWithRules {
                         }
                     }
                     if (curHand_.estVide()) {
+                        if (loadedGameCopy_.getProgressingTrick().getBestCards().estVide()) {
+                            _loadedGame.setError(MESSAGE_ERROR);
+                            return;
+                        }
                         if (!loadedGameCopy_.canPass(player_)) {
                             _loadedGame.setError(MESSAGE_ERROR);
                             return;
@@ -336,6 +347,10 @@ public final class CheckerGamePresidentWithRules {
                             loadedGameCopy_.getPassOrFinish()
                                     .set(player_, true);
                         }
+                    }
+                    if (loadedGameCopy_.getProgressingTrick().estVide() && i + 1 < nbHands_ && !trick_.carte(i + 1).estVide()) {
+                        _loadedGame.setError(MESSAGE_ERROR);
+                        return;
                     }
                 }
             }

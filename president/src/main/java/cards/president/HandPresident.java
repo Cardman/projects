@@ -69,8 +69,8 @@ public final class HandPresident implements Iterable<CardPresident>, Equallable<
         cards.sortElts(new GameStrengthCardPresidentComparator(_reverse, _decroissant));
     }
 
-    public EqList<HandPresident> getCardsByLengthSortedByStrength(boolean _reverse, int _len) {
-        EqList<HandPresident> l_ = new EqList<HandPresident>();
+    public CustList<HandPresident> getCardsByLengthSortedByStrength(boolean _reverse, int _len) {
+        CustList<HandPresident> l_ = new CustList<HandPresident>();
         for (HandPresident h: getCardsByStrength(_reverse).values()) {
             if (h.total() != _len) {
                 continue;

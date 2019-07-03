@@ -12,8 +12,6 @@ public final class DealPresident implements Iterable<HandPresident> {
 
     public static final byte NUMERO_UTILISATEUR = 0;
 
-    public static final int NB_CARDS = 52;
-
     /** Ensemble des mains des joueurs */
     private EqList<HandPresident> deal = new EqList<HandPresident>();
     /** donneur est un entier allant de 0 a nombre de joueurs-1 */

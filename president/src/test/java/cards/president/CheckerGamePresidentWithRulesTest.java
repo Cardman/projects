@@ -4932,6 +4932,71 @@ public class CheckerGamePresidentWithRulesTest {
         assertTrue(!g_.getError().isEmpty());
     }
 
+    @Test
+    public void check29FailTest() {
+        RulesPresident r_ = new RulesPresident(4);
+        Bytes rk_ = new Bytes();
+        EqList<HandPresident> hs_ = deal1();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        g_.initCartesEchanges();
+        //
+        HandPresident played_;
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.DIAMOND_2);
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        //
+        transientFields(g_);
+        g_.getTricks().last().ajouter();
+        //
+        CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
+    }
+
+    @Test
+    public void check30FailTest() {
+        RulesPresident r_ = new RulesPresident(4);
+        Bytes rk_ = new Bytes();
+        EqList<HandPresident> hs_ = deal1();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        g_.initCartesEchanges();
+        //
+        HandPresident played_;
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.HEART_3);
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        //
+        transientFields(g_);
+        g_.getProgressingTrick().getCards().add(0,new HandPresident());
+        //
+        CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
+    }
+
+    @Test
+    public void check31FailTest() {
+        RulesPresident r_ = new RulesPresident(4);
+        Bytes rk_ = new Bytes();
+        EqList<HandPresident> hs_ = deal1();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        g_.initCartesEchanges();
+        //
+        HandPresident played_;
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.DIAMOND_2);
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        //
+        transientFields(g_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.HEART_3);
+        g_.getTricks().last().ajouter(played_);
+        g_.getDeal().main((byte)2).supprimerCartes(played_);
+        //
+        CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
+    }
     static void transientFields(GamePresident _g) {
         for (TrickPresident t: _g.getTricks()) {
             t.setEntameur(-1);
