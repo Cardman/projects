@@ -1277,6 +1277,11 @@ public final class GamePresident {
         }
     }
 
+    void checkPlayerHand(byte _player,String _mess) {
+        if (!deal.main(_player).estVide()) {
+            setError(_mess);
+        }
+    }
     public void setNombre() {
         number++;
     }

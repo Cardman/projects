@@ -578,7 +578,7 @@ public final class GamePresidentCommonTest {
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
         TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
-        HandPresident out_ = GamePresidentCommon.dominantHand(false, r_, cur_, pl_, false);
+        HandPresident out_ = GamePresidentCommon.dominantHand(false, r_, cur_, pl_);
         assertEq(0,out_.total());
     }
     @Test
@@ -620,8 +620,8 @@ public final class GamePresidentCommonTest {
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
         TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
-        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_,false);
-        assertEq(0,out_.total());
+        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
+        assertEq(4,out_.total());
     }
     @Test
     public void dominantHand3Test() {
@@ -666,7 +666,7 @@ public final class GamePresidentCommonTest {
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
         TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
-        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_,false);
+        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(0,out_.total());
     }
     @Test
@@ -711,7 +711,7 @@ public final class GamePresidentCommonTest {
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
         TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
-        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_,false);
+        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(0,out_.total());
     }
     @Test
@@ -753,8 +753,8 @@ public final class GamePresidentCommonTest {
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
         TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
-        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_,false);
-        assertEq(0,out_.total());
+        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
+        assertEq(4,out_.total());
     }
     @Test
     public void dominantHand6Test() {
@@ -794,7 +794,7 @@ public final class GamePresidentCommonTest {
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
         TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
-        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_,false);
+        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(0,out_.total());
     }
     @Test
@@ -836,7 +836,7 @@ public final class GamePresidentCommonTest {
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
         TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
-        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_,false);
+        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(4,out_.total());
         assertTrue(out_.containsCards(cur_.getCardsByStrength(CardPresident.DIAMOND_5.strength(false),false)));
     }
@@ -879,7 +879,7 @@ public final class GamePresidentCommonTest {
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
         TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
-        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_,false);
+        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(0,out_.total());
     }
     @Test
@@ -917,7 +917,7 @@ public final class GamePresidentCommonTest {
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
         TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
-        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_,false);
+        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(0,out_.total());
     }
     @Test
@@ -960,8 +960,8 @@ public final class GamePresidentCommonTest {
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
         TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
-        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_,false);
-        assertEq(0,out_.total());
+        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
+        assertEq(1,out_.total());
     }
     @Test
     public void dominantHand11Test() {
@@ -998,7 +998,7 @@ public final class GamePresidentCommonTest {
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
         TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
-        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_,false);
+        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(0,out_.total());
     }
     @Test
@@ -1037,7 +1037,7 @@ public final class GamePresidentCommonTest {
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
         TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
-        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_,false);
+        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(0,out_.total());
     }
     @Test
@@ -1075,8 +1075,8 @@ public final class GamePresidentCommonTest {
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
         TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
-        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_,false);
-        assertEq(0,out_.total());
+        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
+        assertEq(2,out_.total());
     }
     @Test
     public void dominantHand14Test() {
@@ -1113,7 +1113,7 @@ public final class GamePresidentCommonTest {
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
         TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
-        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_,false);
+        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(0,out_.total());
     }
     @Test
@@ -1150,8 +1150,8 @@ public final class GamePresidentCommonTest {
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
         TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
-        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_,false);
-        assertEq(0,out_.total());
+        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
+        assertEq(1,out_.total());
     }
     @Test
     public void dominantHand16Test() {
@@ -1187,7 +1187,7 @@ public final class GamePresidentCommonTest {
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
         TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
-        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_,true);
+        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(1,out_.total());
         assertTrue(out_.containsCards(cur_.getCardsByStrength(CardPresident.DIAMOND_5.strength(false),false)));
     }
@@ -1230,7 +1230,7 @@ public final class GamePresidentCommonTest {
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
         TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
-        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_,true);
+        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(4,out_.total());
         assertTrue(out_.containsCards(cur_.getCardsByStrength(CardPresident.DIAMOND_5.strength(false),false)));
     }
@@ -1265,7 +1265,7 @@ public final class GamePresidentCommonTest {
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
         TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
-        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_,false);
+        HandPresident out_ = GamePresidentCommon.dominantHand(false,r_,cur_,pl_);
         assertEq(0,out_.total());
     }
     @Test

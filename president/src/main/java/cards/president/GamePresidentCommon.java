@@ -34,7 +34,7 @@ final class GamePresidentCommon {
         return cardsToBePlayed_;
     }
 
-    static HandPresident dominantHand(boolean _reversed, RulesPresident _rules, HandPresident _h, TreeMap<CardPresident, Byte> _playedCards, boolean _begin) {
+    static HandPresident dominantHand(boolean _reversed, RulesPresident _rules, HandPresident _h, TreeMap<CardPresident, Byte> _playedCards) {
         HandPresident c_ = new HandPresident(_h);
         ByteTreeMap<HandPresident> gl_ = _h.getCardsByStrength(_reversed);
         CustList<HandPresident> rep_ = getCardsSortedByLengthSortedByStrengthReduce(_reversed, _rules, c_);
@@ -103,9 +103,6 @@ final class GamePresidentCommon {
             }
         }
         if (cardsLists_.size() > CustList.ONE_ELEMENT) {
-            return new HandPresident();
-        }
-        if (cardsLists_.size() == CustList.ONE_ELEMENT && !_begin) {
             return new HandPresident();
         }
         if (cardsLists_.size() == CustList.ONE_ELEMENT) {

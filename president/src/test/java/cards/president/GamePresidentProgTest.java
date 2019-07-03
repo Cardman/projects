@@ -3,103 +3,17 @@ package cards.president;
 import cards.president.comparators.GameStrengthCardPresidentComparator;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
-import code.util.ByteTreeMap;
 import code.util.CustList;
 import code.util.EqList;
+import code.util.TreeMap;
 import org.junit.Test;
 
-import javax.smartcardio.Card;
 
 import static cards.president.EquallablePresidentUtil.assertEq;
 import static org.junit.Assert.*;
 
 public final class GamePresidentProgTest extends CommonGamePresident {
-    @Test
-    public void lastGroup1Test() {
-        HandPresident cur_ = new HandPresident();
-        cur_.ajouter(CardPresident.DIAMOND_2);
-        cur_.ajouter(CardPresident.DIAMOND_1);
-        cur_.ajouter(CardPresident.HEART_KING);
-        cur_.ajouter(CardPresident.CLUB_KING);
-        cur_.ajouter(CardPresident.DIAMOND_5);
-        cur_.ajouter(CardPresident.CLUB_5);
-        cur_.ajouter(CardPresident.HEART_5);
-        cur_.ajouter(CardPresident.SPADE_5);
-        TrickPresident pr_ = new TrickPresident((byte) 0);
-        HandPresident h_ = new HandPresident();
-        h_.ajouter(CardPresident.SPADE_3);
-        pr_.ajouter(h_);
-        ByteTreeMap<HandPresident> m_ = cur_.getCardsByStrength(false);
-        HandPresident out_ = GamePresidentProg.lastGroup(pr_, m_);
-        assertEq(1, out_.total());
-        assertTrue(checkStrength(out_,CardPresident.DIAMOND_1,false));
-    }
-    @Test
-    public void lastGroup2Test() {
-        HandPresident cur_ = new HandPresident();
-        cur_.ajouter(CardPresident.DIAMOND_2);
-        cur_.ajouter(CardPresident.CLUB_2);
-        cur_.ajouter(CardPresident.HEART_KING);
-        cur_.ajouter(CardPresident.CLUB_KING);
-        cur_.ajouter(CardPresident.DIAMOND_5);
-        cur_.ajouter(CardPresident.CLUB_5);
-        cur_.ajouter(CardPresident.HEART_5);
-        cur_.ajouter(CardPresident.SPADE_5);
-        TrickPresident pr_ = new TrickPresident((byte) 0);
-        HandPresident h_ = new HandPresident();
-        h_.ajouter(CardPresident.SPADE_3);
-        pr_.ajouter(h_);
-        ByteTreeMap<HandPresident> m_ = cur_.getCardsByStrength(false);
-        HandPresident out_ = GamePresidentProg.lastGroup(pr_, m_);
-        assertEq(1, out_.total());
-        assertTrue(checkStrength(out_,CardPresident.DIAMOND_5,false));
-    }
-    @Test
-    public void lastGroup3Test() {
-        HandPresident cur_ = new HandPresident();
-        cur_.ajouter(CardPresident.DIAMOND_2);
-        cur_.ajouter(CardPresident.CLUB_2);
-        cur_.ajouter(CardPresident.DIAMOND_KING);
-        cur_.ajouter(CardPresident.HEART_KING);
-        cur_.ajouter(CardPresident.CLUB_KING);
-        cur_.ajouter(CardPresident.DIAMOND_7);
-        cur_.ajouter(CardPresident.CLUB_7);
-        cur_.ajouter(CardPresident.HEART_5);
-        cur_.ajouter(CardPresident.SPADE_5);
-        TrickPresident pr_ = new TrickPresident((byte) 0);
-        HandPresident h_ = new HandPresident();
-        h_.ajouter(CardPresident.CLUB_3);
-        h_.ajouter(CardPresident.HEART_3);
-        h_.ajouter(CardPresident.SPADE_3);
-        pr_.ajouter(h_);
-        ByteTreeMap<HandPresident> m_ = cur_.getCardsByStrength(false);
-        HandPresident out_ = GamePresidentProg.lastGroup(pr_, m_);
-        assertEq(3, out_.total());
-        assertTrue(checkStrength(out_,CardPresident.DIAMOND_KING,false));
-    }
-    @Test
-    public void lastGroup4Test() {
-        HandPresident cur_ = new HandPresident();
-        cur_.ajouter(CardPresident.DIAMOND_2);
-        cur_.ajouter(CardPresident.CLUB_2);
-        cur_.ajouter(CardPresident.DIAMOND_1);
-        cur_.ajouter(CardPresident.HEART_1);
-        cur_.ajouter(CardPresident.CLUB_1);
-        cur_.ajouter(CardPresident.SPADE_1);
-        cur_.ajouter(CardPresident.DIAMOND_7);
-        cur_.ajouter(CardPresident.CLUB_7);
-        cur_.ajouter(CardPresident.HEART_5);
-        cur_.ajouter(CardPresident.SPADE_5);
-        TrickPresident pr_ = new TrickPresident((byte)0);
-        HandPresident h_ = new HandPresident();
-        h_.ajouter(CardPresident.CLUB_3);
-        h_.ajouter(CardPresident.HEART_3);
-        h_.ajouter(CardPresident.SPADE_3);
-        pr_.ajouter(h_);
-        ByteTreeMap<HandPresident> m_ = cur_.getCardsByStrength(false);
-        HandPresident out_ = GamePresidentProg.lastGroup(pr_, m_);
-        assertEq(0, out_.total());
-    }
+
     @Test
     public void getDefaultCards1Test() {
         byte nb_ = 4;
@@ -593,5 +507,93 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         HandPresident out_ = gt_.progressTrick();
         assertEq(2,out_.total());
         assertTrue(checkStrength(out_,CardPresident.HEART_JACK,g_.isReversed()));
+    }
+    @Test
+    public void progressTrick6Test() {
+        byte nb_ = 4;
+        byte dealer_ = 0;
+        RulesPresident r_ = new RulesPresident(nb_);
+        HandPresident cur_ = new HandPresident();
+        cur_.ajouter(CardPresident.DIAMOND_2);
+        cur_.ajouter(CardPresident.CLUB_2);
+        cur_.ajouter(CardPresident.SPADE_2);
+        cur_.ajouter(CardPresident.HEART_2);
+        cur_.ajouter(CardPresident.DIAMOND_5);
+        cur_.ajouter(CardPresident.CLUB_5);
+        cur_.ajouter(CardPresident.HEART_5);
+        cur_.ajouter(CardPresident.SPADE_5);
+        TrickPresident pr_ = new TrickPresident(r_.getSortedPlayersAfter(dealer_).first());
+        HandPresident h_ = new HandPresident();
+        h_.ajouter(CardPresident.SPADE_7);
+        h_.ajouter(CardPresident.HEART_7);
+        h_.ajouter(CardPresident.DIAMOND_7);
+        h_.ajouter(CardPresident.CLUB_7);
+        pr_.ajouter(h_);
+        HandPresident playable_ = GamePresidentCommon.getPlayable(cur_, Playing.CAN_PLAY, pr_, false, r_);
+        CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
+        int nbMaxLen_ = r_.getNbStacks() * GamePresidentCommon.NB_SUITS;
+        TreeMap<CardPresident,Byte> possibleRep_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,nbMaxLen_);
+        HandPresident out_ = GamePresidentProg.progressTrick(possibleRep_,playable_,cur_,pr_,false,r_);
+        assertEq(4,out_.total());
+        assertTrue(checkStrength(out_,CardPresident.SPADE_2,false));
+    }
+    @Test
+    public void progressTrick7Test() {
+        byte nb_ = 4;
+        byte dealer_ = 0;
+        RulesPresident r_ = new RulesPresident(nb_);
+        HandPresident cur_ = new HandPresident();
+        cur_.ajouter(CardPresident.CLUB_1);
+        cur_.ajouter(CardPresident.HEART_1);
+        cur_.ajouter(CardPresident.SPADE_1);
+        cur_.ajouter(CardPresident.DIAMOND_5);
+        cur_.ajouter(CardPresident.CLUB_5);
+        cur_.ajouter(CardPresident.HEART_5);
+        cur_.ajouter(CardPresident.SPADE_5);
+        TrickPresident pr_ = new TrickPresident(r_.getSortedPlayersAfter(dealer_).first());
+        HandPresident h_ = new HandPresident();
+        h_.ajouter(CardPresident.SPADE_7);
+        h_.ajouter(CardPresident.HEART_7);
+        h_.ajouter(CardPresident.DIAMOND_7);
+        pr_.ajouter(h_);
+        HandPresident playable_ = GamePresidentCommon.getPlayable(cur_, Playing.CAN_PLAY, pr_, false, r_);
+        TreeMap<CardPresident,Byte> possibleRep_ = new TreeMap<CardPresident,Byte>(new GameStrengthCardPresidentComparator(false, true));
+        possibleRep_.put(CardPresident.DIAMOND_2, (byte) 1);
+        possibleRep_.put(CardPresident.CLUB_2, (byte) 1);
+        possibleRep_.put(CardPresident.SPADE_2, (byte) 1);
+        HandPresident out_ = GamePresidentProg.progressTrick(possibleRep_,playable_,cur_,pr_,false,r_);
+        assertEq(3,out_.total());
+        assertTrue(checkStrength(out_,CardPresident.SPADE_1,false));
+    }
+    @Test
+    public void progressTrick8Test() {
+        byte nb_ = 4;
+        byte dealer_ = 0;
+        RulesPresident r_ = new RulesPresident(nb_);
+        HandPresident cur_ = new HandPresident();
+        cur_.ajouter(CardPresident.CLUB_2);
+        cur_.ajouter(CardPresident.SPADE_2);
+        cur_.ajouter(CardPresident.CLUB_1);
+        cur_.ajouter(CardPresident.HEART_1);
+        cur_.ajouter(CardPresident.SPADE_1);
+        cur_.ajouter(CardPresident.CLUB_KING);
+        cur_.ajouter(CardPresident.CLUB_10);
+        cur_.ajouter(CardPresident.DIAMOND_10);
+        cur_.ajouter(CardPresident.SPADE_9);
+        cur_.ajouter(CardPresident.DIAMOND_9);
+        cur_.ajouter(CardPresident.CLUB_7);
+        cur_.ajouter(CardPresident.HEART_7);
+        cur_.ajouter(CardPresident.SPADE_5);
+        cur_.ajouter(CardPresident.SPADE_4);
+        TrickPresident pr_ = new TrickPresident(r_.getSortedPlayersAfter(dealer_).first());
+        HandPresident h_ = new HandPresident();
+        h_.ajouter(CardPresident.SPADE_10);
+        h_.ajouter(CardPresident.HEART_10);
+        pr_.ajouter(h_);
+        HandPresident playable_ = GamePresidentCommon.getPlayable(cur_, Playing.CAN_PLAY, pr_, false, r_);
+        TreeMap<CardPresident,Byte> possibleRep_ = new TreeMap<CardPresident,Byte>(new GameStrengthCardPresidentComparator(false, true));
+        HandPresident out_ = GamePresidentProg.progressTrick(possibleRep_,playable_,cur_,pr_,false,r_);
+        assertEq(2,out_.total());
+        assertTrue(checkStrength(out_,CardPresident.SPADE_10,false));
     }
 }

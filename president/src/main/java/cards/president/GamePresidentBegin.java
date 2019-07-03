@@ -53,7 +53,7 @@ final class GamePresidentBegin {
         if (notEmpty_.size() == 1) {
             return notEmpty_.first();
         }
-        HandPresident d_ = GamePresidentCommon.dominantHand(reversed, rules, playable, possibleRep_,true);
+        HandPresident d_ = GamePresidentCommon.dominantHand(reversed, rules, playable, possibleRep_);
         if (!d_.estVide()) {
             return d_;
         }

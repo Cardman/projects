@@ -4996,6 +4996,7 @@ public class CheckerGamePresidentWithRulesTest {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(!g_.getError().isEmpty());
+        g_.checkPlayerHand((byte)2,"");
     }
     static void transientFields(GamePresident _g) {
         for (TrickPresident t: _g.getTricks()) {

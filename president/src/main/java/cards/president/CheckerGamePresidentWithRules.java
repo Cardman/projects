@@ -298,6 +298,7 @@ public final class CheckerGamePresidentWithRules {
                 for (int i = CustList.FIRST_INDEX; i < nbHands_; i++) {
                     byte player_ = trick_.getPlayer(i, nbPlayers_);
                     HandPresident curHand_ = trick_.carte(i);
+                    loadedGameCopy_.checkPlayerHand(player_,MESSAGE_ERROR);
                     loadedGameCopy_.getProgressingTrick().ajouter(curHand_,
                             player_);
                 }

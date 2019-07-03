@@ -2,10 +2,7 @@ package cards.president;
 
 import cards.president.comparators.GameStrengthCardPresidentComparator;
 import cards.president.enumerations.CardPresident;
-import code.util.ByteTreeMap;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.TreeMap;
+import code.util.*;
 
 final class GamePresidentProg {
 
@@ -32,39 +29,43 @@ final class GamePresidentProg {
         }
         int nbMaxLen_ = rules.getNbStacks() * GamePresidentCommon.NB_SUITS;
         TreeMap<CardPresident,Byte> possibleRep_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(reversed, tricks, progressingTrick,nbMaxLen_);
-        if (playable.total() == fullHand.total()) {
-            HandPresident all_ = tryPlayWhenAllPossible(playable, progressingTrick, reversed, rules, possibleRep_);
+        return progressTrick(possibleRep_, playable, fullHand, progressingTrick, reversed, rules);
+    }
+
+    static HandPresident progressTrick(TreeMap<CardPresident, Byte> _possibleRep, HandPresident _playable, HandPresident _fullHand, TrickPresident _progressingTrick, boolean _reversed, RulesPresident _rules) {
+        if (_playable.total() == _fullHand.total()) {
+            HandPresident all_ = tryPlayWhenAllPossible(_playable, _progressingTrick, _reversed, _rules, _possibleRep);
             if (!all_.estVide()) {
                 return all_;
             }
         }
-        HandPresident hDom_ = tryPlayDomHand(fullHand, playable, progressingTrick, reversed, rules, possibleRep_);
+        HandPresident hDom_ = tryPlayDomHand(_fullHand, _playable, _progressingTrick, _reversed, _rules, _possibleRep);
         if (!hDom_.estVide()) {
             return hDom_;
         }
-        if (progressingTrick.getBestCards().derniereCarte().strength(reversed) <= GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH) {
-            EqList<HandPresident> notEmptyWorst_ = getNotEmptyWorst(playable, progressingTrick, reversed, GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH);
+        if (_progressingTrick.getBestCards().derniereCarte().strength(_reversed) <= GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH) {
+            EqList<HandPresident> notEmptyWorst_ = getNotEmptyWorst(_playable, _progressingTrick, _reversed, GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH);
             if (!notEmptyWorst_.isEmpty()) {
                 return notEmptyWorst_.first();
             }
         }
         int midHand_ = CustList.FIRST_INDEX;
-        for (CardPresident c: fullHand) {
-            midHand_ += c.strength(reversed);
+        for (CardPresident c: _fullHand) {
+            midHand_ += c.strength(_reversed);
         }
-        midHand_ /= fullHand.total();
-        EqList<HandPresident> notEmptyWorst_ = getNotEmptyWorst(playable, progressingTrick, reversed, midHand_);
+        midHand_ /= _fullHand.total();
+        EqList<HandPresident> notEmptyWorst_ = getNotEmptyWorst(_playable, _progressingTrick, _reversed, midHand_);
         if (!notEmptyWorst_.isEmpty()) {
             return notEmptyWorst_.first();
         }
-        notEmptyWorst_ = getHandPresidents(playable, progressingTrick, reversed);
+        notEmptyWorst_ = getHandPresidents(_playable, _progressingTrick, _reversed);
         if (!notEmptyWorst_.isEmpty()) {
             return notEmptyWorst_.first();
         }
-        if (canPass(playable,rules,progressingTrick,fullHand,reversed)) {
+        if (canPass(_playable, _rules, _progressingTrick, _fullHand, _reversed)) {
             return new HandPresident();
         }
-        return getDefaultCards(playable, progressingTrick, reversed);
+        return getDefaultCards(_playable, _progressingTrick, _reversed);
     }
 
     static HandPresident tryPlayWhenAllPossible(HandPresident _playable, TrickPresident _progressingTrick, boolean _reversed, RulesPresident _rules, TreeMap<CardPresident, Byte> _rep) {
@@ -99,11 +100,14 @@ final class GamePresidentProg {
     }
     static HandPresident tryPlayDomHand(HandPresident _fullHand, HandPresident _playable, TrickPresident _progressingTrick, boolean _reversed, RulesPresident _rules, TreeMap<CardPresident, Byte> _rep) {
         ByteTreeMap<HandPresident> m_ = _playable.getCardsByStrength(_reversed);
-        if (!GamePresidentCommon.dominantHand(_reversed, _rules, _fullHand, _rep,false).estVide()) {
-            HandPresident h_ = lastGroup(_progressingTrick, m_);
-            if (!h_.estVide()) {
-                return h_;
+        if (!GamePresidentCommon.dominantHand(_reversed, _rules, _fullHand, _rep).estVide()) {
+            int nb_ = _progressingTrick.getNombreDeCartesParJoueur();
+            HandPresident h_ = GamePresidentCommon.getNotEmpty(m_).first();
+            HandPresident hSub_ = new HandPresident();
+            for (int i = CustList.FIRST_INDEX; i < nb_; i++) {
+                hSub_.ajouter(h_.carte(i));
             }
+            return hSub_;
         }
         return new HandPresident();
     }
@@ -163,30 +167,6 @@ final class GamePresidentProg {
             hSub_.ajouter(notEmpty_.first().carte(i));
         }
         return hSub_;
-    }
-
-    static HandPresident lastGroup(TrickPresident _progressingTrick, ByteTreeMap<HandPresident> _m) {
-        int nb_ = _progressingTrick.getNombreDeCartesParJoueur();
-        for (byte b: _m.getKeys()) {
-            HandPresident h_ = _m.getVal(b);
-            if (h_.total() == nb_) {
-                return h_;
-            }
-        }
-        for (byte b: _m.getKeys()) {
-            if (b >= GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH) {
-                continue;
-            }
-            HandPresident h_ = _m.getVal(b);
-            if (h_.total() > nb_) {
-                HandPresident hSub_ = new HandPresident();
-                for (int i = CustList.FIRST_INDEX; i < nb_; i++) {
-                    hSub_.ajouter(h_.carte(i));
-                }
-                return hSub_;
-            }
-        }
-        return new HandPresident();
     }
 
     static boolean canPass(HandPresident _playable, RulesPresident _rules, TrickPresident _progressingTrick, HandPresident _fullHand, boolean _reversed) {
