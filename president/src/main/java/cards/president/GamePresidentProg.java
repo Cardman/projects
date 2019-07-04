@@ -98,7 +98,7 @@ final class GamePresidentProg {
         }
         return new HandPresident();
     }
-    static HandPresident tryPlayDomHand(HandPresident _fullHand, HandPresident _playable, TrickPresident _progressingTrick, boolean _reversed, RulesPresident _rules, TreeMap<CardPresident, Byte> _rep) {
+    private static HandPresident tryPlayDomHand(HandPresident _fullHand, HandPresident _playable, TrickPresident _progressingTrick, boolean _reversed, RulesPresident _rules, TreeMap<CardPresident, Byte> _rep) {
         ByteTreeMap<HandPresident> m_ = _playable.getCardsByStrength(_reversed);
         if (!GamePresidentCommon.dominantHand(_reversed, _rules, _fullHand, _rep).estVide()) {
             int nb_ = _progressingTrick.getNombreDeCartesParJoueur();

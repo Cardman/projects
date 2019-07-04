@@ -80,13 +80,6 @@ public final class RulesPresident {
         }
         return pl_;
     }
-    public static int getNbMaxCards() {
-        return NB_MAX_CARDS;
-    }
-
-    public static int getNbMinCards() {
-        return NB_MIN_CARDS;
-    }
 
     public static int getNbMaxPlayers() {
         return NB_MAX_PLAYERS;

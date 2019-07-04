@@ -42,6 +42,14 @@ public final class TrickPresident implements Iterable<HandPresident> {
         return l_;
     }
 
+    public EqList<HandPresident> getFilledHandsBefore(int _index) {
+        EqList<HandPresident> l_ = new EqList<HandPresident>();
+        for (int i: getFilledHandsIndexesBefore(_index)) {
+            l_.add(cards.get(i));
+        }
+        return l_;
+    }
+
     public Ints getFilledHandsIndexesBefore(int _index) {
         Ints l_ = new Ints();
         int len_ = cards.size();
@@ -54,22 +62,6 @@ public final class TrickPresident implements Iterable<HandPresident> {
                 continue;
             }
             l_.add(i);
-        }
-        return l_;
-    }
-
-    public EqList<HandPresident> getFilledHandsBefore(int _index) {
-        EqList<HandPresident> l_ = new EqList<HandPresident>();
-        int len_ = cards.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            if (i >= _index) {
-                break;
-            }
-            HandPresident h_ = cards.get(i);
-            if (h_.estVide()) {
-                continue;
-            }
-            l_.add(h_);
         }
         return l_;
     }
@@ -132,10 +124,6 @@ public final class TrickPresident implements Iterable<HandPresident> {
 
     void ajouter() {
         cards.add(new HandPresident());
-    }
-    void ajouter(byte _pl) {
-        cards.add(new HandPresident());
-        players.add(_pl);
     }
 
     void ajouter(HandPresident _c) {

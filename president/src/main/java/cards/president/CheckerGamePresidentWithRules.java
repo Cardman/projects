@@ -35,7 +35,7 @@ public final class CheckerGamePresidentWithRules {
         for (TrickPresident t: allTricksPlusCurr_) {
             byte nbCards_ = t.getNombreDeCartesParJoueur();
             if (nbCards_ == 0) {
-                if (!t.getBestCards().estVide()) {
+                if (!t.getCartes().estVide()) {
                     _loadedGame.setError(MESSAGE_ERROR);
                     return;
                 }
@@ -323,7 +323,7 @@ public final class CheckerGamePresidentWithRules {
                         }
                     }
                     if (curHand_.estVide()) {
-                        if (loadedGameCopy_.getProgressingTrick().getBestCards().estVide()) {
+                        if (loadedGameCopy_.getProgressingTrick().getCartes().estVide()) {
                             _loadedGame.setError(MESSAGE_ERROR);
                             return;
                         }
