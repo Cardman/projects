@@ -1,6 +1,10 @@
 package cards.tarot;
+import static cards.tarot.EquallableTarotUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import cards.tarot.enumerations.ChoiceTarot;
+import code.maths.LgInt;
+import code.util.EqList;
 import org.junit.Test;
 
 import cards.consts.MixCardsChoice;
@@ -180,5 +184,305 @@ public class DealTarotTest {
         assertTrue(donne_.derniereMain().contient(CardTarot.TRUMP_19));
         assertTrue(donne_.derniereMain().contient(CardTarot.TRUMP_6));
         assertTrue(donne_.derniereMain().contient(CardTarot.HEART_10));
+    }
+    @Test
+    public void chosenTrumps1Test(){
+        byte minAtout_ = 9;
+        byte maxAtout_ = 12;
+        int nbCards_ = 12;
+                EqList<LgInt> fonctionRepartition_ = new EqList<LgInt>();
+        fonctionRepartition_.add(LgInt.multiply(LgInt.among(new LgInt(
+                minAtout_), new LgInt(21)), LgInt.among(new LgInt(
+                nbCards_ - minAtout_ - 1), new LgInt(56))));
+        byte index_ = (byte) (minAtout_ + 1);
+        for (byte evenement_ = index_; evenement_ <= maxAtout_; evenement_++) {
+            fonctionRepartition_.add(LgInt.plus(
+                    fonctionRepartition_.last(), LgInt
+                            .multiply(LgInt.among(new LgInt(evenement_),
+                                    new LgInt(21)), LgInt.among(
+                                    new LgInt(nbCards_ - evenement_
+                                            - 1), new LgInt(56)))));
+        }
+        assertEq(12, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(489217092)));
+    }
+    @Test
+    public void chosenTrumps2Test(){
+        byte minAtout_ = 9;
+        byte maxAtout_ = 12;
+        int nbCards_ = 12;
+        EqList<LgInt> fonctionRepartition_ = new EqList<LgInt>();
+        fonctionRepartition_.add(LgInt.multiply(LgInt.among(new LgInt(
+                minAtout_), new LgInt(21)), LgInt.among(new LgInt(
+                nbCards_ - minAtout_ - 1), new LgInt(56))));
+        byte index_ = (byte) (minAtout_ + 1);
+        for (byte evenement_ = index_; evenement_ <= maxAtout_; evenement_++) {
+            fonctionRepartition_.add(LgInt.plus(
+                    fonctionRepartition_.last(), LgInt
+                            .multiply(LgInt.among(new LgInt(evenement_),
+                                    new LgInt(21)), LgInt.among(
+                                    new LgInt(nbCards_ - evenement_
+                                            - 1), new LgInt(56)))));
+        }
+        assertEq(12, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(472757012+1)));
+    }
+    @Test
+    public void chosenTrumps3Test(){
+        byte minAtout_ = 9;
+        byte maxAtout_ = 12;
+        int nbCards_ = 12;
+        EqList<LgInt> fonctionRepartition_ = new EqList<LgInt>();
+        fonctionRepartition_.add(LgInt.multiply(LgInt.among(new LgInt(
+                minAtout_), new LgInt(21)), LgInt.among(new LgInt(
+                nbCards_ - minAtout_ - 1), new LgInt(56))));
+        byte index_ = (byte) (minAtout_ + 1);
+        for (byte evenement_ = index_; evenement_ <= maxAtout_; evenement_++) {
+            fonctionRepartition_.add(LgInt.plus(
+                    fonctionRepartition_.last(), LgInt
+                            .multiply(LgInt.among(new LgInt(evenement_),
+                                    new LgInt(21)), LgInt.among(
+                                    new LgInt(nbCards_ - evenement_
+                                            - 1), new LgInt(56)))));
+        }
+        assertEq(11, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(472757012)));
+    }
+    @Test
+    public void chosenTrumps4Test(){
+        byte minAtout_ = 9;
+        byte maxAtout_ = 12;
+        int nbCards_ = 12;
+        EqList<LgInt> fonctionRepartition_ = new EqList<LgInt>();
+        fonctionRepartition_.add(LgInt.multiply(LgInt.among(new LgInt(
+                minAtout_), new LgInt(21)), LgInt.among(new LgInt(
+                nbCards_ - minAtout_ - 1), new LgInt(56))));
+        byte index_ = (byte) (minAtout_ + 1);
+        for (byte evenement_ = index_; evenement_ <= maxAtout_; evenement_++) {
+            fonctionRepartition_.add(LgInt.plus(
+                    fonctionRepartition_.last(), LgInt
+                            .multiply(LgInt.among(new LgInt(evenement_),
+                                    new LgInt(21)), LgInt.among(
+                                    new LgInt(nbCards_ - evenement_
+                                            - 1), new LgInt(56)))));
+        }
+        assertEq(11, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(472404296+1)));
+    }
+    @Test
+    public void chosenTrumps5Test(){
+        byte minAtout_ = 9;
+        byte maxAtout_ = 12;
+        int nbCards_ = 12;
+        EqList<LgInt> fonctionRepartition_ = new EqList<LgInt>();
+        fonctionRepartition_.add(LgInt.multiply(LgInt.among(new LgInt(
+                minAtout_), new LgInt(21)), LgInt.among(new LgInt(
+                nbCards_ - minAtout_ - 1), new LgInt(56))));
+        byte index_ = (byte) (minAtout_ + 1);
+        for (byte evenement_ = index_; evenement_ <= maxAtout_; evenement_++) {
+            fonctionRepartition_.add(LgInt.plus(
+                    fonctionRepartition_.last(), LgInt
+                            .multiply(LgInt.among(new LgInt(evenement_),
+                                    new LgInt(21)), LgInt.among(
+                                    new LgInt(nbCards_ - evenement_
+                                            - 1), new LgInt(56)))));
+        }
+        assertEq(10, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(472404296)));
+    }
+    @Test
+    public void chosenTrumps6Test(){
+        byte minAtout_ = 9;
+        byte maxAtout_ = 12;
+        int nbCards_ = 12;
+        EqList<LgInt> fonctionRepartition_ = new EqList<LgInt>();
+        fonctionRepartition_.add(LgInt.multiply(LgInt.among(new LgInt(
+                minAtout_), new LgInt(21)), LgInt.among(new LgInt(
+                nbCards_ - minAtout_ - 1), new LgInt(56))));
+        byte index_ = (byte) (minAtout_ + 1);
+        for (byte evenement_ = index_; evenement_ <= maxAtout_; evenement_++) {
+            fonctionRepartition_.add(LgInt.plus(
+                    fonctionRepartition_.last(), LgInt
+                            .multiply(LgInt.among(new LgInt(evenement_),
+                                    new LgInt(21)), LgInt.among(
+                                    new LgInt(nbCards_ - evenement_
+                                            - 1), new LgInt(56)))));
+        }
+        assertEq(10, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(452652200+1)));
+    }
+    @Test
+    public void chosenTrumps7Test(){
+        byte minAtout_ = 9;
+        byte maxAtout_ = 12;
+        int nbCards_ = 12;
+        EqList<LgInt> fonctionRepartition_ = new EqList<LgInt>();
+        fonctionRepartition_.add(LgInt.multiply(LgInt.among(new LgInt(
+                minAtout_), new LgInt(21)), LgInt.among(new LgInt(
+                nbCards_ - minAtout_ - 1), new LgInt(56))));
+        byte index_ = (byte) (minAtout_ + 1);
+        for (byte evenement_ = index_; evenement_ <= maxAtout_; evenement_++) {
+            fonctionRepartition_.add(LgInt.plus(
+                    fonctionRepartition_.last(), LgInt
+                            .multiply(LgInt.among(new LgInt(evenement_),
+                                    new LgInt(21)), LgInt.among(
+                                    new LgInt(nbCards_ - evenement_
+                                            - 1), new LgInt(56)))));
+        }
+        assertEq(9, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(452652200)));
+    }
+    @Test
+    public void chosenTrumps8Test(){
+        byte minAtout_ = 9;
+        byte maxAtout_ = 12;
+        int nbCards_ = 12;
+        EqList<LgInt> fonctionRepartition_ = new EqList<LgInt>();
+        fonctionRepartition_.add(LgInt.multiply(LgInt.among(new LgInt(
+                minAtout_), new LgInt(21)), LgInt.among(new LgInt(
+                nbCards_ - minAtout_ - 1), new LgInt(56))));
+        byte index_ = (byte) (minAtout_ + 1);
+        for (byte evenement_ = index_; evenement_ <= maxAtout_; evenement_++) {
+            fonctionRepartition_.add(LgInt.plus(
+                    fonctionRepartition_.last(), LgInt
+                            .multiply(LgInt.among(new LgInt(evenement_),
+                                    new LgInt(21)), LgInt.among(
+                                    new LgInt(nbCards_ - evenement_
+                                            - 1), new LgInt(56)))));
+        }
+        assertEq(9, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(0)));
+    }
+    @Test
+    public void chosenTrumps9Test(){
+        byte minAtout_ = 9;
+        byte maxAtout_ = 12;
+        int nbCards_ = 12;
+        EqList<LgInt> fonctionRepartition_ = new EqList<LgInt>();
+        fonctionRepartition_.add(LgInt.multiply(LgInt.among(new LgInt(
+                minAtout_), new LgInt(21)), LgInt.among(new LgInt(
+                nbCards_ - minAtout_ - 1), new LgInt(56))));
+        byte index_ = (byte) (minAtout_ + 1);
+        for (byte evenement_ = index_; evenement_ <= maxAtout_; evenement_++) {
+            fonctionRepartition_.add(LgInt.plus(
+                    fonctionRepartition_.last(), LgInt
+                            .multiply(LgInt.among(new LgInt(evenement_),
+                                    new LgInt(21)), LgInt.among(
+                                    new LgInt(nbCards_ - evenement_
+                                            - 1), new LgInt(56)))));
+        }
+        assertEq(12, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(489217092 + 1)));
+    }
+    @Test
+    public void initDonneSpec1Test() {
+        RulesTarot regles_ = new RulesTarot();
+        regles_.setDealing(DealingTarot.DEAL_1_VS_2);
+        DealTarot deal_ = new DealTarot(0);
+        deal_.initDonne(ChoiceTarot.HUNT_SMALL,regles_);
+        assertEq(24, deal_.main().total());
+    }
+    @Test
+    public void initDonneSpec2Test() {
+        RulesTarot regles_ = new RulesTarot();
+        regles_.setDealing(DealingTarot.DEAL_1_VS_3);
+        DealTarot deal_ = new DealTarot(0);
+        deal_.initDonne(ChoiceTarot.HUNT_SMALL,regles_);
+        assertEq(18, deal_.main().total());
+    }
+    @Test
+    public void initDonneSpec3Test() {
+        RulesTarot regles_ = new RulesTarot();
+        regles_.setDealing(DealingTarot.DEAL_1_VS_4);
+        DealTarot deal_ = new DealTarot(0);
+        deal_.initDonne(ChoiceTarot.HUNT_SMALL,regles_);
+        assertEq(14, deal_.main().total());
+    }
+    @Test
+    public void initDonneSpec4Test() {
+        RulesTarot regles_ = new RulesTarot();
+        regles_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
+        DealTarot deal_ = new DealTarot(0);
+        deal_.initDonne(ChoiceTarot.HUNT_SMALL,regles_);
+        assertEq(15, deal_.main().total());
+    }
+    @Test
+    public void initDonneSpec5Test() {
+        RulesTarot regles_ = new RulesTarot();
+        regles_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        DealTarot deal_ = new DealTarot(0);
+        deal_.initDonne(ChoiceTarot.HUNT_SMALL,regles_);
+        assertEq(12, deal_.main().total());
+    }
+    @Test
+    public void initDonneSpec6Test() {
+        RulesTarot regles_ = new RulesTarot();
+        regles_.setDealing(DealingTarot.DEAL_1_VS_2);
+        DealTarot deal_ = new DealTarot(0);
+        deal_.initDonne(ChoiceTarot.LEAD_SMALL_BOUND,regles_);
+        assertEq(24, deal_.main().total());
+    }
+    @Test
+    public void initDonneSpec7Test() {
+        RulesTarot regles_ = new RulesTarot();
+        regles_.setDealing(DealingTarot.DEAL_1_VS_3);
+        DealTarot deal_ = new DealTarot(0);
+        deal_.initDonne(ChoiceTarot.LEAD_SMALL_BOUND,regles_);
+        assertEq(18, deal_.main().total());
+    }
+    @Test
+    public void initDonneSpec8Test() {
+        RulesTarot regles_ = new RulesTarot();
+        regles_.setDealing(DealingTarot.DEAL_1_VS_4);
+        DealTarot deal_ = new DealTarot(0);
+        deal_.initDonne(ChoiceTarot.LEAD_SMALL_BOUND,regles_);
+        assertEq(14, deal_.main().total());
+    }
+    @Test
+    public void initDonneSpec9Test() {
+        RulesTarot regles_ = new RulesTarot();
+        regles_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
+        DealTarot deal_ = new DealTarot(0);
+        deal_.initDonne(ChoiceTarot.LEAD_SMALL_BOUND,regles_);
+        assertEq(15, deal_.main().total());
+    }
+    @Test
+    public void initDonneSpec10Test() {
+        RulesTarot regles_ = new RulesTarot();
+        regles_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        DealTarot deal_ = new DealTarot(0);
+        deal_.initDonne(ChoiceTarot.LEAD_SMALL_BOUND,regles_);
+        assertEq(12, deal_.main().total());
+    }
+    @Test
+    public void initDonneSpec11Test() {
+        RulesTarot regles_ = new RulesTarot();
+        regles_.setDealing(DealingTarot.DEAL_1_VS_2);
+        DealTarot deal_ = new DealTarot(0);
+        deal_.initDonne(ChoiceTarot.SAVE_SMALL,regles_);
+        assertEq(24, deal_.main().total());
+    }
+    @Test
+    public void initDonneSpec12Test() {
+        RulesTarot regles_ = new RulesTarot();
+        regles_.setDealing(DealingTarot.DEAL_1_VS_3);
+        DealTarot deal_ = new DealTarot(0);
+        deal_.initDonne(ChoiceTarot.SAVE_SMALL,regles_);
+        assertEq(18, deal_.main().total());
+    }
+    @Test
+    public void initDonneSpec13Test() {
+        RulesTarot regles_ = new RulesTarot();
+        regles_.setDealing(DealingTarot.DEAL_1_VS_4);
+        DealTarot deal_ = new DealTarot(0);
+        deal_.initDonne(ChoiceTarot.SAVE_SMALL,regles_);
+        assertEq(14, deal_.main().total());
+    }
+    @Test
+    public void initDonneSpec14Test() {
+        RulesTarot regles_ = new RulesTarot();
+        regles_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
+        DealTarot deal_ = new DealTarot(0);
+        deal_.initDonne(ChoiceTarot.SAVE_SMALL,regles_);
+        assertEq(15, deal_.main().total());
+    }
+    @Test
+    public void initDonneSpec15Test() {
+        RulesTarot regles_ = new RulesTarot();
+        regles_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        DealTarot deal_ = new DealTarot(0);
+        deal_.initDonne(ChoiceTarot.SAVE_SMALL,regles_);
+        assertEq(12, deal_.main().total());
     }
 }

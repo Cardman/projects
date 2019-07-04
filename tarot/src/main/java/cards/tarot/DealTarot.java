@@ -192,7 +192,7 @@ public final class DealTarot implements Iterable<HandTarot> {
                 } else {
                     maxAtout_ = 2;
                 }
-            } else if (_choix == ChoiceTarot.LEAD_SMALL_BOUND) {
+            } else {
                 if (nbCards_ == 24) {
                     minAtout_ = 14;
                     maxAtout_ = 21;
@@ -265,8 +265,8 @@ public final class DealTarot implements Iterable<HandTarot> {
         }
     }
 
-    public byte chosenTrumps(byte _minAtout, byte _maxAtout, EqList<LgInt> _fonctionRepartition, LgInt _alea) {
-        byte atoutsTires_ = 0;
+    static byte chosenTrumps(byte _minAtout, byte _maxAtout, EqList<LgInt> _fonctionRepartition, LgInt _alea) {
+        byte atoutsTires_ = _maxAtout;
         for (byte evenement_ = _minAtout; evenement_ <= _maxAtout; evenement_++) {
             if (LgInt.lowerEq(_alea, _fonctionRepartition.get(evenement_
                     - _minAtout))) {

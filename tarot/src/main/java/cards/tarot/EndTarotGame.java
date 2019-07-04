@@ -125,7 +125,7 @@ public final class EndTarotGame {
         return nbPointsAtt_;
     }
 
-    static CustList<TrickTarot> getExcuseTrick(CustList<TrickTarot> _trs) {
+    private static CustList<TrickTarot> getExcuseTrick(CustList<TrickTarot> _trs) {
         CustList<TrickTarot> t_ = new CustList<TrickTarot>();
         if (_trs.last().contient(CardTarot.EXCUSE)) {
             return t_;
@@ -514,9 +514,6 @@ public final class EndTarotGame {
                 if(!tricks.last().contient(CardTarot.excuse())) {
                     for (TrickTarot pli_ : tricks) {
                         if(!pli_.getVuParToutJoueur()) {
-                            continue;
-                        }
-                        if(pli_.getRamasseur() == _joueur) {
                             continue;
                         }
                         if(!pli_.contient(CardTarot.excuse())) {
@@ -1853,7 +1850,7 @@ public final class EndTarotGame {
         return scores_;
     }
 
-    public CustList<TrickTarot> getPlisAttaque(BidTarot _bid) {
+    CustList<TrickTarot> getPlisAttaque(BidTarot _bid) {
         CustList<TrickTarot> tricks_ = new CustList<TrickTarot>();
         if (_bid.getJeuChien() != PlayingDog.AGAINST) {
             tricks_.add(tricks.first());
@@ -1864,7 +1861,7 @@ public final class EndTarotGame {
         return tricks_;
     }
 
-    public CustList<TrickTarot> getPlisDefense(BidTarot _bid) {
+    CustList<TrickTarot> getPlisDefense(BidTarot _bid) {
         CustList<TrickTarot> tricks_ = new CustList<TrickTarot>();
         if (_bid.getJeuChien() == PlayingDog.AGAINST) {
             tricks_.add(tricks.first());
@@ -1873,13 +1870,13 @@ public final class EndTarotGame {
         tricks_.addAllElts(getWonTricksListTeam(tricks,defs_));
         return tricks_;
     }
-    CustList<TrickTarot> getWonTricksListTeam(byte _player) {
+    private CustList<TrickTarot> getWonTricksListTeam(byte _player) {
         Bytes team_ = relations.coequipiers(_player, GameTarotTeamsRelation.tousJoueurs(relations.getNombreDeJoueurs()));
         team_.add(_player);
         return getWonTricksListTeam(tricks,team_);
     }
 
-    boolean aucunPliAdverseFin(byte _joueur, CustList<TrickTarot> _unionPlis) {
+    private boolean aucunPliAdverseFin(byte _joueur, CustList<TrickTarot> _unionPlis) {
         byte nombreDeJoueurs_ = relations.getNombreDeJoueurs();
         Bytes partenaires_ = relations.coequipiers(_joueur,
                 GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_));
@@ -1887,7 +1884,7 @@ public final class EndTarotGame {
         return plisTousFaitsParFin(partenaires_, _unionPlis, nombreDeJoueurs_);
     }
 
-    static boolean plisTousFaitsParFin(Bytes _joueurs,
+    private static boolean plisTousFaitsParFin(Bytes _joueurs,
                                                CustList<TrickTarot> _unionPlis, byte _nombreJoueurs) {
         Bytes autresJoueurs_ = GameTarotTeamsRelation.autresJoueurs(_joueurs, _nombreJoueurs);
         return getWonTricksListTeam(_unionPlis,autresJoueurs_).isEmpty();
