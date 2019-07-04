@@ -12,24 +12,24 @@ import static org.junit.Assert.fail;
 public abstract class CommonGameBelote {
     protected static GameBelote newGameBeloteWithourDecl(HandBelote _currentHand, RulesBelote _r, CustList<TrickBelote> _trs, TrickBelote _prog,
                                                          int _dealer,
-                                                         EqList<BidBeloteSuit> _bids, HandBelote _lastHand) {
+                                                         CustList<BidBeloteSuit> _bids, HandBelote _lastHand) {
         return newGameBelote(_currentHand,_r,_trs,_prog,_dealer,_bids, _lastHand);
     }
     protected static GameBelote newGameBeloteWithourDecl(RulesBelote _r, CustList<TrickBelote> _trs, TrickBelote _prog,
                                                          int _dealer,
-                                                         EqList<BidBeloteSuit> _bids, HandBelote _lastHand) {
+                                                         CustList<BidBeloteSuit> _bids, HandBelote _lastHand) {
         return newGameBelote(_r,_trs,_prog,_dealer,_bids, _lastHand);
     }
     protected static GameBelote newGameBelote(HandBelote _currentHand, RulesBelote _r, CustList<TrickBelote> _trs, TrickBelote _prog,
                                               int _dealer,
-                                              EqList<BidBeloteSuit> _bids, HandBelote _lastHand) {
+                                              CustList<BidBeloteSuit> _bids, HandBelote _lastHand) {
         GameBelote g_ = newGameBelote(_r,_trs,_prog,_dealer,_bids,_lastHand);
         check(g_,_currentHand);
         return g_;
     }
     protected static GameBelote newGameBelote(RulesBelote _r, CustList<TrickBelote> _trs, TrickBelote _prog,
                                               int _dealer,
-                                              EqList<BidBeloteSuit> _bids, HandBelote _lastHand) {
+                                              CustList<BidBeloteSuit> _bids, HandBelote _lastHand) {
         CustList<HandBelote> deal_ = new CustList<HandBelote>();
         byte nombreDeJoueurs_ = (byte) _r.getDealing().getNombreJoueurs();
         for (int i = 0; i< nombreDeJoueurs_; i++) {

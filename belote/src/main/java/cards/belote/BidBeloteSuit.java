@@ -2,11 +2,10 @@ package cards.belote;
 import cards.belote.enumerations.BidBelote;
 import cards.consts.Order;
 import cards.consts.Suit;
-import code.util.EqList;
-import code.util.ints.Equallable;
+import code.util.CustList;
 
 
-public final class BidBeloteSuit implements Equallable<BidBeloteSuit> {
+public final class BidBeloteSuit {
 
     private BidBelote bid = BidBelote.FOLD;
 
@@ -14,7 +13,7 @@ public final class BidBeloteSuit implements Equallable<BidBeloteSuit> {
 
     private int points;
 
-    public static boolean equalsSet(EqList<BidBeloteSuit> _list1,EqList<BidBeloteSuit> _list2) {
+    public static boolean equalsSet(CustList<BidBeloteSuit> _list1, CustList<BidBeloteSuit> _list2) {
         for (BidBeloteSuit a: _list2) {
             boolean contains_ = false;
             for (BidBeloteSuit b: _list1) {
@@ -94,7 +93,6 @@ public final class BidBeloteSuit implements Equallable<BidBeloteSuit> {
         return bid.jouerDonne();
     }
 
-    @Override
     public boolean eq(BidBeloteSuit _obj) {
         if (bid != _obj.bid) {
             return false;

@@ -333,7 +333,7 @@ public final class DocumentWriterBeloteUtil {
         return elt_;
     }
 
-    public static Element setListBidBeloteSuit(EqList<BidBeloteSuit> _object, String _fieldName, Document _document) {
+    public static Element setListBidBeloteSuit(CustList<BidBeloteSuit> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (BidBeloteSuit s: _object) {
@@ -342,7 +342,7 @@ public final class DocumentWriterBeloteUtil {
         return elt_;
     }
 
-    private static Element setListDeclareHandBelote(EqList<DeclareHandBelote> _object, String _fieldName, Document _document) {
+    private static Element setListDeclareHandBelote(CustList<DeclareHandBelote> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (DeclareHandBelote s: _object) {

@@ -1,19 +1,18 @@
 package cards.network.belote.unlock;
 import cards.belote.BidBeloteSuit;
-import code.util.EqList;
-
+import code.util.CustList;
 
 public final class AllowBiddingBelote {
 
-    private EqList<BidBeloteSuit> bids;
+    private CustList<BidBeloteSuit> bids;
 
     private int points;
 
-    public EqList<BidBeloteSuit> getBids() {
+    public CustList<BidBeloteSuit> getBids() {
         return bids;
     }
 
-    public void setBids(EqList<BidBeloteSuit> _bids) {
+    public void setBids(CustList<BidBeloteSuit> _bids) {
         bids = _bids;
     }
 

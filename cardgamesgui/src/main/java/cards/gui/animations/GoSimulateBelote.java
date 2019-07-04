@@ -105,7 +105,7 @@ public final class GoSimulateBelote extends Thread implements GoSimulate {
 //        container.ajouterTexteDansZone(event_);
 //        container.ajouterTexteDansZone(container.getMessages().getVal(MainWindow.BEGIN_DEMO)+ContainerBelote.RETURN_LINE_CHAR);
         container.pause();
-        EqList<BidBeloteSuit> contrats_=partie_.tousContrats();
+        CustList<BidBeloteSuit> contrats_=partie_.tousContrats();
         int tailleContrat_=contrats_.size();
         StringList pseudos_=pseudosSimuleeBelote();
         byte preneur_=partie_.getPreneur();

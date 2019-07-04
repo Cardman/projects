@@ -26,7 +26,7 @@ public final class GameBeloteTrickTest extends CommonGameBelote {
         curHand_.ajouter(CardBelote.SPADE_1);
         curHand_.ajouter(CardBelote.SPADE_10);
         curHand_.ajouter(CardBelote.CLUB_1);
-        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setBid(BidBelote.NO_TRUMP);
         b_.setSuit(Suit.UNDEFINED);
@@ -54,7 +54,7 @@ public final class GameBeloteTrickTest extends CommonGameBelote {
         curHand_.ajouter(CardBelote.SPADE_1);
         curHand_.ajouter(CardBelote.SPADE_10);
         curHand_.ajouter(CardBelote.CLUB_1);
-        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setBid(BidBelote.SUIT);
         b_.setSuit(Suit.HEART);
@@ -75,7 +75,7 @@ public final class GameBeloteTrickTest extends CommonGameBelote {
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
         curHand_.ajouter(CardBelote.CLUB_10);
-        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setBid(BidBelote.SUIT);
         b_.setSuit(Suit.HEART);

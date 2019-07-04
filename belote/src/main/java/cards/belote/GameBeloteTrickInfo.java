@@ -11,7 +11,7 @@ public final class GameBeloteTrickInfo {
 
     private TrickBelote progressingTrick;
     private CustList<TrickBelote> tricks;
-    private EqList<DeclareHandBelote> declares;
+    private CustList<DeclareHandBelote> declares;
     private CustList<HandBelote> declaresBeloteRebelote;
     private BidBeloteSuit bid;
     private Ints handLengths;
@@ -23,7 +23,7 @@ public final class GameBeloteTrickInfo {
     private RulesBelote rules;
 
     public GameBeloteTrickInfo(TrickBelote _progressingTrick, CustList<TrickBelote> _tricks,
-                               EqList<DeclareHandBelote> _declares,
+                               CustList<DeclareHandBelote> _declares,
                                CustList<HandBelote> _declaresBeloteRebelote,
                               BidBeloteSuit _bid,
                               Ints _handLengths) {

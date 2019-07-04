@@ -130,7 +130,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
     }
 
-    private void addButtonsForCoinche(int _pts, EqList<BidBeloteSuit> _bids) {
+    private void addButtonsForCoinche(int _pts, CustList<BidBeloteSuit> _bids) {
         int square_ = 1;
         Ints points_ = RulesBelote.getPoints();
         int size_ = points_.size();

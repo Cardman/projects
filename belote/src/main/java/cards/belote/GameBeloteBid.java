@@ -34,8 +34,8 @@ public final class GameBeloteBid {
         return new BidBeloteSuit();
     }
 
-    public EqList<BidBeloteSuit> allowedBids() {
-        EqList<BidBeloteSuit> encheres_ = new EqList<BidBeloteSuit>();
+    public CustList<BidBeloteSuit> allowedBids() {
+        CustList<BidBeloteSuit> encheres_ = new CustList<BidBeloteSuit>();
         if (rules.dealAll()) {
             for (Suit s: GameBeloteCommon.couleurs()) {
                 for (int p: RulesBelote.getPoints()) {

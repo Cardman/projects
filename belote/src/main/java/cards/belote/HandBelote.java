@@ -11,7 +11,6 @@ import cards.consts.Suit;
 import code.maths.Rate;
 import code.maths.montecarlo.AbMonteCarlo;
 import code.util.*;
-import code.util.ints.Equallable;
 /**
  */
 
@@ -428,7 +427,7 @@ public final class HandBelote implements Iterable<CardBelote> {
 
     public DeclareHandBelote annonce(EnumList<DeclaresBelote> _annoncesAutorisees,
             BidBeloteSuit _enchere) {
-        EqList<DeclareHandBelote> annoncesPossibles_ = new EqList<DeclareHandBelote>();
+        CustList<DeclareHandBelote> annoncesPossibles_ = new CustList<DeclareHandBelote>();
         for(DeclaresBelote a: _annoncesAutorisees) {
             if(a.estConstante()) {
                 HandBelote cartesMemeHauteur_ = new HandBelote();

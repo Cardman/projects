@@ -1,9 +1,8 @@
 package cards.belote;
 import cards.belote.enumerations.DeclaresBelote;
-import code.util.ints.Equallable;
 
 
-public final class DeclareHandBelote implements Equallable<DeclareHandBelote> {
+public final class DeclareHandBelote {
 
     private DeclaresBelote declare = DeclaresBelote.UNDEFINED;
 
@@ -45,7 +44,6 @@ public final class DeclareHandBelote implements Equallable<DeclareHandBelote> {
         player = _joueur;
     }
 
-    @Override
     public boolean eq(DeclareHandBelote _g) {
         if (declare != _g.declare) {
             return false;

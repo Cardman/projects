@@ -498,22 +498,22 @@ public final class DocumentReaderBeloteUtil {
         }
         return map_;
     }
-    public static EqList<BidBeloteSuit> getListBidBeloteSuit(Element _elt) {
+    public static CustList<BidBeloteSuit> getListBidBeloteSuit(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        EqList<BidBeloteSuit> list_ = new EqList<BidBeloteSuit>(cap_);
+        CustList<BidBeloteSuit> list_ = new CustList<BidBeloteSuit>(cap_);
         for (Element c: childElements_) {
             list_.add(getBidBeloteSuit(c));
         }
         return list_;
     }
 
-    private static EqList<DeclareHandBelote> getListDeclareHandBelote(Element _elt) {
+    private static CustList<DeclareHandBelote> getListDeclareHandBelote(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        EqList<DeclareHandBelote> list_ = new EqList<DeclareHandBelote>(cap_);
+        CustList<DeclareHandBelote> list_ = new CustList<DeclareHandBelote>(cap_);
         for (Element c: childElements_) {
             list_.add(getDeclareHandBelote(c));
         }

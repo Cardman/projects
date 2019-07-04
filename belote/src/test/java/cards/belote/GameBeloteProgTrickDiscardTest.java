@@ -14,7 +14,7 @@ public final class GameBeloteProgTrickDiscardTest extends CommonGameBelote {
     public void defausseCouleurOrdinaireCouleurDominante1Test() {
         RulesBelote r_ = new RulesBelote();
         byte d_ = 2;
-        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
         b_.setEnchere(BidBelote.SUIT);
@@ -46,7 +46,7 @@ public final class GameBeloteProgTrickDiscardTest extends CommonGameBelote {
     public void defausseCouleurOrdinaireCouleurDominante2Test() {
         RulesBelote r_ = new RulesBelote();
         byte d_ = 2;
-        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
         b_.setEnchere(BidBelote.SUIT);
@@ -78,7 +78,7 @@ public final class GameBeloteProgTrickDiscardTest extends CommonGameBelote {
     public void defausseCouleurOrdinaireCouleurDominante3Test() {
         RulesBelote r_ = new RulesBelote();
         byte d_ = 2;
-        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
         b_.setEnchere(BidBelote.SUIT);
@@ -108,7 +108,7 @@ public final class GameBeloteProgTrickDiscardTest extends CommonGameBelote {
     public void defausseAtoutCouleurDominante1Test() {
         RulesBelote r_ = new RulesBelote();
         byte d_ = 2;
-        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         bids_.add(new BidBeloteSuit());
         bids_.add(new BidBeloteSuit());
         BidBeloteSuit b_ = new BidBeloteSuit();
@@ -142,7 +142,7 @@ public final class GameBeloteProgTrickDiscardTest extends CommonGameBelote {
     public void defausseAtoutCouleurDominante2Test() {
         RulesBelote r_ = new RulesBelote();
         byte d_ = 2;
-        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         bids_.add(new BidBeloteSuit());
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.CLUB);
@@ -175,7 +175,7 @@ public final class GameBeloteProgTrickDiscardTest extends CommonGameBelote {
     public void defausseAtoutCouleurDominante3Test() {
         RulesBelote r_ = new RulesBelote();
         byte d_ = 2;
-        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.CLUB);
         b_.setEnchere(BidBelote.SUIT);
@@ -206,7 +206,7 @@ public final class GameBeloteProgTrickDiscardTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
         byte d_ = 2;
-        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         bids_.add(new BidBeloteSuit());
         bids_.add(new BidBeloteSuit());
         BidBeloteSuit b_ = new BidBeloteSuit();
@@ -241,7 +241,7 @@ public final class GameBeloteProgTrickDiscardTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
         byte d_ = 2;
-        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         bids_.add(new BidBeloteSuit());
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.UNDEFINED);
@@ -275,7 +275,7 @@ public final class GameBeloteProgTrickDiscardTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
         byte d_ = 2;
-        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.UNDEFINED);
         b_.setEnchere(BidBelote.NO_TRUMP);
@@ -306,7 +306,7 @@ public final class GameBeloteProgTrickDiscardTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.ALL_TRUMP,true);
         byte d_ = 2;
-        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         bids_.add(new BidBeloteSuit());
         bids_.add(new BidBeloteSuit());
         BidBeloteSuit b_ = new BidBeloteSuit();
@@ -341,7 +341,7 @@ public final class GameBeloteProgTrickDiscardTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.ALL_TRUMP,true);
         byte d_ = 2;
-        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         bids_.add(new BidBeloteSuit());
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.UNDEFINED);
@@ -375,7 +375,7 @@ public final class GameBeloteProgTrickDiscardTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.ALL_TRUMP,true);
         byte d_ = 2;
-        EqList<BidBeloteSuit> bids_ = new EqList<BidBeloteSuit>();
+        CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.UNDEFINED);
         b_.setEnchere(BidBelote.ALL_TRUMP);

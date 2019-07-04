@@ -2,7 +2,7 @@ package cards.network.belote.displaying;
 import cards.belote.BidBeloteSuit;
 import cards.belote.HandBelote;
 import cards.belote.enumerations.DealingBelote;
-import code.util.EqList;
+import code.util.CustList;
 
 
 public final class DealtHandBelote {
@@ -11,7 +11,7 @@ public final class DealtHandBelote {
 
     private HandBelote deck;
 
-    private EqList<BidBeloteSuit> allowedBids;
+    private CustList<BidBeloteSuit> allowedBids;
 
     private byte dealer;
 
@@ -35,11 +35,11 @@ public final class DealtHandBelote {
         deck = _deck;
     }
 
-    public EqList<BidBeloteSuit> getAllowedBids() {
+    public CustList<BidBeloteSuit> getAllowedBids() {
         return allowedBids;
     }
 
-    public void setAllowedBids(EqList<BidBeloteSuit> _allowedBids) {
+    public void setAllowedBids(CustList<BidBeloteSuit> _allowedBids) {
         allowedBids = _allowedBids;
     }
 

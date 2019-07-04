@@ -1,10 +1,7 @@
 package code.maths;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.StringMap;
 import code.util.comparators.NaturalComparator;
-import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
 public final class MathList extends CustList<String> {

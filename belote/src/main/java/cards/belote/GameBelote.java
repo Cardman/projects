@@ -22,7 +22,7 @@ public final class GameBelote {
     personne ne prend un contrat et chacun joue pour soi*/
     private byte taker=CustList.INDEX_NOT_FOUND_ELT;
     /** Ce sont les primes, miseres ou poignees annoncees par le(s) joueur(s)*/
-    private EqList<DeclareHandBelote> declares=new EqList<DeclareHandBelote>();
+    private CustList<DeclareHandBelote> declares=new CustList<DeclareHandBelote>();
     private CustList<HandBelote> declaresBeloteRebelote = new CustList<HandBelote>();
     private BooleanList wonLastTrick = new BooleanList();
     /**Le contrat permet de dire quel va etre le deroulement
@@ -39,7 +39,7 @@ public final class GameBelote {
     /**Entameur du pli qui est en cours d'etre joue*/
     private byte starter;
     /**Ensembe des contrats annonces*/
-    private EqList<BidBeloteSuit> bids=new EqList<BidBeloteSuit>();
+    private CustList<BidBeloteSuit> bids=new CustList<BidBeloteSuit>();
     /**Ramasseur du pli qui vient d'etre joue*/
     private byte trickWinner;
     /**Scores cumules au cours des parties
@@ -177,7 +177,7 @@ public final class GameBelote {
     }
     public void initPartie() {
         taker=-1;
-        bids=new EqList<BidBeloteSuit>();
+        bids=new CustList<BidBeloteSuit>();
         endBidsFirstRound=false;
         bid=new BidBeloteSuit();
         progressingTrick=new TrickBelote((byte) -1);
@@ -387,7 +387,7 @@ public final class GameBelote {
     public BidBeloteSuit contrat(int _i) {
         return bids.get(_i);
     }
-    public EqList<BidBeloteSuit> tousContrats() {
+    public CustList<BidBeloteSuit> tousContrats() {
         return bids;
     }
     public BidBeloteSuit getContrat() {
@@ -448,8 +448,8 @@ public final class GameBelote {
         }
         return false;
     }
-    EqList<BidBeloteSuit> maximumBid() {
-        EqList<BidBeloteSuit> contratsMax_ = new EqList<BidBeloteSuit>();
+    CustList<BidBeloteSuit> maximumBid() {
+        CustList<BidBeloteSuit> contratsMax_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit bid_ = new BidBeloteSuit();
         for (BidBeloteSuit b: getGameBeloteBid().allowedBids()) {
             if (!b.jouerDonne()) {
@@ -716,11 +716,11 @@ public final class GameBelote {
         deal = _deal;
     }
 
-    public EqList<DeclareHandBelote> getDeclares() {
+    public CustList<DeclareHandBelote> getDeclares() {
         return declares;
     }
 
-    public void setDeclares(EqList<DeclareHandBelote> _declares) {
+    public void setDeclares(CustList<DeclareHandBelote> _declares) {
         declares = _declares;
     }
 
@@ -756,11 +756,11 @@ public final class GameBelote {
         progressingTrick = _progressingTrick;
     }
 
-    public EqList<BidBeloteSuit> getBids() {
+    public CustList<BidBeloteSuit> getBids() {
         return bids;
     }
 
-    public void setBids(EqList<BidBeloteSuit> _bids) {
+    public void setBids(CustList<BidBeloteSuit> _bids) {
         bids = _bids;
     }
 

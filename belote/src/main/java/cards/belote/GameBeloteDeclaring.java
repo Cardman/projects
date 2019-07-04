@@ -11,9 +11,9 @@ final class GameBeloteDeclaring {
     private GameBeloteTrickInfo doneTrickInfo;
     private GameBeloteTeamsRelation teamsRelation;
     private HandBelote curHand;
-    private EqList<DeclareHandBelote> declares;
+    private CustList<DeclareHandBelote> declares;
     GameBeloteDeclaring(GameBeloteTrickInfo _doneTrickInfo,GameBeloteTeamsRelation _teamsRelation,
-                        HandBelote _curHand,EqList<DeclareHandBelote> _declares) {
+                        HandBelote _curHand,CustList<DeclareHandBelote> _declares) {
         doneTrickInfo = _doneTrickInfo;
         teamsRelation = _teamsRelation;
         curHand = _curHand;
@@ -33,14 +33,14 @@ final class GameBeloteDeclaring {
         return annonce_;
     }
     void annulerAnnonces() {
-        EqList<DeclareHandBelote> annoncesLoc_ = new EqList<DeclareHandBelote>(declares);
+        CustList<DeclareHandBelote> annoncesLoc_ = new CustList<DeclareHandBelote>(declares);
         DeclareHandBeloteComparator comparateur_ =
                 new DeclareHandBeloteComparator(doneTrickInfo.getBid());
         Bytes takerTeam_ = teamsRelation.partenaires(teamsRelation.getTaker());
         takerTeam_.add(teamsRelation.getTaker());
-        EqList<DeclareHandBelote> declarationsTakerTeam_ = filterSort(annoncesLoc_, comparateur_, takerTeam_);
+        CustList<DeclareHandBelote> declarationsTakerTeam_ = filterSort(annoncesLoc_, comparateur_, takerTeam_);
         Bytes takerFoesTeam_ = teamsRelation.adversaires(teamsRelation.getTaker());
-        EqList<DeclareHandBelote> declarationsTakerFoesTeam_ = filterSort(annoncesLoc_, comparateur_, takerFoesTeam_);
+        CustList<DeclareHandBelote> declarationsTakerFoesTeam_ = filterSort(annoncesLoc_, comparateur_, takerFoesTeam_);
         if (!declarationsTakerTeam_.isEmpty()) {
             if (declarationsTakerFoesTeam_.isEmpty()) {
                 cancelDeclaring(takerFoesTeam_);
@@ -86,8 +86,8 @@ final class GameBeloteDeclaring {
         }
     }
 
-    private static EqList<DeclareHandBelote> filterSort(EqList<DeclareHandBelote> _annoncesLoc, DeclareHandBeloteComparator _comparateur, Bytes _team) {
-        EqList<DeclareHandBelote> declarationsTeam_ = new EqList<DeclareHandBelote>();
+    private static CustList<DeclareHandBelote> filterSort(CustList<DeclareHandBelote> _annoncesLoc, DeclareHandBeloteComparator _comparateur, Bytes _team) {
+        CustList<DeclareHandBelote> declarationsTeam_ = new CustList<DeclareHandBelote>();
         for (byte p: _team) {
             DeclareHandBelote annonceMainBelote_ = _annoncesLoc.get(p);
             if (annonceMainBelote_.getMain().estVide()) {
@@ -99,7 +99,7 @@ final class GameBeloteDeclaring {
         return declarationsTeam_;
     }
 
-    EqList<DeclareHandBelote> getDeclares() {
+    CustList<DeclareHandBelote> getDeclares() {
         return declares;
     }
 }
