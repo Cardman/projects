@@ -1382,7 +1382,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     public void showTeams() {
         GameTarot game_ = partieTarot();
         TeamsPlayers teams_ = new TeamsPlayers();
-        teams_.setTeams(game_.getTeamsRelation().playersBelongingToSameTeam());
+        teams_.setTeams(game_.getTeamsRelation().teams());
         DialogTeamsPlayers.initDialogTeamsPlayers(getOwner());
         DialogTeamsPlayers.setDialogTeamsPlayers(pseudosTarot(), teams_);
     }

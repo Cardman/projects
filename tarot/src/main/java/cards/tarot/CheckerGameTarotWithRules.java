@@ -557,10 +557,12 @@ public final class CheckerGameTarotWithRules {
                 loadedGameCopy_.ajouterUneCarteDansPliEnCours(ct_);
             }
             ind_++;
-            loadedGameCopy_.ajouterPetitAuBoutFinPartie();
             if (!loadedGameCopy_.keepPlayingCurrentGame()) {
+                loadedGameCopy_.ajouterPetitAuBoutPliEnCours();
                 break;
             }
+            loadedGameCopy_.ajouterPliEnCours();
+            loadedGameCopy_.ajouterPetitAuBout();
         }
     }
 }

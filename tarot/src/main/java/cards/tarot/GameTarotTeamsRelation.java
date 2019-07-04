@@ -20,17 +20,13 @@ public final class GameTarotTeamsRelation {
         rules = _rules;
     }
 
-    CustList<Bytes> teams() {
+    public CustList<Bytes> teams() {
         CustList<Bytes> teams_ =new CustList<Bytes>();
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
         Bytes all_ =tousJoueurs(nombreDeJoueurs_);
         Bytes done_ =new Bytes();
         while(!all_.isEmpty()) {
             byte pl_ = all_.first();
-            if (done_.contains(pl_)) {
-                all_.remove(0);
-                continue;
-            }
             Bytes parts_ = coequipiers(pl_, all_);
             parts_.add(pl_);
             teams_.add(parts_);
@@ -114,18 +110,7 @@ public final class GameTarotTeamsRelation {
         }
         return equipe_;
     }
-    public CustList<Bytes> playersBelongingToSameTeam() {
-        CustList<Bytes> teams_ = new CustList<Bytes>();
-        if (existePreneur()) {
-            Bytes takerTeam_ = tousCoequipiers(taker);
-            takerTeam_.add(taker);
-            teams_.add(takerTeam_);
-            byte nombreDeJoueurs_ = getNombreDeJoueurs();
-            Bytes takerFoeTeam_ = adversaires(taker, tousJoueurs(nombreDeJoueurs_));
-            teams_.add(takerFoeTeam_);
-        }
-        return teams_;
-    }
+
     Bytes adversaires(byte _joueur, Bytes _joueurs) {
         Bytes equipe_ = new Bytes();
         for (byte joueur_ : _joueurs) {
@@ -169,7 +154,7 @@ public final class GameTarotTeamsRelation {
             }
             return !aPourDefenseur(_numero2);
         }
-        return confiance(_numero1, _numero2) || _numero1 == _numero2;
+        return confiance(_numero1, _numero2);
     }
 
     void determinerConfiance(byte _numero, byte _nombreJoueurs) {

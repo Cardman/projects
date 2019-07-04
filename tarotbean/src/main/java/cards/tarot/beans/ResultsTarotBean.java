@@ -66,59 +66,61 @@ final class ResultsTarotBean extends TarotBean {
         linesDeal = new CustList<LineDeal>();
         calledCardsList = new StringList();
         calledPlayers = new StringList();
-        if(getBid().isJouerDonne()) {
-            EndTarotGame end_ = getGame().getEndTarotGame();
-            doubledScoreTaker_=end_.scorePreneurPlisDouble(getBid());
-            numberOudlersTaker=end_.nombreBoutsPreneur(getBid());
-            needlyScoresTaker=end_.scoreNecessairePreneur(getBid());
-            short scorePreneurPlis_=end_.scorePreneurPlis(doubledScoreTaker_, needlyScoresTaker);
-            differenceScoreTaker=(short) (scorePreneurPlis_-needlyScoresTaker);
-            basePoints=end_.base(doubledScoreTaker_,differenceScoreTaker);
-            scoreTakerWithoutDeclaring=end_.scorePreneurSansAnnonces(differenceScoreTaker,basePoints);
-            additionnalBonusesAttack = end_.additionnalBonusesAttack(getBid());
-            additionnalBonusesDefense = end_.additionnalBonusesDefense(getBid());
-            winEqualityLoose=end_.getUserState(scoreTakerWithoutDeclaring,res_.getUser());
-            scoreTaker = (short) (doubledScoreTaker_/2);
-            taker = getNicknames().get(getGame().getPreneur());
-            for (byte p: getGame().getAppele()) {
-                calledPlayers.add(getNicknames().get(p));
-            }
-            for (CardTarot c: getGame().getCarteAppelee()) {
-                calledCardsList.add(toString(c,getLoc()));
-            }
-        } else if(!getGame().unionPlis().isEmpty()) {
-            EndTarotGame end_ = getGame().getEndTarotGame();
-            boolean pasJeuMisere_=getGame().pasJeuMisere();
-            if(pasJeuMisere_) {
-                for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
-                    doubledScoresPlayersTricks_.add(end_.scoreJoueurPlisDouble( joueur_));
-                    needlyScoresPlayers_.add(end_.scoreNecessaireJoueur(joueur_));
-                    doublesDifferencesPlayers_.add(EndTarotGame.differenceJoueurDouble(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
-                    maxDoubledDifference=(short)Math.max(maxDoubledDifference,doublesDifferencesPlayers_.last());
+        if(!getGame().getTricks().isEmpty()) {
+            if(getBid().isJouerDonne()) {
+                EndTarotGame end_ = getGame().getEndTarotGame();
+                doubledScoreTaker_=end_.scorePreneurPlisDouble(getBid());
+                numberOudlersTaker=end_.nombreBoutsPreneur(getBid());
+                needlyScoresTaker=end_.scoreNecessairePreneur(getBid());
+                short scorePreneurPlis_=end_.scorePreneurPlis(doubledScoreTaker_, needlyScoresTaker);
+                differenceScoreTaker=(short) (scorePreneurPlis_-needlyScoresTaker);
+                basePoints=end_.base(doubledScoreTaker_,differenceScoreTaker);
+                scoreTakerWithoutDeclaring=end_.scorePreneurSansAnnonces(differenceScoreTaker,basePoints);
+                additionnalBonusesAttack = end_.additionnalBonusesAttack(getBid());
+                additionnalBonusesDefense = end_.additionnalBonusesDefense(getBid());
+                winEqualityLoose=end_.getUserState(scoreTakerWithoutDeclaring,res_.getUser());
+                scoreTaker = (short) (doubledScoreTaker_/2);
+                taker = getNicknames().get(getGame().getPreneur());
+                for (byte p: getGame().getAppele()) {
+                    calledPlayers.add(getNicknames().get(p));
                 }
-                maxDifference=end_.differenceMax(maxDoubledDifference);
-                positions_=EndTarotGame.positionsDifference(doublesDifferencesPlayers_);
-                initialUserPosition=positions_.get(res_.getUser());
-                positions1_ = end_.changePositionsOne(positions_,pasJeuMisere_);
-                positions2_ = end_.changePositionsTwo(positions1_,pasJeuMisere_);
-                positions3_ = end_.changePositionsThree(positions2_,pasJeuMisere_);
-                positions4_ = end_.changePositionsFour(positions3_, pasJeuMisere_);
+                for (CardTarot c: getGame().getCarteAppelee()) {
+                    calledCardsList.add(toString(c,getLoc()));
+                }
             } else {
-                for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
-                    doubledScoresPlayersTricks_.add(end_.scoreJoueurPlisDouble(joueur_));
-                    needlyScoresPlayers_.add(end_.scoreNecessaireJoueur(joueur_));
-                    doublesDifferencesPlayers_.add(EndTarotGame.differenceJoueurDoubleMisere(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
-                    maxDoubledDifference=(short)Math.max(maxDoubledDifference,doublesDifferencesPlayers_.last());
+                EndTarotGame end_ = getGame().getEndTarotGame();
+                boolean pasJeuMisere_=getGame().pasJeuMisere();
+                if(pasJeuMisere_) {
+                    for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
+                        doubledScoresPlayersTricks_.add(end_.scoreJoueurPlisDouble( joueur_));
+                        needlyScoresPlayers_.add(end_.scoreNecessaireJoueur(joueur_));
+                        doublesDifferencesPlayers_.add(EndTarotGame.differenceJoueurDouble(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
+                        maxDoubledDifference=(short)Math.max(maxDoubledDifference,doublesDifferencesPlayers_.last());
+                    }
+                    maxDifference=end_.differenceMax(maxDoubledDifference);
+                    positions_=EndTarotGame.positionsDifference(doublesDifferencesPlayers_);
+                    initialUserPosition=positions_.get(res_.getUser());
+                    positions1_ = end_.changePositionsOne(positions_,pasJeuMisere_);
+                    positions2_ = end_.changePositionsTwo(positions1_,pasJeuMisere_);
+                    positions3_ = end_.changePositionsThree(positions2_,pasJeuMisere_);
+                    positions4_ = end_.changePositionsFour(positions3_, pasJeuMisere_);
+                } else {
+                    for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
+                        doubledScoresPlayersTricks_.add(end_.scoreJoueurPlisDouble(joueur_));
+                        needlyScoresPlayers_.add(end_.scoreNecessaireJoueur(joueur_));
+                        doublesDifferencesPlayers_.add(EndTarotGame.differenceJoueurDoubleMisere(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
+                        maxDoubledDifference=(short)Math.max(maxDoubledDifference,doublesDifferencesPlayers_.last());
+                    }
+                    maxDifference=end_.differenceMax(maxDoubledDifference);
+                    positions_=EndTarotGame.positionsDifference(doublesDifferencesPlayers_);
+                    initialUserPosition=positions_.get(res_.getUser());
+                    positions1_ = end_.changePositionsOne(positions_,pasJeuMisere_);
+                    positions2_ = end_.changePositionsTwo(positions1_,pasJeuMisere_);
+                    positions3_ = end_.changePositionsThree(positions2_,pasJeuMisere_);
+                    positions4_ = end_.changePositionsFour(positions3_, pasJeuMisere_);
                 }
-                maxDifference=end_.differenceMax(maxDoubledDifference);
-                positions_=EndTarotGame.positionsDifference(doublesDifferencesPlayers_);
-                initialUserPosition=positions_.get(res_.getUser());
-                positions1_ = end_.changePositionsOne(positions_,pasJeuMisere_);
-                positions2_ = end_.changePositionsTwo(positions1_,pasJeuMisere_);
-                positions3_ = end_.changePositionsThree(positions2_,pasJeuMisere_);
-                positions4_ = end_.changePositionsFour(positions3_, pasJeuMisere_);
+                finalUserPosition = positions4_.get(res_.getUser());
             }
-            finalUserPosition = positions4_.get(res_.getUser());
         }
         linesDeal = new CustList<LineDeal>();
         int nbDeals_ = getScores().size();

@@ -329,11 +329,12 @@ public final class GameTarot {
             for (byte joueur_ : orderedPlayers(starter)) {
                 currentPlayerHasPlayed(joueur_);
             }
-            ajouterPetitAuBoutFinPartie();
             if (getDistribution().main().estVide()) {
+                ajouterPetitAuBoutPliEnCours();
                 break;
             }
             ajouterPliEnCours();
+            ajouterPetitAuBout();
         }
     }
 
@@ -1235,13 +1236,7 @@ public final class GameTarot {
         ajouterPetitAuBout();
     }
 
-    public void ajouterPetitAuBoutFinPartie() {
-        if(getDistribution().main().estVide()) {
-            ajouterPliEnCours();
-        }
-        ajouterPetitAuBout();
-    }
-    private void ajouterPetitAuBout() {
+    void ajouterPetitAuBout() {
         if(getDistribution().main().total() > 1) {
             return;
         }

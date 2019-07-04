@@ -272,6 +272,18 @@ public abstract class CommonGameTarot {
             fail("Error");
         }
     }
+    protected TrickTarot newFirstTrick(CustList<BidTarot> _bids, RulesTarot _rules, byte _deal) {
+        return new TrickTarot((byte) getTaker(_rules,_deal,_bids),false);
+    }
+    protected TrickTarot newClassicTrick(CustList<TrickTarot> _tr, RulesTarot _rules, byte _deal) {
+        if (_tr.isEmpty()) {
+            return new TrickTarot(_rules.getDealing().getNextPlayer(_deal),true);
+        }
+        return new TrickTarot(_tr.last().getRamasseur(),true);
+    }
+    protected TrickTarot newSlamTrick(CustList<BidTarot> _bids, RulesTarot _rules, byte _deal) {
+        return new TrickTarot((byte) getTaker(_rules,_deal,_bids),true);
+    }
     protected static void faireConfiance(GameTarot _g, byte _p) {
         byte n_ = _g.getProgressingTrick().getNextPlayer(_g.getNombreDeJoueurs());
         _g.getTeamsRelation().faireConfiance(n_, _p);

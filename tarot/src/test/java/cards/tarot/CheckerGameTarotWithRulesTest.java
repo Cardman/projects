@@ -13,7 +13,6 @@ import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.ModeTarot;
 import code.util.EnumList;
-import code.util.EqList;
 
 
 public class CheckerGameTarotWithRulesTest {
@@ -2185,7 +2184,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterUneCarteDansPliEnCours((byte)0,CardTarot.SPADE_QUEEN);
         game_.ajouterUneCarteDansPliEnCours((byte)1,CardTarot.DIAMOND_3);
         game_.ajouterUneCarteDansPliEnCours((byte)2,CardTarot.DIAMOND_QUEEN);
-        game_.ajouterPetitAuBoutFinPartie();
+        game_.ajouterPetitAuBoutPliEnCours();
         game_.setPliEnCours(false);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());

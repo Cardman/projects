@@ -56,224 +56,90 @@ public final class EndTarotGame {
 
     public short scorePreneurPlisDouble(BidTarot _bid) {
         short nbPointsAtt_ = 0;
-        boolean excuseDansPlisAttaque_ = false;
-        boolean chelemAttaque_ =false;
-        boolean chelemDefense_ =false;
-        boolean excuseEcartee_ = false;
-        if(aucunPliAdverseFin(relations.getTaker(), tricks)) {
-            chelemAttaque_ = true;
-        }
-        byte nombreDeJoueurs_ = relations.getNombreDeJoueurs();
-        if(plisTousFaitsParFin(relations.adversaires(relations.getTaker(), GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_)), tricks, nombreDeJoueurs_)) {
-            chelemDefense_ = true;
-        }
-        CustList<TrickTarot> trAttack_ = getPlisAttaque(_bid);
-        for (TrickTarot pli_ : trAttack_) {
-            if(!pli_.getVuParToutJoueur()) {
-                if(pli_.contient(CardTarot.excuse())) {
-                    excuseEcartee_ = true;
-                }
-            }
-            if (pli_.contient(CardTarot.excuse())) {
-                excuseDansPlisAttaque_ = true;
-            }
-            for (CardTarot carte_ : pli_) {
-                nbPointsAtt_ += carte_.points();
-            }
-        }
-        CustList<TrickTarot> trDef_ = getPlisDefense(_bid);
-        for (TrickTarot pli_ : trDef_) {
-            if(!pli_.getVuParToutJoueur()) {
-                if(pli_.contient(CardTarot.excuse())) {
-                    excuseEcartee_ = true;
-                }
-                break;
-            }
-        }
-        if(excuseEcartee_) {
-            return nbPointsAtt_;
-        }
-        if(chelemAttaque_) {
-            if(!trAttack_.last().contient(CardTarot.excuse())) {
-                for (TrickTarot pli_ : trAttack_) {
-                    if(!pli_.getVuParToutJoueur()) {
-                        continue;
-                    }
-                    if(!pli_.contient(CardTarot.excuse())) {
-                        continue;
-                    }
-                    byte joueurExcuse_ = pli_.joueurAyantJoue(CardTarot.excuse());
-                    if(!relations.memeEquipe(relations.getTaker(), joueurExcuse_)) {
-                        nbPointsAtt_ -= CardTarot.excuse().points()+2;
-                        break;
-                    }
-                }
-            }
-        } else if(chelemDefense_) {
-            if(!trDef_.last().contient(CardTarot.excuse())) {
-                for (TrickTarot pli_ : trDef_) {
-                    if(!pli_.getVuParToutJoueur()) {
-                        continue;
-                    }
-                    if(!pli_.contient(CardTarot.excuse())) {
-                        continue;
-                    }
-                    byte joueurExcuse_ = pli_.joueurAyantJoue(CardTarot.excuse());
-                    if(relations.memeEquipe(relations.getTaker(), joueurExcuse_)) {
-                        nbPointsAtt_ += CardTarot.excuse().points()-2;
-                        break;
-                    }
-                }
-            }
-        } else {
-            if(excuseDansPlisAttaque_) {
-                if(!trAttack_.last().contient(CardTarot.excuse())) {
-                    for (TrickTarot pli_ : trAttack_) {
-                        if(!pli_.getVuParToutJoueur()) {
-                            continue;
-                        }
-                        if(!pli_.contient(CardTarot.excuse())) {
-                            continue;
-                        }
-                        byte joueurExcuse_ = pli_.joueurAyantJoue(CardTarot.excuse());
-                        if(!relations.memeEquipe(relations.getTaker(), joueurExcuse_)) {
-                            nbPointsAtt_ -= CardTarot.excuse().points();
-                            if(nombreDeJoueurs_%2 == 0) {
-                                nbPointsAtt_+=2;
-                            }
-                            break;
-                        }
-                    }
-                }
-            } else {
-                if(!trDef_.last().contient(CardTarot.excuse())) {
-                    for (TrickTarot pli_ : trDef_) {
-                        if(!pli_.getVuParToutJoueur()) {
-                            continue;
-                        }
-                        if(!pli_.contient(CardTarot.excuse())) {
-                            continue;
-                        }
-                        byte joueurExcuse_ = pli_.joueurAyantJoue(CardTarot.excuse());
-                        if(relations.memeEquipe(relations.getTaker(), joueurExcuse_)) {
-                            nbPointsAtt_ += CardTarot.excuse().points();
-                            if(nombreDeJoueurs_%2 == 0) {
-                                nbPointsAtt_-=2;
-                            }
-                            break;
-                        }
-                    }
-                }
-            }
+        for (CardTarot c: getWonCardsTaker(_bid)) {
+            nbPointsAtt_ += c.points();
         }
         return nbPointsAtt_;
     }
+
     public byte nombreBoutsPreneur(BidTarot _bid) {
         byte nombreBouts_ = 0;
-        boolean excuseDansPlisAttaque_ = false;
-        boolean chelemAttaque_ =false;
-        boolean chelemDefense_ =false;
-        boolean excuseEcartee_ = false;
-        if(aucunPliAdverseFin(relations.getTaker(), tricks)) {
-            chelemAttaque_ = true;
-        }
-        byte nombreDeJoueurs_ = relations.getNombreDeJoueurs();
-        if(plisTousFaitsParFin(relations.adversaires(relations.getTaker(), GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_)), tricks, nombreDeJoueurs_)) {
-            chelemDefense_ = true;
-        }
-        CustList<TrickTarot> trAtt_ = getPlisAttaque(_bid);
-        for (TrickTarot pli_ : trAtt_) {
-            if (pli_.contient(CardTarot.excuse())) {
-                excuseDansPlisAttaque_ = true;
-            }
-            for (CardTarot carte_ : pli_) {
-                if(!carte_.estUnBout()) {
-                    continue;
-                }
+        for (CardTarot c: getWonCardsTaker(_bid)) {
+            if (c.estUnBout()) {
                 nombreBouts_++;
-            }
-        }
-        TrickTarot dog_ = tricks.first();
-        if(!dog_.getVuParToutJoueur()) {
-            if(dog_.contient(CardTarot.excuse())) {
-                excuseEcartee_ = true;
-            }
-        }
-        if(excuseEcartee_) {
-            return nombreBouts_;
-        }
-        if(chelemAttaque_) {
-            if(!trAtt_.last().contient(CardTarot.excuse())) {
-                for (TrickTarot pli_ : trAtt_) {
-                    if(!pli_.getVuParToutJoueur()) {
-                        continue;
-                    }
-                    if(!pli_.contient(CardTarot.excuse())) {
-                        continue;
-                    }
-                    byte joueurExcuse_ = pli_.joueurAyantJoue(CardTarot.excuse());
-                    if(!relations.memeEquipe(relations.getTaker(), joueurExcuse_)) {
-                        nombreBouts_--;
-                        break;
-                    }
-                }
-            }
-        } else {
-            CustList<TrickTarot> trDef_ = getPlisDefense(_bid);
-            if(chelemDefense_) {
-                if(!trDef_.last().contient(CardTarot.excuse())) {
-                    for (TrickTarot pli_ : trDef_) {
-                        if(!pli_.getVuParToutJoueur()) {
-                            continue;
-                        }
-                        if(!pli_.contient(CardTarot.excuse())) {
-                            continue;
-                        }
-                        byte joueurExcuse_ = pli_.joueurAyantJoue(CardTarot.excuse());
-                        if(relations.memeEquipe(relations.getTaker(), joueurExcuse_)) {
-                            nombreBouts_++;
-                            break;
-                        }
-                    }
-                }
-            } else {
-                if(excuseDansPlisAttaque_) {
-                    if(!trAtt_.last().contient(CardTarot.excuse())) {
-                        for (TrickTarot pli_ : trAtt_) {
-                            if(!pli_.getVuParToutJoueur()) {
-                                continue;
-                            }
-                            if(!pli_.contient(CardTarot.excuse())) {
-                                continue;
-                            }
-                            byte joueurExcuse_ = pli_.joueurAyantJoue(CardTarot.excuse());
-                            if(!relations.memeEquipe(relations.getTaker(), joueurExcuse_)) {
-                                nombreBouts_--;
-                                break;
-                            }
-                        }
-                    }
-                } else {
-                    if(!trDef_.last().contient(CardTarot.excuse())) {
-                        for (TrickTarot pli_ : trDef_) {
-                            if(!pli_.getVuParToutJoueur()) {
-                                continue;
-                            }
-                            if(!pli_.contient(CardTarot.excuse())) {
-                                continue;
-                            }
-                            byte joueurExcuse_ = pli_.joueurAyantJoue(CardTarot.excuse());
-                            if(relations.memeEquipe(relations.getTaker(), joueurExcuse_)) {
-                                nombreBouts_++;
-                            }
-                        }
-                    }
-                }
             }
         }
         return nombreBouts_;
     }
 
+    HandTarot getWonCardsTaker(BidTarot _bid) {
+        HandTarot nbPointsAtt_ = new HandTarot();
+        boolean chelemAttaque_ =false;
+        boolean chelemDefense_ =false;
+        boolean excuseEcartee_ = false;
+        if(aucunPliAdverseFin(relations.getTaker(), tricks)) {
+            chelemAttaque_ = true;
+        }
+        byte nombreDeJoueurs_ = relations.getNombreDeJoueurs();
+        if(plisTousFaitsParFin(relations.adversaires(relations.getTaker(), GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_)), tricks, nombreDeJoueurs_)) {
+            chelemDefense_ = true;
+        }
+        if (tricks.first().contient(CardTarot.excuse())) {
+            excuseEcartee_ = true;
+        }
+        CustList<TrickTarot> trAttack_ = getPlisAttaque(_bid);
+        for (TrickTarot pli_ : trAttack_) {
+            for (CardTarot carte_ : pli_) {
+                nbPointsAtt_.ajouter(carte_);
+            }
+        }
+        if(excuseEcartee_) {
+            return nbPointsAtt_;
+        }
+        boolean excuseDansPlisAttaque_ = false;
+        for (TrickTarot pli_ : trAttack_) {
+            if (pli_.contient(CardTarot.excuse())) {
+                excuseDansPlisAttaque_ = true;
+            }
+        }
+        CustList<TrickTarot> trDef_ = getPlisDefense(_bid);
+        CustList<TrickTarot> excuseTrick_;
+        if(chelemAttaque_) {
+            excuseTrick_ = getExcuseTrick(trAttack_);
+        } else if(chelemDefense_) {
+            excuseTrick_ = getExcuseTrick(trDef_);
+        } else {
+            if(excuseDansPlisAttaque_) {
+                excuseTrick_ = getExcuseTrick(trAttack_);
+            } else {
+                excuseTrick_ = getExcuseTrick(trDef_);
+            }
+        }
+        for (TrickTarot pli_ : excuseTrick_) {
+            byte joueurExcuse_ = pli_.joueurAyantJoue(CardTarot.excuse());
+            nbPointsAtt_.removeCardIfPresent(CardTarot.EXCUSE);
+            if(relations.memeEquipe(relations.getTaker(), joueurExcuse_)) {
+                nbPointsAtt_.ajouter(CardTarot.EXCUSE);
+            }
+        }
+        return nbPointsAtt_;
+    }
+
+    static CustList<TrickTarot> getExcuseTrick(CustList<TrickTarot> _trs) {
+        CustList<TrickTarot> t_ = new CustList<TrickTarot>();
+        if (_trs.last().contient(CardTarot.EXCUSE)) {
+            return t_;
+        }
+        for (TrickTarot pli_ : _trs) {
+            if (!pli_.getVuParToutJoueur()) {
+                continue;
+            }
+            if (pli_.contient(CardTarot.EXCUSE)) {
+                t_.add(pli_);
+            }
+        }
+        return t_;
+    }
     public short scorePreneurPlis(short _scorePreneurPlisDouble,
                                   short _scoreNecessairePreneur) {
         short scorePreneurPlis_ = (short) (_scorePreneurPlisDouble / 2);
@@ -418,26 +284,22 @@ public final class EndTarotGame {
         CustList<TreeMap<Miseres,Short>> scores1_ = new CustList<TreeMap<Miseres,Short>>();
         byte nombreDeJoueurs_ = relations.getNombreDeJoueurs();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreDeJoueurs_; joueur_++) {
-            scores1_.add(new TreeMap<Miseres,Short>(new MiseresComparator()));
-            if (joueur_ == relations.getTaker()) {
-                for (Miseres m : declaresMiseres.get(joueur_)) {
-                    scores1_.last().put(m,
-                            (short) m.getPoints());
-                }
-            } else if (relations.statutDe(joueur_) == Status.CALLED_PLAYER) {
-                for (Miseres m : declaresMiseres.get(joueur_)) {
-                    scores1_.last().put(m,
-                            (short) m.getPoints());
-                }
+            TreeMap<Miseres, Short> miseresPlayer_ = new TreeMap<Miseres, Short>(new MiseresComparator());
+            scores1_.add(miseresPlayer_);
+            if (relations.aPourDefenseur(joueur_)) {
+                feedMiseres(miseresPlayer_,joueur_,-1);
             } else {
-                for (Miseres m : declaresMiseres.get(joueur_)) {
-                    scores1_.last().put(m,
-                            (short) (-m.getPoints()));
-                }
+                feedMiseres(miseresPlayer_,joueur_,1);
             }
         }
         return scores1_;
 
+    }
+    private void feedMiseres(TreeMap<Miseres, Short> _miseres,int _player, int _rate) {
+        for (Miseres m : declaresMiseres.get(_player)) {
+            _miseres.put(m,
+                    (short) (_rate*m.getPoints()));
+        }
     }
     public CustList<TreeMap<Handfuls,Short>> getHandfulsPointsForTaker(short _pointsTakerWithoutDeclaring) {
 
@@ -1994,14 +1856,9 @@ public final class EndTarotGame {
     public CustList<TrickTarot> getPlisAttaque(BidTarot _bid) {
         CustList<TrickTarot> tricks_ = new CustList<TrickTarot>();
         if (_bid.getJeuChien() != PlayingDog.AGAINST) {
-            if (!tricks.isEmpty()) {
-                tricks_.add(tricks.first());
-            }
+            tricks_.add(tricks.first());
         }
         for (TrickTarot t: getWonTricksListTeam(relations.getTaker())) {
-            if (!t.getVuParToutJoueur()) {
-                continue;
-            }
             tricks_.add(t);
         }
         return tricks_;
@@ -2010,9 +1867,7 @@ public final class EndTarotGame {
     public CustList<TrickTarot> getPlisDefense(BidTarot _bid) {
         CustList<TrickTarot> tricks_ = new CustList<TrickTarot>();
         if (_bid.getJeuChien() == PlayingDog.AGAINST) {
-            if (!tricks.isEmpty()) {
-                tricks_.add(tricks.first());
-            }
+            tricks_.add(tricks.first());
         }
         Bytes defs_ = relations.adversaires(relations.getTaker(),GameTarotTeamsRelation.tousJoueurs(relations.getNombreDeJoueurs()));
         tricks_.addAllElts(getWonTricksListTeam(tricks,defs_));
@@ -2067,7 +1922,7 @@ public final class EndTarotGame {
         if (indExc_ < 0) {
             return tricks_;
         }
-        if (_players.containsObj(indExc_) && nbOther_ == 0 || _players.containsObj(lastTrick_.getRamasseur())) {
+        if (nbOther_ == 0) {
             tricks_.add(lastTrick_);
         }
         return tricks_;
