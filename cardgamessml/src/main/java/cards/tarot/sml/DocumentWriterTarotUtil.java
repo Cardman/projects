@@ -362,7 +362,7 @@ public final class DocumentWriterTarotUtil {
         return elt_;
     }
 
-    private static Element setListHandTarot(EqList<HandTarot> _object, String _fieldName, Document _document) {
+    private static Element setListHandTarot(CustList<HandTarot> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (HandTarot s: _object) {

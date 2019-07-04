@@ -59,9 +59,9 @@ public final class GameTarotMisere {
         EnumMap<Suit,HandTarot> repartition_ = currentHand.couleurs();
         HandTarot cartesJouees_ = _info.getCartesJouees();
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = _info.getRepartitionCartesJouees();
-        EnumMap<Suit,EqList<HandTarot>> suites_ = _info.getSuitesTouteCouleur();
-        EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
-        EnumMap<Suit,EqList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
+        EnumMap<Suit,CustList<HandTarot>> suites_ = _info.getSuitesTouteCouleur();
+        EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
+        EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
         HandTarot atouts_ = repartition_.getVal(Suit.TRUMP);
         HandTarot atoutsMaitres_ = atouts_
                 .atoutsMaitres(repartitionCartesJouees_);
@@ -96,7 +96,7 @@ public final class GameTarotMisere {
         couleurs_ = GameTarotCommon.couleursAvecLePlusGrandNbFigures(cartesJouees_, couleurs_);
         return repartition_.getVal(couleurs_.first()).derniereCarte();
     }
-    private static CardTarot discardTrump(EnumMap<Suit, EqList<HandTarot>> _suites, HandTarot _atouts, HandTarot _atoutsMaitres) {
+    private static CardTarot discardTrump(EnumMap<Suit, CustList<HandTarot>> _suites, HandTarot _atouts, HandTarot _atoutsMaitres) {
         if (_atoutsMaitres.estVide()) {
             return _suites.getVal(Suit.TRUMP).first().derniereCarte();
         }
@@ -146,7 +146,7 @@ public final class GameTarotMisere {
         EnumMap<Suit,HandTarot> repartitionJouables_ = playableCards.couleurs();
         Suit couleurDemandee_ = doneTrickInfo.getProgressingTrick().couleurDemandee();
         HandTarot repartitionCouleDem_ = repartitionJouables_.getVal(couleurDemandee_);
-        EqList<HandTarot> suites_ = repartitionCouleDem_
+        CustList<HandTarot> suites_ = repartitionCouleDem_
                 .eclaterEnCours(repartitionCartesJouees_, couleurDemandee_);
 
         byte ramasseurVirtuel_ = info_.getRamasseurVirtuel();
@@ -200,7 +200,7 @@ public final class GameTarotMisere {
         EnumMap<Suit,HandTarot> repartitionJouables_ = playableCards.couleurs();
         HandTarot trumps_ = repartitionJouables_.getVal(Suit.TRUMP);
         Suit couleurDemandee_ = doneTrickInfo.getProgressingTrick().couleurDemandee();
-        EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = info_.getCartesPossibles();
+        EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = info_.getCartesPossibles();
         /*
         CarteTarot temporairement
         maitresse

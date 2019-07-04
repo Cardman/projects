@@ -17,7 +17,7 @@ public final class DealBelote implements Iterable<HandBelote> {
     public static final byte NUMERO_UTILISATEUR = 0;
 
     /**Ensemble des mains des joueurs*/
-    private EqList<HandBelote> deal=new EqList<HandBelote>();
+    private CustList<HandBelote> deal=new CustList<HandBelote>();
     /**donneur est un entier allant de 0 a nombre de joueurs-1*/
     private byte dealer;
     /**nombre de parties jouees depuis le lancement*/
@@ -42,14 +42,14 @@ public final class DealBelote implements Iterable<HandBelote> {
         //jouees_ depuis_ le_ lancement_
     }
 
-    public DealBelote(EqList<HandBelote> _pdonne,
+    public DealBelote(CustList<HandBelote> _pdonne,
             byte _pdonneur) {
         deal=_pdonne;
         dealer=_pdonneur;
     }
 
     DealBelote(DealBelote _deal) {
-        deal = new EqList<HandBelote>();
+        deal = new CustList<HandBelote>();
         for (HandBelote h: _deal) {
             HandBelote h_ = new HandBelote();
             h_.ajouterCartes(h);
@@ -218,7 +218,7 @@ public final class DealBelote implements Iterable<HandBelote> {
         return (byte)deal.size();
     }
 
-    EqList<HandBelote> getDonne() {
+    CustList<HandBelote> getDonne() {
         return deal;
     }
 
@@ -226,10 +226,10 @@ public final class DealBelote implements Iterable<HandBelote> {
     public Iterator<HandBelote> iterator() {
         return deal.iterator();
     }
-    public EqList<HandBelote> getDeal() {
+    public CustList<HandBelote> getDeal() {
         return deal;
     }
-    public void setDeal(EqList<HandBelote> _deal) {
+    public void setDeal(CustList<HandBelote> _deal) {
         deal = _deal;
     }
     public byte getDealer() {

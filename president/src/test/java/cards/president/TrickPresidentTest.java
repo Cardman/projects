@@ -1,6 +1,7 @@
 package cards.president;
 import static cards.president.EquallablePresidentUtil.assertEq;
 
+import code.util.CustList;
 import org.junit.Test;
 
 import cards.president.enumerations.CardPresident;
@@ -128,7 +129,7 @@ public class TrickPresidentTest {
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_5);
         tr_.ajouter(h_, (byte) 1);
-        EqList<HandPresident> hs_ = tr_.getFilledHandsBefore(1);
+        CustList<HandPresident> hs_ = tr_.getFilledHandsBefore(1);
         assertEq(1, hs_.size());
         assertEq(1, hs_.get(0).total());
         assertEq(CardPresident.CLUB_3, hs_.get(0).carte(0));
@@ -152,7 +153,7 @@ public class TrickPresidentTest {
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_6);
         tr_.ajouter(h_, (byte) 2);
-        EqList<HandPresident> hs_ = tr_.getFilledHandsBefore(4);
+        CustList<HandPresident> hs_ = tr_.getFilledHandsBefore(4);
         assertEq(3, hs_.size());
         assertEq(1, hs_.get(0).total());
         assertEq(CardPresident.CLUB_3, hs_.get(0).carte(0));
@@ -180,7 +181,7 @@ public class TrickPresidentTest {
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_6);
         tr_.ajouter(h_, (byte) 2);
-        EqList<HandPresident> hs_ = tr_.getPlayedCards((byte) 1, (byte) 3);
+        CustList<HandPresident> hs_ = tr_.getPlayedCards((byte) 1, (byte) 3);
         assertEq(2, hs_.size());
         assertEq(1, hs_.get(0).total());
         assertEq(CardPresident.CLUB_3, hs_.get(0).carte(0));

@@ -1,6 +1,7 @@
 package cards.tarot.comparators;
 import static cards.tarot.EquallableTarotUtil.assertEq;
 
+import code.util.CustList;
 import org.junit.Test;
 
 import cards.consts.Suit;
@@ -218,7 +219,7 @@ public class ComparatorTarotTest {
         hand_.ajouter(CardTarot.TRUMP_13);
         hand_.ajouter(CardTarot.TRUMP_12);
         hand_.ajouter(CardTarot.TRUMP_11);
-        EqList<HandTarot> suitesAtouts_ = hand_.eclaterEnCours(
+        CustList<HandTarot> suitesAtouts_ = hand_.eclaterEnCours(
                 new HandTarot().couleurs(), Suit.TRUMP);
         suitesAtouts_.sortElts(new GameSeqLengthTarotComparator());
         assertEq(3, suitesAtouts_.size());
@@ -244,7 +245,7 @@ public class ComparatorTarotTest {
         hand_.ajouter(CardTarot.TRUMP_13);
         hand_.ajouter(CardTarot.TRUMP_12);
         hand_.ajouter(CardTarot.TRUMP_11);
-        EqList<HandTarot> suitesAtouts_ = hand_.eclaterEnCours(
+        CustList<HandTarot> suitesAtouts_ = hand_.eclaterEnCours(
                 new HandTarot().couleurs(), Suit.TRUMP);
         suitesAtouts_.swapIndexes(0, 1);
         suitesAtouts_.sortElts(new GameSeqLengthTarotComparator());
@@ -271,7 +272,7 @@ public class ComparatorTarotTest {
         hand_.ajouter(CardTarot.TRUMP_13);
         hand_.ajouter(CardTarot.TRUMP_12);
         hand_.ajouter(CardTarot.TRUMP_11);
-        EqList<HandTarot> suitesAtouts_ = hand_.eclaterEnCours(
+        CustList<HandTarot> suitesAtouts_ = hand_.eclaterEnCours(
                 new HandTarot().couleurs(), Suit.TRUMP);
         suitesAtouts_.swapIndexes(1, 2);
         suitesAtouts_.sortElts(new GameSeqLengthTarotComparator());
@@ -298,7 +299,7 @@ public class ComparatorTarotTest {
         hand_.ajouter(CardTarot.TRUMP_13);
         hand_.ajouter(CardTarot.TRUMP_12);
         hand_.ajouter(CardTarot.TRUMP_11);
-        EqList<HandTarot> suitesAtouts_ = hand_.eclaterEnCours(
+        CustList<HandTarot> suitesAtouts_ = hand_.eclaterEnCours(
                 new HandTarot().couleurs(), Suit.TRUMP);
         suitesAtouts_.add(new HandTarot());
         suitesAtouts_.add(new HandTarot());

@@ -32,14 +32,14 @@ public final class GameBeloteCommonPlaying {
         EnumMap<Suit,HandBelote> repartitionCartesJouees_ = cartesJouees_.couleurs(bid);
         Bytes joueursJoue_ = GameBeloteTeamsRelation.autresJoueurs(joueursNonJoue_,nbPlayers_);
         joueursJoue_.removeObj(nextPlayer_);
-        EnumMap<Suit,EqList<HandBelote>> cartesPossibles_ = doneTrickInfo.cartesPossibles(_cartes);
+        EnumMap<Suit,CustList<HandBelote>> cartesPossibles_ = doneTrickInfo.cartesPossibles(_cartes);
 
-        EnumMap<Hypothesis,EnumMap<Suit,EqList<HandBelote>>> hypotheses_ = doneTrickInfo.cartesCertaines(cartesPossibles_);
+        EnumMap<Hypothesis,EnumMap<Suit,CustList<HandBelote>>> hypotheses_ = doneTrickInfo.cartesCertaines(cartesPossibles_);
         cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
-        EnumMap<Suit,EqList<HandBelote>> cartesCertaines_ = hypotheses_
+        EnumMap<Suit,CustList<HandBelote>> cartesCertaines_ = hypotheses_
                 .getVal(Hypothesis.SURE);
         byte ramasseurVirtuel_ = prog_.getRamasseurPliEnCours(nbPlayers_, bid);
-        EnumMap<Suit,EqList<HandBelote>> suitesTouteCouleur_ = _cartes.eclaterTout(repartitionCartesJouees_, bid);
+        EnumMap<Suit,CustList<HandBelote>> suitesTouteCouleur_ = _cartes.eclaterTout(repartitionCartesJouees_, bid);
 
         boolean maitreAtout_ = strictMaitreAtout(bid, cartesPossibles_,nextPlayer_,suite(suitesTouteCouleur_,bid.getCouleur()),repartitionCartesJouees_);
         EnumList<Suit> couleursMaitresses_ = couleursMaitres(
@@ -242,14 +242,14 @@ public final class GameBeloteCommonPlaying {
         return GameBeloteCommon.hand(_repartition.couleurs(_bid),couleurs_.first()).premiereCarte();
     }
 
-    static boolean strictMaitreAtout(BidBeloteSuit _bid, EnumMap<Suit, EqList<HandBelote>> _cartesPossibles, byte _numero, EqList<HandBelote> _suites, EnumMap<Suit, HandBelote> _cartesJouees) {
+    static boolean strictMaitreAtout(BidBeloteSuit _bid, EnumMap<Suit, CustList<HandBelote>> _cartesPossibles, byte _numero, CustList<HandBelote> _suites, EnumMap<Suit, HandBelote> _cartesJouees) {
         if (!_bid.getCouleurDominante()) {
             return true;
         }
         Suit couleurAtout_= _bid.getSuit();
         int max_=CustList.SIZE_EMPTY;
         /*max designe le nombre maximal de cartes probablement possedees par un joueur*/
-        EqList<HandBelote> trumps_ = _cartesPossibles.getVal(couleurAtout_);
+        CustList<HandBelote> trumps_ = _cartesPossibles.getVal(couleurAtout_);
         int nbPlayers_ = trumps_.size();
         for(int joueur_=CustList.FIRST_INDEX;joueur_<nbPlayers_;joueur_++) {
             //La taille de cartesPossibles correspond au nombre de joueurs
@@ -279,9 +279,9 @@ public final class GameBeloteCommonPlaying {
         return existeAtoutMaitre_&&_suites.first().total()>=max_;
     }
     static EnumList<Suit> couleursMaitres(BidBeloteSuit _bid,
-                                          EnumMap<Suit, EqList<HandBelote>> _suites,
+                                          EnumMap<Suit, CustList<HandBelote>> _suites,
                                           EnumMap<Suit, HandBelote> _cartesJouees,
-                                          EnumMap<Suit, EqList<HandBelote>> _cartesPossibles, byte _numero) {
+                                          EnumMap<Suit, CustList<HandBelote>> _cartesPossibles, byte _numero) {
         EnumList<Suit> couleurs_ = strictCouleursMaitres(_bid, _suites, _cartesJouees, _cartesPossibles, _numero);
         for (Suit couleur_ : couleursNonAtouts(_bid)) {
             if (_suites.getVal(couleur_).isEmpty()) {
@@ -292,9 +292,9 @@ public final class GameBeloteCommonPlaying {
         return couleurs_;
     }
 
-    static EnumList<Suit> strictCouleursMaitres(BidBeloteSuit _bid, EnumMap<Suit, EqList<HandBelote>> _suites,
+    static EnumList<Suit> strictCouleursMaitres(BidBeloteSuit _bid, EnumMap<Suit, CustList<HandBelote>> _suites,
                                                 EnumMap<Suit, HandBelote> _cartesJouees,
-                                                EnumMap<Suit, EqList<HandBelote>> _cartesPossibles, byte _numero) {
+                                                EnumMap<Suit, CustList<HandBelote>> _cartesPossibles, byte _numero) {
         EnumList<Suit> couleurs_=new EnumList<Suit>();
         if(!_bid.getCouleurDominante()) {
             if(_bid.ordreCouleur()) {
@@ -320,7 +320,7 @@ public final class GameBeloteCommonPlaying {
         return couleurs_;
     }
 
-    private static void addNormalSuit(BidBeloteSuit _bid, EnumMap<Suit, EqList<HandBelote>> _suites, EnumMap<Suit, HandBelote> _cartesJouees, EnumMap<Suit, EqList<HandBelote>> _cartesPossibles, byte _numero, EnumList<Suit> _couleurs, Suit _couleur) {
+    private static void addNormalSuit(BidBeloteSuit _bid, EnumMap<Suit, CustList<HandBelote>> _suites, EnumMap<Suit, HandBelote> _cartesJouees, EnumMap<Suit, CustList<HandBelote>> _cartesPossibles, byte _numero, EnumList<Suit> _couleurs, Suit _couleur) {
         if(completelyPlayedSuit(_cartesJouees, _couleur)) {
             _couleurs.add(_couleur);
         } else if(!suite(_suites, _couleur).isEmpty()) {
@@ -330,7 +330,7 @@ public final class GameBeloteCommonPlaying {
         }
     }
 
-    private static void addSuit(EnumMap<Suit, EqList<HandBelote>> _suites, EnumMap<Suit, EqList<HandBelote>> _cartesPossibles, byte _numero, EnumList<Suit> _couleurs, Suit _couleur, int _maitres) {
+    private static void addSuit(EnumMap<Suit, CustList<HandBelote>> _suites, EnumMap<Suit, CustList<HandBelote>> _cartesPossibles, byte _numero, EnumList<Suit> _couleurs, Suit _couleur, int _maitres) {
         int max_ = getNbMaxPossPlayerCards(_cartesPossibles,
                 _numero, _couleur);
         if(_maitres >=max_|| _maitres >CustList.SIZE_EMPTY&&suite(_suites, _couleur).size()==CustList.ONE_ELEMENT) {
@@ -363,10 +363,10 @@ public final class GameBeloteCommonPlaying {
         return tricksNumbers_;
     }
     private static int getNbMaxPossPlayerCards(
-            EnumMap<Suit, EqList<HandBelote>> _possibleCards, byte _player, Suit _suit) {
+            EnumMap<Suit, CustList<HandBelote>> _possibleCards, byte _player, Suit _suit) {
         int max_=CustList.SIZE_EMPTY;
         /*max designe le nombre maximal de cartes probablement possedees par un joueur a une couleur donnee*/
-        EqList<HandBelote> poss_ = _possibleCards.getVal(_suit);
+        CustList<HandBelote> poss_ = _possibleCards.getVal(_suit);
         int nbPls_ = poss_.size();
         for(int joueur_=CustList.FIRST_INDEX;joueur_<nbPls_;joueur_++) {
             if(joueur_!=_player) {
@@ -376,15 +376,15 @@ public final class GameBeloteCommonPlaying {
         return max_;
     }
 
-    static int getNbLeadingTrumpCards(BidBeloteSuit _bid, EnumMap<Suit, EqList<HandBelote>> _seqs,
+    static int getNbLeadingTrumpCards(BidBeloteSuit _bid, EnumMap<Suit, CustList<HandBelote>> _seqs,
                                       EnumMap<Suit, HandBelote> _playedCards, Suit _suit) {
         return getNbLeadingCards(_bid,_seqs,_playedCards,_suit,Order.TRUMP);
     }
-    static int getNbLeadingSuitCards(BidBeloteSuit _bid, EnumMap<Suit, EqList<HandBelote>> _seqs,
+    static int getNbLeadingSuitCards(BidBeloteSuit _bid, EnumMap<Suit, CustList<HandBelote>> _seqs,
                                      EnumMap<Suit, HandBelote> _playedCards, Suit _suit) {
         return getNbLeadingCards(_bid,_seqs,_playedCards,_suit,Order.SUIT);
     }
-    private static int getNbLeadingCards(BidBeloteSuit _bid, EnumMap<Suit, EqList<HandBelote>> _seqs,
+    private static int getNbLeadingCards(BidBeloteSuit _bid, EnumMap<Suit, CustList<HandBelote>> _seqs,
                                          EnumMap<Suit, HandBelote> _playedCards, Suit _suit, Order _or) {
         boolean existeCarteMaitresse_=true;
         CardBelote c=GameBeloteCommon.hand(_seqs,_suit,CustList.FIRST_INDEX).premiereCarte();
@@ -430,7 +430,7 @@ public final class GameBeloteCommonPlaying {
     }
 
     static Bytes joueursSusceptiblesCoupe(
-            EnumMap<Suit,EqList<HandBelote>> _cartesPossibles,
+            EnumMap<Suit,CustList<HandBelote>> _cartesPossibles,
             Suit _couleurDemandee,
             Suit _couleurAtout,
             Bytes _joueurs) {
@@ -498,8 +498,8 @@ public final class GameBeloteCommonPlaying {
     }
 
 
-    static EnumList<Suit> couleursCoupeePar(byte _joueur, BidBeloteSuit _contrat, EnumMap<Suit, EqList<HandBelote>> _cartesPossibles,
-                                            EnumMap<Suit, EqList<HandBelote>> _cartesCertaines, EnumList<Suit> _couleurs) {
+    static EnumList<Suit> couleursCoupeePar(byte _joueur, BidBeloteSuit _contrat, EnumMap<Suit, CustList<HandBelote>> _cartesPossibles,
+                                            EnumMap<Suit, CustList<HandBelote>> _cartesCertaines, EnumList<Suit> _couleurs) {
         EnumList<Suit> couleurs_ = new EnumList<Suit>();
         if (!_cartesCertaines.getVal(_contrat.getCouleur()).get(_joueur).estVide()) {
             for (Suit couleur_ : _couleurs) {
@@ -514,7 +514,7 @@ public final class GameBeloteCommonPlaying {
 
     static EnumList<Suit> couleursPouvantEtreCoupees(
             Bytes _joueurs,
-            EnumMap<Suit,EqList<HandBelote>> _cartesPossibles,
+            EnumMap<Suit,CustList<HandBelote>> _cartesPossibles,
             Suit _couleurAtout, EnumList<Suit> _couleurs) {
         EnumList<Suit> couleurs_ = new EnumList<Suit>();
         for (Suit couleur_ : _couleurs) {
@@ -527,7 +527,7 @@ public final class GameBeloteCommonPlaying {
     }
 
     static EnumList<Suit> couleursDefausseeParJoueurs(
-            Bytes _joueurs, BidBeloteSuit _contrat, EnumMap<Suit,EqList<HandBelote>> _cartesPossibles,
+            Bytes _joueurs, BidBeloteSuit _contrat, EnumMap<Suit,CustList<HandBelote>> _cartesPossibles,
             EnumList<Suit> _couleurs) {
         EnumList<Suit> couleursDefausses_ = new EnumList<Suit>();
 
@@ -542,8 +542,8 @@ public final class GameBeloteCommonPlaying {
         couleursDefausses_.removeDuplicates();
         return couleursDefausses_;
     }
-    static EnumList<Suit> couleursNonCoupeeParJoueurs(Bytes _joueurs, BidBeloteSuit _contrat, EnumMap<Suit, EqList<HandBelote>> _cartesPossibles,
-                                                      EnumMap<Suit, EqList<HandBelote>> _cartesCertaines, EnumList<Suit> _couleurs) {
+    static EnumList<Suit> couleursNonCoupeeParJoueurs(Bytes _joueurs, BidBeloteSuit _contrat, EnumMap<Suit, CustList<HandBelote>> _cartesPossibles,
+                                                      EnumMap<Suit, CustList<HandBelote>> _cartesCertaines, EnumList<Suit> _couleurs) {
         EnumList<Suit> couleursCoupees_ = new EnumList<Suit>();
 
         for (byte joueur_ : _joueurs) {
@@ -566,14 +566,14 @@ public final class GameBeloteCommonPlaying {
     }
     
     private static boolean defausse(Suit _couleur, byte _joueur,
-                                    EnumMap<Suit, EqList<HandBelote>> _cartesPossibles, BidBeloteSuit _contrat) {
+                                    EnumMap<Suit, CustList<HandBelote>> _cartesPossibles, BidBeloteSuit _contrat) {
         if(_contrat.getCouleurDominante()) {
             return GameBeloteCommon.hand(_cartesPossibles,_contrat.getCouleur(),_joueur).estVide()&&GameBeloteCommon.hand(_cartesPossibles,_couleur,_joueur).estVide();
         }
         return GameBeloteCommon.hand(_cartesPossibles,_couleur,_joueur).estVide();
     }
     /**Retourne vrai si et seulement si le joueur ne peut pas fournir la couleur donnee et peut couper avec un atout*/
-    static boolean peutCouper(Suit _couleur, byte _numero, EnumMap<Suit, EqList<HandBelote>> _cartesPossibles, Suit _couleurAtout) {
+    static boolean peutCouper(Suit _couleur, byte _numero, EnumMap<Suit, CustList<HandBelote>> _cartesPossibles, Suit _couleurAtout) {
         return GameBeloteCommon.hand(_cartesPossibles,_couleur,_numero).estVide()&&!GameBeloteCommon.hand(_cartesPossibles,_couleurAtout,_numero).estVide();
     }
 

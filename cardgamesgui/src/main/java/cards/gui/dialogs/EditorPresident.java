@@ -294,7 +294,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     public void setPartie() {
         int nombreDeJoueurs_;
 
-        EqList<HandPresident> mains_=new EqList<HandPresident>();
+        CustList<HandPresident> mains_=new CustList<HandPresident>();
         CustList<CardsScrollableList> hands_ = getHands(false);
         for(CardsScrollableList l: hands_) {
             HandPresident m=new HandPresident();

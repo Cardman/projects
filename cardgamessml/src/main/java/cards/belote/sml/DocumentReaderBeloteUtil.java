@@ -520,11 +520,11 @@ public final class DocumentReaderBeloteUtil {
         return list_;
     }
 
-    private static EqList<HandBelote> getListHandBelote(Element _elt) {
+    private static CustList<HandBelote> getListHandBelote(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        EqList<HandBelote> list_ = new EqList<HandBelote>(cap_);
+        CustList<HandBelote> list_ = new CustList<HandBelote>(cap_);
         for (Element c: childElements_) {
             list_.add(getHandBelote(c));
         }

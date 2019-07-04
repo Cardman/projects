@@ -298,7 +298,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //        int nombreDeMains_=panelsCards.getComponentCount();
         int nombreDeJoueurs_;
 
-        EqList<HandBelote> mains_=new EqList<HandBelote>();
+        CustList<HandBelote> mains_=new CustList<HandBelote>();
         for (BeloteCardsScrollableList l: hands) {
             HandBelote m=new HandBelote();
             m.ajouterCartes(l.valMainBelote());

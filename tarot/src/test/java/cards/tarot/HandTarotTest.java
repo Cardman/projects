@@ -3,6 +3,7 @@ import static cards.tarot.EquallableTarotUtil.assertEq;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertTrue;
 
+import code.util.CustList;
 import org.junit.Test;
 
 import cards.consts.Suit;
@@ -484,7 +485,7 @@ public class HandTarotTest {
         main_.ajouter(CardTarot.HEART_10);
         main_.ajouter(CardTarot.HEART_9);
         main_.ajouter(CardTarot.HEART_7);
-        EqList<HandTarot> suites_ = new EqList<HandTarot>();
+        CustList<HandTarot> suites_ = new CustList<HandTarot>();
         HandTarot suite_ = new HandTarot();
         suite_.ajouter(CardTarot.HEART_KING);
         suites_.add(suite_);
@@ -496,7 +497,7 @@ public class HandTarotTest {
         suite_.ajouter(CardTarot.HEART_7);
         suites_.add(suite_);
 //        assertEq(suites_,main_.eclaterDebutPartie());
-        EqList<HandTarot> res_ = main_.eclaterDebutPartie();
+        CustList<HandTarot> res_ = main_.eclaterDebutPartie();
         assertEq(3, res_.size());
         assertEq(suites_.first(), res_.first());
         assertEq(suites_.get(1), res_.get(1));
@@ -509,7 +510,7 @@ public class HandTarotTest {
         main_.ajouter(CardTarot.HEART_10);
         main_.ajouter(CardTarot.HEART_9);
         main_.ajouter(CardTarot.HEART_7);
-        EqList<HandTarot> suites_ = new EqList<HandTarot>();
+        CustList<HandTarot> suites_ = new CustList<HandTarot>();
         HandTarot suite_ = new HandTarot();
         suite_.ajouter(CardTarot.HEART_KING);
         suites_.add(suite_);
@@ -523,7 +524,7 @@ public class HandTarotTest {
         HandTarot cartesJouees_ = new HandTarot();
         cartesJouees_.ajouter(CardTarot.HEART_8);
         cartesJouees_.ajouter(CardTarot.HEART_JACK);
-        suites_ = new EqList<HandTarot>();
+        suites_ = new CustList<HandTarot>();
         suite_ = new HandTarot();
         suite_.ajouter(CardTarot.HEART_KING);
         suites_.add(suite_);
@@ -537,7 +538,7 @@ public class HandTarotTest {
         main_.ajouter(CardTarot.TRUMP_15);
         main_.ajouter(CardTarot.TRUMP_14);
         main_.ajouter(CardTarot.TRUMP_8);
-        suites_ = new EqList<HandTarot>();
+        suites_ = new CustList<HandTarot>();
         suite_ = new HandTarot();
         suite_.ajouter(CardTarot.TRUMP_17);
         suites_.add(suite_);
@@ -549,7 +550,7 @@ public class HandTarotTest {
         suite_.ajouter(CardTarot.TRUMP_8);
         suites_.add(suite_);
 //        assertEq(suites_,main_.eclaterDebutPartie());
-        EqList<HandTarot> res_ = main_.eclaterDebutPartie();
+        CustList<HandTarot> res_ = main_.eclaterDebutPartie();
         assertEq(3, res_.size());
         assertEq(suites_.first(), res_.first());
         assertEq(suites_.get(1), res_.get(1));
@@ -562,7 +563,7 @@ public class HandTarotTest {
         main_.ajouter(CardTarot.HEART_10);
         main_.ajouter(CardTarot.HEART_9);
         main_.ajouter(CardTarot.HEART_7);
-        EqList<HandTarot> suites_ = new EqList<HandTarot>();
+        CustList<HandTarot> suites_ = new CustList<HandTarot>();
         HandTarot suite_ = new HandTarot();
         suite_.ajouter(CardTarot.HEART_KING);
         suites_.add(suite_);
@@ -576,7 +577,7 @@ public class HandTarotTest {
         HandTarot cartesJouees_ = new HandTarot();
         cartesJouees_.ajouter(CardTarot.HEART_8);
         cartesJouees_.ajouter(CardTarot.HEART_JACK);
-        suites_ = new EqList<HandTarot>();
+        suites_ = new CustList<HandTarot>();
         suite_ = new HandTarot();
         suite_.ajouter(CardTarot.HEART_KING);
         suites_.add(suite_);
@@ -585,7 +586,7 @@ public class HandTarotTest {
         suite_.ajouter(CardTarot.HEART_9);
         suite_.ajouter(CardTarot.HEART_7);
         suites_.add(suite_);
-        EqList<HandTarot> res_ = main_.eclaterEnCours(cartesJouees_.couleurs(), Suit.HEART);
+        CustList<HandTarot> res_ = main_.eclaterEnCours(cartesJouees_.couleurs(), Suit.HEART);
         assertEq(2, res_.size());
         assertEq(suites_.first(), res_.first());
         assertEq(suites_.last(), res_.last());
@@ -598,7 +599,7 @@ public class HandTarotTest {
         main_.ajouter(CardTarot.HEART_10);
         main_.ajouter(CardTarot.HEART_9);
         main_.ajouter(CardTarot.HEART_7);
-        EqList<HandTarot> suites_ = new EqList<HandTarot>();
+        CustList<HandTarot> suites_ = new CustList<HandTarot>();
         HandTarot suite_ = new HandTarot();
         suite_.ajouter(CardTarot.HEART_KING);
         suites_.add(suite_);
@@ -612,7 +613,7 @@ public class HandTarotTest {
         HandTarot cartesJouees_ = new HandTarot();
         cartesJouees_.ajouter(CardTarot.HEART_8);
         cartesJouees_.ajouter(CardTarot.HEART_JACK);
-        suites_ = new EqList<HandTarot>();
+        suites_ = new CustList<HandTarot>();
         suite_ = new HandTarot();
         suite_.ajouter(CardTarot.HEART_KING);
         suites_.add(suite_);
@@ -626,7 +627,7 @@ public class HandTarotTest {
         main_.ajouter(CardTarot.TRUMP_15);
         main_.ajouter(CardTarot.TRUMP_14);
         main_.ajouter(CardTarot.TRUMP_8);
-        suites_ = new EqList<HandTarot>();
+        suites_ = new CustList<HandTarot>();
         suite_ = new HandTarot();
         suite_.ajouter(CardTarot.TRUMP_17);
         suites_.add(suite_);
@@ -640,7 +641,7 @@ public class HandTarotTest {
         cartesJouees_ = new HandTarot();
         cartesJouees_.ajouter(CardTarot.TRUMP_16);
         cartesJouees_.ajouter(CardTarot.TRUMP_9);
-        suites_ = new EqList<HandTarot>();
+        suites_ = new CustList<HandTarot>();
         suite_ = new HandTarot();
         suite_.ajouter(CardTarot.TRUMP_17);
         suite_.ajouter(CardTarot.TRUMP_15);
@@ -649,7 +650,7 @@ public class HandTarotTest {
         suite_ = new HandTarot();
         suite_.ajouter(CardTarot.TRUMP_8);
         suites_.add(suite_);
-        EqList<HandTarot> res_ = main_.eclaterEnCours(cartesJouees_.couleurs(), Suit.HEART);
+        CustList<HandTarot> res_ = main_.eclaterEnCours(cartesJouees_.couleurs(), Suit.HEART);
         assertEq(2, res_.size());
         assertEq(suites_.first(), res_.first());
         assertEq(suites_.last(), res_.last());

@@ -5,11 +5,9 @@ import cards.gui.animations.SimulationGamePresident;
 public class ContainerSimuPresident extends ContainerPresident implements
         ContainerSimu {
 
-    private SimulationGamePresident animationSimulation;
     public ContainerSimuPresident(MainWindow _window) {
         super(_window);
-        animationSimulation=new SimulationGamePresident(this);
-        animationSimulation.start();
+        new Thread(new SimulationGamePresident(this)).start();
     }
 
     @Override

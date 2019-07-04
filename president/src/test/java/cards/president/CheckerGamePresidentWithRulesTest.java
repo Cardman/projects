@@ -18,7 +18,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check1Test() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -48,7 +48,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check2Test() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -83,7 +83,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check3Test() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -120,7 +120,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check4Test() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -158,7 +158,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check5Test() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -199,7 +199,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check6Test() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -245,7 +245,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check7Test() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -295,7 +295,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check8Test() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -351,7 +351,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check9Test() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -465,7 +465,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check10Test() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -581,7 +581,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check11Test() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -703,7 +703,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check12Test() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -849,7 +849,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check13Test() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -1023,7 +1023,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check14Test() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -1201,7 +1201,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check15Test() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -1358,7 +1358,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check16Test() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -1512,7 +1512,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check17Test() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -1718,7 +1718,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check18Test() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -1898,7 +1898,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check19Test() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -2078,7 +2078,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check20Test() {
         RulesPresident r_ = new RulesPresident(3);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal4();
+        CustList<HandPresident> hs_ = deal4();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -2109,7 +2109,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_.add((byte) 1);
         rk_.add((byte) 2);
         rk_.add((byte) 3);
-        EqList<HandPresident> hs_ = deal4();
+        CustList<HandPresident> hs_ = deal4();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -2142,7 +2142,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_.add((byte) 2);
         rk_.add((byte) 1);
         rk_.add((byte) 3);
-        EqList<HandPresident> hs_ = deal4();
+        CustList<HandPresident> hs_ = deal4();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -2176,7 +2176,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_.add((byte) 2);
         rk_.add((byte) 3);
         rk_.add((byte) 4);
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -2212,7 +2212,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_.add((byte) 2);
         rk_.add((byte) 1);
         rk_.add((byte) 3);
-        EqList<HandPresident> hs_ = deal4();
+        CustList<HandPresident> hs_ = deal4();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -2251,7 +2251,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_.add((byte) 4);
         rk_.add((byte) 3);
         rk_.add((byte) 2);
-        EqList<HandPresident> hs_ = deal5();
+        CustList<HandPresident> hs_ = deal5();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -2287,7 +2287,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_.add((byte) 4);
         rk_.add((byte) 3);
         rk_.add((byte) 2);
-        EqList<HandPresident> hs_ = deal5();
+        CustList<HandPresident> hs_ = deal5();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -2323,7 +2323,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_.add((byte) 2);
         rk_.add((byte) 1);
         rk_.add((byte) 4);
-        EqList<HandPresident> hs_ = deal5();
+        CustList<HandPresident> hs_ = deal5();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -2356,7 +2356,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(4);
         r_.setLoosingIfFinishByBestCards(true);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -2563,7 +2563,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(4);
         r_.setLoosingIfFinishByBestCards(false);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -2770,7 +2770,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(4);
         r_.setLoosingIfFinishByBestCards(true);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -2979,7 +2979,7 @@ public class CheckerGamePresidentWithRulesTest {
         r_.setLoosingIfFinishByBestCards(true);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal3();
+        CustList<HandPresident> hs_ = deal3();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -3214,7 +3214,7 @@ public class CheckerGamePresidentWithRulesTest {
         r_.setLoosingIfFinishByBestCards(true);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal3();
+        CustList<HandPresident> hs_ = deal3();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -3431,7 +3431,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(4);
         r_.setSwitchCards(false);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -3612,7 +3612,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(4);
         r_.setSwitchCards(false);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -3797,7 +3797,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_.add((byte) 2);
         rk_.add((byte) 1);
         rk_.add((byte) 3);
-        EqList<HandPresident> hs_ = deal4();
+        CustList<HandPresident> hs_ = deal4();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -3832,7 +3832,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check36Test() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -3873,7 +3873,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_ALWAYS_NEXT);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -3912,7 +3912,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.NO_SKIP);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -3951,7 +3951,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(4);
         r_.setLooserStartsFirst(false);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4130,7 +4130,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check1FailTest() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4155,7 +4155,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check2FailTest() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4179,7 +4179,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check3FailTest() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4204,7 +4204,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check4FailTest() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4231,7 +4231,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(4);
         r_.setHasToPlay(true);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4260,7 +4260,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_.add((byte) 2);
         rk_.add((byte) 1);
         rk_.add((byte) 3);
-        EqList<HandPresident> hs_ = deal4();
+        CustList<HandPresident> hs_ = deal4();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4291,7 +4291,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_.add((byte) 2);
         rk_.add((byte) 1);
         rk_.add((byte) 3);
-        EqList<HandPresident> hs_ = deal4();
+        CustList<HandPresident> hs_ = deal4();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4322,7 +4322,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_.add((byte) 2);
         rk_.add((byte) 1);
         rk_.add((byte) 3);
-        EqList<HandPresident> hs_ = deal4();
+        CustList<HandPresident> hs_ = deal4();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4350,7 +4350,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_.add((byte) 2);
         rk_.add((byte) 1);
         rk_.add((byte) 3);
-        EqList<HandPresident> hs_ = deal4();
+        CustList<HandPresident> hs_ = deal4();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4377,7 +4377,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_.add((byte) 2);
         rk_.add((byte) 1);
         rk_.add((byte) 3);
-        EqList<HandPresident> hs_ = deal4();
+        CustList<HandPresident> hs_ = deal4();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4405,7 +4405,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_.add((byte) 2);
         rk_.add((byte) 1);
         rk_.add((byte) 3);
-        EqList<HandPresident> hs_ = deal4();
+        CustList<HandPresident> hs_ = deal4();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4438,7 +4438,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_.add((byte) 2);
         rk_.add((byte) 1);
         rk_.add((byte) 3);
-        EqList<HandPresident> hs_ = deal4();
+        CustList<HandPresident> hs_ = deal4();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4465,7 +4465,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check13FailTest() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = badDeal1();
+        CustList<HandPresident> hs_ = badDeal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4485,7 +4485,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_.add((byte) 1);
         rk_.add((byte) 2);
         rk_.add((byte) 3);
-        EqList<HandPresident> hs_ = deal4();
+        CustList<HandPresident> hs_ = deal4();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4517,7 +4517,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_.add((byte) 1);
         rk_.add((byte) 2);
         rk_.add((byte) 3);
-        EqList<HandPresident> hs_ = deal4();
+        CustList<HandPresident> hs_ = deal4();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4548,7 +4548,7 @@ public class CheckerGamePresidentWithRulesTest {
         Bytes rk_ = new Bytes();
         rk_.add((byte) 1);
         rk_.add((byte) 2);
-        EqList<HandPresident> hs_ = deal4();
+        CustList<HandPresident> hs_ = deal4();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4569,7 +4569,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_.add((byte) 1);
         rk_.add((byte) 2);
         rk_.add((byte) 2);
-        EqList<HandPresident> hs_ = deal4();
+        CustList<HandPresident> hs_ = deal4();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4590,7 +4590,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_.add((byte) 1);
         rk_.add((byte) 2);
         rk_.add((byte) 2);
-        EqList<HandPresident> hs_ = deal4();
+        CustList<HandPresident> hs_ = deal4();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4608,7 +4608,7 @@ public class CheckerGamePresidentWithRulesTest {
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal4();
+        CustList<HandPresident> hs_ = deal4();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4630,7 +4630,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_.add((byte) 1);
         rk_.add((byte) 2);
         rk_.add((byte) 3);
-        EqList<HandPresident> hs_ = deal4();
+        CustList<HandPresident> hs_ = deal4();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4657,7 +4657,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_.add((byte) 1);
         rk_.add((byte) 2);
         rk_.add((byte) 3);
-        EqList<HandPresident> hs_ = deal4();
+        CustList<HandPresident> hs_ = deal4();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4677,7 +4677,7 @@ public class CheckerGamePresidentWithRulesTest {
         RulesPresident r_ = new RulesPresident(3);
         r_.setNbStacks(2);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal4();
+        CustList<HandPresident> hs_ = deal4();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4698,7 +4698,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_.add((byte) 2);
         rk_.add((byte) 3);
         rk_.add((byte) 4);
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4724,7 +4724,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check24FailTest() {
         RulesPresident r_ = new RulesPresident(3);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = badDeal2();
+        CustList<HandPresident> hs_ = badDeal2();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4739,7 +4739,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check25FailTest() {
         RulesPresident r_ = new RulesPresident(3);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = badDeal3();
+        CustList<HandPresident> hs_ = badDeal3();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4758,7 +4758,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_.add((byte) 4);
         rk_.add((byte) 3);
         rk_.add((byte) 2);
-        EqList<HandPresident> hs_ = deal5();
+        CustList<HandPresident> hs_ = deal5();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4785,7 +4785,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check27FailTest() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4921,7 +4921,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check28FailTest() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4936,7 +4936,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check29FailTest() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4957,7 +4957,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check30FailTest() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -4978,7 +4978,7 @@ public class CheckerGamePresidentWithRulesTest {
     public void check31FailTest() {
         RulesPresident r_ = new RulesPresident(4);
         Bytes rk_ = new Bytes();
-        EqList<HandPresident> hs_ = deal1();
+        CustList<HandPresident> hs_ = deal1();
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
@@ -5009,8 +5009,8 @@ public class CheckerGamePresidentWithRulesTest {
         _g.setReversed(false);
     }
 
-    static EqList<HandPresident> deal1() {
-        EqList<HandPresident> hs_ = new EqList<HandPresident>();
+    static CustList<HandPresident> deal1() {
+        CustList<HandPresident> hs_ = new CustList<HandPresident>();
         HandPresident h_;
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
@@ -5075,8 +5075,8 @@ public class CheckerGamePresidentWithRulesTest {
         return hs_;
     }
 
-    static EqList<HandPresident> deal2() {
-        EqList<HandPresident> hs_ = new EqList<HandPresident>();
+    static CustList<HandPresident> deal2() {
+        CustList<HandPresident> hs_ = new CustList<HandPresident>();
         HandPresident h_;
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
@@ -5141,8 +5141,8 @@ public class CheckerGamePresidentWithRulesTest {
         return hs_;
     }
 
-    static EqList<HandPresident> deal3() {
-        EqList<HandPresident> hs_ = new EqList<HandPresident>();
+    static CustList<HandPresident> deal3() {
+        CustList<HandPresident> hs_ = new CustList<HandPresident>();
         HandPresident h_;
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
@@ -5207,8 +5207,8 @@ public class CheckerGamePresidentWithRulesTest {
         return hs_;
     }
 
-    static EqList<HandPresident> deal4() {
-        EqList<HandPresident> hs_ = new EqList<HandPresident>();
+    static CustList<HandPresident> deal4() {
+        CustList<HandPresident> hs_ = new CustList<HandPresident>();
         HandPresident h_;
         h_ = new HandPresident();
         h_.ajouter(CardPresident.DIAMOND_3);
@@ -5271,8 +5271,8 @@ public class CheckerGamePresidentWithRulesTest {
         return hs_;
     }
 
-    static EqList<HandPresident> deal5() {
-        EqList<HandPresident> hs_ = new EqList<HandPresident>();
+    static CustList<HandPresident> deal5() {
+        CustList<HandPresident> hs_ = new CustList<HandPresident>();
         HandPresident h_;
         h_ = new HandPresident();
         h_.ajouter(CardPresident.SPADE_10);
@@ -5337,8 +5337,8 @@ public class CheckerGamePresidentWithRulesTest {
         return hs_;
     }
 
-    static EqList<HandPresident> deal6() {
-        EqList<HandPresident> hs_ = new EqList<HandPresident>();
+    static CustList<HandPresident> deal6() {
+        CustList<HandPresident> hs_ = new CustList<HandPresident>();
         HandPresident h_;
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_9);
@@ -5403,8 +5403,8 @@ public class CheckerGamePresidentWithRulesTest {
         return hs_;
     }
 
-    static EqList<HandPresident> badDeal1() {
-        EqList<HandPresident> hs_ = new EqList<HandPresident>();
+    static CustList<HandPresident> badDeal1() {
+        CustList<HandPresident> hs_ = new CustList<HandPresident>();
         HandPresident h_;
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
@@ -5469,8 +5469,8 @@ public class CheckerGamePresidentWithRulesTest {
         return hs_;
     }
 
-    static EqList<HandPresident> badDeal2() {
-        EqList<HandPresident> hs_ = new EqList<HandPresident>();
+    static CustList<HandPresident> badDeal2() {
+        CustList<HandPresident> hs_ = new CustList<HandPresident>();
         HandPresident h_;
         h_ = new HandPresident();
         h_.ajouter(CardPresident.DIAMOND_3);
@@ -5533,8 +5533,8 @@ public class CheckerGamePresidentWithRulesTest {
         return hs_;
     }
 
-    static EqList<HandPresident> badDeal3() {
-        EqList<HandPresident> hs_ = new EqList<HandPresident>();
+    static CustList<HandPresident> badDeal3() {
+        CustList<HandPresident> hs_ = new CustList<HandPresident>();
         HandPresident h_;
         h_ = new HandPresident();
         h_.ajouter(CardPresident.DIAMOND_3);

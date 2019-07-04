@@ -4756,7 +4756,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_KNIGHT);
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_1);
-        EqList<HandTarot> rep_ = info_.excusePossibleRegles(curHand_);
+        CustList<HandTarot> rep_ = info_.excusePossibleRegles(curHand_);
         assertEq(6, rep_.size());
         assertEq(0, rep_.get(0).total());
         assertEq(1, rep_.get(1).total());
@@ -4824,7 +4824,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_KNIGHT);
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_KING);
-        EqList<HandTarot> rep_ = info_.excusePossibleRegles(curHand_);
+        CustList<HandTarot> rep_ = info_.excusePossibleRegles(curHand_);
         assertEq(6, rep_.size());
         assertEq(0, rep_.get(0).total());
         assertEq(1, rep_.get(1).total());
@@ -4873,7 +4873,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_3);
         curHand_.ajouter(CardTarot.CLUB_2);
         curHand_.ajouter(CardTarot.SPADE_KING);
-        EqList<HandTarot> rep_ = info_.excusePossibleRegles(curHand_);
+        CustList<HandTarot> rep_ = info_.excusePossibleRegles(curHand_);
         assertEq(6, rep_.size());
         assertEq(1, rep_.get(0).total());
         assertEq(0, rep_.get(1).total());
@@ -4940,7 +4940,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_KNIGHT);
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_1);
-        EqList<HandTarot> rep_ = info_.excusePossibleRegles(curHand_);
+        CustList<HandTarot> rep_ = info_.excusePossibleRegles(curHand_);
         assertEq(6, rep_.size());
         assertEq(1, rep_.get(0).total());
         assertEq(0, rep_.get(1).total());
@@ -5006,7 +5006,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
-        EqList<HandTarot> rep_ = info_.excusePossibleRegles(curHand_);
+        CustList<HandTarot> rep_ = info_.excusePossibleRegles(curHand_);
         assertEq(6, rep_.size());
         assertEq(0, rep_.get(0).total());
         assertEq(0, rep_.get(1).total());
@@ -5073,7 +5073,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_KNIGHT);
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_KING);
-        EqList<HandTarot> rep_ = info_.excusePossibleRegles(curHand_);
+        CustList<HandTarot> rep_ = info_.excusePossibleRegles(curHand_);
         assertEq(6, rep_.size());
         assertEq(0, rep_.get(0).total());
         assertEq(0, rep_.get(1).total());
@@ -5134,7 +5134,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
-        EqList<HandTarot> rep_ = info_.excusePossibleRegles(curHand_);
+        CustList<HandTarot> rep_ = info_.excusePossibleRegles(curHand_);
         assertEq(6, rep_.size());
         assertEq(0, rep_.get(0).total());
         assertEq(1, rep_.get(1).total());
@@ -5195,8 +5195,8 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
-        EnumMap<Suit, EqList<HandTarot>> rep_ = fact(info_,curHand_);
-        EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypo_ = info_.cartesCertaines(rep_);
+        EnumMap<Suit, CustList<HandTarot>> rep_ = fact(info_,curHand_);
+        EnumMap<Hypothesis, EnumMap<Suit, CustList<HandTarot>>> hypo_ = info_.cartesCertaines(rep_);
         rep_ = hypo_.getVal(Hypothesis.POSSIBLE);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(0).total());
@@ -5277,8 +5277,8 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_1);
-        EnumMap<Suit, EqList<HandTarot>> rep_ = fact(info_,curHand_);
-        EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypo_ = info_.cartesCertaines(rep_);
+        EnumMap<Suit, CustList<HandTarot>> rep_ = fact(info_,curHand_);
+        EnumMap<Hypothesis, EnumMap<Suit, CustList<HandTarot>>> hypo_ = info_.cartesCertaines(rep_);
         rep_ = hypo_.getVal(Hypothesis.POSSIBLE);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(0).total());
@@ -5361,8 +5361,8 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_1);
-        EnumMap<Suit, EqList<HandTarot>> rep_ = fact(info_,curHand_);
-        EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypo_ = info_.cartesCertaines(rep_);
+        EnumMap<Suit, CustList<HandTarot>> rep_ = fact(info_,curHand_);
+        EnumMap<Hypothesis, EnumMap<Suit, CustList<HandTarot>>> hypo_ = info_.cartesCertaines(rep_);
         rep_ = hypo_.getVal(Hypothesis.POSSIBLE);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(0).total());
@@ -5378,9 +5378,9 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         assertEq(6, rep_.getVal(Suit.CLUB).size());
         assertTrue(hypo_.getVal(Hypothesis.SURE).getVal(Suit.HEART).get(0).contient(CardTarot.HEART_KING));
     }
-    private static EnumMap<Suit,EqList<HandTarot>> fact(GameTarotTrickInfo _info, HandTarot _current) {
-        EnumMap<Suit,EqList<HandTarot>> m = new EnumMap<Suit,EqList<HandTarot>>();
-        EqList<HandTarot> possibleExcuse_ = _info.excusePossibleRegles(_current);
+    private static EnumMap<Suit,CustList<HandTarot>> fact(GameTarotTrickInfo _info, HandTarot _current) {
+        EnumMap<Suit,CustList<HandTarot>> m = new EnumMap<Suit,CustList<HandTarot>>();
+        CustList<HandTarot> possibleExcuse_ = _info.excusePossibleRegles(_current);
         m.put(CardTarot.EXCUSE.couleur(), possibleExcuse_);
         m.put(Suit.TRUMP,_info.atoutsPossiblesRegles(
                 _current));
@@ -10513,7 +10513,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_1);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
-        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(curHand_);
+        EnumMap<Suit, CustList<HandTarot>> rep_ = info_.cartesPossibles(curHand_);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(0).total());
         assertEq(1, rep_.getVal(Suit.UNDEFINED).get(1).total());
@@ -10586,7 +10586,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
-        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(curHand_);
+        EnumMap<Suit, CustList<HandTarot>> rep_ = info_.cartesPossibles(curHand_);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(0).total());
         assertEq(1, rep_.getVal(Suit.UNDEFINED).get(1).total());
@@ -10640,7 +10640,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_2);
         curHand_.ajouter(CardTarot.SPADE_KING);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
-        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(curHand_);
+        EnumMap<Suit, CustList<HandTarot>> rep_ = info_.cartesPossibles(curHand_);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
         assertEq(1, rep_.getVal(Suit.UNDEFINED).get(0).total());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(1).total());
@@ -10712,7 +10712,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_1);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
-        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(curHand_);
+        EnumMap<Suit, CustList<HandTarot>> rep_ = info_.cartesPossibles(curHand_);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
         assertEq(1, rep_.getVal(Suit.UNDEFINED).get(0).total());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(1).total());
@@ -10783,7 +10783,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
-        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(curHand_);
+        EnumMap<Suit, CustList<HandTarot>> rep_ = info_.cartesPossibles(curHand_);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(0).total());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(1).total());
@@ -10855,7 +10855,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.CLUB_10);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
-        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(curHand_);
+        EnumMap<Suit, CustList<HandTarot>> rep_ = info_.cartesPossibles(curHand_);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(0).total());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(1).total());
@@ -10921,7 +10921,7 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
-        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(curHand_);
+        EnumMap<Suit, CustList<HandTarot>> rep_ = info_.cartesPossibles(curHand_);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(0).total());
         assertEq(1, rep_.getVal(Suit.UNDEFINED).get(1).total());
@@ -10987,8 +10987,8 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_KING);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
-        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(curHand_);
-        EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypo_ = info_.cartesCertaines(rep_);
+        EnumMap<Suit, CustList<HandTarot>> rep_ = info_.cartesPossibles(curHand_);
+        EnumMap<Hypothesis, EnumMap<Suit, CustList<HandTarot>>> hypo_ = info_.cartesCertaines(rep_);
         rep_ = hypo_.getVal(Hypothesis.POSSIBLE);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(0).total());
@@ -11069,8 +11069,8 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_1);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
-        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(curHand_);
-        EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypo_ = info_.cartesCertaines(rep_);
+        EnumMap<Suit, CustList<HandTarot>> rep_ = info_.cartesPossibles(curHand_);
+        EnumMap<Hypothesis, EnumMap<Suit, CustList<HandTarot>>> hypo_ = info_.cartesCertaines(rep_);
         rep_ = hypo_.getVal(Hypothesis.POSSIBLE);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(0).total());
@@ -11153,8 +11153,8 @@ public final class GameTarotTrickInfoTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.HEART_7);
         curHand_.ajouter(CardTarot.HEART_1);
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(g_,curHand_);
-        EnumMap<Suit, EqList<HandTarot>> rep_ = info_.cartesPossibles(curHand_);
-        EnumMap<Hypothesis, EnumMap<Suit, EqList<HandTarot>>> hypo_ = info_.cartesCertaines(rep_);
+        EnumMap<Suit, CustList<HandTarot>> rep_ = info_.cartesPossibles(curHand_);
+        EnumMap<Hypothesis, EnumMap<Suit, CustList<HandTarot>>> hypo_ = info_.cartesCertaines(rep_);
         rep_ = hypo_.getVal(Hypothesis.POSSIBLE);
         assertEq(6, rep_.getVal(Suit.UNDEFINED).size());
         assertEq(0, rep_.getVal(Suit.UNDEFINED).get(0).total());

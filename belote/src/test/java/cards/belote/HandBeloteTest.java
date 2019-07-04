@@ -770,7 +770,7 @@ public class HandBeloteTest {
     @Test
     public void eclater1(){
         HandBelote main_ = eclater();
-        EqList<HandBelote> suites_ = new EqList<HandBelote>();
+        CustList<HandBelote> suites_ = new CustList<HandBelote>();
         HandBelote suite_ = new HandBelote();
         suite_.ajouter(CardBelote.HEART_9);
         suites_.add(suite_);
@@ -796,7 +796,7 @@ public class HandBeloteTest {
         enchereCouleur_.setEnchere(BidBelote.ALL_TRUMP);
         asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
         couleur_ = Suit.DIAMOND;
-        suites_ = new EqList<HandBelote>();
+        suites_ = new CustList<HandBelote>();
         suite_ = new HandBelote();
         suite_.ajouter(CardBelote.HEART_10);
         suite_.ajouter(CardBelote.HEART_KING);
@@ -819,7 +819,7 @@ public class HandBeloteTest {
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
         couleur_ = Suit.HEART;
         enchereCouleur_.setCouleur(couleur_);
-        suites_ = new EqList<HandBelote>();
+        suites_ = new CustList<HandBelote>();
         suite_ = new HandBelote();
         suite_.ajouter(CardBelote.HEART_9);
         suite_.ajouter(CardBelote.HEART_10);
@@ -834,7 +834,7 @@ public class HandBeloteTest {
         asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
         couleur_ = Suit.DIAMOND;
         enchereCouleur_.setCouleur(couleur_);
-        suites_ = new EqList<HandBelote>();
+        suites_ = new CustList<HandBelote>();
         suite_ = new HandBelote();
         suite_.ajouter(CardBelote.HEART_10);
         suite_.ajouter(CardBelote.HEART_KING);
@@ -857,7 +857,7 @@ public class HandBeloteTest {
         main_.ajouter(CardBelote.HEART_9);
         enchereCouleur_.setEnchere(BidBelote.SUIT);
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
-        suites_ = new EqList<HandBelote>();
+        suites_ = new CustList<HandBelote>();
         suite_ = new HandBelote();
         suite_.ajouter(CardBelote.HEART_1);
         suite_.ajouter(CardBelote.HEART_KING);
@@ -870,7 +870,7 @@ public class HandBeloteTest {
         asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
         enchereCouleur_.setEnchere(BidBelote.NO_TRUMP);
         asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
-        suites_ = new EqList<HandBelote>();
+        suites_ = new CustList<HandBelote>();
         suite_ = new HandBelote();
         suite_.ajouter(CardBelote.HEART_9);
         suite_.ajouter(CardBelote.HEART_1);
@@ -885,14 +885,14 @@ public class HandBeloteTest {
         BidBeloteSuit enchereCouleur_;
         HandBelote cartesJouees_;
         EnumMap<Suit,HandBelote> repartitionCartesJouees_;
-        EqList<HandBelote> suites_;
+        CustList<HandBelote> suites_;
         enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setEnchere(BidBelote.NO_TRUMP);
         cartesJouees_ = new HandBelote();
         cartesJouees_.ajouter(CardBelote.HEART_10);
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
         main_ = new HandBelote();
-        suites_ = new EqList<HandBelote>();
+        suites_ = new CustList<HandBelote>();
         asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
         cartesJouees_ = new HandBelote();
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
@@ -904,14 +904,14 @@ public class HandBeloteTest {
         BidBeloteSuit enchereCouleur_;
         HandBelote cartesJouees_;
         EnumMap<Suit,HandBelote> repartitionCartesJouees_;
-        EqList<HandBelote> suites_;
+        CustList<HandBelote> suites_;
         enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setEnchere(BidBelote.ALL_TRUMP);
         cartesJouees_ = new HandBelote();
         cartesJouees_.ajouter(CardBelote.HEART_10);
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
         main_ = new HandBelote();
-        suites_ = new EqList<HandBelote>();
+        suites_ = new CustList<HandBelote>();
         asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
         cartesJouees_ = new HandBelote();
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
@@ -923,7 +923,7 @@ public class HandBeloteTest {
         BidBeloteSuit enchereCouleur_;
         HandBelote cartesJouees_;
         EnumMap<Suit,HandBelote> repartitionCartesJouees_;
-        EqList<HandBelote> suites_;
+        CustList<HandBelote> suites_;
         enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setEnchere(BidBelote.SUIT);
         enchereCouleur_.setCouleur(Suit.HEART);
@@ -931,7 +931,7 @@ public class HandBeloteTest {
         cartesJouees_.ajouter(CardBelote.HEART_10);
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
         main_ = new HandBelote();
-        suites_ = new EqList<HandBelote>();
+        suites_ = new CustList<HandBelote>();
         asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
         cartesJouees_ = new HandBelote();
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
@@ -943,7 +943,7 @@ public class HandBeloteTest {
         BidBeloteSuit enchereCouleur_;
         HandBelote cartesJouees_;
         EnumMap<Suit,HandBelote> repartitionCartesJouees_;
-        EqList<HandBelote> suites_;
+        CustList<HandBelote> suites_;
         enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setEnchere(BidBelote.SUIT);
         enchereCouleur_.setCouleur(Suit.SPADE);
@@ -951,7 +951,7 @@ public class HandBeloteTest {
         cartesJouees_.ajouter(CardBelote.HEART_10);
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
         main_ = new HandBelote();
-        suites_ = new EqList<HandBelote>();
+        suites_ = new CustList<HandBelote>();
         asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
         cartesJouees_ = new HandBelote();
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
@@ -963,7 +963,7 @@ public class HandBeloteTest {
         BidBeloteSuit enchereCouleur_;
         HandBelote cartesJouees_;
         EnumMap<Suit,HandBelote> repartitionCartesJouees_;
-        EqList<HandBelote> suites_;
+        CustList<HandBelote> suites_;
         enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setEnchere(BidBelote.SUIT);
         enchereCouleur_.setCouleur(Suit.DIAMOND);
@@ -971,7 +971,7 @@ public class HandBeloteTest {
         cartesJouees_.ajouter(CardBelote.HEART_10);
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
         main_ = new HandBelote();
-        suites_ = new EqList<HandBelote>();
+        suites_ = new CustList<HandBelote>();
         asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
         cartesJouees_ = new HandBelote();
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
@@ -983,7 +983,7 @@ public class HandBeloteTest {
         BidBeloteSuit enchereCouleur_;
         HandBelote cartesJouees_;
         EnumMap<Suit,HandBelote> repartitionCartesJouees_;
-        EqList<HandBelote> suites_;
+        CustList<HandBelote> suites_;
         enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setEnchere(BidBelote.SUIT);
         enchereCouleur_.setCouleur(Suit.CLUB);
@@ -991,7 +991,7 @@ public class HandBeloteTest {
         cartesJouees_.ajouter(CardBelote.HEART_10);
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
         main_ = new HandBelote();
-        suites_ = new EqList<HandBelote>();
+        suites_ = new CustList<HandBelote>();
         asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
         cartesJouees_ = new HandBelote();
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
@@ -1003,7 +1003,7 @@ public class HandBeloteTest {
         BidBeloteSuit enchereCouleur_;
         HandBelote cartesJouees_;
         EnumMap<Suit,HandBelote> repartitionCartesJouees_;
-        EqList<HandBelote> suites_;
+        CustList<HandBelote> suites_;
         enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setEnchere(BidBelote.OTHER_SUIT);
         enchereCouleur_.setCouleur(Suit.HEART);
@@ -1011,7 +1011,7 @@ public class HandBeloteTest {
         cartesJouees_.ajouter(CardBelote.HEART_10);
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
         main_ = new HandBelote();
-        suites_ = new EqList<HandBelote>();
+        suites_ = new CustList<HandBelote>();
         asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
         cartesJouees_ = new HandBelote();
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
@@ -1023,7 +1023,7 @@ public class HandBeloteTest {
         BidBeloteSuit enchereCouleur_;
         HandBelote cartesJouees_;
         EnumMap<Suit,HandBelote> repartitionCartesJouees_;
-        EqList<HandBelote> suites_;
+        CustList<HandBelote> suites_;
         enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setEnchere(BidBelote.OTHER_SUIT);
         enchereCouleur_.setCouleur(Suit.SPADE);
@@ -1031,7 +1031,7 @@ public class HandBeloteTest {
         cartesJouees_.ajouter(CardBelote.HEART_10);
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
         main_ = new HandBelote();
-        suites_ = new EqList<HandBelote>();
+        suites_ = new CustList<HandBelote>();
         asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
         cartesJouees_ = new HandBelote();
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
@@ -1043,7 +1043,7 @@ public class HandBeloteTest {
         BidBeloteSuit enchereCouleur_;
         HandBelote cartesJouees_;
         EnumMap<Suit,HandBelote> repartitionCartesJouees_;
-        EqList<HandBelote> suites_;
+        CustList<HandBelote> suites_;
         enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setEnchere(BidBelote.OTHER_SUIT);
         enchereCouleur_.setCouleur(Suit.DIAMOND);
@@ -1051,7 +1051,7 @@ public class HandBeloteTest {
         cartesJouees_.ajouter(CardBelote.HEART_10);
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
         main_ = new HandBelote();
-        suites_ = new EqList<HandBelote>();
+        suites_ = new CustList<HandBelote>();
         asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
         cartesJouees_ = new HandBelote();
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
@@ -1063,7 +1063,7 @@ public class HandBeloteTest {
         BidBeloteSuit enchereCouleur_;
         HandBelote cartesJouees_;
         EnumMap<Suit,HandBelote> repartitionCartesJouees_;
-        EqList<HandBelote> suites_;
+        CustList<HandBelote> suites_;
         enchereCouleur_ = new BidBeloteSuit();
         enchereCouleur_.setEnchere(BidBelote.OTHER_SUIT);
         enchereCouleur_.setCouleur(Suit.CLUB);
@@ -1071,7 +1071,7 @@ public class HandBeloteTest {
         cartesJouees_.ajouter(CardBelote.HEART_10);
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
         main_ = new HandBelote();
-        suites_ = new EqList<HandBelote>();
+        suites_ = new CustList<HandBelote>();
         asserting(suites_,main_.eclater(repartitionCartesJouees_, enchereCouleur_));
         cartesJouees_ = new HandBelote();
         repartitionCartesJouees_ = cartesJouees_.couleurs(enchereCouleur_);
@@ -1669,7 +1669,7 @@ public class HandBeloteTest {
         h_.ajouter(CardBelote.DIAMOND_JACK);
         assertEq(133, h_.pointsBid(4,8,BidBelote.ALL_TRUMP));
     }
-    private void asserting(EqList<HandBelote> _exp, EqList<HandBelote> _res) {
+    private void asserting(CustList<HandBelote> _exp, CustList<HandBelote> _res) {
         assertEq(_exp.size(), _res.size());
         int s_ = _exp.size();
         for (int i = CustList.FIRST_INDEX; i < s_; i++) {

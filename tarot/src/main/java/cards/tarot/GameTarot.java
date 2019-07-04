@@ -38,7 +38,7 @@ public final class GameTarot {
     /** Ce sont les petits au bout par le(s) joueur(s) */
     private BooleanList smallBound = new BooleanList();
     /** Poignees */
-    private EqList<HandTarot> handfuls = new EqList<HandTarot>();
+    private CustList<HandTarot> handfuls = new CustList<HandTarot>();
     /**
     Au tarot lors d'un appel il faut savoir si les joueurs ont confiance ou
     non en les autres
@@ -602,9 +602,9 @@ public final class GameTarot {
     public CallDiscard strategieAppelApresEcart(boolean _removeDog) {
         CallDiscard appelEcart_ = new CallDiscard();
         HandTarot mainPreneur_ = getDistribution().main(taker);
-        EqList<HandTarot> cartesAppelablesFinales_ = new EqList<HandTarot>();
+        CustList<HandTarot> cartesAppelablesFinales_ = new CustList<HandTarot>();
         cartesAppelablesFinales_.add(new HandTarot());
-        EqList<HandTarot> cartesAppelables_ = new EqList<HandTarot>();
+        CustList<HandTarot> cartesAppelables_ = new CustList<HandTarot>();
         boolean call_ = rules.getRepartition().callCard();
         HandTarot cartesAppeler_ = callableCards();
         cartesAppeler_.supprimerCartes(mainPreneur_);
@@ -618,7 +618,7 @@ public final class GameTarot {
                 cartesAppelables_.add(m2_);
             }
             if(!cartesAppelables_.isEmpty()) {
-                cartesAppelablesFinales_=new EqList<HandTarot>(cartesAppelables_);
+                cartesAppelablesFinales_=new CustList<HandTarot>(cartesAppelables_);
             }
         }
         for(HandTarot carte_: cartesAppelablesFinales_) {
@@ -1060,18 +1060,18 @@ public final class GameTarot {
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
         HandTarot cartesJouees_ = doneTrickInfo_.cartesJoueesEnCours(numero_);
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = cartesJouees_.couleurs();
-        CustList<EqList<HandTarot>> suites_ = new CustList<EqList<HandTarot>>();
-        suites_.add(new EqList<HandTarot>());
+        CustList<CustList<HandTarot>> suites_ = new CustList<CustList<HandTarot>>();
+        suites_.add(new CustList<HandTarot>());
         suites_.add(repartition_.getVal(couleurAtout()).eclaterEnCours(
                 repartitionCartesJouees_, couleurAtout()));
         for (Suit i : couleursOrdinaires()) {
             suites_.add(repartition_.getVal(i).eclaterEnCours(
                     repartitionCartesJouees_, i));
         }
-        EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = doneTrickInfo_.cartesPossibles(mainJoueur_);
-        EnumMap<Hypothesis,EnumMap<Suit,EqList<HandTarot>>> hypotheses_ = doneTrickInfo_.cartesCertaines(cartesPossibles_);
+        EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = doneTrickInfo_.cartesPossibles(mainJoueur_);
+        EnumMap<Hypothesis,EnumMap<Suit,CustList<HandTarot>>> hypotheses_ = doneTrickInfo_.cartesCertaines(cartesPossibles_);
         cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
-        EnumMap<Suit,EqList<HandTarot>> cartesCertaines_ = hypotheses_
+        EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = hypotheses_
                 .getVal(Hypothesis.SURE);
         CustList<TrickTarot> plisFaits_ = unionPlis();
         plisFaits_.add(progressingTrick);
@@ -1400,11 +1400,11 @@ public final class GameTarot {
         smallBound = _smallBound;
     }
 
-    public EqList<HandTarot> getHandfuls() {
+    public CustList<HandTarot> getHandfuls() {
         return handfuls;
     }
 
-    public void setHandfuls(EqList<HandTarot> _handfuls) {
+    public void setHandfuls(CustList<HandTarot> _handfuls) {
         handfuls = _handfuls;
     }
 

@@ -13,7 +13,7 @@ public final class GameTarotTrickInfo {
 
     private EqList<EnumList<Miseres>> declaresMiseres;
 
-    private EqList<HandTarot> handfuls;
+    private CustList<HandTarot> handfuls;
     private BidTarot bid;
     private HandTarot calledCards;
     private Ints handLengths;
@@ -26,7 +26,7 @@ public final class GameTarotTrickInfo {
 
     public GameTarotTrickInfo(TrickTarot _progressingTrick, CustList<TrickTarot> _tricks,
                               EqList<EnumList<Miseres>> _declaresMiseres,
-                              EqList<HandTarot> _handfuls, BidTarot _bid, HandTarot _calledCards,
+                              CustList<HandTarot> _handfuls, BidTarot _bid, HandTarot _calledCards,
                               Ints _handLengths) {
         progressingTrick = _progressingTrick;
         tricks = _tricks;
@@ -80,9 +80,9 @@ public final class GameTarotTrickInfo {
      couleur, deuxieme indice joueur
      @param _numero
      */
-    public EnumMap<Suit,EqList<HandTarot>> cartesPossibles(HandTarot _cartesJoueur) {
-        EnumMap<Suit,EqList<HandTarot>> m = new EnumMap<Suit,EqList<HandTarot>>();
-        EqList<HandTarot> possibleExcuse_ = excusePossibleRegles(_cartesJoueur);
+    public EnumMap<Suit,CustList<HandTarot>> cartesPossibles(HandTarot _cartesJoueur) {
+        EnumMap<Suit,CustList<HandTarot>> m = new EnumMap<Suit,CustList<HandTarot>>();
+        CustList<HandTarot> possibleExcuse_ = excusePossibleRegles(_cartesJoueur);
         m.put(CardTarot.EXCUSE.couleur(), possibleExcuse_);
         m.put(Suit.TRUMP,atoutsPossibles(
                 _cartesJoueur));
@@ -95,13 +95,13 @@ public final class GameTarotTrickInfo {
         return m;
     }
 
-    EqList<HandTarot> excusePossibleRegles(HandTarot _cartesJoueur) {
+    CustList<HandTarot> excusePossibleRegles(HandTarot _cartesJoueur) {
         byte next_ = progressingTrick.getNextPlayer(nbPlayers);
         HandTarot playedCards_ = cartesJoueesEnCours(next_);
         boolean plExcuse_ = playedCards_.contient(CardTarot.EXCUSE);
         boolean containsExcuse_ = _cartesJoueur.contient(CardTarot.EXCUSE);
         boolean noExc_ = plExcuse_ || containsExcuse_;
-        EqList<HandTarot> possibleExcuse_ = new EqList<HandTarot>();
+        CustList<HandTarot> possibleExcuse_ = new CustList<HandTarot>();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
             HandTarot h_ = new HandTarot();
             possibleExcuse_.add(h_);
@@ -179,11 +179,11 @@ public final class GameTarotTrickInfo {
      les autres joueurs
      @param _numero
      */
-    EqList<HandTarot> atoutsPossibles(HandTarot _curHand) {
+    CustList<HandTarot> atoutsPossibles(HandTarot _curHand) {
         byte next_ = progressingTrick.getNextPlayer(nbPlayers);
         HandTarot playedCards_ = cartesJoueesEnCours(next_);
         boolean playedCalledCard_ = playedCards_.contientCartes(calledCards);
-        EqList<HandTarot> m = atoutsPossiblesRegles(_curHand);
+        CustList<HandTarot> m = atoutsPossiblesRegles(_curHand);
         for (byte i = 0; i < nbPlayers; i++) {
             HandTarot main_ = m.get(i);
             if (i == next_) {
@@ -219,14 +219,14 @@ public final class GameTarotTrickInfo {
         return m;
     }
 
-    EqList<HandTarot> atoutsPossiblesRegles(HandTarot _curHand) {
+    CustList<HandTarot> atoutsPossiblesRegles(HandTarot _curHand) {
         byte next_ = progressingTrick.getNextPlayer(nbPlayers);
         EnumMap<Suit,HandTarot> curRep_ = _curHand.couleurs();
         HandTarot playedCards_ = cartesJoueesEnCours(next_);
         EnumMap<Suit,HandTarot> plRep_ = playedCards_.couleurs();
         HandTarot plTr_ = plRep_.getVal(Suit.TRUMP);
         HandTarot curTr_ = curRep_.getVal(Suit.TRUMP);
-        EqList<HandTarot> m = new EqList<HandTarot>();
+        CustList<HandTarot> m = new CustList<HandTarot>();
 
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
             HandTarot h_ = new HandTarot();
@@ -412,12 +412,12 @@ public final class GameTarotTrickInfo {
      cours
      @param _numero
      */
-    EqList<HandTarot> cartesPossibles(Suit _couleur,
+    CustList<HandTarot> cartesPossibles(Suit _couleur,
                                       HandTarot _curHand) {
         byte next_ = progressingTrick.getNextPlayer(nbPlayers);
         HandTarot playedCards_ = cartesJoueesEnCours(next_);
         boolean playedCalledCard_ = playedCards_.contientCartes(calledCards);
-        EqList<HandTarot> m = cartesPossiblesRegles(_couleur,_curHand);
+        CustList<HandTarot> m = cartesPossiblesRegles(_couleur,_curHand);
         for (byte i = 0; i < nbPlayers; i++) {
             HandTarot couleurLoc_ = m.get(i);
             if (i == next_) {
@@ -452,11 +452,11 @@ public final class GameTarotTrickInfo {
         return m;
     }
 
-    EqList<HandTarot> cartesPossiblesRegles(Suit _couleur,
+    CustList<HandTarot> cartesPossiblesRegles(Suit _couleur,
                                             HandTarot _curHand) {
         byte next_ = progressingTrick.getNextPlayer(nbPlayers);
         HandTarot playedCards_ = cartesJoueesEnCours(next_);
-        EqList<HandTarot> m = new EqList<HandTarot>();
+        CustList<HandTarot> m = new CustList<HandTarot>();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nbPlayers; joueur_++) {
             HandTarot h_ = new HandTarot();
             m.add(h_);
@@ -587,16 +587,16 @@ public final class GameTarotTrickInfo {
      ecartes) Cet ensemble peut etre reduit apres appel de methode
      @return l'ensemble des cartes dont on connait par deduction la main
      */
-    public EnumMap<Hypothesis,EnumMap<Suit,EqList<HandTarot>>> cartesCertaines(
-            EnumMap<Suit, EqList<HandTarot>> _cartesPossibles) {
+    public EnumMap<Hypothesis,EnumMap<Suit,CustList<HandTarot>>> cartesCertaines(
+            EnumMap<Suit, CustList<HandTarot>> _cartesPossibles) {
         Bytes joueursRepartitionConnue_ = new Bytes();
         Bytes joueursRepartitionConnue2_ = new Bytes();
         Bytes joueursRepartitionConnueMemo_ = new Bytes();
         Bytes joueursRepartitionInconnue_ = new Bytes();
-        EnumMap<Suit,EqList<HandTarot>> cartesCertaines_ = new EnumMap<Suit,EqList<HandTarot>>();
-        EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = new EnumMap<Suit,EqList<HandTarot>>(
+        EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = new EnumMap<Suit,CustList<HandTarot>>();
+        EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = new EnumMap<Suit,CustList<HandTarot>>(
                 _cartesPossibles);
-        EnumMap<Hypothesis,EnumMap<Suit,EqList<HandTarot>>> retour_ = new EnumMap<Hypothesis,EnumMap<Suit,EqList<HandTarot>>>();
+        EnumMap<Hypothesis,EnumMap<Suit,CustList<HandTarot>>> retour_ = new EnumMap<Hypothesis,EnumMap<Suit,CustList<HandTarot>>>();
         int nombreDApparitionCarte_;
         /*
         Indique le nombre de mains pour les
@@ -607,7 +607,7 @@ public final class GameTarotTrickInfo {
         toutesCouleurs_.add(Suit.TRUMP);
         toutesCouleurs_.addAllElts(Suit.couleursOrdinaires());
         for(Suit couleur_: toutesCouleurs_) {
-            cartesCertaines_.put(couleur_,new EqList<HandTarot>());
+            cartesCertaines_.put(couleur_,new CustList<HandTarot>());
         }
         for (Suit couleur_:cartesCertaines_.getKeys()) {
             for (byte joueur_ = CustList.FIRST_INDEX; joueur_ <= nbPlayers; joueur_++) {
@@ -691,8 +691,8 @@ public final class GameTarotTrickInfo {
         return retour_;
     }
 
-    void addToKnown(EnumList<Suit> _all,EnumMap<Suit,EqList<HandTarot>> _poss,byte _player,
-                    EnumMap<Suit,EqList<HandTarot>> _sure,
+    void addToKnown(EnumList<Suit> _all,EnumMap<Suit,CustList<HandTarot>> _poss,byte _player,
+                    EnumMap<Suit,CustList<HandTarot>> _sure,
                     Bytes _joueursRepartitionConnue, Bytes _joueursRepartitionConnueMemo) {
         int nombreCartesPossiblesJoueur_ = 0;
         for (Suit couleur_: _all) {
@@ -713,7 +713,7 @@ public final class GameTarotTrickInfo {
             _joueursRepartitionConnueMemo.add(_player);
         }
     }
-    static void affect(EnumList<Suit> _all,EnumMap<Suit,EqList<HandTarot>> _from, byte _player,EnumMap<Suit,EqList<HandTarot>> _to) {
+    static void affect(EnumList<Suit> _all,EnumMap<Suit,CustList<HandTarot>> _from, byte _player,EnumMap<Suit,CustList<HandTarot>> _to) {
         for (Suit s: _all) {
             _to.getVal(s).get(_player).supprimerCartes();
             _to.getVal(s).get(_player).ajouterCartes(_from.getVal(s).get(_player));

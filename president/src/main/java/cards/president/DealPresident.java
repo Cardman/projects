@@ -13,7 +13,7 @@ public final class DealPresident implements Iterable<HandPresident> {
     public static final byte NUMERO_UTILISATEUR = 0;
 
     /** Ensemble des mains des joueurs */
-    private EqList<HandPresident> deal = new EqList<HandPresident>();
+    private CustList<HandPresident> deal = new CustList<HandPresident>();
     /** donneur est un entier allant de 0 a nombre de joueurs-1 */
     private byte dealer;
     /** nombre de parties jouees depuis le lancement */
@@ -36,13 +36,13 @@ public final class DealPresident implements Iterable<HandPresident> {
     }
 
     /** Utilise pour editer une partie non solitaire */
-    public DealPresident(EqList<HandPresident> _pdonne, byte _pdonneur) {
+    public DealPresident(CustList<HandPresident> _pdonne, byte _pdonneur) {
         deal = _pdonne;
         dealer = _pdonneur;
     }
 
     DealPresident(DealPresident _deal) {
-        deal = new EqList<HandPresident>();
+        deal = new CustList<HandPresident>();
         for (HandPresident h: _deal) {
             HandPresident h_ = new HandPresident();
             h_.ajouterCartes(h);
@@ -180,7 +180,7 @@ public final class DealPresident implements Iterable<HandPresident> {
         return deal.get(NUMERO_UTILISATEUR);
     }
 
-    EqList<HandPresident> getDonne() {
+    CustList<HandPresident> getDonne() {
         return deal;
     }
 
@@ -192,10 +192,10 @@ public final class DealPresident implements Iterable<HandPresident> {
     public Iterator<HandPresident> iterator() {
         return deal.iterator();
     }
-    public EqList<HandPresident> getDeal() {
+    public CustList<HandPresident> getDeal() {
         return deal;
     }
-    public void setDeal(EqList<HandPresident> _deal) {
+    public void setDeal(CustList<HandPresident> _deal) {
         deal = _deal;
     }
     public byte getDealer() {

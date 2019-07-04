@@ -23,7 +23,7 @@ public final class GameBelote {
     private byte taker=CustList.INDEX_NOT_FOUND_ELT;
     /** Ce sont les primes, miseres ou poignees annoncees par le(s) joueur(s)*/
     private EqList<DeclareHandBelote> declares=new EqList<DeclareHandBelote>();
-    private EqList<HandBelote> declaresBeloteRebelote = new EqList<HandBelote>();
+    private CustList<HandBelote> declaresBeloteRebelote = new CustList<HandBelote>();
     private BooleanList wonLastTrick = new BooleanList();
     /**Le contrat permet de dire quel va etre le deroulement
     de la partie*/
@@ -724,11 +724,11 @@ public final class GameBelote {
         declares = _declares;
     }
 
-    public EqList<HandBelote> getDeclaresBeloteRebelote() {
+    public CustList<HandBelote> getDeclaresBeloteRebelote() {
         return declaresBeloteRebelote;
     }
 
-    public void setDeclaresBeloteRebelote(EqList<HandBelote> _declaresBeloteRebelote) {
+    public void setDeclaresBeloteRebelote(CustList<HandBelote> _declaresBeloteRebelote) {
         declaresBeloteRebelote = _declaresBeloteRebelote;
     }
 

@@ -22,7 +22,7 @@ public final class TricksHandsPresident {
 
     private ByteMap<HandPresident> switchedCards;
 
-    private EqList<HandPresident> cardsHandsAtInitialState;
+    private CustList<HandPresident> cardsHandsAtInitialState;
 
     public void sortHands(DisplayingPresident _displaying,
             byte _nombreJoueurs) {
@@ -189,7 +189,7 @@ public final class TricksHandsPresident {
     public void setTricks(CustList<TrickPresident> _tricks, TrickPresident _trick, byte _nbPlayers) {
         tricks = _tricks;
         progressingTrick = _trick;
-        cardsHandsAtInitialState = new EqList<HandPresident>();
+        cardsHandsAtInitialState = new CustList<HandPresident>();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nbPlayers; joueur_++) {
             HandPresident hand_ = new HandPresident();
             hand_.ajouterCartes(distribution.main(joueur_));
@@ -314,12 +314,12 @@ public final class TricksHandsPresident {
         return l_;
     }
 
-    public EqList<HandPresident> getCardsHandsAtInitialState() {
+    public CustList<HandPresident> getCardsHandsAtInitialState() {
         return cardsHandsAtInitialState;
     }
 
     public void setCardsHandsAtInitialState(
-            EqList<HandPresident> _cardsHandsAtInitialState) {
+            CustList<HandPresident> _cardsHandsAtInitialState) {
         cardsHandsAtInitialState = _cardsHandsAtInitialState;
     }
 

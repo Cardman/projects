@@ -103,13 +103,13 @@ public final class GameBeloteProgTrick {
         CardBelote carteForte_=progressingTrick.carteDuJoueur(_info.getRamasseurVirtuel(),teamsRelation.getNombreDeJoueurs());
         Suit couleurAtout_= _info.getCouleurAtout();
         EnumMap<Suit,HandBelote> repartition_=currentHand.couleurs(bid);
-        EnumMap<Suit,EqList<HandBelote>> suites_= _info.getSuitesTouteCouleur();
-        EnumMap<Suit,EqList<HandBelote>> cartesPossibles_= _info.getCartesPossibles();
-        EnumMap<Suit,EqList<HandBelote>> cartesCertaines_= _info.getCartesCertaines();
+        EnumMap<Suit,CustList<HandBelote>> suites_= _info.getSuitesTouteCouleur();
+        EnumMap<Suit,CustList<HandBelote>> cartesPossibles_= _info.getCartesPossibles();
+        EnumMap<Suit,CustList<HandBelote>> cartesCertaines_= _info.getCartesCertaines();
         Bytes adversaire_ = _info.getJoueursNonConfiance();
         Bytes joueursNonJoue_= _info.getJoueursNonJoue();
         Bytes adversaireNonJoue_ = GameBeloteTeamsRelation.intersectionJoueurs(adversaire_,joueursNonJoue_);
-        EqList<HandBelote> cartesRelMaitres_;
+        CustList<HandBelote> cartesRelMaitres_;
         cartesRelMaitres_=cartesRelativementMaitre(GameBeloteCommon.suite(suites_,couleurDemandee_), cartesPossibles_, joueursNonJoue_, couleurDemandee_, couleurDemandee_, cartesCertaines_,carteForte_);
         /*Defenseur*/
         if(!cartesRelMaitres_.isEmpty()) {
@@ -126,14 +126,14 @@ public final class GameBeloteProgTrick {
     CardBelote followDominantAsCalledPlayer(BeloteInfoPliEnCours _info) {
         Suit couleurDemandee_=progressingTrick.couleurDemandee();
         CardBelote carteForte_=progressingTrick.carteDuJoueur(_info.getRamasseurVirtuel(),teamsRelation.getNombreDeJoueurs());
-        EnumMap<Suit,EqList<HandBelote>> suites_= _info.getSuitesTouteCouleur();
+        EnumMap<Suit,CustList<HandBelote>> suites_= _info.getSuitesTouteCouleur();
         CustList<TrickBelote> plisFaits_= _info.getPlisFaits();
-        EnumMap<Suit,EqList<HandBelote>> cartesPossibles_= _info.getCartesPossibles();
-        EnumMap<Suit,EqList<HandBelote>> cartesCertaines_= _info.getCartesCertaines();
+        EnumMap<Suit,CustList<HandBelote>> cartesPossibles_= _info.getCartesPossibles();
+        EnumMap<Suit,CustList<HandBelote>> cartesCertaines_= _info.getCartesCertaines();
         Bytes joueursNonJoue_= _info.getJoueursNonJoue();
         CustList<TrickBelote> tours_=GameBeloteCommonPlaying.tours(couleurDemandee_, plisFaits_);
-        EqList<HandBelote> cartesRelMaitres_;
-        EqList<HandBelote> seqs_ = GameBeloteCommon.suite(suites_, couleurDemandee_);
+        CustList<HandBelote> cartesRelMaitres_;
+        CustList<HandBelote> seqs_ = GameBeloteCommon.suite(suites_, couleurDemandee_);
         cartesRelMaitres_=cartesRelativementMaitre(seqs_, cartesPossibles_, joueursNonJoue_, couleurDemandee_, couleurDemandee_, cartesCertaines_,carteForte_);
         if (!cartesRelMaitres_.isEmpty()) {
             return cartesRelMaitres_.last().premiereCarte();
@@ -170,14 +170,14 @@ public final class GameBeloteProgTrick {
         CardBelote carteForte_=progressingTrick.carteDuJoueur(_info.getRamasseurVirtuel(),teamsRelation.getNombreDeJoueurs());
         Suit couleurAtout_= _info.getCouleurAtout();
         EnumMap<Suit,HandBelote> repartition_=currentHand.couleurs(bid);
-        EnumMap<Suit,EqList<HandBelote>> suites_= _info.getSuitesTouteCouleur();
+        EnumMap<Suit,CustList<HandBelote>> suites_= _info.getSuitesTouteCouleur();
         CustList<TrickBelote> plisFaits_= _info.getPlisFaits();
-        EnumMap<Suit,EqList<HandBelote>> cartesPossibles_= _info.getCartesPossibles();
-        EnumMap<Suit,EqList<HandBelote>> cartesCertaines_= _info.getCartesCertaines();
+        EnumMap<Suit,CustList<HandBelote>> cartesPossibles_= _info.getCartesPossibles();
+        EnumMap<Suit,CustList<HandBelote>> cartesCertaines_= _info.getCartesCertaines();
         Bytes joueursNonJoue_= _info.getJoueursNonJoue();
         CustList<TrickBelote> tours_=GameBeloteCommonPlaying.tours(couleurDemandee_, plisFaits_);
         Bytes joueursSusceptiblesDeCouper_=new Bytes();
-        EqList<HandBelote> cartesRelMaitres_;
+        CustList<HandBelote> cartesRelMaitres_;
         cartesRelMaitres_=cartesRelativementMaitre(GameBeloteCommon.suite(suites_,couleurDemandee_), cartesPossibles_, joueursNonJoue_, couleurDemandee_, couleurDemandee_, cartesCertaines_,carteForte_);
         TrickBelote dernierPli_;
         Bytes dernieresDefausses_;
@@ -208,8 +208,8 @@ public final class GameBeloteProgTrick {
         Suit couleurDemandee_=progressingTrick.couleurDemandee();
         byte next_ = info.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
         EnumMap<Suit,HandBelote> repartition_=currentHand.couleurs(bid);
-        EnumMap<Suit,EqList<HandBelote>> suites_= _info.getSuitesTouteCouleur();
-        EnumMap<Suit,EqList<HandBelote>> cartesPossibles_= _info.getCartesPossibles();
+        EnumMap<Suit,CustList<HandBelote>> suites_= _info.getSuitesTouteCouleur();
+        EnumMap<Suit,CustList<HandBelote>> cartesPossibles_= _info.getCartesPossibles();
         boolean maitreJeu_ = _info.isMaitreJeu();
         Bytes adversaire_ = _info.getJoueursNonConfiance();
         Bytes joueursSusceptiblesDeCouper_=GameBeloteCommonPlaying.joueursSusceptiblesCoupe(cartesPossibles_,couleurDemandee_,bid.getCouleur(),adversaire_);
@@ -238,11 +238,11 @@ public final class GameBeloteProgTrick {
         Suit couleurDemandee_=progressingTrick.couleurDemandee();
         CardBelote carteForte_=progressingTrick.carteDuJoueur(_info.getRamasseurVirtuel(),teamsRelation.getNombreDeJoueurs());
         EnumMap<Suit,HandBelote> repartition_=currentHand.couleurs(bid);
-        EnumMap<Suit,EqList<HandBelote>> suites_= _info.getSuitesTouteCouleur();
-        EnumMap<Suit,EqList<HandBelote>> cartesPossibles_= _info.getCartesPossibles();
-        EnumMap<Suit,EqList<HandBelote>> cartesCertaines_= _info.getCartesCertaines();
+        EnumMap<Suit,CustList<HandBelote>> suites_= _info.getSuitesTouteCouleur();
+        EnumMap<Suit,CustList<HandBelote>> cartesPossibles_= _info.getCartesPossibles();
+        EnumMap<Suit,CustList<HandBelote>> cartesCertaines_= _info.getCartesCertaines();
         Bytes joueursNonJoue_= _info.getJoueursNonJoue();
-        EqList<HandBelote> cartesRelMaitres_;
+        CustList<HandBelote> cartesRelMaitres_;
         cartesRelMaitres_=cartesRelativementMaitre(GameBeloteCommon.suite(suites_,couleurDemandee_), cartesPossibles_, joueursNonJoue_, couleurDemandee_, couleurDemandee_, cartesCertaines_,carteForte_);
         /*Le joueur n'a aucune cartes maitresses*/
         if(!cartesRelMaitres_.isEmpty()) {
@@ -273,7 +273,7 @@ public final class GameBeloteProgTrick {
         return CardBelote.WHITE;
     }
 
-    boolean leadingPartner(Suit _couleurDemandee, CardBelote _carteForte, EnumMap<Suit, EqList<HandBelote>> _cartesPossibles, Bytes _adversaireNonJoue) {
+    boolean leadingPartner(Suit _couleurDemandee, CardBelote _carteForte, EnumMap<Suit, CustList<HandBelote>> _cartesPossibles, Bytes _adversaireNonJoue) {
         boolean partenaireMaitre_ = true;
         for(byte j: _adversaireNonJoue) {
             HandBelote couleurPossible_ = GameBeloteCommon.hand(_cartesPossibles, _couleurDemandee,j);
@@ -294,7 +294,7 @@ public final class GameBeloteProgTrick {
         Suit couleurDemandee_=progressingTrick.couleurDemandee();
         CardBelote carteForte_=progressingTrick.carteDuJoueur(_info.getRamasseurVirtuel(),teamsRelation.getNombreDeJoueurs());
         EnumMap<Suit,HandBelote> repartition_=currentHand.couleurs(bid);
-        EnumMap<Suit,EqList<HandBelote>> cartesPossibles_= _info.getCartesPossibles();
+        EnumMap<Suit,CustList<HandBelote>> cartesPossibles_= _info.getCartesPossibles();
         Bytes adversaire_ = _info.getJoueursNonConfiance();
         Bytes joueursNonJoue_= _info.getJoueursNonJoue();
         Bytes adversaireNonJoue_ = GameBeloteTeamsRelation.intersectionJoueurs(adversaire_,joueursNonJoue_);
@@ -306,8 +306,8 @@ public final class GameBeloteProgTrick {
     }
 
     CardBelote followNormalSuitPartner(BeloteInfoPliEnCours _info) {
-        EnumMap<Suit,EqList<HandBelote>> suites_= _info.getSuitesTouteCouleur();
-        EnumMap<Suit,EqList<HandBelote>> cartesPossibles_= _info.getCartesPossibles();
+        EnumMap<Suit,CustList<HandBelote>> suites_= _info.getSuitesTouteCouleur();
+        EnumMap<Suit,CustList<HandBelote>> cartesPossibles_= _info.getCartesPossibles();
         EnumMap<Suit,HandBelote> repartitionJouables_=playableCards.couleurs(bid);
         Suit couleurDemandee_=progressingTrick.couleurDemandee();
         Bytes adversaire_ = _info.getJoueursNonConfiance();
@@ -325,7 +325,7 @@ public final class GameBeloteProgTrick {
         return GameBeloteCommon.hand(repartitionJouables_,couleurDemandee_).derniereCarte();
     }
 
-    private boolean canLeadTrick(boolean _maitreJeu, EqList<HandBelote> _cartesRelMaitres) {
+    private boolean canLeadTrick(boolean _maitreJeu, CustList<HandBelote> _cartesRelMaitres) {
         return !_cartesRelMaitres.isEmpty() && _maitreJeu;
     }
 
@@ -347,7 +347,7 @@ public final class GameBeloteProgTrick {
         }
         if(ramasseurCertain_==PossibleTrickWinner.TEAM) {
             Suit couleurAtout_=_info.getCouleurAtout();
-            EnumMap<Suit,EqList<HandBelote>> suites_= _info.getSuitesTouteCouleur();
+            EnumMap<Suit,CustList<HandBelote>> suites_= _info.getSuitesTouteCouleur();
             EnumMap<Suit,HandBelote> repartitionJouables_=playableCards.couleurs(bid);
             if(GameBeloteCommon.suite(suites_,couleurAtout_).size()==1) {
                 return GameBeloteCommon.hand(repartitionJouables_,couleurAtout_).premiereCarte();
@@ -381,9 +381,9 @@ public final class GameBeloteProgTrick {
         Suit couleurAtout_=_info.getCouleurAtout();
         EnumMap<Suit,HandBelote> repartition_=currentHand.couleurs(bid);
         EnumMap<Suit,HandBelote> repartitionCartesJouees_=_info.getRepartitionCartesJouees();
-        EnumMap<Suit,EqList<HandBelote>> suites_=_info.getSuitesTouteCouleur();
-        EnumMap<Suit,EqList<HandBelote>> cartesPossibles_=_info.getCartesPossibles();
-        EnumMap<Suit,EqList<HandBelote>> cartesCertaines_=_info.getCartesCertaines();
+        EnumMap<Suit,CustList<HandBelote>> suites_=_info.getSuitesTouteCouleur();
+        EnumMap<Suit,CustList<HandBelote>> cartesPossibles_=_info.getCartesPossibles();
+        EnumMap<Suit,CustList<HandBelote>> cartesCertaines_=_info.getCartesCertaines();
         EnumMap<Suit,HandBelote> cartesMaitresses_=_info.getCartesMaitresses();
         EnumList<Suit> couleursStrictementMaitresses_=_info.getStrictCouleursMaitresses();
         Bytes adversaire_ = _info.getJoueursNonConfiance();
@@ -393,7 +393,7 @@ public final class GameBeloteProgTrick {
         byte ramasseurVirtuel_=_info.getRamasseurVirtuel();
         CardBelote carteForte_=progressingTrick.carteDuJoueur(ramasseurVirtuel_,nombreJoueurs_);
         Suit couleurDemandee_=progressingTrick.couleurDemandee();
-        EqList<HandBelote> cartesRelMaitres_=cartesRelativementMaitre(GameBeloteCommon.suite(suites_,couleurAtout_), cartesPossibles_, joueursNonJoue_, couleurDemandee_, couleurAtout_, cartesCertaines_,carteForte_);
+        CustList<HandBelote> cartesRelMaitres_=cartesRelativementMaitre(GameBeloteCommon.suite(suites_,couleurAtout_), cartesPossibles_, joueursNonJoue_, couleurDemandee_, couleurAtout_, cartesCertaines_,carteForte_);
         /*Coupe possible non obligatoire, car partenaire.contains(ramasseurVirtuel)*/
         if(canLeadTrick(maitreJeu_, cartesRelMaitres_)) {
             return cartesRelMaitres_.last().premiereCarte();
@@ -424,11 +424,11 @@ public final class GameBeloteProgTrick {
     }
 
     CardBelote followTrumpPartner(BeloteInfoPliEnCours _info) {
-        EnumMap<Suit,EqList<HandBelote>> cartesPossibles_=_info.getCartesPossibles();
+        EnumMap<Suit,CustList<HandBelote>> cartesPossibles_=_info.getCartesPossibles();
         Bytes adversaire_ = _info.getJoueursNonConfiance();
         Suit couleurDemandee_=progressingTrick.couleurDemandee();
         EnumMap<Suit,HandBelote> repartitionJouables_=playableCards.couleurs(bid);
-        EqList<HandBelote> suitesJouables_ = repartitionJouables_.getVal(couleurDemandee_).eclater(_info.getRepartitionCartesJouees(), bid);
+        CustList<HandBelote> suitesJouables_ = repartitionJouables_.getVal(couleurDemandee_).eclater(_info.getRepartitionCartesJouees(), bid);
         if(suitesJouables_.size()==1) {
             return GameBeloteCommon.hand(repartitionJouables_,couleurDemandee_).premiereCarte();
         }
@@ -505,13 +505,13 @@ public final class GameBeloteProgTrick {
     CardBelote followNoTrumpAsDefender(BeloteInfoPliEnCours _info) {
         Suit couleurDemandee_=progressingTrick.couleurDemandee();
         CardBelote carteForte_=progressingTrick.carteDuJoueur(_info.getRamasseurVirtuel(),teamsRelation.getNombreDeJoueurs());
-        EnumMap<Suit,EqList<HandBelote>> suites_= _info.getSuitesTouteCouleur();
-        EnumMap<Suit,EqList<HandBelote>> cartesPossibles_= _info.getCartesPossibles();
-        EnumMap<Suit,EqList<HandBelote>> cartesCertaines_= _info.getCartesCertaines();
+        EnumMap<Suit,CustList<HandBelote>> suites_= _info.getSuitesTouteCouleur();
+        EnumMap<Suit,CustList<HandBelote>> cartesPossibles_= _info.getCartesPossibles();
+        EnumMap<Suit,CustList<HandBelote>> cartesCertaines_= _info.getCartesCertaines();
         Bytes adversaire_ = _info.getJoueursNonConfiance();
         Bytes joueursNonJoue_= _info.getJoueursNonJoue();
         Bytes adversaireNonJoue_ = GameBeloteTeamsRelation.intersectionJoueurs(adversaire_,joueursNonJoue_);
-        EqList<HandBelote> cartesRelMaitres_;
+        CustList<HandBelote> cartesRelMaitres_;
         cartesRelMaitres_=cartesRelativementMaitre(GameBeloteCommon.suite(suites_,couleurDemandee_), cartesPossibles_, joueursNonJoue_, couleurDemandee_, couleurDemandee_, cartesCertaines_,carteForte_);
         /*Defenseur*/
         if(!cartesRelMaitres_.isEmpty()) {
@@ -525,15 +525,15 @@ public final class GameBeloteProgTrick {
         Suit couleurDemandee_=progressingTrick.couleurDemandee();
         CardBelote carteForte_=progressingTrick.carteDuJoueur(_info.getRamasseurVirtuel(),teamsRelation.getNombreDeJoueurs());
         EnumMap<Suit,HandBelote> repartition_=currentHand.couleurs(bid);
-        EnumMap<Suit,EqList<HandBelote>> suites_= _info.getSuitesTouteCouleur();
+        EnumMap<Suit,CustList<HandBelote>> suites_= _info.getSuitesTouteCouleur();
         CustList<TrickBelote> plisFaits_= _info.getPlisFaits();
-        EnumMap<Suit,EqList<HandBelote>> cartesPossibles_= _info.getCartesPossibles();
-        EnumMap<Suit,EqList<HandBelote>> cartesCertaines_= _info.getCartesCertaines();
+        EnumMap<Suit,CustList<HandBelote>> cartesPossibles_= _info.getCartesPossibles();
+        EnumMap<Suit,CustList<HandBelote>> cartesCertaines_= _info.getCartesCertaines();
         Bytes joueursNonJoue_= _info.getJoueursNonJoue();
         CustList<TrickBelote> tours_=GameBeloteCommonPlaying.tours(couleurDemandee_, plisFaits_);
-        EqList<HandBelote> cartesRelMaitres_;
+        CustList<HandBelote> cartesRelMaitres_;
         cartesRelMaitres_=cartesRelativementMaitre(GameBeloteCommon.suite(suites_,couleurDemandee_), cartesPossibles_, joueursNonJoue_, couleurDemandee_, couleurDemandee_, cartesCertaines_,carteForte_);
-        EqList<HandBelote> seqs_ = GameBeloteCommon.suite(suites_, couleurDemandee_);
+        CustList<HandBelote> seqs_ = GameBeloteCommon.suite(suites_, couleurDemandee_);
         if (!cartesRelMaitres_.isEmpty()) {
             return cartesRelMaitres_.last().premiereCarte();
         }
@@ -619,14 +619,14 @@ public final class GameBeloteProgTrick {
     CardBelote playDefaultTrump(BeloteInfoPliEnCours _info) {
         EnumMap<Suit,HandBelote> repartitionJouables_=playableCards.couleurs(bid);
         Suit couleurDemandee_=progressingTrick.couleurDemandee();
-        EqList<HandBelote> suitesJouables_=repartitionJouables_.getVal(couleurDemandee_).eclater(_info.getRepartitionCartesJouees(), bid);
+        CustList<HandBelote> suitesJouables_=repartitionJouables_.getVal(couleurDemandee_).eclater(_info.getRepartitionCartesJouees(), bid);
         byte nombreJoueurs_=teamsRelation.getNombreDeJoueurs();
         byte ramasseurVirtuel_=_info.getRamasseurVirtuel();
         CardBelote carteForte_=progressingTrick.carteDuJoueur(ramasseurVirtuel_,nombreJoueurs_);
-        EnumMap<Suit,EqList<HandBelote>> cartesPossibles_=_info.getCartesPossibles();
-        EnumMap<Suit,EqList<HandBelote>> cartesCertaines_=_info.getCartesCertaines();
+        EnumMap<Suit,CustList<HandBelote>> cartesPossibles_=_info.getCartesPossibles();
+        EnumMap<Suit,CustList<HandBelote>> cartesCertaines_=_info.getCartesCertaines();
         Bytes joueursNonJoue_=_info.getJoueursNonJoue();
-        EqList<HandBelote> cartesRelMaitres_=cartesRelativementMaitre(suitesJouables_, cartesPossibles_, joueursNonJoue_, couleurDemandee_, couleurDemandee_, cartesCertaines_,carteForte_);
+        CustList<HandBelote> cartesRelMaitres_=cartesRelativementMaitre(suitesJouables_, cartesPossibles_, joueursNonJoue_, couleurDemandee_, couleurDemandee_, cartesCertaines_,carteForte_);
         if(!cartesRelMaitres_.isEmpty()) {
             return cartesRelMaitres_.last().premiereCarte();
         }
@@ -660,14 +660,14 @@ public final class GameBeloteProgTrick {
         byte nombreJoueurs_=teamsRelation.getNombreDeJoueurs();
         Suit couleurAtout_=_info.getCouleurAtout();
         EnumMap<Suit,HandBelote> repartitionJouables_=playableCards.couleurs(bid);
-        EnumMap<Suit,EqList<HandBelote>> suites_=_info.getSuitesTouteCouleur();
-        EnumMap<Suit,EqList<HandBelote>> cartesPossibles_=_info.getCartesPossibles();
-        EnumMap<Suit,EqList<HandBelote>> cartesCertaines_=_info.getCartesCertaines();
+        EnumMap<Suit,CustList<HandBelote>> suites_=_info.getSuitesTouteCouleur();
+        EnumMap<Suit,CustList<HandBelote>> cartesPossibles_=_info.getCartesPossibles();
+        EnumMap<Suit,CustList<HandBelote>> cartesCertaines_=_info.getCartesCertaines();
         Bytes joueursNonJoue_=_info.getJoueursNonJoue();
         byte ramasseurVirtuel_=_info.getRamasseurVirtuel();
         CardBelote carteForte_=progressingTrick.carteDuJoueur(ramasseurVirtuel_,nombreJoueurs_);
         Suit couleurDemandee_=progressingTrick.couleurDemandee();
-        EqList<HandBelote> cartesRelMaitres_;
+        CustList<HandBelote> cartesRelMaitres_;
         cartesRelMaitres_=cartesRelativementMaitre(GameBeloteCommon.suite(suites_,couleurAtout_), cartesPossibles_, joueursNonJoue_, couleurDemandee_, couleurAtout_, cartesCertaines_,carteForte_);
         if(!cartesRelMaitres_.isEmpty()) {
             return cartesRelMaitres_.last().premiereCarte();
@@ -676,9 +676,9 @@ public final class GameBeloteProgTrick {
     }
 
     CardBelote sauveQuiPeutFigure(
-            EnumMap<Suit,EqList<HandBelote>> _cartesPossibles,
-            EqList<HandBelote> _suites,
-            EqList<HandBelote> _cartesRelMaitres,Bytes _adversaireNonJoue,
+            EnumMap<Suit,CustList<HandBelote>> _cartesPossibles,
+            CustList<HandBelote> _suites,
+            CustList<HandBelote> _cartesRelMaitres,Bytes _adversaireNonJoue,
             Suit _couleurDemandee) {
         //si aucun adversaire ne possede une carte a point dans la couleur demandee, alors les points peuvent etre sauves
         boolean aucuneCartePointsAdvNonJoue_ = true;
@@ -705,14 +705,14 @@ public final class GameBeloteProgTrick {
         return _suites.last().derniereCarte();
     }
 
-    EqList<HandBelote> cartesRelativementMaitre(
-            EqList<HandBelote> _suites, EnumMap<Suit, EqList<HandBelote>> _cartesPossibles,
+    CustList<HandBelote> cartesRelativementMaitre(
+            CustList<HandBelote> _suites, EnumMap<Suit, CustList<HandBelote>> _cartesPossibles,
             Bytes _joueursNonJoue, Suit _couleurDemandee,
             Suit _couleurJoueur,
-            EnumMap<Suit, EqList<HandBelote>> _cartesCertaines, CardBelote _carteForte) {
+            EnumMap<Suit, CustList<HandBelote>> _cartesCertaines, CardBelote _carteForte) {
         byte maxValeur_=0;
         Suit dom_ = bid.getCouleur();
-        EqList<HandBelote> suitesBis_=new EqList<HandBelote>();
+        CustList<HandBelote> suitesBis_=new CustList<HandBelote>();
         if(_couleurJoueur==dom_&&_couleurDemandee!=dom_) {
             for(byte joueur_:_joueursNonJoue) {
                 if(!GameBeloteCommon.hand(_cartesPossibles,_couleurJoueur,joueur_).estVide()&&GameBeloteCommon.hand(_cartesCertaines,_couleurDemandee,joueur_).estVide()) {
@@ -737,15 +737,15 @@ public final class GameBeloteProgTrick {
         return suitesBis_;
     }
 
-    private static CardBelote jeuFigureHauteDePlusFaibleSuite(EqList<HandBelote> _suites, BidBeloteSuit _contrat) {
+    private static CardBelote jeuFigureHauteDePlusFaibleSuite(CustList<HandBelote> _suites, BidBeloteSuit _contrat) {
         if(_suites.size()==CustList.ONE_ELEMENT) {
             return _suites.first().premiereCarte();
         }
         return cartePlusPetitePoints(_suites,_contrat);
     }
-    static CardBelote cartePlusPetitePoints(EqList<HandBelote> _suites, BidBeloteSuit _contrat) {
-        EqList<HandBelote> suitesPoints_ = new EqList<HandBelote>();
-        EqList<HandBelote> suitesZeroPoints_ = new EqList<HandBelote>();
+    static CardBelote cartePlusPetitePoints(CustList<HandBelote> _suites, BidBeloteSuit _contrat) {
+        CustList<HandBelote> suitesPoints_ = new CustList<HandBelote>();
+        CustList<HandBelote> suitesZeroPoints_ = new CustList<HandBelote>();
         for(HandBelote suite_:_suites) {
             HandBelote points_ = new HandBelote();
             HandBelote zeroPoints_ = new HandBelote();

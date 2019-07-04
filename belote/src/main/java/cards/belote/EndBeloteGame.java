@@ -12,7 +12,7 @@ import code.util.*;
 public final class EndBeloteGame {
     private GameBeloteTeamsRelation relations;
     private EqList<DeclareHandBelote> declares;
-    private EqList<HandBelote> declaresBeloteRebelote;
+    private CustList<HandBelote> declaresBeloteRebelote;
     private BooleanList wonLastTrick;
     /**Le contrat permet de dire quel va etre le deroulement
      de la partie*/
@@ -21,7 +21,7 @@ public final class EndBeloteGame {
     private CustList<TrickBelote> tricks;
 
     public EndBeloteGame(GameBeloteTeamsRelation _relations, EqList<DeclareHandBelote> _declares,
-                         EqList<HandBelote> _declaresBeloteRebelote, BooleanList _wonLastTrick,
+                         CustList<HandBelote> _declaresBeloteRebelote, BooleanList _wonLastTrick,
                          BidBeloteSuit _bid, CustList<TrickBelote> _tricks) {
         relations = _relations;
         declares = _declares;

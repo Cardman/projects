@@ -2232,7 +2232,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         return GameBeloteTrickHypothesis.getPossibleTrickWinnerNoCurrentTrump(_t,card_);
     }
     static boolean existPlayerNoTrump(BeloteInfoPliEnCours _t,Bytes _dom,Bytes _beat) {
-        EnumMap<Suit, EqList<HandBelote>> sure_ = _t.getCartesCertaines();
+        EnumMap<Suit, CustList<HandBelote>> sure_ = _t.getCartesCertaines();
         TrickBelote cur_ = _t.getProgressingTrick();
         Suit suit_ = cur_.couleurDemandee();
         byte nbPlayers_ = _t.getNbPlayers();
@@ -2246,8 +2246,8 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         return GameBeloteTrickHypothesis.existeJouBatAdvDemat(_t,_beat,_dom,suit_);
     }
     static boolean beatSureListTrumpDemand(BeloteInfoPliEnCours _t,Bytes _dom,Bytes _beat) {
-        EnumMap<Suit, EqList<HandBelote>> poss_ = _t.getCartesPossibles();
-        EnumMap<Suit, EqList<HandBelote>> sure_ = _t.getCartesCertaines();
+        EnumMap<Suit, CustList<HandBelote>> poss_ = _t.getCartesPossibles();
+        EnumMap<Suit, CustList<HandBelote>> sure_ = _t.getCartesCertaines();
         TrickBelote cur_ = _t.getProgressingTrick();
         Suit suit_ = cur_.couleurDemandee();
         byte nbPlayers_ = _t.getNbPlayers();
@@ -2264,7 +2264,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         return beatFoeTrumpDemand(_t, _beat, strength_);
     }
     static boolean beatFoeTrumpDemand(BeloteInfoPliEnCours _t, Bytes _beat, int _str) {
-        EnumMap<Suit, EqList<HandBelote>> poss_ = _t.getCartesPossibles();
+        EnumMap<Suit, CustList<HandBelote>> poss_ = _t.getCartesPossibles();
         TrickBelote cur_ = _t.getProgressingTrick();
         Suit suit_ = cur_.couleurDemandee();
         BidBeloteSuit bid_ = _t.getContrat();
@@ -2293,8 +2293,8 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         return beatSureListTrumpNormalSuit(_t,_dom,_beat, strength_);
     }
     static boolean beatSureListTrumpNormalSuit(BeloteInfoPliEnCours _t, Bytes _dom,Bytes _beat,int _str) {
-        EnumMap<Suit, EqList<HandBelote>> poss_ = _t.getCartesPossibles();
-        EnumMap<Suit, EqList<HandBelote>> sure_ = _t.getCartesCertaines();
+        EnumMap<Suit, CustList<HandBelote>> poss_ = _t.getCartesPossibles();
+        EnumMap<Suit, CustList<HandBelote>> sure_ = _t.getCartesCertaines();
         Suit suit_ = _t.getProgressingTrick().couleurDemandee();
         BidBeloteSuit bid_ = _t.getContrat();
         return GameBeloteTrickHypothesis.beatSureListTrumpNormalSuit(_beat,_dom,suit_,bid_,poss_,sure_, (byte) _str);
@@ -2307,8 +2307,8 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         return beatByTrumpNormalSuitStrength(_t, _beat, strength_);
     }
     static boolean beatByTrumpNormalSuitStrength(BeloteInfoPliEnCours _t, Bytes _beat,int _str) {
-        EnumMap<Suit, EqList<HandBelote>> poss_ = _t.getCartesPossibles();
-        EnumMap<Suit, EqList<HandBelote>> sure_ = _t.getCartesCertaines();
+        EnumMap<Suit, CustList<HandBelote>> poss_ = _t.getCartesPossibles();
+        EnumMap<Suit, CustList<HandBelote>> sure_ = _t.getCartesCertaines();
         Suit suit_ = _t.getProgressingTrick().couleurDemandee();
         BidBeloteSuit bid_ = _t.getContrat();
         return GameBeloteTrickHypothesis.beatByTrumpNormalSuitStrength(_beat,suit_,bid_,poss_,sure_, (byte) _str);
@@ -2329,7 +2329,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         Bytes joueursNonJoue_ = GameBeloteTeamsRelation.autresJoueurs(played_, (byte) _nbPlayers);
 
         byte ramasseurVirtuel_ = _current.getRamasseurPliEnCours((byte) _nbPlayers, _bid);
-        EnumMap<Suit,EqList<HandBelote>> suitesTouteCouleur_ = _cartes.eclaterTout(repartitionCartesJouees_, _bid);
+        EnumMap<Suit,CustList<HandBelote>> suitesTouteCouleur_ = _cartes.eclaterTout(repartitionCartesJouees_, _bid);
 
         EnumMap<Suit,HandBelote> cartesMaitresses_ = GameBeloteCommon.cartesMaitresses(
                 repartition_, repartitionCartesJouees_, _bid);
@@ -2357,12 +2357,12 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         info_.setCartesMaitresses(cartesMaitresses_);
         return info_;
     }
-    private static EnumMap<Suit,EqList<HandBelote>> generate(int _nbPlayer) {
-        EnumMap<Suit,EqList<HandBelote>> e_ = new EnumMap<Suit,EqList<HandBelote>>();
+    private static EnumMap<Suit,CustList<HandBelote>> generate(int _nbPlayer) {
+        EnumMap<Suit,CustList<HandBelote>> e_ = new EnumMap<Suit,CustList<HandBelote>>();
         EnumList<Suit> s_ = new EnumList<Suit>();
         s_.addAllElts(Suit.couleursOrdinaires());
         for (Suit s: s_) {
-            EqList<HandBelote> l_ = new EqList<HandBelote>();
+            CustList<HandBelote> l_ = new CustList<HandBelote>();
             for (int i = 0; i < _nbPlayer; i++) {
                 l_.add(new HandBelote());
             }

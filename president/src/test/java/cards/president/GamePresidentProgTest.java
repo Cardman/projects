@@ -91,7 +91,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         h_.ajouter(CardPresident.SPADE_3);
         pr_.ajouter(h_);
         HandPresident playable_ = GamePresidentCommon.getPlayable(cur_, Playing.CAN_PLAY, pr_, false, r_);
-        EqList<HandPresident> out_ = GamePresidentProg.getNotEmptyWorst(playable_,pr_,false,GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH);
+        CustList<HandPresident> out_ = GamePresidentProg.getNotEmptyWorst(playable_,pr_,false,GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH);
         assertEq(1, out_.size());
         assertTrue(checkStrength(out_.first(),CardPresident.CLUB_5,false));
     }
@@ -118,7 +118,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         h_.ajouter(CardPresident.SPADE_3);
         pr_.ajouter(h_);
         HandPresident playable_ = GamePresidentCommon.getPlayable(cur_, Playing.CAN_PLAY, pr_, false, r_);
-        EqList<HandPresident> out_ = GamePresidentProg.getHandPresidents(playable_,pr_,false);
+        CustList<HandPresident> out_ = GamePresidentProg.getHandPresidents(playable_,pr_,false);
         assertEq(1, out_.size());
         assertTrue(checkStrength(out_.first(),CardPresident.CLUB_5,false));
     }
@@ -262,7 +262,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         byte nb_ = 4;
         byte dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
-        EqList<HandPresident> deal_ = new EqList<HandPresident>();
+        CustList<HandPresident> deal_ = new CustList<HandPresident>();
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_2);
         cur_.ajouter(CardPresident.CLUB_2);
@@ -338,7 +338,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         byte nb_ = 4;
         byte dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
-        EqList<HandPresident> deal_ = new EqList<HandPresident>();
+        CustList<HandPresident> deal_ = new CustList<HandPresident>();
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_2);
         cur_.ajouter(CardPresident.CLUB_2);
@@ -416,7 +416,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         byte nb_ = 4;
         byte dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
-        EqList<HandPresident> deal_ = new EqList<HandPresident>();
+        CustList<HandPresident> deal_ = new CustList<HandPresident>();
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_2);
         cur_.ajouter(CardPresident.CLUB_2);
@@ -493,7 +493,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         byte nb_ = 4;
         byte dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
-        EqList<HandPresident> deal_ = new EqList<HandPresident>();
+        CustList<HandPresident> deal_ = new CustList<HandPresident>();
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_2);
         cur_.ajouter(CardPresident.CLUB_2);
@@ -571,7 +571,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         byte dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
         r_.setHasToPlay(true);
-        EqList<HandPresident> deal_ = new EqList<HandPresident>();
+        CustList<HandPresident> deal_ = new CustList<HandPresident>();
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_2);
         cur_.ajouter(CardPresident.CLUB_2);
@@ -780,7 +780,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         byte nb_ = 4;
         byte dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
-        EqList<HandPresident> deal_ = new EqList<HandPresident>();
+        CustList<HandPresident> deal_ = new CustList<HandPresident>();
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_2);
         cur_.ajouter(CardPresident.CLUB_2);

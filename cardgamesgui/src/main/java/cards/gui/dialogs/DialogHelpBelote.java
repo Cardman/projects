@@ -44,8 +44,8 @@ public final class DialogHelpBelote extends Dialog {
         DIALOG.setLocationRelativeTo(_fenetre);
         DIALOG.setTitle(_title);
     }
-    public static void setDialogueBelote(EnumMap<Suit,EqList<HandBelote>> _cartesPossibles,
-            EnumMap<Suit,EqList<HandBelote>> _cartesCertaines,
+    public static void setDialogueBelote(EnumMap<Suit,CustList<HandBelote>> _cartesPossibles,
+            EnumMap<Suit,CustList<HandBelote>> _cartesCertaines,
             EnumMap<Suit,HandBelote> _repartitionJouees,
             Suit _couleurDemandee,BidBeloteSuit _bid,
             StringList _pseudos, String _lg) {

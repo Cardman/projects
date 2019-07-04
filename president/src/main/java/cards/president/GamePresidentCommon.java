@@ -38,8 +38,8 @@ final class GamePresidentCommon {
         HandPresident c_ = new HandPresident(_h);
         ByteTreeMap<HandPresident> gl_ = _h.getCardsByStrength(_reversed);
         CustList<HandPresident> rep_ = getCardsSortedByLengthSortedByStrengthReduce(_reversed, _rules, c_);
-        EqList<HandPresident> hWorst_ = new EqList<HandPresident>();
-        EqList<HandPresident> hBest_ = new EqList<HandPresident>();
+        CustList<HandPresident> hWorst_ = new CustList<HandPresident>();
+        CustList<HandPresident> hBest_ = new CustList<HandPresident>();
         int maxStack_ = _rules.getNbStacks() * NB_SUITS;
         for (int i = CustList.SECOND_INDEX; i <= maxStack_; i++) {
             HandPresident repLoc_ = new HandPresident(rep_.get(i-1));
@@ -93,7 +93,7 @@ final class GamePresidentCommon {
         if (c_.estVide()) {
             return c_;
         }
-        EqList<HandPresident> cardsLists_ = new EqList<HandPresident>();
+        CustList<HandPresident> cardsLists_ = new CustList<HandPresident>();
         for (HandPresident h: c_.getCardsByStrength(_reversed).values()) {
             if (h.estVide()) {
                 continue;
@@ -275,8 +275,8 @@ final class GamePresidentCommon {
         return plCards_;
     }
 
-    static EqList<HandPresident> getNotEmpty(ByteTreeMap<HandPresident> _m) {
-        EqList<HandPresident> notEmpty_ = new EqList<HandPresident>();
+    static CustList<HandPresident> getNotEmpty(ByteTreeMap<HandPresident> _m) {
+        CustList<HandPresident> notEmpty_ = new CustList<HandPresident>();
         for (byte b: _m.getKeys()) {
             HandPresident h_ = _m.getVal(b);
             if (!h_.estVide()) {

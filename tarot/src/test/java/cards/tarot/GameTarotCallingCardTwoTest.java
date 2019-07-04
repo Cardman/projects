@@ -3,6 +3,7 @@ import static cards.tarot.EquallableTarotUtil.assertEq;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import code.util.CustList;
 import org.junit.Test;
 
 import cards.consts.GameType;
@@ -17,7 +18,7 @@ public class GameTarotCallingCardTwoTest extends CommonTarotGame {
     private GameTarot game;
 
     static DealTarot initializeHands() {
-        EqList<HandTarot> hands_ = new EqList<HandTarot>();
+        CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hand_.ajouter(CardTarot.SPADE_8);
         hand_.ajouter(CardTarot.SPADE_7);

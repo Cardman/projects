@@ -776,7 +776,6 @@ public class ContainerSinglePresident extends ContainerPresident implements
             HandPresident d_ = game_.strategieEchange(DealPresident.NUMERO_UTILISATEUR);
             String message_;
             message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_PRESIDENT_GIVE), Games.toString(d_,lg_));
-            message_=StringList.concat(message_,game_.getReason());
             ConfirmDialog.showMessage(getOwner(),message_, getMessages().getVal(MainWindow.CONSULT_TITLE), lg_, JOptionPane.INFORMATION_MESSAGE);
             return;
         }
@@ -787,7 +786,6 @@ public class ContainerSinglePresident extends ContainerPresident implements
         } else {
             message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_PRESIDENT_PLAYER), Games.toString(game_.playedCards(),lg_));
         }
-        message_=StringList.concat(message_,game_.getReason());
         ConfirmDialog.showMessage(getOwner(),message_, getMessages().getVal(MainWindow.CONSULT_TITLE), lg_, JOptionPane.INFORMATION_MESSAGE);
     }
 

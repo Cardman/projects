@@ -21,7 +21,7 @@ public final class DealTarot implements Iterable<HandTarot> {
     public static final int NB_CARDS = 78;
 
     /** Ensemble des mains des joueurs */
-    private EqList<HandTarot> deal = new EqList<HandTarot>();
+    private CustList<HandTarot> deal = new CustList<HandTarot>();
     /** donneur est un entier allant de 0 a nombre de joueurs-1 */
     private byte dealer;
     /** nombre de parties jouees depuis le lancement */
@@ -44,13 +44,13 @@ public final class DealTarot implements Iterable<HandTarot> {
     }
 
     /** Utilise pour editer une partie non solitaire */
-    public DealTarot(EqList<HandTarot> _pdonne, byte _pdonneur) {
+    public DealTarot(CustList<HandTarot> _pdonne, byte _pdonneur) {
         deal = _pdonne;
         dealer = _pdonneur;
     }
 
     DealTarot(DealTarot _deal) {
-        deal = new EqList<HandTarot>();
+        deal = new CustList<HandTarot>();
         for (HandTarot h: _deal) {
             HandTarot h_ = new HandTarot();
             h_.ajouterCartes(h);
@@ -375,7 +375,7 @@ public final class DealTarot implements Iterable<HandTarot> {
         return deal.get(NUMERO_UTILISATEUR);
     }
 
-    EqList<HandTarot> getDonne() {
+    CustList<HandTarot> getDonne() {
         return deal;
     }
 
@@ -387,10 +387,10 @@ public final class DealTarot implements Iterable<HandTarot> {
     public Iterator<HandTarot> iterator() {
         return deal.iterator();
     }
-    public EqList<HandTarot> getDeal() {
+    public CustList<HandTarot> getDeal() {
         return deal;
     }
-    public void setDeal(EqList<HandTarot> _deal) {
+    public void setDeal(CustList<HandTarot> _deal) {
         deal = _deal;
     }
     public byte getDealer() {

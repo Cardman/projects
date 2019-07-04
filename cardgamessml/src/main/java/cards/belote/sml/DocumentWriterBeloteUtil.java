@@ -351,7 +351,7 @@ public final class DocumentWriterBeloteUtil {
         return elt_;
     }
 
-    private static Element setListHandBelote(EqList<HandBelote> _object, String _fieldName, Document _document) {
+    private static Element setListHandBelote(CustList<HandBelote> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (HandBelote s: _object) {

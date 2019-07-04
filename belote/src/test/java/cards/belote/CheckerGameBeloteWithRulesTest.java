@@ -2,6 +2,7 @@ package cards.belote;
 import static cards.belote.EquallableBeloteUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import code.util.CustList;
 import org.junit.Test;
 
 import cards.belote.enumerations.BidBelote;
@@ -86,7 +87,7 @@ public class CheckerGameBeloteWithRulesTest {
     }
 
     private static DealBelote deal1Classic(byte _dealer) {
-        EqList<HandBelote> hands_ = new EqList<HandBelote>();
+        CustList<HandBelote> hands_ = new CustList<HandBelote>();
         HandBelote hand_;
         hand_ = new HandBelote();
         hand_.ajouter(CardBelote.DIAMOND_1);
@@ -487,7 +488,7 @@ public class CheckerGameBeloteWithRulesTest {
     }
 
     private static DealBelote deal1(byte _dealer) {
-        EqList<HandBelote> hands_ = new EqList<HandBelote>();
+        CustList<HandBelote> hands_ = new CustList<HandBelote>();
         HandBelote hand_;
         hand_ = new HandBelote();
         hand_.ajouter(CardBelote.DIAMOND_1);
@@ -688,7 +689,7 @@ public class CheckerGameBeloteWithRulesTest {
     }
 
     private static DealBelote deal2Classic(byte _dealer) {
-        EqList<HandBelote> hands_ = new EqList<HandBelote>();
+        CustList<HandBelote> hands_ = new CustList<HandBelote>();
         HandBelote hand_;
         hand_ = new HandBelote();
         hand_.ajouter(CardBelote.DIAMOND_1);
@@ -1101,7 +1102,7 @@ public class CheckerGameBeloteWithRulesTest {
     }
 
     private static DealBelote deal1Slam(byte _dealer) {
-        EqList<HandBelote> hands_ = new EqList<HandBelote>();
+        CustList<HandBelote> hands_ = new CustList<HandBelote>();
         HandBelote hand_;
         hand_ = new HandBelote();
         hand_.ajouter(CardBelote.DIAMOND_1);

@@ -16,10 +16,10 @@ final class TarotInfoPliEnCours {
     private EnumMap<Suit,HandTarot> repartitionCartesJouees;
     private boolean carteAppeleeJouee;
     private boolean contientExcuse;
-    private EnumMap<Suit,EqList<HandTarot>> cartesPossibles;
-    private EnumMap<Suit,EqList<HandTarot>> cartesCertaines;
+    private EnumMap<Suit,CustList<HandTarot>> cartesPossibles;
+    private EnumMap<Suit,CustList<HandTarot>> cartesCertaines;
     private byte ramasseurVirtuel;
-    private EnumMap<Suit,EqList<HandTarot>> suitesTouteCouleur;
+    private EnumMap<Suit,CustList<HandTarot>> suitesTouteCouleur;
     private boolean maitreAtout;
     private EnumList<Suit> couleursMaitresses;
     private EnumMap<Suit,HandTarot> cartesMaitresses;
@@ -107,19 +107,19 @@ final class TarotInfoPliEnCours {
         contientExcuse = _contientExcuse;
     }
 
-    public EnumMap<Suit,EqList<HandTarot>> getCartesPossibles() {
+    public EnumMap<Suit,CustList<HandTarot>> getCartesPossibles() {
         return cartesPossibles;
     }
 
-    public void setCartesPossibles(EnumMap<Suit,EqList<HandTarot>> _cartesPossibles) {
+    public void setCartesPossibles(EnumMap<Suit,CustList<HandTarot>> _cartesPossibles) {
         cartesPossibles = _cartesPossibles;
     }
 
-    public EnumMap<Suit,EqList<HandTarot>> getCartesCertaines() {
+    public EnumMap<Suit,CustList<HandTarot>> getCartesCertaines() {
         return cartesCertaines;
     }
 
-    public void setCartesCertaines(EnumMap<Suit,EqList<HandTarot>> _cartesCertaines) {
+    public void setCartesCertaines(EnumMap<Suit,CustList<HandTarot>> _cartesCertaines) {
         cartesCertaines = _cartesCertaines;
     }
 
@@ -131,11 +131,11 @@ final class TarotInfoPliEnCours {
         ramasseurVirtuel = _ramasseurVirtuel;
     }
 
-    public EnumMap<Suit,EqList<HandTarot>> getSuitesTouteCouleur() {
+    public EnumMap<Suit,CustList<HandTarot>> getSuitesTouteCouleur() {
         return suitesTouteCouleur;
     }
 
-    public void setSuitesTouteCouleur(EnumMap<Suit,EqList<HandTarot>> _suitesTouteCouleur) {
+    public void setSuitesTouteCouleur(EnumMap<Suit,CustList<HandTarot>> _suitesTouteCouleur) {
         suitesTouteCouleur = _suitesTouteCouleur;
     }
 

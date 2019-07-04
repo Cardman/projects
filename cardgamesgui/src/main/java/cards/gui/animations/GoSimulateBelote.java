@@ -71,7 +71,7 @@ public final class GoSimulateBelote extends Thread implements GoSimulate {
     @Override
     public void run() {
         byte indiceMainDepart_;
-        EqList<HandBelote> mainsUtilisateurs_=new EqList<HandBelote>();
+        CustList<HandBelote> mainsUtilisateurs_=new CustList<HandBelote>();
         GameBelote partie_=partieBeloteSimulee();
         byte nombreJoueurs_=partie_.getNombreDeJoueurs();
         String lg_ = container.getOwner().getLanguageKey();

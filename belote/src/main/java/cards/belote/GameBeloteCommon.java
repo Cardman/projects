@@ -269,10 +269,10 @@ public final class GameBeloteCommon {
     public static HandBelote hand(EnumMap<Suit, HandBelote> _mains, Suit _couleur) {
         return _mains.getVal(_couleur);
     }
-    static EqList<HandBelote> suite(EnumMap<Suit,EqList<HandBelote>> _mains, Suit _couleur) {
+    static CustList<HandBelote> suite(EnumMap<Suit,CustList<HandBelote>> _mains, Suit _couleur) {
         return _mains.getVal(_couleur);
     }
-    static HandBelote hand(EnumMap<Suit,EqList<HandBelote>> _mains, Suit _couleur, int _indice2) {
+    static HandBelote hand(EnumMap<Suit,CustList<HandBelote>> _mains, Suit _couleur, int _indice2) {
         return _mains.getVal(_couleur).get(_indice2);
     }
     static EnumList<Suit> couleurs() {

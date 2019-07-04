@@ -538,11 +538,11 @@ public final class DocumentReaderTarotUtil {
         }
         return list_;
     }
-    private static EqList<HandTarot> getListHandTarot(Element _elt) {
+    private static CustList<HandTarot> getListHandTarot(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        EqList<HandTarot> list_ = new EqList<HandTarot>(cap_);
+        CustList<HandTarot> list_ = new CustList<HandTarot>(cap_);
         for (Element c: childElements_) {
             list_.add(getHandTarot(c));
         }

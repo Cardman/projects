@@ -37,7 +37,7 @@ public final class GameTarotBid {
         }
         Suit couleurAtout_ = Suit.TRUMP;
         HandTarot trumps_ = couleurs_.getVal(couleurAtout_);
-        EqList<HandTarot> suitesAtouts_ = trumps_.eclaterDebutPartie();
+        CustList<HandTarot> suitesAtouts_ = trumps_.eclaterDebutPartie();
         int valeurAtout_;
         int valeurAtoutMoyen_;
         int valeurAtoutMajeur_;
@@ -570,7 +570,7 @@ public final class GameTarotBid {
                                   EnumMap<Suit,HandTarot> _cartesJouees,
                                   Suit _noCouleur) {
         HandTarot couleur_ = _couleurs.getVal(_noCouleur);
-        EqList<HandTarot> suites_ = couleur_.eclaterEnCours(_cartesJouees, _noCouleur);
+        CustList<HandTarot> suites_ = couleur_.eclaterEnCours(_cartesJouees, _noCouleur);
         HandTarot cartesJoueesOuPossedes_ = new HandTarot();
         cartesJoueesOuPossedes_.ajouterCartes(couleur_);
         cartesJoueesOuPossedes_.ajouterCartes(_cartesJouees.getVal(_noCouleur));

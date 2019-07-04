@@ -253,7 +253,7 @@ public final class DocumentWriterPresidentUtil {
         return elt_;
     }
 
-    private static Element setListHandPresident(EqList<HandPresident> _object, String _fieldName, Document _document) {
+    private static Element setListHandPresident(CustList<HandPresident> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (HandPresident s: _object) {

@@ -16,10 +16,10 @@ final class BeloteInfoPliEnCours {
     private TrickBelote progressingTrick;
     private HandBelote cartesJouees;
     private EnumMap<Suit,HandBelote> repartitionCartesJouees;
-    private EnumMap<Suit,EqList<HandBelote>> cartesPossibles;
-    private EnumMap<Suit,EqList<HandBelote>> cartesCertaines;
+    private EnumMap<Suit,CustList<HandBelote>> cartesPossibles;
+    private EnumMap<Suit,CustList<HandBelote>> cartesCertaines;
     private byte ramasseurVirtuel;
-    private EnumMap<Suit,EqList<HandBelote>> suitesTouteCouleur;
+    private EnumMap<Suit,CustList<HandBelote>> suitesTouteCouleur;
     private boolean maitreAtout;
     private EnumList<Suit> couleursMaitresses;
     private EnumList<Suit> strictCouleursMaitresses;
@@ -99,19 +99,19 @@ final class BeloteInfoPliEnCours {
         repartitionCartesJouees = _repartitionCartesJouees;
     }
 
-    public EnumMap<Suit,EqList<HandBelote>> getCartesPossibles() {
+    public EnumMap<Suit,CustList<HandBelote>> getCartesPossibles() {
         return cartesPossibles;
     }
 
-    public void setCartesPossibles(EnumMap<Suit,EqList<HandBelote>> _cartesPossibles) {
+    public void setCartesPossibles(EnumMap<Suit,CustList<HandBelote>> _cartesPossibles) {
         cartesPossibles = _cartesPossibles;
     }
 
-    public EnumMap<Suit,EqList<HandBelote>> getCartesCertaines() {
+    public EnumMap<Suit,CustList<HandBelote>> getCartesCertaines() {
         return cartesCertaines;
     }
 
-    public void setCartesCertaines(EnumMap<Suit,EqList<HandBelote>> _cartesCertaines) {
+    public void setCartesCertaines(EnumMap<Suit,CustList<HandBelote>> _cartesCertaines) {
         cartesCertaines = _cartesCertaines;
     }
 
@@ -123,11 +123,11 @@ final class BeloteInfoPliEnCours {
         ramasseurVirtuel = _ramasseurVirtuel;
     }
 
-    public EnumMap<Suit,EqList<HandBelote>> getSuitesTouteCouleur() {
+    public EnumMap<Suit,CustList<HandBelote>> getSuitesTouteCouleur() {
         return suitesTouteCouleur;
     }
 
-    public void setSuitesTouteCouleur(EnumMap<Suit,EqList<HandBelote>> _suitesTouteCouleur) {
+    public void setSuitesTouteCouleur(EnumMap<Suit,CustList<HandBelote>> _suitesTouteCouleur) {
         suitesTouteCouleur = _suitesTouteCouleur;
     }
 

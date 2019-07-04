@@ -52,7 +52,7 @@ public final class GamePresidentBeginTest extends CommonGamePresident {
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
         TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         ByteTreeMap<HandPresident> m_ = cur_.getCardsByStrength(false);
-        EqList<HandPresident> seqs_ = GamePresidentBegin.getLeadingCardsPlayer(false, r_, m_, pl_);
+        CustList<HandPresident> seqs_ = GamePresidentBegin.getLeadingCardsPlayer(false, r_, m_, pl_);
         assertEq(1,seqs_.size());
         assertEq(1,seqs_.get(0).total());
         assertSame(CardPresident.DIAMOND_2,seqs_.get(0).premiereCarte());
@@ -99,7 +99,7 @@ public final class GamePresidentBeginTest extends CommonGamePresident {
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
         TreeMap<CardPresident, Byte> pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
         ByteTreeMap<HandPresident> m_ = cur_.getCardsByStrength(false);
-        EqList<HandPresident> seqs_ = GamePresidentBegin.getLeadingCardsPlayer(false, r_, m_, pl_);
+        CustList<HandPresident> seqs_ = GamePresidentBegin.getLeadingCardsPlayer(false, r_, m_, pl_);
         assertEq(1,seqs_.size());
         assertEq(4,seqs_.get(0).total());
         assertSame(CardPresident.DIAMOND_1,seqs_.get(0).carte(0));
@@ -112,7 +112,7 @@ public final class GamePresidentBeginTest extends CommonGamePresident {
         byte nb_ = 4;
         byte dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
-        EqList<HandPresident> deal_ = new EqList<HandPresident>();
+        CustList<HandPresident> deal_ = new CustList<HandPresident>();
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_1);
         cur_.ajouter(CardPresident.CLUB_1);
@@ -186,7 +186,7 @@ public final class GamePresidentBeginTest extends CommonGamePresident {
         byte nb_ = 4;
         byte dealer_ = 3;
         RulesPresident r_ = new RulesPresident(nb_);
-        EqList<HandPresident> deal_ = new EqList<HandPresident>();
+        CustList<HandPresident> deal_ = new CustList<HandPresident>();
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_1);
         cur_.ajouter(CardPresident.CLUB_1);
@@ -260,7 +260,7 @@ public final class GamePresidentBeginTest extends CommonGamePresident {
         byte nb_ = 4;
         byte dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
-        EqList<HandPresident> deal_ = new EqList<HandPresident>();
+        CustList<HandPresident> deal_ = new CustList<HandPresident>();
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_2);
         cur_.ajouter(CardPresident.CLUB_2);
@@ -334,7 +334,7 @@ public final class GamePresidentBeginTest extends CommonGamePresident {
         byte nb_ = 4;
         byte dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
-        EqList<HandPresident> deal_ = new EqList<HandPresident>();
+        CustList<HandPresident> deal_ = new CustList<HandPresident>();
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_2);
         cur_.ajouter(CardPresident.CLUB_2);
@@ -436,7 +436,7 @@ public final class GamePresidentBeginTest extends CommonGamePresident {
         byte nb_ = 4;
         byte dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
-        EqList<HandPresident> deal_ = new EqList<HandPresident>();
+        CustList<HandPresident> deal_ = new CustList<HandPresident>();
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_1);
         cur_.ajouter(CardPresident.CLUB_1);
@@ -538,7 +538,7 @@ public final class GamePresidentBeginTest extends CommonGamePresident {
         byte nb_ = 4;
         byte dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
-        EqList<HandPresident> deal_ = new EqList<HandPresident>();
+        CustList<HandPresident> deal_ = new CustList<HandPresident>();
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_QUEEN);
         cur_.ajouter(CardPresident.CLUB_QUEEN);
@@ -635,7 +635,7 @@ public final class GamePresidentBeginTest extends CommonGamePresident {
         byte dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
         r_.setPossibleReversing(true);
-        EqList<HandPresident> deal_ = new EqList<HandPresident>();
+        CustList<HandPresident> deal_ = new CustList<HandPresident>();
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_QUEEN);
         cur_.ajouter(CardPresident.CLUB_QUEEN);
@@ -732,7 +732,7 @@ public final class GamePresidentBeginTest extends CommonGamePresident {
         byte dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
         r_.setPossibleReversing(true);
-        EqList<HandPresident> deal_ = new EqList<HandPresident>();
+        CustList<HandPresident> deal_ = new CustList<HandPresident>();
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_QUEEN);
         cur_.ajouter(CardPresident.CLUB_QUEEN);
@@ -836,7 +836,7 @@ public final class GamePresidentBeginTest extends CommonGamePresident {
         byte dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
         r_.setPossibleReversing(true);
-        EqList<HandPresident> deal_ = new EqList<HandPresident>();
+        CustList<HandPresident> deal_ = new CustList<HandPresident>();
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_QUEEN);
         cur_.ajouter(CardPresident.CLUB_QUEEN);

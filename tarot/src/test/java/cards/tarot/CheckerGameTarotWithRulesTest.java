@@ -2,6 +2,7 @@ package cards.tarot;
 import static cards.tarot.EquallableTarotUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import code.util.CustList;
 import org.junit.Test;
 
 import cards.consts.GameType;
@@ -187,7 +188,7 @@ public class CheckerGameTarotWithRulesTest {
         assertEq(2, game_.getRamasseur());
     }
     private static DealTarot deal1(byte _dealer) {
-        EqList<HandTarot> hands_ = new EqList<HandTarot>();
+        CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_;
         hand_ = new HandTarot();
         hand_.ajouter(CardTarot.TRUMP_1);
@@ -797,7 +798,7 @@ public class CheckerGameTarotWithRulesTest {
     }
 
     private static DealTarot deal2(byte _dealer) {
-        EqList<HandTarot> hands_ = new EqList<HandTarot>();
+        CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_;
         hand_ = new HandTarot();
         hand_.ajouter(CardTarot.TRUMP_1);
@@ -1279,7 +1280,7 @@ public class CheckerGameTarotWithRulesTest {
     }
 
     private static DealTarot deal3(byte _dealer) {
-        EqList<HandTarot> hands_ = new EqList<HandTarot>();
+        CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_;
         hand_ = new HandTarot();
         hand_.ajouter(CardTarot.TRUMP_1);
@@ -1390,7 +1391,7 @@ public class CheckerGameTarotWithRulesTest {
     }
 
     private static DealTarot deal4(byte _dealer) {
-        EqList<HandTarot> hands_ = new EqList<HandTarot>();
+        CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_;
         hand_ = new HandTarot();
         hand_.ajouter(CardTarot.TRUMP_1);
@@ -1538,7 +1539,7 @@ public class CheckerGameTarotWithRulesTest {
     }
 
     private static DealTarot deal5(byte _dealer) {
-        EqList<HandTarot> hands_ = new EqList<HandTarot>();
+        CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_;
         hand_ = new HandTarot();
         hand_.ajouter(CardTarot.TRUMP_1);
@@ -1939,7 +1940,7 @@ public class CheckerGameTarotWithRulesTest {
     }
 
     private static DealTarot dealSlam(byte _dealer) {
-        EqList<HandTarot> hands_ = new EqList<HandTarot>();
+        CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_;
         hand_ = new HandTarot();
         hand_.ajouter(CardTarot.TRUMP_1);

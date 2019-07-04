@@ -11,7 +11,7 @@ public final class TrickPresident implements Iterable<HandPresident> {
     /**Entameur du pli*/
     private byte starter;
     /**cards est l'ensemble de cartes jouees pendant le pli a la belote ou au tarot*/
-    private EqList<HandPresident> cards=new EqList<HandPresident>();
+    private CustList<HandPresident> cards=new CustList<HandPresident>();
 
     private Bytes players = new Bytes();
 
@@ -42,8 +42,8 @@ public final class TrickPresident implements Iterable<HandPresident> {
         return l_;
     }
 
-    public EqList<HandPresident> getFilledHandsBefore(int _index) {
-        EqList<HandPresident> l_ = new EqList<HandPresident>();
+    public CustList<HandPresident> getFilledHandsBefore(int _index) {
+        CustList<HandPresident> l_ = new CustList<HandPresident>();
         for (int i: getFilledHandsIndexesBefore(_index)) {
             l_.add(cards.get(i));
         }
@@ -66,8 +66,8 @@ public final class TrickPresident implements Iterable<HandPresident> {
         return l_;
     }
 
-    public EqList<HandPresident> getPlayedCards(byte _player, byte _nbPlayers) {
-        EqList<HandPresident> l_ = new EqList<HandPresident>();
+    public CustList<HandPresident> getPlayedCards(byte _player, byte _nbPlayers) {
+        CustList<HandPresident> l_ = new CustList<HandPresident>();
         byte pl_ = starter;
         for (HandPresident h: cards) {
             if (pl_ == _player) {
@@ -165,10 +165,10 @@ public final class TrickPresident implements Iterable<HandPresident> {
         starter = (byte) _i;
         players = new Bytes();
     }
-    public EqList<HandPresident> getCards() {
+    public CustList<HandPresident> getCards() {
         return cards;
     }
-    public void setCards(EqList<HandPresident> _cards) {
+    public void setCards(CustList<HandPresident> _cards) {
         cards = _cards;
     }
 }

@@ -25,8 +25,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.SPADE_QUEEN);
         cur_.ajouter(CardBelote.CLUB_1);
         cur_.ajouter(CardBelote.CLUB_7);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
-        EnumMap<Suit, EqList<HandBelote>> sure_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> sure_ = generate(4, b_);
         addCard(poss_,2,CardBelote.CLUB_9);
         addCard(poss_,2,CardBelote.SPADE_1);
         addCard(sure_,2,CardBelote.CLUB_9);
@@ -49,8 +49,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.SPADE_QUEEN);
         cur_.ajouter(CardBelote.CLUB_1);
         cur_.ajouter(CardBelote.CLUB_7);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
-        EnumMap<Suit, EqList<HandBelote>> sure_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> sure_ = generate(4, b_);
         addCard(poss_,2,CardBelote.CLUB_9);
         addCard(poss_,2,CardBelote.SPADE_1);
         addCard(sure_,2,CardBelote.CLUB_9);
@@ -71,8 +71,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.SPADE_QUEEN);
         cur_.ajouter(CardBelote.CLUB_1);
         cur_.ajouter(CardBelote.CLUB_7);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
-        EnumMap<Suit, EqList<HandBelote>> sure_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> sure_ = generate(4, b_);
         addCard(poss_,2,CardBelote.CLUB_9);
         addCard(poss_,2,CardBelote.SPADE_1);
         addCard(sure_,2,CardBelote.CLUB_9);
@@ -94,8 +94,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.SPADE_QUEEN);
         cur_.ajouter(CardBelote.CLUB_1);
         cur_.ajouter(CardBelote.CLUB_7);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
-        EnumMap<Suit, EqList<HandBelote>> sure_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> sure_ = generate(4, b_);
         addCard(poss_,2,CardBelote.CLUB_9);
         addCard(poss_,2,CardBelote.SPADE_1);
         addCard(sure_,2,CardBelote.CLUB_9);
@@ -118,7 +118,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.SPADE_QUEEN);
         cur_.ajouter(CardBelote.CLUB_1);
         cur_.ajouter(CardBelote.DIAMOND_1);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         addCard(poss_,2,CardBelote.CLUB_9);
         addCard(poss_,2,CardBelote.SPADE_1);
         addCard(poss_,0,CardBelote.HEART_10);
@@ -141,7 +141,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.SPADE_QUEEN);
         cur_.ajouter(CardBelote.CLUB_1);
         cur_.ajouter(CardBelote.DIAMOND_1);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         addCard(poss_,2,CardBelote.CLUB_9);
         addCard(poss_,2,CardBelote.HEART_7);
         addCard(poss_,0,CardBelote.HEART_10);
@@ -158,7 +158,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.SPADE);
         b_.setBid(BidBelote.SUIT);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         addCard(poss_,2,CardBelote.CLUB_9);
         addCard(poss_,2,CardBelote.SPADE_1);
         addCard(poss_,2,CardBelote.HEART_7);
@@ -170,7 +170,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.SPADE);
         b_.setBid(BidBelote.SUIT);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         addCard(poss_,2,CardBelote.CLUB_9);
         Bytes pls_ = GameBeloteCommonPlaying.joueursSusceptiblesCoupe(poss_,Suit.HEART,b_.getCouleur(),new Bytes((byte) 2));
         assertEq(0, pls_.size());
@@ -180,7 +180,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.SPADE);
         b_.setBid(BidBelote.SUIT);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         addCard(poss_, 2, CardBelote.CLUB_9);
         addCard(poss_, 2, CardBelote.SPADE_1);
         Bytes pls_ = GameBeloteCommonPlaying.joueursSusceptiblesCoupe(poss_, Suit.HEART, b_.getCouleur(), new Bytes((byte) 2));
@@ -192,7 +192,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.SPADE);
         b_.setBid(BidBelote.SUIT);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         addCard(poss_,2,CardBelote.CLUB_9);
         addCard(poss_,2,CardBelote.DIAMOND_8);
         addCard(poss_,2,CardBelote.SPADE_1);
@@ -205,7 +205,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.SPADE);
         b_.setBid(BidBelote.SUIT);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         addCard(poss_,2,CardBelote.HEART_7);
         addCard(poss_,2,CardBelote.DIAMOND_8);
         addCard(poss_,2,CardBelote.CLUB_9);
@@ -217,7 +217,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.SPADE);
         b_.setBid(BidBelote.SUIT);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         addCard(poss_,2,CardBelote.DIAMOND_8);
         addCard(poss_,2,CardBelote.CLUB_9);
         addCard(poss_,2,CardBelote.SPADE_1);
@@ -259,7 +259,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_1);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         assertEq(1, GameBeloteCommonPlaying.getNbLeadingSuitCards(b_,seqs_,rp_,Suit.HEART));
     }
     @Test
@@ -277,7 +277,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         p_.ajouter(CardBelote.CLUB_1);
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         assertEq(1, GameBeloteCommonPlaying.getNbLeadingSuitCards(b_,seqs_,rp_,Suit.CLUB));
     }
     @Test
@@ -294,7 +294,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_1);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         assertEq(0, GameBeloteCommonPlaying.getNbLeadingSuitCards(b_,seqs_,rp_,Suit.CLUB));
     }
     @Test
@@ -316,7 +316,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouter(CardBelote.CLUB_JACK);
         p_.ajouter(CardBelote.CLUB_9);
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         assertEq(2, GameBeloteCommonPlaying.getNbLeadingSuitCards(b_,seqs_,rp_,Suit.CLUB));
     }
     @Test
@@ -339,7 +339,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouter(CardBelote.CLUB_9);
         p_.ajouter(CardBelote.CLUB_7);
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         assertEq(2, GameBeloteCommonPlaying.getNbLeadingSuitCards(b_,seqs_,rp_,Suit.CLUB));
     }
     @Test
@@ -362,7 +362,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouter(CardBelote.CLUB_9);
         p_.ajouter(CardBelote.CLUB_8);
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         assertEq(1, GameBeloteCommonPlaying.getNbLeadingSuitCards(b_,seqs_,rp_,Suit.CLUB));
     }
 
@@ -380,7 +380,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_1);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         assertEq(1, GameBeloteCommonPlaying.getNbLeadingTrumpCards(b_,seqs_,rp_,Suit.HEART));
     }
     @Test
@@ -398,7 +398,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         p_.ajouter(CardBelote.CLUB_JACK);
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         assertEq(1, GameBeloteCommonPlaying.getNbLeadingTrumpCards(b_,seqs_,rp_,Suit.CLUB));
     }
     @Test
@@ -415,7 +415,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_1);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         assertEq(0, GameBeloteCommonPlaying.getNbLeadingTrumpCards(b_,seqs_,rp_,Suit.CLUB));
     }
     @Test
@@ -437,7 +437,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouter(CardBelote.CLUB_JACK);
         p_.ajouter(CardBelote.CLUB_9);
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         assertEq(2, GameBeloteCommonPlaying.getNbLeadingTrumpCards(b_,seqs_,rp_,Suit.CLUB));
     }
     @Test
@@ -460,7 +460,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouter(CardBelote.CLUB_9);
         p_.ajouter(CardBelote.CLUB_7);
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         assertEq(2, GameBeloteCommonPlaying.getNbLeadingTrumpCards(b_,seqs_,rp_,Suit.CLUB));
     }
     @Test
@@ -483,7 +483,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouter(CardBelote.CLUB_9);
         p_.ajouter(CardBelote.CLUB_8);
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         assertEq(1, GameBeloteCommonPlaying.getNbLeadingTrumpCards(b_,seqs_,rp_,Suit.CLUB));
     }
     @Test
@@ -502,8 +502,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -536,8 +536,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -569,8 +569,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -602,8 +602,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,getOrder(Suit.SPADE,b_)));
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -635,8 +635,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -669,8 +669,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -702,8 +702,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -735,8 +735,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,getOrder(Suit.SPADE,b_)));
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -768,8 +768,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -802,8 +802,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -835,8 +835,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -868,8 +868,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.HEART,getOrder(Suit.HEART,b_)));
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -901,8 +901,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -936,8 +936,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -970,8 +970,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -1004,8 +1004,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,getOrder(Suit.SPADE,b_)));
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -1037,8 +1037,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -1072,8 +1072,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -1106,8 +1106,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -1140,8 +1140,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,getOrder(Suit.SPADE,b_)));
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -1173,8 +1173,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -1207,8 +1207,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -1240,8 +1240,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -1273,8 +1273,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.HEART,getOrder(Suit.HEART,b_)));
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -1307,8 +1307,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -1341,8 +1341,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,getOrder(Suit.SPADE,b_)));
         p_.removeCardIfPresent(CardBelote.SPADE_7);
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -1374,8 +1374,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         p_.ajouterCartes(HandBelote.couleurComplete(Suit.SPADE,getOrder(Suit.SPADE,b_)));
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -1406,8 +1406,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -1438,8 +1438,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_7);
         HandBelote p_ = new HandBelote();
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -1471,8 +1471,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         p_.ajouter(CardBelote.SPADE_JACK);
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -1508,8 +1508,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouter(CardBelote.SPADE_KING);
         p_.ajouter(CardBelote.SPADE_QUEEN);
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -1546,8 +1546,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouter(CardBelote.SPADE_QUEEN);
         p_.ajouter(CardBelote.SPADE_8);
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -1583,8 +1583,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouter(CardBelote.SPADE_KING);
         p_.ajouter(CardBelote.SPADE_QUEEN);
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -1622,8 +1622,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         p_.ajouter(CardBelote.SPADE_KING);
         p_.ajouter(CardBelote.SPADE_QUEEN);
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -1654,8 +1654,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         p_.ajouter(CardBelote.SPADE_JACK);
         EnumMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
-        EnumMap<Suit, EqList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
-        EnumMap<Suit, EqList<HandBelote>> poss_ = generate(4, b_);
+        EnumMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
+        EnumMap<Suit, CustList<HandBelote>> poss_ = generate(4, b_);
         HandBelote rem_ = new HandBelote();
         rem_.ajouterCartes(HandBelote.pileBase());
         rem_.supprimerCartes(cur_);
@@ -1797,8 +1797,8 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         assertEq(1, tours_.size());
         assertSame(Suit.CLUB, tours_.first().couleurDemandee());
     }
-    private static boolean strictMaitreAtout(BidBeloteSuit _bid, EnumMap<Suit, EqList<HandBelote>> _cartesPossibles, byte _numero, EnumMap<Suit, EqList<HandBelote>> _suites, EnumMap<Suit, HandBelote> _cartesJouees) {
-        EqList<HandBelote> seqs_ = GameBeloteCommon.suite(_suites, _bid.getCouleur());
+    private static boolean strictMaitreAtout(BidBeloteSuit _bid, EnumMap<Suit, CustList<HandBelote>> _cartesPossibles, byte _numero, EnumMap<Suit, CustList<HandBelote>> _suites, EnumMap<Suit, HandBelote> _cartesJouees) {
+        CustList<HandBelote> seqs_ = GameBeloteCommon.suite(_suites, _bid.getCouleur());
         return GameBeloteCommonPlaying.strictMaitreAtout(_bid,_cartesPossibles,_numero,seqs_,_cartesJouees);
     }
     private static EnumList<Suit> nonTrump(BidBeloteSuit _b) {
@@ -1813,7 +1813,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         }
         return GameBeloteCommon.couleurs();
     }
-    private static void addCard(EnumMap<Suit, EqList<HandBelote>> _poss, int _p, CardBelote _c) {
+    private static void addCard(EnumMap<Suit, CustList<HandBelote>> _poss, int _p, CardBelote _c) {
         HandBelote h_ = _poss.getVal(_c.couleur()).get(_p);
         if (h_.contient(_c)) {
             return;
@@ -1821,12 +1821,12 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         h_.ajouter(_c);
         h_.trierUnicolore(true);
     }
-    private static EnumMap<Suit,EqList<HandBelote>> generate(int _nbPlayer, BidBeloteSuit _b) {
-        EnumMap<Suit,EqList<HandBelote>> e_ = new EnumMap<Suit,EqList<HandBelote>>();
+    private static EnumMap<Suit,CustList<HandBelote>> generate(int _nbPlayer, BidBeloteSuit _b) {
+        EnumMap<Suit,CustList<HandBelote>> e_ = new EnumMap<Suit,CustList<HandBelote>>();
         EnumList<Suit> s_ = new EnumList<Suit>();
         s_.addAllElts(Suit.couleursOrdinaires());
         for (Suit s: s_) {
-            EqList<HandBelote> l_ = new EqList<HandBelote>();
+            CustList<HandBelote> l_ = new CustList<HandBelote>();
             for (int i = 0; i < _nbPlayer; i++) {
                 HandBelote h_ = new HandBelote();
                 if(_b.getCouleurDominante()) {

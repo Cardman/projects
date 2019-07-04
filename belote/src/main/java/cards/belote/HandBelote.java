@@ -15,7 +15,7 @@ import code.util.ints.Equallable;
 /**
  */
 
-public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBelote> {
+public final class HandBelote implements Iterable<CardBelote> {
 
     private Order order;
     private EnumList<CardBelote> cards=new EnumList<CardBelote>();
@@ -295,8 +295,8 @@ public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBe
         }
         HandBelote cartesAssurantMin_ = cartesPlisAssuresMin(ordre_);
         EnumMap<Suit,HandBelote> repartitionCartesJouees_ = new HandBelote().couleurs(_enchere);
-        EqList<HandBelote> suitesMin_ = cartesAssurantMin_.eclater(repartitionCartesJouees_, _enchere);
-        EqList<HandBelote> suites_ = eclater(repartitionCartesJouees_,_enchere);
+        CustList<HandBelote> suitesMin_ = cartesAssurantMin_.eclater(repartitionCartesJouees_, _enchere);
+        CustList<HandBelote> suites_ = eclater(repartitionCartesJouees_,_enchere);
         HandBelote cartesAssurantMax_ = new HandBelote(ordre_);
         for(HandBelote m: suitesMin_) {
             for(HandBelote m2_: suites_) {
@@ -349,9 +349,9 @@ public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBe
     byte nombreDePlisMinAssures(Order _ordre) {
         return (byte) cartesPlisAssuresMin(_ordre).total();
     }
-    EnumMap<Suit,EqList<HandBelote>> eclaterTout(EnumMap<Suit,HandBelote> _repartitionCartesJouees,
+    EnumMap<Suit,CustList<HandBelote>> eclaterTout(EnumMap<Suit,HandBelote> _repartitionCartesJouees,
                                                  BidBeloteSuit _enchere) {
-        EnumMap<Suit,EqList<HandBelote>> suitesTouteCouleur_ = new EnumMap<Suit,EqList<HandBelote>>();
+        EnumMap<Suit,CustList<HandBelote>> suitesTouteCouleur_ = new EnumMap<Suit,CustList<HandBelote>>();
 
         EnumMap<Suit, HandBelote> couleurs_ = couleurs(_enchere);
         for (Suit i : GameBeloteCommon.couleurs()) {
@@ -361,14 +361,14 @@ public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBe
         }
         return suitesTouteCouleur_;
     }
-    EqList<HandBelote> eclater(
+    CustList<HandBelote> eclater(
             EnumMap<Suit,HandBelote> _repartitionCartesJouees,
             BidBeloteSuit _enchere) {
         if(estVide()) {
-            return new EqList<HandBelote>();
+            return new CustList<HandBelote>();
         }
         Suit couleur_=premiereCarte().couleur();
-        EqList<HandBelote> suites_=new EqList<HandBelote>();
+        CustList<HandBelote> suites_=new CustList<HandBelote>();
         boolean ajouterVec_ = true;
         Order ordre_;
         if(!_enchere.getCouleurDominante()) {
@@ -397,7 +397,7 @@ public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBe
         return suites_;
     }
 
-    private static void sortIfNotEmpty(EqList<HandBelote> _suites) {
+    private static void sortIfNotEmpty(CustList<HandBelote> _suites) {
         if(!_suites.isEmpty()) {
             _suites.last().trierUnicolore(true);
         }
@@ -467,7 +467,7 @@ public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBe
                 }
                 annonceMemeCouleur_.cards.sortElts(new DeclareStrengthCardBeloteComparator());
                 mainTriee_.cards.sortElts(new DeclareStrengthCardBeloteComparator());
-                EqList<HandBelote> suites_ = new EqList<HandBelote>();
+                CustList<HandBelote> suites_ = new CustList<HandBelote>();
                 boolean ajouterVec_ = true;
                 for(CardBelote c2_: mainTriee_) {
                     if(!annonceMemeCouleur_.contient(c2_)) {
@@ -585,7 +585,6 @@ public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBe
         return cards.iterator();
     }
 
-    @Override
     public boolean eq(HandBelote _g) {
         if(_g.total()!=total()) {
             return false;

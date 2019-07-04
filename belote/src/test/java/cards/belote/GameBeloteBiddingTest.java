@@ -20,7 +20,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
 
 
     static DealBelote initializeHands() {
-        EqList<HandBelote> mains_ = new EqList<HandBelote>();
+        CustList<HandBelote> mains_ = new CustList<HandBelote>();
         HandBelote main_ = new HandBelote();
         main_.ajouter(CardBelote.DIAMOND_QUEEN);
         main_.ajouter(CardBelote.HEART_10);

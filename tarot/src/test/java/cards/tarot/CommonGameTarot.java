@@ -15,7 +15,7 @@ public abstract class CommonGameTarot {
         int nbPl_ = _r.getRepartition().getNombreJoueurs();
         EqList<EnumList<Miseres>> m_ = new EqList<EnumList<Miseres>>();
         EqList<EnumList<Handfuls>> dh_ = new EqList<EnumList<Handfuls>>();
-        EqList<HandTarot> h_ = new EqList<HandTarot>();
+        CustList<HandTarot> h_ = new CustList<HandTarot>();
         for (int i = 0; i < nbPl_; i++) {
             m_.add(new EnumList<Miseres>());
             h_.add(new HandTarot());
@@ -29,7 +29,7 @@ public abstract class CommonGameTarot {
         int nbPl_ = _r.getRepartition().getNombreJoueurs();
         EqList<EnumList<Miseres>> m_ = new EqList<EnumList<Miseres>>();
         EqList<EnumList<Handfuls>> dh_ = new EqList<EnumList<Handfuls>>();
-        EqList<HandTarot> h_ = new EqList<HandTarot>();
+        CustList<HandTarot> h_ = new CustList<HandTarot>();
         for (int i = 0; i < nbPl_; i++) {
             m_.add(new EnumList<Miseres>());
             h_.add(new HandTarot());
@@ -38,16 +38,16 @@ public abstract class CommonGameTarot {
         return newGameTarot(_r,_trs,_prog,m_,dh_,h_,_dealer,_bids,_calledCards,_call,_lastHand);
     }
     protected static GameTarot newGameTarot(HandTarot _currentHand,RulesTarot _r, CustList<TrickTarot> _trs,TrickTarot _prog,
-                                            EqList<EnumList<Miseres>> _m, EqList<EnumList<Handfuls>> _dh, EqList<HandTarot> _h, int _dealer,
+                                            EqList<EnumList<Miseres>> _m, EqList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
                                             EnumList<BidTarot> _bids, HandTarot _calledCards, int _call, HandTarot _lastHand) {
         GameTarot g_ = newGameTarot(_r,_trs,_prog,_m,_dh,_h,_dealer,_bids,_calledCards,_call,_lastHand);
         check(g_,_calledCards,_currentHand);
         return g_;
     }
     protected static GameTarot newGameTarot(RulesTarot _r, CustList<TrickTarot> _trs,TrickTarot _prog,
-                                   EqList<EnumList<Miseres>> _m, EqList<EnumList<Handfuls>> _dh, EqList<HandTarot> _h, int _dealer,
+                                   EqList<EnumList<Miseres>> _m, EqList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
                                    EnumList<BidTarot> _bids, HandTarot _calledCards, int _call, HandTarot _lastHand) {
-        EqList<HandTarot> deal_ = new EqList<HandTarot>();
+        CustList<HandTarot> deal_ = new CustList<HandTarot>();
         deal_.add(_lastHand);
         GameTarot g_ = new GameTarot(GameType.RANDOM,new DealTarot(deal_, (byte) _dealer),_r);
         g_.setProgressingTrick(_prog);
@@ -119,11 +119,11 @@ public abstract class CommonGameTarot {
         return new GameTarotProgTrickClassic(_done,_teamsRelation,_calledCards,_currentHand);
     }
 
-    private static int det(EnumMap<Suit,EqList<HandTarot>> _foundHands, Ints _lengths) {
+    private static int det(EnumMap<Suit,CustList<HandTarot>> _foundHands, Ints _lengths) {
         int nb_ = _lengths.size();
         for (int i = 0;i < nb_; i++) {
             int s_ = 0;
-            for (EntryCust<Suit,EqList<HandTarot>> h: _foundHands.entryList()) {
+            for (EntryCust<Suit,CustList<HandTarot>> h: _foundHands.entryList()) {
                 s_ += h.getValue().get(i).total();
             }
             if (s_ != _lengths.get(i)) {
@@ -158,14 +158,14 @@ public abstract class CommonGameTarot {
         for (int i: _g.getProgressingTrick().joueursAyantJoue((byte) nbPl_)) {
             handLengths_.set(i, handLengths_.get(i)-1);
         }
-        EqList<HandTarot> hands_ = new EqList<HandTarot>();
+        CustList<HandTarot> hands_ = new CustList<HandTarot>();
         GameTarotTrickInfo info_ = new GameTarotTrickInfo(_g.getProgressingTrick(), _g.getTricks(),
                 _g.getDeclaresMiseres(),
                 _g.getHandfuls(), _g.getContrat(), _g.getCalledCards(),
                 handLengths_);
         info_.addSeenDeck(_g.derniereMain(),_g.getTeamsRelation());
-        EnumMap<Suit,EqList<HandTarot>> cartesPossibles_ = new EnumMap<Suit,EqList<HandTarot>>();
-        EqList<HandTarot> possibleExcuse_ = info_.excusePossibleRegles(_currentHand);
+        EnumMap<Suit,CustList<HandTarot>> cartesPossibles_ = new EnumMap<Suit,CustList<HandTarot>>();
+        CustList<HandTarot> possibleExcuse_ = info_.excusePossibleRegles(_currentHand);
         cartesPossibles_.put(CardTarot.EXCUSE.couleur(), possibleExcuse_);
         cartesPossibles_.put(Suit.TRUMP,info_.atoutsPossiblesRegles(
                 _currentHand));
@@ -176,7 +176,7 @@ public abstract class CommonGameTarot {
                     _currentHand));
         }
         for (int i =0;i<nbPl_;i++) {
-            for (EntryCust<Suit,EqList<HandTarot>> h: cartesPossibles_.entryList()) {
+            for (EntryCust<Suit,CustList<HandTarot>> h: cartesPossibles_.entryList()) {
                 h.getValue().get(i).supprimerCartes(_g.getTricks().first().getCartes());
             }
         }
@@ -201,7 +201,7 @@ public abstract class CommonGameTarot {
         if (!hPl_.contientCartes(_calledCards)) {
             for (int i =0;i<nbPl_;i++) {
                 if (!_g.getAppele().containsObj(i)) {
-                    for (EntryCust<Suit,EqList<HandTarot>> h: cartesPossibles_.entryList()) {
+                    for (EntryCust<Suit,CustList<HandTarot>> h: cartesPossibles_.entryList()) {
                         h.getValue().get(i).supprimerCartes(_calledCards);
                     }
                 }
@@ -217,9 +217,9 @@ public abstract class CommonGameTarot {
         if (handLengths_.get(_g.getPliEnCours().getNextPlayer((byte) nbPl_)) != _currentHand.total()) {
             fail(StringList.concat("Error len",Integer.toString(handLengths_.get(_g.getPliEnCours().getNextPlayer((byte) nbPl_))),",",Integer.toString(_currentHand.total())));
         }
-        EnumMap<Hypothesis,EnumMap<Suit,EqList<HandTarot>>> hypotheses_ = info_.cartesCertaines(cartesPossibles_);
+        EnumMap<Hypothesis,EnumMap<Suit,CustList<HandTarot>>> hypotheses_ = info_.cartesCertaines(cartesPossibles_);
         cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
-        EnumMap<Suit,EqList<HandTarot>> cartesCertaines_ = hypotheses_
+        EnumMap<Suit,CustList<HandTarot>> cartesCertaines_ = hypotheses_
                 .getVal(Hypothesis.SURE);
         while (true) {
             int det_ = det(cartesCertaines_, handLengths_);
@@ -228,11 +228,11 @@ public abstract class CommonGameTarot {
             }
             HandTarot all_ = new HandTarot();
             HandTarot del_ = new HandTarot();
-            for (EntryCust<Suit,EqList<HandTarot>> h: cartesPossibles_.entryList()) {
+            for (EntryCust<Suit,CustList<HandTarot>> h: cartesPossibles_.entryList()) {
                 all_.ajouterCartes(h.getValue().get(det_));
             }
             HandTarot curFound_ = new HandTarot();
-            for (EntryCust<Suit,EqList<HandTarot>> h: cartesCertaines_.entryList()) {
+            for (EntryCust<Suit,CustList<HandTarot>> h: cartesCertaines_.entryList()) {
                 curFound_.ajouterCartes(h.getValue().get(det_));
             }
             all_.supprimerCartes(curFound_);
@@ -240,7 +240,7 @@ public abstract class CommonGameTarot {
             if (req_ >= all_.total()) {
                 for (int i = 0; i < nbPl_; i++) {
                     HandTarot h_ = new HandTarot();
-                    for (EntryCust<Suit,EqList<HandTarot>> h: cartesCertaines_.entryList()) {
+                    for (EntryCust<Suit,CustList<HandTarot>> h: cartesCertaines_.entryList()) {
                         h_.ajouterCartes(h.getValue().get(i));
                     }
                     hands_.add(h_);
@@ -250,7 +250,7 @@ public abstract class CommonGameTarot {
             for (int i = req_; i < all_.total(); i++) {
                 del_.ajouter(all_.carte(i));
             }
-            for (EntryCust<Suit,EqList<HandTarot>> h: cartesPossibles_.entryList()) {
+            for (EntryCust<Suit,CustList<HandTarot>> h: cartesPossibles_.entryList()) {
                 h.getValue().get(det_).supprimerCartes(del_);
             }
             hypotheses_ = info_.cartesCertaines(cartesPossibles_);
@@ -260,7 +260,7 @@ public abstract class CommonGameTarot {
         }
         for (int i = 0; i < nbPl_; i++) {
             HandTarot h_ = new HandTarot();
-            for (EntryCust<Suit,EqList<HandTarot>> h: cartesCertaines_.entryList()) {
+            for (EntryCust<Suit,CustList<HandTarot>> h: cartesCertaines_.entryList()) {
                 h_.ajouterCartes(h.getValue().get(i));
             }
             hands_.add(h_);

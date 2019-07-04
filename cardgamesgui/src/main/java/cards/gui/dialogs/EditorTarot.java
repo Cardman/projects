@@ -290,7 +290,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 //        int nombreDeMains_=panelsCards.getComponentCount();
         int nombreDeJoueurs_;
 
-        EqList<HandTarot> mains_=new EqList<HandTarot>();
+        CustList<HandTarot> mains_=new CustList<HandTarot>();
 //        for(int i=1;i<nombreDeMains_;i++) {
 //            plc_=(TarotCardsScrollableList)panelsCards.getComponent(i);
 //            HandTarot m=new HandTarot();

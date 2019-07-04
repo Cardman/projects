@@ -10,12 +10,11 @@ import code.maths.montecarlo.AbMonteCarlo;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
-import code.util.ints.Equallable;
+
 /**
     */
 
-public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTarot> {
+public final class HandTarot implements Iterable<CardTarot> {
 
     private EnumList<CardTarot> cards=new EnumList<CardTarot>();
     public HandTarot() {}
@@ -384,14 +383,14 @@ public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTaro
         }
         return nb_;
     }
-    public EqList<HandTarot> eclaterDebutPartie() {
+    public CustList<HandTarot> eclaterDebutPartie() {
         if(estVide()) {
-            return new EqList<HandTarot>();
+            return new CustList<HandTarot>();
         }
         return eclaterEnCours(new HandTarot().couleurs(), premiereCarte().couleur());
     }
-    public EnumMap<Suit,EqList<HandTarot>> eclaterToutEnCours(EnumMap<Suit, HandTarot> _cartesJouees) {
-        EnumMap<Suit,EqList<HandTarot>> suitesTouteCouleur_ = new EnumMap<Suit,EqList<HandTarot>>();
+    public EnumMap<Suit,CustList<HandTarot>> eclaterToutEnCours(EnumMap<Suit, HandTarot> _cartesJouees) {
+        EnumMap<Suit,CustList<HandTarot>> suitesTouteCouleur_ = new EnumMap<Suit,CustList<HandTarot>>();
         EnumMap<Suit,HandTarot> repartition_ = couleurs();
         suitesTouteCouleur_.put(CardTarot.EXCUSE.couleur(),repartition_.getVal(CardTarot.excuse().couleur()).eclaterEnCours(
                 _cartesJouees, CardTarot.EXCUSE.couleur()));
@@ -406,11 +405,11 @@ public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTaro
     }
     /**Eclate une couleur en suite en tenant compte des cartes jouees
     Exemple: pour l'atout 21 - 20 - 19 forment une suite de trois cartes*/
-    public EqList<HandTarot> eclaterEnCours(EnumMap<Suit,HandTarot> _cartesJouees,Suit _couleurDemandee) {
+    public CustList<HandTarot> eclaterEnCours(EnumMap<Suit,HandTarot> _cartesJouees,Suit _couleurDemandee) {
         if(estVide()) {
-            return new EqList<HandTarot>();
+            return new CustList<HandTarot>();
         }
-        EqList<HandTarot> suites_=new EqList<HandTarot>();
+        CustList<HandTarot> suites_=new CustList<HandTarot>();
         Suit couleur_=premiereCarte().couleur();
         boolean ajouterVec_ = true;
         if(couleur_ == CardTarot.excuse().couleur()) {
@@ -455,7 +454,7 @@ public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTaro
 
     }
 
-    private void sortIfNotEmpty(Suit _couleurDemandee, EqList<HandTarot> _suites) {
+    private void sortIfNotEmpty(Suit _couleurDemandee, CustList<HandTarot> _suites) {
         if(!_suites.isEmpty()) {
             _suites.last().trierParForceEnCours(_couleurDemandee);
         }
@@ -555,21 +554,6 @@ public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTaro
     public static boolean equalsSet(HandTarot _handOne, HandTarot _handTwo) {
         return CardTarot.equalsCards(_handOne.cards, _handTwo.cards);
 //        return CustList.equalsSet(_handOne.cards, _handTwo.cards, true);
-    }
-
-    @Override
-    public boolean eq(HandTarot _o) {
-        if(_o.total()!=total()) {
-            return false;
-        }
-        boolean id_=true;
-        int nbCards_ = total();
-        for (int i = CustList.FIRST_INDEX; i < nbCards_; i++) {
-            if (!CardTarot.eq(_o.carte(i), carte(i))) {
-                id_ = false;
-            }
-        }
-        return id_;
     }
 
     @Override

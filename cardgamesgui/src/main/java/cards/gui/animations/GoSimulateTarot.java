@@ -66,7 +66,7 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
 
     @Override
     public void run() {
-        EqList<HandTarot> mainsUtilisateurs_=new EqList<HandTarot>();
+        CustList<HandTarot> mainsUtilisateurs_=new CustList<HandTarot>();
         GameTarot partie_=partieTarotSimulee();
         byte nombreJoueurs_=partie_.getNombreDeJoueurs();
         byte indiceMainDepart_;
@@ -342,7 +342,7 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
     private void arretDemo() {
         SwingUtilities.invokeLater(new StopDemo(container));
     }
-    private void appelEcart(byte _preneur,Bytes _appele,EqList<HandTarot> _mainsUtilisateurs) {
+    private void appelEcart(byte _preneur,Bytes _appele,CustList<HandTarot> _mainsUtilisateurs) {
         GameTarot partie_=partieTarotSimulee();
         String event_;
         if(partie_.getContrat().getJeuChien() == PlayingDog.WITH) {

@@ -3,6 +3,7 @@ import static cards.belote.EquallableBeloteUtil.assertEq;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
+import code.util.CustList;
 import org.junit.Test;
 
 import cards.belote.enumerations.BeloteTrumpPartner;
@@ -17,7 +18,7 @@ import code.util.EqList;
 public class GameBeloteWithTrumpSuitFourTest extends GameBeloteWithTrumpSuit {
 
     static DealBelote initializeHands() {
-        EqList<HandBelote> mains_ = new EqList<HandBelote>();
+        CustList<HandBelote> mains_ = new CustList<HandBelote>();
         HandBelote main_ = new HandBelote();
         main_.ajouter(CardBelote.SPADE_1);
         main_.ajouter(CardBelote.HEART_10);

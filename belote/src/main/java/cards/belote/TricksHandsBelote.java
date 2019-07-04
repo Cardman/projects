@@ -17,7 +17,7 @@ public final class TricksHandsBelote {
 
     private CustList<TrickBelote> tricks;
 
-    private EqList<HandBelote> cardsHandsAtInitialState;
+    private CustList<HandBelote> cardsHandsAtInitialState;
 
     public void sortHands(DisplayingBelote _displaying,
             byte _nombreJoueurs) {
@@ -151,7 +151,7 @@ public final class TricksHandsBelote {
 
     public void setTricks(CustList<TrickBelote> _tricks, byte _nbPlayers) {
         tricks = _tricks;
-        cardsHandsAtInitialState = new EqList<HandBelote>();
+        cardsHandsAtInitialState = new CustList<HandBelote>();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nbPlayers; joueur_++) {
             HandBelote hand_ = new HandBelote();
             hand_.ajouterCartes(distribution.main(joueur_));
@@ -167,11 +167,11 @@ public final class TricksHandsBelote {
             cardsHandsAtInitialState.get(joueur_).supprimerCartes(cardsHandsAtInitialState.last());
         }
     }
-    public EqList<HandBelote> getCardsHandsAtInitialState() {
+    public CustList<HandBelote> getCardsHandsAtInitialState() {
         return cardsHandsAtInitialState;
     }
     public void setCardsHandsAtInitialState(
-            EqList<HandBelote> _cardsHandsAtInitialState) {
+            CustList<HandBelote> _cardsHandsAtInitialState) {
         cardsHandsAtInitialState = _cardsHandsAtInitialState;
     }
     public void setDistribution(DealBelote _distribution) {

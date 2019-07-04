@@ -127,7 +127,7 @@ public final class SimulationGameTarot extends Thread implements SimulationGame 
         //Activer le menu Partie/Pause
         container.getPause().setEnabledMenu(true);
         String lg_ = container.getOwner().getLanguageKey();
-        EqList<HandTarot> mainsUtilisateurs_=new EqList<HandTarot>();
+        CustList<HandTarot> mainsUtilisateurs_=new CustList<HandTarot>();
         GameTarot partie_=partieTarotSimulee();
         partie_.simuler();
         if(partie_.getSimulationAvecContrats()) {

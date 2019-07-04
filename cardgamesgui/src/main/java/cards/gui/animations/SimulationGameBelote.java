@@ -109,7 +109,7 @@ public final class SimulationGameBelote extends Thread implements SimulationGame
         container.getDemo().setEnabledMenu(false);
         //Activer le menu Partie/Pause
         container.getPause().setEnabledMenu(true);
-        EqList<HandBelote> mainsUtilisateurs_=new EqList<HandBelote>();
+        CustList<HandBelote> mainsUtilisateurs_=new CustList<HandBelote>();
         GameBelote partie_=partieBeloteSimulee();
         String lg_ = container.getOwner().getLanguageKey();
         partie_.simuler();

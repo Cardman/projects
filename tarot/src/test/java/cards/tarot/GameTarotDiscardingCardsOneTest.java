@@ -2,6 +2,7 @@ package cards.tarot;
 import static cards.tarot.EquallableTarotUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import code.util.CustList;
 import code.util.EnumList;
 import org.junit.Test;
 
@@ -18,7 +19,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     private GameTarot game;
 
     static DealTarot initializeHands() {
-        EqList<HandTarot> hands_ = new EqList<HandTarot>();
+        CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hand_.ajouter(CardTarot.SPADE_8);
         hand_.ajouter(CardTarot.SPADE_7);
@@ -231,7 +232,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     }
 
     static DealTarot strategieEcart() {
-        EqList<HandTarot> hands_ = new EqList<HandTarot>();
+        CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hand_.ajouter(CardTarot.SPADE_8);
         hand_.ajouter(CardTarot.SPADE_7);
@@ -326,7 +327,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     }
 
     static DealTarot strategieEcart2() {
-        EqList<HandTarot> hands_ = new EqList<HandTarot>();
+        CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hand_.ajouter(CardTarot.SPADE_8);
         hand_.ajouter(CardTarot.SPADE_7);
@@ -421,7 +422,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     }
 
     static DealTarot strategieEcart3() {
-        EqList<HandTarot> hands_ = new EqList<HandTarot>();
+        CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hand_.ajouter(CardTarot.TRUMP_10);
         hand_.ajouter(CardTarot.SPADE_8);
@@ -514,7 +515,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     }
 
     static DealTarot slam() {
-        EqList<HandTarot> hands_ = new EqList<HandTarot>();
+        CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hand_.ajouter(CardTarot.SPADE_8);
         hand_.ajouter(CardTarot.SPADE_7);

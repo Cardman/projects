@@ -18,7 +18,7 @@ public final class TricksHandsTarot {
 
     private CustList<TrickTarot> tricks;
 
-    private EqList<HandTarot> cardsHandsAtInitialState;
+    private CustList<HandTarot> cardsHandsAtInitialState;
 
     public void sortHands(DisplayingTarot _displaying,
             byte _nombreJoueurs) {
@@ -159,7 +159,7 @@ public final class TricksHandsTarot {
 
     public void setTricks(CustList<TrickTarot> _tricks, byte _nbPlayers) {
         tricks = _tricks;
-        cardsHandsAtInitialState = new EqList<HandTarot>();
+        cardsHandsAtInitialState = new CustList<HandTarot>();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nbPlayers; joueur_++) {
             HandTarot hand_ = new HandTarot();
             hand_.ajouterCartes(distribution.main(joueur_));
@@ -181,11 +181,11 @@ public final class TricksHandsTarot {
                 .supprimerCartes(derniereMain());
         }
     }
-    public EqList<HandTarot> getCardsHandsAtInitialState() {
+    public CustList<HandTarot> getCardsHandsAtInitialState() {
         return cardsHandsAtInitialState;
     }
     public void setCardsHandsAtInitialState(
-            EqList<HandTarot> _cardsHandsAtInitialState) {
+            CustList<HandTarot> _cardsHandsAtInitialState) {
         cardsHandsAtInitialState = _cardsHandsAtInitialState;
     }
     public void setDistribution(DealTarot _distribution) {

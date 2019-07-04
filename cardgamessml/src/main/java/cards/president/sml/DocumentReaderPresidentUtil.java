@@ -20,7 +20,6 @@ import code.sml.ElementList;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EqList;
 import code.util.*;
 import code.util.StringList;
 public final class DocumentReaderPresidentUtil {
@@ -396,11 +395,11 @@ public final class DocumentReaderPresidentUtil {
         return list_;
     }
 
-    private static EqList<HandPresident> getListHandPresident(Element _elt) {
+    private static CustList<HandPresident> getListHandPresident(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        EqList<HandPresident> list_ = new EqList<HandPresident>(cap_);
+        CustList<HandPresident> list_ = new CustList<HandPresident>(cap_);
         for (Element c: childElements_) {
             list_.add(getHandPresident(c));
         }

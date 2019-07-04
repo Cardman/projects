@@ -6,13 +6,11 @@ import cards.president.enumerations.CardPresident;
 import code.maths.montecarlo.AbMonteCarlo;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EqList;
 import code.util.*;
 import code.util.Ints;
-import code.util.ints.Equallable;
 
 
-public final class HandPresident implements Iterable<CardPresident>, Equallable<HandPresident> {
+public final class HandPresident implements Iterable<CardPresident> {
 
     private EnumList<CardPresident> cards=new EnumList<CardPresident>();
 
@@ -197,21 +195,6 @@ public final class HandPresident implements Iterable<CardPresident>, Equallable<
 
     public boolean estVide() {
         return cards.isEmpty();
-    }
-
-    @Override
-    public boolean eq(HandPresident _o) {
-        if(_o.total()!=total()) {
-            return false;
-        }
-        boolean id_=true;
-        int nbCards_ = total();
-        for (int i = CustList.FIRST_INDEX; i < nbCards_; i++) {
-            if (_o.carte(i) != carte(i)) {
-                id_ = false;
-            }
-        }
-        return id_;
     }
 
     @Override

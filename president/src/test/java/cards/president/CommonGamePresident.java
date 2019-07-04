@@ -27,7 +27,7 @@ public abstract class CommonGamePresident {
         return true;
     }
     protected static GamePresident newGamePresident(RulesPresident _r,
-            EqList<HandPresident> _l, CustList<TrickPresident> _trs, TrickPresident _cur, int _dealer) {
+            CustList<HandPresident> _l, CustList<TrickPresident> _trs, TrickPresident _cur, int _dealer) {
         DealPresident deal_ = new DealPresident(_l, (byte) _dealer);
         GamePresident g_ = new GamePresident(GameType.EDIT,deal_,_r,new Bytes());
         g_.setProgressingTrick(_cur);

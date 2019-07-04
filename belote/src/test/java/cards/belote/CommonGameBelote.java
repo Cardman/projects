@@ -30,7 +30,7 @@ public abstract class CommonGameBelote {
     protected static GameBelote newGameBelote(RulesBelote _r, CustList<TrickBelote> _trs, TrickBelote _prog,
                                               int _dealer,
                                               EqList<BidBeloteSuit> _bids, HandBelote _lastHand) {
-        EqList<HandBelote> deal_ = new EqList<HandBelote>();
+        CustList<HandBelote> deal_ = new CustList<HandBelote>();
         byte nombreDeJoueurs_ = (byte) _r.getDealing().getNombreJoueurs();
         for (int i = 0; i< nombreDeJoueurs_; i++) {
             deal_.add(new HandBelote());
@@ -94,11 +94,11 @@ public abstract class CommonGameBelote {
         return new GameBeloteProgTrick(_done,_teamsRelation,_currentHand);
     }
 
-    private static int det(EnumMap<Suit,EqList<HandBelote>> _foundHands, Ints _lengths) {
+    private static int det(EnumMap<Suit,CustList<HandBelote>> _foundHands, Ints _lengths) {
         int nb_ = _lengths.size();
         for (int i = 0;i < nb_; i++) {
             int s_ = 0;
-            for (EntryCust<Suit,EqList<HandBelote>> h: _foundHands.entryList()) {
+            for (EntryCust<Suit,CustList<HandBelote>> h: _foundHands.entryList()) {
                 s_ += h.getValue().get(i).total();
             }
             if (s_ != _lengths.get(i)) {
@@ -126,14 +126,14 @@ public abstract class CommonGameBelote {
         for (int i: _g.getProgressingTrick().playersHavingPlayed((byte) nbPl_)) {
             handLengths_.set(i, handLengths_.get(i)-1);
         }
-        EqList<HandBelote> hands_ = new EqList<HandBelote>();
+        CustList<HandBelote> hands_ = new CustList<HandBelote>();
         BidBeloteSuit bid_ = _g.getContrat();
         GameBeloteTrickInfo info_ = new GameBeloteTrickInfo(_g.getProgressingTrick(), _g.getTricks(),
                 _g.getDeclares(),
                 _g.getDeclaresBeloteRebelote(), bid_,
                 handLengths_);
         info_.addSeenDeck(_g.getDistribution().derniereMain(),_g.getTeamsRelation());
-        EnumMap<Suit,EqList<HandBelote>> cartesPossibles_ = new EnumMap<Suit,EqList<HandBelote>>();
+        EnumMap<Suit,CustList<HandBelote>> cartesPossibles_ = new EnumMap<Suit,CustList<HandBelote>>();
         for(Suit couleur_:GameBeloteCommon.couleurs()) {
             //On fait une boucle sur les couleurs autres que l'atout
             if(bid_.getCouleur()!=couleur_&&!bid_.ordreAtout()) {
@@ -160,9 +160,9 @@ public abstract class CommonGameBelote {
         if (handLengths_.get(_g.getPliEnCours().getNextPlayer((byte) nbPl_)) != _currentHand.total()) {
             fail(StringList.concat("Error len",Integer.toString(handLengths_.get(_g.getPliEnCours().getNextPlayer((byte) nbPl_))),",",Integer.toString(_currentHand.total())));
         }
-        EnumMap<Hypothesis,EnumMap<Suit,EqList<HandBelote>>> hypotheses_ = info_.cartesCertaines(cartesPossibles_);
+        EnumMap<Hypothesis,EnumMap<Suit,CustList<HandBelote>>> hypotheses_ = info_.cartesCertaines(cartesPossibles_);
         cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
-        EnumMap<Suit,EqList<HandBelote>> cartesCertaines_ = hypotheses_
+        EnumMap<Suit,CustList<HandBelote>> cartesCertaines_ = hypotheses_
                 .getVal(Hypothesis.SURE);
         while (true) {
             int det_ = det(cartesCertaines_, handLengths_);
@@ -171,11 +171,11 @@ public abstract class CommonGameBelote {
             }
             HandBelote all_ = new HandBelote();
             HandBelote del_ = new HandBelote();
-            for (EntryCust<Suit,EqList<HandBelote>> h: cartesPossibles_.entryList()) {
+            for (EntryCust<Suit,CustList<HandBelote>> h: cartesPossibles_.entryList()) {
                 all_.ajouterCartes(h.getValue().get(det_));
             }
             HandBelote curFound_ = new HandBelote();
-            for (EntryCust<Suit,EqList<HandBelote>> h: cartesCertaines_.entryList()) {
+            for (EntryCust<Suit,CustList<HandBelote>> h: cartesCertaines_.entryList()) {
                 curFound_.ajouterCartes(h.getValue().get(det_));
             }
             all_.supprimerCartes(curFound_);
@@ -183,7 +183,7 @@ public abstract class CommonGameBelote {
             if (req_ >= all_.total()) {
                 for (int i = 0; i < nbPl_; i++) {
                     HandBelote h_ = new HandBelote();
-                    for (EntryCust<Suit,EqList<HandBelote>> h: cartesCertaines_.entryList()) {
+                    for (EntryCust<Suit,CustList<HandBelote>> h: cartesCertaines_.entryList()) {
                         h_.ajouterCartes(h.getValue().get(i));
                     }
                     hands_.add(h_);
@@ -193,7 +193,7 @@ public abstract class CommonGameBelote {
             for (int i = req_; i < all_.total(); i++) {
                 del_.ajouter(all_.carte(i));
             }
-            for (EntryCust<Suit,EqList<HandBelote>> h: cartesPossibles_.entryList()) {
+            for (EntryCust<Suit,CustList<HandBelote>> h: cartesPossibles_.entryList()) {
                 h.getValue().get(det_).supprimerCartes(del_);
             }
             hypotheses_ = info_.cartesCertaines(cartesPossibles_);
@@ -203,7 +203,7 @@ public abstract class CommonGameBelote {
         }
         for (int i = 0; i < nbPl_; i++) {
             HandBelote h_ = new HandBelote();
-            for (EntryCust<Suit,EqList<HandBelote>> h: cartesCertaines_.entryList()) {
+            for (EntryCust<Suit,CustList<HandBelote>> h: cartesCertaines_.entryList()) {
                 h_.ajouterCartes(h.getValue().get(i));
             }
             hands_.add(h_);
@@ -211,7 +211,7 @@ public abstract class CommonGameBelote {
         if (_g.getRules().dealAll()) {
             hands_.add(new HandBelote());
         } else {
-            EqList<HandBelote> handsFull_ = new EqList<HandBelote>();
+            CustList<HandBelote> handsFull_ = new CustList<HandBelote>();
             for (HandBelote h: hands_) {
                 handsFull_.add(new HandBelote(h));
             }
