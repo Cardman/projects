@@ -1,6 +1,7 @@
 package cards.belote;
 
 import cards.belote.enumerations.CardBelote;
+import cards.belote.enumerations.DeclaresBeloteRebelote;
 import cards.consts.GameType;
 import cards.consts.Suit;
 import code.util.BooleanList;
@@ -24,6 +25,7 @@ public final class GameBelote {
     /** Ce sont les primes, miseres ou poignees annoncees par le(s) joueur(s)*/
     private CustList<DeclareHandBelote> declares=new CustList<DeclareHandBelote>();
     private CustList<HandBelote> declaresBeloteRebelote = new CustList<HandBelote>();
+    private Shorts declaresBeloteRebelotePts = new Shorts();
     private BooleanList wonLastTrick = new BooleanList();
     /**Le contrat permet de dire quel va etre le deroulement
     de la partie*/
@@ -72,6 +74,7 @@ public final class GameBelote {
         /*Initialise les annonces*/
         for (int j_ = CustList.FIRST_INDEX;j_<nombreJoueurs_;j_++) {
             declaresBeloteRebelote.add(new HandBelote());
+            declaresBeloteRebelotePts.add((short) 0);
             wonLastTrick.add(false);
             declares.add(new DeclareHandBelote());
         }
@@ -120,6 +123,16 @@ public final class GameBelote {
                 trickWinner = starter;
             }
         }
+        declaresBeloteRebelotePts.clear();
+        byte nb_ = getNombreDeJoueurs();
+        for (int p = 0; p < nb_; p++) {
+            declaresBeloteRebelotePts.add((short) 0);
+        }
+        for (int p = 0; p < nb_; p++) {
+            if(declaresBeloteRebelote.get(p).contientCartes(GameBeloteCommonPlaying.cartesBeloteRebelote(bid))) {
+                declaresBeloteRebelotePts.set(p, (short) DeclaresBeloteRebelote.BELOTE_REBELOTE.getPoints());
+            }
+        }
     }
 
     public RulesBelote getRegles() {
@@ -134,6 +147,9 @@ public final class GameBelote {
     }
     public void setNombre() {
         number++;
+    }
+    public Shorts getScoresRef() {
+        return scores;
     }
     public Shorts getScores() {
         return new Shorts(scores);
@@ -187,6 +203,7 @@ public final class GameBelote {
             /*Initialise les annonces*/
             scores_.set(joueur_, (short) 0);
             declaresBeloteRebelote.set(joueur_, new HandBelote());
+            declaresBeloteRebelotePts.set(joueur_, (short) 0);
             wonLastTrick.set(joueur_, false);
             declares.set(joueur_, new DeclareHandBelote());
         }
@@ -533,6 +550,9 @@ public final class GameBelote {
     }
     public void setAnnoncesBeloteRebelote(byte _b, CardBelote _carte) {
         declaresBeloteRebelote.get(_b).ajouter(_carte);
+        if(declaresBeloteRebelote.get(_b).contientCartes(GameBeloteCommonPlaying.cartesBeloteRebelote(bid))) {
+            declaresBeloteRebelotePts.set(_b, (short) DeclaresBeloteRebelote.BELOTE_REBELOTE.getPoints());
+        }
     }
     public HandBelote getAnnoncesBeloteRebelote(byte _numero) {
         return declaresBeloteRebelote.get(_numero);
@@ -619,7 +639,7 @@ public final class GameBelote {
 
     public EndBeloteGame getEndBeloteGame() {
         GameBeloteTeamsRelation t_ = getTeamsRelation();
-        return new EndBeloteGame(t_,declares,declaresBeloteRebelote,wonLastTrick,bid,tricks);
+        return new EndBeloteGame(t_,declares,declaresBeloteRebelotePts,wonLastTrick,bid,tricks);
     }
 
     public GameBeloteTeamsRelation getTeamsRelation() {

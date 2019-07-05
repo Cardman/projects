@@ -3676,4 +3676,17 @@ public class CheckerGameTarotWithRulesTest {
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
+
+    @Test
+    public void check58FailTest() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setMode(ModeTarot.ONE_FOR_ONE);
+        DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
+        deal_.initDonneur((byte) 0);
+        deal_.initDonne(rules_);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
+        game_.getScoresRef().clear();
+        CheckerGameTarotWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
+    }
 }

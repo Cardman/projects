@@ -406,11 +406,11 @@ public final class DocumentReaderPresidentUtil {
         return list_;
     }
 
-    private static ByteMap<HandPresident> getMapByteHandPresident(Element _elt) {
+    private static CustList<HandPresident> getMapByteHandPresident(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ByteMap<HandPresident> map_ = new ByteMap<HandPresident>(cap_);
+        CustList<HandPresident> map_ = new CustList<HandPresident>(cap_);
         CustList<Byte> keys_ = new CustList<Byte>(cap_);
         CustList<HandPresident> values_ = new CustList<HandPresident>(cap_);
         for (Element c: childElements_) {
@@ -422,7 +422,7 @@ public final class DocumentReaderPresidentUtil {
         }
         int min_ = Math.min(keys_.size(), values_.size());
         for (int i = CustList.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
+            map_.add(values_.get(i));
         }
         return map_;
     }

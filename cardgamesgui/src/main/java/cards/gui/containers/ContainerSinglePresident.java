@@ -124,7 +124,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             setCanDiscard(true);
             getConsulting().setEnabledMenu(true);
             getReceivedCards().supprimerCartes();
-            getReceivedCards().ajouterCartes(partie_.getSwitchedCards().getVal(partie_.getMatchingLoser(DealPresident.NUMERO_UTILISATEUR)));
+            getReceivedCards().ajouterCartes(partie_.getSwitchedCards().get(partie_.getMatchingLoser(DealPresident.NUMERO_UTILISATEUR)));
             updateCardsInPanelPresidentReceived();
             getGivenCards().supprimerCartes();
             getVirtualHand().supprimerCartes();
@@ -145,19 +145,19 @@ public class ContainerSinglePresident extends ContainerPresident implements
             Bytes l_ = partie_.getLoosers(new Bytes(DealPresident.NUMERO_UTILISATEUR));
             if (!l_.isEmpty()) {
                 getReceivedCards().supprimerCartes();
-                getReceivedCards().ajouterCartes(partie_.getSwitchedCards().getVal(partie_.getMatchingWinner(DealPresident.NUMERO_UTILISATEUR)));
+                getReceivedCards().ajouterCartes(partie_.getSwitchedCards().get(partie_.getMatchingWinner(DealPresident.NUMERO_UTILISATEUR)));
                 updateCardsInPanelPresidentReceived();
                 getGivenCards().supprimerCartes();
-                getGivenCards().ajouterCartes(partie_.getSwitchedCards().getVal(DealPresident.NUMERO_UTILISATEUR));
+                getGivenCards().ajouterCartes(partie_.getSwitchedCards().get(DealPresident.NUMERO_UTILISATEUR));
                 updateCardsInPanelPresidentGiven();
             }
             Bytes w_ = partie_.getWinners(new Bytes(DealPresident.NUMERO_UTILISATEUR));
             if (!w_.isEmpty()) {
                 getReceivedCards().supprimerCartes();
-                getReceivedCards().ajouterCartes(partie_.getSwitchedCards().getVal(partie_.getMatchingLoser(DealPresident.NUMERO_UTILISATEUR)));
+                getReceivedCards().ajouterCartes(partie_.getSwitchedCards().get(partie_.getMatchingLoser(DealPresident.NUMERO_UTILISATEUR)));
                 updateCardsInPanelPresidentReceived();
                 getGivenCards().supprimerCartes();
-                getGivenCards().ajouterCartes(partie_.getSwitchedCards().getVal(DealPresident.NUMERO_UTILISATEUR));
+                getGivenCards().ajouterCartes(partie_.getSwitchedCards().get(DealPresident.NUMERO_UTILISATEUR));
                 updateCardsInPanelPresidentGiven();
             }
         }
@@ -389,7 +389,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
                 game_.giveWorstCards(w_);
                 setCanDiscard(true);
                 getReceivedCards().supprimerCartes();
-                getReceivedCards().ajouterCartes(game_.getSwitchedCards().getVal(game_.getMatchingLoser(DealPresident.NUMERO_UTILISATEUR)));
+                getReceivedCards().ajouterCartes(game_.getSwitchedCards().get(game_.getMatchingLoser(DealPresident.NUMERO_UTILISATEUR)));
                 updateCardsInPanelPresidentReceived();
                 getGivenCards().supprimerCartes();
                 getVirtualHand().supprimerCartes();
@@ -404,10 +404,10 @@ public class ContainerSinglePresident extends ContainerPresident implements
             Bytes l_ = game_.getLoosers(new Bytes(DealPresident.NUMERO_UTILISATEUR));
             if (!l_.isEmpty()) {
                 getReceivedCards().supprimerCartes();
-                getReceivedCards().ajouterCartes(game_.getSwitchedCards().getVal(game_.getMatchingWinner(DealPresident.NUMERO_UTILISATEUR)));
+                getReceivedCards().ajouterCartes(game_.getSwitchedCards().get(game_.getMatchingWinner(DealPresident.NUMERO_UTILISATEUR)));
                 updateCardsInPanelPresidentReceived();
                 getGivenCards().supprimerCartes();
-                getGivenCards().ajouterCartes(game_.getSwitchedCards().getVal(DealPresident.NUMERO_UTILISATEUR));
+                getGivenCards().ajouterCartes(game_.getSwitchedCards().get(DealPresident.NUMERO_UTILISATEUR));
                 updateCardsInPanelPresidentGiven();
             }
             getNoPlay().setVisibleButton(true);

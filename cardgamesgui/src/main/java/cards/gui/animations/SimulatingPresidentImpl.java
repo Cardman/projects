@@ -19,6 +19,7 @@ import code.gui.ScrollPane;
 import code.gui.document.RenderedPage;
 import code.util.ByteMap;
 import code.util.Bytes;
+import code.util.CustList;
 import code.util.StringList;
 
 import javax.swing.*;
@@ -171,27 +172,27 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
     }
 
     @Override
-    public void displaySwitchedUserHand(Bytes _winners, Bytes _loosers, int _noDeal,ByteMap<HandPresident> _switchedCards) {
+    public void displaySwitchedUserHand(Bytes _winners, Bytes _loosers, int _noDeal,CustList<HandPresident> _switchedCards) {
         SwingUtilities.invokeLater(new DisplaySwitchedCardsSimuPresident(this,_winners,_loosers,_switchedCards));
     }
 
-    void displayGuiSwitchedUserHand(Bytes _winners, Bytes _loosers, ByteMap<HandPresident> _switchedCards) {
+    void displayGuiSwitchedUserHand(Bytes _winners, Bytes _loosers, CustList<HandPresident> _switchedCards) {
         if (_loosers.containsObj(DealPresident.NUMERO_UTILISATEUR)) {
             container.getReceivedCards().supprimerCartes();
             byte w_ = GamePresident.getMatchingWinner(_winners, _loosers, DealPresident.NUMERO_UTILISATEUR);
-            container.getReceivedCards().ajouterCartes(_switchedCards.getVal(w_));
+            container.getReceivedCards().ajouterCartes(_switchedCards.get(w_));
             container.updateCardsInPanelPresidentReceived();
             container.getGivenCards().supprimerCartes();
-            container.getGivenCards().ajouterCartes(_switchedCards.getVal(DealPresident.NUMERO_UTILISATEUR));
+            container.getGivenCards().ajouterCartes(_switchedCards.get(DealPresident.NUMERO_UTILISATEUR));
             container.updateCardsInPanelPresidentGiven();
         }
         if (_winners.containsObj(DealPresident.NUMERO_UTILISATEUR)) {
             container.getReceivedCards().supprimerCartes();
             byte l_ = GamePresident.getMatchingLoser(_winners, _loosers, DealPresident.NUMERO_UTILISATEUR);
-            container.getReceivedCards().ajouterCartes(_switchedCards.getVal(l_));
+            container.getReceivedCards().ajouterCartes(_switchedCards.get(l_));
             container.updateCardsInPanelPresidentReceived();
             container.getGivenCards().supprimerCartes();
-            container.getGivenCards().ajouterCartes(_switchedCards.getVal(DealPresident.NUMERO_UTILISATEUR));
+            container.getGivenCards().ajouterCartes(_switchedCards.get(DealPresident.NUMERO_UTILISATEUR));
             container.updateCardsInPanelPresidentGiven();
         }
     }

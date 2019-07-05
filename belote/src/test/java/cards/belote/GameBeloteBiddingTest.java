@@ -13,7 +13,6 @@ import cards.consts.Suit;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
 
 
 public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
@@ -234,7 +233,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         b_.setEnchere(BidBelote.OTHER_SUIT);
         b_.setCouleur(Suit.CLUB);
         expected_.add(b_);
-        assertTrue(BidBeloteSuit.equalsSet(expected_,bids_));
+        assertTrue(EquallableBeloteUtil.equalsSet(expected_,bids_));
         //max_contrat()
     }
     @Test
@@ -286,7 +285,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         b_.setEnchere(BidBelote.OTHER_SUIT);
         b_.setCouleur(Suit.CLUB);
         expected_.add(b_);
-        assertTrue(BidBeloteSuit.equalsSet(expected_,bids_));
+        assertTrue(EquallableBeloteUtil.equalsSet(expected_,bids_));
     }
     @Test
     public void allowedBids_AtSecondRoundBidsInitializeByTakingBid1(){
@@ -429,7 +428,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         b_.setEnchere(BidBelote.OTHER_SUIT);
         b_.setCouleur(Suit.CLUB);
         expected_.add(b_);
-        assertTrue(BidBeloteSuit.equalsSet(expected_,maximunBidsSuits_));
+        assertTrue(EquallableBeloteUtil.equalsSet(expected_,maximunBidsSuits_));
     }
     @Test
     public void allowedBids_AtFirstRoundBidsInitialize2Test(){
@@ -737,7 +736,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         b_.setCouleur(Suit.CLUB);
         expected_.add(b_);
         expected_.addAllElts(toRealBid(new EnumList<BidBelote>(BidBelote.NO_TRUMP)));
-        assertTrue(BidBeloteSuit.equalsSet(expected_,bids_));
+        assertTrue(EquallableBeloteUtil.equalsSet(expected_,bids_));
     }
     @Test
     public void allowedBids_AtSecondRoundBidsInitialize3Test(){
@@ -763,7 +762,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         b_.setCouleur(Suit.CLUB);
         expected_.add(b_);
         expected_.addAllElts(toRealBid(new EnumList<BidBelote>(BidBelote.ALL_TRUMP)));
-        assertTrue(BidBeloteSuit.equalsSet(expected_,bids_));
+        assertTrue(EquallableBeloteUtil.equalsSet(expected_,bids_));
     }
     @Test
     public void allowedBids_AtSecondRoundBidsInitialize4Test(){
@@ -789,7 +788,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         b_.setCouleur(Suit.CLUB);
         expected_.add(b_);
         expected_.addAllElts(toRealBid(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP)));
-        assertTrue(BidBeloteSuit.equalsSet(expected_,bids_));
+        assertTrue(EquallableBeloteUtil.equalsSet(expected_,bids_));
     }
     @Test
     public void allowedBids_AtSecondRoundBidsInitializeWithoutTakingBid2Test(){
@@ -841,7 +840,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         b_.setCouleur(Suit.CLUB);
         expected_.add(b_);
         expected_.addAllElts(toRealBid(new EnumList<BidBelote>(BidBelote.NO_TRUMP)));
-        assertTrue(BidBeloteSuit.equalsSet(expected_,bids_));
+        assertTrue(EquallableBeloteUtil.equalsSet(expected_,bids_));
     }
     @Test
     public void allowedBids_AtSecondRoundBidsInitializeWithoutTakingBid3Test(){
@@ -893,7 +892,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         b_.setCouleur(Suit.CLUB);
         expected_.add(b_);
         expected_.addAllElts(toRealBid(new EnumList<BidBelote>(BidBelote.ALL_TRUMP)));
-        assertTrue(BidBeloteSuit.equalsSet(expected_,bids_));
+        assertTrue(EquallableBeloteUtil.equalsSet(expected_,bids_));
     }
     @Test
     public void allowedBids_AtSecondRoundBidsInitializeWithoutTakingBid4Test(){
@@ -945,7 +944,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         b_.setCouleur(Suit.CLUB);
         expected_.add(b_);
         expected_.addAllElts(toRealBid(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP)));
-        assertTrue(BidBeloteSuit.equalsSet(expected_,bids_));
+        assertTrue(EquallableBeloteUtil.equalsSet(expected_,bids_));
     }
     @Test
     public void allowedBids_AtSecondRoundBidsInitializeByTakingBid2Test(){
@@ -1624,7 +1623,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         b_.setCouleur(Suit.UNDEFINED);
         b_.setPoints(162);
         expected_.add(b_);
-        assertTrue(BidBeloteSuit.equalsSet(expected_,bids_));
+        assertTrue(EquallableBeloteUtil.equalsSet(expected_,bids_));
     }
     @Test
     public void allowedBids2(){
@@ -1715,7 +1714,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         b_.setCouleur(Suit.UNDEFINED);
         b_.setPoints(162);
         expected_.add(b_);
-        assertTrue(BidBeloteSuit.equalsSet(expected_,bids_));
+        assertTrue(EquallableBeloteUtil.equalsSet(expected_,bids_));
     }
 
     static boolean containsBid(CustList<BidBeloteSuit> _bids, BidBeloteSuit _b) {

@@ -20,7 +20,7 @@ public final class TricksHandsPresident {
 
     private Bytes ranks;
 
-    private ByteMap<HandPresident> switchedCards;
+    private CustList<HandPresident> switchedCards;
 
     private CustList<HandPresident> cardsHandsAtInitialState;
 
@@ -61,17 +61,17 @@ public final class TricksHandsPresident {
             ajouterCartes(p, cardsHandsAtInitialState.get(p));
         }
         if (_numeroPli < 0 && !switchedCards.isEmpty()) {
-            for (byte b: switchedCards.getKeys()) {
-                ajouterCartes(b, switchedCards.getVal(b));
+            for (byte p = CustList.FIRST_INDEX; p<_nombreJoueurs; p++) {
+                ajouterCartes(p, switchedCards.get(p));
             }
             for (byte l: getLoosers()) {
                 byte w_ = getMatchingWinner(l);
-                HandPresident gift_ = switchedCards.getVal(w_);
+                HandPresident gift_ = switchedCards.get(w_);
                 supprimerCartes(l, gift_);
             }
             for (byte w: getWinners()) {
                 byte l_ = getMatchingLoser(w);
-                HandPresident gift_ = switchedCards.getVal(l_);
+                HandPresident gift_ = switchedCards.get(l_);
                 supprimerCartes(w, gift_);
             }
         }
@@ -227,11 +227,11 @@ public final class TricksHandsPresident {
         ranks = _ranks;
     }
 
-    public ByteMap<HandPresident> getSwitchedCards() {
+    public CustList<HandPresident> getSwitchedCards() {
         return switchedCards;
     }
 
-    public void setSwitchedCards(ByteMap<HandPresident> _switchedCards) {
+    public void setSwitchedCards(CustList<HandPresident> _switchedCards) {
         switchedCards = _switchedCards;
     }
 

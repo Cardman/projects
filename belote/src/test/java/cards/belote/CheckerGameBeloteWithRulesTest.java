@@ -2157,4 +2157,52 @@ public class CheckerGameBeloteWithRulesTest {
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
+
+    @Test
+    public void check37FailTest() {
+        RulesBelote rules_ = new RulesBelote();
+        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
+        deal_.initDonneur((byte) 0);
+        deal_.initDonne(rules_, new DisplayingBelote());
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.getDeclares().clear();
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
+    }
+
+    @Test
+    public void check38FailTest() {
+        RulesBelote rules_ = new RulesBelote();
+        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
+        deal_.initDonneur((byte) 0);
+        deal_.initDonne(rules_, new DisplayingBelote());
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.getDeclaresBeloteRebelote().clear();
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
+    }
+
+    @Test
+    public void check39FailTest() {
+        RulesBelote rules_ = new RulesBelote();
+        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
+        deal_.initDonneur((byte) 0);
+        deal_.initDonne(rules_, new DisplayingBelote());
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.getScoresRef().clear();
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
+    }
+
+    @Test
+    public void check40FailTest() {
+        RulesBelote rules_ = new RulesBelote();
+        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
+        deal_.initDonneur((byte) 0);
+        deal_.initDonne(rules_, new DisplayingBelote());
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.getWonLastTrick().clear();
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
+    }
 }

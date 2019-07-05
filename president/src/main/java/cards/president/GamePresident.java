@@ -7,7 +7,6 @@ import cards.president.enumerations.EqualtyPlaying;
 import cards.president.enumerations.Playing;
 import code.util.BooleanList;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.*;
 import code.util.Ints;
 import code.util.TreeMap;
@@ -41,7 +40,7 @@ public final class GamePresident {
 
     private Bytes ranks = new Bytes();
 
-    private ByteMap<HandPresident> switchedCards = new ByteMap<HandPresident>();
+    private CustList<HandPresident> switchedCards = new CustList<HandPresident>();
 
     private String error = "";
     private boolean reversed;
@@ -130,8 +129,9 @@ public final class GamePresident {
 
     public void initCartesEchanges() {
         if(!ranks.isEmpty()&&allowSwitchCards()) {
+            switchedCards.clear();
             for(byte p=0;p<getNombreDeJoueurs();p++) {
-                switchedCards.put(p, new HandPresident());
+                switchedCards.add(new HandPresident());
             }
         }
     }
@@ -149,9 +149,9 @@ public final class GamePresident {
             donnerMeilleuresCartes();
             HandPresident secondUserHand_ = deal.main();
             giveWorstCards();
-            ByteMap<HandPresident> switchedCards_ = new ByteMap<HandPresident>();
-            for (byte p: switchedCards.getKeys()) {
-                switchedCards_.put(p, new HandPresident(switchedCards.getVal(p)));
+            CustList<HandPresident> switchedCards_ = new CustList<HandPresident>();
+            for (HandPresident p: switchedCards) {
+                switchedCards_.add(new HandPresident(p));
             }
             HandPresident thirdUserHand_ = deal.main();
             if (allowSwitchCards() && noDeal_ > CustList.FIRST_INDEX) {
@@ -164,7 +164,7 @@ public final class GamePresident {
                 _simu.displayUserHand(userHand_);
                 for (byte l: losers_) {
                     byte w_ = GamePresident.getMatchingWinner(winners_, losers_, l);
-                    HandPresident h_ = switchedCards_.getVal(l);
+                    HandPresident h_ = switchedCards_.get(l);
                     _simu.displayLooserMessage(h_,l,w_);
                 }
                 _simu.displayLineReturn();
@@ -174,7 +174,7 @@ public final class GamePresident {
                 _simu.displayUserHand(userHand_);
                 for (byte w: winners_) {
                     byte l_ = GamePresident.getMatchingLoser(winners_, losers_, w);
-                    HandPresident h_ = switchedCards_.getVal(w);
+                    HandPresident h_ = switchedCards_.get(w);
                     _simu.displayWinnerMessage(h_,l_,w);
                 }
                 _simu.displayLineReturn();
@@ -403,7 +403,7 @@ public final class GamePresident {
             return true;
         }
         if (getWinners().containsObj(DealPresident.NUMERO_UTILISATEUR)) {
-            if (switchedCards.getVal(DealPresident.NUMERO_UTILISATEUR).estVide()) {
+            if (switchedCards.get(DealPresident.NUMERO_UTILISATEUR).estVide()) {
                 return false;
             }
         }
@@ -416,7 +416,7 @@ public final class GamePresident {
             return true;
         }
         for (byte w: getWinners()) {
-            if (switchedCards.getVal(w).estVide()) {
+            if (switchedCards.get(w).estVide()) {
                 return false;
             }
         }
@@ -429,7 +429,7 @@ public final class GamePresident {
         }
         for (byte w: getWinners()) {
             HandPresident h_ = strategieEchange(w);
-            switchedCards.getVal(w).ajouterCartes(h_);
+            switchedCards.get(w).ajouterCartes(h_);
         }
         for (byte l: getLoosers()) {
             recevoirPiresCartes(l);
@@ -447,19 +447,20 @@ public final class GamePresident {
                 continue;
             }
             HandPresident h_ = strategieEchange(w);
-            switchedCards.getVal(w).ajouterCartes(h_);
+            switchedCards.get(w).ajouterCartes(h_);
         }
     }
 
     //multi mode
     public boolean giveWorstCards(Bytes _humanPlayers, byte _player, HandPresident _hand) {
-        switchedCards.getVal(_player).ajouterCartes(_hand);
+        switchedCards.get(_player).ajouterCartes(_hand);
         boolean finished_ = true;
-        for (byte w: switchedCards.getKeys()) {
-            if (!_humanPlayers.containsObj(w)) {
+        byte nb_ = getNombreDeJoueurs();
+        for (int i = 0; i < nb_; i++) {
+            if (!_humanPlayers.containsObj(i)) {
                 continue;
             }
-            HandPresident h_ = switchedCards.getVal(w);
+            HandPresident h_ = switchedCards.get(i);
             if (h_.estVide()) {
                 finished_ = false;
                 break;
@@ -476,7 +477,7 @@ public final class GamePresident {
 
     //single mode
     public void giveWorstCards(HandPresident _hand) {
-        switchedCards.getVal(DealPresident.NUMERO_UTILISATEUR).ajouterCartes(_hand);
+        switchedCards.get(DealPresident.NUMERO_UTILISATEUR).ajouterCartes(_hand);
         for (byte l: getLoosers()) {
             recevoirPiresCartes(l);
         }
@@ -490,25 +491,27 @@ public final class GamePresident {
         copie_.ajouterCartes(getDistribution().main(_joueur));
         copie_.sortCardsBegin();
         for(byte i=0;i<nbCards_;i++) {
-            switchedCards.getVal(_joueur).ajouter(copie_.carte(i));
+            switchedCards.get(_joueur).ajouter(copie_.carte(i));
         }
     }
 
     public void recevoirMeilleuresCartes(byte _joueur) {
         int ind_= getWinners().indexOfObj(_joueur);
         byte pl_ = getLoosers().get(ind_);
-        getDistribution().main(_joueur).ajouterCartes(switchedCards.getVal(pl_));
+        getDistribution().main(_joueur).ajouterCartes(switchedCards.get(pl_));
     }
 
     public void recevoirPiresCartes(byte _joueur) {
         int ind_= getLoosers().indexOfObj(_joueur);
         byte pl_ = getWinners().get(ind_);
-        getDistribution().main(_joueur).ajouterCartes(switchedCards.getVal(pl_));
+        getDistribution().main(_joueur).ajouterCartes(switchedCards.get(pl_));
     }
 
     public void supprimerDons() {
-        for(byte p: switchedCards.getKeys()) {
-            getDistribution().main(p).supprimerCartes(switchedCards.getVal(p));
+        int nbPl_ = getNombreDeJoueurs();
+        for (byte i = 0; i < nbPl_; i++) {
+            HandPresident h_ = switchedCards.get(i);
+            getDistribution().main(i).supprimerCartes(h_);
         }
     }
 
@@ -519,17 +522,17 @@ public final class GamePresident {
         for (byte w: getWinners()) {
             int ind_= getWinners().indexOfObj(w);
             byte pl_ = getLoosers().get(ind_);
-            getDistribution().main(w).supprimerCartes(switchedCards.getVal(pl_));
-            getDistribution().main(w).ajouterCartes(switchedCards.getVal(w));
+            getDistribution().main(w).supprimerCartes(switchedCards.get(pl_));
+            getDistribution().main(w).ajouterCartes(switchedCards.get(w));
         }
         for (byte l: getLoosers()) {
             int ind_= getLoosers().indexOfObj(l);
             byte pl_ = getWinners().get(ind_);
-            getDistribution().main(l).supprimerCartes(switchedCards.getVal(pl_));
-            getDistribution().main(l).ajouterCartes(switchedCards.getVal(l));
+            getDistribution().main(l).supprimerCartes(switchedCards.get(pl_));
+            getDistribution().main(l).ajouterCartes(switchedCards.get(l));
         }
-        for (byte p: switchedCards.getKeys()) {
-            switchedCards.getVal(p).supprimerCartes();
+        for (HandPresident h: switchedCards) {
+            h.supprimerCartes();
         }
     }
 
@@ -1188,7 +1191,7 @@ public final class GamePresident {
         return ranks;
     }
 
-    public ByteMap<HandPresident> getSwitchedCards() {
+    public CustList<HandPresident> getSwitchedCards() {
         return switchedCards;
     }
 
@@ -1209,10 +1212,10 @@ public final class GamePresident {
         return nb_;
     }
 
-    void copySwitchCards(ByteMap<HandPresident> _switchedCards) {
-        switchedCards = new ByteMap<HandPresident>();
-        for (byte k: _switchedCards.getKeys()) {
-            switchedCards.put(k, new HandPresident(_switchedCards.getVal(k)));
+    void copySwitchCards(CustList<HandPresident> _switchedCards) {
+        switchedCards = new CustList<HandPresident>();
+        for (HandPresident k: _switchedCards) {
+            switchedCards.add(new HandPresident(k));
         }
     }
 
@@ -1335,7 +1338,7 @@ public final class GamePresident {
         ranks = _ranks;
     }
 
-    public void setSwitchedCards(ByteMap< HandPresident> _switchedCards) {
+    public void setSwitchedCards(CustList< HandPresident> _switchedCards) {
         switchedCards = _switchedCards;
     }
 

@@ -62,6 +62,10 @@ public final class CheckerGameTarotWithRules {
             _loadedGame.setError(BAD_COUNT_FOR_DEAL);
             return;
         }
+        if (_loadedGame.getScores().size() != _loadedGame.getNombreDeJoueurs()) {
+            _loadedGame.setError(BAD_COUNT_FOR_REMAINING_CARDS);
+            return;
+        }
         _loadedGame.loadGame();
         if (_loadedGame.getDistribution().nombreDeMains() != rules_
                 .getRepartition().getNombreJoueurs() + 1) {

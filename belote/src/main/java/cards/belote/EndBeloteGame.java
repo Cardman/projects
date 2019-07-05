@@ -2,17 +2,15 @@ package cards.belote;
 
 import cards.belote.enumerations.BonusBelote;
 import cards.belote.enumerations.CardBelote;
-import cards.belote.enumerations.DeclaresBeloteRebelote;
 import cards.consts.EndGameState;
 import code.util.BooleanList;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.*;
 
 public final class EndBeloteGame {
     private GameBeloteTeamsRelation relations;
     private CustList<DeclareHandBelote> declares;
-    private CustList<HandBelote> declaresBeloteRebelote;
+    private Shorts declaresBeloteRebelote;
     private BooleanList wonLastTrick;
     /**Le contrat permet de dire quel va etre le deroulement
      de la partie*/
@@ -21,7 +19,7 @@ public final class EndBeloteGame {
     private CustList<TrickBelote> tricks;
 
     public EndBeloteGame(GameBeloteTeamsRelation _relations, CustList<DeclareHandBelote> _declares,
-                         CustList<HandBelote> _declaresBeloteRebelote, BooleanList _wonLastTrick,
+                         Shorts _declaresBeloteRebelote, BooleanList _wonLastTrick,
                          BidBeloteSuit _bid, CustList<TrickBelote> _tricks) {
         relations = _relations;
         declares = _declares;
@@ -79,9 +77,7 @@ public final class EndBeloteGame {
     Shorts pointsAnnoncesPrimes(byte _joueur) {
         Shorts totaux_=new Shorts();
         if(bid.getCouleurDominante()) {
-            if(declaresBeloteRebelote.get(_joueur).contientCartes(GameBeloteCommonPlaying.cartesBeloteRebelote(bid))) {
-                totaux_.add((short) DeclaresBeloteRebelote.BELOTE_REBELOTE.getPoints());
-            }
+            totaux_.add(declaresBeloteRebelote.get(_joueur));
         }
         if(wonLastTrick.get(_joueur)) {
             totaux_.add((short) BonusBelote.LAST_TRICK.getPoints());

@@ -22,6 +22,11 @@ public final class CheckerGamePresidentWithRules {
             _loadedGame.setError(MESSAGE_ERROR);
             return;
         }
+        if (_loadedGame.getScores().size() != nbPlayers_) {
+            _loadedGame.setError(MESSAGE_ERROR);
+            return;
+        }
+        Bytes ranks_ = _loadedGame.getRanks();
         _loadedGame.loadGame();
         CustList<TrickPresident> allTricks_ = _loadedGame.unionPlis();
         HandPresident cards_ = new HandPresident();
@@ -47,7 +52,7 @@ public final class CheckerGamePresidentWithRules {
         for (HandPresident c : _loadedGame.getDistribution()) {
             cards_.ajouterCartes(c);
         }
-        for (HandPresident s : _loadedGame.getSwitchedCards().values()) {
+        for (HandPresident s : _loadedGame.getSwitchedCards()) {
             cards_.ajouterCartes(s);
         }
         for (CardPresident e : cards_) {
@@ -72,12 +77,12 @@ public final class CheckerGamePresidentWithRules {
             deal_.main(player_).ajouterCartes(c);
             indexCurTrick_++;
         }
-        if (!_loadedGame.getRanks().isEmpty()) {
-            if (_loadedGame.getRanks().size() != nbPlayers_) {
+        if (!ranks_.isEmpty()) {
+            if (ranks_.size() != nbPlayers_) {
                 _loadedGame.setError(MESSAGE_ERROR);
                 return;
             }
-            Bytes copyRanks_ = new Bytes(_loadedGame.getRanks());
+            Bytes copyRanks_ = new Bytes(ranks_);
             int len_ = copyRanks_.size();
             copyRanks_.removeDuplicates();
             if (len_ != copyRanks_.size()) {
@@ -87,13 +92,17 @@ public final class CheckerGamePresidentWithRules {
         }
         boolean readyToPlay_ = true;
         if (_loadedGame.availableSwitchingCards()) {
+            if (_loadedGame.getSwitchedCards().size() != nbPlayers_) {
+                _loadedGame.setError(MESSAGE_ERROR);
+                return;
+            }
             for (byte w : _loadedGame.getWinners()) {
                 int ind_ = _loadedGame.getWinners().indexOfObj(w);
                 int nbGivenCards_ = _loadedGame.nombresCartesEchangesMax()
                         - ind_;
                 if (w == DealPresident.NUMERO_UTILISATEUR) {
-                    if (!_loadedGame.getSwitchedCards().getVal(w).estVide()) {
-                        if (_loadedGame.getSwitchedCards().getVal(w).total() != nbGivenCards_) {
+                    if (!_loadedGame.getSwitchedCards().get(w).estVide()) {
+                        if (_loadedGame.getSwitchedCards().get(w).total() != nbGivenCards_) {
                             _loadedGame.setError(MESSAGE_ERROR);
                             return;
                         }
@@ -102,7 +111,7 @@ public final class CheckerGamePresidentWithRules {
                     }
                     continue;
                 }
-                if (_loadedGame.getSwitchedCards().getVal(w).total() != nbGivenCards_) {
+                if (_loadedGame.getSwitchedCards().get(w).total() != nbGivenCards_) {
                     _loadedGame.setError(MESSAGE_ERROR);
                     return;
                 }
@@ -111,7 +120,7 @@ public final class CheckerGamePresidentWithRules {
                 int ind_ = _loadedGame.getLoosers().indexOfObj(l);
                 int nbGivenCards_ = _loadedGame.nombresCartesEchangesMax()
                         - ind_;
-                if (_loadedGame.getSwitchedCards().getVal(l).total() != nbGivenCards_) {
+                if (_loadedGame.getSwitchedCards().get(l).total() != nbGivenCards_) {
                     _loadedGame.setError(MESSAGE_ERROR);
                     return;
                 }
@@ -123,7 +132,7 @@ public final class CheckerGamePresidentWithRules {
                 if (_loadedGame.getLoosers().containsObj(p)) {
                     continue;
                 }
-                if (!_loadedGame.getSwitchedCards().getVal(p).estVide()) {
+                if (!_loadedGame.getSwitchedCards().get(p).estVide()) {
                     _loadedGame.setError(MESSAGE_ERROR);
                     return;
                 }
@@ -141,9 +150,9 @@ public final class CheckerGamePresidentWithRules {
                     byte pl_ = _loadedGame.getMatchingLoser(w);
                     HandPresident hl_ = new HandPresident(deal_.main(w));
                     hl_.ajouterCartes(_loadedGame.getSwitchedCards()
-                            .getVal(pl_));
+                            .get(pl_));
                     if (!hl_.containsCards(_loadedGame.getSwitchedCards()
-                            .getVal(w))) {
+                            .get(w))) {
                         _loadedGame.setError(MESSAGE_ERROR);
                         return;
                     }
@@ -153,34 +162,34 @@ public final class CheckerGamePresidentWithRules {
                     byte pl_ = _loadedGame.getMatchingLoser(w);
                     HandPresident hl_ = new HandPresident(deal_.main(pl_));
                     hl_.ajouterCartes(_loadedGame.getSwitchedCards()
-                            .getVal(pl_));
+                            .get(pl_));
                     if (!hl_.containsCards(_loadedGame.getSwitchedCards()
-                            .getVal(w))) {
+                            .get(w))) {
                         _loadedGame.setError(MESSAGE_ERROR);
                         return;
                     }
                 }
-                for (byte p : _loadedGame.getSwitchedCards().getKeys()) {
-                    deal_.main(p).ajouterCartes(
-                            _loadedGame.getSwitchedCards().getVal(p));
+                for (byte i = 0; i< nbPlayers_; i++) {
+                    deal_.main(i).ajouterCartes(
+                            _loadedGame.getSwitchedCards().get(i));
                 }
             }
             for (byte l : _loadedGame.getLoosers()) {
                 int ind_ = _loadedGame.getLoosers().indexOfObj(l);
                 byte pl_ = _loadedGame.getWinners().get(ind_);
                 deal_.main(l).supprimerCartes(
-                        _loadedGame.getSwitchedCards().getVal(pl_));
+                        _loadedGame.getSwitchedCards().get(pl_));
             }
             for (byte w : _loadedGame.getWinners()) {
                 int ind_ = _loadedGame.getWinners().indexOfObj(w);
                 byte pl_ = _loadedGame.getLoosers().get(ind_);
                 deal_.main(w).supprimerCartes(
-                        _loadedGame.getSwitchedCards().getVal(pl_));
+                        _loadedGame.getSwitchedCards().get(pl_));
             }
             for (byte l : _loadedGame.getLoosers()) {
                 HandPresident hCopy_ = new HandPresident(deal_.main(l));
                 HandPresident hSwitchCopy_ = new HandPresident(_loadedGame
-                        .getSwitchedCards().getVal(l));
+                        .getSwitchedCards().get(l));
                 hCopy_.sortCardsBegin();
                 hSwitchCopy_.sortCardsBegin();
                 int lenGiv_ = hSwitchCopy_.total();
@@ -250,24 +259,24 @@ public final class CheckerGamePresidentWithRules {
                 int ind_ = _loadedGame.getWinners().indexOfObj(w);
                 byte pl_ = _loadedGame.getLoosers().get(ind_);
                 deal_.main(w).ajouterCartes(
-                        _loadedGame.getSwitchedCards().getVal(pl_));
+                        _loadedGame.getSwitchedCards().get(pl_));
             }
             for (byte l : _loadedGame.getLoosers()) {
                 int ind_ = _loadedGame.getLoosers().indexOfObj(l);
                 byte pl_ = _loadedGame.getWinners().get(ind_);
                 deal_.main(l).ajouterCartes(
-                        _loadedGame.getSwitchedCards().getVal(pl_));
+                        _loadedGame.getSwitchedCards().get(pl_));
             }
-            for (byte p : _loadedGame.getSwitchedCards().getKeys()) {
-                deal_.main(p).supprimerCartes(
-                        _loadedGame.getSwitchedCards().getVal(p));
+            for (byte i = 0; i< nbPlayers_; i++) {
+                deal_.main(i).supprimerCartes(
+                        _loadedGame.getSwitchedCards().get(i));
             }
         }
         if (allTricks_.isEmpty() && _loadedGame.getProgressingTrick().estVide()) {
             return;
         }
         GamePresident loadedGameCopy_ = new GamePresident(
-                _loadedGame.getType(), deal_, rules_, _loadedGame.getRanks());
+                _loadedGame.getType(), deal_, rules_, ranks_);
         loadedGameCopy_.copySwitchCards(_loadedGame.getSwitchedCards());
         int ind_ = 0;
         loadedGameCopy_.initializeFirstTrick();

@@ -4276,7 +4276,7 @@ public class CheckerGamePresidentWithRulesTest {
         //
         HandPresident invalid_ = new HandPresident();
         invalid_.ajouter(CardPresident.DIAMOND_3);
-        g_.getSwitchedCards().put((byte) 0, invalid_);
+        g_.getSwitchedCards().add(invalid_);
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(!g_.getError().isEmpty());
@@ -4307,7 +4307,7 @@ public class CheckerGamePresidentWithRulesTest {
         //
         HandPresident invalid_ = new HandPresident();
         invalid_.ajouter(CardPresident.DIAMOND_3);
-        g_.getSwitchedCards().put((byte) 0, invalid_);
+        g_.getSwitchedCards().set((byte) 0, invalid_);
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(!g_.getError().isEmpty());
@@ -4331,11 +4331,11 @@ public class CheckerGamePresidentWithRulesTest {
         //
         HandPresident invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.CLUB_1);
-        g_.getSwitchedCards().put((byte) 2, invalid_);
+        g_.getSwitchedCards().set((byte) 2, invalid_);
         g_.getDistribution().main((byte) 1).ajouterCartes(invalid_);
         invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.SPADE_3);
-        g_.getSwitchedCards().put((byte) 1, invalid_);
+        g_.getSwitchedCards().set((byte) 1, invalid_);
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(!g_.getError().isEmpty());
@@ -4361,7 +4361,7 @@ public class CheckerGamePresidentWithRulesTest {
         HandPresident invalid_ = new HandPresident();
         invalid_.ajouter(CardPresident.SPADE_1);
         invalid_.ajouter(CardPresident.CLUB_1);
-        g_.getSwitchedCards().put((byte) 2, invalid_);
+        g_.getSwitchedCards().set((byte) 2, invalid_);
         g_.getDistribution().main((byte) 1).ajouterCartes(invalid_);
         //
         CheckerGamePresidentWithRules.check(g_);
@@ -4386,11 +4386,11 @@ public class CheckerGamePresidentWithRulesTest {
         //
         HandPresident invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.CLUB_2);
-        g_.getSwitchedCards().put((byte) 2, invalid_);
+        g_.getSwitchedCards().set((byte) 2, invalid_);
         g_.getDistribution().main((byte) 1).ajouterCartes(invalid_);
         invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.DIAMOND_3);
-        g_.getSwitchedCards().put((byte) 1, invalid_);
+        g_.getSwitchedCards().set((byte) 1, invalid_);
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(!g_.getError().isEmpty());
@@ -4415,15 +4415,15 @@ public class CheckerGamePresidentWithRulesTest {
         HandPresident invalid_ = new HandPresident();
         invalid_.ajouter(CardPresident.SPADE_1);
         invalid_.ajouter(CardPresident.CLUB_1);
-        g_.getSwitchedCards().put((byte) 2, invalid_);
+        g_.getSwitchedCards().set((byte) 2, invalid_);
         g_.getDistribution().main((byte) 1).ajouterCartes(invalid_);
         invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.SPADE_3);
         invalid_.ajouter(CardPresident.SPADE_4);
-        g_.getSwitchedCards().put((byte) 1, invalid_);
+        g_.getSwitchedCards().set((byte) 1, invalid_);
         g_.getDistribution().main((byte) 2).ajouterCartes(invalid_);
-        g_.getDistribution().main((byte) 1).supprimerCartes(g_.getSwitchedCards().getVal((byte)1));
-        g_.getDistribution().main((byte) 2).supprimerCartes(g_.getSwitchedCards().getVal((byte)2));
+        g_.getDistribution().main((byte) 1).supprimerCartes(g_.getSwitchedCards().get((byte)1));
+        g_.getDistribution().main((byte) 2).supprimerCartes(g_.getSwitchedCards().get((byte)2));
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(!g_.getError().isEmpty());
@@ -4448,14 +4448,14 @@ public class CheckerGamePresidentWithRulesTest {
         HandPresident invalid_ = new HandPresident();
         invalid_.ajouter(CardPresident.SPADE_1);
         invalid_.ajouter(CardPresident.CLUB_1);
-        g_.getSwitchedCards().put((byte) 2, invalid_);
+        g_.getSwitchedCards().set((byte) 2, invalid_);
         g_.getDistribution().main((byte) 1).ajouterCartes(invalid_);
         invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.SPADE_3);
-        g_.getSwitchedCards().put((byte) 1, invalid_);
+        g_.getSwitchedCards().set((byte) 1, invalid_);
         g_.getDistribution().main((byte) 2).ajouterCartes(invalid_);
-        g_.getDistribution().main((byte) 1).supprimerCartes(g_.getSwitchedCards().getVal((byte)1));
-        g_.getDistribution().main((byte) 2).supprimerCartes(g_.getSwitchedCards().getVal((byte)2));
+        g_.getDistribution().main((byte) 1).supprimerCartes(g_.getSwitchedCards().get((byte)1));
+        g_.getDistribution().main((byte) 2).supprimerCartes(g_.getSwitchedCards().get((byte)2));
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(!g_.getError().isEmpty());
@@ -4495,14 +4495,14 @@ public class CheckerGamePresidentWithRulesTest {
         HandPresident invalid_ = new HandPresident();
         invalid_.ajouter(CardPresident.SPADE_1);
         invalid_.ajouter(CardPresident.CLUB_1);
-        g_.getSwitchedCards().put((byte) 2, invalid_);
+        g_.getSwitchedCards().set((byte) 2, invalid_);
         g_.getDistribution().main((byte) 0).ajouterCartes(invalid_);
         invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.HEART_6);
-        g_.getSwitchedCards().put((byte) 0, invalid_);
+        g_.getSwitchedCards().set((byte) 0, invalid_);
         g_.getDistribution().main((byte) 2).ajouterCartes(invalid_);
-        g_.getDistribution().main((byte) 0).supprimerCartes(g_.getSwitchedCards().getVal((byte)0));
-        g_.getDistribution().main((byte) 2).supprimerCartes(g_.getSwitchedCards().getVal((byte)2));
+        g_.getDistribution().main((byte) 0).supprimerCartes(g_.getSwitchedCards().get((byte)0));
+        g_.getDistribution().main((byte) 2).supprimerCartes(g_.getSwitchedCards().get((byte)2));
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(!g_.getError().isEmpty());
@@ -4526,15 +4526,15 @@ public class CheckerGamePresidentWithRulesTest {
         //
         HandPresident invalid_ = new HandPresident();
         invalid_.ajouter(CardPresident.CLUB_2);
-        g_.getSwitchedCards().put((byte) 2, invalid_);
+        g_.getSwitchedCards().set((byte) 2, invalid_);
         g_.getDistribution().main((byte) 0).ajouterCartes(invalid_);
         invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.DIAMOND_3);
         invalid_.ajouter(CardPresident.CLUB_3);
-        g_.getSwitchedCards().put((byte) 0, invalid_);
+        g_.getSwitchedCards().set((byte) 0, invalid_);
         g_.getDistribution().main((byte) 2).ajouterCartes(invalid_);
-        g_.getDistribution().main((byte) 0).supprimerCartes(g_.getSwitchedCards().getVal((byte)0));
-        g_.getDistribution().main((byte) 2).supprimerCartes(g_.getSwitchedCards().getVal((byte)2));
+        g_.getDistribution().main((byte) 0).supprimerCartes(g_.getSwitchedCards().get((byte)0));
+        g_.getDistribution().main((byte) 2).supprimerCartes(g_.getSwitchedCards().get((byte)2));
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(!g_.getError().isEmpty());
@@ -4709,11 +4709,11 @@ public class CheckerGamePresidentWithRulesTest {
         //
         HandPresident invalid_ = new HandPresident();
         invalid_.ajouter(CardPresident.CLUB_2);
-        g_.getSwitchedCards().put((byte) 2, invalid_);
+        g_.getSwitchedCards().set((byte) 2, invalid_);
         g_.getDistribution().main((byte) 0).ajouterCartes(invalid_);
         invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.CLUB_3);
-        g_.getSwitchedCards().put((byte) 1, invalid_);
+        g_.getSwitchedCards().set((byte) 1, invalid_);
         g_.getDistribution().main((byte) 2).ajouterCartes(invalid_);
         //
         CheckerGamePresidentWithRules.check(g_);
@@ -4773,7 +4773,7 @@ public class CheckerGamePresidentWithRulesTest {
         add_.ajouter(CardPresident.SPADE_7);
         add_.ajouter(CardPresident.CLUB_7);
         g_.getDistribution().main().ajouterCartes(add_);
-        g_.getSwitchedCards().put((byte) 1, add_);
+        g_.getSwitchedCards().set((byte) 1, add_);
         //
         transientFields(g_);
         //
@@ -4998,6 +4998,339 @@ public class CheckerGamePresidentWithRulesTest {
         assertTrue(!g_.getError().isEmpty());
         g_.checkPlayerHand((byte)2,"");
     }
+
+    @Test
+    public void check32FailTest() {
+        RulesPresident r_ = new RulesPresident(4);
+        Bytes rk_ = new Bytes();
+        CustList<HandPresident> hs_ = deal1();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        g_.initCartesEchanges();
+        //
+        HandPresident played_;
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.SPADE_3);
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.HEART_3);
+        g_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.DIAMOND_3);
+        g_.addCardsToCurrentTrickAndLoop((byte) 3, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.CLUB_3);
+        g_.addCardsToCurrentTrickAndLoop((byte) 0, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.CLUB_4);
+        played_.ajouter(CardPresident.DIAMOND_4);
+        g_.addCardsToCurrentTrickAndLoop((byte) 0, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.SPADE_4);
+        played_.ajouter(CardPresident.HEART_4);
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.CLUB_7);
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.HEART_7);
+        g_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.DIAMOND_7);
+        g_.addCardsToCurrentTrickAndLoop((byte) 3, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.SPADE_7);
+        g_.addCardsToCurrentTrickAndLoop((byte) 0, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.DIAMOND_8);
+        played_.ajouter(CardPresident.HEART_8);
+        g_.addCardsToCurrentTrickAndLoop((byte) 0, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.SPADE_8);
+        played_.ajouter(CardPresident.CLUB_8);
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.SPADE_9);
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.HEART_9);
+        g_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.DIAMOND_9);
+        g_.addCardsToCurrentTrickAndLoop((byte) 3, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.CLUB_9);
+        g_.addCardsToCurrentTrickAndLoop((byte) 0, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.SPADE_10);
+        g_.addCardsToCurrentTrickAndLoop((byte) 0, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.CLUB_10);
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.HEART_10);
+        g_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.DIAMOND_10);
+        g_.addCardsToCurrentTrickAndLoop((byte) 3, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.HEART_QUEEN);
+        played_.ajouter(CardPresident.DIAMOND_QUEEN);
+        g_.addCardsToCurrentTrickAndLoop((byte) 3, played_);
+        played_ = new HandPresident();
+        g_.addCardsToCurrentTrickAndLoop((byte) 0, played_);
+        played_ = new HandPresident();
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.SPADE_QUEEN);
+        played_.ajouter(CardPresident.CLUB_QUEEN);
+        g_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.HEART_KING);
+        g_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.DIAMOND_KING);
+        g_.addCardsToCurrentTrickAndLoop((byte) 3, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.SPADE_KING);
+        g_.addCardsToCurrentTrickAndLoop((byte) 0, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.CLUB_KING);
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.HEART_1);
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        played_ = new HandPresident();
+        g_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
+        played_ = new HandPresident();
+        g_.addCardsToCurrentTrickAndLoop((byte) 3, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.DIAMOND_1);
+        g_.addCardsToCurrentTrickAndLoop((byte) 0, played_);
+        played_ = new HandPresident();
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+//        played_ = new HandPresident();
+//        g_.addCardsToCurrentTrick((byte) 2, played_);
+//        played_ = new HandPresident();
+//        g_.addCardsToCurrentTrick((byte) 3, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.HEART_2);
+        g_.addCardsToCurrentTrickAndLoop((byte) 0, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.CLUB_JACK);
+        played_.ajouter(CardPresident.SPADE_JACK);
+        g_.addCardsToCurrentTrickAndLoop((byte) 0, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.DIAMOND_JACK);
+        played_.ajouter(CardPresident.HEART_JACK);
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.DIAMOND_2);
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.SPADE_5);
+        played_.ajouter(CardPresident.HEART_5);
+        g_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.CLUB_5);
+        played_.ajouter(CardPresident.DIAMOND_5);
+        g_.addCardsToCurrentTrickAndLoop((byte) 3, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.HEART_6);
+        played_.ajouter(CardPresident.DIAMOND_6);
+        g_.addCardsToCurrentTrickAndLoop((byte) 3, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.SPADE_6);
+        played_.ajouter(CardPresident.CLUB_6);
+        g_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.SPADE_2);
+        played_.ajouter(CardPresident.CLUB_2);
+        g_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
+        //
+        HandPresident h_ = g_.empiler();
+        rk_ = g_.getNewRanks();
+        d_ = new DealPresident(1, h_);
+        d_.donneurSuivant(g_.getDistribution().getDonneur(),r_);
+        d_.initDonne(r_);
+        g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        g_.initCartesEchanges();
+        g_.donnerMeilleuresCartes();
+        g_.giveWorstCards();
+        //
+        transientFields(g_);
+        g_.getSwitchedCards().clear();
+        //
+        CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
+    }
+
+    @Test
+    public void check33FailTest() {
+        RulesPresident r_ = new RulesPresident(4);
+        Bytes rk_ = new Bytes();
+        CustList<HandPresident> hs_ = deal1();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        g_.initCartesEchanges();
+        //
+        HandPresident played_;
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.SPADE_3);
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.HEART_3);
+        g_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.DIAMOND_3);
+        g_.addCardsToCurrentTrickAndLoop((byte) 3, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.CLUB_3);
+        g_.addCardsToCurrentTrickAndLoop((byte) 0, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.CLUB_4);
+        played_.ajouter(CardPresident.DIAMOND_4);
+        g_.addCardsToCurrentTrickAndLoop((byte) 0, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.SPADE_4);
+        played_.ajouter(CardPresident.HEART_4);
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.CLUB_7);
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.HEART_7);
+        g_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.DIAMOND_7);
+        g_.addCardsToCurrentTrickAndLoop((byte) 3, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.SPADE_7);
+        g_.addCardsToCurrentTrickAndLoop((byte) 0, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.DIAMOND_8);
+        played_.ajouter(CardPresident.HEART_8);
+        g_.addCardsToCurrentTrickAndLoop((byte) 0, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.SPADE_8);
+        played_.ajouter(CardPresident.CLUB_8);
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.SPADE_9);
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.HEART_9);
+        g_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.DIAMOND_9);
+        g_.addCardsToCurrentTrickAndLoop((byte) 3, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.CLUB_9);
+        g_.addCardsToCurrentTrickAndLoop((byte) 0, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.SPADE_10);
+        g_.addCardsToCurrentTrickAndLoop((byte) 0, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.CLUB_10);
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.HEART_10);
+        g_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.DIAMOND_10);
+        g_.addCardsToCurrentTrickAndLoop((byte) 3, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.HEART_QUEEN);
+        played_.ajouter(CardPresident.DIAMOND_QUEEN);
+        g_.addCardsToCurrentTrickAndLoop((byte) 3, played_);
+        played_ = new HandPresident();
+        g_.addCardsToCurrentTrickAndLoop((byte) 0, played_);
+        played_ = new HandPresident();
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.SPADE_QUEEN);
+        played_.ajouter(CardPresident.CLUB_QUEEN);
+        g_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.HEART_KING);
+        g_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.DIAMOND_KING);
+        g_.addCardsToCurrentTrickAndLoop((byte) 3, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.SPADE_KING);
+        g_.addCardsToCurrentTrickAndLoop((byte) 0, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.CLUB_KING);
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.HEART_1);
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        played_ = new HandPresident();
+        g_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
+        played_ = new HandPresident();
+        g_.addCardsToCurrentTrickAndLoop((byte) 3, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.DIAMOND_1);
+        g_.addCardsToCurrentTrickAndLoop((byte) 0, played_);
+        played_ = new HandPresident();
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+//        played_ = new HandPresident();
+//        g_.addCardsToCurrentTrick((byte) 2, played_);
+//        played_ = new HandPresident();
+//        g_.addCardsToCurrentTrick((byte) 3, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.HEART_2);
+        g_.addCardsToCurrentTrickAndLoop((byte) 0, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.CLUB_JACK);
+        played_.ajouter(CardPresident.SPADE_JACK);
+        g_.addCardsToCurrentTrickAndLoop((byte) 0, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.DIAMOND_JACK);
+        played_.ajouter(CardPresident.HEART_JACK);
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.DIAMOND_2);
+        g_.addCardsToCurrentTrickAndLoop((byte) 1, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.SPADE_5);
+        played_.ajouter(CardPresident.HEART_5);
+        g_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.CLUB_5);
+        played_.ajouter(CardPresident.DIAMOND_5);
+        g_.addCardsToCurrentTrickAndLoop((byte) 3, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.HEART_6);
+        played_.ajouter(CardPresident.DIAMOND_6);
+        g_.addCardsToCurrentTrickAndLoop((byte) 3, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.SPADE_6);
+        played_.ajouter(CardPresident.CLUB_6);
+        g_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.SPADE_2);
+        played_.ajouter(CardPresident.CLUB_2);
+        g_.addCardsToCurrentTrickAndLoop((byte) 2, played_);
+        //
+        HandPresident h_ = g_.empiler();
+        rk_ = g_.getNewRanks();
+        d_ = new DealPresident(1, h_);
+        d_.donneurSuivant(g_.getDistribution().getDonneur(),r_);
+        d_.initDonne(r_);
+        g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        g_.initCartesEchanges();
+        g_.donnerMeilleuresCartes();
+        g_.giveWorstCards();
+        //
+        transientFields(g_);
+        g_.getScores().clear();
+        //
+        CheckerGamePresidentWithRules.check(g_);
+        assertTrue(!g_.getError().isEmpty());
+    }
+
     static void transientFields(GamePresident _g) {
         for (TrickPresident t: _g.getTricks()) {
             t.setEntameur(-1);

@@ -1189,7 +1189,7 @@ public final class SendReceiveServer extends BasicServer {
                         AllowDiscarding allow_ = new AllowDiscarding();
                         for (byte p: humWin_) {
                             byte l_ = g_.getMatchingLoser(p);
-                            allow_.setReceivedCards(g_.getSwitchedCards().getVal(l_));
+                            allow_.setReceivedCards(g_.getSwitchedCards().get(l_));
                             Net.sendObject(Net.getSocketByPlace(p), allow_);
                         }
 //                        CustList<Byte> humLosReceiving_ = new CustList<>();
@@ -1215,8 +1215,8 @@ public final class SendReceiveServer extends BasicServer {
                         ReceivedGivenCards dis_ = new ReceivedGivenCards();
                         for (byte p: humLos_) {
                             byte w_ = g_.getMatchingWinner(p);
-                            dis_.setReceived(g_.getSwitchedCards().getVal(w_));
-                            dis_.setGiven(g_.getSwitchedCards().getVal(p));
+                            dis_.setReceived(g_.getSwitchedCards().get(w_));
+                            dis_.setGiven(g_.getSwitchedCards().get(p));
                             dis_.setNewHand(g_.getDistribution().main(w_));
                             Net.sendObject(Net.getSocketByPlace(p), dis_);
                         }
@@ -1252,8 +1252,8 @@ public final class SendReceiveServer extends BasicServer {
                 ReceivedGivenCards disAfter_ = new ReceivedGivenCards();
                 for (byte p: humLos_) {
                     byte w_ = g_.getMatchingWinner(p);
-                    disAfter_.setReceived(g_.getSwitchedCards().getVal(w_));
-                    disAfter_.setGiven(g_.getSwitchedCards().getVal(p));
+                    disAfter_.setReceived(g_.getSwitchedCards().get(w_));
+                    disAfter_.setGiven(g_.getSwitchedCards().get(p));
                     disAfter_.setNewHand(g_.getDistribution().main(w_));
                     Net.sendObject(Net.getSocketByPlace(p), disAfter_);
                 }
@@ -1479,8 +1479,8 @@ public final class SendReceiveServer extends BasicServer {
                         ReceivedGivenCards disAfter_ = new ReceivedGivenCards();
                         for (byte p: humLos_) {
                             byte w_ = game_.getMatchingWinner(p);
-                            disAfter_.setReceived(game_.getSwitchedCards().getVal(w_));
-                            disAfter_.setGiven(game_.getSwitchedCards().getVal(p));
+                            disAfter_.setReceived(game_.getSwitchedCards().get(w_));
+                            disAfter_.setGiven(game_.getSwitchedCards().get(p));
                             disAfter_.setNewHand(game_.getDistribution().main(w_));
                             Net.sendObject(Net.getSocketByPlace(p), disAfter_);
                         }

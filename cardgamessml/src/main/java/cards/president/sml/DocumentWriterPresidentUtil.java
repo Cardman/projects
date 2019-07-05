@@ -270,15 +270,17 @@ public final class DocumentWriterPresidentUtil {
         }
         return elt_;
     }
-    private static Element setMapByteHandPresident(ByteMap<HandPresident> _object, String _fieldName, Document _document) {
+    private static Element setMapByteHandPresident(CustList<HandPresident> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<Byte, HandPresident> s: _object.entryList()) {
-            Element sub_ = DocumentWriterCoreUtil.setByte(s.getKey(), EMPTY_STRING, _document);
+        byte b_ = 0;
+        for (HandPresident s: _object) {
+            Element sub_ = DocumentWriterCoreUtil.setByte(b_, EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = setHandPresident(s.getValue(), EMPTY_STRING, _document);
+            sub_ = setHandPresident(s, EMPTY_STRING, _document);
             elt_.appendChild(sub_);
+            b_++;
         }
         return elt_;
     }

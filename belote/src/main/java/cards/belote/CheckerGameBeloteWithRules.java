@@ -27,13 +27,30 @@ public final class CheckerGameBeloteWithRules {
 
     public static void check(GameBelote _loadedGame) {
         RulesBelote rules_ = _loadedGame.getRegles();
-        if (_loadedGame.getDistribution().nombreDeMains() != rules_
-                .getRepartition().getNombreJoueurs() + 1) {
+        int nombreJoueurs_ = rules_
+                .getRepartition().getNombreJoueurs();
+        if (_loadedGame.getDistribution().nombreDeMains() != nombreJoueurs_ + 1) {
             _loadedGame.setError(BAD_COUNT_FOR_DEAL);
             return;
         }
         if (_loadedGame.getDistribution().derniereMain().total() != rules_
                 .getRepartition().getRemainingCards()) {
+            _loadedGame.setError(BAD_COUNT_FOR_REMAINING_CARDS);
+            return;
+        }
+        if (_loadedGame.getWonLastTrick().size() != nombreJoueurs_) {
+            _loadedGame.setError(BAD_COUNT_FOR_REMAINING_CARDS);
+            return;
+        }
+        if (_loadedGame.getDeclares().size() != nombreJoueurs_) {
+            _loadedGame.setError(BAD_COUNT_FOR_REMAINING_CARDS);
+            return;
+        }
+        if (_loadedGame.getDeclaresBeloteRebelote().size() != nombreJoueurs_) {
+            _loadedGame.setError(BAD_COUNT_FOR_REMAINING_CARDS);
+            return;
+        }
+        if (_loadedGame.getScores().size() != nombreJoueurs_) {
             _loadedGame.setError(BAD_COUNT_FOR_REMAINING_CARDS);
             return;
         }

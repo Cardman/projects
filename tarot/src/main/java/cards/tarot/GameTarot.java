@@ -1291,6 +1291,9 @@ public final class GameTarot {
         gameTarotTrickInfo_.addSeenDeck(deal.derniereMain(),getTeamsRelation());
         return gameTarotTrickInfo_;
     }
+    public Shorts getScoresRef() {
+        return scores;
+    }
     public Shorts getScores() {
         return new Shorts(scores);
     }
