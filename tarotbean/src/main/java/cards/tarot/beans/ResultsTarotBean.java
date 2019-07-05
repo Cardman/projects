@@ -77,7 +77,7 @@ final class ResultsTarotBean extends TarotBean {
                 basePoints=end_.base(doubledScoreTaker_,differenceScoreTaker);
                 scoreTakerWithoutDeclaring=end_.scorePreneurSansAnnonces(differenceScoreTaker,basePoints);
                 additionnalBonusesAttack = end_.additionnalBonusesAttack(getBid());
-                additionnalBonusesDefense = end_.additionnalBonusesDefense(getBid());
+                additionnalBonusesDefense = end_.additionnalBonusesDefense();
                 winEqualityLoose=end_.getUserState(scoreTakerWithoutDeclaring,res_.getUser());
                 scoreTaker = (short) (doubledScoreTaker_/2);
                 taker = getNicknames().get(getGame().getPreneur());
@@ -89,6 +89,7 @@ final class ResultsTarotBean extends TarotBean {
                 }
             } else {
                 EndTarotGame end_ = getGame().getEndTarotGame();
+                end_.setupPlayersWonTricks();
                 boolean pasJeuMisere_=getGame().pasJeuMisere();
                 if(pasJeuMisere_) {
                     for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {

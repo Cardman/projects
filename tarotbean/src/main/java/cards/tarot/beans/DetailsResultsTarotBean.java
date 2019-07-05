@@ -147,10 +147,11 @@ final class DetailsResultsTarotBean extends TarotBean {
                     playersScores.add(scoresPayer_);
                 }
                 additionnalBonusesAttack = end_.additionnalBonusesAttack(getBid());
-                additionnalBonusesDefense = end_.additionnalBonusesDefense(getBid());
+                additionnalBonusesDefense = end_.additionnalBonusesDefense();
                 diffAttackDefenseBonuses = additionnalBonusesAttack-additionnalBonusesDefense;
             }else {
                 EndTarotGame end_ = getGame().getEndTarotGame();
+                end_.setupPlayersWonTricks();
                 Shorts positions_ = new Shorts();
                 Shorts positions1_ = new Shorts();
                 Shorts positions2_ = new Shorts();

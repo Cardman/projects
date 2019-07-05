@@ -41,6 +41,8 @@ public final class EndTarotGame {
     private BooleanList declaresSlam;
     /** Ce sont les petits au bout par le(s) joueur(s) */
     private BooleanList smallBound;
+    private CustList<HandTarot> wonPlayersTeam = new CustList<HandTarot>();
+    private Ints firstTrick = new Ints();
 
     public EndTarotGame(GameTarotTeamsRelation _relations, CustList<TrickTarot> _tricks,
                         CustList<EnumList<Handfuls>> _declaresHandfuls,
@@ -54,6 +56,13 @@ public final class EndTarotGame {
         smallBound = _smallBound;
     }
 
+    public void setupPlayersWonTricks() {
+        byte nbPlayers_ = relations.getNombreDeJoueurs();
+        for (byte i = 0; i < nbPlayers_; i++) {
+            firstTrick.add(indexOfFirstTrick(tricks,i,relations));
+            wonPlayersTeam.add(getWonTricksTeam(i));
+        }
+    }
     public short scorePreneurPlisDouble(BidTarot _bid) {
         short nbPointsAtt_ = 0;
         for (CardTarot c: getWonCardsTaker(_bid)) {
@@ -108,19 +117,7 @@ public final class EndTarotGame {
                 excuseDansPlisAttaque_ = true;
             }
         }
-        CustList<TrickTarot> otherTricks_ = new CustList<TrickTarot>();
-        for (TrickTarot t: tricks) {
-            CardTarot cardTarot_ = t.premiereCarte();
-            boolean other_ = true;
-            for (TrickTarot pli_ : tricks_) {
-                if (cardTarot_ == pli_.premiereCarte()) {
-                    other_ = false;
-                }
-            }
-            if (other_) {
-                otherTricks_.add(t);
-            }
-        }
+        CustList<TrickTarot> otherTricks_ = getOtherTricksTarot(tricks_, tricks);
         CustList<TrickTarot> excuseTrick_;
         if(chelemAttaque_) {
             excuseTrick_ = getExcuseTrick(tricks_);
@@ -141,6 +138,23 @@ public final class EndTarotGame {
             }
         }
         return nbPointsAtt_;
+    }
+
+    private static CustList<TrickTarot> getOtherTricksTarot(CustList<TrickTarot> _tricksTeam, CustList<TrickTarot> _tricks) {
+        CustList<TrickTarot> otherTricks_ = new CustList<TrickTarot>();
+        for (TrickTarot t: _tricks) {
+            CardTarot cardTarot_ = t.premiereCarte();
+            boolean other_ = true;
+            for (TrickTarot pli_ : _tricksTeam) {
+                if (cardTarot_ == pli_.premiereCarte()) {
+                    other_ = false;
+                }
+            }
+            if (other_) {
+                otherTricks_.add(t);
+            }
+        }
+        return otherTricks_;
     }
 
     private static CustList<TrickTarot> getExcuseTrick(CustList<TrickTarot> _trs) {
@@ -341,10 +355,10 @@ public final class EndTarotGame {
 
     public short additionnalBonusesAttack(BidTarot _bid) {
         short primesSupplementaires_ =0;
-        CustList<TrickTarot> plisDefense_ = getPlisDefense(_bid);
+        Bytes defs_ = relations.adversaires(relations.getTaker(),GameTarotTeamsRelation.tousJoueurs(relations.getNombreDeJoueurs()));
+        CustList<TrickTarot> tricks_ = getWonTricksListTeam(tricks,defs_);
         if (_bid == BidTarot.SLAM || declaresSlam.get(relations.getTaker())) {
-            if (plisDefense_.isEmpty()
-                    || !plisDefense_.last().getVuParToutJoueur()) {
+            if (tricks_.isEmpty()) {
                 primesSupplementaires_ = (short) BonusTarot.SLAM
                         .getPoints();
             } else {
@@ -353,18 +367,15 @@ public final class EndTarotGame {
             }
             return primesSupplementaires_;
         }
-        if (plisDefense_.isEmpty()
-                || !plisDefense_.last().getVuParToutJoueur()) {
+        if (tricks_.isEmpty()) {
             primesSupplementaires_ = (short) (BonusTarot.SLAM
                     .getPoints() / 2);
         }
         return primesSupplementaires_;
     }
-    public short additionnalBonusesDefense(BidTarot _bid) {
+    public short additionnalBonusesDefense() {
         short primesSupplementaires_ = 0;
-        CustList<TrickTarot> plisAttaque_ = getPlisAttaque(_bid);
-        if (plisAttaque_.isEmpty()
-                || !plisAttaque_.last().getVuParToutJoueur()) {
+        if (getWonTricksListTeam(relations.getTaker()).isEmpty()) {
             primesSupplementaires_ = (short) (BonusTarot.SLAM
                     .getPoints() / 2);
         }
@@ -398,7 +409,7 @@ public final class EndTarotGame {
         EnumMap<Status,Rate> coefficientsRepartition_;
         byte nombreJoueurs_ = relations.getNombreDeJoueurs();
         coefficientsRepartition_ = new EnumMap<Status,Rate>();
-        if (!relations.existeAppele()) {
+        if (relations.coequipiers(relations.getTaker(),GameTarotTeamsRelation.tousJoueurs(nombreJoueurs_)).isEmpty()) {
             coefficientsRepartition_.put(Status.TAKER,new Rate(nombreJoueurs_ - 1));
             coefficientsRepartition_.put(Status.DEFENDER,new Rate(-1));
         } else {
@@ -524,6 +535,10 @@ public final class EndTarotGame {
      changeant le tableau des positions
      */
     public Shorts changePositionsOne(Shorts _positions, boolean _pasJeuMisere) {
+        return changePositionsOne(wonPlayersTeam, _positions, _pasJeuMisere);
+    }
+
+    static Shorts changePositionsOne(CustList<HandTarot> _wonPlayersTeam, Shorts _positions, boolean _pasJeuMisere) {
         Shorts positions_ = new Shorts(_positions);
         CustList<Shorts> groupes_ = new CustList<Shorts>();
         Shorts positionsDistinctes_ = new Shorts();
@@ -560,11 +575,11 @@ public final class EndTarotGame {
             for (Shorts groupe_ : groupes_) {
                 for (short joueur_ : groupe_) {
                     positionTemporaire_ = 1;
-                    main_ = getWonTricksTeam((byte) joueur_);
+                    main_ = _wonPlayersTeam.get((byte) joueur_);
                     if (!main_.estVide()) {
                         nombreBouts_ = (byte) main_.nombreDeBouts();
                         for (short joueur2_ : groupe_) {
-                            main2_ = getWonTricksTeam((byte) joueur2_);
+                            main2_ = _wonPlayersTeam.get((byte) joueur2_);
                             nombreBouts2_ = (byte) main2_.nombreDeBouts();
                             if (nombreBouts2_ > nombreBouts_) {
                                 positionTemporaire_++;
@@ -578,11 +593,11 @@ public final class EndTarotGame {
             for (Shorts groupe_ : groupes_) {
                 for (short joueur_ : groupe_) {
                     positionTemporaire_ = 1;
-                    main_ = getWonTricksTeam((byte) joueur_);
+                    main_ = _wonPlayersTeam.get((byte) joueur_);
                     if (!main_.estVide()) {
                         nombreBouts_ = (byte) main_.nombreDeBouts();
                         for (short joueur2_ : groupe_) {
-                            main2_ = getWonTricksTeam((byte)joueur2_);
+                            main2_ = _wonPlayersTeam.get((byte)joueur2_);
                             nombreBouts2_ = (byte) main2_.nombreDeBouts();
                             if (nombreBouts2_ < nombreBouts_) {
                                 positionTemporaire_++;
@@ -601,6 +616,10 @@ public final class EndTarotGame {
      changeant le tableau des positions
      */
     public Shorts changePositionsTwo(Shorts _positions, boolean _pasJeuMisere) {
+        return changePositionsTwo(wonPlayersTeam, _positions, _pasJeuMisere);
+    }
+
+    static Shorts changePositionsTwo(CustList<HandTarot> _wonPlayersTeam, Shorts _positions, boolean _pasJeuMisere) {
         Shorts positions_ = new Shorts(_positions);
         CustList<Shorts> groupes_;
         Shorts positionsDistinctes_;
@@ -642,13 +661,13 @@ public final class EndTarotGame {
             for (Shorts groupe_ : groupes_) {
                 for (short joueur_ : groupe_) {
                     positionTemporaire_ = 1;
-                    main_ = getWonTricksTeam((byte) joueur_);
+                    main_ = _wonPlayersTeam.get((byte) joueur_);
                     if (!main_.estVide()) {
                         nombreBouts_ = (byte) main_.nombreDeBouts();
                         nombreFigures_ = (byte) main_.nombreDeFigures();
                         if (nombreBouts_ == 0) {
                             for (short joueur2_ : groupe_) {
-                                main2_ = getWonTricksTeam((byte) joueur2_);
+                                main2_ = _wonPlayersTeam.get((byte) joueur2_);
                                 nombreFigures2_ = (byte) main2_
                                         .nombreDeFigures();
                                 if (nombreFigures2_ > nombreFigures_) {
@@ -659,7 +678,7 @@ public final class EndTarotGame {
                             bout_ = main_.bouts().premiereCarte();
                             if (CardTarot.eq(bout_,CardTarot.excuse())) {
                                 for (short joueur2_ : groupe_) {
-                                    main2_ = getWonTricksTeam((byte) joueur2_);
+                                    main2_ = _wonPlayersTeam.get((byte) joueur2_);
                                     bout2_ = main2_.bouts().premiereCarte();
                                     if (CardTarot.eq(bout2_,CardTarot.vingtEtUn())) {
                                         positionTemporaire_++;
@@ -667,7 +686,7 @@ public final class EndTarotGame {
                                 }
                             } else if (CardTarot.eq(bout_,CardTarot.petit())) {
                                 for (short joueur2_ : groupe_) {
-                                    main2_ = getWonTricksTeam((byte) joueur2_);
+                                    main2_ = _wonPlayersTeam.get((byte) joueur2_);
                                     bout2_ = main2_.bouts().premiereCarte();
                                     if (CardTarot.eq(bout2_,CardTarot.excuse())
                                             || CardTarot.eq(bout2_,CardTarot
@@ -685,13 +704,13 @@ public final class EndTarotGame {
             for (Shorts groupe_ : groupes_) {
                 for (short joueur_ : groupe_) {
                     positionTemporaire_ = 1;
-                    main_ = getWonTricksTeam((byte) joueur_);
+                    main_ = _wonPlayersTeam.get((byte) joueur_);
                     if (!main_.estVide()) {
                         nombreBouts_ = (byte) main_.nombreDeBouts();
                         nombreFigures_ = (byte) main_.nombreDeFigures();
                         if (nombreBouts_ == 0) {
                             for (short joueur2_ : groupe_) {
-                                main2_ = getWonTricksTeam((byte) joueur2_);
+                                main2_ = _wonPlayersTeam.get((byte) joueur2_);
                                 nombreFigures2_ = (byte) main2_
                                         .nombreDeFigures();
                                 if (nombreFigures2_ < nombreFigures_) {
@@ -702,7 +721,7 @@ public final class EndTarotGame {
                             bout_ = main_.bouts().premiereCarte();
                             if (CardTarot.eq(bout_, CardTarot.excuse())) {
                                 for (short joueur2_ : groupe_) {
-                                    main2_ = getWonTricksTeam((byte) joueur2_);
+                                    main2_ = _wonPlayersTeam.get((byte) joueur2_);
                                     bout2_ = main2_.bouts().premiereCarte();
                                     if (CardTarot.eq(bout2_, CardTarot.petit())) {
                                         positionTemporaire_++;
@@ -710,7 +729,7 @@ public final class EndTarotGame {
                                 }
                             } else if (CardTarot.eq(bout_, CardTarot.vingtEtUn())) {
                                 for (short joueur2_ : groupe_) {
-                                    main2_ = getWonTricksTeam((byte) joueur2_);
+                                    main2_ = _wonPlayersTeam.get((byte) joueur2_);
                                     bout2_ = main2_.bouts().premiereCarte();
                                     if (CardTarot.eq(bout2_, CardTarot.excuse())
                                             || CardTarot.eq(bout2_, CardTarot.petit())) {
@@ -732,6 +751,10 @@ public final class EndTarotGame {
      changeant le tableau des positions
      */
     public Shorts changePositionsThree(Shorts _positions, boolean _pasJeuMisere) {
+        return changePositionsThree(_positions, _pasJeuMisere, wonPlayersTeam);
+    }
+
+    static Shorts changePositionsThree(Shorts _positions, boolean _pasJeuMisere, CustList<HandTarot> _wonPlayersTeam) {
         Shorts positions_ = new Shorts(_positions);
 
         CustList<Shorts> groupes_;
@@ -772,7 +795,7 @@ public final class EndTarotGame {
             for (Shorts groupe_ : groupes_) {
                 for (short joueur_ : groupe_) {
                     positionTemporaire_ = 1;
-                    main_ = getWonTricksTeam((byte) joueur_);
+                    main_ = _wonPlayersTeam.get((byte) joueur_);
                     if (!main_.estVide()) {
                         nombreBouts_ = (byte) main_.nombreDeBouts();
                         if (nombreBouts_ == 0) {
@@ -782,7 +805,7 @@ public final class EndTarotGame {
                             }
                             figures_.sortCharsByGreaterPoints();
                             for (short joueur2_ : groupe_) {
-                                main2_ = getWonTricksTeam((byte) joueur2_);
+                                main2_ = _wonPlayersTeam.get((byte) joueur2_);
                                 figures2_ = new HandTarot();
                                 for (Suit couleur_ : Suit.couleursOrdinaires()) {
                                     figures2_.ajouterCartes(main2_
@@ -801,7 +824,7 @@ public final class EndTarotGame {
             for (Shorts groupe_ : groupes_) {
                 for (short joueur_ : groupe_) {
                     positionTemporaire_ = 1;
-                    main_ = getWonTricksTeam((byte) joueur_);
+                    main_ = _wonPlayersTeam.get((byte) joueur_);
                     if (!main_.estVide()) {
                         nombreBouts_ = (byte) main_.nombreDeBouts();
                         if (nombreBouts_ == 0) {
@@ -811,7 +834,7 @@ public final class EndTarotGame {
                             }
                             figures_.sortCharsByGreaterPoints();
                             for (short joueur2_ : groupe_) {
-                                main2_ = getWonTricksTeam((byte) joueur2_);
+                                main2_ = _wonPlayersTeam.get((byte) joueur2_);
                                 figures2_ = new HandTarot();
                                 for (Suit couleur_ : Suit.couleursOrdinaires()) {
                                     figures2_.ajouterCartes(main2_
@@ -871,6 +894,10 @@ public final class EndTarotGame {
      changeant le tableau des positions
      */
     public Shorts changePositionsFour(Shorts _positions, boolean _pasJeuMisere) {
+        return changePositionsFour(_positions, _pasJeuMisere, wonPlayersTeam, firstTrick);
+    }
+
+    static Shorts changePositionsFour(Shorts _positions, boolean _pasJeuMisere, CustList<HandTarot> _wonPlayersTeam, Ints _tricks) {
         Shorts positions_ = new Shorts(_positions);
         CustList<Shorts> groupes_;
         Shorts positionsDistinctes_;
@@ -911,7 +938,7 @@ public final class EndTarotGame {
             for (Shorts groupe_ : groupes_) {
                 for (short joueur_ : groupe_) {
                     positionTemporaire_ = 1;
-                    main_ = getWonTricksTeam((byte) joueur_);
+                    main_ = _wonPlayersTeam.get((byte) joueur_);
                     if (!main_.estVide()) {
                         nombreBouts_ = (byte) main_.nombreDeBouts();
                         if (nombreBouts_ == 0) {
@@ -921,7 +948,7 @@ public final class EndTarotGame {
                             }
                             figures_.sortCharsByGreaterPoints();
                             for (short joueur2_ : groupe_) {
-                                main2_ = getWonTricksTeam((byte) joueur2_);
+                                main2_ = _wonPlayersTeam.get((byte) joueur2_);
                                 figures2_ = new HandTarot();
                                 for (Suit couleur_ : Suit.couleursOrdinaires()) {
                                     figures2_.ajouterCartes(main2_
@@ -929,26 +956,8 @@ public final class EndTarotGame {
                                 }
                                 figures2_.sortCharsByGreaterPoints();
                                 egaliteFigures_ = equalChars(figures_, figures2_);
-                                int indexOne_ = -1;
-                                int indexTwo_ = -1;
-                                int index_ = 0;
-                                for (TrickTarot t: tricks) {
-                                    if (!t.getVuParToutJoueur()) {
-                                        index_++;
-                                        continue;
-                                    }
-                                    if (relations.memeEquipe(t.getRamasseur(), (byte) joueur_)) {
-                                        if (indexOne_ == -1) {
-                                            indexOne_ = index_;
-                                        }
-                                    }
-                                    if (relations.memeEquipe(t.getRamasseur(), (byte) joueur2_)) {
-                                        if (indexTwo_ == -1) {
-                                            indexTwo_ = index_;
-                                        }
-                                    }
-                                    index_++;
-                                }
+                                int indexOne_ = _tricks.get(joueur_);
+                                int indexTwo_ = _tricks.get(joueur2_);
                                 if (egaliteFigures_
                                         && indexTwo_ <
                                         indexOne_) {
@@ -964,7 +973,7 @@ public final class EndTarotGame {
             for (Shorts groupe_ : groupes_) {
                 for (short joueur_ : groupe_) {
                     positionTemporaire_ = 1;
-                    main_ = getWonTricksTeam((byte) joueur_);
+                    main_ = _wonPlayersTeam.get((byte) joueur_);
                     if (!main_.estVide()) {
                         nombreBouts_ = (byte) main_.nombreDeBouts();
                         if (nombreBouts_ == 0) {
@@ -974,7 +983,7 @@ public final class EndTarotGame {
                             }
                             figures_.sortCharsByGreaterPoints();
                             for (short joueur2_ : groupe_) {
-                                main2_ = getWonTricksTeam((byte) joueur2_);
+                                main2_ = _wonPlayersTeam.get((byte) joueur2_);
                                 figures2_ = new HandTarot();
                                 for (Suit couleur_ : Suit.couleursOrdinaires()) {
                                     figures2_.ajouterCartes(main2_
@@ -982,26 +991,8 @@ public final class EndTarotGame {
                                 }
                                 figures2_.sortCharsByGreaterPoints();
                                 egaliteFigures_ = equalChars(figures_, figures2_);
-                                int indexOne_ = -1;
-                                int indexTwo_ = -1;
-                                int index_ = 0;
-                                for (TrickTarot t: tricks) {
-                                    if (!t.getVuParToutJoueur()) {
-                                        index_++;
-                                        continue;
-                                    }
-                                    if (relations.memeEquipe(t.getRamasseur(), (byte) joueur_)) {
-                                        if (indexOne_ == -1) {
-                                            indexOne_ = index_;
-                                        }
-                                    }
-                                    if (relations.memeEquipe(t.getRamasseur(), (byte) joueur2_)) {
-                                        if (indexTwo_ == -1) {
-                                            indexTwo_ = index_;
-                                        }
-                                    }
-                                    index_++;
-                                }
+                                int indexOne_ = _tricks.get(joueur_);
+                                int indexTwo_ = _tricks.get(joueur2_);
                                 if (egaliteFigures_
                                         && indexTwo_ >
                                         indexOne_) {
@@ -1017,6 +1008,23 @@ public final class EndTarotGame {
         return positions_;
     }
 
+    static int indexOfFirstTrick(CustList<TrickTarot> _tricks, int _player,GameTarotTeamsRelation _relations) {
+        int indexOne_ = -1;
+        int index_ = 0;
+        for (TrickTarot t: _tricks) {
+            if (!t.getVuParToutJoueur()) {
+                index_++;
+                continue;
+            }
+            if (_relations.memeEquipe(t.getRamasseur(), (byte) _player)) {
+                if (indexOne_ == -1) {
+                    indexOne_ = index_;
+                }
+            }
+            index_++;
+        }
+        return indexOne_;
+    }
     private static boolean equalChars(HandTarot _charactersOne,
                                       HandTarot _charactersTwo) {
         boolean egaliteFigures_;
@@ -1033,15 +1041,20 @@ public final class EndTarotGame {
     }
 
     public Shorts coefficients(Shorts _positions) {
+        DealingTarot repartition_ = relations.getRules().getRepartition();
+        return coefficients(_positions, repartition_);
+    }
+
+    static Shorts coefficients(Shorts _positions, DealingTarot _repartition) {
+        byte nombreJoueurs_ = (byte) _repartition.getNombreJoueurs();
         byte maxPosition_ = 0;
         byte nombreLitiges_;
-        byte nombreJoueurs_ = relations.getNombreDeJoueurs();
         Shorts coefficients_ = new Shorts();
         for (short position_ : _positions) {
             maxPosition_ = (byte) Math.max(position_, maxPosition_);
         }
         nombreLitiges_ = (byte) (nombreJoueurs_ - maxPosition_ + 1);
-        if (relations.getRules().getRepartition() == DealingTarot.DEAL_2_VS_2_WITHOUT_CALL) {
+        if (_repartition == DealingTarot.DEAL_2_VS_2_WITHOUT_CALL) {
             for (short position_ : _positions) {
                 if (position_ == 1) {
                     coefficients_.add((short) 1);
@@ -1051,7 +1064,7 @@ public final class EndTarotGame {
             }
             return coefficients_;
         }
-        if (relations.getRules().getRepartition() == DealingTarot.DEAL_2_VS_4_WITHOUT_CALL) {
+        if (_repartition == DealingTarot.DEAL_2_VS_4_WITHOUT_CALL) {
             Shorts positionsDist_ = new Shorts(_positions);
             positionsDist_.removeDuplicates();
             if (positionsDist_.size() == 3) {
@@ -1256,15 +1269,20 @@ public final class EndTarotGame {
     }
 
     public Shorts coefficientsMisere(Shorts _positions) {
+        DealingTarot repartition_ = relations.getRules().getRepartition();
+        return coefficientsMisere(_positions, repartition_);
+    }
+
+    static Shorts coefficientsMisere(Shorts _positions, DealingTarot _repartition) {
+        byte nombreJoueurs_ = (byte) _repartition.getNombreJoueurs();
         byte maxPosition_ = 0;
         byte nombreLitiges_;
-        byte nombreJoueurs_ = relations.getNombreDeJoueurs();
         Shorts coefficients_ = new Shorts();
         for (short position_ : _positions) {
             maxPosition_ = (byte) Math.max(position_, maxPosition_);
         }
         nombreLitiges_ = (byte) (nombreJoueurs_ - maxPosition_ + 1);
-        if (relations.getRules().getRepartition() == DealingTarot.DEAL_2_VS_2_WITHOUT_CALL) {
+        if (_repartition == DealingTarot.DEAL_2_VS_2_WITHOUT_CALL) {
             for (short position_ : _positions) {
                 if (position_ == 1) {
                     coefficients_.add((short) 1);
@@ -1274,7 +1292,7 @@ public final class EndTarotGame {
             }
             return coefficients_;
         }
-        if (relations.getRules().getRepartition() == DealingTarot.DEAL_2_VS_4_WITHOUT_CALL) {
+        if (_repartition == DealingTarot.DEAL_2_VS_4_WITHOUT_CALL) {
             Shorts positionsDist_ = new Shorts(_positions);
             positionsDist_.removeDuplicates();
             if (positionsDist_.size() == 3) {
@@ -1689,26 +1707,6 @@ public final class EndTarotGame {
         return scores_;
     }
 
-    CustList<TrickTarot> getPlisAttaque(BidTarot _bid) {
-        CustList<TrickTarot> tricks_ = new CustList<TrickTarot>();
-        if (_bid.getJeuChien() != PlayingDog.AGAINST) {
-            tricks_.add(tricks.first());
-        }
-        for (TrickTarot t: getWonTricksListTeam(relations.getTaker())) {
-            tricks_.add(t);
-        }
-        return tricks_;
-    }
-
-    CustList<TrickTarot> getPlisDefense(BidTarot _bid) {
-        CustList<TrickTarot> tricks_ = new CustList<TrickTarot>();
-        if (_bid.getJeuChien() == PlayingDog.AGAINST) {
-            tricks_.add(tricks.first());
-        }
-        Bytes defs_ = relations.adversaires(relations.getTaker(),GameTarotTeamsRelation.tousJoueurs(relations.getNombreDeJoueurs()));
-        tricks_.addAllElts(getWonTricksListTeam(tricks,defs_));
-        return tricks_;
-    }
     private CustList<TrickTarot> getWonTricksListTeam(byte _player) {
         Bytes team_ = relations.coequipiers(_player, GameTarotTeamsRelation.tousJoueurs(relations.getNombreDeJoueurs()));
         team_.add(_player);

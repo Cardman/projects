@@ -63,13 +63,14 @@ public final class ResultsTarot {
                 scoreTakerWithoutDeclaring_=end_.scorePreneurSansAnnonces(differenceScoreTaker_,basePoints_);
                 handfulsTaker_ = end_.getHandfulsPointsForTaker(scoreTakerWithoutDeclaring_);
                 additionnalBonusesAttack_ = end_.additionnalBonusesAttack(contrat_);
-                additionnalBonusesDefense_ = end_.additionnalBonusesDefense(contrat_);
+                additionnalBonusesDefense_ = end_.additionnalBonusesDefense();
                 short sommeTemporaire_=end_.temporarySum(contrat_,scoreTakerWithoutDeclaring_, miseresTaker_, handfulsTaker_, additionnalBonusesAttack_, additionnalBonusesDefense_);
                 repartitionRate_=end_.coefficientsRepartition();
                 game.setScores(end_.calculateScores(repartitionRate_, sommeTemporaire_, scoreTakerWithoutDeclaring_));
                 scoresDeal_=game.getScores();
             } else {
                 EndTarotGame end_ = game.getEndTarotGame();
+                end_.setupPlayersWonTricks();
                 boolean pasJeuMisere_=game.pasJeuMisere();
                 if(pasJeuMisere_) {
                     for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
