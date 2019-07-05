@@ -1,6 +1,7 @@
 package cards.tarot;
 
 import cards.consts.GameType;
+import cards.tarot.comparators.MiseresComparator;
 import cards.tarot.enumerations.*;
 import code.util.*;
 import org.junit.Test;
@@ -3442,6 +3443,258 @@ public final class EndTarotGameTest extends CommonGameTarot {
         m_.get(1).add(Miseres.TRUMP);
         EndTarotGame endTarotGame_ = newEndTarotGame(rules_, trs_, m_, dh_, h_, dealer_, bids_, new HandTarot(), last_, dSlam_, small_);
         assertEq(3,endTarotGame_.nombreBoutsPreneur(BidTarot.GUARD));
+        assertEq(36,endTarotGame_.scoreNecessairePreneur(BidTarot.GUARD));
+    }
+    @Test
+    public void scorePreneurPlis1Test() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setDealing(DealingTarot.DEAL_1_VS_2);
+        rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
+        assertEq(70,EndTarotGame.scorePreneurPlis((short)140,(short)56,rules_));
+    }
+    @Test
+    public void scorePreneurPlis2Test() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setDealing(DealingTarot.DEAL_1_VS_2);
+        rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
+        assertEq(71,EndTarotGame.scorePreneurPlis((short)141,(short)56,rules_));
+    }
+    @Test
+    public void scorePreneurPlis3Test() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setDealing(DealingTarot.DEAL_1_VS_2);
+        rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
+        assertEq(56,EndTarotGame.scorePreneurPlis((short)112,(short)56,rules_));
+    }
+    @Test
+    public void scorePreneurPlis4Test() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setDealing(DealingTarot.DEAL_1_VS_2);
+        rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
+        assertEq(55,EndTarotGame.scorePreneurPlis((short)111,(short)56,rules_));
+    }
+    @Test
+    public void scorePreneurPlis5Test() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setDealing(DealingTarot.DEAL_1_VS_2);
+        rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
+        rules_.setEndDealTarot(EndDealTarot.ATTACK_WIN);
+        assertEq(56,EndTarotGame.scorePreneurPlis((short)111,(short)56,rules_));
+    }
+    @Test
+    public void scorePreneurPlis6Test() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setDealing(DealingTarot.DEAL_1_VS_2);
+        rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
+        rules_.setEndDealTarot(EndDealTarot.ATTACK_WIN);
+        assertEq(55,EndTarotGame.scorePreneurPlis((short)110,(short)56,rules_));
+    }
+    @Test
+    public void scorePreneurPlis7Test() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setDealing(DealingTarot.DEAL_1_VS_2);
+        rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
+        assertEq(55,EndTarotGame.scorePreneurPlis((short)110,(short)56,rules_));
+    }
+    @Test
+    public void scorePreneurPlis8Test() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setDealing(DealingTarot.DEAL_1_VS_2);
+        rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
+        assertEq(54,EndTarotGame.scorePreneurPlis((short)109,(short)56,rules_));
+    }
+    @Test
+    public void base1Test() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setDealing(DealingTarot.DEAL_1_VS_2);
+        rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
+        assertEq(25,EndTarotGame.base((short)109,(short)10,rules_));
+    }
+    @Test
+    public void base2Test() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setDealing(DealingTarot.DEAL_1_VS_2);
+        rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
+        assertEq(-25,EndTarotGame.base((short)109,(short)-10,rules_));
+    }
+    @Test
+    public void base3Test() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setDealing(DealingTarot.DEAL_1_VS_2);
+        rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
+        assertEq(-25,EndTarotGame.base((short)100,(short)-1,rules_));
+    }
+    @Test
+    public void base4Test() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setDealing(DealingTarot.DEAL_1_VS_2);
+        rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
+        rules_.setEndDealTarot(EndDealTarot.ATTACK_WIN);
+        assertEq(25,EndTarotGame.base((short)99,(short)-1,rules_));
+    }
+    @Test
+    public void base5Test() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setDealing(DealingTarot.DEAL_1_VS_2);
+        rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
+        rules_.setEndDealTarot(EndDealTarot.ZERO);
+        assertEq(0,EndTarotGame.base((short)99,(short)-1,rules_));
+    }
+    @Test
+    public void base6Test() {
+        RulesTarot rules_ = new RulesTarot();
+        rules_.setDealing(DealingTarot.DEAL_1_VS_2);
+        rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
+        rules_.setEndDealTarot(EndDealTarot.ATTACK_LOOSE);
+        assertEq(-25,EndTarotGame.base((short)99,(short)-1,rules_));
+    }
+    @Test
+    public void scorePreneurSansAnnonces1Test() {
+        byte t_ = 0;
+        byte n_ = 5;
+        Bytes c_ = new Bytes();
+        BooleanList s_ = new BooleanList();
+        s_.add(false);
+        s_.add(false);
+        s_.add(false);
+        s_.add(false);
+        s_.add(false);
+        assertEq(75,EndTarotGame.scorePreneurSansAnnonces((byte)50, (byte)25,  n_,  t_, c_, s_));
+    }
+    @Test
+    public void scorePreneurSansAnnonces2Test() {
+        byte t_ = 0;
+        byte n_ = 5;
+        Bytes c_ = new Bytes();
+        BooleanList s_ = new BooleanList();
+        s_.add(true);
+        s_.add(false);
+        s_.add(false);
+        s_.add(false);
+        s_.add(false);
+        assertEq(85,EndTarotGame.scorePreneurSansAnnonces((byte)50, (byte)25, n_, t_, c_, s_));
+    }
+    @Test
+    public void scorePreneurSansAnnonces3Test() {
+        byte t_ = 0;
+        byte n_ = 5;
+        Bytes c_ = new Bytes();
+        c_.add((byte)1);
+        BooleanList s_ = new BooleanList();
+        s_.add(false);
+        s_.add(true);
+        s_.add(false);
+        s_.add(false);
+        s_.add(false);
+        assertEq(85,EndTarotGame.scorePreneurSansAnnonces((byte)50, (byte)25, n_, t_, c_, s_));
+    }
+    @Test
+    public void scorePreneurSansAnnonces4Test() {
+        byte t_ = 0;
+        byte n_ = 5;
+        Bytes c_ = new Bytes();
+        BooleanList s_ = new BooleanList();
+        s_.add(false);
+        s_.add(true);
+        s_.add(false);
+        s_.add(false);
+        s_.add(false);
+        assertEq(65,EndTarotGame.scorePreneurSansAnnonces((byte)50, (byte)25, n_, t_, c_, s_));
+    }
+    @Test
+    public void scorePreneurSansAnnonces5Test() {
+        byte t_ = 0;
+        byte n_ = 5;
+        Bytes c_ = new Bytes();
+        c_.add((byte)1);
+        BooleanList s_ = new BooleanList();
+        s_.add(false);
+        s_.add(false);
+        s_.add(true);
+        s_.add(false);
+        s_.add(false);
+        assertEq(65,EndTarotGame.scorePreneurSansAnnonces((byte)50, (byte)25, n_, t_, c_, s_));
+    }
+    @Test
+    public void scorePreneurSansAnnonces6Test() {
+        byte t_ = 0;
+        byte n_ = 5;
+        Bytes c_ = new Bytes();
+        c_.add((byte)1);
+        BooleanList s_ = new BooleanList();
+        s_.add(false);
+        s_.add(false);
+        s_.add(true);
+        s_.add(false);
+        s_.add(false);
+        assertEq(0,EndTarotGame.scorePreneurSansAnnonces((byte)50, (byte)0, n_, t_, c_, s_));
+    }
+    @Test
+    public void getHandfulsPointsForTaker1Test() {
+        byte n_ = 5;
+        CustList<EnumList<Handfuls>> hs_ = new CustList<EnumList<Handfuls>>();
+        EnumList<Handfuls> h_ = new EnumList<Handfuls>();
+        h_.add(Handfuls.THREE);
+        h_.add(Handfuls.FOUR);
+        hs_.add(h_);
+        h_ = new EnumList<Handfuls>();
+        hs_.add(h_);
+        h_ = new EnumList<Handfuls>();
+        hs_.add(h_);
+        h_ = new EnumList<Handfuls>();
+        hs_.add(h_);
+        h_ = new EnumList<Handfuls>();
+        hs_.add(h_);
+        CustList<TreeMap<Handfuls, Short>> out_ = EndTarotGame.getHandfulsPointsForTaker((short) 50, n_, hs_);
+        assertEq(5, out_.size());
+        assertEq(2, out_.get(0).size());
+        assertEq(40, out_.get(0).getValue(0));
+        assertEq(50, out_.get(0).getValue(1));
+    }
+    @Test
+    public void getHandfulsPointsForTaker2Test() {
+        byte n_ = 5;
+        CustList<EnumList<Handfuls>> hs_ = new CustList<EnumList<Handfuls>>();
+        EnumList<Handfuls> h_ = new EnumList<Handfuls>();
+        h_.add(Handfuls.THREE);
+        h_.add(Handfuls.FOUR);
+        hs_.add(h_);
+        h_ = new EnumList<Handfuls>();
+        hs_.add(h_);
+        h_ = new EnumList<Handfuls>();
+        hs_.add(h_);
+        h_ = new EnumList<Handfuls>();
+        hs_.add(h_);
+        h_ = new EnumList<Handfuls>();
+        hs_.add(h_);
+        CustList<TreeMap<Handfuls, Short>> out_ = EndTarotGame.getHandfulsPointsForTaker((short) -50, n_, hs_);
+        assertEq(5, out_.size());
+        assertEq(2, out_.get(0).size());
+        assertEq(-40, out_.get(0).getValue(0));
+        assertEq(-50, out_.get(0).getValue(1));
+    }
+    @Test
+    public void feedMiseresTest() {
+        CustList<EnumList<Miseres>> m_ = new CustList<EnumList<Miseres>>();
+        EnumList<Miseres> h_ = new EnumList<Miseres>();
+        h_.add(Miseres.TRUMP);
+        h_.add(Miseres.POINT);
+        h_.add(Miseres.CHARACTER);
+        m_.add(h_);
+        h_ = new EnumList<Miseres>();
+        m_.add(h_);
+        h_ = new EnumList<Miseres>();
+        m_.add(h_);
+        h_ = new EnumList<Miseres>();
+        m_.add(h_);
+        h_ = new EnumList<Miseres>();
+        m_.add(h_);
+        TreeMap<Miseres, Short> tr_ = new TreeMap<Miseres, Short>(new MiseresComparator());
+        EndTarotGame.feedMiseres(tr_,0,1,m_);
+        assertEq(3, tr_.size());
+        assertEq(10, tr_.getValue(0));
+        assertEq(10, tr_.getValue(1));
+        assertEq(5, tr_.getValue(2));
     }
     private static EndTarotGame newEndTarotGame(RulesTarot _r, CustList<TrickTarot> _trs,
                                                 EqList<EnumList<Miseres>> _m, CustList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,

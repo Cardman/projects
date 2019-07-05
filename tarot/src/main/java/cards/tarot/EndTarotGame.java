@@ -43,6 +43,8 @@ public final class EndTarotGame {
     private BooleanList smallBound;
     private CustList<HandTarot> wonPlayersTeam = new CustList<HandTarot>();
     private Ints firstTrick = new Ints();
+    private Shorts oulderPoints = new Shorts();
+    private byte nombrePointsChien;
 
     public EndTarotGame(GameTarotTeamsRelation _relations, CustList<TrickTarot> _tricks,
                         CustList<EnumList<Handfuls>> _declaresHandfuls,
@@ -54,6 +56,20 @@ public final class EndTarotGame {
         declaresMiseres = _declaresMiseres;
         declaresSlam = _declaresSlam;
         smallBound = _smallBound;
+        oulderPoints.add((short) NO_OUDLER_PTS);
+        oulderPoints.add((short) ONE_OUDLER_PTS);
+        oulderPoints.add((short) TWO_OUDLERS_PTS);
+        oulderPoints.add((short) ALL_OUDLERS_PTS);
+        byte nombrePointsChien_ = 0;
+        for (TrickTarot t: tricks) {
+            if (t.getVuParToutJoueur()) {
+                continue;
+            }
+            for (CardTarot c: t) {
+                nombrePointsChien_ += c.points();
+            }
+        }
+        nombrePointsChien = nombrePointsChien_;
     }
 
     public void setupPlayersWonTricks() {
@@ -174,13 +190,18 @@ public final class EndTarotGame {
     }
     public short scorePreneurPlis(short _scorePreneurPlisDouble,
                                   short _scoreNecessairePreneur) {
+        RulesTarot rules_ = relations.getRules();
+        return scorePreneurPlis(_scorePreneurPlisDouble, _scoreNecessairePreneur, rules_);
+    }
+
+    static short scorePreneurPlis(short _scorePreneurPlisDouble, short _scoreNecessairePreneur, RulesTarot _rules) {
         short scorePreneurPlis_ = (short) (_scorePreneurPlisDouble / 2);
         if (scorePreneurPlis_ >= _scoreNecessairePreneur) {
             if (_scorePreneurPlisDouble % 2 == 1) {
                 scorePreneurPlis_++;
             }
         } else if (scorePreneurPlis_ + 1 == _scoreNecessairePreneur) {
-            if (relations.getRules().getEndDealTarot() == EndDealTarot.ATTACK_WIN) {
+            if (_rules.getEndDealTarot() == EndDealTarot.ATTACK_WIN) {
                 if (_scorePreneurPlisDouble % 2 == 1) {
                     scorePreneurPlis_++;
                 }
@@ -188,62 +209,62 @@ public final class EndTarotGame {
         }
         return scorePreneurPlis_;
     }
+
     public short scoreNecessairePreneur(BidTarot _bid) {
         byte nombreBouts_ = nombreBoutsPreneur(_bid);
-        if (nombreBouts_ == 0) {
-            return NO_OUDLER_PTS;
-        }
-        if (nombreBouts_ == 1) {
-            return ONE_OUDLER_PTS;
-        }
-        if (nombreBouts_ == 2) {
-            return TWO_OUDLERS_PTS;
-        }
-        return ALL_OUDLERS_PTS;
+        return oulderPoints.get(nombreBouts_);
     }
     public short base(short _scorePreneurPlisDouble,
                       short _differenceScorePreneur) {
+        RulesTarot rules_ = relations.getRules();
+        return base(_scorePreneurPlisDouble, _differenceScorePreneur, rules_);
+    }
+
+    static short base(short _scorePreneurPlisDouble, short _differenceScorePreneur, RulesTarot _rules) {
         if (_differenceScorePreneur >= 0) {
             return PTS_BASE;
         }
         if (_differenceScorePreneur == -1
                 && _scorePreneurPlisDouble % 2 == 1) {
-            if (relations.getRules().getEndDealTarot() == EndDealTarot.ATTACK_LOOSE) {
+            if (_rules.getEndDealTarot() == EndDealTarot.ATTACK_LOOSE) {
                 return -PTS_BASE;
             }
-            if (relations.getRules().getEndDealTarot() == EndDealTarot.ZERO) {
+            if (_rules.getEndDealTarot() == EndDealTarot.ZERO) {
                 return 0;
             }
             return PTS_BASE;
         }
         return -PTS_BASE;
     }
-
     public short scorePreneurSansAnnonces(short _differenceScorePreneur,
                                           short _base) {
-        short scorePreneurSansAnnonces_ = 0;
+        Bytes called_ = relations.getCalledPlayers();
         byte nombreJoueurs_ = relations.getNombreDeJoueurs();
+        byte taker_ = relations.getTaker();
+        return scorePreneurSansAnnonces(_differenceScorePreneur, _base, nombreJoueurs_, taker_, called_, smallBound);
+    }
+
+    static short scorePreneurSansAnnonces(short _differenceScorePreneur, short _base, byte _nombreJoueurs, byte _taker, Bytes _called, BooleanList _smallBound) {
+        short scorePreneurSansAnnonces_ = 0;
         if (_base != 0) {
             scorePreneurSansAnnonces_ = (short) (_base + _differenceScorePreneur);
-            if (smallBound.get(relations.getTaker())) {
+            if (_smallBound.get(_taker)) {
                 scorePreneurSansAnnonces_ += BonusTarot.SMALL_BOUND
                         .getPoints();
             }
-            if (relations.existeAppele()) {
-                boolean appelePetitAuBout_ = false;
-                for (byte a: relations.getCalledPlayers()) {
-                    if (smallBound.get(a)) {
-                        appelePetitAuBout_ = true;
-                    }
-                }
-                if(appelePetitAuBout_) {
-                    scorePreneurSansAnnonces_ += BonusTarot.SMALL_BOUND
-                            .getPoints();
+            boolean appelePetitAuBout_ = false;
+            for (byte a: _called) {
+                if (_smallBound.get(a)) {
+                    appelePetitAuBout_ = true;
                 }
             }
-            for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
-                if (joueur_ != relations.getTaker() && !relations.getCalledPlayers().containsObj(joueur_)
-                        && smallBound.get(joueur_)) {
+            if(appelePetitAuBout_) {
+                scorePreneurSansAnnonces_ += BonusTarot.SMALL_BOUND
+                        .getPoints();
+            }
+            for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
+                if (joueur_ != _taker && !_called.containsObj(joueur_)
+                        && _smallBound.get(joueur_)) {
                     scorePreneurSansAnnonces_ -= BonusTarot.SMALL_BOUND
                             .getPoints();
                 }
@@ -328,18 +349,28 @@ public final class EndTarotGame {
 
     }
     private void feedMiseres(TreeMap<Miseres, Short> _miseres,int _player, int _rate) {
-        for (Miseres m : declaresMiseres.get(_player)) {
+        feedMiseres(_miseres, _player, _rate, declaresMiseres);
+    }
+
+    static void feedMiseres(TreeMap<Miseres, Short> _miseres, int _player, int _rate, CustList<EnumList<Miseres>> _declaresMiseres) {
+        for (Miseres m : _declaresMiseres.get(_player)) {
             _miseres.put(m,
                     (short) (_rate*m.getPoints()));
         }
     }
+
     public CustList<TreeMap<Handfuls,Short>> getHandfulsPointsForTaker(short _pointsTakerWithoutDeclaring) {
 
-        CustList<TreeMap<Handfuls,Short>> scores1_ = new CustList<TreeMap<Handfuls,Short>>();
         byte nombreDeJoueurs_ = relations.getNombreDeJoueurs();
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreDeJoueurs_; joueur_++) {
+        return getHandfulsPointsForTaker(_pointsTakerWithoutDeclaring, nombreDeJoueurs_, declaresHandfuls);
+
+    }
+
+    static CustList<TreeMap<Handfuls, Short>> getHandfulsPointsForTaker(short _pointsTakerWithoutDeclaring, byte _nombreDeJoueurs, CustList<EnumList<Handfuls>> _declaresHandfuls) {
+        CustList<TreeMap<Handfuls,Short>> scores1_ = new CustList<TreeMap<Handfuls,Short>>();
+        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreDeJoueurs; joueur_++) {
             scores1_.add(new TreeMap<Handfuls,Short>(new HandfulComparator()));
-            for (Handfuls poignee_ : declaresHandfuls.get(joueur_)) {
+            for (Handfuls poignee_ : _declaresHandfuls.get(joueur_)) {
                 if (_pointsTakerWithoutDeclaring >= 0) {
                     scores1_.last().put(poignee_,
                             (short) poignee_.getPoints());
@@ -350,15 +381,17 @@ public final class EndTarotGame {
             }
         }
         return scores1_;
-
     }
 
     public short additionnalBonusesAttack(BidTarot _bid) {
         short primesSupplementaires_ =0;
-        Bytes defs_ = relations.adversaires(relations.getTaker(),GameTarotTeamsRelation.tousJoueurs(relations.getNombreDeJoueurs()));
+        byte taker_ = relations.getTaker();
+        Bytes defs_ = relations.adversaires(taker_,GameTarotTeamsRelation.tousJoueurs(relations.getNombreDeJoueurs()));
         CustList<TrickTarot> tricks_ = getWonTricksListTeam(tricks,defs_);
-        if (_bid == BidTarot.SLAM || declaresSlam.get(relations.getTaker())) {
-            if (tricks_.isEmpty()) {
+        boolean noTr_ = tricks_.isEmpty();
+        boolean declSlam_ = declaresSlam.get(taker_);
+        if (_bid == BidTarot.SLAM || declSlam_) {
+            if (noTr_) {
                 primesSupplementaires_ = (short) BonusTarot.SLAM
                         .getPoints();
             } else {
@@ -367,7 +400,7 @@ public final class EndTarotGame {
             }
             return primesSupplementaires_;
         }
-        if (tricks_.isEmpty()) {
+        if (noTr_) {
             primesSupplementaires_ = (short) (BonusTarot.SLAM
                     .getPoints() / 2);
         }
@@ -484,16 +517,7 @@ public final class EndTarotGame {
 
 
         short nombreBouts_ = nombreDeBoutsJoueur(_joueur);
-        if (nombreBouts_ == 0) {
-            return NO_OUDLER_PTS;
-        }
-        if (nombreBouts_ == 1) {
-            return ONE_OUDLER_PTS;
-        }
-        if (nombreBouts_ == 2) {
-            return TWO_OUDLERS_PTS;
-        }
-        return ALL_OUDLERS_PTS;
+        return oulderPoints.get(nombreBouts_);
     }
 
     public short nombreDeBoutsJoueur(byte _joueur) {
@@ -1578,18 +1602,9 @@ public final class EndTarotGame {
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
             scores_.add((short)0);
         }
-        byte nombrePointsChien_ = 0;
-        for (TrickTarot t: tricks) {
-            if (t.getVuParToutJoueur()) {
-                continue;
-            }
-            for (CardTarot c: t) {
-                nombrePointsChien_ += c.points();
-            }
-        }
         byte parite_;
-        if ((_differenceMaxDouble + nombrePointsChien_) / 2 * 2 == _differenceMaxDouble
-                + nombrePointsChien_) {
+        if ((_differenceMaxDouble + nombrePointsChien) / 2 * 2 == _differenceMaxDouble
+                + nombrePointsChien) {
             parite_ = 0;
         } else {
             parite_ = 1;
@@ -1597,7 +1612,7 @@ public final class EndTarotGame {
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
             scores_.set(joueur_,
                     (short) (4 * (_coefficients.get(joueur_) * (PTS_BASE + (_differenceMaxDouble
-                            + nombrePointsChien_ + parite_) / 2))));
+                            + nombrePointsChien + parite_) / 2))));
         }
         return scores_;
 
@@ -1605,23 +1620,14 @@ public final class EndTarotGame {
     }
 
     public short differenceMax(short _differenceMaxDouble) {
-        byte nombrePointsChien_ = 0;
-        for (TrickTarot t: tricks) {
-            if (t.getVuParToutJoueur()) {
-                continue;
-            }
-            for (CardTarot c: t) {
-                nombrePointsChien_ += c.points();
-            }
-        }
         byte parite_;
-        if ((_differenceMaxDouble + nombrePointsChien_) / 2 * 2 == _differenceMaxDouble
-                + nombrePointsChien_) {
+        if ((_differenceMaxDouble + nombrePointsChien) / 2 * 2 == _differenceMaxDouble
+                + nombrePointsChien) {
             parite_ = 0;
         } else {
             parite_ = 1;
         }
-        return (short) ((_differenceMaxDouble + nombrePointsChien_ + parite_) / 2);
+        return (short) ((_differenceMaxDouble + nombrePointsChien + parite_) / 2);
     }
 
     public Shorts calculerScoresJoueurs(Shorts _coefficients,
@@ -1632,22 +1638,13 @@ public final class EndTarotGame {
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
             scores_.add((short)0);
         }
-        byte nombrePointsChien_ = CustList.SIZE_EMPTY;
         byte joueur2_;
         short pointsAnnoncesJoueur_;
         short pointsAnnoncesAutresJoueurs_;
         short sommePrimeSupplementaire_;
-        for (TrickTarot t: tricks) {
-            if (t.getVuParToutJoueur()) {
-                continue;
-            }
-            for (CardTarot c: t) {
-                nombrePointsChien_ += c.points();
-            }
-        }
         byte parite_;
-        if ((_differenceMaxDouble + nombrePointsChien_) / 2 * 2 == _differenceMaxDouble
-                + nombrePointsChien_) {
+        if ((_differenceMaxDouble + nombrePointsChien) / 2 * 2 == _differenceMaxDouble
+                + nombrePointsChien) {
             parite_ = 0;
         } else {
             parite_ = 1;
@@ -1700,7 +1697,7 @@ public final class EndTarotGame {
             }
             scores_.set(joueur_,
                     (short) (4 * (_coefficients.get(joueur_) * (PTS_BASE + (_differenceMaxDouble
-                            + nombrePointsChien_ + parite_) / 2)
+                            + nombrePointsChien + parite_) / 2)
                             + (nombreJoueurs_ - 1) * (pointsAnnoncesJoueur_ + _primeSupplementaire.get(joueur_))
                             - pointsAnnoncesAutresJoueurs_ - sommePrimeSupplementaire_)));
         }
