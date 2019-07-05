@@ -69,6 +69,7 @@ final class ResultsTarotBean extends TarotBean {
         if(!getGame().getTricks().isEmpty()) {
             if(getBid().isJouerDonne()) {
                 EndTarotGame end_ = getGame().getEndTarotGame();
+                end_.setupSlams();
                 doubledScoreTaker_=end_.scorePreneurPlisDouble(getBid());
                 numberOudlersTaker=end_.nombreBoutsPreneur(getBid());
                 needlyScoresTaker=end_.scoreNecessairePreneur(getBid());

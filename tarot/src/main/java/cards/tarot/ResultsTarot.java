@@ -54,6 +54,7 @@ public final class ResultsTarot {
         if(!game.getTricks().isEmpty()) {
             if(contrat_.isJouerDonne()) {
                 EndTarotGame end_ = game.getEndTarotGame();
+                end_.setupSlams();
                 miseresTaker_ = end_.getMiseresPointsForTaker();
                 doubledScoreTaker_=end_.scorePreneurPlisDouble(contrat_);
                 needlyScoresTaker_=end_.scoreNecessairePreneur(contrat_);

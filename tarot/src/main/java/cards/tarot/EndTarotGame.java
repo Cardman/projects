@@ -45,6 +45,8 @@ public final class EndTarotGame {
     private Ints firstTrick = new Ints();
     private Shorts oulderPoints = new Shorts();
     private byte nombrePointsChien;
+    private boolean slamTaker;
+    private boolean slamDefense;
 
     public EndTarotGame(GameTarotTeamsRelation _relations, CustList<TrickTarot> _tricks,
                         CustList<EnumList<Handfuls>> _declaresHandfuls,
@@ -78,6 +80,12 @@ public final class EndTarotGame {
             firstTrick.add(indexOfFirstTrick(tricks,i,relations));
             wonPlayersTeam.add(getWonTricksTeam(i));
         }
+    }
+    public void setupSlams() {
+        slamDefense = getWonTricksListTeam(relations.getTaker()).isEmpty();
+        byte taker_ = relations.getTaker();
+        Bytes defs_ = relations.adversaires(taker_,GameTarotTeamsRelation.tousJoueurs(relations.getNombreDeJoueurs()));
+        slamTaker = getWonTricksListTeam(tricks,defs_).isEmpty();
     }
     public short scorePreneurPlisDouble(BidTarot _bid) {
         short nbPointsAtt_ = 0;
@@ -386,12 +394,9 @@ public final class EndTarotGame {
     public short additionnalBonusesAttack(BidTarot _bid) {
         short primesSupplementaires_ =0;
         byte taker_ = relations.getTaker();
-        Bytes defs_ = relations.adversaires(taker_,GameTarotTeamsRelation.tousJoueurs(relations.getNombreDeJoueurs()));
-        CustList<TrickTarot> tricks_ = getWonTricksListTeam(tricks,defs_);
-        boolean noTr_ = tricks_.isEmpty();
         boolean declSlam_ = declaresSlam.get(taker_);
         if (_bid == BidTarot.SLAM || declSlam_) {
-            if (noTr_) {
+            if (slamTaker) {
                 primesSupplementaires_ = (short) BonusTarot.SLAM
                         .getPoints();
             } else {
@@ -400,7 +405,7 @@ public final class EndTarotGame {
             }
             return primesSupplementaires_;
         }
-        if (noTr_) {
+        if (slamTaker) {
             primesSupplementaires_ = (short) (BonusTarot.SLAM
                     .getPoints() / 2);
         }
@@ -408,7 +413,7 @@ public final class EndTarotGame {
     }
     public short additionnalBonusesDefense() {
         short primesSupplementaires_ = 0;
-        if (getWonTricksListTeam(relations.getTaker()).isEmpty()) {
+        if (slamDefense) {
             primesSupplementaires_ = (short) (BonusTarot.SLAM
                     .getPoints() / 2);
         }
@@ -1655,43 +1660,33 @@ public final class EndTarotGame {
             joueur2_ = 0;
             sommePrimeSupplementaire_ = 0;
             for (EnumMap<Handfuls,Short> annoncesJoueur_ : calculHandfulsScorePlayer(joueur_)) {
+                CustList<Short> values_ = annoncesJoueur_.values();
                 if (!relations.memeEquipe(joueur2_, joueur_)) {
-                    for (short pointsAnnonce_ : annoncesJoueur_.values()) {
-                        pointsAnnoncesAutresJoueurs_ += pointsAnnonce_;
-                    }
+                    pointsAnnoncesAutresJoueurs_ += sum(values_);
                     sommePrimeSupplementaire_ += _primeSupplementaire.get(joueur2_);
                 } else {
-                    for (short pointsAnnonce_ : annoncesJoueur_.values()) {
-                        pointsAnnoncesJoueur_ += pointsAnnonce_;
-                    }
+                    pointsAnnoncesJoueur_ += sum(values_);
                 }
                 joueur2_++;
             }
             joueur2_ = 0;
             for (EnumMap<Miseres,Short> annoncesJoueur_ : calculMiseresScorePlayer(joueur_)) {
+                CustList<Short> values_ = annoncesJoueur_.values();
                 if (!relations.memeEquipe(joueur2_, joueur_)) {
-                    for (short pointsAnnonce_ : annoncesJoueur_.values()) {
-                        pointsAnnoncesAutresJoueurs_ += pointsAnnonce_;
-                    }
+                    pointsAnnoncesAutresJoueurs_ += sum(values_);
                     sommePrimeSupplementaire_ += _primeSupplementaire.get(joueur2_);
                 } else {
-                    for (short pointsAnnonce_ : annoncesJoueur_.values()) {
-                        pointsAnnoncesJoueur_ += pointsAnnonce_;
-                    }
+                    pointsAnnoncesJoueur_ += sum(values_);
                 }
                 joueur2_++;
             }
             joueur2_ = 0;
             for (Shorts annoncesJoueur_ : calculSmallLastTurnScorePlayer(joueur_)) {
                 if (!relations.memeEquipe(joueur2_, joueur_)) {
-                    for (short pointsAnnonce_ : annoncesJoueur_) {
-                        pointsAnnoncesAutresJoueurs_ += pointsAnnonce_;
-                    }
+                    pointsAnnoncesAutresJoueurs_ += sum(annoncesJoueur_);
                     sommePrimeSupplementaire_ += _primeSupplementaire.get(joueur2_);
                 } else {
-                    for (short pointsAnnonce_ : annoncesJoueur_) {
-                        pointsAnnoncesJoueur_ += pointsAnnonce_;
-                    }
+                    pointsAnnoncesJoueur_ += sum(annoncesJoueur_);
                 }
                 joueur2_++;
             }
@@ -1704,6 +1699,13 @@ public final class EndTarotGame {
         return scores_;
     }
 
+    static short sum(CustList<Short> _ls) {
+        short s_ = 0;
+        for (short s: _ls) {
+            s_ += s;
+        }
+        return s_;
+    }
     private CustList<TrickTarot> getWonTricksListTeam(byte _player) {
         Bytes team_ = relations.coequipiers(_player, GameTarotTeamsRelation.tousJoueurs(relations.getNombreDeJoueurs()));
         team_.add(_player);
