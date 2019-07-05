@@ -16,7 +16,7 @@ public final class GameBeloteTeamsRelation {
     byte playerAfter(byte _player) {
         return rules.getRepartition().getNextPlayer(_player);
     }
-    public Bytes adversaires(byte _numero) {
+    Bytes adversaires(byte _numero) {
         Bytes adversaires_ = new Bytes();
         byte player_ = playerAfter(_numero);
         adversaires_.add(player_);
@@ -43,18 +43,6 @@ public final class GameBeloteTeamsRelation {
         return Status.DEFENDER;
     }
 
-    static boolean contientJoueurs(Bytes _joueurs1, Bytes _joueurs2) {
-        for (byte e: _joueurs2) {
-            if (!_joueurs1.contains(e)) {
-                return false;
-            }
-        }
-        return true;
-    }
-    /**@throws NullPointerException si un des arguments est null*/
-    static boolean egaliteJoueurs(Bytes _joueurs1, Bytes _joueurs2) {
-        return Numbers.equalsSetBytes(_joueurs1,_joueurs2);
-    }
     boolean isSameTeam(Bytes _players) {
         int nbPlayers_ = _players.size();
         for (byte i = CustList.SECOND_INDEX; i<nbPlayers_; i++) {
@@ -70,7 +58,7 @@ public final class GameBeloteTeamsRelation {
         }
         return !aPourDefenseur(_numero2);
     }
-    public CustList<Bytes> playersBelongingToSameTeam() {
+    CustList<Bytes> playersBelongingToSameTeam() {
         CustList<Bytes> teams_ = new CustList<Bytes>();
         Bytes takerTeam_ = partenaires(taker);
         takerTeam_.add(taker);

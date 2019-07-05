@@ -348,9 +348,7 @@ public final class DealTarot implements Iterable<HandTarot> {
     void ajouterCartes(byte _joueur,HandTarot _main) {
         deal.get(_joueur).ajouterCartes(_main);
     }
-    void ajouterCartesUtilisateur(HandTarot _main) {
-        deal.get(NUMERO_UTILISATEUR).ajouterCartes(_main);
-    }
+
     void supprimerCartes(byte _joueur) {
         deal.get(_joueur).supprimerCartes();
     }

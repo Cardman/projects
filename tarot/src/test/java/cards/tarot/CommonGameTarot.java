@@ -276,7 +276,7 @@ public abstract class CommonGameTarot {
         return new TrickTarot((byte) getTaker(_rules,_deal,_bids),false);
     }
     protected TrickTarot newClassicTrick(CustList<TrickTarot> _tr, RulesTarot _rules, byte _deal) {
-        if (_tr.isEmpty()) {
+        if (_tr.isEmpty() || !_tr.last().getVuParToutJoueur()) {
             return new TrickTarot(_rules.getDealing().getNextPlayer(_deal),true);
         }
         return new TrickTarot(_tr.last().getRamasseur(),true);

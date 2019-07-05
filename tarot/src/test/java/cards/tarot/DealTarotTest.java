@@ -98,7 +98,7 @@ public class DealTarotTest {
     }
 
     @Test
-    public void donnerSansBattre1Test(){
+    public void initDonne1Test(){
         HandTarot main_ = initPileTarot();
         DealTarot donne_ = new DealTarot(0, main_);
         RulesTarot regles_ = new RulesTarot();
@@ -184,6 +184,66 @@ public class DealTarotTest {
         assertTrue(donne_.derniereMain().contient(CardTarot.TRUMP_19));
         assertTrue(donne_.derniereMain().contient(CardTarot.TRUMP_6));
         assertTrue(donne_.derniereMain().contient(CardTarot.HEART_10));
+    }
+
+    @Test
+    public void initDonne2Test() {
+        HandTarot main_ = initPileTarot();
+        DealTarot donne_ = new DealTarot(1, main_);
+        RulesTarot regles_ = new RulesTarot();
+        regles_.setRepartition(DealingTarot.DEAL_1_VS_2);
+        regles_.setCartesBattues(MixCardsChoice.ONCE_ONLY);
+        donne_.initDonneur((byte) 1);
+        donne_.initDonne(regles_);
+        assertEq(24, donne_.main().total());
+    }
+
+    @Test
+    public void initDonne3Test() {
+        HandTarot main_ = initPileTarot();
+        DealTarot donne_ = new DealTarot(0, main_);
+        RulesTarot regles_ = new RulesTarot();
+        regles_.setRepartition(DealingTarot.DEAL_1_VS_2);
+        regles_.setCartesBattues(MixCardsChoice.ONCE_ONLY);
+        donne_.initDonneur((byte) 1);
+        donne_.initDonne(regles_);
+        assertEq(24, donne_.main().total());
+    }
+
+    @Test
+    public void initDonne4Test() {
+        HandTarot main_ = initPileTarot();
+        DealTarot donne_ = new DealTarot(1, main_);
+        RulesTarot regles_ = new RulesTarot();
+        regles_.setRepartition(DealingTarot.DEAL_1_VS_2);
+        regles_.setCartesBattues(MixCardsChoice.EACH_LAUNCHING);
+        donne_.initDonneur((byte) 1);
+        donne_.initDonne(regles_);
+        assertEq(24, donne_.main().total());
+    }
+
+    @Test
+    public void initDonne5Test() {
+        HandTarot main_ = initPileTarot();
+        DealTarot donne_ = new DealTarot(0, main_);
+        RulesTarot regles_ = new RulesTarot();
+        regles_.setRepartition(DealingTarot.DEAL_1_VS_2);
+        regles_.setCartesBattues(MixCardsChoice.EACH_LAUNCHING);
+        donne_.initDonneur((byte) 1);
+        donne_.initDonne(regles_);
+        assertEq(24, donne_.main().total());
+    }
+
+    @Test
+    public void initDonne6Test() {
+        HandTarot main_ = initPileTarot();
+        DealTarot donne_ = new DealTarot(0, main_);
+        RulesTarot regles_ = new RulesTarot();
+        regles_.setRepartition(DealingTarot.DEAL_1_VS_2);
+        regles_.setCartesBattues(MixCardsChoice.EACH_DEAL);
+        donne_.initDonneur((byte) 1);
+        donne_.initDonne(regles_);
+        assertEq(24, donne_.main().total());
     }
     @Test
     public void chosenTrumps1Test(){
