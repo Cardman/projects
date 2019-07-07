@@ -1,12 +1,16 @@
 package cards.tarot;
 
+import cards.consts.EndGameState;
 import cards.consts.GameType;
+import cards.consts.Status;
 import cards.tarot.comparators.MiseresComparator;
 import cards.tarot.enumerations.*;
+import code.maths.Rate;
 import code.util.*;
 import org.junit.Test;
 
 import static cards.tarot.EquallableTarotUtil.assertEq;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -3695,6 +3699,430 @@ public final class EndTarotGameTest extends CommonGameTarot {
         assertEq(10, tr_.getValue(0));
         assertEq(10, tr_.getValue(1));
         assertEq(5, tr_.getValue(2));
+    }
+    @Test
+    public void additionnalBonusesAttack1Test() {
+        BooleanList s_ = new BooleanList();
+        s_.add(false);
+        s_.add(false);
+        s_.add(false);
+        assertEq(400, EndTarotGame.additionnalBonusesAttack(BidTarot.SLAM,(byte)2,s_,true));
+    }
+    @Test
+    public void additionnalBonusesAttack2Test() {
+        BooleanList s_ = new BooleanList();
+        s_.add(false);
+        s_.add(false);
+        s_.add(true);
+        assertEq(400, EndTarotGame.additionnalBonusesAttack(BidTarot.GUARD_AGAINST,(byte)2,s_,true));
+    }
+    @Test
+    public void additionnalBonusesAttack3Test() {
+        BooleanList s_ = new BooleanList();
+        s_.add(false);
+        s_.add(false);
+        s_.add(false);
+        assertEq(-200, EndTarotGame.additionnalBonusesAttack(BidTarot.SLAM,(byte)2,s_,false));
+    }
+    @Test
+    public void additionnalBonusesAttack4Test() {
+        BooleanList s_ = new BooleanList();
+        s_.add(false);
+        s_.add(false);
+        s_.add(true);
+        assertEq(-200, EndTarotGame.additionnalBonusesAttack(BidTarot.GUARD_AGAINST,(byte)2,s_,false));
+    }
+    @Test
+    public void additionnalBonusesAttack5Test() {
+        BooleanList s_ = new BooleanList();
+        s_.add(false);
+        s_.add(false);
+        s_.add(false);
+        assertEq(200, EndTarotGame.additionnalBonusesAttack(BidTarot.GUARD_AGAINST,(byte)2,s_,true));
+    }
+    @Test
+    public void additionnalBonusesAttack6Test() {
+        BooleanList s_ = new BooleanList();
+        s_.add(false);
+        s_.add(false);
+        s_.add(false);
+        assertEq(0, EndTarotGame.additionnalBonusesAttack(BidTarot.GUARD_AGAINST,(byte)2,s_,false));
+    }
+    @Test
+    public void additionnalBonusesDefense1Test() {
+        assertEq(200, EndTarotGame.additionnalBonusesDefense(true));
+    }
+    @Test
+    public void additionnalBonusesDefense2Test() {
+        assertEq(0, EndTarotGame.additionnalBonusesDefense(false));
+    }
+    @Test
+    public void temporarySum1Test() {
+        CustList<EnumList<Miseres>> miseres_ = new CustList<EnumList<Miseres>>();
+        EnumList<Miseres> m_ = new EnumList<Miseres>();
+        m_.add(Miseres.TRUMP);
+        m_.add(Miseres.POINT);
+        m_.add(Miseres.CHARACTER);
+        miseres_.add(m_);
+        m_ = new EnumList<Miseres>();
+        miseres_.add(m_);
+        m_ = new EnumList<Miseres>();
+        miseres_.add(m_);
+        TreeMap<Miseres, Short> trOne_ = new TreeMap<Miseres, Short>(new MiseresComparator());
+        EndTarotGame.feedMiseres(trOne_,0,1,miseres_);
+        TreeMap<Miseres, Short> trTwo_ = new TreeMap<Miseres, Short>(new MiseresComparator());
+        EndTarotGame.feedMiseres(trTwo_,1,-1,miseres_);
+        TreeMap<Miseres, Short> trThree_ = new TreeMap<Miseres, Short>(new MiseresComparator());
+        EndTarotGame.feedMiseres(trThree_,2,-1,miseres_);
+        CustList<TreeMap<Miseres, Short>> miseresList_ = new CustList<TreeMap<Miseres, Short>>();
+        miseresList_.add(trOne_);
+        miseresList_.add(trTwo_);
+        miseresList_.add(trThree_);
+        CustList<EnumList<Handfuls>> handfuls_ = new CustList<EnumList<Handfuls>>();
+        EnumList<Handfuls> h_ = new EnumList<Handfuls>();
+        h_.add(Handfuls.ONE);
+        handfuls_.add(h_);
+        h_ = new EnumList<Handfuls>();
+        handfuls_.add(h_);
+        h_ = new EnumList<Handfuls>();
+        handfuls_.add(h_);
+        CustList<TreeMap<Handfuls, Short>> handfulsList_ = EndTarotGame.getHandfulsPointsForTaker((short) 100, (byte) 3, handfuls_);
+        assertEq(295,EndTarotGame.temporarySum(BidTarot.GUARD,(short)100,miseresList_,handfulsList_,(short)100,(short)50));
+    }
+    @Test
+    public void temporarySum2Test() {
+        CustList<EnumList<Miseres>> miseres_ = new CustList<EnumList<Miseres>>();
+        EnumList<Miseres> m_ = new EnumList<Miseres>();
+        m_.add(Miseres.TRUMP);
+        m_.add(Miseres.POINT);
+        m_.add(Miseres.CHARACTER);
+        miseres_.add(m_);
+        m_ = new EnumList<Miseres>();
+        miseres_.add(m_);
+        m_ = new EnumList<Miseres>();
+        miseres_.add(m_);
+        TreeMap<Miseres, Short> trOne_ = new TreeMap<Miseres, Short>(new MiseresComparator());
+        EndTarotGame.feedMiseres(trOne_,0,1,miseres_);
+        TreeMap<Miseres, Short> trTwo_ = new TreeMap<Miseres, Short>(new MiseresComparator());
+        EndTarotGame.feedMiseres(trTwo_,1,-1,miseres_);
+        TreeMap<Miseres, Short> trThree_ = new TreeMap<Miseres, Short>(new MiseresComparator());
+        EndTarotGame.feedMiseres(trThree_,2,-1,miseres_);
+        CustList<TreeMap<Miseres, Short>> miseresList_ = new CustList<TreeMap<Miseres, Short>>();
+        miseresList_.add(trOne_);
+        miseresList_.add(trTwo_);
+        miseresList_.add(trThree_);
+        CustList<EnumList<Handfuls>> handfuls_ = new CustList<EnumList<Handfuls>>();
+        EnumList<Handfuls> h_ = new EnumList<Handfuls>();
+        h_.add(Handfuls.ONE);
+        handfuls_.add(h_);
+        h_ = new EnumList<Handfuls>();
+        handfuls_.add(h_);
+        h_ = new EnumList<Handfuls>();
+        handfuls_.add(h_);
+        CustList<TreeMap<Handfuls, Short>> handfulsList_ = EndTarotGame.getHandfulsPointsForTaker((short) 100, (byte) 3, handfuls_);
+        assertEq(0,EndTarotGame.temporarySum(BidTarot.GUARD,(short)0,miseresList_,handfulsList_,(short)100,(short)50));
+    }
+    @Test
+    public void coefficientsRepartition1Test() {
+        RulesTarot r_ = new RulesTarot();
+        r_.setDealing(DealingTarot.DEAL_1_VS_2);
+        CustList<BooleanList> conf_ = getConf(BidTarot.GUARD, r_, 0);
+        Bytes called_ = new Bytes();
+        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        assertEq(2, rates_.size());
+        assertEq(new Rate(2),rates_.getVal(Status.TAKER));
+        assertEq(new Rate(-1),rates_.getVal(Status.DEFENDER));
+    }
+    @Test
+    public void coefficientsRepartition2Test() {
+        RulesTarot r_ = new RulesTarot();
+        r_.setDealing(DealingTarot.DEAL_1_VS_3);
+        CustList<BooleanList> conf_ = getConf(BidTarot.GUARD, r_, 0);
+        Bytes called_ = new Bytes();
+        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        assertEq(2, rates_.size());
+        assertEq(new Rate(3),rates_.getVal(Status.TAKER));
+        assertEq(new Rate(-1),rates_.getVal(Status.DEFENDER));
+    }
+    @Test
+    public void coefficientsRepartition3Test() {
+        RulesTarot r_ = new RulesTarot();
+        r_.setDealing(DealingTarot.DEAL_2_VS_2_WITHOUT_CALL);
+        CustList<BooleanList> conf_ = getConf(BidTarot.GUARD, r_, 0);
+        Bytes called_ = new Bytes();
+        called_.add((byte)2);
+        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        assertEq(3, rates_.size());
+        assertEq(new Rate(1),rates_.getVal(Status.TAKER));
+        assertEq(new Rate(1),rates_.getVal(Status.CALLED_PLAYER));
+        assertEq(new Rate(-1),rates_.getVal(Status.DEFENDER));
+    }
+    @Test
+    public void coefficientsRepartition4Test() {
+        RulesTarot r_ = new RulesTarot();
+        r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
+        CustList<BooleanList> conf_ = getConf(BidTarot.GUARD, r_, 0);
+        Bytes called_ = new Bytes();
+        called_.add((byte)1);
+        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        assertEq(3, rates_.size());
+        assertEq(new Rate(3,2),rates_.getVal(Status.TAKER));
+        assertEq(new Rate(1,2),rates_.getVal(Status.CALLED_PLAYER));
+        assertEq(new Rate(-1),rates_.getVal(Status.DEFENDER));
+    }
+    @Test
+    public void coefficientsRepartition5Test() {
+        RulesTarot r_ = new RulesTarot();
+        r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
+        CustList<BooleanList> conf_ = getConf(BidTarot.GUARD, r_, 0);
+        Bytes called_ = new Bytes();
+        called_.add((byte)0);
+        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        assertEq(2, rates_.size());
+        assertEq(new Rate(3),rates_.getVal(Status.TAKER));
+        assertEq(new Rate(-1),rates_.getVal(Status.DEFENDER));
+    }
+    @Test
+    public void coefficientsRepartition6Test() {
+        RulesTarot r_ = new RulesTarot();
+        r_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
+        CustList<BooleanList> conf_ = getConf(BidTarot.GUARD, r_, 0);
+        Bytes called_ = new Bytes();
+        called_.add((byte)1);
+        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        assertEq(3, rates_.size());
+        assertEq(new Rate(2),rates_.getVal(Status.TAKER));
+        assertEq(new Rate(1),rates_.getVal(Status.CALLED_PLAYER));
+        assertEq(new Rate(-1),rates_.getVal(Status.DEFENDER));
+    }
+    @Test
+    public void coefficientsRepartition7Test() {
+        RulesTarot r_ = new RulesTarot();
+        r_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
+        CustList<BooleanList> conf_ = getConf(BidTarot.GUARD, r_, 0);
+        Bytes called_ = new Bytes();
+        called_.add((byte)0);
+        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        assertEq(2, rates_.size());
+        assertEq(new Rate(4),rates_.getVal(Status.TAKER));
+        assertEq(new Rate(-1),rates_.getVal(Status.DEFENDER));
+    }
+    @Test
+    public void coefficientsRepartition8Test() {
+        RulesTarot r_ = new RulesTarot();
+        r_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        CustList<BooleanList> conf_ = getConf(BidTarot.GUARD, r_, 0);
+        Bytes called_ = new Bytes();
+        called_.add((byte)3);
+        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        assertEq(3, rates_.size());
+        assertEq(new Rate(2),rates_.getVal(Status.TAKER));
+        assertEq(new Rate(2),rates_.getVal(Status.CALLED_PLAYER));
+        assertEq(new Rate(-1),rates_.getVal(Status.DEFENDER));
+    }
+    @Test
+    public void coefficientsRepartition9Test() {
+        RulesTarot r_ = new RulesTarot();
+        r_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
+        CustList<BooleanList> conf_ = getConf(BidTarot.GUARD, r_, 0);
+        Bytes called_ = new Bytes();
+        called_.add((byte)1);
+        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        assertEq(3, rates_.size());
+        assertEq(new Rate(3),rates_.getVal(Status.TAKER));
+        assertEq(new Rate(1),rates_.getVal(Status.CALLED_PLAYER));
+        assertEq(new Rate(-1),rates_.getVal(Status.DEFENDER));
+    }
+    @Test
+    public void coefficientsRepartition10Test() {
+        RulesTarot r_ = new RulesTarot();
+        r_.setDealing(DealingTarot.DEAL_2_VS_4_CALL_KING);
+        CustList<BooleanList> conf_ = getConf(BidTarot.GUARD, r_, 0);
+        Bytes called_ = new Bytes();
+        called_.add((byte)0);
+        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        assertEq(2, rates_.size());
+        assertEq(new Rate(5),rates_.getVal(Status.TAKER));
+        assertEq(new Rate(-1),rates_.getVal(Status.DEFENDER));
+    }
+    @Test
+    public void calculateScores1Test() {
+        RulesTarot r_ = new RulesTarot();
+        r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
+        CustList<BooleanList> conf_ = getConf(BidTarot.GUARD, r_, 0);
+        Bytes called_ = new Bytes();
+        called_.add((byte)1);
+        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        Shorts scores_ = EndTarotGame.calculateScores(rates_, (short) 100, (short) 10, g_);
+        assertEq(4, scores_.size());
+        assertEq(150,scores_.get(0));
+        assertEq(50,scores_.get(1));
+        assertEq(-100,scores_.get(2));
+        assertEq(-100,scores_.get(3));
+    }
+    @Test
+    public void calculateScores2Test() {
+        RulesTarot r_ = new RulesTarot();
+        r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
+        CustList<BooleanList> conf_ = getConf(BidTarot.GUARD, r_, 0);
+        Bytes called_ = new Bytes();
+        called_.add((byte)1);
+        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        Shorts scores_ = EndTarotGame.calculateScores(rates_, (short) 99, (short) 10, g_);
+        assertEq(4, scores_.size());
+        assertEq(149,scores_.get(0));
+        assertEq(49,scores_.get(1));
+        assertEq(-99,scores_.get(2));
+        assertEq(-99,scores_.get(3));
+    }
+    @Test
+    public void calculateScores3Test() {
+        RulesTarot r_ = new RulesTarot();
+        r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
+        CustList<BooleanList> conf_ = getConf(BidTarot.GUARD, r_, 0);
+        Bytes called_ = new Bytes();
+        called_.add((byte)1);
+        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        Shorts scores_ = EndTarotGame.calculateScores(rates_, (short) -100, (short) -10, g_);
+        assertEq(4, scores_.size());
+        assertEq(-150,scores_.get(0));
+        assertEq(-50,scores_.get(1));
+        assertEq(100,scores_.get(2));
+        assertEq(100,scores_.get(3));
+    }
+    @Test
+    public void calculateScores4Test() {
+        RulesTarot r_ = new RulesTarot();
+        r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
+        CustList<BooleanList> conf_ = getConf(BidTarot.GUARD, r_, 0);
+        Bytes called_ = new Bytes();
+        called_.add((byte)1);
+        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        Shorts scores_ = EndTarotGame.calculateScores(rates_, (short) -99, (short) -10, g_);
+        assertEq(4, scores_.size());
+        assertEq(-149,scores_.get(0));
+        assertEq(-49,scores_.get(1));
+        assertEq(99,scores_.get(2));
+        assertEq(99,scores_.get(3));
+    }
+    @Test
+    public void calculateScores5Test() {
+        RulesTarot r_ = new RulesTarot();
+        r_.setDealing(DealingTarot.DEAL_2_VS_2_CALL_KING);
+        CustList<BooleanList> conf_ = getConf(BidTarot.GUARD, r_, 0);
+        Bytes called_ = new Bytes();
+        called_.add((byte)1);
+        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)0, called_,conf_,r_);
+        AbsMap<Status,Rate> rates_ = EndTarotGame.coefficientsRepartition(g_);
+        Shorts scores_ = EndTarotGame.calculateScores(rates_, (short) 0, (short) 0, g_);
+        assertEq(4, scores_.size());
+        assertEq(0,scores_.get(0));
+        assertEq(0,scores_.get(1));
+        assertEq(0,scores_.get(2));
+        assertEq(0,scores_.get(3));
+    }
+    @Test
+    public void getUserState1Test() {
+        assertSame(EndGameState.WIN,EndTarotGame.getUserState((short) 10,false));
+    }
+    @Test
+    public void getUserState2Test() {
+        assertSame(EndGameState.EQUALLITY,EndTarotGame.getUserState((short) 0,false));
+    }
+    @Test
+    public void getUserState3Test() {
+        assertSame(EndGameState.LOOSE,EndTarotGame.getUserState((short) -10,false));
+    }
+    @Test
+    public void getUserState4Test() {
+        assertSame(EndGameState.LOOSE,EndTarotGame.getUserState((short) 10,true));
+    }
+    @Test
+    public void getUserState5Test() {
+        assertSame(EndGameState.EQUALLITY,EndTarotGame.getUserState((short) 0,true));
+    }
+    @Test
+    public void getUserState6Test() {
+        assertSame(EndGameState.WIN,EndTarotGame.getUserState((short) -10,true));
+    }
+    private static CustList<BooleanList> getConf(BidTarot _b, RulesTarot _r, int _taker){
+        CustList<BooleanList> confidence_ = new CustList<BooleanList>();
+        ModeTarot mode_ = _r.getMode();
+        boolean b_ = false;
+        if (mode_ == ModeTarot.NORMAL) {
+            b_ = true;
+        } else if (mode_ == ModeTarot.NORMAL_WITH_ONE_FOR_ONE) {
+            b_ = true;
+        } else if (mode_ == ModeTarot.NORMAL_WITH_MISERE) {
+            b_ = true;
+        }
+        byte nbPl_ = (byte) _r.getRepartition().getNombreJoueurs();
+        for (int i = 0; i< nbPl_; i++) {
+            BooleanList c_ = new BooleanList();
+            for (int j = 0; j< nbPl_; j++) {
+                c_.add(i == j);
+            }
+            confidence_.add(c_);
+        }
+        if (!b_ || !_b.isJouerDonne()) {
+            for (byte i = CustList.FIRST_INDEX; i < nbPl_; i++) {
+                for (byte p: _r.getRepartition().getAppelesDetermines(i)) {
+                    confidence_.get(i).set(p,true);
+                }
+                confidence_.get(i).set(i,true);
+            }
+        } else if (_r.getRepartition().getAppel() == CallingCard.DEFINED) {
+            Bytes attaquants_=_r.getRepartition().getAppelesDetermines((byte) _taker);
+            attaquants_.add((byte) _taker);
+            Bytes defenseurs_=GameTarotTeamsRelation.autresJoueurs(attaquants_, nbPl_);
+            for(byte j1_:attaquants_) {
+                for(byte j2_:attaquants_) {
+                    if(j1_==j2_) {
+                        continue;
+                    }
+                    confidence_.get(j1_).set(j2_,true);
+                }
+            }
+            for(byte j1_:defenseurs_) {
+                for(byte j2_:defenseurs_) {
+                    if(j1_==j2_) {
+                        continue;
+                    }
+                    confidence_.get(j1_).set(j2_,true);
+                }
+            }
+        } else if (_r.getRepartition().getAppel() == CallingCard.WITHOUT) {
+            Bytes defenseurs_=new Bytes();
+            for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nbPl_;joueur_++) {
+                if(joueur_==_taker) {
+                    continue;
+                }
+                defenseurs_.add(joueur_);
+            }
+            for(byte j1_:defenseurs_) {
+                for(byte j2_:defenseurs_) {
+                    if(j1_==j2_) {
+                        continue;
+                    }
+                    confidence_.get(j1_).set(j2_,true);
+                }
+            }
+        }
+        return confidence_;
     }
     private static EndTarotGame newEndTarotGame(RulesTarot _r, CustList<TrickTarot> _trs,
                                                 EqList<EnumList<Miseres>> _m, CustList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,

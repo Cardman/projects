@@ -144,16 +144,16 @@ public final class GamePresident {
         HandPresident userHand_ = new HandPresident();
         int noDeal_ = CustList.SIZE_EMPTY;
         while (noDeal_ < _nbTimes) {
-            HandPresident firstUserHand_ = deal.main();
+            HandPresident firstUserHand_ = new HandPresident(deal.main());
             initCartesEchanges();
             donnerMeilleuresCartes();
-            HandPresident secondUserHand_ = deal.main();
+            HandPresident secondUserHand_ = new HandPresident(deal.main());
             giveWorstCards();
             CustList<HandPresident> switchedCards_ = new CustList<HandPresident>();
             for (HandPresident p: switchedCards) {
                 switchedCards_.add(new HandPresident(p));
             }
-            HandPresident thirdUserHand_ = deal.main();
+            HandPresident thirdUserHand_ = new HandPresident(deal.main());
             if (allowSwitchCards() && noDeal_ > CustList.FIRST_INDEX) {
                 Bytes losers_ = GamePresident.getLoosers(ranks, nombresCartesEchangesMax());
                 Bytes winners_ = GamePresident.getWinners(ranks, nombresCartesEchangesMax());

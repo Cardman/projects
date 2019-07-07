@@ -240,7 +240,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         set_.add((byte) 1);
         assertTrue(!g_.isSameTeam(set_));
     }
-    static CustList<BooleanList> getConf(BidTarot _b, RulesTarot _r, int _taker){
+    private static CustList<BooleanList> getConf(BidTarot _b, RulesTarot _r, int _taker){
         CustList<BooleanList> confidence_ = new CustList<BooleanList>();
         ModeTarot mode_ = _r.getMode();
         boolean b_ = false;

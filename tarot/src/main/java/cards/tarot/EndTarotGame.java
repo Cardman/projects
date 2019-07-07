@@ -14,6 +14,7 @@ import cards.tarot.enumerations.EndDealTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.PlayingDog;
+import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.BooleanList;
 import code.util.CustList;
@@ -283,44 +284,45 @@ public final class EndTarotGame {
 
     public Shorts calculateScores(EnumMap<Status,Rate> _coefficientsRepartition,
                                 short _sommeTemporaire, short _scorePreneurSansAnnonces) {
+        return calculateScores(_coefficientsRepartition, _sommeTemporaire, _scorePreneurSansAnnonces, relations);
+    }
+
+    static Shorts calculateScores(AbsMap<Status, Rate> _coefficientsRepartition, short _sommeTemporaire, short _scorePreneurSansAnnonces, GameTarotTeamsRelation _relations) {
         Shorts scores_ = new Shorts();
-        byte nombreJoueurs_ = relations.getNombreDeJoueurs();
+        byte nombreJoueurs_ = _relations.getNombreDeJoueurs();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
             scores_.add((short) 0);
         }
-        byte parite_;
         if (_sommeTemporaire == 0) {
             for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
                 scores_.set( joueur_, (short) 0);
             }
         } else {
-            if (_sommeTemporaire / 2 * 2 == _sommeTemporaire) {
-                parite_ = 0;
-            } else {
-                parite_ = 1;
-            }
             for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
-                Status st_ = relations.statutDe(joueur_);
+                Status st_ = _relations.statutDe(joueur_);
                 Rate rate_ = _coefficientsRepartition.getVal(st_);
                 if (st_ == Status.DEFENDER) {
                     scores_.set(joueur_,
                             (short) Rate.multiply(rate_, new Rate(_sommeTemporaire)).ll());
                 } else if (st_ == Status.CALLED_PLAYER) {
-
                     Rate mult_ = Rate.multiply(new Rate(rate_.getNumeratorCopy()), new Rate(_sommeTemporaire));
-                    if (_scorePreneurSansAnnonces > 0) {
-                        mult_.removeNb(new Rate(parite_));
-                    } else {
-                        mult_.addNb(new Rate(parite_));
+                    if (!LgInt.remain(mult_.getNumeratorCopy(),rate_.getDenominatorCopy()).isZero()) {
+                        if (_scorePreneurSansAnnonces > 0) {
+                            mult_.removeNb(Rate.one());
+                        } else {
+                            mult_.addNb(Rate.one());
+                        }
                     }
                     mult_.divideBy(new Rate(rate_.getDenominatorCopy()));
                     scores_.set(joueur_, (short) mult_.ll());
                 } else {
                     Rate mult_ = Rate.multiply(new Rate(rate_.getNumeratorCopy()), new Rate(_sommeTemporaire));
-                    if (_scorePreneurSansAnnonces > 0) {
-                        mult_.addNb(new Rate(parite_));
-                    } else {
-                        mult_.removeNb(new Rate(parite_));
+                    if (!LgInt.remain(mult_.getNumeratorCopy(),rate_.getDenominatorCopy()).isZero()) {
+                        if (_scorePreneurSansAnnonces > 0) {
+                            mult_.addNb(Rate.one());
+                        } else {
+                            mult_.removeNb(Rate.one());
+                        }
                     }
                     mult_.divideBy(new Rate(rate_.getDenominatorCopy()));
                     scores_.set(joueur_, (short) mult_.ll());
@@ -392,11 +394,15 @@ public final class EndTarotGame {
     }
 
     public short additionnalBonusesAttack(BidTarot _bid) {
-        short primesSupplementaires_ =0;
         byte taker_ = relations.getTaker();
-        boolean declSlam_ = declaresSlam.get(taker_);
+        return additionnalBonusesAttack(_bid, taker_, declaresSlam, slamTaker);
+    }
+
+    static short additionnalBonusesAttack(BidTarot _bid, byte _taker, BooleanList _declaresSlam, boolean _slamTaker) {
+        boolean declSlam_ = _declaresSlam.get(_taker);
+        short primesSupplementaires_ =0;
         if (_bid == BidTarot.SLAM || declSlam_) {
-            if (slamTaker) {
+            if (_slamTaker) {
                 primesSupplementaires_ = (short) BonusTarot.SLAM
                         .getPoints();
             } else {
@@ -405,35 +411,36 @@ public final class EndTarotGame {
             }
             return primesSupplementaires_;
         }
-        if (slamTaker) {
-            primesSupplementaires_ = (short) (BonusTarot.SLAM
-                    .getPoints() / 2);
-        }
-        return primesSupplementaires_;
-    }
-    public short additionnalBonusesDefense() {
-        short primesSupplementaires_ = 0;
-        if (slamDefense) {
+        if (_slamTaker) {
             primesSupplementaires_ = (short) (BonusTarot.SLAM
                     .getPoints() / 2);
         }
         return primesSupplementaires_;
     }
 
-    public short temporarySum(BidTarot _bid,short _scorePreneurSansAnnonces,
-                              CustList<TreeMap<Miseres,Short>> _miseres,
-                              CustList<TreeMap<Handfuls,Short>> _handfuls, short _primesSupplementairesAttack,
-                              short _primesSupplementairesDefense) {
+    public short additionnalBonusesDefense() {
+        return additionnalBonusesDefense(slamDefense);
+    }
+
+    static short additionnalBonusesDefense(boolean _slamDefense) {
+        short primesSupplementaires_ = 0;
+        if (_slamDefense) {
+            primesSupplementaires_ = (short) (BonusTarot.SLAM
+                    .getPoints() / 2);
+        }
+        return primesSupplementaires_;
+    }
+
+    static short temporarySum(BidTarot _bid, short _scorePreneurSansAnnonces,
+                                     CustList<TreeMap<Miseres, Short>> _miseres,
+                                     CustList<TreeMap<Handfuls, Short>> _handfuls, short _primesSupplementairesAttack,
+                                     short _primesSupplementairesDefense) {
         short sommeTemporaire_ = 0;
         for (TreeMap<Miseres,Short> m: _miseres) {
-            for (short p: m.values()) {
-                sommeTemporaire_+=p;
-            }
+            sommeTemporaire_ += sum(m.values());
         }
         for (TreeMap<Handfuls,Short> h: _handfuls) {
-            for (short p: h.values()) {
-                sommeTemporaire_+=p;
-            }
+            sommeTemporaire_ += sum(h.values());
         }
         sommeTemporaire_ += _primesSupplementairesAttack
                 - _primesSupplementairesDefense;
@@ -444,15 +451,19 @@ public final class EndTarotGame {
     }
 
     public EnumMap<Status,Rate> coefficientsRepartition() {
+        return coefficientsRepartition(relations);
+    }
+
+    static EnumMap<Status, Rate> coefficientsRepartition(GameTarotTeamsRelation _relations) {
         EnumMap<Status,Rate> coefficientsRepartition_;
-        byte nombreJoueurs_ = relations.getNombreDeJoueurs();
+        byte nombreJoueurs_ = _relations.getNombreDeJoueurs();
         coefficientsRepartition_ = new EnumMap<Status,Rate>();
-        if (relations.coequipiers(relations.getTaker(),GameTarotTeamsRelation.tousJoueurs(nombreJoueurs_)).isEmpty()) {
+        if (_relations.coequipiers(_relations.getTaker(),GameTarotTeamsRelation.tousJoueurs(nombreJoueurs_)).isEmpty()) {
             coefficientsRepartition_.put(Status.TAKER,new Rate(nombreJoueurs_ - 1));
             coefficientsRepartition_.put(Status.DEFENDER,new Rate(-1));
         } else {
             if (nombreJoueurs_ == 4) {
-                if (relations.getRules().getRepartition().getAppel() == CallingCard.DEFINED) {
+                if (_relations.getRules().getRepartition().getAppel() == CallingCard.DEFINED) {
                     coefficientsRepartition_.put(Status.TAKER,new Rate(1));
                     coefficientsRepartition_.put(Status.CALLED_PLAYER,new Rate(1));
                     coefficientsRepartition_.put(Status.DEFENDER,new Rate(-1));
@@ -465,8 +476,8 @@ public final class EndTarotGame {
                 coefficientsRepartition_.put(Status.TAKER,new Rate(2));
                 coefficientsRepartition_.put(Status.CALLED_PLAYER,new Rate(1));
                 coefficientsRepartition_.put(Status.DEFENDER,new Rate(-1));
-            } else if (nombreJoueurs_ == 6) {
-                if (relations.getRules().getRepartition().getAppel() == CallingCard.DEFINED) {
+            } else {
+                if (_relations.getRules().getRepartition().getAppel() == CallingCard.DEFINED) {
                     coefficientsRepartition_.put(Status.TAKER,new Rate(2));
                     coefficientsRepartition_.put(Status.CALLED_PLAYER,new Rate(2));
                     coefficientsRepartition_.put(Status.DEFENDER,new Rate(-1));
@@ -482,7 +493,12 @@ public final class EndTarotGame {
 
 
     public EndGameState getUserState(short _scorePreneurSansAnnonces, byte _user) {
-        if (!relations.aPourDefenseur(_user)) {
+        boolean def_ = relations.aPourDefenseur(_user);
+        return getUserState(_scorePreneurSansAnnonces, def_);
+    }
+
+    static EndGameState getUserState(short _scorePreneurSansAnnonces, boolean _def) {
+        if (!_def) {
             if (_scorePreneurSansAnnonces > 0) {
                 return EndGameState.WIN;
             }
@@ -1773,5 +1789,13 @@ public final class EndTarotGame {
 
     public GameTarotTeamsRelation getRelations() {
         return relations;
+    }
+
+    Ints getFirstTrick() {
+        return firstTrick;
+    }
+
+    CustList<HandTarot> getWonPlayersTeam() {
+        return wonPlayersTeam;
     }
 }

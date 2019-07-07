@@ -251,9 +251,7 @@ public final class GameTarotTeamsRelation {
     RulesTarot getRules() {
         return rules;
     }
-    boolean existeAppele() {
-        return !calledPlayers.isEmpty();
-    }
+
     public boolean aPourDefenseur(byte _numero) {
         return _numero != taker && statutDe(_numero) != Status.CALLED_PLAYER;
     }

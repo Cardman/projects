@@ -65,7 +65,7 @@ public final class ResultsTarot {
                 handfulsTaker_ = end_.getHandfulsPointsForTaker(scoreTakerWithoutDeclaring_);
                 additionnalBonusesAttack_ = end_.additionnalBonusesAttack(contrat_);
                 additionnalBonusesDefense_ = end_.additionnalBonusesDefense();
-                short sommeTemporaire_=end_.temporarySum(contrat_,scoreTakerWithoutDeclaring_, miseresTaker_, handfulsTaker_, additionnalBonusesAttack_, additionnalBonusesDefense_);
+                short sommeTemporaire_= EndTarotGame.temporarySum(contrat_,scoreTakerWithoutDeclaring_, miseresTaker_, handfulsTaker_, additionnalBonusesAttack_, additionnalBonusesDefense_);
                 repartitionRate_=end_.coefficientsRepartition();
                 game.setScores(end_.calculateScores(repartitionRate_, sommeTemporaire_, scoreTakerWithoutDeclaring_));
                 scoresDeal_=game.getScores();
