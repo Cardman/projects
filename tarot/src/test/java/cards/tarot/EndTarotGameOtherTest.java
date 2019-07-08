@@ -985,6 +985,546 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         assertEq(1,pos_.get(1));
         assertEq(2,pos_.get(2));
     }
+    @Test
+    public void coefficients1Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)2);
+        pos_.add((short)3);
+        Shorts rates_ = EndTarotGame.coefficients(pos_, DealingTarot.DEAL_1_VS_2);
+        assertEq(3,rates_.size());
+        assertEq(1,rates_.get(0));
+        assertEq(0,rates_.get(1));
+        assertEq(-1,rates_.get(2));
+    }
+    @Test
+    public void coefficients2Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)2);
+        pos_.add((short)2);
+        Shorts rates_ = EndTarotGame.coefficients(pos_,DealingTarot.DEAL_1_VS_2);
+        assertEq(3,rates_.size());
+        assertEq(2,rates_.get(0));
+        assertEq(-1,rates_.get(1));
+        assertEq(-1,rates_.get(2));
+    }
+    @Test
+    public void coefficients3Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)2);
+        pos_.add((short)3);
+        pos_.add((short)4);
+        Shorts rates_ = EndTarotGame.coefficients(pos_, DealingTarot.DEAL_1_VS_3);
+        assertEq(4,rates_.size());
+        assertEq(2,rates_.get(0));
+        assertEq(1,rates_.get(1));
+        assertEq(-1,rates_.get(2));
+        assertEq(-2,rates_.get(3));
+    }
+    @Test
+    public void coefficients4Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)2);
+        pos_.add((short)3);
+        pos_.add((short)3);
+        Shorts rates_ = EndTarotGame.coefficients(pos_,DealingTarot.DEAL_1_VS_3);
+        assertEq(4,rates_.size());
+        assertEq(3,rates_.get(0));
+        assertEq(1,rates_.get(1));
+        assertEq(-2,rates_.get(2));
+        assertEq(-2,rates_.get(3));
+    }
+    @Test
+    public void coefficients5Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)2);
+        pos_.add((short)2);
+        pos_.add((short)2);
+        Shorts rates_ = EndTarotGame.coefficients(pos_,DealingTarot.DEAL_1_VS_3);
+        assertEq(4,rates_.size());
+        assertEq(6,rates_.get(0));
+        assertEq(-2,rates_.get(1));
+        assertEq(-2,rates_.get(2));
+        assertEq(-2,rates_.get(3));
+    }
+    @Test
+    public void coefficients6Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)2);
+        pos_.add((short)3);
+        pos_.add((short)4);
+        pos_.add((short)5);
+        Shorts rates_ = EndTarotGame.coefficients(pos_, DealingTarot.DEAL_2_VS_3_CALL_KING);
+        assertEq(5,rates_.size());
+        assertEq(2,rates_.get(0));
+        assertEq(1,rates_.get(1));
+        assertEq(0,rates_.get(2));
+        assertEq(-1,rates_.get(3));
+        assertEq(-2,rates_.get(4));
+    }
+    @Test
+    public void coefficients7Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)2);
+        pos_.add((short)3);
+        pos_.add((short)4);
+        pos_.add((short)4);
+        Shorts rates_ = EndTarotGame.coefficients(pos_, DealingTarot.DEAL_2_VS_3_CALL_KING);
+        assertEq(5,rates_.size());
+        assertEq(3,rates_.get(0));
+        assertEq(1,rates_.get(1));
+        assertEq(0,rates_.get(2));
+        assertEq(-2,rates_.get(3));
+        assertEq(-2,rates_.get(4));
+    }
+    @Test
+    public void coefficients8Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)2);
+        pos_.add((short)3);
+        pos_.add((short)3);
+        pos_.add((short)3);
+        Shorts rates_ = EndTarotGame.coefficients(pos_, DealingTarot.DEAL_2_VS_3_CALL_KING);
+        assertEq(5,rates_.size());
+        assertEq(6,rates_.get(0));
+        assertEq(0,rates_.get(1));
+        assertEq(-2,rates_.get(2));
+        assertEq(-2,rates_.get(3));
+        assertEq(-2,rates_.get(4));
+    }
+    @Test
+    public void coefficients9Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)2);
+        pos_.add((short)2);
+        pos_.add((short)2);
+        pos_.add((short)2);
+        Shorts rates_ = EndTarotGame.coefficients(pos_, DealingTarot.DEAL_2_VS_3_CALL_KING);
+        assertEq(5,rates_.size());
+        assertEq(8,rates_.get(0));
+        assertEq(-2,rates_.get(1));
+        assertEq(-2,rates_.get(2));
+        assertEq(-2,rates_.get(3));
+        assertEq(-2,rates_.get(4));
+    }
+    @Test
+    public void coefficients10Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)2);
+        pos_.add((short)3);
+        pos_.add((short)4);
+        pos_.add((short)5);
+        pos_.add((short)6);
+        Shorts rates_ = EndTarotGame.coefficients(pos_, DealingTarot.DEAL_2_VS_4_CALL_KING);
+        assertEq(6,rates_.size());
+        assertEq(3,rates_.get(0));
+        assertEq(2,rates_.get(1));
+        assertEq(1,rates_.get(2));
+        assertEq(-1,rates_.get(3));
+        assertEq(-2,rates_.get(4));
+        assertEq(-3,rates_.get(5));
+    }
+    @Test
+    public void coefficients11Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)2);
+        pos_.add((short)3);
+        pos_.add((short)4);
+        pos_.add((short)5);
+        pos_.add((short)5);
+        Shorts rates_ = EndTarotGame.coefficients(pos_, DealingTarot.DEAL_2_VS_4_CALL_KING);
+        assertEq(6,rates_.size());
+        assertEq(3,rates_.get(0));
+        assertEq(2,rates_.get(1));
+        assertEq(1,rates_.get(2));
+        assertEq(0,rates_.get(3));
+        assertEq(-3,rates_.get(4));
+        assertEq(-3,rates_.get(5));
+    }
+    @Test
+    public void coefficients12Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)2);
+        pos_.add((short)3);
+        pos_.add((short)4);
+        pos_.add((short)4);
+        pos_.add((short)4);
+        Shorts rates_ = EndTarotGame.coefficients(pos_, DealingTarot.DEAL_2_VS_4_CALL_KING);
+        assertEq(6,rates_.size());
+        assertEq(4,rates_.get(0));
+        assertEq(2,rates_.get(1));
+        assertEq(0,rates_.get(2));
+        assertEq(-2,rates_.get(3));
+        assertEq(-2,rates_.get(4));
+        assertEq(-2,rates_.get(5));
+    }
+    @Test
+    public void coefficients13Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)2);
+        pos_.add((short)3);
+        pos_.add((short)3);
+        pos_.add((short)3);
+        pos_.add((short)3);
+        Shorts rates_ = EndTarotGame.coefficients(pos_, DealingTarot.DEAL_2_VS_4_CALL_KING);
+        assertEq(6,rates_.size());
+        assertEq(8,rates_.get(0));
+        assertEq(0,rates_.get(1));
+        assertEq(-2,rates_.get(2));
+        assertEq(-2,rates_.get(3));
+        assertEq(-2,rates_.get(4));
+        assertEq(-2,rates_.get(5));
+    }
+    @Test
+    public void coefficients14Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)2);
+        pos_.add((short)2);
+        pos_.add((short)2);
+        pos_.add((short)2);
+        pos_.add((short)2);
+        Shorts rates_ = EndTarotGame.coefficients(pos_, DealingTarot.DEAL_2_VS_4_CALL_KING);
+        assertEq(6,rates_.size());
+        assertEq(10,rates_.get(0));
+        assertEq(-2,rates_.get(1));
+        assertEq(-2,rates_.get(2));
+        assertEq(-2,rates_.get(3));
+        assertEq(-2,rates_.get(4));
+        assertEq(-2,rates_.get(5));
+    }
+    @Test
+    public void coefficients15Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)3);
+        pos_.add((short)5);
+        pos_.add((short)1);
+        pos_.add((short)3);
+        pos_.add((short)5);
+        Shorts rates_ = EndTarotGame.coefficients(pos_, DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        assertEq(6,rates_.size());
+        assertEq(1,rates_.get(0));
+        assertEq(0,rates_.get(1));
+        assertEq(-1,rates_.get(2));
+        assertEq(1,rates_.get(3));
+        assertEq(0,rates_.get(4));
+        assertEq(-1,rates_.get(5));
+    }
+    @Test
+    public void coefficients16Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)3);
+        pos_.add((short)3);
+        pos_.add((short)1);
+        pos_.add((short)3);
+        pos_.add((short)3);
+        Shorts rates_ = EndTarotGame.coefficients(pos_, DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        assertEq(6,rates_.size());
+        assertEq(2,rates_.get(0));
+        assertEq(-1,rates_.get(1));
+        assertEq(-1,rates_.get(2));
+        assertEq(2,rates_.get(3));
+        assertEq(-1,rates_.get(4));
+        assertEq(-1,rates_.get(5));
+    }
+    @Test
+    public void coefficients17Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)3);
+        pos_.add((short)1);
+        pos_.add((short)3);
+        Shorts rates_ = EndTarotGame.coefficients(pos_, DealingTarot.DEAL_2_VS_2_WITHOUT_CALL);
+        assertEq(4,rates_.size());
+        assertEq(1,rates_.get(0));
+        assertEq(-1,rates_.get(1));
+        assertEq(1,rates_.get(2));
+        assertEq(-1,rates_.get(3));
+    }
+    @Test
+    public void coefficientsMisere1Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)2);
+        pos_.add((short)3);
+        Shorts rates_ = EndTarotGame.coefficientsMisere(pos_, DealingTarot.DEAL_1_VS_2);
+        assertEq(3,rates_.size());
+        assertEq(1,rates_.get(0));
+        assertEq(0,rates_.get(1));
+        assertEq(-1,rates_.get(2));
+    }
+    @Test
+    public void coefficientsMisere2Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)1);
+        pos_.add((short)3);
+        Shorts rates_ = EndTarotGame.coefficientsMisere(pos_,DealingTarot.DEAL_1_VS_2);
+        assertEq(3,rates_.size());
+        assertEq(1,rates_.get(0));
+        assertEq(1,rates_.get(1));
+        assertEq(-2,rates_.get(2));
+    }
+    @Test
+    public void coefficientsMisere3Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)2);
+        pos_.add((short)3);
+        pos_.add((short)4);
+        Shorts rates_ = EndTarotGame.coefficientsMisere(pos_, DealingTarot.DEAL_1_VS_3);
+        assertEq(4,rates_.size());
+        assertEq(2,rates_.get(0));
+        assertEq(1,rates_.get(1));
+        assertEq(-1,rates_.get(2));
+        assertEq(-2,rates_.get(3));
+    }
+    @Test
+    public void coefficientsMisere4Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)1);
+        pos_.add((short)3);
+        pos_.add((short)4);
+        Shorts rates_ = EndTarotGame.coefficientsMisere(pos_,DealingTarot.DEAL_1_VS_3);
+        assertEq(4,rates_.size());
+        assertEq(2,rates_.get(0));
+        assertEq(2,rates_.get(1));
+        assertEq(-1,rates_.get(2));
+        assertEq(-3,rates_.get(3));
+    }
+    @Test
+    public void coefficientsMisere5Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)1);
+        pos_.add((short)1);
+        pos_.add((short)4);
+        Shorts rates_ = EndTarotGame.coefficientsMisere(pos_,DealingTarot.DEAL_1_VS_3);
+        assertEq(4,rates_.size());
+        assertEq(2,rates_.get(0));
+        assertEq(2,rates_.get(1));
+        assertEq(2,rates_.get(2));
+        assertEq(-6,rates_.get(3));
+    }
+    @Test
+    public void coefficientsMisere6Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)2);
+        pos_.add((short)3);
+        pos_.add((short)4);
+        pos_.add((short)5);
+        Shorts rates_ = EndTarotGame.coefficientsMisere(pos_, DealingTarot.DEAL_2_VS_3_CALL_KING);
+        assertEq(5,rates_.size());
+        assertEq(2,rates_.get(0));
+        assertEq(1,rates_.get(1));
+        assertEq(0,rates_.get(2));
+        assertEq(-1,rates_.get(3));
+        assertEq(-2,rates_.get(4));
+    }
+    @Test
+    public void coefficientsMisere7Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)1);
+        pos_.add((short)3);
+        pos_.add((short)4);
+        pos_.add((short)5);
+        Shorts rates_ = EndTarotGame.coefficientsMisere(pos_, DealingTarot.DEAL_2_VS_3_CALL_KING);
+        assertEq(5,rates_.size());
+        assertEq(2,rates_.get(0));
+        assertEq(2,rates_.get(1));
+        assertEq(0,rates_.get(2));
+        assertEq(-1,rates_.get(3));
+        assertEq(-3,rates_.get(4));
+    }
+    @Test
+    public void coefficientsMisere8Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)1);
+        pos_.add((short)1);
+        pos_.add((short)4);
+        pos_.add((short)5);
+        Shorts rates_ = EndTarotGame.coefficientsMisere(pos_, DealingTarot.DEAL_2_VS_3_CALL_KING);
+        assertEq(5,rates_.size());
+        assertEq(2,rates_.get(0));
+        assertEq(2,rates_.get(1));
+        assertEq(2,rates_.get(2));
+        assertEq(0,rates_.get(3));
+        assertEq(-6,rates_.get(4));
+    }
+    @Test
+    public void coefficientsMisere9Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)1);
+        pos_.add((short)1);
+        pos_.add((short)1);
+        pos_.add((short)5);
+        Shorts rates_ = EndTarotGame.coefficientsMisere(pos_, DealingTarot.DEAL_2_VS_3_CALL_KING);
+        assertEq(5,rates_.size());
+        assertEq(2,rates_.get(0));
+        assertEq(2,rates_.get(1));
+        assertEq(2,rates_.get(2));
+        assertEq(2,rates_.get(3));
+        assertEq(-8,rates_.get(4));
+    }
+    @Test
+    public void coefficientsMisere10Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)2);
+        pos_.add((short)3);
+        pos_.add((short)4);
+        pos_.add((short)5);
+        pos_.add((short)6);
+        Shorts rates_ = EndTarotGame.coefficientsMisere(pos_, DealingTarot.DEAL_2_VS_4_CALL_KING);
+        assertEq(6,rates_.size());
+        assertEq(3,rates_.get(0));
+        assertEq(2,rates_.get(1));
+        assertEq(1,rates_.get(2));
+        assertEq(-1,rates_.get(3));
+        assertEq(-2,rates_.get(4));
+        assertEq(-3,rates_.get(5));
+    }
+    @Test
+    public void coefficientsMisere11Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)1);
+        pos_.add((short)3);
+        pos_.add((short)4);
+        pos_.add((short)5);
+        pos_.add((short)6);
+        Shorts rates_ = EndTarotGame.coefficientsMisere(pos_, DealingTarot.DEAL_2_VS_4_CALL_KING);
+        assertEq(6,rates_.size());
+        assertEq(3,rates_.get(0));
+        assertEq(3,rates_.get(1));
+        assertEq(0,rates_.get(2));
+        assertEq(-1,rates_.get(3));
+        assertEq(-2,rates_.get(4));
+        assertEq(-3,rates_.get(5));
+    }
+    @Test
+    public void coefficientsMisere12Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)1);
+        pos_.add((short)1);
+        pos_.add((short)4);
+        pos_.add((short)5);
+        pos_.add((short)6);
+        Shorts rates_ = EndTarotGame.coefficientsMisere(pos_, DealingTarot.DEAL_2_VS_4_CALL_KING);
+        assertEq(6,rates_.size());
+        assertEq(2,rates_.get(0));
+        assertEq(2,rates_.get(1));
+        assertEq(2,rates_.get(2));
+        assertEq(0,rates_.get(3));
+        assertEq(-2,rates_.get(4));
+        assertEq(-4,rates_.get(5));
+    }
+    @Test
+    public void coefficientsMisere13Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)1);
+        pos_.add((short)1);
+        pos_.add((short)1);
+        pos_.add((short)5);
+        pos_.add((short)6);
+        Shorts rates_ = EndTarotGame.coefficientsMisere(pos_, DealingTarot.DEAL_2_VS_4_CALL_KING);
+        assertEq(6,rates_.size());
+        assertEq(2,rates_.get(0));
+        assertEq(2,rates_.get(1));
+        assertEq(2,rates_.get(2));
+        assertEq(2,rates_.get(3));
+        assertEq(0,rates_.get(4));
+        assertEq(-8,rates_.get(5));
+    }
+    @Test
+    public void coefficientsMisere14Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)1);
+        pos_.add((short)1);
+        pos_.add((short)1);
+        pos_.add((short)1);
+        pos_.add((short)6);
+        Shorts rates_ = EndTarotGame.coefficientsMisere(pos_, DealingTarot.DEAL_2_VS_4_CALL_KING);
+        assertEq(6,rates_.size());
+        assertEq(2,rates_.get(0));
+        assertEq(2,rates_.get(1));
+        assertEq(2,rates_.get(2));
+        assertEq(2,rates_.get(3));
+        assertEq(2,rates_.get(4));
+        assertEq(-10,rates_.get(5));
+    }
+    @Test
+    public void coefficientsMisere15Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)3);
+        pos_.add((short)5);
+        pos_.add((short)1);
+        pos_.add((short)3);
+        pos_.add((short)5);
+        Shorts rates_ = EndTarotGame.coefficientsMisere(pos_, DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        assertEq(6,rates_.size());
+        assertEq(1,rates_.get(0));
+        assertEq(0,rates_.get(1));
+        assertEq(-1,rates_.get(2));
+        assertEq(1,rates_.get(3));
+        assertEq(0,rates_.get(4));
+        assertEq(-1,rates_.get(5));
+    }
+    @Test
+    public void coefficientsMisere16Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)1);
+        pos_.add((short)5);
+        pos_.add((short)1);
+        pos_.add((short)1);
+        pos_.add((short)5);
+        Shorts rates_ = EndTarotGame.coefficientsMisere(pos_, DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
+        assertEq(6,rates_.size());
+        assertEq(1,rates_.get(0));
+        assertEq(1,rates_.get(1));
+        assertEq(-2,rates_.get(2));
+        assertEq(1,rates_.get(3));
+        assertEq(1,rates_.get(4));
+        assertEq(-2,rates_.get(5));
+    }
+    @Test
+    public void coefficientsMisere17Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)3);
+        pos_.add((short)1);
+        pos_.add((short)3);
+        Shorts rates_ = EndTarotGame.coefficientsMisere(pos_, DealingTarot.DEAL_2_VS_2_WITHOUT_CALL);
+        assertEq(4,rates_.size());
+        assertEq(1,rates_.get(0));
+        assertEq(-1,rates_.get(1));
+        assertEq(1,rates_.get(2));
+        assertEq(-1,rates_.get(3));
+    }
     private static CustList<BooleanList> getConf(BidTarot _b, RulesTarot _r, int _taker){
         CustList<BooleanList> confidence_ = new CustList<BooleanList>();
         ModeTarot mode_ = _r.getMode();
