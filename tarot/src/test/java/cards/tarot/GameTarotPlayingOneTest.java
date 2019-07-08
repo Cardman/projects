@@ -465,6 +465,250 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         CardTarot cardTarot_ = game.strategieJeuCarteUnique();
         assertSame(CardTarot.TRUMP_5,cardTarot_);
     }
+    @Test
+    public void changerConfiance1Test() {
+        RulesTarot regles_=initializeRulesWithBids();
+        game = new GameTarot(GameType.RANDOM,initializeHands((byte) 0),regles_);
+        //game.resetNbPlisTotal();
+        bidding(BidTarot.GUARD, (byte) 4, game);
+        HandTarot cartesAppeler_ = new HandTarot();
+        cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
+        game.setCarteAppelee(cartesAppeler_);
+        game.initConfianceAppele();
+        game.ajouterCartes(game.getPreneur(), game.derniereMain());
+        HandTarot discardedCards_ = new HandTarot();
+        discardedCards_.ajouter(CardTarot.TRUMP_6);
+        discardedCards_.ajouter(CardTarot.TRUMP_2);
+        discardedCards_.ajouter(CardTarot.HEART_10);
+        game.supprimerCartes(game.getPreneur(),discardedCards_);
+
+        game.setPliEnCours(false);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
+        game.addCurTrick();
+        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setPliEnCours(true);
+        game.changerConfiance();
+        assertTrue(game.confiance((byte)1,(byte)1));
+        assertTrue(!game.confiance((byte)1,(byte)0));
+        assertTrue(!game.confiance((byte)1,(byte)2));
+        assertTrue(!game.confiance((byte)1,(byte)3));
+        assertTrue(!game.confiance((byte)1,(byte)4));
+    }
+    @Test
+    public void changerConfiance2Test() {
+        RulesTarot regles_=initializeRulesWithBids();
+        game = new GameTarot(GameType.RANDOM,initializeHands((byte) 0),regles_);
+        //game.resetNbPlisTotal();
+        bidding(BidTarot.GUARD, (byte) 4, game);
+        HandTarot cartesAppeler_ = new HandTarot();
+        cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
+        game.setCarteAppelee(cartesAppeler_);
+        game.initConfianceAppele();
+        game.ajouterCartes(game.getPreneur(), game.derniereMain());
+        HandTarot discardedCards_ = new HandTarot();
+        discardedCards_.ajouter(CardTarot.TRUMP_6);
+        discardedCards_.ajouter(CardTarot.TRUMP_2);
+        discardedCards_.ajouter(CardTarot.HEART_10);
+        game.supprimerCartes(game.getPreneur(),discardedCards_);
+
+        game.setPliEnCours(false);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
+        game.addCurTrick();
+        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setPliEnCours(true);
+        game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_7);
+        game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_5);
+        game.changerConfiance();
+        assertTrue(game.confiance((byte)3,(byte)3));
+        assertTrue(!game.confiance((byte)3,(byte)0));
+        assertTrue(!game.confiance((byte)3,(byte)2));
+        assertTrue(!game.confiance((byte)3,(byte)1));
+        assertTrue(game.confiance((byte)3,(byte)4));
+    }
+    @Test
+    public void changerConfiance3Test() {
+        RulesTarot regles_=initializeRulesWithBids();
+        game = new GameTarot(GameType.RANDOM,initializeHands((byte) 0),regles_);
+        //game.resetNbPlisTotal();
+        bidding(BidTarot.GUARD, (byte) 4, game);
+        HandTarot cartesAppeler_ = new HandTarot();
+        cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
+        game.setCarteAppelee(cartesAppeler_);
+        game.initConfianceAppele();
+        game.ajouterCartes(game.getPreneur(), game.derniereMain());
+        HandTarot discardedCards_ = new HandTarot();
+        discardedCards_.ajouter(CardTarot.TRUMP_6);
+        discardedCards_.ajouter(CardTarot.TRUMP_2);
+        discardedCards_.ajouter(CardTarot.HEART_10);
+        game.supprimerCartes(game.getPreneur(),discardedCards_);
+
+        game.setPliEnCours(false);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
+        game.addCurTrick();
+        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setPliEnCours(true);
+        game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_7);
+        game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_5);
+        game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.SPADE_QUEEN);
+        game.changerConfiance();
+        assertTrue(game.confiance((byte)4,(byte)4));
+        assertTrue(!game.confiance((byte)4,(byte)0));
+        assertTrue(!game.confiance((byte)4,(byte)2));
+        assertTrue(!game.confiance((byte)4,(byte)1));
+        assertTrue(game.confiance((byte)4,(byte)3));
+    }
+    @Test
+    public void changerConfiance4Test() {
+        RulesTarot regles_=initializeRulesWithBids();
+        game = new GameTarot(GameType.RANDOM,initializeHands((byte) 0),regles_);
+        //game.resetNbPlisTotal();
+        bidding(BidTarot.GUARD, (byte) 4, game);
+        HandTarot cartesAppeler_ = new HandTarot();
+        cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
+        game.setCarteAppelee(cartesAppeler_);
+        game.initConfianceAppele();
+        game.ajouterCartes(game.getPreneur(), game.derniereMain());
+        HandTarot discardedCards_ = new HandTarot();
+        discardedCards_.ajouter(CardTarot.TRUMP_6);
+        discardedCards_.ajouter(CardTarot.TRUMP_2);
+        discardedCards_.ajouter(CardTarot.HEART_10);
+        game.supprimerCartes(game.getPreneur(),discardedCards_);
+
+        game.setPliEnCours(false);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
+        game.addCurTrick();
+        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setPliEnCours(true);
+        game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_7);
+        game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_5);
+        game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.SPADE_QUEEN);
+        game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_21);
+        game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_16);
+        game.ajouterPliEnCours();
+        game.setPliEnCours(true);
+        game.changerConfiance();
+        assertTrue(game.confiance((byte)4,(byte)4));
+        assertTrue(!game.confiance((byte)4,(byte)0));
+        assertTrue(!game.confiance((byte)4,(byte)2));
+        assertTrue(!game.confiance((byte)4,(byte)1));
+        assertTrue(game.confiance((byte)4,(byte)3));
+    }
+    @Test
+    public void changerConfianceJeuCarteUnique1Test() {
+        RulesTarot regles_=initializeRulesWithBids();
+        game = new GameTarot(GameType.RANDOM,initializeHands((byte) 0),regles_);
+        //game.resetNbPlisTotal();
+        bidding(BidTarot.GUARD, (byte) 4, game);
+        HandTarot cartesAppeler_ = new HandTarot();
+        cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
+        game.setCarteAppelee(cartesAppeler_);
+        game.initConfianceAppele();
+        game.ajouterCartes(game.getPreneur(), game.derniereMain());
+        HandTarot discardedCards_ = new HandTarot();
+        discardedCards_.ajouter(CardTarot.TRUMP_6);
+        discardedCards_.ajouter(CardTarot.TRUMP_2);
+        discardedCards_.ajouter(CardTarot.HEART_10);
+        game.supprimerCartes(game.getPreneur(),discardedCards_);
+
+        game.setPliEnCours(false);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
+        game.addCurTrick();
+        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setPliEnCours(true);
+        game.changerConfianceJeuCarteUnique();
+        CardTarot cardTarot_ = game.getCarteJoueee();
+        assertSame(CardTarot.DIAMOND_7,cardTarot_);
+    }
+    @Test
+    public void changerConfianceJeuCarteUnique2Test() {
+        RulesTarot regles_=initializeRulesWithoutBids(ModeTarot.MISERE);
+        game = new GameTarot(GameType.RANDOM,initializeHands((byte) 0),regles_);
+        //game.resetNbPlisTotal();
+        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setPliEnCours(true);
+        game.changerConfianceJeuCarteUnique();
+        CardTarot cardTarot_ = game.getCarteJoueee();
+        assertSame(CardTarot.TRUMP_7,cardTarot_);
+    }
+    @Test
+    public void changerConfianceJeuCarteUnique3Test() {
+        RulesTarot regles_=initializeRulesWithBids();
+        game = new GameTarot(GameType.RANDOM,initializeHands((byte) 0),regles_);
+        //game.resetNbPlisTotal();
+        bidding(BidTarot.GUARD, (byte) 4, game);
+        HandTarot cartesAppeler_ = new HandTarot();
+        cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
+        game.setCarteAppelee(cartesAppeler_);
+        game.initConfianceAppele();
+        game.ajouterCartes(game.getPreneur(), game.derniereMain());
+        HandTarot discardedCards_ = new HandTarot();
+        discardedCards_.ajouter(CardTarot.TRUMP_6);
+        discardedCards_.ajouter(CardTarot.TRUMP_2);
+        discardedCards_.ajouter(CardTarot.HEART_10);
+        game.supprimerCartes(game.getPreneur(),discardedCards_);
+
+        game.setPliEnCours(false);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
+        game.addCurTrick();
+        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setPliEnCours(true);
+        game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_7);
+        game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_5);
+        game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.SPADE_QUEEN);
+        game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_21);
+        game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_16);
+        game.ajouterPliEnCours();
+        game.setPliEnCours(true);
+        game.changerConfianceJeuCarteUnique();
+        CardTarot cardTarot_ = game.getCarteJoueee();
+        assertSame(CardTarot.TRUMP_20,cardTarot_);
+    }
+    @Test
+    public void currentPlayerHasPlayedTest() {
+        RulesTarot regles_=initializeRulesWithBids();
+        game = new GameTarot(GameType.RANDOM,initializeHands((byte) 0),regles_);
+        //game.resetNbPlisTotal();
+        bidding(BidTarot.GUARD, (byte) 4, game);
+        HandTarot cartesAppeler_ = new HandTarot();
+        cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
+        game.setCarteAppelee(cartesAppeler_);
+        game.initConfianceAppele();
+        game.ajouterCartes(game.getPreneur(), game.derniereMain());
+        HandTarot discardedCards_ = new HandTarot();
+        discardedCards_.ajouter(CardTarot.TRUMP_6);
+        discardedCards_.ajouter(CardTarot.TRUMP_2);
+        discardedCards_.ajouter(CardTarot.HEART_10);
+        game.supprimerCartes(game.getPreneur(),discardedCards_);
+
+        game.setPliEnCours(false);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
+        game.addCurTrick();
+        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setPliEnCours(true);
+        game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_7);
+        game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_5);
+        game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.SPADE_QUEEN);
+        game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_21);
+        game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_16);
+        game.ajouterPliEnCours();
+        game.setPliEnCours(true);
+        assertTrue(!game.currentPlayerHasPlayed(game.getEntameur()));
+        assertTrue(game.currentPlayerHasPlayed(game.getEntameur()));
+    }
     static RulesTarot initializeRulesWithoutBids(ModeTarot _mode) {
         RulesTarot regles_=new RulesTarot();
         regles_.setRepartition(DealingTarot.DEAL_2_VS_3_CALL_KING);

@@ -1698,18 +1698,18 @@ public final class SendReceiveServer extends BasicServer {
                 players_.add(EMPTY_STRING);
             }
         }
-        ResultsTarot res_ = new ResultsTarot();
-        res_.setGame(Net.getGames().partieTarot());
-        CustList<Longs> scores_ = Net.getScores();
-        CustList<Longs> list_ = new CustList<Longs>();
-        for (Longs v: scores_) {
-            list_.add(new Longs(v));
-        }
-        res_.initialize(new StringList(players_), list_);
         for (byte p: Net.activePlayers()) {
+            ResultsTarot res_ = new ResultsTarot();
+            res_.setGame(Net.getGames().partieTarot());
+            CustList<Longs> scores_ = Net.getScores();
+            CustList<Longs> list_ = new CustList<Longs>();
+            for (Longs v: scores_) {
+                list_.add(new Longs(v));
+            }
             String loc_ = Net.getLanguageByPlace(p);
             DocumentReaderCardsResultsUtil.setMessages(res_,loc_);
             res_.setUser(p);
+            res_.initialize(new StringList(players_), list_);
             Net.sendObject(Net.getSocketByPlace(p), res_);
         }
     }

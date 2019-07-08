@@ -493,8 +493,8 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
         GameTarot currentGame_=partieTarotSimulee();
         res_.setGame(currentGame_);
         StringList nicknames_=pseudosSimuleeTarot();
-        res_.initialize(new StringList(nicknames_), container.getScores());
         res_.setUser(DealTarot.NUMERO_UTILISATEUR);
+        res_.initialize(new StringList(nicknames_), container.getScores());
         DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
         JScrollPane scroll_=new JScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);

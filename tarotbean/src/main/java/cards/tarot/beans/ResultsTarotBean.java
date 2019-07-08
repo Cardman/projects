@@ -54,12 +54,7 @@ final class ResultsTarotBean extends TarotBean {
         setLoc(res_.getLoc());
         byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
         setBid(getGame().getContrat());
-        short doubledScoreTaker_=0;
-        Shorts positions_ = new Shorts();
-        Shorts positions1_ = new Shorts();
-        Shorts positions2_ = new Shorts();
-        Shorts positions3_ = new Shorts();
-        Shorts positions4_ = new Shorts();
+        short doubledScoreTaker_;
         Shorts doubledScoresPlayersTricks_ = new Shorts();
         Shorts needlyScoresPlayers_ = new Shorts();
         Shorts doublesDifferencesPlayers_ = new Shorts();
@@ -79,7 +74,7 @@ final class ResultsTarotBean extends TarotBean {
                 scoreTakerWithoutDeclaring=end_.scorePreneurSansAnnonces(differenceScoreTaker,basePoints);
                 additionnalBonusesAttack = end_.additionnalBonusesAttack(getBid());
                 additionnalBonusesDefense = end_.additionnalBonusesDefense();
-                winEqualityLoose=end_.getUserState(scoreTakerWithoutDeclaring,res_.getUser());
+                winEqualityLoose=res_.getEndTarotGame();
                 scoreTaker = (short) (doubledScoreTaker_/2);
                 taker = getNicknames().get(getGame().getPreneur());
                 for (byte p: getGame().getAppele()) {
@@ -99,13 +94,8 @@ final class ResultsTarotBean extends TarotBean {
                         doublesDifferencesPlayers_.add(EndTarotGame.differenceJoueurDouble(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
                         maxDoubledDifference=(short)Math.max(maxDoubledDifference,doublesDifferencesPlayers_.last());
                     }
-                    maxDifference=end_.differenceMax(maxDoubledDifference);
-                    positions_=EndTarotGame.positionsDifference(doublesDifferencesPlayers_);
-                    initialUserPosition=positions_.get(res_.getUser());
-                    positions1_ = end_.changePositionsOne(positions_,pasJeuMisere_);
-                    positions2_ = end_.changePositionsTwo(positions1_,pasJeuMisere_);
-                    positions3_ = end_.changePositionsThree(positions2_,pasJeuMisere_);
-                    positions4_ = end_.changePositionsFour(positions3_, pasJeuMisere_);
+                    maxDifference=res_.getMaxDifference();
+                    initialUserPosition=res_.getPositionsDiff().get(res_.getUser());
                 } else {
                     for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
                         doubledScoresPlayersTricks_.add(end_.scoreJoueurPlisDouble(joueur_));
@@ -113,15 +103,10 @@ final class ResultsTarotBean extends TarotBean {
                         doublesDifferencesPlayers_.add(EndTarotGame.differenceJoueurDoubleMisere(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
                         maxDoubledDifference=(short)Math.max(maxDoubledDifference,doublesDifferencesPlayers_.last());
                     }
-                    maxDifference=end_.differenceMax(maxDoubledDifference);
-                    positions_=EndTarotGame.positionsDifference(doublesDifferencesPlayers_);
-                    initialUserPosition=positions_.get(res_.getUser());
-                    positions1_ = end_.changePositionsOne(positions_,pasJeuMisere_);
-                    positions2_ = end_.changePositionsTwo(positions1_,pasJeuMisere_);
-                    positions3_ = end_.changePositionsThree(positions2_,pasJeuMisere_);
-                    positions4_ = end_.changePositionsFour(positions3_, pasJeuMisere_);
+                    maxDifference=res_.getMaxDifference();
+                    initialUserPosition=res_.getPositionsDiff().get(res_.getUser());
                 }
-                finalUserPosition = positions4_.get(res_.getUser());
+                finalUserPosition = res_.getFinalUserPosition();
             }
         }
         linesDeal = new CustList<LineDeal>();

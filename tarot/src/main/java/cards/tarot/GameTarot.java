@@ -123,10 +123,7 @@ public final class GameTarot {
                 confidence.last().add(i == j);
             }
         }
-        if(!avecContrat()
-                && getRegles().getRepartition().getAppel() == CallingCard.DEFINED) {
-            initEquipeDetermineeSansPreneur();
-        }
+        initConstTeamWithoutTaker();
         for (int i = CustList.FIRST_INDEX; i < nombreJoueurs_; i++) {
             declaresHandfuls.add(new EnumList<Handfuls>());
             declaresMiseres.add(new EnumList<Miseres>());
@@ -138,6 +135,17 @@ public final class GameTarot {
             handfuls.add(new HandTarot());
         }
         lastHasBid = -1;
+    }
+
+    void initConstTeamWithoutTaker() {
+        if(initTeamWithoutTaker()) {
+            initEquipeDetermineeSansPreneur();
+        }
+    }
+
+    boolean initTeamWithoutTaker() {
+        return !avecContrat()
+                && getRegles().getRepartition().getAppel() == CallingCard.DEFINED;
     }
 
     public void initPlayWithoutBid() {
@@ -160,25 +168,17 @@ public final class GameTarot {
         for (int i = CustList.FIRST_INDEX; i < nombreJoueurs_; i++) {
             scores.set( i, (short) 0);
         }
-        if (!unionPlis().isEmpty()) {
-            tricks.clear();
+        tricks.clear();
+        if (!avecContrat()) {
             tricks.add(new TrickTarot(getDistribution().derniereMain(),
                     (byte) (nombreJoueurs_ + 1), false));
         }
-        if(!avecContrat()
-                && getRegles().getRepartition().getAppel() == CallingCard.DEFINED) {
-            initEquipeDetermineeSansPreneur();
-        } else {
-            for (int i = CustList.FIRST_INDEX; i < nombreJoueurs_; i++) {
-            /*
-            Initialise la confiance a un
-            jeu non solitaire
-            */
-                for (int j = CustList.FIRST_INDEX; j < nombreJoueurs_; j++) {
-                    confidence.get(i).set(j, i == j);
-                }
+        for (int i = CustList.FIRST_INDEX; i < nombreJoueurs_; i++) {
+            for (int j = CustList.FIRST_INDEX; j < nombreJoueurs_; j++) {
+                confidence.get(i).set(j, i == j);
             }
         }
+        initConstTeamWithoutTaker();
         for (int i = CustList.FIRST_INDEX; i < nombreJoueurs_; i++) {
             declaresHandfuls.set( i, new EnumList<Handfuls>());
             declaresMiseres.set( i, new EnumList<Miseres>());
@@ -1295,7 +1295,7 @@ public final class GameTarot {
 
     public HandTarot empiler() {
         HandTarot m = new HandTarot();
-        if (unionPlis().isEmpty()) {
+        if (tricks.isEmpty()) {
             for (HandTarot main_ : getDistribution()) {
                 m.ajouterCartes(main_);
             }
@@ -1309,6 +1309,9 @@ public final class GameTarot {
 
     public void restituerMainsDepartRejouerDonne(CustList<TrickTarot> _plisFaits,
             byte _nombreJoueurs) {
+        if (_plisFaits.isEmpty()) {
+            return;
+        }
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
             supprimerCartes(joueur_);
         }

@@ -966,8 +966,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(partie_);
-        res_.initialize(new StringList(pseudos_), getScores());
         res_.setUser(DealTarot.NUMERO_UTILISATEUR);
+        res_.initialize(new StringList(pseudos_), getScores());
         DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
         setScores(res_.getScores());
 
@@ -1472,7 +1472,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     @Override
     public void replay() {
         GameTarot partie_=partieTarot();
-        CustList<TrickTarot> plisFaits_=partie_.unionPlis();
+        CustList<TrickTarot> plisFaits_=partie_.getTricks();
         partie_.restituerMainsDepartRejouerDonne(plisFaits_, partie_.getNombreDeJoueurs());
         partie_.initPartie();
         mettreEnPlaceIhmTarot();
