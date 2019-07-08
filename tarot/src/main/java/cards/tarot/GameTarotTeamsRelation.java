@@ -69,10 +69,6 @@ public final class GameTarotTeamsRelation {
         return joueurs_;
     }
 
-    Bytes autresJoueurs(byte _numero) {
-        byte nombreDeJoueurs_ = getNombreDeJoueurs();
-        return autresJoueurs(new Bytes(_numero), nombreDeJoueurs_);
-    }
     static Bytes tousJoueurs(byte _nombreJoueurs) {
         Bytes joueurs_ = new Bytes();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
@@ -86,17 +82,8 @@ public final class GameTarotTeamsRelation {
     }
 
     Bytes tousCoequipiers(byte _joueur) {
-        Bytes equipe_ = new Bytes();
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
-        for (byte joueur_ : tousJoueurs(nombreDeJoueurs_)) {
-            if (joueur_ == _joueur) {
-                continue;
-            }
-            if (memeEquipe(_joueur, joueur_)) {
-                equipe_.add(joueur_);
-            }
-        }
-        return equipe_;
+        return coequipiers(_joueur,tousJoueurs(nombreDeJoueurs_));
     }
     Bytes coequipiers(byte _joueur, Bytes _joueurs) {
         Bytes equipe_ = new Bytes();

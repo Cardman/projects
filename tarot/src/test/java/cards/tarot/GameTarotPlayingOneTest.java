@@ -1,7 +1,8 @@
 package cards.tarot;
 import static cards.tarot.EquallableTarotUtil.assertEq;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
+import cards.tarot.enumerations.ModeTarot;
 import code.util.CustList;
 import org.junit.Test;
 
@@ -12,7 +13,6 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import code.util.EnumMap;
-import code.util.EqList;
 
 public class GameTarotPlayingOneTest extends CommonTarotGame {
     private GameTarot game;
@@ -364,5 +364,117 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         HandTarot expected_ = suits_.getVal(Suit.TRUMP);
         assertEq(expected_.total(),playableCards_.total());
         assertTrue(playableCards_.contientCartes(expected_));
+    }
+    @Test
+    public void strategieJeuCarteUnique1Test() {
+        RulesTarot regles_=initializeRulesWithBids();
+        game = new GameTarot(GameType.RANDOM,initializeHands((byte) 0),regles_);
+        //game.resetNbPlisTotal();
+        bidding(BidTarot.GUARD, (byte) 4, game);
+        HandTarot cartesAppeler_ = new HandTarot();
+        cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
+        game.setCarteAppelee(cartesAppeler_);
+        game.initConfianceAppele();
+        game.ajouterCartes(game.getPreneur(), game.derniereMain());
+        HandTarot discardedCards_ = new HandTarot();
+        discardedCards_.ajouter(CardTarot.TRUMP_6);
+        discardedCards_.ajouter(CardTarot.TRUMP_2);
+        discardedCards_.ajouter(CardTarot.HEART_10);
+        game.supprimerCartes(game.getPreneur(),discardedCards_);
+
+        game.setPliEnCours(false);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
+        game.addCurTrick();
+        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setPliEnCours(true);
+        CardTarot cardTarot_ = game.strategieJeuCarteUnique();
+        assertSame(CardTarot.DIAMOND_7,cardTarot_);
+    }
+    @Test
+    public void strategieJeuCarteUnique2Test() {
+        RulesTarot regles_=initializeRulesWithBids();
+        game = new GameTarot(GameType.RANDOM,initializeHands((byte) 0),regles_);
+        //game.resetNbPlisTotal();
+        bidding(BidTarot.GUARD, (byte) 4, game);
+        HandTarot cartesAppeler_ = new HandTarot();
+        cartesAppeler_.ajouter(CardTarot.SPADE_QUEEN);
+        game.setCarteAppelee(cartesAppeler_);
+        game.initConfianceAppele();
+        game.ajouterCartes(game.getPreneur(), game.derniereMain());
+        HandTarot discardedCards_ = new HandTarot();
+        discardedCards_.ajouter(CardTarot.TRUMP_6);
+        discardedCards_.ajouter(CardTarot.TRUMP_2);
+        discardedCards_.ajouter(CardTarot.HEART_10);
+        game.supprimerCartes(game.getPreneur(),discardedCards_);
+
+        game.setPliEnCours(false);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
+        game.addCurTrick();
+        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setPliEnCours(true);
+        game.jouer(game.getEntameur(),CardTarot.DIAMOND_7);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_7);
+        CardTarot cardTarot_ = game.strategieJeuCarteUnique();
+        assertSame(CardTarot.TRUMP_5,cardTarot_);
+    }
+    @Test
+    public void strategieJeuCarteUnique3Test() {
+        RulesTarot regles_=initializeRulesWithoutBids(ModeTarot.ONE_FOR_ONE);
+        game = new GameTarot(GameType.RANDOM,initializeHands((byte) 0),regles_);
+        //game.resetNbPlisTotal();
+        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setPliEnCours(true);
+        CardTarot cardTarot_ = game.strategieJeuCarteUnique();
+        assertSame(CardTarot.HEART_1,cardTarot_);
+    }
+    @Test
+    public void strategieJeuCarteUnique4Test() {
+        RulesTarot regles_=initializeRulesWithoutBids(ModeTarot.ONE_FOR_ONE);
+        game = new GameTarot(GameType.RANDOM,initializeHands((byte) 0),regles_);
+        //game.resetNbPlisTotal();
+        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setPliEnCours(true);
+        game.jouer(game.getEntameur(),CardTarot.HEART_1);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_1);
+        CardTarot cardTarot_ = game.strategieJeuCarteUnique();
+        assertSame(CardTarot.HEART_9,cardTarot_);
+    }
+    @Test
+    public void strategieJeuCarteUnique5Test() {
+        RulesTarot regles_=initializeRulesWithoutBids(ModeTarot.MISERE);
+        game = new GameTarot(GameType.RANDOM,initializeHands((byte) 0),regles_);
+        //game.resetNbPlisTotal();
+        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setPliEnCours(true);
+        CardTarot cardTarot_ = game.strategieJeuCarteUnique();
+        assertSame(CardTarot.TRUMP_7,cardTarot_);
+    }
+    @Test
+    public void strategieJeuCarteUnique6Test() {
+        RulesTarot regles_=initializeRulesWithoutBids(ModeTarot.MISERE);
+        game = new GameTarot(GameType.RANDOM,initializeHands((byte) 0),regles_);
+        //game.resetNbPlisTotal();
+        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setPliEnCours(true);
+        game.jouer(game.getEntameur(),CardTarot.TRUMP_7);
+        game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_7);
+        CardTarot cardTarot_ = game.strategieJeuCarteUnique();
+        assertSame(CardTarot.TRUMP_5,cardTarot_);
+    }
+    static RulesTarot initializeRulesWithoutBids(ModeTarot _mode) {
+        RulesTarot regles_=new RulesTarot();
+        regles_.setRepartition(DealingTarot.DEAL_2_VS_3_CALL_KING);
+        regles_.setMode(_mode);
+        regles_.setCartesBattues(MixCardsChoice.NEVER);
+        EnumMap<BidTarot,Boolean> contrats_ = new EnumMap<BidTarot,Boolean>();
+        for (BidTarot b: regles_.getContrats().getKeys()) {
+            contrats_.put(b,true);
+        }
+        regles_.setContrats(contrats_);
+        return regles_;
     }
 }

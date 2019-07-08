@@ -647,6 +647,12 @@ public class GameTarotBiddingTest extends CommonTarotGame {
         assertTrue(game.maximumBid(BidTarot.GUARD_AGAINST));
     }
     @Test
+    public void maximumBid_AtSecondRound4(){
+        RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>(BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
+        game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
+        assertTrue(!game.maximumBid(BidTarot.GUARD_WITHOUT));
+    }
+    @Test
     public void initDefense_revealedTeamWithoutCallingByTaking1Test(){
         RulesTarot regles_=initializeRulesWithBids(new EnumList<BidTarot>());
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);

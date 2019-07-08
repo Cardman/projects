@@ -149,10 +149,6 @@ public final class GameTarot {
         }
     }
 
-    private static Suit couleurAtout() {
-        return Suit.TRUMP;
-    }
-
 
     public void initPartie() {
         taker = -1;
@@ -1063,8 +1059,8 @@ public final class GameTarot {
         EnumMap<Suit,HandTarot> repartitionCartesJouees_ = cartesJouees_.couleurs();
         CustList<CustList<HandTarot>> suites_ = new CustList<CustList<HandTarot>>();
         suites_.add(new CustList<HandTarot>());
-        suites_.add(repartition_.getVal(couleurAtout()).eclaterEnCours(
-                repartitionCartesJouees_, couleurAtout()));
+        suites_.add(repartition_.getVal(Suit.TRUMP).eclaterEnCours(
+                repartitionCartesJouees_, Suit.TRUMP));
         for (Suit i : couleursOrdinaires()) {
             suites_.add(repartition_.getVal(i).eclaterEnCours(
                     repartitionCartesJouees_, i));
@@ -1251,15 +1247,14 @@ public final class GameTarot {
         //getDistribution().main().total() == 1
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
         Bytes partenaires_ = teamsRelation_.tousCoequipiers(trickWinner);
+        partenaires_.add(trickWinner);
         boolean possedeExcuseMemeEquipe_ = false;
         for (byte b1_ : partenaires_) {
             if (getDistribution().main(b1_).contient(CardTarot.excuse())) {
                 possedeExcuseMemeEquipe_ = true;
             }
         }
-        if (getDistribution().main(trickWinner).contient(
-                CardTarot.excuse())
-                || possedeExcuseMemeEquipe_) {
+        if (possedeExcuseMemeEquipe_) {
             if (!teamsRelation_.adversaireAFaitPlis(trickWinner,tricks)) {
                 //ajouterPetitAuBoutCasChelem
                 smallBound.set( trickWinner, true);
