@@ -41,7 +41,7 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         dSlam_.add(false);
         dSlam_.add(false);
         dSlam_.add(false);
-        TrickTarot t_ =  new TrickTarot((byte) 0,true);
+        TrickTarot t_ =  newClassicTrick(trs_,rules_,dealer_);
         t_.ajouter(CardTarot.TRUMP_1);
         t_.ajouter(CardTarot.CLUB_4);
         t_.ajouter(CardTarot.HEART_7);
@@ -187,6 +187,868 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         assertEq(0,wonPlayersTeam_.get(2).total());
         assertEq(41,endTarotGame_.scoreNecessaireJoueur((byte) 0));
         assertEq(157,endTarotGame_.scoreJoueurPlisDouble((byte) 0));
+    }
+    @Test
+    public void primeSupplementaire1Test() {
+        RulesTarot r_ = new RulesTarot();
+        r_.setMode(ModeTarot.ONE_FOR_ONE);
+        r_.setDealing(DealingTarot.DEAL_1_VS_2);
+        CustList<BooleanList> conf_ = getConf(BidTarot.FOLD, r_, -1);
+        Bytes called_ = new Bytes();
+        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)-1, called_,conf_,r_);
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.add(new HandTarot());
+        wonCards_.add(new HandTarot());
+        assertEq(200, EndTarotGame.primeSupplementaire((byte)0,g_,wonCards_));
+    }
+    @Test
+    public void primeSupplementaire2Test() {
+        RulesTarot r_ = new RulesTarot();
+        r_.setMode(ModeTarot.ONE_FOR_ONE);
+        r_.setDealing(DealingTarot.DEAL_1_VS_2);
+        CustList<BooleanList> conf_ = getConf(BidTarot.FOLD, r_, -1);
+        Bytes called_ = new Bytes();
+        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)-1, called_,conf_,r_);
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.EXCUSE);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.EXCUSE);
+        wonCards_.add(new HandTarot());
+        assertEq(0, EndTarotGame.primeSupplementaire((byte)0,g_,wonCards_));
+    }
+    @Test
+    public void differenceMax1Test() {
+        assertEq(30, EndTarotGame.differenceMax((byte)50,(byte)10));
+    }
+    @Test
+    public void differenceMax2Test() {
+        assertEq(31, EndTarotGame.differenceMax((byte)51,(byte)10));
+    }
+    @Test
+    public void positionsDifferenceTest() {
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)10);
+        diffs_.add((short)0);
+        diffs_.add((short)-10);
+        diffs_.add((short)10);
+        diffs_.add((short)0);
+        diffs_.add((short)-10);
+        Shorts pos_ = EndTarotGame.positionsDifference(diffs_);
+        assertEq(6, pos_.size());
+        assertEq(1, pos_.get(0));
+        assertEq(3, pos_.get(1));
+        assertEq(5, pos_.get(2));
+        assertEq(1, pos_.get(3));
+        assertEq(3, pos_.get(4));
+        assertEq(5, pos_.get(5));
+    }
+    @Test
+    public void buildGroups1Test() {
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)1);
+        diffs_.add((short)1);
+        diffs_.add((short)5);
+        diffs_.add((short)1);
+        diffs_.add((short)1);
+        diffs_.add((short)5);
+        CustList<Shorts> gr_ = EndTarotGame.buildGroups(diffs_);
+        assertEq(2,gr_.size());
+        assertEq(4,gr_.get(0).size());
+        assertEq(0,gr_.get(0).get(0));
+        assertEq(1,gr_.get(0).get(1));
+        assertEq(3,gr_.get(0).get(2));
+        assertEq(4,gr_.get(0).get(3));
+        assertEq(2,gr_.get(1).size());
+        assertEq(2,gr_.get(1).get(0));
+        assertEq(5,gr_.get(1).get(1));
+    }
+    @Test
+    public void buildGroups2Test() {
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)1);
+        diffs_.add((short)2);
+        diffs_.add((short)3);
+        CustList<Shorts> gr_ = EndTarotGame.buildGroups(diffs_);
+        assertEq(0,gr_.size());
+    }
+    @Test
+    public void changePositionsOne1Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.EXCUSE);
+        wonCards_.last().removeCardIfPresent(CardTarot.TRUMP_21);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_KING);
+        wonCards_.last().removeCardIfPresent(CardTarot.TRUMP_1);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.EXCUSE);
+        wonCards_.last().ajouter(CardTarot.TRUMP_1);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.TRUMP_21);
+        wonCards_.last().ajouter(CardTarot.HEART_KING);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)1);
+        diffs_.add((short)2);
+        diffs_.add((short)2);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_, diffs_, true);
+        assertEq(3,pos_.size());
+        assertEq(1,pos_.get(0));
+        assertEq(2,pos_.get(1));
+        assertEq(3,pos_.get(2));
+    }
+    @Test
+    public void changePositionsOne2Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.EXCUSE);
+        wonCards_.last().removeCardIfPresent(CardTarot.TRUMP_21);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.EXCUSE);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.TRUMP_21);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)1);
+        diffs_.add((short)2);
+        diffs_.add((short)2);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,true);
+        assertEq(3,pos_.size());
+        assertEq(1,pos_.get(0));
+        assertEq(2,pos_.get(1));
+        assertEq(2,pos_.get(2));
+    }
+    @Test
+    public void changePositionsOne3Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.EXCUSE);
+        wonCards_.last().removeCardIfPresent(CardTarot.TRUMP_21);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_KING);
+        wonCards_.last().removeCardIfPresent(CardTarot.TRUMP_1);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.EXCUSE);
+        wonCards_.last().ajouter(CardTarot.TRUMP_1);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.TRUMP_21);
+        wonCards_.last().ajouter(CardTarot.HEART_KING);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)3);
+        diffs_.add((short)1);
+        diffs_.add((short)1);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,false);
+        assertEq(3,pos_.size());
+        assertEq(3,pos_.get(0));
+        assertEq(2,pos_.get(1));
+        assertEq(1,pos_.get(2));
+    }
+    @Test
+    public void changePositionsOne4Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.EXCUSE);
+        wonCards_.last().removeCardIfPresent(CardTarot.TRUMP_21);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.EXCUSE);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.TRUMP_21);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)3);
+        diffs_.add((short)1);
+        diffs_.add((short)1);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,false);
+        assertEq(3,pos_.size());
+        assertEq(3,pos_.get(0));
+        assertEq(1,pos_.get(1));
+        assertEq(1,pos_.get(2));
+    }
+    @Test
+    public void changePositionsTwo1Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.EXCUSE);
+        wonCards_.last().removeCardIfPresent(CardTarot.TRUMP_21);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.EXCUSE);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.TRUMP_21);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)1);
+        diffs_.add((short)2);
+        diffs_.add((short)2);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,true);
+        pos_ = EndTarotGame.changePositionsTwo(wonCards_,pos_,true);
+        assertEq(3,pos_.size());
+        assertEq(1,pos_.get(0));
+        assertEq(3,pos_.get(1));
+        assertEq(2,pos_.get(2));
+    }
+    @Test
+    public void changePositionsTwo2Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.EXCUSE);
+        wonCards_.last().removeCardIfPresent(CardTarot.TRUMP_1);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.EXCUSE);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.TRUMP_1);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)1);
+        diffs_.add((short)2);
+        diffs_.add((short)2);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,true);
+        pos_ = EndTarotGame.changePositionsTwo(wonCards_,pos_,true);
+        assertEq(3,pos_.size());
+        assertEq(1,pos_.get(0));
+        assertEq(2,pos_.get(1));
+        assertEq(3,pos_.get(2));
+    }
+    @Test
+    public void changePositionsTwo3Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.TRUMP_21);
+        wonCards_.last().removeCardIfPresent(CardTarot.TRUMP_1);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.TRUMP_21);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.TRUMP_1);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)1);
+        diffs_.add((short)2);
+        diffs_.add((short)2);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,true);
+        pos_ = EndTarotGame.changePositionsTwo(wonCards_,pos_,true);
+        assertEq(3,pos_.size());
+        assertEq(1,pos_.get(0));
+        assertEq(2,pos_.get(1));
+        assertEq(3,pos_.get(2));
+    }
+    @Test
+    public void changePositionsTwo4Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.EXCUSE);
+        wonCards_.last().removeCardIfPresent(CardTarot.TRUMP_21);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.TRUMP_21);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.EXCUSE);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)1);
+        diffs_.add((short)2);
+        diffs_.add((short)2);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,true);
+        pos_ = EndTarotGame.changePositionsTwo(wonCards_,pos_,true);
+        assertEq(3,pos_.size());
+        assertEq(1,pos_.get(0));
+        assertEq(2,pos_.get(1));
+        assertEq(3,pos_.get(2));
+    }
+    @Test
+    public void changePositionsTwo5Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.EXCUSE);
+        wonCards_.last().removeCardIfPresent(CardTarot.TRUMP_1);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.TRUMP_1);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.EXCUSE);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)1);
+        diffs_.add((short)2);
+        diffs_.add((short)2);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,true);
+        pos_ = EndTarotGame.changePositionsTwo(wonCards_,pos_,true);
+        assertEq(3,pos_.size());
+        assertEq(1,pos_.get(0));
+        assertEq(3,pos_.get(1));
+        assertEq(2,pos_.get(2));
+    }
+    @Test
+    public void changePositionsTwo6Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.TRUMP_21);
+        wonCards_.last().removeCardIfPresent(CardTarot.TRUMP_1);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.TRUMP_1);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.TRUMP_21);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)1);
+        diffs_.add((short)2);
+        diffs_.add((short)2);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,true);
+        pos_ = EndTarotGame.changePositionsTwo(wonCards_,pos_,true);
+        assertEq(3,pos_.size());
+        assertEq(1,pos_.get(0));
+        assertEq(3,pos_.get(1));
+        assertEq(2,pos_.get(2));
+    }
+    @Test
+    public void changePositionsTwo7Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_JACK);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_10);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_9);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_8);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.HEART_JACK);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.HEART_10);
+        wonCards_.last().ajouter(CardTarot.HEART_9);
+        wonCards_.last().ajouter(CardTarot.HEART_8);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)1);
+        diffs_.add((short)2);
+        diffs_.add((short)2);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,true);
+        pos_ = EndTarotGame.changePositionsTwo(wonCards_,pos_,true);
+        assertEq(3,pos_.size());
+        assertEq(1,pos_.get(0));
+        assertEq(2,pos_.get(1));
+        assertEq(3,pos_.get(2));
+    }
+    @Test
+    public void changePositionsTwo8Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_JACK);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_10);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_9);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_8);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.HEART_10);
+        wonCards_.last().ajouter(CardTarot.HEART_9);
+        wonCards_.last().ajouter(CardTarot.HEART_8);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.HEART_JACK);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)1);
+        diffs_.add((short)2);
+        diffs_.add((short)2);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,true);
+        pos_ = EndTarotGame.changePositionsTwo(wonCards_,pos_,true);
+        assertEq(3,pos_.size());
+        assertEq(1,pos_.get(0));
+        assertEq(3,pos_.get(1));
+        assertEq(2,pos_.get(2));
+    }
+    @Test
+    public void changePositionsTwo9Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.EXCUSE);
+        wonCards_.last().removeCardIfPresent(CardTarot.TRUMP_21);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.EXCUSE);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.TRUMP_21);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)3);
+        diffs_.add((short)1);
+        diffs_.add((short)1);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,false);
+        pos_ = EndTarotGame.changePositionsTwo(wonCards_,pos_,false);
+        assertEq(3,pos_.size());
+        assertEq(3,pos_.get(0));
+        assertEq(1,pos_.get(1));
+        assertEq(2,pos_.get(2));
+    }
+    @Test
+    public void changePositionsTwo10Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.EXCUSE);
+        wonCards_.last().removeCardIfPresent(CardTarot.TRUMP_1);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.EXCUSE);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.TRUMP_1);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)3);
+        diffs_.add((short)1);
+        diffs_.add((short)1);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,false);
+        pos_ = EndTarotGame.changePositionsTwo(wonCards_,pos_,false);
+        assertEq(3,pos_.size());
+        assertEq(3,pos_.get(0));
+        assertEq(2,pos_.get(1));
+        assertEq(1,pos_.get(2));
+    }
+    @Test
+    public void changePositionsTwo11Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.TRUMP_21);
+        wonCards_.last().removeCardIfPresent(CardTarot.TRUMP_1);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.TRUMP_21);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.TRUMP_1);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)3);
+        diffs_.add((short)1);
+        diffs_.add((short)1);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,false);
+        pos_ = EndTarotGame.changePositionsTwo(wonCards_,pos_,false);
+        assertEq(3,pos_.size());
+        assertEq(3,pos_.get(0));
+        assertEq(2,pos_.get(1));
+        assertEq(1,pos_.get(2));
+    }
+    @Test
+    public void changePositionsTwo12Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.EXCUSE);
+        wonCards_.last().removeCardIfPresent(CardTarot.TRUMP_21);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.TRUMP_21);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.EXCUSE);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)3);
+        diffs_.add((short)1);
+        diffs_.add((short)1);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,false);
+        pos_ = EndTarotGame.changePositionsTwo(wonCards_,pos_,false);
+        assertEq(3,pos_.size());
+        assertEq(3,pos_.get(0));
+        assertEq(2,pos_.get(1));
+        assertEq(1,pos_.get(2));
+    }
+    @Test
+    public void changePositionsTwo13Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.EXCUSE);
+        wonCards_.last().removeCardIfPresent(CardTarot.TRUMP_1);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.TRUMP_1);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.EXCUSE);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)3);
+        diffs_.add((short)1);
+        diffs_.add((short)1);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,false);
+        pos_ = EndTarotGame.changePositionsTwo(wonCards_,pos_,false);
+        assertEq(3,pos_.size());
+        assertEq(3,pos_.get(0));
+        assertEq(1,pos_.get(1));
+        assertEq(2,pos_.get(2));
+    }
+    @Test
+    public void changePositionsTwo14Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.TRUMP_21);
+        wonCards_.last().removeCardIfPresent(CardTarot.TRUMP_1);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.TRUMP_1);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.TRUMP_21);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)3);
+        diffs_.add((short)1);
+        diffs_.add((short)1);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,false);
+        pos_ = EndTarotGame.changePositionsTwo(wonCards_,pos_,false);
+        assertEq(3,pos_.size());
+        assertEq(3,pos_.get(0));
+        assertEq(1,pos_.get(1));
+        assertEq(2,pos_.get(2));
+    }
+    @Test
+    public void changePositionsTwo15Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_JACK);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_10);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_9);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_8);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.HEART_JACK);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.HEART_10);
+        wonCards_.last().ajouter(CardTarot.HEART_9);
+        wonCards_.last().ajouter(CardTarot.HEART_8);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)3);
+        diffs_.add((short)1);
+        diffs_.add((short)1);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,false);
+        pos_ = EndTarotGame.changePositionsTwo(wonCards_,pos_,false);
+        assertEq(3,pos_.size());
+        assertEq(3,pos_.get(0));
+        assertEq(2,pos_.get(1));
+        assertEq(1,pos_.get(2));
+    }
+    @Test
+    public void changePositionsTwo16Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_JACK);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_10);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_9);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_8);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.HEART_10);
+        wonCards_.last().ajouter(CardTarot.HEART_9);
+        wonCards_.last().ajouter(CardTarot.HEART_8);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.HEART_JACK);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)3);
+        diffs_.add((short)1);
+        diffs_.add((short)1);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,false);
+        pos_ = EndTarotGame.changePositionsTwo(wonCards_,pos_,false);
+        assertEq(3,pos_.size());
+        assertEq(3,pos_.get(0));
+        assertEq(1,pos_.get(1));
+        assertEq(2,pos_.get(2));
+    }
+    @Test
+    public void changePositionsThree1Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_JACK);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_10);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_9);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_KNIGHT);
+        wonCards_.last().removeCardIfPresent(CardTarot.SPADE_KING);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_KING);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.SPADE_KING);
+        wonCards_.last().ajouter(CardTarot.HEART_KNIGHT);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.HEART_KING);
+        wonCards_.last().ajouter(CardTarot.HEART_JACK);
+        wonCards_.last().ajouter(CardTarot.HEART_10);
+        wonCards_.last().ajouter(CardTarot.HEART_9);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)1);
+        diffs_.add((short)2);
+        diffs_.add((short)2);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,true);
+        pos_ = EndTarotGame.changePositionsTwo(wonCards_,pos_,true);
+        pos_ = EndTarotGame.changePositionsThree(pos_,true,wonCards_);
+        assertEq(3,pos_.size());
+        assertEq(1,pos_.get(0));
+        assertEq(2,pos_.get(1));
+        assertEq(3,pos_.get(2));
+    }
+    @Test
+    public void changePositionsThree2Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_JACK);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_10);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_9);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_KNIGHT);
+        wonCards_.last().removeCardIfPresent(CardTarot.SPADE_KING);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_KING);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.HEART_KING);
+        wonCards_.last().ajouter(CardTarot.HEART_JACK);
+        wonCards_.last().ajouter(CardTarot.HEART_10);
+        wonCards_.last().ajouter(CardTarot.HEART_9);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.SPADE_KING);
+        wonCards_.last().ajouter(CardTarot.HEART_KNIGHT);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)1);
+        diffs_.add((short)2);
+        diffs_.add((short)2);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,true);
+        EndTarotGame.changePositionsTwo(wonCards_,pos_,true);
+        pos_ = EndTarotGame.changePositionsThree(pos_,true,wonCards_);
+        assertEq(3,pos_.size());
+        assertEq(1,pos_.get(0));
+        assertEq(3,pos_.get(1));
+        assertEq(2,pos_.get(2));
+    }
+    @Test
+    public void changePositionsThree3Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.SPADE_KING);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_KING);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.HEART_KING);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.SPADE_KING);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)1);
+        diffs_.add((short)2);
+        diffs_.add((short)2);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,true);
+        EndTarotGame.changePositionsTwo(wonCards_,pos_,true);
+        pos_ = EndTarotGame.changePositionsThree(pos_,true,wonCards_);
+        assertEq(3,pos_.size());
+        assertEq(1,pos_.get(0));
+        assertEq(2,pos_.get(1));
+        assertEq(2,pos_.get(2));
+    }
+    @Test
+    public void changePositionsThree4Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_JACK);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_10);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_9);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_KNIGHT);
+        wonCards_.last().removeCardIfPresent(CardTarot.SPADE_KING);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_KING);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.SPADE_KING);
+        wonCards_.last().ajouter(CardTarot.HEART_KNIGHT);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.HEART_KING);
+        wonCards_.last().ajouter(CardTarot.HEART_JACK);
+        wonCards_.last().ajouter(CardTarot.HEART_10);
+        wonCards_.last().ajouter(CardTarot.HEART_9);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)3);
+        diffs_.add((short)1);
+        diffs_.add((short)1);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,false);
+        pos_ = EndTarotGame.changePositionsTwo(wonCards_,pos_,false);
+        pos_ = EndTarotGame.changePositionsThree(pos_,false,wonCards_);
+        assertEq(3,pos_.size());
+        assertEq(3,pos_.get(0));
+        assertEq(2,pos_.get(1));
+        assertEq(1,pos_.get(2));
+    }
+    @Test
+    public void changePositionsThree5Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_JACK);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_10);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_9);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_KNIGHT);
+        wonCards_.last().removeCardIfPresent(CardTarot.SPADE_KING);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_KING);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.HEART_KING);
+        wonCards_.last().ajouter(CardTarot.HEART_JACK);
+        wonCards_.last().ajouter(CardTarot.HEART_10);
+        wonCards_.last().ajouter(CardTarot.HEART_9);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.SPADE_KING);
+        wonCards_.last().ajouter(CardTarot.HEART_KNIGHT);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)3);
+        diffs_.add((short)1);
+        diffs_.add((short)1);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,false);
+        EndTarotGame.changePositionsTwo(wonCards_,pos_,false);
+        pos_ = EndTarotGame.changePositionsThree(pos_,false,wonCards_);
+        assertEq(3,pos_.size());
+        assertEq(3,pos_.get(0));
+        assertEq(1,pos_.get(1));
+        assertEq(2,pos_.get(2));
+    }
+    @Test
+    public void changePositionsThree6Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.SPADE_KING);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_KING);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.HEART_KING);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.SPADE_KING);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)3);
+        diffs_.add((short)1);
+        diffs_.add((short)1);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,false);
+        EndTarotGame.changePositionsTwo(wonCards_,pos_,false);
+        pos_ = EndTarotGame.changePositionsThree(pos_,false,wonCards_);
+        assertEq(3,pos_.size());
+        assertEq(3,pos_.get(0));
+        assertEq(1,pos_.get(1));
+        assertEq(1,pos_.get(2));
+    }
+    @Test
+    public void changePositionsFour1Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.SPADE_KING);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_KING);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.HEART_KING);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.SPADE_KING);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)1);
+        diffs_.add((short)2);
+        diffs_.add((short)2);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,true);
+        EndTarotGame.changePositionsTwo(wonCards_,pos_,true);
+        pos_ = EndTarotGame.changePositionsThree(pos_,true,wonCards_);
+        Ints trs_ = new Ints();
+        trs_.add(0);
+        trs_.add(5);
+        trs_.add(15);
+        pos_ = EndTarotGame.changePositionsFour(pos_,true,trs_);
+        assertEq(3,pos_.size());
+        assertEq(1,pos_.get(0));
+        assertEq(2,pos_.get(1));
+        assertEq(3,pos_.get(2));
+    }
+    @Test
+    public void changePositionsFour2Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.SPADE_KING);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_KING);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.HEART_KING);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.SPADE_KING);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)1);
+        diffs_.add((short)2);
+        diffs_.add((short)2);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,true);
+        EndTarotGame.changePositionsTwo(wonCards_,pos_,true);
+        pos_ = EndTarotGame.changePositionsThree(pos_,true,wonCards_);
+        Ints trs_ = new Ints();
+        trs_.add(0);
+        trs_.add(15);
+        trs_.add(5);
+        pos_ = EndTarotGame.changePositionsFour(pos_,true,trs_);
+        assertEq(3,pos_.size());
+        assertEq(1,pos_.get(0));
+        assertEq(3,pos_.get(1));
+        assertEq(2,pos_.get(2));
+    }
+    @Test
+    public void changePositionsFour3Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.SPADE_KING);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_KING);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.HEART_KING);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.SPADE_KING);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)3);
+        diffs_.add((short)1);
+        diffs_.add((short)1);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,false);
+        EndTarotGame.changePositionsTwo(wonCards_,pos_,false);
+        pos_ = EndTarotGame.changePositionsThree(pos_,false,wonCards_);
+        Ints trs_ = new Ints();
+        trs_.add(0);
+        trs_.add(5);
+        trs_.add(15);
+        pos_ = EndTarotGame.changePositionsFour(pos_,false,trs_);
+        assertEq(3,pos_.size());
+        assertEq(3,pos_.get(0));
+        assertEq(2,pos_.get(1));
+        assertEq(1,pos_.get(2));
+    }
+    @Test
+    public void changePositionsFour4Test() {
+        CustList<HandTarot> wonCards_ = new CustList<HandTarot>();
+        wonCards_.add(HandTarot.pileBase());
+        wonCards_.last().removeCardIfPresent(CardTarot.SPADE_KING);
+        wonCards_.last().removeCardIfPresent(CardTarot.HEART_KING);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.HEART_KING);
+        wonCards_.add(new HandTarot());
+        wonCards_.last().ajouter(CardTarot.SPADE_KING);
+        Shorts diffs_ = new Shorts();
+        diffs_.add((short)3);
+        diffs_.add((short)1);
+        diffs_.add((short)1);
+        Shorts pos_ = EndTarotGame.changePositionsOne(wonCards_,diffs_,false);
+        EndTarotGame.changePositionsTwo(wonCards_,pos_,false);
+        pos_ = EndTarotGame.changePositionsThree(pos_,false,wonCards_);
+        Ints trs_ = new Ints();
+        trs_.add(0);
+        trs_.add(15);
+        trs_.add(5);
+        pos_ = EndTarotGame.changePositionsFour(pos_,false,trs_);
+        assertEq(3,pos_.size());
+        assertEq(3,pos_.get(0));
+        assertEq(1,pos_.get(1));
+        assertEq(2,pos_.get(2));
+    }
+    private static CustList<BooleanList> getConf(BidTarot _b, RulesTarot _r, int _taker){
+        CustList<BooleanList> confidence_ = new CustList<BooleanList>();
+        ModeTarot mode_ = _r.getMode();
+        boolean b_ = false;
+        if (mode_ == ModeTarot.NORMAL) {
+            b_ = true;
+        } else if (mode_ == ModeTarot.NORMAL_WITH_ONE_FOR_ONE) {
+            b_ = true;
+        } else if (mode_ == ModeTarot.NORMAL_WITH_MISERE) {
+            b_ = true;
+        }
+        byte nbPl_ = (byte) _r.getRepartition().getNombreJoueurs();
+        for (int i = 0; i< nbPl_; i++) {
+            BooleanList c_ = new BooleanList();
+            for (int j = 0; j< nbPl_; j++) {
+                c_.add(i == j);
+            }
+            confidence_.add(c_);
+        }
+        if (!b_ || !_b.isJouerDonne()) {
+            for (byte i = CustList.FIRST_INDEX; i < nbPl_; i++) {
+                for (byte p: _r.getRepartition().getAppelesDetermines(i)) {
+                    confidence_.get(i).set(p,true);
+                }
+                confidence_.get(i).set(i,true);
+            }
+        } else if (_r.getRepartition().getAppel() == CallingCard.DEFINED) {
+            Bytes attaquants_=_r.getRepartition().getAppelesDetermines((byte) _taker);
+            attaquants_.add((byte) _taker);
+            Bytes defenseurs_=GameTarotTeamsRelation.autresJoueurs(attaquants_, nbPl_);
+            for(byte j1_:attaquants_) {
+                for(byte j2_:attaquants_) {
+                    if(j1_==j2_) {
+                        continue;
+                    }
+                    confidence_.get(j1_).set(j2_,true);
+                }
+            }
+            for(byte j1_:defenseurs_) {
+                for(byte j2_:defenseurs_) {
+                    if(j1_==j2_) {
+                        continue;
+                    }
+                    confidence_.get(j1_).set(j2_,true);
+                }
+            }
+        } else if (_r.getRepartition().getAppel() == CallingCard.WITHOUT) {
+            Bytes defenseurs_=new Bytes();
+            for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nbPl_;joueur_++) {
+                if(joueur_==_taker) {
+                    continue;
+                }
+                defenseurs_.add(joueur_);
+            }
+            for(byte j1_:defenseurs_) {
+                for(byte j2_:defenseurs_) {
+                    if(j1_==j2_) {
+                        continue;
+                    }
+                    confidence_.get(j1_).set(j2_,true);
+                }
+            }
+        }
+        return confidence_;
     }
     private static EndTarotGame newEndTarotGame(RulesTarot _r, CustList<TrickTarot> _trs,
                                                 EqList<EnumList<Miseres>> _m, CustList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,

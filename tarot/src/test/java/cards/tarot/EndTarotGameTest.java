@@ -4059,6 +4059,22 @@ public final class EndTarotGameTest extends CommonGameTarot {
     public void getUserState6Test() {
         assertSame(EndGameState.WIN,EndTarotGame.getUserState((short) -10,true));
     }
+    @Test
+    public void joueurPetitAuBout1Test() {
+        BooleanList smallBound_ = new BooleanList();
+        smallBound_.add(false);
+        smallBound_.add(false);
+        smallBound_.add(false);
+        assertEq(-1,EndTarotGame.joueurPetitAuBout((byte)3,smallBound_));
+    }
+    @Test
+    public void joueurPetitAuBout2Test() {
+        BooleanList smallBound_ = new BooleanList();
+        smallBound_.add(false);
+        smallBound_.add(true);
+        smallBound_.add(false);
+        assertEq(1,EndTarotGame.joueurPetitAuBout((byte)3,smallBound_));
+    }
     private static CustList<BooleanList> getConf(BidTarot _b, RulesTarot _r, int _taker){
         CustList<BooleanList> confidence_ = new CustList<BooleanList>();
         ModeTarot mode_ = _r.getMode();

@@ -75,10 +75,13 @@ public final class ResultsTarot {
                 boolean pasJeuMisere_=game.pasJeuMisere();
                 if(pasJeuMisere_) {
                     for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
-                        doubledScoresPlayersTricks_.add(end_.scoreJoueurPlisDouble( joueur_));
-                        needlyScoresPlayers_.add(end_.scoreNecessaireJoueur(joueur_));
-                        doublesDifferencesPlayers_.add(EndTarotGame.differenceJoueurDouble(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
-                        maxDoubledDifference_=(short)Math.max(maxDoubledDifference_,doublesDifferencesPlayers_.last());
+                        short ptsDb_ = end_.scoreJoueurPlisDouble(joueur_);
+                        doubledScoresPlayersTricks_.add(ptsDb_);
+                        short ptsNeed_ = end_.scoreNecessaireJoueur(joueur_);
+                        needlyScoresPlayers_.add(ptsNeed_);
+                        short diffDb_ = EndTarotGame.differenceJoueurDouble(ptsNeed_, ptsDb_);
+                        doublesDifferencesPlayers_.add(diffDb_);
+                        maxDoubledDifference_=(short)Math.max(maxDoubledDifference_,diffDb_);
                         additionnalBonuses_.add(end_.primeSupplementaire(joueur_));
                     }
                     positions_=EndTarotGame.positionsDifference(doublesDifferencesPlayers_);
