@@ -1475,19 +1475,22 @@ public final class EndTarotGame {
     public Shorts calculerScoresJoueurs(Shorts _coefficients,
                                       short _differenceMaxDouble) {
         byte nombreJoueurs_ = relations.getNombreDeJoueurs();
+        byte parite_ = getParite(_differenceMaxDouble, nombrePointsChien);
+        int sumLoc_ = _differenceMaxDouble
+                + nombrePointsChien + parite_;
+        return calculerScoresJoueurs(_coefficients, nombreJoueurs_, sumLoc_);
+    }
+
+    static Shorts calculerScoresJoueurs(Shorts _coefficients, byte _nombreJoueurs, int _sumLoc) {
         Shorts scores_ = new Shorts();
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
             scores_.add((short)0);
         }
-        byte parite_ = getParite(_differenceMaxDouble, nombrePointsChien);
-        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+        for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
             scores_.set(joueur_,
-                    (short) (4 * (_coefficients.get(joueur_) * (PTS_BASE + (_differenceMaxDouble
-                            + nombrePointsChien + parite_) / 2))));
+                    (short) (4 * (_coefficients.get(joueur_) * (PTS_BASE + _sumLoc / 2))));
         }
         return scores_;
-
-
     }
 
     public short differenceMax(short _differenceMaxDouble) {

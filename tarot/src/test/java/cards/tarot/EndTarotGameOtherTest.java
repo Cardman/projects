@@ -1525,6 +1525,115 @@ public final class EndTarotGameOtherTest extends CommonGameTarot {
         assertEq(1,rates_.get(2));
         assertEq(-1,rates_.get(3));
     }
+    @Test
+    public void calculerScoresJoueurs1Test() {
+        RulesTarot r_ = new RulesTarot();
+        r_.setMode(ModeTarot.ONE_FOR_ONE);
+        r_.setDealing(DealingTarot.DEAL_1_VS_2);
+        CustList<BooleanList> conf_ = getConf(BidTarot.FOLD, r_, -1);
+        Bytes called_ = new Bytes();
+        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)-1, called_,conf_,r_);
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)2);
+        pos_.add((short)3);
+        Shorts rates_ = EndTarotGame.coefficients(pos_, DealingTarot.DEAL_1_VS_2);
+        Shorts primes_ = new Shorts();
+        primes_.add((short)200);
+        primes_.add((short)0);
+        primes_.add((short)0);
+        CustList<EnumList<Handfuls>> handfuls_ = new CustList<EnumList<Handfuls>>();
+        EnumList<Handfuls> handful_ = new EnumList<Handfuls>();
+        handful_.add(Handfuls.ONE);
+        handfuls_.add(handful_);
+        handful_ = new EnumList<Handfuls>();
+        handful_.add(Handfuls.TWO);
+        handfuls_.add(handful_);
+        handful_ = new EnumList<Handfuls>();
+        handfuls_.add(handful_);
+        EqList<EnumList<Miseres>> miseres_ = new EqList<EnumList<Miseres>>();
+        EnumList<Miseres> misere_ = new EnumList<Miseres>();
+        misere_.add(Miseres.LOW_CARDS);
+        misere_.add(Miseres.SUIT);
+        miseres_.add(misere_);
+        misere_ = new EnumList<Miseres>();
+        misere_.add(Miseres.TRUMP);
+        misere_.add(Miseres.POINT);
+        miseres_.add(misere_);
+        misere_ = new EnumList<Miseres>();
+        misere_.add(Miseres.CHARACTER);
+        miseres_.add(misere_);
+        BooleanList small_ = new BooleanList();
+        small_.add(true);
+        small_.add(false);
+        small_.add(false);
+        Shorts scores_ = EndTarotGame.calculerScoresJoueurs(rates_, primes_, 100, g_, handfuls_, miseres_, small_);
+        assertEq(3, scores_.size());
+        assertEq(2320, scores_.get(0));
+        assertEq(-740, scores_.get(1));
+        assertEq(-1580, scores_.get(2));
+    }
+    @Test
+    public void calculerScoresJoueurs2Test() {
+        RulesTarot r_ = new RulesTarot();
+        r_.setMode(ModeTarot.ONE_FOR_ONE);
+        r_.setDealing(DealingTarot.DEAL_1_VS_2);
+        CustList<BooleanList> conf_ = getConf(BidTarot.FOLD, r_, -1);
+        Bytes called_ = new Bytes();
+        GameTarotTeamsRelation g_ = new GameTarotTeamsRelation((byte)-1, called_,conf_,r_);
+        Shorts pos_ = new Shorts();
+        pos_.add((short)1);
+        pos_.add((short)2);
+        pos_.add((short)3);
+        Shorts rates_ = EndTarotGame.coefficients(pos_, DealingTarot.DEAL_1_VS_2);
+        Shorts primes_ = new Shorts();
+        primes_.add((short)200);
+        primes_.add((short)0);
+        primes_.add((short)0);
+        CustList<EnumList<Handfuls>> handfuls_ = new CustList<EnumList<Handfuls>>();
+        EnumList<Handfuls> handful_ = new EnumList<Handfuls>();
+        handful_.add(Handfuls.ONE);
+        handfuls_.add(handful_);
+        handful_ = new EnumList<Handfuls>();
+        handful_.add(Handfuls.TWO);
+        handfuls_.add(handful_);
+        handful_ = new EnumList<Handfuls>();
+        handfuls_.add(handful_);
+        EqList<EnumList<Miseres>> miseres_ = new EqList<EnumList<Miseres>>();
+        EnumList<Miseres> misere_ = new EnumList<Miseres>();
+        misere_.add(Miseres.LOW_CARDS);
+        misere_.add(Miseres.SUIT);
+        miseres_.add(misere_);
+        misere_ = new EnumList<Miseres>();
+        misere_.add(Miseres.TRUMP);
+        misere_.add(Miseres.POINT);
+        miseres_.add(misere_);
+        misere_ = new EnumList<Miseres>();
+        misere_.add(Miseres.CHARACTER);
+        miseres_.add(misere_);
+        BooleanList small_ = new BooleanList();
+        small_.add(false);
+        small_.add(true);
+        small_.add(false);
+        Shorts scores_ = EndTarotGame.calculerScoresJoueurs(rates_, primes_, 100, g_, handfuls_, miseres_, small_);
+        assertEq(3, scores_.size());
+        assertEq(2200, scores_.get(0));
+        assertEq(-620, scores_.get(1));
+        assertEq(-1580, scores_.get(2));
+    }
+    @Test
+    public void calculerScoresJoueurs3Test() {
+        Shorts pos_ = new Shorts();
+        pos_.add((short)3);
+        pos_.add((short)2);
+        pos_.add((short)1);
+        Shorts rates_ = EndTarotGame.coefficientsMisere(pos_, DealingTarot.DEAL_1_VS_2);
+        Shorts scores_ = EndTarotGame.calculerScoresJoueurs(rates_, (byte)3, 100);
+        assertEq(3, scores_.size());
+        assertEq(-300, scores_.get(0));
+        assertEq(0, scores_.get(1));
+        assertEq(300, scores_.get(2));
+    }
     private static CustList<BooleanList> getConf(BidTarot _b, RulesTarot _r, int _taker){
         CustList<BooleanList> confidence_ = new CustList<BooleanList>();
         ModeTarot mode_ = _r.getMode();
