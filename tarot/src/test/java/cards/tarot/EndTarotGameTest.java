@@ -4076,6 +4076,86 @@ public final class EndTarotGameTest extends CommonGameTarot {
         assertEq(1,EndTarotGame.joueurPetitAuBout((byte)3,smallBound_));
     }
     @Test
+    public void joueurPetitAuBout3Test() {
+        BooleanList smallBound_ = new BooleanList();
+        smallBound_.add(false);
+        smallBound_.add(false);
+        smallBound_.add(false);
+        assertEq("",EndTarotGame.joueurPetitAuBout((byte)3,smallBound_, new StringList("1","2","3")));
+    }
+    @Test
+    public void joueurPetitAuBout4Test() {
+        BooleanList smallBound_ = new BooleanList();
+        smallBound_.add(false);
+        smallBound_.add(true);
+        smallBound_.add(false);
+        assertEq("2",EndTarotGame.joueurPetitAuBout((byte)3,smallBound_, new StringList("1","2","3")));
+    }
+    @Test
+    public void scoreSmallBound1Test() {
+        BooleanList smallBound_ = new BooleanList();
+        smallBound_.add(false);
+        smallBound_.add(false);
+        smallBound_.add(false);
+        smallBound_.add(false);
+        smallBound_.add(false);
+        CustList<Status> st_ = new CustList<Status>();
+        st_.add(Status.TAKER);
+        st_.add(Status.DEFENDER);
+        st_.add(Status.CALLED_PLAYER);
+        st_.add(Status.DEFENDER);
+        st_.add(Status.DEFENDER);
+        assertEq("0",EndTarotGame.scoreSmallBound((byte)5,smallBound_, st_));
+    }
+    @Test
+    public void scoreSmallBound2Test() {
+        BooleanList smallBound_ = new BooleanList();
+        smallBound_.add(true);
+        smallBound_.add(false);
+        smallBound_.add(false);
+        smallBound_.add(false);
+        smallBound_.add(false);
+        CustList<Status> st_ = new CustList<Status>();
+        st_.add(Status.TAKER);
+        st_.add(Status.DEFENDER);
+        st_.add(Status.CALLED_PLAYER);
+        st_.add(Status.DEFENDER);
+        st_.add(Status.DEFENDER);
+        assertEq("10",EndTarotGame.scoreSmallBound((byte)5,smallBound_, st_));
+    }
+    @Test
+    public void scoreSmallBound3Test() {
+        BooleanList smallBound_ = new BooleanList();
+        smallBound_.add(false);
+        smallBound_.add(false);
+        smallBound_.add(true);
+        smallBound_.add(false);
+        smallBound_.add(false);
+        CustList<Status> st_ = new CustList<Status>();
+        st_.add(Status.TAKER);
+        st_.add(Status.DEFENDER);
+        st_.add(Status.CALLED_PLAYER);
+        st_.add(Status.DEFENDER);
+        st_.add(Status.DEFENDER);
+        assertEq("10",EndTarotGame.scoreSmallBound((byte)5,smallBound_,st_));
+    }
+    @Test
+    public void scoreSmallBound4Test() {
+        BooleanList smallBound_ = new BooleanList();
+        smallBound_.add(false);
+        smallBound_.add(true);
+        smallBound_.add(false);
+        smallBound_.add(false);
+        smallBound_.add(false);
+        CustList<Status> st_ = new CustList<Status>();
+        st_.add(Status.TAKER);
+        st_.add(Status.DEFENDER);
+        st_.add(Status.CALLED_PLAYER);
+        st_.add(Status.DEFENDER);
+        st_.add(Status.DEFENDER);
+        assertEq("(-10)",EndTarotGame.scoreSmallBound((byte)5,smallBound_, st_));
+    }
+    @Test
     public void ajouterPetitAuBout1Test() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setDealing(DealingTarot.DEAL_1_VS_2);

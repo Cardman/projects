@@ -332,11 +332,36 @@ public final class EndTarotGame {
         return scores_;
     }
 
-    public byte joueurPetitAuBout() {
+    String scoreSmallBound(){
+        CustList<Status> st_ = new CustList<Status>();
         byte nombreJoueurs_ = relations.getNombreDeJoueurs();
-        return joueurPetitAuBout(nombreJoueurs_, smallBound);
+        for (byte p= 0; p < nombreJoueurs_; p++) {
+            st_.add(relations.statutDe(p));
+        }
+        return scoreSmallBound(nombreJoueurs_,smallBound,st_);
+    }
+    static String scoreSmallBound(byte _nombreJoueurs, BooleanList _smallBound, CustList<Status> _status) {
+        byte p_ = joueurPetitAuBout(_nombreJoueurs, _smallBound);
+        if (p_ < 0) {
+            return "0";
+        }
+        if (_status.get(p_) == Status.DEFENDER) {
+            return StringList.concat("(-",Integer.toString(BonusTarot.SMALL_BOUND.getPoints()),")");
+        }
+        return Integer.toString(BonusTarot.SMALL_BOUND.getPoints());
     }
 
+    String joueurPetitAuBout(StringList _nicknames) {
+        byte nombreJoueurs_ = relations.getNombreDeJoueurs();
+        return joueurPetitAuBout(nombreJoueurs_,smallBound,_nicknames);
+    }
+    static String joueurPetitAuBout(byte _nombreJoueurs, BooleanList _smallBound, StringList _nicknames) {
+        byte p_ = joueurPetitAuBout(_nombreJoueurs, _smallBound);
+        if (p_ < 0) {
+            return "";
+        }
+        return _nicknames.get(p_);
+    }
     static byte joueurPetitAuBout(byte _nombreJoueurs, BooleanList _smallBound) {
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
             if (_smallBound.get(joueur_)) {
@@ -1637,10 +1662,6 @@ public final class EndTarotGame {
             }
         }
         return tricks_;
-    }
-
-    public GameTarotTeamsRelation getRelations() {
-        return relations;
     }
 
     Ints getFirstTrick() {

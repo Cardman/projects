@@ -182,6 +182,8 @@ public final class ResultsTarotTest extends CommonGameTarot {
         res_.setUser((byte) 0);
         res_.initialize(new StringList("1","2","3"),new CustList<Longs>());
         assertSame(EndGameState.WIN,res_.getEndTarotGame());
+        assertEq("",res_.getPlayerSmallBound());
+        assertEq("0",res_.getScoreSmallBound());
     }
     @Test
     public void initialize2Test() {

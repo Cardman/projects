@@ -36,6 +36,8 @@ public final class ResultsTarot {
     private Shorts positionsThree = new Shorts();
     private Shorts positionsFour = new Shorts();
     private Shorts coefficients = new Shorts();
+    private String scoreSmallBound = "";
+    private String playerSmallBound = "";
 
     public void initialize(StringList _pseudos,
             CustList<Longs> _scores) {
@@ -68,6 +70,8 @@ public final class ResultsTarot {
                 needlyScoresTaker_=end_.scoreNecessairePreneur(contrat_);
                 short scorePreneurPlis_=end_.scorePreneurPlis(doubledScoreTaker_, needlyScoresTaker_);
                 differenceScoreTaker_=(short) (scorePreneurPlis_-needlyScoresTaker_);
+                playerSmallBound= end_.joueurPetitAuBout(_pseudos);
+                scoreSmallBound = end_.scoreSmallBound();
                 endTarotGame = end_.getUserState(differenceScoreTaker_,user);
                 basePoints_=end_.base(doubledScoreTaker_,differenceScoreTaker_);
                 scoreTakerWithoutDeclaring_=end_.scorePreneurSansAnnonces(differenceScoreTaker_,basePoints_);
@@ -272,4 +276,11 @@ public final class ResultsTarot {
         return coefficients;
     }
 
+    public String getPlayerSmallBound() {
+        return playerSmallBound;
+    }
+
+    public String getScoreSmallBound() {
+        return scoreSmallBound;
+    }
 }

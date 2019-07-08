@@ -473,10 +473,6 @@ public final class GameTarot {
         return bids.get(_i);
     }
 
-    public EnumList<BidTarot> tousContrats() {
-        return bids;
-    }
-
     public int contrats() {
         return bids.size();
     }

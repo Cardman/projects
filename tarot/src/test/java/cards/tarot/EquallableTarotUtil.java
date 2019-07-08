@@ -32,6 +32,9 @@ public final class EquallableTarotUtil {
         Assert.assertNotNull(_result);
         Assert.assertTrue(_expected.eq(_result));
     }
+    public static void assertEq(String _expected, String _result) {
+        Assert.assertTrue(StringList.quickEq(_expected,_result));
+    }
 
     public static void assertEq(Suit _expected, Suit _result) {
         Assert.assertSame(_expected, _result);

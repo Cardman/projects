@@ -106,7 +106,7 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
 //        container.ajouterTexteDansZone(event_);
 //        container.ajouterTexteDansZone(StringList.concat(container.getMessages().getVal(MainWindow.BEGIN_DEMO),ContainerGame.RETURN_LINE));
         container.pause();
-        EnumList<BidTarot> contrats_=partie_.tousContrats();
+        EnumList<BidTarot> contrats_=partie_.getBids();
         int tailleContrat_=contrats_.size();
         StringList pseudos_=pseudosSimuleeTarot();
         byte preneur_=partie_.getPreneur();

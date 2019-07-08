@@ -308,9 +308,6 @@ public final class GameBelote {
         return autoriseBeloteRebelote(DealBelote.NUMERO_UTILISATEUR);
     }
     public boolean autoriseBeloteRebelote(byte _numero) {
-        if(!bid.getCouleurDominante()) {
-            return false;
-        }
         HandBelote cartesAnnoncer_ = cartesBeloteRebelote();
         HandBelote cartesAnnconcees_ = getAnnoncesBeloteRebelote(_numero);
         boolean cartesAbsentesAnnoncees_ = true;
@@ -329,10 +326,7 @@ public final class GameBelote {
         }
         HandBelote main_ = new HandBelote();
         for(CardBelote c: cartesAnnoncer_) {
-            if(!mainJoueur_.contient(c)) {
-                continue;
-            }
-            //carte c: non annoncee et dans la main
+            //carte c: non annoncee
             if(!autorise(c)) {
                 continue;
             }
@@ -381,7 +375,7 @@ public final class GameBelote {
     }
 
     public void finEncherePremierTour() {
-        endBidsFirstRound=!endBidsFirstRound;
+        endBidsFirstRound=true;
     }
 
     public void ajouterContrat(BidBeloteSuit _c, byte _t) {
@@ -521,10 +515,7 @@ public final class GameBelote {
         return getProgressingTrick();
     }
     public boolean annoncerBeloteRebelote(byte _numeroJoueur, CardBelote _ct) {
-        if(bid.getCouleurDominante()) {
-            return cartesBeloteRebelote().contient(_ct) && autoriseBeloteRebelote(_numeroJoueur);
-        }
-        return false;
+        return cartesBeloteRebelote().contient(_ct) && autoriseBeloteRebelote(_numeroJoueur);
     }
     public DeclareHandBelote strategieAnnonces() {
         byte numero_=playerHavingToPlay();

@@ -275,7 +275,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             getConsulting().setEnabledMenu(false);
             afficherMainUtilisateurTarot(false);
             byte player_ = partie_.playerAfter(partie_.getDistribution().getDonneur());
-            for(BidTarot b: partie_.tousContrats()) {
+            for(BidTarot b: partie_.getBids()) {
                 String pseudo_ = pseudos_.get(player_);
                 ajouterTexteDansZone(StringList.concat(pseudo_,INTRODUCTION_PTS,Games.toString(b,lg_),RETURN_LINE));
                 player_ = partie_.playerAfter(player_);
@@ -300,7 +300,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if(partie_.isCallingState()) {
             if (partie_.getRegles().getDiscardAfterCall()) {
                 byte player_ = partie_.playerAfter(partie_.getDistribution().getDonneur());
-                for(BidTarot b: partie_.tousContrats()) {
+                for(BidTarot b: partie_.getBids()) {
                     String pseudo_ = pseudos_.get(player_);
                     ajouterTexteDansZone(StringList.concat(pseudo_,INTRODUCTION_PTS,Games.toString(b,lg_),RETURN_LINE));
                     player_ = partie_.playerAfter(player_);
@@ -393,7 +393,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 getConsulting().setEnabledMenu(false);
                 if (partie_.unionPlis().isEmpty()) {
                     byte player_ = partie_.playerAfter(partie_.getDistribution().getDonneur());
-                    for(BidTarot b: partie_.tousContrats()) {
+                    for(BidTarot b: partie_.getBids()) {
                         String pseudo_ = pseudos_.get(player_);
                         ajouterTexteDansZone(StringList.concat(pseudo_,INTRODUCTION_PTS,Games.toString(b,lg_),RETURN_LINE));
                         player_ = partie_.playerAfter(player_);
@@ -409,7 +409,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 }
                 if(!partie_.getPliEnCours().getVuParToutJoueur()) {
                     byte player_ = partie_.playerAfter(partie_.getDistribution().getDonneur());
-                    for(BidTarot b: partie_.tousContrats()) {
+                    for(BidTarot b: partie_.getBids()) {
                         String pseudo_ = pseudos_.get(player_);
                         ajouterTexteDansZone(StringList.concat(pseudo_,INTRODUCTION_PTS,Games.toString(b,lg_),RETURN_LINE));
                         player_ = partie_.playerAfter(player_);

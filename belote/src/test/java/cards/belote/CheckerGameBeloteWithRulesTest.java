@@ -736,6 +736,54 @@ public class CheckerGameBeloteWithRulesTest {
         return new DealBelote(hands_,_dealer);
     }
 
+    private static DealBelote deal3Classic(byte _dealer) {
+        CustList<HandBelote> hands_ = new CustList<HandBelote>();
+        HandBelote hand_;
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.DIAMOND_1);
+        hand_.ajouter(CardBelote.DIAMOND_9);
+        hand_.ajouter(CardBelote.SPADE_JACK);
+        hand_.ajouter(CardBelote.CLUB_KING);
+        hand_.ajouter(CardBelote.DIAMOND_10);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_1);
+        hand_.ajouter(CardBelote.HEART_9);
+        hand_.ajouter(CardBelote.DIAMOND_7);
+        hand_.ajouter(CardBelote.SPADE_KING);
+        hand_.ajouter(CardBelote.SPADE_QUEEN);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.CLUB_1);
+        hand_.ajouter(CardBelote.DIAMOND_QUEEN);
+        hand_.ajouter(CardBelote.CLUB_JACK);
+        hand_.ajouter(CardBelote.SPADE_7);
+        hand_.ajouter(CardBelote.HEART_10);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.DIAMOND_JACK);
+        hand_.ajouter(CardBelote.HEART_QUEEN);
+        hand_.ajouter(CardBelote.HEART_7);
+        hand_.ajouter(CardBelote.CLUB_QUEEN);
+        hand_.ajouter(CardBelote.CLUB_7);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.SPADE_9);
+        hand_.ajouter(CardBelote.CLUB_9);
+        hand_.ajouter(CardBelote.DIAMOND_8);
+        hand_.ajouter(CardBelote.HEART_8);
+        hand_.ajouter(CardBelote.CLUB_8);
+        hand_.ajouter(CardBelote.SPADE_8);
+        hand_.ajouter(CardBelote.SPADE_10);
+        hand_.ajouter(CardBelote.CLUB_10);
+        hand_.ajouter(CardBelote.HEART_KING);
+        hand_.ajouter(CardBelote.DIAMOND_KING);
+        hand_.ajouter(CardBelote.HEART_JACK);
+        hand_.ajouter(CardBelote.SPADE_1);
+        hands_.add(hand_);
+        return new DealBelote(hands_,_dealer);
+    }
+
     @Test
     public void check21Test() {
         RulesBelote rules_ = new RulesBelote();
@@ -751,6 +799,7 @@ public class CheckerGameBeloteWithRulesTest {
         game_.setPliEnCours();
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardBelote.DIAMOND_1);
         game_.setAnnoncesBeloteRebelote((byte) 1, CardBelote.SPADE_KING);
+        assertTrue(game_.autoriseBeloteRebelote((byte)1));
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardBelote.SPADE_KING);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -762,6 +811,31 @@ public class CheckerGameBeloteWithRulesTest {
         assertEq(0, game_.getRamasseur());
     }
 
+    @Test
+    public void check211Test() {
+        RulesBelote rules_ = new RulesBelote();
+        DealBelote deal_ = deal3Classic((byte) 3);
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDonneur());
+        BidBeloteSuit bid_;
+        bid_ = new BidBeloteSuit();
+        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setCouleur(Suit.SPADE);
+        game_.ajouterContrat(bid_, (byte) first_);
+        game_.completerDonne();
+        game_.setPliEnCours();
+        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardBelote.DIAMOND_1);
+        assertTrue(!game_.autoriseBeloteRebelote((byte)1));
+        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardBelote.DIAMOND_7);
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
+        assertEq(0, game_.getPreneur());
+        assertEq(BidBelote.SUIT, game_.getContrat().getEnchere());
+        assertEq(Suit.SPADE, game_.getContrat().getCouleur());
+        assertEq(0, game_.getContrat().getPoints());
+        assertEq(0, game_.getEntameur());
+        assertEq(0, game_.getRamasseur());
+    }
     @Test
     public void check22Test() {
         RulesBelote rules_ = new RulesBelote();
@@ -806,12 +880,15 @@ public class CheckerGameBeloteWithRulesTest {
         game_.completerDonne();
         game_.setPliEnCours();
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardBelote.DIAMOND_1);
+        assertTrue(game_.autoriseBeloteRebelote((byte)1));
         game_.setAnnoncesBeloteRebelote((byte) 1, CardBelote.SPADE_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardBelote.SPADE_KING);
+        assertTrue(!game_.autoriseBeloteRebelote((byte)2));
         game_.ajouterUneCarteDansPliEnCours((byte) 2, CardBelote.DIAMOND_7);
         game_.ajouterUneCarteDansPliEnCours((byte) 3, CardBelote.DIAMOND_JACK);
         game_.ajouterDixDeDerPliEnCours();
         game_.setPliEnCours();
+        assertTrue(game_.autoriseBeloteRebelote((byte)1));
         game_.setAnnoncesBeloteRebelote((byte) 1, CardBelote.SPADE_QUEEN);
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardBelote.SPADE_QUEEN);
         CheckerGameBeloteWithRules.check(game_);
@@ -1073,6 +1150,7 @@ public class CheckerGameBeloteWithRulesTest {
         assertEq(80, game_.getContrat().getPoints());
         assertEq(1, game_.getEntameur());
         assertEq(1, game_.getRamasseur());
+        assertEq(0, game_.cartesBeloteRebelote().total());
     }
 
     @Test
@@ -1644,6 +1722,25 @@ public class CheckerGameBeloteWithRulesTest {
         assertTrue(!game_.getError().isEmpty());
     }
 
+    @Test
+    public void check151FailTest() {
+        RulesBelote rules_ = new RulesBelote();
+        DealBelote deal_ = deal2Classic((byte) 3);
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDonneur());
+        BidBeloteSuit bid_;
+        bid_ = new BidBeloteSuit();
+        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setCouleur(Suit.SPADE);
+        game_.ajouterContrat(bid_, (byte) first_);
+        game_.completerDonne();
+        game_.setPliEnCours();
+        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardBelote.DIAMOND_1);
+        game_.setAnnoncesBeloteRebelote((byte) 1, CardBelote.SPADE_QUEEN);
+        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardBelote.SPADE_8);
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
+    }
     @Test
     public void check16FailTest() {
         RulesBelote rules_ = new RulesBelote();

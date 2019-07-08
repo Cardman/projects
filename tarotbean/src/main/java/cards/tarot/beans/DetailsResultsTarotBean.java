@@ -1,10 +1,10 @@
 package cards.tarot.beans;
 import cards.consts.Status;
 import cards.tarot.EndTarotGame;
+import cards.tarot.GameTarot;
 import cards.tarot.ResultsTarot;
 import cards.tarot.comparators.HandfulComparator;
 import cards.tarot.comparators.MiseresComparator;
-import cards.tarot.enumerations.BonusTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import code.maths.Rate;
@@ -12,18 +12,11 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumMap;
 import code.util.*;
-import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
 
 
 final class DetailsResultsTarotBean extends TarotBean {
-
-    private static final String ZERO = "0";
-
-    private static final String RIGHT_PAR = ")";
-
-    private static final String MINUS = "(-";
 
     private static final String EMPTY_STRING = "";
 
@@ -60,7 +53,8 @@ final class DetailsResultsTarotBean extends TarotBean {
     @Override
     public void beforeDisplaying() {
         ResultsTarot res_ = getResults();
-        setGame(res_.getGame());
+        GameTarot game_ = res_.getGame();
+        setGame(game_);
         setNicknames(res_.getNicknames());
         setScores(res_.getScores());
         setUser(res_.getUser());
@@ -83,18 +77,8 @@ final class DetailsResultsTarotBean extends TarotBean {
                 differenceScoreTaker=(short) (scorePreneurPlis_-needlyScoresTaker_);
                 basePoints=end_.base(doubledScoreTaker_,differenceScoreTaker);
                 short scoreTakerWithoutDeclaring_=end_.scorePreneurSansAnnonces(differenceScoreTaker,basePoints);
-                byte joueurPetitAuBout_=end_.joueurPetitAuBout();
-                playerSmall = EMPTY_STRING;
-                if (joueurPetitAuBout_>-1) {
-                    playerSmall = getNicknames().get(joueurPetitAuBout_);
-                    if (end_.getRelations().aPourDefenseur(joueurPetitAuBout_)) {
-                        small = StringList.concat(MINUS,Integer.toString(BonusTarot.SMALL_BOUND.getPoints()),RIGHT_PAR);
-                    } else {
-                        small = Integer.toString(BonusTarot.SMALL_BOUND.getPoints());
-                    }
-                } else {
-                    small = ZERO;
-                }
+                playerSmall = res_.getPlayerSmallBound();
+                small = res_.getScoreSmallBound();
                 rate = getGame().getContrat().getCoefficient();
                 multipliedTmp = scoreTakerWithoutDeclaring_*getBid().getCoefficient();
                 boolean existeAnnonce_=false;
@@ -114,7 +98,7 @@ final class DetailsResultsTarotBean extends TarotBean {
                         SumDeclaringPlayer line_ = new SumDeclaringPlayer();
                         TreeMap<Handfuls,Short> handfulsTakerLoc_ = handfulsTaker_.get(p);
                         line_.setNickname(getNicknames().get(p));
-                        line_.setStatus(toString(end_.getRelations().statutDe(p),loc_));
+                        line_.setStatus(toString(game_.getTeamsRelation().statutDe(p),loc_));
                         StringMap<Short> str_ = new StringMap<Short>();
                         for (EntryCust<Handfuls,Short> e: handfulsTakerLoc_.entryList()) {
                             Handfuls h_ = e.getKey();
@@ -141,7 +125,7 @@ final class DetailsResultsTarotBean extends TarotBean {
                 for (byte p = CustList.FIRST_INDEX;p<nombreJoueurs_;p++) {
                     ScoresPlayers scoresPayer_ = new ScoresPlayers();
                     scoresPayer_.setNickname(getNicknames().get(p));
-                    scoresPayer_.setRate(repartitionRate_.getVal(end_.getRelations().statutDe(p)));
+                    scoresPayer_.setRate(repartitionRate_.getVal(game_.getTeamsRelation().statutDe(p)));
                     scoresPayer_.setScore(getGame().getScores().get(p));
                     playersScores.add(scoresPayer_);
                 }
