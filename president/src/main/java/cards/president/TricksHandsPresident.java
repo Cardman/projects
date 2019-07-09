@@ -264,54 +264,20 @@ public final class TricksHandsPresident {
 
     public byte getMatchingWinner(byte _loser) {
         int ind_ = getLoosers().indexOfObj(_loser);
-        if (ind_ == CustList.INDEX_NOT_FOUND_ELT) {
-            return (byte) ind_;
-        }
         return getWinners().get(ind_);
     }
 
     public byte getMatchingLoser(byte _winner) {
         int ind_ = getWinners().indexOfObj(_winner);
-        if (ind_ == CustList.INDEX_NOT_FOUND_ELT) {
-            return (byte) ind_;
-        }
         return getLoosers().get(ind_);
     }
 
     public Bytes getWinners() {
-        if (ranks.isEmpty()) {
-            return new Bytes();
-        }
-        ByteTreeMap<Byte> players_ = new ByteTreeMap<Byte>();
-        int r_ = ranks.size();
-        for (byte i = CustList.FIRST_INDEX; i < r_; i++) {
-            players_.put(ranks.get(i), i);
-        }
-        Bytes w_ = new Bytes();
-        int nb_ = numberMaxSwitchedCards;
-        for (byte i = CustList.FIRST_INDEX; i < nb_; i++) {
-            w_.add(players_.getValue(i));
-        }
-        return w_;
+        return GamePresident.getWinners(numberMaxSwitchedCards,ranks);
     }
 
     public Bytes getLoosers() {
-        if (ranks.isEmpty()) {
-            return new Bytes();
-        }
-        ByteTreeMap<Byte> players_ = new ByteTreeMap<Byte>();
-        int r_ = ranks.size();
-        for (byte i = CustList.FIRST_INDEX; i < r_; i++) {
-            players_.put(ranks.get(i), i);
-        }
-        Bytes l_ = new Bytes();
-        int nb_ = numberMaxSwitchedCards;
-        int i_ = players_.size() - 1;
-        while (l_.size() < nb_) {
-            l_.add(players_.getValue(i_));
-            i_--;
-        }
-        return l_;
+        return GamePresident.getLoosers(numberMaxSwitchedCards,ranks);
     }
 
     public CustList<HandPresident> getCardsHandsAtInitialState() {

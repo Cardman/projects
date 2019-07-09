@@ -276,35 +276,43 @@ public final class GamePresident {
     }
 
     Bytes getWinners() {
-        if (ranks.isEmpty()) {
+        int nb_ = nombresCartesEchangesMax();
+        return getWinners(nb_, ranks);
+    }
+
+    static Bytes getWinners(int _nb, Bytes _ranks) {
+        if (_ranks.isEmpty()) {
             return new Bytes();
         }
         ByteTreeMap<Byte> players_ = new ByteTreeMap<Byte>();
-        int r_ = ranks.size();
+        int r_ = _ranks.size();
         for (byte i = CustList.FIRST_INDEX; i < r_; i++) {
-            players_.put(ranks.get(i), i);
+            players_.put(_ranks.get(i), i);
         }
         Bytes w_ = new Bytes();
-        int nb_ = nombresCartesEchangesMax();
-        for (byte i = CustList.FIRST_INDEX; i < nb_; i++) {
+        for (byte i = CustList.FIRST_INDEX; i < _nb; i++) {
             w_.add(players_.getValue(i));
         }
         return w_;
     }
 
     Bytes getLoosers() {
-        if (ranks.isEmpty()) {
+        int nb_ = nombresCartesEchangesMax();
+        return getLoosers(nb_, ranks);
+    }
+
+    static Bytes getLoosers(int _nb, Bytes _ranks) {
+        if (_ranks.isEmpty()) {
             return new Bytes();
         }
         ByteTreeMap<Byte> players_ = new ByteTreeMap<Byte>();
-        int r_ = ranks.size();
+        int r_ = _ranks.size();
         for (byte i = CustList.FIRST_INDEX; i < r_; i++) {
-            players_.put(ranks.get(i), i);
+            players_.put(_ranks.get(i), i);
         }
         Bytes l_ = new Bytes();
-        int nb_ = nombresCartesEchangesMax();
         int i_ = players_.size() - 1;
-        while (l_.size() < nb_) {
+        while (l_.size() < _nb) {
             l_.add(players_.getValue(i_));
             i_--;
         }
@@ -312,37 +320,11 @@ public final class GamePresident {
     }
 
     public static Bytes getWinners(Bytes _ranks, int _nbMax) {
-        if (_ranks.isEmpty()) {
-            return new Bytes();
-        }
-        ByteTreeMap<Byte> players_ = new ByteTreeMap<Byte>();
-        int r_ = _ranks.size();
-        for (byte i = CustList.FIRST_INDEX; i < r_; i++) {
-            players_.put(_ranks.get(i), i);
-        }
-        Bytes w_ = new Bytes();
-        for (byte i = CustList.FIRST_INDEX; i < _nbMax; i++) {
-            w_.add(players_.getValue(i));
-        }
-        return w_;
+        return getWinners(_nbMax, _ranks);
     }
 
     public static Bytes getLoosers(Bytes _ranks, int _nbMax) {
-        if (_ranks.isEmpty()) {
-            return new Bytes();
-        }
-        ByteTreeMap<Byte> players_ = new ByteTreeMap<Byte>();
-        int r_ = _ranks.size();
-        for (byte i = CustList.FIRST_INDEX; i < r_; i++) {
-            players_.put(_ranks.get(i), i);
-        }
-        Bytes l_ = new Bytes();
-        int i_ = players_.size() - 1;
-        while (l_.size() < _nbMax) {
-            l_.add(players_.getValue(i_));
-            i_--;
-        }
-        return l_;
+        return getLoosers(_nbMax, _ranks);
     }
 
     public void donnerMeilleuresCartes() {
