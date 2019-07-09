@@ -26,9 +26,9 @@ public final class TricksHandsBelote {
         if(_numeroPli>=0) {
             getDistribution().completerDonne(preneur, rules);
         }
-        byte key_ = 0;
+        byte key_ = 1;
         for(TrickBelote pli_:tricks) {
-            if(key_ >= _numeroPli) {
+            if(key_ > _numeroPli) {
                 continue;
             }
             for(CardBelote carte_:pli_) {
@@ -49,7 +49,6 @@ public final class TricksHandsBelote {
         byte key_ = 1;
         for(TrickBelote pli_:tricks) {
             if(key_ > _numeroPli) {
-                key_++;
                 continue;
             }
             if(key_ == _numeroPli) {

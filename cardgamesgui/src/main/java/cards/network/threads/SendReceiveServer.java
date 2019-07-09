@@ -1377,12 +1377,12 @@ public final class SendReceiveServer extends BasicServer {
             TricksHandsPresident tricksHands_ = new TricksHandsPresident();
             GamePresident game_ = Net.getGames().partiePresident();
             tricksHands_.setReversed(game_.isReversed());
-            tricksHands_.setDistribution(game_.getDistribution(), true);
+            tricksHands_.setDistributionCopy(game_.getDistribution());
             tricksHands_.setNumberMaxSwitchedCards(game_.nombresCartesEchangesMax());
             tricksHands_.setRanks(game_.getRanks());
             tricksHands_.setSwitchedCards(game_.getSwitchedCards());
             tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
-            tricksHands_.setDistribution(game_.getDistribution(), false);
+            tricksHands_.setDistributionCopy(game_.getDistribution());
             Net.sendObject(Net.getSocketByPlace(place_), tricksHands_);
             return;
         }

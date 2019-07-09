@@ -650,7 +650,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         }
         GamePresident game_=partiePresident();
         TricksHandsPresident tricksHands_ = new TricksHandsPresident();
-        tricksHands_.setDistribution(game_.getDistribution(), true);
+        tricksHands_.setDistributionCopy(game_.getDistribution());
         tricksHands_.setNumberMaxSwitchedCards(game_.nombresCartesEchangesMax());
         tricksHands_.setRanks(game_.getRanks());
         tricksHands_.setSwitchedCards(game_.getSwitchedCards());
@@ -755,7 +755,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         TricksHandsPresident tricksHands_ = new TricksHandsPresident();
         tricksHands_.setReversed(game_.isReversed());
 //        tricksHands_.setRules(getReglesPresident());
-        tricksHands_.setDistribution(game_.getDistribution(), true);
+        tricksHands_.setDistributionCopy(game_.getDistribution());
 //        tricksHands_.setPreneur(game_.getPreneur());
 //        tricksHands_.setBid(game_.getContrat());
         tricksHands_.setNumberMaxSwitchedCards(game_.nombresCartesEchangesMax());

@@ -170,12 +170,8 @@ public final class TricksHandsPresident {
         return distribution;
     }
 
-    public void setDistribution(DealPresident _distribution, boolean _copy) {
-        if (_copy) {
-            distribution = new DealPresident(_distribution);
-        } else {
-            distribution = _distribution;
-        }
+    public void setDistributionCopy(DealPresident _distribution) {
+        distribution = new DealPresident(_distribution);
     }
 
     public TrickPresident getProgressingTrick() {
