@@ -14,8 +14,6 @@ public final class TricksHandsTarot {
 
     private byte preneur;
 
-    private BidTarot bid;
-
     private CustList<TrickTarot> tricks;
 
     private CustList<HandTarot> cardsHandsAtInitialState;
@@ -33,11 +31,9 @@ public final class TricksHandsTarot {
             supprimerCartes(p);
             ajouterCartes(p, cardsHandsAtInitialState.get(p));
         }
-        if (bid.getJeuChien() == PlayingDog.WITH) {
-            if (_numeroPli >= 0 && !tricks.isEmpty()) {
-                ajouterCartes(preneur, derniereMain());
-                supprimerCartes(preneur,tricks.first().getCartes());
-            }
+        if (_numeroPli >= 0 && preneur > -1) {
+            ajouterCartes(preneur, derniereMain());
+            supprimerCartes(preneur,tricks.first().getCartes());
         }
         byte key_ = 0;
         for (TrickTarot pli_ : tricks) {
@@ -65,11 +61,9 @@ public final class TricksHandsTarot {
             supprimerCartes(p);
             ajouterCartes(p, cardsHandsAtInitialState.get(p));
         }
-        if (bid.getJeuChien() == PlayingDog.WITH) {
-            if (_numeroPli >= 0 && !tricks.isEmpty()) {
-                ajouterCartes(preneur, derniereMain());
-                supprimerCartes(preneur,tricks.first().getCartes());
-            }
+        if (_numeroPli >= 0 && preneur > -1) {
+            ajouterCartes(preneur, derniereMain());
+            supprimerCartes(preneur,tricks.first().getCartes());
         }
         byte key_ = 0;
         for (TrickTarot pli_ : tricks) {
@@ -129,12 +123,8 @@ public final class TricksHandsTarot {
         return distribution;
     }
 
-    public void setDistribution(DealTarot _distribution, boolean _copy) {
-        if (_copy) {
-            distribution = new DealTarot(_distribution);
-        } else {
-            distribution = _distribution;
-        }
+    public void setDistributionCopy(DealTarot _distribution) {
+        distribution = new DealTarot(_distribution);
     }
 
     public byte getPreneur() {
@@ -143,14 +133,6 @@ public final class TricksHandsTarot {
 
     public void setPreneur(byte _preneur) {
         preneur = _preneur;
-    }
-
-    public BidTarot getBid() {
-        return bid;
-    }
-
-    public void setBid(BidTarot _bid) {
-        bid = _bid;
     }
 
     public CustList<TrickTarot> getTricks() {
@@ -174,7 +156,7 @@ public final class TricksHandsTarot {
         HandTarot dog_ = new HandTarot();
         dog_.ajouterCartes(distribution.derniereMain());
         cardsHandsAtInitialState.add(dog_);
-        if (bid.getJeuChien() == PlayingDog.WITH && !tricks.isEmpty()) {
+        if (preneur > -1) {
             cardsHandsAtInitialState.get(preneur)
                 .ajouterCartes(tricks.first().getCartes());
             cardsHandsAtInitialState.get(preneur)

@@ -1042,9 +1042,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         }
         GameTarot game_=partieTarot();
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
-        tricksHands_.setDistribution(game_.getDistribution(), true);
+        tricksHands_.setDistributionCopy(game_.getDistribution());
         tricksHands_.setPreneur(game_.getPreneur());
-        tricksHands_.setBid(game_.getContrat());
         tricksHands_.setTricks(game_.unionPlis(), game_.getNombreDeJoueurs());
         tricksHands_.sortHands(getDisplayingTarot(), game_.getNombreDeJoueurs());
         MainWindow ow_ = getOwner();
@@ -1390,9 +1389,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     public void showTricksHands() {
         GameTarot game_=partieTarot();
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
-        tricksHands_.setDistribution(game_.getDistribution(), true);
+        tricksHands_.setDistributionCopy(game_.getDistribution());
         tricksHands_.setPreneur(game_.getPreneur());
-        tricksHands_.setBid(game_.getContrat());
         tricksHands_.setTricks(game_.unionPlis(), game_.getNombreDeJoueurs());
         MainWindow ow_ = getOwner();
         DialogTricksTarot.setDialogTricksTarot(getMessages().getVal(MainWindow.HANDS_TRICKS_TAROT), ow_);

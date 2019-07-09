@@ -228,7 +228,6 @@ public final class DocumentWriterTarotUtil {
     private static void setTricksHandsTarot(TricksHandsTarot _object, Element _element, Document _document) {
         _element.appendChild(setDealTarot(_object.getDistribution(),FIELD_DISTRIBUTION,_document));
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getPreneur(),FIELD_PRENEUR,_document));
-        _element.appendChild(setBidTarot(_object.getBid(),FIELD_BID,_document));
         _element.appendChild(setListTrickTarot(_object.getTricks(),FIELD_TRICKS,_document));
         _element.appendChild(setListHandTarot(_object.getCardsHandsAtInitialState(),FIELD_CARDS_HANDS_AT_INITIAL_STATE,_document));
     }

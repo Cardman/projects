@@ -381,7 +381,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         game_.ajouterContrat(new BidBeloteSuit(), (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(new BidBeloteSuit(), (byte) first_);
-        assertTrue(game_.completedDeal());
+        assertTrue(!game_.completedDeal());
     }
 
     @Test
@@ -399,7 +399,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         bid_.setPoints(162);
         bid_.setBid(BidBelote.SUIT);
         game_.ajouterContrat(bid_, (byte) first_);
-        assertTrue(game_.completedDeal());
+        assertTrue(!game_.completedDeal());
     }
     private static DealBelote deal2Classic(byte _dealer) {
         CustList<HandBelote> hands_ = new CustList<HandBelote>();

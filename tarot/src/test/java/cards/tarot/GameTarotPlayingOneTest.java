@@ -164,6 +164,23 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         assertEq(hand_.total(),playableCards_.total());
         assertTrue(playableCards_.contientCartes(hand_));
         assertEq(Suit.UNDEFINED,game.getPliEnCours().couleurDemandee());
+        assertEq(0,game.getAnnoncesPoigneesPossibles((byte) 0).size());
+    }
+    @Test
+    public void ajouterUtilisateurTest() {
+        RulesTarot regles_=initializeRulesWithBids();
+        game = new GameTarot(GameType.RANDOM,initializeHands((byte) 4),regles_);
+        //game.resetNbPlisTotal();
+        bidding(BidTarot.GUARD, (byte) 0, game);
+        HandTarot cartesAppeler_ = new HandTarot();
+        cartesAppeler_.ajouter(CardTarot.HEART_KING);
+        game.setCarteAppelee(cartesAppeler_);
+        game.initConfianceAppele();
+        game.ajouterCartes(game.getPreneur(), game.derniereMain());
+        game.ajouterUneCarteDansPliEnCours(game.getPreneur(),CardTarot.DIAMOND_10);
+        game.retirerUneCarteDuChien(CardTarot.DIAMOND_10);
+        game.ajouterUtilisateur(CardTarot.DIAMOND_10);
+        assertEq(0,game.getProgressingTrick().total());
     }
     @Test
     public void playableCards_beginningTrickWithConstraint2Test() {

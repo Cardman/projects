@@ -693,9 +693,8 @@ public final class SendReceiveServer extends BasicServer {
             byte place_ = ((SelectTricksHands)_readObject).getPlace();
             TricksHandsTarot tricksHands_ = new TricksHandsTarot();
             GameTarot game_ = Net.getGames().partieTarot();
-            tricksHands_.setDistribution(game_.getDistribution(), false);
+            tricksHands_.setDistributionCopy(game_.getDistribution());
             tricksHands_.setPreneur(game_.getPreneur());
-            tricksHands_.setBid(game_.getContrat());
             tricksHands_.setTricks(game_.unionPlis(), game_.getNombreDeJoueurs());
             Net.sendObject(Net.getSocketByPlace(place_), tricksHands_);
             return;

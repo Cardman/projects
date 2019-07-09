@@ -345,10 +345,6 @@ public final class DocumentReaderTarotUtil {
             _object.setPreneur(DocumentReaderCoreUtil.getByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_BID)) {
-            _object.setBid(getBidTarot(_element));
-            return;
-        }
         if (StringList.quickEq(_fieldName, FIELD_TRICKS)) {
             _object.setTricks(getListTrickTarot(_element));
             return;
