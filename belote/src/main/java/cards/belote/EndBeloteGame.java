@@ -1,7 +1,9 @@
 package cards.belote;
 
+import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.BonusBelote;
 import cards.belote.enumerations.CardBelote;
+import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.EndGameState;
 import code.util.BooleanList;
 import code.util.CustList;
@@ -9,7 +11,7 @@ import code.util.*;
 
 public final class EndBeloteGame {
     private GameBeloteTeamsRelation relations;
-    private CustList<DeclareHandBelote> declares;
+    private CustList<DeclaresBelote> declares;
     private Shorts declaresBeloteRebelote;
     private BooleanList wonLastTrick;
     /**Le contrat permet de dire quel va etre le deroulement
@@ -18,7 +20,7 @@ public final class EndBeloteGame {
     /**Ce sont les plis faits par les joueurs*/
     private CustList<TrickBelote> tricks;
 
-    public EndBeloteGame(GameBeloteTeamsRelation _relations, CustList<DeclareHandBelote> _declares,
+    public EndBeloteGame(GameBeloteTeamsRelation _relations, CustList<DeclaresBelote> _declares,
                          Shorts _declaresBeloteRebelote, BooleanList _wonLastTrick,
                          BidBeloteSuit _bid, CustList<TrickBelote> _tricks) {
         relations = _relations;
@@ -30,13 +32,7 @@ public final class EndBeloteGame {
     }
 
     public int pointsAttaqueSansPrime() {
-        int nbPointsAtt_=0;
-        for (TrickBelote pli_:getPlisAttaque()) {
-            for(CardBelote carte_:pli_) {
-                nbPointsAtt_+=carte_.points(bid);
-            }
-        }
-        return nbPointsAtt_;
+        return pointsSansPrime(getPlisAttaque(),bid);
     }
     public int pointsAttackWithBonus() {
         int nbPoints_ = pointsAttaqueSansPrime();
@@ -53,13 +49,7 @@ public final class EndBeloteGame {
         return nbPoints_;
     }
     public int pointsDefenseSansPrime() {
-        int nbPointsDef_=0;
-        for (TrickBelote pli_:getPlisDefense()) {
-            for(CardBelote carte_:pli_) {
-                nbPointsDef_+=carte_.points(bid);
-            }
-        }
-        return nbPointsDef_;
+        return pointsSansPrime(getPlisDefense(),bid);
     }
     public int pointsDefenseWithBonus() {
         int nbPoints_ = pointsDefenseSansPrime();
@@ -76,17 +66,18 @@ public final class EndBeloteGame {
     }
     Shorts pointsAnnoncesPrimes(byte _joueur) {
         Shorts totaux_=new Shorts();
-        if(bid.getCouleurDominante()) {
-            totaux_.add(declaresBeloteRebelote.get(_joueur));
-        }
+        totaux_.add(declaresBeloteRebelote.get(_joueur));
         if(wonLastTrick.get(_joueur)) {
             totaux_.add((short) BonusBelote.LAST_TRICK.getPoints());
         }
-        totaux_.add((short) declares.get(_joueur).getAnnonce().getPoints());
+        totaux_.add((short) declares.get(_joueur).getPoints());
         return totaux_;
     }
     public int valeurCapot() {
-        if(getPlisDefense().isEmpty()) {
+        return valeurCapot(getPlisDefense());
+    }
+    static int valeurCapot(CustList<TrickBelote> _trs) {
+        if(_trs.isEmpty()) {
             /*Le capot n est fait que si l attaque a fait tous les plis*/
             return 100;
         }
@@ -99,16 +90,22 @@ public final class EndBeloteGame {
         return _scores.get(relations.getTaker()) - scoreDef_;
     }
     public int scoreDefinitifAttaque(int _scoreTmpAttaque, int _scoreTmpDefense) {
-        if (!relations.getRules().getComptePointsClassique()) {
+        RulesBelote rules_ = relations.getRules();
+        CustList<TrickBelote> trs_ = getPlisDefense();
+        return scoreDefinitifAttaque(_scoreTmpAttaque, _scoreTmpDefense, rules_, trs_, bid);
+    }
+
+    static int scoreDefinitifAttaque(int _scoreTmpAttaque, int _scoreTmpDefense, RulesBelote _rules, CustList<TrickBelote> _trDef, BidBeloteSuit _bid) {
+        if (!_rules.getComptePointsClassique()) {
             return _scoreTmpAttaque;
         }
-        if (relations.getRules().dealAll()) {
-            if (bid.getPoints() == HandBelote.pointsTotauxDixDeDer()) {
-                if (!getPlisDefense().isEmpty()) {
+        if (_rules.dealAll()) {
+            if (_bid.getPoints() == HandBelote.pointsTotauxDixDeDer()) {
+                if (!_trDef.isEmpty()) {
                     return 0;
                 }
             }
-            if (_scoreTmpAttaque >= bid.getPoints()) {
+            if (_scoreTmpAttaque >= _bid.getPoints()) {
                 return _scoreTmpAttaque;
             }
             return 0;
@@ -119,21 +116,27 @@ public final class EndBeloteGame {
         /*L attaque est dedans*/
         return 0;
     }
+
     public int scoreDefinitifDefense(int _scoreDefinitifAttaque, int _scoreTmpDefense) {
-        int sum_ = HandBelote.pointsTotauxDixDeDer(bid);
+        return scoreDefinitifDefense(_scoreDefinitifAttaque, _scoreTmpDefense, bid);
+    }
+
+    static int scoreDefinitifDefense(int _scoreDefinitifAttaque, int _scoreTmpDefense, BidBeloteSuit _bid) {
+        int sum_ = HandBelote.pointsTotauxDixDeDer(_bid);
         if (_scoreDefinitifAttaque == 0) {
             return sum_;
         }
         return _scoreTmpDefense;
     }
+
     Shorts scores(int _scoreDefinitifAttaque,int _scoreDefinitifDefense) {
         byte nombreJoueurs_=getNombreDeJoueurs();
         Shorts scores_=new Shorts();
         for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
             if(!relations.aPourDefenseur(joueur_)) {
-                scores_.set(joueur_,(short)_scoreDefinitifAttaque);
+                scores_.add((short)_scoreDefinitifAttaque);
             } else {
-                scores_.set(joueur_,(short)_scoreDefinitifDefense);
+                scores_.add((short)_scoreDefinitifDefense);
             }
         }
         return scores_;
@@ -142,39 +145,56 @@ public final class EndBeloteGame {
      0, s il y a match nul,<br>
      -1, sinon*/
     public EndGameState getUserState(byte _user, Shorts _scores) {
+        Bytes foe_ = relations.adversaires(_user);
+        return getUserState(_user, _scores, foe_);
+    }
+
+    static EndGameState getUserState(byte _user, Shorts _scores, Bytes _foe) {
         short userScore_ = _scores.get(_user);
-        boolean slam_ = getPlisDefense().isEmpty();
-        for (byte p: relations.adversaires(_user)) {
+        for (byte p: _foe) {
             if(userScore_<_scores.get(p)) {
                 return EndGameState.LOOSE;
             }
-            if(userScore_==_scores.get(p) && !slam_) {
+            if(userScore_==_scores.get(p)) {
                 return EndGameState.EQUALLITY;
             }
         }
         return EndGameState.WIN;
     }
 
-    CustList<TrickBelote> getPlisAttaque() {
-        CustList<TrickBelote> tricks_ = new CustList<TrickBelote>();
-        for (TrickBelote t: tricks) {
-            if (relations.aPourDefenseur(t.getRamasseur(bid))) {
-                continue;
+    static int pointsSansPrime(CustList<TrickBelote> _trs, BidBeloteSuit _bid) {
+        int nbPointsDef_=0;
+        for (TrickBelote pli_:_trs) {
+            for(CardBelote carte_:pli_) {
+                nbPointsDef_+=carte_.points(_bid);
             }
-            tricks_.add(t);
         }
-        return tricks_;
+        return nbPointsDef_;
+    }
+    CustList<TrickBelote> getPlisAttaque() {
+        return getTeamTrick(relations.getTaker());
     }
     CustList<TrickBelote> getPlisDefense() {
+        Bytes team_ = relations.adversaires(relations.getTaker());
+        return getTeamTrick(team_,tricks,bid);
+    }
+    private CustList<TrickBelote> getTeamTrick(byte _player) {
+        Bytes team_ = relations.partenaires(_player);
+        team_.add(_player);
+        return getTeamTrick(team_, tricks, bid);
+    }
+
+    static CustList<TrickBelote> getTeamTrick(Bytes _team, CustList<TrickBelote> _tricks, BidBeloteSuit _bid) {
         CustList<TrickBelote> tricks_ = new CustList<TrickBelote>();
-        for (TrickBelote t: tricks) {
-            if (!relations.aPourDefenseur(t.getRamasseur(bid))) {
+        for (TrickBelote t: _tricks) {
+            if (!_team.contains(t.getRamasseur(_bid))) {
                 continue;
             }
             tricks_.add(t);
         }
         return tricks_;
     }
+
     byte getNombreDeJoueurs() {
         return (byte) relations.getRules().getRepartition().getNombreJoueurs();
     }

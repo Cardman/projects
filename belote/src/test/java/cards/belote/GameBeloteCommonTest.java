@@ -3,14 +3,81 @@ package cards.belote;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
-import code.util.EnumList;
-import code.util.EnumMap;
+import code.util.*;
 import org.junit.Test;
 
 import static cards.belote.EquallableBeloteUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 public final class GameBeloteCommonTest {
+    @Test
+    public void isSameTeam1Test() {
+        RulesBelote rules_ = new RulesBelote();
+        CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setSuit(Suit.HEART);
+        b_.setEnchere(BidBelote.SUIT);
+        bids_.add(b_);
+        int taker_ = 3;
+        Bytes calledPlayers_ = new Bytes();
+        calledPlayers_.add((byte) 1);
+        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation((byte)taker_, rules_);
+        Bytes set_ = new Bytes();
+        set_.add((byte) 1);
+        set_.add((byte) taker_);
+        assertTrue(g_.isSameTeam(set_));
+    }
+    @Test
+    public void isSameTeam2Test() {
+        RulesBelote rules_ = new RulesBelote();
+        CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setSuit(Suit.HEART);
+        b_.setEnchere(BidBelote.SUIT);
+        bids_.add(b_);
+        int taker_ = 3;
+        Bytes calledPlayers_ = new Bytes();
+        calledPlayers_.add((byte) 1);
+        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation((byte)taker_, rules_);
+        Bytes set_ = new Bytes();
+        set_.add((byte) 2);
+        set_.add((byte) taker_);
+        assertTrue(!g_.isSameTeam(set_));
+    }
+    @Test
+    public void isSameTeam3Test() {
+        RulesBelote rules_ = new RulesBelote();
+        CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setSuit(Suit.HEART);
+        b_.setEnchere(BidBelote.SUIT);
+        bids_.add(b_);
+        int taker_ = 3;
+        Bytes calledPlayers_ = new Bytes();
+        calledPlayers_.add((byte) 1);
+        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation((byte)taker_, rules_);
+        Bytes set_ = new Bytes();
+        set_.add((byte) 0);
+        set_.add((byte) 2);
+        assertTrue(g_.isSameTeam(set_));
+    }
+    @Test
+    public void isSameTeam4Test() {
+        RulesBelote rules_ = new RulesBelote();
+        CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
+        BidBeloteSuit b_ = new BidBeloteSuit();
+        b_.setSuit(Suit.HEART);
+        b_.setEnchere(BidBelote.SUIT);
+        bids_.add(b_);
+        int taker_ = 3;
+        Bytes calledPlayers_ = new Bytes();
+        calledPlayers_.add((byte) 1);
+        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation((byte)taker_, rules_);
+        Bytes set_ = new Bytes();
+        set_.add((byte) 2);
+        set_.add((byte) 1);
+        assertTrue(!g_.isSameTeam(set_));
+    }
     @Test
     public void cartesMaitresses1Test() {
         BidBeloteSuit b_ = new BidBeloteSuit();

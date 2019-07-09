@@ -1151,7 +1151,7 @@ public final class SendReceiveServer extends BasicServer {
             TricksHandsBelote tricksHands_ = new TricksHandsBelote();
             GameBelote game_ = Net.getGames().partieBelote();
             tricksHands_.setRules(game_.getRegles());
-            tricksHands_.setDistribution(game_.getDistribution(), false);
+            tricksHands_.setDistributionCopy(game_.getDistribution());
             tricksHands_.setPreneur(game_.getPreneur());
             tricksHands_.setBid(game_.getContrat());
             tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
@@ -1647,18 +1647,18 @@ public final class SendReceiveServer extends BasicServer {
                 players_.add(EMPTY_STRING);
             }
         }
-        ResultsBelote res_ = new ResultsBelote();
-        CustList<Longs> scores_ = Net.getScores();
-        CustList<Longs> list_ = new CustList<Longs>();
-        for (Longs v: scores_) {
-            list_.add(new Longs(v));
-        }
-        res_.setGame(Net.getGames().partieBelote());
-        res_.initialize(new StringList(players_), list_);
         for (byte p: Net.activePlayers()) {
+            ResultsBelote res_ = new ResultsBelote();
+            CustList<Longs> scores_ = Net.getScores();
+            CustList<Longs> list_ = new CustList<Longs>();
+            for (Longs v: scores_) {
+                list_.add(new Longs(v));
+            }
+            res_.setGame(Net.getGames().partieBelote());
+            res_.setUser(p);
+            res_.initialize(new StringList(players_), list_);
             String loc_ = Net.getLanguageByPlace(p);
             DocumentReaderCardsResultsUtil.setMessages(res_,loc_);
-            res_.setUser(p);
             Net.sendObject(Net.getSocketByPlace(p), res_);
         }
     }

@@ -51,6 +51,7 @@ final class ResultsBeloteBean extends BeloteBean {
         pointsAttaqueTemporaire=pointsAttaqueSansPrime;
         pointsDefenseSansPrime=end_.pointsDefenseSansPrime();
         pointsDefenseTemporaire=pointsDefenseSansPrime;
+        winEqualityLoose = res_.getEndTarotGame();
         if (playGame()) {
             byte preneur_=getGame().getPreneur();
             pointsAttaqueTemporaire = end_.pointsAttackWithBonus();
@@ -63,9 +64,7 @@ final class ResultsBeloteBean extends BeloteBean {
             bidString = toString(getBid(),getLoc());
             pointsAttaqueDefinitif=end_.scoreDefinitifAttaque(pointsAttaqueTemporaire, pointsDefenseTemporaire);
             pointsDefenseDefinitif=end_.scoreDefinitifDefense(pointsAttaqueDefinitif,pointsDefenseTemporaire);
-            Shorts scores_ = getGame().getScores();
-            winEqualityLoose = end_.getUserState(res_.getUser(), scores_);
-            differenceScoreTaker = end_.getDiffAttackPointsMinusDefensePoints(scores_);
+            differenceScoreTaker = res_.getDifferenceScoreTaker();
         }
         linesDeal = new CustList<LineDeal>();
         int nbDeals_ = getScores().size();

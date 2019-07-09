@@ -74,7 +74,6 @@ import code.util.CustList;
 import code.util.EnumMap;
 import code.util.EqList;
 import code.util.*;
-import code.util.*;
 import code.util.StringList;
 
 public class ContainerSingleBelote extends ContainerBelote implements ContainerSingle {
@@ -701,8 +700,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         panneau_=new Panel();
         ResultsBelote res_ = new ResultsBelote();
         res_.setGame(partie_);
-        res_.initialize(new StringList(pseudos_), getScores());
         res_.setUser(DealBelote.NUMERO_UTILISATEUR);
+        res_.initialize(new StringList(pseudos_), getScores());
         DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
         setScores(res_.getScores());
         BeloteStandards stds_;
@@ -782,7 +781,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         GameBelote game_ = partieBelote();
         TricksHandsBelote tricksHands_ = new TricksHandsBelote();
         tricksHands_.setRules(getReglesBelote());
-        tricksHands_.setDistribution(game_.getDistribution(), true);
+        tricksHands_.setDistributionCopy(game_.getDistribution());
         tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.setBid(game_.getContrat());
         tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
@@ -858,7 +857,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         GameBelote game_ = partieBelote();
         TricksHandsBelote tricksHands_ = new TricksHandsBelote();
         tricksHands_.setRules(getReglesBelote());
-        tricksHands_.setDistribution(game_.getDistribution(), true);
+        tricksHands_.setDistributionCopy(game_.getDistribution());
         tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.setBid(game_.getContrat());
         tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());

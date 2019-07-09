@@ -2,7 +2,6 @@ package cards.belote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Order;
 import code.util.CustList;
-import code.util.EqList;
 
 
 public final class TricksHandsBelote {
@@ -19,22 +18,6 @@ public final class TricksHandsBelote {
 
     private CustList<HandBelote> cardsHandsAtInitialState;
 
-    public void sortHands(DisplayingBelote _displaying,
-            byte _nombreJoueurs) {
-        if(bid.getCouleurDominante()) {
-            for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_nombreJoueurs;joueur_++) {
-                getDistribution().trier(joueur_,_displaying.getCouleurs(),_displaying.getDecroissant(),bid.getCouleur());
-            }
-        } else if(bid.ordreCouleur()) {
-            for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_nombreJoueurs;joueur_++) {
-                getDistribution().trier(joueur_,_displaying.getCouleurs(),_displaying.getDecroissant(),Order.SUIT);
-            }
-        } else if(bid.ordreAtout()) {
-            for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_nombreJoueurs;joueur_++) {
-                getDistribution().trier(joueur_,_displaying.getCouleurs(),_displaying.getDecroissant(),Order.TRUMP);
-            }
-        }
-    }
     public void restituerMains(DisplayingBelote _displaying,byte _nombreJoueurs,byte _numeroPli) {
         for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_nombreJoueurs;joueur_++) {
             getDistribution().supprimerCartes(joueur_);
@@ -53,19 +36,7 @@ public final class TricksHandsBelote {
             }
             key_++;
         }
-        if(bid.getCouleurDominante()) {
-            for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_nombreJoueurs;joueur_++) {
-                getDistribution().trier(joueur_,_displaying.getCouleurs(),_displaying.getDecroissant(),bid.getCouleur());
-            }
-        } else if(bid.ordreCouleur()) {
-            for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_nombreJoueurs;joueur_++) {
-                getDistribution().trier(joueur_,_displaying.getCouleurs(),_displaying.getDecroissant(),Order.SUIT);
-            }
-        } else if(bid.ordreAtout()) {
-            for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_nombreJoueurs;joueur_++) {
-                getDistribution().trier(joueur_,_displaying.getCouleurs(),_displaying.getDecroissant(),Order.TRUMP);
-            }
-        }
+        sortHands(_displaying,_nombreJoueurs);
     }
     public void restituerMains(DisplayingBelote _displaying,byte _nombreJoueurs,byte _numeroPli,byte _numeroCarte) {
         for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_nombreJoueurs;joueur_++) {
@@ -75,12 +46,13 @@ public final class TricksHandsBelote {
         if(_numeroPli>=0) {
             getDistribution().completerDonne(preneur, rules);
         }
-        byte key_ = 0;
+        byte key_ = 1;
         for(TrickBelote pli_:tricks) {
-            if(key_ >= _numeroPli) {
+            if(key_ > _numeroPli) {
+                key_++;
                 continue;
             }
-            if(key_ == _numeroPli + 1) {
+            if(key_ == _numeroPli) {
                 byte indice_ = 0;
                 for (CardBelote carte_ : pli_) {
                     if (indice_ <= _numeroCarte) {
@@ -96,15 +68,24 @@ public final class TricksHandsBelote {
             }
             key_++;
         }
-        if(bid.getCouleurDominante()) {
-            for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_nombreJoueurs;joueur_++) {
-                getDistribution().trier(joueur_,_displaying.getCouleurs(),_displaying.getDecroissant(),bid.getCouleur());
+        sortHands(_displaying,_nombreJoueurs);
+    }
+
+    public void sortHands(DisplayingBelote _displaying,
+                          byte _nombreJoueurs) {
+        sortHands(_displaying, _nombreJoueurs, bid);
+    }
+
+    void sortHands(DisplayingBelote _displaying, byte _nombreJoueurs, BidBeloteSuit _bid) {
+        if(_bid.getCouleurDominante()) {
+            for (byte joueur_ = CustList.FIRST_INDEX; joueur_<_nombreJoueurs; joueur_++) {
+                getDistribution().trier(joueur_,_displaying.getCouleurs(),_displaying.getDecroissant(), _bid.getCouleur());
             }
-        } else if(bid.ordreCouleur()) {
+        } else if(_bid.ordreCouleur()) {
             for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_nombreJoueurs;joueur_++) {
                 getDistribution().trier(joueur_,_displaying.getCouleurs(),_displaying.getDecroissant(),Order.SUIT);
             }
-        } else if(bid.ordreAtout()) {
+        } else if(_bid.ordreAtout()) {
             for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_nombreJoueurs;joueur_++) {
                 getDistribution().trier(joueur_,_displaying.getCouleurs(),_displaying.getDecroissant(),Order.TRUMP);
             }
@@ -121,12 +102,8 @@ public final class TricksHandsBelote {
         return distribution;
     }
 
-    public void setDistribution(DealBelote _distribution, boolean _copy) {
-        if (_copy) {
-            distribution = new DealBelote(_distribution);
-        } else {
-            distribution = _distribution;
-        }
+    public void setDistributionCopy(DealBelote _distribution) {
+        distribution = new DealBelote(_distribution);
     }
 
     public byte getPreneur() {

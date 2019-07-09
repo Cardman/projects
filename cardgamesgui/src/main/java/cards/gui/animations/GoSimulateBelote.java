@@ -319,8 +319,8 @@ public final class GoSimulateBelote extends Thread implements GoSimulate {
         GameBelote currentGame_=partieBeloteSimulee();
         res_.setGame(currentGame_);
         StringList nicknames_=pseudosSimuleeBelote();
-        res_.initialize(new StringList(nicknames_), container.getScores());
         res_.setUser(DealBelote.NUMERO_UTILISATEUR);
+        res_.initialize(new StringList(nicknames_), container.getScores());
         DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
         JScrollPane scroll_=new JScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
