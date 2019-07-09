@@ -130,17 +130,25 @@ public final class ResultsTarot {
                 scoresDeal_.add((short)0);
             }
         }
-        if(game.getType()==GameType.RANDOM&&game.getNumber()==0|| game.getType() == GameType.EDIT && game.getNumber() <= game.getRegles().getNbDeals()) {
+        GameType type_ = game.getType();
+        long number_ = game.getNumber();
+        int nbDeals_ = game.getRegles().getNbDeals();
+        calculateScores(scoresDeal_, type_, number_, nbDeals_);
+    }
+
+    void calculateScores(Shorts _scoresDeal, GameType _type, long _number, int _nbDeals) {
+        if(hasToCalculateScores(_type, _number, _nbDeals)) {
+            int nbPl_ = _scoresDeal.size();
             long variance9_=0;
             long esperance_=0;
             res.getScores().add(new Longs());
             if(res.getScores().size()==1) {
-                for(short score_:scoresDeal_) {
+                for(short score_: _scoresDeal) {
                     res.getScores().last().add((long) score_);
                 }
             } else {
                 byte indice_=0;
-                for(short score_:scoresDeal_) {
+                for(short score_: _scoresDeal) {
                     res.getScores().last().add(score_+res.getScores().get(res.getScores().size()-2).get(indice_));
                     indice_++;
                 }
@@ -156,13 +164,18 @@ public final class ResultsTarot {
             variance9_=-variance9_;
             /*Oppose du_ carre_ de_ la_ somme_ des_ scores fois_ trois_*/
             for(long score_:res.getScores().last()) {
-                variance9_+=score_*score_*9*nombreJoueurs_;
+                variance9_+=score_*score_*9* nbPl_;
             }
             /*variance9_ vaut_ neuf_ fois_ la_ variance_ des_ scores fois_ le_ carre_ du_ nombre_ de_ joueurs_*/
-            res.getSigmas().add(new Rate(variance9_,nombreJoueurs_*nombreJoueurs_).rootAbs(new LgInt(2)));
+            res.getSigmas().add(new Rate(variance9_, nbPl_ * nbPl_).rootAbs(new LgInt(2)));
             res.getSums().add(esperance_);
         }
     }
+
+    static boolean hasToCalculateScores(GameType _type, long _number, int _nbDeals) {
+        return _type ==GameType.RANDOM&& _number ==0|| _type == GameType.EDIT && _number <= _nbDeals;
+    }
+
     public GameTarot getGame() {
         return game;
     }

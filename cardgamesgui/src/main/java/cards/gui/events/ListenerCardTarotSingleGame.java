@@ -51,7 +51,7 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
                 String pseudo_=container.pseudo();
                 EnumList<Handfuls> an_=new EnumList<Handfuls>();
                 an_.add(container.getChoosenHandful());
-                partie_.ajouterAnnoncesPoignees(DealTarot.NUMERO_UTILISATEUR,an_);
+                partie_.setAnnoncesPoignees(DealTarot.NUMERO_UTILISATEUR,an_);
                 container.getHandfuls().getVal(DealTarot.NUMERO_UTILISATEUR).setText(Games.toString(container.getChoosenHandful(),lg_));
                 Panel panelToSet_ = container.getDeclaredHandfuls().getVal(DealTarot.NUMERO_UTILISATEUR);
                 panelToSet_.removeAll();
@@ -73,7 +73,7 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
                     container.ajouterTexteDansZone(StringList.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(m,lg_)));
                     allowedSelectedMiseres_.add(m);
                 }
-                partie_.ajouterAnnoncesMiseres(DealTarot.NUMERO_UTILISATEUR,allowedSelectedMiseres_);
+                partie_.setAnnoncesMiseres(DealTarot.NUMERO_UTILISATEUR,allowedSelectedMiseres_);
             }
             if(partie_.autorise(getCarteVerif())) {
                 if (container.getScrollDeclaringHandful().isVisible()) {

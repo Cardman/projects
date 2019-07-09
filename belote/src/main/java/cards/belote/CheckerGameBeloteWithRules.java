@@ -230,7 +230,7 @@ public final class CheckerGameBeloteWithRules {
             if (!finished_) {
                 loadedGameCopy_.finEncherePremierTour();
                 int pl_ = 0;
-                while (i_ < _loadedGame.tailleContrats()) {
+                while (true) {
                     byte p_ = players_.get(pl_);
                     if (!_loadedGame.contrat(i_).estDemandable(
                             loadedGameCopy_.getContrat())) {
@@ -415,7 +415,7 @@ public final class CheckerGameBeloteWithRules {
                 loadedGameCopy_.getDistribution().jouer(p, ct_);
                 loadedGameCopy_.ajouterUneCarteDansPliEnCours(ct_);
             }
-            if (loadedGameCopy_.getDistribution().main().estVide()) {
+            if (!loadedGameCopy_.keepPlayingCurrentGame()) {
                 /* Il y a dix_ de_ der_ */
                 loadedGameCopy_.ajouterPliEnCours();
                 loadedGameCopy_.setDixDeDer(loadedGameCopy_.getRamasseur());

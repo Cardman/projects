@@ -669,7 +669,7 @@ public final class SendReceiveServer extends BasicServer {
             }
             declaredMiseres_.add(m);
         }
-        game_.ajouterAnnoncesMiseres(info_.getPlace(), declaredMiseres_);
+        game_.setAnnoncesMiseres(info_.getPlace(), declaredMiseres_);
         RefreshHand ref_ = new RefreshHand();
         ref_.setCard(card_);
         ref_.setPlace(info_.getPlace());

@@ -164,10 +164,13 @@ public class CheckerGameBeloteWithRulesTest {
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_, (byte) first_);
+        first_ = game_.playerAfter((byte) first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_, (byte) first_);
+        first_ = game_.playerAfter((byte) first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_, (byte) first_);
+        first_ = game_.playerAfter((byte) first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_, (byte) first_);
         first_ = game_.playerAfter((byte) first_);

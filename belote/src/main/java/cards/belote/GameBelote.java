@@ -7,7 +7,6 @@ import cards.consts.Suit;
 import code.util.BooleanList;
 import code.util.CustList;
 import code.util.EnumMap;
-import code.util.EqList;
 import code.util.*;
 /**
  */
@@ -178,7 +177,7 @@ public final class GameBelote {
                 byte nombreDeJoueurs_ = getNombreDeJoueurs();
                 setEntameur((byte)((deal.getDonneur()+1)%nombreDeJoueurs_));
             }
-            return false;
+            return true;
         }
         if (completed_) {
             return true;
@@ -341,7 +340,7 @@ public final class GameBelote {
         int lastPlayer_ = lastHasBid;
         ajouterContrat(bid_,_player);
         if (getRegles().dealAll()) {
-            if ((lastPlayer_ + 1) % getNombreDeJoueurs() != _player) {
+            if (lastPlayer_ > -1 && (lastPlayer_ + 1) % getNombreDeJoueurs() != _player) {
                 return true;
             }
             lastBid = bid_;
@@ -365,7 +364,7 @@ public final class GameBelote {
     }
 
     public GameBeloteBid getGameBeloteBid() {
-        byte numero_=(byte)((getDistribution().getDonneur()+1+bids.size())%getNombreDeJoueurs());
+        byte numero_=playerHavingToBid();
         HandBelote mj_=getDistribution().main(numero_);
         HandBelote last_ = new HandBelote();
         if (!rules.dealAll()) {
@@ -382,7 +381,6 @@ public final class GameBelote {
         if (lastHasBid == -1) {
             lastHasBid = _t;
         } else if (lastHasBid == _t) {
-            bids.add(_c);
             return;
         }
         lastHasBid = _t;
@@ -558,15 +556,20 @@ public final class GameBelote {
             return true;
         }
         playedCard = strategieJeuCarteUnique();
-        if (annoncerBeloteRebelote(_player, playedCard)) {
-            setAnnoncesBeloteRebelote(_player, playedCard);
-        }
+        tryDeclareBeloteRebelote(_player, playedCard);
         if (premierTour()) {
             annoncer(_player);
         }
         ajouterUneCarteDansPliEnCours(_player, getCarteJouee());
         return false;
     }
+
+    void tryDeclareBeloteRebelote(byte _player, CardBelote _playedCard) {
+        if (annoncerBeloteRebelote(_player, _playedCard)) {
+            setAnnoncesBeloteRebelote(_player, _playedCard);
+        }
+    }
+
     public CardBelote getCarteJouee() {
         return playedCard;
     }
@@ -689,13 +692,7 @@ public final class GameBelote {
     }
 
     public byte playerHavingToBid() {
-        byte dealer_ = getDistribution().getDonneur();
-        byte playerHavingToBid_ = playerAfter(dealer_);
-        int nbBids_ = tailleContrats();
-        for (byte b=CustList.FIRST_INDEX;b<nbBids_;b++) {
-            playerHavingToBid_ = playerAfter(playerHavingToBid_);
-        }
-        return playerHavingToBid_;
+        return (byte)((getDistribution().getDonneur()+1+bids.size())%getNombreDeJoueurs());
     }
     public byte playerHavingToPlay() {
         return getPliEnCours().getNextPlayer(getNombreDeJoueurs());

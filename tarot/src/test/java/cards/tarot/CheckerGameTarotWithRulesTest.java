@@ -493,6 +493,7 @@ public class CheckerGameTarotWithRulesTest {
         assertEq(BidTarot.GUARD, game_.getContrat());
         assertEq(0, game_.getEntameur());
         assertEq(0, game_.getRamasseur());
+        assertEq(0, game_.getCardsToBeDiscarded());
     }
 
     @Test

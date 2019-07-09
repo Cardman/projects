@@ -916,10 +916,6 @@ public final class GameTarot {
         return g_.strategiePoignee();
     }
 
-    public void ajouterAnnoncesPoignees(byte _b, EnumList<Handfuls> _ann) {
-        declaresHandfuls.get(_b).addAllElts(_ann);
-    }
-
     public void setAnnoncesPoignees(byte _joueur, EnumList<Handfuls> _ann) {
         declaresHandfuls.set( _joueur, _ann);
     }
@@ -952,10 +948,6 @@ public final class GameTarot {
         GameTarotDeclaring g_ = new GameTarotDeclaring(doneTrickInfo_,teamsRelation_,
                 mainJoueur_,declaresHandfuls);
         return g_.strategieAnnoncesMiseres();
-    }
-
-    public void ajouterAnnoncesMiseres(byte _b, EnumList<Miseres> _ann) {
-        declaresMiseres.get(_b).addAllElts(_ann);
     }
 
     public void setAnnoncesMiseres(byte _joueur, EnumList<Miseres> _ann) {

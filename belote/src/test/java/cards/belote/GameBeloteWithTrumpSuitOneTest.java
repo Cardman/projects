@@ -1,8 +1,11 @@
 package cards.belote;
 import static cards.belote.EquallableBeloteUtil.assertEq;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import cards.belote.enumerations.DealingBelote;
+import cards.belote.enumerations.DeclaresBelote;
 import code.util.CustList;
 import org.junit.Test;
 
@@ -186,5 +189,263 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         game_.ajouterUneCarteDansPliEnCours(CardBelote.DIAMOND_KING);
         assertTrue(!game_.keepPlayingCurrentTrick());
         assertTrue(game_.keepPlayingCurrentGame());
+    }
+    @Test
+    public void strategieJeuCarteUnique1Test(){
+        GameBelote game_ = initialize();
+        biddingTrumpSuit(game_,BidBelote.OTHER_SUIT,Suit.HEART);
+        game_.setPliEnCours();
+        CardBelote card_ = game_.strategieJeuCarteUnique();
+        assertSame(CardBelote.DIAMOND_8,card_);
+    }
+    @Test
+    public void strategieJeuCarteUnique2Test(){
+        GameBelote game_ = initialize();
+        biddingTrumpSuit(game_,BidBelote.OTHER_SUIT,Suit.HEART);
+        game_.setPliEnCours();
+        game_.ajouterUneCarteDansPliEnCours(game_.getEntameur(),CardBelote.DIAMOND_8);
+        CardBelote card_ = game_.strategieJeuCarteUnique();
+        assertSame(CardBelote.HEART_1,card_);
+    }
+    @Test
+    public void tryDeclareBeloteRebelote1Test() {
+        GameBelote game_ = initialize();
+        biddingTrumpSuit(game_,BidBelote.OTHER_SUIT,Suit.HEART);
+        game_.setPliEnCours();
+        game_.tryDeclareBeloteRebelote(game_.getEntameur(),CardBelote.DIAMOND_1);
+        assertEq(0,game_.getDeclaresBeloteRebelote().get(game_.getEntameur()).total());
+    }
+    @Test
+    public void tryDeclareBeloteRebelote2Test() {
+        GameBelote game_ = initialize();
+        biddingTrumpSuit(game_,BidBelote.OTHER_SUIT,Suit.HEART);
+        game_.setPliEnCours();
+        game_.tryDeclareBeloteRebelote(game_.getEntameur(),CardBelote.HEART_KING);
+        assertEq(0,game_.getDeclaresBeloteRebelote().get(game_.getEntameur()).total());
+    }
+    @Test
+    public void tryDeclareBeloteRebelote3Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
+        DealBelote deal_ = deal2Classic((byte) 3);
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDonneur());
+        BidBeloteSuit bid_;
+        bid_ = new BidBeloteSuit();
+        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setCouleur(Suit.SPADE);
+        game_.ajouterContrat(bid_, (byte) first_);
+        game_.completerDonne();
+        game_.setPliEnCours();
+        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardBelote.DIAMOND_1);
+        game_.tryDeclareBeloteRebelote((byte)1,CardBelote.SPADE_KING);
+        assertEq(1,game_.getDeclaresBeloteRebelote().get((byte)1).total());
+    }
+
+    @Test
+    public void currentPlayerHasPlayed1Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
+        DealBelote deal_ = deal2Classic((byte) 3);
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDonneur());
+        BidBeloteSuit bid_;
+        bid_ = new BidBeloteSuit();
+        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setCouleur(Suit.SPADE);
+        game_.ajouterContrat(bid_, (byte) first_);
+        game_.completerDonne();
+        game_.setPliEnCours();
+        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardBelote.DIAMOND_1);
+        game_.setAnnoncesBeloteRebelote((byte) 1, CardBelote.SPADE_KING);
+        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardBelote.SPADE_KING);
+        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardBelote.DIAMOND_7);
+        game_.ajouterUneCarteDansPliEnCours((byte) 3, CardBelote.DIAMOND_JACK);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.annulerAnnonces();
+        game_.setPliEnCours();
+        game_.setAnnoncesBeloteRebelote((byte) 1, CardBelote.SPADE_QUEEN);
+        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardBelote.SPADE_QUEEN);
+        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardBelote.SPADE_10);
+        game_.ajouterUneCarteDansPliEnCours((byte) 3, CardBelote.SPADE_1);
+        assertTrue(!game_.currentPlayerHasPlayed((byte) 0));
+        assertTrue(game_.currentPlayerHasPlayed((byte) 0));
+    }
+
+    @Test
+    public void currentPlayerHasPlayed2Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
+        DealBelote deal_ = deal2Classic((byte) 3);
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDonneur());
+        BidBeloteSuit bid_;
+        bid_ = new BidBeloteSuit();
+        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setCouleur(Suit.SPADE);
+        game_.ajouterContrat(bid_, (byte) first_);
+        game_.completerDonne();
+        game_.setPliEnCours();
+        assertTrue(!game_.currentPlayerHasPlayed((byte) 0));
+        assertTrue(game_.currentPlayerHasPlayed((byte) 0));
+    }
+    @Test
+    public void playerHasAlreadyBidded1Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
+        DealBelote deal_ = deal2Classic((byte) 3);
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDonneur());
+        assertTrue(!game_.playerHasAlreadyBidded((byte) first_));
+        assertTrue(game_.playerHasAlreadyBidded((byte) first_));
+    }
+    @Test
+    public void playerHasAlreadyBidded2Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
+        DealBelote deal_ = deal2Classic((byte) 3);
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDonneur());
+        game_.ajouterContrat(new BidBeloteSuit(), (byte) first_);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(new BidBeloteSuit(), (byte) first_);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(new BidBeloteSuit(), (byte) first_);
+        first_ = game_.playerAfter((byte) first_);
+        assertTrue(!game_.playerHasAlreadyBidded((byte) first_));
+        assertTrue(game_.playerHasAlreadyBidded((byte) first_));
+    }
+
+    @Test
+    public void playerHasAlreadyBidded3Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
+        rules_.getEncheresAutorisees().put(BidBelote.ALL_TRUMP, true);
+        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
+        deal_.initDonneur((byte) 0);
+        deal_.initDonne(rules_, new DisplayingBelote());
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDonneur());
+        assertTrue(!game_.playerHasAlreadyBidded((byte) first_));
+        assertTrue(game_.playerHasAlreadyBidded((byte) first_));
+    }
+
+    @Test
+    public void playerHasAlreadyBidded4Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
+        rules_.getEncheresAutorisees().put(BidBelote.ALL_TRUMP, true);
+        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
+        deal_.initDonneur((byte) 0);
+        deal_.initDonne(rules_, new DisplayingBelote());
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDonneur());
+        game_.ajouterContrat(new BidBeloteSuit(), (byte) first_);
+        first_ = game_.playerAfter((byte) first_);
+        assertTrue(!game_.playerHasAlreadyBidded((byte) first_));
+        assertTrue(game_.playerHasAlreadyBidded((byte) first_));
+    }
+    @Test
+    public void completedDeal1Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
+        DealBelote deal_ = deal2Classic((byte) 3);
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDonneur());
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(deal_.derniereMain().premiereCarte().couleur());
+        bid_.setEnchere(BidBelote.SUIT);
+        game_.ajouterContrat(bid_, (byte) first_);
+        assertTrue(!game_.completedDeal());
+        assertTrue(game_.completedDeal());
+    }
+
+    @Test
+    public void completedDeal2Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
+        rules_.getEncheresAutorisees().put(BidBelote.ALL_TRUMP, true);
+        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
+        deal_.initDonneur((byte) 0);
+        deal_.initDonne(rules_, new DisplayingBelote());
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDonneur());
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setPoints(80);
+        bid_.setBid(BidBelote.SUIT);
+        game_.ajouterContrat(bid_, (byte) first_);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(new BidBeloteSuit(), (byte) first_);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(new BidBeloteSuit(), (byte) first_);
+        first_ = game_.playerAfter((byte) first_);
+        game_.ajouterContrat(new BidBeloteSuit(), (byte) first_);
+        assertTrue(game_.completedDeal());
+    }
+
+    @Test
+    public void completedDeal3Test() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
+        rules_.getEncheresAutorisees().put(BidBelote.ALL_TRUMP, true);
+        DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
+        deal_.initDonneur((byte) 0);
+        deal_.initDonne(rules_, new DisplayingBelote());
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDonneur());
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setSuit(Suit.HEART);
+        bid_.setPoints(162);
+        bid_.setBid(BidBelote.SUIT);
+        game_.ajouterContrat(bid_, (byte) first_);
+        assertTrue(game_.completedDeal());
+    }
+    private static DealBelote deal2Classic(byte _dealer) {
+        CustList<HandBelote> hands_ = new CustList<HandBelote>();
+        HandBelote hand_;
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.DIAMOND_1);
+        hand_.ajouter(CardBelote.DIAMOND_9);
+        hand_.ajouter(CardBelote.SPADE_JACK);
+        hand_.ajouter(CardBelote.CLUB_KING);
+        hand_.ajouter(CardBelote.DIAMOND_10);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.HEART_1);
+        hand_.ajouter(CardBelote.HEART_9);
+        hand_.ajouter(CardBelote.CLUB_JACK);
+        hand_.ajouter(CardBelote.SPADE_KING);
+        hand_.ajouter(CardBelote.SPADE_QUEEN);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.CLUB_1);
+        hand_.ajouter(CardBelote.DIAMOND_QUEEN);
+        hand_.ajouter(CardBelote.DIAMOND_7);
+        hand_.ajouter(CardBelote.SPADE_7);
+        hand_.ajouter(CardBelote.HEART_10);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.DIAMOND_JACK);
+        hand_.ajouter(CardBelote.HEART_QUEEN);
+        hand_.ajouter(CardBelote.HEART_7);
+        hand_.ajouter(CardBelote.CLUB_QUEEN);
+        hand_.ajouter(CardBelote.CLUB_7);
+        hands_.add(hand_);
+        hand_ = new HandBelote();
+        hand_.ajouter(CardBelote.SPADE_9);
+        hand_.ajouter(CardBelote.CLUB_9);
+        hand_.ajouter(CardBelote.DIAMOND_8);
+        hand_.ajouter(CardBelote.HEART_8);
+        hand_.ajouter(CardBelote.CLUB_8);
+        hand_.ajouter(CardBelote.SPADE_8);
+        hand_.ajouter(CardBelote.SPADE_10);
+        hand_.ajouter(CardBelote.CLUB_10);
+        hand_.ajouter(CardBelote.HEART_KING);
+        hand_.ajouter(CardBelote.DIAMOND_KING);
+        hand_.ajouter(CardBelote.HEART_JACK);
+        hand_.ajouter(CardBelote.SPADE_1);
+        hands_.add(hand_);
+        return new DealBelote(hands_,_dealer);
     }
 }

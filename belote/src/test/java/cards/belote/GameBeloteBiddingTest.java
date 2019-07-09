@@ -374,6 +374,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
         game_.ajouterContrat(contratTmp_,player_);
+        player_ = game_.playerAfter(player_);
         game_.finEncherePremierTour();
         contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
@@ -1169,6 +1170,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
         game_.ajouterContrat(contratTmp_,player_);
+        player_ = game_.playerAfter(player_);
         game_.finEncherePremierTour();
         contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
@@ -1215,6 +1217,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
         game_.ajouterContrat(contratTmp_,player_);
+        player_ = game_.playerAfter(player_);
         game_.finEncherePremierTour();
         contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
@@ -1261,6 +1264,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
         game_.ajouterContrat(contratTmp_,player_);
+        player_ = game_.playerAfter(player_);
         game_.finEncherePremierTour();
         contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);

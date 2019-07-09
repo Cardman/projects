@@ -7,10 +7,34 @@ import code.util.*;
 import org.junit.Test;
 
 import static cards.tarot.EquallableTarotUtil.assertEq;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.*;
 import static org.junit.Assert.fail;
 
 public final class ResultsTarotTest extends CommonGameTarot {
+    @Test
+    public void hasToCalculateScores1Test() {
+        assertTrue(ResultsTarot.hasToCalculateScores(GameType.EDIT,0,0));
+    }
+    @Test
+    public void hasToCalculateScores2Test() {
+        assertTrue(!ResultsTarot.hasToCalculateScores(GameType.EDIT,1,0));
+    }
+    @Test
+    public void hasToCalculateScores3Test() {
+        assertTrue(ResultsTarot.hasToCalculateScores(GameType.RANDOM,0,0));
+    }
+    @Test
+    public void hasToCalculateScores4Test() {
+        assertTrue(!ResultsTarot.hasToCalculateScores(GameType.RANDOM,1,0));
+    }
+    @Test
+    public void calculateScoresTest() {
+        ResultsTarot res_ = new ResultsTarot();
+        res_.setUser((byte) 0);
+        res_.setScores(new CustList<Longs>());
+        res_.calculateScores(new Shorts(),GameType.RANDOM,1,0);
+        assertEq(0,res_.getScores().size());
+    }
     @Test
     public void initialize1Test() {
         RulesTarot rules_ = new RulesTarot();
