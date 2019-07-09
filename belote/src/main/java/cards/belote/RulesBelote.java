@@ -68,9 +68,7 @@ public final class RulesBelote {
         Ints list_ = new Ints();
         int sum_ = HandBelote.pointsTotauxDixDeDer();
         int min_ = sum_ / 2;
-        if (min_ % DIVISIONS != 0) {
-            min_ = (min_ / DIVISIONS) * DIVISIONS;
-        }
+        min_ = (min_ / DIVISIONS) * DIVISIONS;
         while (min_ < sum_) {
             list_.add(min_);
             min_ += DIVISIONS;

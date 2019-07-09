@@ -45,13 +45,13 @@ public final class DeclareHandBelote {
     }
 
     public boolean eq(DeclareHandBelote _g) {
+        if (player != _g.player) {
+            return false;
+        }
         if (declare != _g.declare) {
             return false;
         }
         if (!hand.eq(_g.hand)) {
-            return false;
-        }
-        if (player != _g.player) {
             return false;
         }
         return true;

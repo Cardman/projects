@@ -682,6 +682,9 @@ public final class GameBelote {
         return m;
     }
     public void restituerMainsDepartRejouerDonne(CustList<TrickBelote> _plisFaits,byte _nombreJoueurs) {
+        if (_plisFaits.isEmpty()) {
+            return;
+        }
         for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_nombreJoueurs;joueur_++) {
             getDistribution().supprimerCartes(joueur_);
         }

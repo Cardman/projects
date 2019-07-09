@@ -1816,6 +1816,41 @@ public class CheckerGameBeloteWithRulesTest {
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
+
+    @Test
+    public void check162FailTest() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
+        DealBelote deal_ = deal2Classic((byte) 3);
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        int first_ = game_.playerAfter(deal_.getDonneur());
+        BidBeloteSuit bid_;
+        bid_ = new BidBeloteSuit();
+        bid_.setEnchere(BidBelote.SUIT);
+        bid_.setCouleur(Suit.SPADE);
+        game_.ajouterContrat(bid_, (byte) first_);
+        game_.completerDonne();
+        game_.setPliEnCours();
+        game_.annoncer((byte) 0);
+        game_.getAnnonce((byte) 0).setPlayer((byte) 1);
+        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardBelote.DIAMOND_1);
+        game_.setAnnoncesBeloteRebelote((byte) 1, CardBelote.SPADE_KING);
+        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardBelote.SPADE_KING);
+        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardBelote.DIAMOND_7);
+        game_.ajouterUneCarteDansPliEnCours((byte) 3, CardBelote.DIAMOND_JACK);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.setPliEnCours();
+        game_.setAnnoncesBeloteRebelote((byte) 1, CardBelote.SPADE_QUEEN);
+        game_.ajouterUneCarteDansPliEnCours((byte) 1, CardBelote.SPADE_QUEEN);
+        game_.ajouterUneCarteDansPliEnCours((byte) 2, CardBelote.SPADE_10);
+        game_.ajouterUneCarteDansPliEnCours((byte) 3, CardBelote.SPADE_1);
+        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardBelote.SPADE_JACK);
+        game_.ajouterDixDeDerPliEnCours();
+        game_.setPliEnCours();
+        game_.ajouterUneCarteDansPliEnCours((byte) 0, CardBelote.DIAMOND_10);
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
+    }
     @Test
     public void check17FailTest() {
         RulesBelote rules_ = new RulesBelote();
@@ -2305,4 +2340,28 @@ public class CheckerGameBeloteWithRulesTest {
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
+
+    @Test
+    public void check41FailTest() {
+        RulesBelote rules_ = new RulesBelote();
+        DealBelote deal_ = deal1Classic((byte) 0);
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY,true);
+        assertTrue(!rules_.getListeAnnoncesAutorisees().isEmpty());
+        game_.getRules().getAllowedBids().clear();
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
+    }
+
+    @Test
+    public void check42FailTest() {
+        RulesBelote rules_ = new RulesBelote();
+        DealBelote deal_ = deal1Classic((byte) 0);
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        assertTrue(!rules_.getListeEncheresAutorisees().isEmpty());
+        game_.getRules().getAllowedDeclares().clear();
+        CheckerGameBeloteWithRules.check(game_);
+        assertTrue(!game_.getError().isEmpty());
+    }
+
 }

@@ -54,6 +54,10 @@ public final class CheckerGameBeloteWithRules {
             _loadedGame.setError(BAD_COUNT_FOR_REMAINING_CARDS);
             return;
         }
+        if (!_loadedGame.getRules().isValidRules()) {
+            _loadedGame.setError(BAD_COUNT_FOR_REMAINING_CARDS);
+            return;
+        }
         _loadedGame.loadGame();
         CustList<TrickBelote> allTricks_ = _loadedGame.getTricks();
         HandBelote cards_ = new HandBelote();
