@@ -264,62 +264,23 @@ public final class GameTarot {
 
     public void simuler() {
         simulationWithBids = false;
-        byte nombreJoueurs_ = getNombreDeJoueurs();
         byte donneur_ = getDistribution().getDonneur();
+        bid = BidTarot.FOLD;
         if (avecContrat()) {
-            BidTarot contratTmp_;
             for (byte joueur_ : orderedPlayers(playerAfter(donneur_))) {
-                contratTmp_ = strategieContrat();
-                ajouterContrat(contratTmp_,joueur_);
-                if(maximumBid(contratTmp_)) {
-                    break;
-                }
+                bidSimulate(joueur_);
             }
         }
+        simuPlayCards();
+    }
+
+    void simuPlayCards() {
         if (!bid.isJouerDonne() && pasJeuApresPasse()) {
             return;
         }
         simulationWithBids = true;
-        if (bid.isJouerDonne()) {
-            if (rules.getDiscardAfterCall()) {
-                if (rules.getRepartition().getAppel() == CallingCard.CHARACTER_CARD
-                        || rules.getRepartition().getAppel() == CallingCard.KING) {
-                    intelligenceArtificielleAppel();
-                } else if (rules.getRepartition().getAppel() == CallingCard.DEFINED) {
-                    initEquipeDeterminee();
-                } else {
-                    initDefense();
-                }
-                if (bid.getJeuChien() == PlayingDog.WITH) {
-                    ecarter(true);
-                } else {
-                    gererChienInconnu();
-                    slam();
-                }
-            } else {
-                if (bid.getJeuChien() == PlayingDog.WITH) {
-                    appelApresEcart();
-                } else {
-                    if (rules.getRepartition().getAppel() == CallingCard.CHARACTER_CARD
-                            || rules.getRepartition().getAppel() == CallingCard.KING) {
-                        intelligenceArtificielleAppel();
-                    } else if (rules.getRepartition().getAppel() == CallingCard.DEFINED) {
-                        initEquipeDeterminee();
-                    } else {
-                        initDefense();
-                    }
-                    gererChienInconnu();
-                    slam();
-                }
-            }
-        }
-        if (!chelemAnnonce()) {
-            /*
-        Si un joueur n'a pas annonce de Chelem on
-        initialise l'entameur du premier pli
-        */
-            starter = (byte) ((donneur_ + 1) % nombreJoueurs_);
-        }
+        simuCallDiscard(bid);
+        simuStarter();
         while (true) {
             setPliEnCours(true);
             for (byte joueur_ : orderedPlayers(starter)) {
@@ -334,6 +295,58 @@ public final class GameTarot {
         }
     }
 
+    void simuStarter() {
+        if (!chelemAnnonce()) {
+            /*
+        Si un joueur n'a pas annonce de Chelem on
+        initialise l'entameur du premier pli
+        */
+            byte nbPl_ = getNombreDeJoueurs();
+            byte deal_ = deal.getDonneur();
+            starter = (byte) ((deal_ + 1) % nbPl_);
+        }
+    }
+
+    void simuCallDiscard(BidTarot _bid) {
+        if (_bid.isJouerDonne()) {
+            if (rules.getDiscardAfterCall()) {
+                initSimuTeam();
+                if (_bid.getJeuChien() == PlayingDog.WITH) {
+                    ecarter(true);
+                } else {
+                    gererChienInconnu();
+                    slam();
+                }
+            } else {
+                if (_bid.getJeuChien() == PlayingDog.WITH) {
+                    appelApresEcart();
+                } else {
+                    initSimuTeam();
+                    gererChienInconnu();
+                    slam();
+                }
+            }
+        }
+    }
+
+    void initSimuTeam() {
+        if (rules.getRepartition().getAppel() == CallingCard.CHARACTER_CARD
+                || rules.getRepartition().getAppel() == CallingCard.KING) {
+            intelligenceArtificielleAppel();
+        } else if (rules.getRepartition().getAppel() == CallingCard.DEFINED) {
+            initEquipeDeterminee();
+        } else {
+            initDefense();
+        }
+    }
+
+    void bidSimulate(byte _p) {
+        if (maximumBid(bid)) {
+            return;
+        }
+        BidTarot contratTmp_ = strategieContrat();
+        ajouterContrat(contratTmp_,_p);
+    }
     public HandTarot mainUtilisateurTriee(DisplayingTarot _regles) {
         HandTarot main_ = new HandTarot();
         main_.ajouterCartes(getDistribution().main());

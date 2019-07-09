@@ -1,4 +1,5 @@
 package cards.president;
+import static cards.president.EquallablePresidentUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -10,12 +11,14 @@ public class RulesPresidentTest {
         RulesPresident rules_ = new RulesPresident(3);
         assertTrue(rules_.isValidRules());
         assertTrue(rules_.getNbMaxStacks() >= rules_.getNbMinStacks());
+        assertEq(18,rules_.getNbMaxCardsPerPlayer());
     }
     @Test
     public void isValidRules_defaultRules2Test(){
         RulesPresident rules_ = new RulesPresident(4);
         assertTrue(rules_.isValidRules());
         assertTrue(rules_.getNbMaxStacks() >= rules_.getNbMinStacks());
+        assertEq(13,rules_.getNbMaxCardsPerPlayer());
     }
     @Test
     public void isValidRules_defaultRules3Test(){
@@ -70,12 +73,14 @@ public class RulesPresidentTest {
         RulesPresident rules_ = new RulesPresident(13);
         assertTrue(rules_.isValidRules());
         assertTrue(rules_.getNbMaxStacks() >= rules_.getNbMinStacks());
+        assertEq(1,RulesPresident.getNbMinStacks(13));
     }
     @Test
     public void isValidRules_defaultRules12Test(){
         RulesPresident rules_ = new RulesPresident(14);
         assertTrue(rules_.isValidRules());
         assertTrue(rules_.getNbMaxStacks() >= rules_.getNbMinStacks());
+        assertEq(2,RulesPresident.getNbMinStacks(14));
     }
     @Test
     public void isValidRules_defaultRules13Test(){

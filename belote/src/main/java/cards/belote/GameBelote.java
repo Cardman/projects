@@ -217,39 +217,34 @@ public final class GameBelote {
     }
     public void simuler() {
         simulationWithBids = false;
-        BidBeloteSuit contratTmp_;
         Bytes players_ = orderedPlayers(playerAfter(getDistribution().getDonneur()));
         if (rules.dealAll()) {
             byte joueur_ = playerAfter(getDistribution().getDonneur());
-            while (true) {
-                contratTmp_ = strategieContrat();
-                ajouterContrat(contratTmp_, joueur_);
-                if (!keepBidding()) {
-                    break;
-                }
+            while (keepBidding()) {
+                bidSimulate(joueur_);
                 joueur_ = playerAfter(joueur_);
             }
         } else {
-            boolean finished_ = false;
-            for (byte joueur_ : players_) {
-                contratTmp_ = strategieContrat();
-                ajouterContrat(contratTmp_, joueur_);
-                if (!keepBidding()) {
-                    finished_ = true;
-                    break;
-                }
-            }
-            if (!finished_) {
-                finEncherePremierTour();
-                for (byte joueur_ : players_) {
-                    contratTmp_ = strategieContrat();
-                    ajouterContrat(contratTmp_, joueur_);
-                    if (!keepBidding()) {
-                        break;
-                    }
-                }
-            }
+            bidRoundSimulate(players_);
+            secRoundSimulate(players_);
         }
+        simuPlayCards();
+    }
+
+    void secRoundSimulate(Bytes _players) {
+        if (keepBidding()) {
+            finEncherePremierTour();
+            bidRoundSimulate(_players);
+        }
+    }
+
+    void bidRoundSimulate(Bytes _players) {
+        for (byte joueur_ : _players) {
+            bidSimulate(joueur_);
+        }
+    }
+
+    void simuPlayCards() {
         if (!bid.jouerDonne()) {
             return;
         }
@@ -271,6 +266,14 @@ public final class GameBelote {
             }
             ajouterPliEnCours();
         }
+    }
+
+    void bidSimulate(byte _p) {
+        if (!keepBidding()) {
+            return;
+        }
+        BidBeloteSuit contratTmp_ = strategieContrat();
+        ajouterContrat(contratTmp_, _p);
     }
     public HandBelote mainUtilisateurTriee(DisplayingBelote _regles) {
         HandBelote main_ = new HandBelote();

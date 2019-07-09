@@ -23,6 +23,7 @@ public class GamePresidentTest {
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         assertEq(0, g_.getWinners().size());
+        assertTrue(g_.readyToPlay());
     }
 
     @Test
@@ -41,6 +42,11 @@ public class GamePresidentTest {
         assertEq(2, ws_.size());
         assertEq(1, ws_.get(0));
         assertEq(3, ws_.get(1));
+        ws_ = g_.getWinners(new Bytes((byte)3));
+        assertEq(1, ws_.size());
+        assertEq(3, ws_.get(0));
+        assertEq(1,g_.numberGivenCards((byte) 3));
+        assertEq(0,g_.numberGivenCards((byte) 0));
     }
 
 
@@ -71,8 +77,62 @@ public class GamePresidentTest {
         assertEq(2, ws_.size());
         assertEq(0, ws_.get(0));
         assertEq(2, ws_.get(1));
+        ws_ = g_.getLoosers(new Bytes((byte)2));
+        assertEq(1, ws_.size());
+        assertEq(2, ws_.get(0));
     }
 
+    @Test
+    public void giveWorstCards1Test() {
+        RulesPresident r_ = new RulesPresident(4);
+        Bytes rk_ = new Bytes();
+        rk_.add((byte) 4);
+        rk_.add((byte) 1);
+        rk_.add((byte) 3);
+        rk_.add((byte) 2);
+        CustList<HandPresident> hs_ = deal1();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        g_.initCartesEchanges();
+        g_.donnerMeilleuresCartes();
+        HandPresident hand_ = new HandPresident();
+        hand_.ajouter(CardPresident.DIAMOND_3);
+        assertTrue(g_.giveWorstCards(new Bytes((byte)0,(byte)3), (byte) 3, hand_));
+    }
+
+    @Test
+    public void giveWorstCards2Test() {
+        RulesPresident r_ = new RulesPresident(4);
+        Bytes rk_ = new Bytes();
+        rk_.add((byte) 4);
+        rk_.add((byte) 1);
+        rk_.add((byte) 3);
+        rk_.add((byte) 2);
+        CustList<HandPresident> hs_ = deal1();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        g_.initCartesEchanges();
+        g_.donnerMeilleuresCartes();
+        HandPresident hand_ = new HandPresident();
+        assertTrue(!g_.giveWorstCards(new Bytes((byte)0,(byte)3), (byte) 3, hand_));
+    }
+
+    @Test
+    public void giveWorstCards3Test() {
+        RulesPresident r_ = new RulesPresident(4);
+        Bytes rk_ = new Bytes();
+        rk_.add((byte) 4);
+        rk_.add((byte) 1);
+        rk_.add((byte) 3);
+        rk_.add((byte) 2);
+        CustList<HandPresident> hs_ = deal1();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        g_.initCartesEchanges();
+        g_.donnerMeilleuresCartes();
+        HandPresident hand_ = new HandPresident();
+        assertTrue(g_.giveWorstCards(new Bytes((byte)0,(byte)2), (byte)3 , hand_));
+    }
     @Test
     public void getStatus1Test() {
         RulesPresident r_ = new RulesPresident(4);
@@ -639,6 +699,32 @@ public class GamePresidentTest {
         assertEq(0, playable_.total());
     }
 
+    @Test
+    public void allowPlaying1Test() {
+        RulesPresident r_ = new RulesPresident(4);
+        Bytes rk_ = new Bytes();
+        CustList<HandPresident> hs_ = deal1();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        g_.initCartesEchanges();
+        assertTrue(g_.allowPlaying((byte)1,CardPresident.SPADE_3));
+    }
+
+    @Test
+    public void allowPlaying2Test() {
+        RulesPresident r_ = new RulesPresident(4);
+        r_.setEqualty(EqualtyPlaying.FORBIDDEN);
+        Bytes rk_ = new Bytes();
+        CustList<HandPresident> hs_ = deal1();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        g_.initCartesEchanges();
+        HandPresident played_;
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.CLUB_7);
+        g_.getProgressingTrick().ajouter(played_, (byte) 1);
+        assertTrue(!g_.allowPlaying((byte)2,CardPresident.SPADE_5));
+    }
     @Test
     public void canPass1Test() {
         RulesPresident r_ = new RulesPresident(4);
@@ -4105,6 +4191,37 @@ public class GamePresidentTest {
         played_ = g_.getPlayedCards();
         assertEq(1, played_.total());
         assertSame(CardPresident.HEART_3,played_.carte(0));
+    }
+    @Test
+    public void currentPlayerHasPlayed1Test() {
+        RulesPresident r_ = new RulesPresident(4);
+        r_.setLoosingIfFinishByBestCards(true);
+        Bytes rk_ = new Bytes();
+        CustList<HandPresident> hs_ = deal1();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        g_.initCartesEchanges();
+        //
+        assertTrue(!g_.currentPlayerHasPlayed((byte) 1));
+        assertTrue(g_.currentPlayerHasPlayed((byte) 1));
+    }
+    @Test
+    public void currentPlayerHasPlayed2Test() {
+        RulesPresident r_ = new RulesPresident(4);
+        r_.setLoosingIfFinishByBestCards(true);
+        Bytes rk_ = new Bytes();
+        CustList<HandPresident> hs_ = deal1();
+        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
+        g_.initCartesEchanges();
+        //
+        HandPresident played_;
+        played_ = new HandPresident();
+        played_.ajouter(CardPresident.SPADE_3);
+        g_.addCardsToCurrentTrickAndLoop((byte) 1,played_);
+        byte nextPlayer_ = g_.getNextPlayer();
+        assertTrue(!g_.currentPlayerHasPlayed(nextPlayer_));
+        assertTrue(g_.currentPlayerHasPlayed(nextPlayer_));
     }
     static CustList<HandPresident> deal1() {
         CustList<HandPresident> hs_ = new CustList<HandPresident>();

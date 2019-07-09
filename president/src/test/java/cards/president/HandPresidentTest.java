@@ -419,6 +419,8 @@ public class HandPresidentTest {
         assertSame(CardChar.KING,CardPresident.SPADE_KING.getNomFigure());
         assertEq(0,CardPresident.SPADE_KING.valeur());
         assertTrue(!CardPresident.SPADE_KING.getImageFileName("").isEmpty());
+        assertTrue(HandPresident.pileBase().validStack(1));
+        assertTrue(!HandPresident.pileBase().validStack(2));
     }
     @Test
     public void vientAvant1Test() {

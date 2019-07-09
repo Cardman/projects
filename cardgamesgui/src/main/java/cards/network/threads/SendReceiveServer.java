@@ -1456,8 +1456,8 @@ public final class SendReceiveServer extends BasicServer {
                 return;
             }
             byte player_ = bye_.getPlace();
-            if (game_.availableSwitchingCards() && !game_.readyToPlayMulti()) {
-                Bytes pl_ = Net.activePlayers();
+            Bytes pl_ = Net.activePlayers();
+            if (game_.availableSwitchingCards() && !game_.readyToPlayMulti(pl_)) {
                 Bytes humWin_ = game_.getWinners(new Bytes(player_));
                 if (!humWin_.isEmpty()) {
                     HandPresident h_ = game_.strategieEchange(player_);

@@ -128,7 +128,7 @@ public final class GamePresident {
     }
 
     public void initCartesEchanges() {
-        if(!ranks.isEmpty()&&allowSwitchCards()) {
+        if(availableSwitchingCards()) {
             switchedCards.clear();
             for(byte p=0;p<getNombreDeJoueurs();p++) {
                 switchedCards.add(new HandPresident());
@@ -154,7 +154,7 @@ public final class GamePresident {
                 switchedCards_.add(new HandPresident(p));
             }
             HandPresident thirdUserHand_ = new HandPresident(deal.main());
-            if (allowSwitchCards() && noDeal_ > CustList.FIRST_INDEX) {
+            if (availableSwitchingCards()) {
                 Bytes losers_ = GamePresident.getLoosers(ranks, nombresCartesEchangesMax());
                 Bytes winners_ = GamePresident.getWinners(ranks, nombresCartesEchangesMax());
                 HandPresident hUser_;
@@ -381,23 +381,15 @@ public final class GamePresident {
 
     //single mode
     public boolean readyToPlay() {
-        if (switchedCards.isEmpty()) {
-            return true;
-        }
-        if (getWinners().containsObj(DealPresident.NUMERO_UTILISATEUR)) {
-            if (switchedCards.get(DealPresident.NUMERO_UTILISATEUR).estVide()) {
-                return false;
-            }
-        }
-        return true;
+        return readyToPlayMulti(new Bytes(DealPresident.NUMERO_UTILISATEUR));
     }
 
     //Case empty human winners:
-    public boolean readyToPlayMulti() {
+    public boolean readyToPlayMulti(Bytes _bytes) {
         if (switchedCards.isEmpty()) {
             return true;
         }
-        for (byte w: getWinners()) {
+        for (byte w: getWinners(_bytes)) {
             if (switchedCards.get(w).estVide()) {
                 return false;
             }
@@ -413,10 +405,7 @@ public final class GamePresident {
             HandPresident h_ = strategieEchange(w);
             switchedCards.get(w).ajouterCartes(h_);
         }
-        for (byte l: getLoosers()) {
-            recevoirPiresCartes(l);
-        }
-        supprimerDons();
+        receiveAndClear();
     }
 
     //Case not empty human winners:
@@ -449,10 +438,7 @@ public final class GamePresident {
             }
         }
         if (finished_) {
-            for (byte l: getLoosers()) {
-                recevoirPiresCartes(l);
-            }
-            supprimerDons();
+            receiveAndClear();
         }
         return finished_;
     }
@@ -460,10 +446,7 @@ public final class GamePresident {
     //single mode
     public void giveWorstCards(HandPresident _hand) {
         switchedCards.get(DealPresident.NUMERO_UTILISATEUR).ajouterCartes(_hand);
-        for (byte l: getLoosers()) {
-            recevoirPiresCartes(l);
-        }
-        supprimerDons();
+        receiveAndClear();
     }
 
     public void donnerMeilleuresCartes(byte _joueur) {
@@ -481,6 +464,13 @@ public final class GamePresident {
         int ind_= getWinners().indexOfObj(_joueur);
         byte pl_ = getLoosers().get(ind_);
         getDistribution().main(_joueur).ajouterCartes(switchedCards.get(pl_));
+    }
+
+    void receiveAndClear() {
+        for (byte l: getLoosers()) {
+            recevoirPiresCartes(l);
+        }
+        supprimerDons();
     }
 
     public void recevoirPiresCartes(byte _joueur) {
@@ -1179,15 +1169,15 @@ public final class GamePresident {
 
     HandPresident getCards() {
         HandPresident nb_ = new HandPresident();
-        for (TrickPresident t: tricks) {
+        CustList<TrickPresident> union_ = new CustList<TrickPresident>();
+        union_.addAllElts(tricks);
+        union_.add(progressingTrick);
+        for (TrickPresident t: union_) {
             for (HandPresident h: t) {
                 nb_.ajouterCartes(h);
             }
         }
         for (HandPresident h: deal) {
-            nb_.ajouterCartes(h);
-        }
-        for (HandPresident h: progressingTrick) {
             nb_.ajouterCartes(h);
         }
         nb_.sortCardsBegin();

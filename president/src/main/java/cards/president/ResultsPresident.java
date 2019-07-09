@@ -47,12 +47,19 @@ public final class ResultsPresident {
         for (byte b: game.getNewRanks()) {
             scoresDeal_.add((short) b);
         }
-        byte nombreJoueurs_=game.getNombreDeJoueurs();
-        if(game.getType()==GameType.RANDOM&&game.getNombre()==0|| game.getType() == GameType.EDIT && game.getNombre() <= game.getRegles().getNbDeals()) {
+        GameType type_ = game.getType();
+        long number_ = game.getNombre();
+        int nbDeals_ = game.getRegles().getNbDeals();
+        calculateScores(scoresDeal_, type_, number_, nbDeals_);
+    }
+
+    void calculateScores(Shorts _scoresDeal, GameType _type, long _number, int _nbDeals) {
+        if(hasToCalculateScores(_type, _number, _nbDeals)) {
             long variance9_=0;
             long esperance_=0;
+            int nbPl_ = _scoresDeal.size();
             res.getScores().add(new Longs());
-            for(short score_:scoresDeal_) {
+            for(short score_: _scoresDeal) {
                 res.getScores().last().add((long)score_);
             }
 //            if(getScores().size()==1) {
@@ -77,12 +84,16 @@ public final class ResultsPresident {
             variance9_=-variance9_;
             /*Oppose du_ carre_ de_ la_ somme_ des_ scores fois_ trois_*/
             for(long score_:res.getScores().last()) {
-                variance9_+=score_*score_*9*nombreJoueurs_;
+                variance9_+=score_*score_*9*nbPl_;
             }
             /*variance9_ vaut_ neuf_ fois_ la_ variance_ des_ scores fois_ le_ carre_ du_ nombre_ de_ joueurs_*/
-            res.getSigmas().add(new Rate(variance9_,nombreJoueurs_*nombreJoueurs_).rootAbs(new LgInt(2)));
+            res.getSigmas().add(new Rate(variance9_,nbPl_*nbPl_).rootAbs(new LgInt(2)));
             res.getSums().add(esperance_);
         }
+    }
+
+    static boolean hasToCalculateScores(GameType _type, long _number, int _nbDeals) {
+        return _type ==GameType.RANDOM&& _number ==0|| _type == GameType.EDIT && _number <= _nbDeals;
     }
     public GamePresident getGame() {
         return game;
