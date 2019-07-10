@@ -229,9 +229,9 @@ public final class CheckNumericStringsFight {
             fails_.addAllElts(e_.getLocalFailStatis().values());
             fails_.addAllElts(e_.getLocalFailSwapBoostStatis()
                     .values());
-            EqList<TeamPosition> listFighters_ = FightOrder
+            EqList<TeamPosition> listFighters_ = addIfEmpty(FightOrder
                     .targetsEffect(_fight, _userFighter, e_, _diff,
-                            _data);
+                            _data),_foeFighter);
             checkFailsWhenFighter(_data, _foeFighter, _varsDiff, _boolVarsDiffNotSending, fails_, listFighters_);
             checkFailsWhenFighter(_data, _userFighter, _varsSame, _boolVarsNotSending, fails_, listFighters_);
         }
@@ -378,9 +378,9 @@ public final class CheckNumericStringsFight {
         EvolvedNumString chNum_;
         for (String m : _data.getMoves().getKeys()) {
             MoveData m_ = _data.getMove(m);
-            for (TeamPosition t : FightOrder.targetsEffect(_fight,
+            for (TeamPosition t : addIfEmpty(FightOrder.targetsEffect(_fight,
                     _userFighter, m_.getEffet(m_.indexOfPrimaryEffect()),
-                    _diff, _data)) {
+                    _diff, _data),_foeFighter)) {
                 if (TeamPosition.eq(t, _userFighter)) {
                     chNum_ = _data.createNumericableString(m_.getAccuracy(),
                             _varsSame);
@@ -397,8 +397,8 @@ public final class CheckNumericStringsFight {
                 if (fail_.isEmpty()) {
                     continue;
                 }
-                for (TeamPosition t : FightOrder.targetsEffect(_fight,
-                        _userFighter, e, _diff, _data)) {
+                for (TeamPosition t : addIfEmpty(FightOrder.targetsEffect(_fight,
+                        _userFighter, e, _diff, _data),_foeFighter)) {
                     EvolvedBooleanString chBool_;
                     if (TeamPosition.eq(t, _userFighter)) {
                         StringMap<String> map_ = new StringMap<String>();
@@ -480,8 +480,8 @@ public final class CheckNumericStringsFight {
                     EffectStatus e_ = (EffectStatus) e;
                     fails_.addAllElts(e_.getLocalFailStatus().values());
                 }
-                EqList<TeamPosition> listFighters_ = FightOrder.targetsEffect(
-                        _fight, _userFighter, e, _diff, _data);
+                EqList<TeamPosition> listFighters_ = addIfEmpty(FightOrder.targetsEffect(
+                        _fight, _userFighter, e, _diff, _data),_foeFighter);
                 checkFailsWhenFighter(_data, _foeFighter, _varsDiff, _boolVarsDiffNotSending, fails_, listFighters_);
                 checkFailsWhenFighter(_data, _userFighter, _varsSame, _boolVarsNotSending, fails_, listFighters_);
             }
@@ -716,6 +716,13 @@ public final class CheckNumericStringsFight {
         return variables_;
     }
 
+    private static EqList<TeamPosition> addIfEmpty(CustList<TeamPosition> _list, TeamPosition _foe) {
+        if (!_list.isEmpty()) {
+            return new EqList<TeamPosition>(_list);
+        }
+        _list.add(_foe);
+        return new EqList<TeamPosition>(_list);
+    }
     private static void checkTranslations(DataBase _data, String _string) {
         _data.checkTranslations(_string);
     }

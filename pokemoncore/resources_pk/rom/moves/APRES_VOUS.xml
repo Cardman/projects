@@ -15,7 +15,7 @@
 <aiki.fight.moves.effects.EffectOrder class="a">
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectOrder" field="targetAttacksLast" value="false"/>
 <aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="ADJ_UNIQ"/>
-<java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value="VAR__NB_COMBATTANTS_TERRAIN&lt;3|VAR__CIBLE_JOUE"/>
+<java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value="VAR__NB_COMBATTANTS_TERRAIN&lt;3|VAR__CIBLE_JOUE=1"/>
 <n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects"/>
 </aiki.fight.moves.effects.EffectOrder>
 </l>

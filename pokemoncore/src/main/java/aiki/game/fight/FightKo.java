@@ -23,19 +23,7 @@ final class FightKo {
 
     static void setKoMoveTeams(Fight _fight, TeamPosition _combattant,Difficulty _diff,DataBase _import){
         setKo(_fight,_combattant, _diff, _import);
-        boolean existNotKoSubstitute_ = false;
-        for (TeamPosition f: FightOrder.fighters(_fight)) {
-            Fighter f_ = _fight.getFighter(f);
-            if (!f_.estArriere()) {
-                continue;
-            }
-            if (f_.estKo()) {
-                continue;
-            }
-            existNotKoSubstitute_ = true;
-            break;
-        }
-        if(!endedFight(_fight,_diff) && !existNotKoSubstitute_){
+        if(!endedFight(_fight,_diff) && !FightEndRound.existSubstitute(_fight)){
             moveTeams(_fight);
         }
     }

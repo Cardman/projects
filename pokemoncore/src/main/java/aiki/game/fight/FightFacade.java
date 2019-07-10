@@ -388,9 +388,6 @@ public final class FightFacade {
             }
         }
         if (distinctPlacesGroundCheck_) {
-            if (!FightEndRound.existSubstitute(_fight)) {
-                FightKo.moveTeams(_fight);
-            }
             if (!validPlaces(_fight, Fight.FOE)) {
                 return false;
             }
