@@ -25,7 +25,7 @@ public final class DeclaringThread extends Thread {
     public void run() {
         String lg_ = window.getLanguageKey();
         panelToSet.removeAll();
-        for(CardBelote c: usDecl.getMain()) {
+        for(CardBelote c: usDecl.getHand()) {
             MiniBeloteCard carte_=new MiniBeloteCard(lg_,c);
             panelToSet.add(carte_);
         }

@@ -8,7 +8,6 @@ import cards.consts.GameType;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import cards.president.enumerations.Playing;
-import code.util.EqList;
 import code.util.*;
 
 
@@ -4345,7 +4344,7 @@ public class CheckerGamePresidentWithRulesTest {
         HandPresident invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.CLUB_1);
         g_.getSwitchedCards().set((byte) 2, invalid_);
-        g_.getDistribution().main((byte) 1).ajouterCartes(invalid_);
+        g_.getDistribution().hand((byte) 1).ajouterCartes(invalid_);
         invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.SPADE_3);
         g_.getSwitchedCards().set((byte) 1, invalid_);
@@ -4375,7 +4374,7 @@ public class CheckerGamePresidentWithRulesTest {
         invalid_.ajouter(CardPresident.SPADE_1);
         invalid_.ajouter(CardPresident.CLUB_1);
         g_.getSwitchedCards().set((byte) 2, invalid_);
-        g_.getDistribution().main((byte) 1).ajouterCartes(invalid_);
+        g_.getDistribution().hand((byte) 1).ajouterCartes(invalid_);
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(!g_.getError().isEmpty());
@@ -4400,7 +4399,7 @@ public class CheckerGamePresidentWithRulesTest {
         HandPresident invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.CLUB_2);
         g_.getSwitchedCards().set((byte) 2, invalid_);
-        g_.getDistribution().main((byte) 1).ajouterCartes(invalid_);
+        g_.getDistribution().hand((byte) 1).ajouterCartes(invalid_);
         invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.DIAMOND_3);
         g_.getSwitchedCards().set((byte) 1, invalid_);
@@ -4429,14 +4428,14 @@ public class CheckerGamePresidentWithRulesTest {
         invalid_.ajouter(CardPresident.SPADE_1);
         invalid_.ajouter(CardPresident.CLUB_1);
         g_.getSwitchedCards().set((byte) 2, invalid_);
-        g_.getDistribution().main((byte) 1).ajouterCartes(invalid_);
+        g_.getDistribution().hand((byte) 1).ajouterCartes(invalid_);
         invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.SPADE_3);
         invalid_.ajouter(CardPresident.SPADE_4);
         g_.getSwitchedCards().set((byte) 1, invalid_);
-        g_.getDistribution().main((byte) 2).ajouterCartes(invalid_);
-        g_.getDistribution().main((byte) 1).supprimerCartes(g_.getSwitchedCards().get((byte)1));
-        g_.getDistribution().main((byte) 2).supprimerCartes(g_.getSwitchedCards().get((byte)2));
+        g_.getDistribution().hand((byte) 2).ajouterCartes(invalid_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(g_.getSwitchedCards().get((byte)1));
+        g_.getDistribution().hand((byte) 2).supprimerCartes(g_.getSwitchedCards().get((byte)2));
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(!g_.getError().isEmpty());
@@ -4462,13 +4461,13 @@ public class CheckerGamePresidentWithRulesTest {
         invalid_.ajouter(CardPresident.SPADE_1);
         invalid_.ajouter(CardPresident.CLUB_1);
         g_.getSwitchedCards().set((byte) 2, invalid_);
-        g_.getDistribution().main((byte) 1).ajouterCartes(invalid_);
+        g_.getDistribution().hand((byte) 1).ajouterCartes(invalid_);
         invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.SPADE_3);
         g_.getSwitchedCards().set((byte) 1, invalid_);
-        g_.getDistribution().main((byte) 2).ajouterCartes(invalid_);
-        g_.getDistribution().main((byte) 1).supprimerCartes(g_.getSwitchedCards().get((byte)1));
-        g_.getDistribution().main((byte) 2).supprimerCartes(g_.getSwitchedCards().get((byte)2));
+        g_.getDistribution().hand((byte) 2).ajouterCartes(invalid_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(g_.getSwitchedCards().get((byte)1));
+        g_.getDistribution().hand((byte) 2).supprimerCartes(g_.getSwitchedCards().get((byte)2));
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(!g_.getError().isEmpty());
@@ -4509,13 +4508,13 @@ public class CheckerGamePresidentWithRulesTest {
         invalid_.ajouter(CardPresident.SPADE_1);
         invalid_.ajouter(CardPresident.CLUB_1);
         g_.getSwitchedCards().set((byte) 2, invalid_);
-        g_.getDistribution().main((byte) 0).ajouterCartes(invalid_);
+        g_.getDistribution().hand((byte) 0).ajouterCartes(invalid_);
         invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.HEART_6);
         g_.getSwitchedCards().set((byte) 0, invalid_);
-        g_.getDistribution().main((byte) 2).ajouterCartes(invalid_);
-        g_.getDistribution().main((byte) 0).supprimerCartes(g_.getSwitchedCards().get((byte)0));
-        g_.getDistribution().main((byte) 2).supprimerCartes(g_.getSwitchedCards().get((byte)2));
+        g_.getDistribution().hand((byte) 2).ajouterCartes(invalid_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(g_.getSwitchedCards().get((byte)0));
+        g_.getDistribution().hand((byte) 2).supprimerCartes(g_.getSwitchedCards().get((byte)2));
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(!g_.getError().isEmpty());
@@ -4540,14 +4539,14 @@ public class CheckerGamePresidentWithRulesTest {
         HandPresident invalid_ = new HandPresident();
         invalid_.ajouter(CardPresident.CLUB_2);
         g_.getSwitchedCards().set((byte) 2, invalid_);
-        g_.getDistribution().main((byte) 0).ajouterCartes(invalid_);
+        g_.getDistribution().hand((byte) 0).ajouterCartes(invalid_);
         invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.DIAMOND_3);
         invalid_.ajouter(CardPresident.CLUB_3);
         g_.getSwitchedCards().set((byte) 0, invalid_);
-        g_.getDistribution().main((byte) 2).ajouterCartes(invalid_);
-        g_.getDistribution().main((byte) 0).supprimerCartes(g_.getSwitchedCards().get((byte)0));
-        g_.getDistribution().main((byte) 2).supprimerCartes(g_.getSwitchedCards().get((byte)2));
+        g_.getDistribution().hand((byte) 2).ajouterCartes(invalid_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(g_.getSwitchedCards().get((byte)0));
+        g_.getDistribution().hand((byte) 2).supprimerCartes(g_.getSwitchedCards().get((byte)2));
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(!g_.getError().isEmpty());
@@ -4626,7 +4625,7 @@ public class CheckerGamePresidentWithRulesTest {
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         //
-        g_.getDistribution().getDonne().add(new HandPresident());
+        g_.getDistribution().getDeal().add(new HandPresident());
         //
         transientFields(g_);
         //
@@ -4723,11 +4722,11 @@ public class CheckerGamePresidentWithRulesTest {
         HandPresident invalid_ = new HandPresident();
         invalid_.ajouter(CardPresident.CLUB_2);
         g_.getSwitchedCards().set((byte) 2, invalid_);
-        g_.getDistribution().main((byte) 0).ajouterCartes(invalid_);
+        g_.getDistribution().hand((byte) 0).ajouterCartes(invalid_);
         invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.CLUB_3);
         g_.getSwitchedCards().set((byte) 1, invalid_);
-        g_.getDistribution().main((byte) 2).ajouterCartes(invalid_);
+        g_.getDistribution().hand((byte) 2).ajouterCartes(invalid_);
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(!g_.getError().isEmpty());
@@ -4781,11 +4780,11 @@ public class CheckerGamePresidentWithRulesTest {
         HandPresident del_ = new HandPresident();
         del_.ajouter(CardPresident.DIAMOND_8);
         del_.ajouter(CardPresident.HEART_8);
-        g_.getDistribution().main().supprimerCartes(del_);
+        g_.getDistribution().hand().supprimerCartes(del_);
         HandPresident add_ = new HandPresident();
         add_.ajouter(CardPresident.SPADE_7);
         add_.ajouter(CardPresident.CLUB_7);
-        g_.getDistribution().main().ajouterCartes(add_);
+        g_.getDistribution().hand().ajouterCartes(add_);
         g_.getSwitchedCards().set((byte) 1, add_);
         //
         transientFields(g_);
@@ -4923,7 +4922,7 @@ public class CheckerGamePresidentWithRulesTest {
         played_.ajouter(CardPresident.HEART_5);
         played_.ajouter(CardPresident.SPADE_5);
         g_.getTricks().last().ajouter(played_);
-        g_.getDistribution().main((byte)2).supprimerCartes(played_);
+        g_.getDistribution().hand((byte)2).supprimerCartes(played_);
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
@@ -4938,7 +4937,7 @@ public class CheckerGamePresidentWithRulesTest {
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
-        g_.getDeal().main().ajouter(CardPresident.WHITE);
+        g_.getDeal().hand().ajouter(CardPresident.WHITE);
         transientFields(g_);
         //
         CheckerGamePresidentWithRules.check(g_);
@@ -5005,7 +5004,7 @@ public class CheckerGamePresidentWithRulesTest {
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_3);
         g_.getTricks().last().ajouter(played_);
-        g_.getDeal().main((byte)2).supprimerCartes(played_);
+        g_.getDeal().hand((byte)2).supprimerCartes(played_);
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(!g_.getError().isEmpty());

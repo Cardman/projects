@@ -11,7 +11,6 @@ import cards.belote.enumerations.DealingBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.GameType;
 import cards.consts.Suit;
-import code.util.EqList;
 
 
 public class CheckerGameBeloteWithRulesTest {
@@ -20,7 +19,7 @@ public class CheckerGameBeloteWithRulesTest {
     public void check1Test() {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         CheckerGameBeloteWithRules.check(game_);
@@ -36,7 +35,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         CheckerGameBeloteWithRules.check(game_);
@@ -51,10 +50,10 @@ public class CheckerGameBeloteWithRulesTest {
     public void check3Test() {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_, (byte) first_);
@@ -71,10 +70,10 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_, (byte) first_);
@@ -139,7 +138,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal1Classic((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -160,7 +159,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal1Classic((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_, (byte) first_);
@@ -193,10 +192,10 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -218,10 +217,10 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -249,10 +248,10 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -283,10 +282,10 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -324,7 +323,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.getEncheresAutorisees().put(BidBelote.NO_TRUMP, true);
         DealBelote deal_ = deal1Classic((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_, (byte) first_);
@@ -360,7 +359,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.getEncheresAutorisees().put(BidBelote.NO_TRUMP, true);
         DealBelote deal_ = deal1Classic((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_, (byte) first_);
@@ -396,7 +395,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.getEncheresAutorisees().put(BidBelote.NO_TRUMP, true);
         DealBelote deal_ = deal1Classic((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_, (byte) first_);
@@ -429,7 +428,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.getEncheresAutorisees().put(BidBelote.NO_TRUMP, true);
         DealBelote deal_ = deal1Classic((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_, (byte) first_);
@@ -473,7 +472,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal1Classic((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -544,7 +543,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = deal1((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -577,7 +576,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = deal1((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -611,7 +610,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal1Classic((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -635,7 +634,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal1Classic((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -661,7 +660,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = deal1((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -792,7 +791,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -819,7 +818,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal3Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -844,7 +843,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -874,7 +873,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -909,7 +908,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -941,7 +940,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = deal1((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_, (byte) first_);
@@ -976,7 +975,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = deal1((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_, (byte) first_);
@@ -1012,7 +1011,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -1052,7 +1051,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -1091,7 +1090,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -1135,10 +1134,10 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         rules_.getEncheresAutorisees().put(BidBelote.ALL_TRUMP, true);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.ALL_TRUMP);
@@ -1161,7 +1160,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal1Classic((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_, (byte) first_);
@@ -1235,7 +1234,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal1Slam((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -1336,7 +1335,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal1Classic((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -1351,10 +1350,10 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -1370,7 +1369,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal1Classic((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_, (byte) first_);
@@ -1394,10 +1393,10 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -1419,10 +1418,10 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -1449,10 +1448,10 @@ public class CheckerGameBeloteWithRulesTest {
     public void check6FailTest() {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -1470,10 +1469,10 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.getEncheresAutorisees().put(BidBelote.NO_TRUMP, true);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.NO_TRUMP);
@@ -1494,10 +1493,10 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.getEncheresAutorisees().put(BidBelote.ALL_TRUMP, true);
         rules_.getEncheresAutorisees().put(BidBelote.NO_TRUMP, true);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.NO_TRUMP);
@@ -1518,10 +1517,10 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.getEncheresAutorisees().put(BidBelote.NO_TRUMP, true);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_, (byte) first_);
@@ -1554,10 +1553,10 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.getEncheresAutorisees().put(BidBelote.ALL_TRUMP, true);
         rules_.getEncheresAutorisees().put(BidBelote.NO_TRUMP, true);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_, (byte) first_);
@@ -1590,7 +1589,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = deal1((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -1620,7 +1619,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = deal1((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_, (byte) first_);
@@ -1646,7 +1645,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = deal1((byte) 0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_, (byte) first_);
@@ -1676,10 +1675,10 @@ public class CheckerGameBeloteWithRulesTest {
     public void check14FailTest() {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_, (byte) first_);
@@ -1710,7 +1709,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -1730,7 +1729,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -1750,7 +1749,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -1759,7 +1758,7 @@ public class CheckerGameBeloteWithRulesTest {
         game_.completerDonne();
         game_.setPliEnCours();
         game_.annoncer((byte) 0);
-        game_.getAnnonce((byte) 0).getMain().supprimerCartes();
+        game_.getAnnonce((byte) 0).getHand().supprimerCartes();
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardBelote.DIAMOND_1);
         game_.setAnnoncesBeloteRebelote((byte) 1, CardBelote.SPADE_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardBelote.SPADE_KING);
@@ -1785,7 +1784,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -1794,10 +1793,10 @@ public class CheckerGameBeloteWithRulesTest {
         game_.completerDonne();
         game_.setPliEnCours();
         game_.annoncer((byte) 0);
-        game_.getAnnonce((byte) 0).getMain().supprimerCartes();
-        game_.getAnnonce((byte) 0).getMain().ajouter(CardBelote.DIAMOND_1);
-        game_.getAnnonce((byte) 0).getMain().ajouter(CardBelote.DIAMOND_KING);
-        game_.getAnnonce((byte) 0).getMain().ajouter(CardBelote.DIAMOND_QUEEN);
+        game_.getAnnonce((byte) 0).getHand().supprimerCartes();
+        game_.getAnnonce((byte) 0).getHand().ajouter(CardBelote.DIAMOND_1);
+        game_.getAnnonce((byte) 0).getHand().ajouter(CardBelote.DIAMOND_KING);
+        game_.getAnnonce((byte) 0).getHand().ajouter(CardBelote.DIAMOND_QUEEN);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardBelote.DIAMOND_1);
         game_.setAnnoncesBeloteRebelote((byte) 1, CardBelote.SPADE_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardBelote.SPADE_KING);
@@ -1823,7 +1822,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -1856,7 +1855,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -1865,10 +1864,10 @@ public class CheckerGameBeloteWithRulesTest {
         game_.completerDonne();
         game_.setPliEnCours();
         game_.annoncer((byte) 0);
-        game_.getAnnonce((byte) 0).setAnnonce(DeclaresBelote.THIRTY);
-        game_.getAnnonce((byte) 0).getMain().ajouter(CardBelote.DIAMOND_10);
-        game_.getAnnonce((byte) 0).getMain().ajouter(CardBelote.DIAMOND_9);
-        game_.getAnnonce((byte) 0).getMain().ajouter(CardBelote.DIAMOND_8);
+        game_.getAnnonce((byte) 0).setDeclare(DeclaresBelote.THIRTY);
+        game_.getAnnonce((byte) 0).getHand().ajouter(CardBelote.DIAMOND_10);
+        game_.getAnnonce((byte) 0).getHand().ajouter(CardBelote.DIAMOND_9);
+        game_.getAnnonce((byte) 0).getHand().ajouter(CardBelote.DIAMOND_8);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardBelote.DIAMOND_1);
         game_.setAnnoncesBeloteRebelote((byte) 1, CardBelote.SPADE_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 1, CardBelote.SPADE_KING);
@@ -1893,7 +1892,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -1915,7 +1914,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -1937,7 +1936,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -1957,7 +1956,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -1996,7 +1995,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -2034,10 +2033,10 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.ALL_TRUMP);
@@ -2053,10 +2052,10 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        game_.getDistribution().getDonne().add(new HandBelote());
+        game_.getDistribution().getDeal().add(new HandBelote());
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
@@ -2066,11 +2065,11 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         HandBelote hand_ = game_.getDistribution().derniereMain();
-        hand_.ajouter(game_.getDistribution().main().jouer(0));
+        hand_.ajouter(game_.getDistribution().hand().jouer(0));
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
@@ -2081,7 +2080,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -2118,7 +2117,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -2154,8 +2153,8 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
         DealBelote deal_ = deal2Classic((byte) 3);
-        deal_.main().jouer(0);
-        deal_.main().ajouter(CardBelote.HEART_1);
+        deal_.hand().jouer(0);
+        deal_.hand().ajouter(CardBelote.HEART_1);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -2167,7 +2166,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -2182,7 +2181,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.getAnnoncesAutorisees().put(DeclaresBelote.THIRTY, true);
         DealBelote deal_ = deal2Classic((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_, (byte) first_);
@@ -2204,10 +2203,10 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);
@@ -2297,7 +2296,7 @@ public class CheckerGameBeloteWithRulesTest {
     public void check37FailTest() {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         game_.getDeclares().clear();
@@ -2309,7 +2308,7 @@ public class CheckerGameBeloteWithRulesTest {
     public void check38FailTest() {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         game_.getDeclaresBeloteRebelote().clear();
@@ -2321,7 +2320,7 @@ public class CheckerGameBeloteWithRulesTest {
     public void check39FailTest() {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         game_.getScoresRef().clear();
@@ -2333,7 +2332,7 @@ public class CheckerGameBeloteWithRulesTest {
     public void check40FailTest() {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         game_.getWonLastTrick().clear();

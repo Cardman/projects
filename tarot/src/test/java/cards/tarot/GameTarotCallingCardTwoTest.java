@@ -127,7 +127,7 @@ public class GameTarotCallingCardTwoTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
-        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        byte player_ = game.playerAfter(game.getDistribution().getDealer());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
         game.ajouterContrat(BidTarot.FOLD,player_);
@@ -160,7 +160,7 @@ public class GameTarotCallingCardTwoTest extends CommonTarotGame {
         regles_.setRepartition(DealingTarot.DEAL_2_VS_3_CALL_CHAR);
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
-        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        byte player_ = game.playerAfter(game.getDistribution().getDealer());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
         game.ajouterContrat(BidTarot.FOLD,player_);
@@ -200,7 +200,7 @@ public class GameTarotCallingCardTwoTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
-        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        byte player_ = game.playerAfter(game.getDistribution().getDealer());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
         game.ajouterContrat(BidTarot.FOLD,player_);

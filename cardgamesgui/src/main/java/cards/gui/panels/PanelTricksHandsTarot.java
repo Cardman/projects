@@ -81,7 +81,7 @@ public class PanelTricksHandsTarot extends Panel implements ViewablePanelTricksH
         //boolean entered_ = false;
         for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_numberPlayers;joueur_++) {
             sousPanneau3_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
-            for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_, dealt_.main(joueur_))) {
+            for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_, dealt_.hand(joueur_))) {
                 sousPanneau3_.add(c);
             }
 //            entered_ = false;
@@ -173,7 +173,7 @@ public class PanelTricksHandsTarot extends Panel implements ViewablePanelTricksH
         DealTarot restoredDeal_ = tricksHands.getDistribution();
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
             Panel sousPanneau4_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
-            for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_, restoredDeal_.main(joueur_))) {
+            for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_, restoredDeal_.hand(joueur_))) {
                 sousPanneau4_.add(c);
             }
 //            boolean entered_ = false;
@@ -306,7 +306,7 @@ public class PanelTricksHandsTarot extends Panel implements ViewablePanelTricksH
         DealTarot restoredDeal_ = tricksHands.getDistribution();
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
             Panel sousPanneau4_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
-            for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_, restoredDeal_.main(joueur_))) {
+            for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_, restoredDeal_.hand(joueur_))) {
                 sousPanneau4_.add(c);
             }
 //            boolean entered_ = false;

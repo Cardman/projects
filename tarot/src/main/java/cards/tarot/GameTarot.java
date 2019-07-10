@@ -191,7 +191,7 @@ public final class GameTarot {
     }
 
     void loadGame() {
-        byte player_ = playerAfter(deal.getDonneur());
+        byte player_ = playerAfter(deal.getDealer());
         taker = CustList.INDEX_NOT_FOUND_ELT;
         BidTarot bid_ = BidTarot.FOLD;
         for (BidTarot b: bids) {
@@ -234,17 +234,17 @@ public final class GameTarot {
             trickWinner = progressingTrick.getEntameur();
             retrieveCalledPlayers(progressingTrick);
         } else if (!avecContrat()) {
-            starter = playerAfter(deal.getDonneur());
+            starter = playerAfter(deal.getDealer());
             trickWinner = starter;
         } else if (contrats() < getNombreDeJoueurs()) {
-            starter = playerAfter(deal.getDonneur());
+            starter = playerAfter(deal.getDealer());
             trickWinner = starter;
         } else if (pasJeuApresPasse()) {
             //if existePreneur()
             starter = taker;
             trickWinner = taker;
         } else {
-            starter = playerAfter(deal.getDonneur());
+            starter = playerAfter(deal.getDealer());
             trickWinner = starter;
         }
     }
@@ -265,7 +265,7 @@ public final class GameTarot {
         _simu.sleepSimu(500);
         _simu.beginDemo();
         _simu.pause();
-        byte donneur_ = getDistribution().getDonneur();
+        byte donneur_ = getDistribution().getDealer();
         bid = BidTarot.FOLD;
         if (avecContrat()) {
             for (byte joueur_ : orderedPlayers(playerAfter(donneur_))) {
@@ -316,7 +316,7 @@ public final class GameTarot {
                     return;
                 }
             }
-            if (getDistribution().main().estVide()) {
+            if (getDistribution().hand().estVide()) {
                 ajouterPetitAuBoutPliEnCours();
                 _simu.displayTrickWinner(trickWinner);
                 _simu.displaySmallBound(smallBound,trickWinner);
@@ -341,7 +341,7 @@ public final class GameTarot {
         initialise l'entameur du premier pli
         */
             byte nbPl_ = getNombreDeJoueurs();
-            byte deal_ = deal.getDonneur();
+            byte deal_ = deal.getDealer();
             starter = (byte) ((deal_ + 1) % nbPl_);
         }
     }
@@ -360,7 +360,7 @@ public final class GameTarot {
                     HandTarot curHandAdd_ = new HandTarot();
                     curHandAdd_.ajouterCartes(curHand_);
                     curHandAdd_.ajouterCartes(last_);
-                    curHandAdd_.trier(displaying_.getCouleurs(),displaying_.getDecroissant());
+                    curHandAdd_.trier(displaying_.getSuits(),displaying_.isDecreasing());
                     _simu.mergeDog(taker,curHandAdd_,last_);
                     ecarter(true);
                     HandTarot nextHand_ = mainUtilisateurTriee(displaying_);
@@ -379,7 +379,7 @@ public final class GameTarot {
                     HandTarot curHandAdd_ = new HandTarot();
                     curHandAdd_.ajouterCartes(curHand_);
                     curHandAdd_.ajouterCartes(last_);
-                    curHandAdd_.trier(displaying_.getCouleurs(),displaying_.getDecroissant());
+                    curHandAdd_.trier(displaying_.getSuits(),displaying_.isDecreasing());
                     _simu.mergeDog(taker,curHandAdd_, last_);
                     appelApresEcart();
                     HandTarot nextHand_ = mainUtilisateurTriee(displaying_);
@@ -428,8 +428,8 @@ public final class GameTarot {
 
     public HandTarot mainUtilisateurTriee(DisplayingTarot _regles) {
         HandTarot main_ = new HandTarot();
-        main_.ajouterCartes(getDistribution().main());
-        main_.trier(_regles.getCouleurs(),_regles.getDecroissant());
+        main_.ajouterCartes(getDistribution().hand());
+        main_.trier(_regles.getSuits(),_regles.isDecreasing());
         return main_;
     }
 
@@ -529,7 +529,7 @@ public final class GameTarot {
 
     public BidTarot strategieContrat() {
         byte numero_ = playerHavingToBid();
-        HandTarot mj_ = getDistribution().main(numero_);
+        HandTarot mj_ = getDistribution().hand(numero_);
         GameTarotBid helper_ = new GameTarotBid(mj_,rules,bids,bid);
         return helper_.strategieContrat();
     }
@@ -587,7 +587,7 @@ public final class GameTarot {
     }
     public boolean keepPlayingCurrentGame() {
         for (byte p: orderedPlayers(starter)) {
-            if (!getDistribution().main(p).estVide()) {
+            if (!getDistribution().hand(p).estVide()) {
                 return true;
             }
         }
@@ -686,7 +686,7 @@ public final class GameTarot {
     //pour le conseil lorsqu'aucune carte n'est ecartee
     public CallDiscard strategieAppelApresEcart(boolean _removeDog) {
         CallDiscard appelEcart_ = new CallDiscard();
-        HandTarot mainPreneur_ = getDistribution().main(taker);
+        HandTarot mainPreneur_ = getDistribution().hand(taker);
         CustList<HandTarot> cartesAppelablesFinales_ = new CustList<HandTarot>();
         cartesAppelablesFinales_.add(new HandTarot());
         CustList<HandTarot> cartesAppelables_ = new CustList<HandTarot>();
@@ -745,7 +745,7 @@ public final class GameTarot {
 
     /** Appele pour un appel de carte pour que le preneur ait un partenaire */
     public HandTarot callableCards() {
-        HandTarot hand_ = getDistribution().main(taker);
+        HandTarot hand_ = getDistribution().hand(taker);
         GameTarotBid g_ = new GameTarotBid(hand_,rules,bids,bid);
         return g_.cartesAppeler();
     }
@@ -765,7 +765,7 @@ public final class GameTarot {
     boolean noCalledCardsInHand() {
         for (byte p :orderedPlayers(taker)) {
             for (CardTarot c: calledCards) {
-                if (getDistribution().main(p).contient(c)) {
+                if (getDistribution().hand(p).contient(c)) {
                     return false;
                 }
             }
@@ -773,7 +773,7 @@ public final class GameTarot {
         return true;
     }
     public HandTarot strategieAppel() {
-        HandTarot mainPreneur_ = getDistribution().main(taker);
+        HandTarot mainPreneur_ = getDistribution().hand(taker);
         return strategieAppel(mainPreneur_);
     }
 
@@ -803,7 +803,7 @@ public final class GameTarot {
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
         for (byte b = CustList.FIRST_INDEX; b < nombreDeJoueurs_; b++) {
             for(CardTarot c: calledCards) {
-                if (deal.main(b).contient(c)) {
+                if (deal.hand(b).contient(c)) {
                     joueurs_.add(b);
                     break;
                 }
@@ -832,7 +832,7 @@ public final class GameTarot {
     }
 
     public ReasonDiscard autoriseEcartDe(CardTarot _c) {
-        HandTarot m = getDistribution().main(getPreneur());
+        HandTarot m = getDistribution().hand(getPreneur());
         if(cardsToBeDiscardedCount >= getDistribution()
                 .derniereMain().total()) {
             return ReasonDiscard.TOO_MUCH;
@@ -890,7 +890,7 @@ public final class GameTarot {
     }
 
     public HandTarot strategieEcart() {
-        HandTarot mainPreneur_ = getDistribution().main(taker);
+        HandTarot mainPreneur_ = getDistribution().hand(taker);
         return discarding(calledCards,mainPreneur_);
     }
     private HandTarot discarding(HandTarot _carteAppelee, HandTarot _taker) {
@@ -925,7 +925,7 @@ public final class GameTarot {
         tricks.add(progressingTrick);
     }
     public boolean annoncerUnChelem(byte _numeroJoueur) {
-        HandTarot mainJoueur_ = getDistribution().main(_numeroJoueur);
+        HandTarot mainJoueur_ = getDistribution().hand(_numeroJoueur);
         return annoncerUnChelem(mainJoueur_);
     }
     private boolean annoncerUnChelem(HandTarot _mainJoueur) {
@@ -975,7 +975,7 @@ public final class GameTarot {
     }
 
     public EnumList<Handfuls> getAnnoncesPoigneesPossibles(byte _numero) {
-        HandTarot mainJoueur_ = getDistribution().main(_numero);
+        HandTarot mainJoueur_ = getDistribution().hand(_numero);
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
         GameTarotDeclaring g_ = new GameTarotDeclaring(doneTrickInfo_,teamsRelation_,
@@ -986,7 +986,7 @@ public final class GameTarot {
 
 
     public EnumList<Handfuls> strategieAnnoncesPoignees(byte _numeroJoueur) {
-        HandTarot mainJoueur_ = getDistribution().main(_numeroJoueur);
+        HandTarot mainJoueur_ = getDistribution().hand(_numeroJoueur);
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
         GameTarotDeclaring g_ = new GameTarotDeclaring(doneTrickInfo_,teamsRelation_,
@@ -1000,7 +1000,7 @@ public final class GameTarot {
     }
 
     public HandTarot strategiePoignee(byte _numeroJoueur) {
-        HandTarot mainJoueur_ = getDistribution().main(_numeroJoueur);
+        HandTarot mainJoueur_ = getDistribution().hand(_numeroJoueur);
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
         GameTarotDeclaring g_ = new GameTarotDeclaring(doneTrickInfo_,teamsRelation_,
@@ -1025,7 +1025,7 @@ public final class GameTarot {
     }
 
     public EnumList<Miseres> getAnnoncesMiseresPossibles(byte _numero) {
-        HandTarot mainJoueur_ = getDistribution().main(_numero);
+        HandTarot mainJoueur_ = getDistribution().hand(_numero);
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
         GameTarotDeclaring g_ = new GameTarotDeclaring(doneTrickInfo_,teamsRelation_,
@@ -1034,7 +1034,7 @@ public final class GameTarot {
     }
 
     public EnumList<Miseres> strategieAnnoncesMiseres(byte _numeroJoueur) {
-        HandTarot mainJoueur_ = getDistribution().main(_numeroJoueur);
+        HandTarot mainJoueur_ = getDistribution().hand(_numeroJoueur);
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
         GameTarotDeclaring g_ = new GameTarotDeclaring(doneTrickInfo_,teamsRelation_,
@@ -1069,7 +1069,7 @@ public final class GameTarot {
     }
 
     public boolean autorise(CardTarot _c) {
-        HandTarot main_ = getDistribution().main(playerHavingToPlay());
+        HandTarot main_ = getDistribution().hand(playerHavingToPlay());
         EnumMap<Suit,HandTarot> repartition_ = main_.couleurs();
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
@@ -1123,7 +1123,7 @@ public final class GameTarot {
     public void changerConfiance() {
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
         byte numero_ = progressingTrick.getNextPlayer(nombreDeJoueurs_);
-        HandTarot mainJoueur_ = getDistribution().main(numero_);
+        HandTarot mainJoueur_ = getDistribution().hand(numero_);
         if(mainJoueur_.contientCartes(calledCards)) {
             return;
         }
@@ -1173,7 +1173,7 @@ public final class GameTarot {
     private CardTarot entame() {
         byte nombreJoueurs_ = getNombreDeJoueurs();
         byte numero_ = progressingTrick.getNextPlayer(nombreJoueurs_);
-        HandTarot mainJoueur_ = getDistribution().main(numero_);
+        HandTarot mainJoueur_ = getDistribution().hand(numero_);
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
         if (existePreneur() || pasJeuMisere()) {
@@ -1192,7 +1192,7 @@ public final class GameTarot {
     private CardTarot enCours() {
         byte nombreJoueurs_ = getNombreDeJoueurs();
         byte numero_ = progressingTrick.getNextPlayer(nombreJoueurs_);
-        HandTarot mainJoueur_ = getDistribution().main(numero_);
+        HandTarot mainJoueur_ = getDistribution().hand(numero_);
         GameTarotTrickInfo doneTrickInfo_ = getDoneTrickInfo();
         GameTarotTeamsRelation teamsRelation_ = getTeamsRelation();
         if (existePreneur() || pasJeuMisere()) {
@@ -1251,7 +1251,7 @@ public final class GameTarot {
     }
 
     public byte playerHavingToBid() {
-        byte dealer_ = getDistribution().getDonneur();
+        byte dealer_ = getDistribution().getDealer();
         byte playerHavingToBid_ = playerAfter(dealer_);
         int nbBids_ = contrats();
         for (byte b=CustList.FIRST_INDEX;b<nbBids_;b++) {
@@ -1286,7 +1286,7 @@ public final class GameTarot {
         trickWinner = progressingTrick.getRamasseur();
 
         tricks.add(progressingTrick);
-        if(!getDistribution().main().estVide()) {
+        if(!getDistribution().hand().estVide()) {
             setEntameur();
         }
     }
@@ -1313,13 +1313,13 @@ public final class GameTarot {
     }
 
     void ajouterPetitAuBout() {
-        if(getDistribution().main().total() > 1) {
+        if(getDistribution().hand().total() > 1) {
             return;
         }
         if(!getPliEnCours().contient(CardTarot.petit())) {
             return;
         }
-        if(getDistribution().main().estVide()) {
+        if(getDistribution().hand().estVide()) {
             /*Le Petit est mene au bout*/
             smallBound.set( trickWinner, true);
             return;
@@ -1330,7 +1330,7 @@ public final class GameTarot {
         partenaires_.add(trickWinner);
         boolean possedeExcuseMemeEquipe_ = false;
         for (byte b1_ : partenaires_) {
-            if (getDistribution().main(b1_).contient(CardTarot.excuse())) {
+            if (getDistribution().hand(b1_).contient(CardTarot.excuse())) {
                 possedeExcuseMemeEquipe_ = true;
             }
         }

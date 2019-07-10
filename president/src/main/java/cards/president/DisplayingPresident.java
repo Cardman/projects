@@ -33,24 +33,6 @@ public final class DisplayingPresident {
             nbDeals = 1;
         }
     }
-    public boolean getHoraire() {
-        return clockwise;
-    }
-    public void setHoraire(boolean _horaire) {
-        clockwise = _horaire;
-    }
-    public EnumList<Suit> getCouleurs() {
-        return suits;
-    }
-    public void setCouleurs(EnumList<Suit> _couleurs) {
-        suits = _couleurs;
-    }
-    public boolean getDecroissant() {
-        return decreasing;
-    }
-    public void setDecroissant(boolean _decroissant) {
-        decreasing = _decroissant;
-    }
     public int getNbDeals() {
         return nbDeals;
     }

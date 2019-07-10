@@ -60,20 +60,6 @@ public final class DealTarot implements Iterable<HandTarot> {
         nbDeals = _deal.nbDeals;
     }
 
-    /** Initialise le donneur pour editer une partie */
-    public void initDonneur(byte _b) {
-        // On initialise_ le_ donneur par_ l'editeur_
-        dealer = _b;
-    }
-
-    public long getNombreDeParties() {
-        return nbDeals;
-    }
-
-    public byte getDonneur() {
-        return dealer;
-    }
-
     /** Initialise de maniere aleatoire le premier donneur */
     public void setRandomDealer(RulesTarot _regles) {
         // On recupere_ le_ nombre_ de_ joueurs_ dans_ le_ cas_ d'un_ jeu_ non_ solitaire_
@@ -365,16 +351,12 @@ public final class DealTarot implements Iterable<HandTarot> {
         return deal.last();
     }
 
-    public HandTarot main(byte _i) {
+    public HandTarot hand(byte _i) {
         return deal.get(_i);
     }
     /** Renvoie la main de l'utilisateur */
-    public HandTarot main() {
+    public HandTarot hand() {
         return deal.get(NUMERO_UTILISATEUR);
-    }
-
-    CustList<HandTarot> getDonne() {
-        return deal;
     }
 
     public byte nombreDeMains() {

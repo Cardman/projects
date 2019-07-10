@@ -476,9 +476,9 @@ public final class GameBeloteTrickInfo {
             }
         }
         for(DeclareHandBelote a:declares) {
-            HandBelote mainCouleur_ = a.getMain().couleurs(bid).getVal(_couleurAtout);
+            HandBelote mainCouleur_ = a.getHand().couleurs(bid).getVal(_couleurAtout);
             for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nbPlayers;joueur_++) {
-                if(joueur_ == a.getJoueur()) {
+                if(joueur_ == a.getPlayer()) {
                     continue;
                 }
                 m.get(joueur_).supprimerCartes(mainCouleur_);
@@ -652,9 +652,9 @@ public final class GameBeloteTrickInfo {
             }
         }
         for(DeclareHandBelote a:declares) {
-            HandBelote mainCouleur_ = a.getMain().couleurs(bid).getVal(_couleur);
+            HandBelote mainCouleur_ = a.getHand().couleurs(bid).getVal(_couleur);
             for (byte joueur_ = CustList.FIRST_INDEX;joueur_<nbPlayers;joueur_++) {
-                if(joueur_ == a.getJoueur()) {
+                if(joueur_ == a.getPlayer()) {
                     continue;
                 }
                 m.get(joueur_).supprimerCartes(mainCouleur_);

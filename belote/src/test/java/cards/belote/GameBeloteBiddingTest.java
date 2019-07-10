@@ -146,7 +146,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         RulesBelote regles_=initializeDefaultRules();
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        byte player_ = game_.playerAfter(game_.getDistribution().getDonneur());
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
@@ -179,7 +179,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         RulesBelote regles_=initializeDefaultRules();
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        byte player_ = game_.playerAfter(game_.getDistribution().getDonneur());
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
@@ -241,7 +241,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         RulesBelote regles_=initializeDefaultRules();
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        byte player_ = game_.playerAfter(game_.getDistribution().getDonneur());
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
@@ -292,7 +292,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         RulesBelote regles_=initializeDefaultRules();
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        byte player_ = game_.playerAfter(game_.getDistribution().getDonneur());
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
@@ -354,7 +354,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         RulesBelote regles_=initializeDefaultRules();
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        byte player_ = game_.playerAfter(game_.getDistribution().getDonneur());
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
@@ -496,7 +496,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        byte player_ = game_.playerAfter(game_.getDistribution().getDonneur());
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
@@ -530,7 +530,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        byte player_ = game_.playerAfter(game_.getDistribution().getDonneur());
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
@@ -564,7 +564,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        byte player_ = game_.playerAfter(game_.getDistribution().getDonneur());
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
@@ -598,7 +598,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        byte player_ = game_.playerAfter(game_.getDistribution().getDonneur());
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
@@ -638,7 +638,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        byte player_ = game_.playerAfter(game_.getDistribution().getDonneur());
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
@@ -678,7 +678,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        byte player_ = game_.playerAfter(game_.getDistribution().getDonneur());
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
@@ -796,7 +796,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        byte player_ = game_.playerAfter(game_.getDistribution().getDonneur());
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
@@ -848,7 +848,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        byte player_ = game_.playerAfter(game_.getDistribution().getDonneur());
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
@@ -900,7 +900,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        byte player_ = game_.playerAfter(game_.getDistribution().getDonneur());
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
@@ -952,7 +952,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        byte player_ = game_.playerAfter(game_.getDistribution().getDonneur());
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
@@ -1018,7 +1018,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        byte player_ = game_.playerAfter(game_.getDistribution().getDonneur());
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
@@ -1084,7 +1084,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        byte player_ = game_.playerAfter(game_.getDistribution().getDonneur());
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
@@ -1150,7 +1150,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        byte player_ = game_.playerAfter(game_.getDistribution().getDonneur());
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
@@ -1197,7 +1197,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        byte player_ = game_.playerAfter(game_.getDistribution().getDonneur());
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
@@ -1244,7 +1244,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         RulesBelote regles_=initializeRulesWithBids(new EnumList<BidBelote>(BidBelote.NO_TRUMP,BidBelote.ALL_TRUMP));
         GameBelote game_ = new GameBelote(GameType.RANDOM,initializeHands(),regles_);
         //game_.resetNbPlisTotal();
-        byte player_ = game_.playerAfter(game_.getDistribution().getDonneur());
+        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setEnchere(BidBelote.FOLD);
@@ -1638,7 +1638,7 @@ public class GameBeloteBiddingTest extends GameBeloteWithTrumpSuit {
         contratTmp_.setEnchere(BidBelote.SUIT);
         contratTmp_.setCouleur(Suit.DIAMOND);
         contratTmp_.setPoints(140);
-        game_.ajouterContrat(contratTmp_, game_.playerAfter(game_.getDistribution().getDonneur()));
+        game_.ajouterContrat(contratTmp_, game_.playerAfter(game_.getDistribution().getDealer()));
         //game_.resetNbPlisTotal();
         CustList<BidBeloteSuit> bids_ = game_.getGameBeloteBid().allowedBids();
         CustList<BidBeloteSuit> expected_ = new CustList<BidBeloteSuit>();

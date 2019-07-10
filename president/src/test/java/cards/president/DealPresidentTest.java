@@ -14,10 +14,10 @@ public final class DealPresidentTest {
         donne_.setRandomDealer(rules_);
         donne_.initDonne(rules_);
         assertEq(4,donne_.nombreDeMains());
-        assertEq(13,donne_.main((byte)0).total());
-        assertEq(13,donne_.main((byte)1).total());
-        assertEq(13,donne_.main((byte)2).total());
-        assertEq(13,donne_.main((byte)3).total());
+        assertEq(13,donne_.hand((byte)0).total());
+        assertEq(13,donne_.hand((byte)1).total());
+        assertEq(13,donne_.hand((byte)2).total());
+        assertEq(13,donne_.hand((byte)3).total());
     }
     @Test
     public void initDonne2Test() {
@@ -27,10 +27,10 @@ public final class DealPresidentTest {
         donne_.setRandomDealer(rules_);
         donne_.initDonne(rules_);
         assertEq(4,donne_.nombreDeMains());
-        assertEq(13,donne_.main((byte)0).total());
-        assertEq(13,donne_.main((byte)1).total());
-        assertEq(13,donne_.main((byte)2).total());
-        assertEq(13,donne_.main((byte)3).total());
+        assertEq(13,donne_.hand((byte)0).total());
+        assertEq(13,donne_.hand((byte)1).total());
+        assertEq(13,donne_.hand((byte)2).total());
+        assertEq(13,donne_.hand((byte)3).total());
     }
     @Test
     public void initDonne3Test() {
@@ -40,10 +40,10 @@ public final class DealPresidentTest {
         donne_.setRandomDealer(rules_);
         donne_.initDonne(rules_);
         assertEq(4,donne_.nombreDeMains());
-        assertEq(13,donne_.main((byte)0).total());
-        assertEq(13,donne_.main((byte)1).total());
-        assertEq(13,donne_.main((byte)2).total());
-        assertEq(13,donne_.main((byte)3).total());
+        assertEq(13,donne_.hand((byte)0).total());
+        assertEq(13,donne_.hand((byte)1).total());
+        assertEq(13,donne_.hand((byte)2).total());
+        assertEq(13,donne_.hand((byte)3).total());
     }
     @Test
     public void initDonne4Test() {
@@ -53,10 +53,10 @@ public final class DealPresidentTest {
         donne_.setRandomDealer(rules_);
         donne_.initDonne(rules_);
         assertEq(4,donne_.nombreDeMains());
-        assertEq(13,donne_.main((byte)0).total());
-        assertEq(13,donne_.main((byte)1).total());
-        assertEq(13,donne_.main((byte)2).total());
-        assertEq(13,donne_.main((byte)3).total());
+        assertEq(13,donne_.hand((byte)0).total());
+        assertEq(13,donne_.hand((byte)1).total());
+        assertEq(13,donne_.hand((byte)2).total());
+        assertEq(13,donne_.hand((byte)3).total());
     }
     @Test
     public void initDonne5Test() {
@@ -66,10 +66,10 @@ public final class DealPresidentTest {
         donne_.setRandomDealer(rules_);
         donne_.initDonne(rules_);
         assertEq(4,donne_.nombreDeMains());
-        assertEq(13,donne_.main((byte)0).total());
-        assertEq(13,donne_.main((byte)1).total());
-        assertEq(13,donne_.main((byte)2).total());
-        assertEq(13,donne_.main((byte)3).total());
+        assertEq(13,donne_.hand((byte)0).total());
+        assertEq(13,donne_.hand((byte)1).total());
+        assertEq(13,donne_.hand((byte)2).total());
+        assertEq(13,donne_.hand((byte)3).total());
     }
     @Test
     public void initDonne6Test() {
@@ -79,10 +79,10 @@ public final class DealPresidentTest {
         donne_.setRandomDealer(rules_);
         donne_.initDonne(rules_);
         assertEq(4,donne_.nombreDeMains());
-        assertEq(13,donne_.main((byte)0).total());
-        assertEq(13,donne_.main((byte)1).total());
-        assertEq(13,donne_.main((byte)2).total());
-        assertEq(13,donne_.main((byte)3).total());
+        assertEq(13,donne_.hand((byte)0).total());
+        assertEq(13,donne_.hand((byte)1).total());
+        assertEq(13,donne_.hand((byte)2).total());
+        assertEq(13,donne_.hand((byte)3).total());
     }
     @Test
     public void initDonne7Test() {
@@ -92,10 +92,10 @@ public final class DealPresidentTest {
         donne_.setDealer((byte) 4);
         donne_.initDonne(rules_);
         assertEq(5,donne_.nombreDeMains());
-        assertEq(11,donne_.main((byte)0).total());
-        assertEq(11,donne_.main((byte)1).total());
-        assertEq(10,donne_.main((byte)2).total());
-        assertEq(10,donne_.main((byte)3).total());
-        assertEq(10,donne_.main((byte)4).total());
+        assertEq(11,donne_.hand((byte)0).total());
+        assertEq(11,donne_.hand((byte)1).total());
+        assertEq(10,donne_.hand((byte)2).total());
+        assertEq(10,donne_.hand((byte)3).total());
+        assertEq(10,donne_.hand((byte)4).total());
     }
 }

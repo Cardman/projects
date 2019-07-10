@@ -4,7 +4,7 @@ import cards.tarot.enumerations.BidTarot;
 public class CommonTarotGame {
 
     static void bidding(BidTarot _bid, byte _taker, GameTarot _game) {
-        byte player_ = _game.playerAfter(_game.getDistribution().getDonneur());
+        byte player_ = _game.playerAfter(_game.getDistribution().getDealer());
         while (_game.keepBidding()) {
             if (player_ == _taker) {
                 _game.ajouterContrat(_bid, player_);

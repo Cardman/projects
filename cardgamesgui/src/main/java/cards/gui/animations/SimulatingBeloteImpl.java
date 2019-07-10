@@ -118,7 +118,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         container_.add(new JLabel(container.getMessages().getVal(MainWindow.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         CarpetBelote tapis_=new CarpetBelote();
         StringList pseudos_ = pseudosSimuleeBelote();
-        tapis_.initTapisBelote(lg_,partie_.getNombreDeJoueurs(),container.getDisplayingBelote().getHoraire(),pseudos_,1);
+        tapis_.initTapisBelote(lg_,partie_.getNombreDeJoueurs(),container.getDisplayingBelote().isClockwise(),pseudos_,1);
         container.getTapis().setTapisBelote(tapis_);
         container_.add(tapis_,BorderLayout.CENTER);
         Panel panneau_=new Panel();
@@ -131,7 +131,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         container.setEvents(new JTextArea(ContainerBelote.EMPTY,8, 30));
         container.getEvents().setEditable(false);
         panneau2_.add(new code.gui.ScrollPane(container.getEvents()));
-        container.setMini(new MiniCarpet(partie_.getNombreDeJoueurs(),container.getDisplayingBelote().getHoraire(),pseudos_));
+        container.setMini(new MiniCarpet(partie_.getNombreDeJoueurs(),container.getDisplayingBelote().isClockwise(),pseudos_));
         panneau2_.add(container.getMini());
         container.setHandfuls(new ByteMap<JLabel>());
         container.setDeclaredHandfuls(new ByteMap<Panel>());
@@ -167,7 +167,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         Panel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
         /*On place les cartes de l'utilisateur*/
-        for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(lg_,partie_.getDeal().main())) {
+        for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(lg_,partie_.getDeal().hand())) {
             panneau1_.add(c);
         }
         panneau1_.repaint();
@@ -258,11 +258,11 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
 
     @Override
     public void declare(byte _joueur, DeclareHandBelote _annonces) {
-        if (_annonces.getAnnonce() != DeclaresBelote.UNDEFINED) {
+        if (_annonces.getDeclare() != DeclaresBelote.UNDEFINED) {
             String lg_ = container.getOwner().getLanguageKey();
             StringList pseudos_=pseudosSimuleeBelote();
             String mess_ = container.getMessages().getVal(MainWindow.DEMO_ACTION_TWO);
-            String event_ = StringList.concat(StringList.simpleStringsFormat(mess_, pseudos_.get(_joueur), Games.toString(_annonces.getAnnonce(),lg_), Games.toString(_annonces.getMain(),lg_)),ContainerGame.RETURN_LINE);
+            String event_ = StringList.concat(StringList.simpleStringsFormat(mess_, pseudos_.get(_joueur), Games.toString(_annonces.getDeclare(),lg_), Games.toString(_annonces.getHand(),lg_)),ContainerGame.RETURN_LINE);
             ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
         }
     }

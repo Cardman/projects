@@ -17,10 +17,10 @@ public final class DeclareHandBeloteComparator implements Comparing<DeclareHandB
     }
     @Override
     public int compare(DeclareHandBelote _o1, DeclareHandBelote _o2) {
-        DeclaresBelote annonce1_ = _o1.getAnnonce();
-        DeclaresBelote annonce2_ = _o2.getAnnonce();
-        HandBelote main1_ = _o1.getMain();
-        HandBelote main2_ = _o2.getMain();
+        DeclaresBelote annonce1_ = _o1.getDeclare();
+        DeclaresBelote annonce2_ = _o2.getDeclare();
+        HandBelote main1_ = _o1.getHand();
+        HandBelote main2_ = _o2.getHand();
         int cmp_ = Numbers.compareLg(annonce1_.getForce(), annonce2_.getForce());
         if (cmp_ != 0) {
             return -cmp_;

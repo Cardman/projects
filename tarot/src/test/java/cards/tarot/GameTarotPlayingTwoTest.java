@@ -11,7 +11,6 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import code.util.EnumMap;
-import code.util.EqList;
 
 public class GameTarotPlayingTwoTest extends CommonTarotGame {
     private GameTarot game;
@@ -143,7 +142,7 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_QUEEN);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
         game.addCurTrick();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         game.jouer(game.getEntameur(),CardTarot.DIAMOND_1);
         game.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_1);
@@ -170,7 +169,7 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         expected_.ajouter(CardTarot.TRUMP_6);
 
         player_ = game.playerAfter(player_);
-        HandTarot hand_ = game.getDistribution().main(player_);
+        HandTarot hand_ = game.getDistribution().hand(player_);
         HandTarot playableCards_ = game.playableCards(hand_.couleurs());
         assertEq(expected_.total(),playableCards_.total());
         assertTrue(playableCards_.contientCartes(expected_));
@@ -199,7 +198,7 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_QUEEN);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
         game.addCurTrick();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         game.jouer(game.getEntameur(),CardTarot.DIAMOND_3);
         game.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_3);
@@ -217,7 +216,7 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         expected_.ajouter(CardTarot.TRUMP_4);
         expected_.ajouter(CardTarot.TRUMP_3);
         player_ = game.playerAfter(player_);
-        HandTarot hand_ = game.getDistribution().main(player_);
+        HandTarot hand_ = game.getDistribution().hand(player_);
         HandTarot playableCards_ = game.playableCards(hand_.couleurs());
         assertEq(expected_.total(),playableCards_.total());
         assertTrue(playableCards_.contientCartes(expected_));
@@ -245,7 +244,7 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_QUEEN);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
         game.addCurTrick();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         game.jouer(game.getEntameur(),CardTarot.DIAMOND_KING);
         game.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
@@ -263,7 +262,7 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         expected_.ajouter(CardTarot.TRUMP_4);
         expected_.ajouter(CardTarot.TRUMP_3);
         player_ = game.playerAfter(player_);
-        HandTarot hand_ = game.getDistribution().main(player_);
+        HandTarot hand_ = game.getDistribution().hand(player_);
         HandTarot playableCards_ = game.playableCards(hand_.couleurs());
         assertEq(expected_.total(),playableCards_.total());
         assertTrue(playableCards_.contientCartes(expected_));
@@ -292,7 +291,7 @@ public class GameTarotPlayingTwoTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
         game.addCurTrick();
         assertTrue(game.keepPlayingCurrentGame());
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         assertTrue(game.keepPlayingCurrentTrick());
         game.jouer(game.getEntameur(),CardTarot.DIAMOND_3);

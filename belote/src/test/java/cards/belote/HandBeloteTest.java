@@ -1099,8 +1099,8 @@ public class HandBeloteTest {
         res_.ajouter(CardBelote.DIAMOND_1);
         res_.ajouter(CardBelote.DIAMOND_KING);
         res_.ajouter(CardBelote.DIAMOND_QUEEN);
-        assertEq(res_, annonceMain_.getMain());
-        assertEq(DeclaresBelote.THIRTY, annonceMain_.getAnnonce());
+        assertEq(res_, annonceMain_.getHand());
+        assertEq(DeclaresBelote.THIRTY, annonceMain_.getDeclare());
         main_ = new HandBelote(Order.SUIT);
         main_.ajouter(CardBelote.DIAMOND_1);
         main_.ajouter(CardBelote.DIAMOND_JACK);
@@ -1116,8 +1116,8 @@ public class HandBeloteTest {
         res_.ajouter(CardBelote.DIAMOND_KING);
         res_.ajouter(CardBelote.DIAMOND_QUEEN);
         res_.ajouter(CardBelote.DIAMOND_JACK);
-        assertEq(res_, annonceMain_.getMain());
-        assertEq(DeclaresBelote.FIFTY, annonceMain_.getAnnonce());
+        assertEq(res_, annonceMain_.getHand());
+        assertEq(DeclaresBelote.FIFTY, annonceMain_.getDeclare());
         main_ = new HandBelote(Order.SUIT);
         main_.ajouter(CardBelote.DIAMOND_1);
         main_.ajouter(CardBelote.DIAMOND_10);
@@ -1132,8 +1132,8 @@ public class HandBeloteTest {
         res_.ajouter(CardBelote.DIAMOND_1);
         res_.ajouter(CardBelote.DIAMOND_KING);
         res_.ajouter(CardBelote.DIAMOND_QUEEN);
-        assertEq(res_, annonceMain_.getMain());
-        assertEq(DeclaresBelote.THIRTY, annonceMain_.getAnnonce());
+        assertEq(res_, annonceMain_.getHand());
+        assertEq(DeclaresBelote.THIRTY, annonceMain_.getDeclare());
         main_ = new HandBelote(Order.SUIT);
         main_.ajouter(CardBelote.DIAMOND_1);
         main_.ajouter(CardBelote.HEART_KING);
@@ -1148,8 +1148,8 @@ public class HandBeloteTest {
         res_.ajouter(CardBelote.DIAMOND_1);
         res_.ajouter(CardBelote.DIAMOND_KING);
         res_.ajouter(CardBelote.DIAMOND_QUEEN);
-        assertEq(res_, annonceMain_.getMain());
-        assertEq(DeclaresBelote.THIRTY, annonceMain_.getAnnonce());
+        assertEq(res_, annonceMain_.getHand());
+        assertEq(DeclaresBelote.THIRTY, annonceMain_.getDeclare());
         main_ = new HandBelote(Order.SUIT);
         main_.ajouter(CardBelote.DIAMOND_1);
         main_.ajouter(CardBelote.HEART_KING);
@@ -1161,8 +1161,8 @@ public class HandBeloteTest {
         main_.ajouter(CardBelote.CLUB_1);
         annonceMain_ = main_.annonce(annoncesAutorisees_, enchereCouleur_);
         res_ = new HandBelote();
-        assertEq(res_, annonceMain_.getMain());
-        assertEq(DeclaresBelote.UNDEFINED, annonceMain_.getAnnonce());
+        assertEq(res_, annonceMain_.getHand());
+        assertEq(DeclaresBelote.UNDEFINED, annonceMain_.getDeclare());
         main_ = new HandBelote(Order.SUIT);
         main_.ajouter(CardBelote.DIAMOND_1);
         main_.ajouter(CardBelote.DIAMOND_KING);
@@ -1178,8 +1178,8 @@ public class HandBeloteTest {
         res_.ajouter(CardBelote.SPADE_1);
         res_.ajouter(CardBelote.DIAMOND_1);
         res_.ajouter(CardBelote.CLUB_1);
-        assertEq(res_, annonceMain_.getMain());
-        assertEq(DeclaresBelote.FOUR_1, annonceMain_.getAnnonce());
+        assertEq(res_, annonceMain_.getHand());
+        assertEq(DeclaresBelote.FOUR_1, annonceMain_.getDeclare());
         couleurAtout_ = Suit.DIAMOND;
         enchere_ = BidBelote.SUIT;
         enchereCouleur_.setEnchere(enchere_);
@@ -1199,8 +1199,8 @@ public class HandBeloteTest {
         res_.ajouter(CardBelote.DIAMOND_KING);
         res_.ajouter(CardBelote.DIAMOND_QUEEN);
         res_.ajouter(CardBelote.DIAMOND_JACK);
-        assertEq(res_, annonceMain_.getMain());
-        assertEq(DeclaresBelote.FIFTY, annonceMain_.getAnnonce());
+        assertEq(res_, annonceMain_.getHand());
+        assertEq(DeclaresBelote.FIFTY, annonceMain_.getDeclare());
         main_ = new HandBelote(Order.SUIT);
         main_.ajouter(CardBelote.DIAMOND_1);
         main_.ajouter(CardBelote.DIAMOND_KING);
@@ -1216,8 +1216,8 @@ public class HandBeloteTest {
         res_.ajouter(CardBelote.SPADE_1);
         res_.ajouter(CardBelote.DIAMOND_1);
         res_.ajouter(CardBelote.CLUB_1);
-        assertEq(res_, annonceMain_.getMain());
-        assertEq(DeclaresBelote.FOUR_1, annonceMain_.getAnnonce());
+        assertEq(res_, annonceMain_.getHand());
+        assertEq(DeclaresBelote.FOUR_1, annonceMain_.getDeclare());
         main_ = new HandBelote(Order.SUIT);
         main_.ajouter(CardBelote.DIAMOND_7);
         main_.ajouter(CardBelote.DIAMOND_KING);
@@ -1233,8 +1233,8 @@ public class HandBeloteTest {
         res_.ajouter(CardBelote.SPADE_KING);
         res_.ajouter(CardBelote.DIAMOND_KING);
         res_.ajouter(CardBelote.CLUB_KING);
-        assertEq(res_, annonceMain_.getMain());
-        assertEq(DeclaresBelote.FOUR_KING, annonceMain_.getAnnonce());
+        assertEq(res_, annonceMain_.getHand());
+        assertEq(DeclaresBelote.FOUR_KING, annonceMain_.getDeclare());
         couleurAtout_ = Suit.HEART;
         enchere_ = BidBelote.SUIT;
         enchereCouleur_.setEnchere(enchere_);
@@ -1254,8 +1254,8 @@ public class HandBeloteTest {
         res_.ajouter(CardBelote.DIAMOND_KING);
         res_.ajouter(CardBelote.DIAMOND_QUEEN);
         res_.ajouter(CardBelote.DIAMOND_JACK);
-        assertEq(res_, annonceMain_.getMain());
-        assertEq(DeclaresBelote.FIFTY, annonceMain_.getAnnonce());
+        assertEq(res_, annonceMain_.getHand());
+        assertEq(DeclaresBelote.FIFTY, annonceMain_.getDeclare());
         couleurAtout_ = Suit.HEART;
         enchere_ = BidBelote.SUIT;
         enchereCouleur_.setEnchere(enchere_);
@@ -1275,8 +1275,8 @@ public class HandBeloteTest {
         res_.ajouter(CardBelote.SPADE_1);
         res_.ajouter(CardBelote.DIAMOND_1);
         res_.ajouter(CardBelote.CLUB_1);
-        assertEq(res_, annonceMain_.getMain());
-        assertEq(DeclaresBelote.FOUR_1, annonceMain_.getAnnonce());
+        assertEq(res_, annonceMain_.getHand());
+        assertEq(DeclaresBelote.FOUR_1, annonceMain_.getDeclare());
         couleurAtout_ = Suit.UNDEFINED;
         enchere_ = BidBelote.NO_TRUMP;
         enchereCouleur_.setEnchere(enchere_);
@@ -1296,8 +1296,8 @@ public class HandBeloteTest {
         res_.ajouter(CardBelote.DIAMOND_KING);
         res_.ajouter(CardBelote.DIAMOND_QUEEN);
         res_.ajouter(CardBelote.DIAMOND_JACK);
-        assertEq(res_, annonceMain_.getMain());
-        assertEq(DeclaresBelote.FIFTY, annonceMain_.getAnnonce());
+        assertEq(res_, annonceMain_.getHand());
+        assertEq(DeclaresBelote.FIFTY, annonceMain_.getDeclare());
     }
     @Test
     public void getRepartitionsValides_repartitionsToutesValides1(){

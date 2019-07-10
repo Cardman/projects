@@ -12,7 +12,6 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import code.util.EnumMap;
-import code.util.EqList;
 
 public class GameTarotPlayingFourTest extends CommonTarotGame {
     private GameTarot game;
@@ -138,10 +137,10 @@ public class GameTarotPlayingFourTest extends CommonTarotGame {
         game.initConfianceAppele();
         game.gererChienInconnu();
 
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         assertEq(3,game.getEntameur());
-        HandTarot hand_ = game.getDistribution().main(game.getEntameur());
+        HandTarot hand_ = game.getDistribution().hand(game.getEntameur());
         HandTarot playableCards_ = game.playableCards(hand_.couleurs());
         assertEq(hand_.total(),playableCards_.total());
         assertTrue(playableCards_.contientCartes(hand_));
@@ -159,7 +158,7 @@ public class GameTarotPlayingFourTest extends CommonTarotGame {
         game.setCarteAppelee(cartesAppeler_);
         game.initConfianceAppele();
         game.gererChienInconnu();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         game.ajouterUneCarteDansPliEnCours((byte) 3, CardTarot.SPADE_2);
         game.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.TRUMP_2);
@@ -170,7 +169,7 @@ public class GameTarotPlayingFourTest extends CommonTarotGame {
         game.ajouterPetitAuBoutPliEnCours();
         game.setPliEnCours(true);
         assertEq(5,game.getEntameur());
-        HandTarot hand_ = game.getDistribution().main(game.getEntameur());
+        HandTarot hand_ = game.getDistribution().hand(game.getEntameur());
         HandTarot playableCards_ = game.playableCards(hand_.couleurs());
 
         assertEq(hand_.total(),playableCards_.total());

@@ -29,7 +29,7 @@ final class GameBeloteDeclaring {
             annoncesAutorisees_.add(a);
         }
         DeclareHandBelote annonce_ = curHand.annonce(annoncesAutorisees_, doneTrickInfo.getBid());
-        annonce_.setJoueur(next_);
+        annonce_.setPlayer(next_);
         return annonce_;
     }
     void annulerAnnonces() {
@@ -82,7 +82,7 @@ final class GameBeloteDeclaring {
 
     private void cancelDeclaring(Bytes _team) {
         for (byte p: _team) {
-            declares.get(p).setAnnonce(DeclaresBelote.UNDEFINED);
+            declares.get(p).setDeclare(DeclaresBelote.UNDEFINED);
         }
     }
 
@@ -90,7 +90,7 @@ final class GameBeloteDeclaring {
         CustList<DeclareHandBelote> declarationsTeam_ = new CustList<DeclareHandBelote>();
         for (byte p: _team) {
             DeclareHandBelote annonceMainBelote_ = _annoncesLoc.get(p);
-            if (annonceMainBelote_.getMain().estVide()) {
+            if (annonceMainBelote_.getHand().estVide()) {
                 continue;
             }
             declarationsTeam_.add(new DeclareHandBelote(annonceMainBelote_));

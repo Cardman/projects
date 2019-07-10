@@ -21,9 +21,9 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         tricksHands_.setBid(game_.getContrat());
         tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
         DisplayingBelote displaying_ = new DisplayingBelote();
-        displaying_.setOrdreAvantEncheres(Order.NOTHING);
+        displaying_.setOrderBeforeBids(Order.NOTHING);
         displaying_.validate();
-        displaying_.getCouleurs().clear();
+        displaying_.getSuits().clear();
         displaying_ = new DisplayingBelote(displaying_);
         displaying_.validate();
         BidBeloteSuit b_ = new BidBeloteSuit();
@@ -47,9 +47,9 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         tricksHands_.setBid(game_.getContrat());
         tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
         DisplayingBelote displaying_ = new DisplayingBelote();
-        displaying_.setOrdreAvantEncheres(Order.NOTHING);
+        displaying_.setOrderBeforeBids(Order.NOTHING);
         displaying_.validate();
-        displaying_.getCouleurs().clear();
+        displaying_.getSuits().clear();
         displaying_ = new DisplayingBelote(displaying_);
         displaying_.validate();
         BidBeloteSuit b_ = new BidBeloteSuit();
@@ -73,9 +73,9 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         tricksHands_.setBid(game_.getContrat());
         tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
         DisplayingBelote displaying_ = new DisplayingBelote();
-        displaying_.setOrdreAvantEncheres(Order.NOTHING);
+        displaying_.setOrderBeforeBids(Order.NOTHING);
         displaying_.validate();
-        displaying_.getCouleurs().clear();
+        displaying_.getSuits().clear();
         displaying_ = new DisplayingBelote(displaying_);
         displaying_.validate();
         BidBeloteSuit b_ = new BidBeloteSuit();
@@ -99,9 +99,9 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         tricksHands_.setBid(game_.getContrat());
         tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
         DisplayingBelote displaying_ = new DisplayingBelote();
-        displaying_.setOrdreAvantEncheres(Order.NOTHING);
+        displaying_.setOrderBeforeBids(Order.NOTHING);
         displaying_.validate();
-        displaying_.getCouleurs().clear();
+        displaying_.getSuits().clear();
         displaying_ = new DisplayingBelote(displaying_);
         displaying_.validate();
         BidBeloteSuit b_ = new BidBeloteSuit();
@@ -126,11 +126,11 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restituerMains(displaying_,(byte)4, (byte) 0);
         assertEq(5, tricksHands_.getDistribution().nombreDeMains());
-        assertEq(8, tricksHands_.getDistribution().main((byte) 0).total());
-        assertEq(8, tricksHands_.getDistribution().main((byte) 1).total());
-        assertEq(8, tricksHands_.getDistribution().main((byte) 2).total());
-        assertEq(8, tricksHands_.getDistribution().main((byte) 3).total());
-        assertEq(12, tricksHands_.getDistribution().main((byte)4).total());
+        assertEq(8, tricksHands_.getDistribution().hand((byte) 0).total());
+        assertEq(8, tricksHands_.getDistribution().hand((byte) 1).total());
+        assertEq(8, tricksHands_.getDistribution().hand((byte) 2).total());
+        assertEq(8, tricksHands_.getDistribution().hand((byte) 3).total());
+        assertEq(12, tricksHands_.getDistribution().hand((byte)4).total());
     }
 
     @Test
@@ -146,11 +146,11 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restituerMains(displaying_,(byte)4, (byte) 1);
         assertEq(5, tricksHands_.getDistribution().nombreDeMains());
-        assertEq(7, tricksHands_.getDistribution().main((byte) 0).total());
-        assertEq(7, tricksHands_.getDistribution().main((byte) 1).total());
-        assertEq(7, tricksHands_.getDistribution().main((byte) 2).total());
-        assertEq(7, tricksHands_.getDistribution().main((byte) 3).total());
-        assertEq(12, tricksHands_.getDistribution().main((byte)4).total());
+        assertEq(7, tricksHands_.getDistribution().hand((byte) 0).total());
+        assertEq(7, tricksHands_.getDistribution().hand((byte) 1).total());
+        assertEq(7, tricksHands_.getDistribution().hand((byte) 2).total());
+        assertEq(7, tricksHands_.getDistribution().hand((byte) 3).total());
+        assertEq(12, tricksHands_.getDistribution().hand((byte)4).total());
     }
 
     @Test
@@ -166,11 +166,11 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restituerMains(displaying_,(byte)4, (byte) 2);
         assertEq(5, tricksHands_.getDistribution().nombreDeMains());
-        assertEq(6, tricksHands_.getDistribution().main((byte) 0).total());
-        assertEq(6, tricksHands_.getDistribution().main((byte) 1).total());
-        assertEq(6, tricksHands_.getDistribution().main((byte) 2).total());
-        assertEq(6, tricksHands_.getDistribution().main((byte) 3).total());
-        assertEq(12, tricksHands_.getDistribution().main((byte)4).total());
+        assertEq(6, tricksHands_.getDistribution().hand((byte) 0).total());
+        assertEq(6, tricksHands_.getDistribution().hand((byte) 1).total());
+        assertEq(6, tricksHands_.getDistribution().hand((byte) 2).total());
+        assertEq(6, tricksHands_.getDistribution().hand((byte) 3).total());
+        assertEq(12, tricksHands_.getDistribution().hand((byte)4).total());
     }
     @Test
     public void restoreHandsAtSelectedNumberedTrick4Test() {
@@ -185,11 +185,11 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restituerMains(displaying_,(byte)4, (byte) -1);
         assertEq(5, tricksHands_.getDistribution().nombreDeMains());
-        assertEq(5, tricksHands_.getDistribution().main((byte) 0).total());
-        assertEq(5, tricksHands_.getDistribution().main((byte) 1).total());
-        assertEq(5, tricksHands_.getDistribution().main((byte) 2).total());
-        assertEq(5, tricksHands_.getDistribution().main((byte) 3).total());
-        assertEq(12, tricksHands_.getDistribution().main((byte)4).total());
+        assertEq(5, tricksHands_.getDistribution().hand((byte) 0).total());
+        assertEq(5, tricksHands_.getDistribution().hand((byte) 1).total());
+        assertEq(5, tricksHands_.getDistribution().hand((byte) 2).total());
+        assertEq(5, tricksHands_.getDistribution().hand((byte) 3).total());
+        assertEq(12, tricksHands_.getDistribution().hand((byte)4).total());
     }
     @Test
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard1Test() {
@@ -204,11 +204,11 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restituerMains(displaying_,(byte)4, (byte) 0, (byte) 0);
         assertEq(5, tricksHands_.getDistribution().nombreDeMains());
-        assertEq(8, tricksHands_.getDistribution().main((byte) 0).total());
-        assertEq(8, tricksHands_.getDistribution().main((byte) 1).total());
-        assertEq(8, tricksHands_.getDistribution().main((byte) 2).total());
-        assertEq(8, tricksHands_.getDistribution().main((byte) 3).total());
-        assertEq(12, tricksHands_.getDistribution().main((byte)4).total());
+        assertEq(8, tricksHands_.getDistribution().hand((byte) 0).total());
+        assertEq(8, tricksHands_.getDistribution().hand((byte) 1).total());
+        assertEq(8, tricksHands_.getDistribution().hand((byte) 2).total());
+        assertEq(8, tricksHands_.getDistribution().hand((byte) 3).total());
+        assertEq(12, tricksHands_.getDistribution().hand((byte)4).total());
     }
     @Test
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard2Test() {
@@ -223,11 +223,11 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restituerMains(displaying_,(byte)4, (byte) 1, (byte) 1);
         assertEq(5, tricksHands_.getDistribution().nombreDeMains());
-        assertEq(7, tricksHands_.getDistribution().main((byte) 0).total());
-        assertEq(7, tricksHands_.getDistribution().main((byte) 1).total());
-        assertEq(8, tricksHands_.getDistribution().main((byte) 2).total());
-        assertEq(8, tricksHands_.getDistribution().main((byte) 3).total());
-        assertEq(12, tricksHands_.getDistribution().main((byte)4).total());
+        assertEq(7, tricksHands_.getDistribution().hand((byte) 0).total());
+        assertEq(7, tricksHands_.getDistribution().hand((byte) 1).total());
+        assertEq(8, tricksHands_.getDistribution().hand((byte) 2).total());
+        assertEq(8, tricksHands_.getDistribution().hand((byte) 3).total());
+        assertEq(12, tricksHands_.getDistribution().hand((byte)4).total());
     }
     @Test
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard3Test() {
@@ -242,11 +242,11 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restituerMains(displaying_,(byte)4, (byte) 2, (byte) 1);
         assertEq(5, tricksHands_.getDistribution().nombreDeMains());
-        assertEq(6, tricksHands_.getDistribution().main((byte) 0).total());
-        assertEq(6, tricksHands_.getDistribution().main((byte) 1).total());
-        assertEq(7, tricksHands_.getDistribution().main((byte) 2).total());
-        assertEq(7, tricksHands_.getDistribution().main((byte) 3).total());
-        assertEq(12, tricksHands_.getDistribution().main((byte)4).total());
+        assertEq(6, tricksHands_.getDistribution().hand((byte) 0).total());
+        assertEq(6, tricksHands_.getDistribution().hand((byte) 1).total());
+        assertEq(7, tricksHands_.getDistribution().hand((byte) 2).total());
+        assertEq(7, tricksHands_.getDistribution().hand((byte) 3).total());
+        assertEq(12, tricksHands_.getDistribution().hand((byte)4).total());
     }
     @Test
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard4Test() {
@@ -261,17 +261,17 @@ public final class TricksHandsBeloteTest extends CommonGameBelote {
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restituerMains(displaying_,(byte)4, (byte) -1, (byte) 0);
         assertEq(5, tricksHands_.getDistribution().nombreDeMains());
-        assertEq(5, tricksHands_.getDistribution().main((byte) 0).total());
-        assertEq(5, tricksHands_.getDistribution().main((byte) 1).total());
-        assertEq(5, tricksHands_.getDistribution().main((byte) 2).total());
-        assertEq(5, tricksHands_.getDistribution().main((byte) 3).total());
-        assertEq(12, tricksHands_.getDistribution().main((byte)4).total());
+        assertEq(5, tricksHands_.getDistribution().hand((byte) 0).total());
+        assertEq(5, tricksHands_.getDistribution().hand((byte) 1).total());
+        assertEq(5, tricksHands_.getDistribution().hand((byte) 2).total());
+        assertEq(5, tricksHands_.getDistribution().hand((byte) 3).total());
+        assertEq(12, tricksHands_.getDistribution().hand((byte)4).total());
     }
     GameBelote getSimpleSlamDeal() {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal1Slam((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);

@@ -197,10 +197,10 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         panneau_.setLayout(new BorderLayout());
         panelsCards=new Panel();
         HandBelote pile_=HandBelote.pileBase();
-        pile_.trier(displayingBelote.getCouleurs(), displayingBelote.getDecroissant(), displayingBelote.getOrdreAvantEncheres());
+        pile_.trier(displayingBelote.getSuits(), displayingBelote.isDecreasing(), displayingBelote.getOrderBeforeBids());
         BeloteCardsScrollableList plc_=new BeloteCardsScrollableList(12,pile_.total(),getMessages().getVal(DEALING_STACK));
         plc_.initSelectionCarteBelote(_parent);
-        plc_.setTriBelote(displayingBelote.getCouleurs(), displayingBelote.getOrdreAvantEncheres(), displayingBelote.getDecroissant());
+        plc_.setTriBelote(displayingBelote.getSuits(), displayingBelote.getOrderBeforeBids(), displayingBelote.isDecreasing());
         plc_.iniPileBelote(pile_);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         stack = plc_;
@@ -211,7 +211,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         plc_=new BeloteCardsScrollableList(firstCards_,firstCards_,getMessages().getVal(USER_HAND));
         plc_.initSelectionCarteBelote(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
-        plc_.setTriBelote(displayingBelote.getCouleurs(), displayingBelote.getOrdreAvantEncheres(), displayingBelote.getDecroissant());
+        plc_.setTriBelote(displayingBelote.getSuits(), displayingBelote.getOrderBeforeBids(), displayingBelote.isDecreasing());
         panelsCards.add(plc_);
         hands.clear();
         hands.add(plc_);
@@ -229,7 +229,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
             plc_=new BeloteCardsScrollableList(firstCards_,firstCards_,message_);
             plc_.initSelectionCarteBelote(_parent);
             plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
-            plc_.setTriBelote(displayingBelote.getCouleurs(), displayingBelote.getOrdreAvantEncheres(), displayingBelote.getDecroissant());
+            plc_.setTriBelote(displayingBelote.getSuits(), displayingBelote.getOrderBeforeBids(), displayingBelote.isDecreasing());
             panelsCards.add(plc_);
             hands.add(plc_);
 //            i_++;
@@ -302,13 +302,13 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         for (BeloteCardsScrollableList l: hands) {
             HandBelote m=new HandBelote();
             m.ajouterCartes(l.valMainBelote());
-            m.setOrdre(displayingBelote.getOrdreAvantEncheres());
-            m.trier(displayingBelote.getCouleurs(), displayingBelote.getDecroissant(), displayingBelote.getOrdreAvantEncheres());
+            m.setOrdre(displayingBelote.getOrderBeforeBids());
+            m.trier(displayingBelote.getSuits(), displayingBelote.isDecreasing(), displayingBelote.getOrderBeforeBids());
             mains_.add(m);
         }
         HandBelote m=new HandBelote();
         m.ajouterCartes(remaining.valMainBelote());
-        m.setOrdre(displayingBelote.getOrdreAvantEncheres());
+        m.setOrdre(displayingBelote.getOrderBeforeBids());
         mains_.add(m);
 //        for(int i=1;i<nombreDeMains_;i++) {
 //            plc_=(BeloteCardsScrollableList)panelsCards.getComponent(i);
@@ -347,7 +347,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         String lg_ = getMain().getLanguageKey();
 //        int nombreDeMains_=panelsCards.getComponentCount();
 
-        HandBelote m=new HandBelote(displayingBelote.getOrdreAvantEncheres());
+        HandBelote m=new HandBelote(displayingBelote.getOrderBeforeBids());
 //        for (int i = List.FIRST_INDEX;i<nombreDeMains_;i++) {
 //            HandBelote cartesSelectionnees_=((BeloteCardsScrollableList)panelsCards.getComponent(i)).getCartesBeloteSelectionnees();
 //            m.ajouterCartes(cartesSelectionnees_);

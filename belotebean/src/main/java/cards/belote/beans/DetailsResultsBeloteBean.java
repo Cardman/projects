@@ -28,10 +28,10 @@ final class DetailsResultsBeloteBean extends BeloteBean {
                 sumDeclaring_.setStatut(toString(getGame().getTeamsRelation().statutDe(p),getLoc()));
                 int sum_ = 0;
                 CustList<DeclaringPlayerValue> listDeclaring_ = new CustList<DeclaringPlayerValue>();
-                if (getGame().getAnnonce(p).getAnnonce() != DeclaresBelote.UNDEFINED) {
+                if (getGame().getAnnonce(p).getDeclare() != DeclaresBelote.UNDEFINED) {
                     DeclaringPlayerValue decl_ = new DeclaringPlayerValue();
-                    decl_.setDeclaring(toString(getGame().getAnnonce(p).getAnnonce(),getLoc()));
-                    decl_.setValue(getGame().getAnnonce(p).getAnnonce().getPoints());
+                    decl_.setDeclaring(toString(getGame().getAnnonce(p).getDeclare(),getLoc()));
+                    decl_.setValue(getGame().getAnnonce(p).getDeclare().getPoints());
                     sum_ += decl_.getValue();
                     listDeclaring_.add(decl_);
                 }

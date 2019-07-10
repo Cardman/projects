@@ -1,11 +1,8 @@
 package cards.tarot;
 import cards.consts.Suit;
-import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
-import cards.tarot.enumerations.PlayingDog;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EqList;
 
 
 public final class TricksHandsTarot {
@@ -21,8 +18,8 @@ public final class TricksHandsTarot {
     public void sortHands(DisplayingTarot _displaying,
             byte _nombreJoueurs) {
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
-            trier(joueur_,_displaying.getCouleurs(),
-                    _displaying.getDecroissant());
+            trier(joueur_,_displaying.getSuits(),
+                    _displaying.isDecreasing());
         }
     }
     public void restoreHandsAtSelectedNumberedTrick(DisplayingTarot _displaying,
@@ -50,8 +47,8 @@ public final class TricksHandsTarot {
             key_++;
         }
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
-            trier(joueur_,_displaying.getCouleurs(),
-                    _displaying.getDecroissant());
+            trier(joueur_,_displaying.getSuits(),
+                    _displaying.isDecreasing());
         }
     }
 
@@ -91,8 +88,8 @@ public final class TricksHandsTarot {
             key_++;
         }
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
-            trier(joueur_,_displaying.getCouleurs(),
-                    _displaying.getDecroissant());
+            trier(joueur_,_displaying.getSuits(),
+                    _displaying.isDecreasing());
         }
     }
     private void supprimerCartes(byte _joueur) {
@@ -144,7 +141,7 @@ public final class TricksHandsTarot {
         cardsHandsAtInitialState = new CustList<HandTarot>();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nbPlayers; joueur_++) {
             HandTarot hand_ = new HandTarot();
-            hand_.ajouterCartes(distribution.main(joueur_));
+            hand_.ajouterCartes(distribution.hand(joueur_));
             for (TrickTarot pli_ : tricks) {
                 if (!pli_.getVuParToutJoueur()) {
                     continue;

@@ -2337,14 +2337,12 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         GameBeloteTeamsRelation teamsRelation_ = new GameBeloteTeamsRelation((byte) _taker,_rules);
         BeloteInfoPliEnCours info_ = new BeloteInfoPliEnCours();
         info_.setContrat(_bid);
-        info_.setCartesJouables(_cartesJouables);
         info_.setProgressingTrick(_current);
         info_.setNbPlayers((byte) _nbPlayers);
         info_.setNextPlayer(nextPlayer_);
         info_.setJoueursConfiance(teamsRelation_.partenaires(nextPlayer_));
         info_.setJoueursNonConfiance(teamsRelation_.adversaires(nextPlayer_));
         info_.setJoueursNonJoue(joueursNonJoue_);
-        info_.setJoueursJoue(played_);
         info_.setPlisFaits(new CustList<TrickBelote>());
         info_.setCartesJouees(_playedCard);
         info_.setRepartitionCartesJouees(repartitionCartesJouees_);

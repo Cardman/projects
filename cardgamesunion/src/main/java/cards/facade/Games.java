@@ -179,7 +179,7 @@ public final class Games {
         if(_r == ReasonDiscard.TOO_MUCH) {
             return new StringBuilder(Format.formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_TOO_MANY_CARDS));
         }
-        HandTarot m = _g.getDistribution().main(_g.getPreneur());
+        HandTarot m = _g.getDistribution().hand(_g.getPreneur());
         EnumMap<Suit,HandTarot> rep_ = m.couleurs();
         int atoutsExcuse_ = GameTarotCommon.atoutsAvecExcuse(rep_);
         int total_ = atoutsExcuse_;
@@ -237,7 +237,7 @@ public final class Games {
         return Format.formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_HANDFUL_EXCUSE);
     }
     public static String autoriseBelote(GameBelote _g,String _loc) {
-        HandBelote main_=_g.getDistribution().main(_g.playerHavingToPlay());
+        HandBelote main_=_g.getDistribution().hand(_g.playerHavingToPlay());
         EnumMap<Suit,HandBelote> e_ = main_.couleurs(_g.getBid());
         byte numero_=_g.playerHavingToPlay();
         HandBelote m= _g.getProgressingTrick().getCartes();
@@ -343,7 +343,7 @@ public final class Games {
         return Format.formatter(FOLDER, PRESIDENT_FILE_NAME, _loc, PRESIDENT_CANNOT_PASS, toString(b_.premiereCarte(),_loc));
     }
     public static String autoriseTarot(GameTarot _g, String _loc) {
-        HandTarot main_ = _g.getDistribution().main(_g.playerHavingToPlay());
+        HandTarot main_ = _g.getDistribution().hand(_g.playerHavingToPlay());
         EnumMap<Suit,HandTarot> repartition_ = main_.couleurs();
         Suit couleurDemandee_ = _g.getProgressingTrick().couleurDemandee();
         if (Suit.couleursOrdinaires().containsObj(couleurDemandee_)

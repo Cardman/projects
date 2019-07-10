@@ -243,12 +243,12 @@ public final class SendReceiveServer extends BasicServer {
                 DealBelote deal_ = Net.getGames().partieBelote().getDistribution();
                 DealtHandBelote hand_ = new DealtHandBelote();
                 hand_.setDeck(deal_.derniereMain());
-                hand_.setDealer(Net.getGames().partieBelote().playerAfter(deal_.getDonneur()));
+                hand_.setDealer(Net.getGames().partieBelote().playerAfter(deal_.getDealer()));
                 hand_.setAllowedBids(Net.getGames().partieBelote().getGameBeloteBid().allowedBids());
                 hand_.setRep(Net.getGames().partieBelote().getRegles().getRepartition());
                 hand_.setPoints(Net.getGames().partieBelote().getContrat().getPoints());
                 for (byte i:Net.activePlayers()) {
-                    hand_.setCards(deal_.main(i));
+                    hand_.setCards(deal_.hand(i));
                     Net.sendObject(Net.getSocketByPlace(i), hand_);
                 }
             } else if (Net.getGames().enCoursDePartiePresident()) {
@@ -262,7 +262,7 @@ public final class SendReceiveServer extends BasicServer {
                 hand_.setMaxCards(Math.min(nbSuits_ * nbStacks_, rules_.getNbMaxCardsPerPlayer()));
                 hand_.setStatus(Net.getGames().partiePresident().getLastStatus());
                 for (byte i:Net.activePlayers()) {
-                    hand_.setCards(deal_.main(i));
+                    hand_.setCards(deal_.hand(i));
                     Net.sendObject(Net.getSocketByPlace(i), hand_);
                 }
             } else if (Net.getGames().enCoursDePartieTarot()) {
@@ -270,11 +270,11 @@ public final class SendReceiveServer extends BasicServer {
                 DealTarot deal_ = Net.getGames().partieTarot().getDistribution();
                 DealtHandTarot hand_ = new DealtHandTarot();
                 hand_.setDog(deal_.derniereMain());
-                hand_.setDealer(Net.getGames().partieTarot().playerAfter(deal_.getDonneur()));
+                hand_.setDealer(Net.getGames().partieTarot().playerAfter(deal_.getDealer()));
                 hand_.setAllowedBids(Net.getGames().partieTarot().allowedBids());
                 hand_.setRep(Net.getGames().partieTarot().getRegles().getRepartition());
                 for (byte i:Net.activePlayers()) {
-                    hand_.setCards(deal_.main(i));
+                    hand_.setCards(deal_.hand(i));
                     Net.sendObject(Net.getSocketByPlace(i), hand_);
                 }
             }
@@ -412,7 +412,7 @@ public final class SendReceiveServer extends BasicServer {
                     return;
                 }
             }
-            byte donneur_=game_.getDistribution().getDonneur();
+            byte donneur_=game_.getDistribution().getDealer();
             if(!game_.chelemAnnonce()) {
                 /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
                 game_.setEntameur(game_.playerAfter(donneur_));
@@ -567,7 +567,7 @@ public final class SendReceiveServer extends BasicServer {
             Net.initAllReceived();
             if (!Net.getGames().partieTarot().avecContrat()) {
                 GameTarot game_ = Net.getGames().partieTarot();
-                game_.setEntameur(game_.playerAfter(game_.getDistribution().getDonneur()));
+                game_.setEntameur(game_.playerAfter(game_.getDistribution().getDealer()));
                 game_.setPliEnCours(true);
                 playingTarotCard();
                 return;
@@ -621,7 +621,7 @@ public final class SendReceiveServer extends BasicServer {
                 }
                 return;
             }
-            byte dealer_=game_.getDistribution().getDonneur();
+            byte dealer_=game_.getDistribution().getDealer();
             /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
             game_.setEntameur(game_.playerAfter(dealer_));
             game_.setPliEnCours(true);
@@ -726,7 +726,7 @@ public final class SendReceiveServer extends BasicServer {
                     }
                     return;
                 }
-                byte donneur_=game_.getDistribution().getDonneur();
+                byte donneur_=game_.getDistribution().getDealer();
                 if(!game_.chelemAnnonce()) {
                     /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
                     game_.setEntameur(game_.playerAfter(donneur_));
@@ -744,7 +744,7 @@ public final class SendReceiveServer extends BasicServer {
                 }
                 return;
             }
-            byte donneur_=game_.getDistribution().getDonneur();
+            byte donneur_=game_.getDistribution().getDealer();
             /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
             game_.setEntameur(game_.playerAfter(donneur_));
             game_.setPliEnCours(true);
@@ -795,7 +795,7 @@ public final class SendReceiveServer extends BasicServer {
             if (_game.pasJeuApresPasse()) {
                 endGameTarot();
             } else {
-                _game.setEntameur(_game.playerAfter(_game.getDistribution().getDonneur()));
+                _game.setEntameur(_game.playerAfter(_game.getDistribution().getDealer()));
                 _game.setPliEnCours(true);
                 playingTarotCard();
             }
@@ -965,7 +965,7 @@ public final class SendReceiveServer extends BasicServer {
                         }
                         for (byte p: Net.activePlayers()) {
                             RefreshHandBelote hand_ = new RefreshHandBelote();
-                            hand_.setRefreshedHand(game_.getDistribution().main(p));
+                            hand_.setRefreshedHand(game_.getDistribution().hand(p));
                             hand_.setLocale(Constants.getDefaultLanguage());
                             Net.sendObject(Net.getSocketByPlace(p), hand_);
                         }
@@ -1024,7 +1024,7 @@ public final class SendReceiveServer extends BasicServer {
             if (Net.allReceived()) {
                 Net.initAllReceived();
                 GameBelote game_ = Net.getGames().partieBelote();
-                byte donneur_=game_.getDistribution().getDonneur();
+                byte donneur_=game_.getDistribution().getDealer();
                 game_.setEntameur(game_.playerAfter(donneur_));
                 if (game_.getRegles().dealAll()) {
                     int pts_ = game_.getContrat().getPoints();
@@ -1216,7 +1216,7 @@ public final class SendReceiveServer extends BasicServer {
                             byte w_ = g_.getMatchingWinner(p);
                             dis_.setReceived(g_.getSwitchedCards().get(w_));
                             dis_.setGiven(g_.getSwitchedCards().get(p));
-                            dis_.setNewHand(g_.getDistribution().main(w_));
+                            dis_.setNewHand(g_.getDistribution().hand(w_));
                             Net.sendObject(Net.getSocketByPlace(p), dis_);
                         }
                         return;
@@ -1253,7 +1253,7 @@ public final class SendReceiveServer extends BasicServer {
                     byte w_ = g_.getMatchingWinner(p);
                     disAfter_.setReceived(g_.getSwitchedCards().get(w_));
                     disAfter_.setGiven(g_.getSwitchedCards().get(p));
-                    disAfter_.setNewHand(g_.getDistribution().main(w_));
+                    disAfter_.setNewHand(g_.getDistribution().hand(w_));
                     Net.sendObject(Net.getSocketByPlace(p), disAfter_);
                 }
                 return;
@@ -1480,7 +1480,7 @@ public final class SendReceiveServer extends BasicServer {
                             byte w_ = game_.getMatchingWinner(p);
                             disAfter_.setReceived(game_.getSwitchedCards().get(w_));
                             disAfter_.setGiven(game_.getSwitchedCards().get(p));
-                            disAfter_.setNewHand(game_.getDistribution().main(w_));
+                            disAfter_.setNewHand(game_.getDistribution().hand(w_));
                             Net.sendObject(Net.getSocketByPlace(p), disAfter_);
                         }
                         return;
@@ -1612,7 +1612,7 @@ public final class SendReceiveServer extends BasicServer {
                     }
                     return;
                 }
-                byte dealer_=game_.getDistribution().getDonneur();
+                byte dealer_=game_.getDistribution().getDealer();
                 /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
                 game_.setEntameur(game_.playerAfter(dealer_));
                 game_.setPliEnCours(true);

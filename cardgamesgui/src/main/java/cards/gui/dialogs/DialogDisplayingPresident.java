@@ -86,7 +86,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         panneau_.add(new JLabel(messages.getVal(WISE)));
         //Panneau Distribution
         checkClockwise=new JCheckBox(messages.getVal(CLOCK_WISE));
-        checkClockwise.setSelected(displayingPresident.getHoraire());
+        checkClockwise.setSelected(displayingPresident.isClockwise());
         panneau_.add(checkClockwise);
         getJt().add(messages.getVal(DEALING),panneau_);
         //Panneau Tri avant enchere
@@ -115,10 +115,10 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         bouton_.addMouseListener(new RemoveSuitEvent(this, _window));
         sousPanneauTwo_.add(bouton_);
         sortByDecreasing=new JCheckBox(messages.getVal(SORT_DECREASING));
-        sortByDecreasing.setSelected(displayingPresident.getDecroissant());
+        sortByDecreasing.setSelected(displayingPresident.isDecreasing());
         sousPanneauTwo_.add(sortByDecreasing);
         panneau_.add(sousPanneauTwo_);
-        for (Suit chaine_:displayingPresident.getCouleurs()) {
+        for (Suit chaine_:displayingPresident.getSuits()) {
             liste_.add(chaine_);
         }
         orderedSuits=new SuitsScrollableList(liste_,4, _window);
@@ -178,9 +178,9 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
             ConfirmDialog.showMessage(this, messages.getVal(ERROR_SUITS), messages.getVal(ERROR_SUITS_TITLE), getMain().getLanguageKey(), JOptionPane.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(this,messages.getVal(ERROR_SUITS),messages.getVal(ERROR_SUITS_TITLE),JOptionPane.ERROR_MESSAGE);
         } else {
-            displayingPresident.setHoraire(checkClockwise.isSelected());
-            displayingPresident.setCouleurs(new EnumList<Suit>(orderedSuits.getCouleurs()));
-            displayingPresident.setDecroissant(sortByDecreasing.isSelected());
+            displayingPresident.setClockwise(checkClockwise.isSelected());
+            displayingPresident.setSuits(new EnumList<Suit>(orderedSuits.getCouleurs()));
+            displayingPresident.setDecreasing(sortByDecreasing.isSelected());
             displayingPresident.setNbDeals((Integer) nbDealsDemo.getValue());
             closeWindow();
         }

@@ -57,7 +57,6 @@ public final class GameBeloteCommonPlaying {
         info_.setJoueursConfiance(teamsRelation.partenaires(nextPlayer_));
         info_.setJoueursNonConfiance(teamsRelation.adversaires(nextPlayer_));
         info_.setJoueursNonJoue(joueursNonJoue_);
-        info_.setJoueursJoue(joueursJoue_);
         info_.setPlisFaits(plisFaits_);
         info_.setCartesJouees(cartesJouees_);
         info_.setRepartitionCartesJouees(repartitionCartesJouees_);

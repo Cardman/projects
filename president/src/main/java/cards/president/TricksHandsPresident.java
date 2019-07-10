@@ -1,8 +1,5 @@
 package cards.president;
 import code.util.CustList;
-import code.util.EqList;
-import code.util.*;
-import code.util.*;
 import code.util.*;
 
 
@@ -27,7 +24,7 @@ public final class TricksHandsPresident {
     public void sortHands(DisplayingPresident _displaying,
             byte _nombreJoueurs) {
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
-            trier(joueur_, _displaying.getDecroissant(), reversed);
+            trier(joueur_, _displaying.isDecreasing(), reversed);
         }
     }
 
@@ -50,7 +47,7 @@ public final class TricksHandsPresident {
             index_++;
         }
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
-            trier(joueur_,_displaying.getDecroissant(),reversed);
+            trier(joueur_,_displaying.isDecreasing(),reversed);
         }
     }
 
@@ -88,7 +85,7 @@ public final class TricksHandsPresident {
             key_++;
         }
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
-            trier(joueur_,_displaying.getDecroissant(),reversed);
+            trier(joueur_,_displaying.isDecreasing(),reversed);
         }
     }
 
@@ -113,7 +110,7 @@ public final class TricksHandsPresident {
             indice_++;
         }
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
-            trier(joueur_,_displaying.getDecroissant(),reversed);
+            trier(joueur_,_displaying.isDecreasing(),reversed);
         }
     }
 
@@ -147,7 +144,7 @@ public final class TricksHandsPresident {
             key_++;
         }
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
-            trier(joueur_,_displaying.getDecroissant(),reversed);
+            trier(joueur_,_displaying.isDecreasing(),reversed);
         }
     }
     private void supprimerCartes(byte _joueur) {
@@ -188,7 +185,7 @@ public final class TricksHandsPresident {
         cardsHandsAtInitialState = new CustList<HandPresident>();
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nbPlayers; joueur_++) {
             HandPresident hand_ = new HandPresident();
-            hand_.ajouterCartes(distribution.main(joueur_));
+            hand_.ajouterCartes(distribution.hand(joueur_));
             for (TrickPresident pli_ : tricks) {
                 for (HandPresident h: pli_.getPlayedCards(joueur_, _nbPlayers)) {
                     hand_.ajouterCartes(h);

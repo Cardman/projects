@@ -379,9 +379,9 @@ public class ContainerMultiBelote extends ContainerBelote implements
         placerIhmBeloteMulti(_hand.getDeck(), _hand.getDealer());
 
         playerHandBelote = _hand.getCards();
-        playerHandBelote.trier(getDisplayingBelote().getCouleurs(),
-                getDisplayingBelote().getDecroissant(),
-                getDisplayingBelote().getOrdreAvantEncheres());
+        playerHandBelote.trier(getDisplayingBelote().getSuits(),
+                getDisplayingBelote().isDecreasing(),
+                getDisplayingBelote().getOrderBeforeBids());
         setCarteEntree(false);
         setCarteSortie(false);
         setCanCall(false);
@@ -480,11 +480,11 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
 
         DeclareHandBelote annonceMain_ = _declaration.getDeclaration();
-        if (annonceMain_.getAnnonce() != DeclaresBelote.UNDEFINED) {
+        if (annonceMain_.getDeclare() != DeclaresBelote.UNDEFINED) {
             annonceBelote = false;
             Panel panneau_ = getPanneauBoutonsJeu();
-            JCheckBox caseCoche_ = new JCheckBox(StringList.concat(Games.toString(annonceMain_.getAnnonce(),lg_),
-                    INTRODUCTION_PTS, Games.toString(annonceMain_.getMain(),lg_)));
+            JCheckBox caseCoche_ = new JCheckBox(StringList.concat(Games.toString(annonceMain_.getDeclare(),lg_),
+                    INTRODUCTION_PTS, Games.toString(annonceMain_.getHand(),lg_)));
             caseCoche_.addActionListener(new ChangeBeloteDeclareEvent(this));
             panneau_.add(caseCoche_);
         }
@@ -514,26 +514,26 @@ public class ContainerMultiBelote extends ContainerBelote implements
         if (_card.isDeclaring()) {
             if (bidMax.getCouleurDominante()) {
                 _card.getDeclare()
-                        .getMain()
-                        .trier(getDisplayingBelote().getCouleurs(),
-                                getDisplayingBelote().getDecroissant(),
+                        .getHand()
+                        .trier(getDisplayingBelote().getSuits(),
+                                getDisplayingBelote().isDecreasing(),
                                 bidMax.getCouleur());
             } else {
                 _card.getDeclare()
-                        .getMain()
-                        .trier(getDisplayingBelote().getCouleurs(),
-                                getDisplayingBelote().getDecroissant(),
+                        .getHand()
+                        .trier(getDisplayingBelote().getSuits(),
+                                getDisplayingBelote().isDecreasing(),
                                 bidMax.getOrdre());
             }
-            ajouterTexteDansZone(StringList.concat(pseudo_, INTRODUCTION_PTS, Games.toString(_card.getDeclare().getAnnonce(),lg_),
+            ajouterTexteDansZone(StringList.concat(pseudo_, INTRODUCTION_PTS, Games.toString(_card.getDeclare().getDeclare(),lg_),
                     RETURN_LINE));
-            if (!_card.getDeclare().getMain().estVide()) {
+            if (!_card.getDeclare().getHand().estVide()) {
                 getHandfuls().getVal(relative_).setText(
-                        Games.toString(_card.getDeclare().getAnnonce(),lg_));
+                        Games.toString(_card.getDeclare().getDeclare(),lg_));
             }
             Panel panelToSet_ = getDeclaredHandfuls().getVal(relative_);
             panelToSet_.removeAll();
-            for (CardBelote c: _card.getDeclare().getMain()) {
+            for (CardBelote c: _card.getDeclare().getHand()) {
                 MiniBeloteCard carte_ = new MiniBeloteCard(lg_,c);
                 panelToSet_.add(carte_);
             }
@@ -575,11 +575,11 @@ public class ContainerMultiBelote extends ContainerBelote implements
         playerHandBelote.supprimerCartes();
         playerHandBelote.ajouterCartes(_cards.getRefreshedHand());
         if (bidMax.getCouleurDominante()) {
-            playerHandBelote.trier(getDisplayingBelote().getCouleurs(),
-                    getDisplayingBelote().getDecroissant(), bidMax.getCouleur());
+            playerHandBelote.trier(getDisplayingBelote().getSuits(),
+                    getDisplayingBelote().isDecreasing(), bidMax.getCouleur());
         } else {
-            playerHandBelote.trier(getDisplayingBelote().getCouleurs(),
-                    getDisplayingBelote().getDecroissant(), bidMax.getOrdre());
+            playerHandBelote.trier(getDisplayingBelote().getSuits(),
+                    getDisplayingBelote().isDecreasing(), bidMax.getOrdre());
         }
 
         setCarteEntree(false);
@@ -601,11 +601,11 @@ public class ContainerMultiBelote extends ContainerBelote implements
     public void refreshHand(RefreshHandPlayingBelote _card) {
         playerHandBelote.jouer(_card.getCard());
         if (bidMax.getCouleurDominante()) {
-            playerHandBelote.trier(getDisplayingBelote().getCouleurs(),
-                    getDisplayingBelote().getDecroissant(), bidMax.getCouleur());
+            playerHandBelote.trier(getDisplayingBelote().getSuits(),
+                    getDisplayingBelote().isDecreasing(), bidMax.getCouleur());
         } else {
-            playerHandBelote.trier(getDisplayingBelote().getCouleurs(),
-                    getDisplayingBelote().getDecroissant(), bidMax.getOrdre());
+            playerHandBelote.trier(getDisplayingBelote().getSuits(),
+                    getDisplayingBelote().isDecreasing(), bidMax.getOrdre());
         }
         getPanneauBoutonsJeu().removeAll();
         setCanPlay(false);
@@ -723,8 +723,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         String lg_ = getOwner().getLanguageKey();
         StringList list_ = new StringList(pseudos_.values());
-        setMini(new MiniCarpet(nbChoosenPlayers, getDisplayingBelote().getHoraire(), list_));
-        tapis_.initTapisBelote(lg_,nbChoosenPlayers, getDisplayingBelote().getHoraire(),
+        setMini(new MiniCarpet(nbChoosenPlayers, getDisplayingBelote().isClockwise(), list_));
+        tapis_.initTapisBelote(lg_,nbChoosenPlayers, getDisplayingBelote().isClockwise(),
                 list_, 1);
         getTapis().setTapisBelote(tapis_);
         container_.add(tapis_, BorderLayout.CENTER);
@@ -922,7 +922,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         long nb_=chargerNombreDeParties(GameEnum.BELOTE);
         GameBelote game_=Net.getGames().partieBelote();
         DealBelote deal_=new DealBelote(nb_,game_.empiler());
-        deal_.donneurSuivant(game_.getDistribution().getDonneur(),game_.getNombreDeJoueurs());
+        deal_.donneurSuivant(game_.getDistribution().getDealer(),game_.getNombreDeJoueurs());
         deal_.initDonne(game_.getRegles(),getDisplayingBelote());
         Net.getGames().jouerBelote(new GameBelote(GameType.RANDOM,deal_,game_.getRegles()));
         getOwner().sendObject(new PlayGame());

@@ -111,7 +111,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         container_.add(new JLabel(container.getMessages().getVal(MainWindow.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         CarpetTarot tapis_=new CarpetTarot();
         StringList pseudos_ = pseudosSimuleeTarot();
-        tapis_.initTapisTarot(lg_,partie_.getNombreDeJoueurs(),container.getDisplayingTarot().getHoraire(),partie_.getDistribution().derniereMain().total());
+        tapis_.initTapisTarot(lg_,partie_.getNombreDeJoueurs(),container.getDisplayingTarot().isClockwise(),partie_.getDistribution().derniereMain().total());
         container.getTapis().setTapisTarot(tapis_);
         container_.add(tapis_,BorderLayout.CENTER);
         container.setPanelHand(new Panel());
@@ -128,7 +128,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         container.setEvents(new JTextArea(ContainerTarot.EMPTY,8, 30));
         container.getEvents().setEditable(false);
         panneau2_.add(new ScrollPane(container.getEvents()));
-        container.setMini(new MiniCarpet(partie_.getNombreDeJoueurs(),container.getDisplayingTarot().getHoraire(),pseudos_));
+        container.setMini(new MiniCarpet(partie_.getNombreDeJoueurs(),container.getDisplayingTarot().isClockwise(),pseudos_));
         panneau2_.add(container.getMini());
         container.setHandfuls(new ByteMap<JLabel>());
         container.setDeclaredHandfuls(new ByteMap<Panel>());
@@ -161,7 +161,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         Panel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
         /*On place les cartes de l'utilisateur*/
-        for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_,partie_.getDeal().main())) {
+        for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_,partie_.getDeal().hand())) {
             panneau1_.add(c);
         }
         panneau1_.repaint();

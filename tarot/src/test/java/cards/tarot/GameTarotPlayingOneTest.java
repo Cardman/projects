@@ -155,10 +155,10 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
         game.addCurTrick();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         assertEq(0,game.getEntameur());
-        HandTarot hand_ = game.getDistribution().main(game.getEntameur());
+        HandTarot hand_ = game.getDistribution().hand(game.getEntameur());
         EnumMap<Suit,HandTarot> suits_ = hand_.couleurs();
         HandTarot playableCards_ = game.playableCards(suits_);
         assertEq(hand_.total(),playableCards_.total());
@@ -204,10 +204,10 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
         game.addCurTrick();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         assertEq(4,game.getEntameur());
-        HandTarot hand_ = game.getDistribution().main(game.getEntameur());
+        HandTarot hand_ = game.getDistribution().hand(game.getEntameur());
         HandTarot playableCards_ = game.playableCards(hand_.couleurs());
         assertEq(hand_.total(),playableCards_.total());
         assertEq(Suit.UNDEFINED,game.getPliEnCours().couleurDemandee());
@@ -234,14 +234,14 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
         game.addCurTrick();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         game.jouer(game.getPreneur(), CardTarot.EXCUSE);
         game.ajouterUneCarteDansPliEnCours(CardTarot.EXCUSE);
 
         assertEq(4,game.getEntameur());
 
-        HandTarot hand_ = game.getDistribution().main(game.playerAfter(game.getEntameur()));
+        HandTarot hand_ = game.getDistribution().hand(game.playerAfter(game.getEntameur()));
         HandTarot playableCards_ = game.playableCards(hand_.couleurs());
         assertEq(hand_.total(),playableCards_.total());
         assertEq(Suit.UNDEFINED,game.getPliEnCours().couleurDemandee());
@@ -268,11 +268,11 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
         game.addCurTrick();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         assertEq(1,game.getEntameur());
 
-        HandTarot hand_ = game.getDistribution().main(game.getEntameur());
+        HandTarot hand_ = game.getDistribution().hand(game.getEntameur());
         HandTarot playableCards_ = game.playableCards(hand_.couleurs());
         assertEq(hand_.total(),playableCards_.total());
         assertEq(Suit.UNDEFINED,game.getPliEnCours().couleurDemandee());
@@ -299,14 +299,14 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
         game.addCurTrick();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         game.jouer(game.getPreneur(), CardTarot.EXCUSE);
         game.ajouterUneCarteDansPliEnCours(CardTarot.EXCUSE);
 
         assertEq(4,game.getEntameur());
 
-        HandTarot hand_ = game.getDistribution().main(game.playerAfter(game.getEntameur()));
+        HandTarot hand_ = game.getDistribution().hand(game.playerAfter(game.getEntameur()));
         HandTarot playableCards_ = game.playableCards(hand_.couleurs());
         assertEq(hand_.total(),playableCards_.total());
         assertEq(Suit.UNDEFINED,game.getPliEnCours().couleurDemandee());
@@ -333,13 +333,13 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
         game.addCurTrick();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         game.jouer(game.getEntameur(),CardTarot.DIAMOND_3);
         game.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_3);
         assertEq(Suit.DIAMOND,game.getPliEnCours().couleurDemandee());
         byte player_ = game.playerAfter(game.getEntameur());
-        HandTarot hand_ = game.getDistribution().main(player_);
+        HandTarot hand_ = game.getDistribution().hand(player_);
         EnumMap<Suit,HandTarot> suits_ = hand_.couleurs();
         HandTarot playableCards_ = game.playableCards(suits_);
         HandTarot expected_ = suits_.getVal(game.getPliEnCours().couleurDemandee());
@@ -369,13 +369,13 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
         game.addCurTrick();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         game.jouer(game.getEntameur(),CardTarot.DIAMOND_7);
         game.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_7);
         assertEq(Suit.DIAMOND,game.getPliEnCours().couleurDemandee());
         byte player_ = game.playerAfter(game.getEntameur());
-        HandTarot hand_ = game.getDistribution().main(player_);
+        HandTarot hand_ = game.getDistribution().hand(player_);
         EnumMap<Suit,HandTarot> suits_ = hand_.couleurs();
         HandTarot playableCards_ = game.playableCards(suits_);
         HandTarot expected_ = suits_.getVal(Suit.TRUMP);
@@ -404,7 +404,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
         game.addCurTrick();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         CardTarot cardTarot_ = game.strategieJeuCarteUnique();
         assertSame(CardTarot.DIAMOND_7,cardTarot_);
@@ -431,7 +431,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
         game.addCurTrick();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         game.jouer(game.getEntameur(),CardTarot.DIAMOND_7);
         game.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_7);
@@ -443,7 +443,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithoutBids(ModeTarot.ONE_FOR_ONE);
         game = new GameTarot(GameType.RANDOM,initializeHands((byte) 0),regles_);
         //game.resetNbPlisTotal();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         CardTarot cardTarot_ = game.strategieJeuCarteUnique();
         assertSame(CardTarot.HEART_1,cardTarot_);
@@ -453,7 +453,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithoutBids(ModeTarot.ONE_FOR_ONE);
         game = new GameTarot(GameType.RANDOM,initializeHands((byte) 0),regles_);
         //game.resetNbPlisTotal();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         game.jouer(game.getEntameur(),CardTarot.HEART_1);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_1);
@@ -465,7 +465,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithoutBids(ModeTarot.MISERE);
         game = new GameTarot(GameType.RANDOM,initializeHands((byte) 0),regles_);
         //game.resetNbPlisTotal();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         CardTarot cardTarot_ = game.strategieJeuCarteUnique();
         assertSame(CardTarot.TRUMP_7,cardTarot_);
@@ -475,7 +475,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithoutBids(ModeTarot.MISERE);
         game = new GameTarot(GameType.RANDOM,initializeHands((byte) 0),regles_);
         //game.resetNbPlisTotal();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         game.jouer(game.getEntameur(),CardTarot.TRUMP_7);
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_7);
@@ -504,7 +504,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
         game.addCurTrick();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         game.changerConfiance();
         assertTrue(game.confiance((byte)1,(byte)1));
@@ -535,7 +535,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
         game.addCurTrick();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_7);
         game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_5);
@@ -568,7 +568,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
         game.addCurTrick();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_7);
         game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_5);
@@ -602,7 +602,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
         game.addCurTrick();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_7);
         game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_5);
@@ -640,7 +640,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
         game.addCurTrick();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         game.changerConfianceJeuCarteUnique();
         CardTarot cardTarot_ = game.getCarteJoueee();
@@ -651,7 +651,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithoutBids(ModeTarot.MISERE);
         game = new GameTarot(GameType.RANDOM,initializeHands((byte) 0),regles_);
         //game.resetNbPlisTotal();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         game.changerConfianceJeuCarteUnique();
         CardTarot cardTarot_ = game.getCarteJoueee();
@@ -679,7 +679,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
         game.addCurTrick();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_7);
         game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_5);
@@ -714,7 +714,7 @@ public class GameTarotPlayingOneTest extends CommonTarotGame {
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         game.ajouterUneCarteDansPliEnCours(CardTarot.HEART_10);
         game.addCurTrick();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_7);
         game.ajouterUneCarteDansPliEnCours(game.playerHavingToPlay(),CardTarot.TRUMP_5);

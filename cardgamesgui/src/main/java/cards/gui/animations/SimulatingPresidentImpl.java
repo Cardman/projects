@@ -137,7 +137,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         container.setContentPane(contentPane_);
         panneau_=container.getPanneauBoutonsJeu();
         panneau_.add(stopButton);
-        HandPresident notSorted_ = partie_.getDeal().main();
+        HandPresident notSorted_ = partie_.getDeal().hand();
         HandPresident h_ = partie_.mainUtilisateurTriee(notSorted_, container.getDisplayingPresident());
         Panel panneau1_=container.getPanelHand();
         panneau1_.removeAll();

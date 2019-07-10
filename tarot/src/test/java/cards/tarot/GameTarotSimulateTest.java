@@ -18,11 +18,11 @@ public final class GameTarotSimulateTest {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMixedCards(MixCardsChoice.NEVER);
         DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
-        game_.bidSimulate(game_.playerAfter(game_.getDistribution().getDonneur()),s_);
+        game_.bidSimulate(game_.playerAfter(game_.getDistribution().getDealer()),s_);
         assertEq(1,game_.getBids().size());
     }
     @Test
@@ -30,12 +30,12 @@ public final class GameTarotSimulateTest {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMixedCards(MixCardsChoice.NEVER);
         DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         game_.setContrat(game_.allowedBids().last());
-        game_.bidSimulate(game_.playerAfter(game_.getDistribution().getDonneur()),s_);
+        game_.bidSimulate(game_.playerAfter(game_.getDistribution().getDealer()),s_);
         assertEq(0,game_.getBids().size());
     }
 
@@ -47,7 +47,7 @@ public final class GameTarotSimulateTest {
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -69,7 +69,7 @@ public final class GameTarotSimulateTest {
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -91,7 +91,7 @@ public final class GameTarotSimulateTest {
         DealTarot deal_ = deal2((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -115,7 +115,7 @@ public final class GameTarotSimulateTest {
         DealTarot deal_ = deal3((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -133,7 +133,7 @@ public final class GameTarotSimulateTest {
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_WITHOUT, (byte) first_);
@@ -155,7 +155,7 @@ public final class GameTarotSimulateTest {
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_WITHOUT, (byte) first_);
@@ -177,7 +177,7 @@ public final class GameTarotSimulateTest {
         DealTarot deal_ = deal2((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_WITHOUT, (byte) first_);
@@ -201,7 +201,7 @@ public final class GameTarotSimulateTest {
         DealTarot deal_ = deal3((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_WITHOUT, (byte) first_);
@@ -220,7 +220,7 @@ public final class GameTarotSimulateTest {
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -243,7 +243,7 @@ public final class GameTarotSimulateTest {
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -266,7 +266,7 @@ public final class GameTarotSimulateTest {
         DealTarot deal_ = deal2((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -291,7 +291,7 @@ public final class GameTarotSimulateTest {
         DealTarot deal_ = deal3((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -310,7 +310,7 @@ public final class GameTarotSimulateTest {
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_WITHOUT, (byte) first_);
@@ -333,7 +333,7 @@ public final class GameTarotSimulateTest {
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_WITHOUT, (byte) first_);
@@ -356,7 +356,7 @@ public final class GameTarotSimulateTest {
         DealTarot deal_ = deal2((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_WITHOUT, (byte) first_);
@@ -381,7 +381,7 @@ public final class GameTarotSimulateTest {
         DealTarot deal_ = deal3((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_WITHOUT, (byte) first_);
@@ -400,7 +400,7 @@ public final class GameTarotSimulateTest {
         DealTarot deal_ = deal3((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
@@ -416,7 +416,7 @@ public final class GameTarotSimulateTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal3((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -447,7 +447,7 @@ public final class GameTarotSimulateTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal3((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -478,7 +478,7 @@ public final class GameTarotSimulateTest {
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -499,7 +499,7 @@ public final class GameTarotSimulateTest {
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotAbrupt s_ = new SimulatingTarotAbrupt(game_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -520,7 +520,7 @@ public final class GameTarotSimulateTest {
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
@@ -541,7 +541,7 @@ public final class GameTarotSimulateTest {
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);

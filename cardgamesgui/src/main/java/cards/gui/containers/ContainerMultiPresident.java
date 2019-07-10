@@ -243,7 +243,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         placerIhmPresidentMulti(_hand.getStatus(), _hand.getMaxCards());
 
         playerHandPresident = _hand.getCards();
-        playerHandPresident.sortCards(getDisplayingPresident().getDecroissant(), false);
+        playerHandPresident.sortCards(getDisplayingPresident().isDecreasing(), false);
         setCarteEntree(false);
         setCarteSortie(false);
         setCanDiscard(false);
@@ -309,7 +309,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         getGivingCardsOk().setVisibleButton(false);
         setCanPlay(false);
         playerHandPresident.supprimerCartes(getGivenCards());
-        playerHandPresident.sortCards(getDisplayingPresident().getDecroissant(), false);
+        playerHandPresident.sortCards(getDisplayingPresident().isDecreasing(), false);
         updateCardsInPanelPresidentMulti(getPanelHand(), playerHandPresident, false);
         getNoPlay().setVisibleButton(true);
         pack();
@@ -323,7 +323,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     public void refreshLoserHand(ReceivedGivenCards _readObject) {
         playerHandPresident = _readObject.getNewHand();
-        playerHandPresident.sortCards(getDisplayingPresident().getDecroissant(), false);
+        playerHandPresident.sortCards(getDisplayingPresident().isDecreasing(), false);
         updateCardsInPanelPresidentMulti(getPanelHand(), playerHandPresident, false);
         getReceivedCards().supprimerCartes();
         getReceivedCards().ajouterCartes(_readObject.getReceived());
@@ -421,7 +421,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 //            playerHandPresident.supprimerCartes(_card.getPlayedHand());
 //        }
         playerHandPresident.supprimerCartes(_card.getPlayedHand());
-        playerHandPresident.sortCards(getDisplayingPresident().getDecroissant(), _card.isReversed());
+        playerHandPresident.sortCards(getDisplayingPresident().isDecreasing(), _card.isReversed());
         getPanneauBoutonsJeu().removeAll();
         setCanPlay(false);
         getOwner().getTricksHands().setEnabledMenu(false);

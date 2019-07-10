@@ -86,7 +86,7 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
         //boolean entered_ = false;
         for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_numberPlayers;joueur_++) {
             sousPanneau3_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
-            for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,dealt_.main(joueur_))) {
+            for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,dealt_.hand(joueur_))) {
                 sousPanneau3_.add(c);
             }
 //            entered_ = false;
@@ -191,7 +191,7 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
             DealPresident dealt_ = tricksHands.getDistribution();
             for (byte joueur_ = CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
                 Panel sousPanneau4_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
-                for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,dealt_.main(joueur_))) {
+                for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,dealt_.hand(joueur_))) {
                     sousPanneau4_.add(c);
                 }
                 hands.add(sousPanneau4_);
@@ -273,7 +273,7 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
         CustList<TrickPresident> tricks_ = tricksHands.getTricks();
         for (byte joueur_ = CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
             Panel sousPanneau4_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
-            for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,dealt_.main(joueur_))) {
+            for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,dealt_.hand(joueur_))) {
                 sousPanneau4_.add(c);
             }
 //            boolean entered_ = false;
@@ -386,7 +386,7 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
             hands.setLayout(new GridLayout(0,1));
             for(byte joueur_=CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
                 Panel sousPanneau4_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
-                for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,dealt_.main(joueur_))) {
+                for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,dealt_.hand(joueur_))) {
                     sousPanneau4_.add(c);
                 }
                 hands.add(sousPanneau4_);
@@ -471,7 +471,7 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
         hands.setLayout(new GridLayout(0,1));
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
             Panel sousPanneau4_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
-            for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,dealt_.main(joueur_))) {
+            for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,dealt_.hand(joueur_))) {
                 sousPanneau4_.add(c);
             }
 //            boolean entered_ = false;

@@ -38,14 +38,14 @@ public final class GameBeloteDeclaringTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteDeclaring decl_ = new GameBeloteDeclaring(info_,team_,h_,g_.getDeclares());
-        decl_.getDeclares().get(0).getMain().ajouter(CardBelote.HEART_JACK);
-        decl_.getDeclares().get(0).getMain().ajouter(CardBelote.HEART_10);
-        decl_.getDeclares().get(0).getMain().ajouter(CardBelote.HEART_9);
-        decl_.getDeclares().get(1).getMain().ajouter(CardBelote.DIAMOND_JACK);
-        decl_.getDeclares().get(1).getMain().ajouter(CardBelote.DIAMOND_10);
-        decl_.getDeclares().get(1).getMain().ajouter(CardBelote.DIAMOND_9);
+        decl_.getDeclares().get(0).getHand().ajouter(CardBelote.HEART_JACK);
+        decl_.getDeclares().get(0).getHand().ajouter(CardBelote.HEART_10);
+        decl_.getDeclares().get(0).getHand().ajouter(CardBelote.HEART_9);
+        decl_.getDeclares().get(1).getHand().ajouter(CardBelote.DIAMOND_JACK);
+        decl_.getDeclares().get(1).getHand().ajouter(CardBelote.DIAMOND_10);
+        decl_.getDeclares().get(1).getHand().ajouter(CardBelote.DIAMOND_9);
         decl_.annulerAnnonces();
-        assertEq(3,decl_.getDeclares().get(0).getMain().total());
+        assertEq(3,decl_.getDeclares().get(0).getHand().total());
     }
     @Test
     public void annulerAnnonces2Test() {
@@ -75,11 +75,11 @@ public final class GameBeloteDeclaringTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteDeclaring decl_ = new GameBeloteDeclaring(info_,team_,h_,g_.getDeclares());
-        decl_.getDeclares().get(0).getMain().ajouter(CardBelote.HEART_JACK);
-        decl_.getDeclares().get(0).getMain().ajouter(CardBelote.HEART_10);
-        decl_.getDeclares().get(0).getMain().ajouter(CardBelote.HEART_9);
+        decl_.getDeclares().get(0).getHand().ajouter(CardBelote.HEART_JACK);
+        decl_.getDeclares().get(0).getHand().ajouter(CardBelote.HEART_10);
+        decl_.getDeclares().get(0).getHand().ajouter(CardBelote.HEART_9);
         decl_.annulerAnnonces();
-        assertEq(3,decl_.getDeclares().get(0).getMain().total());
+        assertEq(3,decl_.getDeclares().get(0).getHand().total());
     }
     @Test
     public void annulerAnnonces3Test() {
@@ -109,11 +109,11 @@ public final class GameBeloteDeclaringTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteDeclaring decl_ = new GameBeloteDeclaring(info_,team_,h_,g_.getDeclares());
-        decl_.getDeclares().get(1).getMain().ajouter(CardBelote.DIAMOND_JACK);
-        decl_.getDeclares().get(1).getMain().ajouter(CardBelote.DIAMOND_10);
-        decl_.getDeclares().get(1).getMain().ajouter(CardBelote.DIAMOND_9);
+        decl_.getDeclares().get(1).getHand().ajouter(CardBelote.DIAMOND_JACK);
+        decl_.getDeclares().get(1).getHand().ajouter(CardBelote.DIAMOND_10);
+        decl_.getDeclares().get(1).getHand().ajouter(CardBelote.DIAMOND_9);
         decl_.annulerAnnonces();
-        assertEq(3,decl_.getDeclares().get(1).getMain().total());
+        assertEq(3,decl_.getDeclares().get(1).getHand().total());
     }
     @Test
     public void annulerAnnonces4Test() {
@@ -144,7 +144,7 @@ public final class GameBeloteDeclaringTest extends CommonGameBelote {
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteDeclaring decl_ = new GameBeloteDeclaring(info_,team_,h_,g_.getDeclares());
         decl_.annulerAnnonces();
-        assertEq(0,decl_.getDeclares().get(0).getMain().total());
+        assertEq(0,decl_.getDeclares().get(0).getHand().total());
     }
     @Test
     public void annulerAnnonces5Test() {
@@ -174,14 +174,14 @@ public final class GameBeloteDeclaringTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteDeclaring decl_ = new GameBeloteDeclaring(info_,team_,h_,g_.getDeclares());
-        decl_.getDeclares().get(1).getMain().ajouter(CardBelote.HEART_JACK);
-        decl_.getDeclares().get(1).getMain().ajouter(CardBelote.HEART_10);
-        decl_.getDeclares().get(1).getMain().ajouter(CardBelote.HEART_9);
-        decl_.getDeclares().get(0).getMain().ajouter(CardBelote.DIAMOND_JACK);
-        decl_.getDeclares().get(0).getMain().ajouter(CardBelote.DIAMOND_10);
-        decl_.getDeclares().get(0).getMain().ajouter(CardBelote.DIAMOND_9);
+        decl_.getDeclares().get(1).getHand().ajouter(CardBelote.HEART_JACK);
+        decl_.getDeclares().get(1).getHand().ajouter(CardBelote.HEART_10);
+        decl_.getDeclares().get(1).getHand().ajouter(CardBelote.HEART_9);
+        decl_.getDeclares().get(0).getHand().ajouter(CardBelote.DIAMOND_JACK);
+        decl_.getDeclares().get(0).getHand().ajouter(CardBelote.DIAMOND_10);
+        decl_.getDeclares().get(0).getHand().ajouter(CardBelote.DIAMOND_9);
         decl_.annulerAnnonces();
-        assertEq(3,decl_.getDeclares().get(1).getMain().total());
+        assertEq(3,decl_.getDeclares().get(1).getHand().total());
     }
     @Test
     public void annulerAnnonces6Test() {
@@ -211,15 +211,15 @@ public final class GameBeloteDeclaringTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteDeclaring decl_ = new GameBeloteDeclaring(info_,team_,h_,g_.getDeclares());
-        decl_.getDeclares().get(1).getMain().ajouter(CardBelote.CLUB_JACK);
-        decl_.getDeclares().get(1).getMain().ajouter(CardBelote.CLUB_10);
-        decl_.getDeclares().get(1).getMain().ajouter(CardBelote.CLUB_9);
-        decl_.getDeclares().get(0).getMain().ajouter(CardBelote.DIAMOND_JACK);
-        decl_.getDeclares().get(0).getMain().ajouter(CardBelote.DIAMOND_10);
-        decl_.getDeclares().get(0).getMain().ajouter(CardBelote.DIAMOND_9);
+        decl_.getDeclares().get(1).getHand().ajouter(CardBelote.CLUB_JACK);
+        decl_.getDeclares().get(1).getHand().ajouter(CardBelote.CLUB_10);
+        decl_.getDeclares().get(1).getHand().ajouter(CardBelote.CLUB_9);
+        decl_.getDeclares().get(0).getHand().ajouter(CardBelote.DIAMOND_JACK);
+        decl_.getDeclares().get(0).getHand().ajouter(CardBelote.DIAMOND_10);
+        decl_.getDeclares().get(0).getHand().ajouter(CardBelote.DIAMOND_9);
         decl_.annulerAnnonces();
-        assertEq(3,decl_.getDeclares().get(0).getMain().total());
-        assertEq(3,decl_.getDeclares().get(1).getMain().total());
+        assertEq(3,decl_.getDeclares().get(0).getHand().total());
+        assertEq(3,decl_.getDeclares().get(1).getHand().total());
     }
     @Test
     public void annulerAnnonces7Test() {
@@ -249,17 +249,17 @@ public final class GameBeloteDeclaringTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteDeclaring decl_ = new GameBeloteDeclaring(info_,team_,h_,g_.getDeclares());
-        decl_.getDeclares().get(1).getMain().ajouter(CardBelote.CLUB_JACK);
-        decl_.getDeclares().get(1).getMain().ajouter(CardBelote.CLUB_10);
-        decl_.getDeclares().get(1).getMain().ajouter(CardBelote.CLUB_9);
-        decl_.getDeclares().get(0).getMain().ajouter(CardBelote.DIAMOND_JACK);
-        decl_.getDeclares().get(0).getMain().ajouter(CardBelote.DIAMOND_10);
-        decl_.getDeclares().get(0).getMain().ajouter(CardBelote.DIAMOND_9);
-        decl_.getDeclares().get(2).getMain().ajouter(CardBelote.SPADE_JACK);
-        decl_.getDeclares().get(2).getMain().ajouter(CardBelote.SPADE_10);
-        decl_.getDeclares().get(2).getMain().ajouter(CardBelote.SPADE_9);
+        decl_.getDeclares().get(1).getHand().ajouter(CardBelote.CLUB_JACK);
+        decl_.getDeclares().get(1).getHand().ajouter(CardBelote.CLUB_10);
+        decl_.getDeclares().get(1).getHand().ajouter(CardBelote.CLUB_9);
+        decl_.getDeclares().get(0).getHand().ajouter(CardBelote.DIAMOND_JACK);
+        decl_.getDeclares().get(0).getHand().ajouter(CardBelote.DIAMOND_10);
+        decl_.getDeclares().get(0).getHand().ajouter(CardBelote.DIAMOND_9);
+        decl_.getDeclares().get(2).getHand().ajouter(CardBelote.SPADE_JACK);
+        decl_.getDeclares().get(2).getHand().ajouter(CardBelote.SPADE_10);
+        decl_.getDeclares().get(2).getHand().ajouter(CardBelote.SPADE_9);
         decl_.annulerAnnonces();
-        assertEq(3,decl_.getDeclares().get(0).getMain().total());
+        assertEq(3,decl_.getDeclares().get(0).getHand().total());
     }
     @Test
     public void annulerAnnonces8Test() {
@@ -289,16 +289,16 @@ public final class GameBeloteDeclaringTest extends CommonGameBelote {
         GameBeloteTeamsRelation team_ = g_.getTeamsRelation();
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(g_);
         GameBeloteDeclaring decl_ = new GameBeloteDeclaring(info_,team_,h_,g_.getDeclares());
-        decl_.getDeclares().get(1).getMain().ajouter(CardBelote.CLUB_JACK);
-        decl_.getDeclares().get(1).getMain().ajouter(CardBelote.CLUB_10);
-        decl_.getDeclares().get(1).getMain().ajouter(CardBelote.CLUB_9);
-        decl_.getDeclares().get(3).getMain().ajouter(CardBelote.SPADE_JACK);
-        decl_.getDeclares().get(3).getMain().ajouter(CardBelote.SPADE_10);
-        decl_.getDeclares().get(3).getMain().ajouter(CardBelote.SPADE_9);
-        decl_.getDeclares().get(0).getMain().ajouter(CardBelote.DIAMOND_JACK);
-        decl_.getDeclares().get(0).getMain().ajouter(CardBelote.DIAMOND_10);
-        decl_.getDeclares().get(0).getMain().ajouter(CardBelote.DIAMOND_9);
+        decl_.getDeclares().get(1).getHand().ajouter(CardBelote.CLUB_JACK);
+        decl_.getDeclares().get(1).getHand().ajouter(CardBelote.CLUB_10);
+        decl_.getDeclares().get(1).getHand().ajouter(CardBelote.CLUB_9);
+        decl_.getDeclares().get(3).getHand().ajouter(CardBelote.SPADE_JACK);
+        decl_.getDeclares().get(3).getHand().ajouter(CardBelote.SPADE_10);
+        decl_.getDeclares().get(3).getHand().ajouter(CardBelote.SPADE_9);
+        decl_.getDeclares().get(0).getHand().ajouter(CardBelote.DIAMOND_JACK);
+        decl_.getDeclares().get(0).getHand().ajouter(CardBelote.DIAMOND_10);
+        decl_.getDeclares().get(0).getHand().ajouter(CardBelote.DIAMOND_9);
         decl_.annulerAnnonces();
-        assertEq(3,decl_.getDeclares().get(1).getMain().total());
+        assertEq(3,decl_.getDeclares().get(1).getHand().total());
     }
 }

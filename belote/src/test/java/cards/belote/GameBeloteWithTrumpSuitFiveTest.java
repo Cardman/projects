@@ -13,7 +13,6 @@ import cards.consts.GameType;
 import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
 import code.util.EnumMap;
-import code.util.EqList;
 
 public class GameBeloteWithTrumpSuitFiveTest extends GameBeloteWithTrumpSuit {
 
@@ -72,18 +71,18 @@ public class GameBeloteWithTrumpSuitFiveTest extends GameBeloteWithTrumpSuit {
         biddingTrumpSuit(game_,BidBelote.OTHER_SUIT,Suit.HEART);
         game_.setPliEnCours();
         assertEq(3, game_.getEntameur());
-        HandBelote hand_ = game_.getDistribution().main(game_.getEntameur());
+        HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.SPADE_1));
         game_.getDistribution().jouer(game_.getEntameur(),CardBelote.SPADE_1);
         game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_1);
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
-        hand_ = game_.getDistribution().main(player_);
+        hand_ = game_.getDistribution().hand(player_);
         assertTrue(hand_.contient(CardBelote.SPADE_9));
         game_.getDistribution().jouer(player_,CardBelote.SPADE_9);
         game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_9);
         player_ = game_.playerAfter(player_);
-        hand_ = game_.getDistribution().main(player_);
+        hand_ = game_.getDistribution().hand(player_);
         EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
         HandBelote trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote playableCards_ = game_.playableCards(suits_);
@@ -100,18 +99,18 @@ public class GameBeloteWithTrumpSuitFiveTest extends GameBeloteWithTrumpSuit {
         biddingTrumpSuit(game_,BidBelote.OTHER_SUIT,Suit.HEART);
         game_.setPliEnCours();
         assertEq(3, game_.getEntameur());
-        HandBelote hand_ = game_.getDistribution().main(game_.getEntameur());
+        HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.SPADE_1));
         game_.getDistribution().jouer(game_.getEntameur(),CardBelote.SPADE_1);
         game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_1);
         assertNotSame(game_.couleurAtout(), game_.getPliEnCours().couleurDemandee());
         byte player_ = game_.playerAfter(game_.getEntameur());
-        hand_ = game_.getDistribution().main(player_);
+        hand_ = game_.getDistribution().hand(player_);
         assertTrue(hand_.contient(CardBelote.SPADE_9));
         game_.getDistribution().jouer(player_,CardBelote.SPADE_9);
         game_.ajouterUneCarteDansPliEnCours(CardBelote.SPADE_9);
         player_ = game_.playerAfter(player_);
-        hand_ = game_.getDistribution().main(player_);
+        hand_ = game_.getDistribution().hand(player_);
         EnumMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getContrat());
         HandBelote trumps_ = suits_.getVal(game_.couleurAtout());
         HandBelote playableCards_ = game_.playableCards(suits_);

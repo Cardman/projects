@@ -33,30 +33,6 @@ public final class DisplayingBelote {
             }
         }
     }
-    public boolean getHoraire() {
-        return clockwise;
-    }
-    public void setHoraire(boolean _horaire) {
-        clockwise = _horaire;
-    }
-    public EnumList<Suit> getCouleurs() {
-        return suits;
-    }
-    public void setCouleurs(EnumList<Suit> _couleurs) {
-        suits = _couleurs;
-    }
-    public boolean getDecroissant() {
-        return decreasing;
-    }
-    public void setDecroissant(boolean _decroissant) {
-        decreasing = _decroissant;
-    }
-    public Order getOrdreAvantEncheres() {
-        return orderBeforeBids;
-    }
-    public void setOrdreAvantEncheres(Order _ordreAvantEncheres) {
-        orderBeforeBids = _ordreAvantEncheres;
-    }
     public boolean isClockwise() {
         return clockwise;
     }

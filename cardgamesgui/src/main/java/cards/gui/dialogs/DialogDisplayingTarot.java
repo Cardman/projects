@@ -81,7 +81,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         panneau_.add(new JLabel(messages.getVal(WISE)));
         //Panneau Distribution
         checkClockwise=new JCheckBox(messages.getVal(CLOCK_WISE));
-        checkClockwise.setSelected(displayingTarot.getHoraire());
+        checkClockwise.setSelected(displayingTarot.isClockwise());
         panneau_.add(checkClockwise);
         getJt().add(messages.getVal(DEALING),panneau_);
         //Panneau Tri
@@ -115,10 +115,10 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         bouton_.addMouseListener(new RemoveSuitEvent(this, _window));
         sousPanneauTwo_.add(bouton_);
         sortByDecreasing=new JCheckBox(messages.getVal(SORT_DECREASING));
-        sortByDecreasing.setSelected(displayingTarot.getDecroissant());
+        sortByDecreasing.setSelected(displayingTarot.isDecreasing());
         sousPanneauTwo_.add(sortByDecreasing);
         sousPanneau_.add(sousPanneauTwo_);
-        for (Suit chaine_:displayingTarot.getCouleurs()) {
+        for (Suit chaine_:displayingTarot.getSuits()) {
             liste_.add(chaine_);
         }
         orderedSuits=new SuitsScrollableList(liste_,5, _window);
@@ -162,9 +162,9 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
             ConfirmDialog.showMessage(this, messages.getVal(ERROR_SUITS), messages.getVal(ERROR_SUITS_TITLE), getMain().getLanguageKey(), JOptionPane.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(this,messages.getVal(ERROR_SUITS),messages.getVal(ERROR_SUITS_TITLE),JOptionPane.ERROR_MESSAGE);
         } else {
-            displayingTarot.setHoraire(checkClockwise.isSelected());
-            displayingTarot.setCouleurs(new EnumList<Suit>(orderedSuits.getCouleurs()));
-            displayingTarot.setDecroissant(sortByDecreasing.isSelected());
+            displayingTarot.setClockwise(checkClockwise.isSelected());
+            displayingTarot.setSuits(new EnumList<Suit>(orderedSuits.getCouleurs()));
+            displayingTarot.setDecreasing(sortByDecreasing.isSelected());
             closeWindow();
         }
 

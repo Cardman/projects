@@ -179,9 +179,9 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         liste.addItem(getMessages().getVal(RANDOM));
         panneau_.add(liste);
         c.add(panneau_,BorderLayout.NORTH);
-        pile_.trier(displayingTarot.getCouleurs(), displayingTarot.getDecroissant());
+        pile_.trier(displayingTarot.getSuits(), displayingTarot.isDecreasing());
         TarotCardsScrollableList plc_=new TarotCardsScrollableList(nbCartesPJ_,pile_.total(),getMessages().getVal(DEALING_STACK));
-        plc_.setTriTarot(displayingTarot.getCouleurs(), displayingTarot.getDecroissant());
+        plc_.setTriTarot(displayingTarot.getSuits(), displayingTarot.isDecreasing());
         plc_.iniPileTarot(pile_);
         plc_.initSelectionCarteTarot(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
@@ -191,7 +191,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         plc_=new TarotCardsScrollableList(nbCartesPJ_,nbCartesPJ_,getMessages().getVal(USER_HAND));
         plc_.initSelectionCarteTarot(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
-        plc_.setTriTarot(displayingTarot.getCouleurs(), displayingTarot.getDecroissant());
+        plc_.setTriTarot(displayingTarot.getSuits(), displayingTarot.isDecreasing());
         panelsCards.add(plc_);
         hands.clear();
         hands.add(plc_);
@@ -208,7 +208,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
             plc_=new TarotCardsScrollableList(nbCartesPJ_,nbCartesPJ_,message_);
             plc_.initSelectionCarteTarot(_parent);
             plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
-            plc_.setTriTarot(displayingTarot.getCouleurs(), displayingTarot.getDecroissant());
+            plc_.setTriTarot(displayingTarot.getSuits(), displayingTarot.isDecreasing());
             panelsCards.add(plc_);
             hands.add(plc_);
 //            i_++;
@@ -216,7 +216,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         plc_=new TarotCardsScrollableList(nbCartesC_,nbCartesC_,getMessages().getVal(REMAINING));
         plc_.initSelectionCarteTarot(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
-        plc_.setTriTarot(displayingTarot.getCouleurs(), displayingTarot.getDecroissant());
+        plc_.setTriTarot(displayingTarot.getSuits(), displayingTarot.isDecreasing());
         panelsCards.add(plc_);
         dog = plc_;
         panneau_=new Panel();
@@ -303,7 +303,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 //            plc_=(TarotCardsScrollableList)panelsCards.getComponent(i);
             HandTarot m=new HandTarot();
             m.ajouterCartes(((TarotCardsScrollableList) l).valMainTarot());
-            m.trier(displayingTarot.getCouleurs(), displayingTarot.getDecroissant());
+            m.trier(displayingTarot.getSuits(), displayingTarot.isDecreasing());
             mains_.add(m);
         }
 //        nombreDeJoueurs_=nombreDeMains_-1;

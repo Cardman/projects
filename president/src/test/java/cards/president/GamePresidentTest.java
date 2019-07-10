@@ -8,7 +8,6 @@ import cards.consts.GameType;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import cards.president.enumerations.Playing;
-import code.util.EqList;
 import code.util.*;
 
 
@@ -467,7 +466,7 @@ public class GamePresidentTest {
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
-        HandPresident hPl_ = g_.getDistribution().main((byte) 1);
+        HandPresident hPl_ = g_.getDistribution().hand((byte) 1);
         HandPresident playable_ = g_.cartesJouables((byte) 1, hPl_);
         assertEq(13, playable_.total());
     }
@@ -485,7 +484,7 @@ public class GamePresidentTest {
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        HandPresident hPl_ = g_.getDistribution().main((byte) 2);
+        HandPresident hPl_ = g_.getDistribution().hand((byte) 2);
         HandPresident playable_ = g_.cartesJouables((byte) 2, hPl_);
         playable_.sortCards(false, g_.isReversed());
         assertEq(7, playable_.total());
@@ -511,7 +510,7 @@ public class GamePresidentTest {
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        HandPresident hPl_ = g_.getDistribution().main((byte) 2);
+        HandPresident hPl_ = g_.getDistribution().hand((byte) 2);
         HandPresident playable_ = g_.cartesJouables((byte) 2, hPl_);
         playable_.sortCards(false, g_.isReversed());
         assertEq(8, playable_.total());
@@ -538,7 +537,7 @@ public class GamePresidentTest {
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        HandPresident hPl_ = g_.getDistribution().main((byte) 2);
+        HandPresident hPl_ = g_.getDistribution().hand((byte) 2);
         HandPresident playable_ = g_.cartesJouables((byte) 2, hPl_);
         playable_.sortCards(false, g_.isReversed());
         assertEq(8, playable_.total());
@@ -568,7 +567,7 @@ public class GamePresidentTest {
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
-        HandPresident hPl_ = g_.getDistribution().main((byte) 3);
+        HandPresident hPl_ = g_.getDistribution().hand((byte) 3);
         HandPresident playable_ = g_.cartesJouables((byte) 3, hPl_);
         playable_.sortCards(false, g_.isReversed());
         assertEq(0, playable_.total());
@@ -590,7 +589,7 @@ public class GamePresidentTest {
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
-        HandPresident hPl_ = g_.getDistribution().main((byte) 3);
+        HandPresident hPl_ = g_.getDistribution().hand((byte) 3);
         HandPresident playable_ = g_.cartesJouables((byte) 3, hPl_);
         playable_.sortCards(false, g_.isReversed());
         assertEq(1, playable_.total());
@@ -625,7 +624,7 @@ public class GamePresidentTest {
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_KING);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
-        HandPresident hPl_ = g_.getDistribution().main((byte) 3);
+        HandPresident hPl_ = g_.getDistribution().hand((byte) 3);
         HandPresident playable_ = g_.cartesJouables((byte) 3, hPl_);
         playable_.sortCards(false, g_.isReversed());
         assertEq(0, playable_.total());
@@ -659,7 +658,7 @@ public class GamePresidentTest {
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_KING);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
-        HandPresident hPl_ = g_.getDistribution().main((byte) 3);
+        HandPresident hPl_ = g_.getDistribution().hand((byte) 3);
         HandPresident playable_ = g_.cartesJouables((byte) 3, hPl_);
         playable_.sortCards(false, g_.isReversed());
         assertEq(0, playable_.total());
@@ -693,7 +692,7 @@ public class GamePresidentTest {
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_KING);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
-        HandPresident hPl_ = g_.getDistribution().main((byte) 3);
+        HandPresident hPl_ = g_.getDistribution().hand((byte) 3);
         HandPresident playable_ = g_.cartesJouables((byte) 3, hPl_);
         playable_.sortCards(false, g_.isReversed());
         assertEq(0, playable_.total());
@@ -738,7 +737,7 @@ public class GamePresidentTest {
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         assertTrue(g_.canPass((byte) 2));
     }
 
@@ -755,7 +754,7 @@ public class GamePresidentTest {
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         assertTrue(!g_.canPass((byte) 2));
     }
 
@@ -773,7 +772,7 @@ public class GamePresidentTest {
         played_.ajouter(CardPresident.SPADE_1);
         played_.ajouter(CardPresident.CLUB_1);
         g_.getProgressingTrick().ajouter(played_, (byte) 3);
-        g_.getDistribution().main((byte) 3).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 3).supprimerCartes(played_);
         assertTrue(g_.canPass((byte) 0));
     }
 
@@ -792,104 +791,104 @@ public class GamePresidentTest {
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_3);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_3);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
-        g_.getDistribution().main((byte) 2).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 2).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.DIAMOND_3);
         g_.getProgressingTrick().ajouter(played_, (byte) 3);
-        g_.getDistribution().main((byte) 3).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 3).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_3);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 0);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_4);
         played_.ajouter(CardPresident.DIAMOND_4);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_4);
         played_.ajouter(CardPresident.HEART_4);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 1);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
-        g_.getDistribution().main((byte) 2).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 2).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.DIAMOND_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 3);
-        g_.getDistribution().main((byte) 3).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 3).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 0);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.DIAMOND_8);
         played_.ajouter(CardPresident.HEART_8);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_8);
         played_.ajouter(CardPresident.CLUB_8);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 1);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_9);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_9);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
-        g_.getDistribution().main((byte) 2).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 2).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.DIAMOND_9);
         g_.getProgressingTrick().ajouter(played_, (byte) 3);
-        g_.getDistribution().main((byte) 3).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 3).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_9);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 0);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_10);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_10);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_10);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
-        g_.getDistribution().main((byte) 2).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 2).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.DIAMOND_10);
         g_.getProgressingTrick().ajouter(played_, (byte) 3);
-        g_.getDistribution().main((byte) 3).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 3).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 3);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_QUEEN);
         played_.ajouter(CardPresident.DIAMOND_QUEEN);
         g_.getProgressingTrick().ajouter(played_, (byte) 3);
-        g_.getDistribution().main((byte) 3).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 3).supprimerCartes(played_);
         played_ = new HandPresident();
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
         played_ = new HandPresident();
@@ -898,31 +897,31 @@ public class GamePresidentTest {
         played_.ajouter(CardPresident.SPADE_QUEEN);
         played_.ajouter(CardPresident.CLUB_QUEEN);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
-        g_.getDistribution().main((byte) 2).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 2).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 2);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_KING);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
-        g_.getDistribution().main((byte) 2).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 2).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.DIAMOND_KING);
         g_.getProgressingTrick().ajouter(played_, (byte) 3);
-        g_.getDistribution().main((byte) 3).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 3).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_KING);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_KING);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 1);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_1);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         played_ = new HandPresident();
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
         played_ = new HandPresident();
@@ -930,7 +929,7 @@ public class GamePresidentTest {
         played_ = new HandPresident();
         played_.ajouter(CardPresident.DIAMOND_1);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         played_ = new HandPresident();
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
         played_ = new HandPresident();
@@ -940,14 +939,14 @@ public class GamePresidentTest {
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_2);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 0);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_JACK);
         played_.ajouter(CardPresident.SPADE_JACK);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         assertTrue(g_.canPass((byte) 1));
     }
 
@@ -966,104 +965,104 @@ public class GamePresidentTest {
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_3);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_3);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
-        g_.getDistribution().main((byte) 2).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 2).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.DIAMOND_3);
         g_.getProgressingTrick().ajouter(played_, (byte) 3);
-        g_.getDistribution().main((byte) 3).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 3).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_3);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 0);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_4);
         played_.ajouter(CardPresident.DIAMOND_4);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_4);
         played_.ajouter(CardPresident.HEART_4);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 1);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
-        g_.getDistribution().main((byte) 2).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 2).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.DIAMOND_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 3);
-        g_.getDistribution().main((byte) 3).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 3).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 0);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.DIAMOND_8);
         played_.ajouter(CardPresident.HEART_8);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_8);
         played_.ajouter(CardPresident.CLUB_8);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 1);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_9);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_9);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
-        g_.getDistribution().main((byte) 2).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 2).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.DIAMOND_9);
         g_.getProgressingTrick().ajouter(played_, (byte) 3);
-        g_.getDistribution().main((byte) 3).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 3).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_9);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 0);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_10);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_10);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_10);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
-        g_.getDistribution().main((byte) 2).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 2).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.DIAMOND_10);
         g_.getProgressingTrick().ajouter(played_, (byte) 3);
-        g_.getDistribution().main((byte) 3).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 3).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 3);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_QUEEN);
         played_.ajouter(CardPresident.DIAMOND_QUEEN);
         g_.getProgressingTrick().ajouter(played_, (byte) 3);
-        g_.getDistribution().main((byte) 3).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 3).supprimerCartes(played_);
         played_ = new HandPresident();
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
         played_ = new HandPresident();
@@ -1072,31 +1071,31 @@ public class GamePresidentTest {
         played_.ajouter(CardPresident.SPADE_QUEEN);
         played_.ajouter(CardPresident.CLUB_QUEEN);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
-        g_.getDistribution().main((byte) 2).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 2).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 2);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_KING);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
-        g_.getDistribution().main((byte) 2).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 2).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.DIAMOND_KING);
         g_.getProgressingTrick().ajouter(played_, (byte) 3);
-        g_.getDistribution().main((byte) 3).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 3).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_KING);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_KING);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 1);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_1);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         played_ = new HandPresident();
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
         played_ = new HandPresident();
@@ -1104,7 +1103,7 @@ public class GamePresidentTest {
         played_ = new HandPresident();
         played_.ajouter(CardPresident.DIAMOND_1);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         played_ = new HandPresident();
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
         played_ = new HandPresident();
@@ -1114,14 +1113,14 @@ public class GamePresidentTest {
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_2);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 0);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_JACK);
         played_.ajouter(CardPresident.SPADE_JACK);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         assertTrue(!g_.canPass((byte) 1));
     }
 
@@ -1140,104 +1139,104 @@ public class GamePresidentTest {
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_3);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_3);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
-        g_.getDistribution().main((byte) 2).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 2).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.DIAMOND_3);
         g_.getProgressingTrick().ajouter(played_, (byte) 3);
-        g_.getDistribution().main((byte) 3).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 3).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_3);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 0);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_4);
         played_.ajouter(CardPresident.DIAMOND_4);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_4);
         played_.ajouter(CardPresident.HEART_4);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 1);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
-        g_.getDistribution().main((byte) 2).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 2).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.DIAMOND_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 3);
-        g_.getDistribution().main((byte) 3).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 3).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 0);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.DIAMOND_8);
         played_.ajouter(CardPresident.HEART_8);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_8);
         played_.ajouter(CardPresident.CLUB_8);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 1);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_9);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_9);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
-        g_.getDistribution().main((byte) 2).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 2).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.DIAMOND_9);
         g_.getProgressingTrick().ajouter(played_, (byte) 3);
-        g_.getDistribution().main((byte) 3).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 3).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_9);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 0);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_10);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_10);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_10);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
-        g_.getDistribution().main((byte) 2).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 2).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.DIAMOND_10);
         g_.getProgressingTrick().ajouter(played_, (byte) 3);
-        g_.getDistribution().main((byte) 3).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 3).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 3);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_QUEEN);
         played_.ajouter(CardPresident.DIAMOND_QUEEN);
         g_.getProgressingTrick().ajouter(played_, (byte) 3);
-        g_.getDistribution().main((byte) 3).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 3).supprimerCartes(played_);
         played_ = new HandPresident();
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
         played_ = new HandPresident();
@@ -1246,37 +1245,37 @@ public class GamePresidentTest {
         played_.ajouter(CardPresident.SPADE_QUEEN);
         played_.ajouter(CardPresident.CLUB_QUEEN);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
-        g_.getDistribution().main((byte) 2).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 2).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 2);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_KING);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
-        g_.getDistribution().main((byte) 2).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 2).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.DIAMOND_KING);
         g_.getProgressingTrick().ajouter(played_, (byte) 3);
-        g_.getDistribution().main((byte) 3).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 3).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.SPADE_KING);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.CLUB_KING);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 1);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.DIAMOND_2);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 1);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_1);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
-        g_.getDistribution().main((byte) 1).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 1).supprimerCartes(played_);
         played_ = new HandPresident();
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
         played_ = new HandPresident();
@@ -1284,7 +1283,7 @@ public class GamePresidentTest {
         played_ = new HandPresident();
         played_.ajouter(CardPresident.DIAMOND_1);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         played_ = new HandPresident();
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
         played_ = new HandPresident();
@@ -1293,7 +1292,7 @@ public class GamePresidentTest {
         g_.getProgressingTrick().ajouter(played_, (byte) 3);
         played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_2);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
         g_.getTricks().add(g_.getProgressingTrick());
         g_.initializeTrick((byte) 0);
@@ -1301,7 +1300,7 @@ public class GamePresidentTest {
         played_.ajouter(CardPresident.CLUB_JACK);
         played_.ajouter(CardPresident.SPADE_JACK);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
-        g_.getDistribution().main((byte) 0).supprimerCartes(played_);
+        g_.getDistribution().hand((byte) 0).supprimerCartes(played_);
         assertTrue(!g_.canPass((byte) 1));
     }
 
@@ -1523,7 +1522,7 @@ public class GamePresidentTest {
         assertEq(1, g_.getProgressingTrick().total());
         assertEq(1, g_.getProgressingTrick().carte(0).total());
         assertEq(CardPresident.CLUB_7, g_.getProgressingTrick().carte(0).carte(0));
-        assertEq(12, g_.getDistribution().main((byte) 1).total());
+        assertEq(12, g_.getDistribution().hand((byte) 1).total());
     }
 
     @Test
@@ -1549,7 +1548,7 @@ public class GamePresidentTest {
         assertEq(CardPresident.SPADE_2, g_.unionPlis().get(0).carte(1).carte(0));
         assertEq(2, g_.getProgressingTrick().getEntameur());
         assertEq(0, g_.getProgressingTrick().total());
-        assertEq(12, g_.getDistribution().main((byte) 2).total());
+        assertEq(12, g_.getDistribution().hand((byte) 2).total());
     }
 
     @Test
@@ -1573,7 +1572,7 @@ public class GamePresidentTest {
         assertEq(CardPresident.CLUB_7, g_.getProgressingTrick().carte(0).carte(0));
         assertEq(1, g_.getProgressingTrick().carte(1).total());
         assertEq(CardPresident.HEART_9, g_.getProgressingTrick().carte(1).carte(0));
-        assertEq(12, g_.getDistribution().main((byte) 2).total());
+        assertEq(12, g_.getDistribution().hand((byte) 2).total());
     }
 
     @Test
@@ -1602,7 +1601,7 @@ public class GamePresidentTest {
         assertEq(2, g_.getProgressingTrick().carte(1).total());
         assertEq(CardPresident.SPADE_4, g_.getProgressingTrick().carte(1).carte(0));
         assertEq(CardPresident.HEART_4, g_.getProgressingTrick().carte(1).carte(1));
-        assertEq(11, g_.getDistribution().main((byte) 1).total());
+        assertEq(11, g_.getDistribution().hand((byte) 1).total());
         assertTrue(!g_.isReversed());
     }
 
@@ -1634,7 +1633,7 @@ public class GamePresidentTest {
         assertEq(2, g_.unionPlis().get(0).carte(1).total());
         assertEq(CardPresident.SPADE_4, g_.unionPlis().get(0).carte(1).carte(0));
         assertEq(CardPresident.HEART_4, g_.unionPlis().get(0).carte(1).carte(1));
-        assertEq(11, g_.getDistribution().main((byte) 1).total());
+        assertEq(11, g_.getDistribution().hand((byte) 1).total());
         assertTrue(!g_.isReversed());
     }
 
@@ -1664,7 +1663,7 @@ public class GamePresidentTest {
         assertEq(CardPresident.DIAMOND_4, g_.unionPlis().get(0).carte(0).carte(1));
         assertEq(CardPresident.SPADE_4, g_.unionPlis().get(0).carte(0).carte(2));
         assertEq(CardPresident.HEART_4, g_.unionPlis().get(0).carte(0).carte(3));
-        assertEq(9, g_.getDistribution().main((byte) 0).total());
+        assertEq(9, g_.getDistribution().hand((byte) 0).total());
         assertTrue(!g_.isReversed());
     }
 
@@ -1694,7 +1693,7 @@ public class GamePresidentTest {
         assertEq(CardPresident.DIAMOND_4, g_.unionPlis().get(0).carte(0).carte(1));
         assertEq(CardPresident.SPADE_4, g_.unionPlis().get(0).carte(0).carte(2));
         assertEq(CardPresident.HEART_4, g_.unionPlis().get(0).carte(0).carte(3));
-        assertEq(9, g_.getDistribution().main((byte) 0).total());
+        assertEq(9, g_.getDistribution().hand((byte) 0).total());
         assertTrue(g_.isReversed());
     }
 
@@ -1725,7 +1724,7 @@ public class GamePresidentTest {
         assertEq(2, g_.getProgressingTrick().carte(1).total());
         assertEq(CardPresident.SPADE_4, g_.getProgressingTrick().carte(1).carte(0));
         assertEq(CardPresident.HEART_4, g_.getProgressingTrick().carte(1).carte(1));
-        assertEq(11, g_.getDistribution().main((byte) 1).total());
+        assertEq(11, g_.getDistribution().hand((byte) 1).total());
         assertTrue(!g_.isReversed());
     }
 
@@ -1758,7 +1757,7 @@ public class GamePresidentTest {
         assertEq(2, g_.unionPlis().get(0).carte(1).total());
         assertEq(CardPresident.SPADE_4, g_.unionPlis().get(0).carte(1).carte(0));
         assertEq(CardPresident.HEART_4, g_.unionPlis().get(0).carte(1).carte(1));
-        assertEq(11, g_.getDistribution().main((byte) 1).total());
+        assertEq(11, g_.getDistribution().hand((byte) 1).total());
         assertTrue(!g_.isReversed());
     }
 
@@ -1800,7 +1799,7 @@ public class GamePresidentTest {
         assertEq(CardPresident.DIAMOND_8, g_.unionPlis().get(1).carte(0).carte(1));
         assertEq(CardPresident.SPADE_8, g_.unionPlis().get(1).carte(0).carte(2));
         assertEq(CardPresident.HEART_8, g_.unionPlis().get(1).carte(0).carte(3));
-        assertEq(5, g_.getDistribution().main((byte) 0).total());
+        assertEq(5, g_.getDistribution().hand((byte) 0).total());
         assertTrue(!g_.isReversed());
     }
 
@@ -1826,7 +1825,7 @@ public class GamePresidentTest {
         assertEq(1, g_.getProgressingTrick().carte(0).total());
         assertEq(CardPresident.CLUB_3, g_.getProgressingTrick().carte(0).carte(0));
         assertEq(0, g_.getProgressingTrick().carte(1).total());
-        assertEq(13, g_.getDistribution().main((byte) 1).total());
+        assertEq(13, g_.getDistribution().hand((byte) 1).total());
         assertTrue(!g_.isReversed());
     }
 
@@ -1856,7 +1855,7 @@ public class GamePresidentTest {
         assertEq(CardPresident.CLUB_3, g_.getProgressingTrick().carte(0).carte(0));
         assertEq(0, g_.getProgressingTrick().carte(1).total());
         assertEq(0, g_.getProgressingTrick().carte(2).total());
-        assertEq(13, g_.getDistribution().main((byte) 2).total());
+        assertEq(13, g_.getDistribution().hand((byte) 2).total());
         assertTrue(!g_.isReversed());
     }
 
@@ -1892,7 +1891,7 @@ public class GamePresidentTest {
         assertEq(0, g_.unionPlis().get(0).carte(1).total());
         assertEq(0, g_.unionPlis().get(0).carte(2).total());
         assertEq(0, g_.unionPlis().get(0).carte(3).total());
-        assertEq(13, g_.getDistribution().main((byte) 3).total());
+        assertEq(13, g_.getDistribution().hand((byte) 3).total());
         assertTrue(!g_.isReversed());
     }
 
@@ -1997,7 +1996,7 @@ public class GamePresidentTest {
         assertEq(0, g_.unionPlis().get(7).carte(0).total());
 //        assertEq(0, g_.unionPlis().get(7).carte(1).total());
         assertEq(Playing.FINISH, g_.getStatus((byte) 0));
-        assertEq(0, g_.getDistribution().main((byte) 0).total());
+        assertEq(0, g_.getDistribution().hand((byte) 0).total());
         assertTrue(!g_.isReversed());
     }
 
@@ -2017,7 +2016,7 @@ public class GamePresidentTest {
         assertEq(1, g_.getProgressingTrick().total());
         assertEq(1, g_.getProgressingTrick().carte(0).total());
         assertEq(CardPresident.CLUB_7, g_.getProgressingTrick().carte(0).carte(0));
-        assertEq(12, g_.getDistribution().main((byte) 1).total());
+        assertEq(12, g_.getDistribution().hand((byte) 1).total());
         assertEq(2, g_.getNextPlayer());
         assertEq(2, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 1));
@@ -2047,7 +2046,7 @@ public class GamePresidentTest {
         assertEq(CardPresident.SPADE_2, g_.unionPlis().get(0).carte(1).carte(0));
         assertEq(2, g_.getProgressingTrick().getEntameur());
         assertEq(0, g_.getProgressingTrick().total());
-        assertEq(12, g_.getDistribution().main((byte) 2).total());
+        assertEq(12, g_.getDistribution().hand((byte) 2).total());
         assertEq(2, g_.getNextPlayer());
         assertEq(4, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 0));
@@ -2077,7 +2076,7 @@ public class GamePresidentTest {
         assertEq(CardPresident.CLUB_7, g_.getProgressingTrick().carte(0).carte(0));
         assertEq(1, g_.getProgressingTrick().carte(1).total());
         assertEq(CardPresident.HEART_9, g_.getProgressingTrick().carte(1).carte(0));
-        assertEq(12, g_.getDistribution().main((byte) 2).total());
+        assertEq(12, g_.getDistribution().hand((byte) 2).total());
         assertEq(3, g_.getNextPlayer());
         assertEq(2, g_.getLastStatus().size());
         assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte) 2));
@@ -2111,7 +2110,7 @@ public class GamePresidentTest {
         assertEq(CardPresident.SPADE_4, g_.getProgressingTrick().carte(1).carte(0));
         assertEq(CardPresident.HEART_4, g_.getProgressingTrick().carte(1).carte(1));
         assertEq(0, g_.getProgressingTrick().carte(2).total());
-        assertEq(11, g_.getDistribution().main((byte) 1).total());
+        assertEq(11, g_.getDistribution().hand((byte) 1).total());
         assertTrue(!g_.isReversed());
         assertEq(3, g_.getNextPlayer());
         assertEq(3, g_.getLastStatus().size());
@@ -2148,7 +2147,7 @@ public class GamePresidentTest {
         assertEq(2, g_.unionPlis().get(0).carte(1).total());
         assertEq(CardPresident.SPADE_4, g_.unionPlis().get(0).carte(1).carte(0));
         assertEq(CardPresident.HEART_4, g_.unionPlis().get(0).carte(1).carte(1));
-        assertEq(11, g_.getDistribution().main((byte) 1).total());
+        assertEq(11, g_.getDistribution().hand((byte) 1).total());
         assertTrue(!g_.isReversed());
         assertEq(1, g_.getNextPlayer());
         assertEq(4, g_.getLastStatus().size());
@@ -2184,7 +2183,7 @@ public class GamePresidentTest {
         assertEq(CardPresident.DIAMOND_4, g_.unionPlis().get(0).carte(0).carte(1));
         assertEq(CardPresident.SPADE_4, g_.unionPlis().get(0).carte(0).carte(2));
         assertEq(CardPresident.HEART_4, g_.unionPlis().get(0).carte(0).carte(3));
-        assertEq(9, g_.getDistribution().main((byte) 0).total());
+        assertEq(9, g_.getDistribution().hand((byte) 0).total());
         assertTrue(!g_.isReversed());
         assertEq(0, g_.getNextPlayer());
         assertEq(4, g_.getLastStatus().size());
@@ -2220,7 +2219,7 @@ public class GamePresidentTest {
         assertEq(CardPresident.DIAMOND_4, g_.unionPlis().get(0).carte(0).carte(1));
         assertEq(CardPresident.SPADE_4, g_.unionPlis().get(0).carte(0).carte(2));
         assertEq(CardPresident.HEART_4, g_.unionPlis().get(0).carte(0).carte(3));
-        assertEq(9, g_.getDistribution().main((byte) 0).total());
+        assertEq(9, g_.getDistribution().hand((byte) 0).total());
         assertTrue(g_.isReversed());
         assertEq(0, g_.getNextPlayer());
         assertEq(4, g_.getLastStatus().size());
@@ -2258,7 +2257,7 @@ public class GamePresidentTest {
         assertEq(CardPresident.SPADE_4, g_.getProgressingTrick().carte(1).carte(0));
         assertEq(CardPresident.HEART_4, g_.getProgressingTrick().carte(1).carte(1));
         assertEq(0, g_.getProgressingTrick().carte(2).total());
-        assertEq(11, g_.getDistribution().main((byte) 1).total());
+        assertEq(11, g_.getDistribution().hand((byte) 1).total());
         assertTrue(!g_.isReversed());
         assertEq(3, g_.getNextPlayer());
         assertEq(3, g_.getLastStatus().size());
@@ -2296,7 +2295,7 @@ public class GamePresidentTest {
         assertEq(2, g_.unionPlis().get(0).carte(1).total());
         assertEq(CardPresident.SPADE_4, g_.unionPlis().get(0).carte(1).carte(0));
         assertEq(CardPresident.HEART_4, g_.unionPlis().get(0).carte(1).carte(1));
-        assertEq(11, g_.getDistribution().main((byte) 1).total());
+        assertEq(11, g_.getDistribution().hand((byte) 1).total());
         assertTrue(!g_.isReversed());
         assertEq(1, g_.getNextPlayer());
         assertEq(4, g_.getLastStatus().size());
@@ -2344,7 +2343,7 @@ public class GamePresidentTest {
         assertEq(CardPresident.DIAMOND_8, g_.unionPlis().get(1).carte(0).carte(1));
         assertEq(CardPresident.SPADE_8, g_.unionPlis().get(1).carte(0).carte(2));
         assertEq(CardPresident.HEART_8, g_.unionPlis().get(1).carte(0).carte(3));
-        assertEq(5, g_.getDistribution().main((byte) 0).total());
+        assertEq(5, g_.getDistribution().hand((byte) 0).total());
         assertTrue(!g_.isReversed());
         assertEq(0, g_.getNextPlayer());
         assertEq(4, g_.getLastStatus().size());
@@ -2375,7 +2374,7 @@ public class GamePresidentTest {
         assertEq(1, g_.getProgressingTrick().carte(0).total());
         assertEq(CardPresident.CLUB_3, g_.getProgressingTrick().carte(0).carte(0));
         assertEq(0, g_.getProgressingTrick().carte(1).total());
-        assertEq(13, g_.getDistribution().main((byte) 1).total());
+        assertEq(13, g_.getDistribution().hand((byte) 1).total());
         assertTrue(!g_.isReversed());
         assertEq(2, g_.getNextPlayer());
         assertEq(2, g_.getLastStatus().size());
@@ -2407,7 +2406,7 @@ public class GamePresidentTest {
         assertEq(CardPresident.CLUB_3, g_.getProgressingTrick().carte(0).carte(0));
         assertEq(0, g_.getProgressingTrick().carte(1).total());
         assertEq(0, g_.getProgressingTrick().carte(2).total());
-        assertEq(13, g_.getDistribution().main((byte) 2).total());
+        assertEq(13, g_.getDistribution().hand((byte) 2).total());
         assertTrue(!g_.isReversed());
         assertEq(3, g_.getNextPlayer());
         assertEq(2, g_.getLastStatus().size());
@@ -2444,7 +2443,7 @@ public class GamePresidentTest {
         assertEq(0, g_.unionPlis().get(0).carte(1).total());
         assertEq(0, g_.unionPlis().get(0).carte(2).total());
         assertEq(0, g_.unionPlis().get(0).carte(3).total());
-        assertEq(13, g_.getDistribution().main((byte) 3).total());
+        assertEq(13, g_.getDistribution().hand((byte) 3).total());
         assertTrue(!g_.isReversed());
         assertEq(0, g_.getNextPlayer());
         assertEq(4, g_.getLastStatus().size());
@@ -2527,7 +2526,7 @@ public class GamePresidentTest {
         assertEq(0, g_.unionPlis().get(7).carte(0).total());
 //        assertEq(0, g_.unionPlis().get(7).carte(1).total());
         assertEq(Playing.FINISH, g_.getStatus((byte) 0));
-        assertEq(0, g_.getDistribution().main((byte) 0).total());
+        assertEq(0, g_.getDistribution().hand((byte) 0).total());
         assertTrue(!g_.isReversed());
         assertEq(1, g_.getNextPlayer());
         assertEq(4, g_.getLastStatus().size());
@@ -2568,7 +2567,7 @@ public class GamePresidentTest {
         assertEq(CardPresident.HEART_4, g_.getProgressingTrick().carte(1).carte(1));
         assertEq(0, g_.getProgressingTrick().carte(2).total());
         assertEq(0, g_.getProgressingTrick().carte(3).total());
-        assertEq(11, g_.getDistribution().main((byte) 1).total());
+        assertEq(11, g_.getDistribution().hand((byte) 1).total());
         assertTrue(!g_.isReversed());
         assertEq(0, g_.getNextPlayer());
         assertEq(2, g_.getLastStatus().size());
@@ -2602,7 +2601,7 @@ public class GamePresidentTest {
         assertEq(1, g_.getProgressingTrick().carte(1).total());
         assertEq(CardPresident.HEART_3, g_.getProgressingTrick().carte(1).carte(0));
         assertEq(0, g_.getProgressingTrick().carte(2).total());
-        assertEq(13, g_.getDistribution().main((byte) 3).total());
+        assertEq(13, g_.getDistribution().hand((byte) 3).total());
         assertTrue(!g_.isReversed());
         assertEq(0, g_.getNextPlayer());
         assertEq(2, g_.getLastStatus().size());
@@ -2633,7 +2632,7 @@ public class GamePresidentTest {
         assertEq(CardPresident.SPADE_3, g_.getProgressingTrick().carte(0).carte(0));
         assertEq(1, g_.getProgressingTrick().carte(1).total());
         assertEq(CardPresident.HEART_3, g_.getProgressingTrick().carte(1).carte(0));
-        assertEq(12, g_.getDistribution().main((byte) 2).total());
+        assertEq(12, g_.getDistribution().hand((byte) 2).total());
         assertTrue(!g_.isReversed());
         assertEq(3, g_.getNextPlayer());
         assertEq(2, g_.getLastStatus().size());
@@ -2677,8 +2676,8 @@ public class GamePresidentTest {
         assertEq(1, g_.getProgressingTrick().carte(4).total());
         assertEq(CardPresident.CLUB_7, g_.getProgressingTrick().carte(4).carte(0));
         assertEq(0, g_.getProgressingTrick().carte(5).total());
-        assertEq(11, g_.getDistribution().main((byte) 1).total());
-        assertEq(13, g_.getDistribution().main((byte) 2).total());
+        assertEq(11, g_.getDistribution().hand((byte) 1).total());
+        assertEq(13, g_.getDistribution().hand((byte) 2).total());
         assertTrue(!g_.isReversed());
         assertEq(3, g_.getNextPlayer());
         assertEq(2, g_.getLastStatus().size());
@@ -2784,10 +2783,10 @@ public class GamePresidentTest {
         //
         assertEq(2, g_.getProgressingTrick().getEntameur());
         assertEq(0, g_.getProgressingTrick().total());
-        assertEq(0, g_.getDistribution().main((byte) 0).total());
-        assertEq(0, g_.getDistribution().main((byte) 1).total());
-        assertEq(13, g_.getDistribution().main((byte) 2).total());
-        assertEq(13, g_.getDistribution().main((byte) 3).total());
+        assertEq(0, g_.getDistribution().hand((byte) 0).total());
+        assertEq(0, g_.getDistribution().hand((byte) 1).total());
+        assertEq(13, g_.getDistribution().hand((byte) 2).total());
+        assertEq(13, g_.getDistribution().hand((byte) 3).total());
         assertTrue(!g_.isReversed());
         assertEq(2, g_.getNextPlayer());
         assertEq(4, g_.getLastStatus().size());
@@ -2913,10 +2912,10 @@ public class GamePresidentTest {
         //
         assertEq(1, g_.getProgressingTrick().getEntameur());
         assertEq(8, g_.getProgressingTrick().total());
-        assertEq(3, g_.getDistribution().main((byte) 0).total());
-        assertEq(3, g_.getDistribution().main((byte) 1).total());
-        assertEq(6, g_.getDistribution().main((byte) 2).total());
-        assertEq(6, g_.getDistribution().main((byte) 3).total());
+        assertEq(3, g_.getDistribution().hand((byte) 0).total());
+        assertEq(3, g_.getDistribution().hand((byte) 1).total());
+        assertEq(6, g_.getDistribution().hand((byte) 2).total());
+        assertEq(6, g_.getDistribution().hand((byte) 3).total());
         assertTrue(!g_.isReversed());
         assertEq(1, g_.getNextPlayer());
         assertEq(2, g_.getLastStatus().size());
@@ -2950,7 +2949,7 @@ public class GamePresidentTest {
         assertEq(2, g_.getProgressingTrick().carte(1).total());
         assertEq(CardPresident.SPADE_4, g_.getProgressingTrick().carte(1).carte(0));
         assertEq(CardPresident.HEART_4, g_.getProgressingTrick().carte(1).carte(1));
-        assertEq(11, g_.getDistribution().main((byte) 1).total());
+        assertEq(11, g_.getDistribution().hand((byte) 1).total());
         assertTrue(!g_.isReversed());
         assertEq(2, g_.getNextPlayer());
         assertEq(2, g_.getLastStatus().size());

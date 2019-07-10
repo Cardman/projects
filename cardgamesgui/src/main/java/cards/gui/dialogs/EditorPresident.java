@@ -186,9 +186,9 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         liste.addItem(getMessages().getVal(RANDOM));
         panneau_.add(liste);
         c.add(panneau_,BorderLayout.NORTH);
-        pile_.sortCards(displayingPresident.getDecroissant(), false);
+        pile_.sortCards(displayingPresident.isDecreasing(), false);
         PresidentCardsScrollableList plc_=new PresidentCardsScrollableList(nbCartesPJ_,pile_.total(),getMessages().getVal(DEALING_STACK));
-        plc_.setTriPresident(displayingPresident.getCouleurs(), displayingPresident.getDecroissant());
+        plc_.setTriPresident(displayingPresident.getSuits(), displayingPresident.isDecreasing());
         plc_.iniPilePresident(pile_);
         plc_.initSelectionCartePresident(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
@@ -198,7 +198,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         plc_=new PresidentCardsScrollableList(nbCartesPJ_,nbCartesPJ_,getMessages().getVal(USER_HAND));
         plc_.initSelectionCartePresident(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
-        plc_.setTriPresident(displayingPresident.getCouleurs(), displayingPresident.getDecroissant());
+        plc_.setTriPresident(displayingPresident.getSuits(), displayingPresident.isDecreasing());
         panelsCards.add(plc_);
         hands.clear();
         hands.add(plc_);
@@ -216,7 +216,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
             plc_=new PresidentCardsScrollableList(nbCartesPJ_,nbCartesPJ_,message_);
             plc_.initSelectionCartePresident(_parent);
             plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
-            plc_.setTriPresident(displayingPresident.getCouleurs(), displayingPresident.getDecroissant());
+            plc_.setTriPresident(displayingPresident.getSuits(), displayingPresident.isDecreasing());
             panelsCards.add(plc_);
             hands.add(plc_);
 //            i_++;
@@ -299,7 +299,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         for(CardsScrollableList l: hands_) {
             HandPresident m=new HandPresident();
             m.ajouterCartes(((PresidentCardsScrollableList) l).valMainPresident());
-            m.sortCards(displayingPresident.getDecroissant(), false);
+            m.sortCards(displayingPresident.isDecreasing(), false);
             mains_.add(m);
         }
         nombreDeJoueurs_=hands_.size();

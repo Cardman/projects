@@ -3,15 +3,11 @@ import cards.consts.Suit;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
 import code.util.*;
 
 final class BeloteInfoPliEnCours {
 
-    private HandBelote playableCards;
-    private HandBelote cardsToBePlayed;
     private Bytes joueursNonJoue;
-    private Bytes joueursJoue;
     private CustList<TrickBelote> plisFaits;
     private TrickBelote progressingTrick;
     private HandBelote cartesJouees;
@@ -25,7 +21,6 @@ final class BeloteInfoPliEnCours {
     private EnumList<Suit> strictCouleursMaitresses;
     private EnumMap<Suit,HandBelote> cartesMaitresses;
     private boolean maitreJeu;
-    private EnumList<Suit> coupesFranches;
     private BidBeloteSuit contrat;
     private Bytes joueursConfiance;
     private Bytes joueursNonConfiance;
@@ -35,36 +30,12 @@ final class BeloteInfoPliEnCours {
     BeloteInfoPliEnCours() {
     }
 
-    public HandBelote getCartesJouables() {
-        return playableCards;
-    }
-
-    public void setCartesJouables(HandBelote _cartesJouables) {
-        playableCards = _cartesJouables;
-    }
-
-    public HandBelote getCartesAJouer() {
-        return cardsToBePlayed;
-    }
-
-    public void setCartesAJouer(HandBelote _cartesAJouer) {
-        cardsToBePlayed = _cartesAJouer;
-    }
-
     public Bytes getJoueursNonJoue() {
         return joueursNonJoue;
     }
 
     public void setJoueursNonJoue(Bytes _joueursNonJoue) {
         joueursNonJoue = _joueursNonJoue;
-    }
-
-    public Bytes getJoueursJoue() {
-        return joueursJoue;
-    }
-
-    public void setJoueursJoue(Bytes _joueursJoue) {
-        joueursJoue = _joueursJoue;
     }
 
     public CustList<TrickBelote> getPlisFaits() {
@@ -169,14 +140,6 @@ final class BeloteInfoPliEnCours {
 
     public void setMaitreJeu(boolean _maitreJeu) {
         maitreJeu = _maitreJeu;
-    }
-
-    public EnumList<Suit> getCoupesFranches() {
-        return coupesFranches;
-    }
-
-    public void setCoupesFranches(EnumList<Suit> _coupesFranches) {
-        coupesFranches = _coupesFranches;
     }
 
     public BidBeloteSuit getContrat() {

@@ -18,7 +18,7 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         tricksHands_.setTricks(game_.unionPlis(), game_.getNombreDeJoueurs());
         DisplayingTarot displaying_ = new DisplayingTarot();
         displaying_.validate();
-        displaying_.getCouleurs().clear();
+        displaying_.getSuits().clear();
         displaying_ = new DisplayingTarot(displaying_);
         displaying_.validate();
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
@@ -238,10 +238,10 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restoreHandsAtSelectedNumberedTrick(displaying_,(byte)3, (byte) 0);
         assertEq(4, tricksHands_.getDistribution().nombreDeMains());
-        assertEq(24, tricksHands_.getDistribution().main((byte) 0).total());
-        assertEq(24, tricksHands_.getDistribution().main((byte) 1).total());
-        assertEq(24, tricksHands_.getDistribution().main((byte) 2).total());
-        assertEq(6, tricksHands_.getDistribution().main((byte) 3).total());
+        assertEq(24, tricksHands_.getDistribution().hand((byte) 0).total());
+        assertEq(24, tricksHands_.getDistribution().hand((byte) 1).total());
+        assertEq(24, tricksHands_.getDistribution().hand((byte) 2).total());
+        assertEq(6, tricksHands_.getDistribution().hand((byte) 3).total());
     }
 
     @Test
@@ -255,10 +255,10 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restoreHandsAtSelectedNumberedTrick(displaying_,(byte)3, (byte) 1);
         assertEq(4, tricksHands_.getDistribution().nombreDeMains());
-        assertEq(23, tricksHands_.getDistribution().main((byte) 0).total());
-        assertEq(23, tricksHands_.getDistribution().main((byte) 1).total());
-        assertEq(23, tricksHands_.getDistribution().main((byte) 2).total());
-        assertEq(6, tricksHands_.getDistribution().main((byte) 3).total());
+        assertEq(23, tricksHands_.getDistribution().hand((byte) 0).total());
+        assertEq(23, tricksHands_.getDistribution().hand((byte) 1).total());
+        assertEq(23, tricksHands_.getDistribution().hand((byte) 2).total());
+        assertEq(6, tricksHands_.getDistribution().hand((byte) 3).total());
     }
 
     @Test
@@ -272,10 +272,10 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restoreHandsAtSelectedNumberedTrick(displaying_,(byte)3, (byte) 2);
         assertEq(4, tricksHands_.getDistribution().nombreDeMains());
-        assertEq(22, tricksHands_.getDistribution().main((byte) 0).total());
-        assertEq(22, tricksHands_.getDistribution().main((byte) 1).total());
-        assertEq(22, tricksHands_.getDistribution().main((byte) 2).total());
-        assertEq(6, tricksHands_.getDistribution().main((byte) 3).total());
+        assertEq(22, tricksHands_.getDistribution().hand((byte) 0).total());
+        assertEq(22, tricksHands_.getDistribution().hand((byte) 1).total());
+        assertEq(22, tricksHands_.getDistribution().hand((byte) 2).total());
+        assertEq(6, tricksHands_.getDistribution().hand((byte) 3).total());
     }
     @Test
     public void restoreHandsAtSelectedNumberedTrick4Test() {
@@ -288,10 +288,10 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restoreHandsAtSelectedNumberedTrick(displaying_,(byte)3, (byte) -1);
         assertEq(4, tricksHands_.getDistribution().nombreDeMains());
-        assertEq(24, tricksHands_.getDistribution().main((byte) 0).total());
-        assertEq(24, tricksHands_.getDistribution().main((byte) 1).total());
-        assertEq(24, tricksHands_.getDistribution().main((byte) 2).total());
-        assertEq(6, tricksHands_.getDistribution().main((byte) 3).total());
+        assertEq(24, tricksHands_.getDistribution().hand((byte) 0).total());
+        assertEq(24, tricksHands_.getDistribution().hand((byte) 1).total());
+        assertEq(24, tricksHands_.getDistribution().hand((byte) 2).total());
+        assertEq(6, tricksHands_.getDistribution().hand((byte) 3).total());
     }
     @Test
     public void restoreHandsAtSelectedNumberedTrick5Test() {
@@ -304,10 +304,10 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restoreHandsAtSelectedNumberedTrick(displaying_,(byte)3, (byte) 0);
         assertEq(4, tricksHands_.getDistribution().nombreDeMains());
-        assertEq(24, tricksHands_.getDistribution().main((byte) 0).total());
-        assertEq(24, tricksHands_.getDistribution().main((byte) 1).total());
-        assertEq(24, tricksHands_.getDistribution().main((byte) 2).total());
-        assertEq(6, tricksHands_.getDistribution().main((byte) 3).total());
+        assertEq(24, tricksHands_.getDistribution().hand((byte) 0).total());
+        assertEq(24, tricksHands_.getDistribution().hand((byte) 1).total());
+        assertEq(24, tricksHands_.getDistribution().hand((byte) 2).total());
+        assertEq(6, tricksHands_.getDistribution().hand((byte) 3).total());
     }
     @Test
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard1Test() {
@@ -320,10 +320,10 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restoreHandsAtSelectedNumberedTrickWithSelectedCard(displaying_,(byte)3, (byte) 0, (byte) 0);
         assertEq(4, tricksHands_.getDistribution().nombreDeMains());
-        assertEq(24, tricksHands_.getDistribution().main((byte) 0).total());
-        assertEq(24, tricksHands_.getDistribution().main((byte) 1).total());
-        assertEq(24, tricksHands_.getDistribution().main((byte) 2).total());
-        assertEq(6, tricksHands_.getDistribution().main((byte) 3).total());
+        assertEq(24, tricksHands_.getDistribution().hand((byte) 0).total());
+        assertEq(24, tricksHands_.getDistribution().hand((byte) 1).total());
+        assertEq(24, tricksHands_.getDistribution().hand((byte) 2).total());
+        assertEq(6, tricksHands_.getDistribution().hand((byte) 3).total());
     }
     @Test
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard2Test() {
@@ -336,10 +336,10 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restoreHandsAtSelectedNumberedTrickWithSelectedCard(displaying_,(byte)3, (byte) 1, (byte) 1);
         assertEq(4, tricksHands_.getDistribution().nombreDeMains());
-        assertEq(23, tricksHands_.getDistribution().main((byte) 0).total());
-        assertEq(23, tricksHands_.getDistribution().main((byte) 1).total());
-        assertEq(24, tricksHands_.getDistribution().main((byte) 2).total());
-        assertEq(6, tricksHands_.getDistribution().main((byte) 3).total());
+        assertEq(23, tricksHands_.getDistribution().hand((byte) 0).total());
+        assertEq(23, tricksHands_.getDistribution().hand((byte) 1).total());
+        assertEq(24, tricksHands_.getDistribution().hand((byte) 2).total());
+        assertEq(6, tricksHands_.getDistribution().hand((byte) 3).total());
     }
     @Test
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard3Test() {
@@ -352,10 +352,10 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restoreHandsAtSelectedNumberedTrickWithSelectedCard(displaying_,(byte)3, (byte) 2, (byte) 1);
         assertEq(4, tricksHands_.getDistribution().nombreDeMains());
-        assertEq(22, tricksHands_.getDistribution().main((byte) 0).total());
-        assertEq(22, tricksHands_.getDistribution().main((byte) 1).total());
-        assertEq(23, tricksHands_.getDistribution().main((byte) 2).total());
-        assertEq(6, tricksHands_.getDistribution().main((byte) 3).total());
+        assertEq(22, tricksHands_.getDistribution().hand((byte) 0).total());
+        assertEq(22, tricksHands_.getDistribution().hand((byte) 1).total());
+        assertEq(23, tricksHands_.getDistribution().hand((byte) 2).total());
+        assertEq(6, tricksHands_.getDistribution().hand((byte) 3).total());
     }
     @Test
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard4Test() {
@@ -368,10 +368,10 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restoreHandsAtSelectedNumberedTrickWithSelectedCard(displaying_,(byte)3, (byte) -1, (byte) 0);
         assertEq(4, tricksHands_.getDistribution().nombreDeMains());
-        assertEq(24, tricksHands_.getDistribution().main((byte) 0).total());
-        assertEq(24, tricksHands_.getDistribution().main((byte) 1).total());
-        assertEq(24, tricksHands_.getDistribution().main((byte) 2).total());
-        assertEq(6, tricksHands_.getDistribution().main((byte) 3).total());
+        assertEq(24, tricksHands_.getDistribution().hand((byte) 0).total());
+        assertEq(24, tricksHands_.getDistribution().hand((byte) 1).total());
+        assertEq(24, tricksHands_.getDistribution().hand((byte) 2).total());
+        assertEq(6, tricksHands_.getDistribution().hand((byte) 3).total());
     }
     @Test
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard5Test() {
@@ -384,10 +384,10 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         tricksHands_.sortHands(displaying_, game_.getNombreDeJoueurs());
         tricksHands_.restoreHandsAtSelectedNumberedTrickWithSelectedCard(displaying_,(byte)3, (byte) 0, (byte) 0);
         assertEq(4, tricksHands_.getDistribution().nombreDeMains());
-        assertEq(24, tricksHands_.getDistribution().main((byte) 0).total());
-        assertEq(24, tricksHands_.getDistribution().main((byte) 1).total());
-        assertEq(24, tricksHands_.getDistribution().main((byte) 2).total());
-        assertEq(6, tricksHands_.getDistribution().main((byte) 3).total());
+        assertEq(24, tricksHands_.getDistribution().hand((byte) 0).total());
+        assertEq(24, tricksHands_.getDistribution().hand((byte) 1).total());
+        assertEq(24, tricksHands_.getDistribution().hand((byte) 2).total());
+        assertEq(6, tricksHands_.getDistribution().hand((byte) 3).total());
     }
     GameTarot newSimpleDeal() {
         RulesTarot rules_ = new RulesTarot();

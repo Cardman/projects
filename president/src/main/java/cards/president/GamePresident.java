@@ -147,16 +147,16 @@ public final class GamePresident {
         HandPresident userHand_ = new HandPresident();
         int noDeal_ = CustList.SIZE_EMPTY;
         while (noDeal_ < _nbTimes) {
-            HandPresident firstUserHand_ = new HandPresident(deal.main());
+            HandPresident firstUserHand_ = new HandPresident(deal.hand());
             initCartesEchanges();
             donnerMeilleuresCartes();
-            HandPresident secondUserHand_ = new HandPresident(deal.main());
+            HandPresident secondUserHand_ = new HandPresident(deal.hand());
             giveWorstCards();
             CustList<HandPresident> switchedCards_ = new CustList<HandPresident>();
             for (HandPresident p: switchedCards) {
                 switchedCards_.add(new HandPresident(p));
             }
-            HandPresident thirdUserHand_ = new HandPresident(deal.main());
+            HandPresident thirdUserHand_ = new HandPresident(deal.hand());
             if (availableSwitchingCards()) {
                 Bytes losers_ = GamePresident.getLoosers(ranks, nombresCartesEchangesMax());
                 Bytes winners_ = GamePresident.getWinners(ranks, nombresCartesEchangesMax());
@@ -457,7 +457,7 @@ public final class GamePresident {
         int ind_= getLoosers().indexOfObj(_joueur);
         int nbCards_ = nombresCartesEchangesMax() - ind_;
         HandPresident copie_=new HandPresident();
-        copie_.ajouterCartes(getDistribution().main(_joueur));
+        copie_.ajouterCartes(getDistribution().hand(_joueur));
         copie_.sortCardsBegin();
         for(byte i=0;i<nbCards_;i++) {
             switchedCards.get(_joueur).ajouter(copie_.carte(i));
@@ -467,7 +467,7 @@ public final class GamePresident {
     public void recevoirMeilleuresCartes(byte _joueur) {
         int ind_= getWinners().indexOfObj(_joueur);
         byte pl_ = getLoosers().get(ind_);
-        getDistribution().main(_joueur).ajouterCartes(switchedCards.get(pl_));
+        getDistribution().hand(_joueur).ajouterCartes(switchedCards.get(pl_));
     }
 
     void receiveAndClear() {
@@ -480,14 +480,14 @@ public final class GamePresident {
     public void recevoirPiresCartes(byte _joueur) {
         int ind_= getLoosers().indexOfObj(_joueur);
         byte pl_ = getWinners().get(ind_);
-        getDistribution().main(_joueur).ajouterCartes(switchedCards.get(pl_));
+        getDistribution().hand(_joueur).ajouterCartes(switchedCards.get(pl_));
     }
 
     public void supprimerDons() {
         int nbPl_ = getNombreDeJoueurs();
         for (byte i = 0; i < nbPl_; i++) {
             HandPresident h_ = switchedCards.get(i);
-            getDistribution().main(i).supprimerCartes(h_);
+            getDistribution().hand(i).supprimerCartes(h_);
         }
     }
 
@@ -498,14 +498,14 @@ public final class GamePresident {
         for (byte w: getWinners()) {
             int ind_= getWinners().indexOfObj(w);
             byte pl_ = getLoosers().get(ind_);
-            getDistribution().main(w).supprimerCartes(switchedCards.get(pl_));
-            getDistribution().main(w).ajouterCartes(switchedCards.get(w));
+            getDistribution().hand(w).supprimerCartes(switchedCards.get(pl_));
+            getDistribution().hand(w).ajouterCartes(switchedCards.get(w));
         }
         for (byte l: getLoosers()) {
             int ind_= getLoosers().indexOfObj(l);
             byte pl_ = getWinners().get(ind_);
-            getDistribution().main(l).supprimerCartes(switchedCards.get(pl_));
-            getDistribution().main(l).ajouterCartes(switchedCards.get(l));
+            getDistribution().hand(l).supprimerCartes(switchedCards.get(pl_));
+            getDistribution().hand(l).ajouterCartes(switchedCards.get(l));
         }
         for (HandPresident h: switchedCards) {
             h.supprimerCartes();
@@ -516,7 +516,7 @@ public final class GamePresident {
     la main a donner a l'avant dernier joueur ayant fini la derniere partie si ce joueur est le vice-president*/
     public HandPresident strategieEchange(byte _joueur) {
         HandPresident h_ = new HandPresident();
-        HandPresident hPlayer_= getDistribution().main(_joueur);
+        HandPresident hPlayer_= getDistribution().hand(_joueur);
         byte gifts_ =(byte) (nombresCartesEchangesMax() - getWinners().indexOfObj(_joueur));
         //0 == h_.total() < gifts_
         CustList<HandPresident> rep_ = getCardsSortedByLengthSortedByStrength(hPlayer_);
@@ -609,7 +609,7 @@ public final class GamePresident {
         byte nbPlayers_ = getNombreDeJoueurs();
         if (progressingTrick.estVide()) {
             for (byte p = CustList.FIRST_INDEX; p < nbPlayers_; p++) {
-                passOrFinish.set(p, getDistribution().main(p).estVide());
+                passOrFinish.set(p, getDistribution().hand(p).estVide());
                 if (passOrFinish.get(p)) {
                     lastStatus.put(p, Playing.FINISH);
                 } else {
@@ -652,7 +652,7 @@ public final class GamePresident {
         if (!_hand.estVide()) {
             lastStatus.put(_player, Playing.CAN_PLAY);
         }
-        if (getDistribution().main(_player).total() == _hand.total()) {
+        if (getDistribution().hand(_player).total() == _hand.total()) {
             lastStatus.put(_player, Playing.FINISH);
             passOrFinish.set(_player, true);
         }
@@ -685,7 +685,7 @@ public final class GamePresident {
             }
         }
         progressingTrick.ajouter(_hand, _player);
-        getDistribution().main(_player).supprimerCartes(_hand);
+        getDistribution().hand(_player).supprimerCartes(_hand);
         reverseStrength(_hand);
         if (!keepPlayingCurrentTrick()) {
             tricks.add(progressingTrick);
@@ -716,30 +716,30 @@ public final class GamePresident {
         byte win_ = progressingTrick.getRamasseur(getNombreDeJoueurs());
         tricks.add(progressingTrick);
         addEmptyTrick(win_);
-        progressingTrick.ajouter(new HandPresident(getDistribution().main(p_)), p_);
+        progressingTrick.ajouter(new HandPresident(getDistribution().hand(p_)), p_);
         tricks.add(progressingTrick);
-        getDistribution().main(p_).supprimerCartes();
+        getDistribution().hand(p_).supprimerCartes();
         progressingTrick = new TrickPresident(p_);
     }
 
     private void finishDirectlyTrick(byte _player, HandPresident _hand) {
         progressingTrick.ajouter(_hand, _player);
-        getDistribution().main(_player).supprimerCartes(_hand);
+        getDistribution().hand(_player).supprimerCartes(_hand);
         tricks.add(progressingTrick);
         byte nb_ = getNombreDeJoueurs();
         for (byte p = CustList.FIRST_INDEX; p < nb_; p++) {
-            passOrFinish.set(p, getDistribution().main(p).estVide());
+            passOrFinish.set(p, getDistribution().hand(p).estVide());
         }
         addEmptyTrick(_player);
         reverseStrength(_hand);
     }
 
     private void addEmptyTrick(byte _player) {
-        if (getDistribution().main(_player).estVide()) {
+        if (getDistribution().hand(_player).estVide()) {
             progressingTrick = new TrickPresident(_player);
             byte pl_ = _player;
             for (byte p: rules.getSortedPlayersAfterEq(_player)) {
-                if (getDistribution().main(p).estVide()) {
+                if (getDistribution().hand(p).estVide()) {
                     progressingTrick.ajouter(new HandPresident(), p);
                 } else {
                     pl_ = p;
@@ -763,7 +763,7 @@ public final class GamePresident {
         byte nbPlayers_ = getNombreDeJoueurs();
         Bytes l_ = new Bytes();
         for (byte p = CustList.FIRST_INDEX; p < nbPlayers_; p++) {
-            if (!getDistribution().main(p).estVide()) {
+            if (!getDistribution().hand(p).estVide()) {
                 l_.add(p);
             }
         }
@@ -791,7 +791,7 @@ public final class GamePresident {
 
     public boolean canPass(byte _player) {
         HandPresident playable_ = cartesJouables(_player);
-        HandPresident full_ = deal.main(_player);
+        HandPresident full_ = deal.hand(_player);
         return GamePresidentProg.canPass(playable_, rules, progressingTrick, full_, reversed);
     }
 
@@ -807,12 +807,12 @@ public final class GamePresident {
     }
 
     private HandPresident playHand(byte _player, CardPresident _card, byte _nb) {
-        HandPresident main_ = getDistribution().main(_player);
+        HandPresident main_ = getDistribution().hand(_player);
         return GamePresidentCommon.playHand(_card, _nb, main_, reversed, progressingTrick);
     }
 
     HandPresident cartesJouables(byte _player) {
-        return cartesJouables(_player, getDistribution().main(_player));
+        return cartesJouables(_player, getDistribution().hand(_player));
     }
 
     HandPresident cartesJouables(byte _player, HandPresident _hand) {
@@ -825,7 +825,7 @@ public final class GamePresident {
 
 
     public Playing getStatus(byte _player) {
-        if (getDistribution().main(_player).estVide()) {
+        if (getDistribution().hand(_player).estVide()) {
             return Playing.FINISH;
         }
         if (passOrFinish.get(_player)) {
@@ -893,7 +893,7 @@ public final class GamePresident {
         BooleanList l_ = new BooleanList();
         byte nbPlayer_ = getNombreDeJoueurs();
         for (byte p = CustList.FIRST_INDEX; p < nbPlayer_; p++) {
-            if (getDistribution().main(p).estVide()) {
+            if (getDistribution().hand(p).estVide()) {
                 l_.add(true);
             } else {
                 l_.add(false);
@@ -951,7 +951,7 @@ public final class GamePresident {
     private HandPresident progressTrick() {
         int count_ = progressingTrick.total();
         byte player_ = progressingTrick.getPlayer(count_, getNombreDeJoueurs());
-        HandPresident fullHand_ = deal.main(player_);
+        HandPresident fullHand_ = deal.hand(player_);
         HandPresident playable_ = cartesJouables(player_);
         GamePresidentProg g_ = new GamePresidentProg(progressingTrick,tricks,reversed,rules,playable_,fullHand_);
         return g_.progressTrick();
@@ -973,27 +973,27 @@ public final class GamePresident {
 
     public HandPresident mainUtilisateurTriee(DisplayingPresident _regles) {
         HandPresident main_ = new HandPresident();
-        main_.ajouterCartes(getDistribution().main());
-        main_.sortCards(_regles.getDecroissant(), reversed);
+        main_.ajouterCartes(getDistribution().hand());
+        main_.sortCards(_regles.isDecreasing(), reversed);
         return main_;
     }
 
     public HandPresident mainUtilisateurTriee(HandPresident _hand,DisplayingPresident _regles) {
         HandPresident main_ = new HandPresident();
         main_.ajouterCartes(_hand);
-        main_.sortCards(_regles.getDecroissant(), reversed);
+        main_.sortCards(_regles.isDecreasing(), reversed);
         return main_;
     }
 
     public void restituerMainsDepartRejouerDonne(CustList<TrickPresident> _plisFaits,
             byte _nombreJoueurs) {
         for (byte joueur_ = CustList.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
-            getDistribution().main(joueur_).supprimerCartes();
+            getDistribution().hand(joueur_).supprimerCartes();
         }
         for (TrickPresident pli_ : _plisFaits) {
             int index_ = CustList.FIRST_INDEX;
             for (HandPresident carte_ : pli_) {
-                getDistribution().main(pli_.getPlayer(index_, getNombreDeJoueurs())).ajouterCartes(carte_);
+                getDistribution().hand(pli_.getPlayer(index_, getNombreDeJoueurs())).ajouterCartes(carte_);
                 index_++;
             }
         }
@@ -1027,7 +1027,7 @@ public final class GamePresident {
             int index_ = CustList.FIRST_INDEX;
             for (HandPresident c: t) {
                 byte player_ = t.getPlayer(index_, nbPlayers_);
-                deal_.main(player_).ajouterCartes(c);
+                deal_.hand(player_).ajouterCartes(c);
                 index_++;
             }
         }
@@ -1077,7 +1077,7 @@ public final class GamePresident {
                 HandPresident curHand_ = curTrick_.carte(c_.get(p));
                 if (curHand_.premiereCarte().strength(reversed_) == CardPresident.getMaxStrength(reversed_)) {
                     boolean existMin_ = false;
-                    for (CardPresident c: deal_.main(p)) {
+                    for (CardPresident c: deal_.hand(p)) {
                         if (c.strength(reversed_) < CardPresident.getMaxStrength(reversed_)) {
                             existMin_ = true;
                             break;
@@ -1207,7 +1207,7 @@ public final class GamePresident {
         lastStatus.clear();
         byte nbPlayers_ = getNombreDeJoueurs();
         for (byte p = CustList.FIRST_INDEX; p < nbPlayers_; p++) {
-            if (deal.main(p).estVide()) {
+            if (deal.hand(p).estVide()) {
                 lastStatus.put(p, Playing.FINISH);
                 continue;
             }
@@ -1242,7 +1242,7 @@ public final class GamePresident {
     }
 
     void checkPlayerHand(byte _player,String _mess) {
-        if (!deal.main(_player).estVide()) {
+        if (!deal.hand(_player).estVide()) {
             setError(_mess);
         }
     }

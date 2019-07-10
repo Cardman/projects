@@ -105,17 +105,17 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         if (partie_.premierTour()) {
             partie_.annoncer(_joueur);
             DeclareHandBelote usDecl_ = partie_.getAnnonce(_joueur);
-            ThreadInvoker.invokeNow(new AddTextEvents(this,StringList.concat(_pseudo,INTRODUCTION_PTS,Games.toString(usDecl_.getAnnonce(),lg_),RETURN_LINE)));
+            ThreadInvoker.invokeNow(new AddTextEvents(this,StringList.concat(_pseudo,INTRODUCTION_PTS,Games.toString(usDecl_.getDeclare(),lg_),RETURN_LINE)));
 //            ajouterTexteDansZone(pseudo()+INTRODUCTION_PTS+usDecl_.getAnnonce()+RETURN_LINE_CHAR);
-            if(!usDecl_.getMain().estVide()) {
+            if(!usDecl_.getHand().estVide()) {
                 JLabel label_ = getHandfuls().getVal(_joueur);
-                ThreadInvoker.invokeNow(new SettingText(label_, Games.toString(usDecl_.getAnnonce(),lg_)));
+                ThreadInvoker.invokeNow(new SettingText(label_, Games.toString(usDecl_.getDeclare(),lg_)));
 //                getHandfuls().getVal(_joueur).setText(usDecl_.getAnnonce().toString());
             }
             if (partie_.getContrat().getCouleurDominante()) {
-                usDecl_.getMain().trier(getDisplayingBelote().getCouleurs(), getDisplayingBelote().getDecroissant(), partie_.getContrat().getCouleur());
+                usDecl_.getHand().trier(getDisplayingBelote().getSuits(), getDisplayingBelote().isDecreasing(), partie_.getContrat().getCouleur());
             } else {
-                usDecl_.getMain().trier(getDisplayingBelote().getCouleurs(), getDisplayingBelote().getDecroissant(), partie_.getContrat().getOrdre());
+                usDecl_.getHand().trier(getDisplayingBelote().getSuits(), getDisplayingBelote().isDecreasing(), partie_.getContrat().getOrdre());
             }
 
             Panel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
@@ -159,7 +159,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             //Desactiver les conseils
             getConsulting().setEnabledMenu(false);
             afficherMainUtilisateurBelote(false);
-            byte player_ = partie_.playerAfter(partie_.getDistribution().getDonneur());
+            byte player_ = partie_.playerAfter(partie_.getDistribution().getDealer());
             for(BidBeloteSuit b: partie_.tousContrats()) {
                 String pseudo_ = pseudos_.get(player_);
                 ajouterTexteDansZone(StringList.concat(pseudo_,INTRODUCTION_PTS,Games.toString(b,lg_),RETURN_LINE));
@@ -195,7 +195,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         getHelpGame().setEnabledMenu(true);
         if (partie_.getTricks().isEmpty() && partie_.getPliEnCours().estVide()) {
             afficherMainUtilisateurBelote(false);
-            if (!partie_.getRegles().dealAll() && partie_.getDistribution().main().total() == partie_.getRegles().getRepartition().getNombreCartesParJoueur()) {
+            if (!partie_.getRegles().dealAll() && partie_.getDistribution().hand().total() == partie_.getRegles().getRepartition().getNombreCartesParJoueur()) {
                 TrickBelote pliEnCours_=partie_.getPliEnCours();
                 for(byte p:pliEnCours_.playersHavingPlayed(nombreDeJoueurs_)) {
                     tapisBelote().setCarteBelote(lg_,p, pliEnCours_.carteDuJoueur(p, nombreDeJoueurs_));
@@ -390,10 +390,10 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         }
         if(_premierTour) {
             DeclareHandBelote annonceMain_ = partie_.strategieAnnonces();
-            if(annonceMain_.getAnnonce() != DeclaresBelote.UNDEFINED) {
+            if(annonceMain_.getDeclare() != DeclaresBelote.UNDEFINED) {
                 annonceBelote = false;
                 Panel panneau_ =getPanneauBoutonsJeu();
-                JCheckBox caseCoche_ = new JCheckBox(StringList.concat(Games.toString(annonceMain_.getAnnonce(),lg_),INTRODUCTION_PTS,Games.toString(annonceMain_.getMain(),lg_)));
+                JCheckBox caseCoche_ = new JCheckBox(StringList.concat(Games.toString(annonceMain_.getDeclare(),lg_),INTRODUCTION_PTS,Games.toString(annonceMain_.getHand(),lg_)));
                 caseCoche_.addActionListener(new ChangeBeloteDeclareEvent(this));
                 panneau_.add(caseCoche_);
             }
@@ -452,7 +452,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         CarpetBelote tapis_=new CarpetBelote();
         StringList pseudos_ = pseudosBelote();
         String lg_ = getOwner().getLanguageKey();
-        tapis_.initTapisBelote(lg_,partie_.getNombreDeJoueurs(),getDisplayingBelote().getHoraire(),pseudos_,1);
+        tapis_.initTapisBelote(lg_,partie_.getNombreDeJoueurs(),getDisplayingBelote().isClockwise(),pseudos_,1);
         getTapis().setTapisBelote(tapis_);
         container_.add(tapis_,BorderLayout.CENTER);
         Panel panneau_=new Panel();
@@ -465,7 +465,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         setEvents(new JTextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
         panneau2_.add(new ScrollPane(getEvents()));
-        setMini(new MiniCarpet(partie_.getNombreDeJoueurs(),getDisplayingBelote().getHoraire(),pseudos_));
+        setMini(new MiniCarpet(partie_.getNombreDeJoueurs(),getDisplayingBelote().isClockwise(),pseudos_));
         panneau2_.add(getMini());
         setHandfuls(new ByteMap<JLabel>());
         setDeclaredHandfuls(new ByteMap<Panel>());
@@ -548,7 +548,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         } else {
             GameBelote partie_=partieBelote();
             donne_=new DealBelote(nb_,partie_.empiler());
-            donne_.donneurSuivant(partie_.getDistribution().getDonneur(),partie_.getNombreDeJoueurs());
+            donne_.donneurSuivant(partie_.getDistribution().getDealer(),partie_.getNombreDeJoueurs());
             donne_.initDonne(partie_.getRegles(),getDisplayingBelote());
             getPar().jouerBelote(new GameBelote(GameType.RANDOM,donne_,partie_.getRegles()));
         }
@@ -626,13 +626,13 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             if(annonceBelote) {
                 partie_.annoncer(DealBelote.NUMERO_UTILISATEUR);
                 DeclareHandBelote usDecl_ = partie_.getAnnonce(DealBelote.NUMERO_UTILISATEUR);
-                ajouterTexteDansZone(StringList.concat(pseudo(),INTRODUCTION_PTS,Games.toString(usDecl_.getAnnonce(),lg_),RETURN_LINE));
-                if(!usDecl_.getMain().estVide()) {
-                    getHandfuls().getVal(DealBelote.NUMERO_UTILISATEUR).setText(Games.toString(usDecl_.getAnnonce(),lg_));
+                ajouterTexteDansZone(StringList.concat(pseudo(),INTRODUCTION_PTS,Games.toString(usDecl_.getDeclare(),lg_),RETURN_LINE));
+                if(!usDecl_.getHand().estVide()) {
+                    getHandfuls().getVal(DealBelote.NUMERO_UTILISATEUR).setText(Games.toString(usDecl_.getDeclare(),lg_));
                 }
                 Panel panelToSet_ = getDeclaredHandfuls().getVal(DealBelote.NUMERO_UTILISATEUR);
                 panelToSet_.removeAll();
-                for (GraphicBeloteCard c: getGraphicCards(lg_,usDecl_.getMain())) {
+                for (GraphicBeloteCard c: getGraphicCards(lg_,usDecl_.getHand())) {
                     panelToSet_.add(c);
                 }
                 panelToSet_.validate();
@@ -693,7 +693,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         if(partie_.getType()==GameType.RANDOM) {
             setPartieAleatoireJouee(true);
             if(isChangerPileFin()) {
-                changerNombreDeParties(GameEnum.BELOTE, partie_.getDistribution().getNombreDeParties());
+                changerNombreDeParties(GameEnum.BELOTE, partie_.getDistribution().getNbDeals());
             }
         }
         byte nombreJoueurs_=partie_.getNombreDeJoueurs();
@@ -911,7 +911,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     public void aideAuJeu() {
         String lg_ = getOwner().getLanguageKey();
         GameBelote partie_=partieBelote();
-        HandBelote mainUtilisateur_=partie_.getDistribution().main();
+        HandBelote mainUtilisateur_=partie_.getDistribution().hand();
         GameBeloteTrickInfo info_ = partie_.getDoneTrickInfo();
         BidBeloteSuit contrat_=partie_.getContrat();
         Suit couleurAtout_=partie_.couleurAtout();
@@ -970,7 +970,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         partie_.setNombre();
         HandBelote main_=partie_.empiler();
         DealBelote donne_=new DealBelote(0L,main_);
-        donne_.donneurSuivant(partie_.getDistribution().getDonneur(),partie_.getNombreDeJoueurs());
+        donne_.donneurSuivant(partie_.getDistribution().getDealer(),partie_.getNombreDeJoueurs());
         donne_.initDonne(partie_.getRegles(),getDisplayingBelote());
         getPar().jouerBelote(new GameBelote(GameType.EDIT,donne_,partie_.getRegles()));
         mettreEnPlaceIhmBelote();

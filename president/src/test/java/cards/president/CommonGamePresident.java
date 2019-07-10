@@ -14,7 +14,7 @@ public abstract class CommonGamePresident {
     protected static GamePresidentProg newGamePresidentProg(GamePresident _g) {
         int count_ = _g.getProgressingTrick().total();
         byte player_ = _g.getProgressingTrick().getPlayer(count_, _g.getNombreDeJoueurs());
-        HandPresident fullHand_ = _g.getDeal().main(player_);
+        HandPresident fullHand_ = _g.getDeal().hand(player_);
         HandPresident playable_ = _g.cartesJouables(player_);
         return new GamePresidentProg(_g.getProgressingTrick(),_g.getTricks(),_g.isReversed(),_g.getRules(),playable_,fullHand_);
     }

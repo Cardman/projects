@@ -228,7 +228,7 @@ public abstract class CommonGameBelote {
             for (int i : _g.getRules().getRepartition().getDistributionFin()) {
                 int f_ = i - 1;
                 for (byte j : _g.orderedPlayers(_g
-                        .playerAfter(_g.getDistribution().getDonneur()))) {
+                        .playerAfter(_g.getDistribution().getDealer()))) {
                     int k_ = CustList.FIRST_INDEX;
                     int count_ = 0;
                     while (count_ < f_) {

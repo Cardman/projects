@@ -360,7 +360,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         setCanExcludeTrumps(false);
         setCanPlay(false);
         playerHand = _hand.getCards();
-        playerHand.trier(getDisplayingTarot().getCouleurs(), getDisplayingTarot().getDecroissant());
+        playerHand.trier(getDisplayingTarot().getSuits(), getDisplayingTarot().isDecreasing());
         /*On place les cartes de l'utilisateur*/
         updateCardsInPanelTarotJeuMulti(getPanelHand(), playerHand);
         for (BidTarot b: _hand.getAllowedBids()) {
@@ -642,7 +642,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         }
         Panel panelToSet_ = getDeclaredHandfuls().getVal(relative_);
         panelToSet_.removeAll();
-        _card.getHandful().trier(getDisplayingTarot().getCouleurs(), getDisplayingTarot().getDecroissant());
+        _card.getHandful().trier(getDisplayingTarot().getSuits(), getDisplayingTarot().isDecreasing());
         for(CardTarot c: _card.getHandful()) {
             MiniTarotCard carte_=new MiniTarotCard(lg_, c);
             panelToSet_.add(carte_);
@@ -685,7 +685,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     public void refreshHand(RefreshHand _card) {
         String lg_ = getOwner().getLanguageKey();
         playerHand.jouer(_card.getCard());
-        playerHand.trier(getDisplayingTarot().getCouleurs(), getDisplayingTarot().getDecroissant());
+        playerHand.trier(getDisplayingTarot().getSuits(), getDisplayingTarot().isDecreasing());
         getPanneauBoutonsJeu().removeAll();
         getScrollDeclaringHandful().setVisible(false);
         setCanPlay(false);
@@ -798,8 +798,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             pseudos_.put(relative_, getPseudoByPlace(p));
         }
         StringList list_ = new StringList(pseudos_.values());
-        setMini(new MiniCarpet(list_.size(), getDisplayingTarot().getHoraire(), list_));
-        tapis_.initTapisTarot(lg_,nbChoosenPlayers,getDisplayingTarot().getHoraire(),_dog.total());
+        setMini(new MiniCarpet(list_.size(), getDisplayingTarot().isClockwise(), list_));
+        tapis_.initTapisTarot(lg_,nbChoosenPlayers,getDisplayingTarot().isClockwise(),_dog.total());
         getTapis().setTapisTarot(tapis_);
         container_.add(tapis_,BorderLayout.CENTER);
         setPanelHand(new Panel());
@@ -918,8 +918,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         if (getCurrentIncludedTrumps().estVide() && getCurrentExcludedTrumps().estVide()) {
             setCurrentIncludedTrumps(_trumps);
         }
-        getCurrentIncludedTrumps().trier(getDisplayingTarot().getCouleurs(), getDisplayingTarot().getDecroissant());
-        getCurrentExcludedTrumps().trier(getDisplayingTarot().getCouleurs(), getDisplayingTarot().getDecroissant());
+        getCurrentIncludedTrumps().trier(getDisplayingTarot().getSuits(), getDisplayingTarot().isDecreasing());
+        getCurrentExcludedTrumps().trier(getDisplayingTarot().getSuits(), getDisplayingTarot().isDecreasing());
         updateCardsInPanelTarotHandfulMulti(getIncludedTrumpsForHandful(), getCurrentIncludedTrumps(), true);
         updateCardsInPanelTarotHandfulMulti(getExcludedTrumpsForHandful(), getCurrentExcludedTrumps(), false);
         pack();
@@ -932,7 +932,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         panneau_.repaint();
         panneau_.setBackground(new Color(0,125,0));
         panneau_.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
-        _main.trier(getDisplayingTarot().getCouleurs(), getDisplayingTarot().getDecroissant());
+        _main.trier(getDisplayingTarot().getSuits(), getDisplayingTarot().isDecreasing());
         setCanDiscard(_ecouteur);
         updateCardsInPanelTarotDogMulti(tapisTarot().getCenterDeck(), _main, false);
     }
@@ -944,7 +944,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         tapisTarot().retirerCartes();
         cardsInDog.supprimerCartes();
         takerCardsDog = allCards_;
-        takerCardsDog.trier(getDisplayingTarot().getCouleurs(), getDisplayingTarot().getDecroissant());
+        takerCardsDog.trier(getDisplayingTarot().getSuits(), getDisplayingTarot().isDecreasing());
         /*On place les cartes de l'utilisateur*/
         setCanDiscard(true);
         updateCardsInPanelTarotDogMulti(getPanelHand(), allCards_, true);
@@ -964,7 +964,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
     private void addCardDog(CardTarot _ct) {
         takerCardsDog.jouer(_ct);
-        takerCardsDog.trier(getDisplayingTarot().getCouleurs(), getDisplayingTarot().getDecroissant());
+        takerCardsDog.trier(getDisplayingTarot().getSuits(), getDisplayingTarot().isDecreasing());
         cardsInDog.ajouter(_ct);
         setChienMulti(cardsInDog,true);
 //        JPanel boutons_=getPanneauBoutonsJeu();
@@ -989,7 +989,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
     private void removeCardDog(CardTarot _ct) {
         takerCardsDog.ajouter(_ct);
-        takerCardsDog.trier(getDisplayingTarot().getCouleurs(), getDisplayingTarot().getDecroissant());
+        takerCardsDog.trier(getDisplayingTarot().getSuits(), getDisplayingTarot().isDecreasing());
         cardsInDog.jouer(_ct);
         setChienMulti(cardsInDog,true);
 //        JPanel boutons_=getPanneauBoutonsJeu();
@@ -1181,7 +1181,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         long nb_=chargerNombreDeParties(GameEnum.TAROT);
         GameTarot game_ = Net.getGames().partieTarot();
         DealTarot deal_=new DealTarot(nb_,game_.empiler());
-        deal_.donneurSuivant(game_.getDistribution().getDonneur(),game_.getRegles());
+        deal_.donneurSuivant(game_.getDistribution().getDealer(),game_.getRegles());
         deal_.initDonne(game_.getRegles());
         Net.getGames().jouerTarot(new GameTarot(GameType.RANDOM,deal_,game_.getRegles()));
         getOwner().sendObject(new PlayGame());

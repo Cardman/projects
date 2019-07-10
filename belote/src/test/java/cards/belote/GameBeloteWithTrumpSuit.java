@@ -10,7 +10,7 @@ public class GameBeloteWithTrumpSuit {
         if (!_bid.getCouleurDominante()) {
             fail("Bad bid arg");
         }
-        byte playerAfterDealer_ = _game.playerAfter(_game.getDistribution().getDonneur());
+        byte playerAfterDealer_ = _game.playerAfter(_game.getDistribution().getDealer());
         if (_bid == BidBelote.OTHER_SUIT) {
             for (byte p: _game.orderedPlayers(playerAfterDealer_)) {
                 BidBeloteSuit contratTmp_ = new BidBeloteSuit();

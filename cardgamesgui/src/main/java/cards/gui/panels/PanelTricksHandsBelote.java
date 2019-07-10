@@ -81,7 +81,7 @@ public class PanelTricksHandsBelote extends Panel implements ViewablePanelTricks
         //boolean entered_ = false;
         for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_numberPlayers;joueur_++) {
             sousPanneau3_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
-            for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(lg_,dealt_.main(joueur_))) {
+            for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(lg_,dealt_.hand(joueur_))) {
                 sousPanneau3_.add(c);
             }
 //            entered_ = false;
@@ -156,7 +156,7 @@ public class PanelTricksHandsBelote extends Panel implements ViewablePanelTricks
         String lg_ = window.getLanguageKey();
         for (byte joueur_ = CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
             Panel sousPanneau4_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
-            for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(lg_,dealt_.main(joueur_))) {
+            for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(lg_,dealt_.hand(joueur_))) {
                 sousPanneau4_.add(c);
             }
 //            boolean entered_ = false;
@@ -256,7 +256,7 @@ public class PanelTricksHandsBelote extends Panel implements ViewablePanelTricks
         String lg_ = window.getLanguageKey();
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
             Panel sousPanneau4_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
-            for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(lg_, dealt_.main(joueur_))) {
+            for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(lg_, dealt_.hand(joueur_))) {
                 sousPanneau4_.add(c);
             }
 //            boolean entered_ = false;

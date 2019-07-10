@@ -17,31 +17,7 @@ public final class DeclareHandBelote {
         declare = _annonceMainBelote.declare;
         hand = new HandBelote();
         hand.ajouterCartes(_annonceMainBelote.hand);
-        player = _annonceMainBelote.getJoueur();
-    }
-
-    public DeclaresBelote getAnnonce() {
-        return declare;
-    }
-
-    public void setAnnonce(DeclaresBelote _annonce) {
-        declare = _annonce;
-    }
-
-    public HandBelote getMain() {
-        return hand;
-    }
-
-    public void setMain(HandBelote _main) {
-        hand = _main;
-    }
-
-    public byte getJoueur() {
-        return player;
-    }
-
-    public void setJoueur(byte _joueur) {
-        player = _joueur;
+        player = _annonceMainBelote.getPlayer();
     }
 
     public boolean eq(DeclareHandBelote _g) {

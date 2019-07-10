@@ -446,8 +446,8 @@ public final class HandBelote implements Iterable<CardBelote> {
                 }
                 if(cards.containsAllObj(cartesMemeHauteur_.cards)) {
                     DeclareHandBelote annonceLoc_ = new DeclareHandBelote();
-                    annonceLoc_.setMain(cartesMemeHauteur_);
-                    annonceLoc_.setAnnonce(a);
+                    annonceLoc_.setHand(cartesMemeHauteur_);
+                    annonceLoc_.setDeclare(a);
                     annoncesPossibles_.add(annonceLoc_);
                 }
                 continue;
@@ -492,8 +492,8 @@ public final class HandBelote implements Iterable<CardBelote> {
                         continue;
                     }
                     DeclareHandBelote annonceLoc_ = new DeclareHandBelote();
-                    annonceLoc_.setMain(annoncePossible_);
-                    annonceLoc_.setAnnonce(a);
+                    annonceLoc_.setHand(annoncePossible_);
+                    annonceLoc_.setDeclare(a);
                     annoncesPossibles_.add(annonceLoc_);
                 }
             }

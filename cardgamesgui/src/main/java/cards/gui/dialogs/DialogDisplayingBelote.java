@@ -84,7 +84,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         panneau_.add(new JLabel(messages.getVal(WISE)));
         //Panneau Distribution
         checkClockwise=new JCheckBox(messages.getVal(CLOCK_WISE));
-        checkClockwise.setSelected(displayingBelote.getHoraire());
+        checkClockwise.setSelected(displayingBelote.isClockwise());
         panneau_.add(checkClockwise);
         getJt().add(messages.getVal(DEALING),panneau_);
         //Panneau Tri avant enchere
@@ -112,10 +112,10 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         bouton_.addMouseListener(new RemoveSuitEvent(this, _window));
         sousPanneauTwo_.add(bouton_);
         sortByDecreasing=new JCheckBox(messages.getVal(SORT_DECREASING));
-        sortByDecreasing.setSelected(displayingBelote.getDecroissant());
+        sortByDecreasing.setSelected(displayingBelote.isDecreasing());
         sousPanneauTwo_.add(sortByDecreasing);
         panneau_.add(sousPanneauTwo_);
-        for (Suit chaine_:displayingBelote.getCouleurs()) {
+        for (Suit chaine_:displayingBelote.getSuits()) {
             liste_.add(chaine_);
         }
         orderedSuits=new SuitsScrollableList(liste_,4, _window);
@@ -126,7 +126,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         sousPanneau_.setLayout(new GridLayout(0,1));
         sousPanneau_.add(new JLabel(messages.getVal(SORTING_BEFORE_PLAYING_CARDS)));
         sortByTrump=new JCheckBox(messages.getVal(SORTING_TRUMP));
-        sortByTrump.setSelected(displayingBelote.getOrdreAvantEncheres()==Order.TRUMP);
+        sortByTrump.setSelected(displayingBelote.getOrderBeforeBids()==Order.TRUMP);
         sousPanneau_.add(sortByTrump);
         panneau_.add(sousPanneau_);
         getJt().add(messages.getVal(SORTING),panneau_);
@@ -170,13 +170,13 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
             ConfirmDialog.showMessage(this, messages.getVal(ERROR_SUITS), messages.getVal(ERROR_SUITS_TITLE), getMain().getLanguageKey(), JOptionPane.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(this,messages.getVal(ERROR_SUITS),messages.getVal(ERROR_SUITS_TITLE),JOptionPane.ERROR_MESSAGE);
         } else {
-            displayingBelote.setHoraire(checkClockwise.isSelected());
-            displayingBelote.setCouleurs(new EnumList<Suit>(orderedSuits.getCouleurs()));
-            displayingBelote.setDecroissant(sortByDecreasing.isSelected());
+            displayingBelote.setClockwise(checkClockwise.isSelected());
+            displayingBelote.setSuits(new EnumList<Suit>(orderedSuits.getCouleurs()));
+            displayingBelote.setDecreasing(sortByDecreasing.isSelected());
             if(sortByTrump.isSelected()) {
-                displayingBelote.setOrdreAvantEncheres(Order.TRUMP);
+                displayingBelote.setOrderBeforeBids(Order.TRUMP);
             } else {
-                displayingBelote.setOrdreAvantEncheres(Order.SUIT);
+                displayingBelote.setOrderBeforeBids(Order.SUIT);
             }
             closeWindow();
         }

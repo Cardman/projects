@@ -87,7 +87,7 @@ public final class ResultsBeloteTest extends CommonGameBelote {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = deal1Slam((byte) 3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         bid_.setEnchere(BidBelote.SUIT);

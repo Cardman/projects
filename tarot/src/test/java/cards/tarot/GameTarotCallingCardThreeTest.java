@@ -127,7 +127,7 @@ public class GameTarotCallingCardThreeTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
-        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        byte player_ = game.playerAfter(game.getDistribution().getDealer());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
         game.ajouterContrat(BidTarot.FOLD,player_);
@@ -169,7 +169,7 @@ public class GameTarotCallingCardThreeTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
-        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        byte player_ = game.playerAfter(game.getDistribution().getDealer());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
         game.ajouterContrat(BidTarot.FOLD,player_);
@@ -202,7 +202,7 @@ public class GameTarotCallingCardThreeTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
-        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        byte player_ = game.playerAfter(game.getDistribution().getDealer());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
         game.ajouterContrat(BidTarot.FOLD,player_);
@@ -235,7 +235,7 @@ public class GameTarotCallingCardThreeTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
-        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        byte player_ = game.playerAfter(game.getDistribution().getDealer());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
         game.ajouterContrat(BidTarot.FOLD,player_);

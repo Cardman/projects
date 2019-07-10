@@ -17,7 +17,7 @@ public final class GameBeloteSimulateTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         DisplayingBelote display_ = new DisplayingBelote();
         deal_.initDonne(rules_, display_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
@@ -31,7 +31,7 @@ public final class GameBeloteSimulateTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteNormal s_ = new SimulatingBeloteNormal();
@@ -47,11 +47,11 @@ public final class GameBeloteSimulateTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteNormal s_ = new SimulatingBeloteNormal();
-        Bytes players_ = game_.orderedPlayers(game_.playerAfter(game_.getDistribution().getDonneur()));
+        Bytes players_ = game_.orderedPlayers(game_.playerAfter(game_.getDistribution().getDealer()));
         assertTrue(game_.bidRoundSimulate(players_,s_));
     }
     @Test
@@ -59,11 +59,11 @@ public final class GameBeloteSimulateTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteAbruptBid s_ = new SimulatingBeloteAbruptBid(game_);
-        Bytes players_ = game_.orderedPlayers(game_.playerAfter(game_.getDistribution().getDonneur()));
+        Bytes players_ = game_.orderedPlayers(game_.playerAfter(game_.getDistribution().getDealer()));
         assertTrue(!game_.bidRoundSimulate(players_,s_));
     }
     @Test
@@ -71,11 +71,11 @@ public final class GameBeloteSimulateTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteAbruptBid s_ = new SimulatingBeloteAbruptBid(game_);
-        Bytes players_ = game_.orderedPlayers(game_.playerAfter(game_.getDistribution().getDonneur()));
+        Bytes players_ = game_.orderedPlayers(game_.playerAfter(game_.getDistribution().getDealer()));
         boolean en_ = game_.bidRoundSimulate(players_, s_);
         assertTrue(!game_.secRoundSimulate(en_,players_,s_));
     }
@@ -84,7 +84,7 @@ public final class GameBeloteSimulateTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteNormal s_ = new SimulatingBeloteNormal();
@@ -92,7 +92,7 @@ public final class GameBeloteSimulateTest {
         game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
         game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
         game_.ajouterContrat(new BidBeloteSuit(),game_.playerHavingToBid());
-        Bytes players_ = game_.orderedPlayers(game_.playerAfter(game_.getDistribution().getDonneur()));
+        Bytes players_ = game_.orderedPlayers(game_.playerAfter(game_.getDistribution().getDealer()));
         boolean en_ = game_.bidRoundSimulate(players_, s_);
         assertTrue(game_.secRoundSimulate(en_,players_,s_));
     }
@@ -101,7 +101,7 @@ public final class GameBeloteSimulateTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteNormal s_ = new SimulatingBeloteNormal();
@@ -112,7 +112,7 @@ public final class GameBeloteSimulateTest {
         bid_.setEnchere(BidBelote.SUIT);
         bid_.setSuit(deal_.derniereMain().premiereCarte().couleur());
         game_.ajouterContrat(bid_,game_.playerHavingToBid());
-        Bytes players_ = game_.orderedPlayers(game_.playerAfter(game_.getDistribution().getDonneur()));
+        Bytes players_ = game_.orderedPlayers(game_.playerAfter(game_.getDistribution().getDealer()));
         boolean en_ = game_.bidRoundSimulate(players_, s_);
         assertTrue(game_.secRoundSimulate(en_,players_,s_));
     }
@@ -122,7 +122,7 @@ public final class GameBeloteSimulateTest {
         rules_.setMixedCards(MixCardsChoice.NEVER);
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteNormal s_ = new SimulatingBeloteNormal();
@@ -142,7 +142,7 @@ public final class GameBeloteSimulateTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteNormal s_ = new SimulatingBeloteNormal();
@@ -159,7 +159,7 @@ public final class GameBeloteSimulateTest {
         rules_.setMixedCards(MixCardsChoice.NEVER);
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteAbrupt s_ = new SimulatingBeloteAbrupt(game_);
@@ -179,7 +179,7 @@ public final class GameBeloteSimulateTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteAbrupt s_ = new SimulatingBeloteAbrupt(game_);
@@ -196,7 +196,7 @@ public final class GameBeloteSimulateTest {
         rules_.setMixedCards(MixCardsChoice.NEVER);
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteAbrupt s_ = new SimulatingBeloteAbrupt(game_);
@@ -212,7 +212,7 @@ public final class GameBeloteSimulateTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteAbrupt s_ = new SimulatingBeloteAbrupt(game_);
@@ -234,7 +234,7 @@ public final class GameBeloteSimulateTest {
         rules_.setMixedCards(MixCardsChoice.NEVER);
         rules_.getAllowedBids().put(BidBelote.NO_TRUMP,true);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteNormal s_ = new SimulatingBeloteNormal();
@@ -251,7 +251,7 @@ public final class GameBeloteSimulateTest {
         rules_.setMixedCards(MixCardsChoice.NEVER);
         rules_.getAllowedBids().put(BidBelote.ALL_TRUMP,true);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteNormal s_ = new SimulatingBeloteNormal();
@@ -267,7 +267,7 @@ public final class GameBeloteSimulateTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteAbruptBid s_ = new SimulatingBeloteAbruptBid(game_);
@@ -280,7 +280,7 @@ public final class GameBeloteSimulateTest {
         rules_.setMixedCards(MixCardsChoice.NEVER);
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteAbruptBid s_ = new SimulatingBeloteAbruptBid(game_);
@@ -292,7 +292,7 @@ public final class GameBeloteSimulateTest {
         RulesBelote rules_ = new RulesBelote();
         rules_.setMixedCards(MixCardsChoice.NEVER);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteNormal s_ = new SimulatingBeloteNormal();
@@ -305,7 +305,7 @@ public final class GameBeloteSimulateTest {
         rules_.setMixedCards(MixCardsChoice.NEVER);
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_, new DisplayingBelote());
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         SimulatingBeloteNormal s_ = new SimulatingBeloteNormal();

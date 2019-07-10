@@ -12,7 +12,6 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import code.util.EnumMap;
-import code.util.EqList;
 
 public class GameTarotPlayingThreeTest extends CommonTarotGame {
     private GameTarot game;
@@ -132,12 +131,12 @@ public class GameTarotPlayingThreeTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game.setCarteAppelee(cartesAppeler_);
         game.gererChienInconnu();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         game.jouer(game.getEntameur(), CardTarot.DIAMOND_7);
         game.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_7);
         byte player_ = game.playerAfter(game.getEntameur());
-        HandTarot hand_ = game.getDistribution().main(player_);
+        HandTarot hand_ = game.getDistribution().hand(player_);
         EnumMap<Suit,HandTarot> suits_ = hand_.couleurs();
         HandTarot playableCards_ = game.playableCards(suits_);
         assertEq(hand_.total(),playableCards_.total());
@@ -153,12 +152,12 @@ public class GameTarotPlayingThreeTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game.setCarteAppelee(cartesAppeler_);
         game.gererChienInconnu();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         game.jouer(game.getEntameur(), CardTarot.TRUMP_7);
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_7);
         byte player_ = game.playerAfter(game.getEntameur());
-        HandTarot hand_ = game.getDistribution().main(player_);
+        HandTarot hand_ = game.getDistribution().hand(player_);
         EnumMap<Suit,HandTarot> suits_ = hand_.couleurs();
         HandTarot playableCards_ = game.playableCards(suits_);
         assertEq(hand_.total(),playableCards_.total());
@@ -174,7 +173,7 @@ public class GameTarotPlayingThreeTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game.setCarteAppelee(cartesAppeler_);
         game.gererChienInconnu();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         game.jouer(game.getEntameur(), CardTarot.TRUMP_7);
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_7);
@@ -185,7 +184,7 @@ public class GameTarotPlayingThreeTest extends CommonTarotGame {
         game.jouer(player_, CardTarot.SPADE_1);
         game.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_1);
         player_ = game.playerAfter(player_);
-        HandTarot hand_ = game.getDistribution().main(player_);
+        HandTarot hand_ = game.getDistribution().hand(player_);
         EnumMap<Suit,HandTarot> suits_ = hand_.couleurs();
         HandTarot playableCards_ = game.playableCards(suits_);
         HandTarot expected_ = new HandTarot();
@@ -211,12 +210,12 @@ public class GameTarotPlayingThreeTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game.setCarteAppelee(cartesAppeler_);
         game.gererChienInconnu();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         game.jouer(game.getEntameur(), CardTarot.TRUMP_2);
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_2);
         byte player_ = game.playerAfter(game.getEntameur());
-        HandTarot hand_ = game.getDistribution().main(player_);
+        HandTarot hand_ = game.getDistribution().hand(player_);
         EnumMap<Suit,HandTarot> suits_ = hand_.couleurs();
         HandTarot playableCards_ = game.playableCards(suits_);
         HandTarot expected_ = new HandTarot();
@@ -236,12 +235,12 @@ public class GameTarotPlayingThreeTest extends CommonTarotGame {
         cartesAppeler_.ajouter(CardTarot.CLUB_KING);
         game.setCarteAppelee(cartesAppeler_);
         game.gererChienInconnu();
-        game.setEntameur(game.playerAfter(game.getDistribution().getDonneur()));
+        game.setEntameur(game.playerAfter(game.getDistribution().getDealer()));
         game.setPliEnCours(true);
         game.jouer(game.getEntameur(), CardTarot.TRUMP_21);
         game.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_21);
         byte player_ = game.playerAfter(game.getEntameur());
-        HandTarot hand_ = game.getDistribution().main(player_);
+        HandTarot hand_ = game.getDistribution().hand(player_);
         EnumMap<Suit,HandTarot> suits_ = hand_.couleurs();
         HandTarot playableCards_ = game.playableCards(suits_);
         HandTarot expected_ = new HandTarot();

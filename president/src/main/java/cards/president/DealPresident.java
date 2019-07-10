@@ -52,12 +52,6 @@ public final class DealPresident implements Iterable<HandPresident> {
         nbDeals = _deal.nbDeals;
     }
 
-    /** Initialise le donneur pour editer une partie */
-    public void initDonneur(byte _b) {
-        // On initialise_ le_ donneur par_ l'editeur_
-        dealer = _b;
-    }
-
     public long getNombreDeParties() {
         return nbDeals;
     }
@@ -154,9 +148,7 @@ public final class DealPresident implements Iterable<HandPresident> {
     void ajouterCartes(byte _joueur,HandPresident _main) {
         deal.get(_joueur).ajouterCartes(_main);
     }
-    void ajouterCartesUtilisateur(HandPresident _main) {
-        deal.get(NUMERO_UTILISATEUR).ajouterCartes(_main);
-    }
+
     void supprimerCartes(byte _joueur) {
         deal.get(_joueur).supprimerCartes();
     }
@@ -172,16 +164,12 @@ public final class DealPresident implements Iterable<HandPresident> {
         return deal.last();
     }
 
-    public HandPresident main(byte _i) {
+    public HandPresident hand(byte _i) {
         return deal.get(_i);
     }
     /** Renvoie la main de l'utilisateur */
-    public HandPresident main() {
+    public HandPresident hand() {
         return deal.get(NUMERO_UTILISATEUR);
-    }
-
-    CustList<HandPresident> getDonne() {
-        return deal;
     }
 
     public byte nombreDeMains() {

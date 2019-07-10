@@ -3,7 +3,6 @@ import static cards.tarot.EquallableTarotUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 import code.util.CustList;
-import code.util.EnumList;
 import org.junit.Test;
 
 import cards.consts.GameType;
@@ -13,7 +12,6 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import code.util.EnumMap;
-import code.util.EqList;
 
 public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     private GameTarot game;
@@ -153,7 +151,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(true);
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
-        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        byte player_ = game.playerAfter(game.getDistribution().getDealer());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
         game.ajouterContrat(BidTarot.FOLD,player_);
@@ -168,7 +166,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
         game.setCarteAppelee(cartesAppeler_);
         game.initConfianceAppele();
         game.ajouterCartes(game.getPreneur(), game.derniereMain());
-        HandTarot takerHand_ = game.getDistribution().main(game.getPreneur());
+        HandTarot takerHand_ = game.getDistribution().hand(game.getPreneur());
         EnumMap<Suit,HandTarot> suits_ = takerHand_.couleurs();
         HandTarot discardableCards_ =
                 GameTarotCallDiscard.getCartesEcartables(game.getDistribution()
@@ -193,7 +191,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(true);
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
         //game.resetNbPlisTotal();
-        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        byte player_ = game.playerAfter(game.getDistribution().getDealer());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
         game.ajouterContrat(BidTarot.FOLD,player_);
@@ -208,7 +206,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
         game.setCarteAppelee(cartesAppeler_);
         game.initConfianceAppele();
         game.ajouterCartes(game.getPreneur(), game.derniereMain());
-        HandTarot takerHand_ = game.getDistribution().main(game.getPreneur());
+        HandTarot takerHand_ = game.getDistribution().hand(game.getPreneur());
         EnumMap<Suit,HandTarot> suits_ = takerHand_.couleurs();
         HandTarot discardableCards_ =
             GameTarotCallDiscard.getCartesEcartables(game.getDistribution()
@@ -612,7 +610,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     public void strategieEcartTest() {
         RulesTarot regles_=initializeRulesWithBids(true);
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
-        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        byte player_ = game.playerAfter(game.getDistribution().getDealer());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
         game.ajouterContrat(BidTarot.FOLD,player_);
@@ -637,7 +635,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     public void strategieAppelApresEcart1Test() {
         RulesTarot regles_=initializeRulesWithBids(false);
         game = new GameTarot(GameType.RANDOM,strategieEcart(),regles_);
-        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        byte player_ = game.playerAfter(game.getDistribution().getDealer());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
         game.ajouterContrat(BidTarot.FOLD,player_);
@@ -663,7 +661,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     public void strategieAppelApresEcart2Test() {
         RulesTarot regles_=initializeRulesWithBids(false);
         game = new GameTarot(GameType.RANDOM,strategieEcart2(),regles_);
-        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        byte player_ = game.playerAfter(game.getDistribution().getDealer());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
         game.ajouterContrat(BidTarot.FOLD,player_);
@@ -689,7 +687,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     public void strategieAppelApresEcart3Test() {
         RulesTarot regles_=initializeRulesWithBids(false);
         game = new GameTarot(GameType.RANDOM,strategieEcart(),regles_);
-        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        byte player_ = game.playerAfter(game.getDistribution().getDealer());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
         game.ajouterContrat(BidTarot.FOLD,player_);
@@ -717,7 +715,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     public void strategieAppelApresEcart4Test() {
         RulesTarot regles_=initializeRulesWithBids(false);
         game = new GameTarot(GameType.RANDOM,strategieEcart2(),regles_);
-        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        byte player_ = game.playerAfter(game.getDistribution().getDealer());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
         game.ajouterContrat(BidTarot.FOLD,player_);
@@ -745,7 +743,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     public void strategieAppelApresEcart5Test() {
         RulesTarot regles_=initializeRulesWithBids2(false);
         game = new GameTarot(GameType.RANDOM,strategieEcart3(),regles_);
-        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        byte player_ = game.playerAfter(game.getDistribution().getDealer());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
         game.ajouterContrat(BidTarot.FOLD,player_);
@@ -766,7 +764,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     public void strategieAppelApresEcart6Test() {
         RulesTarot regles_=initializeRulesWithBids3(false);
         game = new GameTarot(GameType.RANDOM,strategieEcart3(),regles_);
-        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        byte player_ = game.playerAfter(game.getDistribution().getDealer());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
         game.ajouterContrat(BidTarot.FOLD,player_);
@@ -786,7 +784,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     public void appelApresEcart1Test() {
         RulesTarot regles_=initializeRulesWithBids(false);
         game = new GameTarot(GameType.RANDOM,strategieEcart(),regles_);
-        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        byte player_ = game.playerAfter(game.getDistribution().getDealer());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
         game.ajouterContrat(BidTarot.FOLD,player_);
@@ -811,7 +809,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     public void appelApresEcart2Test() {
         RulesTarot regles_=initializeRulesWithBids(false);
         game = new GameTarot(GameType.RANDOM,strategieEcart2(),regles_);
-        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        byte player_ = game.playerAfter(game.getDistribution().getDealer());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
         game.ajouterContrat(BidTarot.FOLD,player_);
@@ -836,7 +834,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     public void appelApresEcart3Test() {
         RulesTarot regles_=initializeRulesWithBids3(false);
         game = new GameTarot(GameType.RANDOM,strategieEcart3(),regles_);
-        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        byte player_ = game.playerAfter(game.getDistribution().getDealer());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
         game.ajouterContrat(BidTarot.FOLD,player_);
@@ -855,7 +853,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     public void ecarter1Test() {
         RulesTarot regles_=initializeRulesWithBids(true);
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
-        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        byte player_ = game.playerAfter(game.getDistribution().getDealer());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
         game.ajouterContrat(BidTarot.FOLD,player_);
@@ -880,7 +878,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     public void ecarter2Test() {
         RulesTarot regles_=initializeRulesWithBids(true);
         game = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
-        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        byte player_ = game.playerAfter(game.getDistribution().getDealer());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
         game.ajouterContrat(BidTarot.FOLD,player_);
@@ -909,7 +907,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     public void ecarter3Test() {
         RulesTarot regles_=initializeRulesWithBids(false);
         game = new GameTarot(GameType.RANDOM,strategieEcart(),regles_);
-        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        byte player_ = game.playerAfter(game.getDistribution().getDealer());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
         game.ajouterContrat(BidTarot.FOLD,player_);
@@ -938,7 +936,7 @@ public class GameTarotDiscardingCardsOneTest extends CommonTarotGame {
     public void slamTest() {
         RulesTarot regles_=initializeRulesWithBids(false);
         game = new GameTarot(GameType.RANDOM,slam(),regles_);
-        byte player_ = game.playerAfter(game.getDistribution().getDonneur());
+        byte player_ = game.playerAfter(game.getDistribution().getDealer());
         game.ajouterContrat(BidTarot.FOLD,player_);
         player_ = game.playerAfter(player_);
         game.ajouterContrat(BidTarot.FOLD,player_);

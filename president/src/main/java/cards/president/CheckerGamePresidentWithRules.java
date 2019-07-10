@@ -67,14 +67,14 @@ public final class CheckerGamePresidentWithRules {
             int index_ = CustList.FIRST_INDEX;
             for (HandPresident c : t) {
                 byte player_ = t.getPlayer(index_, nbPlayers_);
-                deal_.main(player_).ajouterCartes(c);
+                deal_.hand(player_).ajouterCartes(c);
                 index_++;
             }
         }
         for (HandPresident c : _loadedGame.getProgressingTrick()) {
             byte player_ = _loadedGame.getProgressingTrick().getPlayer(
                     indexCurTrick_, nbPlayers_);
-            deal_.main(player_).ajouterCartes(c);
+            deal_.hand(player_).ajouterCartes(c);
             indexCurTrick_++;
         }
         if (!ranks_.isEmpty()) {
@@ -148,7 +148,7 @@ public final class CheckerGamePresidentWithRules {
                         continue;
                     }
                     byte pl_ = _loadedGame.getMatchingLoser(w);
-                    HandPresident hl_ = new HandPresident(deal_.main(w));
+                    HandPresident hl_ = new HandPresident(deal_.hand(w));
                     hl_.ajouterCartes(_loadedGame.getSwitchedCards()
                             .get(pl_));
                     if (!hl_.containsCards(_loadedGame.getSwitchedCards()
@@ -160,7 +160,7 @@ public final class CheckerGamePresidentWithRules {
             } else {
                 for (byte w : _loadedGame.getWinners()) {
                     byte pl_ = _loadedGame.getMatchingLoser(w);
-                    HandPresident hl_ = new HandPresident(deal_.main(pl_));
+                    HandPresident hl_ = new HandPresident(deal_.hand(pl_));
                     hl_.ajouterCartes(_loadedGame.getSwitchedCards()
                             .get(pl_));
                     if (!hl_.containsCards(_loadedGame.getSwitchedCards()
@@ -170,24 +170,24 @@ public final class CheckerGamePresidentWithRules {
                     }
                 }
                 for (byte i = 0; i< nbPlayers_; i++) {
-                    deal_.main(i).ajouterCartes(
+                    deal_.hand(i).ajouterCartes(
                             _loadedGame.getSwitchedCards().get(i));
                 }
             }
             for (byte l : _loadedGame.getLoosers()) {
                 int ind_ = _loadedGame.getLoosers().indexOfObj(l);
                 byte pl_ = _loadedGame.getWinners().get(ind_);
-                deal_.main(l).supprimerCartes(
+                deal_.hand(l).supprimerCartes(
                         _loadedGame.getSwitchedCards().get(pl_));
             }
             for (byte w : _loadedGame.getWinners()) {
                 int ind_ = _loadedGame.getWinners().indexOfObj(w);
                 byte pl_ = _loadedGame.getLoosers().get(ind_);
-                deal_.main(w).supprimerCartes(
+                deal_.hand(w).supprimerCartes(
                         _loadedGame.getSwitchedCards().get(pl_));
             }
             for (byte l : _loadedGame.getLoosers()) {
-                HandPresident hCopy_ = new HandPresident(deal_.main(l));
+                HandPresident hCopy_ = new HandPresident(deal_.hand(l));
                 HandPresident hSwitchCopy_ = new HandPresident(_loadedGame
                         .getSwitchedCards().get(l));
                 hCopy_.sortCardsBegin();
@@ -258,17 +258,17 @@ public final class CheckerGamePresidentWithRules {
             for (byte w : _loadedGame.getWinners()) {
                 int ind_ = _loadedGame.getWinners().indexOfObj(w);
                 byte pl_ = _loadedGame.getLoosers().get(ind_);
-                deal_.main(w).ajouterCartes(
+                deal_.hand(w).ajouterCartes(
                         _loadedGame.getSwitchedCards().get(pl_));
             }
             for (byte l : _loadedGame.getLoosers()) {
                 int ind_ = _loadedGame.getLoosers().indexOfObj(l);
                 byte pl_ = _loadedGame.getWinners().get(ind_);
-                deal_.main(l).ajouterCartes(
+                deal_.hand(l).ajouterCartes(
                         _loadedGame.getSwitchedCards().get(pl_));
             }
             for (byte i = 0; i< nbPlayers_; i++) {
-                deal_.main(i).supprimerCartes(
+                deal_.hand(i).supprimerCartes(
                         _loadedGame.getSwitchedCards().get(i));
             }
         }
@@ -352,7 +352,7 @@ public final class CheckerGamePresidentWithRules {
                         }
                         loadedGameCopy_.addCardsToCurrentTrick(player_,
                                 curHand_);
-                        if (loadedGameCopy_.getDistribution().main(player_)
+                        if (loadedGameCopy_.getDistribution().hand(player_)
                                 .estVide()) {
                             loadedGameCopy_.getPassOrFinish()
                                     .set(player_, true);
@@ -366,7 +366,7 @@ public final class CheckerGamePresidentWithRules {
             }
             for (byte p = CustList.FIRST_INDEX; p < nbPlayers_; p++) {
                 loadedGameCopy_.getPassOrFinish().set(p,
-                        loadedGameCopy_.getDistribution().main(p).estVide());
+                        loadedGameCopy_.getDistribution().hand(p).estVide());
             }
             if (ind_ >= loadedGameCopy_.unionPlis().size()) {
                 return;

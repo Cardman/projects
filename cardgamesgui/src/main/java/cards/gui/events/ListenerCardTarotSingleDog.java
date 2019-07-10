@@ -42,7 +42,7 @@ public class ListenerCardTarotSingleDog extends AbstractListenerCardTarot {
     protected void verifierRegles() {
         GameTarot partie_=container.partieTarot();
         String lg_ = container.getOwner().getLanguageKey();
-        if(partie_.getDistribution().main().contient(getCarteVerif())) {
+        if(partie_.getDistribution().hand().contient(getCarteVerif())) {
             ReasonDiscard reason_ = partie_.autoriseEcartDe(getCarteVerif());
             if(reason_ == ReasonDiscard.NOTHING){
                 container.ajouterUneCarteAuChien(getCarteVerif());

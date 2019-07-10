@@ -22,7 +22,7 @@ public class CheckerGameTarotWithRulesTest {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         CheckerGameTarotWithRules.check(game_);
@@ -41,7 +41,7 @@ public class CheckerGameTarotWithRulesTest {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         CheckerGameTarotWithRules.check(game_);
@@ -59,7 +59,7 @@ public class CheckerGameTarotWithRulesTest {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.MISERE);
         DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         CheckerGameTarotWithRules.check(game_);
@@ -77,10 +77,10 @@ public class CheckerGameTarotWithRulesTest {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.MISERE);
         DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
+        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -97,10 +97,10 @@ public class CheckerGameTarotWithRulesTest {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
+        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -117,10 +117,10 @@ public class CheckerGameTarotWithRulesTest {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -137,10 +137,10 @@ public class CheckerGameTarotWithRulesTest {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_WITHOUT, (byte) first_);
@@ -165,10 +165,10 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_CHAR);
         DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_WITHOUT, (byte) first_);
@@ -293,7 +293,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_WITHOUT, (byte) first_);
@@ -323,7 +323,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -351,7 +351,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -380,7 +380,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -408,7 +408,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -437,7 +437,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -468,7 +468,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -502,7 +502,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -533,7 +533,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -572,7 +572,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
+        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
@@ -592,7 +592,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
+        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
@@ -617,7 +617,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -648,7 +648,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
+        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
@@ -669,7 +669,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -707,7 +707,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -746,7 +746,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -778,7 +778,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
+        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
@@ -924,7 +924,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         DealTarot deal_ = deal2((byte) 5);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
@@ -954,7 +954,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_WITHOUT, (byte) first_);
@@ -968,7 +968,7 @@ public class CheckerGameTarotWithRulesTest {
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
         game_.gererChienInconnu();
-        game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
+        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.HEART_5);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.HEART_KING);
@@ -1001,7 +1001,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_WITHOUT, (byte) first_);
@@ -1015,7 +1015,7 @@ public class CheckerGameTarotWithRulesTest {
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
         game_.gererChienInconnu();
-        game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
+        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.HEART_5);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.HEART_KING);
@@ -1045,7 +1045,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         DealTarot deal_ = deal2((byte) 5);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
@@ -1090,7 +1090,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         DealTarot deal_ = deal2((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -1137,7 +1137,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         DealTarot deal_ = deal2((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
@@ -1164,7 +1164,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         DealTarot deal_ = deal2((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.SLAM, (byte) first_);
@@ -1190,7 +1190,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         DealTarot deal_ = deal2((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.SLAM, (byte) first_);
@@ -1216,7 +1216,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         DealTarot deal_ = deal2((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
@@ -1243,7 +1243,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setRepartition(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         DealTarot deal_ = deal2((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
@@ -1501,7 +1501,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal4((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
@@ -1649,7 +1649,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
@@ -1693,7 +1693,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
+        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
@@ -1719,7 +1719,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
@@ -1747,7 +1747,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
@@ -1758,7 +1758,7 @@ public class CheckerGameTarotWithRulesTest {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         game_.initPlayWithoutBid();
-        game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
+        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
@@ -1784,7 +1784,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
@@ -1795,7 +1795,7 @@ public class CheckerGameTarotWithRulesTest {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         game_.initPlayWithoutBid();
-        game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
+        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
@@ -1817,7 +1817,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
@@ -1828,7 +1828,7 @@ public class CheckerGameTarotWithRulesTest {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         game_.initPlayWithoutBid();
-        game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
+        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
@@ -1870,7 +1870,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL_WITH_MISERE);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
@@ -1914,7 +1914,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
@@ -1925,7 +1925,7 @@ public class CheckerGameTarotWithRulesTest {
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         game_.initPlayWithoutBid();
-        game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
+        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
@@ -2042,7 +2042,7 @@ public class CheckerGameTarotWithRulesTest {
         DealTarot deal_ = dealSlam((byte) 2);
 
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
@@ -2197,7 +2197,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -2218,7 +2218,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -2239,7 +2239,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -2262,7 +2262,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -2285,7 +2285,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -2308,7 +2308,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -2333,7 +2333,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
+        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.TRUMP_1);
@@ -2348,7 +2348,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -2371,7 +2371,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -2402,7 +2402,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -2431,7 +2431,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -2462,7 +2462,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
@@ -2530,7 +2530,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
@@ -2573,7 +2573,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.getPoigneesAutorisees().put(Handfuls.FOUR, 0);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
@@ -2611,7 +2611,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
@@ -2649,7 +2649,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
@@ -2688,7 +2688,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal4((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
@@ -2718,7 +2718,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
@@ -2755,7 +2755,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
@@ -2785,7 +2785,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
@@ -2807,7 +2807,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
@@ -2836,7 +2836,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
@@ -2873,7 +2873,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
@@ -2911,7 +2911,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.SLAM, (byte) first_);
@@ -2931,7 +2931,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
@@ -2939,8 +2939,8 @@ public class CheckerGameTarotWithRulesTest {
         game_.gererChienInconnu();
 //        game_.unionPlis(true).first().getCartes().jouer(CarteTarot.SixTrefle);
 //        game_.unionPlis(true).first().getCartes().ajouter(CarteTarot.Atout21);
-        game_.getDistribution().main().jouer(CardTarot.TRUMP_21);
-        game_.getDistribution().main().ajouter(CardTarot.CLUB_6);
+        game_.getDistribution().hand().jouer(CardTarot.TRUMP_21);
+        game_.getDistribution().hand().ajouter(CardTarot.CLUB_6);
         game_.getDistribution().derniereMain().ajouter(CardTarot.TRUMP_21);
         game_.getDistribution().derniereMain().jouer(CardTarot.CLUB_6);
         CheckerGameTarotWithRules.check(game_);
@@ -2954,7 +2954,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -2986,7 +2986,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -3016,7 +3016,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -3045,7 +3045,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -3065,8 +3065,8 @@ public class CheckerGameTarotWithRulesTest {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 3);
-        deal_.main().jouer(CardTarot.TRUMP_21);
-        deal_.main((byte) 1).ajouter(CardTarot.TRUMP_21);
+        deal_.hand().jouer(CardTarot.TRUMP_21);
+        deal_.hand((byte) 1).ajouter(CardTarot.TRUMP_21);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -3079,7 +3079,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -3110,7 +3110,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -3120,8 +3120,8 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
-        game_.getDistribution().main((byte) 1).ajouter(CardTarot.EXCUSE);
-        game_.getDistribution().main((byte) 2).jouer(CardTarot.EXCUSE);
+        game_.getDistribution().hand((byte) 1).ajouter(CardTarot.EXCUSE);
+        game_.getDistribution().hand((byte) 2).jouer(CardTarot.EXCUSE);
         //game_.addCurTrick();
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -3134,7 +3134,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -3157,7 +3157,7 @@ public class CheckerGameTarotWithRulesTest {
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
-        game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
+        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
@@ -3171,7 +3171,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -3190,7 +3190,7 @@ public class CheckerGameTarotWithRulesTest {
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
-        game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
+        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
@@ -3204,7 +3204,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
+        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
@@ -3225,7 +3225,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
+        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
@@ -3243,10 +3243,10 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
-        deal_.main().ajouterCartes(deal_.derniereMain());
-        deal_.main().jouer(CardTarot.TRUMP_14);
-        deal_.main().jouer(CardTarot.TRUMP_17);
-        deal_.main().jouer(CardTarot.TRUMP_21);
+        deal_.hand().ajouterCartes(deal_.derniereMain());
+        deal_.hand().jouer(CardTarot.TRUMP_14);
+        deal_.hand().jouer(CardTarot.TRUMP_17);
+        deal_.hand().jouer(CardTarot.TRUMP_21);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -3259,7 +3259,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD, (byte) first_);
@@ -3272,7 +3272,7 @@ public class CheckerGameTarotWithRulesTest {
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
         game_.initConfianceAppeleUtilisateur(cartesAppel_);
-        game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
+        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         CheckerGameTarotWithRules.check(game_);
@@ -3286,7 +3286,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
+        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         game_.setAnnoncesMiseres((byte) 4, new EnumList<Miseres>(Miseres.TRUMP));
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
@@ -3301,7 +3301,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
+        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         game_.setAnnoncesPoignees((byte) 4, new EnumList<Handfuls>(Handfuls.ONE));
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
@@ -3316,7 +3316,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
+        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         HandTarot hand_ = new HandTarot();
         hand_.ajouter(CardTarot.TRUMP_21);
@@ -3332,7 +3332,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.MISERE);
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
-        deal_.derniereMain().ajouter(deal_.main().jouer(0));
+        deal_.derniereMain().ajouter(deal_.hand().jouer(0));
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -3344,7 +3344,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.MISERE);
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
-        deal_.getDonne().add(new HandTarot());
+        deal_.getDeal().add(new HandTarot());
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -3358,7 +3358,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
@@ -3397,7 +3397,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal5((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);
@@ -3435,7 +3435,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
@@ -3445,7 +3445,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
-        game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
+        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
@@ -3471,7 +3471,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDiscardAfterCall(false);
         DealTarot deal_ = deal1((byte) 3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
@@ -3481,7 +3481,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
-        game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
+        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
@@ -3497,7 +3497,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.MISERE);
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_WITHOUT, (byte) first_);
@@ -3520,7 +3520,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
@@ -3536,7 +3536,7 @@ public class CheckerGameTarotWithRulesTest {
         game_.gererChienInconnu();
         game_.setPreneur((byte) 2);
         game_.slam();
-        game_.setEntameur(game_.playerAfter(deal_.getDonneur()));
+        game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
         game_.ajouterUneCarteDansPliEnCours((byte) 4, CardTarot.DIAMOND_KING);
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardTarot.DIAMOND_2);
@@ -3555,7 +3555,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.MISERE);
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_WITHOUT, (byte) first_);
@@ -3574,7 +3574,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
@@ -3597,7 +3597,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = deal1((byte) 0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.TAKE, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
@@ -3684,7 +3684,7 @@ public class CheckerGameTarotWithRulesTest {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
-        deal_.initDonneur((byte) 0);
+        deal_.setDealer((byte) 0);
         deal_.initDonne(rules_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         game_.getScoresRef().clear();
@@ -3700,7 +3700,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         DealTarot deal_ = deal6((byte) 4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
-        int first_ = game_.playerAfter(deal_.getDonneur());
+        int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
         first_ = game_.playerAfter((byte) first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST, (byte) first_);

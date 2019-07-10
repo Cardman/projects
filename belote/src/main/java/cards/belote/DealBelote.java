@@ -8,7 +8,6 @@ import cards.consts.Suit;
 import code.maths.montecarlo.AbMonteCarlo;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.EqList;
 import code.util.*;
 
 
@@ -64,23 +63,12 @@ public final class DealBelote implements Iterable<HandBelote> {
 //        dealer=(byte)(_nbJoueurs*MonteCarlo.randomDouble());
         dealer = (byte)AbMonteCarlo.randomLong(_nbJoueurs);
     }
-    /**Initialise le donneur pour editer une partie*/
-    public void initDonneur(byte _b) {
-        //On initialise_ le_ donneur par_ l'editeur_
-        dealer=_b;
-    }
     /**Apres une partie la joueur apres le donneur actuel devient le nouveau donneur*/
     public void donneurSuivant(byte _nouveauDonneur,int _nbJoueurs) {
         dealer=_nouveauDonneur;
         //On recupere_ le_ nombre_ de_ joueurs_ dans_ le_ cas_ d'un_ jeu_ non_ solitaire_
         dealer++;
         dealer%=_nbJoueurs;
-    }
-    public long getNombreDeParties() {
-        return nbDeals;
-    }
-    public byte getDonneur() {
-        return dealer;
     }
     /**Distribue les cartes de maniere aleatoire ou non selon les parametres de distribution, on ne tient pas compte du sens de distribution*/
     public void initDonne(RulesBelote _regles, DisplayingBelote _display) {
@@ -152,7 +140,7 @@ public final class DealBelote implements Iterable<HandBelote> {
             deal.last().ajouter(m.premiereCarte());
         }
         for (int i = CustList.FIRST_INDEX; i < nbJoueurs_; i++) {
-            deal.get(i).trier(_displaying.getCouleurs(), _displaying.getDecroissant(), _displaying.getOrdreAvantEncheres());
+            deal.get(i).trier(_displaying.getSuits(), _displaying.isDecreasing(), _displaying.getOrderBeforeBids());
         }
 
     }
@@ -164,7 +152,7 @@ public final class DealBelote implements Iterable<HandBelote> {
         if(talon_.estVide()) {
             return;
         }
-        main(_preneur).ajouter(talon_.jouer(CustList.FIRST_INDEX));
+        hand(_preneur).ajouter(talon_.jouer(CustList.FIRST_INDEX));
         //Le preneur_ prend_ la_ carte_ du_ dessus_
         Bytes ordreDisributionJoueurs_;
         ordreDisributionJoueurs_ = _regles.getRepartition().getSortedPlayersAfter(dealer);
@@ -180,7 +168,7 @@ public final class DealBelote implements Iterable<HandBelote> {
         }
     }
     /**Renvoie la main de l'utilisateur*/
-    public HandBelote main() {
+    public HandBelote hand() {
         return deal.get(NUMERO_UTILISATEUR);
     }
     public void jouer(CardBelote _carteJouee) {
@@ -189,15 +177,13 @@ public final class DealBelote implements Iterable<HandBelote> {
     public HandBelote derniereMain() {
         return deal.last();
     }
-    public HandBelote main(byte _i) {
+    public HandBelote hand(byte _i) {
         return deal.get(_i);
     }
     public void ajouter(byte _preneur, CardBelote _jouer) {
         deal.get(_preneur).ajouter(_jouer);
     }
-    public void setOrdre(byte _joueur, Order _couleur) {
-        deal.get(_joueur).setOrdre(_couleur);
-    }
+
     public void trier(byte _joueur, EnumList<Suit> _couleurs, boolean _decroissant, Order _couleur) {
         deal.get(_joueur).trier(_couleurs, _decroissant, _couleur);
     }
@@ -216,10 +202,6 @@ public final class DealBelote implements Iterable<HandBelote> {
 
     public byte nombreDeMains() {
         return (byte)deal.size();
-    }
-
-    CustList<HandBelote> getDonne() {
-        return deal;
     }
 
     @Override

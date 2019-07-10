@@ -91,7 +91,7 @@ public final class CheckerGameTarotWithRules {
             cards_.ajouterCartes(c);
         }
         for (byte p : _loadedGame.orderedPlayers(_loadedGame.getDistribution()
-                .getDonneur())) {
+                .getDealer())) {
             for (CardTarot c : _loadedGame.getPoignee(p)) {
                 cards_.ajouter(c);
             }
@@ -153,7 +153,7 @@ public final class CheckerGameTarotWithRules {
             noTrick_ = false;
         }
         Bytes players_ = _loadedGame.orderedPlayers(_loadedGame
-                .getDistribution().getDonneur());
+                .getDistribution().getDealer());
         DealTarot deal_ = new DealTarot(_loadedGame.getDistribution());
         for (TrickTarot t : allTricks_) {
             if (!t.getVuParToutJoueur()) {
@@ -161,7 +161,7 @@ public final class CheckerGameTarotWithRules {
             }
             for (CardTarot c : t) {
                 byte player_ = t.joueurAyantJoue(c);
-                deal_.main(player_).ajouter(c);
+                deal_.hand(player_).ajouter(c);
             }
         }
         if (_loadedGame.getPliEnCours().getVuParToutJoueur()) {
@@ -169,7 +169,7 @@ public final class CheckerGameTarotWithRules {
                 byte player_ = _loadedGame.getPliEnCours()
                         .joueurAyantJouePliEnCours(c,
                                 _loadedGame.getNombreDeJoueurs());
-                deal_.main(player_).ajouter(c);
+                deal_.hand(player_).ajouter(c);
             }
         }
         boolean completed_ = false;
@@ -178,7 +178,7 @@ public final class CheckerGameTarotWithRules {
         }
         if (completed_) {
             for (byte p : players_) {
-                if (deal_.main(p).total() != rules_.getRepartition()
+                if (deal_.hand(p).total() != rules_.getRepartition()
                         .getNombreCartesParJoueur()) {
                     _loadedGame.setError(BAD_COUNT_FOR_HANDS);
                     return;
@@ -190,7 +190,7 @@ public final class CheckerGameTarotWithRules {
                     if (p == _loadedGame.getPreneur()) {
                         continue;
                     }
-                    if (deal_.main(p).total() != rules_.getRepartition()
+                    if (deal_.hand(p).total() != rules_.getRepartition()
                             .getNombreCartesParJoueur()) {
                         _loadedGame.setError(BAD_COUNT_FOR_HANDS);
                         return;
@@ -198,7 +198,7 @@ public final class CheckerGameTarotWithRules {
                 }
             } else {
                 for (byte p : players_) {
-                    if (deal_.main(p).total() != rules_.getRepartition()
+                    if (deal_.hand(p).total() != rules_.getRepartition()
                             .getNombreCartesParJoueur()) {
                         _loadedGame.setError(BAD_COUNT_FOR_HANDS);
                         return;
@@ -208,13 +208,13 @@ public final class CheckerGameTarotWithRules {
         }
         if (_loadedGame.getContrat().getJeuChien() == PlayingDog.WITH) {
             if (!allTricks_.isEmpty()) {
-                deal_.main(_loadedGame.getPreneur()).ajouterCartes(
+                deal_.hand(_loadedGame.getPreneur()).ajouterCartes(
                         allTricks_.first().getCartes());
             } else {
-                deal_.main(_loadedGame.getPreneur()).ajouterCartes(
+                deal_.hand(_loadedGame.getPreneur()).ajouterCartes(
                         _loadedGame.getPliEnCours().getCartes());
             }
-            deal_.main(_loadedGame.getPreneur()).supprimerCartes(
+            deal_.hand(_loadedGame.getPreneur()).supprimerCartes(
                     _loadedGame.getDistribution().derniereMain());
         }
         boolean allCardsUsedOnce_ = true;
@@ -243,7 +243,7 @@ public final class CheckerGameTarotWithRules {
         if (loadedGameCopy_.avecContrat()) {
             players_ = loadedGameCopy_
                     .orderedPlayers(loadedGameCopy_.playerAfter(loadedGameCopy_
-                            .getDistribution().getDonneur()));
+                            .getDistribution().getDealer()));
             int i_ = 0;
             while (i_ < _loadedGame.contrats()) {
                 byte player_ = players_.get(i_);
@@ -272,7 +272,7 @@ public final class CheckerGameTarotWithRules {
                     loadedGameCopy_.initPlayWithoutBid();
                     loadedGameCopy_.setEntameur(loadedGameCopy_
                             .playerAfter(_loadedGame.getDistribution()
-                                    .getDonneur()));
+                                    .getDealer()));
                 }
             }
             if (!_loadedGame.getCarteAppelee().estVide()) {
@@ -299,7 +299,7 @@ public final class CheckerGameTarotWithRules {
                 return;
             }
             loadedGameCopy_.setEntameur(loadedGameCopy_.playerAfter(_loadedGame
-                    .getDistribution().getDonneur()));
+                    .getDistribution().getDealer()));
         }
         if (!_loadedGame.getContrat().isJouerDonne()) {
             if (_loadedGame.pasJeuApresPasse()) {
@@ -431,7 +431,7 @@ public final class CheckerGameTarotWithRules {
             }
         }
         if (!slam_) {
-            loadedGameCopy_.setEntameur(loadedGameCopy_.playerAfter(deal_.getDonneur()));
+            loadedGameCopy_.setEntameur(loadedGameCopy_.playerAfter(deal_.getDealer()));
         }
         int ind_ = 1;
         boolean passe_ = false;
@@ -516,7 +516,7 @@ public final class CheckerGameTarotWithRules {
                             }
                             HandTarot excludedTrumps_ = new HandTarot();
                             for (CardTarot c : _loadedGame.getDistribution()
-                                    .main(p).couleur(Suit.TRUMP)) {
+                                    .hand(p).couleur(Suit.TRUMP)) {
                                 if (_loadedGame.getPoignee(p).contient(c)) {
                                     continue;
                                 }
