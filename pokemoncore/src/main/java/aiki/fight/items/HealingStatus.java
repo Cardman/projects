@@ -23,13 +23,13 @@ public abstract class HealingStatus extends HealingItem {
             return;
 
         }
+        if (healingKo) {
+            return;
+        }
+        if (!status.isEmpty()) {
+            return;
+        }
         if (StringList.quickEq(getItemType(), ITEM)) {
-            if (healingKo) {
-                return;
-            }
-            if (!status.isEmpty()) {
-                return;
-            }
             _data.setError(true);
 
         }

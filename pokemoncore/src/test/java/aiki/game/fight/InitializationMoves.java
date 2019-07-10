@@ -1053,6 +1053,7 @@ final class InitializationMoves {
         effetEquipe_.setForbiddingHealing(true);
         effetEquipe_.setTargetChoice(TargetChoice.LANCEUR);
         effetEquipe_.getUnusableMoves().add(SOIN);
+        effetEquipe_.getMultStatisticFoe().put(Statistic.ATTACK,Rate.one());
         ficheAttaqueNonOff_.getEffects().add(effetEquipe_);
         _data.completeMembers(ANTI_SOIN,ficheAttaqueNonOff_);
         ficheAttaqueOff_ = defaultFicheAttaqueOff();

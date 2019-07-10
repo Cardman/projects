@@ -5,7 +5,6 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectEndRoundSingleStatus;
 import aiki.fight.moves.effects.EffectEndRoundStatus;
 import aiki.fight.moves.effects.EffectEndRoundStatusRelation;
-import aiki.fight.moves.effects.enums.RelationType;
 import aiki.fight.status.effects.EffectPartnerStatus;
 import code.maths.Rate;
 import code.util.CustList;

@@ -1862,6 +1862,15 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("1"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getRemainingHp());
     }
 
+    @Test
+    public void healPartner4Test() {
+        Fight fight_ = healPartner();
+        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterPseudoStatut(POKEMON_PLAYER_FIGHTER_ONE, CAUCHEMAR);
+        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setRemainedHp(Rate.one());
+        FightRound.healPartner(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_PLAYER_FIGHTER_ONE, Rate.one(), _data_);
+        assertTrue(!fight_.isEnabledHealingPartner());
+        assertEq(new Rate("1"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getRemainingHp());
+    }
     private static Fight useBoostForAccuracy() {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
@@ -5111,6 +5120,44 @@ public class FightRoundTest extends InitializationDataBase {
         assertTrue(StringList.contains(fighter_.getTypes(), ELECTRIQUE));
         assertTrue(fight_.isKeepStatus());
         assertTrue(!fighter_.isSuccessfulMove());
+        assertTrue(fight_.getAcceptableChoices());
+    }
+
+    @Test
+    public void roundThrowerMove22Test() {
+        Difficulty diff_= new Difficulty();
+        diff_.setEnabledClosing(true);
+        diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        StringMap<Short> moves_ = new StringMap<Short>();
+        moves_.put(DRACO_RAGE, (short) 10);
+        moves_.put(COPIE, (short) 10);
+        moves_.put(SEISME, (short) 10);
+        CustList<LevelMoves> userMoves_ = new CustList<LevelMoves>();
+        userMoves_.add(new LevelMoves((short)3,moves_));
+        userMoves_.add(new LevelMoves((short)3,moves_));
+        userMoves_.add(new LevelMoves((short)3,moves_));
+        CustList<LevelMoves> partnersMoves_ = new CustList<LevelMoves>();
+        StringList partnerMoves_ = new StringList(JACKPOT,PAR_ICI,COPIE);
+        partnersMoves_.add(new LevelMoves((short)3,partnerMoves_));
+        partnersMoves_.add(new LevelMoves((short)4,partnerMoves_));
+        CustList<LevelMoves> foesMoves_ = new CustList<LevelMoves>();
+        StringList foeMoves_ = new StringList(JACKPOT,PAR_ICI,COPIE);
+        foesMoves_.add(new LevelMoves((short)3,foeMoves_));
+        foesMoves_.add(new LevelMoves((short)4,foeMoves_));
+        Fight fight_ = roundThrowerMove(userMoves_, partnersMoves_, foesMoves_, diff_);
+        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        Fighter fighter_ = fight_.getFighter(thrower_);
+        fighter_.setCurrentAbility(NULL_REF);
+        fighter_.backUpObject(NULL_REF);
+        String move_ = POSSESSIF;
+        fighter_.setFirstChosenMove(move_);
+        FightRound.initRound(fight_);
+        FightRound.roundThrowerMove(fight_, thrower_, diff_, _data_);
+        assertEq(1, fighter_.getTypes().size());
+        assertTrue(!fighter_.isDisappeared());
+        assertTrue(StringList.contains(fighter_.getTypes(), ELECTRIQUE));
+        assertTrue(fight_.isKeepStatus());
+        assertTrue(fighter_.isSuccessfulMove());
         assertTrue(fight_.getAcceptableChoices());
     }
 

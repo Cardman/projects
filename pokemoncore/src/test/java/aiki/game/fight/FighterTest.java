@@ -170,6 +170,68 @@ public class FighterTest extends InitializationDataBase {
     }
 
     @Test
+    public void initCreatureUser3Test() {
+        Fighter fighter_ = new Fighter();
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(PIKACHU);
+        pokemon_.setItem(CEINT_POUV);
+        pokemon_.setAbility(PARATONNERRE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 3);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_);
+        pokemonUser_.getStatus().add(GEL);
+        pokemonUser_.setNickname(PIKA);
+        pokemonUser_.setUsedBallCatching(SUPER_BALL);
+        pokemonUser_.setHappiness((short) 40);
+        pokemonUser_.setWonExpSinceLastLevel(new Rate(3,2));
+        fighter_.initCreatureUser(pokemonUser_, _data_);
+        assertEq(SUPER_BALL, fighter_.getUsedBallCatching());
+        assertEq(40, fighter_.getHappiness());
+        assertEq(PIKA, fighter_.getNickname());
+        assertEq(PIKACHU, fighter_.getName());
+        assertEq(PIKACHU, fighter_.getCurrentName());
+        assertEq(PARATONNERRE, fighter_.getAbility());
+        assertEq(PARATONNERRE, fighter_.getCurrentAbility());
+        assertEq(CEINT_POUV, fighter_.getItem());
+        assertEq(CEINT_POUV,fighter_.getExpItem());
+        assertEq(Gender.NO_GENDER, fighter_.getGender());
+        assertEq(Gender.NO_GENDER, fighter_.getCurrentGender());
+        assertEq(3, fighter_.getLevel());
+        assertEq(new Rate("3/2"), fighter_.getWonExpSinceLastLevel());
+    }
+
+    @Test
+    public void initCreatureUser4Test() {
+        Fighter fighter_ = new Fighter();
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(PIKACHU);
+        pokemon_.setItem(ENCENS_VAGUE);
+        pokemon_.setAbility(PARATONNERRE);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel((short) 3);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_);
+        pokemonUser_.getStatus().add(GEL);
+        pokemonUser_.setNickname(PIKA);
+        pokemonUser_.setUsedBallCatching(SUPER_BALL);
+        pokemonUser_.setHappiness((short) 40);
+        pokemonUser_.setWonExpSinceLastLevel(new Rate(3,2));
+        fighter_.initCreatureUser(pokemonUser_, _data_);
+        assertEq(SUPER_BALL, fighter_.getUsedBallCatching());
+        assertEq(40, fighter_.getHappiness());
+        assertEq(PIKA, fighter_.getNickname());
+        assertEq(PIKACHU, fighter_.getName());
+        assertEq(PIKACHU, fighter_.getCurrentName());
+        assertEq(PARATONNERRE, fighter_.getAbility());
+        assertEq(PARATONNERRE, fighter_.getCurrentAbility());
+        assertEq(ENCENS_VAGUE, fighter_.getItem());
+        assertEq(ENCENS_VAGUE,fighter_.getExpItem());
+        assertEq(Gender.NO_GENDER, fighter_.getGender());
+        assertEq(Gender.NO_GENDER, fighter_.getCurrentGender());
+        assertEq(3, fighter_.getLevel());
+        assertEq(new Rate("3/2"), fighter_.getWonExpSinceLastLevel());
+    }
+
+    @Test
     public void initCreatureNonUser1Test() {
         Fighter fighter_ = new Fighter();
         Pokemon pokemon_ = new WildPk();

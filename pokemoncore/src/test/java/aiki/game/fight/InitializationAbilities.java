@@ -151,6 +151,7 @@ final class InitializationAbilities {
     static final String FREIN = "FREIN";
 
     static final String SYNCHRO = "SYNCHRO";
+    static final String ASYNCHRO = "ASYNCHRO";
 
     static final String ANNULE_GARDE = "ANNULE_GARDE";
 
@@ -531,6 +532,15 @@ final class InitializationAbilities {
         ficheCapacite_.getForwardStatus().put(SOMMEIL,SOMMEIL);
         ficheCapacite_.getForwardStatus().put(PARALYSIE,PARALYSIE);
         _data.completeMembers(SYNCHRO,ficheCapacite_);
+        ficheCapacite_ = defaultFicheCapacite();
+        ficheCapacite_.getForwardStatus().put(POISON_GRAVE,POISON_ST);
+        ficheCapacite_.getForwardStatus().put(BRULURE,BRULURE);
+        ficheCapacite_.getForwardStatus().put(GEL,GEL);
+        ficheCapacite_.getForwardStatus().put(POISON_ST,POISON_ST);
+        ficheCapacite_.getForwardStatus().put(SOMMEIL,SOMMEIL);
+        ficheCapacite_.getForwardStatus().put(PARALYSIE,PARALYSIE);
+        ficheCapacite_.getFailStatus().put(BRULURE,"F");
+        _data.completeMembers(ASYNCHRO,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
         ficheCapacite_.setSlowing(true);
         _data.completeMembers(FREIN,ficheCapacite_);

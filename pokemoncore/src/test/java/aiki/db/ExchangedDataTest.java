@@ -35,7 +35,7 @@ public class ExchangedDataTest extends InitializationDataBase {
     public void new_ExchangedData_DataBase_1Test() {
         ExchangedData ex_ = new ExchangedData(_data_);
         StringList abilities_ = ex_.getAbilities();
-        assertEq(106, abilities_.size());
+        assertEq(107, abilities_.size());
         assertTrue(StringList.contains(abilities_, TOXITOUCHE));
         assertTrue(StringList.contains(abilities_, HYPER_CUTTER));
         assertTrue(StringList.contains(abilities_, TECHNICIEN));
@@ -45,6 +45,7 @@ public class ExchangedDataTest extends InitializationDataBase {
         assertTrue(StringList.contains(abilities_, PIED_VELOCE));
         assertTrue(StringList.contains(abilities_, REGARD_VIF));
         assertTrue(StringList.contains(abilities_, SYNCHRO));
+        assertTrue(StringList.contains(abilities_, ASYNCHRO));
         assertTrue(StringList.contains(abilities_, IMPUDENCE));
         assertTrue(StringList.contains(abilities_, IGNIFUGE));
         assertTrue(StringList.contains(abilities_, CORPS_SAIN));

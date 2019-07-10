@@ -545,6 +545,7 @@ public class InitializationDataBase {
     protected static final String FREIN = InitializationAbilities.FREIN;
 
     protected static final String SYNCHRO = InitializationAbilities.SYNCHRO;
+    protected static final String ASYNCHRO = InitializationAbilities.ASYNCHRO;
 
     protected static final String ANNULE_GARDE = InitializationAbilities.ANNULE_GARDE;
 

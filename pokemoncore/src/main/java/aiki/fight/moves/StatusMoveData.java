@@ -44,20 +44,24 @@ public final class StatusMoveData extends MoveData {
                         continue;
                     }
                     if (e instanceof EffectTeam) {
+                        boolean ok_ = false;
                         if (((EffectTeam) e).getForbiddingHealing()) {
-                            continue;
+                            ok_ = true;
                         }
                         if (!((EffectTeam) e).getForbiddenBoost().isEmpty()) {
-                            continue;
+                            ok_ = true;
                         }
                         if (!((EffectTeam) e).getUnusableMoves().isEmpty()) {
-                            continue;
+                            ok_ = true;
                         }
                         if (!((EffectTeam) e).getMultStatisticFoe().isEmpty()) {
-                            continue;
+                            ok_ = true;
                         }
                         if (!((EffectTeam) e).getDisableFoeTeamEffects()
                                 .isEmpty()) {
+                            ok_ = true;
+                        }
+                        if (ok_) {
                             continue;
                         }
                     }
@@ -268,7 +272,7 @@ public final class StatusMoveData extends MoveData {
         if (getTargetChoice() != TargetChoice.TOUS_ADV) {
             return false;
         }
-        return thievableMove;
+        return true;
     }
 
     @Override
