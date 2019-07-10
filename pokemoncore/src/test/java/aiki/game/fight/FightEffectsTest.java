@@ -1312,6 +1312,40 @@ public class FightEffectsTest extends InitializationDataBase {
         assertTrue(StringList.contains(typesTarget_, DRAGON));
     }
 
+    @Test
+    public void effectSwitchAbilities6Test() {
+        Fight fight_ = effectSwitchAbilities();
+        TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
+        TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
+        FightAbilities.enableAbility(fight_, thrower_, _data_);
+        FightAbilities.enableAbility(fight_, target_, _data_);
+        FightRound.initRound(fight_);
+        StringList typesThrower_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition()).getTypes();
+        Fighter fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
+        assertEq(METEO, fighter_.getCurrentAbility());
+        assertEq(1, typesThrower_.size());
+        assertTrue(StringList.contains(typesThrower_, FEU));
+        StringList typesTarget_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition()).getTypes();
+        fighter_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition());
+        assertEq(MULTITYPE, fighter_.getCurrentAbility());
+        assertEq(1, typesTarget_.size());
+        assertTrue(StringList.contains(typesTarget_, DRAGON));
+        MoveData fMove_ = _data_.getMove(RAYON_UV);
+        EffectSwitchAbilities effect_ = (EffectSwitchAbilities) fMove_.getEffet(CustList.FIRST_INDEX);
+        FightEffects.effectSwitchAbilities(fight_, thrower_, target_, effect_, _data_);
+        typesThrower_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition()).getTypes();
+        fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
+        assertEq(METEO, fighter_.getCurrentAbility());
+        assertEq(1, typesThrower_.size());
+        assertTrue(StringList.contains(typesThrower_, FEU));
+        typesTarget_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition()).getTypes();
+        fighter_ = fight_.getFoeTeam().getMembers().getVal(target_.getPosition());
+        assertEq(NULL_REF, fighter_.getCurrentAbility());
+        assertEq(2, typesTarget_.size());
+        assertTrue(StringList.contains(typesTarget_, EAU));
+        assertTrue(StringList.contains(typesTarget_, COMBAT));
+    }
+
     private static Fight effectSwitchObjects() {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);

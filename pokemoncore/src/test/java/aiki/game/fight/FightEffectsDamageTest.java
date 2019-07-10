@@ -1030,6 +1030,14 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(new Rate("1"),FightEffects.ratePartnerMove(fighter_, _data_));
     }
 
+    @Test
+    public void ratePartnerMove4Test() {
+        Fight fight_ = ratePartnerMove();
+        Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
+        fighter_.getEnabledMovesForAlly().put(COUP_D_MAIN_2, true);
+        assertEq(new Rate("3/2"),FightEffects.ratePartnerMove(fighter_, _data_));
+    }
+
     private static Fight rateDamageTargetAbility() {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);

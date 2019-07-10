@@ -512,9 +512,11 @@ public class FighterTest extends InitializationDataBase {
         assertTrue(fighter_.getCopiedMoves().contains(COPIE));
         assertEq(NULL_REF, fighter_.getCopiedMoves().getVal(COPIE).getMove());
         assertEq(0, fighter_.getCopiedMoves().getVal(COPIE).getPp());
-        assertEq(2, fighter_.getEnabledMovesForAlly().size());
+        assertEq(3, fighter_.getEnabledMovesForAlly().size());
         assertTrue(fighter_.getEnabledMovesForAlly().contains(COUP_D_MAIN));
         assertTrue(!fighter_.getEnabledMovesForAlly().getVal(COUP_D_MAIN));
+        assertTrue(fighter_.getEnabledMovesForAlly().contains(COUP_D_MAIN_2));
+        assertTrue(!fighter_.getEnabledMovesForAlly().getVal(COUP_D_MAIN_2));
         assertTrue(fighter_.getEnabledMovesForAlly().contains(AIDE));
         assertTrue(!fighter_.getEnabledMovesForAlly().getVal(AIDE));
         assertEq(4, fighter_.getEnabledMovesEndRound().size());

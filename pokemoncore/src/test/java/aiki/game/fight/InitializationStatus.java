@@ -370,7 +370,6 @@ final class InitializationStatus {
 
     private static EffectEndRoundSingleStatus defaultEffectEndRoundSingleStatus() {
         EffectEndRoundSingleStatus object_ = new EffectEndRoundSingleStatus();
-        object_.setMultDamageStatus(new StringMap<Rate>());
         object_.setInflictedRateHpTarget(Rate.zero());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);

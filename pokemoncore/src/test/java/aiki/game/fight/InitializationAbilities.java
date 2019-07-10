@@ -948,7 +948,6 @@ final class InitializationAbilities {
     private static EffectEndRoundMultiRelation defaultEffectEndRoundMultiRelation() {
         EffectEndRoundMultiRelation object_ = new EffectEndRoundMultiRelation();
         object_.setDamageByStatus(new StringMap<Rate>());
-        object_.setMultDamageStatus(new StringMap<Rate>());
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(NULL_REF);
         object_.setRequiredSuccessfulEffects(new Ints());

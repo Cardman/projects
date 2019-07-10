@@ -2464,7 +2464,6 @@ public final class DocumentWriterAikiCoreUtil {
 
     private static void setEffectEndRoundMultiRelation(EffectEndRoundMultiRelation _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterMathUtil.setStringMapRate(_object.getDamageByStatus(),FIELD_DAMAGE_BY_STATUS,_document));
-        _element.appendChild(DocumentWriterMathUtil.setStringMapRate(_object.getMultDamageStatus(),FIELD_MULT_DAMAGE_STATUS,_document));
         setEffectEndRound(_object, _element, _document);
     }
 
@@ -2480,7 +2479,6 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static void setEffectEndRoundSingleStatus(EffectEndRoundSingleStatus _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterMathUtil.setStringMapRate(_object.getMultDamageStatus(),FIELD_MULT_DAMAGE_STATUS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isIncrementingDamageByRounds(),FIELD_INCREMENTING_DAMAGE_BY_ROUNDS,_document));
         setEffectEndRoundStatus(_object, _element, _document);
     }

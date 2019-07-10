@@ -638,7 +638,6 @@ public final class Instances {
         EffectEndRoundMultiRelation object_ = new EffectEndRoundMultiRelation();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setDamageByStatus(new StringMap<Rate>(cap_));
-        object_.setMultDamageStatus(new StringMap<Rate>(cap_));
         object_.setFailEndRound(DataBase.EMPTY_STRING);
         object_.setTargetChoice(TargetChoice.NOTHING);
         object_.setFail(DataBase.EMPTY_STRING);
@@ -682,7 +681,6 @@ public final class Instances {
     public static EffectEndRoundSingleStatus newEffectEndRoundSingleStatus() {
         EffectEndRoundSingleStatus object_ = new EffectEndRoundSingleStatus();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setMultDamageStatus(new StringMap<Rate>(cap_));
         object_.setInflictedRateHpTarget(Rate.zero());
         object_.setFailEndRound(DataBase.EMPTY_STRING);
         object_.setTargetChoice(TargetChoice.NOTHING);

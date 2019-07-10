@@ -12,12 +12,20 @@ import aiki.fight.pokemon.enums.ExpType;
 import aiki.fight.util.TypesDuo;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
+import aiki.map.DataMap;
+import aiki.map.levels.LevelCave;
+import aiki.map.levels.Link;
 import aiki.map.levels.enums.EnvironmentType;
+import aiki.map.places.Cave;
+import aiki.map.places.InitializedPlace;
 import aiki.map.places.Place;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.TileMiniMap;
+import aiki.util.Coords;
 import aiki.util.LawNumber;
+import aiki.util.LevelPoint;
+import aiki.util.Point;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteral.EvolvedMathFactory;
@@ -276,6 +284,7 @@ public class InitializationDataBase {
     protected static final String REFLET = InitializationMoves.REFLET;
     protected static final String RECYCLAGE = InitializationMoves.RECYCLAGE;
     protected static final String RAYON_SIMPLE = InitializationMoves.RAYON_SIMPLE;
+    protected static final String RAYON_UV = InitializationMoves.RAYON_UV;
     protected static final String RAYON_LUNE = InitializationMoves.RAYON_LUNE;
     protected static final String RACINES = InitializationMoves.RACINES;
     protected static final String PROVOC = InitializationMoves.PROVOC;
@@ -369,6 +378,7 @@ public class InitializationDataBase {
     protected static final String FORCE_NATURE = InitializationMoves.FORCE_NATURE;
     protected static final String DETECTION = InitializationMoves.DETECTION;
     protected static final String COUP_D_MAIN = InitializationMoves.COUP_D_MAIN;
+    protected static final String COUP_D_MAIN_2 = InitializationMoves.COUP_D_MAIN_2;
     protected static final String COPIE = InitializationMoves.COPIE;
     protected static final String BLABLA_DODO = InitializationMoves.BLABLA_DODO;
     protected static final String ASSISTANCE = InitializationMoves.ASSISTANCE;
@@ -1609,5 +1619,67 @@ public class InitializationDataBase {
         monteCarloNumber_ = new MonteCarloNumber();
         monteCarloNumber_.addEvent(new Rate("1"),new LgInt("1"));
         _data.getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MAX,new LawNumber(monteCarloNumber_,(short)5));
+    }
+
+    public static void joinLevelCave(DataMap _dataMap, short _place, LevelPoint _l1, LevelPoint _l2,
+                                     String _imgName1, String _imgName2) {
+        Coords coords_ = new Coords();
+        coords_.setNumberPlace(_place);
+        coords_.setLevel(_l1);
+        if (!_dataMap.isEmptyForAdding(coords_)) {
+            return;
+        }
+        coords_ = new Coords();
+        coords_.setNumberPlace(_place);
+        coords_.setLevel(_l2);
+        if (!_dataMap.isEmptyForAdding(coords_)) {
+            return;
+        }
+        joinLevelCave(_dataMap, _place, _l1, _l2, _imgName1);
+        joinLevelCave(_dataMap, _place, _l2, _l1, _imgName2);
+    }
+
+    public static void joinLevelCave(DataMap _dataMap, short _place, LevelPoint _l1, LevelPoint _l2,
+                                     String _imgName) {
+        Cave cave_ = (Cave) _dataMap.getPlaces().getVal(_place);
+        LevelCave l1_ = (LevelCave) cave_.getLevelsMap().getVal(
+                _l1.getLevelIndex());
+        ObjectMap<Point, Link> links_ = l1_.getLinksOtherLevels();
+        if (links_.contains(_l1.getPoint())) {
+            Link link_ = links_.getVal(_l1.getPoint());
+            link_.getCoords().setNumberPlace(_place);
+            link_.getCoords().setLevel(_l2);
+            link_.setFileName(_imgName);
+        } else {
+            Link link_ = new Link();
+            link_.setCoords(new Coords());
+            link_.getCoords().setNumberPlace(_place);
+            link_.getCoords().setLevel(_l2);
+            link_.setFileName(_imgName);
+            links_.put(_l1.getPoint(), link_);
+        }
+    }
+
+    public static void joinCavePlace(DataMap _dataMap, Coords _coordsCave, Coords _coordsPlace,
+                                     String _imgName1, String _imgName2) {
+        if (!_dataMap.isEmptyForAdding(_coordsCave)) {
+            return;
+        }
+        if (!_dataMap.isEmptyForAdding(_coordsPlace)) {
+            return;
+        }
+        Cave cave_ = (Cave) _dataMap.getPlaces().getVal(_coordsCave.getNumberPlace());
+        InitializedPlace place_ = (InitializedPlace) _dataMap.getPlaces().getVal(_coordsPlace
+                .getNumberPlace());
+        ObjectMap<LevelPoint, Link> links1_ = cave_.getLinksWithOtherPlaces();
+        Link link1_ = new Link();
+        link1_.setCoords(_coordsPlace);
+        link1_.setFileName(_imgName1);
+        links1_.put(_coordsCave.getLevel(), link1_);
+        ObjectMap<Point, Link> links2_ = place_.getLinksWithCaves();
+        Link link2_ = new Link();
+        link2_.setCoords(_coordsCave);
+        link2_.setFileName(_imgName2);
+        links2_.put(_coordsPlace.getLevel().getPoint(), link2_);
     }
 }

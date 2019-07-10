@@ -4629,10 +4629,6 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setDamageByStatus(DocumentReaderMathUtil.getStringMapRate(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_DAMAGE_STATUS)) {
-            _object.setMultDamageStatus(DocumentReaderMathUtil.getStringMapRate(_element));
-            return;
-        }
         getEffectEndRound(_object, _fieldName, _element);
     }
 
@@ -4657,10 +4653,6 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectEndRoundSingleStatus(EffectEndRoundSingleStatus _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_MULT_DAMAGE_STATUS)) {
-            _object.setMultDamageStatus(DocumentReaderMathUtil.getStringMapRate(_element));
-            return;
-        }
         if (StringList.quickEq(_fieldName, FIELD_INCREMENTING_DAMAGE_BY_ROUNDS)) {
             _object.setIncrementingDamageByRounds(DocumentReaderCoreUtil.getBoolean(_element));
             return;

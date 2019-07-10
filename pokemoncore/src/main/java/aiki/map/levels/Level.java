@@ -225,7 +225,7 @@ public abstract class Level {
                 frontTiles_.put(new Point(lp_.getPoint()),
                         _data.getLink(link_.getFileName()));
             }
-            LevelCave lv_ = (LevelCave) lev_;
+            LevelCave lv_ = cave_.getLevelCave(_coords.getLevel());
             for (Point p : lv_.getLinksOtherLevels().getKeys()) {
                 Link link_ = lv_.getLinksOtherLevels().getVal(p);
                 frontTiles_.put(new Point(p),

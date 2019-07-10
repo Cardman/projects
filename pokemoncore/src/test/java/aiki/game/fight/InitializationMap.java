@@ -1121,13 +1121,13 @@ final class InitializationMap {
         map_.join((short)2,(short) 3, newPoint(0,0), newPoint(0,5), Direction.UP);
         map_.join((short)4,(short) 2, newPoint(0,0), newPoint(0,5), Direction.UP);
         // right of cave
-        map_.joinCavePlace(newCoords(5, 0, 7, 2), newCoords(4, 0, 0, 2), FILE, FILE);
-        map_.joinLevelCave((short) 5, newLevelPoint(0,7,5), newLevelPoint(1,7,5), FILE, FILE);
-        map_.joinLevelCave((short) 5, newLevelPoint(0,2,3), newLevelPoint(1,2,3), FILE, FILE);
+        InitializationDataBase.joinCavePlace(map_, newCoords(5, 0, 7, 2), newCoords(4, 0, 0, 2), FILE, FILE);
+        InitializationDataBase.joinLevelCave(map_, (short) 5, newLevelPoint(0,7,5), newLevelPoint(1,7,5), FILE, FILE);
+        InitializationDataBase.joinLevelCave(map_, (short) 5, newLevelPoint(0,2,3), newLevelPoint(1,2,3), FILE, FILE);
 
 //        map_.joinCavePlace(newCoords(5, 1, 4, 0), newCoords(7, 0, 2, 0), "file", "file");
 //        map_.joinCavePlace(newCoords(5, 1, 4, 0), newCoords(7, 0, 2, 0), "file", "file");
-        map_.joinCavePlace(newCoords(5, 1, 4, 0), newCoords(8, 0, 0, 0), FILE, FILE);
+        InitializationDataBase.joinCavePlace(map_, newCoords(5, 1, 4, 0), newCoords(8, 0, 0, 0), FILE, FILE);
 //        map_.getAccessCondition().put(newCoords(5, 1, 4, 0), new List<Coords>(newCoords(6, 0, 4, 8)));
         map_.join((short)7,(short) 4, newPoint(0,0), newPoint(0,5), Direction.UP);
         //map_.join(_pl1, _pl2, _p1, _p2, _dir1);

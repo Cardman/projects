@@ -11,24 +11,11 @@ import code.util.StringMap;
 public final class EffectEndRoundMultiRelation extends EffectEndRound {
 
     private StringMap<Rate> damageByStatus;
-    private StringMap<Rate> multDamageStatus;
 
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
         for (EntryCust<String, Rate> e : damageByStatus.entryList()) {
-            if (!_data.getStatus().contains(e.getKey())) {
-                _data.setError(true);
-                return;
-
-            }
-            if (_data.getStatus(e.getKey()).getStatusType() == StatusType.RELATION_UNIQUE) {
-                _data.setError(true);
-                return;
-
-            }
-        }
-        for (EntryCust<String, Rate> e : multDamageStatus.entryList()) {
             if (!_data.getStatus().contains(e.getKey())) {
                 _data.setError(true);
                 return;
@@ -55,11 +42,4 @@ public final class EffectEndRoundMultiRelation extends EffectEndRound {
         damageByStatus = _damageByStatus;
     }
 
-    public StringMap<Rate> getMultDamageStatus() {
-        return multDamageStatus;
-    }
-
-    public void setMultDamageStatus(StringMap<Rate> _multDamageStatus) {
-        multDamageStatus = _multDamageStatus;
-    }
 }

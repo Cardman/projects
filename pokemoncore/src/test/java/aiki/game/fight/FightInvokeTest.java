@@ -257,7 +257,7 @@ public class FightInvokeTest extends InitializationDataBase {
         MoveData move_ = _data_.getMove(METRONOME);
         EffectInvoke eff_ = (EffectInvoke) move_.getEffet(move_.indexOfPrimaryEffect());
         StringList list_ = FightInvoke.invokableMoves(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, eff_, _data_);
-        assertEq(250, list_.size());
+        assertEq(252, list_.size());
         assertTrue(StringList.contains(list_, ABIME));
         assertTrue(StringList.contains(list_, ACUPRESSION));
         assertTrue(StringList.contains(list_, ADAPTATION));
@@ -320,6 +320,7 @@ public class FightInvokeTest extends InitializationDataBase {
         assertTrue(StringList.contains(list_, COUPE_VENT));
         assertTrue(StringList.contains(list_, COUP_D_BOULE));
         assertTrue(StringList.contains(list_, COUP_D_JUS));
+        assertTrue(StringList.contains(list_, COUP_D_MAIN_2));
         assertTrue(StringList.contains(list_, CROC_FATAL));
         assertTrue(StringList.contains(list_, CROISSANCE));
         assertTrue(StringList.contains(list_, CRU_AILE));
@@ -440,6 +441,7 @@ public class FightInvokeTest extends InitializationDataBase {
         assertTrue(StringList.contains(list_, RAYON_LUNE));
         assertTrue(StringList.contains(list_, RAYON_SIGNAL));
         assertTrue(StringList.contains(list_, RAYON_SIMPLE));
+        assertTrue(StringList.contains(list_, RAYON_UV));
         assertTrue(StringList.contains(list_, REBOND));
         assertTrue(StringList.contains(list_, REBONDIFEU));
         assertTrue(StringList.contains(list_, RECYCLAGE));
@@ -778,7 +780,7 @@ public class FightInvokeTest extends InitializationDataBase {
         EqList<TeamPosition> list_ = FightOrder.targetsEffect(fight_,POKEMON_PLAYER_FIGHTER_ZERO,effet_,diff_,_data_);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
-        assertEq(251, FightInvoke.invokableMoves(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, effet_, _data_).size());
+        assertEq(253, FightInvoke.invokableMoves(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, effet_, _data_).size());
         assertTrue(FightSuccess.successfulMove(fight_,POKEMON_PLAYER_FIGHTER_ZERO,POKEMON_FOE_FIGHTER_ZERO,METRONOME,CustList.FIRST_INDEX,true,_data_).isSuccessful());
         FightInvoke.effectInvoke(fight_,POKEMON_PLAYER_FIGHTER_ZERO,POKEMON_FOE_FIGHTER_ZERO, effet_, _data_);
         StringList invokedMoves_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAlreadyInvokedMovesRound();

@@ -63,11 +63,8 @@ public final class EffectStatus extends Effect {
             copy_.addAllElts(lawStatus.events());
             copy_.removeDuplicates();
             if (size_ + lawStatus.events().size() != copy_.size()) {
-                if (!lawStatus.events().isEmpty()) {
-                    _data.setError(true);
-                    return;
-
-                }
+                _data.setError(true);
+                return;
             }
             if (statusFromUser) {
                 _data.setError(true);

@@ -2,6 +2,7 @@ package aiki.map;
 import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import aiki.game.fight.InitializationDataBase;
 import org.junit.Test;
 
 import aiki.map.buildings.Building;
@@ -34,7 +35,6 @@ import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.*;
 import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -460,7 +460,7 @@ public class DataMapInitializeAccessibilityTest {
         dataMap_.setPlaces(new ShortMap<Place>());
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),city_);
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),cave_);
-        dataMap_.joinCavePlace(coords(1, 0, 1, 0), coords(0, 0, 4, 8), LINK, LINK);
+        InitializationDataBase.joinCavePlace(dataMap_, coords(1, 0, 1, 0), coords(0, 0, 4, 8), LINK, LINK);
         ObjectMap<Coords,Condition> next_ = dataMap_.getNext(coords(0, 0, 4, 7), new Condition());
         assertEq(4, next_.size());
         assertEq(0, next_.getVal(coords(0, 0, 3, 7)).size());
@@ -482,7 +482,7 @@ public class DataMapInitializeAccessibilityTest {
         dataMap_.setPlaces(new ShortMap<Place>());
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),city_);
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),cave_);
-        dataMap_.joinCavePlace(coords(1, 0, 1, 0), coords(0, 0, 4, 8), LINK, LINK);
+        InitializationDataBase.joinCavePlace(dataMap_, coords(1, 0, 1, 0), coords(0, 0, 4, 8), LINK, LINK);
         ObjectMap<Coords,Condition> next_ = dataMap_.getNext(coords(0, 0, 4, 8), new Condition());
         assertEq(4, next_.size());
         assertEq(0, next_.getVal(coords(0, 0, 3, 8)).size());
@@ -505,7 +505,7 @@ public class DataMapInitializeAccessibilityTest {
         dataMap_.setPlaces(new ShortMap<Place>());
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),road_);
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),cave_);
-        dataMap_.joinCavePlace(coords(1, 0, 1, 0), coords(0, 0, 1, 5), LINK, LINK);
+        InitializationDataBase.joinCavePlace(dataMap_, coords(1, 0, 1, 0), coords(0, 0, 1, 5), LINK, LINK);
         ObjectMap<Coords,Condition> next_ = dataMap_.getNext(coords(0, 0, 1, 4), new Condition());
         assertEq(3, next_.size());
         assertEq(0, next_.getVal(coords(0, 0, 0, 4)).size());
@@ -616,7 +616,7 @@ public class DataMapInitializeAccessibilityTest {
         dataMap_.setPlaces(new ShortMap<Place>());
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),city_);
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),cave_);
-        dataMap_.joinCavePlace(coords(1, 0, 1, 0), coords(0, 0, 4, 8), LINK, LINK);
+        InitializationDataBase.joinCavePlace(dataMap_, coords(1, 0, 1, 0), coords(0, 0, 4, 8), LINK, LINK);
         ObjectMap<Coords,Condition> next_ = dataMap_.getNext(coords(1, 0, 1, 0), new Condition());
         assertEq(4, next_.size());
         assertEq(0, next_.getVal(coords(1, 0, 0, 0)).size());
@@ -640,8 +640,8 @@ public class DataMapInitializeAccessibilityTest {
         dataMap_.setPlaces(new ShortMap<Place>());
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),city_);
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),cave_);
-        dataMap_.joinCavePlace(coords(1, 0, 1, 0), coords(0, 0, 4, 8), LINK, LINK);
-        dataMap_.joinLevelCave((short) 1, levelPoint(0, 1, 3), levelPoint(1, 1, 3), LINK, LINK);
+        InitializationDataBase.joinCavePlace(dataMap_, coords(1, 0, 1, 0), coords(0, 0, 4, 8), LINK, LINK);
+        InitializationDataBase.joinLevelCave(dataMap_, (short) 1, levelPoint(0, 1, 3), levelPoint(1, 1, 3), LINK, LINK);
         ObjectMap<Coords,Condition> next_ = dataMap_.getNext(coords(1, 0, 1, 3), new Condition());
         assertEq(5, next_.size());
         assertEq(0, next_.getVal(coords(1, 0, 0, 3)).size());
@@ -853,7 +853,7 @@ public class DataMapInitializeAccessibilityTest {
         dataMap_.setPlaces(new ShortMap<Place>());
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),roadOne_);
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),cave_);
-        dataMap_.joinCavePlace(coords(1, 0, 0, 0), coords(0, 0, 0, 3), LINK, LINK);
+        InitializationDataBase.joinCavePlace(dataMap_, coords(1, 0, 0, 0), coords(0, 0, 0, 3), LINK, LINK);
         ObjectMap<Coords,Condition> next_ = dataMap_.getNext(coords(0, 0, 0, 2), new Condition());
         assertEq(3, next_.size());
         assertEq(0, next_.getVal(coords(0, 0, 1, 2)).size());
@@ -874,7 +874,7 @@ public class DataMapInitializeAccessibilityTest {
         dataMap_.setPlaces(new ShortMap<Place>());
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),roadOne_);
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),cave_);
-        dataMap_.joinCavePlace(coords(1, 0, 0, 3), coords(0, 0, 0, 0), LINK, LINK);
+        InitializationDataBase.joinCavePlace(dataMap_, coords(1, 0, 0, 3), coords(0, 0, 0, 0), LINK, LINK);
         ObjectMap<Coords,Condition> next_ = dataMap_.getNext(coords(1, 0, 0, 2), new Condition());
         assertEq(3, next_.size());
         assertEq(0, next_.getVal(coords(1, 0, 1, 2)).size());
@@ -895,7 +895,7 @@ public class DataMapInitializeAccessibilityTest {
         dataMap_.setPlaces(new ShortMap<Place>());
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),roadOne_);
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),cave_);
-        dataMap_.joinCavePlace(coords(1, 0, 0, 3), coords(0, 0, 0, 0), LINK, LINK);
+        InitializationDataBase.joinCavePlace(dataMap_, coords(1, 0, 0, 3), coords(0, 0, 0, 0), LINK, LINK);
         ObjectMap<Coords,Condition> next_ = dataMap_.getNext(coords(1, 0, 1, 2), new Condition());
         assertEq(3, next_.size());
         assertEq(0, next_.getVal(coords(1, 0, 2, 2)).size());
@@ -4809,7 +4809,7 @@ public class DataMapInitializeAccessibilityTest {
         dataMap_.setPlaces(new ShortMap<Place>());
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),roadOne_);
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),cave_);
-        dataMap_.joinCavePlace(coords(1, 0, 0, 3), coords(0, 0, 0, 0), LINK, LINK);
+        InitializationDataBase.joinCavePlace(dataMap_, coords(1, 0, 0, 3), coords(0, 0, 0, 0), LINK, LINK);
         dataMap_.setBegin(coords(0, 0, 0, 0));
         dataMap_.initializeAccessibility();
         assertTrue(!dataMap_.isError());
@@ -4848,7 +4848,7 @@ public class DataMapInitializeAccessibilityTest {
         dataMap_.setPlaces(new ShortMap<Place>());
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),roadOne_);
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),cave_);
-        dataMap_.joinCavePlace(coords(1, 0, 0, 3), coords(0, 0, 0, 0), LINK, LINK);
+        InitializationDataBase.joinCavePlace(dataMap_, coords(1, 0, 0, 3), coords(0, 0, 0, 0), LINK, LINK);
         dataMap_.getAccessCondition().put(coords(1, 0, 0, 4), new EqList<Coords>());
         dataMap_.setBegin(coords(0, 0, 0, 0));
         dataMap_.initializeAccessibility();
