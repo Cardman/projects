@@ -59,6 +59,7 @@ public final class GameBelote {
     private CardBelote playedCard = CardBelote.WHITE;
 
     private String error = "";
+    private boolean ended;
     /**Constructeur permettant le chargement d'une partie de belote*/
     public GameBelote() {}
 
@@ -215,45 +216,111 @@ public final class GameBelote {
         }
         tricks = new CustList<TrickBelote>();
     }
-    public void simuler() {
+    public void simuler(SimulatingBelote _simu) {
+        ended = false;
+        _simu.prepare();
+        _simu.sleepSimu(500);
+        _simu.beginDemo();
+        _simu.pause();
         simulationWithBids = false;
         Bytes players_ = orderedPlayers(playerAfter(getDistribution().getDonneur()));
+        byte nbPl_ = getNombreDeJoueurs();
         if (rules.dealAll()) {
             byte joueur_ = playerAfter(getDistribution().getDonneur());
             while (keepBidding()) {
-                bidSimulate(joueur_);
+                bidSimulate(joueur_,_simu);
+                _simu.nextRound(bids.size(),nbPl_);
+                if (_simu.stopped()) {
+                    _simu.stopDemo();
+                    return;
+                }
                 joueur_ = playerAfter(joueur_);
             }
         } else {
-            bidRoundSimulate(players_);
-            secRoundSimulate(players_);
+            boolean en_ = bidRoundSimulate(players_, _simu);
+            en_ = secRoundSimulate(en_,players_,_simu);
+            if (!en_) {
+                _simu.stopDemo();
+                return;
+            }
         }
-        simuPlayCards();
+        simuPlayCards(_simu);
     }
 
-    void secRoundSimulate(Bytes _players) {
+    boolean secRoundSimulate(boolean _enabled,Bytes _players,SimulatingBelote _simu) {
+        if (!_enabled) {
+            return false;
+        }
         if (keepBidding()) {
             finEncherePremierTour();
-            bidRoundSimulate(_players);
+            byte nbPl_ = getNombreDeJoueurs();
+            _simu.secRound(nbPl_);
+            return bidRoundSimulate(_players,_simu);
         }
+        return true;
     }
 
-    void bidRoundSimulate(Bytes _players) {
+    boolean bidRoundSimulate(Bytes _players,SimulatingBelote _simu) {
         for (byte joueur_ : _players) {
-            bidSimulate(joueur_);
+            bidSimulate(joueur_,_simu);
+            if (_simu.stopped()) {
+                return false;
+            }
         }
+        return true;
     }
 
-    void simuPlayCards() {
+    void simuPlayCards(SimulatingBelote _simu) {
         if (!bid.jouerDonne()) {
+            _simu.noBid();
+            ended = true;
             return;
         }
         simulationWithBids = true;
+        if (!rules.dealAll()) {
+            _simu.dealCards(deal.getDonneur());
+            Bytes players_ = orderedPlayers(playerAfter(getDistribution().getDonneur()));
+            int step_ = 1;
+            for (int nb_: rules.getRepartition().getDistributionFin()) {
+                for (byte p:players_) {
+                    int gotCards_ = nb_;
+                    if(p==taker) {
+                        gotCards_--;
+                    }
+                    _simu.dealCard(step_,gotCards_,p);
+                    step_++;
+                }
+            }
+        }
         completerDonne();
+        _simu.displayUserHand(mainUtilisateurTriee(_simu.getDisplaying()));
+        _simu.sleepSimu(1000);
+        _simu.displayLineReturn();
+        _simu.beginPlay();
+        _simu.declareSlam(taker,bid);
         while (true) {
             setPliEnCours();
             for (byte joueur_ : orderedPlayers(starter)) {
+                if (getProgressingTrick().estVide()) {
+                    _simu.firstCardPlaying(joueur_);
+                } else {
+                    _simu.nextCardPlaying(joueur_);
+                }
+                _simu.sleepSimu(1000);
+                _simu.pause();
                 currentPlayerHasPlayed(joueur_);
+                if (premierTour()) {
+                    _simu.declare(joueur_,getAnnonce(joueur_));
+                }
+                _simu.belReb(cartesBeloteRebelote(),playedCard,joueur_);
+                _simu.played(joueur_,playedCard);
+                if(joueur_==DealBelote.NUMERO_UTILISATEUR) {
+                    _simu.displayUserHand(mainUtilisateurTriee(_simu.getDisplaying()));
+                }
+                if (_simu.stopped()) {
+                    _simu.stopDemo();
+                    return;
+                }
             }
             if (premierTour()) {
                 annulerAnnonces();
@@ -261,20 +328,32 @@ public final class GameBelote {
             if (getDistribution().main().estVide()) {
                 /*Il y a dix de der*/
                 ajouterPliEnCours();
+                _simu.displayTrickWinner(trickWinner);
                 setDixDeDer(getRamasseur());
+                _simu.displayLastTrick(trickWinner);
                 break;
             }
             ajouterPliEnCours();
+            _simu.displayTrickWinner(trickWinner);
+            _simu.sleepSimu(4000);
+            _simu.pause();
+            _simu.clearCarpet(getNombreDeJoueurs());
         }
+        _simu.endDeal();
+        ended = true;
     }
 
-    void bidSimulate(byte _p) {
+    void bidSimulate(byte _p,SimulatingBelote _simu) {
         if (!keepBidding()) {
             return;
         }
+        _simu.actingBid(_p);
+        _simu.sleepSimu(500);
         BidBeloteSuit contratTmp_ = strategieContrat();
+        _simu.actedBid(_p,contratTmp_);
         ajouterContrat(contratTmp_, _p);
     }
+
     public HandBelote mainUtilisateurTriee(DisplayingBelote _regles) {
         HandBelote main_ = new HandBelote();
         main_.ajouterCartes(getDistribution().main());
@@ -295,10 +374,6 @@ public final class GameBelote {
 
     public void jouer(byte _joueur, CardBelote _ct) {
         deal.jouer(_joueur,_ct);
-    }
-
-    public boolean getSimulationAvecContrats() {
-        return simulationWithBids;
     }
 
     public boolean autorise(CardBelote _c) {
@@ -818,4 +893,7 @@ public final class GameBelote {
         error = _error;
     }
 
+    public boolean isEnded() {
+        return ended;
+    }
 }

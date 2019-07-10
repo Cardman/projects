@@ -65,11 +65,6 @@ public final class GameTarot {
     /** Ramasseur du pli qui vient d'etre joue */
     private byte trickWinner;
     /**
-    utilise pour dire si l'utilisateur a annonce un contrat ou non au
-    chargement d'une partie
-    */
-    private boolean simulationWithBids;
-    /**
     Scores cumules au cours des parties Chaque nombre (Short) represente un
     score pour le joueur
     */
@@ -86,6 +81,8 @@ public final class GameTarot {
     private int cardsToBeDiscardedCount;
 
     private CardTarot playedCard = CardTarot.WHITE;
+
+    private boolean ended;
 
     /** Constructeur permettant le chargement d'une partie de tarot */
     public GameTarot() {
@@ -262,37 +259,79 @@ public final class GameTarot {
         }
     }
 
-    public void simuler() {
-        simulationWithBids = false;
+    public void simuler(SimulatingTarot _simu) {
+        ended = false;
+        _simu.prepare();
+        _simu.sleepSimu(500);
+        _simu.beginDemo();
+        _simu.pause();
         byte donneur_ = getDistribution().getDonneur();
         bid = BidTarot.FOLD;
         if (avecContrat()) {
             for (byte joueur_ : orderedPlayers(playerAfter(donneur_))) {
-                bidSimulate(joueur_);
+                bidSimulate(joueur_,_simu);
+                if (_simu.stopped()) {
+                    _simu.stopDemo();
+                    return;
+                }
             }
         }
-        simuPlayCards();
+        simuPlayCards(_simu);
     }
 
-    void simuPlayCards() {
+    void simuPlayCards(SimulatingTarot _simu) {
         if (!bid.isJouerDonne() && pasJeuApresPasse()) {
+            _simu.noBid();
+            ended = true;
             return;
         }
-        simulationWithBids = true;
-        simuCallDiscard(bid);
+        simuCallDiscard(bid,_simu);
         simuStarter();
+        _simu.displayLineReturn();
+        _simu.beginPlay();
         while (true) {
             setPliEnCours(true);
             for (byte joueur_ : orderedPlayers(starter)) {
+                if (getProgressingTrick().estVide()) {
+                    _simu.firstCardPlaying(joueur_);
+                } else {
+                    _simu.nextCardPlaying(joueur_);
+                }
+                _simu.sleepSimu(1000);
+                _simu.pause();
                 currentPlayerHasPlayed(joueur_);
+                if (premierTourNoMisere()) {
+                    _simu.declareHandfuls(joueur_,getAnnoncesPoignees(joueur_),getPoignee(joueur_));
+                    _simu.declareMiseres(joueur_,getAnnoncesMiseres(joueur_));
+                }
+                if (getCalledCards().contient(playedCard)) {
+                    _simu.displayCalled(joueur_);
+                }
+                _simu.played(joueur_,playedCard);
+                if(joueur_==DealTarot.NUMERO_UTILISATEUR) {
+                    _simu.displayUserHand(mainUtilisateurTriee(_simu.getDisplaying()));
+                }
+                if (_simu.stopped()) {
+                    _simu.stopDemo();
+                    return;
+                }
             }
             if (getDistribution().main().estVide()) {
                 ajouterPetitAuBoutPliEnCours();
+                _simu.displayTrickWinner(trickWinner);
+                _simu.displaySmallBound(smallBound,trickWinner);
                 break;
             }
             ajouterPliEnCours();
+            _simu.displayTrickWinner(trickWinner);
             ajouterPetitAuBout();
+            _simu.displaySmallBound(smallBound,trickWinner);
+            _simu.sleepSimu(4000);
+            _simu.pause();
+            _simu.clearCarpet(getNombreDeJoueurs());
         }
+        _simu.endDeal();
+        ended = true;
     }
 
     void simuStarter() {
@@ -307,29 +346,57 @@ public final class GameTarot {
         }
     }
 
-    void simuCallDiscard(BidTarot _bid) {
+    void simuCallDiscard(BidTarot _bid,SimulatingTarot _simu) {
+        DisplayingTarot displaying_ = _simu.getDisplaying();
         if (_bid.isJouerDonne()) {
+            HandTarot last_ = getDeal().derniereMain();
             if (rules.getDiscardAfterCall()) {
-                initSimuTeam();
+                initSimuTeam(_simu);
                 if (_bid.getJeuChien() == PlayingDog.WITH) {
+                    HandTarot curHand_ = mainUtilisateurTriee(displaying_);
+                    _simu.seeDog(last_);
+                    _simu.pause();
+                    _simu.beforeSeeDog(taker,curHand_);
+                    HandTarot curHandAdd_ = new HandTarot();
+                    curHandAdd_.ajouterCartes(curHand_);
+                    curHandAdd_.ajouterCartes(last_);
+                    curHandAdd_.trier(displaying_.getCouleurs(),displaying_.getDecroissant());
+                    _simu.mergeDog(taker,curHandAdd_,last_);
                     ecarter(true);
+                    HandTarot nextHand_ = mainUtilisateurTriee(displaying_);
+                    _simu.mergedDog(taker,nextHand_);
+                    _simu.autoCall(getAppele(),taker);
                 } else {
                     gererChienInconnu();
                     slam();
+                    _simu.declareSlam(declaresSlam,taker,bid);
                 }
             } else {
                 if (_bid.getJeuChien() == PlayingDog.WITH) {
+                    HandTarot curHand_ = mainUtilisateurTriee(displaying_);
+                    _simu.seeDog(last_);
+                    _simu.beforeSeeDog(taker,curHand_);
+                    HandTarot curHandAdd_ = new HandTarot();
+                    curHandAdd_.ajouterCartes(curHand_);
+                    curHandAdd_.ajouterCartes(last_);
+                    curHandAdd_.trier(displaying_.getCouleurs(),displaying_.getDecroissant());
+                    _simu.mergeDog(taker,curHandAdd_, last_);
                     appelApresEcart();
+                    HandTarot nextHand_ = mainUtilisateurTriee(displaying_);
+                    _simu.mergedDog(taker,nextHand_);
+                    _simu.callCard();
+                    _simu.callCard(taker,getCalledCards());
                 } else {
-                    initSimuTeam();
+                    initSimuTeam(_simu);
                     gererChienInconnu();
                     slam();
+                    _simu.declareSlam(declaresSlam,taker,bid);
                 }
             }
         }
     }
 
-    void initSimuTeam() {
+    void initSimuTeam(SimulatingTarot _simu) {
         if (rules.getRepartition().getAppel() == CallingCard.CHARACTER_CARD
                 || rules.getRepartition().getAppel() == CallingCard.KING) {
             intelligenceArtificielleAppel();
@@ -338,15 +405,27 @@ public final class GameTarot {
         } else {
             initDefense();
         }
+        if (getCalledCards().estVide()) {
+            for (byte c: getAppele()) {
+                _simu.constCallPlayer(c);
+            }
+        } else {
+            _simu.callCard();
+            _simu.callCard(taker,getCalledCards());
+        }
     }
 
-    void bidSimulate(byte _p) {
+    void bidSimulate(byte _p,SimulatingTarot _simu) {
         if (maximumBid(bid)) {
             return;
         }
         BidTarot contratTmp_ = strategieContrat();
+        _simu.actingBid(_p);
+        _simu.sleepSimu(1000);
         ajouterContrat(contratTmp_,_p);
+        _simu.actedBid(_p,contratTmp_);
     }
+
     public HandTarot mainUtilisateurTriee(DisplayingTarot _regles) {
         HandTarot main_ = new HandTarot();
         main_.ajouterCartes(getDistribution().main());
@@ -1263,10 +1342,6 @@ public final class GameTarot {
         }
     }
 
-    public boolean petitMeneAuBout(byte _numero) {
-        return smallBound.get(_numero);
-    }
-
     public EndTarotGame getEndTarotGame() {
         GameTarotTeamsRelation t_ = getTeamsRelation();
         return new EndTarotGame(t_,tricks,declaresHandfuls,declaresMiseres,declaresSlam,smallBound);
@@ -1339,10 +1414,6 @@ public final class GameTarot {
 
     public void setNombre() {
         number++;
-    }
-
-    public boolean getSimulationAvecContrats() {
-        return simulationWithBids;
     }
 
     public GameType getType() {
@@ -1477,4 +1548,7 @@ public final class GameTarot {
         return cardsToBeDiscardedCount;
     }
 
+    public boolean isEnded() {
+        return ended;
+    }
 }

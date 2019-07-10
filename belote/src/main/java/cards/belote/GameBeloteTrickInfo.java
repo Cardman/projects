@@ -215,8 +215,13 @@ public final class GameBeloteTrickInfo {
             HandBelote _curHand) {
         CustList<HandBelote> m = atoutsPossiblesRegles(_couleurAtout,_curHand);
         byte joueur_ = 0;
+        byte next_ = progressingTrick.getNextPlayer(nbPlayers);
         for (HandBelote main_ : m) {
             if (main_.estVide()) {
+                joueur_++;
+                continue;
+            }
+            if (joueur_ == next_) {
                 joueur_++;
                 continue;
             }
@@ -585,8 +590,13 @@ public final class GameBeloteTrickInfo {
     CustList<HandBelote> cartesPossibles(Suit _couleur, HandBelote _curHand) {
         CustList<HandBelote> m = cartesPossiblesRegles(_couleur,_curHand);
         byte joueur_ = 0;
+        byte next_ = progressingTrick.getNextPlayer(nbPlayers);
         for (HandBelote main_ : m) {
             if (main_.estVide()) {
+                joueur_++;
+                continue;
+            }
+            if (joueur_ == next_) {
                 joueur_++;
                 continue;
             }

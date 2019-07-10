@@ -1,6 +1,9 @@
 package cards.gui.animations;
 import cards.gui.containers.ContainerSimuTarot;
+import cards.gui.containers.ContainerTarot;
+import cards.gui.labels.GraphicTarotCard;
 import cards.tarot.HandTarot;
+import code.gui.Panel;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
@@ -17,8 +20,18 @@ public final class SimulationRefreshHandTarotDog extends Thread {
         hand = _hand;
     }
 
+    static void updateCardsInPanelTarotDog(ContainerSimuTarot _s, Panel _panel, HandTarot _hand) {
+        _panel.removeAll();
+        String lg_ = _s.getOwner().getLanguageKey();
+        for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_,_hand)) {
+            _panel.add(c);
+        }
+        _panel.repaint();
+        _panel.revalidate();
+    }
+
     @Override
     public void run() {
-        GoSimulateTarot.updateCardsInPanelTarotDog(container, container.tapisTarot().getCenterDeck(), hand);
+        updateCardsInPanelTarotDog(container, container.tapisTarot().getCenterDeck(), hand);
     }
 }

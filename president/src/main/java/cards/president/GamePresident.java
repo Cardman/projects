@@ -53,6 +53,8 @@ public final class GamePresident {
 
     private HandPresident playedCards = new HandPresident();
 
+    private boolean ended;
+
     /** Constructeur permettant le chargement d'une partie de tarot */
     public GamePresident() {
     }
@@ -137,6 +139,7 @@ public final class GamePresident {
     }
 
     public void simulate(int _nbTimes, SimulatingPresident _simu) {
+        ended = false;
         _simu.prepare();
         _simu.sleepSimu(500);
         _simu.beginDemo();
@@ -239,6 +242,7 @@ public final class GamePresident {
             setLastStatus();
             noDeal_++;
         }
+        ended = true;
     }
     void initializeFirstTrick() {
         progressingTrick = new TrickPresident(getFirstLeader());
@@ -1320,5 +1324,9 @@ public final class GamePresident {
 
     public void setError(String _error) {
         error = _error;
+    }
+
+    public boolean isEnded() {
+        return ended;
     }
 }

@@ -15,7 +15,7 @@ public final class SimulationGamePresident implements Runnable,SimulationGame {
 
     private Games partieSimulee = new Games();
     private ContainerSimuPresident container;
-    private SimulatingPresidentImpl simulatingPresident;
+    private SimulatingPresident simulatingPresident;
     /**This class thread is independant from EDT*/
     public SimulationGamePresident(ContainerSimuPresident _container) {
         container = _container;
