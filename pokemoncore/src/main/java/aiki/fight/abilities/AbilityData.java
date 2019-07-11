@@ -258,8 +258,6 @@ public final class AbilityData {
         }
         if (!_data.getAbilities().containsAllAsKeys(immuAbility)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getAbilities().containsAllAsKeys(ignAbility)) {
             _data.setError(true);
@@ -435,9 +433,6 @@ public final class AbilityData {
         for (EntryCust<String, EnumList<Statistic>> e : immuLowStatisTypes
                 .entryList()) {
             if (!StringList.contains(_data.getTypes(), e.getKey())) {
-                _data.setError(true);
-            }
-            if (!Statistic.getAllStatistics().containsAllObj(e.getValue())) {
                 _data.setError(true);
             }
         }

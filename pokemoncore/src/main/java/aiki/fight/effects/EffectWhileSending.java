@@ -16,21 +16,15 @@ public class EffectWhileSending {
     public void validate(DataBase _data) {
         if (!multWeight.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (disableWeather) {
             if (!enabledWeather.isEmpty()) {
                 _data.setError(true);
-                return;
-
             }
         } else {
             if (!enabledWeather.isEmpty()) {
                 if (!StringList.contains(_data.getMovesEffectGlobalWeather(), enabledWeather)) {
                     _data.setError(true);
-                    return;
-
                 }
             }
         }

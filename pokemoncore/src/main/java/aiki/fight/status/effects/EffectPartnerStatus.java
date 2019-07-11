@@ -15,12 +15,9 @@ public final class EffectPartnerStatus {
     public void validate(DataBase _dataBase) {
         if (!multDamageAgainstFoe.isZeroOrGt()) {
             _dataBase.setError(true);
-            return;
-
         }
         if (!restoredHpRateLovedAlly.isZeroOrGt()) {
             _dataBase.setError(true);
-
         }
     }
 
