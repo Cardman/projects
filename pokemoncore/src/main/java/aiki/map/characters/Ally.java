@@ -15,8 +15,6 @@ public final class Ally {
         }
         if (team.isEmpty()) {
             _data.setError(true);
-            return;
-
         }
     }
 

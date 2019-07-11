@@ -22,24 +22,16 @@ public final class LevelLeague extends Level {
     public void validate(DataBase _data, LevelArea _level) {
         if (!_level.allAccessible()) {
             _data.setError(true);
-            return;
-
         }
         super.validate(_data, _level);
         if (!isEmpty(accessPoint)) {
             _data.setError(true);
-            return;
-
         }
         if (!_level.isValid(accessPoint, true)) {
             _data.setError(true);
-            return;
-
         }
         if (!_level.isValid(trainerCoords, true)) {
             _data.setError(true);
-            return;
-
         }
         trainer.validate(_data);
     }

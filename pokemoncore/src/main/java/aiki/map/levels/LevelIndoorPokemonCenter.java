@@ -23,21 +23,15 @@ public final class LevelIndoorPokemonCenter extends Level {
         EqList<Point> keys_ = new EqList<Point>();
         if (!_level.isValid(storageCoords, true)) {
             _data.setError(true);
-            return;
-
         }
         keys_.add(storageCoords);
         for (EntryCust<Point, Person> e : gerants.entryList()) {
             if (!_level.isValid(e.getKey(), true)) {
                 _data.setError(true);
-                return;
-
             }
             if (!(e.getValue() instanceof GerantPokemon)) {
                 if (!(e.getValue() instanceof Seller)) {
                     _data.setError(true);
-                    return;
-
                 }
             }
             if (e.getValue() instanceof Seller) {
@@ -49,8 +43,6 @@ public final class LevelIndoorPokemonCenter extends Level {
         keys_.removeDuplicates();
         if (size_ != keys_.size()) {
             _data.setError(true);
-            return;
-
         }
     }
 

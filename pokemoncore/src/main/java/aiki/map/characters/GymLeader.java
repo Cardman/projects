@@ -15,7 +15,6 @@ public final class GymLeader extends TrainerOneFight implements Fightable {
         super.validate(_data);
         if (!_data.getTm().contains(tm)) {
             _data.setError(true);
-
         }
     }
 

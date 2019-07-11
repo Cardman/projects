@@ -44,8 +44,7 @@ public abstract class Level {
         for (EntryCust<Point, Block> e : blocks.entryList()) {
             if (!e.getValue().isValid()) {
                 _data.setError(true);
-                return;
-
+                continue;
             }
             Point id_ = e.getKey();
             Block block_ = e.getValue();
@@ -60,8 +59,6 @@ public abstract class Level {
                     Point pt_ = new Point((short) x, (short) y);
                     if (used_.containsObj(pt_)) {
                         _data.setError(true);
-                        return;
-
                     }
                     used_.add(pt_);
                 }

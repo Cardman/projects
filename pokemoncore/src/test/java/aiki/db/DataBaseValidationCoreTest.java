@@ -3,8 +3,7 @@ package aiki.db;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.effects.EffectWhileSendingSimple;
 import aiki.fight.enums.Statistic;
-import aiki.fight.items.Berry;
-import aiki.fight.items.ItemForBattle;
+import aiki.fight.items.*;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.StatusMoveData;
 import aiki.fight.moves.effects.*;
@@ -863,11 +862,91 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         berry_.setMaxHpHealingHpRate(Rate.newRate("-1"));
         berry_.setHealPp(-1);
         data_.completeMembers(CHARGE2,berry_);
+        berry_ = Instances.newBerry();
+        berry_.setMaxHpHealingHp(Rate.newRate("1"));
+        berry_.setMaxHpHealingHpRate(Rate.newRate("1"));
+        berry_.setHealHp(Rate.newRate("-1"));
+        berry_.setHealHpRate(Rate.newRate("-1"));
+        berry_.getMultFoesDamage().addEntry(ELECTRICK,new EfficiencyRate(Rate.newRate("-1"),Rate.newRate("-1")));
+        berry_.getDamageRateRecoilFoe().addEntry(ELECTRICK,Rate.newRate("-1"));
+        data_.completeMembers(CHARGE3,berry_);
+        berry_ = Instances.newBerry();
+        berry_.setMaxHpHealingHp(Rate.newRate("1"));
+        berry_.setMaxHpHealingHpRate(Rate.newRate("1"));
+        berry_.setHealHpRate(Rate.newRate("-1"));
+        berry_.getMultFoesDamage().addEntry(ELECTRICK,new EfficiencyRate(Rate.newRate("-1"),Rate.newRate("-1")));
+        berry_.getDamageRateRecoilFoe().addEntry(ELECTRICK,Rate.newRate("-1"));
+        data_.completeMembers(CHARGE4,berry_);
         data_.sortEndRound();
         data_.completeVariables();
         data_.initCombosTest();
         data_.validateCore(new PerCentImpl());
         assertTrue(data_.isError());
         assertTrue(!new StatisticPokemon(Statistic.HP,ELECTRICK).eq(new StatisticPokemon(Statistic.HP,CHARGE4)));
+    }
+
+    @Test
+    public void fail12Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        Boost boost_ = Instances.newBoost();
+        boost_.setWinPp(Rate.newRate("-1"));
+        boost_.getEvs().addEntry(Statistic.ACCURACY, (short) -1);
+        boost_.getHappiness().addEntry(ELECTRICK, (short) -1);
+        boost_.setPrice(-1);
+        data_.completeMembers(CHARGE,boost_);
+        HealingHp healingHp_ = Instances.newHealingHp();
+        healingHp_.getHappiness().addEntry(ELECTRICK, (short) -1);
+        healingHp_.setHp(Rate.newRate("-1"));
+        data_.completeMembers(CHARGE2,healingHp_);
+        healingHp_ = Instances.newHealingHp();
+        healingHp_.setHp(Rate.newRate("0"));
+        data_.completeMembers(CHARGE3,healingHp_);
+        HealingHpStatus healingHpStatus_ = Instances.newHealingHpStatus();
+        healingHpStatus_.setHealedHpRate(Rate.newRate("-1"));
+        data_.completeMembers(CHARGE4,healingHpStatus_);
+        healingHpStatus_ = Instances.newHealingHpStatus();
+        healingHpStatus_.getStatus().add(ELECTRICK);
+        healingHpStatus_.setHealedHpRate(Rate.newRate("0"));
+        data_.completeMembers(TREMPETTE,healingHpStatus_);
+        data_.completeMembers(TREMPETTE2,Instances.newHealingSimpleStatus());
+        data_.sortEndRound();
+        data_.completeVariables();
+        data_.initCombosTest();
+        data_.validateCore(new PerCentImpl());
+        assertTrue(data_.isError());
+    }
+
+    @Test
+    public void fail13Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        HealingPp healingPp_ = Instances.newHealingPp();
+        healingPp_.setHealingAllMovesPp(true);
+        healingPp_.setHealingMoveFullpp(true);
+        data_.completeMembers(TREMPETTE,healingPp_);
+        data_.completeMembers(TREMPETTE2,Instances.newHealingPp());
+        healingPp_ = Instances.newHealingPp();
+        healingPp_.setHealedMovePp(2);
+        healingPp_.setHealingAllMovesFullpp(2);
+        healingPp_.setHealingAllMovesPp(true);
+        healingPp_.setHealingMoveFullpp(true);
+        data_.completeMembers(TREMPETTE3,healingPp_);
+        healingPp_ = Instances.newHealingPp();
+        healingPp_.setHealingAllMovesFullpp(2);
+        healingPp_.setHealingAllMovesPp(true);
+        healingPp_.setHealingMoveFullpp(true);
+        data_.completeMembers(CHARGE,healingPp_);
+        data_.completeMembers(CHARGE2,Instances.newFossil());
+        data_.completeMembers(CHARGE3,Instances.newRepel());
+        data_.sortEndRound();
+        data_.completeVariables();
+        data_.initCombosTest();
+        data_.validateCore(new PerCentImpl());
+        assertTrue(data_.isError());
     }
 }

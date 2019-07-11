@@ -17,13 +17,9 @@ public final class LevelCave extends LevelWithWildPokemon {
         for (EntryCust<Point, Link> e : linksOtherLevels.entryList()) {
             if (!_level.isValid(e.getKey(), true)) {
                 _data.setError(true);
-                return;
-
             }
             if (!e.getValue().isValid(_data)) {
                 _data.setError(true);
-                return;
-
             }
         }
     }

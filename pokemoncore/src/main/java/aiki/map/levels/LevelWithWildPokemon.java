@@ -48,8 +48,6 @@ public abstract class LevelWithWildPokemon extends Level {
             }
             if (!existBlock_) {
                 _data.setError(true);
-                return;
-
             }
             index_++;
         }
@@ -61,20 +59,13 @@ public abstract class LevelWithWildPokemon extends Level {
             if (!a_.getWildPokemonFishing().isEmpty()) {
                 if (e.getValue().getType() != EnvironmentType.WATER) {
                     _data.setError(true);
-                    return;
-
                 }
             }
         }
         EqList<Point> keys_ = new EqList<Point>();
         for (EntryCust<Point, CharacterInRoadCave> e : characters.entryList()) {
-            if (!(e.getValue() instanceof Person)) {
-                continue;
-            }
             if (!_level.isValid(e.getKey(), true)) {
                 _data.setError(true);
-                return;
-
             }
             e.getValue().validate(_data);
             keys_.add(e.getKey());
@@ -83,14 +74,10 @@ public abstract class LevelWithWildPokemon extends Level {
             Point id_ = e.getKey();
             if (!_level.isValid(id_, true)) {
                 _data.setError(true);
-                return;
-
             }
             DualFight dual_ = e.getValue();
             if (!_level.isValid(dual_.getPt(), true)) {
                 _data.setError(true);
-                return;
-
             }
             boolean isNext_ = false;
             for (Direction d : Direction.values()) {
@@ -103,8 +90,6 @@ public abstract class LevelWithWildPokemon extends Level {
             }
             if (!isNext_) {
                 _data.setError(true);
-                return;
-
             }
             dual_.validate(_data);
             keys_.add(e.getKey());
@@ -113,58 +98,38 @@ public abstract class LevelWithWildPokemon extends Level {
         for (EntryCust<Point, WildPk> e : legendaryPks.entryList()) {
             if (!_level.isValid(e.getKey(), true)) {
                 _data.setError(true);
-                return;
-
             }
             e.getValue().validateAsNpc(_data);
-            // if (!e.getValue().isValid(_data)) {
-            // _data.setError(true);
-
-            // }
             PokemonData fPk_ = _data.getPokemon(e.getValue().getName());
-            if (fPk_.getGenderRep() != GenderRepartition.LEGENDARY) {
+            if (fPk_ != null && fPk_.getGenderRep() != GenderRepartition.LEGENDARY) {
                 _data.setError(true);
-                return;
-
             }
             keys_.add(e.getKey());
         }
         for (EntryCust<Point, String> e : items.entryList()) {
             if (!_level.isValid(e.getKey(), true)) {
                 _data.setError(true);
-                return;
-
             }
             if (!_data.getItems().contains(e.getValue())) {
                 _data.setError(true);
-                return;
-
             }
             keys_.add(e.getKey());
         }
         for (EntryCust<Point, Short> e : tm.entryList()) {
             if (!_level.isValid(e.getKey(), true)) {
                 _data.setError(true);
-                return;
-
             }
             if (!_data.getTm().contains(e.getValue())) {
                 _data.setError(true);
-                return;
-
             }
             keys_.add(e.getKey());
         }
         for (EntryCust<Point, Short> e : hm.entryList()) {
             if (!_level.isValid(e.getKey(), true)) {
                 _data.setError(true);
-                return;
-
             }
             if (!_data.getHm().contains(e.getValue())) {
                 _data.setError(true);
-                return;
-
             }
             keys_.add(e.getKey());
         }
@@ -172,7 +137,6 @@ public abstract class LevelWithWildPokemon extends Level {
         keys_.removeDuplicates();
         if (size_ != keys_.size()) {
             _data.setError(true);
-
         }
     }
 

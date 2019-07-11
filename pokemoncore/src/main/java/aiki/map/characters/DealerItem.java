@@ -15,13 +15,9 @@ public final class DealerItem extends Person implements CharacterInRoadCave {
     public void validate(DataBase _data) {
         if (!_data.getItems().containsAllAsKeys(items)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getTm().containsAllAsKeys(technicalMoves)) {
             _data.setError(true);
-            return;
-
         }
     }
 

@@ -27,26 +27,18 @@ public final class AreaApparition {
     public void validate(DataBase _data) {
         if (avgNbSteps < ALWAYS_APPARITION) {
             _data.setError(true);
-            return;
-
         }
         if (multFight < 1) {
             _data.setError(true);
-            return;
-
         }
         if (multFight > DataBase.MAX_MULT_FIGHT) {
             _data.setError(true);
-            return;
-
         }
         for (WildPk p : wildPokemon) {
             p.validateAsNpc(_data);
         }
         if (wildPokemon.isEmpty()) {
             _data.setError(true);
-            return;
-
         }
         for (WildPk p : wildPokemonFishing) {
             p.validateAsNpc(_data);

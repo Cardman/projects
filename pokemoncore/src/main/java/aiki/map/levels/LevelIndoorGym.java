@@ -21,28 +21,20 @@ public final class LevelIndoorGym extends Level {
     public void validate(DataBase _data, LevelArea _level) {
         if (!_level.allAccessible()) {
             _data.setError(true);
-            return;
-
         }
         super.validate(_data, _level);
         for (EntryCust<Point, GymTrainer> e : gymTrainers.entryList()) {
             if (!_level.isValid(e.getKey(), true)) {
                 _data.setError(true);
-                return;
-
             }
             e.getValue().validate(_data);
         }
         if (!_level.isValid(gymLeaderCoords, true)) {
             _data.setError(true);
-            return;
-
         }
         gymLeader.validate(_data);
         if (gymTrainers.contains(gymLeaderCoords)) {
             _data.setError(true);
-            return;
-
         }
     }
 
