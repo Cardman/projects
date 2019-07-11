@@ -2,9 +2,8 @@ package aiki.fight.util;
 import code.util.*;
 import code.util.StringList;
 import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 
-public final class LevelMove implements Equallable<LevelMove>, Displayable {
+public final class LevelMove implements Displayable {
 
     private static final char SEPARATOR = ';';
 
@@ -29,17 +28,6 @@ public final class LevelMove implements Equallable<LevelMove>, Displayable {
     
     public static LevelMove newLevelMove(String _string) {
         return new LevelMove(_string);
-    }
-
-    @Override
-    public boolean eq(LevelMove _obj) {
-        if (!Numbers.eq(level, _obj.level)) {
-            return false;
-        }
-        if (!StringList.quickEq(move, _obj.move)) {
-            return false;
-        }
-        return true;
     }
 
     public short getLevel() {

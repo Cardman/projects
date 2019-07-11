@@ -152,7 +152,7 @@ public final class DataMap {
             return;
         }
         initInteractiveElements();
-        firstPokemon.validate(_d, true);
+        firstPokemon.validateAsNpc(_d);
 
         tree = new Tree();
         tree.initialize(this);

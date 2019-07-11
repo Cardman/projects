@@ -41,7 +41,7 @@ public final class AreaApparition {
 
         }
         for (WildPk p : wildPokemon) {
-            p.validate(_data, true);
+            p.validateAsNpc(_data);
         }
         if (wildPokemon.isEmpty()) {
             _data.setError(true);
@@ -49,7 +49,7 @@ public final class AreaApparition {
 
         }
         for (WildPk p : wildPokemonFishing) {
-            p.validate(_data, true);
+            p.validateAsNpc(_data);
         }
     }
 

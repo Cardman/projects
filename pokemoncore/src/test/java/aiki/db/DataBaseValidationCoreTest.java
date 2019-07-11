@@ -3,6 +3,8 @@ package aiki.db;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.effects.EffectWhileSendingSimple;
 import aiki.fight.enums.Statistic;
+import aiki.fight.items.Berry;
+import aiki.fight.items.ItemForBattle;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.StatusMoveData;
 import aiki.fight.moves.effects.*;
@@ -404,6 +406,8 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         effectTeam_.getDisableFoeTeamStatus().add(NULL_REF);
         effectTeam_.getMultDamage().addEntry(new CategoryMult(ELECTRICK,(short)0),Rate.newRate("-1"));
         effectTeam_.getMultDamage().addEntry(new CategoryMult(NULL_REF,(short)10),Rate.newRate("-1"));
+        effectTeam_.getMultDamage().addEntry(new CategoryMult(NULL_REF,(short)0),Rate.newRate("-1"));
+        effectTeam_.getMultDamage().addEntry(new CategoryMult(ELECTRICK,(short)10),Rate.newRate("-1"));
         effectTeam_.getMultStatisticFoe().addEntry(Statistic.HP,Rate.newRate("-1"));
         effectTeam_.getMultStatistic().addEntry(Statistic.HP,Rate.newRate("-1"));
         effectTeam_.getProtectAgainstLowStat().add(Statistic.HP);
@@ -688,6 +692,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         abilityData_.getHealHpByTypeIfWeather().addEntry(new WeatherType(ELECTRICK,ELECTRICK),Rate.newRate("-1"));
         abilityData_.getHealHpByTypeIfWeather().addEntry(new WeatherType(ELECTRICK,CHARGE),Rate.newRate("0"));
         abilityData_.getMultStatIfCat().addEntry(new StatisticCategory(Statistic.HP,ELECTRICK),Rate.newRate("-1"));
+        abilityData_.getMultStatIfCat().addEntry(new StatisticCategory(Statistic.HP,CHARGE),Rate.newRate("-1"));
         abilityData_.getImmuLowStatIfStatus().add(new StatisticStatus(Statistic.HP,ELECTRICK));
         abilityData_.getBreakFoeImmune().add(new TypesDuo(ELECTRICK,ELECTRICK));
         abilityData_.getImmuWeather().add(ELECTRICK);
@@ -733,6 +738,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         abilityData_.getMultStatIfKoFoe().addEntry(Statistic.HP,(byte)0);
         abilityData_.getLowStatFoeHit().addEntry(Statistic.HP,(byte)0);
         abilityData_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.HP,ELECTRICK),(byte)0);
+        abilityData_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.HP,NULL_REF),(byte)0);
         abilityData_.getMultStatIfStatutRank().addEntry(new StatisticStatus(Statistic.HP,ELECTRICK),(byte)0);
         abilityData_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.HP,ELECTRICK),(byte)0);
         abilityData_.getMultPowerMovesTypesGlobal().addEntry(ELECTRICK,Rate.newRate("-1"));
@@ -797,5 +803,71 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         data_.initCombosTest();
         data_.validateCore(new PerCentImpl());
         assertTrue(data_.isError());
+    }
+
+    @Test
+    public void fail11Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        ItemForBattle itemForBattle_ = Instances.newItemForBattle();
+        itemForBattle_.getLawForAttackFirst().addEvent(true,LgInt.newLgInt("-1"));
+        itemForBattle_.getEffectEndRound().add(Instances.newEffectEndRoundGlobal());
+        itemForBattle_.getEffectEndRound().add(Instances.newEffectEndRoundGlobal());
+        itemForBattle_.getEffectSending().add(Instances.newEffectWhileSendingSimple());
+        itemForBattle_.getEffectSending().add(Instances.newEffectWhileSendingSimple());
+        itemForBattle_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.HP,ELECTRICK), (byte) 0);
+        itemForBattle_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.HP,CHARGE4), (byte) 0);
+        itemForBattle_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.ATTACK,ELECTRICK), (byte) 0);
+        itemForBattle_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.ATTACK,CHARGE4), (byte) 0);
+        itemForBattle_.getMultStatRank().addEntry(Statistic.HP, (byte) 0);
+        itemForBattle_.getMultStat().addEntry(Statistic.HP, NULL_REF);
+        itemForBattle_.getIncreasingMaxNbRoundGlobalMove().addEntry(ELECTRICK, (short) -1);
+        itemForBattle_.getIncreasingMaxNbRoundTeamMove().addEntry(ELECTRICK, (short) -1);
+        itemForBattle_.getIncreasingMaxNbRoundTrap().addEntry(ELECTRICK, (short) -1);
+        itemForBattle_.getTypesPk().add(ELECTRICK);
+        itemForBattle_.getImmuMoves().add(ELECTRICK);
+        itemForBattle_.getImmuTypes().add(ELECTRICK);
+        itemForBattle_.getImmuStatus().add(ELECTRICK);
+        itemForBattle_.getImmuWeather().add(ELECTRICK);
+        itemForBattle_.getBoostStatisSuperEff().addEntry(Statistic.HP, (byte) 0);
+        EnumMap<Statistic, Byte> v_ = new EnumMap<Statistic, Byte>();
+        v_.addEntry(Statistic.HP, (byte) 0);
+        itemForBattle_.getBoostStatisTypes().addEntry(ELECTRICK, v_);
+        itemForBattle_.getSynchroStatus().add(ELECTRICK);
+        itemForBattle_.getFailStatus().addEntry(CHARGE4,NULL_REF);
+        itemForBattle_.getWinEvFight().addEntry(Statistic.ACCURACY, (short) -1);
+        itemForBattle_.setDamageRecoil(Rate.newRate("-1"));
+        itemForBattle_.setDrainedHpByDamageRate(Rate.newRate("-1"));
+        itemForBattle_.setMultWinningHappiness(Rate.newRate("-1"));
+        itemForBattle_.setMultDrainedHp(Rate.newRate("-1"));
+        itemForBattle_.setMultWinningEv(Rate.newRate("-1"));
+        itemForBattle_.setMultWinningMoney(Rate.newRate("-1"));
+        itemForBattle_.setMultWinningExp(Rate.newRate("-1"));
+        itemForBattle_.setMultTrappingDamage(Rate.newRate("-1"));
+        itemForBattle_.setProtectAgainstKo(Rate.newRate("-1"));
+        itemForBattle_.setProtectAgainstKoIfFullHp(Rate.newRate("-1"));
+        data_.completeMembers(CHARGE,itemForBattle_);
+        Berry berry_ = Instances.newBerry();
+        berry_.getHealStatus().add(ELECTRICK);
+        berry_.getMultStat().addEntry(Statistic.HP,new BoostHpRate((byte) -1,Rate.newRate("-1")));
+        berry_.getBoostStatis().addEntry(Statistic.HP, (byte) 0);
+        berry_.getMultFoesDamage().addEntry(ELECTRICK,new EfficiencyRate(Rate.newRate("-1"),Rate.newRate("-1")));
+        berry_.getDamageRateRecoilFoe().addEntry(ELECTRICK,Rate.newRate("-1"));
+        berry_.setCategoryBoosting(ELECTRICK);
+        berry_.setHealHp(Rate.newRate("-1"));
+        berry_.setHealHpRate(Rate.newRate("-1"));
+        berry_.setHealHpBySuperEffMove(Rate.newRate("-1"));
+        berry_.setMaxHpHealingHp(Rate.newRate("-1"));
+        berry_.setMaxHpHealingHpRate(Rate.newRate("-1"));
+        berry_.setHealPp(-1);
+        data_.completeMembers(CHARGE2,berry_);
+        data_.sortEndRound();
+        data_.completeVariables();
+        data_.initCombosTest();
+        data_.validateCore(new PerCentImpl());
+        assertTrue(data_.isError());
+        assertTrue(!new StatisticPokemon(Statistic.HP,ELECTRICK).eq(new StatisticPokemon(Statistic.HP,CHARGE4)));
     }
 }

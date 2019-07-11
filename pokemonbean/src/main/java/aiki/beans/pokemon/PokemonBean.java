@@ -38,7 +38,6 @@ import code.util.EnumMap;
 import code.util.EqList;
 import code.util.NatStringTreeMap;
 import code.util.*;
-import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -70,7 +69,7 @@ public class PokemonBean extends CommonBean {
     private String evoBase;
     private String expEvo;
     private long expRate;
-    private EqList<LevelMove> levMoves;
+    private CustList<LevelMove> levMoves;
     private ShortTreeMap< String> technicalMoves;
     private ShortTreeMap< String> hiddenMoves;
     private StringList moveTutors;
@@ -167,7 +166,7 @@ public class PokemonBean extends CommonBean {
         }
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        levMoves = new EqList<LevelMove>();
+        levMoves = new CustList<LevelMove>();
         for (LevelMove l: pk_.getLevMoves()) {
             LevelMove l_ = new LevelMove();
             l_.setMove(translationsMoves_.getVal(l.getMove()));
@@ -491,7 +490,7 @@ public class PokemonBean extends CommonBean {
         return statistics;
     }
 
-    public EqList<LevelMove> getLevMoves() {
+    public CustList<LevelMove> getLevMoves() {
         return levMoves;
     }
 

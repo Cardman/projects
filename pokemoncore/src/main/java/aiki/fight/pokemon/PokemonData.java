@@ -43,7 +43,7 @@ public final class PokemonData {
     private EnumMap<Statistic, StatBaseEv> statistics;
 
     /** DONE */
-    private EqList<LevelMove> levMoves;
+    private CustList<LevelMove> levMoves;
 
     /** DONE */
     private GenderRepartition genderRep;
@@ -341,11 +341,11 @@ public final class PokemonData {
         statistics = _statistics;
     }
 
-    public EqList<LevelMove> getLevMoves() {
+    public CustList<LevelMove> getLevMoves() {
         return levMoves;
     }
 
-    public void setLevMoves(EqList<LevelMove> _levMoves) {
+    public void setLevMoves(CustList<LevelMove> _levMoves) {
         levMoves = _levMoves;
     }
 

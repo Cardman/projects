@@ -15,17 +15,13 @@ public abstract class TrainerOneFight extends Trainer {
     public void validate(DataBase _data) {
         super.validate(_data);
         for (PkTrainer p : team) {
-            p.validate(_data, true);
+            p.validateAsNpc(_data);
         }
         if (team.isEmpty()) {
             _data.setError(true);
-            return;
-
         }
         if (reward <= 0) {
             _data.setError(true);
-            return;
-
         }
     }
 

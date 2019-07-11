@@ -116,7 +116,7 @@ public abstract class LevelWithWildPokemon extends Level {
                 return;
 
             }
-            e.getValue().validate(_data, true);
+            e.getValue().validateAsNpc(_data);
             // if (!e.getValue().isValid(_data)) {
             // _data.setError(true);
 

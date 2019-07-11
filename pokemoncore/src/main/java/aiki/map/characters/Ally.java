@@ -11,7 +11,7 @@ public final class Ally {
 
     public void validate(DataBase _data) {
         for (PkTrainer p : team) {
-            p.validate(_data, true);
+            p.validateAsNpc(_data);
         }
         if (team.isEmpty()) {
             _data.setError(true);

@@ -304,6 +304,7 @@ final class InitializationMap {
         wild_.setLevel((short) 26);
         wild_.setAbility(ABSORB_EAU);
         wild_.setGender(Gender.NO_GENDER);
+        wild_.setItem(PIERRE_EAU);
         area_.getWildPokemonFishing().add(wild_);
         road_.getLevelRoad().getWildPokemonAreas().add(area_);
         area_ = new AreaApparition();

@@ -10,41 +10,26 @@ public abstract class Pokemon {
     }
 
     public boolean hasJustBeenCreated() {
-        return getName().isEmpty() && getAbility().isEmpty();
+        return getName().isEmpty();
     }
 
-    public void validate(DataBase _data, boolean _ref) {
-        if (!_ref) {
-            if (hasJustBeenCreated()) {
-                return;
-            }
-        }
+    public void validateAsNpc(DataBase _data) {
         if (getLevel() < _data.getMinLevel()) {
             _data.setError(true);
-            return;
-
         }
         // level >= 1
         if (getLevel() > _data.getMaxLevel()) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getPokedex().contains(getName())) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getAbilities().contains(getAbility())) {
             _data.setError(true);
-            return;
-
         }
         if (!getItem().isEmpty()) {
             if (!_data.getItems().contains(getItem())) {
                 _data.setError(true);
-                return;
-
             }
         }
     }

@@ -46,29 +46,21 @@ public final class PkTrainer extends Pokemon {
     }
 
     @Override
-    public void validate(DataBase _data, boolean _ref) {
-        super.validate(_data, _ref);
+    public void validateAsNpc(DataBase _data) {
+        super.validateAsNpc(_data);
         for (String m : moves) {
             if (StringList.quickEq(m, _data.getDefaultMove())) {
                 _data.setError(true);
-                return;
-
             }
             if (!_data.getMoves().contains(m)) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (moves.size() > _data.getNbMaxMoves()) {
             _data.setError(true);
-            return;
-
         }
         if (moves.isEmpty()) {
             _data.setError(true);
-            return;
-
         }
     }
 

@@ -5308,7 +5308,7 @@ final class InitializationPokedex {
         object_.setWeight(Rate.zero());
         object_.setTypes(new StringList());
         object_.setStatistics(new EnumMap<Statistic,StatBaseEv>());
-        object_.setLevMoves(new EqList<LevelMove>());
+        object_.setLevMoves(new CustList<LevelMove>());
         object_.setAbilities(new StringList());
         object_.setMoveTutors(new StringList());
         object_.setHiddenMoves(new Shorts());

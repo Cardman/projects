@@ -8035,11 +8035,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static EqList<LevelMove> getListLevelMove(Element _elt) {
+    private static CustList<LevelMove> getListLevelMove(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        EqList<LevelMove> list_ = new EqList<LevelMove>(cap_);
+        CustList<LevelMove> list_ = new CustList<LevelMove>(cap_);
         for (Element c: childElements_) {
             list_.add(getLevelMove(c));
         }

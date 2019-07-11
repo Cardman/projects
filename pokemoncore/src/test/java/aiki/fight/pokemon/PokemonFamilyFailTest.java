@@ -37,7 +37,7 @@ public class PokemonFamilyFailTest {
         statistics_.put(Statistic.SPEED, new StatBaseEv((short)50,(short)0));
         statistics_.put(Statistic.HP, new StatBaseEv((short)80,(short)0));
         pk_.setStatistics(statistics_);
-        EqList<LevelMove> levMoves_ = new EqList<LevelMove>();
+        CustList<LevelMove> levMoves_ = new CustList<LevelMove>();
         levMoves_.add(new LevelMove((short)1,"ECLAIR"));
         levMoves_.add(new LevelMove((short)3,"CHARGE"));
         levMoves_.add(new LevelMove((short)6,"VIVE_ATTAQUE"));

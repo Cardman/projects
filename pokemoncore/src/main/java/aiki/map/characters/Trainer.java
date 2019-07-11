@@ -12,13 +12,9 @@ public abstract class Trainer extends Person {
     public void validate(DataBase _data) {
         if (multiplicityFight < 1) {
             _data.setError(true);
-            return;
-
         }
         if (multiplicityFight > DataBase.MAX_MULT_FIGHT) {
             _data.setError(true);
-            return;
-
         }
     }
 

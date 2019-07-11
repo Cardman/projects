@@ -1004,7 +1004,7 @@ public final class Instances {
         object_.setWeight(Rate.zero());
         object_.setTypes(new StringList(cap_));
         object_.setStatistics(new EnumMap<Statistic,StatBaseEv>(cap_));
-        object_.setLevMoves(new EqList<LevelMove>(cap_));
+        object_.setLevMoves(new CustList<LevelMove>(cap_));
         object_.setGenderRep(GenderRepartition.NO_GENDER);
         object_.setAbilities(new StringList(cap_));
         object_.setMoveTutors(new StringList(cap_));
