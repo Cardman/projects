@@ -19,13 +19,9 @@ public final class EffectProtection extends Effect {
         super.validate(_data);
         if (getTargetChoice() != TargetChoice.LANCEUR) {
             _data.setError(true);
-            return;
-
         }
         if (!protSingleAgainstKo.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!protSingle && !protTeamAgainstMultTargets && !protTeamAgainstPrio) {
             if (!protTeamAgainstStatusMoves && !protTeamAgainstDamageMoves) {

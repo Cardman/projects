@@ -18,9 +18,9 @@ import code.util.ObjectMap;
 
 public class Step {
 
-    private ObjectMap<Coords,EqList<GenderName>> caughtPokemon;
+    private ObjectMap<Coords,CustList<GenderName>> caughtPokemon;
 
-    private ObjectMap<PlaceLevel,EqList<GenderName>> caughtPokemonPlaceLevel;
+    private ObjectMap<PlaceLevel,CustList<GenderName>> caughtPokemonPlaceLevel;
 
     private EqList<Coords> importantsTrainers;
 
@@ -34,9 +34,9 @@ public class Step {
     }
 
     public Step(ObjectMap<Coords, Condition> _accessibility, ShortMap<Place> _places, Tree _tree) {
-        caughtPokemon = new ObjectMap<Coords,EqList<GenderName>>();
+        caughtPokemon = new ObjectMap<Coords,CustList<GenderName>>();
         importantsTrainers = new EqList<Coords>();
-        caughtPokemonPlaceLevel = new ObjectMap<PlaceLevel,EqList<GenderName>>();
+        caughtPokemonPlaceLevel = new ObjectMap<PlaceLevel,CustList<GenderName>>();
         allImportantsTrainers = new EqList<Coords>();
         accessibleCoords = new EqList<Coords>();
         for (Coords c: _accessibility.getKeys()) {
@@ -51,8 +51,8 @@ public class Step {
 
     public Step nextStep(ObjectMap<Coords, Condition> _accessibility, ShortMap<Place> _places, Tree _tree) {
         Step step_ = new Step();
-        step_.caughtPokemonPlaceLevel = new ObjectMap<PlaceLevel,EqList<GenderName>>();
-        step_.caughtPokemon = new ObjectMap<Coords,EqList<GenderName>>();
+        step_.caughtPokemonPlaceLevel = new ObjectMap<PlaceLevel,CustList<GenderName>>();
+        step_.caughtPokemon = new ObjectMap<Coords,CustList<GenderName>>();
         step_.importantsTrainers = new EqList<Coords>();
         step_.allImportantsTrainers = new EqList<Coords>(allImportantsTrainers);
         step_.accessibleCoords = new EqList<Coords>();
@@ -109,11 +109,8 @@ public class Step {
             if (caughtPokemonPlaceLevel.contains(key_)) {
                 caughtPokemonPlaceLevel.getVal(key_).addAllElts(caughtPokemon.getVal(c));
             } else {
-                caughtPokemonPlaceLevel.put(key_, new EqList<GenderName>(caughtPokemon.getVal(c)));
+                caughtPokemonPlaceLevel.put(key_, new CustList<GenderName>(caughtPokemon.getVal(c)));
             }
-        }
-        for (PlaceLevel key_: caughtPokemonPlaceLevel.getKeys()) {
-            caughtPokemonPlaceLevel.getVal(key_).removeDuplicates();
         }
         for (Coords c: accessibleCoords) {
             Coords c_ = new Coords(c);
@@ -148,11 +145,11 @@ public class Step {
         return accessibleCoords;
     }
 
-    public ObjectMap<Coords,EqList<GenderName>> getCaughtPokemon() {
+    public ObjectMap<Coords,CustList<GenderName>> getCaughtPokemon() {
         return caughtPokemon;
     }
 
-    public ObjectMap<PlaceLevel,EqList<GenderName>> getCaughtPokemonPlaceLevel() {
+    public ObjectMap<PlaceLevel,CustList<GenderName>> getCaughtPokemonPlaceLevel() {
         return caughtPokemonPlaceLevel;
     }
 

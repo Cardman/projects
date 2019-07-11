@@ -16,13 +16,9 @@ public final class EffectMultSufferedMovePower extends Effect {
         for (String s : multMovePowerFctType.getKeys()) {
             if (!StringList.contains(_data.getTypes(), s)) {
                 _data.setError(true);
-                return;
-
             }
             if (!multMovePowerFctType.getVal(s).isZeroOrGt()) {
                 _data.setError(true);
-                return;
-
             }
         }
     }

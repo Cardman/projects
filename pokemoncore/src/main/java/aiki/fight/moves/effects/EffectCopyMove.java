@@ -16,19 +16,13 @@ public final class EffectCopyMove extends Effect {
         super.validate(_data);
         if (!_data.getMoves().containsAllAsKeys(movesNotToBeCopied)) {
             _data.setError(true);
-            return;
-
         }
         if (getTargetChoice() == TargetChoice.LANCEUR) {
             _data.setError(true);
-            return;
-
         }
         if (copyingMoveForUserDef) {
             if (copyingMoveForUser != 0) {
                 _data.setError(true);
-                return;
-
             }
             return;
         }

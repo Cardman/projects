@@ -15,12 +15,9 @@ public final class EffectEndRoundTeam extends EffectEndRound {
         super.validate(_data);
         if (!deleteAllStatusAlly.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!deleteAllStatus.isZeroOrGt()) {
             _data.setError(true);
-
         }
     }
 

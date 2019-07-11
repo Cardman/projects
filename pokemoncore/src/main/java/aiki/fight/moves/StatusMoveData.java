@@ -36,7 +36,8 @@ public final class StatusMoveData extends MoveData {
         if (counterableMove) {
             if (getTargetChoice() == TargetChoice.LANCEUR) {
                 boolean switchin_ = true;
-                for (Effect e : getEffects().mid(indexOfPrimaryEffect())) {
+                int ind_ = Math.max(0,indexOfPrimaryEffect());
+                for (Effect e : getEffects().mid(ind_)) {
                     if (e instanceof EffectTeamWhileSendFoe) {
                         continue;
                     }
@@ -67,12 +68,9 @@ public final class StatusMoveData extends MoveData {
                     }
                     switchin_ = false;
                 }
-                if (switchin_) {
-                    return;
+                if (!switchin_) {
+                    _data.setError(true);
                 }
-                _data.setError(true);
-                return;
-
             }
         }
         if (thievableMove) {
@@ -80,8 +78,6 @@ public final class StatusMoveData extends MoveData {
                 if (getTargetChoice() != TargetChoice.ALLIES) {
                     if (getTargetChoice() != TargetChoice.TOUS_ADV) {
                         _data.setError(true);
-                        return;
-
                     }
                 }
             }
@@ -98,9 +94,8 @@ public final class StatusMoveData extends MoveData {
                 return;
             }
             _data.setError(true);
-            return;
-
         }
+        invoke_ = false;
         for (Effect effect_ : getEffects()) {
             if (effect_ instanceof EffectSwitchPosition) {
                 invoke_ = true;
@@ -112,9 +107,8 @@ public final class StatusMoveData extends MoveData {
                 return;
             }
             _data.setError(true);
-            return;
-
         }
+        invoke_ = false;
         for (Effect effect_ : getEffects()) {
             if (effect_ instanceof EffectOrder) {
                 invoke_ = true;
@@ -126,9 +120,8 @@ public final class StatusMoveData extends MoveData {
                 return;
             }
             _data.setError(true);
-            return;
-
         }
+        invoke_ = false;
         for (Effect effect_ : getEffects()) {
             if (effect_ instanceof EffectProtection) {
                 invoke_ = true;
@@ -140,9 +133,8 @@ public final class StatusMoveData extends MoveData {
                 return;
             }
             _data.setError(true);
-            return;
-
         }
+        invoke_ = false;
         for (Effect effect_ : getEffects()) {
             if (effect_ instanceof EffectBatonPass) {
                 invoke_ = true;
@@ -154,9 +146,8 @@ public final class StatusMoveData extends MoveData {
                 return;
             }
             _data.setError(true);
-            return;
-
         }
+        invoke_ = false;
         for (Effect effect_ : getEffects()) {
             if (effect_ instanceof EffectCopyMove) {
                 invoke_ = true;
@@ -168,9 +159,8 @@ public final class StatusMoveData extends MoveData {
                 return;
             }
             _data.setError(true);
-            return;
-
         }
+        invoke_ = false;
         for (Effect effect_ : getEffects()) {
             if (effect_ instanceof EffectSwitchPointView) {
                 invoke_ = true;
@@ -182,9 +172,8 @@ public final class StatusMoveData extends MoveData {
                 return;
             }
             _data.setError(true);
-            return;
-
         }
+        invoke_ = false;
         boolean endRound_ = false;
         for (Effect effect_ : getEffects()) {
             if (effect_ instanceof EffectGlobal) {
@@ -200,66 +189,42 @@ public final class StatusMoveData extends MoveData {
                     return;
                 }
                 _data.setError(true);
-                return;
-
             }
             if (nbEffets() == 1) {
                 return;
             }
             _data.setError(true);
-            return;
-
         }
         for (Effect effect_ : getEffects()) {
             if (effect_ instanceof EffectSwitchPointView) {
                 _data.setError(true);
-                return;
-
             }
             if (effect_ instanceof EffectOrder) {
                 _data.setError(true);
-                return;
-
             }
             if (effect_ instanceof EffectCopyMove) {
                 _data.setError(true);
-                return;
-
             }
             if (effect_ instanceof EffectSwitchPosition) {
                 _data.setError(true);
-                return;
-
             }
             if (effect_ instanceof EffectGlobal) {
                 _data.setError(true);
-                return;
-
             }
             if (effect_ instanceof EffectInvoke) {
                 _data.setError(true);
-                return;
-
             }
             if (effect_ instanceof EffectProtection) {
                 _data.setError(true);
-                return;
-
             }
             if (effect_ instanceof EffectBatonPass) {
                 _data.setError(true);
-                return;
-
             }
             if (effect_ instanceof EffectDamage) {
                 _data.setError(true);
-                return;
-
             }
             if (effect_ instanceof EffectDamageRate) {
                 _data.setError(true);
-                return;
-
             }
         }
     }

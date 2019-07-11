@@ -56,149 +56,95 @@ public final class EffectGlobal extends Effect {
         super.validate(_data);
         if (getTargetChoice() != TargetChoice.LANCEUR) {
             _data.setError(true);
-            return;
-
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(cancelChgtStat)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getTypes().containsAllObj(immuneTypes)) {
             _data.setError(true);
-            return;
-
         }
         if (!healingEndRound.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!healingEndRoundGround.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!damageEndRound.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         for (String k : multDamagePrepaRound.getKeys()) {
             if (!StringList.contains(_data.getTypes(), k)) {
                 _data.setError(true);
-                return;
-
             }
             if (!multDamagePrepaRound.getVal(k).isZeroOrGt()) {
                 _data.setError(true);
-                return;
-
             }
         }
         for (String k : multDamageTypesMoves.getKeys()) {
             if (!StringList.contains(_data.getTypes(), k)) {
                 _data.setError(true);
-                return;
-
             }
             if (!multDamageTypesMoves.getVal(k).isZeroOrGt()) {
                 _data.setError(true);
-                return;
-
             }
         }
         for (String k : multPowerMoves.getKeys()) {
             if (!_data.getMoves().contains(k)) {
                 _data.setError(true);
-                return;
-
             }
             if (!multPowerMoves.getVal(k).isZeroOrGt()) {
                 _data.setError(true);
-                return;
-
             }
         }
         for (TypesDuo k : efficiencyMoves.getKeys()) {
             if (!StringList.contains(_data.getTypes(), k.getDamageType())) {
                 _data.setError(true);
-                return;
-
             }
             if (!StringList.contains(_data.getTypes(), k.getPokemonType())) {
                 _data.setError(true);
-                return;
-
             }
             if (!efficiencyMoves.getVal(k).isZeroOrGt()) {
                 _data.setError(true);
-                return;
-
             }
         }
         for (StatisticType k : multStatIfContainsType.getKeys()) {
             if (!k.getStatistic().isBoost()) {
                 _data.setError(true);
-                return;
-
             }
             if (!StringList.contains(_data.getTypes(), k.getType())) {
                 _data.setError(true);
-                return;
-
             }
             if (!multStatIfContainsType.getVal(k).isZeroOrGt()) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!_data.getTypes().containsAllObj(disableImmuAgainstTypes)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getAbilities().containsAllAsKeys(cancelProtectingAbilities)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getStatus().containsAllAsKeys(preventStatus)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getMoves().containsAllAsKeys(unusableMoves)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getMoves().containsAllAsKeys(movesUsedByTargetedFighters)) {
             _data.setError(true);
-            return;
-
         }
         if (!multAccuracy.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!multEffectLovingAlly.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getMovesEffectGlobal().containsAllObj(cancelEffects)) {
             _data.setError(true);
-            return;
-
         }
         if (!invokedMoveTerrain.isEmpty()) {
             if (!_data.getMoves().contains(invokedMoveTerrain)) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!_data.getTypes().containsAllObj(changedTypesTerrain)) {

@@ -15,17 +15,12 @@ public final class EffectEndRoundPositionRelation extends EffectEndRound {
         super.validate(_data);
         if (getTargetChoice() != TargetChoice.LANCEUR) {
             _data.setError(true);
-            return;
-
         }
         if (!healHp.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (healHp.isZero()) {
             _data.setError(true);
-
         }
     }
 

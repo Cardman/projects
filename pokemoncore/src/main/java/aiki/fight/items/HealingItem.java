@@ -22,14 +22,10 @@ public abstract class HealingItem extends Item {
         for (String k : happiness.getKeys()) {
             if (happiness.getVal(k) < 0) {
                 _data.setError(true);
-                return;
-
             }
             Item obj_ = _data.getItem(k);
             if (!(obj_ instanceof Ball)) {
                 _data.setError(true);
-                return;
-
             }
         }
     }

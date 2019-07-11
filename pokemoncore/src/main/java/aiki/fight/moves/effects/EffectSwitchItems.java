@@ -29,15 +29,8 @@ public final class EffectSwitchItems extends Effect {
         if (checkTargetChoice_) {
             if (getTargetChoice() == TargetChoice.LANCEUR) {
                 _data.setError(true);
-                return;
-
             }
-            return;
         }
-        if (moveObject == MoveItemType.REUSE_LAST_OBJECT) {
-            return;
-        }
-        _data.setError(true);
 
     }
 

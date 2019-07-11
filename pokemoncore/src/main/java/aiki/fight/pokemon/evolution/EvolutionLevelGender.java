@@ -15,8 +15,6 @@ public final class EvolutionLevelGender extends EvolutionLevel implements
         super.validate(_dataBase, _fPk);
         if (!_fPk.getGenderRep().getPossibleGenders().containsObj(gender)) {
             _dataBase.setError(true);
-            return;
-
         }
     }
 

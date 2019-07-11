@@ -13,8 +13,6 @@ public final class EffectCopyFighter extends Effect {
         super.validate(_data);
         if (getTargetChoice() == TargetChoice.LANCEUR) {
             _data.setError(true);
-            return;
-
         }
         if (ppForMoves > 0) {
             return;

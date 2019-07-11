@@ -6,7 +6,6 @@ import aiki.fight.moves.enums.TargetChoice;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
-import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.StringMap;
@@ -53,166 +52,95 @@ public final class EffectDamage extends Effect {
         super.validate(_data);
         if (!chLaw.checkEvents()) {
             _data.setError(true);
-            return;
-
         }
         if (!hitsLaw.checkEvents()) {
             _data.setError(true);
-            return;
-
         }
         if (!damageLaw.checkEvents()) {
             _data.setError(true);
-            return;
-
         }
         if (getTargetChoice() == TargetChoice.LANCEUR) {
             _data.setError(true);
-            return;
-
         }
         if (getTargetChoice() == TargetChoice.ALLIE) {
             _data.setError(true);
-            return;
-
         }
         if (getTargetChoice() == TargetChoice.ALLIES) {
             _data.setError(true);
-            return;
-
         }
         if (getTargetChoice() == TargetChoice.UNIQUE_IMPORTE) {
             _data.setError(true);
-            return;
-
         }
         if (getTargetChoice() == TargetChoice.GLOBALE) {
             _data.setError(true);
-            return;
-
         }
         for (Statistic s : boostStatisOnceKoFoe.getKeys()) {
             if (!s.isBoost()) {
                 _data.setError(true);
-                return;
-
             }
             if (boostStatisOnceKoFoe.getVal(s) < 0) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!_data.getCategories().containsAllObj(multDamageAgainst.getKeys())) {
             _data.setError(true);
-            return;
-
-        }
-        if (!multDamageAgainst.isEmpty()) {
-            for (EntryCust<String, Rate> e : multDamageAgainst.entryList()) {
-                e.getValue().isZero();
-            }
         }
         if (!chLaw.events().isEmpty()) {
             Rate min_ = chLaw.minimum();
             if (min_.lowerThanOne()) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!hitsLaw.events().isEmpty()) {
             Rate min_ = hitsLaw.minimum();
             if (!min_.isZeroOrGt()) {
                 _data.setError(true);
-                return;
-
             }
             if (min_.isZero()) {
                 _data.setError(true);
-                return;
-
             }
             for (Rate e : hitsLaw.events()) {
                 if (!e.isInteger()) {
                     _data.setError(true);
-                    return;
-
                 }
             }
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 ignVarStatTargetPos)) {
             _data.setError(true);
-            return;
-
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 ignVarStatUserNeg)) {
             _data.setError(true);
-            return;
-
-        }
-        if (!statisAtt.isBoost()) {
-            _data.setError(true);
-            return;
-
-        }
-        if (!statisAtt.isWithBaseStatistic()) {
-            _data.setError(true);
-            return;
-
-        }
-        if (!statisDef.isBoost()) {
-            _data.setError(true);
-            return;
-
-        }
-        if (!statisDef.isWithBaseStatistic()) {
-            _data.setError(true);
-            return;
-
         }
         if (statisAtt != Statistic.ATTACK) {
             if (statisAtt != Statistic.SPECIAL_ATTACK) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (statisDef != Statistic.DEFENSE) {
             if (statisDef != Statistic.SPECIAL_DEFENSE) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (constDamage) {
             if (!Rate.isValid(power)) {
                 _data.setError(true);
-                return;
-
             }
             return;
         }
         if (!multDamageAgainst.isEmpty()) {
             if (!damageLaw.events().isEmpty()) {
                 _data.setError(true);
-                return;
-
             }
             if (!power.isEmpty()) {
                 _data.setError(true);
-                return;
-
             }
             return;
         }
         if (!damageLaw.events().isEmpty()) {
             if (!power.isEmpty()) {
                 _data.setError(true);
-                return;
-
             }
             return;
         }

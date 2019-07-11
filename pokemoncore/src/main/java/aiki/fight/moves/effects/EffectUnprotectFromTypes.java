@@ -20,28 +20,19 @@ public final class EffectUnprotectFromTypes extends Effect {
         for (TypesDuo t : types) {
             if (!StringList.contains(_data.getTypes(), t.getDamageType())) {
                 _data.setError(true);
-                return;
-
             }
             if (!StringList.contains(_data.getTypes(), t.getPokemonType())) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!_data.getTypes().containsAllObj(disableImmuAgainstTypes)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getMoves().containsAllAsKeys(disableImmuFromMoves)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getTypes().containsAllObj(attackTargetWithTypes)) {
             _data.setError(true);
-
         }
     }
 

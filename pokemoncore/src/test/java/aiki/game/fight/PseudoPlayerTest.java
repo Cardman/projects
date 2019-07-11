@@ -25,9 +25,9 @@ public class PseudoPlayerTest extends InitializationDataBase {
         pokemon_.setGender(Gender.NO_GENDER);
         PokemonPlayer pk_ = new PokemonPlayer(pokemon_, _data_);
         pk_.setWonExpSinceLastLevel(new Rate("3/2"));
-        CustList<EqList<NameLevel>> evolutions_;
-        evolutions_ = new CustList<EqList<NameLevel>>();
-        evolutions_.add(new EqList<NameLevel>());
+        CustList<CustList<NameLevel>> evolutions_;
+        evolutions_ = new CustList<CustList<NameLevel>>();
+        evolutions_.add(new CustList<NameLevel>());
         evolutions_.first().add(new NameLevel(TETARTE,(short)26));
         evolutions_.first().add(new NameLevel(TARTARD,(short)27));
         PseudoPlayer pseudoPlayer_;

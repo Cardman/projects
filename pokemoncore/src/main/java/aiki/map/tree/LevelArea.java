@@ -21,7 +21,7 @@ public class LevelArea {
     private EqList<Point> inacessiblePoints;
     private ObjectMap<Point, Dims> dimsBlocks;
     private ObjectMap<Point, Short> indexes;
-    private CustList<EqList<GenderName>> pokemon;
+    private CustList<CustList<GenderName>> pokemon;
     private int height;
     private int width;
 
@@ -56,11 +56,11 @@ public class LevelArea {
                 }
             }
         }
-        pokemon = new CustList<EqList<GenderName>>();
+        pokemon = new CustList<CustList<GenderName>>();
         if (_level instanceof LevelWithWildPokemon) {
             for (AreaApparition a : ((LevelWithWildPokemon) _level)
                     .getWildPokemonAreas()) {
-                EqList<GenderName> list_ = new EqList<GenderName>();
+                CustList<GenderName> list_ = new CustList<GenderName>();
                 for (WildPk p : a.getWildPokemon()) {
                     list_.add(new GenderName(p.getGender(), p.getName()));
                 }
@@ -105,10 +105,10 @@ public class LevelArea {
         return (long)height * width;
     }
 
-    public EqList<GenderName> getPokemon(Point _pt) {
+    public CustList<GenderName> getPokemon(Point _pt) {
         int index_ = getIndex(_pt);
         if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
-            return new EqList<GenderName>();
+            return new CustList<GenderName>();
         }
         return pokemon.get(index_);
     }
@@ -155,7 +155,7 @@ public class LevelArea {
         return indexes;
     }
 
-    public CustList<EqList<GenderName>> getPokemon() {
+    public CustList<CustList<GenderName>> getPokemon() {
         return pokemon;
     }
 

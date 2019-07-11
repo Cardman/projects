@@ -34,18 +34,11 @@ public final class DamagingMoveData extends MoveData {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        if (_data.isError()) {
-            return;
-        }
         int index_ = indexOfPrimaryEffect();
         if (index_ < 0) {
             _data.setError(true);
-            return;
-        }
-        if (!(getEffet(index_) instanceof EffectDamage)) {
+        } else if (!(getEffet(index_) instanceof EffectDamage)) {
             _data.setError(true);
-            return;
-
         }
         int nbDamages_ = CustList.SIZE_EMPTY;
         for (Effect effect_ : getEffects()) {
@@ -54,49 +47,31 @@ public final class DamagingMoveData extends MoveData {
             }
             if (effect_ instanceof EffectInvoke) {
                 _data.setError(true);
-                return;
-
             }
             if (effect_ instanceof EffectSwitchPosition) {
                 _data.setError(true);
-                return;
-
             }
             if (effect_ instanceof EffectOrder) {
                 _data.setError(true);
-                return;
-
             }
             if (effect_ instanceof EffectProtection) {
                 _data.setError(true);
-                return;
-
             }
             if (effect_ instanceof EffectBatonPass) {
                 _data.setError(true);
-                return;
-
             }
             if (effect_ instanceof EffectSwitchPointView) {
                 _data.setError(true);
-                return;
-
             }
             if (effect_ instanceof EffectCopyMove) {
                 _data.setError(true);
-                return;
-
             }
             if (effect_ instanceof EffectCopyFighter) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (nbDamages_ != DataBase.ONE_POSSIBLE_CHOICE) {
             _data.setError(true);
-            return;
-
         }
         for (Effect effect_ : getEffects()) {
             if (effect_ instanceof EffectDamage) {
@@ -104,8 +79,6 @@ public final class DamagingMoveData extends MoveData {
             }
             if (effect_ instanceof EffectDamageRate) {
                 _data.setError(true);
-                return;
-
             }
         }
         for (Effect e : getEffects()) {
@@ -115,8 +88,6 @@ public final class DamagingMoveData extends MoveData {
             EffectDamageRate eff_ = (EffectDamageRate) e;
             if (!eff_.getRequiredSuccessfulEffects().containsObj(index_)) {
                 _data.setError(true);
-                return;
-
             }
         }
     }

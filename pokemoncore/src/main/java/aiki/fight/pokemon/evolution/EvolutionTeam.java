@@ -19,7 +19,6 @@ public final class EvolutionTeam extends Evolution {
         }
         if (!StringList.quickEq(pk_.getBaseEvo(),pokemon)) {
             _dataBase.setError(true);
-            return;
         }
         if (pk_.getGenderRep() == GenderRepartition.LEGENDARY) {
             _dataBase.setError(true);

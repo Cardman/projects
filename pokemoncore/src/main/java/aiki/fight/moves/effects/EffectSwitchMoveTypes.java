@@ -17,18 +17,13 @@ public final class EffectSwitchMoveTypes extends Effect {
         for (String k : changeTypes.getKeys()) {
             if (!StringList.contains(_data.getTypes(), k)) {
                 _data.setError(true);
-                return;
-
             }
             if (!StringList.contains(_data.getTypes(), changeTypes.getVal(k))) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!_data.getTypes().containsAllObj(replacingTypes)) {
             _data.setError(true);
-
         }
     }
 

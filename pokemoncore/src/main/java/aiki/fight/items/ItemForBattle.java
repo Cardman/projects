@@ -77,25 +77,18 @@ public final class ItemForBattle extends Item {
         super.validate(_data);
         if (!lawForAttackFirst.checkEvents()) {
             _data.setError(true);
-            return;
-
         }
         hatching = StringList.intersect(hatching,_data.getPokedex().getKeys());
         if (effectEndRound.size() > 1) {
             _data.setError(true);
-            return;
-
         }
         if (effectSending.size() > 1) {
             _data.setError(true);
-            return;
-
         }
         if (!effectEndRound.isEmpty()) {
             effectEndRound.first().validate(_data);
             if (!(effectEndRound.first() instanceof EffectEndRoundIndividual)) {
                 _data.setError(true);
-                return;
             }
         }
         if (!effectSending.isEmpty()) {
@@ -105,175 +98,115 @@ public final class ItemForBattle extends Item {
                 .entryList()) {
             if (!_data.getPokedex().contains(e.getKey().getPokemon())) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 multStatRank.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 multStat.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getMovesEffectGlobal().containsAllObj(
                 increasingMaxNbRoundGlobalMove.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         for (short s : increasingMaxNbRoundGlobalMove.values()) {
             if (s < 0) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!_data.getMovesEffectTeam().containsAllObj(
                 increasingMaxNbRoundTeamMove.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         for (short s : increasingMaxNbRoundTeamMove.values()) {
             if (s < 0) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!_data.getTypes().containsAllObj(typesPk)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getTypes().containsAllObj(immuTypes)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getMoves().containsAllAsKeys(immuMoves)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getMovesEffectGlobalWeather().containsAllObj(immuWeather)) {
             _data.setError(true);
-            return;
-
         }
         for (EntryCust<Statistic, Byte> e : boostStatisSuperEff.entryList()) {
             if (!e.getKey().isBoost()) {
                 _data.setError(true);
-                return;
-
             }
         }
         for (String t : boostStatisTypes.getKeys()) {
             if (!StringList.contains(_data.getTypes(), t)) {
                 _data.setError(true);
-                return;
-
             }
             for (EntryCust<Statistic, Byte> s : boostStatisTypes.getVal(t)
                     .entryList()) {
                 if (!s.getKey().isBoost()) {
                     _data.setError(true);
-                    return;
-
                 }
             }
         }
         if (!_data.getStatus().containsAllAsKeys(immuStatus)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getStatus().containsAllAsKeys(synchroStatus)) {
             _data.setError(true);
-            return;
-
         }
         if (!synchroStatus.containsAllObj(failStatus.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getTrappingMoves().containsAllObj(
                 increasingMaxNbRoundTrap.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         for (short s : increasingMaxNbRoundTrap.values()) {
             if (s < 0) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!Statistic.getStatisticsWithBase().containsAllObj(
                 winEvFight.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         for (Statistic s : winEvFight.getKeys()) {
             if (winEvFight.getVal(s) < 0) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!protectAgainstKo.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!protectAgainstKoIfFullHp.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!drainedHpByDamageRate.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!multTrappingDamage.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!multWinningMoney.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!multWinningHappiness.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!multWinningEv.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!multWinningExp.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!multDrainedHp.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!damageRecoil.isZeroOrGt()) {
             _data.setError(true);

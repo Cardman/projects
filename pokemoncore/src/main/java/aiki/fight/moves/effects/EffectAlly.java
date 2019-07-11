@@ -15,8 +15,6 @@ public final class EffectAlly extends Effect {
         if (getTargetChoice() != TargetChoice.ALLIE) {
             if (getTargetChoice() != TargetChoice.ALLIES) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!multAllyDamage.isZeroOrGt()) {

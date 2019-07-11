@@ -1,8 +1,6 @@
 package aiki.fight.pokemon;
-import code.util.StringList;
-import code.util.ints.Equallable;
 
-public final class NameLevel implements Equallable<NameLevel> {
+public final class NameLevel {
 
     private final String name;
 
@@ -29,14 +27,4 @@ public final class NameLevel implements Equallable<NameLevel> {
         return name;
     }
 
-    @Override
-    public boolean eq(NameLevel _g) {
-        if (level != _g.level) {
-            return false;
-        }
-        if (!StringList.quickEq(name, _g.name)) {
-            return false;
-        }
-        return true;
-    }
 }

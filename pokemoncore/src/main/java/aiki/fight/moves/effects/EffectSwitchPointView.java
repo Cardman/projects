@@ -21,16 +21,12 @@ public final class EffectSwitchPointView extends Effect {
         if (checkTargetChoice_) {
             if (getTargetChoice() != TargetChoice.LANCEUR) {
                 _data.setError(true);
-                return;
-
             }
             return;
         }
         if (pointViewChangement == PointViewChangementType.THIEF_BONUSES) {
             if (getTargetChoice() == TargetChoice.LANCEUR) {
                 _data.setError(true);
-                return;
-
             }
             return;
         }

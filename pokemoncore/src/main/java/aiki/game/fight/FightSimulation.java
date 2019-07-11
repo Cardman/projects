@@ -83,12 +83,12 @@ public class FightSimulation {
 
     private CustList<StringMap<Short>> availableEvolutions;
 
-    private CustList<EqList<NameLevel>> evolutions;
+    private CustList<CustList<NameLevel>> evolutions;
 
     /**for each fight, for each round of fight, positions and possible substitute (position before fight) of front fighters*/
     private CustList<CustList<ByteMap<Byte>>> frontFighters;
 
-    private CustList<EqList<NameLevel>> infosRealEvolutions;
+    private CustList<CustList<NameLevel>> infosRealEvolutions;
 
     private CustList<EqList<StringList>> usedStones;
 
@@ -152,11 +152,11 @@ public class FightSimulation {
         game.initUtilisateurSimulation(DataBase.EMPTY_STRING, null, _diff, _import);
         team = new CustList<PokemonPlayer>();
         items = new EqList<StringList>();
-        evolutions = new CustList<EqList<NameLevel>>();
+        evolutions = new CustList<CustList<NameLevel>>();
         frontFighters = new CustList<CustList<ByteMap<Byte>>>();
         mult = new Bytes();
         maxActions = new Ints();
-        infosRealEvolutions = new CustList<EqList<NameLevel>>();
+        infosRealEvolutions = new CustList<CustList<NameLevel>>();
         usedStones = new CustList<EqList<StringList>>();
         foeTeams = new CustList<CustList<PkTrainer>>();
         moves = new ByteMap<TreeMap<KeyFightRound,StringList>>();
@@ -429,7 +429,7 @@ public class FightSimulation {
         for (StringList l: items) {
             l.add(_pokemon.getItem());
         }
-        evolutions.add(new EqList<NameLevel>());
+        evolutions.add(new CustList<NameLevel>());
     }
 
     public void setPokemonPlayerObject(int _index, String _object) {
@@ -513,7 +513,7 @@ public class FightSimulation {
         evolutions.clear();
         int nbAvailableEvolutions_ = availableEvolutions.size();
         for (int i = CustList.FIRST_INDEX; i < nbAvailableEvolutions_; i++) {
-            evolutions.add(new EqList<NameLevel>());
+            evolutions.add(new CustList<NameLevel>());
         }
     }
 
@@ -618,7 +618,7 @@ public class FightSimulation {
         infosRealEvolutions.clear();
         int nb_ = team.size();
         for (byte i = CustList.FIRST_INDEX; i < nb_; i++) {
-            infosRealEvolutions.add(new EqList<NameLevel>());
+            infosRealEvolutions.add(new CustList<NameLevel>());
         }
         nb_ = foeTeams.size();
         for (byte i = CustList.FIRST_INDEX; i < nb_; i++) {
@@ -698,7 +698,7 @@ public class FightSimulation {
         infosRealEvolutions.clear();
         int nb_ = team.size();
         for (byte i = CustList.FIRST_INDEX; i < nb_; i++) {
-            infosRealEvolutions.add(new EqList<NameLevel>());
+            infosRealEvolutions.add(new CustList<NameLevel>());
         }
         nb_ = foeTeams.size();
         for (byte i = CustList.FIRST_INDEX; i < nb_; i++) {
@@ -1813,11 +1813,11 @@ public class FightSimulation {
         return availableEvolutions;
     }
 
-    public CustList<EqList<NameLevel>> getEvolutions() {
+    public CustList<CustList<NameLevel>> getEvolutions() {
         return evolutions;
     }
 
-    public CustList<EqList<NameLevel>> getInfosRealEvolutions() {
+    public CustList<CustList<NameLevel>> getInfosRealEvolutions() {
         return infosRealEvolutions;
     }
 

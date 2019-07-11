@@ -27,165 +27,90 @@ public final class EffectStatistic extends Effect {
         super.validate(_data);
         if (!lawBoost.checkEvents()) {
             _data.setError(true);
-            return;
-
         }
         if (!evtRate.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         for (EntryCust<Statistic, Byte> e : statisVarRank.entryList()) {
             if (!Statistic.getStatisticsWithBoost().containsObj(e.getKey())) {
                 _data.setError(true);
-                return;
             }
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 lawBoost.events())) {
             _data.setError(true);
-            return;
-
         }
         if (!lawBoost.events().isEmpty()) {
             if (!Statistic
                     .equalsSet(lawBoost.events(), statisVarRank.getKeys())) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 localFailStatis.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 localFailSwapBoostStatis.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         if (!statisVarRank.containsAllAsKeys(lawBoost.events())) {
             _data.setError(true);
-            return;
-
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(copyBoost)) {
             _data.setError(true);
-            return;
-
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(swapBoostStatis)) {
             _data.setError(true);
-            return;
-
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(cancelLowStat)) {
             _data.setError(true);
-            return;
-
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(cancelChgtStat)) {
             _data.setError(true);
-            return;
-
-        }
-        if (!lawBoost.events().isEmpty()) {
-            if (evtRate.isZero()) {
-                _data.setError(true);
-                return;
-
-            }
-            if (!swapBoostStatis.isEmpty()) {
-                _data.setError(true);
-                return;
-
-            }
-            if (!copyBoost.isEmpty()) {
-                _data.setError(true);
-                return;
-
-            }
-            if (!cancelLowStat.isEmpty()) {
-                _data.setError(true);
-                return;
-
-            }
-            if (!cancelChgtStat.isEmpty()) {
-                _data.setError(true);
-                return;
-
-            }
-            return;
         }
         if (evtRate.isZero()) {
             _data.setError(true);
-            return;
-
         }
-        if (!statisVarRank.isEmpty()) {
+        if (!lawBoost.events().isEmpty()||!statisVarRank.isEmpty()) {
             if (!swapBoostStatis.isEmpty()) {
                 _data.setError(true);
-                return;
-
             }
             if (!copyBoost.isEmpty()) {
                 _data.setError(true);
-                return;
-
             }
             if (!cancelLowStat.isEmpty()) {
                 _data.setError(true);
-                return;
-
             }
             if (!cancelChgtStat.isEmpty()) {
                 _data.setError(true);
-                return;
-
             }
             return;
         }
         if (!copyBoost.isEmpty()) {
             if (!swapBoostStatis.isEmpty()) {
                 _data.setError(true);
-                return;
-
             }
             if (!cancelLowStat.isEmpty()) {
                 _data.setError(true);
-                return;
-
             }
             if (!cancelChgtStat.isEmpty()) {
                 _data.setError(true);
-                return;
-
             }
             if (getTargetChoice() == TargetChoice.LANCEUR) {
                 _data.setError(true);
-                return;
-
             }
             return;
         }
         if (!swapBoostStatis.isEmpty()) {
             if (!cancelLowStat.isEmpty()) {
                 _data.setError(true);
-                return;
-
             }
             if (!cancelChgtStat.isEmpty()) {
                 _data.setError(true);
-                return;
-
             }
             if (getTargetChoice() == TargetChoice.LANCEUR) {
                 _data.setError(true);
-                return;
-
             }
             return;
         }

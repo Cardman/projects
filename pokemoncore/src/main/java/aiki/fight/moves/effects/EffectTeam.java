@@ -31,91 +31,59 @@ public final class EffectTeam extends Effect {
         super.validate(_data);
         if (getTargetChoice() != TargetChoice.LANCEUR) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getMoves().containsAllAsKeys(unusableMoves)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getStatus().containsAllAsKeys(protectAgainstStatus)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getMoves().containsAllAsKeys(disableFoeTeamEffects)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getStatus().containsAllAsKeys(disableFoeTeamStatus)) {
             _data.setError(true);
-            return;
-
         }
         for (CategoryMult k : multDamage.getKeys()) {
             if (!StringList.contains(_data.getCategories(), k.getCategory())) {
                 _data.setError(true);
-                return;
-
             }
             if (k.getMult() > DataBase.MAX_MULT_FIGHT) {
                 _data.setError(true);
-                return;
-
             }
             if (k.getMult() < 1) {
                 _data.setError(true);
-                return;
-
             }
             if (!multDamage.getVal(k).isZeroOrGt()) {
                 _data.setError(true);
-                return;
-
             }
         }
         for (Statistic k : multStatisticFoe.getKeys()) {
             if (!k.isBoost()) {
                 _data.setError(true);
-                return;
-
             }
             if (!multStatisticFoe.getVal(k).isZeroOrGt()) {
                 _data.setError(true);
-                return;
-
             }
         }
         for (Statistic k : multStatistic.getKeys()) {
             if (!k.isBoost()) {
                 _data.setError(true);
-                return;
-
             }
             if (!multStatistic.getVal(k).isZeroOrGt()) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 protectAgainstLowStat)) {
             _data.setError(true);
-            return;
-
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(forbiddenBoost)) {
             _data.setError(true);
-            return;
-
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 cancelChgtStatFoeTeam)) {
             _data.setError(true);
-            return;
-
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 cancelChgtStatTeam)) {

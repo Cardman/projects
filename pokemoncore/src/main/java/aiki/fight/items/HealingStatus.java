@@ -20,8 +20,6 @@ public abstract class HealingStatus extends HealingItem {
         super.validate(_data);
         if (!_data.getStatus().containsAllAsKeys(status)) {
             _data.setError(true);
-            return;
-
         }
         if (healingKo) {
             return;

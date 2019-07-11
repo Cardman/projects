@@ -19,42 +19,29 @@ public final class EffectEndRoundSingleRelation extends EffectEndRound {
         super.validate(_data);
         if (!lawForEnablingEffect.checkEvents()) {
             _data.setError(true);
-            return;
-
         }
         if (getTargetChoice() == TargetChoice.LANCEUR) {
             _data.setError(true);
-            return;
-
         }
         if (lawForEnablingEffect.events().isEmpty()) {
             _data.setError(true);
-            return;
-
-        }
-        Rate min_ = lawForEnablingEffect.minimum();
-        if (!min_.isZeroOrGt()) {
-            _data.setError(true);
-            return;
-
-        }
-        if (min_.isZero()) {
-            _data.setError(true);
-            return;
-
+        } else {
+            Rate min_ = lawForEnablingEffect.minimum();
+            if (!min_.isZeroOrGt()) {
+                _data.setError(true);
+            }
+            if (min_.isZero()) {
+                _data.setError(true);
+            }
         }
         for (Rate e : lawForEnablingEffect.events()) {
             if (!e.isInteger()) {
                 _data.setError(true);
-                return;
-
             }
         }
         for (EntryCust<Long, Rate> e : rateDamageFunctionOfNbRounds.entryList()) {
             if (!e.getValue().isZeroOrGt()) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!rateDamageFunctionOfNbRounds.isEmpty()) {

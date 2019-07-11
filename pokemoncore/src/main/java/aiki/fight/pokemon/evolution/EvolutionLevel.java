@@ -12,13 +12,9 @@ public abstract class EvolutionLevel extends Evolution {
     public void validate(DataBase _dataBase, PokemonData _fPk) {
         if (level <= 0) {
             _dataBase.setError(true);
-            return;
-
         }
         if (level > _dataBase.getMaxLevel()) {
             _dataBase.setError(true);
-            return;
-
         }
     }
 

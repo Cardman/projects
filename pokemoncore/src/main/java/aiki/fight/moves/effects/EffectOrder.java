@@ -12,7 +12,6 @@ public final class EffectOrder extends Effect {
         super.validate(_data);
         if (!getTargetChoice().isWithChoice()) {
             _data.setError(true);
-
         }
     }
 

@@ -1128,7 +1128,19 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertTrue(!map_.getVal(TORGNOLES));
     }
 
-    //getMovesForEvolution
+    @Test
+    public void getMovesForEvolution3Test() {
+        StringMap<Boolean> map_ = PokemonPlayer.getMovesForEvolution((short) 100, new StringList(CHARGE), TARTARD, _data_);
+        assertEq(7, map_.size());
+        assertTrue(map_.getVal(CHARGE));
+        assertTrue(!map_.getVal(BULLES_D_O));
+        assertTrue(!map_.getVal(HYPNOSE));
+        assertTrue(!map_.getVal(SACRIFICE));
+        assertTrue(!map_.getVal(TORGNOLES));
+        assertTrue(!map_.getVal(DYNAMOPOING));
+        assertTrue(!map_.getVal(LIRE_ESPRIT));
+    }
+
     @Test
     public void evolve1Test() {
         DataBase data_ = _data_;

@@ -23,45 +23,32 @@ public final class HealingPp extends HealingItem {
         if (healedMovePp > 0) {
             if (healingAllMovesFullpp > 0) {
                 _data.setError(true);
-                return;
-
             }
             if (healingAllMovesPp) {
                 _data.setError(true);
-                return;
-
             }
             if (healingMoveFullpp) {
                 _data.setError(true);
-                return;
-
             }
             return;
         }
         if (healingAllMovesFullpp > 0) {
             if (healingAllMovesPp) {
                 _data.setError(true);
-                return;
-
             }
             if (healingMoveFullpp) {
                 _data.setError(true);
-                return;
-
             }
             return;
         }
         if (healingAllMovesPp) {
             if (healingMoveFullpp) {
                 _data.setError(true);
-                return;
-
             }
             return;
         }
         if (!healingMoveFullpp) {
             _data.setError(true);
-
         }
     }
 

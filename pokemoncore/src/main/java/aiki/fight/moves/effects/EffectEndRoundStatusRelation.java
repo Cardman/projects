@@ -14,26 +14,18 @@ public final class EffectEndRoundStatusRelation extends EffectEndRoundStatus {
         super.validate(_data);
         if (!getInflictedRateHpTarget().isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!thievedHpRateTargetToUser.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (getInflictedRateHpTarget().isZero()) {
             if (!thievedHpRateTargetToUser.isZero()) {
                 return;
             }
             _data.setError(true);
-            return;
-
         }
         if (!thievedHpRateTargetToUser.isZero()) {
             _data.setError(true);
-            return;
-
         }
     }
 

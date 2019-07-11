@@ -15,7 +15,6 @@ public final class EffectRestriction extends Effect {
         super.validate(_data);
         if (getTargetChoice() == TargetChoice.LANCEUR) {
             _data.setError(true);
-
         }
     }
 

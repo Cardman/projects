@@ -16,8 +16,6 @@ public final class EffectSwitchAbilities extends Effect {
         if (!constAbility.isEmpty()) {
             if (!_data.getAbilities().contains(constAbility)) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (exchangeAbility == ExchangeType.GIVE_TO_TARGET
@@ -25,17 +23,6 @@ public final class EffectSwitchAbilities extends Effect {
                 || exchangeAbility == ExchangeType.EXCHANGE) {
             if (getTargetChoice() == TargetChoice.LANCEUR) {
                 _data.setError(true);
-                return;
-
-            }
-            return;
-        }
-        if (exchangeAbility == ExchangeType.GIVE_CONST) {
-            if (!constAbility.isEmpty()) {
-                if (!_data.getAbilities().contains(constAbility)) {
-                    _data.setError(true);
-
-                }
             }
         }
     }

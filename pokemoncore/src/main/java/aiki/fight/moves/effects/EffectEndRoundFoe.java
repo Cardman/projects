@@ -14,12 +14,9 @@ public final class EffectEndRoundFoe extends EffectEndRound {
         super.validate(_data);
         if (!inflictedRateHpTarget.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (inflictedRateHpTarget.isZero()) {
             _data.setError(true);
-
         }
     }
 

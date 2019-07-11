@@ -2,6 +2,7 @@ package aiki.map;
 import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import aiki.fight.pokemon.TrainerPlaceNames;
 import org.junit.Test;
 
 import aiki.fight.pokemon.GenderName;
@@ -383,9 +384,9 @@ public class StepTest {
         assertTrue(step_.getImportantsTrainers().containsObj(coords(2, 4, 5, 1, 1)));
         assertEq(1, step_.getCaughtPokemonPlaceLevel().size());
         assertTrue(step_.getCaughtPokemonPlaceLevel().contains(new PlaceLevel((short)1,(byte)0)));
-        assertEq(2, step_.getCaughtPokemonPlaceLevel().getVal(new PlaceLevel((short)1,(byte)0)).size());
-        assertTrue(step_.getCaughtPokemonPlaceLevel().getVal(new PlaceLevel((short)1,(byte)0)).containsObj(new GenderName(Gender.FEMALE,"PIKACHU")));
-        assertTrue(step_.getCaughtPokemonPlaceLevel().getVal(new PlaceLevel((short)1,(byte)0)).containsObj(new GenderName(Gender.MALE,"PIKACHU")));
+        assertEq(2, count(step_.getCaughtPokemonPlaceLevel().getVal(new PlaceLevel((short)1,(byte)0))));
+        assertTrue(containsGenderName(step_.getCaughtPokemonPlaceLevel().getVal(new PlaceLevel((short)1,(byte)0)),new GenderName(Gender.FEMALE,"PIKACHU")));
+        assertTrue(containsGenderName(step_.getCaughtPokemonPlaceLevel().getVal(new PlaceLevel((short)1,(byte)0)),new GenderName(Gender.MALE,"PIKACHU")));
         assertEq(18, step_.getCaughtPokemon().size());
         assertTrue(step_.getCaughtPokemon().contains(coords(1, 0, 0, 0)));
         assertTrue(step_.getCaughtPokemon().contains(coords(1, 0, 0, 1)));
@@ -441,7 +442,7 @@ public class StepTest {
         assertEq(1, step_.getCaughtPokemonPlaceLevel().size());
         assertTrue(step_.getCaughtPokemonPlaceLevel().contains(new PlaceLevel((short)7,(byte)0)));
         assertEq(1, step_.getCaughtPokemonPlaceLevel().getVal(new PlaceLevel((short)7,(byte)0)).size());
-        assertTrue(step_.getCaughtPokemonPlaceLevel().getVal(new PlaceLevel((short)7,(byte)0)).containsObj(new GenderName(Gender.NO_GENDER,"ELECTHOR")));
+        assertTrue(containsGenderName(step_.getCaughtPokemonPlaceLevel().getVal(new PlaceLevel((short)7,(byte)0)),new GenderName(Gender.NO_GENDER,"ELECTHOR")));
         assertEq(1, step_.getCaughtPokemon().size());
         assertTrue(step_.getCaughtPokemon().contains(coords(7, 0, 5, 0)));
         assertEq(370, step_.getAccessibleCoords().size());
@@ -505,5 +506,44 @@ public class StepTest {
         assertEq(0, step_.getCaughtPokemon().size());
         assertEq(521, step_.getAccessibleCoords().size());
         assertTrue(!step_.keepSteps());
+    }
+
+    private static int count(CustList<GenderName> _list) {
+        CustList<GenderName> g_ = new CustList<GenderName>();
+        for (GenderName pk_: _list) {
+            boolean cont_ = false;
+            for (GenderName s : g_) {
+                if (!StringList.quickEq(s.getName(), pk_.getName())) {
+                    continue;
+                }
+                if (s.getGender() != pk_.getGender()) {
+                    continue;
+                }
+                cont_ = true;
+            }
+            if (cont_) {
+                continue;
+            }
+            g_.add(pk_);
+        }
+        return g_.size();
+    }
+    private static boolean containsGenderName(CustList<GenderName> _list, GenderName _t) {
+        for (GenderName t: _list) {
+            if (eq(_t, t)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean eq(GenderName _current, GenderName _g) {
+        if (!StringList.quickEq(_current.getName(), _g.getName())) {
+            return false;
+        }
+        if (_current.getGender() != _g.getGender())  {
+            return false;
+        }
+        return true;
     }
 }

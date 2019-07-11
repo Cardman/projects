@@ -13,12 +13,9 @@ public final class EffectProtectFromTypes extends Effect {
         super.validate(_data);
         if (immuAgainstTypes.isEmpty()) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getTypes().containsAllObj(immuAgainstTypes)) {
             _data.setError(true);
-
         }
     }
 

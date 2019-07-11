@@ -17,46 +17,35 @@ public final class EffectCombo {
     public void validate(DataBase _data) {
         if (!repeatedRoundsLaw.checkEvents()) {
             _data.setError(true);
-            return;
 
         }
         if (!multEvtRateSecEff.isZeroOrGt()) {
             _data.setError(true);
-            return;
 
         }
         if (repeatedRoundsLaw.events().isEmpty()) {
             _data.setError(true);
-            return;
 
+        } else {
+            Rate min_ = repeatedRoundsLaw.minimum();
+            if (!min_.isZeroOrGt()) {
+                _data.setError(true);
+            }
+            if (min_.isZero()) {
+                _data.setError(true);
+            }
         }
-        Rate min_ = repeatedRoundsLaw.minimum();
-        if (!min_.isZeroOrGt()) {
-            _data.setError(true);
-            return;
 
-        }
-        if (min_.isZero()) {
-            _data.setError(true);
-            return;
-
-        }
         for (Rate e : repeatedRoundsLaw.events()) {
             if (!e.isInteger()) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (effectEndRound.size() > 1) {
             _data.setError(true);
-            return;
-
         }
         if (teamMove.size() > 1) {
             _data.setError(true);
-            return;
-
         }
         if (!effectEndRound.isEmpty()) {
             effectEndRound.first().validate(_data);

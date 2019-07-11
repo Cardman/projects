@@ -20,8 +20,6 @@ public final class HealingHp extends HealingItem {
         super.validate(_data);
         if (hp.isZero()) {
             _data.setError(true);
-            return;
-
         }
         if (!hp.isZeroOrGt()) {
             _data.setError(true);

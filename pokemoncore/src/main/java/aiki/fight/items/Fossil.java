@@ -21,8 +21,6 @@ public final class Fossil extends Item {
         super.validate(_data);
         if (!_data.getPokedex().contains(pokemon)) {
             _data.setError(true);
-            return;
-
         }
         if (level <= 0) {
             _data.setError(true);

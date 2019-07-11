@@ -15,13 +15,9 @@ public final class EffectFullHpRate extends Effect {
         super.validate(_data);
         if (!leftUserHp.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!closestFoeDamageRateHp.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!leftUserHp.isZero()) {
             if (!restoredHp.isEmpty()) {

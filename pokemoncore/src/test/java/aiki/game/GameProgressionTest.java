@@ -2,6 +2,7 @@ package aiki.game;
 import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import code.util.CustList;
 import org.junit.Test;
 
 import aiki.fight.pokemon.TrainerPlaceNames;
@@ -111,12 +112,12 @@ public class GameProgressionTest extends InitializationDataBase {
         assertTrue(StringList.contains(gameProgression_.getNotAtAllFamiliesBase().getVal(ARTIKODIN).get(0), ARTIKODIN));
         assertEq(0, gameProgression_.getBeatenImportantTrainers().size());
         assertEq(6, gameProgression_.getUnBeatenImportantTrainers().size());
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_TWO_TR_ONE,SEPARATOR_TRAINERS,DUAL_TWO_TR_TWO),R_2)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(GYM_TR_TWO,CITY_TWO)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_THREE_TR_ONE,SEPARATOR_TRAINERS,DUAL_THREE_TR_TWO),CAVE)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(LEAGUE_TR_TWO,LIGUE)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_ONE_TR_ONE,SEPARATOR_TRAINERS,DUAL_ONE_TR_TWO),R_2)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(GYM_TR_ONE,CITY)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_TWO_TR_ONE,SEPARATOR_TRAINERS,DUAL_TWO_TR_TWO),R_2)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(GYM_TR_TWO,CITY_TWO)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_THREE_TR_ONE,SEPARATOR_TRAINERS,DUAL_THREE_TR_TWO),CAVE)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(LEAGUE_TR_TWO,LIGUE)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_ONE_TR_ONE,SEPARATOR_TRAINERS,DUAL_ONE_TR_TWO),R_2)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(GYM_TR_ONE,CITY)));
         assertEq(4, gameProgression_.getRemainingOtherTrainerPlaces().size());
         assertEq(1, gameProgression_.getRemainingOtherTrainerPlaces().getVal((short) 0));
         assertEq(1, gameProgression_.getRemainingOtherTrainerPlaces().getVal((short) 2));
@@ -233,12 +234,12 @@ public class GameProgressionTest extends InitializationDataBase {
         assertTrue(StringList.contains(gameProgression_.getNotAtAllFamiliesBase().getVal(ARTIKODIN).get(0), ARTIKODIN));
         assertEq(0, gameProgression_.getBeatenImportantTrainers().size());
         assertEq(6, gameProgression_.getUnBeatenImportantTrainers().size());
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_TWO_TR_ONE,SEPARATOR_TRAINERS,DUAL_TWO_TR_TWO),R_2)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(GYM_TR_TWO,CITY_TWO)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_THREE_TR_ONE,SEPARATOR_TRAINERS,DUAL_THREE_TR_TWO),CAVE)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(LEAGUE_TR_TWO,LIGUE)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_ONE_TR_ONE,SEPARATOR_TRAINERS,DUAL_ONE_TR_TWO),R_2)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(GYM_TR_ONE,CITY)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_TWO_TR_ONE,SEPARATOR_TRAINERS,DUAL_TWO_TR_TWO),R_2)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(GYM_TR_TWO,CITY_TWO)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_THREE_TR_ONE,SEPARATOR_TRAINERS,DUAL_THREE_TR_TWO),CAVE)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(LEAGUE_TR_TWO,LIGUE)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_ONE_TR_ONE,SEPARATOR_TRAINERS,DUAL_ONE_TR_TWO),R_2)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(GYM_TR_ONE,CITY)));
         assertEq(4, gameProgression_.getRemainingOtherTrainerPlaces().size());
         assertEq(1, gameProgression_.getRemainingOtherTrainerPlaces().getVal((short) 0));
         assertEq(1, gameProgression_.getRemainingOtherTrainerPlaces().getVal((short) 2));
@@ -348,12 +349,12 @@ public class GameProgressionTest extends InitializationDataBase {
         assertTrue(StringList.contains(gameProgression_.getNotAtAllFamiliesBase().getVal(ARTIKODIN).get(0), ARTIKODIN));
         assertEq(0, gameProgression_.getBeatenImportantTrainers().size());
         assertEq(6, gameProgression_.getUnBeatenImportantTrainers().size());
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_TWO_TR_ONE,SEPARATOR_TRAINERS,DUAL_TWO_TR_TWO),R_2)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(GYM_TR_TWO,CITY_TWO)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_THREE_TR_ONE,SEPARATOR_TRAINERS,DUAL_THREE_TR_TWO),CAVE)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(LEAGUE_TR_TWO,LIGUE)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_ONE_TR_ONE,SEPARATOR_TRAINERS,DUAL_ONE_TR_TWO),R_2)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(GYM_TR_ONE,CITY)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_TWO_TR_ONE,SEPARATOR_TRAINERS,DUAL_TWO_TR_TWO),R_2)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(GYM_TR_TWO,CITY_TWO)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_THREE_TR_ONE,SEPARATOR_TRAINERS,DUAL_THREE_TR_TWO),CAVE)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(LEAGUE_TR_TWO,LIGUE)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_ONE_TR_ONE,SEPARATOR_TRAINERS,DUAL_ONE_TR_TWO),R_2)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(GYM_TR_ONE,CITY)));
         assertEq(4, gameProgression_.getRemainingOtherTrainerPlaces().size());
         assertEq(1, gameProgression_.getRemainingOtherTrainerPlaces().getVal((short) 0));
         assertEq(1, gameProgression_.getRemainingOtherTrainerPlaces().getVal((short) 2));
@@ -464,12 +465,12 @@ public class GameProgressionTest extends InitializationDataBase {
         assertTrue(StringList.contains(gameProgression_.getNotAtAllFamiliesBase().getVal(ARTIKODIN).get(0), ARTIKODIN));
         assertEq(0, gameProgression_.getBeatenImportantTrainers().size());
         assertEq(6, gameProgression_.getUnBeatenImportantTrainers().size());
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_TWO_TR_ONE,SEPARATOR_TRAINERS,DUAL_TWO_TR_TWO),R_2)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(GYM_TR_TWO,CITY_TWO)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_THREE_TR_ONE,SEPARATOR_TRAINERS,DUAL_THREE_TR_TWO),CAVE)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(LEAGUE_TR_TWO,LIGUE)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_ONE_TR_ONE,SEPARATOR_TRAINERS,DUAL_ONE_TR_TWO),R_2)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(GYM_TR_ONE,CITY)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_TWO_TR_ONE,SEPARATOR_TRAINERS,DUAL_TWO_TR_TWO),R_2)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(GYM_TR_TWO,CITY_TWO)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_THREE_TR_ONE,SEPARATOR_TRAINERS,DUAL_THREE_TR_TWO),CAVE)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(LEAGUE_TR_TWO,LIGUE)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_ONE_TR_ONE,SEPARATOR_TRAINERS,DUAL_ONE_TR_TWO),R_2)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(GYM_TR_ONE,CITY)));
         assertEq(3, gameProgression_.getRemainingOtherTrainerPlaces().size());
         assertEq(1, gameProgression_.getRemainingOtherTrainerPlaces().getVal((short) 2));
         assertEq(2, gameProgression_.getRemainingOtherTrainerPlaces().getVal((short) 5));
@@ -578,12 +579,12 @@ public class GameProgressionTest extends InitializationDataBase {
         assertTrue(StringList.contains(gameProgression_.getNotAtAllFamiliesBase().getVal(ARTIKODIN).get(0), ARTIKODIN));
         assertEq(0, gameProgression_.getBeatenImportantTrainers().size());
         assertEq(6, gameProgression_.getUnBeatenImportantTrainers().size());
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_TWO_TR_ONE,SEPARATOR_TRAINERS,DUAL_TWO_TR_TWO),R_2)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(GYM_TR_TWO,CITY_TWO)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_THREE_TR_ONE,SEPARATOR_TRAINERS,DUAL_THREE_TR_TWO),CAVE)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(LEAGUE_TR_TWO,LIGUE)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_ONE_TR_ONE,SEPARATOR_TRAINERS,DUAL_ONE_TR_TWO),R_2)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(GYM_TR_ONE,CITY)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_TWO_TR_ONE,SEPARATOR_TRAINERS,DUAL_TWO_TR_TWO),R_2)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(GYM_TR_TWO,CITY_TWO)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_THREE_TR_ONE,SEPARATOR_TRAINERS,DUAL_THREE_TR_TWO),CAVE)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(LEAGUE_TR_TWO,LIGUE)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_ONE_TR_ONE,SEPARATOR_TRAINERS,DUAL_ONE_TR_TWO),R_2)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(GYM_TR_ONE,CITY)));
         assertEq(4, gameProgression_.getRemainingOtherTrainerPlaces().size());
         assertEq(1, gameProgression_.getRemainingOtherTrainerPlaces().getVal((short) 0));
         assertEq(1, gameProgression_.getRemainingOtherTrainerPlaces().getVal((short) 2));
@@ -692,13 +693,13 @@ public class GameProgressionTest extends InitializationDataBase {
         assertEq(1, gameProgression_.getNotAtAllFamiliesBase().getVal(ARTIKODIN).get(0).size());
         assertTrue(StringList.contains(gameProgression_.getNotAtAllFamiliesBase().getVal(ARTIKODIN).get(0), ARTIKODIN));
         assertEq(1, gameProgression_.getBeatenImportantTrainers().size());
-        assertTrue(gameProgression_.getBeatenImportantTrainers().containsObj(new TrainerPlaceNames(GYM_TR_ONE,CITY)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getBeatenImportantTrainers(),new TrainerPlaceNames(GYM_TR_ONE,CITY)));
         assertEq(5, gameProgression_.getUnBeatenImportantTrainers().size());
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_TWO_TR_ONE,SEPARATOR_TRAINERS,DUAL_TWO_TR_TWO),R_2)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(GYM_TR_TWO,CITY_TWO)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_THREE_TR_ONE,SEPARATOR_TRAINERS,DUAL_THREE_TR_TWO),CAVE)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(LEAGUE_TR_TWO,LIGUE)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_ONE_TR_ONE,SEPARATOR_TRAINERS,DUAL_ONE_TR_TWO),R_2)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_TWO_TR_ONE,SEPARATOR_TRAINERS,DUAL_TWO_TR_TWO),R_2)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(GYM_TR_TWO,CITY_TWO)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_THREE_TR_ONE,SEPARATOR_TRAINERS,DUAL_THREE_TR_TWO),CAVE)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(LEAGUE_TR_TWO,LIGUE)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_ONE_TR_ONE,SEPARATOR_TRAINERS,DUAL_ONE_TR_TWO),R_2)));
         assertEq(4, gameProgression_.getRemainingOtherTrainerPlaces().size());
         assertEq(1, gameProgression_.getRemainingOtherTrainerPlaces().getVal((short) 0));
         assertEq(1, gameProgression_.getRemainingOtherTrainerPlaces().getVal((short) 2));
@@ -817,12 +818,12 @@ public class GameProgressionTest extends InitializationDataBase {
         assertTrue(StringList.contains(gameProgression_.getNotAtAllFamiliesBase().getVal(ARTIKODIN).get(0), ARTIKODIN));
         assertEq(0, gameProgression_.getBeatenImportantTrainers().size());
         assertEq(6, gameProgression_.getUnBeatenImportantTrainers().size());
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_TWO_TR_ONE,SEPARATOR_TRAINERS,DUAL_TWO_TR_TWO),R_2)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(GYM_TR_TWO,CITY_TWO)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_THREE_TR_ONE,SEPARATOR_TRAINERS,DUAL_THREE_TR_TWO),CAVE)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(LEAGUE_TR_TWO,LIGUE)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_ONE_TR_ONE,SEPARATOR_TRAINERS,DUAL_ONE_TR_TWO),R_2)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(GYM_TR_ONE,CITY)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_TWO_TR_ONE,SEPARATOR_TRAINERS,DUAL_TWO_TR_TWO),R_2)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(GYM_TR_TWO,CITY_TWO)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_THREE_TR_ONE,SEPARATOR_TRAINERS,DUAL_THREE_TR_TWO),CAVE)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(LEAGUE_TR_TWO,LIGUE)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_ONE_TR_ONE,SEPARATOR_TRAINERS,DUAL_ONE_TR_TWO),R_2)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(GYM_TR_ONE,CITY)));
         assertEq(4, gameProgression_.getRemainingOtherTrainerPlaces().size());
         assertEq(1, gameProgression_.getRemainingOtherTrainerPlaces().getVal((short) 0));
         assertEq(1, gameProgression_.getRemainingOtherTrainerPlaces().getVal((short) 2));
@@ -932,12 +933,12 @@ public class GameProgressionTest extends InitializationDataBase {
         assertTrue(StringList.contains(gameProgression_.getNotAtAllFamiliesBase().getVal(ARTIKODIN).get(0), ARTIKODIN));
         assertEq(0, gameProgression_.getBeatenImportantTrainers().size());
         assertEq(6, gameProgression_.getUnBeatenImportantTrainers().size());
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_TWO_TR_ONE,SEPARATOR_TRAINERS,DUAL_TWO_TR_TWO),R_2)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(GYM_TR_TWO,CITY_TWO)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_THREE_TR_ONE,SEPARATOR_TRAINERS,DUAL_THREE_TR_TWO),CAVE)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(LEAGUE_TR_TWO,LIGUE)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_ONE_TR_ONE,SEPARATOR_TRAINERS,DUAL_ONE_TR_TWO),R_2)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(GYM_TR_ONE,CITY)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_TWO_TR_ONE,SEPARATOR_TRAINERS,DUAL_TWO_TR_TWO),R_2)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(GYM_TR_TWO,CITY_TWO)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_THREE_TR_ONE,SEPARATOR_TRAINERS,DUAL_THREE_TR_TWO),CAVE)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(LEAGUE_TR_TWO,LIGUE)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_ONE_TR_ONE,SEPARATOR_TRAINERS,DUAL_ONE_TR_TWO),R_2)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(GYM_TR_ONE,CITY)));
         assertEq(4, gameProgression_.getRemainingOtherTrainerPlaces().size());
         assertEq(1, gameProgression_.getRemainingOtherTrainerPlaces().getVal((short) 0));
         assertEq(1, gameProgression_.getRemainingOtherTrainerPlaces().getVal((short) 2));
@@ -1048,12 +1049,12 @@ public class GameProgressionTest extends InitializationDataBase {
         assertTrue(StringList.contains(gameProgression_.getNotAtAllFamiliesBase().getVal(ARTIKODIN).get(0), ARTIKODIN));
         assertEq(0, gameProgression_.getBeatenImportantTrainers().size());
         assertEq(6, gameProgression_.getUnBeatenImportantTrainers().size());
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_TWO_TR_ONE,SEPARATOR_TRAINERS,DUAL_TWO_TR_TWO),R_2)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(GYM_TR_TWO,CITY_TWO)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_THREE_TR_ONE,SEPARATOR_TRAINERS,DUAL_THREE_TR_TWO),CAVE)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(LEAGUE_TR_TWO,LIGUE)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_ONE_TR_ONE,SEPARATOR_TRAINERS,DUAL_ONE_TR_TWO),R_2)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(GYM_TR_ONE,CITY)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_TWO_TR_ONE,SEPARATOR_TRAINERS,DUAL_TWO_TR_TWO),R_2)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(GYM_TR_TWO,CITY_TWO)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_THREE_TR_ONE,SEPARATOR_TRAINERS,DUAL_THREE_TR_TWO),CAVE)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(LEAGUE_TR_TWO,LIGUE)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_ONE_TR_ONE,SEPARATOR_TRAINERS,DUAL_ONE_TR_TWO),R_2)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(GYM_TR_ONE,CITY)));
         assertEq(4, gameProgression_.getRemainingOtherTrainerPlaces().size());
         assertEq(1, gameProgression_.getRemainingOtherTrainerPlaces().getVal((short) 0));
         assertEq(1, gameProgression_.getRemainingOtherTrainerPlaces().getVal((short) 2));
@@ -1164,12 +1165,12 @@ public class GameProgressionTest extends InitializationDataBase {
         assertTrue(StringList.contains(gameProgression_.getNotAtAllFamiliesBase().getVal(ARTIKODIN).get(0), ARTIKODIN));
         assertEq(0, gameProgression_.getBeatenImportantTrainers().size());
         assertEq(6, gameProgression_.getUnBeatenImportantTrainers().size());
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_TWO_TR_ONE,SEPARATOR_TRAINERS,DUAL_TWO_TR_TWO),R_2)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(GYM_TR_TWO,CITY_TWO)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_THREE_TR_ONE,SEPARATOR_TRAINERS,DUAL_THREE_TR_TWO),CAVE)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(LEAGUE_TR_TWO,LIGUE)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_ONE_TR_ONE,SEPARATOR_TRAINERS,DUAL_ONE_TR_TWO),R_2)));
-        assertTrue(gameProgression_.getUnBeatenImportantTrainers().containsObj(new TrainerPlaceNames(GYM_TR_ONE,CITY)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_TWO_TR_ONE,SEPARATOR_TRAINERS,DUAL_TWO_TR_TWO),R_2)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(GYM_TR_TWO,CITY_TWO)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_THREE_TR_ONE,SEPARATOR_TRAINERS,DUAL_THREE_TR_TWO),CAVE)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(LEAGUE_TR_TWO,LIGUE)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_ONE_TR_ONE,SEPARATOR_TRAINERS,DUAL_ONE_TR_TWO),R_2)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getUnBeatenImportantTrainers(),new TrainerPlaceNames(GYM_TR_ONE,CITY)));
         assertEq(4, gameProgression_.getRemainingOtherTrainerPlaces().size());
         assertEq(1, gameProgression_.getRemainingOtherTrainerPlaces().getVal((short) 0));
         assertEq(1, gameProgression_.getRemainingOtherTrainerPlaces().getVal((short) 2));
@@ -1299,12 +1300,12 @@ public class GameProgressionTest extends InitializationDataBase {
         assertTrue(StringList.contains(gameProgression_.getFullFamiliesBase().getVal(ARTIKODIN).get(0), ARTIKODIN));
         assertEq(0, gameProgression_.getUnBeatenImportantTrainers().size());
         assertEq(6, gameProgression_.getBeatenImportantTrainers().size());
-        assertTrue(gameProgression_.getBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_TWO_TR_ONE,SEPARATOR_TRAINERS,DUAL_TWO_TR_TWO),R_2)));
-        assertTrue(gameProgression_.getBeatenImportantTrainers().containsObj(new TrainerPlaceNames(GYM_TR_TWO,CITY_TWO)));
-        assertTrue(gameProgression_.getBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_THREE_TR_ONE,SEPARATOR_TRAINERS,DUAL_THREE_TR_TWO),CAVE)));
-        assertTrue(gameProgression_.getBeatenImportantTrainers().containsObj(new TrainerPlaceNames(LEAGUE_TR_TWO,LIGUE)));
-        assertTrue(gameProgression_.getBeatenImportantTrainers().containsObj(new TrainerPlaceNames(StringList.concat(DUAL_ONE_TR_ONE,SEPARATOR_TRAINERS,DUAL_ONE_TR_TWO),R_2)));
-        assertTrue(gameProgression_.getBeatenImportantTrainers().containsObj(new TrainerPlaceNames(GYM_TR_ONE,CITY)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_TWO_TR_ONE,SEPARATOR_TRAINERS,DUAL_TWO_TR_TWO),R_2)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getBeatenImportantTrainers(),new TrainerPlaceNames(GYM_TR_TWO,CITY_TWO)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_THREE_TR_ONE,SEPARATOR_TRAINERS,DUAL_THREE_TR_TWO),CAVE)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getBeatenImportantTrainers(),new TrainerPlaceNames(LEAGUE_TR_TWO,LIGUE)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getBeatenImportantTrainers(),new TrainerPlaceNames(StringList.concat(DUAL_ONE_TR_ONE,SEPARATOR_TRAINERS,DUAL_ONE_TR_TWO),R_2)));
+        assertTrue(containsTrainerPlaceNames(gameProgression_.getBeatenImportantTrainers(),new TrainerPlaceNames(GYM_TR_ONE,CITY)));
         assertEq(0, gameProgression_.getRemainingOtherTrainerPlaces().size());
         assertEq(4, gameProgression_.getVisitedPlaces().size());
         assertTrue(StringList.contains(gameProgression_.getVisitedPlaces(), CITY));
@@ -1319,6 +1320,24 @@ public class GameProgressionTest extends InitializationDataBase {
         assertEq(new LgInt("3000"), gameProgression_.getMoney());
     }
 
+    private static boolean containsTrainerPlaceNames(CustList<TrainerPlaceNames> _list, TrainerPlaceNames _t) {
+        for (TrainerPlaceNames t: _list) {
+            if (eq(_t, t)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean eq(TrainerPlaceNames _current, TrainerPlaceNames _g) {
+        if (!StringList.quickEq(_current.getTrainer(), _g.getTrainer())) {
+            return false;
+        }
+        if (!StringList.quickEq(_current.getPlace(), _g.getPlace())) {
+            return false;
+        }
+        return true;
+    }
     private static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) _place);

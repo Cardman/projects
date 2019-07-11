@@ -13,12 +13,9 @@ public final class EffectWinMoney extends Effect {
         super.validate(_data);
         if (winningRateBySumTargetUser.isZero()) {
             _data.setError(true);
-            return;
-
         }
         if (!winningRateBySumTargetUser.isZeroOrGt()) {
             _data.setError(true);
-
         }
     }
 

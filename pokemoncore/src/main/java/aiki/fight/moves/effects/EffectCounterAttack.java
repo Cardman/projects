@@ -24,31 +24,21 @@ public final class EffectCounterAttack extends Effect {
         super.validate(_data);
         if (!_data.getTypes().containsAllObj(sufferingDamageTypes.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         for (Rate r : sufferingDamageTypes.values()) {
             if (r.isZero()) {
                 _data.setError(true);
-                return;
-
             }
             if (!r.isZeroOrGt()) {
                 _data.setError(true);
-                return;
-
             }
         }
         for (Statistic s : droppedStatDirectMove.getKeys()) {
             if (!s.isBoost()) {
                 _data.setError(true);
-                return;
-
             }
             if (droppedStatDirectMove.getVal(s) >= 0) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!sufferingDamageDirectMove.isZeroOrGt()) {

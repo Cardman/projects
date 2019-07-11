@@ -20,39 +20,25 @@ public final class EffectStatus extends Effect {
         super.validate(_data);
         if (!lawStatus.checkEvents()) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getStatus().containsAllAsKeys(localFailStatus.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getStatus().containsAllAsKeys(deletedStatus)) {
             _data.setError(true);
-            return;
-
         }
         if (koUserHealSubst) {
             if (statusFromUser) {
                 _data.setError(true);
-                return;
-
             }
             if (!deletedStatus.isEmpty()) {
                 _data.setError(true);
-                return;
-
             }
             if (!lawStatus.events().isEmpty()) {
                 _data.setError(true);
-                return;
-
             }
             if (getTargetChoice() != TargetChoice.LANCEUR) {
                 _data.setError(true);
-                return;
-
             }
             return;
         }
@@ -64,38 +50,28 @@ public final class EffectStatus extends Effect {
             copy_.removeDuplicates();
             if (size_ + lawStatus.events().size() != copy_.size()) {
                 _data.setError(true);
-                return;
             }
             if (statusFromUser) {
                 _data.setError(true);
-                return;
-
             }
             return;
         }
         if (statusFromUser) {
             if (!lawStatus.events().isEmpty()) {
                 _data.setError(true);
-                return;
-
             }
             if (getTargetChoice() == TargetChoice.LANCEUR) {
                 _data.setError(true);
-                return;
-
             }
             return;
         }
         if (lawStatus.events().isEmpty()) {
             _data.setError(true);
-            return;
-
         }
         StringList events_ = new StringList(lawStatus.events());
         StringList.removeObj(events_, DataBase.EMPTY_STRING);
         if (!_data.getStatus().containsAllAsKeys(events_)) {
             _data.setError(true);
-
         }
     }
 

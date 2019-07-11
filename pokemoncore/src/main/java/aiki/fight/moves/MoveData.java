@@ -51,71 +51,45 @@ public abstract class MoveData {
     public void validate(DataBase _data) {
         if (!repeatRoundLaw.checkEvents()) {
             _data.setError(true);
-            return;
-
         }
         if (targetChoice == TargetChoice.NOTHING) {
             _data.setError(true);
-            return;
-
         }
         if (nbPrepaRound < 0) {
             _data.setError(true);
-            return;
-
         }
         if (pp <= 0) {
             _data.setError(true);
-            return;
-
         }
         if (pp > _data.getMaxPp()) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getMoves().containsAllAsKeys(achieveDisappearedPkUsingMove)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getTypes().containsAllObj(types) || types.isEmpty()) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getTypes().containsAllObj(boostedTypes)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getStatus().containsAllAsKeys(deletedStatus)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getStatus().containsAllAsKeys(requiredStatus)) {
             _data.setError(true);
-            return;
-
         }
         if (!typesByOwnedItem.isEmpty()) {
             if (!typesByOwnedItem.contains(DataBase.EMPTY_STRING)) {
                 _data.setError(true);
-                return;
-
             }
             CustList<String> keys_ = typesByOwnedItem.getKeys();
             StringList.removeObj(keys_, DataBase.EMPTY_STRING);
             if (!_data.getItems().containsAllAsKeys(keys_)) {
                 _data.setError(true);
-                return;
-
             }
             if (!_data.getTypes().containsAllObj(typesByOwnedItem.values())) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!secEffectsByItem.isEmpty()) {
@@ -123,76 +97,46 @@ public abstract class MoveData {
             StringList.removeObj(keys_, DataBase.EMPTY_STRING);
             if (!_data.getItems().containsAllAsKeys(keys_)) {
                 _data.setError(true);
-                return;
-
             }
             int index_ = indexOfPrimaryEffect();
             for (Ints e : secEffectsByItem.values()) {
-                if (e.isEmpty()) {
-                    _data.setError(true);
-                    return;
-
-                }
                 if (e.getMinimum(-2) <= index_) {
                     _data.setError(true);
-                    return;
-
                 }
             }
         }
         if (!typesByWeather.isEmpty()) {
             if (!typesByWeather.contains(DataBase.EMPTY_STRING)) {
                 _data.setError(true);
-                return;
-
             }
             CustList<String> keys_ = typesByWeather.getKeys();
             StringList.removeObj(keys_, DataBase.EMPTY_STRING);
             if (!_data.getMovesEffectGlobalWeather().containsAllObj(keys_)) {
                 _data.setError(true);
-                return;
-
             }
             if (!_data.getTypes().containsAllObj(typesByWeather.values())) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (accuracy.isEmpty()) {
             _data.setError(true);
-            return;
-
         }
         if (!repeatRoundLaw.events().isEmpty()) {
             Rate min_ = repeatRoundLaw.minimum();
             if (!min_.isZeroOrGt()) {
                 _data.setError(true);
-                return;
-
             }
             if (min_.isZero()) {
                 _data.setError(true);
-                return;
-
             }
             for (Rate e : repeatRoundLaw.events()) {
                 if (!e.isInteger()) {
                     _data.setError(true);
-                    return;
-
                 }
             }
             if (rankIncrementNbRound <= 0) {
                 _data.setError(true);
-                return;
-
             }
-        }
-        if (effects.isEmpty()) {
-            _data.setError(true);
-            return;
-
         }
         int nbGlobalEffects_ = 0;
         int nbEndRoudEffects_ = 0;
@@ -207,19 +151,13 @@ public abstract class MoveData {
         }
         if (nbGlobalEffects_ > DataBase.ONE_POSSIBLE_CHOICE) {
             _data.setError(true);
-            return;
-
         }
         if (nbEndRoudEffects_ > DataBase.ONE_POSSIBLE_CHOICE) {
             _data.setError(true);
-            return;
-
         }
         int indexOfPrimaryEffect_ = indexOfPrimaryEffect();
         if (indexOfPrimaryEffect_ == CustList.INDEX_NOT_FOUND_ELT) {
             _data.setError(true);
-            return;
-
         }
         int nbEffects_ = nbEffets();
         for (int i = CustList.FIRST_INDEX; i < nbEffects_; i++) {
@@ -227,15 +165,11 @@ public abstract class MoveData {
             if (i <= indexOfPrimaryEffect_) {
                 if (!effect_.getRequiredSuccessfulEffects().isEmpty()) {
                     _data.setError(true);
-                    return;
-
                 }
             } else {
                 if (!effect_.getRequiredSuccessfulEffects().isEmpty()) {
                     if (effect_.getRequiredSuccessfulEffects().getMaximum(nbEffects_) >= i) {
                         _data.setError(true);
-                        return;
-
                     }
                 }
             }
@@ -245,8 +179,6 @@ public abstract class MoveData {
             if (effect_.getTargetChoice() != targetChoice) {
                 if (effect_.getTargetChoice() != TargetChoice.LANCEUR) {
                     _data.setError(true);
-                    return;
-
                 }
             }
         }
@@ -259,10 +191,14 @@ public abstract class MoveData {
                 continue;
             }
             for (int e : effect_.getRequiredSuccessfulEffects()) {
+                if (e < 0) {
+                    continue;
+                }
+                if (e >= effects.size()) {
+                    continue;
+                }
                 if (effects.get(e).getTargetChoice() != targetChoice) {
                     _data.setError(true);
-                    return;
-
                 }
             }
         }

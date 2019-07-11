@@ -48,156 +48,103 @@ public final class Berry extends Item {
         super.validate(_data);
         if (!_data.getStatus().containsAllAsKeys(healStatus)) {
             _data.setError(true);
-            return;
 
         }
         for (String s : multFoesDamage.getKeys()) {
             if (!StringList.contains(_data.getTypes(), s)) {
                 _data.setError(true);
-                return;
-
             }
             if (!multFoesDamage.getVal(s).getEff().isZeroOrGt()) {
                 _data.setError(true);
-                return;
-
             }
             if (!multFoesDamage.getVal(s).getHpRate().isZeroOrGt()) {
                 _data.setError(true);
-                return;
-
             }
         }
         for (Statistic s : multStat.getKeys()) {
             if (!s.isBoost()) {
                 _data.setError(true);
-                return;
-
             }
             if (!multStat.getVal(s).getHpRate().isZeroOrGt()) {
                 _data.setError(true);
-                return;
-
             }
             if (multStat.getVal(s).getBoost() < 0) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!_data.getCategories()
                 .containsAllObj(damageRateRecoilFoe.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         for (Rate v : damageRateRecoilFoe.values()) {
             if (!v.isZeroOrGt()) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!healHpBySuperEffMove.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!healHp.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!maxHpHealingHp.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (maxHpHealingHp.greaterOrEqualsOne()) {
             _data.setError(true);
-            return;
-
         }
         if (!healHpRate.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!maxHpHealingHpRate.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (maxHpHealingHpRate.greaterOrEqualsOne()) {
             _data.setError(true);
-            return;
-
         }
         if (healPp < 0) {
             _data.setError(true);
-            return;
-
         }
         if (!categoryBoosting.isEmpty()) {
             if (!StringList.contains(_data.getAllCategories(), categoryBoosting)) {
                 _data.setError(true);
-                return;
-
             }
         }
         for (EntryCust<Statistic, Byte> e : boostStatis.entryList()) {
             if (!e.getKey().isBoost()) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!healHpBySuperEffMove.isZero()) {
             if (!multFoesDamage.isEmpty()) {
                 _data.setError(true);
-                return;
-
             }
             if (!damageRateRecoilFoe.isEmpty()) {
                 _data.setError(true);
-                return;
-
             }
             if (!healHp.isZero()) {
                 _data.setError(true);
-                return;
-
             }
             if (!healHpRate.isZero()) {
                 _data.setError(true);
-                return;
-
             }
             return;
         }
         if (!healHp.isZero()) {
             if (!multFoesDamage.isEmpty()) {
                 _data.setError(true);
-                return;
-
             }
             if (!damageRateRecoilFoe.isEmpty()) {
                 _data.setError(true);
-                return;
-
             }
             if (!healHpRate.isZero()) {
                 _data.setError(true);
-                return;
-
             }
             return;
         }
         if (!healHpRate.isZero()) {
             if (!multFoesDamage.isEmpty()) {
                 _data.setError(true);
-                return;
-
             }
             if (!damageRateRecoilFoe.isEmpty()) {
                 _data.setError(true);

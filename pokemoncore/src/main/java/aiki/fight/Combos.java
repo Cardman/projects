@@ -14,13 +14,9 @@ public final class Combos {
         for (StringList l : effects.getKeys()) {
             if (l.isEmpty()) {
                 _data.setError(true);
-                return;
-
             }
             if (!_data.getMoves().containsAllAsKeys(l)) {
                 _data.setError(true);
-                return;
-
             }
             effects.getVal(l).validate(_data);
         }

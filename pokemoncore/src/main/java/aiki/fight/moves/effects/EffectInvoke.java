@@ -24,36 +24,22 @@ public final class EffectInvoke extends Effect {
         super.validate(_data);
         if (!_data.getMoves().containsAllAsKeys(movesNotToBeInvoked)) {
             _data.setError(true);
-            return;
-
         }
         for (EntryCust<EnvironmentType, String> e : moveFctEnv.entryList()) {
-            if (!EnvironmentType.getEnvironments().containsObj(e.getKey())) {
-                _data.setError(true);
-                return;
-
-            }
             if (!_data.getMoves().contains(e.getValue())) {
                 _data.setError(true);
-                return;
-
             }
         }
         for (String k : invokingMoveByUserTypes.getKeys()) {
             if (!k.isEmpty() && !StringList.contains(_data.getTypes(), k)) {
                 _data.setError(true);
-                return;
-
             }
             if (!_data.getMoves().contains(invokingMoveByUserTypes.getVal(k))) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!rateInvokationMove.isZeroOrGt()) {
             _data.setError(true);
-
         }
     }
 

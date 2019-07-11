@@ -18,8 +18,14 @@ public final class PokemonFamily {
             newEvolutions_ = new StringList();
             for (String e: currentEvolutions_) {
                 PokemonData fPk_ = _data.getPokemon(e);
+                if (fPk_ == null) {
+                    continue;
+                }
                 for (String e_: fPk_.getEvolutions().getKeys()) {
                     PokemonData evo_ = _data.getPokemon(e_);
+                    if (evo_ == null) {
+                        continue;
+                    }
                     if (!StringList.quickEq(evo_.getBaseEvo(), _pokemonBase)) {
                         _data.setError(true);
                         return;

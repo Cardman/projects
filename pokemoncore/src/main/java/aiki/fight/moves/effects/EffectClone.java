@@ -14,13 +14,9 @@ public final class EffectClone extends Effect {
         super.validate(_data);
         if (getTargetChoice() != TargetChoice.LANCEUR) {
             _data.setError(true);
-            return;
-
         }
         if (hpRateClone.isZero()) {
             _data.setError(true);
-            return;
-
         }
         if (!hpRateClone.isZeroOrGt()) {
             _data.setError(true);

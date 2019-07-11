@@ -24,31 +24,22 @@ public final class EffectTeamWhileSendFoe extends Effect {
         super.validate(_data);
         if (getTargetChoice() != TargetChoice.LANCEUR) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getTypes().containsAllObj(deletedByFoeTypes)) {
             _data.setError(true);
-            return;
-
         }
         for (EntryCust<Short, String> e : statusByNbUses.entryList()) {
             if (!_data.getStatus().contains(e.getValue())) {
                 _data.setError(true);
-                return;
-
+                continue;
             }
             if (_data.getStatus(e.getValue()).getStatusType() == StatusType.RELATION_UNIQUE) {
                 _data.setError(true);
-                return;
-
             }
         }
         for (EntryCust<Statistic, Byte> s : statistics.entryList()) {
             if (!s.getKey().isBoost()) {
                 _data.setError(true);
-                return;
-
             }
         }
     }

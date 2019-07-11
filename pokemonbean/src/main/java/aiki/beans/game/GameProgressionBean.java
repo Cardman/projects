@@ -9,11 +9,7 @@ import aiki.map.DataMap;
 import code.bean.Bean;
 import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
-import code.util.EqList;
-import code.util.NatStringTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
+import code.util.*;
 
 public class GameProgressionBean extends Bean {
     private String heroImage;
@@ -25,8 +21,8 @@ public class GameProgressionBean extends Bean {
     private NatStringTreeMap<EqList<StringList>> partialFamiliesBaseNotCaught;
     private NatStringTreeMap<EqList<StringList>> partialFamiliesBaseCaught;
     private NatStringTreeMap<EqList<StringList>> fullFamiliesBase;
-    private EqList<TrainerPlaceNames> beatenImportantTrainers;
-    private EqList<TrainerPlaceNames> unBeatenImportantTrainers;
+    private CustList<TrainerPlaceNames> beatenImportantTrainers;
+    private CustList<TrainerPlaceNames> unBeatenImportantTrainers;
     private TreeMap<Short,Integer> remainingOtherTrainerPlaces;
     private StringList visitedPlaces;
     private StringList unVisitedPlaces;
@@ -193,11 +189,11 @@ public class GameProgressionBean extends Bean {
         return nickname;
     }
 
-    public EqList<TrainerPlaceNames> getUnBeatenImportantTrainers() {
+    public CustList<TrainerPlaceNames> getUnBeatenImportantTrainers() {
         return unBeatenImportantTrainers;
     }
 
-    public EqList<TrainerPlaceNames> getBeatenImportantTrainers() {
+    public CustList<TrainerPlaceNames> getBeatenImportantTrainers() {
         return beatenImportantTrainers;
     }
 

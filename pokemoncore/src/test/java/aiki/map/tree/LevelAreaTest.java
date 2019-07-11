@@ -271,7 +271,7 @@ public class LevelAreaTest {
         dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), road_);
         LevelArea area_ = new LevelArea();
         area_.initialize(road_.getLevel());
-        EqList<GenderName> list_;
+        CustList<GenderName> list_;
         list_ = area_.getPokemon(point(0,0));
         assertEq(2, list_.size());
         assertEq("PIKACHU", list_.first().getName());

@@ -18,36 +18,24 @@ public abstract class StatusBeginRound extends Status {
         super.validate(_data);
         if (!lawForUsingAMove.checkEvents()) {
             _data.setError(true);
-            return;
-
         }
         if (!lawForUsingAMoveNbRound.checkEvents()) {
             _data.setError(true);
-            return;
-
         }
         if (!lawForUsingAMoveIfFoe.checkEvents()) {
             _data.setError(true);
-            return;
-
         }
         if (!lawForFullHealIfMove.checkEvents()) {
             _data.setError(true);
-            return;
-
         }
         if (!lawForUsingAMoveNbRound.events().isEmpty()) {
             Rate min_ = lawForUsingAMoveNbRound.minimum();
             if (!min_.isZeroOrGt()) {
                 _data.setError(true);
-                return;
-
             }
             for (Rate e : lawForUsingAMoveNbRound.events()) {
                 if (!e.isInteger()) {
                     _data.setError(true);
-                    return;
-
                 }
             }
             return;

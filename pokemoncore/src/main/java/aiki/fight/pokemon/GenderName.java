@@ -3,7 +3,7 @@ import aiki.map.pokemon.enums.Gender;
 import code.util.StringList;
 import code.util.ints.Equallable;
 
-public final class GenderName implements Equallable<GenderName> {
+public final class GenderName {
 
     private final Gender gender;
 
@@ -22,14 +22,4 @@ public final class GenderName implements Equallable<GenderName> {
         return name;
     }
 
-    @Override
-    public boolean eq(GenderName _g) {
-        if (gender != _g.gender) {
-            return false;
-        }
-        if (!StringList.quickEq(name, _g.name)) {
-            return false;
-        }
-        return true;
-    }
 }

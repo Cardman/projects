@@ -18,13 +18,10 @@ public final class EffectEndRoundMultiRelation extends EffectEndRound {
         for (EntryCust<String, Rate> e : damageByStatus.entryList()) {
             if (!_data.getStatus().contains(e.getKey())) {
                 _data.setError(true);
-                return;
-
+                continue;
             }
             if (_data.getStatus(e.getKey()).getStatusType() == StatusType.RELATION_UNIQUE) {
                 _data.setError(true);
-                return;
-
             }
         }
     }

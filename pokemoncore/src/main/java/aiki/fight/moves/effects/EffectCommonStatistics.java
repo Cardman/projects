@@ -16,8 +16,6 @@ public final class EffectCommonStatistics extends Effect {
         super.validate(_data);
         if (commonValue.contains(Statistic.HP)) {
             _data.setError(true);
-            return;
-
         }
         CustList<Statistic> keys_ = commonValue.getKeys();
         CustList<Statistic> keysFilt_ = new CustList<Statistic>();
@@ -28,8 +26,6 @@ public final class EffectCommonStatistics extends Effect {
         }
         if (!Statistic.getStatisticsWithBase().containsAllObj(keysFilt_)) {
             _data.setError(true);
-            return;
-
         }
         if (getTargetChoice() == TargetChoice.LANCEUR) {
             _data.setError(true);

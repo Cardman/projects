@@ -135,113 +135,75 @@ public final class AbilityData {
     public void validate(DataBase _data) {
         if (!maxHpForUsingBerry.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (maxHpForUsingBerry.greaterOrEqualsOne()) {
             _data.setError(true);
-            return;
-
         }
         if (!singleStatus.checkEvents()) {
             _data.setError(true);
-            return;
-
         }
         StringList events_ = new StringList(singleStatus.events());
         StringList.removeObj(events_, DataBase.EMPTY_STRING);
         if (!_data.getStatus().containsAllAsKeys(events_)) {
             _data.setError(true);
-            return;
-
         }
         if (!events_.isEmpty()) {
             if (!events_.containsAllObj(failStatus.getKeys())) {
                 _data.setError(true);
-                return;
-
             }
         }
         for (WeatherType t : healHpByTypeIfWeather.getKeys()) {
             if (!StringList.contains(_data.getMovesEffectGlobalWeather(), t.getWeather()) && !t.getWeather().isEmpty()) {
                 _data.setError(true);
-                return;
-
             }
             if (!StringList.contains(_data.getTypes(), t.getType())) {
                 _data.setError(true);
-                return;
-
             }
             if (!healHpByTypeIfWeather.getVal(t).isZeroOrGt()) {
                 _data.setError(true);
-                return;
-
             }
             if (healHpByTypeIfWeather.getVal(t).isZero()) {
                 _data.setError(true);
-                return;
-
             }
         }
         for (StatisticCategory t : multStatIfCat.getKeys()) {
             if (!t.getStatistic().isBoost()) {
                 _data.setError(true);
-                return;
-
             }
             if (!StringList.contains(_data.getAllCategories(), t.getCategory())) {
                 _data.setError(true);
-                return;
-
             }
             if (!multStatIfCat.getVal(t).isZeroOrGt()) {
                 _data.setError(true);
-                return;
-
             }
         }
         for (StatisticStatus t : immuLowStatIfStatus) {
             if (!t.getStatistic().isBoost()) {
                 _data.setError(true);
-                return;
-
             }
             if (!_data.getStatus().contains(t.getStatus())) {
                 _data.setError(true);
-                return;
-
             }
         }
         for (TypesDuo t : breakFoeImmune) {
             if (!StringList.contains(_data.getTypes(), t.getDamageType())) {
                 _data.setError(true);
-                return;
-
             }
             if (!StringList.contains(_data.getTypes(), t.getPokemonType())) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!_data.getMovesEffectGlobalWeather().containsAllObj(immuWeather)) {
             _data.setError(true);
-            return;
-
         }
         CustList<String> keys_ = chgtTypeByWeather.getKeys();
         if (!keys_.isEmpty()) {
             StringList.removeObj(keys_, DataBase.EMPTY_STRING);
             if (!_data.getMovesEffectGlobalWeather().containsAllObj(keys_)) {
                 _data.setError(true);
-                return;
-
             }
             if (!_data.getTypes().containsAllObj(chgtTypeByWeather.values())) {
                 _data.setError(true);
-                return;
-
             }
         }
         keys_ = immuStatus.getKeys();
@@ -249,14 +211,10 @@ public final class AbilityData {
             StringList.removeObj(keys_, DataBase.EMPTY_STRING);
             if (!_data.getMovesEffectGlobal().containsAllObj(keys_)) {
                 _data.setError(true);
-                return;
-
             }
             for (StringList k : immuStatus.values()) {
                 if (!_data.getStatus().containsAllAsKeys(k)) {
                     _data.setError(true);
-                    return;
-
                 }
             }
         }
@@ -265,14 +223,10 @@ public final class AbilityData {
             StringList.removeObj(keys_, DataBase.EMPTY_STRING);
             if (!_data.getMovesEffectGlobal().containsAllObj(keys_)) {
                 _data.setError(true);
-                return;
-
             }
             for (StringList k : immuMoveTypesByWeather.values()) {
                 if (!_data.getTypes().containsAllObj(k)) {
                     _data.setError(true);
-                    return;
-
                 }
             }
         }
@@ -281,37 +235,25 @@ public final class AbilityData {
             StringList.removeObj(keys_, DataBase.EMPTY_STRING);
             if (!_data.getMovesEffectGlobalWeather().containsAllObj(keys_)) {
                 _data.setError(true);
-                return;
-
             }
             for (Rate v : healHpByWeather.values()) {
                 if (v.isZero()) {
                     _data.setError(true);
-                    return;
-
                 }
             }
         }
         if (!_data.getStatus().containsAllAsKeys(immuStatusBeginRound)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getStatus().containsAllAsKeys(divideStatusRound.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         for (Rate v : divideStatusRound.values()) {
             if (!v.isZeroOrGt()) {
                 _data.setError(true);
-                return;
-
             }
             if (v.isZero()) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!_data.getAbilities().containsAllAsKeys(immuAbility)) {
@@ -321,75 +263,47 @@ public final class AbilityData {
         }
         if (!_data.getAbilities().containsAllAsKeys(ignAbility)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getMoves().containsAllAsKeys(ignFoeTeamMove)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getMoves().containsAllAsKeys(immuMove)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getTypes().containsAllObj(multDamageFoe.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         for (Rate v : multDamageFoe.values()) {
             if (!v.isZeroOrGt()) {
                 _data.setError(true);
-                return;
-
             }
             if (v.isZero()) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!multDamageCh.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!multAllyDamage.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!multSufferedDamageSuperEff.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!multEvtRateCh.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!multEvtRateSecEffectOwner.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(immuLowStat)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getStatus().containsAllAsKeys(forwardStatus.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getStatus().containsAllAsKeys(forwardStatus.values())) {
             _data.setError(true);
-            return;
-
         }
         if (!forwardStatus.isEmpty()) {
             for (String k : failStatus.getKeys()) {
@@ -402,227 +316,150 @@ public final class AbilityData {
                 }
                 if (!appear_) {
                     _data.setError(true);
-                    return;
-
                 }
             }
-            return;
         }
         if (!_data.getAllCategories().containsAllObj(increasedPrio.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getTypes().containsAllObj(increasedPrioTypes.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         if (!typeForMoves.isEmpty()) {
             if (!StringList.contains(_data.getTypes(), typeForMoves)) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 multStat.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 multStatAlly.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         for (Rate v : multStatAlly.values()) {
             if (!v.isZeroOrGt()) {
                 _data.setError(true);
-                return;
-
             }
             if (v.isZero()) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 maxStatisticsIfCh)) {
             _data.setError(true);
-            return;
-
         }
         if (!multStab.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!healedHpRateBySwitch.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (nbUsedPp < 0) {
             _data.setError(true);
-            return;
-
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 bonusStatRank.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 boostStatRankProtected.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 boostStatRankEndRound.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 multStatIfKoFoe.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 multStatIfLowStat.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         for (StatisticStatus k : multStatIfStatutRank.getKeys()) {
             if (!k.getStatistic().isBoost()) {
                 _data.setError(true);
-                return;
-
             }
             if (!_data.getStatus().contains(k.getStatus())) {
                 _data.setError(true);
-                return;
-
             }
         }
         for (StatisticCategory k : multStatIfDamageCat.getKeys()) {
             if (!k.getStatistic().isBoost()) {
                 _data.setError(true);
-                return;
-
             }
             if (!StringList.contains(_data.getCategories(), k.getCategory())) {
                 _data.setError(true);
-                return;
-
             }
         }
         for (StatisticType k : multStatIfDamgeType.getKeys()) {
             if (!k.getStatistic().isBoost()) {
                 _data.setError(true);
-                return;
-
             }
             if (!StringList.contains(_data.getTypes(), k.getType())) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!recoilDamageFoe.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (decreaseNecStepsHatch < 0) {
             _data.setError(true);
-            return;
-
         }
         for (String k : changingBoostTypes.getKeys()) {
             if (!StringList.contains(_data.getTypes(), k)) {
                 _data.setError(true);
-                return;
-
             }
             TypeDamageBoost type_ = changingBoostTypes.getVal(k);
             if (!StringList.contains(_data.getTypes(), type_.getType())) {
                 _data.setError(true);
-                return;
-
             }
             if (!type_.getBoost().greaterOrEqualsOne()) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!_data.getMoves().containsAllAsKeys(immuAllyFromMoves)) {
             _data.setError(true);
-            return;
-
         }
         for (String k : immuStatusTypes.getKeys()) {
             if (!StringList.contains(_data.getTypes(), k)) {
                 _data.setError(true);
-                return;
-
             }
             if (!_data.getStatus().containsAllAsKeys(immuStatusTypes.getVal(k))) {
                 _data.setError(true);
-                return;
-
             }
         }
         for (EntryCust<String, EnumList<Statistic>> e : immuLowStatisTypes
                 .entryList()) {
             if (!StringList.contains(_data.getTypes(), e.getKey())) {
                 _data.setError(true);
-                return;
-
             }
             if (!Statistic.getAllStatistics().containsAllObj(e.getValue())) {
                 _data.setError(true);
-                return;
-
             }
         }
         for (Statistic s : lowStatFoeHit.getKeys()) {
             if (!s.isBoost()) {
                 _data.setError(true);
-                return;
-
             }
             if (lowStatFoeHit.getVal(s) >= 0) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!_data.getTypes().containsAllObj(
                 multPowerMovesTypesGlobal.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         for (Rate r : multPowerMovesTypesGlobal.values()) {
             if (!r.isZeroOrGt()) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!healHpWhileUsingBerry.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!effectEndRound.isEmpty()) {
             effectEndRound.first().validate(_data);
@@ -630,8 +467,6 @@ public final class AbilityData {
                 if (!(effectEndRound.first() instanceof EffectEndRoundTeam)) {
                     if (!(effectEndRound.first() instanceof EffectEndRoundMultiRelation)) {
                         _data.setError(true);
-                        return;
-
                     }
                 }
             }

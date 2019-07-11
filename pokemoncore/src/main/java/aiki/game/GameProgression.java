@@ -24,8 +24,8 @@ public final class GameProgression {
     private final StringMap<EqList<StringList>> partialFamiliesBaseCaught;
     private final StringMap<EqList<StringList>> partialFamiliesBaseNotCaught;
     private final StringMap<EqList<StringList>> fullFamiliesBase;
-    private final EqList<TrainerPlaceNames> beatenImportantTrainers;
-    private final EqList<TrainerPlaceNames> unBeatenImportantTrainers;
+    private final CustList<TrainerPlaceNames> beatenImportantTrainers;
+    private final CustList<TrainerPlaceNames> unBeatenImportantTrainers;
     private final ShortMap<Integer> remainingOtherTrainerPlaces;
     private final StringList visitedPlaces;
     private final StringList unVisitedPlaces;
@@ -75,12 +75,12 @@ public final class GameProgression {
             partialFamiliesBaseCaught.put(b, caughtPokemonStages_);
             partialFamiliesBaseNotCaught.put(b, uncaughtPokemonStages_);
         }
-        beatenImportantTrainers = new EqList<TrainerPlaceNames>();
+        beatenImportantTrainers = new CustList<TrainerPlaceNames>();
         for (Coords c: _game.getBeatenGymLeader()) {
             Place pl_ = _data.getMap().getPlaces().getVal(c.getNumberPlace());
             beatenImportantTrainers.add(new TrainerPlaceNames(_data.getMap().getTrainerName(c), pl_.getName()));
         }
-        unBeatenImportantTrainers = new EqList<TrainerPlaceNames>();
+        unBeatenImportantTrainers = new CustList<TrainerPlaceNames>();
         for (Coords c: _game.getUnBeatenGymLeader()) {
             Place pl_ = _data.getMap().getPlaces().getVal(c.getNumberPlace());
             unBeatenImportantTrainers.add(new TrainerPlaceNames(_data.getMap().getTrainerName(c), pl_.getName()));
@@ -165,11 +165,11 @@ public final class GameProgression {
         return fullFamiliesBase;
     }
 
-    public EqList<TrainerPlaceNames> getBeatenImportantTrainers() {
+    public CustList<TrainerPlaceNames> getBeatenImportantTrainers() {
         return beatenImportantTrainers;
     }
 
-    public EqList<TrainerPlaceNames> getUnBeatenImportantTrainers() {
+    public CustList<TrainerPlaceNames> getUnBeatenImportantTrainers() {
         return unBeatenImportantTrainers;
     }
 

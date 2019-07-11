@@ -25,7 +25,7 @@ public class PseudoPlayerFighter extends PseudoFighter {
 
     private Bytes foes;
 
-    private EqList<NameLevel> evoLevels;
+    private CustList<NameLevel> evoLevels;
 
     private EqList<StringList> moves;
 
@@ -33,9 +33,9 @@ public class PseudoPlayerFighter extends PseudoFighter {
 
     private ByteMap<String> evolutions;
 
-    private EqList<NameLevel> infosRealEvolutions;
+    private CustList<NameLevel> infosRealEvolutions;
 
-    public PseudoPlayerFighter(PseudoPokemonPlayer _pseudo, boolean _front, EqList<NameLevel> _evoLevels) {
+    public PseudoPlayerFighter(PseudoPokemonPlayer _pseudo, boolean _front, CustList<NameLevel> _evoLevels) {
         super(_pseudo.getName(), _pseudo.getLevel());
         item = _pseudo.getItem();
         wonExp = Rate.zero();
@@ -46,7 +46,7 @@ public class PseudoPlayerFighter extends PseudoFighter {
         moves = new EqList<StringList>();
         abilities = new EqList<StringList>();
         evolutions = new ByteMap<String>();
-        infosRealEvolutions = new EqList<NameLevel>();
+        infosRealEvolutions = new CustList<NameLevel>();
     }
 
     void calculateNewLevel(int _round,DataBase _import) {
@@ -192,7 +192,7 @@ public class PseudoPlayerFighter extends PseudoFighter {
         return newMoves_;
     }
 
-    public EqList<NameLevel> getEvoLevels() {
+    public CustList<NameLevel> getEvoLevels() {
         return evoLevels;
     }
 
@@ -208,7 +208,7 @@ public class PseudoPlayerFighter extends PseudoFighter {
         return evolutions;
     }
 
-    public EqList<NameLevel> getInfosRealEvolutions() {
+    public CustList<NameLevel> getInfosRealEvolutions() {
         return infosRealEvolutions;
     }
 

@@ -26,39 +26,29 @@ public final class Boost extends Item {
         super.validate(_data);
         if (!winPp.isZeroOrGt()) {
             _data.setError(true);
-            return;
 
         }
         if (!evs.isEmpty()) {
             if (!winPp.isZero()) {
                 _data.setError(true);
-                return;
 
             }
         }
         for (EntryCust<Statistic, Short> s : evs.entryList()) {
             if (!s.getKey().isWithBaseStatistic()) {
                 _data.setError(true);
-                return;
-
             }
             if (s.getValue() < 0) {
                 _data.setError(true);
-                return;
-
             }
         }
         for (String k : happiness.getKeys()) {
             if (happiness.getVal(k) < 0) {
                 _data.setError(true);
-                return;
-
             }
             Item obj_ = _data.getItem(k);
             if (!(obj_ instanceof Ball)) {
                 _data.setError(true);
-                return;
-
             }
         }
     }

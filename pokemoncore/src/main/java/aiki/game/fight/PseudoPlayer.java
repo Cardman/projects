@@ -13,20 +13,20 @@ public class PseudoPlayer {
 
     private CustList<EqList<StringList>> usedStones;
 
-    private CustList<EqList<NameLevel>> evolutions;
+    private CustList<CustList<NameLevel>> evolutions;
 
     public PseudoPlayer(CustList<PokemonPlayer> _team,
-            CustList<EqList<NameLevel>> _evolutions) {
+            CustList<CustList<NameLevel>> _evolutions) {
         team = new CustList<PseudoPokemonPlayer>();
         for (PokemonPlayer p: _team) {
             team.add(new PseudoPokemonPlayer(p));
         }
         items = new EqList<StringList>();
         usedStones = new CustList<EqList<StringList>>();
-        evolutions = new CustList<EqList<NameLevel>>();
-        for (EqList<NameLevel> l: _evolutions) {
-            EqList<NameLevel> copy_;
-            copy_ = new EqList<NameLevel>();
+        evolutions = new CustList<CustList<NameLevel>>();
+        for (CustList<NameLevel> l: _evolutions) {
+            CustList<NameLevel> copy_;
+            copy_ = new CustList<NameLevel>();
             for (NameLevel p: l) {
                 copy_.add(new NameLevel(p));
             }
@@ -50,7 +50,7 @@ public class PseudoPlayer {
         return usedStones;
     }
 
-    public CustList<EqList<NameLevel>> getEvolutions() {
+    public CustList<CustList<NameLevel>> getEvolutions() {
         return evolutions;
     }
 }

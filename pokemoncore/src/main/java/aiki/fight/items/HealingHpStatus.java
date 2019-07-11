@@ -20,8 +20,6 @@ public final class HealingHpStatus extends HealingStatus {
         super.validate(_data);
         if (healedHpRate.isZero()) {
             _data.setError(true);
-            return;
-
         }
         if (!healedHpRate.isZeroOrGt()) {
             _data.setError(true);

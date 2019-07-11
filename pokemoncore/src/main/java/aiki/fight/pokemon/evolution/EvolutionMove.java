@@ -13,13 +13,9 @@ public final class EvolutionMove extends Evolution {
     public void validate(DataBase _dataBase, PokemonData _fPk) {
         if (StringList.quickEq(move, _dataBase.getDefaultMove())) {
             _dataBase.setError(true);
-            return;
-
         }
         if (!StringList.contains(_fPk.getMoveTutors(), move)) {
             _dataBase.setError(true);
-            return;
-
         }
     }
 

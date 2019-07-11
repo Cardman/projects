@@ -23,31 +23,18 @@ public final class EffectSwitchTypes extends Effect {
         super.validate(_data);
         if (!_data.getTypes().containsAllObj(constTypes)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getTypes().containsAllObj(addedTypes)) {
             _data.setError(true);
-            return;
-
         }
         if (!chgtTypeByEnv.isEmpty()) {
             if (constValuesType != ConstValuesType.NOTHING) {
                 _data.setError(true);
-                return;
-
             }
             for (EntryCust<EnvironmentType, String> e : chgtTypeByEnv
                     .entryList()) {
-                if (!EnvironmentType.getEnvironments().containsObj(e.getKey())) {
-                    _data.setError(true);
-                    return;
-
-                }
                 if (!StringList.contains(_data.getTypes(), e.getValue())) {
                     _data.setError(true);
-                    return;
-
                 }
             }
             return;
@@ -55,8 +42,6 @@ public final class EffectSwitchTypes extends Effect {
         if (exchangeTypes != ExchangeType.NOTHING) {
             if (constValuesType != ConstValuesType.NOTHING) {
                 _data.setError(true);
-                return;
-
             }
             boolean checkTargetChoice_ = false;
             if (exchangeTypes == ExchangeType.GIVE_TO_TARGET) {
@@ -69,21 +54,12 @@ public final class EffectSwitchTypes extends Effect {
             if (checkTargetChoice_) {
                 if (getTargetChoice() == TargetChoice.LANCEUR) {
                     _data.setError(true);
-                    return;
-
                 }
                 return;
             }
-            if (exchangeTypes == ExchangeType.GIVE_CONST) {
-                if (constTypes.isEmpty()) {
-                    _data.setError(true);
-                    return;
-
-                }
-                return;
+            if (constTypes.isEmpty()) {
+                _data.setError(true);
             }
-            _data.setError(true);
-
         }
     }
 

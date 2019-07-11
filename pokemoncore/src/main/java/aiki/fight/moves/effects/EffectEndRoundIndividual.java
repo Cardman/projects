@@ -25,66 +25,44 @@ public final class EffectEndRoundIndividual extends EffectEndRound {
         super.validate(_data);
         if (getTargetChoice() != TargetChoice.LANCEUR) {
             _data.setError(true);
-            return;
-
         }
         for (EntryCust<String, Rate> e : multDamageStatus.entryList()) {
             if (!_data.getStatus().contains(e.getKey())) {
                 _data.setError(true);
-                return;
-
+                continue;
             }
             if (_data.getStatus(e.getKey()).getStatusType() == StatusType.RELATION_UNIQUE) {
                 _data.setError(true);
-                return;
-
             }
-            e.getValue().isZero();
         }
         CustList<String> keys_ = healHpByOwnerTypes.getKeys();
         StringList.removeObj(keys_, DataBase.EMPTY_STRING);
         if (!_data.getTypes().containsAllObj(keys_)) {
             _data.setError(true);
-            return;
-
         }
         if (!deleteAllStatus.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!healHp.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!recoilDamage.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!healHp.isZero()) {
             if (!healHpByOwnerTypes.isEmpty()) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!userStatusEndRound.isEmpty()) {
             if (!deleteAllStatus.isZero()) {
                 _data.setError(true);
-                return;
-
             }
             if (!_data.getStatus().contains(userStatusEndRound)) {
                 _data.setError(true);
-                return;
-
             }
             if (!multDamageStatus.isEmpty()) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!userStatusEndRound.isEmpty()) {

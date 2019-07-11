@@ -49,7 +49,22 @@ public class SolutionBean extends CommonBean {
             TreeMap<PlaceLevel,CustList<WildPokemonDto>> treeMap_ = new TreeMap<PlaceLevel,CustList<WildPokemonDto>>(new ComparatorPlaceLevel());
             for (PlaceLevel key_: step_.getCaughtPokemonPlaceLevel().getKeys()) {
                 CustList<WildPokemonDto> pokemon_ = new CustList<WildPokemonDto>();
+                CustList<GenderName> g_ = new CustList<GenderName>();
                 for (GenderName pk_: step_.getCaughtPokemonPlaceLevel().getVal(key_)) {
+                    boolean cont_ = false;
+                    for (GenderName s: g_) {
+                        if (!StringList.quickEq(s.getName(),pk_.getName())) {
+                            continue;
+                        }
+                        if (s.getGender() != pk_.getGender()) {
+                            continue;
+                        }
+                        cont_ = true;
+                    }
+                    if (cont_) {
+                        continue;
+                    }
+                    g_.add(pk_);
                     String name_ = data_.getTranslatedPokemon().getVal(getLanguage()).getVal(pk_.getName());
                     String image_ = BaseSixtyFourUtil.getStringByImage(data_.getMiniPk().getVal(pk_.getName()));
                     String gender_ = data_.getTranslatedGenders().getVal(getLanguage()).getVal(pk_.getGender());

@@ -520,10 +520,8 @@ public class DataBase implements WithMathFactory {
         for (LawNumber v : lawsDamageRate.values()) {
             if (v.getLaw().events().isEmpty()) {
                 setError(true);
-                return;
             }
         }
-
         for (PokemonData pk_ : pokedex.values()) {
             for (short hm_ : pk_.getHiddenMoves()) {
                 String move_ = hm.getVal(hm_);
@@ -544,6 +542,9 @@ public class DataBase implements WithMathFactory {
         }
         _perCentLoading.setPercent(60);
         validateConstants();
+        if (isError()) {
+            return;
+        }
         setCheckTranslation(true);
         CheckNumericStringsFight.validateNumericBooleanStrings(this);
         if (!_loading.get()) {
@@ -553,7 +554,6 @@ public class DataBase implements WithMathFactory {
         Rate power_ = getStrongMovePower();
         if (Rate.strLower(power_, new Rate(90))) {
             setError(true);
-            return;
         }
         ObjectMap<TypeStatistic, Boolean> strongMovesTypeStat_ = strongMoves(power_);
         for (EntryCust<TypeStatistic, Boolean> e : strongMovesTypeStat_
@@ -562,7 +562,6 @@ public class DataBase implements WithMathFactory {
                 continue;
             }
             setError(true);
-            return;
         }
 
         if (!_loading.get()) {
@@ -578,6 +577,7 @@ public class DataBase implements WithMathFactory {
             return;
         }
         validateImages();
+        _perCentLoading.setPercent(90);
         if (!_loading.get()) {
             return;
         }
@@ -785,23 +785,20 @@ public class DataBase implements WithMathFactory {
             for (String t2_ : types) {
                 if (!tableTypes.contains(new TypesDuo(t1_, t2_))) {
                     setError(true);
-                    return;
+                    continue;
                 }
                 if (!tableTypes.getVal(new TypesDuo(t1_, t2_)).isZeroOrGt()) {
                     setError(true);
-                    return;
                 }
             }
         }
         if (StringList.contains(getCategories(), AUTRE)) {
             setError(true);
-            return;
         }
         for (String s : getCategories()) {
 
             if (!isCorrectIdentifier(s)) {
                 setError(true);
-                return;
             }
         }
         for (EntryCust<String, PokemonData> e : getPokedex().entryList()) {
@@ -816,7 +813,6 @@ public class DataBase implements WithMathFactory {
             for (Effect e : move_.getEffects()) {
                 if (foundAfter_) {
                     setError(true);
-                    return;
                 }
                 if (!(e instanceof EffectStatus)) {
                     continue;
@@ -827,7 +823,6 @@ public class DataBase implements WithMathFactory {
                 }
                 if (e.getTargetChoice() != TargetChoice.LANCEUR) {
                     setError(true);
-                    return;
                 }
                 foundAfter_ = true;
             }
@@ -853,7 +848,6 @@ public class DataBase implements WithMathFactory {
                 }
                 if (!StringList.contains(moves_, ((EvolutionMove) e).getMove())) {
                     setError(true);
-                    return;
                 }
             }
         }
@@ -861,37 +855,30 @@ public class DataBase implements WithMathFactory {
 
         if (hasDuplicates(tm.values())) {
             setError(true);
-            return;
         }
         if (hasDuplicates(hm.values())) {
             setError(true);
-            return;
         }
 
         for (String m : hm.values()) {
             if (!getMoves().contains(m)) {
                 setError(true);
-                return;
             }
         }
         for (EntryCust<Short, LgInt> tmPrice_ : tmPrice.entryList()) {
             if (!tm.contains(tmPrice_.getKey())) {
                 setError(true);
-                return;
             }
             if (!tmPrice_.getValue().isZeroOrGt()) {
                 setError(true);
-                return;
             }
         }
         for (String m : tm.values()) {
             if (StringList.quickEq(m, getDefaultMove())) {
                 setError(true);
-                return;
             }
             if (!getMoves().contains(m)) {
                 setError(true);
-                return;
             }
         }
         Shorts incrementNbRound_ = new Shorts();
@@ -907,12 +894,10 @@ public class DataBase implements WithMathFactory {
         nonIncrementNbRound_.removeDuplicates();
         if (nb_ != nonIncrementNbRound_.size()) {
             setError(true);
-            return;
         }
         for (short e : incrementNbRound_) {
             if (nonIncrementNbRound_.contains(e)) {
                 setError(true);
-                return;
             }
         }
     }
@@ -944,7 +929,6 @@ public class DataBase implements WithMathFactory {
         }
         if (!StringList.disjoints(lists_)) {
             setError(true);
-            return;
         }
         StringList allPokemon_ = new StringList();
         for (StringList l : lists_) {

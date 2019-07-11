@@ -10,7 +10,6 @@ public final class EffectSwitchPosition extends Effect {
         super.validate(_data);
         if (getTargetChoice() != TargetChoice.ALLIE) {
             _data.setError(true);
-
         }
     }
 }

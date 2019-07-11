@@ -94,129 +94,87 @@ public final class PokemonData {
         eggGroups.removeDuplicates();
         if (expRate <= 0) {
             _data.setError(true);
-            return;
-
         }
         if (catchingRate <= 0) {
             _data.setError(true);
-            return;
-
         }
         if (happiness <= 0) {
             _data.setError(true);
-            return;
-
         }
         if (happinessHatch <= 0) {
             _data.setError(true);
-            return;
-
         }
         if (!hatchingSteps.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!weight.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (!height.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (types.isEmpty()) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getTypes().containsAllObj(types)) {
             _data.setError(true);
-            return;
-
         }
         if (genderRep != GenderRepartition.NO_GENDER) {
             if (genderRep != GenderRepartition.LEGENDARY) {
                 if (eggGroups.isEmpty()) {
                     _data.setError(true);
-                    return;
-
                 }
                 PokemonData fPkBaseEvo_ = _data.getPokemon(baseEvo);
-                if (fPkBaseEvo_.genderRep == GenderRepartition.LEGENDARY) {
+                if (fPkBaseEvo_ == null || fPkBaseEvo_.genderRep == GenderRepartition.LEGENDARY) {
                     _data.setError(true);
-                    return;
-
                 }
             }
         }
         if (!Statistic.equalsSet(statistics.getKeys(),
                 Statistic.getStatisticsWithBase())) {
             _data.setError(true);
-            return;
-
         }
-        for (Statistic s : Statistic.getStatisticsWithBase()) {
-            if (statistics.getVal(s).getBase() <= 0) {
+        for (EntryCust<Statistic,StatBaseEv> e: statistics.entryList()) {
+            StatBaseEv ev_ = e.getValue();
+            if (ev_.getBase() <= 0) {
                 _data.setError(true);
-                return;
-
             }
-            if (statistics.getVal(s).getEv() < 0) {
+            if (ev_.getEv() < 0) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (levMoves.isEmpty()) {
             _data.setError(true);
-            return;
-
         }
         if (abilities.isEmpty()) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getMoves().containsAllAsKeys(moveTutors)) {
             _data.setError(true);
-            return;
-
         }
         if (StringList.contains(moveTutors, _data.getDefaultMove())) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getAbilities().containsAllAsKeys(abilities)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getHm().containsAllAsKeys(hiddenMoves)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getTm().containsAllAsKeys(technicalMoves)) {
             _data.setError(true);
-            return;
-
         }
         if (!_data.getPokedex().contains(baseEvo)) {
             _data.setError(true);
-            return;
-
         }
         for (String e : evolutions.getKeys()) {
             if (!_data.getPokedex().contains(e)) {
                 _data.setError(true);
-                return;
-
             }
             evolutions.getVal(e).validate(_data, this);
+        }
+        if (levMoves.isEmpty()) {
+            return;
         }
         short min_ = levMoves.first().getLevel();
         if (min_ > _data.getMinLevel()) {
@@ -226,18 +184,12 @@ public final class PokemonData {
         for (LevelMove p : levMoves) {
             if (p.getLevel() < min_) {
                 _data.setError(true);
-                return;
-
             }
             if (StringList.quickEq(p.getMove(), _data.getDefaultMove())) {
                 _data.setError(true);
-                return;
-
             }
             if (!_data.getMoves().contains(p.getMove())) {
                 _data.setError(true);
-                return;
-
             }
             min_ = p.getLevel();
         }

@@ -14,12 +14,9 @@ public final class EffectDamageRate extends Effect {
         super.validate(_data);
         if (getTargetChoice() != TargetChoice.LANCEUR) {
             _data.setError(true);
-            return;
-
         }
         if (rateDamage.isZero()) {
             _data.setError(true);
-
         }
     }
 

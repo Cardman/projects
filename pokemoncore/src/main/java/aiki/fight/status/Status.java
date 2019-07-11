@@ -29,60 +29,42 @@ public abstract class Status {
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 multStat.getKeys())) {
             _data.setError(true);
-            return;
-
         }
         for (Rate v : multStat.values()) {
             if (!v.isZeroOrGt()) {
                 _data.setError(true);
-                return;
-
             }
             if (v.isZero()) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!catchingRate.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (catchingRate.isZero()) {
             _data.setError(true);
-            return;
-
         }
         if (effectEndRound.size() > 1) {
             _data.setError(true);
-            return;
-
         }
         if (effectsPartner.size() > 1) {
             _data.setError(true);
-            return;
-
         }
         if (!effectEndRound.isEmpty()) {
             effectEndRound.first().validate(_data);
             if (statusType == StatusType.INDIVIDUEL) {
                 if (!(effectEndRound.first() instanceof EffectEndRoundSingleStatus)) {
                     _data.setError(true);
-                    return;
                 }
             } else {
                 if (!(effectEndRound.first() instanceof EffectEndRoundStatusRelation)) {
                     _data.setError(true);
-                    return;
                 }
             }
         }
         if (!effectEndRound.isEmpty()) {
             if (incrementEndRound == effectEndRound.first().getEndRoundRank()) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (!effectsPartner.isEmpty()) {

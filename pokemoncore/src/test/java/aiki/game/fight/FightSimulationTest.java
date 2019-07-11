@@ -1119,7 +1119,7 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
         fightSimulation_.setFirstEvolutions(_data_);
         fightSimulation_.setNextEvolutions(0, TETARTE, (short) 26, _data_);
-        CustList<EqList<NameLevel>> list_;
+        CustList<CustList<NameLevel>> list_;
         list_ = fightSimulation_.getEvolutions();
         assertEq(1, list_.size());
         assertEq(1, list_.first().size());
@@ -1147,7 +1147,7 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE), (byte) 70, Rate.zero(), _data_);
         fightSimulation_.setFirstEvolutions(_data_);
         fightSimulation_.setNextEvolutions(0, NULL_REF, (short) 26, _data_);
-        CustList<EqList<NameLevel>> list_;
+        CustList<CustList<NameLevel>> list_;
         list_ = fightSimulation_.getEvolutions();
         assertEq(1, list_.size());
         assertEq(0, list_.first().size());
@@ -1173,7 +1173,7 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.setFirstEvolutions(_data_);
         fightSimulation_.setNextEvolutions(0, TETARTE, (short) 26, _data_);
         fightSimulation_.setNextEvolutions(0, TARTARD, (short) 26, _data_);
-        CustList<EqList<NameLevel>> list_;
+        CustList<CustList<NameLevel>> list_;
         list_ = fightSimulation_.getEvolutions();
         assertEq(1, list_.size());
         assertEq(2, list_.first().size());
@@ -1202,7 +1202,7 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.setFirstEvolutions(_data_);
         fightSimulation_.setNextEvolutions(0, TETARTE, (short) 26, _data_);
         fightSimulation_.setNextEvolutions(0, TARTARD, (short) 27, _data_);
-        CustList<EqList<NameLevel>> list_;
+        CustList<CustList<NameLevel>> list_;
         list_ = fightSimulation_.getEvolutions();
         assertEq(1, list_.size());
         assertEq(2, list_.first().size());
@@ -1231,7 +1231,7 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.setFirstEvolutions(_data_);
         fightSimulation_.setNextEvolutions(0, TETARTE, (short) 26, _data_);
         fightSimulation_.cancelEvolutions(0, 0, _data_);
-        CustList<EqList<NameLevel>> list_;
+        CustList<CustList<NameLevel>> list_;
         list_ = fightSimulation_.getEvolutions();
         assertEq(1, list_.size());
         assertEq(0, list_.first().size());
@@ -1258,7 +1258,7 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.setNextEvolutions(0, TETARTE, (short) 26, _data_);
         fightSimulation_.setNextEvolutions(0, TARTARD, (short) 27, _data_);
         fightSimulation_.cancelEvolutions(0, 1, _data_);
-        CustList<EqList<NameLevel>> list_;
+        CustList<CustList<NameLevel>> list_;
         list_ = fightSimulation_.getEvolutions();
         assertEq(1, list_.size());
         assertEq(1, list_.first().size());
@@ -1287,7 +1287,7 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.setFirstEvolutions(_data_);
         fightSimulation_.setNextEvolutions(0, TETARTE, (short) 26, _data_);
         fightSimulation_.cancelEvolutions(0, _data_);
-        CustList<EqList<NameLevel>> list_;
+        CustList<CustList<NameLevel>> list_;
         list_ = fightSimulation_.getEvolutions();
         assertEq(1, list_.size());
         assertEq(0, list_.first().size());
@@ -1314,7 +1314,7 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.setNextEvolutions(0, TETARTE, (short) 26, _data_);
         fightSimulation_.setNextEvolutions(0, TARTARD, (short) 27, _data_);
         fightSimulation_.cancelEvolutions(0, _data_);
-        CustList<EqList<NameLevel>> list_;
+        CustList<CustList<NameLevel>> list_;
         list_ = fightSimulation_.getEvolutions();
         assertEq(1, list_.size());
         assertEq(1, list_.first().size());

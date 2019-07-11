@@ -18,28 +18,18 @@ public final class StatusBeginRoundAutoDamage extends StatusBeginRound {
         super.validate(_data);
         if (!power.isZeroOrGt()) {
             _data.setError(true);
-            return;
-
         }
         if (power.isZero()) {
             _data.setError(true);
-            return;
-
         }
         if (!attack.isBoost()) {
             _data.setError(true);
-            return;
-
         }
         if (!attack.isWithBaseStatistic()) {
             _data.setError(true);
-            return;
-
         }
         if (!defense.isBoost()) {
             _data.setError(true);
-            return;
-
         }
         if (!defense.isWithBaseStatistic()) {
             _data.setError(true);
