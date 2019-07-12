@@ -657,10 +657,10 @@ final class InitializationMap {
 
     static void initBlockCave(DataBase _data) {
         DataMap map_ = _data.getMap();
-        map_.addCave();
+        InitializationDataBase.addCave(map_);
         Cave cave_ = (Cave) map_.getPlaces().getVal((short) 5);
         cave_.setName(CAVE);
-        map_.addLevelCave((short) 5);
+        InitializationDataBase.addLevelCave(map_, (short) 5);
         LevelCave level_;
         Block block_;
         level_ = (LevelCave)cave_.getLevelsMap().getVal((byte) 0);

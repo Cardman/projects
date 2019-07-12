@@ -99,9 +99,11 @@ public final class Cave extends Campaign {
         return level_.isEmptyForAdding(_coords.getLevel().getPoint());
     }
 
+    @Override
     public boolean validLinks(short _place, Tree _tree) {
         int nbLevels_ = levels.size();
         EqList<LevelPoint> ids_ = new EqList<LevelPoint>();
+        boolean valid_ = true;
         for (byte i = CustList.FIRST_INDEX; i < nbLevels_; i++) {
             LevelCave level_ = levels.getVal(i);
             for (EntryCust<Point, Link> e : level_.getLinksOtherLevels()
@@ -109,23 +111,36 @@ public final class Cave extends Campaign {
                 Link link_ = e.getValue();
                 Coords coords_ = link_.getCoords();
                 if (!Numbers.eq(coords_.getNumberPlace(), _place)) {
-                    return false;
+                    valid_ = false;
                 }
                 LevelPoint lPoint_ = coords_.getLevel();
                 LevelCave otherLevel_ = getLevelCave(lPoint_);
+                if (otherLevel_ == null) {
+                    valid_ = false;
+                    LevelPoint id_ = new LevelPoint();
+                    id_.setLevelIndex(i);
+                    id_.setPoint(e.getKey());
+                    ids_.add(id_);
+                    continue;
+                }
                 if (!otherLevel_.getLinksOtherLevels().contains(
                         lPoint_.getPoint())) {
-                    return false;
+                    valid_ = false;
+                    LevelPoint id_ = new LevelPoint();
+                    id_.setLevelIndex(i);
+                    id_.setPoint(e.getKey());
+                    ids_.add(id_);
+                    continue;
                 }
                 Link otherLink_ = otherLevel_.getLinksOtherLevels().getVal(
                         lPoint_.getPoint());
                 Coords otherCoords_ = otherLink_.getCoords();
                 LevelPoint otherLevelPoint_ = otherCoords_.getLevel();
-                if (!Numbers.eq(otherLevelPoint_.getLevelIndex(), i)) {
-                    return false;
-                }
-                if (!Point.eq(otherLevelPoint_.getPoint(), e.getKey())) {
-                    return false;
+                LevelPoint current_ = new LevelPoint();
+                current_.setLevelIndex(i);
+                current_.setPoint(e.getKey());
+                if (!LevelPoint.eq(otherLevelPoint_,current_)) {
+                    valid_ = false;
                 }
                 LevelPoint id_ = new LevelPoint();
                 id_.setLevelIndex(i);
@@ -136,42 +151,16 @@ public final class Cave extends Campaign {
         for (EntryCust<LevelPoint, Link> e : linksWithOtherPlaces.entryList()) {
             Link link_ = e.getValue();
             if (!_tree.isValid(link_.getCoords(), true)) {
-                return false;
+                valid_ = false;
             }
             ids_.add(e.getKey());
         }
         int len_ = ids_.size();
         ids_.removeDuplicates();
-        return len_ == ids_.size();
-    }
-
-    public void addNewLevel() {
-        LevelCave level_ = new LevelCave();
-        level_.setBlocks(new ObjectMap<Point, Block>());
-        level_.setCharacters(new ObjectMap<Point, CharacterInRoadCave>());
-        level_.setDualFights(new ObjectMap<Point, DualFight>());
-        level_.setHm(new ObjectMap<Point, Short>());
-        level_.setTm(new ObjectMap<Point, Short>());
-        level_.setItems(new ObjectMap<Point, String>());
-        level_.setLegendaryPks(new ObjectMap<Point, WildPk>());
-        level_.setWildPokemonAreas(new CustList<AreaApparition>());
-        level_.setLinksOtherLevels(new ObjectMap<Point, Link>());
-        levels.put(indexOfAddedLevel(), level_);
-    }
-
-    byte indexOfAddedLevel() {
-        Bytes keys_ = new Bytes(levels.getKeys());
-        if (keys_.isEmpty()) {
-            return (short) CustList.FIRST_INDEX;
+        if (len_ != ids_.size()) {
+            valid_ = false;
         }
-        long max_ = keys_.getMaximum((byte) -1);
-        for (byte s = CustList.FIRST_INDEX; s < max_; s++) {
-            if (keys_.containsObj(s)) {
-                continue;
-            }
-            return s;
-        }
-        return (byte) (max_ + 1);
+        return valid_;
     }
 
     @Override

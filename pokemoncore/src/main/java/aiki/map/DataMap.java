@@ -170,25 +170,9 @@ public final class DataMap {
         int nbPlaces_ = places.size();
         for (short p = CustList.FIRST_INDEX; p < nbPlaces_; p++) {
             places.getVal(p).validate(_d, tree.getPlace(p));
-            if (places.getVal(p) instanceof InitializedPlace) {
-                if (!((InitializedPlace) places.getVal(p)).validLinks(tree)) {
-                    error = true;
-                    _d.setError(true);
-                    continue;
-                }
-            }
-            if (places.getVal(p) instanceof League) {
-                if (!((League) places.getVal(p)).validLinks(tree)) {
-                    error = true;
-                    _d.setError(true);
-                    continue;
-                }
-            }
-            if (places.getVal(p) instanceof Cave) {
-                if (!((Cave) places.getVal(p)).validLinks(p, tree)) {
-                    error = true;
-                    _d.setError(true);
-                }
+            if (!(places.getVal(p).validLinks(p, tree))) {
+                error = true;
+                _d.setError(true);
             }
         }
         for (short p = CustList.FIRST_INDEX; p < nbPlaces_; p++) {
@@ -524,8 +508,7 @@ public final class DataMap {
         }
         StringList legPk_ = new StringList();
         for (String n : _d.getPokedex().getKeys()) {
-            PokemonData fPk_ = _d.getPokemon(n);
-            if (fPk_.getGenderRep() != GenderRepartition.LEGENDARY) {
+            if (!StringList.contains(_d.getLegPks(),n)) {
                 continue;
             }
             legPk_.add(n);
@@ -1841,19 +1824,6 @@ public final class DataMap {
         addPlace(road_);
     }
 
-    public void addCave() {
-        Cave cave_ = new Cave();
-        cave_.setLevels(new ByteMap< LevelCave>());
-        cave_.setLinksWithOtherPlaces(new ObjectMap<LevelPoint, Link>());
-        cave_.addNewLevel();
-        addPlace(cave_);
-    }
-
-    public void addLevelCave(short _cave) {
-        Cave cave_ = (Cave) places.getVal(_cave);
-        cave_.addNewLevel();
-    }
-
     short indexOfAddedPlace() {
         Shorts keys_ = new Shorts(places.getKeys());
         if (keys_.isEmpty()) {
@@ -1869,7 +1839,7 @@ public final class DataMap {
         return (short) (max_ + 1);
     }
 
-    void addPlace(Place _place) {
+    public void addPlace(Place _place) {
         short index_ = indexOfAddedPlace();
         places.put(index_, _place);
     }

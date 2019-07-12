@@ -3,6 +3,7 @@ import aiki.db.DataBase;
 import aiki.map.characters.Person;
 import aiki.map.levels.Level;
 import aiki.map.tree.PlaceArea;
+import aiki.map.tree.Tree;
 import aiki.util.Coords;
 import code.util.CustList;
 import code.util.*;
@@ -17,6 +18,8 @@ public abstract class Place {
         }
         return true;
     }
+
+    public abstract boolean validLinks(short _place, Tree _tree);
 
     public abstract void validate(DataBase _data,PlaceArea _placeArea);
     public abstract boolean isEmptyForAdding(Coords _coords);

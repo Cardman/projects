@@ -1,8 +1,6 @@
 package aiki.map.levels;
 
 import aiki.db.DataBase;
-import aiki.fight.pokemon.PokemonData;
-import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.map.characters.CharacterInRoadCave;
 import aiki.map.characters.DualFight;
 import aiki.map.characters.Person;
@@ -11,10 +9,7 @@ import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.WildPk;
 import aiki.map.tree.LevelArea;
 import aiki.util.Point;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.EqList;
-import code.util.ObjectMap;
+import code.util.*;
 
 
 public abstract class LevelWithWildPokemon extends Level {
@@ -100,8 +95,7 @@ public abstract class LevelWithWildPokemon extends Level {
                 _data.setError(true);
             }
             e.getValue().validateAsNpc(_data);
-            PokemonData fPk_ = _data.getPokemon(e.getValue().getName());
-            if (fPk_ != null && fPk_.getGenderRep() != GenderRepartition.LEGENDARY) {
+            if (!StringList.contains(_data.getLegPks(),e.getValue().getName())) {
                 _data.setError(true);
             }
             keys_.add(e.getKey());
@@ -142,30 +136,31 @@ public abstract class LevelWithWildPokemon extends Level {
 
     @Override
     public boolean isEmptyForAdding(Point _point) {
+        boolean empt_ = true;
         if (characters.contains(_point)) {
-            return false;
+            empt_ = false;
         }
         if (legendaryPks.contains(_point)) {
-            return false;
+            empt_ = false;
         }
         if (items.contains(_point)) {
-            return false;
+            empt_ = false;
         }
         if (tm.contains(_point)) {
-            return false;
+            empt_ = false;
         }
         if (hm.contains(_point)) {
-            return false;
+            empt_ = false;
         }
         if (dualFights.contains(_point)) {
-            return false;
+            empt_ = false;
         }
         for (DualFight d : dualFights.values()) {
             if (Point.eq(d.getPt(), _point)) {
-                return false;
+                empt_ = false;
             }
         }
-        return true;
+        return empt_;
     }
 
     @Override

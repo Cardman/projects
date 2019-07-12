@@ -59,7 +59,8 @@ public final class League extends Place {
         return level_.isEmptyForAdding(_coords.getLevel().getPoint());
     }
 
-    public boolean validLinks(Tree _tree) {
+    @Override
+    public boolean validLinks(short _p, Tree _tree) {
         return _tree.isValid(accessCoords, true);
     }
 

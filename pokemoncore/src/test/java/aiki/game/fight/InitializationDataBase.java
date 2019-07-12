@@ -13,12 +13,17 @@ import aiki.fight.util.TypesDuo;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.map.DataMap;
+import aiki.map.characters.CharacterInRoadCave;
+import aiki.map.characters.DualFight;
+import aiki.map.levels.AreaApparition;
+import aiki.map.levels.Block;
 import aiki.map.levels.LevelCave;
 import aiki.map.levels.Link;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.Cave;
 import aiki.map.places.InitializedPlace;
 import aiki.map.places.Place;
+import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.TileMiniMap;
@@ -1682,5 +1687,47 @@ public class InitializationDataBase {
         link2_.setCoords(_coordsCave);
         link2_.setFileName(_imgName2);
         links2_.put(_coordsPlace.getLevel().getPoint(), link2_);
+    }
+
+    public static void addCave(DataMap _dataMap) {
+        Cave cave_ = new Cave();
+        cave_.setLevels(new ByteMap< LevelCave>());
+        cave_.setLinksWithOtherPlaces(new ObjectMap<LevelPoint, Link>());
+        addNewLevel(cave_);
+        _dataMap.addPlace(cave_);
+    }
+
+    public static void addLevelCave(DataMap _dataMap, short _cave) {
+        Cave cave_ = (Cave) _dataMap.getPlaces().getVal(_cave);
+        addNewLevel(cave_);
+    }
+
+    public static void addNewLevel(Cave _cave) {
+        LevelCave level_ = new LevelCave();
+        level_.setBlocks(new ObjectMap<Point, Block>());
+        level_.setCharacters(new ObjectMap<Point, CharacterInRoadCave>());
+        level_.setDualFights(new ObjectMap<Point, DualFight>());
+        level_.setHm(new ObjectMap<Point, Short>());
+        level_.setTm(new ObjectMap<Point, Short>());
+        level_.setItems(new ObjectMap<Point, String>());
+        level_.setLegendaryPks(new ObjectMap<Point, WildPk>());
+        level_.setWildPokemonAreas(new CustList<AreaApparition>());
+        level_.setLinksOtherLevels(new ObjectMap<Point, Link>());
+        _cave.getLevels().put(indexOfAddedLevel(_cave), level_);
+    }
+
+    public static byte indexOfAddedLevel(Cave _cave) {
+        Bytes keys_ = new Bytes(_cave.getLevels().getKeys());
+        if (keys_.isEmpty()) {
+            return (short) CustList.FIRST_INDEX;
+        }
+        long max_ = keys_.getMaximum((byte) -1);
+        for (byte s = CustList.FIRST_INDEX; s < max_; s++) {
+            if (keys_.containsObj(s)) {
+                continue;
+            }
+            return s;
+        }
+        return (byte) (max_ + 1);
     }
 }

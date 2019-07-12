@@ -1,5 +1,4 @@
 package aiki.map.places;
-import aiki.map.characters.Person;
 import aiki.map.levels.Level;
 import aiki.map.levels.Link;
 import aiki.map.tree.Tree;
@@ -9,8 +8,6 @@ import aiki.util.Point;
 import code.util.ObjectMap;
 
 public interface InitializedPlace {
-
-    boolean validLinks(Tree _tree);
 
     ObjectMap<Point,Link> getLinksWithCaves();
 

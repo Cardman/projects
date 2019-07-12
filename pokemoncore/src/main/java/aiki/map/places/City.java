@@ -4,12 +4,8 @@ import aiki.db.DataBase;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
 import aiki.map.buildings.PokemonCenter;
-import aiki.map.characters.GymTrainer;
-import aiki.map.characters.Person;
 import aiki.map.enums.Direction;
 import aiki.map.levels.Level;
-import aiki.map.levels.LevelIndoorGym;
-import aiki.map.levels.LevelIndoorPokemonCenter;
 import aiki.map.levels.LevelOutdoor;
 import aiki.map.levels.Link;
 import aiki.map.tree.LevelArea;
@@ -128,7 +124,7 @@ public final class City extends Place implements InitializedPlace {
     }
 
     @Override
-    public boolean validLinks(Tree _tree) {
+    public boolean validLinks(short _place, Tree _tree) {
         for (EntryCust<PlaceInterConnect, Coords> e : linksPointsWithCitiesAndOtherRoads
                 .entryList()) {
             if (!_tree.isValid(e.getValue(), false)) {

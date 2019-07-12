@@ -372,6 +372,7 @@ public class DataBase implements WithMathFactory {
     private StringMap<String> messagesFight = new StringMap<String>();
     private StringMap<String> messagesGame = new StringMap<String>();
     private StringList languages = new StringList();
+    private StringList legPks = new StringList();
     private StringMap<String> displayLanguages = new StringMap<String>();
     private String language = "";
 
@@ -903,7 +904,7 @@ public class DataBase implements WithMathFactory {
 
     public void validateEvolutions() {
         for (EntryCust<String,PokemonData> e: pokedex.entryList()) {
-            if (e.getValue().getGenderRep() != GenderRepartition.LEGENDARY) {
+            if (!StringList.contains(legPks,e.getKey())) {
                 continue;
             }
             if (!e.getValue().getEvolutions().isEmpty()) {
@@ -2287,7 +2288,7 @@ public class DataBase implements WithMathFactory {
         filesWithSameNameDifferentCase = new StringList();
         animStatis = new StringMap<int[][]>();
         animStatus = new StringMap<int[][]>();
-
+        legPks = new StringList();
     }
 
     public void calculateAvgPound() {
@@ -2299,6 +2300,9 @@ public class DataBase implements WithMathFactory {
     public void completeMembers(String _pokemonName, PokemonData _pokemon) {
         avgWeight.addNb(_pokemon.getWeight());
         pokedex.put(_pokemonName, _pokemon);
+        if (_pokemon.getGenderRep() == GenderRepartition.LEGENDARY) {
+            legPks.add(_pokemonName);
+        }
     }
 
     public void completeMembers(String _moveName, MoveData _move) {
@@ -3771,5 +3775,9 @@ public class DataBase implements WithMathFactory {
     }
     public StringMap<StringMap<String>> getLitterals() {
         return litterals;
+    }
+
+    public StringList getLegPks() {
+        return legPks;
     }
 }

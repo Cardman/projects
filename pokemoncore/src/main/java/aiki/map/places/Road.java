@@ -70,7 +70,7 @@ public final class Road extends Campaign implements InitializedPlace {
     }
 
     @Override
-    public boolean validLinks(Tree _tree) {
+    public boolean validLinks(short _place, Tree _tree) {
         for (EntryCust<PlaceInterConnect, Coords> e : linksWithCitiesAndOtherRoads
                 .entryList()) {
             if (!_tree.isValid(e.getValue(), false)) {
