@@ -5,9 +5,8 @@ import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
 import aiki.fight.moves.DamagingMoveData;
-import aiki.fight.moves.effects.EffectDamage;
-import aiki.fight.moves.effects.EffectEndRoundIndividual;
-import aiki.fight.moves.effects.EffectStatus;
+import aiki.fight.moves.StatusMoveData;
+import aiki.fight.moves.effects.*;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.util.LevelMove;
@@ -753,5 +752,766 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "");
         data_.validateConstants();
         assertTrue(data_.isError());
+    }
+    @Test
+    public void nextIteration1Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setTargetChoice(TargetChoice.ANY_FOE);
+        move_.getEffects().add(effectDamage_);
+        move_.setTargetChoice(TargetChoice.ANY_FOE);
+        move_.getEffects().add(Instances.newEffectStatistic());
+        data_.completeMembers(CHARGE, move_);
+        assertTrue(!DataBase.nextIteration(move_,0));
+    }
+    @Test
+    public void nextIteration2Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setTargetChoice(TargetChoice.ANY_FOE);
+        move_.getEffects().add(effectDamage_);
+        move_.setTargetChoice(TargetChoice.ANY_FOE);
+        EffectStatistic effectStatistic_ = Instances.newEffectStatistic();
+        effectStatistic_.setTargetChoice(TargetChoice.LANCEUR);
+        move_.getEffects().add(effectStatistic_);
+        data_.completeMembers(CHARGE, move_);
+        assertTrue(!DataBase.nextIteration(move_,0));
+    }
+    @Test
+    public void nextIteration3Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setTargetChoice(TargetChoice.ANY_FOE);
+        move_.getEffects().add(effectDamage_);
+        move_.setTargetChoice(TargetChoice.ANY_FOE);
+        EffectStatistic effectStatistic_ = Instances.newEffectStatistic();
+        effectStatistic_.setTargetChoice(TargetChoice.ALLIES);
+        move_.getEffects().add(effectStatistic_);
+        data_.completeMembers(CHARGE, move_);
+        assertTrue(!DataBase.nextIteration(move_,0));
+    }
+    @Test
+    public void nextIteration4Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setTargetChoice(TargetChoice.ANY_FOE);
+        move_.getEffects().add(effectDamage_);
+        move_.setTargetChoice(TargetChoice.ANY_FOE);
+        EffectStatistic effectStatistic_ = Instances.newEffectStatistic();
+        effectStatistic_.setTargetChoice(TargetChoice.ALLIE);
+        move_.getEffects().add(effectStatistic_);
+        data_.completeMembers(CHARGE, move_);
+        assertTrue(!DataBase.nextIteration(move_,0));
+    }
+    @Test
+    public void nextIteration5Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setTargetChoice(TargetChoice.ADJ_MULT);
+        move_.getEffects().add(effectDamage_);
+        move_.setTargetChoice(TargetChoice.ADJ_MULT);
+        EffectStatistic effectStatistic_ = Instances.newEffectStatistic();
+        effectStatistic_.setTargetChoice(TargetChoice.ANY_FOE);
+        move_.getEffects().add(effectStatistic_);
+        data_.completeMembers(CHARGE, move_);
+        assertTrue(!DataBase.nextIteration(move_,0));
+    }
+    @Test
+    public void nextIteration6Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
+        move_.getEffects().add(effectDamage_);
+        move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
+        EffectStatistic effectStatistic_ = Instances.newEffectStatistic();
+        effectStatistic_.setTargetChoice(TargetChoice.ANY_FOE);
+        move_.getEffects().add(effectStatistic_);
+        data_.completeMembers(CHARGE, move_);
+        assertTrue(!DataBase.nextIteration(move_,0));
+    }
+    @Test
+    public void nextIteration7Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setTargetChoice(TargetChoice.GLOBALE);
+        move_.getEffects().add(effectDamage_);
+        move_.setTargetChoice(TargetChoice.GLOBALE);
+        EffectStatistic effectStatistic_ = Instances.newEffectStatistic();
+        effectStatistic_.setTargetChoice(TargetChoice.ANY_FOE);
+        move_.getEffects().add(effectStatistic_);
+        data_.completeMembers(CHARGE, move_);
+        assertTrue(!DataBase.nextIteration(move_,0));
+    }
+    @Test
+    public void nextIteration8Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setTargetChoice(TargetChoice.ANY_FOE);
+        move_.getEffects().add(effectDamage_);
+        move_.setTargetChoice(TargetChoice.ANY_FOE);
+        EffectStatistic effectStatistic_ = Instances.newEffectStatistic();
+        effectStatistic_.setTargetChoice(TargetChoice.ANY_FOE);
+        move_.getEffects().add(effectStatistic_);
+        data_.completeMembers(CHARGE, move_);
+        assertTrue(!DataBase.nextIteration(move_,0));
+    }
+    @Test
+    public void nextIteration9Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setTargetChoice(TargetChoice.ANY_FOE);
+        move_.getEffects().add(effectDamage_);
+        move_.setTargetChoice(TargetChoice.ANY_FOE);
+        EffectStatistic effectStatistic_ = Instances.newEffectStatistic();
+        effectStatistic_.getStatisVarRank().addEntry(Statistic.ATTACK, (byte) 1);
+        effectStatistic_.setTargetChoice(TargetChoice.LANCEUR);
+        move_.getEffects().add(effectStatistic_);
+        data_.completeMembers(CHARGE, move_);
+        assertTrue(!DataBase.nextIteration(move_,0));
+    }
+    @Test
+    public void nextIteration10Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setTargetChoice(TargetChoice.ANY_FOE);
+        move_.getEffects().add(effectDamage_);
+        move_.setTargetChoice(TargetChoice.ANY_FOE);
+        EffectStatistic effectStatistic_ = Instances.newEffectStatistic();
+        effectStatistic_.getStatisVarRank().addEntry(Statistic.ATTACK, (byte) -1);
+        effectStatistic_.setTargetChoice(TargetChoice.LANCEUR);
+        move_.getEffects().add(effectStatistic_);
+        data_.completeMembers(CHARGE, move_);
+        assertTrue(DataBase.nextIteration(move_,0));
+    }
+    @Test
+    public void nextIteration11Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setTargetChoice(TargetChoice.ADJ_MULT);
+        move_.getEffects().add(effectDamage_);
+        move_.setTargetChoice(TargetChoice.ADJ_MULT);
+        EffectStatistic effectStatistic_ = Instances.newEffectStatistic();
+        effectStatistic_.setTargetChoice(TargetChoice.ADJ_MULT);
+        move_.getEffects().add(effectStatistic_);
+        data_.completeMembers(CHARGE, move_);
+        assertTrue(!DataBase.nextIteration(move_,0));
+    }
+    @Test
+    public void nextIteration12Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setTargetChoice(TargetChoice.ADJ_ADV);
+        move_.getEffects().add(effectDamage_);
+        move_.setTargetChoice(TargetChoice.ADJ_ADV);
+        EffectStatistic effectStatistic_ = Instances.newEffectStatistic();
+        effectStatistic_.setTargetChoice(TargetChoice.ADJ_ADV);
+        move_.getEffects().add(effectStatistic_);
+        data_.completeMembers(CHARGE, move_);
+        assertTrue(!DataBase.nextIteration(move_,0));
+    }
+    @Test
+    public void nextIteration13Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setTargetChoice(TargetChoice.ADJ_UNIQ);
+        move_.getEffects().add(effectDamage_);
+        move_.setTargetChoice(TargetChoice.ADJ_UNIQ);
+        EffectStatistic effectStatistic_ = Instances.newEffectStatistic();
+        effectStatistic_.setTargetChoice(TargetChoice.ADJ_UNIQ);
+        move_.getEffects().add(effectStatistic_);
+        data_.completeMembers(CHARGE, move_);
+        assertTrue(!DataBase.nextIteration(move_,0));
+    }
+    @Test
+    public void nextIteration14Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
+        move_.getEffects().add(effectDamage_);
+        move_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
+        EffectStatistic effectStatistic_ = Instances.newEffectStatistic();
+        effectStatistic_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
+        move_.getEffects().add(effectStatistic_);
+        data_.completeMembers(CHARGE, move_);
+        assertTrue(!DataBase.nextIteration(move_,0));
+    }
+    @Test
+    public void nextIteration15Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setTargetChoice(TargetChoice.GLOBALE);
+        move_.getEffects().add(effectDamage_);
+        move_.setTargetChoice(TargetChoice.GLOBALE);
+        EffectStatistic effectStatistic_ = Instances.newEffectStatistic();
+        effectStatistic_.setTargetChoice(TargetChoice.GLOBALE);
+        move_.getEffects().add(effectStatistic_);
+        data_.completeMembers(CHARGE, move_);
+        assertTrue(!DataBase.nextIteration(move_,0));
+    }
+    @Test
+    public void nextIteration16Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
+        move_.getEffects().add(effectDamage_);
+        move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
+        EffectStatistic effectStatistic_ = Instances.newEffectStatistic();
+        effectStatistic_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
+        move_.getEffects().add(effectStatistic_);
+        data_.completeMembers(CHARGE, move_);
+        assertTrue(!DataBase.nextIteration(move_,0));
+    }
+    @Test
+    public void nextIteration17Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.getEffects().add(effectDamage_);
+        move_.setTargetChoice(TargetChoice.TOUS_ADV);
+        EffectStatistic effectStatistic_ = Instances.newEffectStatistic();
+        effectStatistic_.setTargetChoice(TargetChoice.TOUS_ADV);
+        effectStatistic_.getStatisVarRank().addEntry(Statistic.EVASINESS, (byte) -1);
+        move_.getEffects().add(effectStatistic_);
+        data_.completeMembers(CHARGE, move_);
+        assertTrue(DataBase.nextIteration(move_,0));
+    }
+    @Test
+    public void nextIteration18Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.getEffects().add(effectDamage_);
+        move_.setTargetChoice(TargetChoice.TOUS_ADV);
+        EffectStatus effectStatistic_ = Instances.newEffectStatus();
+        effectStatistic_.setTargetChoice(TargetChoice.LANCEUR);
+        effectStatistic_.getLawStatus().addEvent(TREMPETTE,LgInt.one());
+        move_.getEffects().add(effectStatistic_);
+        data_.completeMembers(CHARGE, move_);
+        assertTrue(DataBase.nextIteration(move_,0));
+    }
+    @Test
+    public void nextIteration19Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.getEffects().add(effectDamage_);
+        move_.setTargetChoice(TargetChoice.TOUS_ADV);
+        EffectStatus effectStatistic_ = Instances.newEffectStatus();
+        effectStatistic_.setTargetChoice(TargetChoice.LANCEUR);
+        move_.getEffects().add(effectStatistic_);
+        data_.completeMembers(CHARGE, move_);
+        assertTrue(!DataBase.nextIteration(move_,0));
+    }
+    @Test
+    public void nextIteration20Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.getEffects().add(effectDamage_);
+        move_.setTargetChoice(TargetChoice.TOUS_ADV);
+        EffectStatus effectStatistic_ = Instances.newEffectStatus();
+        effectStatistic_.setTargetChoice(TargetChoice.ANY_FOE);
+        move_.getEffects().add(effectStatistic_);
+        data_.completeMembers(CHARGE, move_);
+        assertTrue(!DataBase.nextIteration(move_,0));
+    }
+    @Test
+    public void nextIteration21Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.getEffects().add(effectDamage_);
+        move_.setTargetChoice(TargetChoice.TOUS_ADV);
+        EffectDamageRate effectDamageRate_ = Instances.newEffectDamageRate();
+        effectDamageRate_.setTargetChoice(TargetChoice.LANCEUR);
+        effectDamageRate_.setRateDamage(Rate.newRate("1"));
+        move_.getEffects().add(effectDamageRate_);
+        data_.completeMembers(CHARGE, move_);
+        assertTrue(!DataBase.nextIteration(move_,0));
+    }
+    @Test
+    public void nextIteration22Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.getEffects().add(effectDamage_);
+        move_.setTargetChoice(TargetChoice.TOUS_ADV);
+        EffectDamageRate effectDamageRate_ = Instances.newEffectDamageRate();
+        effectDamageRate_.setTargetChoice(TargetChoice.LANCEUR);
+        effectDamageRate_.setRateDamage(Rate.newRate("-1"));
+        move_.getEffects().add(effectDamageRate_);
+        data_.completeMembers(CHARGE, move_);
+        assertTrue(DataBase.nextIteration(move_,0));
+    }
+    @Test
+    public void strongMoves1Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setPower("50");
+        effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.getEffects().add(effectDamage_);
+        move_.setTypes(new StringList(ELECTRICK));
+        move_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.setAccuracy("1");
+        data_.completeMembers(CHARGE,move_);
+        assertTrue(!data_.strongMoves(Rate.newRate("40")).isEmpty());
+    }
+    @Test
+    public void strongMoves01Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setPower("50");
+        effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.getEffects().add(effectDamage_);
+        move_.getEffects().add(Instances.newEffectStatistic());
+        move_.setTypes(new StringList(ELECTRICK));
+        move_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.setAccuracy("1");
+        data_.completeMembers(CHARGE,move_);
+        assertTrue(!data_.strongMoves(Rate.newRate("40")).isEmpty());
+    }
+    @Test
+    public void strongMoves02Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setPower("30");
+        effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.getEffects().add(effectDamage_);
+        move_.getEffects().add(Instances.newEffectStatistic());
+        move_.setTypes(new StringList(ELECTRICK));
+        move_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.setAccuracy("1");
+        data_.completeMembers(CHARGE2,move_);
+        move_ = Instances.newDamagingMoveData();
+        effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setPower("50");
+        effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.getEffects().add(effectDamage_);
+        move_.getEffects().add(Instances.newEffectStatistic());
+        move_.setTypes(new StringList(ELECTRICK));
+        move_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.setAccuracy("1");
+        data_.completeMembers(CHARGE,move_);
+        assertTrue(!data_.strongMoves(Rate.newRate("40")).isEmpty());
+    }
+    @Test
+    public void strongMoves03Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setPower("50");
+        effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.getEffects().add(effectDamage_);
+        move_.getEffects().add(Instances.newEffectStatistic());
+        move_.setTypes(new StringList(ELECTRICK));
+        move_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.setAccuracy("1");
+        data_.completeMembers(CHARGE2,move_);
+        move_ = Instances.newDamagingMoveData();
+        effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setPower("30");
+        effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.getEffects().add(effectDamage_);
+        move_.getEffects().add(Instances.newEffectStatistic());
+        move_.setTypes(new StringList(ELECTRICK));
+        move_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.setAccuracy("1");
+        data_.completeMembers(CHARGE,move_);
+        assertTrue(!data_.strongMoves(Rate.newRate("40")).isEmpty());
+    }
+    @Test
+    public void strongMoves04Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setPower("50");
+        effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.getEffects().add(effectDamage_);
+        move_.getEffects().add(Instances.newEffectStatistic());
+        move_.setTypes(new StringList(ELECTRICK));
+        move_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.setAccuracy("1");
+        data_.completeMembers(CHARGE2,move_);
+        move_ = Instances.newDamagingMoveData();
+        effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setPower("30");
+        effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.getEffects().add(effectDamage_);
+        move_.getEffects().add(Instances.newEffectStatistic());
+        move_.setTypes(new StringList(ELECTRICK));
+        move_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.setAccuracy("1");
+        data_.completeMembers(CHARGE,move_);
+        data_.getTypes().add(ELECTRICK);
+        assertTrue(!data_.strongMoves(Rate.newRate("60")).isEmpty());
+    }
+    @Test
+    public void strongMoves2Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setPower("50");
+        effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.getEffects().add(effectDamage_);
+        move_.setTypes(new StringList(ELECTRICK));
+        move_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.setAccuracy("1");
+        data_.completeMembers(CHARGE,move_);
+        assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
+    }
+    @Test
+    public void strongMoves3Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setPower("VAR");
+        effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.getEffects().add(effectDamage_);
+        move_.setTypes(new StringList(ELECTRICK));
+        move_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.setAccuracy("1");
+        data_.completeMembers(CHARGE,move_);
+        assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
+    }
+    @Test
+    public void strongMoves4Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setPower("VAR");
+        effectDamage_.setFail("V");
+        effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.getEffects().add(effectDamage_);
+        move_.getEffects().add(Instances.newEffectStatistic());
+        move_.setTypes(new StringList(ELECTRICK));
+        move_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.setAccuracy("1");
+        data_.completeMembers(CHARGE,move_);
+        assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
+    }
+    @Test
+    public void strongMoves5Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setPower("VAR");
+        effectDamage_.setFail("V");
+        effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.getEffects().add(effectDamage_);
+        move_.getEffects().add(Instances.newEffectStatistic());
+        move_.setTypes(new StringList(ELECTRICK));
+        move_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.setAccuracy("1/2");
+        data_.completeMembers(CHARGE,move_);
+        assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
+    }
+    @Test
+    public void strongMoves6Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setPower("VAR");
+        effectDamage_.setFail("V");
+        effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.getEffects().add(effectDamage_);
+        move_.getEffects().add(Instances.newEffectStatistic());
+        move_.setTypes(new StringList(ELECTRICK));
+        move_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.setAccuracy("VAR");
+        data_.completeMembers(CHARGE,move_);
+        assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
+    }
+    @Test
+    public void strongMoves7Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setPower("VAR");
+        effectDamage_.setFail("V");
+        effectDamage_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.getEffects().add(effectDamage_);
+        EffectStatistic effectStatistic_ = Instances.newEffectStatistic();
+        effectStatistic_.getStatisVarRank().addEntry(Statistic.ATTACK, (byte) -1);
+        effectStatistic_.setTargetChoice(TargetChoice.LANCEUR);
+        move_.getEffects().add(effectStatistic_);
+        move_.setTypes(new StringList(ELECTRICK));
+        move_.setTargetChoice(TargetChoice.TOUS_ADV);
+        move_.setAccuracy("VAR");
+        data_.completeMembers(CHARGE,move_);
+        assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
+    }
+    @Test
+    public void strongMoves8Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setPower("VAR");
+        effectDamage_.setFail("V");
+        effectDamage_.setTargetChoice(TargetChoice.ADJ_MULT);
+        move_.getEffects().add(effectDamage_);
+        move_.setTypes(new StringList(ELECTRICK));
+        move_.setTargetChoice(TargetChoice.ADJ_MULT);
+        move_.setAccuracy("VAR");
+        data_.completeMembers(CHARGE,move_);
+        assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
+    }
+    @Test
+    public void strongMoves9Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setPower("VAR");
+        effectDamage_.setFail("V");
+        effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
+        move_.getEffects().add(effectDamage_);
+        move_.setTypes(new StringList(ELECTRICK));
+        move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
+        move_.setAccuracy("VAR");
+        data_.completeMembers(CHARGE,move_);
+        assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
+    }
+    @Test
+    public void strongMoves10Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setPower("VAR");
+        effectDamage_.setFail("V");
+        effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
+        move_.getEffects().add(effectDamage_);
+        move_.setTypes(new StringList(ELECTRICK));
+        move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
+        move_.setConstUserChoice(true);
+        move_.setAccuracy("VAR");
+        data_.completeMembers(CHARGE,move_);
+        assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
+    }
+    @Test
+    public void strongMoves11Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setPower("VAR");
+        effectDamage_.setFail("V");
+        effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
+        move_.getEffects().add(effectDamage_);
+        move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
+        move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
+        move_.setConstUserChoice(true);
+        move_.setAccuracy("VAR");
+        data_.completeMembers(CHARGE,move_);
+        assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
+    }
+    @Test
+    public void strongMoves12Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setPower("VAR");
+        effectDamage_.setFail("V");
+        effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
+        move_.getEffects().add(effectDamage_);
+        move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
+        move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
+        move_.setRechargeRound(true);
+        move_.setAccuracy("VAR");
+        data_.completeMembers(CHARGE,move_);
+        assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
+    }
+    @Test
+    public void strongMoves13Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setPower("VAR");
+        effectDamage_.setFail("V");
+        effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
+        move_.getEffects().add(effectDamage_);
+        move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
+        move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
+        move_.setNbPrepaRound((short) 1);
+        move_.setAccuracy("VAR");
+        data_.completeMembers(CHARGE,move_);
+        assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
+    }
+    @Test
+    public void strongMoves14Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setPower("VAR");
+        effectDamage_.setFail("V");
+        effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
+        move_.getEffects().add(effectDamage_);
+        move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
+        move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
+        move_.setPriority((byte) -1);
+        move_.setAccuracy("VAR");
+        data_.completeMembers(CHARGE,move_);
+        assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
+    }
+    @Test
+    public void strongMoves15Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        StatusMoveData move_ = Instances.newStatusMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setPower("VAR");
+        effectDamage_.setFail("V");
+        effectDamage_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
+        move_.getEffects().add(effectDamage_);
+        move_.setTypes(new StringList(ELECTRICK,TREMPETTE));
+        move_.setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
+        move_.setPriority((byte) -1);
+        move_.setAccuracy("VAR");
+        data_.completeMembers(CHARGE,move_);
+        assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
     }
 }

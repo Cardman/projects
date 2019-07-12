@@ -586,7 +586,7 @@ public class DataBase implements WithMathFactory {
 
     }
 
-    public ObjectMap<TypeStatistic, Boolean> strongMoves(Rate _power) {
+    ObjectMap<TypeStatistic, Boolean> strongMoves(Rate _power) {
         ObjectMap<TypeStatistic, Boolean> existDamageMoveWithTypeStatAttack_;
         existDamageMoveWithTypeStatAttack_ = new ObjectMap<TypeStatistic, Boolean>();
         for (String t : getTypes()) {
@@ -667,7 +667,7 @@ public class DataBase implements WithMathFactory {
         return existDamageMoveWithTypeStatAttack_;
     }
 
-    public static boolean nextIteration(MoveData _move, int _primaryEffect) {
+    static boolean nextIteration(MoveData _move, int _primaryEffect) {
         boolean next_ = false;
         int len_ = _move.getEffects().size();
         for (Effect sec_ : _move.getEffects().mid(_primaryEffect + 1, len_)) {
@@ -678,48 +678,22 @@ public class DataBase implements WithMathFactory {
                 }
             }
             if (sec_ instanceof EffectStatistic) {
-                boolean toBeTreated_ = false;
-                if (sec_.getTargetChoice() == TargetChoice.LANCEUR) {
-                    toBeTreated_ = true;
-                } else if (sec_.getTargetChoice() == TargetChoice.ALLIE) {
-                    toBeTreated_ = true;
-                } else if (sec_.getTargetChoice() == TargetChoice.ALLIES) {
-                    toBeTreated_ = true;
-                } else if (_move.getTargetChoice() == TargetChoice.ADJ_MULT) {
-                    toBeTreated_ = true;
-                } else if (_move.getTargetChoice() == TargetChoice.PSEUDO_GLOBALE) {
-                    toBeTreated_ = true;
-                } else if (_move.getTargetChoice() == TargetChoice.GLOBALE) {
-                    toBeTreated_ = true;
-                }
+                boolean toBeTreated_ = procEffectMove(_move, sec_);
                 if (toBeTreated_) {
                     EffectStatistic effect_ = (EffectStatistic) sec_;
-                    if (effect_.getStatisVarRank().contains(Statistic.SPEED)) {
-                        if (effect_.getStatisVarRank().getVal(Statistic.SPEED) < 0) {
+                    EnumList<Statistic> stats_ = new EnumList<Statistic>();
+                    stats_.add(Statistic.SPEED);
+                    stats_.add(Statistic.SPECIAL_ATTACK);
+                    stats_.add(Statistic.ATTACK);
+                    stats_.add(Statistic.ACCURACY);
+                    for (Statistic s: stats_) {
+                        if (negativeStat(effect_,s)) {
                             next_ = true;
                             break;
                         }
                     }
-                    if (effect_.getStatisVarRank().contains(Statistic.ATTACK)) {
-                        if (effect_.getStatisVarRank().getVal(Statistic.ATTACK) < 0) {
-                            next_ = true;
-                            break;
-                        }
-                    }
-                    if (effect_.getStatisVarRank().contains(
-                            Statistic.SPECIAL_ATTACK)) {
-                        if (effect_.getStatisVarRank().getVal(
-                                Statistic.SPECIAL_ATTACK) < 0) {
-                            next_ = true;
-                            break;
-                        }
-                    }
-                    if (effect_.getStatisVarRank().contains(Statistic.ACCURACY)) {
-                        if (effect_.getStatisVarRank().getVal(
-                                Statistic.ACCURACY) < 0) {
-                            next_ = true;
-                            break;
-                        }
+                    if (next_) {
+                        break;
                     }
                 }
                 if (sec_.getTargetChoice() == TargetChoice.ADJ_ADV) {
@@ -741,31 +715,14 @@ public class DataBase implements WithMathFactory {
                 }
                 if (toBeTreated_) {
                     EffectStatistic effect_ = (EffectStatistic) sec_;
-                    if (effect_.getStatisVarRank()
-                            .contains(Statistic.EVASINESS)) {
-                        if (effect_.getStatisVarRank().getVal(
-                                Statistic.EVASINESS) < 0) {
-                            next_ = true;
-                            break;
-                        }
+                    if (negativeStat(effect_,Statistic.EVASINESS)) {
+                        next_ = true;
+                        break;
                     }
                 }
             }
             if (sec_ instanceof EffectStatus) {
-                boolean toBeTreated_ = false;
-                if (sec_.getTargetChoice() == TargetChoice.LANCEUR) {
-                    toBeTreated_ = true;
-                } else if (sec_.getTargetChoice() == TargetChoice.ALLIE) {
-                    toBeTreated_ = true;
-                } else if (sec_.getTargetChoice() == TargetChoice.ALLIES) {
-                    toBeTreated_ = true;
-                } else if (_move.getTargetChoice() == TargetChoice.ADJ_MULT) {
-                    toBeTreated_ = true;
-                } else if (_move.getTargetChoice() == TargetChoice.PSEUDO_GLOBALE) {
-                    toBeTreated_ = true;
-                } else if (_move.getTargetChoice() == TargetChoice.GLOBALE) {
-                    toBeTreated_ = true;
-                }
+                boolean toBeTreated_ = procEffectMove(_move, sec_);
                 if (toBeTreated_) {
                     EffectStatus effect_ = (EffectStatus) sec_;
                     if (!effect_.getLawStatus().events().isEmpty()) {
@@ -776,6 +733,33 @@ public class DataBase implements WithMathFactory {
             }
         }
         return next_;
+    }
+
+    static boolean negativeStat(EffectStatistic _eff,Statistic _s) {
+        boolean next_ = false;
+        if (_eff.getStatisVarRank().contains(_s)) {
+            if (_eff.getStatisVarRank().getVal(_s) < 0) {
+                next_ = true;
+            }
+        }
+        return next_;
+    }
+    static boolean procEffectMove(MoveData _move, Effect _sec) {
+        boolean toBeTreated_ = false;
+        if (_sec.getTargetChoice() == TargetChoice.LANCEUR) {
+            toBeTreated_ = true;
+        } else if (_sec.getTargetChoice() == TargetChoice.ALLIE) {
+            toBeTreated_ = true;
+        } else if (_sec.getTargetChoice() == TargetChoice.ALLIES) {
+            toBeTreated_ = true;
+        } else if (_move.getTargetChoice() == TargetChoice.ADJ_MULT) {
+            toBeTreated_ = true;
+        } else if (_move.getTargetChoice() == TargetChoice.PSEUDO_GLOBALE) {
+            toBeTreated_ = true;
+        } else if (_move.getTargetChoice() == TargetChoice.GLOBALE) {
+            toBeTreated_ = true;
+        }
+        return toBeTreated_;
     }
 
     public void validateCore(PerCent _perCentLoading) {
