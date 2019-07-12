@@ -1,6 +1,5 @@
 package aiki.fight.moves.enums;
 import code.util.StringList;
-import code.util.ints.Listable;
 
 
 public enum TargetChoice {
@@ -22,33 +21,6 @@ public enum TargetChoice {
 
     TargetChoice(boolean _withChoice) {
         withChoice = _withChoice;
-    }
-    public static boolean equalsSet(Listable<TargetChoice> _list1,Listable<TargetChoice> _list2) {
-        for (TargetChoice a: _list2) {
-            boolean contains_ = false;
-            for (TargetChoice b: _list1) {
-                if (a == b) {
-                    contains_ = true;
-                    break;
-                }
-            }
-            if (!contains_) {
-                return false;
-            }
-        }
-        for (TargetChoice a: _list1) {
-            boolean contains_ = false;
-            for (TargetChoice b: _list2) {
-                if (a == b) {
-                    contains_ = true;
-                    break;
-                }
-            }
-            if (!contains_) {
-                return false;
-            }
-        }
-        return true;
     }
     public static TargetChoice getTargetChoiceByName(String _env) {
         for (TargetChoice e: values()) {

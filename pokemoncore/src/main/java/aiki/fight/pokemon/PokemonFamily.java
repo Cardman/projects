@@ -28,7 +28,6 @@ public final class PokemonFamily {
                     }
                     if (!StringList.quickEq(evo_.getBaseEvo(), _pokemonBase)) {
                         _data.setError(true);
-                        return;
                     }
                     if (StringList.contains(evolutionsLevels_, e_)) {
                         _data.setError(true);

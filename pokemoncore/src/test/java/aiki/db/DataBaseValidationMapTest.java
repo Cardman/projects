@@ -2298,10 +2298,76 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         assertEq(121, foreGround_.size());
     }
 
+
+    @Test
+    public void getMapWidth1Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DataMap map_ = data_.getMap();
+        Road road_ = Instances.newRoad();
+        map_.setPlaces(new ShortMap<Place>());
+        map_.getPlaces().addEntry((short)0,road_);
+        map_.setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        TileMiniMap t_ = new TileMiniMap();
+        t_.setFile(ELECTRICK);
+        map_.getMiniMap().addEntry(new MiniMapCoords((short)0,(short)0), t_);
+        t_ = new TileMiniMap();
+        t_.setFile(ELECTRICK);
+        map_.getMiniMap().addEntry(new MiniMapCoords((short)0,(short)1),t_);
+        t_ = new TileMiniMap();
+        t_.setFile(ELECTRICK);
+        map_.getMiniMap().addEntry(new MiniMapCoords((short)1,(short)0),t_);
+        t_ = new TileMiniMap();
+        t_.setFile(ELECTRICK);
+        map_.getMiniMap().addEntry(new MiniMapCoords((short)1,(short)1),t_);
+        data_.getMiniMap().addEntry(ELECTRICK,new int[1][1]);
+        assertEq(2,map_.getMapWidth());
+        assertEq(0,map_.getTrainerName(newCoords(0,0,1,1)).length());
+        assertEq(4,map_.getImages(data_).size());
+    }
+
+    @Test
+    public void getMapHeight1Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DataMap map_ = data_.getMap();
+        City road_ = Instances.newCity();
+        map_.setPlaces(new ShortMap<Place>());
+        map_.getPlaces().addEntry((short)0,road_);
+        map_.setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        TileMiniMap t_ = new TileMiniMap();
+        t_.setFile(ELECTRICK);
+        map_.getMiniMap().addEntry(new MiniMapCoords((short)0,(short)0), t_);
+        t_ = new TileMiniMap();
+        t_.setFile(ELECTRICK);
+        map_.getMiniMap().addEntry(new MiniMapCoords((short)1,(short)0),t_);
+        t_ = new TileMiniMap();
+        t_.setFile(ELECTRICK);
+        map_.getMiniMap().addEntry(new MiniMapCoords((short)0,(short)1),t_);
+        t_ = new TileMiniMap();
+        t_.setFile(ELECTRICK);
+        map_.getMiniMap().addEntry(new MiniMapCoords((short)1,(short)1),t_);
+        data_.getMiniMap().addEntry(ELECTRICK,new int[1][1]);
+        assertEq(2,map_.getMapHeight());
+        assertEq(0,map_.getTrainerName(newCoords(0,0,1,1)).length());
+        assertEq(4,map_.getImages(data_).size());
+    }
     @Test
     public void bg1Test() {
         DataBase data_ = InitializationDataBase.initDataBase();
         assertEq(81,Level.getLevelBackgroundImage(data_,newCoords(6, 1, 4, 5)).size());
+        assertEq(new Coords(),data_.getMap().getCity(new MiniMapCoords((short)0,(short)0)));
+        assertEq(newCoords(1,0,1,2), data_.getMap().getCity(new MiniMapCoords((short)0,(short)1)));
+        assertEq(new Coords(), data_.getMap().getCity(new MiniMapCoords((short)0,(short)-1)));
+        assertEq("R 1",data_.getMap().getName(0,0));
+        assertEq(NULL_REF, data_.getMap().getName(0,9));
+        assertEq(NULL_REF, data_.getMap().getName(0,-1));
+        assertEq(2, data_.getMap().getImage(data_,0,9).length);
+        assertEq(0, data_.getMap().getImage(data_,0,-1).length);
     }
 
     @Test

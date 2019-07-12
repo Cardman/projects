@@ -13,33 +13,6 @@ public enum SelectedBoolean {
     SelectedBoolean(boolean _selected) {
         selected = _selected;
     }
-    public static boolean equalsSet(Listable<SelectedBoolean> _list1,Listable<SelectedBoolean> _list2) {
-        for (SelectedBoolean a: _list2) {
-            boolean contains_ = false;
-            for (SelectedBoolean b: _list1) {
-                if (a == b) {
-                    contains_ = true;
-                    break;
-                }
-            }
-            if (!contains_) {
-                return false;
-            }
-        }
-        for (SelectedBoolean a: _list1) {
-            boolean contains_ = false;
-            for (SelectedBoolean b: _list2) {
-                if (a == b) {
-                    contains_ = true;
-                    break;
-                }
-            }
-            if (!contains_) {
-                return false;
-            }
-        }
-        return true;
-    }
     public static SelectedBoolean getBoolByName(String _env) {
         for (SelectedBoolean e: values()) {
             if (StringList.quickEq(e.name(), _env)) {

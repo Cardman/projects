@@ -17,6 +17,7 @@ public abstract class DataBaseValidationCommon {
     protected static final String PIKACHU = "PIKACHU";
     protected static final String PIKACHU2 = "PIKACHU2";
     protected static final String PIKACHU3 = "PIKACHU3";
+    protected static final String PIKACHU4 = "PIKACHU4";
     protected static final String ECLAIR = "ECLAIR";
     protected static final String POKE_BALL = "POKE_BALL";
     protected static final String LUTTE = "LUTTE";

@@ -586,7 +586,7 @@ public class DataBase implements WithMathFactory {
 
     }
 
-    private ObjectMap<TypeStatistic, Boolean> strongMoves(Rate _power) {
+    public ObjectMap<TypeStatistic, Boolean> strongMoves(Rate _power) {
         ObjectMap<TypeStatistic, Boolean> existDamageMoveWithTypeStatAttack_;
         existDamageMoveWithTypeStatAttack_ = new ObjectMap<TypeStatistic, Boolean>();
         for (String t : getTypes()) {
@@ -667,7 +667,7 @@ public class DataBase implements WithMathFactory {
         return existDamageMoveWithTypeStatAttack_;
     }
 
-    private static boolean nextIteration(MoveData _move, int _primaryEffect) {
+    public static boolean nextIteration(MoveData _move, int _primaryEffect) {
         boolean next_ = false;
         int len_ = _move.getEffects().size();
         for (Effect sec_ : _move.getEffects().mid(_primaryEffect + 1, len_)) {
@@ -942,127 +942,96 @@ public class DataBase implements WithMathFactory {
     public void validateConstants() {
         if (getDefaultMoney().isZero()) {
             setError(true);
-            return;
         }
         if (!getDefaultMoney().isZeroOrGt()) {
             setError(true);
-            return;
         }
         if (getMinHp().isZeroOrLt()) {
             setError(true);
-            return;
         }
         if (!getStab().greaterThanOne()) {
             setError(true);
-            return;
         }
         if (getNbMaxTeam() < 2) {
             setError(true);
-            return;
         }
         if (getNbMaxTeam() > 8) {
             setError(true);
-            return;
         }
         if (getMaxPp() <= 0) {
             setError(true);
-            return;
         }
         if (getMaxPp() > 255) {
             setError(true);
-            return;
         }
         if (getWonHappinessByGrowLevel().isZeroOrLt()) {
             setError(true);
-            return;
         }
         if (getMaxLevel() < 0) {
             setError(true);
-            return;
         }
         if (getMinLevel() < 1) {
             setError(true);
-            return;
         }
         if (getMaxLevel() > 1023) {
             setError(true);
-            return;
         }
         if (getMinLevel() > getMaxLevel()) {
             setError(true);
-            return;
         }
         if (getNbMaxSteps() > 2048) {
             setError(true);
-            return;
         }
         if (getNbMaxSteps() <= 0) {
             setError(true);
-            return;
         }
         if (getNbMaxStepsSameEvoBase() >= getNbMaxSteps()) {
             setError(true);
-            return;
         }
         if (getNbMaxStepsSameEvoBase() <= 0) {
             setError(true);
-            return;
         }
         if (getMaxEv() < 0) {
             setError(true);
-            return;
         }
         if (getMaxIv() < 31) {
             setError(true);
-            return;
         }
         if (getNbNecStepsIncrHappiness() <= 0) {
             setError(true);
-            return;
         }
         if (getMaxEv() > 255) {
             setError(true);
-            return;
         }
         if (getMaxIv() > 255) {
             setError(true);
-            return;
         }
         if (getNbNecStepsIncrHappiness() > 255) {
             setError(true);
-            return;
         }
         if (getHappinessMax() < 0) {
             setError(true);
-            return;
         }
         if (getHappinessMax() > 255) {
             setError(true);
-            return;
         }
         if (getHappinessMax() < getHappinessEvo()) {
             setError(true);
-            return;
         }
         if (getMaxBoost() < getDefaultBoost()) {
             setError(true);
-            return;
         }
         if (getDefaultBoost() < getMinBoost()) {
             setError(true);
-            return;
         }
         if (getDefaultEggGroup().isEmpty()) {
             setError(true);
-            return;
         }
         if (!(items.getVal(getDefaultBall()) instanceof Ball)) {
             setError(true);
-            return;
         }
         if (!moves.contains(getDefaultMove())) {
             setError(true);
-            return;
         }
     }
 
@@ -1096,35 +1065,30 @@ public class DataBase implements WithMathFactory {
         for (int[][] i : links.values()) {
             if (i.length == 0) {
                 setError(true);
-                return;
+                continue;
             }
             if (i.length > map.getSideLength()) {
                 setError(true);
-                return;
             }
             if (i[0].length > map.getSideLength()) {
                 setError(true);
-                return;
             }
         }
         for (int[][] i : people.values()) {
             if (i.length == 0) {
                 setError(true);
-                return;
+                continue;
             }
             if (i.length > map.getSideLength()) {
                 setError(true);
-                return;
             }
             if (i[0].length > map.getSideLength()) {
                 setError(true);
-                return;
             }
         }
         for (int[][] i : trainers.values()) {
             if (i.length == 0) {
                 setError(true);
-                return;
             }
 
         }
@@ -1134,22 +1098,19 @@ public class DataBase implements WithMathFactory {
                 key_ = new ImageHeroKey(EnvironmentType.ROAD, d, s);
                 if (!overWorldHeros.contains(key_)) {
                     setError(true);
-                    return;
                 }
             }
         }
         for (int[][] i : overWorldHeros.values()) {
             if (i.length == 0) {
                 setError(true);
-                return;
+                continue;
             }
             if (i.length > map.getSideLength()) {
                 setError(true);
-                return;
             }
             if (i[0].length > map.getSideLength()) {
                 setError(true);
-                return;
             }
         }
         for (Sex s : Sex.values()) {
@@ -1157,7 +1118,6 @@ public class DataBase implements WithMathFactory {
             key_ = new ImageHeroKey(EnvironmentType.ROAD, s);
             if (!frontHeros.contains(key_)) {
                 setError(true);
-                return;
             }
         }
         for (Sex s : Sex.values()) {
@@ -1165,171 +1125,135 @@ public class DataBase implements WithMathFactory {
             key_ = new ImageHeroKey(EnvironmentType.ROAD, s);
             if (!backHeros.contains(key_)) {
                 setError(true);
-                return;
             }
         }
         for (int[][] i : frontHeros.values()) {
             if (i.length == 0) {
                 setError(true);
-                return;
             }
 
         }
         for (int[][] i : backHeros.values()) {
             if (i.length == 0) {
                 setError(true);
-                return;
             }
 
         }
         for (int[][] i : maxiPkBack.values()) {
             if (i.length == 0) {
                 setError(true);
-                return;
+                continue;
             }
-            if (i[0].length > maxWidthPk) {
-                maxWidthPk = i[0].length;
-            }
-            if (i.length > maxHeightPk) {
-                maxHeightPk = i.length;
-            }
-
+            maxWidthPk = Math.max(maxWidthPk,i[0].length);
+            maxHeightPk = Math.max(maxHeightPk,i.length);
         }
         for (int[][] i : maxiPkFront.values()) {
             if (i.length == 0) {
                 setError(true);
-                return;
+                continue;
             }
-            if (i[0].length > maxWidthPk) {
-                maxWidthPk = i[0].length;
-            }
-            if (i.length > maxHeightPk) {
-                maxHeightPk = i.length;
-            }
-
+            maxWidthPk = Math.max(maxWidthPk,i[0].length);
+            maxHeightPk = Math.max(maxHeightPk,i.length);
         }
         for (int[][] i : typesImages.values()) {
             if (i.length == 0) {
                 setError(true);
-                return;
             }
 
         }
         for (int[][] i : miniItems.values()) {
             if (i.length == 0) {
                 setError(true);
-                return;
+                continue;
             }
             if (i.length > map.getSideLength()) {
                 setError(true);
-                return;
             }
             if (i[0].length > map.getSideLength()) {
                 setError(true);
-                return;
             }
         }
         for (int[][] i : miniMap.values()) {
             if (i.length != map.getSideLength()) {
                 setError(true);
-                return;
+                continue;
             }
             if (i[0].length != map.getSideLength()) {
                 setError(true);
-                return;
             }
         }
         for (int[][] i : animStatis.values()) {
             if (i.length != map.getSideLength()) {
                 setError(true);
-                return;
             }
-            if (i[0].length != map.getSideLength()) {
+            if (i.length != 0 && i[0].length != map.getSideLength()) {
                 setError(true);
-                return;
             }
         }
         for (int[][] i : animStatus.values()) {
             if (i.length != map.getSideLength()) {
                 setError(true);
-                return;
             }
-            if (i[0].length != map.getSideLength()) {
+            if (i.length != 0 && i[0].length != map.getSideLength()) {
                 setError(true);
-                return;
             }
         }
         if (animAbsorb.length != map.getSideLength()) {
             setError(true);
-            return;
         }
-        if (animAbsorb[0].length != map.getSideLength()) {
+        if (animAbsorb.length != 0 && animAbsorb[0].length != map.getSideLength()) {
             setError(true);
-            return;
         }
         for (int[][] i : miniPk.values()) {
             if (i.length == 0) {
                 setError(true);
-                return;
+                continue;
             }
             if (i.length > map.getSideLength()) {
                 setError(true);
-                return;
             }
             if (i[0].length > map.getSideLength()) {
                 setError(true);
-                return;
             }
-        }
-        if (imageTmHm.length == 0) {
-            setError(true);
-            return;
         }
         if (imageTmHm.length > map.getSideLength()) {
             setError(true);
-            return;
         }
-        if (imageTmHm[0].length > map.getSideLength()) {
+        if (imageTmHm.length == 0) {
             setError(true);
-            return;
-        }
-        if (storage.length == 0) {
+        } else if (imageTmHm[0].length > map.getSideLength()) {
             setError(true);
-            return;
         }
         if (storage.length > map.getSideLength()) {
             setError(true);
-            return;
         }
-        if (storage[0].length > map.getSideLength()) {
+        if (storage.length == 0) {
             setError(true);
-            return;
+        } else if (storage[0].length > map.getSideLength()) {
+            setError(true);
         }
         if (!miniPk.containsAllAsKeys(pokedex.getKeys())) {
             setError(true);
-            return;
         }
         if (!miniItems.containsAllAsKeys(items.getKeys())) {
             setError(true);
-            return;
         }
         if (!maxiPkBack.containsAllAsKeys(pokedex.getKeys())) {
             setError(true);
-            return;
         }
         if (!maxiPkFront.containsAllAsKeys(pokedex.getKeys())) {
             setError(true);
-            return;
         }
         if (endGameImage.length == 0) {
             setError(true);
-            return;
         }
         for (TileMiniMap t : map.getMiniMap().values()) {
             if (!miniMap.contains(t.getFile())) {
                 setError(true);
-                return;
             }
+        }
+        if (isError()) {
+            return;
         }
         int side_ = map.getSideLength();
         for (EntryCust<String, int[][]> i : images.entryList()) {
@@ -1357,7 +1281,6 @@ public class DataBase implements WithMathFactory {
         if (!StringList.equalsSet(translatedGenders.getKeys(),
                 languages)) {
             setError(true);
-            return;
         }
         StringList homonyms_ = new StringList();
         StringList distinct_ = new StringList();
@@ -1365,359 +1288,341 @@ public class DataBase implements WithMathFactory {
             for (Gender g : v.getKeys()) {
                 allStandardKeys_.add(g.name());
             }
-            if (!Gender.equalsSet(v.getKeys(),
-                    new EnumList<Gender>(Gender.values()))) {
+            if (!new EnumList<Gender>(v.getKeys()).containsAllObj(new EnumList<Gender>(Gender.values()))) {
                 setError(true);
-                return;
             }
             if (hasDuplicates(v.values())) {
                 setError(true);
-                return;
             }
         }
         for (Gender g : Gender.values()) {
-            if (!StringList.contains(distinct_, g.name())) {
-                distinct_.add(g.name());
-            } else {
-                homonyms_.add(g.name());
-            }
+            String name_ = g.name();
+            gearHomonyms(homonyms_, distinct_, name_);
         }
         if (!StringList.equalsSet(translatedBooleans.getKeys(),
                 languages)) {
             setError(true);
-            return;
         }
         for (EnumMap<SelectedBoolean, String> v : translatedBooleans.values()) {
             for (SelectedBoolean g : v.getKeys()) {
                 allStandardKeys_.add(g.name());
             }
-            if (!SelectedBoolean.equalsSet(v.getKeys(),
-                    new EnumList<SelectedBoolean>(SelectedBoolean.values()))) {
+            if (!new EnumList<SelectedBoolean>(v.getKeys()).containsAllObj(new EnumList<SelectedBoolean>(SelectedBoolean.values()))) {
                 setError(true);
-                return;
             }
             if (hasDuplicates(v.values())) {
                 setError(true);
-                return;
             }
         }
         if (!StringList.equalsSet(translatedDiffWinPts.getKeys(),
                 languages)) {
             setError(true);
-            return;
         }
         for (EnumMap<DifficultyWinPointsFight, String> v : translatedDiffWinPts
                 .values()) {
             for (DifficultyWinPointsFight g : v.getKeys()) {
                 allStandardKeys_.add(g.name());
             }
-            if (!DifficultyWinPointsFight.equalsSet(v.getKeys(),
-                    new EnumList<DifficultyWinPointsFight>(
-                            DifficultyWinPointsFight.values()))) {
+            if (!new EnumList<DifficultyWinPointsFight>(v.getKeys()).containsAllObj(new EnumList<DifficultyWinPointsFight>(DifficultyWinPointsFight.values()))) {
                 setError(true);
-                return;
             }
             if (hasDuplicates(v.values())) {
                 setError(true);
-                return;
             }
         }
         if (!StringList.equalsSet(translatedDiffModelLaw.getKeys(),
                 languages)) {
             setError(true);
-            return;
         }
         for (EnumMap<DifficultyModelLaw, String> v : translatedDiffModelLaw
                 .values()) {
             for (DifficultyModelLaw g : v.getKeys()) {
                 allStandardKeys_.add(g.name());
             }
-            if (!DifficultyModelLaw.equalsSet(
-                    v.getKeys(),
-                    new EnumList<DifficultyModelLaw>(DifficultyModelLaw
-                            .values()))) {
+            if (!new EnumList<DifficultyModelLaw>(v.getKeys()).containsAllObj(new EnumList<DifficultyModelLaw>(DifficultyModelLaw.values()))) {
                 setError(true);
-                return;
             }
             if (hasDuplicates(v.values())) {
                 setError(true);
-                return;
             }
         }
         if (!StringList.equalsSet(translatedEnvironment.getKeys(),
                 languages)) {
             setError(true);
-            return;
         }
         for (EnumMap<EnvironmentType, String> v : translatedEnvironment
                 .values()) {
             for (EnvironmentType g : v.getKeys()) {
                 allStandardKeys_.add(g.name());
             }
-            if (!EnvironmentType.equalsSet(v.getKeys(),
-                    new EnumList<EnvironmentType>(EnvironmentType.values()))) {
+            if (!new EnumList<EnvironmentType>(v.getKeys()).containsAllObj(new EnumList<EnvironmentType>(EnvironmentType.values()))) {
                 setError(true);
-                return;
             }
             if (hasDuplicates(v.values())) {
                 setError(true);
-                return;
             }
         }
         for (EnvironmentType g : EnvironmentType.values()) {
-            if (!StringList.contains(distinct_, g.name())) {
-                distinct_.add(g.name());
-            } else {
-                homonyms_.add(g.name());
-            }
+            String name_ = g.name();
+            gearHomonyms(homonyms_, distinct_, name_);
         }
         if (!StringList.equalsSet(translatedStatistics.getKeys(),
                 languages)) {
             setError(true);
-            return;
         }
         for (EnumMap<Statistic, String> v : translatedStatistics.values()) {
             for (Statistic g : v.getKeys()) {
                 allStandardKeys_.add(g.name());
             }
-            if (!Statistic.equalsSet(v.getKeys(), new EnumList<Statistic>(
-                    Statistic.values()))) {
+            if (!new EnumList<Statistic>(v.getKeys()).containsAllObj(new EnumList<Statistic>(Statistic.values()))) {
                 setError(true);
-                return;
             }
             if (hasDuplicates(v.values())) {
                 setError(true);
-                return;
             }
         }
         for (Statistic g : Statistic.values()) {
-            if (!StringList.contains(distinct_, g.name())) {
-                distinct_.add(g.name());
-            } else {
-                homonyms_.add(g.name());
-            }
+            String name_ = g.name();
+            gearHomonyms(homonyms_, distinct_, name_);
         }
         if (!StringList.equalsSet(translatedTypes.getKeys(),
                 languages)) {
             setError(true);
-            return;
         }
         allCustKeys_.addAllElts(types);
         for (StringMap<String> v : translatedTypes.values()) {
             if (!StringList.equalsSet(v.getKeys(), types)) {
                 setError(true);
-                return;
             }
             if (hasDuplicates(v.values())) {
                 setError(true);
-                return;
             }
         }
         for (String g : types) {
-            if (!StringList.contains(distinct_, g)) {
-                distinct_.add(g);
-            } else {
-                homonyms_.add(g);
-            }
+            gearHomonyms(homonyms_, distinct_, g);
         }
         if (!StringList.equalsSet(translatedCategories.getKeys(),
                 languages)) {
             setError(true);
-            return;
         }
         allCustKeys_.addAllElts(allCategories);
         for (StringMap<String> v : translatedCategories.values()) {
             if (!StringList.equalsSet(v.getKeys(), allCategories)) {
                 setError(true);
-                return;
             }
             if (hasDuplicates(v.values())) {
                 setError(true);
-                return;
             }
         }
         for (String g : allCategories) {
-            if (!StringList.contains(distinct_, g)) {
-                distinct_.add(g);
-            } else {
-                homonyms_.add(g);
-            }
+            gearHomonyms(homonyms_, distinct_, g);
         }
         if (!StringList.equalsSet(translatedPokemon.getKeys(),
                 languages)) {
             setError(true);
-            return;
         }
         allCustKeys_.addAllElts(pokedex.getKeys());
         for (StringMap<String> v : translatedPokemon.values()) {
             if (!StringList.equalsSet(v.getKeys(), pokedex.getKeys())) {
                 setError(true);
-                return;
             }
             if (hasDuplicates(v.values())) {
                 setError(true);
-                return;
             }
         }
         for (String g : pokedex.getKeys()) {
-            if (!StringList.contains(distinct_, g)) {
-                distinct_.add(g);
-            } else {
-                homonyms_.add(g);
-            }
+            gearHomonyms(homonyms_, distinct_, g);
         }
         if (!StringList.equalsSet(translatedItems.getKeys(),
                 languages)) {
             setError(true);
-            return;
         }
         allCustKeys_.addAllElts(items.getKeys());
         for (StringMap<String> v : translatedItems.values()) {
             if (!StringList.equalsSet(v.getKeys(), items.getKeys())) {
                 setError(true);
-                return;
             }
             if (hasDuplicates(v.values())) {
                 setError(true);
-                return;
             }
         }
         for (String g : items.getKeys()) {
-            if (!StringList.contains(distinct_, g)) {
-                distinct_.add(g);
-            } else {
-                homonyms_.add(g);
-            }
+            gearHomonyms(homonyms_, distinct_, g);
         }
         if (!StringList.equalsSet(translatedAbilities.getKeys(),
                 languages)) {
             setError(true);
-            return;
         }
         allCustKeys_.addAllElts(abilities.getKeys());
         for (StringMap<String> v : translatedAbilities.values()) {
             if (!StringList.equalsSet(v.getKeys(), abilities.getKeys())) {
                 setError(true);
-                return;
             }
             if (hasDuplicates(v.values())) {
                 setError(true);
-                return;
             }
         }
         for (String g : abilities.getKeys()) {
-            if (!StringList.contains(distinct_, g)) {
-                distinct_.add(g);
-            } else {
-                homonyms_.add(g);
-            }
+            gearHomonyms(homonyms_, distinct_, g);
         }
         if (!StringList.equalsSet(translatedMoves.getKeys(),
                 languages)) {
             setError(true);
-            return;
         }
         allCustKeys_.addAllElts(moves.getKeys());
         for (StringMap<String> v : translatedMoves.values()) {
             if (!StringList.equalsSet(v.getKeys(), moves.getKeys())) {
                 setError(true);
-                return;
             }
             if (hasDuplicates(v.values())) {
                 setError(true);
-                return;
             }
         }
         for (String g : moves.getKeys()) {
-            if (!StringList.contains(distinct_, g)) {
-                distinct_.add(g);
-            } else {
-                homonyms_.add(g);
-            }
+            gearHomonyms(homonyms_, distinct_, g);
         }
         if (!StringList.equalsSet(translatedStatus.getKeys(),
                 languages)) {
             setError(true);
-            return;
         }
         allCustKeys_.addAllElts(status.getKeys());
         for (StringMap<String> v : translatedStatus.values()) {
             if (!StringList.equalsSet(v.getKeys(), status.getKeys())) {
                 setError(true);
-                return;
             }
             if (hasDuplicates(v.values())) {
                 setError(true);
-                return;
             }
         }
         for (String g : status.getKeys()) {
-            if (!StringList.contains(distinct_, g)) {
-                distinct_.add(g);
-            } else {
-                homonyms_.add(g);
-            }
+            gearHomonyms(homonyms_, distinct_, g);
         }
         homonyms_.removeDuplicates();
         if (!StringList.equalsSet(translatedFctMath.getKeys(),
                 languages)) {
             setError(true);
-            return;
         }
         for (StringMap<String> v : translatedFctMath.values()) {
             if (!v.containsAllAsKeys(EvolvedMathFactory.getFunctions())) {
                 setError(true);
-                return;
             }
             if (hasDuplicates(v.values())) {
                 setError(true);
-                return;
             }
         }
         for (String l : languages) {
             for (String s : homonyms_) {
                 StringList tr_ = new StringList();
-                if (translatedMoves.getVal(l).contains(s)) {
-                    tr_.add(translatedMoves.getVal(l).getVal(s));
+                for (EntryCust<String,StringMap<String>> e: translatedMoves.entryList()) {
+                    if (!StringList.quickEq(e.getKey(),l)) {
+                        continue;
+                    }
+                    for (EntryCust<String,String> f: e.getValue().entryList()) {
+                        if (!StringList.quickEq(f.getKey(),s)) {
+                            continue;
+                        }
+                        tr_.add(f.getValue());
+                    }
                 }
-                if (translatedTypes.getVal(l).contains(s)) {
-                    tr_.add(translatedTypes.getVal(l).getVal(s));
+                for (EntryCust<String,StringMap<String>> e: translatedTypes.entryList()) {
+                    if (!StringList.quickEq(e.getKey(),l)) {
+                        continue;
+                    }
+                    for (EntryCust<String,String> f: e.getValue().entryList()) {
+                        if (!StringList.quickEq(f.getKey(),s)) {
+                            continue;
+                        }
+                        tr_.add(f.getValue());
+                    }
                 }
-                if (translatedAbilities.getVal(l).contains(s)) {
-                    tr_.add(translatedAbilities.getVal(l).getVal(s));
+                for (EntryCust<String,StringMap<String>> e: translatedAbilities.entryList()) {
+                    if (!StringList.quickEq(e.getKey(),l)) {
+                        continue;
+                    }
+                    for (EntryCust<String,String> f: e.getValue().entryList()) {
+                        if (!StringList.quickEq(f.getKey(),s)) {
+                            continue;
+                        }
+                        tr_.add(f.getValue());
+                    }
                 }
-                if (translatedPokemon.getVal(l).contains(s)) {
-                    tr_.add(translatedPokemon.getVal(l).getVal(s));
+                for (EntryCust<String,StringMap<String>> e: translatedPokemon.entryList()) {
+                    if (!StringList.quickEq(e.getKey(),l)) {
+                        continue;
+                    }
+                    for (EntryCust<String,String> f: e.getValue().entryList()) {
+                        if (!StringList.quickEq(f.getKey(),s)) {
+                            continue;
+                        }
+                        tr_.add(f.getValue());
+                    }
                 }
-                if (translatedItems.getVal(l).contains(s)) {
-                    tr_.add(translatedItems.getVal(l).getVal(s));
+                for (EntryCust<String,StringMap<String>> e: translatedItems.entryList()) {
+                    if (!StringList.quickEq(e.getKey(),l)) {
+                        continue;
+                    }
+                    for (EntryCust<String,String> f: e.getValue().entryList()) {
+                        if (!StringList.quickEq(f.getKey(),s)) {
+                            continue;
+                        }
+                        tr_.add(f.getValue());
+                    }
                 }
-                if (translatedStatus.getVal(l).contains(s)) {
-                    tr_.add(translatedStatus.getVal(l).getVal(s));
+                for (EntryCust<String,StringMap<String>> e: translatedStatus.entryList()) {
+                    if (!StringList.quickEq(e.getKey(),l)) {
+                        continue;
+                    }
+                    for (EntryCust<String,String> f: e.getValue().entryList()) {
+                        if (!StringList.quickEq(f.getKey(),s)) {
+                            continue;
+                        }
+                        tr_.add(f.getValue());
+                    }
                 }
-                if (translatedCategories.getVal(l).contains(s)) {
-                    tr_.add(translatedCategories.getVal(l).getVal(s));
+                for (EntryCust<String,StringMap<String>> e: translatedCategories.entryList()) {
+                    if (!StringList.quickEq(e.getKey(),l)) {
+                        continue;
+                    }
+                    for (EntryCust<String,String> f: e.getValue().entryList()) {
+                        if (!StringList.quickEq(f.getKey(),s)) {
+                            continue;
+                        }
+                        tr_.add(f.getValue());
+                    }
                 }
                 for (Statistic s_ : Statistic.values()) {
                     if (StringList.quickEq(s, s_.name())) {
-                        if (translatedStatistics.getVal(l).contains(s_)) {
-                            tr_.add(translatedStatistics.getVal(l).getVal(s_));
-                            break;
+                        for (EntryCust<String,EnumMap<Statistic,String>> e: translatedStatistics.entryList()) {
+                            if (!StringList.quickEq(e.getKey(),l)) {
+                                continue;
+                            }
+                            for (EntryCust<Statistic,String> f: e.getValue().entryList()) {
+                                if (f.getKey() != s_) {
+                                    continue;
+                                }
+                                tr_.add(f.getValue());
+                            }
                         }
                     }
                 }
                 for (Gender g : Gender.values()) {
                     if (StringList.quickEq(s, g.name())) {
-                        if (translatedGenders.getVal(l).contains(g)) {
-                            tr_.add(translatedGenders.getVal(l).getVal(g));
-                            break;
+                        for (EntryCust<String,EnumMap<Gender,String>> e: translatedGenders.entryList()) {
+                            if (!StringList.quickEq(e.getKey(),l)) {
+                                continue;
+                            }
+                            for (EntryCust<Gender,String> f: e.getValue().entryList()) {
+                                if (f.getKey() != g) {
+                                    continue;
+                                }
+                                tr_.add(f.getValue());
+                            }
                         }
                     }
                 }
                 tr_.removeDuplicates();
                 if (tr_.size() > DataBase.ONE_POSSIBLE_CHOICE) {
                     setError(true);
-                    return;
                 }
             }
         }
@@ -1725,7 +1630,6 @@ public class DataBase implements WithMathFactory {
         if (!StringList.equalsSet(translatedClassesDescriptions.getKeys(),
                 languages)) {
             setError(true);
-            return;
         }
         StringList classesItems_;
         classesItems_ = new StringList();
@@ -1736,52 +1640,41 @@ public class DataBase implements WithMathFactory {
         for (StringMap<String> v : translatedClassesDescriptions.values()) {
             if (!v.containsAllAsKeys(classesItems_)) {
                 setError(true);
-                return;
             }
             if (hasDuplicates(v.values())) {
                 setError(true);
-                return;
             }
         }
         if (!StringList.equalsSet(translatedTargets.getKeys(),
                 languages)) {
             setError(true);
-            return;
         }
         for (EnumMap<TargetChoice, String> v : translatedTargets.values()) {
             for (TargetChoice g : v.getKeys()) {
                 allStandardKeys_.add(g.name());
             }
-            if (!TargetChoice.equalsSet(v.getKeys(),
-                    new EnumList<TargetChoice>(TargetChoice.values()))) {
+            if (!new EnumList<TargetChoice>(v.getKeys()).containsAllObj(new EnumList<TargetChoice>(TargetChoice.values()))) {
                 setError(true);
-                return;
             }
             if (hasDuplicates(v.values())) {
                 setError(true);
-                return;
             }
         }
         int nbCustKeys_ = allCustKeys_.size();
         allCustKeys_.removeDuplicates();
         if (nbCustKeys_ != allCustKeys_.size()) {
             setError(true);
-            return;
         }
         for (String n : allStandardKeys_) {
             if (StringList.contains(allCustKeys_, n)) {
                 setError(true);
-                return;
             }
         }
         if (!StringList.equalsSet(litterals.getKeys(),
                 languages)) {
             setError(true);
-            return;
         }
-        int j = 0;
         for (String v: variables) {
-            j++;
             for (EntryCust<String,StringMap<String>> m: litterals.entryList()) {
                 boolean f_ = false;
                 String line_ = EMPTY_STRING;
@@ -1796,12 +1689,12 @@ public class DataBase implements WithMathFactory {
                 }
                 if (!f_) {
                     setError(true);
-                    return;
+                    continue;
                 }
                 StringList infos_ = StringList.splitStrings(line_, TAB);
                 if (infos_.size() < 3) {
                     setError(true);
-                    return;
+                    continue;
                 }
                 CustList<String> infosVar_ = varParts_.mid(2);
                 if (infosVar_.isEmpty()) {
@@ -1811,32 +1704,28 @@ public class DataBase implements WithMathFactory {
                 int len_ = infosVar_.size();
                 if (len_ != kinds_.size()) {
                     setError(true);
-                    return;
+                    continue;
                 }
                 for (int i = 0; i < len_; i++) {
                     String k_ = kinds_.get(i);
                     if (StringList.quickEq(k_,MOVE_FORMULA)) {
                         if (!moves.contains(infosVar_.get(i))) {
                             setError(true);
-                            return;
                         }
                     }
                     if (StringList.quickEq(k_,CAT_FORMULA)) {
                         if (!StringList.contains(categories, infosVar_.get(i))) {
                             setError(true);
-                            return;
                         }
                     }
                     if (StringList.quickEq(k_,TYPE_FORMULA)) {
                         if (!StringList.contains(types, infosVar_.get(i))) {
                             setError(true);
-                            return;
                         }
                     }
                     if (StringList.quickEq(k_,STATUS_FORMULA)) {
                         if (!status.contains(infosVar_.get(i))) {
                             setError(true);
-                            return;
                         }
                     }
                     if (StringList.quickEq(k_,STATIS_FORMULA)) {
@@ -1849,11 +1738,18 @@ public class DataBase implements WithMathFactory {
                         }
                         if (!ok_) {
                             setError(true);
-                            return;
                         }
                     }
                 }
             }
+        }
+    }
+
+    private static void gearHomonyms(Listable<String> _homonyms, CustList<String> _distinct, String _cst) {
+        if (!StringList.contains(_distinct, _cst)) {
+            _distinct.add(_cst);
+        } else {
+            _homonyms.add(_cst);
         }
     }
 
