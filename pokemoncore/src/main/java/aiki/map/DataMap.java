@@ -1499,6 +1499,7 @@ public final class DataMap {
 
     public boolean validSavedLink() {
         int nbPlaces_ = places.size();
+        boolean valid_ = true;
         for (short i = CustList.FIRST_INDEX; i < nbPlaces_; i++) {
             Place place_ = places.getVal(i);
             if (!(place_ instanceof InitializedPlace)) {
@@ -1512,45 +1513,50 @@ public final class DataMap {
             for (PlaceInterConnect k : pl_.getSavedlinks().getKeys()) {
                 if (k.getDir() == Direction.UP) {
                     if (!Numbers.eq(leftTopPoint_.gety(), k.getSource().gety())) {
-                        return false;
+                        valid_ = false;
                     }
                 }
                 if (k.getDir() == Direction.DOWN) {
                     if (!Numbers.eq(rightBottomPoint_.gety(), k.getSource()
                             .gety())) {
-                        return false;
+                        valid_ = false;
                     }
                 }
                 if (k.getDir() == Direction.LEFT) {
                     if (!Numbers.eq(leftTopPoint_.getx(), k.getSource().getx())) {
-                        return false;
+                        valid_ = false;
                     }
                 }
                 if (k.getDir() == Direction.RIGHT) {
                     if (!Numbers.eq(rightBottomPoint_.getx(), k.getSource()
                             .getx())) {
-                        return false;
+                        valid_ = false;
                     }
                 }
                 Coords coords_ = pl_.getSavedlinks().getVal(k);
                 InitializedPlace other_ = (InitializedPlace) places
                         .getVal(coords_.getNumberPlace());
+                if (other_ == null) {
+                    valid_ = false;
+                    continue;
+                }
                 PlaceInterConnect key_ = new PlaceInterConnect(coords_
                         .getLevel().getPoint(), k.getDir().getOpposite());
                 if (!other_.getSavedlinks().contains(key_)) {
-                    return false;
+                    valid_ = false;
+                    continue;
                 }
                 Coords otherCoords_ = other_.getSavedlinks().getVal(key_);
                 if (!Numbers.eq(otherCoords_.getNumberPlace(), i)) {
-                    return false;
+                    valid_ = false;
                 }
                 if (!Point
                         .eq(k.getSource(), otherCoords_.getLevel().getPoint())) {
-                    return false;
+                    valid_ = false;
                 }
             }
         }
-        return true;
+        return valid_;
     }
 
     public void initializeLinks() {
@@ -1707,6 +1713,7 @@ public final class DataMap {
             if (Point.eq(pt_, building_.getExitCity())) {
                 return false;
             }
+            return true;
         }
         if (place_ instanceof League) {
             LevelPoint lPoint_ = _coords.getLevel();

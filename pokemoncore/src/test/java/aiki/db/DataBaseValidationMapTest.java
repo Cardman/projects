@@ -52,6 +52,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     public void link2Test() {
         Link l_ = new Link("l'U'5;10_8,4");
         assertEq("l'UP'5;10_8,4",l_.display());
+        new PokemonCenter().validate(new DataBase(),null);
     }
 
     @Test
@@ -1236,8 +1237,16 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
         map_.setPlaces(new ShortMap<Place>());
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
-        City city_ = Instances.newCity();
+        Road road_ = Instances.newRoad();
         Block block_ = Instances.newBlock();
+        block_.setHeight((short) 2);
+        block_.setWidth((short) 2);
+        road_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
+        road_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
+        road_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)1,(short)1),Direction.RIGHT),newCoords(1,0,0,0));
+        map_.getPlaces().addEntry((short)0, road_);
+        City city_ = Instances.newCity();
+        block_ = Instances.newBlock();
         block_.setHeight((short) 2);
         block_.setWidth((short) 2);
         city_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
@@ -1245,14 +1254,6 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         city_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         city_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)0,(short)0),Direction.LEFT),newCoords(0,0,1,1));
         map_.getPlaces().addEntry((short)1, city_);
-        Road road_ = Instances.newRoad();
-        block_ = Instances.newBlock();
-        block_.setHeight((short) 2);
-        block_.setWidth((short) 2);
-        road_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
-        road_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
-        road_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)1,(short)1),Direction.RIGHT),newCoords(1,0,0,0));
-        map_.getPlaces().addEntry((short)0, road_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -1281,17 +1282,8 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
         map_.setPlaces(new ShortMap<Place>());
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
-        City city_ = Instances.newCity();
-        Block block_ = Instances.newBlock();
-        block_.setHeight((short) 2);
-        block_.setWidth((short) 2);
-        city_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
-        city_.getBuildings().addEntry(new Point((short)1,(short)0),Instances.newPokemonCenter());
-        city_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
-        city_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)0,(short)0),Direction.LEFT),newCoords(0,0,1,1));
-        map_.getPlaces().addEntry((short)1, city_);
         Road road_ = Instances.newRoad();
-        block_ = Instances.newBlock();
+        Block block_ = Instances.newBlock();
         block_.setHeight((short) 2);
         block_.setWidth((short) 2);
         road_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
@@ -1301,6 +1293,15 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         dualFight_.setPt(new Point((short)1,(short)1));
         road_.getLevelRoad().getDualFights().addEntry(new Point((short)0, (short) 1),dualFight_);
         map_.getPlaces().addEntry((short)0, road_);
+        City city_ = Instances.newCity();
+        block_ = Instances.newBlock();
+        block_.setHeight((short) 2);
+        block_.setWidth((short) 2);
+        city_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
+        city_.getBuildings().addEntry(new Point((short)1,(short)0),Instances.newPokemonCenter());
+        city_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
+        city_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)0,(short)0),Direction.LEFT),newCoords(0,0,1,1));
+        map_.getPlaces().addEntry((short)1, city_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         map_.getAccessCondition().put(newCoords(1,0,1,1),new EqList<Coords>(newCoords(0,0,0,1)));
@@ -1363,17 +1364,8 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
         map_.setPlaces(new ShortMap<Place>());
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
-        City city_ = Instances.newCity();
-        Block block_ = Instances.newBlock();
-        block_.setHeight((short) 2);
-        block_.setWidth((short) 2);
-        city_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
-        city_.getBuildings().addEntry(new Point((short)1,(short)0),Instances.newPokemonCenter());
-        city_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
-        city_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)0,(short)0),Direction.LEFT),newCoords(0,0,1,1));
-        map_.getPlaces().addEntry((short)1, city_);
         Road road_ = Instances.newRoad();
-        block_ = Instances.newBlock();
+        Block block_ = Instances.newBlock();
         block_.setHeight((short) 2);
         block_.setWidth((short) 2);
         road_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
@@ -1383,6 +1375,15 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         dualFight_.setPt(new Point((short)1,(short)1));
         road_.getLevelRoad().getDualFights().addEntry(new Point((short)0, (short) 1),dualFight_);
         map_.getPlaces().addEntry((short)0, road_);
+        City city_ = Instances.newCity();
+        block_ = Instances.newBlock();
+        block_.setHeight((short) 2);
+        block_.setWidth((short) 2);
+        city_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
+        city_.getBuildings().addEntry(new Point((short)1,(short)0),Instances.newPokemonCenter());
+        city_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
+        city_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)0,(short)0),Direction.LEFT),newCoords(0,0,1,1));
+        map_.getPlaces().addEntry((short)1, city_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         map_.getAccessCondition().put(newCoords(1,0,1,1),new EqList<Coords>(newCoords(0,0,0,1)));
@@ -2381,4 +2382,94 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         assertEq(0,Level.getLevelForegroundImage(data_,newCoords(7,0,0,0)).size());
     }
 
+
+    @Test
+    public void validSavedLink1Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DataMap map_ = data_.getMap();
+        map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
+        map_.setPlaces(new ShortMap<Place>());
+        map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        City city_ = Instances.newCity();
+        Block block_ = Instances.newBlock();
+        block_.setHeight((short) 2);
+        block_.setWidth((short) 2);
+        city_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
+        city_.getSavedlinks().addEntry(new PlaceInterConnect(new Point((short)2,(short)0),Direction.LEFT),newCoords(0,0,1,1));
+        city_.getSavedlinks().addEntry(new PlaceInterConnect(new Point((short)0,(short)2),Direction.UP),newCoords(0,0,1,1));
+        city_.getSavedlinks().addEntry(new PlaceInterConnect(new Point((short)0,(short)2),Direction.DOWN),newCoords(0,0,1,1));
+        city_.getSavedlinks().addEntry(new PlaceInterConnect(new Point((short)0,(short)2),Direction.RIGHT),newCoords(0,0,1,1));
+        map_.getPlaces().addEntry((short)0, city_);
+         Road road_ = Instances.newRoad();
+        block_ = Instances.newBlock();
+        block_.setHeight((short) 2);
+        block_.setWidth((short) 2);
+        road_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
+        road_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
+        road_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)0,(short)0),Direction.LEFT),newCoords(0,0,1,1));
+        map_.getPlaces().addEntry((short)1, road_);
+        assertTrue(!map_.validSavedLink());
+    }
+
+    @Test
+    public void validSavedLink2Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DataMap map_ = data_.getMap();
+        map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
+        map_.setPlaces(new ShortMap<Place>());
+        map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        City city_ = Instances.newCity();
+        Block block_ = Instances.newBlock();
+        block_.setHeight((short) 2);
+        block_.setWidth((short) 2);
+        city_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
+        city_.getSavedlinks().addEntry(new PlaceInterConnect(new Point((short)0,(short)0),Direction.RIGHT),newCoords(1,0,0,0));
+        map_.getPlaces().addEntry((short)0, city_);
+        Road road_ = Instances.newRoad();
+        block_ = Instances.newBlock();
+        block_.setHeight((short) 2);
+        block_.setWidth((short) 2);
+        road_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
+        road_.getSavedlinks().addEntry(new PlaceInterConnect(new Point((short)0,(short)0),Direction.LEFT),newCoords(2,0,1,1));
+        map_.getPlaces().addEntry((short)1, road_);
+        assertTrue(!map_.validSavedLink());
+    }
+    @Test
+    public void isEmptyForAddingTest() {
+        DataBase data_ = InitializationDataBase.initDataBase();
+        assertTrue(data_.getMap().isEmptyForAdding(newCoords(0,0,0,0)));
+        assertTrue(!data_.getMap().isEmptyForAdding(newCoords(0, 0, 1, 1)));
+        assertTrue(!data_.getMap().isEmptyForAdding(newCoords(0, 0, 0, 1)));
+        assertTrue(!data_.getMap().isEmptyForAdding(newCoords(1, 0, 1, 1)));
+        assertTrue(!data_.getMap().isEmptyForAdding(newCoords(1, 0, 1, 1,0, 4)));
+        assertTrue(data_.getMap().isEmptyForAdding(newCoords(1, 0, 1, 1,1, 4)));
+        assertTrue(!data_.getMap().isEmptyForAdding(newCoords(1, 0, 1, 1,8, 4)));
+        assertTrue(!data_.getMap().isEmptyForAdding(newCoords(1, 0, 1, 1,4,8)));
+        assertTrue(!data_.getMap().isEmptyForAdding(newCoords(1, 0, 1, 1,8, 5)));
+        assertTrue(!data_.getMap().isEmptyForAdding(newCoords(1, 0, 1, 1,8, 6)));
+        assertTrue(!data_.getMap().isEmptyForAdding(newCoords(2, 0, 2, 0)));
+        assertTrue(!data_.getMap().isEmptyForAdding(newCoords(2, 0, 3, 0)));
+        assertTrue(data_.getMap().isEmptyForAdding(newCoords(2, 0, 0, 0)));
+        assertTrue(!data_.getMap().isEmptyForAdding(newCoords(2, 0, 11, 2)));
+        assertTrue(!data_.getMap().isEmptyForAdding(newCoords(3, 0, 4, 1)));
+        assertTrue(!data_.getMap().isEmptyForAdding(newCoords(4, 0, 5, 4)));
+        assertTrue(!data_.getMap().isEmptyForAdding(newCoords(6, 0, 4, 4)));
+        assertTrue(!data_.getMap().isEmptyForAdding(newCoords(6, 0, 4, 8)));
+        assertTrue(!data_.getMap().isEmptyForAdding(newCoords(6, 1, 4, 8)));
+        assertTrue(!data_.getMap().isEmptyForAdding(newCoords(6, 1, 4, 4)));
+        assertTrue(!data_.getMap().isEmptyForAdding(newCoords(6, 1, 4, 0)));
+        assertTrue(data_.getMap().isEmptyForAdding(newCoords(6, 0, 4, 1)));
+        assertTrue(data_.getMap().isEmptyForAdding(newCoords(6, 1, 4, 1)));
+        assertTrue(!data_.getMap().isEmptyForAdding(newCoords(5,0,7,5)));
+        assertTrue(!data_.getMap().isEmptyForAdding(newCoords(5,1,7,5)));
+        assertTrue(!data_.getMap().isEmptyForAdding(newCoords(5, 0, 7, 2)));
+        assertTrue(!data_.getMap().isEmptyForAdding(newCoords(4, 0, 0, 2)));
+        assertTrue(!data_.getMap().isEmptyForAdding(newCoords(8, 0, 0, 0)));
+    }
 }
