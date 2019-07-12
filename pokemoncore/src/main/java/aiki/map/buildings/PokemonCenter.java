@@ -12,6 +12,10 @@ public final class PokemonCenter extends Building {
     @Override
     public void validate(DataBase _data,BuildingArea _buildingArea) {
         super.validate(_data, _buildingArea);
+        if (_buildingArea == null) {
+            _data.setError(true);
+            return;
+        }
         level.validate(_data, _buildingArea.getLevel());
     }
 

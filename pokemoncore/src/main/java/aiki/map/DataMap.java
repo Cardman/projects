@@ -131,24 +131,24 @@ public final class DataMap {
 
     public void validate(DataBase _d) {
         if (screenWidth < 0 || screenHeight < 0) {
-            error = true;
+            _d.setError(true);
             return;
         }
         if (spaceBetweenLeftAndHeros <= 0 || spaceBetweenTopAndHeros <= 0) {
-            error = true;
+            _d.setError(true);
             return;
         }
         if (screenWidth <= spaceBetweenLeftAndHeros + 1
                 || screenHeight <= spaceBetweenTopAndHeros + 1) {
-            error = true;
+            _d.setError(true);
             return;
         }
         if (sideLength <= 0) {
-            error = true;
+            _d.setError(true);
             return;
         }
         if (places.isEmpty()) {
-            error = true;
+            _d.setError(true);
             return;
         }
         initInteractiveElements();
@@ -157,13 +157,13 @@ public final class DataMap {
         tree = new Tree();
         tree.initialize(this);
         if (!existCoords(begin)) {
-            error = true;
+            _d.setError(true);
             return;
         }
         Place plBegin_ = places.getVal(begin.getNumberPlace());
         Level lBegin_ = plBegin_.getLevelByCoords(begin);
         if (!lBegin_.isEmptyForAdding(begin.getLevel().getPoint())) {
-            error = true;
+            _d.setError(true);
             return;
         }
         wildPokemonBeforeFirstLeague = new ObjectMap<PlaceLevel, Ints>();
@@ -171,7 +171,6 @@ public final class DataMap {
         for (short p = CustList.FIRST_INDEX; p < nbPlaces_; p++) {
             places.getVal(p).validate(_d, tree.getPlace(p));
             if (!(places.getVal(p).validLinks(p, tree))) {
-                error = true;
                 _d.setError(true);
             }
         }
@@ -184,17 +183,17 @@ public final class DataMap {
 
                     Coords link_ = closestTile(links_.getVal(pt_));
                     if (!tree.isValid(links_.getVal(pt_).getCoords(), true)) {
-                        error = true;
+                        _d.setError(true);
                     }
                     Place t_ = places.getVal(link_.getNumberPlace());
                     if (!(t_ instanceof Cave)) {
-                        error = true;
+                        _d.setError(true);
                         continue;
                     }
                     Cave cave_ = (Cave) t_;
                     LevelPoint lPoint_ = link_.getLevel();
                     if (!cave_.getLinksWithOtherPlaces().contains(lPoint_)) {
-                        error = true;
+                        _d.setError(true);
                         continue;
                     }
 
@@ -206,7 +205,7 @@ public final class DataMap {
                     current_.getLevel().setLevelIndex((byte) 0);
                     current_.getLevel().setPoint(pt_);
                     if (!Coords.eq(other_,current_)) {
-                        error = true;
+                        _d.setError(true);
                     }
 
                 }
@@ -220,17 +219,17 @@ public final class DataMap {
 
                     Coords link_ = closestTile(links_.getVal(l));
                     if (!tree.isValid(links_.getVal(l).getCoords(), true)) {
-                        error = true;
+                        _d.setError(true);
                     }
                     Place t_ = places.getVal(link_.getNumberPlace());
                     if (!(t_ instanceof InitializedPlace)) {
-                        error = true;
+                        _d.setError(true);
                         continue;
                     }
                     InitializedPlace cave_ = (InitializedPlace) t_;
                     Point point_ = link_.getLevel().getPoint();
                     if (!cave_.getLinksWithCaves().contains(point_)) {
-                        error = true;
+                        _d.setError(true);
                         continue;
                     }
 
@@ -240,7 +239,7 @@ public final class DataMap {
                     current_.setNumberPlace(p);
                     current_.setLevel(l);
                     if (!Coords.eq(other_,current_)) {
-                        error = true;
+                        _d.setError(true);
                     }
 
                 }
@@ -291,17 +290,20 @@ public final class DataMap {
             }
             League league_ = (League) p;
             if (!accessCondition.contains(league_.getAccessCoords())) {
-                error = true;
+                _d.setError(true);
             }
         }
         for (Coords c : accessCondition.getKeys()) {
             for (Coords c2_ : accessCondition.getVal(c)) {
                 if (!tree.isValid(c2_, true)) {
-                    error = true;
+                    _d.setError(true);
                 }
             }
         }
         initializeAccessibility();
+        if(error) {
+            _d.setError(true);
+        }
         Condition coords_ = new Condition();
         if (!leagues.isEmpty()) {
             League firstLeague_ = (League) places.getVal(leagues.first()
@@ -365,10 +367,10 @@ public final class DataMap {
             }
         }
         if (!ball_) {
-            error = true;
+            _d.setError(true);
         }
         if (!moveTutor_) {
-            error = true;
+            _d.setError(true);
         }
 
         evoObjects_.removeDuplicates();
@@ -376,12 +378,12 @@ public final class DataMap {
             Item o_ = _d.getItems().getVal(o);
             if (o_ instanceof EvolvingStone) {
                 if (!StringList.contains(evoObjects_, o)) {
-                    error = true;
+                    _d.setError(true);
                 }
             }
             if (o_ instanceof EvolvingItem) {
                 if (!StringList.contains(evoObjects_, o)) {
-                    error = true;
+                    _d.setError(true);
                 }
             }
         }
@@ -408,7 +410,7 @@ public final class DataMap {
             movesRetr_.addAllElts(movesTmHm_);
             for (String m : moves_) {
                 if (!StringList.contains(movesRetr_, m)) {
-                    error = true;
+                    _d.setError(true);
                 }
             }
         }
@@ -439,7 +441,7 @@ public final class DataMap {
             }
             typesRetr_.addAllElts(availableTypesTm_);
             if (!typesRetr_.containsAllObj(types_)) {
-                error = true;
+                _d.setError(true);
             }
         }
         StringMap<EnumList<Gender>> directCatchPk_ = new StringMap<EnumList<Gender>>();
@@ -483,13 +485,13 @@ public final class DataMap {
         }
         baseEvos_.removeDuplicates();
         if (!directCatchPk_.containsAllAsKeys(baseEvos_)) {
-            error = true;
+            _d.setError(true);
         }
         for (String n : baseEvos_) {
             PokemonData fPk_ = _d.getPokemon(n);
             if (!directCatchPk_.getVal(n).containsAllObj(
                     fPk_.getGenderRep().getPossibleGenders())) {
-                error = true;
+                _d.setError(true);
             }
         }
         boolean existPkDefaultEgg_ = false;
@@ -504,7 +506,7 @@ public final class DataMap {
             }
         }
         if (!existPkDefaultEgg_) {
-            error = true;
+            _d.setError(true);
         }
         StringList legPk_ = new StringList();
         for (String n : _d.getPokedex().getKeys()) {
@@ -540,17 +542,17 @@ public final class DataMap {
         }
         wildPk_.removeDuplicates();
         if (!wildPk_.containsAllObj(legPk_)) {
-            error = true;
+            _d.setError(true);
         }
         int maxWidth_ = 0;
         int maxHeight_ = 0;
         CustList<MiniMapCoords> list_ = miniMap.getKeys();
         for (MiniMapCoords m : list_) {
             if (m.getXcoords() < 0) {
-                error = true;
+                _d.setError(true);
             }
             if (m.getYcoords() < 0) {
-                error = true;
+                _d.setError(true);
             }
             maxWidth_ = Math.max(maxWidth_,m.getXcoords());
             maxHeight_ = Math.max(maxHeight_,m.getYcoords());
@@ -638,17 +640,17 @@ public final class DataMap {
                             }
                         }
                         if (eq_) {
-                            error = true;
+                            _d.setError(true);
                         }
                     }
                 }
             }
         }
         if (!Numbers.equalsSetShorts(placesMiniMap_, places.getKeys())) {
-            error = true;
+            _d.setError(true);
         }
         if (list_.size() != (maxWidth_ + 1) * (maxHeight_ + 1)) {
-            error = true;
+            _d.setError(true);
         }
         if (_d.getMiniMap(getUnlockedCity()).length == 0) {
             error = true;
@@ -661,11 +663,11 @@ public final class DataMap {
                     break;
                 }
             } else {
-                error = true;
+                _d.setError(true);
             }
         }
         if (!firstCities_) {
-            error = true;
+            _d.setError(true);
         }
         for (Coords c : beatGymLeader) {
             if (c.isInside()) {
@@ -677,7 +679,7 @@ public final class DataMap {
                 coordsExt_.getLevel().setPoint(exitBuilding_);
                 boolean existAccess_ = existAccess(coordsExt_);
                 if (!existAccess_) {
-                    error = true;
+                    _d.setError(true);
                 }
                 continue;
             }
@@ -687,20 +689,20 @@ public final class DataMap {
                 Coords accessLeague_ = league_.getAccessCoords();
                 boolean existAccess_ = existAccess(accessLeague_);
                 if (!existAccess_) {
-                    error = true;
+                    _d.setError(true);
                 }
                 continue;
             }
             boolean existAccess_ = existAccess(c);
             if (!existAccess_) {
-                error = true;
+                _d.setError(true);
             }
         }
         for (NbFightCoords c : beatTrainer) {
             Coords fightAccess_ = c.getCoords();
             boolean existAccess_ = existAccess(fightAccess_);
             if (!existAccess_) {
-                error = true;
+                _d.setError(true);
             }
         }
     }
@@ -1855,11 +1857,7 @@ public final class DataMap {
 
                 ScreenCoords key_ = new ScreenCoords(i, screenHeight - 1);
                 Coords coords_ = tiles.getVal(key_);
-                if (coords_.isValid()) {
-                    tiles.put(key_, closestTile(coords_, _direction));
-                } else {
-                    tiles.put(key_, coords_);
-                }
+                putCoordsIfValid(_direction, key_, coords_);
             }
         } else if (_direction == Direction.UP) {
             for (int i = CustList.FIRST_INDEX; i < screenWidth; i++) {
@@ -1871,11 +1869,7 @@ public final class DataMap {
 
                 ScreenCoords key_ = new ScreenCoords(i, 0);
                 Coords coords_ = tiles.getVal(key_);
-                if (coords_.isValid()) {
-                    tiles.put(key_, closestTile(coords_, _direction));
-                } else {
-                    tiles.put(key_, coords_);
-                }
+                putCoordsIfValid(_direction, key_, coords_);
             }
         } else if (_direction == Direction.RIGHT) {
             for (int j = CustList.FIRST_INDEX; j < screenHeight; j++) {
@@ -1887,13 +1881,9 @@ public final class DataMap {
 
                 ScreenCoords key_ = new ScreenCoords(screenWidth - 1, j);
                 Coords coords_ = tiles.getVal(key_);
-                if (coords_.isValid()) {
-                    tiles.put(key_, closestTile(coords_, _direction));
-                } else {
-                    tiles.put(key_, coords_);
-                }
+                putCoordsIfValid(_direction, key_, coords_);
             }
-        } else if (_direction == Direction.LEFT) {
+        } else {
             for (int j = CustList.FIRST_INDEX; j < screenHeight; j++) {
                 int maxWidth_ = screenWidth - 1;
                 for (int i = maxWidth_; i > CustList.FIRST_INDEX; i--) {
@@ -1903,12 +1893,16 @@ public final class DataMap {
 
                 ScreenCoords key_ = new ScreenCoords(0, j);
                 Coords coords_ = tiles.getVal(key_);
-                if (coords_.isValid()) {
-                    tiles.put(key_, closestTile(coords_, _direction));
-                } else {
-                    tiles.put(key_, coords_);
-                }
+                putCoordsIfValid(_direction, key_, coords_);
             }
+        }
+    }
+
+    private void putCoordsIfValid(Direction _direction, ScreenCoords _key, Coords _coords) {
+        if (_coords.isValid()) {
+            tiles.put(_key, closestTile(_coords, _direction));
+        } else {
+            tiles.put(_key, _coords);
         }
     }
 

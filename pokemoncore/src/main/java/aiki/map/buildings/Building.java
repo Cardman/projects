@@ -17,6 +17,10 @@ public abstract class Building {
      * @param _data
      */
     public void validate(DataBase _data, BuildingArea _buildingArea) {
+        if (_buildingArea == null) {
+            _data.setError(true);
+            return;
+        }
         if (!_buildingArea.isValid(exitCity, true)) {
             _data.setError(true);
         }
