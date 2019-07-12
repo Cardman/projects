@@ -109,32 +109,16 @@ public abstract class Level {
         Place pl_ = _data.getMap().getPlaces().getVal(_coords.getNumberPlace());
         Level lev_ = pl_.getLevelByCoords(_coords);
         ObjectMap<Point, int[][]> frontTiles_ = new ObjectMap<Point, int[][]>();
+        Coords curCoords_ = new Coords(_coords);
+        curCoords_.getLevel().setPoint(new Point((short)0,(short)0));
         for (Place p : _data.getMap().getPlaces().values()) {
             if (!(p instanceof League)) {
                 continue;
             }
             Coords access_ = ((League) p).getAccessCoords();
-            if (!Numbers.eq(access_.getNumberPlace(), _coords.getNumberPlace())) {
-                continue;
-            }
-            // if (access_.isInside() != _coords.isInside()) {
-            // continue;
-            // }
-            if (ComparatorBoolean.diff(access_.isInside(), _coords.isInside())) {
-                continue;
-            }
-            if (access_.getInsideBuilding() == null) {
-                if (_coords.getInsideBuilding() != null) {
-                    continue;
-                }
-            } else if (_coords.getInsideBuilding() == null){
-                continue;
-            } else if (!Point.eq(access_.getInsideBuilding(),
-                    _coords.getInsideBuilding())) {
-                continue;
-            }
-            if (!Numbers.eq(access_.getLevel().getLevelIndex(), _coords
-                    .getLevel().getLevelIndex())) {
+            Coords accessCoords_ = new Coords(access_);
+            accessCoords_.getLevel().setPoint(new Point((short)0,(short)0));
+            if (!Coords.eq(accessCoords_,curCoords_)) {
                 continue;
             }
             Point pt_ = access_.getLevel().getPoint();

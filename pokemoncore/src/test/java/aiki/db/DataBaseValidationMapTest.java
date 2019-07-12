@@ -10,6 +10,10 @@ import aiki.fight.pokemon.evolution.EvolutionMove;
 import aiki.fight.pokemon.evolution.EvolutionMoveType;
 import aiki.fight.util.LevelMove;
 import aiki.fight.util.StatBaseEv;
+import aiki.game.Game;
+import aiki.game.fight.InitializationDataBase;
+import aiki.game.params.Difficulty;
+import aiki.game.player.enums.Sex;
 import aiki.instances.Instances;
 import aiki.map.DataMap;
 import aiki.map.buildings.Gym;
@@ -25,14 +29,12 @@ import aiki.map.pokemon.PokemonTeam;
 import aiki.map.pokemon.WildPk;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.PlaceInterConnect;
+import aiki.map.util.ScreenCoords;
 import aiki.map.util.TileMiniMap;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
-import code.util.EqList;
-import code.util.ObjectMap;
-import code.util.ShortMap;
-import code.util.StringList;
+import code.util.*;
 import org.junit.Test;
 
 import static aiki.db.EquallablePkUtil.assertEq;
@@ -2029,4 +2031,354 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.validateImages();
         assertTrue(data_.isError());
     }
+
+    @Test
+    public void fail34Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DataMap map_ = data_.getMap();
+        map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
+        map_.setPlaces(new ShortMap<Place>());
+        map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        data_.completeVariables();
+        initConstants(data_);
+        initRandomLaws(data_);
+        initExpPoints(data_);
+        data_.getMap().validate(data_);
+        data_.validateImages();
+        assertTrue(data_.isError());
+    }
+
+    @Test
+    public void fail35Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DataMap map_ = data_.getMap();
+        map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
+        map_.setPlaces(new ShortMap<Place>());
+        map_.setScreenWidth(1);
+        map_.setSpaceBetweenLeftAndHeros(10);
+        map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        data_.completeVariables();
+        initConstants(data_);
+        initRandomLaws(data_);
+        initExpPoints(data_);
+        data_.getMap().validate(data_);
+        data_.validateImages();
+        assertTrue(data_.isError());
+    }
+
+    @Test
+    public void fail36Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DataMap map_ = data_.getMap();
+        map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
+        map_.setPlaces(new ShortMap<Place>());
+        map_.setScreenHeight(1);
+        map_.setSpaceBetweenTopAndHeros(10);
+        map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        data_.completeVariables();
+        initConstants(data_);
+        initRandomLaws(data_);
+        initExpPoints(data_);
+        data_.getMap().validate(data_);
+        data_.validateImages();
+        assertTrue(data_.isError());
+    }
+
+    @Test
+    public void fail37Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DataMap map_ = data_.getMap();
+        map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
+        map_.setPlaces(new ShortMap<Place>());
+        map_.setSpaceBetweenLeftAndHeros(-2);
+        map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        data_.completeVariables();
+        initConstants(data_);
+        initRandomLaws(data_);
+        initExpPoints(data_);
+        data_.getMap().validate(data_);
+        data_.validateImages();
+        assertTrue(data_.isError());
+    }
+
+    @Test
+    public void fail38Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DataMap map_ = data_.getMap();
+        map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
+        map_.setPlaces(new ShortMap<Place>());
+        map_.setSpaceBetweenTopAndHeros(-2);
+        map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        data_.completeVariables();
+        initConstants(data_);
+        initRandomLaws(data_);
+        initExpPoints(data_);
+        data_.getMap().validate(data_);
+        data_.validateImages();
+        assertTrue(data_.isError());
+    }
+
+    @Test
+    public void fail39Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DataMap map_ = data_.getMap();
+        map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
+        map_.setPlaces(new ShortMap<Place>());
+        map_.setSideLength(-2);
+        map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        data_.completeVariables();
+        initConstants(data_);
+        initRandomLaws(data_);
+        initExpPoints(data_);
+        data_.getMap().validate(data_);
+        data_.validateImages();
+        assertTrue(data_.isError());
+    }
+
+    @Test
+    public void fail40Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DataMap map_ = data_.getMap();
+        map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
+        map_.setPlaces(new ShortMap<Place>());
+        map_.setScreenHeight(-2);
+        map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        data_.completeVariables();
+        initConstants(data_);
+        initRandomLaws(data_);
+        initExpPoints(data_);
+        data_.getMap().validate(data_);
+        data_.validateImages();
+        assertTrue(data_.isError());
+    }
+
+    @Test
+    public void fail41Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DataMap map_ = data_.getMap();
+        map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
+        map_.setPlaces(new ShortMap<Place>());
+        map_.setScreenWidth(-2);
+        map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        data_.completeVariables();
+        initConstants(data_);
+        initRandomLaws(data_);
+        initExpPoints(data_);
+        data_.getMap().validate(data_);
+        data_.validateImages();
+        assertTrue(data_.isError());
+    }
+
+    @Test
+    public void calculateIntersectWithScreenDirection1Test() {
+        DataBase data_ = InitializationDataBase.initDataBase();
+        Game game_ = new Game(data_);
+        game_.initUtilisateur(NULL_REF, Sex.GIRL, new Difficulty(), data_);
+        game_.getDifficulty().setRandomWildFight(true);
+        game_.setPlayerCoords(newCoords(6, 1, 4, 5));
+        game_.setPlayerOrientation(Direction.RIGHT);
+        DataMap map_ = data_.getMap();
+        map_.getBackgroundImages().clear();
+        map_.getForegroundImages().clear();
+
+        data_.getMap().calculateIntersectWithScreenDirection(
+                game_.getPlayerCoords());
+        Direction playerOrientation_ = game_.getPlayerOrientation();
+        int dx_ = Math.abs(playerOrientation_.getx());
+        int dy_ = Math.abs(playerOrientation_.gety());
+        data_.getMap().calculateBackgroundImagesFromTiles(data_, dx_, dy_);
+        game_.calculateImagesFromTiles(data_, playerOrientation_.getx(),
+                playerOrientation_.gety());
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        foreGround_ = map_.getForegroundImages();
+        assertEq(121, foreGround_.size());
+    }
+
+    @Test
+    public void calculateIntersectWithScreenDirection2Test() {
+        DataBase data_ = InitializationDataBase.initDataBase();
+        Game game_ = new Game(data_);
+        game_.initUtilisateur(NULL_REF, Sex.BOY, new Difficulty(), data_);
+        game_.getDifficulty().setRandomWildFight(true);
+        game_.setPlayerCoords(newCoords(6, 1, 4, 5));
+        game_.setPlayerOrientation(Direction.LEFT);
+        DataMap map_ = data_.getMap();
+        map_.getBackgroundImages().clear();
+        map_.getForegroundImages().clear();
+
+        data_.getMap().calculateIntersectWithScreenDirection(
+                game_.getPlayerCoords());
+
+        Direction playerOrientation_ = game_.getPlayerOrientation();
+        int dx_ = Math.abs(playerOrientation_.getx());
+        int dy_ = Math.abs(playerOrientation_.gety());
+        data_.getMap().calculateBackgroundImagesFromTiles(data_, dx_, dy_);
+        game_.calculateImagesFromTiles(data_, playerOrientation_.getx(),
+                playerOrientation_.gety());
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        foreGround_ = map_.getForegroundImages();
+        assertEq(121, foreGround_.size());
+    }
+
+    @Test
+    public void calculateIntersectWithScreenDirection3Test() {
+        DataBase data_ = InitializationDataBase.initDataBase();
+        Game game_ = new Game(data_);
+        game_.initUtilisateur(NULL_REF, Sex.GIRL, new Difficulty(), data_);
+        game_.getDifficulty().setRandomWildFight(true);
+        game_.setPlayerCoords(newCoords(6, 1, 4, 5));
+        game_.setPlayerOrientation(Direction.UP);
+        DataMap map_ = data_.getMap();
+        map_.getBackgroundImages().clear();
+        map_.getForegroundImages().clear();
+
+        data_.getMap().calculateIntersectWithScreenDirection(
+                game_.getPlayerCoords());
+        Direction playerOrientation_ = game_.getPlayerOrientation();
+        int dx_ = Math.abs(playerOrientation_.getx());
+        int dy_ = Math.abs(playerOrientation_.gety());
+        data_.getMap().calculateBackgroundImagesFromTiles(data_, dx_, dy_);
+        game_.calculateImagesFromTiles(data_, playerOrientation_.getx(),
+                playerOrientation_.gety());
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        foreGround_ = map_.getForegroundImages();
+        assertEq(121, foreGround_.size());
+    }
+
+    @Test
+    public void calculateIntersectWithScreenDirection4Test() {
+        DataBase data_ = InitializationDataBase.initDataBase();
+        Game game_ = new Game(data_);
+        game_.initUtilisateur(NULL_REF, Sex.BOY, new Difficulty(), data_);
+        game_.getDifficulty().setRandomWildFight(true);
+        game_.setPlayerCoords(newCoords(6, 1, 4, 5));
+        game_.setPlayerOrientation(Direction.DOWN);
+        DataMap map_ = data_.getMap();
+        map_.getBackgroundImages().clear();
+        map_.getForegroundImages().clear();
+
+        data_.getMap().calculateIntersectWithScreenDirection(
+                game_.getPlayerCoords());
+
+        Direction playerOrientation_ = game_.getPlayerOrientation();
+        int dx_ = Math.abs(playerOrientation_.getx());
+        int dy_ = Math.abs(playerOrientation_.gety());
+        data_.getMap().calculateBackgroundImagesFromTiles(data_, dx_, dy_);
+        game_.calculateImagesFromTiles(data_, playerOrientation_.getx(),
+                playerOrientation_.gety());
+        map_.calculateBackgroundImagesFromTiles(data_, 1, 0);
+        game_.calculateImagesFromTiles(data_, 1, 0);
+        ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
+        foreGround_ = map_.getForegroundImages();
+        assertEq(121, foreGround_.size());
+    }
+
+    @Test
+    public void bg1Test() {
+        DataBase data_ = InitializationDataBase.initDataBase();
+        assertEq(81,Level.getLevelBackgroundImage(data_,newCoords(6, 1, 4, 5)).size());
+    }
+
+    @Test
+    public void fg1Test() {
+        DataBase data_ = InitializationDataBase.initDataBase();
+        assertEq(2,Level.getLevelForegroundImage(data_,newCoords(6, 1, 4, 5)).size());
+    }
+
+    @Test
+    public void fg2Test() {
+        DataBase data_ = InitializationDataBase.initDataBase();
+        assertEq(2,Level.getLevelForegroundImage(data_,newCoords(0, 0, 0, 5)).size());
+    }
+
+    @Test
+    public void fg3Test() {
+        DataBase data_ = InitializationDataBase.initDataBase();
+        assertEq(10,Level.getLevelForegroundImage(data_,newCoords(2, 0, 9, 4)).size());
+    }
+
+    @Test
+    public void fg4Test() {
+        DataBase data_ = InitializationDataBase.initDataBase();
+        assertEq(4,Level.getLevelForegroundImage(data_,newCoords(5, 1, 6, 5)).size());
+    }
+
+    @Test
+    public void fg5Test() {
+        DataBase data_ = InitializationDataBase.initDataBase();
+        assertEq(6,Level.getLevelForegroundImage(data_,newCoords(5, 0, 6, 5)).size());
+    }
+
+    @Test
+    public void fg6Test() {
+        DataBase data_ = InitializationDataBase.initDataBase();
+        assertEq(2,Level.getLevelForegroundImage(data_,newCoords(4, 0, 4, 3)).size());
+    }
+
+    @Test
+    public void fg7Test() {
+        DataBase data_ = InitializationDataBase.initDataBase();
+        assertEq(2,Level.getLevelForegroundImage(data_,newCoords(6, 0, 4, 5)).size());
+    }
+
+    @Test
+    public void fg8Test() {
+        DataBase data_ = InitializationDataBase.initDataBase();
+        assertEq(4,Level.getLevelForegroundImage(data_,newCoords(1, 0, 5, 1, 4, 4)).size());
+    }
+
+    @Test
+    public void fg9Test() {
+        DataBase data_ = InitializationDataBase.initDataBase();
+        assertEq(6,Level.getLevelForegroundImage(data_,newCoords(1, 0, 1, 1, 4, 4)).size());
+    }
+
+    @Test
+    public void fg10Test() {
+        DataBase data_ = InitializationDataBase.initDataBase();
+        assertEq(4,Level.getLevelForegroundImage(data_,newCoords(3, 0, 2, 1, 4, 4)).size());
+    }
+
+    @Test
+    public void fg11Test() {
+        DataBase data_ = InitializationDataBase.initDataBase();
+        assertEq(1,Level.getLevelForegroundImage(data_,newCoords(8,0,0,0)).size());
+    }
+
+    @Test
+    public void fg12Test() {
+        DataBase data_ = InitializationDataBase.initDataBase();
+        assertEq(0,Level.getLevelForegroundImage(data_,newCoords(3, 0,  4, 4)).size());
+    }
+
+    @Test
+    public void fg13Test() {
+        DataBase data_ = InitializationDataBase.initDataBase();
+        assertEq(0,Level.getLevelForegroundImage(data_,newCoords(7,0,0,0)).size());
+    }
+
 }

@@ -820,7 +820,7 @@ public class InitializationDataBase {
     protected InitializationDataBase() {
     }
 
-    protected static DataBase initDataBase() {
+    public static DataBase initDataBase() {
         DataBase data_ = coreDataBase();
         data_.sortEndRound();
         data_.getMap().setPlaces(new ShortMap<Place>());
