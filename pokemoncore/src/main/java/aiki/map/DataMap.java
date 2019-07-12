@@ -489,7 +489,12 @@ public final class DataMap {
         }
         for (String n : baseEvos_) {
             PokemonData fPk_ = _d.getPokemon(n);
-            if (!directCatchPk_.getVal(n).containsAllObj(
+            EnumList<Gender> val_ = directCatchPk_.getVal(n);
+            if (val_ == null) {
+                _d.setError(true);
+                continue;
+            }
+            if (!val_.containsAllObj(
                     fPk_.getGenderRep().getPossibleGenders())) {
                 _d.setError(true);
             }

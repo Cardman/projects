@@ -84,7 +84,6 @@ public class BlockTest {
         dataBase_.addImage("tile.png", getImageByString(StringList.concat("6",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(getPixels(), Image.SEPARATOR_CHAR))));
         dataBase_.getMap().setSideLength(2);
         assertTrue(!blockOne_.hasValidImage(dataBase_));
-        assertEq(0, dataBase_.getImagesDimensions().size());
     }
 
     @Test
@@ -94,9 +93,6 @@ public class BlockTest {
         dataBase_.addImage("tile.png", getImageByString(StringList.concat("6",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(getPixels(), Image.SEPARATOR_CHAR))));
         dataBase_.getMap().setSideLength(2);
         assertTrue(blockOne_.hasValidImage(dataBase_));
-        assertEq(1, dataBase_.getImagesDimensions().size());
-        assertTrue(dataBase_.getImagesDimensions().contains("tile.png"));
-        assertEq(new Dims(6, 4), dataBase_.getImagesDimensions().getVal("tile.png"));
     }
 
     @Test
@@ -108,9 +104,6 @@ public class BlockTest {
         assertTrue(blockOne_.hasValidImage(dataBase_));
         Block blockTwo_ = new Block((short)3, (short)2, EnvironmentType.ROAD, "tile.png");
         assertTrue(blockTwo_.hasValidImage(dataBase_));
-        assertEq(1, dataBase_.getImagesDimensions().size());
-        assertTrue(dataBase_.getImagesDimensions().contains("tile.png"));
-        assertEq(new Dims(6, 4), dataBase_.getImagesDimensions().getVal("tile.png"));
     }
 
     @Test
@@ -122,9 +115,6 @@ public class BlockTest {
         assertTrue(blockOne_.hasValidImage(dataBase_));
         Block blockTwo_ = new Block((short)2, (short)3, EnvironmentType.ROAD, "tile.png");
         assertTrue(!blockTwo_.hasValidImage(dataBase_));
-        assertEq(1, dataBase_.getImagesDimensions().size());
-        assertTrue(dataBase_.getImagesDimensions().contains("tile.png"));
-        assertEq(new Dims(6, 4), dataBase_.getImagesDimensions().getVal("tile.png"));
     }
 
     @Test
@@ -134,12 +124,8 @@ public class BlockTest {
         dataBase_.addImage("tile.png", getImageByString(StringList.concat("6",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(getPixels(), Image.SEPARATOR_CHAR))));
         dataBase_.getMap().setSideLength(2);
         assertTrue(!blockOne_.hasValidImage(dataBase_));
-        assertEq(0, dataBase_.getImagesDimensions().size());
         Block blockTwo_ = new Block((short)3, (short)2, EnvironmentType.ROAD, "tile.png");
         assertTrue(blockTwo_.hasValidImage(dataBase_));
-        assertEq(1, dataBase_.getImagesDimensions().size());
-        assertTrue(dataBase_.getImagesDimensions().contains("tile.png"));
-        assertEq(new Dims(6, 4), dataBase_.getImagesDimensions().getVal("tile.png"));
     }
 
     @Test
@@ -149,7 +135,15 @@ public class BlockTest {
         dataBase_.addImage("tile.png", getImageByString(StringList.concat("6",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(getPixels(), Image.SEPARATOR_CHAR))));
         dataBase_.getMap().setSideLength(2);
         assertTrue(!blockOne_.hasValidImage(dataBase_));
-        assertEq(0, dataBase_.getImagesDimensions().size());
+    }
+
+    @Test
+    public void isValidForEditing9Test() {
+        Block blockOne_ = new Block((short)2, (short)3, EnvironmentType.ROAD, "tile.png");
+        DataBase dataBase_ = new DataBase();
+        dataBase_.addImage("tile.png", getImageByString(StringList.concat("6",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(getPixels(), Image.SEPARATOR_CHAR))));
+        dataBase_.getMap().setSideLength(3);
+        assertTrue(!blockOne_.hasValidImage(dataBase_));
     }
     private static int[][] getImageByString(String _string) {
         Image i_ = new Image(_string);

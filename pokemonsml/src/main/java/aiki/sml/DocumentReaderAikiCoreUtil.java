@@ -1875,7 +1875,6 @@ public final class DocumentReaderAikiCoreUtil {
 
     public static void loadResources(DataBase _d,PerCent _perCentLoading, String _lg) {
         int delta_ = (100 - _perCentLoading.getPercent()) / 6;
-        _d.getImagesDimensions().clear();
 
         _d.initializeMembers();
         String common_ = Resources.ACCESS_TO_DEFAULT_FILES;

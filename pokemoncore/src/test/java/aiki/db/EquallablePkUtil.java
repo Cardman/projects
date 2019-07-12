@@ -1,4 +1,5 @@
 package aiki.db;
+import code.util.Numbers;
 import org.junit.Assert;
 
 import aiki.fight.enums.EndTurnType;
@@ -118,7 +119,7 @@ public final class EquallablePkUtil {
     
     public static void assertEq(Dims _expected, Dims _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
+        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), eq(_expected, _result));
     }
 
     public static void assertEq(ScreenCoords _expected, ScreenCoords _result) {
@@ -184,5 +185,15 @@ public final class EquallablePkUtil {
 
     private static boolean sameValue(long _expected, long _result) {
         return _expected == _result;
+    }
+
+    public static boolean eq(Dims _current, Dims _g) {
+        if (!Numbers.eq(_current.getHeight(), _g.getHeight())) {
+            return false;
+        }
+        if (!Numbers.eq(_current.getWidth(), _g.getWidth())) {
+            return false;
+        }
+        return true;
     }
 }

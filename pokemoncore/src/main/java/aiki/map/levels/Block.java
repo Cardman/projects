@@ -1,10 +1,8 @@
 package aiki.map.levels;
 import aiki.db.DataBase;
 import aiki.map.levels.enums.EnvironmentType;
-import aiki.map.tree.util.Dims;
 import aiki.util.Point;
 import code.util.CustList;
-import code.util.*;
 
 
 public final class Block {
@@ -45,27 +43,12 @@ public final class Block {
             return false;
         }
         int scale_ = _data.getMap().getSideLength();
-        Dims dims_;
-        dims_ = new Dims(width * scale_, height * scale_);
-        if (_data.getImagesDimensions().contains(tileFileName)) {
-            Dims stored_;
-            stored_ = _data.getImagesDimensions().getVal(tileFileName);
-            if (!Numbers.eq(dims_.getWidth(), stored_.getWidth())) {
-                return false;
-            }
-            if (!Numbers.eq(dims_.getHeight(), stored_.getHeight())) {
-                return false;
-            }
-//            return Pair.eq(dims_, _data.getImagesDimensions().getVal(tileFileName));
-            return true;
-        }
         if (image_[0].length != width * scale_) {
             return false;
         }
         if (image_.length != height * scale_) {
             return false;
         }
-        _data.getImagesDimensions().put(tileFileName, dims_);
         return true;
     }
 

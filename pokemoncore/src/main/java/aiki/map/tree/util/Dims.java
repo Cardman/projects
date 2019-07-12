@@ -1,9 +1,8 @@
 package aiki.map.tree.util;
 import code.util.*;
 import code.util.ints.Displayable;
-import code.util.ints.Equallable;
 
-public final class Dims implements Equallable<Dims>, Displayable {
+public final class Dims implements Displayable {
 
     private static final String SEPARATOR = ",";
 
@@ -33,17 +32,6 @@ public final class Dims implements Equallable<Dims>, Displayable {
 
     public void setHeight(short _height) {
         height = _height;
-    }
-
-    @Override
-    public boolean eq(Dims _g) {
-        if (!Numbers.eq(height, _g.height)) {
-            return false;
-        }
-        if (!Numbers.eq(width, _g.width)) {
-            return false;
-        }
-        return true;
     }
 
     @Override
