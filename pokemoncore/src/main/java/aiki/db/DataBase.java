@@ -570,7 +570,6 @@ public class DataBase implements WithMathFactory {
         map.validate(this);
         if (map.isError()) {
             setError(true);
-            return;
         }
         _perCentLoading.setPercent(85);
         if (!_loading.get()) {
@@ -1069,7 +1068,6 @@ public class DataBase implements WithMathFactory {
     public void validateImages() {
         if (!animStatus.containsAllAsKeys(status.getKeys())) {
             setError(true);
-            return;
         }
         StringList statisNames_ = new StringList();
         for (Statistic s : Statistic.getStatisticsWithBoost()) {
@@ -1077,26 +1075,21 @@ public class DataBase implements WithMathFactory {
         }
         if (!animStatis.containsAllAsKeys(statisNames_)) {
             setError(true);
-            return;
         }
         if (!StringList.equalsSet(types, typesColors.getKeys())) {
             setError(true);
-            return;
         }
         if (!StringList.equalsSet(types, typesImages.getKeys())) {
             setError(true);
-            return;
         }
         for (String v : typesColors.values()) {
             if (ConverterBufferedImage.getIntColor(v, SEPARATOR_RGB) == -1) {
                 setError(true);
-                return;
             }
         }
         for (Place p : map.getPlaces().values()) {
             if (!p.hasValidImage(this)) {
                 setError(true);
-                return;
             }
         }
         for (int[][] i : links.values()) {

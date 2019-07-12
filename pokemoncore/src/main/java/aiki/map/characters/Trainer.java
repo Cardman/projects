@@ -20,13 +20,14 @@ public abstract class Trainer extends Person {
 
     @Override
     public boolean hasValidImage(DataBase _data) {
+        boolean val_ = true;
         if (!super.hasValidImage(_data)) {
-            return false;
+            val_ = false;
         }
         if (_data.getTrainer(imageMaxiFileName).length == 0) {
-            return false;
+            val_ = false;
         }
-        return true;
+        return val_;
     }
 
     public byte getMultiplicityFight() {

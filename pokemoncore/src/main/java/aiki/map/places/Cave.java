@@ -29,53 +29,39 @@ public final class Cave extends Campaign {
 
     @Override
     public void validate(DataBase _data, PlaceArea _placeArea) {
-        if (levels.isEmpty()) {
-            _data.setError(true);
-            return;
-
-        }
         if (linksWithOtherPlaces.isEmpty()) {
             _data.setError(true);
-            return;
-
         }
         if (levels.isEmpty()) {
             _data.setError(true);
-            return;
         }
         int nbLevels_ = levels.size();
         for (byte i = CustList.FIRST_INDEX; i < nbLevels_; i++) {
             LevelCave level_ = levels.getVal(i);
             level_.validate(_data, _placeArea.getLevel(i));
-            if (_data.isError()) {
-                return;
-            }
             for (EntryCust<Point, Link> e : level_.getLinksOtherLevels()
                     .entryList()) {
                 Link link_ = e.getValue();
                 if (!link_.isValid(_data)) {
                     _data.setError(true);
-                    return;
-
                 }
                 if (!level_.isEmptyForAdding(e.getKey())) {
                     _data.setError(true);
-                    return;
-
                 }
                 LevelPoint target_ = link_.getCoords().getLevel();
+                if (!_placeArea.isValidLevel(target_
+                        .getLevelIndex())) {
+                    _data.setError(true);
+                    continue;
+                }
                 LevelArea levelArea_ = _placeArea.getLevel(target_
                         .getLevelIndex());
                 if (!levelArea_.isValid(target_.getPoint(), true)) {
                     _data.setError(true);
-                    return;
-
                 }
                 LevelCave levelTarget_ = getLevelCave(target_);
                 if (!levelTarget_.isEmptyForAdding(target_.getPoint())) {
                     _data.setError(true);
-                    return;
-
                 }
             }
         }
@@ -83,27 +69,26 @@ public final class Cave extends Campaign {
             Link link_ = e.getValue();
             if (!link_.isValid(_data)) {
                 _data.setError(true);
-                return;
-
             }
             LevelPoint k_ = e.getKey();
+            if (!_placeArea.isValidLevel(k_
+                    .getLevelIndex())) {
+                _data.setError(true);
+                continue;
+            }
             if (!_placeArea.getLevel(k_.getLevelIndex()).isValid(k_.getPoint(),
                     false)) {
                 _data.setError(true);
-                return;
-
             }
             Coords c_ = link_.getCoords();
             if (!_data.getMap().existCoords(c_)) {
                 _data.setError(true);
-                return;
+                continue;
             }
             Place tar_ = _data.getMap().getPlaces().getVal(c_.getNumberPlace());
             Level tarLevel_ = tar_.getLevelByCoords(c_);
             if (!tarLevel_.isEmptyForAdding(c_.getLevel().getPoint())) {
                 _data.setError(true);
-                return;
-
             }
         }
     }

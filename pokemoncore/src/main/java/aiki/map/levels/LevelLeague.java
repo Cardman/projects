@@ -37,6 +37,11 @@ public final class LevelLeague extends Level {
     }
 
     @Override
+    public boolean isEmpty(Point _point) {
+        return isEmptyForAdding(_point);
+    }
+
+    @Override
     public boolean isEmptyForAdding(Point _point) {
         if (Point.eq(trainerCoords, _point)) {
             return false;
@@ -46,25 +51,19 @@ public final class LevelLeague extends Level {
 
     @Override
     public boolean hasValidImage(DataBase _data) {
+        boolean val_ = true;
         if (!super.hasValidImage(_data)) {
-            return false;
+            val_ = false;
         }
         if (!trainer.hasValidImage(_data)) {
-            return false;
+            val_ = false;
         }
         if (_data.getLink(fileName).length == 0) {
-            return false;
+            val_ = false;
         }
-        return true;
+        return val_;
     }
 
-    @Override
-    public boolean isEmpty(Point _point) {
-        if (Point.eq(trainerCoords, _point)) {
-            return false;
-        }
-        return true;
-    }
 
     public Point getTrainerCoords() {
         return trainerCoords;

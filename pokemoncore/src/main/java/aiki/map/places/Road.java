@@ -43,27 +43,21 @@ public final class Road extends Campaign implements InitializedPlace {
         for (PlaceInterConnect p : linksWithCitiesAndOtherRoads.getKeys()) {
             if (!levelArea_.isValid(p.getSource(), false)) {
                 _data.setError(true);
-                return;
-
             }
         }
         for (Point p : linksWithCaves.getKeys()) {
             if (!levelArea_.isValid(p, false)) {
                 _data.setError(true);
-                return;
-
             }
             Coords c_ = linksWithCaves.getVal(p).getCoords();
             if (!_data.getMap().existCoords(c_)) {
                 _data.setError(true);
-                return;
+                continue;
             }
             Place tar_ = _data.getMap().getPlaces().getVal(c_.getNumberPlace());
             Level tarLevel_ = tar_.getLevelByCoords(c_);
             if (!tarLevel_.isEmptyForAdding(c_.getLevel().getPoint())) {
                 _data.setError(true);
-                return;
-
             }
         }
         getLevelRoad().validate(_data, levelArea_);

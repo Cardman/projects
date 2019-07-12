@@ -170,20 +170,21 @@ public abstract class LevelWithWildPokemon extends Level {
 
     @Override
     public boolean hasValidImage(DataBase _data) {
+        boolean val_ = true;
         if (!super.hasValidImage(_data)) {
-            return false;
+            val_ = false;
         }
         for (EntryCust<Point, DualFight> e : dualFights.entryList()) {
             if (!e.getValue().getFoeTrainer().hasValidImage(_data)) {
-                return false;
+                val_ = false;
             }
         }
         for (EntryCust<Point, CharacterInRoadCave> e : characters.entryList()) {
             if (!e.getValue().hasValidImage(_data)) {
-                return false;
+                val_ = false;
             }
         }
-        return true;
+        return val_;
     }
 
     @Override

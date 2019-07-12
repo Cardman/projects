@@ -19,16 +19,18 @@ public abstract class Building {
     public void validate(DataBase _data, BuildingArea _buildingArea) {
         if (!_buildingArea.isValid(exitCity, true)) {
             _data.setError(true);
-            return;
-
         }
     }
 
     public boolean hasValidImage(DataBase _data) {
+        boolean val_ = true;
         if (_data.getLink(imageFileName).length == 0) {
-            return false;
+            val_ = false;
         }
-        return getLevel().hasValidImage(_data);
+        if (!getLevel().hasValidImage(_data)) {
+            val_ = false;
+        }
+        return val_;
     }
 
     public abstract Level getLevel();

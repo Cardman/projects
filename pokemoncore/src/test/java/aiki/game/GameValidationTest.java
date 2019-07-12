@@ -3057,6 +3057,32 @@ public class GameValidationTest extends InitializationDataBase {
         assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
     }
     @Test
+    public void validate121Test(){
+        Game game_ = new Game(_data_);
+        game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), _data_);
+        //invalid data because of inaccessibility of block
+        game_.setPlayerCoords(newCoords(1, 0, 5,1,4,1));
+        //game_.validate(data);
+        assertTrue(game_.validate(_data_));
+        assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
+        assertEq(0, game_.getRankLeague());
+        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+    }
+    @Test
+    public void validate122Test(){
+        Game game_ = new Game(_data_);
+        game_.initUserInteract(NICKNAME, Sex.BOY, game_.getDifficulty(), _data_);
+        //invalid data because of inaccessibility of block
+        game_.setPlayerCoords(newCoords(1, 0, 5,1,4,1));
+        //game_.validate(data);
+        assertTrue(game_.validate(_data_));
+        assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
+        assertEq(0, game_.getRankLeague());
+        assertEq(0, game_.getBeatGymTrainer().getVal((short) 1).size());
+        assertEq(0, game_.getBeatGymTrainer().getVal((short) 3).size());
+    }
+    @Test
     public void checkAndInitialize1Test(){
         Game game_ = new Game(_data_);
         game_.initUserInteract(NICKNAME, Sex.GIRL, game_.getDifficulty(), _data_);

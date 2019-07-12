@@ -1587,17 +1587,21 @@ public final class DataMap {
                 Coords coords_ = pl_.getSavedlinks().getVal(k);
                 Point pt_ = coords_.getLevel().getPoint();
                 short i_ = coords_.getNumberPlace();
-                if (!visited_.contains(i_)) {
-                    EqList<PlaceInterConnect> v_ = new EqList<PlaceInterConnect>();
-                    v_.add(new PlaceInterConnect(pt_, k.getDir().getOpposite()));
-                    visited_.put(i_, v_);
-                } else {
-                    EqList<PlaceInterConnect> v_ = visited_.getVal(i_);
-                    v_.add(new PlaceInterConnect(pt_, k.getDir().getOpposite()));
-                }
+                merge(visited_, k, pt_, i_);
                 join(i, coords_.getNumberPlace(), k.getSource(), pt_,
                         k.getDir());
             }
+        }
+    }
+
+    public static void merge(ShortMap<EqList<PlaceInterConnect>> _visited, PlaceInterConnect _k, Point _pt, short _i) {
+        if (!_visited.contains(_i)) {
+            EqList<PlaceInterConnect> v_ = new EqList<PlaceInterConnect>();
+            v_.add(new PlaceInterConnect(_pt, _k.getDir().getOpposite()));
+            _visited.put(_i, v_);
+        } else {
+            EqList<PlaceInterConnect> v_ = _visited.getVal(_i);
+            v_.add(new PlaceInterConnect(_pt, _k.getDir().getOpposite()));
         }
     }
 

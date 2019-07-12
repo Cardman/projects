@@ -47,8 +47,15 @@ public class PlaceArea {
             }
             return false;
         }
+        if (!levels.isValidIndex(levelPoint_.getLevelIndex())) {
+            return false;
+        }
         return levels.get(levelPoint_.getLevelIndex()).isValid(point_,
                 _accessible);
+    }
+
+    public boolean isValidLevel(byte _ind) {
+        return levels.isValidIndex(_ind);
     }
 
     public LevelArea getLevel(byte _ind) {

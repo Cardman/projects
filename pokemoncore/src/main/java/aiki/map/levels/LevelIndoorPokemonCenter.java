@@ -46,6 +46,12 @@ public final class LevelIndoorPokemonCenter extends Level {
         }
     }
 
+
+    @Override
+    public boolean isEmpty(Point _point) {
+        return isEmptyForAdding(_point);
+    }
+
     @Override
     public boolean isEmptyForAdding(Point _point) {
         if (Point.eq(storageCoords, _point)) {
@@ -56,29 +62,18 @@ public final class LevelIndoorPokemonCenter extends Level {
         }
         return true;
     }
-
-    @Override
-    public boolean isEmpty(Point _point) {
-        if (Point.eq(storageCoords, _point)) {
-            return false;
-        }
-        if (gerants.contains(_point)) {
-            return false;
-        }
-        return true;
-    }
-
     @Override
     public boolean hasValidImage(DataBase _data) {
+        boolean val_ = true;
         if (!super.hasValidImage(_data)) {
-            return false;
+            val_ = false;
         }
         for (Person p : gerants.values()) {
             if (!p.hasValidImage(_data)) {
-                return false;
+                val_ = false;
             }
         }
-        return true;
+        return val_;
     }
 
     public ObjectMap<Point, Person> getGerants() {

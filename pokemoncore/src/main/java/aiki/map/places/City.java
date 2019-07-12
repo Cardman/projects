@@ -56,20 +56,14 @@ public final class City extends Place implements InitializedPlace {
         for (EntryCust<Point, Building> e : buildings.entryList()) {
             if (levelArea_.isAccessible(e.getKey())) {
                 _data.setError(true);
-                return;
-
             }
             if (!levelArea_.isValid(e.getKey(), false)) {
                 _data.setError(true);
-                return;
-
             }
             Point pt_ = new Point(e.getKey());
             pt_.moveTo(Direction.DOWN);
             if (!levelArea_.isValid(pt_, true)) {
                 _data.setError(true);
-                return;
-
             }
             ids_.add(pt_);
             Building building_ = e.getValue();
@@ -84,40 +78,30 @@ public final class City extends Place implements InitializedPlace {
         }
         if (!existPkCenter_ || nbGyms_ > 1) {
             _data.setError(true);
-            return;
-
         }
         for (PlaceInterConnect p : linksPointsWithCitiesAndOtherRoads.getKeys()) {
             if (!levelArea_.isValid(p.getSource(), false)) {
                 _data.setError(true);
-                return;
-
             }
         }
         int len_ = ids_.size();
         ids_.removeDuplicates();
         if (len_ != ids_.size()) {
             _data.setError(true);
-            return;
-
         }
         for (Point p : linksWithCaves.getKeys()) {
             if (!levelArea_.isValid(p, false)) {
                 _data.setError(true);
-                return;
-
             }
             Coords c_ = linksWithCaves.getVal(p).getCoords();
             if (!_data.getMap().existCoords(c_)) {
                 _data.setError(true);
-                return;
+                continue;
             }
             Place tar_ = _data.getMap().getPlaces().getVal(c_.getNumberPlace());
             Level tarLevel_ = tar_.getLevelByCoords(c_);
             if (!tarLevel_.isEmptyForAdding(c_.getLevel().getPoint())) {
                 _data.setError(true);
-                return;
-
             }
         }
         getLevelOutdoor().validate(_data, levelArea_);
@@ -125,15 +109,16 @@ public final class City extends Place implements InitializedPlace {
 
     @Override
     public boolean hasValidImage(DataBase _data) {
+        boolean val_ = true;
         if (!super.hasValidImage(_data)) {
-            return false;
+            val_ = false;
         }
         for (Building b : buildings.values()) {
             if (!b.hasValidImage(_data)) {
-                return false;
+                val_ = false;
             }
         }
-        return true;
+        return val_;
     }
 
     @Override

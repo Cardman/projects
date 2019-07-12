@@ -39,6 +39,11 @@ public final class LevelIndoorGym extends Level {
     }
 
     @Override
+    public boolean isEmpty(Point _point) {
+        return isEmptyForAdding(_point);
+    }
+
+    @Override
     public boolean isEmptyForAdding(Point _point) {
         if (Point.eq(gymLeaderCoords, _point)) {
             return false;
@@ -50,30 +55,20 @@ public final class LevelIndoorGym extends Level {
     }
 
     @Override
-    public boolean isEmpty(Point _point) {
-        if (Point.eq(gymLeaderCoords, _point)) {
-            return false;
-        }
-        if (gymTrainers.contains(_point)) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
     public boolean hasValidImage(DataBase _data) {
+        boolean val_ = true;
         if (!super.hasValidImage(_data)) {
-            return false;
+            val_ = false;
         }
         for (GymTrainer g : gymTrainers.values()) {
             if (!g.hasValidImage(_data)) {
-                return false;
+                val_ = false;
             }
         }
         if (!gymLeader.hasValidImage(_data)) {
-            return false;
+            val_ = false;
         }
-        return true;
+        return val_;
     }
 
     public ObjectMap<Point, GymTrainer> getGymTrainers() {

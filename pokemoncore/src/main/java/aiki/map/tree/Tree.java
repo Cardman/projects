@@ -19,6 +19,9 @@ public class Tree {
     }
 
     public boolean isValid(Coords _coords, boolean _accessible) {
+        if (!places.isValidIndex(_coords.getNumberPlace())) {
+            return false;
+        }
         return places.get(_coords.getNumberPlace()).isValid(_coords,
                 _accessible);
     }

@@ -28,19 +28,14 @@ public final class League extends Place {
         if (rooms.isEmpty()) {
             _data.setError(true);
             return;
-
         }
         if (!_placeArea.getLevel(CustList.FIRST_INDEX).isValid(begin, true)) {
             _data.setError(true);
-            return;
-
         }
         rooms.first()
                 .validate(_data, _placeArea.getLevel(CustList.FIRST_INDEX));
         if (!rooms.first().isEmpty(begin)) {
             _data.setError(true);
-            return;
-
         }
         int nbRooms_ = rooms.size();
         for (byte i = CustList.SECOND_INDEX; i < nbRooms_; i++) {
@@ -48,19 +43,13 @@ public final class League extends Place {
             Point next_ = getLevelLeague((byte) (i - 1)).getNextLevelTarget();
             if (!getLevelLeague(i).isEmpty(next_)) {
                 _data.setError(true);
-                return;
-
             }
             if (!_placeArea.getLevel(i).isValid(next_, true)) {
                 _data.setError(true);
-                return;
-
             }
         }
         if (_data.getLink(fileName).length == 0) {
             _data.setError(true);
-            return;
-
         }
     }
 
