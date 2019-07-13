@@ -29,6 +29,7 @@ import code.maths.Rate;
 import code.util.*;
 import org.junit.Test;
 
+import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 public final class DataBaseValidationTest extends DataBaseValidationCommon {
@@ -1513,5 +1514,718 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         move_.setAccuracy("VAR");
         data_.completeMembers(CHARGE,move_);
         assertTrue(data_.strongMoves(Rate.newRate("60")).isEmpty());
+    }
+    @Test
+    public void checkTranslations1Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        StringMap<String> tr_ = new StringMap<String>();
+        tr_.addEntry(TREMPETTE,TREMPETTE);
+        data_.getTranslatedStatus().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedMoves().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedItems().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
+        data_.setCheckTranslation(true);
+        data_.checkTranslations("{TREMPETTE}");
+        assertTrue(!data_.isError());
+    }
+    @Test
+    public void checkTranslations2Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        StringMap<String> tr_ = new StringMap<String>();
+        data_.getTranslatedStatus().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        tr_.addEntry(TREMPETTE,TREMPETTE);
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedMoves().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedItems().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
+        data_.setCheckTranslation(true);
+        data_.checkTranslations("{TREMPETTE}");
+        assertTrue(!data_.isError());
+    }
+    @Test
+    public void checkTranslations3Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        StringMap<String> tr_ = new StringMap<String>();
+        data_.getTranslatedStatus().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        tr_.addEntry(TREMPETTE,TREMPETTE);
+        data_.getTranslatedMoves().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedItems().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
+        data_.setCheckTranslation(true);
+        data_.checkTranslations("{TREMPETTE}");
+        assertTrue(!data_.isError());
+    }
+    @Test
+    public void checkTranslations4Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        StringMap<String> tr_ = new StringMap<String>();
+        data_.getTranslatedStatus().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedMoves().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        tr_.addEntry(TREMPETTE,TREMPETTE);
+        data_.getTranslatedItems().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
+        data_.setCheckTranslation(true);
+        data_.checkTranslations("{TREMPETTE}");
+        assertTrue(!data_.isError());
+    }
+    @Test
+    public void checkTranslations5Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        StringMap<String> tr_ = new StringMap<String>();
+        data_.getTranslatedStatus().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedMoves().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedItems().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
+        StringMap<EnumMap<EnvironmentType, String>> translatedEnvironment_ = data_.getTranslatedEnvironment();
+        EnumMap<EnvironmentType, String> envType_ = new EnumMap<EnvironmentType, String>();
+        envType_.addEntry(EnvironmentType.ROAD,TREMPETTE);
+        translatedEnvironment_.addEntry(LANGUAGE, envType_);
+        data_.setCheckTranslation(true);
+        data_.checkTranslations("{ROAD}");
+        assertTrue(!data_.isError());
+    }
+    @Test
+    public void checkTranslations6Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        StringMap<String> tr_ = new StringMap<String>();
+        data_.getTranslatedStatus().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedMoves().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedItems().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        tr_.addEntry(TREMPETTE,TREMPETTE);
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
+        data_.setCheckTranslation(true);
+        data_.checkTranslations("{TREMPETTE}");
+        assertTrue(!data_.isError());
+    }
+    @Test
+    public void checkTranslations7Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        StringMap<String> tr_ = new StringMap<String>();
+        data_.getTranslatedStatus().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedMoves().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedItems().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        tr_.addEntry(TREMPETTE,TREMPETTE);
+        data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
+        data_.setCheckTranslation(true);
+        data_.checkTranslations("{TREMPETTE}");
+        assertTrue(!data_.isError());
+    }
+    @Test
+    public void checkTranslations8Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        StringMap<String> tr_ = new StringMap<String>();
+        data_.getTranslatedStatus().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedMoves().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedItems().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        tr_.addEntry(TREMPETTE,TREMPETTE);
+        data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
+        data_.setCheckTranslation(true);
+        data_.checkTranslations("{TREMPETTE}");
+        assertTrue(!data_.isError());
+    }
+    @Test
+    public void checkTranslations9Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        StringMap<String> tr_ = new StringMap<String>();
+        data_.getTranslatedStatus().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedMoves().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedItems().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
+        StringMap<EnumMap<Statistic, String>> translatedEnvironment_ = data_.getTranslatedStatistics();
+        EnumMap<Statistic, String> envType_ = new EnumMap<Statistic, String>();
+        envType_.addEntry(Statistic.SPEED,TREMPETTE);
+        translatedEnvironment_.addEntry(LANGUAGE, envType_);
+        data_.setCheckTranslation(true);
+        data_.checkTranslations("{SPEED}");
+        assertTrue(!data_.isError());
+    }
+    @Test
+    public void checkTranslations10Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        StringMap<String> tr_ = new StringMap<String>();
+        data_.getTranslatedStatus().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedMoves().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedItems().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
+        StringMap<EnumMap<Gender, String>> translatedEnvironment_ = data_.getTranslatedGenders();
+        EnumMap<Gender, String> envType_ = new EnumMap<Gender, String>();
+        envType_.addEntry(Gender.NO_GENDER,TREMPETTE);
+        translatedEnvironment_.addEntry(LANGUAGE, envType_);
+        data_.setCheckTranslation(true);
+        data_.checkTranslations("{NO_GENDER}");
+        assertTrue(!data_.isError());
+    }
+    @Test
+    public void checkTranslations11Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        StringMap<String> tr_ = new StringMap<String>();
+        data_.getTranslatedStatus().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedMoves().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedItems().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
+        data_.setCheckTranslation(true);
+        data_.checkTranslations("{TREMPETTE}");
+        assertTrue(data_.isError());
+    }
+    @Test
+    public void checkTranslations12Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        StringMap<String> tr_ = new StringMap<String>();
+        data_.getTranslatedStatus().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedMoves().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedItems().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
+        StringMap<EnumMap<Statistic, String>> translatedEnvironment_ = data_.getTranslatedStatistics();
+        EnumMap<Statistic, String> envType_ = new EnumMap<Statistic, String>();
+        translatedEnvironment_.addEntry(LANGUAGE, envType_);
+        data_.setCheckTranslation(true);
+        data_.checkTranslations("{SPEED}");
+        assertTrue(data_.isError());
+    }
+    @Test
+    public void checkTranslations13Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        StringMap<String> tr_ = new StringMap<String>();
+        data_.getTranslatedStatus().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedMoves().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedItems().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
+        StringMap<EnumMap<Gender, String>> translatedEnvironment_ = data_.getTranslatedGenders();
+        EnumMap<Gender, String> envType_ = new EnumMap<Gender, String>();
+        translatedEnvironment_.addEntry(LANGUAGE, envType_);
+        data_.setCheckTranslation(true);
+        data_.checkTranslations("{NO_GENDER}");
+        assertTrue(data_.isError());
+    }
+    @Test
+    public void checkTranslations14Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        StringMap<String> tr_ = new StringMap<String>();
+        data_.getTranslatedStatus().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedMoves().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedItems().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
+        StringMap<EnumMap<EnvironmentType, String>> translatedEnvironment_ = data_.getTranslatedEnvironment();
+        EnumMap<EnvironmentType, String> envType_ = new EnumMap<EnvironmentType, String>();
+        translatedEnvironment_.addEntry(LANGUAGE, envType_);
+        data_.setCheckTranslation(true);
+        data_.checkTranslations("{ROAD}");
+        assertTrue(data_.isError());
+    }
+    @Test
+    public void checkTranslations15Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        StringMap<String> tr_ = new StringMap<String>();
+        data_.getTranslatedStatus().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedMoves().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedItems().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
+        data_.setCheckTranslation(true);
+        data_.checkTranslations("{TREMPETTE,TREMPETTE2}");
+        assertTrue(data_.isError());
+    }
+    @Test
+    public void checkTranslations16Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        StringMap<String> tr_ = new StringMap<String>();
+        data_.getTranslatedStatus().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedMoves().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedItems().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
+        data_.setCheckTranslation(true);
+        data_.checkTranslations("{}");
+        assertTrue(!data_.isError());
+    }
+    @Test
+    public void checkTranslations17Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        StringMap<String> tr_ = new StringMap<String>();
+        tr_.addEntry(TREMPETTE,TREMPETTE);
+        tr_.addEntry(TREMPETTE2,TREMPETTE2);
+        data_.getTranslatedStatus().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedMoves().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedItems().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
+        data_.setCheckTranslation(true);
+        data_.checkTranslations("{TREMPETTE;TREMPETTE2}");
+        assertTrue(!data_.isError());
+    }
+    @Test
+    public void getFormula1Test() {
+        DataBase data_ =init();
+        StringMap<String>  tr_ = data_.getTranslatedMoves().getVal(LANGUAGE);
+        tr_.addEntry(TREMPETTE,TREMPETTE2);
+        tr_.addEntry(TREMPETTE2,TREMPETTE);
+        StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
+        litt_.addEntry("MYVAR","move\tmv{0}\ta move");
+        assertEq("mvTREMPETTE2", data_.getFormula("VAR__MYVAR__TREMPETTE",LANGUAGE));
+    }
+    @Test
+    public void getFormula2Test() {
+        DataBase data_ =init();
+        StringMap<String>  tr_ = data_.getTranslatedTypes().getVal(LANGUAGE);
+        tr_.addEntry(TREMPETTE,TREMPETTE2);
+        tr_.addEntry(TREMPETTE2,TREMPETTE);
+        StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
+        litt_.addEntry("MYVAR","type\tmv{0}\ta move");
+        assertEq("mvTREMPETTE2", data_.getFormula("VAR__MYVAR__TREMPETTE",LANGUAGE));
+    }
+    @Test
+    public void getFormula3Test() {
+        DataBase data_ =init();
+        StringMap<String>  tr_ = data_.getTranslatedCategories().getVal(LANGUAGE);
+        tr_.addEntry(TREMPETTE,TREMPETTE2);
+        tr_.addEntry(TREMPETTE2,TREMPETTE);
+        StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
+        litt_.addEntry("MYVAR","cat\tmv{0}\ta move");
+        assertEq("mvTREMPETTE2", data_.getFormula("VAR__MYVAR__TREMPETTE",LANGUAGE));
+    }
+    @Test
+    public void getFormula4Test() {
+        DataBase data_ =init();
+        StringMap<String>  tr_ = data_.getTranslatedStatus().getVal(LANGUAGE);
+        tr_.addEntry(TREMPETTE,TREMPETTE2);
+        tr_.addEntry(TREMPETTE2,TREMPETTE);
+        StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
+        litt_.addEntry("MYVAR","status\tmv{0}\ta move");
+        assertEq("mvTREMPETTE2", data_.getFormula("VAR__MYVAR__TREMPETTE",LANGUAGE));
+    }
+    @Test
+    public void getFormula5Test() {
+        DataBase data_ =init();
+        data_.getTranslatedStatistics().addEntry(LANGUAGE,new EnumMap<Statistic, String>());
+        EnumMap<Statistic, String> tr_ = data_.getTranslatedStatistics().getVal(LANGUAGE);
+        tr_.addEntry(Statistic.SPEED,TREMPETTE2);
+        StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
+        litt_.addEntry("MYVAR","statis\tmv{0}\ta move");
+        assertEq("mvTREMPETTE2", data_.getFormula("VAR__MYVAR__SPEED",LANGUAGE));
+    }
+    @Test
+    public void getFormula6Test() {
+        DataBase data_ =init();
+        StringMap<String>  tr_ = data_.getTranslatedMoves().getVal(LANGUAGE);
+        tr_.addEntry(TREMPETTE,TREMPETTE2);
+        tr_.addEntry(TREMPETTE2,TREMPETTE);
+        StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
+        litt_.addEntry("MYVAR","move\tmv{0}\ta move");
+        assertEq("{TREMPETTE2}", data_.getFormula("{TREMPETTE}",LANGUAGE));
+    }
+    @Test
+    public void getFormula7Test() {
+        DataBase data_ =init();
+        StringMap<String>  tr_ = data_.getTranslatedTypes().getVal(LANGUAGE);
+        tr_.addEntry(TREMPETTE,TREMPETTE2);
+        tr_.addEntry(TREMPETTE2,TREMPETTE);
+        StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
+        litt_.addEntry("MYVAR","type\tmv{0}\ta move");
+        assertEq("{TREMPETTE2}", data_.getFormula("{TREMPETTE}",LANGUAGE));
+    }
+    @Test
+    public void getFormula8Test() {
+        DataBase data_ =init();
+        StringMap<String>  tr_ = data_.getTranslatedCategories().getVal(LANGUAGE);
+        tr_.addEntry(TREMPETTE,TREMPETTE2);
+        tr_.addEntry(TREMPETTE2,TREMPETTE);
+        StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
+        litt_.addEntry("MYVAR","cat\tmv{0}\ta move");
+        assertEq("{TREMPETTE2}", data_.getFormula("{TREMPETTE}",LANGUAGE));
+    }
+    @Test
+    public void getFormula9Test() {
+        DataBase data_ =init();
+        StringMap<String>  tr_ = data_.getTranslatedStatus().getVal(LANGUAGE);
+        tr_.addEntry(TREMPETTE,TREMPETTE2);
+        tr_.addEntry(TREMPETTE2,TREMPETTE);
+        StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
+        litt_.addEntry("MYVAR","status\tmv{0}\ta move");
+        assertEq("{TREMPETTE2}", data_.getFormula("{TREMPETTE}",LANGUAGE));
+    }
+    @Test
+    public void getFormula10Test() {
+        DataBase data_ =init();
+        data_.getTranslatedStatistics().addEntry(LANGUAGE,new EnumMap<Statistic, String>());
+        EnumMap<Statistic, String> tr_ = data_.getTranslatedStatistics().getVal(LANGUAGE);
+        tr_.addEntry(Statistic.SPEED,TREMPETTE2);
+        StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
+        litt_.addEntry("MYVAR","statis\tmv{0}\ta move");
+        assertEq("{TREMPETTE2}", data_.getFormula("{SPEED}",LANGUAGE));
+    }
+    @Test
+    public void getFormula11Test() {
+        DataBase data_ =init();
+        StringMap<String>  tr_ = data_.getTranslatedMoves().getVal(LANGUAGE);
+        tr_.addEntry(TREMPETTE,TREMPETTE2);
+        tr_.addEntry(CHARGE,TREMPETTE);
+        StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
+        litt_.addEntry("MYVAR","move\tmv{0}\ta move");
+        assertEq("{TREMPETTE;TREMPETTE2}", data_.getFormula("{TREMPETTE;CHARGE}",LANGUAGE));
+    }
+    @Test
+    public void getFormula12Test() {
+        DataBase data_ =init();
+        data_.getTranslatedStatistics().addEntry(LANGUAGE,new EnumMap<Statistic, String>());
+        EnumMap<Statistic, String> tr_ = data_.getTranslatedStatistics().getVal(LANGUAGE);
+        tr_.addEntry(Statistic.SPEED,TREMPETTE2);
+        StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
+        litt_.addEntry("MYVAR","statis\tmv{0}\ta move");
+        assertEq("{mvTREMPETTE2}", data_.getFormula("{VAR__MYVAR__SPEED}",LANGUAGE));
+    }
+    @Test
+    public void getFormula13Test() {
+        DataBase data_ =init();
+        data_.getTranslatedStatistics().addEntry(LANGUAGE,new EnumMap<Statistic, String>());
+        EnumMap<Statistic, String> tr_ = data_.getTranslatedStatistics().getVal(LANGUAGE);
+        tr_.addEntry(Statistic.SPEED,TREMPETTE2);
+        StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
+        litt_.addEntry("MYVAR","statis\tmv{0}\ta move");
+        assertEq("{0}", data_.getFormula("{0}",LANGUAGE));
+    }
+    @Test
+    public void getFormula14Test() {
+        DataBase data_ =init();
+        data_.getTranslatedStatistics().addEntry(LANGUAGE,new EnumMap<Statistic, String>());
+        EnumMap<Statistic, String> tr_ = data_.getTranslatedStatistics().getVal(LANGUAGE);
+        tr_.addEntry(Statistic.SPEED,TREMPETTE2);
+        StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
+        litt_.addEntry("MYVAR","statis\tmv{0}\ta move");
+        assertEq("{}", data_.getFormula("{}",LANGUAGE));
+    }
+    @Test
+    public void getFormula15Test() {
+        DataBase data_ =init();
+        StringMap<String>  tr_ = data_.getTranslatedStatus().getVal(LANGUAGE);
+        tr_.addEntry(TREMPETTE,TREMPETTE2);
+        tr_.addEntry(TREMPETTE2,TREMPETTE);
+        StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
+        litt_.addEntry("MYVAR","status\tmv{0}\ta move");
+        assertEq("mvTREMPETTE2+mvTREMPETTE", data_.getFormula("VAR__MYVAR__TREMPETTE+VAR__MYVAR__TREMPETTE2",LANGUAGE));
+    }
+    @Test
+    public void getFormula16Test() {
+        DataBase data_ =init();
+        StringMap<String>  tr_ = data_.getTranslatedStatus().getVal(LANGUAGE);
+        tr_.addEntry(TREMPETTE,TREMPETTE2);
+        tr_.addEntry(TREMPETTE2,TREMPETTE);
+        StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
+        litt_.addEntry("MYVAR","status\tmv{0}\ta move");
+        StringMap<String> math_ = data_.getTranslatedFctMath().getVal(LANGUAGE);
+        math_.addEntry("fct","myfct");
+        assertEq("8+myfct(5)", data_.getFormula("8+fct(5)",LANGUAGE));
+    }
+    @Test
+    public void getFormula17Test() {
+        DataBase data_ =init();
+        StringMap<String>  tr_ = data_.getTranslatedStatus().getVal(LANGUAGE);
+        tr_.addEntry(TREMPETTE,TREMPETTE2);
+        tr_.addEntry(TREMPETTE2,TREMPETTE);
+        StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
+        litt_.addEntry("MYVAR","status\tmv{0}\ta move");
+        StringMap<String> math_ = data_.getTranslatedFctMath().getVal(LANGUAGE);
+        math_.addEntry("fct","myfct");
+        math_.addEntry("V","T");
+        math_.addEntry("F","F");
+        assertEq("T", data_.getFormula("V",LANGUAGE));
+    }
+    @Test
+    public void getFormula18Test() {
+        DataBase data_ =init();
+        StringMap<String>  tr_ = data_.getTranslatedStatus().getVal(LANGUAGE);
+        tr_.addEntry(TREMPETTE,TREMPETTE2);
+        tr_.addEntry(TREMPETTE2,TREMPETTE);
+        StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
+        litt_.addEntry("MYVAR","status\tmv{0}\ta move");
+        StringMap<String> math_ = data_.getTranslatedFctMath().getVal(LANGUAGE);
+        math_.addEntry("fct","myfct");
+        math_.addEntry("V","T");
+        math_.addEntry("F","F");
+        assertEq("F", data_.getFormula("F",LANGUAGE));
+    }
+    @Test
+    public void getFormula19Test() {
+        DataBase data_ =init();
+        StringMap<String>  tr_ = data_.getTranslatedStatus().getVal(LANGUAGE);
+        tr_.addEntry(TREMPETTE,TREMPETTE2);
+        tr_.addEntry(TREMPETTE2,TREMPETTE);
+        StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
+        litt_.addEntry("MYVAR","status\tmv{0}\ta move");
+        assertEq("TREMPETTE2", data_.getFormula("TREMPETTE",LANGUAGE));
+    }
+    private DataBase init() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        StringMap<String> tr_ = new StringMap<String>();
+        data_.getTranslatedStatus().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedMoves().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedItems().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedAbilities().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedTypes().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedCategories().addEntry(LANGUAGE, tr_);
+        tr_ = new StringMap<String>();
+        data_.getLitterals().addEntry(LANGUAGE,tr_);
+        tr_ = new StringMap<String>();
+        data_.getTranslatedFctMath().addEntry(LANGUAGE,tr_);
+        return data_;
+    }
+    @Test
+    public void failTableType1Test() {
+        DataBase data_ =init();
+        data_.getTableTypes().addEntry(new TypesDuo("!","?"),Rate.zero());
+        data_.getTableTypes().addEntry(new TypesDuo("<",">"),Rate.zero());
+        data_.getTableTypes().addEntry(new TypesDuo("[","]"),Rate.zero());
+        data_.getTableTypes().addEntry(new TypesDuo("{","}"),Rate.zero());
+        data_.getTableTypes().addEntry(new TypesDuo("__","}"),Rate.zero());
+        data_.getTableTypes().addEntry(new TypesDuo("0","a"),Rate.zero());
+        data_.getTableTypes().addEntry(new TypesDuo("_","a"),Rate.zero());
+        data_.getTableTypes().addEntry(new TypesDuo("_5","a"),Rate.zero());
+        data_.initTypesByTable();
+        assertTrue(data_.isError());
     }
 }

@@ -1774,7 +1774,7 @@ public class DataBase implements WithMathFactory {
             return false;
         }
         int len_ = _string.length();
-        for (int i = CustList.SECOND_INDEX; i < len_; i++) {
+        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             char curr_ = _string.charAt(i);
             boolean ok_ = false;
             if (curr_ >= 'a' && curr_ <= 'z') {
@@ -2554,7 +2554,7 @@ public class DataBase implements WithMathFactory {
         while (i_ < len_) {
             char cur_ = _litt.charAt(i_);
             if (br_) {
-                boolean dig_ = cur_ >= '0' && cur_ <= '9';
+                boolean dig_ = Character.isDigit(cur_);
                 int j_ = i_;
                 int delta_ = 0;
                 if (!StringList.isWordChar(cur_)) {
@@ -2601,10 +2601,13 @@ public class DataBase implements WithMathFactory {
                 continue;
             }
             if (StringList.isWordChar(cur_)) {
-                boolean dig_ = cur_ >= '0' && cur_ <= '9';
+                boolean dig_ = Character.isDigit(cur_);
                 int j_ = i_;
                 while (StringList.isWordChar(cur_)) {
                     j_++;
+                    if (j_ >= _litt.length()) {
+                        break;
+                    }
                     cur_ = _litt.charAt(j_);
                 }
                 String word_ = _litt.substring(i_, j_);
@@ -2743,9 +2746,6 @@ public class DataBase implements WithMathFactory {
         StringList sets_ = StringList.getTokensSets(StringList.removeStrings(
                 _string, emptySet_));
         for (String s : sets_) {
-            if (StringList.quickEq(s, emptySet_)) {
-                continue;
-            }
             if (!s.startsWith(StringList.concat(DataBase.EMPTY_STRING,
                     String.valueOf(StringList.LEFT_BRACE)))) {
                 continue;
