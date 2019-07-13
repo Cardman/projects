@@ -19,6 +19,7 @@ import aiki.fight.moves.effects.EffectFullHpRate;
 import aiki.fight.moves.effects.EffectStatistic;
 import aiki.fight.moves.effects.EffectStatus;
 import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
+import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.ExpType;
 import aiki.fight.status.Status;
 import aiki.game.params.Difficulty;
@@ -54,7 +55,21 @@ public final class CheckNumericStringsFight {
         Player user_ = new Player(DataBase.EMPTY_STRING, null, diff_, false,
                 _data);
         WildPk pk_ = new WildPk();
-        pk_.setName(_data.getPokedex().getKeys().first());
+        if (_data.getPokedex().isEmpty()) {
+            _data.setError(true);
+            return;
+        }
+        pk_.setName(_data.getPokedex().firstKey());
+        if (_data.getAbilities().isEmpty()) {
+            _data.setError(true);
+            return;
+        }
+        PokemonData pokemonData_ = _data.getPokedex().firstValue();
+        if (!Statistic.equalsSet(pokemonData_.getStatistics().getKeys(),
+                Statistic.getStatisticsWithBase())) {
+            _data.setError(true);
+            return;
+        }
         pk_.setAbility(_data.getAbilities().getKeys().first());
         PokemonPlayer pkUser_ = new PokemonPlayer(pk_, _data);
         user_.getTeam().add(pkUser_);
@@ -62,6 +77,10 @@ public final class CheckNumericStringsFight {
         PkTrainer foePokemon_ = new PkTrainer();
         foePokemon_.setName(_data.getPokedex().getKeys().first());
         foePokemon_.setAbility(_data.getAbilities().getKeys().first());
+        if (_data.getMoves().isEmpty()) {
+            _data.setError(true);
+            return;
+        }
         foePokemon_
                 .setMoves(new StringList(_data.getMoves().getKeys().first()));
         foeTeam_.add(foePokemon_);
@@ -378,8 +397,13 @@ public final class CheckNumericStringsFight {
         EvolvedNumString chNum_;
         for (String m : _data.getMoves().getKeys()) {
             MoveData m_ = _data.getMove(m);
+            int index_ = m_.indexOfPrimaryEffect();
+            if (index_ < 0) {
+                _data.setError(true);
+                continue;
+            }
             for (TeamPosition t : addIfEmpty(FightOrder.targetsEffect(_fight,
-                    _userFighter, m_.getEffet(m_.indexOfPrimaryEffect()),
+                    _userFighter, m_.getEffet(index_),
                     _diff, _data),_foeFighter)) {
                 if (TeamPosition.eq(t, _userFighter)) {
                     chNum_ = _data.createNumericableString(m_.getAccuracy(),

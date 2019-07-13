@@ -543,9 +543,6 @@ public class DataBase implements WithMathFactory {
         }
         _perCentLoading.setPercent(60);
         validateConstants();
-        if (isError()) {
-            return;
-        }
         setCheckTranslation(true);
         CheckNumericStringsFight.validateNumericBooleanStrings(this);
         if (!_loading.get()) {
@@ -553,25 +550,26 @@ public class DataBase implements WithMathFactory {
         }
         _perCentLoading.setPercent(70);
         Rate power_ = getStrongMovePower();
-        if (Rate.strLower(power_, new Rate(90))) {
+        if (power_ == null) {
             setError(true);
-        }
-        ObjectMap<TypeStatistic, Boolean> strongMovesTypeStat_ = strongMoves(power_);
-        for (EntryCust<TypeStatistic, Boolean> e : strongMovesTypeStat_
-                .entryList()) {
-            if (e.getValue()) {
-                continue;
+        } else {
+            if (Rate.strLower(power_, new Rate(90))) {
+                setError(true);
             }
-            setError(true);
+            ObjectMap<TypeStatistic, Boolean> strongMovesTypeStat_ = strongMoves(power_);
+            for (EntryCust<TypeStatistic, Boolean> e : strongMovesTypeStat_
+                    .entryList()) {
+                if (e.getValue()) {
+                    continue;
+                }
+                setError(true);
+            }
         }
 
         if (!_loading.get()) {
             return;
         }
         map.validate(this);
-        if (map.isError()) {
-            setError(true);
-        }
         _perCentLoading.setPercent(85);
         if (!_loading.get()) {
             return;
@@ -2664,7 +2662,7 @@ public class DataBase implements WithMathFactory {
         return newList_;
     }
 
-    private static boolean isVariable(String _string) {
+    static boolean isVariable(String _string) {
         if (!_string.startsWith(VAR_PREFIX)) {
             return false;
         }

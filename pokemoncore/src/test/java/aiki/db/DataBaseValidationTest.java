@@ -2187,6 +2187,22 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         litt_.addEntry("MYVAR","status\tmv{0}\ta move");
         assertEq("TREMPETTE2", data_.getFormula("TREMPETTE",LANGUAGE));
     }
+    @Test
+    public void getDescriptionsTest() {
+        DataBase data_ =init();
+        StringMap<String>  tr_ = data_.getTranslatedStatus().getVal(LANGUAGE);
+        tr_.addEntry(TREMPETTE,TREMPETTE2);
+        tr_.addEntry(TREMPETTE2,TREMPETTE);
+        StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
+        litt_.addEntry("MYVAR","status\tmv{0}\ta move {0}");
+        litt_.addEntry("MYVAR2","status\tsec mv{0}\ta sec move {0}");
+        NatStringTreeMap<String> desc_ = data_.getDescriptions("VAR__MYVAR__TREMPETTE+VAR__MYVAR2__TREMPETTE2", LANGUAGE);
+        assertEq(2,desc_.size());
+        assertEq("mvTREMPETTE2", desc_.getKey(0));
+        assertEq("a move TREMPETTE2", desc_.getValue(0));
+        assertEq("sec mvTREMPETTE", desc_.getKey(1));
+        assertEq("a sec move TREMPETTE", desc_.getValue(1));
+    }
     private DataBase init() {
         DataBase data_ =new DataBase();
         data_.setLanguage(LANGUAGE);
@@ -2226,6 +2242,518 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.getTableTypes().addEntry(new TypesDuo("_","a"),Rate.zero());
         data_.getTableTypes().addEntry(new TypesDuo("_5","a"),Rate.zero());
         data_.initTypesByTable();
+        assertTrue(data_.isError());
+    }
+    @Test
+    public void validate1Test() {
+        DataBase data_ =init();
+        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getMap().setPlaces(new ShortMap<Place>());
+        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        initConstants(data_);
+        initExpPoints(data_);
+        initRandomLaws(data_);
+        data_.validate(new PerCentImpl(),new LoadFlagSample());
+        assertTrue(data_.isError());
+    }
+    @Test
+    public void validate2Test() {
+        DataBase data_ =init();
+        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getMap().setPlaces(new ShortMap<Place>());
+        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        data_.completeMembers(PIKACHU,Instances.newPokemonData());
+        initConstants(data_);
+        initExpPoints(data_);
+        initRandomLaws(data_);
+        data_.validate(new PerCentImpl(),new LoadFlagSample());
+        assertTrue(data_.isError());
+    }
+    @Test
+    public void validate3Test() {
+        DataBase data_ =init();
+        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getMap().setPlaces(new ShortMap<Place>());
+        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        PokemonData pokemon_ = Instances.newPokemonData();
+        pokemon_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.HP,new StatBaseEv((short)1,(short)1));
+        data_.completeMembers(PIKACHU, pokemon_);
+        data_.completeMembers(TREMPETTE,Instances.newAbilityData());
+        initConstants(data_);
+        initExpPoints(data_);
+        initRandomLaws(data_);
+        data_.validate(new PerCentImpl(),new LoadFlagSample());
+        assertTrue(data_.isError());
+    }
+    @Test
+    public void validate4Test() {
+        DataBase data_ =init();
+        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getMap().setPlaces(new ShortMap<Place>());
+        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        PokemonData pokemon_ = Instances.newPokemonData();
+        pokemon_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.HP,new StatBaseEv((short)1,(short)1));
+        data_.completeMembers(PIKACHU, pokemon_);
+        data_.completeMembers(TREMPETTE,Instances.newAbilityData());
+        DamagingMoveData damagingMoveData_ = Instances.newDamagingMoveData();
+        damagingMoveData_.getEffects().add(Instances.newEffectDamage());
+        data_.completeMembers(CHARGE, damagingMoveData_);
+        initConstants(data_);
+        initExpPoints(data_);
+        initRandomLaws(data_);
+        data_.completeVariables();
+        data_.validate(new PerCentImpl(),new LoadFlagSample());
+        assertTrue(data_.isError());
+    }
+    @Test
+    public void validate5Test() {
+        DataBase data_ =init();
+        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getMap().setPlaces(new ShortMap<Place>());
+        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        PokemonData pokemon_ = Instances.newPokemonData();
+        pokemon_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.HP,new StatBaseEv((short)1,(short)1));
+        data_.completeMembers(PIKACHU, pokemon_);
+        data_.completeMembers(TREMPETTE,Instances.newAbilityData());
+        DamagingMoveData damagingMoveData_ = Instances.newDamagingMoveData();
+        data_.completeMembers(CHARGE, damagingMoveData_);
+        initConstants(data_);
+        initExpPoints(data_);
+        initRandomLaws(data_);
+        data_.completeVariables();
+        data_.validate(new PerCentImpl(),new LoadFlagSample());
+        assertTrue(data_.isError());
+    }
+    @Test
+    public void validate6Test() {
+        DataBase data_ =init();
+        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getMap().setPlaces(new ShortMap<Place>());
+        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        PokemonData pokemon_ = Instances.newPokemonData();
+        pokemon_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)1));
+        data_.completeMembers(PIKACHU, pokemon_);
+        data_.completeMembers(TREMPETTE,Instances.newAbilityData());
+        DamagingMoveData damagingMoveData_ = Instances.newDamagingMoveData();
+        data_.completeMembers(CHARGE, damagingMoveData_);
+        initConstants(data_);
+        initExpPoints(data_);
+        initRandomLaws(data_);
+        data_.completeVariables();
+        data_.validate(new PerCentImpl(),new LoadFlagSample());
+        assertTrue(data_.isError());
+    }
+    @Test
+    public void validate7Test() {
+        DataBase data_ =init();
+        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getMap().setPlaces(new ShortMap<Place>());
+        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        PokemonData pokemon_ = Instances.newPokemonData();
+        pokemon_.getStatistics().addEntry(Statistic.HP,new StatBaseEv((short)1,(short)1));
+        data_.completeMembers(PIKACHU, pokemon_);
+        data_.completeMembers(TREMPETTE,Instances.newAbilityData());
+        DamagingMoveData damagingMoveData_ = Instances.newDamagingMoveData();
+        data_.completeMembers(CHARGE, damagingMoveData_);
+        initConstants(data_);
+        initExpPoints(data_);
+        initRandomLaws(data_);
+        data_.completeVariables();
+        data_.validate(new PerCentImpl(),new LoadFlagSample());
+        assertTrue(data_.isError());
+    }
+    @Test
+    public void validate8Test() {
+        DataBase data_ =init();
+        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getMap().setPlaces(new ShortMap<Place>());
+        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        initConstants(data_);
+        initExpPoints(data_);
+        initRandomLaws(data_);
+        data_.completeVariables();
+        PerCentImpl perCentLoading_ = new PerCentImpl();
+        LoadFlagSampleOne loading_ = new LoadFlagSampleOne(perCentLoading_);
+        data_.validate(perCentLoading_, loading_);
+        assertTrue(!loading_.get());
+    }
+    @Test
+    public void validate9Test() {
+        DataBase data_ =init();
+        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getMap().setPlaces(new ShortMap<Place>());
+        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        initConstants(data_);
+        initExpPoints(data_);
+        initRandomLaws(data_);
+        data_.completeVariables();
+        PerCentImpl perCentLoading_ = new PerCentImpl();
+        LoadFlagSampleTwo loading_ = new LoadFlagSampleTwo(perCentLoading_);
+        data_.validate(perCentLoading_, loading_);
+        assertTrue(!loading_.get());
+    }
+    @Test
+    public void validate10Test() {
+        DataBase data_ =init();
+        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getMap().setPlaces(new ShortMap<Place>());
+        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        initConstants(data_);
+        initExpPoints(data_);
+        initRandomLaws(data_);
+        data_.completeVariables();
+        PerCentImpl perCentLoading_ = new PerCentImpl();
+        LoadFlagSampleThree loading_ = new LoadFlagSampleThree(perCentLoading_);
+        data_.validate(perCentLoading_, loading_);
+        assertTrue(!loading_.get());
+    }
+    @Test
+    public void validate11Test() {
+        DataBase data_ =init();
+        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getMap().setPlaces(new ShortMap<Place>());
+        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        initConstants(data_);
+        initExpPoints(data_);
+        initRandomLaws(data_);
+        data_.completeVariables();
+        PerCentImpl perCentLoading_ = new PerCentImpl();
+        LoadFlagSampleFour loading_ = new LoadFlagSampleFour(perCentLoading_);
+        data_.validate(perCentLoading_, loading_);
+        assertTrue(!loading_.get());
+    }
+    @Test
+    public void validate12Test() {
+        DataBase data_ =init();
+        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getMap().setPlaces(new ShortMap<Place>());
+        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        initConstants(data_);
+        initExpPoints(data_);
+        initRandomLaws(data_);
+        data_.completeVariables();
+        PerCentImpl perCentLoading_ = new PerCentImpl();
+        LoadFlagSampleFive loading_ = new LoadFlagSampleFive(perCentLoading_);
+        data_.validate(perCentLoading_, loading_);
+        assertTrue(!loading_.get());
+    }
+    @Test
+    public void validate13Test() {
+        DataBase data_ =init();
+        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getMap().setPlaces(new ShortMap<Place>());
+        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        initConstants(data_);
+        initExpPoints(data_);
+        initRandomLaws(data_);
+        data_.completeVariables();
+        PerCentImpl perCentLoading_ = new PerCentImpl();
+        LoadFlagSampleSix loading_ = new LoadFlagSampleSix();
+        data_.validate(perCentLoading_, loading_);
+        assertTrue(!loading_.get());
+    }
+    @Test
+    public void validate14Test() {
+        DataBase data_ =init();
+        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getMap().setPlaces(new ShortMap<Place>());
+        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        PokemonData pokemon_ = Instances.newPokemonData();
+        pokemon_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)1));
+        pokemon_.getLevMoves().add(new LevelMove((short)1,CHARGE));
+        pokemon_.getHiddenMoves().add((short)100);
+        pokemon_.getTechnicalMoves().add((short)100);
+        data_.completeMembers(PIKACHU, pokemon_);
+        data_.completeMembers(TREMPETTE,Instances.newAbilityData());
+        data_.getTm().addEntry((short)100,CHARGE);
+        data_.getHm().addEntry((short)100,CHARGE);
+        DamagingMoveData damagingMoveData_ = Instances.newDamagingMoveData();
+        data_.completeMembers(CHARGE, damagingMoveData_);
+        initConstants(data_);
+        initExpPoints(data_);
+        initRandomLaws(data_);
+        data_.completeVariables();
+        data_.validate(new PerCentImpl(),new LoadFlagSample());
+        assertTrue(data_.isError());
+    }
+    @Test
+    public void validate15Test() {
+        DataBase data_ =init();
+        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getMap().setPlaces(new ShortMap<Place>());
+        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        PokemonData pokemon_ = Instances.newPokemonData();
+        pokemon_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)1));
+        pokemon_.getLevMoves().add(new LevelMove((short)1,CHARGE));
+        pokemon_.getHiddenMoves().add((short)100);
+        pokemon_.getTechnicalMoves().add((short)100);
+        data_.completeMembers(PIKACHU, pokemon_);
+        data_.completeMembers(TREMPETTE,Instances.newAbilityData());
+        data_.getTm().addEntry((short)100,CHARGE);
+        data_.getHm().addEntry((short)100,CHARGE);
+        DamagingMoveData damagingMoveData_ = Instances.newDamagingMoveData();
+        data_.completeMembers(CHARGE, damagingMoveData_);
+        initConstants(data_);
+        data_.getConstNum().addEntry(DataBase.STRONG_MOVE,Rate.newRate("90"));
+        initExpPoints(data_);
+        initRandomLaws(data_);
+        data_.completeVariables();
+        data_.validate(new PerCentImpl(),new LoadFlagSample());
+        assertTrue(data_.isError());
+    }
+    @Test
+    public void validate16Test() {
+        DataBase data_ =init();
+        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getMap().setPlaces(new ShortMap<Place>());
+        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        PokemonData pokemon_ = Instances.newPokemonData();
+        pokemon_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)1));
+        pokemon_.getLevMoves().add(new LevelMove((short)1,CHARGE));
+        pokemon_.getHiddenMoves().add((short)100);
+        pokemon_.getTechnicalMoves().add((short)100);
+        data_.completeMembers(PIKACHU, pokemon_);
+        data_.completeMembers(TREMPETTE,Instances.newAbilityData());
+        data_.getTm().addEntry((short)100,CHARGE);
+        data_.getHm().addEntry((short)100,CHARGE);
+        DamagingMoveData damagingMoveData_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setStatisAtt(Statistic.ATTACK);
+        effectDamage_.setPower("100");
+        effectDamage_.setTargetChoice(TargetChoice.ANY_FOE);
+        damagingMoveData_.getEffects().add(effectDamage_);
+        damagingMoveData_.setAccuracy("1");
+        damagingMoveData_.setTypes(new StringList(ELECTRICK));
+        damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
+        data_.completeMembers(CHARGE, damagingMoveData_);
+        damagingMoveData_ = Instances.newDamagingMoveData();
+        effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setStatisAtt(Statistic.SPECIAL_ATTACK);
+        effectDamage_.setPower("100");
+        effectDamage_.setTargetChoice(TargetChoice.ANY_FOE);
+        damagingMoveData_.getEffects().add(effectDamage_);
+        damagingMoveData_.setAccuracy("1");
+        damagingMoveData_.setTypes(new StringList(ELECTRICK));
+        damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
+        data_.completeMembers(CHARGE2, damagingMoveData_);
+        initConstants(data_);
+        data_.getConstNum().addEntry(DataBase.STRONG_MOVE,Rate.newRate("90"));
+        initExpPoints(data_);
+        initRandomLaws(data_);
+        data_.getTableTypes().addEntry(new TypesDuo(ELECTRICK,ELECTRICK),Rate.one());
+        data_.completeVariables();
+        data_.validate(new PerCentImpl(),new LoadFlagSample());
+        assertTrue(data_.isError());
+    }
+    @Test
+    public void validate17Test() {
+        DataBase data_ =init();
+        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getMap().setPlaces(new ShortMap<Place>());
+        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        PokemonData pokemon_ = Instances.newPokemonData();
+        pokemon_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)1));
+        pokemon_.getLevMoves().add(new LevelMove((short)1,CHARGE));
+        pokemon_.getHiddenMoves().add((short)100);
+        pokemon_.getTechnicalMoves().add((short)100);
+        data_.completeMembers(PIKACHU, pokemon_);
+        data_.completeMembers(TREMPETTE,Instances.newAbilityData());
+        data_.getTm().addEntry((short)100,CHARGE);
+        data_.getHm().addEntry((short)100,CHARGE);
+        DamagingMoveData damagingMoveData_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setStatisAtt(Statistic.ATTACK);
+        effectDamage_.setPower("80");
+        effectDamage_.setTargetChoice(TargetChoice.ANY_FOE);
+        damagingMoveData_.getEffects().add(effectDamage_);
+        damagingMoveData_.setAccuracy("1");
+        damagingMoveData_.setTypes(new StringList(ELECTRICK));
+        damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
+        data_.completeMembers(CHARGE, damagingMoveData_);
+        damagingMoveData_ = Instances.newDamagingMoveData();
+        effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setStatisAtt(Statistic.SPECIAL_ATTACK);
+        effectDamage_.setPower("80");
+        effectDamage_.setTargetChoice(TargetChoice.ANY_FOE);
+        damagingMoveData_.getEffects().add(effectDamage_);
+        damagingMoveData_.setAccuracy("1");
+        damagingMoveData_.setTypes(new StringList(ELECTRICK));
+        damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
+        data_.completeMembers(CHARGE2, damagingMoveData_);
+        initConstants(data_);
+        data_.getConstNum().addEntry(DataBase.STRONG_MOVE,Rate.newRate("90"));
+        initExpPoints(data_);
+        initRandomLaws(data_);
+        data_.getTableTypes().addEntry(new TypesDuo(ELECTRICK,ELECTRICK),Rate.one());
+        data_.completeVariables();
+        data_.validate(new PerCentImpl(),new LoadFlagSample());
+        assertTrue(data_.isError());
+    }
+    @Test
+    public void validate18Test() {
+        DataBase data_ =init();
+        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getMap().setPlaces(new ShortMap<Place>());
+        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        PokemonData pokemon_ = Instances.newPokemonData();
+        pokemon_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)1));
+        pokemon_.getLevMoves().add(new LevelMove((short)1,CHARGE));
+        pokemon_.getHiddenMoves().add((short)100);
+        pokemon_.getTechnicalMoves().add((short)100);
+        data_.completeMembers(PIKACHU, pokemon_);
+        data_.completeMembers(TREMPETTE,Instances.newAbilityData());
+        data_.getTm().addEntry((short)100,CHARGE);
+        data_.getHm().addEntry((short)100,CHARGE);
+        DamagingMoveData damagingMoveData_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setStatisAtt(Statistic.ATTACK);
+        effectDamage_.setPower("80");
+        effectDamage_.setTargetChoice(TargetChoice.ANY_FOE);
+        damagingMoveData_.getEffects().add(effectDamage_);
+        damagingMoveData_.setAccuracy("1");
+        damagingMoveData_.setTypes(new StringList(ELECTRICK));
+        damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
+        data_.completeMembers(CHARGE, damagingMoveData_);
+        damagingMoveData_ = Instances.newDamagingMoveData();
+        effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setStatisAtt(Statistic.SPECIAL_ATTACK);
+        effectDamage_.setPower("80");
+        effectDamage_.setTargetChoice(TargetChoice.ANY_FOE);
+        damagingMoveData_.getEffects().add(effectDamage_);
+        damagingMoveData_.setAccuracy("1");
+        damagingMoveData_.setTypes(new StringList(ELECTRICK));
+        damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
+        data_.completeMembers(CHARGE2, damagingMoveData_);
+        initConstants(data_);
+        data_.getConstNum().addEntry(DataBase.STRONG_MOVE,Rate.newRate("85"));
+        initExpPoints(data_);
+        initRandomLaws(data_);
+        data_.completeVariables();
+        data_.validate(new PerCentImpl(),new LoadFlagSample());
+        assertTrue(data_.isError());
+    }
+    @Test
+    public void validate19Test() {
+        DataBase data_ =init();
+        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getMap().setPlaces(new ShortMap<Place>());
+        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        initConstants(data_);
+        initExpPoints(data_);
+        initRandomLaws(data_);
+        data_.getLawsDamageRate().lastValue().getLaw().getLaw().clear();
+        data_.completeVariables();
+        data_.validate(new PerCentImpl(),new LoadFlagSample());
+        assertTrue(data_.isError());
+    }
+    @Test
+    public void validate20Test() {
+        DataBase data_ =init();
+        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getMap().setPlaces(new ShortMap<Place>());
+        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        PokemonData pokemon_ = Instances.newPokemonData();
+        pokemon_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)1));
+        pokemon_.getLevMoves().add(new LevelMove((short)1,CHARGE));
+        pokemon_.getHiddenMoves().add((short)100);
+        pokemon_.getTechnicalMoves().add((short)100);
+        data_.completeMembers(PIKACHU, pokemon_);
+        data_.completeMembers(TREMPETTE,Instances.newAbilityData());
+        data_.getTm().addEntry((short)100,CHARGE);
+        data_.getHm().addEntry((short)100,CHARGE);
+        DamagingMoveData damagingMoveData_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setStatisAtt(Statistic.ATTACK);
+        effectDamage_.setPower("100");
+        effectDamage_.setTargetChoice(TargetChoice.ANY_FOE);
+        damagingMoveData_.getEffects().add(effectDamage_);
+        damagingMoveData_.setAccuracy("1");
+        damagingMoveData_.setTypes(new StringList(ELECTRICK));
+        damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
+        data_.completeMembers(CHARGE, damagingMoveData_);
+        damagingMoveData_ = Instances.newDamagingMoveData();
+        effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setStatisAtt(Statistic.SPECIAL_ATTACK);
+        effectDamage_.setPower("100");
+        effectDamage_.setTargetChoice(TargetChoice.ANY_FOE);
+        damagingMoveData_.getEffects().add(effectDamage_);
+        damagingMoveData_.setAccuracy("1");
+        damagingMoveData_.setTypes(new StringList(ELECTRICK));
+        damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
+        data_.completeMembers(CHARGE2, damagingMoveData_);
+        damagingMoveData_ = Instances.newDamagingMoveData();
+        effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setStatisAtt(Statistic.ATTACK);
+        effectDamage_.setPower("100");
+        effectDamage_.setTargetChoice(TargetChoice.ANY_FOE);
+        damagingMoveData_.getEffects().add(effectDamage_);
+        damagingMoveData_.setAccuracy("1");
+        damagingMoveData_.setTypes(new StringList(PARATONNERRE));
+        damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
+        data_.completeMembers(TREMPETTE3, damagingMoveData_);
+        damagingMoveData_ = Instances.newDamagingMoveData();
+        effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setStatisAtt(Statistic.SPECIAL_ATTACK);
+        effectDamage_.setPower("100");
+        effectDamage_.setTargetChoice(TargetChoice.ANY_FOE);
+        damagingMoveData_.getEffects().add(effectDamage_);
+        damagingMoveData_.setAccuracy("1");
+        damagingMoveData_.setTypes(new StringList(PARATONNERRE));
+        damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
+        data_.completeMembers(TREMPETTE2, damagingMoveData_);
+        initConstants(data_);
+        data_.getConstNum().addEntry(DataBase.STRONG_MOVE,Rate.newRate("90"));
+        initExpPoints(data_);
+        initRandomLaws(data_);
+        data_.getTableTypes().addEntry(new TypesDuo(ELECTRICK,ELECTRICK),Rate.one());
+        data_.getTableTypes().addEntry(new TypesDuo(PARATONNERRE,ELECTRICK),Rate.one());
+        data_.getTableTypes().addEntry(new TypesDuo(ELECTRICK,PARATONNERRE),Rate.one());
+        data_.getTableTypes().addEntry(new TypesDuo(PARATONNERRE,PARATONNERRE),Rate.one());
+        data_.completeVariables();
+        data_.validate(new PerCentImpl(),new LoadFlagSample());
         assertTrue(data_.isError());
     }
 }

@@ -2,6 +2,8 @@ package aiki.db;
 import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import aiki.fight.pokemon.PokemonData;
+import aiki.instances.Instances;
 import org.junit.Test;
 
 import aiki.fight.abilities.AbilityData;
@@ -61,6 +63,10 @@ import code.util.StringMap;
 public class DataBaseTest {
 
     @Test
+    public void toUpperCaseTest() {
+        assertEq("Aa!<>_{}[]?".length(), DataBase.toUpperCase("Aa!<>_{}[]?").length());
+    }
+    @Test
     public void checkCaseOfFiles1Test() {
         DataBase data_ = new DataBase();
         data_.initializeMembers();
@@ -107,6 +113,39 @@ public class DataBaseTest {
         assertTrue(StringList.contains(data_.getFilesWithSameNameDifferentCase(), "folder/FILE_ONE"));
     }
 
+    @Test
+    public void checkCaseOfFiles5Test() {
+        DataBase data_ = new DataBase();
+        data_.initializeMembers();
+        StringList files_ = new StringList();
+        files_.add("!file_one");
+        files_.add("!file_ONE");
+        files_.add("!File_ONE");
+        files_.add("!file_TWO");
+        data_.checkCaseOfFiles("folder", files_);
+        assertEq(1, data_.getFilesWithSameNameDifferentCase().size());
+        assertTrue(StringList.contains(data_.getFilesWithSameNameDifferentCase(), "folder/!FILE_ONE"));
+    }
+
+    @Test
+    public void checkCaseOfFiles6Test() {
+        DataBase data_ = new DataBase();
+        data_.initializeMembers();
+        StringList files_ = new StringList();
+        files_.add("<file_one");
+        files_.add("<file_ONE");
+        files_.add("<File_ONE");
+        files_.add("<file_TWO");
+        data_.checkCaseOfFiles("folder", files_);
+        assertEq(1, data_.getFilesWithSameNameDifferentCase().size());
+        assertTrue(StringList.contains(data_.getFilesWithSameNameDifferentCase(), "folder/<FILE_ONE"));
+        DataBase.toUpperCase("Aa!<>{}[]?");
+    }
+
+    @Test
+    public void isVariableTest() {
+        assertTrue(!DataBase.isVariable(DataBase.VAR_PREFIX));
+    }
     @Test
     public void completeMembers1Test() {
         DataBase data_ = new DataBase();
@@ -1666,5 +1705,22 @@ public class DataBaseTest {
         assertEq(2, data_.getVarParamsMove().getVal("NB_TURN").size());
         assertTrue(StringList.contains(data_.getVarParamsMove().getVal("NB_TURN"), "CHARGE"));
         assertTrue(StringList.contains(data_.getVarParamsMove().getVal("NB_TURN"), "FLYING"));
+    }
+    @Test
+    public void calculateAvgPound1Test() {
+        DataBase data_ = new DataBase();
+        data_.initializeMembers();
+        data_.calculateAvgPound();
+        assertEq(Rate.newRate("0"),data_.getAvgWeight());
+    }
+    @Test
+    public void calculateAvgPoun2Test() {
+        DataBase data_ = new DataBase();
+        data_.initializeMembers();
+        PokemonData pokemon_ = Instances.newPokemonData();
+        pokemon_.setWeight(Rate.one());
+        data_.completeMembers("QUEUE_DE_CHEVAL", pokemon_);
+        data_.calculateAvgPound();
+        assertEq(Rate.newRate("1"),data_.getAvgWeight());
     }
 }
