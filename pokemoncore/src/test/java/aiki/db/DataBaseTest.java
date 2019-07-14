@@ -552,6 +552,7 @@ public class DataBaseTest {
         assertTrue(StringList.contains(data_.getVariables(), StringList.concat(DataBase.VAR_PREFIX, "NB_TURN")));
         assertEq(1, data_.getMovesEffectWhileSending().size());
         assertTrue(StringList.contains(data_.getMovesEffectWhileSending(), "QUEUE_DE_CHEVAL"));
+        assertEq(0, data_.ppCopiedMove("QUEUE_DE_CHEVAL"));
     }
 
     @Test
@@ -572,6 +573,7 @@ public class DataBaseTest {
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
         assertEq(0, data_.getMovesCopyingTemp().size());
+        assertEq(0, data_.ppCopiedMove("QUEUE_DE_CHEVAL"));
     }
 
     @Test
@@ -592,6 +594,7 @@ public class DataBaseTest {
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
         assertEq(1, data_.getMovesCopyingTemp().size());
+        assertEq(1, data_.ppCopiedMove("QUEUE_DE_CHEVAL"));
     }
 
     @Test

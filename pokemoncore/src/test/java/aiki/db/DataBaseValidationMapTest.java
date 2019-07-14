@@ -2538,4 +2538,26 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         assertTrue(!data_.getMap().isEmptyForAdding(newCoords(4, 0, 0, 2)));
         assertTrue(!data_.getMap().isEmptyForAdding(newCoords(8, 0, 0, 0)));
     }
+    @Test
+    public void getLevelImage1Test() {
+        DataBase data_ = InitializationDataBase.initDataBase();
+        assertEq(36,data_.getLevelImage((short)0,(byte)0).size());
+    }
+    @Test
+    public void getLevelImage2Test() {
+        DataBase data_ = InitializationDataBase.initDataBase();
+        assertEq(81,data_.getLevelImage((short)1,(byte)0,new Point((short)1,(short)1)).size());
+    }
+    @Test
+    public void getFighterNameTest() {
+        DataBase data_ = new DataBase();
+        data_.setMessagesFight(new StringMap<String>());
+        data_.getMessagesFight().addEntry("k","v");
+        assertEq("v",data_.getFighterName(false,"f","k","name"));
+    }
+    @Test
+    public void getImageTileTest() {
+        DataBase data_ = new DataBase();
+        assertEq(0, data_.getImageTile("tile",new ScreenCoords()).length);
+    }
 }

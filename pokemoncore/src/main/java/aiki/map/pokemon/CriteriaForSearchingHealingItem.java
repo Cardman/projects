@@ -131,7 +131,10 @@ public final class CriteriaForSearchingHealingItem extends CriteriaForSearchingI
                 if (match(healOneMove, healing_.getHealingMoveFullpp())) {
                     return true;
                 }
-                return match(healOneMove.neg(), healing_.isHealingAllMovesPp());
+                if (healOneMove == SelectedBoolean.YES) {
+                    return match(SelectedBoolean.NO, healing_.isHealingAllMovesPp());
+                }
+                return match(SelectedBoolean.YES, healing_.isHealingAllMovesPp());
             }
             if (relativeRatePp == SelectedBoolean.NO) {
                 if (healOneMove == SelectedBoolean.YES) {

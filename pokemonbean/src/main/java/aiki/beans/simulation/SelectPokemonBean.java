@@ -4,6 +4,7 @@ import aiki.beans.facade.dto.PokemonLine;
 import aiki.comparators.ComparatorTrStringBoolean;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
+import aiki.facade.CriteriaForSearching;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import code.images.BaseSixtyFourUtil;
@@ -92,31 +93,14 @@ public class SelectPokemonBean extends CommonBean {
             if (!atLeastMatchType_) {
                 continue;
             }
-            if (hasEvo != SelectedBoolean.YES_AND_NO) {
-                if (pkData_.getEvolutions().isEmpty() && hasEvo.isSelected()) {
-                    continue;
-                }
-                if (!pkData_.getEvolutions().isEmpty() && !hasEvo.isSelected()) {
-                    continue;
-                }
+            if (!CriteriaForSearching.match(hasEvo,pkData_.getEvolutions().isEmpty())) {
+                continue;
             }
-            if (isEvo != SelectedBoolean.YES_AND_NO) {
-                boolean isBaseEvo_ = StringList.quickEq(k, pkData_.getBaseEvo());
-                if (isBaseEvo_ && isEvo.isSelected()) {
-                    continue;
-                }
-                if (!isBaseEvo_ && !isEvo.isSelected()) {
-                    continue;
-                }
+            if (!CriteriaForSearching.match(isEvo,!StringList.quickEq(k, pkData_.getBaseEvo()))) {
+                continue;
             }
-            if (isLeg != SelectedBoolean.YES_AND_NO) {
-                boolean isLeg_ = pkData_.getGenderRep() == GenderRepartition.LEGENDARY;
-                if (isLeg_ && !isLeg.isSelected()) {
-                    continue;
-                }
-                if (!isLeg_ && isLeg.isSelected()) {
-                    continue;
-                }
+            if (!CriteriaForSearching.match(isLeg,pkData_.getGenderRep() == GenderRepartition.LEGENDARY)) {
+                continue;
             }
             pokedex_.add(k);
         }

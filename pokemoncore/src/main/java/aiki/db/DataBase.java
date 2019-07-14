@@ -464,9 +464,6 @@ public class DataBase implements WithMathFactory {
     public static int[][] stackImages(ObjectMap<Point, int[][]> _tiles,
             ObjectMap<Point, int[][]> _frontTiles, Point _pt) {
         int[][] img_ = _frontTiles.getVal(_pt);
-        if (img_.length == 0) {
-            return _tiles.getVal(_pt);
-        }
         int[][] imgBack_ = _tiles.getVal(_pt);
         return ConverterBufferedImage.stackImages(imgBack_, img_);
     }
