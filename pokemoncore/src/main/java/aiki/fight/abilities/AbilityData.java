@@ -27,15 +27,12 @@ import code.util.StringMap;
 
 public final class AbilityData {
 
-    private String name;
-
     private EqList<TypesDuo> breakFoeImmune;
 
     private boolean forbidUseBerryAgainstFoes;
     private StringMap<String> chgtTypeByWeather;
     private boolean chgtTypeByDamage;
     private Rate recoilDamageFoe;
-    private Rate recoilDamageFoeByKoOwner;
     private int decreaseNecStepsHatch;
     private StringMap<Rate> divideStatusRound;
     private StringMap<Rate> healHpByWeather;
@@ -475,14 +472,6 @@ public final class AbilityData {
         return !effectSending.isEmpty();
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String _name) {
-        name = _name;
-    }
-
     public EqList<TypesDuo> getBreakFoeImmune() {
         return breakFoeImmune;
     }
@@ -521,14 +510,6 @@ public final class AbilityData {
 
     public void setRecoilDamageFoe(Rate _recoilDamageFoe) {
         recoilDamageFoe = _recoilDamageFoe;
-    }
-
-    public Rate getRecoilDamageFoeByKoOwner() {
-        return recoilDamageFoeByKoOwner;
-    }
-
-    public void setRecoilDamageFoeByKoOwner(Rate _recoilDamageFoeByKoOwner) {
-        recoilDamageFoeByKoOwner = _recoilDamageFoeByKoOwner;
     }
 
     public int getDecreaseNecStepsHatch() {

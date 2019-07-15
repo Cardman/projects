@@ -16,15 +16,7 @@ public enum Sex {
         }
         return GIRL;
     }
-    public static Sex getSexByName(String _env) {
-        Sex[] values_ = values();
-        for (Sex e: values_) {
-            if (StringList.quickEq(e.name(), _env)) {
-                return e;
-            }
-        }
-        return values_[0];
-    }
+
     public Gender getGender() {
         return gender;
     }

@@ -29,7 +29,6 @@ public final class ItemForBattle extends Item {
     private boolean immuLowStatis;
     private StringMap<Short> increasingMaxNbRoundTrap;
     private boolean attacksSoon;
-    private boolean repellingWildPk;
     private StringList synchroStatus;
     private StringMap<String> failStatus;
     private Rate protectAgainstKo;
@@ -38,7 +37,6 @@ public final class ItemForBattle extends Item {
     private EnumMap<Statistic, Short> winEvFight;
     private MonteCarloBoolean lawForAttackFirst;
     private Rate multTrappingDamage;
-    private Rate multWinningMoney;
     private Rate multWinningHappiness;
     private Rate multWinningEv;
     private Rate multWinningExp;
@@ -59,11 +57,7 @@ public final class ItemForBattle extends Item {
     private StringList immuWeather;
     private EnumMap<Statistic, Byte> boostStatisSuperEff;
     private StringMap<EnumMap<Statistic, Byte>> boostStatisTypes;
-    private boolean detruitSiContact;
-    private boolean switchPossibleSiTouche;
-    private boolean switchForceAdvSiTouche;
-    // private StringList sansEffetCapacite;
-    private boolean transfertObjSiContact;
+
     private CustList<EffectEndRound> effectEndRound;
     private CustList<EffectWhileSending> effectSending;
 
@@ -193,9 +187,6 @@ public final class ItemForBattle extends Item {
         if (!multTrappingDamage.isZeroOrGt()) {
             _data.setError(true);
         }
-        if (!multWinningMoney.isZeroOrGt()) {
-            _data.setError(true);
-        }
         if (!multWinningHappiness.isZeroOrGt()) {
             _data.setError(true);
         }
@@ -225,9 +216,6 @@ public final class ItemForBattle extends Item {
             return true;
         }
         if (!hatching.isEmpty()) {
-            return true;
-        }
-        if (!multWinningMoney.isZero()) {
             return true;
         }
         if (!multWinningHappiness.isZero()) {
@@ -319,14 +307,6 @@ public final class ItemForBattle extends Item {
         attacksSoon = _attacksSoon;
     }
 
-    public boolean getRepellingWildPk() {
-        return repellingWildPk;
-    }
-
-    public void setRepellingWildPk(boolean _repellingWildPk) {
-        repellingWildPk = _repellingWildPk;
-    }
-
     public StringList getSynchroStatus() {
         return synchroStatus;
     }
@@ -389,14 +369,6 @@ public final class ItemForBattle extends Item {
 
     public void setMultTrappingDamage(Rate _multTrappingDamage) {
         multTrappingDamage = _multTrappingDamage;
-    }
-
-    public Rate getMultWinningMoney() {
-        return multWinningMoney;
-    }
-
-    public void setMultWinningMoney(Rate _multWinningMoney) {
-        multWinningMoney = _multWinningMoney;
     }
 
     public Rate getMultWinningHappiness() {
@@ -546,38 +518,6 @@ public final class ItemForBattle extends Item {
     public void setBoostStatisTypes(
             StringMap<EnumMap<Statistic, Byte>> _boostStatisTypes) {
         boostStatisTypes = _boostStatisTypes;
-    }
-
-    public boolean getDetruitSiContact() {
-        return detruitSiContact;
-    }
-
-    public void setDetruitSiContact(boolean _detruitSiContact) {
-        detruitSiContact = _detruitSiContact;
-    }
-
-    public boolean getSwitchPossibleSiTouche() {
-        return switchPossibleSiTouche;
-    }
-
-    public void setSwitchPossibleSiTouche(boolean _switchPossibleSiTouche) {
-        switchPossibleSiTouche = _switchPossibleSiTouche;
-    }
-
-    public boolean getSwitchForceAdvSiTouche() {
-        return switchForceAdvSiTouche;
-    }
-
-    public void setSwitchForceAdvSiTouche(boolean _switchForceAdvSiTouche) {
-        switchForceAdvSiTouche = _switchForceAdvSiTouche;
-    }
-
-    public boolean getTransfertObjSiContact() {
-        return transfertObjSiContact;
-    }
-
-    public void setTransfertObjSiContact(boolean _transfertObjSiContact) {
-        transfertObjSiContact = _transfertObjSiContact;
     }
 
     public CustList<EffectEndRound> getEffectEndRound() {

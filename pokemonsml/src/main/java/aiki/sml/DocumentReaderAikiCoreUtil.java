@@ -4,6 +4,7 @@ import aiki.db.ImageHeroKey;
 import aiki.db.LoadFlag;
 import aiki.db.PerCent;
 import aiki.facade.FacadeGame;
+import aiki.facade.enums.SearchingMode;
 import aiki.fight.Combos;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.effects.EffectWhileSending;
@@ -163,7 +164,6 @@ import aiki.map.characters.DualFight;
 import aiki.map.characters.GerantPokemon;
 import aiki.map.characters.GymLeader;
 import aiki.map.characters.GymTrainer;
-import aiki.map.characters.Healer;
 import aiki.map.characters.Person;
 import aiki.map.characters.Seller;
 import aiki.map.characters.TempTrainer;
@@ -1269,9 +1269,9 @@ public final class DocumentReaderAikiCoreUtil {
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
             StringList keyStrings_ = StringList.splitStrings(infos_.first(),
                     SEPARATOR_KEY_HEROS);
-            EnvironmentType env_ = EnvironmentType.getEnvByName(keyStrings_
+            EnvironmentType env_ = getEnvByName(keyStrings_
                     .first());
-            Sex sex_ = Sex.getSexByName(keyStrings_.last());
+            Sex sex_ = getSexByName(keyStrings_.last());
             _d.getFrontHeros().put(new ImageHeroKey(env_, sex_),
                     BaseSixtyFourUtil.getImageByString(infos_.last()));
         }
@@ -1286,9 +1286,9 @@ public final class DocumentReaderAikiCoreUtil {
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
             StringList keyStrings_ = StringList.splitStrings(infos_.first(),
                     SEPARATOR_KEY_HEROS);
-            EnvironmentType env_ = EnvironmentType.getEnvByName(keyStrings_
+            EnvironmentType env_ = getEnvByName(keyStrings_
                     .first());
-            Sex sex_ = Sex.getSexByName(keyStrings_.last());
+            Sex sex_ = getSexByName(keyStrings_.last());
             _d.getBackHeros().put(new ImageHeroKey(env_, sex_),
                     BaseSixtyFourUtil.getImageByString(infos_.last()));
         }
@@ -1303,11 +1303,11 @@ public final class DocumentReaderAikiCoreUtil {
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
             StringList keyStrings_ = StringList.splitStrings(infos_.first(),
                     SEPARATOR_KEY_HEROS);
-            EnvironmentType env_ = EnvironmentType.getEnvByName(keyStrings_
+            EnvironmentType env_ = getEnvByName(keyStrings_
                     .first());
             Direction dir_ = Direction.getDirectionByName(keyStrings_
                     .get(CustList.SECOND_INDEX));
-            Sex sex_ = Sex.getSexByName(keyStrings_.last());
+            Sex sex_ = getSexByName(keyStrings_.last());
             _d.getOverWorldHeros().put(new ImageHeroKey(env_, dir_, sex_),
                     BaseSixtyFourUtil.getImageByString(infos_.last()));
         }
@@ -1529,7 +1529,7 @@ public final class DocumentReaderAikiCoreUtil {
                 return;
             }
             _d.getLawsDamageRate().put(
-                    DifficultyModelLaw.getModelByName(infos_.first()),
+                    getModelByName(infos_.first()),
                     new LawNumber(law_, (short) Numbers.parseInt(infos_.last())));
         }
         _d.setExpGrowth(new EnumMap<ExpType, String>());
@@ -1542,7 +1542,7 @@ public final class DocumentReaderAikiCoreUtil {
                 continue;
             }
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            _d.getExpGrowth().put(ExpType.getExpTypeByName(infos_.first()),
+            _d.getExpGrowth().put(getExpTypeByName(infos_.first()),
                     infos_.get(1));
         }
         _d.setRates(new EnumMap<DifficultyWinPointsFight, String>());
@@ -1555,7 +1555,7 @@ public final class DocumentReaderAikiCoreUtil {
                 continue;
             }
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            _d.getRates().put(DifficultyWinPointsFight.getDiffWonPtsByName(infos_
+            _d.getRates().put(getDiffWonPtsByName(infos_
                     .first()), infos_.get(1));
         }
         _d.setTypesColors(new StringMap<String>());
@@ -1589,7 +1589,7 @@ public final class DocumentReaderAikiCoreUtil {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                genders_.put(Gender.getGenderByName(infos_.first()),
+                genders_.put(getGenderByName(infos_.first()),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedGenders().put(l, genders_);
@@ -1604,7 +1604,7 @@ public final class DocumentReaderAikiCoreUtil {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                booleans_.put(SelectedBoolean.getBoolByName(infos_.first()),
+                booleans_.put(getBoolByName(infos_.first()),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedBooleans().put(l, booleans_);
@@ -1619,8 +1619,8 @@ public final class DocumentReaderAikiCoreUtil {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                diffWinPts_.put(DifficultyWinPointsFight
-                        .getDiffWonPtsByName(infos_.first()), DocumentBuilder
+                diffWinPts_.put(
+                        getDiffWonPtsByName(infos_.first()), DocumentBuilder
                         .transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedDiffWinPts().put(l, diffWinPts_);
@@ -1636,7 +1636,7 @@ public final class DocumentReaderAikiCoreUtil {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                diffLaw_.put(DifficultyModelLaw.getModelByName(infos_.first()),
+                diffLaw_.put(getModelByName(infos_.first()),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedDiffModelLaw().put(l, diffLaw_);
@@ -1651,7 +1651,7 @@ public final class DocumentReaderAikiCoreUtil {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                environments_.put(EnvironmentType.getEnvByName(infos_.first()),
+                environments_.put(getEnvByName(infos_.first()),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedEnvironment().put(l, environments_);
@@ -1682,7 +1682,7 @@ public final class DocumentReaderAikiCoreUtil {
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 targets_.put(
-                        TargetChoice.getTargetChoiceByName(infos_.first()),
+                        getTargetChoiceByName(infos_.first()),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedTargets().put(l, targets_);
@@ -1911,9 +1911,9 @@ public final class DocumentReaderAikiCoreUtil {
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
             StringList keyStrings_ = StringList.splitStrings(infos_.first(),
                     SEPARATOR_KEY_HEROS);
-            EnvironmentType env_ = EnvironmentType.getEnvByName(keyStrings_
+            EnvironmentType env_ = getEnvByName(keyStrings_
                     .first());
-            Sex sex_ = Sex.getSexByName(keyStrings_.last());
+            Sex sex_ = getSexByName(keyStrings_.last());
             _d.getFrontHeros().put(new ImageHeroKey(env_, sex_),
                     BaseSixtyFourUtil.getImageByString(infos_.last()));
         }
@@ -1927,9 +1927,9 @@ public final class DocumentReaderAikiCoreUtil {
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
             StringList keyStrings_ = StringList.splitStrings(infos_.first(),
                     SEPARATOR_KEY_HEROS);
-            EnvironmentType env_ = EnvironmentType.getEnvByName(keyStrings_
+            EnvironmentType env_ = getEnvByName(keyStrings_
                     .first());
-            Sex sex_ = Sex.getSexByName(keyStrings_.last());
+            Sex sex_ = getSexByName(keyStrings_.last());
             _d.getBackHeros().put(new ImageHeroKey(env_, sex_),
                     BaseSixtyFourUtil.getImageByString(infos_.last()));
         }
@@ -1943,11 +1943,11 @@ public final class DocumentReaderAikiCoreUtil {
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
             StringList keyStrings_ = StringList.splitStrings(infos_.first(),
                     SEPARATOR_KEY_HEROS);
-            EnvironmentType env_ = EnvironmentType.getEnvByName(keyStrings_
+            EnvironmentType env_ = getEnvByName(keyStrings_
                     .first());
             Direction dir_ = Direction.getDirectionByName(keyStrings_
                     .get(CustList.SECOND_INDEX));
-            Sex sex_ = Sex.getSexByName(keyStrings_.last());
+            Sex sex_ = getSexByName(keyStrings_.last());
             _d.getOverWorldHeros().put(new ImageHeroKey(env_, dir_, sex_),
                     BaseSixtyFourUtil.getImageByString(infos_.last()));
         }
@@ -2073,7 +2073,7 @@ public final class DocumentReaderAikiCoreUtil {
                 return;
             }
             _d.getLawsDamageRate().put(
-                    DifficultyModelLaw.getModelByName(infos_.first()),
+                    getModelByName(infos_.first()),
                     new LawNumber(law_, (short) Numbers.parseInt(infos_.last())));
         }
         _d.setExpGrowth(new EnumMap<ExpType, String>());
@@ -2085,7 +2085,7 @@ public final class DocumentReaderAikiCoreUtil {
                 continue;
             }
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            _d.getExpGrowth().put(ExpType.getExpTypeByName(infos_.first()),
+            _d.getExpGrowth().put(getExpTypeByName(infos_.first()),
                     infos_.get(1));
         }
         _d.setRates(new EnumMap<DifficultyWinPointsFight, String>());
@@ -2097,7 +2097,7 @@ public final class DocumentReaderAikiCoreUtil {
                 continue;
             }
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            _d.getRates().put(DifficultyWinPointsFight.getDiffWonPtsByName(infos_
+            _d.getRates().put(getDiffWonPtsByName(infos_
                     .first()), infos_.get(1));
         }
         _d.setTypesColors(new StringMap<String>());
@@ -2129,7 +2129,7 @@ public final class DocumentReaderAikiCoreUtil {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                genders_.put(Gender.getGenderByName(infos_.first()),
+                genders_.put(getGenderByName(infos_.first()),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedGenders().put(l, genders_);
@@ -2144,7 +2144,7 @@ public final class DocumentReaderAikiCoreUtil {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                booleans_.put(SelectedBoolean.getBoolByName(infos_.first()),
+                booleans_.put(getBoolByName(infos_.first()),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedBooleans().put(l, booleans_);
@@ -2159,8 +2159,8 @@ public final class DocumentReaderAikiCoreUtil {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                diffWinPts_.put(DifficultyWinPointsFight
-                        .getDiffWonPtsByName(infos_.first()), DocumentBuilder
+                diffWinPts_.put(
+                        getDiffWonPtsByName(infos_.first()), DocumentBuilder
                         .transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedDiffWinPts().put(l, diffWinPts_);
@@ -2176,7 +2176,7 @@ public final class DocumentReaderAikiCoreUtil {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                diffLaw_.put(DifficultyModelLaw.getModelByName(infos_.first()),
+                diffLaw_.put(getModelByName(infos_.first()),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedDiffModelLaw().put(l, diffLaw_);
@@ -2191,7 +2191,7 @@ public final class DocumentReaderAikiCoreUtil {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                environments_.put(EnvironmentType.getEnvByName(infos_.first()),
+                environments_.put(getEnvByName(infos_.first()),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedEnvironment().put(l, environments_);
@@ -2222,7 +2222,7 @@ public final class DocumentReaderAikiCoreUtil {
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
                 targets_.put(
-                        TargetChoice.getTargetChoiceByName(infos_.first()),
+                        getTargetChoiceByName(infos_.first()),
                         DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             _d.getTranslatedTargets().put(l, targets_);
@@ -2952,10 +2952,6 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getAbilityData(AbilityData _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_NAME)) {
-            _object.setName(DocumentReaderCoreUtil.getString(_element));
-            return;
-        }
         if (StringList.quickEq(_fieldName, FIELD_BREAK_FOE_IMMUNE)) {
             _object.setBreakFoeImmune(getListTypesDuo(_element));
             return;
@@ -2974,10 +2970,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringList.quickEq(_fieldName, FIELD_RECOIL_DAMAGE_FOE)) {
             _object.setRecoilDamageFoe(DocumentReaderMathUtil.getRate(_element));
-            return;
-        }
-        if (StringList.quickEq(_fieldName, FIELD_RECOIL_DAMAGE_FOE_BY_KO_OWNER)) {
-            _object.setRecoilDamageFoeByKoOwner(DocumentReaderMathUtil.getRate(_element));
             return;
         }
         if (StringList.quickEq(_fieldName, FIELD_DECREASE_NEC_STEPS_HATCH)) {
@@ -3316,10 +3308,6 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setCopyingAbility(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_PLATE)) {
-            _object.setPlate(DocumentReaderCoreUtil.getBoolean(_element));
-            return;
-        }
         if (StringList.quickEq(_fieldName, FIELD_MULT_WEIGHT)) {
             _object.setMultWeight(DocumentReaderMathUtil.getRate(_element));
             return;
@@ -3612,13 +3600,8 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getItem(Item _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_NAME)) {
-            _object.setName(DocumentReaderCoreUtil.getString(_element));
-            return;
-        }
         if (StringList.quickEq(_fieldName, FIELD_PRICE)) {
             _object.setPrice(DocumentReaderCoreUtil.getInteger(_element));
-            return;
         }
     }
 
@@ -3659,10 +3642,6 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setAttacksSoon(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_REPELLING_WILD_PK)) {
-            _object.setRepellingWildPk(DocumentReaderCoreUtil.getBoolean(_element));
-            return;
-        }
         if (StringList.quickEq(_fieldName, FIELD_SYNCHRO_STATUS)) {
             _object.setSynchroStatus(DocumentReaderCoreUtil.getStringList(_element));
             return;
@@ -3693,10 +3672,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringList.quickEq(_fieldName, FIELD_MULT_TRAPPING_DAMAGE)) {
             _object.setMultTrappingDamage(DocumentReaderMathUtil.getRate(_element));
-            return;
-        }
-        if (StringList.quickEq(_fieldName, FIELD_MULT_WINNING_MONEY)) {
-            _object.setMultWinningMoney(DocumentReaderMathUtil.getRate(_element));
             return;
         }
         if (StringList.quickEq(_fieldName, FIELD_MULT_WINNING_HAPPINESS)) {
@@ -3771,22 +3746,6 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setBoostStatisTypes(getStringMapMapStatisticByte(_element));
             return;
         }
-        if (StringList.quickEq(_fieldName, FIELD_DETRUIT_SI_CONTACT)) {
-            _object.setDetruitSiContact(DocumentReaderCoreUtil.getBoolean(_element));
-            return;
-        }
-        if (StringList.quickEq(_fieldName, FIELD_SWITCH_POSSIBLE_SI_TOUCHE)) {
-            _object.setSwitchPossibleSiTouche(DocumentReaderCoreUtil.getBoolean(_element));
-            return;
-        }
-        if (StringList.quickEq(_fieldName, FIELD_SWITCH_FORCE_ADV_SI_TOUCHE)) {
-            _object.setSwitchForceAdvSiTouche(DocumentReaderCoreUtil.getBoolean(_element));
-            return;
-        }
-        if (StringList.quickEq(_fieldName, FIELD_TRANSFERT_OBJ_SI_CONTACT)) {
-            _object.setTransfertObjSiContact(DocumentReaderCoreUtil.getBoolean(_element));
-            return;
-        }
         if (StringList.quickEq(_fieldName, FIELD_EFFECT_END_ROUND)) {
             _object.setEffectEndRound(getListEffectEndRound(_element));
             return;
@@ -3856,14 +3815,6 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getMoveData(MoveData _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_NAME)) {
-            _object.setName(DocumentReaderCoreUtil.getString(_element));
-            return;
-        }
-        if (StringList.quickEq(_fieldName, FIELD_NOT_TRANSLATED)) {
-            _object.setNotTranslated(DocumentReaderCoreUtil.getBoolean(_element));
-            return;
-        }
         if (StringList.quickEq(_fieldName, FIELD_PP)) {
             _object.setPp(DocumentReaderCoreUtil.getShort(_element));
             return;
@@ -3938,10 +3889,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringList.quickEq(_fieldName, FIELD_IGN_VAR_EVAS_TARGET_POS)) {
             _object.setIgnVarEvasTargetPos(DocumentReaderCoreUtil.getBoolean(_element));
-            return;
-        }
-        if (StringList.quickEq(_fieldName, FIELD_BREAK_IMMU_TYPE_ABILITY)) {
-            _object.setBreakImmuTypeAbility(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
         if (StringList.quickEq(_fieldName, FIELD_ACHIEVE_DISAPPEARED_PK_USING_MOVE)) {
@@ -4725,10 +4672,6 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getEffectGlobal(EffectGlobal _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_PRISE_EN_COMPTE_PK_LANCEUR)) {
-            _object.setPriseEnComptePkLanceur(DocumentReaderCoreUtil.getBoolean(_element));
-            return;
-        }
         if (StringList.quickEq(_fieldName, FIELD_WEATHER)) {
             _object.setWeather(DocumentReaderCoreUtil.getBoolean(_element));
             return;
@@ -5299,14 +5242,6 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getPokemonData(PokemonData _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_NAME)) {
-            _object.setName(DocumentReaderCoreUtil.getString(_element));
-            return;
-        }
-        if (StringList.quickEq(_fieldName, FIELD_NUMBER)) {
-            _object.setNumber(DocumentReaderCoreUtil.getInteger(_element));
-            return;
-        }
         if (StringList.quickEq(_fieldName, FIELD_WEIGHT)) {
             _object.setWeight(DocumentReaderMathUtil.getRate(_element));
             return;
@@ -5571,10 +5506,6 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getStatus(Status _object, String _fieldName, Element _element) {
-        if (StringList.quickEq(_fieldName, FIELD_NAME)) {
-            _object.setName(DocumentReaderCoreUtil.getString(_element));
-            return;
-        }
         if (StringList.quickEq(_fieldName, FIELD_STATUS_TYPE)) {
             _object.setStatusType(getStatusType(_element));
             return;
@@ -6979,13 +6910,6 @@ public final class DocumentReaderAikiCoreUtil {
             GymTrainer object_ = Instances.newGymTrainer();
             for (Element c: childElements_) {
                 getGymTrainer(object_,c.getAttribute(ATTR_FIELD),c);
-            }
-            return object_;
-        }
-        if (StringList.quickEq(tagName_,TYPE_HEALER)) {
-            Healer object_ = Instances.newHealer();
-            for (Element c: childElements_) {
-                getPerson(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
@@ -9217,5 +9141,82 @@ public final class DocumentReaderAikiCoreUtil {
         object_.setLastRom(DataBase.EMPTY_STRING);
         object_.setLastSavedGame(DataBase.EMPTY_STRING);
         return object_;
+    }
+
+    public static SelectedBoolean getBoolByName(String _env) {
+        for (SelectedBoolean e : SelectedBoolean.values()) {
+            if (StringList.quickEq(e.name(), _env)) {
+                return e;
+            }
+        }
+        return SelectedBoolean.YES_AND_NO;
+    }
+    public static SearchingMode getSearchingModeByName(String _env) {
+        for (SearchingMode e: SearchingMode.values()) {
+            if (StringList.quickEq(e.name(), _env)) {
+                return e;
+            }
+        }
+        return SearchingMode.WHOLE_STRING;
+    }
+    public static DifficultyModelLaw getModelByName(String _env) {
+        for (DifficultyModelLaw e: DifficultyModelLaw.values()) {
+            if (StringList.quickEq(e.name(), _env)) {
+                return e;
+            }
+        }
+        return DifficultyModelLaw.UNIFORME;
+    }
+    public static DifficultyWinPointsFight getDiffWonPtsByName(String _env) {
+        for (DifficultyWinPointsFight e: DifficultyWinPointsFight.values()) {
+            if (StringList.quickEq(e.name(), _env)) {
+                return e;
+            }
+        }
+        return DifficultyWinPointsFight.TRES_FACILE;
+    }
+
+    public static Sex getSexByName(String _env) {
+        Sex[] values_ = Sex.values();
+        for (Sex e: values_) {
+            if (StringList.quickEq(e.name(), _env)) {
+                return e;
+            }
+        }
+        return values_[0];
+    }
+
+    public static ExpType getExpTypeByName(String _env) {
+        for (ExpType e: ExpType.values()) {
+            if (StringList.quickEq(e.name(), _env)) {
+                return e;
+            }
+        }
+        return ExpType.M;
+    }
+    public static EnvironmentType getEnvByName(String _env) {
+        for (EnvironmentType e: EnvironmentType.values()) {
+            if (StringList.quickEq(e.name(), _env)) {
+                return e;
+            }
+        }
+        return EnvironmentType.NOTHING;
+    }
+    public static Gender getGenderByName(String _env) {
+        for (Gender e: Gender.values()) {
+            if (StringList.quickEq(e.name(), _env)) {
+                return e;
+            }
+        }
+        return Gender.NO_GENDER;
+    }
+
+    public static TargetChoice getTargetChoiceByName(String _env) {
+        for (TargetChoice e: TargetChoice.values()) {
+            if (StringList.quickEq(e.name(), _env)) {
+                return e;
+            }
+        }
+        return TargetChoice.NOTHING;
     }
 }

@@ -1,6 +1,6 @@
 package aiki.beans.game;
 import aiki.beans.facade.comparators.ComparatorPlaceNumber;
-import aiki.comparators.ComparatorPairStringNumber;
+import aiki.comparators.ComparatorTrainerPlaceNames;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.facade.FacadeGame;
 import aiki.fight.pokemon.TrainerPlaceNames;
@@ -95,9 +95,9 @@ public class GameProgressionBean extends Bean {
             fullFamiliesBase.put(facade_.translatePokemon(b), lists_);
         }
         unBeatenImportantTrainers = progression_.getUnBeatenImportantTrainers();
-        unBeatenImportantTrainers.sortElts(new ComparatorPairStringNumber());
+        unBeatenImportantTrainers.sortElts(new ComparatorTrainerPlaceNames());
         beatenImportantTrainers = progression_.getBeatenImportantTrainers();
-        beatenImportantTrainers.sortElts(new ComparatorPairStringNumber());
+        beatenImportantTrainers.sortElts(new ComparatorTrainerPlaceNames());
         remainingOtherTrainerPlaces = new TreeMap<Short, Integer>(new ComparatorPlaceNumber(facade_.getMap()));
         remainingOtherTrainerPlaces.putAllMap(progression_.getRemainingOtherTrainerPlaces());
         visitedPlaces = progression_.getVisitedPlaces();

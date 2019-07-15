@@ -717,7 +717,6 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         abilityData_.setMultEvtRateCh(Rate.newRate("-1"));
         abilityData_.setMultStab(Rate.newRate("-1"));
         abilityData_.setRecoilDamageFoe(Rate.newRate("-1"));
-        abilityData_.setRecoilDamageFoeByKoOwner(Rate.newRate("-1"));
         abilityData_.setMultEvtRateSecEffectOwner(Rate.newRate("-1"));
         abilityData_.setMultSufferedDamageSuperEff(Rate.newRate("-1"));
         abilityData_.setHealedHpRateBySwitch(Rate.newRate("-1"));
@@ -842,7 +841,6 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         itemForBattle_.setMultWinningHappiness(Rate.newRate("-1"));
         itemForBattle_.setMultDrainedHp(Rate.newRate("-1"));
         itemForBattle_.setMultWinningEv(Rate.newRate("-1"));
-        itemForBattle_.setMultWinningMoney(Rate.newRate("-1"));
         itemForBattle_.setMultWinningExp(Rate.newRate("-1"));
         itemForBattle_.setMultTrappingDamage(Rate.newRate("-1"));
         itemForBattle_.setProtectAgainstKo(Rate.newRate("-1"));

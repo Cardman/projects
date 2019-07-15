@@ -16,10 +16,6 @@ import code.util.StringMap;
 
 public abstract class MoveData {
 
-    private String name;
-
-    private boolean notTranslated;
-
     private short pp;
     private StringList types;
     private StringList boostedTypes;
@@ -39,7 +35,6 @@ public abstract class MoveData {
     private StringMap<Ints> secEffectsByItem;
     private boolean ignVarAccurUserNeg;
     private boolean ignVarEvasTargetPos;
-    private boolean breakImmuTypeAbility;
     private StringList achieveDisappearedPkUsingMove;
     private SwitchType switchType;
     private StringMap<String> typesByOwnedItem;
@@ -229,14 +224,6 @@ public abstract class MoveData {
 
     public abstract String getCategory();
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String _name) {
-        name = _name;
-    }
-
     public short getPp() {
         return pp;
     }
@@ -390,14 +377,6 @@ public abstract class MoveData {
         ignVarEvasTargetPos = _ignVarEvasTargetPos;
     }
 
-    public boolean getBreakImmuTypeAbility() {
-        return breakImmuTypeAbility;
-    }
-
-    public void setBreakImmuTypeAbility(boolean _breakImmuTypeAbility) {
-        breakImmuTypeAbility = _breakImmuTypeAbility;
-    }
-
     public StringList getAchieveDisappearedPkUsingMove() {
         return achieveDisappearedPkUsingMove;
     }
@@ -455,11 +434,4 @@ public abstract class MoveData {
         requiredStatus = _requiredStatus;
     }
 
-    public boolean isNotTranslated() {
-        return notTranslated;
-    }
-
-    public void setNotTranslated(boolean _notTranslated) {
-        notTranslated = _notTranslated;
-    }
 }

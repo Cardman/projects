@@ -10,7 +10,6 @@ public class EffectWhileSending {
     private boolean disableWeather;
     private String enabledWeather;
     private boolean copyingAbility;
-    private boolean plate;
     private Rate multWeight;
 
     public void validate(DataBase _data) {
@@ -52,14 +51,6 @@ public class EffectWhileSending {
 
     public void setCopyingAbility(boolean _copyingAbility) {
         copyingAbility = _copyingAbility;
-    }
-
-    public boolean getPlate() {
-        return plate;
-    }
-
-    public void setPlate(boolean _plate) {
-        plate = _plate;
     }
 
     public Rate getMultWeight() {

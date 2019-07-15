@@ -49,9 +49,7 @@ public enum Statistic {
         }
         return true;
     }
-    public static EnumList<Statistic> getAllStatistics() {
-        return new EnumList<Statistic>(values());
-    }
+
     public static EnumList<Statistic> getStatisticsWithBase() {
         EnumList<Statistic> list_ = new EnumList<Statistic>();
         for (Statistic s: values()) {

@@ -1,7 +1,7 @@
 package aiki.beans.pokemon;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.dto.PokemonLine;
-import aiki.comparators.ComparatorTrStringBoolean;
+import aiki.beans.facade.comparators.ComparatorTrStringBoolean;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.facade.CriteriaForSearching;

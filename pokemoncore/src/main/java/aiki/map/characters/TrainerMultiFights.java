@@ -6,7 +6,7 @@ import code.util.CustList;
 
 
 public final class TrainerMultiFights extends Trainer implements
-        CharacterInRoadCave, Fightable {
+        CharacterInRoadCave {
 
     private CustList<PokemonTeam> teamsRewards;
 
@@ -29,9 +29,5 @@ public final class TrainerMultiFights extends Trainer implements
         teamsRewards = _teamsRewards;
     }
 
-    @Override
-    public int getMult() {
-        return getMultiplicityFight();
-    }
 
 }

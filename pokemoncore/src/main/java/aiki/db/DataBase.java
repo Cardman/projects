@@ -240,8 +240,6 @@ public class DataBase implements WithMathFactory {
 
     private StringMap<int[][]> miniMap = new StringMap<int[][]>();
 
-    private StringMap<Dims> imagesDimensions = new StringMap<Dims>();
-
     private int[][] imageTmHm = new int[0][0];
 
     private int[][] storage = new int[0][0];
@@ -472,19 +470,6 @@ public class DataBase implements WithMathFactory {
         people.put(_fileName, _img);
     }
 
-    public void addBackHero(EnvironmentType _env, Sex _sex, int[][] _img) {
-        backHeros.put(new ImageHeroKey(_env, _sex), _img);
-    }
-
-    public void addFrontHero(EnvironmentType _env, Sex _sex, int[][] _img) {
-        frontHeros.put(new ImageHeroKey(_env, _sex), _img);
-    }
-
-    public void addOverworldHero(EnvironmentType _env, Direction _dir,
-            Sex _sex, int[][] _img) {
-        overWorldHeros.put(new ImageHeroKey(_env, _dir, _sex), _img);
-    }
-
     public void addImage(String _fileName, int[][] _img) {
         images.put(_fileName, _img);
     }
@@ -497,24 +482,7 @@ public class DataBase implements WithMathFactory {
         trainers.put(_fileName, _img);
     }
 
-    public void addFrontImagePk(String _fileName, int[][] _img) {
-        maxiPkFront.put(_fileName, _img);
-    }
-
-    public void addBackImagePk(String _fileName, int[][] _img) {
-        maxiPkBack.put(_fileName, _img);
-    }
-
-    public void addMiniImagePk(String _fileName, int[][] _img) {
-        miniPk.put(_fileName, _img);
-    }
-
-    public void addImageObjects(String _fileName, int[][] _img) {
-        miniItems.put(_fileName, _img);
-    }
-
     public void validate(PerCent _perCentLoading, LoadFlag _loading) {
-        imagesDimensions.clear();
         for (LawNumber v : lawsDamageRate.values()) {
             if (v.getLaw().events().isEmpty()) {
                 setError(true);
@@ -1803,10 +1771,6 @@ public class DataBase implements WithMathFactory {
         tm = _tm;
     }
 
-    public void setTmPrice(ShortMap< LgInt> _tmPrice) {
-        tmPrice = _tmPrice;
-    }
-
     public void setHm(ShortMap< String> _hm) {
         hm = _hm;
     }
@@ -1873,10 +1837,6 @@ public class DataBase implements WithMathFactory {
 
     public void setMiniMap(StringMap<int[][]> _miniMap) {
         miniMap = _miniMap;
-    }
-
-    public void setImagesDimensions(StringMap<Dims> _imagesDimensions) {
-        imagesDimensions = _imagesDimensions;
     }
 
     public void setCombos(Combos _combos) {
@@ -3083,10 +3043,6 @@ public class DataBase implements WithMathFactory {
         return miniMap;
     }
 
-    public StringMap<Dims> getImagesDimensions() {
-        return imagesDimensions;
-    }
-
     public int[][] getImageTmHm() {
         return imageTmHm;
     }
@@ -3454,18 +3410,6 @@ public class DataBase implements WithMathFactory {
 
     public StringMap<EnumMap<Gender, String>> getTranslatedGenders() {
         return translatedGenders;
-    }
-
-    public StringMap<String> getTranslatedStatusCurLanguage(String _lg) {
-        return translatedStatus.getVal(_lg);
-    }
-
-    public StringMap<String> getTranslatedItemsCurLanguage(String _lg) {
-        return translatedItems.getVal(_lg);
-    }
-
-    public StringMap<String> getTranslatedMovesCurLanguage(String _lg) {
-        return translatedMoves.getVal(_lg);
     }
 
     public StringMap<String> getTranslatedPokemonCurLanguage(String _lg) {

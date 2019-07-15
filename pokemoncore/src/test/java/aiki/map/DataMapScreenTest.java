@@ -496,7 +496,7 @@ public class DataMapScreenTest {
         begin_.getLevel().setLevelIndex((byte) 0);
         begin_.getLevel().setPoint(new Point((short)1,(short)1));
         dataMap.calculateIntersectWithScreen(begin_);
-        dataMap.calculateBackgroundImagesFromTiles(data_, 0, 0);
+        dataMap.calculateBackgroundImagesFromTiles(data_);
         ObjectMap<ScreenCoords, int[][]> backGroundImages_ = dataMap.getBackgroundImages();
         assertEq(45, backGroundImages_.size());
         assertTrue(backGroundImages_.contains(new ScreenCoords(3,3)));
@@ -576,7 +576,7 @@ public class DataMapScreenTest {
         data_.setMap(dataMap);
         data_.setupPseudoImages();
         dataMap.calculateIntersectWithScreen(begin_);
-        dataMap.calculateBackgroundImagesFromTiles(data_, 0, 0);
+        dataMap.calculateBackgroundImagesFromTiles(data_);
         ObjectMap<ScreenCoords, int[][]> backGroundImages_ = dataMap.getBackgroundImages();
         assertEq(42, backGroundImages_.size());
         assertTrue(backGroundImages_.contains(new ScreenCoords(3,4)));
@@ -653,7 +653,7 @@ public class DataMapScreenTest {
         data_.setMap(dataMap);
         data_.setupPseudoImages();
         dataMap.calculateIntersectWithScreen(begin_);
-        dataMap.calculateBackgroundImagesFromTiles(data_, 0, 0);
+        dataMap.calculateBackgroundImagesFromTiles(data_);
         ObjectMap<ScreenCoords, int[][]> backGroundImages_ = dataMap.getBackgroundImages();
         assertEq(36, backGroundImages_.size());
         assertTrue(backGroundImages_.contains(new ScreenCoords(4,3)));
@@ -724,7 +724,7 @@ public class DataMapScreenTest {
         data_.setMap(dataMap);
         data_.setupPseudoImages();
         dataMap.calculateIntersectWithScreen(begin_);
-        dataMap.calculateBackgroundImagesFromTiles(data_, 0, 0);
+        dataMap.calculateBackgroundImagesFromTiles(data_);
         ObjectMap<ScreenCoords, int[][]> backGroundImages_ = dataMap.getBackgroundImages();
         assertEq(33, backGroundImages_.size());
         assertTrue(backGroundImages_.contains(new ScreenCoords(0,0)));

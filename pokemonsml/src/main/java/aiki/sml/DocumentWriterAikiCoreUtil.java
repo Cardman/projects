@@ -159,7 +159,6 @@ import aiki.map.characters.DualFight;
 import aiki.map.characters.GerantPokemon;
 import aiki.map.characters.GymLeader;
 import aiki.map.characters.GymTrainer;
-import aiki.map.characters.Healer;
 import aiki.map.characters.Person;
 import aiki.map.characters.Seller;
 import aiki.map.characters.TempTrainer;
@@ -1629,7 +1628,6 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(DocumentWriterCoreUtil.setStringMapString(_object.getChgtTypeByWeather(),FIELD_CHGT_TYPE_BY_WEATHER,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isChgtTypeByDamage(),FIELD_CHGT_TYPE_BY_DAMAGE,_document));
         _element.appendChild(DocumentWriterMathUtil.setRate(_object.getRecoilDamageFoe(),FIELD_RECOIL_DAMAGE_FOE,_document));
-        _element.appendChild(DocumentWriterMathUtil.setRate(_object.getRecoilDamageFoeByKoOwner(),FIELD_RECOIL_DAMAGE_FOE_BY_KO_OWNER,_document));
         _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getDecreaseNecStepsHatch(),FIELD_DECREASE_NEC_STEPS_HATCH,_document));
         _element.appendChild(DocumentWriterMathUtil.setStringMapRate(_object.getDivideStatusRound(),FIELD_DIVIDE_STATUS_ROUND,_document));
         _element.appendChild(DocumentWriterMathUtil.setStringMapRate(_object.getHealHpByWeather(),FIELD_HEAL_HP_BY_WEATHER,_document));
@@ -1727,7 +1725,6 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getDisableWeather(),FIELD_DISABLE_WEATHER,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getEnabledWeather(),FIELD_ENABLED_WEATHER,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getCopyingAbility(),FIELD_COPYING_ABILITY,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getPlate(),FIELD_PLATE,_document));
         _element.appendChild(DocumentWriterMathUtil.setRate(_object.getMultWeight(),FIELD_MULT_WEIGHT,_document));
     }
 
@@ -1917,7 +1914,6 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getImmuLowStatis(),FIELD_IMMU_LOW_STATIS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setStringMapShort(_object.getIncreasingMaxNbRoundTrap(),FIELD_INCREASING_MAX_NB_ROUND_TRAP,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getAttacksSoon(),FIELD_ATTACKS_SOON,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getRepellingWildPk(),FIELD_REPELLING_WILD_PK,_document));
         _element.appendChild(DocumentWriterCoreUtil.setStringList(_object.getSynchroStatus(),FIELD_SYNCHRO_STATUS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setStringMapString(_object.getFailStatus(),FIELD_FAIL_STATUS,_document));
         _element.appendChild(DocumentWriterMathUtil.setRate(_object.getProtectAgainstKo(),FIELD_PROTECT_AGAINST_KO,_document));
@@ -1926,7 +1922,6 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(setMapStatisticShort(_object.getWinEvFight(),FIELD_WIN_EV_FIGHT,_document));
         _element.appendChild(DocumentWriterMathUtil.setMonteCarloBoolean(_object.getLawForAttackFirst(),FIELD_LAW_FOR_ATTACK_FIRST,_document));
         _element.appendChild(DocumentWriterMathUtil.setRate(_object.getMultTrappingDamage(),FIELD_MULT_TRAPPING_DAMAGE,_document));
-        _element.appendChild(DocumentWriterMathUtil.setRate(_object.getMultWinningMoney(),FIELD_MULT_WINNING_MONEY,_document));
         _element.appendChild(DocumentWriterMathUtil.setRate(_object.getMultWinningHappiness(),FIELD_MULT_WINNING_HAPPINESS,_document));
         _element.appendChild(DocumentWriterMathUtil.setRate(_object.getMultWinningEv(),FIELD_MULT_WINNING_EV,_document));
         _element.appendChild(DocumentWriterMathUtil.setRate(_object.getMultWinningExp(),FIELD_MULT_WINNING_EXP,_document));
@@ -1945,10 +1940,6 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(DocumentWriterCoreUtil.setStringList(_object.getImmuWeather(),FIELD_IMMU_WEATHER,_document));
         _element.appendChild(setMapStatisticByte(_object.getBoostStatisSuperEff(),FIELD_BOOST_STATIS_SUPER_EFF,_document));
         _element.appendChild(setStringMapMapStatisticByte(_object.getBoostStatisTypes(),FIELD_BOOST_STATIS_TYPES,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getDetruitSiContact(),FIELD_DETRUIT_SI_CONTACT,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getSwitchPossibleSiTouche(),FIELD_SWITCH_POSSIBLE_SI_TOUCHE,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getSwitchForceAdvSiTouche(),FIELD_SWITCH_FORCE_ADV_SI_TOUCHE,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getTransfertObjSiContact(),FIELD_TRANSFERT_OBJ_SI_CONTACT,_document));
         _element.appendChild(setListEffectEndRound(_object.getEffectEndRound(),FIELD_EFFECT_END_ROUND,_document));
         _element.appendChild(setListEffectWhileSending(_object.getEffectSending(),FIELD_EFFECT_SENDING,_document));
         setItem(_object, _element, _document);
@@ -1990,7 +1981,6 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static void setMoveData(MoveData _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isNotTranslated(),FIELD_NOT_TRANSLATED,_document));
         _element.appendChild(DocumentWriterCoreUtil.setShort(_object.getPp(),FIELD_PP,_document));
         _element.appendChild(DocumentWriterCoreUtil.setStringList(_object.getTypes(),FIELD_TYPES,_document));
         _element.appendChild(DocumentWriterCoreUtil.setStringList(_object.getBoostedTypes(),FIELD_BOOSTED_TYPES,_document));
@@ -2010,7 +2000,6 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(DocumentWriterCoreUtil.setStringMapListInteger(_object.getSecEffectsByItem(),FIELD_SEC_EFFECTS_BY_ITEM,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getIgnVarAccurUserNeg(),FIELD_IGN_VAR_ACCUR_USER_NEG,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getIgnVarEvasTargetPos(),FIELD_IGN_VAR_EVAS_TARGET_POS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getBreakImmuTypeAbility(),FIELD_BREAK_IMMU_TYPE_ABILITY,_document));
         _element.appendChild(DocumentWriterCoreUtil.setStringList(_object.getAchieveDisappearedPkUsingMove(),FIELD_ACHIEVE_DISAPPEARED_PK_USING_MOVE,_document));
         _element.appendChild(setSwitchType(_object.getSwitchType(),FIELD_SWITCH_TYPE,_document));
         _element.appendChild(DocumentWriterCoreUtil.setStringMapString(_object.getTypesByOwnedItem(),FIELD_TYPES_BY_OWNED_ITEM,_document));
@@ -2523,7 +2512,6 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static void setEffectGlobal(EffectGlobal _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getPriseEnComptePkLanceur(),FIELD_PRISE_EN_COMPTE_PK_LANCEUR,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getWeather(),FIELD_WEATHER,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getCanceledIfUsed(),FIELD_CANCELED_IF_USED,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getReverseOrderOfSortBySpeed(),FIELD_REVERSE_ORDER_OF_SORT_BY_SPEED,_document));
@@ -2781,7 +2769,6 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static void setPokemonData(PokemonData _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getNumber(),FIELD_NUMBER,_document));
         _element.appendChild(DocumentWriterMathUtil.setRate(_object.getWeight(),FIELD_WEIGHT,_document));
         _element.appendChild(DocumentWriterCoreUtil.setStringList(_object.getTypes(),FIELD_TYPES,_document));
         _element.appendChild(setMapStatisticStatBaseEv(_object.getStatistics(),FIELD_STATISTICS,_document));
@@ -3689,12 +3676,6 @@ public final class DocumentWriterAikiCoreUtil {
             Element element_ = _document.createElement(TYPE_GYM_TRAINER);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
             setGymTrainer((GymTrainer)_object,element_,_document);
-            return element_;
-        }
-        if (_object instanceof Healer) {
-            Element element_ = _document.createElement(TYPE_HEALER);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setPerson(_object,element_,_document);
             return element_;
         }
         if (_object instanceof Seller) {

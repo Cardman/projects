@@ -1,4 +1,4 @@
-package aiki.comparators;
+package aiki.beans.facade.comparators;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import code.util.EnumMap;

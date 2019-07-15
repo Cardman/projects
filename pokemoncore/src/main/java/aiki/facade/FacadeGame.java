@@ -1,7 +1,6 @@
 package aiki.facade;
 
 import aiki.comments.Comment;
-import aiki.comparators.ComparatorCoords;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.comparators.TrMovesComparator;
 import aiki.db.DataBase;
@@ -12,8 +11,6 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.items.Fossil;
 import aiki.fight.items.Item;
 import aiki.fight.moves.MoveData;
-import aiki.fight.moves.effects.EffectCombo;
-import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.game.Game;
 import aiki.game.GameProgression;
@@ -36,15 +33,9 @@ import aiki.map.levels.LevelIndoorPokemonCenter;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.City;
 import aiki.map.places.Place;
-import aiki.map.pokemon.CriteriaForSearchingEgg;
-import aiki.map.pokemon.CriteriaForSearchingHealingItem;
-import aiki.map.pokemon.CriteriaForSearchingItem;
-import aiki.map.pokemon.CriteriaForSearchingMove;
-import aiki.map.pokemon.CriteriaForSearchingPokemon;
 import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
-import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.ScreenCoords;
@@ -87,8 +78,6 @@ public class FacadeGame implements WithMathFactory {
 
     private PaginationPokemonPlayer firstPaginationPk = new PaginationPokemonPlayer();
 
-    private PaginationPokemonPlayer secondPaginationPk = new PaginationPokemonPlayer();
-
     private PaginationHealingItem paginationHealingItem = new PaginationHealingItem();
 
     private PaginationItem paginationItem = new PaginationItem();
@@ -110,8 +99,6 @@ public class FacadeGame implements WithMathFactory {
     private boolean selectedBoxPokemon;
 
     private boolean selectedOtherPokemon;
-
-    private boolean selectedHostedPokemon;
 
     private boolean selectedTeamPokemon;
 
@@ -198,7 +185,6 @@ public class FacadeGame implements WithMathFactory {
     void initializePaginatorTranslations() {
         paginationEgg.setTranslation(data, language);
         firstPaginationPk.setTranslation(data, language);
-        secondPaginationPk.setTranslation(data, language);
         paginationHealingItem.setTranslation(data, language);
         paginationItem.setTranslation(data, language);
         paginationMove.setTranslation(data, language);
@@ -213,19 +199,17 @@ public class FacadeGame implements WithMathFactory {
         if (!_game.checkAndInitialize(data)) {
             return false;
         }
-        game = _game;
-        changeToFightScene = game.getFight().getFightType().isExisting();
-        if (changeToFightScene) {
-            enabledMovingHero = false;
-        } else {
-            enabledMovingHero = true;
-        }
+        load(_game);
         return true;
     }
 
     public void load(Game _game) {
         game = _game;
         changeToFightScene = game.getFight().getFightType().isExisting();
+        setupMovingHeros();
+    }
+
+    private void setupMovingHeros() {
         if (changeToFightScene) {
             enabledMovingHero = false;
         } else {
@@ -282,7 +266,7 @@ public class FacadeGame implements WithMathFactory {
         data.getMap().getBackgroundImages().clear();
         data.getMap().getForegroundImages().clear();
         data.getMap().calculateIntersectWithScreen(game.getPlayerCoords());
-        data.getMap().calculateBackgroundImagesFromTiles(data, 0, 0);
+        data.getMap().calculateBackgroundImagesFromTiles(data);
         game.calculateImagesFromTiles(data, 0, 0);
     }
 
@@ -297,9 +281,7 @@ public class FacadeGame implements WithMathFactory {
 
         // begin
         // data.getMap().moveCamera(_direction);
-        int dx_ = Math.abs(_direction.getx());
-        int dy_ = Math.abs(_direction.gety());
-        data.getMap().calculateBackgroundImagesFromTiles(data, dx_, dy_);
+        data.getMap().calculateBackgroundImagesFromTiles(data);
         game.calculateImagesFromTiles(data, _direction.getx(),
                 _direction.gety());
         // end
@@ -399,10 +381,6 @@ public class FacadeGame implements WithMathFactory {
         enabledMovingHero = false;
     }
 
-    public void exitMenu() {
-        enabledMovingHero = true;
-    }
-
     public void exitInteract() {
         enabledMovingHero = true;
         chosenItemsForBuyOrSell.clear();
@@ -436,10 +414,6 @@ public class FacadeGame implements WithMathFactory {
         }
     }
 
-    public boolean enabledSwitchObjectsTeamBox() {
-        return game.getPlayer().enabledSwitchObjectsTeamBox();
-    }
-
     public void switchBoxTeam() {
         int currentIndex_ = firstPaginationPk.currentIndex();
         if (currentIndex_ != CustList.INDEX_NOT_FOUND_ELT) {
@@ -459,19 +433,6 @@ public class FacadeGame implements WithMathFactory {
         paginationEgg.clear();
     }
 
-    public void switchPokemonPlayerBoxTeam() {
-        int currentIndex_ = firstPaginationPk.currentIndex();
-        if (currentIndex_ == CustList.INDEX_NOT_FOUND_ELT) {
-            return;
-        }
-        if (!game.getPlayer().enabledSwitchPokemonBoxTeam()) {
-            return;
-        }
-        game.getPlayer().switchPokemon(currentIndex_, data);
-        // firstPaginationPk.search(game.getPlayer().getBox());
-        // secondPaginationPk.search(game.getPlayer().getBox());
-    }
-
     void switchEggBoxTeam() {
         int currentIndex_ = paginationEgg.currentIndex();
         if (currentIndex_ == CustList.INDEX_NOT_FOUND_ELT) {
@@ -482,27 +443,6 @@ public class FacadeGame implements WithMathFactory {
         }
         game.getPlayer().switchPokemon(currentIndex_, data);
         // paginationEgg.search(game.getPlayer().getBox());
-        // firstPaginationPk.search(game.getPlayer().getBox());
-        // secondPaginationPk.search(game.getPlayer().getBox());
-    }
-
-    public void switchObjectsTeamBox() {
-        int currentIndexOne_ = firstPaginationPk.currentIndex();
-        if (currentIndexOne_ == CustList.INDEX_NOT_FOUND_ELT) {
-            return;
-        }
-        if (!game.getPlayer().enabledSwitchObjectsTeamBox()) {
-            return;
-        }
-        game.getPlayer().switchObjectsTeamBox(currentIndexOne_);
-        // firstPaginationPk.search(game.getPlayer().getBox());
-        // secondPaginationPk.search(game.getPlayer().getBox());
-    }
-
-    public void switchPokemonPlayerObjectsBoxes() {
-        int currentIndexOne_ = firstPaginationPk.currentIndex();
-        int currentIndexTwo_ = secondPaginationPk.currentIndex();
-        game.getPlayer().switchObjectsBox(currentIndexOne_, currentIndexTwo_);
         // firstPaginationPk.search(game.getPlayer().getBox());
         // secondPaginationPk.search(game.getPlayer().getBox());
     }
@@ -642,7 +582,6 @@ public class FacadeGame implements WithMathFactory {
     public void clearFoundResultsStoragePokemon() {
         paginationEgg.clear();
         firstPaginationPk.clear();
-        secondPaginationPk.clear();
         paginationHealingItem.clear();
         paginationItem.clear();
         paginationMove.clear();
@@ -656,35 +595,12 @@ public class FacadeGame implements WithMathFactory {
         firstPaginationPk.search(game.getPlayer().getBox());
     }
 
-    public void searchPokemonSecondBox() {
-        secondPaginationPk.search(game.getPlayer().getBox());
-    }
-
-    public void sortEggs() {
-        paginationEgg.sort();
-        paginationEgg.calculateRendered();
-    }
-
-    public void sortPokemonFirstBox() {
-        firstPaginationPk.sort();
-        firstPaginationPk.calculateRendered();
-    }
-
-    public void sortPokemonSecondBox() {
-        secondPaginationPk.sort();
-        secondPaginationPk.calculateRendered();
-    }
-
     public void newSearchEgg() {
         paginationEgg.newSearch();
     }
 
     public void newSearchPokemonFirstBox() {
         firstPaginationPk.newSearch();
-    }
-
-    public void newSearchPokemonSecondBox() {
-        secondPaginationPk.newSearch();
     }
 
     public void checkLineEggs(int _numberLine) {
@@ -700,16 +616,11 @@ public class FacadeGame implements WithMathFactory {
         if (getSelectedPokemonFirstBox() != null) {
             selectedTeamPokemon = false;
             selectedBoxPokemon = true;
-            selectedHostedPokemon = false;
         }
     }
 
     public void setLinePokemonFirstBox(int _numberLine) {
         firstPaginationPk.setLine(_numberLine);
-    }
-
-    public void checkLinePokemonSecondBox(int _numberLine) {
-        secondPaginationPk.checkLine(_numberLine);
     }
 
     public Egg getSelectedEggBox() {
@@ -726,10 +637,6 @@ public class FacadeGame implements WithMathFactory {
 
     public PokemonPlayer getSelectedPokemonFirstBox() {
         return firstPaginationPk.currentObject();
-    }
-
-    public PokemonPlayer getSelectedPokemonSecondBox() {
-        return secondPaginationPk.currentObject();
     }
 
     public UsablePokemon getSelectedPkTeam() {
@@ -780,10 +687,6 @@ public class FacadeGame implements WithMathFactory {
         return firstPaginationPk.getRendered();
     }
 
-    public CriteriaForSearchingPokemon getCriteriaFirstBox() {
-        return firstPaginationPk.getCriteria();
-    }
-
     public int getNumberPageFirstBox() {
         return firstPaginationPk.getNumberPage();
     }
@@ -794,10 +697,6 @@ public class FacadeGame implements WithMathFactory {
 
     public void setNbResultsPerPageFirstBox(int _nbResultsPerPage) {
         firstPaginationPk.setNbResultsPerPage(_nbResultsPerPage);
-    }
-
-    public int getDeltaFirstBox() {
-        return firstPaginationPk.getDelta();
     }
 
     public void setDeltaFirstBox(int _delta) {
@@ -989,10 +888,6 @@ public class FacadeGame implements WithMathFactory {
         return paginationEgg.getRendered();
     }
 
-    public CriteriaForSearchingEgg getCriteriaEgg() {
-        return paginationEgg.getCriteria();
-    }
-
     public int getNumberPageEgg() {
         return paginationEgg.getNumberPage();
     }
@@ -1003,10 +898,6 @@ public class FacadeGame implements WithMathFactory {
 
     public void setNbResultsPerPageEgg(int _nbResultsPerPage) {
         paginationEgg.setNbResultsPerPage(_nbResultsPerPage);
-    }
-
-    public int getDeltaEgg() {
-        return paginationEgg.getDelta();
     }
 
     public void setDeltaEgg(int _delta) {
@@ -1067,10 +958,6 @@ public class FacadeGame implements WithMathFactory {
 
     // %%%%begin%%%% option team
 
-    public boolean enabledSwitchTeamOrder() {
-        return game.getPlayer().enabledSwitchTeamOrder();
-    }
-
     public boolean isSelectedTeamPokemonItem() {
         if (!isSelectedTeamPokemon()) {
             return false;
@@ -1090,14 +977,6 @@ public class FacadeGame implements WithMathFactory {
 
     public boolean isSelectedBoxPokemon() {
         return selectedBoxPokemon;
-    }
-
-    public boolean isSelectedHostedPokemon() {
-        return selectedHostedPokemon;
-    }
-
-    public void setSelectedHostedPokemon(boolean _selectedHostedPokemon) {
-        selectedHostedPokemon = _selectedHostedPokemon;
     }
 
     public boolean isSelectedOtherPokemon() {
@@ -1122,33 +1001,6 @@ public class FacadeGame implements WithMathFactory {
 
     public PokemonPlayer getHostedPokemon() {
         return hostedPokemon;
-    }
-
-    public void initPlaces() {
-        openMenu();
-        places.clear();
-        placesCoords.clear();
-        ObjectMap<Coords, Boolean> visitedPlaces_ = game.getVisitedPlaces();
-        placesCoords.addAllElts(visitedPlaces_.getKeys());
-        // placesCoords.sort(new Comparator<Coords>() {
-        // @Override
-        // public int compare(Coords _o1, Coords _o2) {
-        // Place plOne_ =
-        // data.getMap().getPlaces().getVal(_o1.getNumberPlace());
-        // Place plTwo_ =
-        // data.getMap().getPlaces().getVal(_o2.getNumberPlace());
-        // int res_ = plOne_.getName().compareTo(plTwo_.getName());
-        // if (res_ != 0) {
-        // return res_;
-        // }
-        // return Short.compare(_o1.getNumberPlace(), _o2.getNumberPlace());
-        // }
-        // });
-        placesCoords.sortElts(new ComparatorCoords(data));
-        for (Coords c : placesCoords) {
-            Place pl_ = data.getMap().getPlaces().getVal(c.getNumberPlace());
-            places.add(pl_.getName());
-        }
     }
 
     public void choosePlace(int _index) {
@@ -1272,7 +1124,6 @@ public class FacadeGame implements WithMathFactory {
         setSelectedOtherPokemon(true);
         selectedTeamPokemon = false;
         selectedBoxPokemon = false;
-        selectedHostedPokemon = false;
     }
 
     public void applyTrading() {
@@ -1288,24 +1139,14 @@ public class FacadeGame implements WithMathFactory {
         return exchangeData;
     }
 
-    public void cancelChosenTeamPokemon() {
-        game.getPlayer().setChosenTeamPokemon(CustList.INDEX_NOT_FOUND_ELT);
-        selectedTeamPokemon = false;
-    }
-
     public void cancelLearningMoveOnPokemon() {
         game.getPlayer().cancelLearningMoveOnPokemon();
-    }
-
-    public void cancelLearningMove() {
-        game.getPlayer().cancelLearningMove();
     }
 
     public void setChosenTeamPokemon(short _chosenPokemon) {
         game.getPlayer().setChosenTeamPokemon(_chosenPokemon);
         selectedTeamPokemon = game.getPlayer().isValidPkPlayerChoice();
         selectedBoxPokemon = false;
-        selectedHostedPokemon = false;
     }
 
     public void switchTeamOrder(short _chosenOtherPokemon) {
@@ -1320,10 +1161,6 @@ public class FacadeGame implements WithMathFactory {
 
     public void validateNickname(String _nickname) {
         game.nickname(_nickname, data);
-    }
-
-    public void switchObjectsTeam(byte _other) {
-        game.getPlayer().switchObjectsTeam(_other);
     }
 
     // %%%%end%%%% option team
@@ -1461,10 +1298,6 @@ public class FacadeGame implements WithMathFactory {
         paginationItem.checkLine(_numberLine);
     }
 
-    public Item getSelectedItem() {
-        return data.getItem(paginationItem.currentObject());
-    }
-
     public boolean enabledPreviousItem() {
         return paginationItem.enabledPrevious();
     }
@@ -1509,24 +1342,12 @@ public class FacadeGame implements WithMathFactory {
         return paginationItem.getRendered();
     }
 
-    public CriteriaForSearchingItem getCriteriaItem() {
-        return paginationItem.getCriteria();
-    }
-
     public int getNumberPageItem() {
         return paginationItem.getNumberPage();
     }
 
-    public int getNbResultsPerPageItem() {
-        return paginationItem.getNbResultsPerPage();
-    }
-
     public void setNbResultsPerPageItem(int _nbResultsPerPage) {
         paginationItem.setNbResultsPerPage(_nbResultsPerPage);
-    }
-
-    public int getDeltaItem() {
-        return paginationItem.getDelta();
     }
 
     public void setDeltaItem(int _delta) {
@@ -1598,10 +1419,6 @@ public class FacadeGame implements WithMathFactory {
 
     public void setMaxNumberItem(LgInt _maxNumber) {
         paginationItem.getCriteria().setMaxNumber(_maxNumber);
-    }
-
-    public void sortItems() {
-        paginationItem.sort();
     }
 
     public void clearFoundResultsItems() {
@@ -1679,10 +1496,6 @@ public class FacadeGame implements WithMathFactory {
         return list_;
     }
 
-    public void sortTm() {
-        paginationMove.sort();
-    }
-
     public void newSearchMove() {
         paginationMove.newSearch();
     }
@@ -1739,24 +1552,12 @@ public class FacadeGame implements WithMathFactory {
         return paginationMove.getRendered();
     }
 
-    public CriteriaForSearchingMove getCriteriaMove() {
-        return paginationMove.getCriteria();
-    }
-
     public int getNumberPageMove() {
         return paginationMove.getNumberPage();
     }
 
-    public int getNbResultsPerPageMove() {
-        return paginationMove.getNbResultsPerPage();
-    }
-
     public void setNbResultsPerPageMove(int _nbResultsPerPage) {
         paginationMove.setNbResultsPerPage(_nbResultsPerPage);
-    }
-
-    public int getDeltaMove() {
-        return paginationMove.getDelta();
     }
 
     public void setDeltaMove(int _delta) {
@@ -1857,26 +1658,6 @@ public class FacadeGame implements WithMathFactory {
 
     public void setTargetChoiceMove(TargetChoice _targetChoice) {
         paginationMove.getCriteria().setTargetChoice(_targetChoice);
-    }
-
-    public void setConstUserChoiceMove(SelectedBoolean _constUserChoice) {
-        paginationMove.getCriteria().setConstUserChoice(_constUserChoice);
-    }
-
-    public void setDisappearingRoundMove(SelectedBoolean _disappearingRound) {
-        paginationMove.getCriteria().setDisappearingRound(_disappearingRound);
-    }
-
-    public void setRechargeRoundMove(SelectedBoolean _rechargeTour) {
-        paginationMove.getCriteria().setRechargeRound(_rechargeTour);
-    }
-
-    public void setSwitchTypeMove(SwitchType _switchType) {
-        paginationMove.getCriteria().setSwitchType(_switchType);
-    }
-
-    public void setTechnicalMoveMove(SelectedBoolean _technicalMove) {
-        paginationMove.getCriteria().setTechnicalMove(_technicalMove);
     }
 
     public void clearFiltersMove() {
@@ -1990,10 +1771,6 @@ public class FacadeGame implements WithMathFactory {
         return game.getPlayer().usedObjectForEvolving(data);
     }
 
-    public boolean usedObjectForHealing() {
-        return game.getPlayer().usedObjectForHealing(data);
-    }
-
     public boolean usedObjectForHealingAmove() {
         return game.getPlayer().usedObjectForHealingAmove(data);
     }
@@ -2007,10 +1784,6 @@ public class FacadeGame implements WithMathFactory {
             return;
         }
         game.getPlayer().choosePokemonForUsingObject(_chosenTeamPokemon, data);
-    }
-
-    public void cancelUsingObjectOnPokemon() {
-        game.getPlayer().cancelUsingObjectOnPokemon();
     }
 
     public void evolvePokemon() {
@@ -2028,13 +1801,6 @@ public class FacadeGame implements WithMathFactory {
                 .getSelectedPkTeam();
         boolean learnt_ = pk_.getMovesToBeKeptEvo().getVal(_move);
         pk_.getMovesToBeKeptEvo().put(_move, !learnt_);
-    }
-
-    public int nbLearntMoves() {
-        // PokemonPlayer pk_ = (PokemonPlayer)
-        // game.getPlayer().getSelectedPkTeam();
-        // return pk_.getMovesToBeKeptEvo().getKeys(true).size();
-        return getKeptMovesToEvo().size();
     }
 
     public StringList getKeptMovesToEvo() {
@@ -2332,10 +2098,6 @@ public class FacadeGame implements WithMathFactory {
         paginationHealingItem.checkLine(_numberLine);
     }
 
-    public Item getSelectedHealingItem() {
-        return data.getItem(paginationHealingItem.currentObject());
-    }
-
     public boolean enabledPreviousHealingItem() {
         return paginationHealingItem.enabledPrevious();
     }
@@ -2380,24 +2142,12 @@ public class FacadeGame implements WithMathFactory {
         return paginationHealingItem.getRendered();
     }
 
-    public CriteriaForSearchingHealingItem getCriteriaHealingItem() {
-        return paginationHealingItem.getCriteria();
-    }
-
     public int getNumberPageHealingItem() {
         return paginationHealingItem.getNumberPage();
     }
 
-    public int getNbResultsPerPageHealingItem() {
-        return paginationHealingItem.getNbResultsPerPage();
-    }
-
     public void setNbResultsPerPageHealingItem(int _nbResultsPerPage) {
         paginationHealingItem.setNbResultsPerPage(_nbResultsPerPage);
-    }
-
-    public int getDeltaHealingItem() {
-        return paginationHealingItem.getDelta();
     }
 
     public void setDeltaHealingItem(int _delta) {
@@ -2435,23 +2185,6 @@ public class FacadeGame implements WithMathFactory {
 
     public void setCmpNamePriorityHealingItem(int _priority) {
         paginationHealingItem.getCmpName().setPriority(_priority);
-    }
-
-    public void setCmpHealOneMoveIncreasingHealingItem(
-            SelectedBoolean _increasing) {
-        paginationHealingItem.getCmpHealOneMove().setIncreasing(_increasing);
-    }
-
-    public void setCmpHealOneMovePriorityHealingItem(int _priority) {
-        paginationHealingItem.getCmpHealOneMove().setPriority(_priority);
-    }
-
-    public void setCmpHpIncreasingHealingItem(SelectedBoolean _increasing) {
-        paginationHealingItem.getCmpHp().setIncreasing(_increasing);
-    }
-
-    public void setCmpHpPriorityHealingItem(int _priority) {
-        paginationHealingItem.getCmpHp().setPriority(_priority);
     }
 
     public void setCmpRateHpIncreasingHealingItem(SelectedBoolean _increasing) {
@@ -2504,14 +2237,6 @@ public class FacadeGame implements WithMathFactory {
 
     public void setCmpStatisticsPriorityHealingItem(int _priority) {
         paginationHealingItem.getCmpStatistics().setPriority(_priority);
-    }
-
-    public void setCmpKoIncreasingHealingItem(SelectedBoolean _increasing) {
-        paginationHealingItem.getCmpKo().setIncreasing(_increasing);
-    }
-
-    public void setCmpKoPriorityHealingItem(int _priority) {
-        paginationHealingItem.getCmpKo().setPriority(_priority);
     }
 
     public void setSearchModeNameHealingItem(SearchingMode _searchModeName) {
@@ -2983,10 +2708,6 @@ public class FacadeGame implements WithMathFactory {
 
     // %%%%end%%%% wild fight
 
-    public boolean isLoadedRom() {
-        return data != null;
-    }
-
     public String translatePokemon(String _pokemon) {
         return data.translatePokemon(_pokemon);
     }
@@ -3009,10 +2730,6 @@ public class FacadeGame implements WithMathFactory {
 
     public String translateType(String _status) {
         return data.translateType(_status);
-    }
-
-    public String translateStatistics(Statistic _statistic) {
-        return data.translateStatistics(_statistic);
     }
 
     public String translatedTargets(TargetChoice _statistic) {
@@ -3092,10 +2809,6 @@ public class FacadeGame implements WithMathFactory {
 
     public StringList getPlaces() {
         return places;
-    }
-
-    public boolean isEnablePlace(int _index) {
-        return game.getVisitedPlaces().getVal(placesCoords.get(_index));
     }
 
     public Comment getComment() {

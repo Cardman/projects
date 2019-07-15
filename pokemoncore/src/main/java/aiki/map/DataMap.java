@@ -121,8 +121,6 @@ public final class DataMap {
 
     private EqList<Coords> takenObjects = new EqList<Coords>();
 
-    private ObjectMap<PlaceLevel, Ints> wildPokemonBeforeFirstLeague = new ObjectMap<PlaceLevel, Ints>();
-
     private ObjectMap<ScreenCoords, Coords> tiles = new ObjectMap<ScreenCoords, Coords>();
 
     private ObjectMap<ScreenCoords, int[][]> backgroundImages = new ObjectMap<ScreenCoords, int[][]>();
@@ -154,8 +152,7 @@ public final class DataMap {
         initInteractiveElements();
         firstPokemon.validateAsNpc(_d);
 
-        tree = new Tree();
-        tree.initialize(this);
+        initializeTree();
         if (!existCoords(begin)) {
             _d.setError(true);
             return;
@@ -166,7 +163,7 @@ public final class DataMap {
             _d.setError(true);
             return;
         }
-        wildPokemonBeforeFirstLeague = new ObjectMap<PlaceLevel, Ints>();
+        ObjectMap<PlaceLevel, Ints> wildPokemonBeforeFirstLeague_ = new ObjectMap<PlaceLevel, Ints>();
         int nbPlaces_ = places.size();
         for (short p = CustList.FIRST_INDEX; p < nbPlaces_; p++) {
             places.getVal(p).validate(_d, tree.getPlace(p));
@@ -357,12 +354,12 @@ public final class DataMap {
             if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
                 continue;
             }
-            if (wildPokemonBeforeFirstLeague.contains(keyPlaceLevel_)) {
-                wildPokemonBeforeFirstLeague.getVal(keyPlaceLevel_).add(index_);
-                wildPokemonBeforeFirstLeague.getVal(keyPlaceLevel_)
+            if (wildPokemonBeforeFirstLeague_.contains(keyPlaceLevel_)) {
+                wildPokemonBeforeFirstLeague_.getVal(keyPlaceLevel_).add(index_);
+                wildPokemonBeforeFirstLeague_.getVal(keyPlaceLevel_)
                         .removeDuplicates();
             } else {
-                wildPokemonBeforeFirstLeague.put(keyPlaceLevel_,
+                wildPokemonBeforeFirstLeague_.put(keyPlaceLevel_,
                         new Ints(index_));
             }
         }
@@ -454,11 +451,11 @@ public final class DataMap {
                 }
                 LevelWithWildPokemon levelWild_ = (LevelWithWildPokemon) level_;
                 PlaceLevel keyPlaceLevel_ = new PlaceLevel(p_, l);
-                if (!wildPokemonBeforeFirstLeague.contains(keyPlaceLevel_)) {
+                if (!wildPokemonBeforeFirstLeague_.contains(keyPlaceLevel_)) {
                     continue;
                 }
                 Ints levelPokemon_;
-                levelPokemon_ = wildPokemonBeforeFirstLeague
+                levelPokemon_ = wildPokemonBeforeFirstLeague_
                         .getVal(keyPlaceLevel_);
                 for (int index_ : levelPokemon_) {
                     CustList<AreaApparition> wildPokemonAreas_ = levelWild_.getWildPokemonAreas();
@@ -755,7 +752,7 @@ public final class DataMap {
         return correctCoords_;
     }
 
-    public boolean existLevel(Coords _c) {
+    private boolean existLevel(Coords _c) {
         Place plBegin_ = places.getVal(_c.getNumberPlace());
         if (plBegin_ == null) {
             return false;
@@ -764,20 +761,12 @@ public final class DataMap {
         if (_c.isInside()) {
             if (plBegin_ instanceof City) {
                 Point bIncome_ = _c.getInsideBuilding();
-                if (!((City)plBegin_).getBuildings().contains(bIncome_)) {
-                    correctCoords_ = false;
-                } else {
-                    correctCoords_ = true;
-                }
+                correctCoords_ = ((City) plBegin_).getBuildings().contains(bIncome_);
             } else {
                 correctCoords_ = false;
             }
         } else {
-            if (!plBegin_.getLevelsList().isValidIndex(_c.getLevel().getLevelIndex())) {
-                correctCoords_ = false;
-            } else {
-                correctCoords_ = true;
-            }
+            correctCoords_ = plBegin_.getLevelsList().isValidIndex(_c.getLevel().getLevelIndex());
         }
         return correctCoords_;
     }
@@ -2029,8 +2018,7 @@ public final class DataMap {
         tiles = liste_;
     }
 
-    public void calculateBackgroundImagesFromTiles(DataBase _data, int _dx,
-            int _dy) {
+    public void calculateBackgroundImagesFromTiles(DataBase _data) {
         for (ScreenCoords k : tiles.getKeys()) {
             Coords coords_ = tiles.getVal(k);
             if (!coords_.isValid()) {
@@ -2104,10 +2092,6 @@ public final class DataMap {
         return cities;
     }
 
-    public EqList<Coords> getLeagues() {
-        return leagues;
-    }
-
     public EqList<NbFightCoords> getBeatTrainer() {
         return beatTrainer;
     }
@@ -2130,10 +2114,6 @@ public final class DataMap {
 
     public EqList<Coords> getTakenObjects() {
         return takenObjects;
-    }
-
-    public ObjectMap<PlaceLevel, Ints> getWildPokemonBeforeFirstLeague() {
-        return wildPokemonBeforeFirstLeague;
     }
 
     public ObjectMap<ScreenCoords, Coords> getTiles() {

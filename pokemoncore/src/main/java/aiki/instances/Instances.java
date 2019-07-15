@@ -147,7 +147,6 @@ import aiki.map.characters.DualFight;
 import aiki.map.characters.GerantPokemon;
 import aiki.map.characters.GymLeader;
 import aiki.map.characters.GymTrainer;
-import aiki.map.characters.Healer;
 import aiki.map.characters.Person;
 import aiki.map.characters.Seller;
 import aiki.map.characters.TempTrainer;
@@ -211,12 +210,10 @@ public final class Instances {
 
     public static AbilityData newAbilityData() {
         AbilityData object_ = new AbilityData();
-        object_.setName(DataBase.EMPTY_STRING);
         CollCapacity cap_ = new CollCapacity(0);
         object_.setBreakFoeImmune(new EqList<TypesDuo>(cap_));
         object_.setChgtTypeByWeather(new StringMap<String>(cap_));
         object_.setRecoilDamageFoe(Rate.zero());
-        object_.setRecoilDamageFoeByKoOwner(Rate.zero());
         object_.setDivideStatusRound(new StringMap<Rate>(cap_));
         object_.setHealHpByWeather(new StringMap<Rate>(cap_));
         object_.setIgnAbility(new StringList(cap_));
@@ -289,14 +286,12 @@ public final class Instances {
 
     public static Ball newBall() {
         Ball object_ = new Ball();
-        object_.setName(DataBase.EMPTY_STRING);
         object_.setCatchingRate(DataBase.EMPTY_STRING);
         return object_;
     }
 
     public static Berry newBerry() {
         Berry object_ = new Berry();
-        object_.setName(DataBase.EMPTY_STRING);
         CollCapacity cap_ = new CollCapacity(0);
         object_.setHealHpBySuperEffMove(Rate.zero());
         object_.setMultFoesDamage(new StringMap<EfficiencyRate>(cap_));
@@ -314,7 +309,6 @@ public final class Instances {
 
     public static Boost newBoost() {
         Boost object_ = new Boost();
-        object_.setName(DataBase.EMPTY_STRING);
         CollCapacity cap_ = new CollCapacity(0);
         object_.setWinPp(Rate.zero());
         object_.setHappiness(new StringMap<Short>(cap_));
@@ -323,27 +317,21 @@ public final class Instances {
     }
 
     public static EvolvingItem newEvolvingItem() {
-        EvolvingItem object_ = new EvolvingItem();
-        object_.setName(DataBase.EMPTY_STRING);
-        return object_;
+        return new EvolvingItem();
     }
 
     public static EvolvingStone newEvolvingStone() {
-        EvolvingStone object_ = new EvolvingStone();
-        object_.setName(DataBase.EMPTY_STRING);
-        return object_;
+        return new EvolvingStone();
     }
 
     public static Fossil newFossil() {
         Fossil object_ = new Fossil();
-        object_.setName(DataBase.EMPTY_STRING);
         object_.setPokemon(DataBase.EMPTY_STRING);
         return object_;
     }
 
     public static HealingHp newHealingHp() {
         HealingHp object_ = new HealingHp();
-        object_.setName(DataBase.EMPTY_STRING);
         CollCapacity cap_ = new CollCapacity(0);
         object_.setHp(Rate.zero());
         object_.setHappiness(new StringMap<Short>(cap_));
@@ -352,7 +340,6 @@ public final class Instances {
 
     public static HealingHpStatus newHealingHpStatus() {
         HealingHpStatus object_ = new HealingHpStatus();
-        object_.setName(DataBase.EMPTY_STRING);
         CollCapacity cap_ = new CollCapacity(0);
         object_.setHealedHpRate(Rate.zero());
         object_.setStatus(new StringList(cap_));
@@ -362,7 +349,6 @@ public final class Instances {
 
     public static HealingPp newHealingPp() {
         HealingPp object_ = new HealingPp();
-        object_.setName(DataBase.EMPTY_STRING);
         CollCapacity cap_ = new CollCapacity(0);
         object_.setHappiness(new StringMap<Short>(cap_));
         return object_;
@@ -370,7 +356,6 @@ public final class Instances {
 
     public static HealingSimpleItem newHealingSimpleItem() {
         HealingSimpleItem object_ = new HealingSimpleItem();
-        object_.setName(DataBase.EMPTY_STRING);
         CollCapacity cap_ = new CollCapacity(0);
         object_.setHappiness(new StringMap<Short>(cap_));
         return object_;
@@ -378,7 +363,6 @@ public final class Instances {
 
     public static HealingSimpleStatus newHealingSimpleStatus() {
         HealingSimpleStatus object_ = new HealingSimpleStatus();
-        object_.setName(DataBase.EMPTY_STRING);
         CollCapacity cap_ = new CollCapacity(0);
         object_.setStatus(new StringList(cap_));
         object_.setHappiness(new StringMap<Short>(cap_));
@@ -387,7 +371,6 @@ public final class Instances {
 
     public static ItemForBattle newItemForBattle() {
         ItemForBattle object_ = new ItemForBattle();
-        object_.setName(DataBase.EMPTY_STRING);
         CollCapacity cap_ = new CollCapacity(0);
         object_.setTypesPk(new StringList(cap_));
         object_.setImmuStatus(new StringList(cap_));
@@ -400,7 +383,6 @@ public final class Instances {
         object_.setWinEvFight(new EnumMap<Statistic,Short>(cap_));
         object_.setLawForAttackFirst(new MonteCarloBoolean(cap_));
         object_.setMultTrappingDamage(Rate.zero());
-        object_.setMultWinningMoney(Rate.zero());
         object_.setMultWinningHappiness(Rate.zero());
         object_.setMultWinningEv(Rate.zero());
         object_.setMultWinningExp(Rate.zero());
@@ -425,20 +407,15 @@ public final class Instances {
     }
 
     public static Repel newRepel() {
-        Repel object_ = new Repel();
-        object_.setName(DataBase.EMPTY_STRING);
-        return object_;
+        return new Repel();
     }
 
     public static SellingItem newSellingItem() {
-        SellingItem object_ = new SellingItem();
-        object_.setName(DataBase.EMPTY_STRING);
-        return object_;
+        return new SellingItem();
     }
 
     public static DamagingMoveData newDamagingMoveData() {
         DamagingMoveData object_ = new DamagingMoveData();
-        object_.setName(DataBase.EMPTY_STRING);
         CollCapacity cap_ = new CollCapacity(0);
         object_.setCategory(DataBase.EMPTY_STRING);
         object_.setTypes(new StringList(cap_));
@@ -459,7 +436,6 @@ public final class Instances {
 
     public static StatusMoveData newStatusMoveData() {
         StatusMoveData object_ = new StatusMoveData();
-        object_.setName(DataBase.EMPTY_STRING);
         CollCapacity cap_ = new CollCapacity(0);
         object_.setTypes(new StringList(cap_));
         object_.setBoostedTypes(new StringList(cap_));
@@ -1000,7 +976,6 @@ public final class Instances {
     public static PokemonData newPokemonData() {
         PokemonData object_ = new PokemonData();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setName(DataBase.EMPTY_STRING);
         object_.setWeight(Rate.zero());
         object_.setTypes(new StringList(cap_));
         object_.setStatistics(new EnumMap<Statistic,StatBaseEv>(cap_));
@@ -1074,7 +1049,6 @@ public final class Instances {
 
     public static StatusBeginRoundAutoDamage newStatusBeginRoundAutoDamage() {
         StatusBeginRoundAutoDamage object_ = new StatusBeginRoundAutoDamage();
-        object_.setName(DataBase.EMPTY_STRING);
         CollCapacity cap_ = new CollCapacity(0);
         object_.setPower(Rate.zero());
         object_.setAttack(Statistic.ATTACK);
@@ -1094,7 +1068,6 @@ public final class Instances {
 
     public static StatusBeginRoundSimple newStatusBeginRoundSimple() {
         StatusBeginRoundSimple object_ = new StatusBeginRoundSimple();
-        object_.setName(DataBase.EMPTY_STRING);
         CollCapacity cap_ = new CollCapacity(0);
         object_.setLawForUsingAMove(new MonteCarloBoolean(cap_));
         object_.setLawForUsingAMoveNbRound(new MonteCarloNumber(cap_));
@@ -1111,7 +1084,6 @@ public final class Instances {
 
     public static StatusSimple newStatusSimple() {
         StatusSimple object_ = new StatusSimple();
-        object_.setName(DataBase.EMPTY_STRING);
         CollCapacity cap_ = new CollCapacity(0);
         object_.setCatchingRate(Rate.zero());
         object_.setEffectEndRound(new CustList<EffectEndRoundStatus>(cap_));
@@ -1411,12 +1383,6 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setTeam(new CustList<PkTrainer>(cap_));
         object_.setImageMaxiFileName(DataBase.EMPTY_STRING);
-        object_.setImageMiniFileName(DataBase.EMPTY_STRING);
-        return object_;
-    }
-
-    public static Healer newHealer() {
-        Healer object_ = new Healer();
         object_.setImageMiniFileName(DataBase.EMPTY_STRING);
         return object_;
     }

@@ -3,7 +3,7 @@ package aiki.map.characters;
 import aiki.db.DataBase;
 
 
-public final class GymLeader extends TrainerOneFight implements Fightable {
+public final class GymLeader extends TrainerOneFight {
 
     /** Technical move given to the user after the fight */
     private short tm;
@@ -34,8 +34,4 @@ public final class GymLeader extends TrainerOneFight implements Fightable {
         name = _name;
     }
 
-    @Override
-    public int getMult() {
-        return getMultiplicityFight();
-    }
 }

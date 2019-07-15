@@ -1,7 +1,7 @@
 package aiki.map.characters;
 
 
-public final class TrainerLeague extends TrainerOneFight implements Fightable {
+public final class TrainerLeague extends TrainerOneFight {
 
     private String name;
 
@@ -13,8 +13,4 @@ public final class TrainerLeague extends TrainerOneFight implements Fightable {
         name = _name;
     }
 
-    @Override
-    public int getMult() {
-        return getMultiplicityFight();
-    }
 }

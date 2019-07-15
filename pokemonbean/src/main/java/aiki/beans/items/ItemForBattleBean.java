@@ -1,6 +1,6 @@
 package aiki.beans.items;
 import aiki.beans.facade.comparators.ComparatorStatisticPokemon;
-import aiki.comparators.ComparatorTrStringStatistic;
+import aiki.beans.facade.comparators.ComparatorTrStringStatistic;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.fight.effects.EffectWhileSending;
@@ -94,12 +94,11 @@ public class ItemForBattleBean extends ItemBean {
         boostExp = item_.getBoostExp();
         immuLowStatis = item_.getImmuLowStatis();
         attacksSoon = item_.getAttacksSoon();
-        repellingWildPk = item_.getRepellingWildPk();
         protectAgainstKo = item_.getProtectAgainstKo();
         protectAgainstKoIfFullHp = item_.getProtectAgainstKoIfFullHp();
         drainedHpByDamageRate = item_.getDrainedHpByDamageRate();
         multTrappingDamage = item_.getMultTrappingDamage();
-        multWinningMoney = item_.getMultWinningMoney();
+        multWinningMoney = Rate.zero();
         multWinningHappiness = item_.getMultWinningHappiness();
         multWinningEv = item_.getMultWinningEv();
         multWinningExp = item_.getMultWinningExp();

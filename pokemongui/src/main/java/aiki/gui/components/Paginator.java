@@ -2,6 +2,7 @@ package aiki.gui.components;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
+import aiki.sml.DocumentReaderAikiCoreUtil;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
@@ -119,7 +120,7 @@ public abstract class Paginator extends Panel{
         StringMap<String> map_ = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, ACCESS_SEARCH);
         messagesSearchMode.clear();
         for (String k: map_.getKeys()) {
-            messagesSearchMode.put(SearchingMode.getSearchingModeByName(k), map_.getVal(k));
+            messagesSearchMode.put(DocumentReaderAikiCoreUtil.getSearchingModeByName(k), map_.getVal(k));
         }
     }
 

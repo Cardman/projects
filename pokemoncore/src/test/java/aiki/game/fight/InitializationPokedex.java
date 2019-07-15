@@ -1032,7 +1032,6 @@ final class InitializationPokedex {
         fichePokemon_.setHappinessHatch((short)140);
         _data.completeMembers("GIVRALI",fichePokemon_);*/
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(577);
         fichePokemon_.setWeight(new Rate("1"));
         fichePokemon_.getTypes().add(PSY);
         fichePokemon_.getStatistics().put(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)105,(short)1));
@@ -1116,7 +1115,6 @@ final class InitializationPokedex {
         fichePokemon_.getEvolutions().put(MEIOS,evolutionNiveau_);
         _data.completeMembers(NUCLEOS,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(578);
         fichePokemon_.setWeight(new Rate("8"));
         fichePokemon_.getTypes().add(PSY);
         fichePokemon_.getStatistics().put(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)125,(short)2));
@@ -1193,7 +1191,6 @@ final class InitializationPokedex {
         fichePokemon_.getEvolutions().put(SYMBIOS,evolutionNiveau_);
         _data.completeMembers(MEIOS,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(579);
         fichePokemon_.setWeight(new Rate("201/10"));
         fichePokemon_.getTypes().add(PSY);
         fichePokemon_.getStatistics().put(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)125,(short)3));
@@ -1275,7 +1272,6 @@ final class InitializationPokedex {
         fichePokemon_.setHappinessHatch((short)140);
         _data.completeMembers(SYMBIOS,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(60);
         fichePokemon_.setWeight(new Rate("62/5"));
         fichePokemon_.getTypes().add(EAU);
         fichePokemon_.getStatistics().put(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)40,(short)0));
@@ -1339,7 +1335,6 @@ final class InitializationPokedex {
         fichePokemon_.getEvolutions().put(TETARTE,evolutionNiveau_);
         _data.completeMembers(PTITARD,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(61);
         fichePokemon_.setWeight(new Rate("20"));
         fichePokemon_.getTypes().add(EAU);
         fichePokemon_.getStatistics().put(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)50,(short)0));
@@ -1412,7 +1407,6 @@ final class InitializationPokedex {
         fichePokemon_.getEvolutions().put(TARTARD,evolutionPierreEvolutive_);
         _data.completeMembers(TETARTE,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(186);
         fichePokemon_.setWeight(new Rate("339/10"));
         fichePokemon_.getTypes().add(EAU);
         fichePokemon_.getStatistics().put(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)90,(short)0));
@@ -1507,7 +1501,6 @@ final class InitializationPokedex {
         fichePokemon_.setHappinessHatch((short)140);
         _data.completeMembers(TARPAUD,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(62);
         fichePokemon_.setWeight(new Rate("54"));
         fichePokemon_.getTypes().add(EAU);
         fichePokemon_.getTypes().add(COMBAT);
@@ -2851,7 +2844,6 @@ final class InitializationPokedex {
         fichePokemon_.setHappinessHatch((short)140);
         _data.completeMembers("APIREINE",fichePokemon_);*/
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(193);
         fichePokemon_.setWeight(new Rate("38"));
         fichePokemon_.getTypes().add(INSECTE);
         fichePokemon_.getTypes().add(VOL);
@@ -2947,7 +2939,6 @@ final class InitializationPokedex {
         fichePokemon_.getEvolutions().put(YANMEGA,evolutionAttaque_);
         _data.completeMembers(YANMA,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(469);
         fichePokemon_.setWeight(new Rate("103/2"));
         fichePokemon_.getTypes().add(INSECTE);
         fichePokemon_.getTypes().add(VOL);
@@ -3817,7 +3808,6 @@ final class InitializationPokedex {
         fichePokemon_.setHappinessHatch((short)140);
         _data.completeMembers("GARDEVOIR",fichePokemon_);*/
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(299);
         fichePokemon_.setWeight(new Rate("97"));
         fichePokemon_.getTypes().add(ROCHE);
         fichePokemon_.getStatistics().put(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)45,(short)0));
@@ -3918,7 +3908,6 @@ final class InitializationPokedex {
         fichePokemon_.getEvolutions().put(TARINORME,evolutionBonheur_);
         _data.completeMembers(TARINOR,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(476);
         fichePokemon_.setWeight(new Rate("340"));
         fichePokemon_.getTypes().add(ROCHE);
         fichePokemon_.getTypes().add(ACIER);
@@ -4243,7 +4232,6 @@ final class InitializationPokedex {
         fichePokemon_.setHappinessHatch((short)140);
         _data.completeMembers("LUGULABRE",fichePokemon_);*/
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(412);
         fichePokemon_.setWeight(new Rate("17/5"));
         fichePokemon_.getTypes().add(INSECTE);
         fichePokemon_.getStatistics().put(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)29,(short)0));
@@ -4280,7 +4268,6 @@ final class InitializationPokedex {
         fichePokemon_.getEvolutions().put(CHENISELLE,evolutionNiveauGenre_);
         _data.completeMembers(CHENITI,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(414);
         fichePokemon_.setWeight(new Rate("233/10"));
         fichePokemon_.getTypes().add(INSECTE);
         fichePokemon_.getTypes().add(VOL);
@@ -4360,7 +4347,6 @@ final class InitializationPokedex {
         fichePokemon_.setHappinessHatch((short)140);
         _data.completeMembers(PAPILORD,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(413);
         fichePokemon_.setWeight(new Rate("13/2"));
         fichePokemon_.getTypes().add(INSECTE);
         fichePokemon_.getStatistics().put(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)79,(short)0));
@@ -4443,7 +4429,6 @@ final class InitializationPokedex {
         fichePokemon_.setHappinessHatch((short)140);
         _data.completeMembers(CHENISELLE,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(458);
         fichePokemon_.setWeight(new Rate("65"));
         fichePokemon_.getTypes().add(EAU);
         fichePokemon_.getTypes().add(VOL);
@@ -4527,7 +4512,6 @@ final class InitializationPokedex {
         fichePokemon_.getEvolutions().put(DEMANTA,evolutionPlace_);
         _data.completeMembers(BABIMANTA,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(226);
         fichePokemon_.setWeight(new Rate("220"));
         fichePokemon_.getTypes().add(EAU);
         fichePokemon_.getTypes().add(VOL);
@@ -4630,7 +4614,6 @@ final class InitializationPokedex {
         fichePokemon_.setHappinessHatch((short)140);
         _data.completeMembers(DEMANTA,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(290);
         fichePokemon_.setWeight(new Rate("11/2"));
         fichePokemon_.getTypes().add(INSECTE);
         fichePokemon_.getTypes().add(SOL);
@@ -4711,7 +4694,6 @@ final class InitializationPokedex {
         fichePokemon_.getEvolutions().put(NINJASK,evolutionNiveau_);
         _data.completeMembers(NINGALE,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(292);
         fichePokemon_.setWeight(new Rate("6/5"));
         fichePokemon_.getTypes().add(INSECTE);
         fichePokemon_.getTypes().add(SPECTRE);
@@ -4797,7 +4779,6 @@ final class InitializationPokedex {
         fichePokemon_.setHappinessHatch((short)140);
         _data.completeMembers(MUNJA,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(291);
         fichePokemon_.setWeight(new Rate("12"));
         fichePokemon_.getTypes().add(INSECTE);
         fichePokemon_.getTypes().add(VOL);
@@ -4899,7 +4880,6 @@ final class InitializationPokedex {
         EvolutionStoneGender evolutionPierreEvolutiveGenre_;
         EvolutionMoveType evolutionMoveType_;
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(3);
         fichePokemon_.setWeight(new Rate("3"));
         fichePokemon_.getTypes().add(ELECTRIQUE);
         fichePokemon_.getStatistics().put(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)50,(short)0));
@@ -4930,7 +4910,6 @@ final class InitializationPokedex {
         fichePokemon_.setHappinessHatch((short)140);
         _data.completeMembers(PIKACHU,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(3);
         fichePokemon_.setWeight(new Rate("3"));
         fichePokemon_.getTypes().add(ELECTRIQUE);
         fichePokemon_.getStatistics().put(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)50,(short)0));
@@ -4960,7 +4939,6 @@ final class InitializationPokedex {
         fichePokemon_.setHappinessHatch((short)140);
         _data.completeMembers(ARTIKODIN,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(3);
         fichePokemon_.setWeight(new Rate("3"));
         fichePokemon_.getTypes().add(ELECTRIQUE);
         fichePokemon_.getStatistics().put(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)50,(short)0));
@@ -4990,7 +4968,6 @@ final class InitializationPokedex {
         fichePokemon_.setHappinessHatch((short)140);
         _data.completeMembers(MEW,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(3);
         fichePokemon_.setWeight(new Rate("3"));
         fichePokemon_.getTypes().add(ELECTRIQUE);
         fichePokemon_.getStatistics().put(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)50,(short)0));
@@ -5020,7 +4997,6 @@ final class InitializationPokedex {
         fichePokemon_.setHappinessHatch((short)140);
         _data.completeMembers(LIMAGMA,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(3);
         fichePokemon_.setWeight(new Rate("3"));
         fichePokemon_.getTypes().add(ELECTRIQUE);
         fichePokemon_.getStatistics().put(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)50,(short)0));
@@ -5058,7 +5034,6 @@ final class InitializationPokedex {
         fichePokemon_.getEvolutions().put(MELODELFE_2,evolutionPierreEvolutiveGenre_);
         _data.completeMembers(MELOFEE,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(3);
         fichePokemon_.setWeight(new Rate("3"));
         fichePokemon_.getTypes().add(ELECTRIQUE);
         fichePokemon_.getStatistics().put(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)50,(short)0));
@@ -5089,7 +5064,6 @@ final class InitializationPokedex {
         fichePokemon_.setHappinessHatch((short)140);
         _data.completeMembers(MELODELFE,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(3);
         fichePokemon_.setWeight(new Rate("3"));
         fichePokemon_.getTypes().add(ELECTRIQUE);
         fichePokemon_.getStatistics().put(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)50,(short)0));
@@ -5121,7 +5095,6 @@ final class InitializationPokedex {
         fichePokemon_.setHappinessHatch((short)140);
         _data.completeMembers(MELODELFE_2,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(3);
         fichePokemon_.setWeight(new Rate("3"));
         fichePokemon_.getTypes().add(ELECTRIQUE);
         fichePokemon_.getStatistics().put(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)50,(short)0));
@@ -5149,7 +5122,6 @@ final class InitializationPokedex {
         fichePokemon_.setHappinessHatch((short)140);
         _data.completeMembers(PICHU,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(3);
         fichePokemon_.setWeight(new Rate("3"));
         fichePokemon_.getTypes().add(EAU);
         fichePokemon_.getStatistics().put(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)50,(short)0));
@@ -5177,7 +5149,6 @@ final class InitializationPokedex {
         fichePokemon_.setHappinessHatch((short)140);
         _data.completeMembers(REMORAID,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(3);
         fichePokemon_.setWeight(new Rate("3"));
         fichePokemon_.getTypes().add(ELECTRIQUE);
         fichePokemon_.getStatistics().put(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)50,(short)0));
@@ -5207,7 +5178,6 @@ final class InitializationPokedex {
         fichePokemon_.setHappinessHatch((short)140);
         _data.completeMembers(LIMAGMA_F,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(3);
         fichePokemon_.setWeight(new Rate("3"));
         fichePokemon_.getTypes().add(ELECTRIQUE);
         fichePokemon_.getStatistics().put(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)50,(short)0));
@@ -5237,7 +5207,6 @@ final class InitializationPokedex {
         fichePokemon_.setHappinessHatch((short)140);
         _data.completeMembers(LIMAGMA_M,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(3);
         fichePokemon_.setWeight(new Rate("3"));
         fichePokemon_.getTypes().add(EAU);
         fichePokemon_.getStatistics().put(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)50,(short)0));
@@ -5270,7 +5239,6 @@ final class InitializationPokedex {
         fichePokemon_.setHappinessHatch((short)140);
         _data.completeMembers(CARAPUCE,fichePokemon_);
         fichePokemon_ = defaultFichePokemon();
-        fichePokemon_.setNumber(3);
         fichePokemon_.setWeight(new Rate("3"));
         fichePokemon_.getTypes().add(EAU);
         fichePokemon_.getStatistics().put(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)50,(short)0));

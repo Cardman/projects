@@ -11,12 +11,4 @@ public enum Gender {
         genders_.add(MALE);
         return genders_;
     }
-    public static Gender getGenderByName(String _env) {
-        for (Gender e: values()) {
-            if (StringList.quickEq(e.name(), _env)) {
-                return e;
-            }
-        }
-        return NO_GENDER;
-    }
 }

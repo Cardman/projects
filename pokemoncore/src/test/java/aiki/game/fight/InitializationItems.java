@@ -289,7 +289,6 @@ final class InitializationItems {
         soinPVStatut_.setPrice(2500);
         _data.completeMembers(POTION_MAX,soinPVStatut_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
-        objetAttachableCombat_.setSwitchPossibleSiTouche(true);
         objetAttachableCombat_.setPrice(1000);
         _data.completeMembers(BOUTON_FUITE,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
@@ -457,11 +456,9 @@ final class InitializationItems {
         objetAttachableCombat_ = defaultObjetAttachableCombat();
         objetAttachableCombat_.setDamageRecoil(new Rate("1/8"));
         //objetAttachableCombat_.getSansEffetCapacite().add("GARDE_MYSTIK");
-        objetAttachableCombat_.setTransfertObjSiContact(true);
         objetAttachableCombat_.setPrice(1000);
         _data.completeMembers(PIQUANTS,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
-        objetAttachableCombat_.setMultWinningMoney(new Rate("2"));
         objetAttachableCombat_.setPrice(1000);
         _data.completeMembers(PIECE_RUNE,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
@@ -489,7 +486,6 @@ final class InitializationItems {
         objetAttachableCombat_.setPrice(1000);
         _data.completeMembers(BATON,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
-        objetAttachableCombat_.setSwitchForceAdvSiTouche(true);
         objetAttachableCombat_.setPrice(1000);
         _data.completeMembers(CARTE_ROUGE,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
@@ -607,7 +603,6 @@ final class InitializationItems {
         objetAttachableCombat_.setPrice(1000);
         _data.completeMembers(ACCRO_GRIFFE,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
-        objetAttachableCombat_.setRepellingWildPk(true);
         //objetAttachableCombat_.getHatching().add(KORILLON);
         objetAttachableCombat_.setPrice(1000);
         _data.completeMembers(ENCENS_PUR,objetAttachableCombat_);
@@ -654,7 +649,6 @@ final class InitializationItems {
         _data.completeMembers(LAVA,fossile_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
         objetAttachableCombat_.getImmuTypes().add(SOL);
-        objetAttachableCombat_.setDetruitSiContact(true);
         objetAttachableCombat_.setPrice(1000);
         _data.completeMembers(BALLON,objetAttachableCombat_);
         soinPP_ = defaultHealingPp();
@@ -740,7 +734,6 @@ final class InitializationItems {
         object_.setWinEvFight(new EnumMap<Statistic,Short>());
         object_.setLawForAttackFirst(new MonteCarloBoolean());
         object_.setMultTrappingDamage(Rate.zero());
-        object_.setMultWinningMoney(Rate.zero());
         object_.setMultWinningHappiness(Rate.zero());
         object_.setMultWinningEv(Rate.zero());
         object_.setMultWinningExp(Rate.zero());

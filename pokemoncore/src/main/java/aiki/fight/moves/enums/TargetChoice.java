@@ -22,14 +22,7 @@ public enum TargetChoice {
     TargetChoice(boolean _withChoice) {
         withChoice = _withChoice;
     }
-    public static TargetChoice getTargetChoiceByName(String _env) {
-        for (TargetChoice e: values()) {
-            if (StringList.quickEq(e.name(), _env)) {
-                return e;
-            }
-        }
-        return NOTHING;
-    }
+
     public boolean isWithChoice() {
         return withChoice;
     }

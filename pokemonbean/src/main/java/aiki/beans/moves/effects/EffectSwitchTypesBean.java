@@ -1,5 +1,5 @@
 package aiki.beans.moves.effects;
-import aiki.comparators.ComparatorTrStringEnv;
+import aiki.beans.facade.comparators.ComparatorTrStringEnv;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.fight.moves.MoveData;

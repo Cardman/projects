@@ -42,7 +42,6 @@ public class EffectWhileSendingBean extends CommonBean {
     public void beforeDisplaying() {
         disableWeather = effect.getDisableWeather();
         copyingAbility = effect.getCopyingAbility();
-        plate = effect.getPlate();
         enabledWeather = effect.getEnabledWeather();
         multWeight = effect.getMultWeight();
         if (effect instanceof EffectWhileSendingWithStatistic) {

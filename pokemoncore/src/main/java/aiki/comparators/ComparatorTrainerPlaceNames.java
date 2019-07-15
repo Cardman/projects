@@ -3,7 +3,7 @@ import aiki.fight.pokemon.TrainerPlaceNames;
 import code.util.CustList;
 import code.util.ints.Comparing;
 
-public final class ComparatorPairStringNumber implements Comparing<TrainerPlaceNames> {
+public final class ComparatorTrainerPlaceNames implements Comparing<TrainerPlaceNames> {
 
     @Override
     public int compare(TrainerPlaceNames _o1, TrainerPlaceNames _o2) {

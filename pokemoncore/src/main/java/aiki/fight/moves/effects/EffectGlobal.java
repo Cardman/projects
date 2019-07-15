@@ -11,7 +11,6 @@ import code.util.*;
 
 public final class EffectGlobal extends Effect {
 
-    private boolean priseEnComptePkLanceur;
     private boolean weather;
     private boolean canceledIfUsed;
     private boolean reverseOrderOfSortBySpeed;
@@ -151,14 +150,6 @@ public final class EffectGlobal extends Effect {
             _data.setError(true);
 
         }
-    }
-
-    public boolean getPriseEnComptePkLanceur() {
-        return priseEnComptePkLanceur;
-    }
-
-    public void setPriseEnComptePkLanceur(boolean _priseEnComptePkLanceur) {
-        priseEnComptePkLanceur = _priseEnComptePkLanceur;
     }
 
     public boolean getWeather() {

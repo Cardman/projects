@@ -85,7 +85,7 @@ public final class AreaApparition {
     }
 
     public boolean isVirtual() {
-        return multFight < 1;
+        return getMultFight() < 1;
     }
 
     public int getPokemonListLength(boolean _walking) {
@@ -97,9 +97,9 @@ public final class AreaApparition {
 
     public WildPk getWildPokemon(int _index, boolean _walking) {
         if (_walking) {
-            return wildPokemon.get(_index);
+            return getWildPokemon(_index);
         }
-        return wildPokemonFishing.get(_index);
+        return getPokemonFishing(_index);
     }
 
     public EqList<WildPk> getWildPokemon() {

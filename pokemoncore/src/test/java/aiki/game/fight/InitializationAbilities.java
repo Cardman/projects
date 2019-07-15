@@ -606,7 +606,6 @@ final class InitializationAbilities {
         ficheCapacite_.setMultDamage("caracgaucheouvert(VAR__COEFF_EFF,1)+1");
         _data.completeMembers(LENTITEINTEE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.setRecoilDamageFoeByKoOwner(new Rate("1/4"));
         _data.completeMembers(BOOM_FINAL,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
         ficheCapacite_.getMultStatAlly().put(Statistic.ACCURACY,new Rate("2"));
@@ -863,7 +862,6 @@ final class InitializationAbilities {
         object_.setBreakFoeImmune(new EqList<TypesDuo>());
         object_.setChgtTypeByWeather(new StringMap<String>());
         object_.setRecoilDamageFoe(Rate.zero());
-        object_.setRecoilDamageFoeByKoOwner(Rate.zero());
         object_.setDivideStatusRound(new StringMap<Rate>());
         object_.setHealHpByWeather(new StringMap<Rate>());
         object_.setIgnAbility(new StringList());

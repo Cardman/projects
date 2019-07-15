@@ -2949,7 +2949,7 @@ public final class PokemonStandards extends BeanLgNames {
     public ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(_className, getSelectedBoolean())) {
-            SelectedBoolean en_ = SelectedBoolean.getBoolByName(_values.first());
+            SelectedBoolean en_ = getBoolByName(_values.first());
             if (en_ == null) {
                 res_.setError(getAliasError());
             } else {
@@ -2975,16 +2975,16 @@ public final class PokemonStandards extends BeanLgNames {
             instance_ = TeamCrud.getTeamCrudByName(value_);
         }
         if (StringList.quickEq(_className,TYPE_GENDER)){
-            instance_ = Gender.getGenderByName(value_);
+            instance_ = getGenderByName(value_);
         }
         if (StringList.quickEq(_className,TYPE_DIFFICULTY_WIN_POINTS_FIGHT)){
-            instance_ = DifficultyWinPointsFight.getDiffWonPtsByName(value_);
+            instance_ = getDiffWonPtsByName(value_);
         }
         if (StringList.quickEq(_className,TYPE_DIFFICULTY_MODEL_LAW)){
-            instance_ = DifficultyModelLaw.getModelByName(value_);
+            instance_ = getModelByName(value_);
         }
         if (StringList.quickEq(_className,TYPE_ENVIRONMENT_TYPE)){
-            instance_ = EnvironmentType.getEnvByName(value_);
+            instance_ = getEnvByName(value_);
         }
         if (StringList.quickEq(_className,TYPE_DIRECTION)){
             instance_ = Direction.getDirectionByName(value_);
@@ -3350,4 +3350,45 @@ public final class PokemonStandards extends BeanLgNames {
         return ALIAS_SB;
     }
 
+
+    public static SelectedBoolean getBoolByName(String _env) {
+        for (SelectedBoolean e : SelectedBoolean.values()) {
+            if (StringList.quickEq(e.name(), _env)) {
+                return e;
+            }
+        }
+        return SelectedBoolean.YES_AND_NO;
+    }
+    public static DifficultyModelLaw getModelByName(String _env) {
+        for (DifficultyModelLaw e: DifficultyModelLaw.values()) {
+            if (StringList.quickEq(e.name(), _env)) {
+                return e;
+            }
+        }
+        return DifficultyModelLaw.UNIFORME;
+    }
+    public static DifficultyWinPointsFight getDiffWonPtsByName(String _env) {
+        for (DifficultyWinPointsFight e: DifficultyWinPointsFight.values()) {
+            if (StringList.quickEq(e.name(), _env)) {
+                return e;
+            }
+        }
+        return DifficultyWinPointsFight.TRES_FACILE;
+    }
+    public static EnvironmentType getEnvByName(String _env) {
+        for (EnvironmentType e: EnvironmentType.values()) {
+            if (StringList.quickEq(e.name(), _env)) {
+                return e;
+            }
+        }
+        return EnvironmentType.NOTHING;
+    }
+    public static Gender getGenderByName(String _env) {
+        for (Gender e: Gender.values()) {
+            if (StringList.quickEq(e.name(), _env)) {
+                return e;
+            }
+        }
+        return Gender.NO_GENDER;
+    }
 }

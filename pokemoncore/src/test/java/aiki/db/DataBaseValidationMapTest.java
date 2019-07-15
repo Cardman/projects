@@ -44,20 +44,20 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
 
     @Test
     public void link1Test() {
-        Link l_ = new Link("l'UP'5;10_8,4");
+        Link l_ = Link.newLink("l'UP'5;10_8,4");
         assertEq("l'UP'5;10_8,4",l_.display());
     }
 
     @Test
     public void link2Test() {
-        Link l_ = new Link("l'U'5;10_8,4");
+        Link l_ = Link.newLink("l'U'5;10_8,4");
         assertEq("l'UP'5;10_8,4",l_.display());
         new PokemonCenter().validate(new DataBase(),null);
     }
 
     @Test
     public void link3Test() {
-        Link l_ = new Link("l'5;10_8,4");
+        Link l_ = Link.newLink("l'5;10_8,4");
         assertEq("l'5;10_8,4",l_.display());
     }
     @Test
@@ -2209,9 +2209,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.getMap().calculateIntersectWithScreenDirection(
                 game_.getPlayerCoords());
         Direction playerOrientation_ = game_.getPlayerOrientation();
-        int dx_ = Math.abs(playerOrientation_.getx());
-        int dy_ = Math.abs(playerOrientation_.gety());
-        data_.getMap().calculateBackgroundImagesFromTiles(data_, dx_, dy_);
+        data_.getMap().calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, playerOrientation_.getx(),
                 playerOrientation_.gety());
         ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
@@ -2235,9 +2233,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
                 game_.getPlayerCoords());
 
         Direction playerOrientation_ = game_.getPlayerOrientation();
-        int dx_ = Math.abs(playerOrientation_.getx());
-        int dy_ = Math.abs(playerOrientation_.gety());
-        data_.getMap().calculateBackgroundImagesFromTiles(data_, dx_, dy_);
+        data_.getMap().calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, playerOrientation_.getx(),
                 playerOrientation_.gety());
         ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
@@ -2260,9 +2256,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.getMap().calculateIntersectWithScreenDirection(
                 game_.getPlayerCoords());
         Direction playerOrientation_ = game_.getPlayerOrientation();
-        int dx_ = Math.abs(playerOrientation_.getx());
-        int dy_ = Math.abs(playerOrientation_.gety());
-        data_.getMap().calculateBackgroundImagesFromTiles(data_, dx_, dy_);
+        data_.getMap().calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, playerOrientation_.getx(),
                 playerOrientation_.gety());
         ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
@@ -2286,12 +2280,10 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
                 game_.getPlayerCoords());
 
         Direction playerOrientation_ = game_.getPlayerOrientation();
-        int dx_ = Math.abs(playerOrientation_.getx());
-        int dy_ = Math.abs(playerOrientation_.gety());
-        data_.getMap().calculateBackgroundImagesFromTiles(data_, dx_, dy_);
+        data_.getMap().calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, playerOrientation_.getx(),
                 playerOrientation_.gety());
-        map_.calculateBackgroundImagesFromTiles(data_, 1, 0);
+        map_.calculateBackgroundImagesFromTiles(data_);
         game_.calculateImagesFromTiles(data_, 1, 0);
         ObjectMap<ScreenCoords,CustList<int[][]>> foreGround_;
         foreGround_ = map_.getForegroundImages();

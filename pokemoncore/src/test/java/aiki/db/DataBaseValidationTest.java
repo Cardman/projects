@@ -2188,6 +2188,16 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         assertEq("TREMPETTE2", data_.getFormula("TREMPETTE",LANGUAGE));
     }
     @Test
+    public void getFormula20Test() {
+        DataBase data_ =init();
+        data_.getTranslatedStatistics().addEntry(LANGUAGE,new EnumMap<Statistic, String>());
+        EnumMap<Statistic, String> tr_ = data_.getTranslatedStatistics().getVal(LANGUAGE);
+        tr_.addEntry(Statistic.SPEED,TREMPETTE2);
+        StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
+        litt_.addEntry("MYVAR","statis\tmv{0}\ta move");
+        assertEq("mvTREMPETTE2", data_.getFormula("VAR__MYVAR__SPEE",LANGUAGE));
+    }
+    @Test
     public void getDescriptionsTest() {
         DataBase data_ =init();
         StringMap<String>  tr_ = data_.getTranslatedStatus().getVal(LANGUAGE);

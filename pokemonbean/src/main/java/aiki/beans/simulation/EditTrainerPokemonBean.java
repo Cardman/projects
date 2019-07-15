@@ -3,7 +3,7 @@ import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorMoves;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.beans.facade.simulation.enums.TeamCrud;
-import aiki.comparators.ComparatorTrStringGender;
+import aiki.beans.facade.comparators.ComparatorTrStringGender;
 import aiki.db.DataBase;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;

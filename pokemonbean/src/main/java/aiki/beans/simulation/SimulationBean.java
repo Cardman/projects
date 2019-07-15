@@ -9,7 +9,7 @@ import aiki.beans.facade.simulation.dto.RadioLineMove;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.beans.facade.simulation.enums.SimulationSteps;
 import aiki.beans.facade.simulation.enums.TeamCrud;
-import aiki.comparators.ComparatorTrStringEnv;
+import aiki.beans.facade.comparators.ComparatorTrStringEnv;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;

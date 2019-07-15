@@ -4,7 +4,7 @@ import aiki.util.Point;
 import code.util.StringList;
 
 
-public final class DualFight implements Fightable {
+public final class DualFight {
 
     private Ally ally;
 
@@ -52,8 +52,4 @@ public final class DualFight implements Fightable {
         names = _names;
     }
 
-    @Override
-    public int getMult() {
-        return foeTrainer.getMultiplicityFight();
-    }
 }

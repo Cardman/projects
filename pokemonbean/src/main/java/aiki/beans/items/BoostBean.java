@@ -1,5 +1,5 @@
 package aiki.beans.items;
-import aiki.comparators.ComparatorTrStringStatistic;
+import aiki.beans.facade.comparators.ComparatorTrStringStatistic;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;

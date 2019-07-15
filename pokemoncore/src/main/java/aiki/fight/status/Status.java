@@ -13,8 +13,6 @@ import code.util.EnumMap;
 
 public abstract class Status {
 
-    private String name;
-
     private StatusType statusType;
     private Rate catchingRate;
     private CustList<EffectEndRoundStatus> effectEndRound;
@@ -82,14 +80,6 @@ public abstract class Status {
 
     public boolean estActifPartenaire() {
         return !effectsPartner.isEmpty();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String _name) {
-        name = _name;
     }
 
     public StatusType getStatusType() {

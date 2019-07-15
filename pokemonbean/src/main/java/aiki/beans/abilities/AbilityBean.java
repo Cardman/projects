@@ -5,7 +5,7 @@ import aiki.beans.facade.comparators.ComparatorStatisticType;
 import aiki.beans.facade.comparators.ComparatorStatusStatistic;
 import aiki.beans.facade.comparators.ComparatorTypesDuo;
 import aiki.beans.facade.comparators.ComparatorWeatherType;
-import aiki.comparators.ComparatorTrStringStatistic;
+import aiki.beans.facade.comparators.ComparatorTrStringStatistic;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.fight.abilities.AbilityData;
@@ -224,7 +224,7 @@ public class AbilityBean extends CommonBean {
         multSufferedDamageSuperEff = ability_.getMultSufferedDamageSuperEff();
         multVarBoost = ability_.getMultVarBoost();
         recoilDamageFoe = ability_.getRecoilDamageFoe();
-        recoilDamageFoeByKoOwner = ability_.getRecoilDamageFoeByKoOwner();
+        recoilDamageFoeByKoOwner = Rate.zero();
         decreaseNecStepsHatch = ability_.getDecreaseNecStepsHatch();
         nbUsedPp = ability_.getNbUsedPp();
         NatStringTreeMap<String> mapVars_;

@@ -19,10 +19,6 @@ public class ConsultHostEvent extends MouseAdapter {
 
     @Override
     public void mouseReleased(MouseEvent _e) {
-        facade.setSelectedHostedPokemon(true);
         ConsultHosts.setConsultHosts(window, facade);
-//        ConsultHosts consult_ = new ConsultHosts(window, facade);
-//        consult_.setVisible(true);
-        facade.setSelectedHostedPokemon(false);
     }
 }

@@ -2265,7 +2265,6 @@ final class InitializationMoves {
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.LANCEUR);
         effetGlobal_ = defaultEffectGlobal();
-        effetGlobal_.setPriseEnComptePkLanceur(true);
         effetGlobal_.setWeather(true);
         effetGlobal_.getMovesUsedByTargetedFighters().add(PLANNEUR);
         effetGlobal_.getMultDamagePrepaRound().put(ELECTRIQUE, new Rate("2"));
@@ -2308,7 +2307,6 @@ final class InitializationMoves {
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.LANCEUR);
         effetGlobal_ = defaultEffectGlobal();
-        effetGlobal_.setPriseEnComptePkLanceur(true);
         effetGlobal_.setWeather(true);
         effetGlobal_.getMovesUsedByTargetedFighters().add(PLANNEUR);
         effetGlobal_.getMultDamagePrepaRound().put(ELECTRIQUE, new Rate("2"));
@@ -4427,7 +4425,6 @@ final class InitializationMoves {
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.LANCEUR);
         effetGlobal_ = defaultEffectGlobal();
-        effetGlobal_.setPriseEnComptePkLanceur(true);
         effetGlobal_.setWeather(true);
         effetGlobal_.getPreventStatus().add(GEL);
         effetGlobal_.getCancelEffects().add(TEMPETESABLE);
@@ -4457,7 +4454,6 @@ final class InitializationMoves {
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.LANCEUR);
         effetGlobal_ = defaultEffectGlobal();
-        effetGlobal_.setPriseEnComptePkLanceur(true);
         effetGlobal_.setWeather(true);
         effetGlobal_.getCancelEffects().add(TEMPETESABLE);
         effetGlobal_.getMultDamageTypesMoves().put(FEU,new Rate("1/2"));
@@ -5295,7 +5291,6 @@ final class InitializationMoves {
         ficheAttaqueOff_.getBoostedTypes().add(TENEBRE);
         ficheAttaqueOff_.setAccuracy("1");
         ficheAttaqueOff_.setStoppableMoveSolo(true);
-        ficheAttaqueOff_.setBreakImmuTypeAbility(true);
         ficheAttaqueOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueOff_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
         effetDegats_ = defaultEffetDegats();
@@ -5614,7 +5609,6 @@ final class InitializationMoves {
         ficheAttaqueNonOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueNonOff_.setTargetChoice(TargetChoice.LANCEUR);
         effetGlobal_ = defaultEffectGlobal();
-        effetGlobal_.setPriseEnComptePkLanceur(true);
         effetGlobal_.setWeather(true);
         effetGlobal_.getImmuneTypes().add(ROCHE);
         effetGlobal_.getImmuneTypes().add(SOL);

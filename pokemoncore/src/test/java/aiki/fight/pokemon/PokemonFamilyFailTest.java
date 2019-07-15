@@ -24,7 +24,6 @@ public class PokemonFamilyFailTest {
 
     public static PokemonData dataBase1(String _base) {
         PokemonData pk_ = new PokemonData();
-        pk_.setNumber(3);
         pk_.setWeight(new Rate(3));
         pk_.setHeight(new Rate(1,10));
         pk_.setTypes(new StringList("ELETRICK"));

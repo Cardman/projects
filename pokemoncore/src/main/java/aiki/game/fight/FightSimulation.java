@@ -18,7 +18,6 @@ import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
 import aiki.map.characters.Ally;
 import aiki.map.characters.DualFight;
-import aiki.map.characters.Fightable;
 import aiki.map.characters.GymLeader;
 import aiki.map.characters.GymTrainer;
 import aiki.map.characters.TempTrainer;
@@ -1469,8 +1468,16 @@ public class FightSimulation {
             return;
         }
         setComment(new StringList());
-        CustList<Fightable> trainers_;
-        trainers_ = new CustList<Fightable>();
+        CustList<DualFight> duals_;
+        duals_ = new CustList<DualFight>();
+        CustList<TrainerLeague> leagues_;
+        leagues_ = new CustList<TrainerLeague>();
+        CustList<GymLeader> gymLeaders_;
+        gymLeaders_ = new CustList<GymLeader>();
+        CustList<GymTrainer> gymTrainers_;
+        gymTrainers_ = new CustList<GymTrainer>();
+        CustList<TrainerMultiFights> trainers_;
+        trainers_ = new CustList<TrainerMultiFights>();
         if (freeTeams) {
             if (!allyTeam.isEmpty()) {
                 DualFight dual_;
@@ -1484,13 +1491,13 @@ public class FightSimulation {
                 tmp_.setMultiplicityFight(mult.first());
                 tmp_.setTeam(foeTeams.first());
                 dual_.setFoeTrainer(tmp_);
-                trainers_.add(dual_);
+                duals_.add(dual_);
             } else {
                 GymLeader gym_;
                 gym_ = new GymLeader();
                 gym_.setMultiplicityFight(mult.first());
                 gym_.setTeam(foeTeams.first());
-                trainers_.add(gym_);
+                gymLeaders_.add(gym_);
             }
         } else {
             Place place_ = _import.getMap().getPlaces().getVal(foeCoords.getNumberPlace());
@@ -1498,7 +1505,7 @@ public class FightSimulation {
                 int i_ = CustList.FIRST_INDEX;
                 for (LevelLeague l: ((League)place_).getRooms()) {
                     if (i_ == foeCoords.getLevel().getLevelIndex()) {
-                        trainers_.add(l.getTrainer());
+                        leagues_.add(l.getTrainer());
                     }
                     i_++;
                 }
@@ -1507,7 +1514,7 @@ public class FightSimulation {
                 if (l_ instanceof LevelWithWildPokemon) {
                     if (((LevelWithWildPokemon)l_).containsDualFight(foeCoords.getLevel().getPoint())) {
                         DualFight dual_ = ((LevelWithWildPokemon)l_).getDualFight(foeCoords.getLevel().getPoint());
-                        trainers_.add(dual_);
+                        duals_.add(dual_);
                     } else {
                         TrainerMultiFights tr_ = (TrainerMultiFights) ((LevelWithWildPokemon)l_).getCharacters().getVal(foeCoords.getLevel().getPoint());
                         trainers_.add(tr_);
@@ -1515,10 +1522,10 @@ public class FightSimulation {
                 } else {
                     if (((LevelIndoorGym)l_).getGymTrainers().contains(foeCoords.getLevel().getPoint())) {
                         GymTrainer tr_ = ((LevelIndoorGym)l_).getGymTrainers().getVal(foeCoords.getLevel().getPoint());
-                        trainers_.add(tr_);
+                        gymTrainers_.add(tr_);
                     } else {
                         GymLeader tr_ = ((LevelIndoorGym)l_).getGymLeader();
-                        trainers_.add(tr_);
+                        gymLeaders_.add(tr_);
                     }
                 }
             }
@@ -1526,19 +1533,19 @@ public class FightSimulation {
         Player player_ = game.getPlayer();
         Bytes indexes_ = indexesFight(CustList.FIRST_INDEX);
         player_.swap(indexes_);
-        Fightable trainer_;
-        trainer_ = trainers_.get(CustList.FIRST_INDEX);
         game.getFight().getComment().clearMessages();
-        if (trainer_ instanceof TrainerLeague) {
-            FightFacade.initFight(game.getFight(), player_, game.getDifficulty(), (TrainerLeague) trainer_, _import);
-        } else if (trainer_ instanceof GymLeader) {
-            FightFacade.initFight(game.getFight(), player_, game.getDifficulty(), (GymLeader) trainer_, _import);
-        } else if (trainer_ instanceof GymTrainer) {
-            FightFacade.initFight(game.getFight(), player_, game.getDifficulty(), (GymTrainer) trainer_, _import);
-        } else if (trainer_ instanceof DualFight) {
-            FightFacade.initFight(game.getFight(), player_, game.getDifficulty(), (DualFight) trainer_, _import);
+        if (!leagues_.isEmpty()) {
+            FightFacade.initFight(game.getFight(), player_, game.getDifficulty(), leagues_.first(), _import);
+        } else if (!gymLeaders_.isEmpty()) {
+            FightFacade.initFight(game.getFight(), player_, game.getDifficulty(), gymLeaders_.first(), _import);
+        } else if (!gymTrainers_.isEmpty()) {
+            FightFacade.initFight(game.getFight(), player_, game.getDifficulty(), gymTrainers_.first(), _import);
+        } else if (!duals_.isEmpty()) {
+            FightFacade.initFight(game.getFight(), player_, game.getDifficulty(), duals_.first(), _import);
         } else {
-            FightFacade.initFight(game.getFight(), player_, game.getDifficulty(), (TrainerMultiFights) trainer_, noFight, _import);
+            TrainerMultiFights trainer_;
+            trainer_ = trainers_.first();
+            FightFacade.initFight(game.getFight(), player_, game.getDifficulty(), trainer_, noFight, _import);
         }
         if (!freeTeams) {
             FightFacade.initTypeEnv(game.getFight(), foeCoords, game.getDifficulty(), _import);

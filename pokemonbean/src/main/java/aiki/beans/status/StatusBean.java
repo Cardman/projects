@@ -1,6 +1,6 @@
 package aiki.beans.status;
 import aiki.beans.CommonBean;
-import aiki.comparators.ComparatorTrStringStatistic;
+import aiki.beans.facade.comparators.ComparatorTrStringStatistic;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectEndRound;
