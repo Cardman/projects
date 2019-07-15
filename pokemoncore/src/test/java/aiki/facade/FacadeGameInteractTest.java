@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public final class FacadeGameInteractTest extends InitializationDataBase {
 
@@ -36,6 +36,8 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
         facadeGame_.interact();
         assertEq(InterfaceType.RIEN, game_.getInterfaceType());
         assertTrue(!facadeGame_.isFishArea());
+        facadeGame_.exitFight();
+        assertTrue(facadeGame_.isEnabledMovingHero());
     }
 
     @Test
@@ -52,6 +54,8 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
         assertTrue(facadeGame_.isFishArea());
         facadeGame_.interact();
         assertTrue(facadeGame_.isChangeToFightScene());
+        facadeGame_.exitFight();
+        assertTrue(!facadeGame_.isEnabledMovingHero());
     }
 
     @Test

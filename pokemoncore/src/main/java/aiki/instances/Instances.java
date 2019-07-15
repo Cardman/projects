@@ -1115,6 +1115,7 @@ public final class Instances {
         object_.setHostedPk(new ObjectMap<Coords,HostPokemonDuo>(cap_));
         object_.setFight(newFight());
         object_.setDifficulty(newDifficulty());
+        object_.setVisitedPlacesNb(new ShortMap<Boolean>());
         object_.setVisitedPlaces(new ObjectMap<Coords,Boolean>(cap_));
         return object_;
     }

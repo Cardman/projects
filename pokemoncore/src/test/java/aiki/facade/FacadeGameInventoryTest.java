@@ -153,4 +153,34 @@ public final class FacadeGameInventoryTest extends InitializationDataBase {
         assertEq(1, facadeGame.getUnKeptMovesToEvo().size());
     }
 
+    @Test
+    public void useObject4Test() {
+        PokemonPlayer pokemonPlayer_ = game.getPlayer().getPokemonPlayerList().getValue(0);
+        pokemonPlayer_.setRemainingHp(Rate.one());
+        game.getPlayer().getItem(POTION);
+        facadeGame.setChosenTeamPokemon((short) 0);
+        facadeGame.setContentOfNameHealingItem(POTION);
+        facadeGame.searchPokemonHealingItem();
+        facadeGame.checkLineHealingItem(0);
+        facadeGame.setGivingObject(false);
+        facadeGame.setChosenHealingItemWalk();
+        facadeGame.clearSortingHealingItem();
+        facadeGame.getPlayer().getIndexesOfPokemonTeam().clear();
+        facadeGame.useObject();
+        facadeGame.selectPokemon((short) 0);
+        assertEq(new Rate("21"),pokemonPlayer_.getRemainingHp());
+        assertEq(LgInt.zero(),game.getPlayer().getInventory().getNumber(POTION));
+    }
+    @Test
+    public void useTmTest() {
+        game.getPlayer().getTm((short)2);
+        facadeGame.searchTmToUse();
+        facadeGame.checkLineMove(0);
+        facadeGame.chooseMoveByObject();
+        facadeGame.clearSortingMove();
+        assertTrue(!facadeGame.getPlayer().getSelectedMove().isEmpty());
+        facadeGame.openMenu();
+        assertTrue(facadeGame.getPlayer().getIndexesOfPokemonTeam().contains(0));
+        facadeGame.choosePokemonForLearningMove((byte) 0);
+    }
 }

@@ -205,17 +205,9 @@ public class FacadeGame implements WithMathFactory {
 
     public void load(Game _game) {
         game = _game;
-        changeToFightScene = game.getFight().getFightType().isExisting();
         setupMovingHeros();
     }
 
-    private void setupMovingHeros() {
-        if (changeToFightScene) {
-            enabledMovingHero = false;
-        } else {
-            enabledMovingHero = true;
-        }
-    }
 
     // Moving with arrows
     public void move(Direction _direction) {
@@ -225,12 +217,17 @@ public class FacadeGame implements WithMathFactory {
         comment.clearMessages();
         game.moving(_direction, data);
         comment.addComment(game.getCommentGame());
+        setupMovingHeros();
+    }
+
+    void setupMovingHeros() {
         changeToFightScene = game.getFight().getFightType().isExisting();
         if (changeToFightScene) {
             enabledMovingHero = false;
+        } else {
+            enabledMovingHero = true;
         }
     }
-
     public void directInteraction() {
         game.setInterfaceType(InterfaceType.RIEN);
         Coords coords_ = closestTile();
@@ -311,18 +308,15 @@ public class FacadeGame implements WithMathFactory {
         } else if (game.getInterfaceType() == InterfaceType.PK_LEG) {
             game.initLegendaryPokemonFight(data);
             comment.addComment(game.getCommentGame());
-            changeToFightScene = true;
-            enabledMovingHero = false;
+            setupMovingHeros();
         } else if (game.getInterfaceType() == InterfaceType.PECHE) {
             game.initFishing(data);
             comment.addComment(game.getCommentGame());
-            changeToFightScene = true;
-            enabledMovingHero = false;
+            setupMovingHeros();
         } else if (game.getInterfaceType() == InterfaceType.DRESSEUR) {
             game.initTrainerFight(data);
             comment.addComment(game.getCommentGame());
-            changeToFightScene = true;
-            enabledMovingHero = false;
+            setupMovingHeros();
         } else if (game.getInterfaceType() == InterfaceType.OBJ_RAMAS) {
             takeObject();
         } else if (game.getInterfaceType() == InterfaceType.DON_OBJET) {
@@ -992,13 +986,7 @@ public class FacadeGame implements WithMathFactory {
             if (!(pl_ instanceof City)) {
                 continue;
             }
-            boolean visited_ = false;
-            for (Coords c : game.getVisitedPlaces().getKeys()) {
-                if (Numbers.eq(c.getNumberPlace(), tile_.getPlace())) {
-                    visited_ = game.getVisitedPlaces().getVal(c);
-                    break;
-                }
-            }
+            boolean visited_ =  game.getVisitedPlacesNb().getVal(tile_.getPlace());
             if (!visited_) {
                 continue;
             }
@@ -1075,12 +1063,6 @@ public class FacadeGame implements WithMathFactory {
     }
 
     public PokemonPlayer getSentPokemon() {
-        if (exchangeData == null) {
-            return null;
-        }
-        if (exchangeData.getIndexTeam() == CustList.INDEX_NOT_FOUND_ELT) {
-            return null;
-        }
         return (PokemonPlayer) game.getPlayer().getTeam()
                 .get(exchangeData.getIndexTeam());
     }
@@ -1170,9 +1152,6 @@ public class FacadeGame implements WithMathFactory {
 
     public void addItemToBuyOrSell() {
         String current_ = paginationItem.currentObject();
-        if (current_ == null) {
-            return;
-        }
         addItemToBuyOrSell(current_);
     }
 
@@ -1196,10 +1175,7 @@ public class FacadeGame implements WithMathFactory {
         if (!chosenItemsForBuyOrSell.contains(_item)) {
             return;
         }
-        if (!chosenItemsForBuyOrSell.getVal(_item).isZeroOrGt()) {
-            return;
-        }
-        if (chosenItemsForBuyOrSell.getVal(_item).isZero()) {
+        if (chosenItemsForBuyOrSell.getVal(_item).isZeroOrLt()) {
             return;
         }
         chosenItemsForBuyOrSell.getVal(_item).decrement();
@@ -1448,12 +1424,7 @@ public class FacadeGame implements WithMathFactory {
     }
 
     public void searchTmToUse() {
-        StringList list_ = new StringList();
-        Inventory inventory_ = game.getPlayer().getInventory();
-        for (short i : inventory_.gotTm()) {
-            String m_ = data.getTm().getVal(i);
-            list_.add(m_);
-        }
+        StringList list_ = getOwnedMoves();
         paginationMove.search(list_, data);
     }
 
@@ -1664,9 +1635,6 @@ public class FacadeGame implements WithMathFactory {
 
     public void addTmToBuy() {
         String move_ = paginationMove.currentObject();
-        if (move_ == null) {
-            return;
-        }
         addTmToBuy(move_);
     }
 
@@ -1930,9 +1898,6 @@ public class FacadeGame implements WithMathFactory {
     // %%%%begin%%%% learn technical moves option
     public void chooseMoveByObject() {
         String move_ = paginationMove.currentObject();
-        if (move_ == null) {
-            return;
-        }
         game.getPlayer().chooseMoveByObject(move_, data);
     }
 
@@ -2358,17 +2323,11 @@ public class FacadeGame implements WithMathFactory {
 
     public void setChosenHealingItemWalk() {
         String selected_ = paginationHealingItem.currentObject();
-        if (selected_ == null) {
-            return;
-        }
         game.getPlayer().chooseObject(selected_);
     }
 
     public void setChosenHealingItem() {
         String selected_ = paginationHealingItem.currentObject();
-        if (selected_ == null) {
-            return;
-        }
         game.setChosenHealingItem(selected_, data);
     }
 

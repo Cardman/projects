@@ -169,6 +169,7 @@ public final class Game {
     private boolean reinitInteraction;
 
     private ObjectMap<Coords,Boolean> visitedPlaces;
+    private ShortMap<Boolean> visitedPlacesNb;
 
     private int nbSteps;
 
@@ -187,6 +188,7 @@ public final class Game {
         setBeatGymTrainer(new ShortMap<EqList<Point>>());
         reinitInteraction=false;
         setInterfaceType(InterfaceType.RIEN);
+        setVisitedPlacesNb(new ShortMap<Boolean>());
         setVisitedPlaces(new ObjectMap<Coords,Boolean>());
         setBeatGymLeader(new ObjectMap<Coords, Boolean>());
         setTakenObjects(new ObjectMap<Coords, Boolean>());
@@ -205,6 +207,7 @@ public final class Game {
         interfaceType=InterfaceType.RIEN;
         DataMap d_=_d.getMap();
         visitedPlaces = new ObjectMap<Coords,Boolean>();
+        visitedPlacesNb = new ShortMap<Boolean>();
         playerCoords= new Coords(d_.getBegin());
         playerOrientation=Direction.UP;
         takenPokemon = new ObjectMap<Coords,Boolean>();
@@ -235,8 +238,10 @@ public final class Game {
             hostedPk.put(c, h_);
         }
         visitedPlaces = new ObjectMap<Coords,Boolean>();
+        visitedPlacesNb = new ShortMap<Boolean>();
         for (Coords c: d_.getCities()) {
             visitedPlaces.put(c, false);
+            visitedPlacesNb.put(c.getNumberPlace(), false);
         }
         indexStep=0;
         indexPeriod=0;
@@ -246,9 +251,14 @@ public final class Game {
 
     public void visitFirstPlaces(DataBase _d) {
         DataMap d_=_d.getMap();
+        visitedPlacesNb.clear();
+        for (EntryCust<Coords,Boolean> e: visitedPlaces.entryList()) {
+            visitedPlacesNb.put(e.getKey().getNumberPlace(),e.getValue());
+        }
         for (Coords c: visitedPlaces.getKeys()) {
             if (d_.getAccessibility().getVal(c).isEmpty()) {
                 visitedPlaces.put(c, true);
+                visitedPlacesNb.put(c.getNumberPlace(), true);
             }
         }
     }
@@ -1921,6 +1931,7 @@ public final class Game {
         movingHero(_d);
         if (visitedPlaces.contains(playerCoords)) {
             visitedPlaces.put(playerCoords, true);
+            visitedPlacesNb.put(playerCoords.getNumberPlace(),true);
         }
         voisin_ = closestTile(d_);
         player.moveLoop(nbSteps, difficulty, _d);
@@ -2520,6 +2531,7 @@ public final class Game {
 
     void visitPlace(Coords _coords) {
         visitedPlaces.set(_coords, true);
+        visitedPlacesNb.set(_coords.getNumberPlace(), true);
     }
 
     public Player getPlayer() {
@@ -2632,6 +2644,14 @@ public final class Game {
 
     public void setVisitedPlaces(ObjectMap<Coords,Boolean> _visitedPlaces) {
         visitedPlaces = _visitedPlaces;
+    }
+
+    public ShortMap<Boolean> getVisitedPlacesNb() {
+        return visitedPlacesNb;
+    }
+
+    public void setVisitedPlacesNb(ShortMap<Boolean> _visitedPlacesNb) {
+        visitedPlacesNb = _visitedPlacesNb;
     }
 
     public int getNbSteps() {

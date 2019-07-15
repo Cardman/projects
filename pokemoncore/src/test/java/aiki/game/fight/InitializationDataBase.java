@@ -1383,11 +1383,11 @@ public class InitializationDataBase {
     }
 
     protected static void initTmHm(DataBase _data) {
-        _data.getHm().addEntry((short) 1, "ECLAIR");
-        _data.getTm().addEntry((short) 2, "TONNERRE");
-        _data.getTm().addEntry((short) 3, "CHARGE");
-        _data.getTm().addEntry((short) 4, "VIVE_ATTAQUE");
-        _data.getTm().addEntry((short) 5, "JACKPOT");
+        _data.getHm().addEntry((short) 1, ECLAIR);
+        _data.getTm().addEntry((short) 2, TONNERRE);
+        _data.getTm().addEntry((short) 3, CHARGE);
+        _data.getTm().addEntry((short) 4, VIVE_ATTAQUE);
+        _data.getTm().addEntry((short) 5, JACKPOT);
         _data.getTmPrice().addEntry((short) 2, new LgInt(4000));
         _data.getTmPrice().addEntry((short) 3, new LgInt(2000));
         _data.getTmPrice().addEntry((short) 4, new LgInt(3000));
