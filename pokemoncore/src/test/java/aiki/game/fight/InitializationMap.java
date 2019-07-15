@@ -170,23 +170,23 @@ final class InitializationMap {
         road_.setName(R_1);
         Block block_;
         block_ = newRoadBlock(2, 2, 0);
-        road_.getLevel().getBlocks().put(newPoint(0,0), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(0,0), block_);
         block_ = newRoadBlock(2, 2, 1);
-        road_.getLevel().getBlocks().put(newPoint(2,0), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(2,0), block_);
         block_ = newWaterBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(4,0), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(4,0), block_);
         block_ = newRoadBlock(2, 2, 2);
-        road_.getLevel().getBlocks().put(newPoint(0,2), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(0,2), block_);
         block_ = newRoadBlock(2, 2, 3);
-        road_.getLevel().getBlocks().put(newPoint(2,2), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(2,2), block_);
         block_ = newWaterBlock(2, 2, 4);
-        road_.getLevel().getBlocks().put(newPoint(4,2), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(4,2), block_);
         block_ = newWaterBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(0,4), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(0,4), block_);
         block_ = newWaterBlock(2, 2, 5);
-        road_.getLevel().getBlocks().put(newPoint(2,4), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(2,4), block_);
         block_ = newWaterBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(4,4), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(4,4), block_);
     }
 
     static void initTrainersFirstRoad(DataBase _data) {
@@ -333,23 +333,23 @@ final class InitializationMap {
         City city_ = (City) map_.getPlaces().getVal((short) 1);
         Block block_;
         block_ = newBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(0,0), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(0,0), block_);
         block_ = newRoadBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(2,0), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(2,0), block_);
         block_ = newBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(4,0), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(4,0), block_);
         block_ = newRoadBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(0,2), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(0,2), block_);
         block_ = newRoadBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(2,2), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(2,2), block_);
         block_ = newWaterBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(4,2), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(4,2), block_);
         block_ = newWaterBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(0,4), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(0,4), block_);
         block_ = newWaterBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(2,4), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(2,4), block_);
         block_ = newWaterBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(4,4), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(4,4), block_);
     }
 
     static void initBuildingsFirstCity(DataBase _data) {
@@ -360,19 +360,19 @@ final class InitializationMap {
         gym_.setLevel(new LevelIndoorGym());
         gym_.setExitCity(newPoint(4,8));
         gym_.getLevel().setBlocks(new ObjectMap<Point,Block>());
-        gym_.getLevel().getBlocks().put(newPoint(0,0), newBuildingBlock(9, 9));
+        gym_.getLevel().getBlocks().addEntry(newPoint(0,0), newBuildingBlock(9, 9));
         gym_.getIndoor().setGymTrainers(new ObjectMap<Point,GymTrainer>());
         city_.setBuildings(new ObjectMap<Point,Building>());
-        city_.getBuildings().put(newPoint(5, 1), gym_);
+        city_.getBuildings().addEntry(newPoint(5, 1), gym_);
         PokemonCenter pkCenter_;
         pkCenter_ = new PokemonCenter();
         pkCenter_.setLevel(new LevelIndoorPokemonCenter());
         pkCenter_.setExitCity(newPoint(4,8));
         pkCenter_.getLevel().setBlocks(new ObjectMap<Point,Block>());
-        pkCenter_.getLevel().getBlocks().put(newPoint(0,0), newBuildingBlock(9, 9));
+        pkCenter_.getLevel().getBlocks().addEntry(newPoint(0,0), newBuildingBlock(9, 9));
         pkCenter_.getIndoor().setStorageCoords(newPoint(4, 0));
         pkCenter_.getIndoor().setGerants(new ObjectMap<Point,Person>());
-        city_.getBuildings().put(newPoint(1, 1), pkCenter_);
+        city_.getBuildings().addEntry(newPoint(1, 1), pkCenter_);
     }
 
     static void initTrainersFirstCity(DataBase _data) {
@@ -387,12 +387,12 @@ final class InitializationMap {
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,3),new StringList(JACKPOT)));
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,4),new StringList(JACKPOT)));
         gymTrainer_ = newGymTrainer(list_, 200, 1);
-        gym_.getIndoor().getGymTrainers().put(newPoint(1, 7), gymTrainer_);
+        gym_.getIndoor().getGymTrainers().addEntry(newPoint(1, 7), gymTrainer_);
         list_ = new CustList<NameLevelMoves>();
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,3),new StringList(JACKPOT)));
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,4),new StringList(JACKPOT)));
         gymTrainer_ = newGymTrainer(list_, 200, 1);
-        gym_.getIndoor().getGymTrainers().put(newPoint(7, 7), gymTrainer_);
+        gym_.getIndoor().getGymTrainers().addEntry(newPoint(7, 7), gymTrainer_);
         gym_.getIndoor().setGymLeaderCoords(newPoint(4, 1));
         list_ = new CustList<NameLevelMoves>();
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,5),new StringList(JACKPOT)));
@@ -407,23 +407,23 @@ final class InitializationMap {
         City city_ = (City) map_.getPlaces().getVal((short) 1);
         PokemonCenter pk_;
         pk_ = (PokemonCenter) city_.getBuildings().getVal(newPoint(1, 1));
-        pk_.getIndoor().getGerants().put(newPoint(0, 4), newGerantPokemon(GeranceType.HEAL));
+        pk_.getIndoor().getGerants().addEntry(newPoint(0, 4), newGerantPokemon(GeranceType.HEAL));
         Seller seller_;
         seller_ = new Seller();
         seller_.setItems(new StringList(POKE_BALL,HYPER_BALL,PT_DE_MIRE, PIERRE_EAU,ROCHE_ROYALE,PIERRE_LUNE,PIERRE_SOLEIL,PIERRE_GLACE));
         seller_.setTm(new Shorts());
         seller_.setSell(SellType.ITEM);
-        pk_.getIndoor().getGerants().put(newPoint(8, 4), seller_);
+        pk_.getIndoor().getGerants().addEntry(newPoint(8, 4), seller_);
         seller_ = new Seller();
         seller_.setItems(new StringList());
         seller_.setTm(new Shorts((short)2));
         seller_.setSell(SellType.TM);
-        pk_.getIndoor().getGerants().put(newPoint(8, 5), seller_);
+        pk_.getIndoor().getGerants().addEntry(newPoint(8, 5), seller_);
         seller_ = new Seller();
         seller_.setItems(new StringList());
         seller_.setTm(new Shorts());
         seller_.setSell(SellType.MOVE);
-        pk_.getIndoor().getGerants().put(newPoint(8, 6), seller_);
+        pk_.getIndoor().getGerants().addEntry(newPoint(8, 6), seller_);
     }
 
     static void initBlockSecondRoad(DataBase _data) {
@@ -433,41 +433,41 @@ final class InitializationMap {
         road_.setName(R_2);
         Block block_;
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(0,0), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(0,0), block_);
         block_ = newWaterBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(2,0), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(2,0), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(4,0), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(4,0), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(6,0), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(6,0), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(8,0), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(8,0), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(10,0), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(10,0), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(0,2), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(0,2), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(2,2), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(2,2), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(4,2), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(4,2), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(6,2), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(6,2), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(8,2), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(8,2), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(10,2), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(10,2), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(0,4), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(0,4), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(2,4), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(2,4), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(4,4), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(4,4), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(6,4), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(6,4), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(8,4), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(8,4), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(10,4), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(10,4), block_);
     }
 
     static void initTrainersSecondRoad(DataBase _data) {
@@ -521,14 +521,14 @@ final class InitializationMap {
         wild_.setLevel((short) 1);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
-        road_.getLevelRoad().getLegendaryPks().put(newPoint(11, 2), wild_);
+        road_.getLevelRoad().getLegendaryPks().addEntry(newPoint(11, 2), wild_);
         //map_.getTakenPokemon().add(newCoords(2, 0, 11, 2));
         wild_ = new WildPk();
         wild_.setName(ARTIKODIN);
         wild_.setLevel((short) 1);
         wild_.setAbility(PARATONNERRE);
         wild_.setGender(Gender.NO_GENDER);
-        road_.getLevelRoad().getLegendaryPks().put(newPoint(9, 5), wild_);
+        road_.getLevelRoad().getLegendaryPks().addEntry(newPoint(9, 5), wild_);
     }
 
     static void initItemsSecondRoad(DataBase _data) {
@@ -547,23 +547,23 @@ final class InitializationMap {
         City city_ = (City) map_.getPlaces().getVal((short) 3);
         Block block_;
         block_ = newRoadBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(0,0), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(0,0), block_);
         block_ = newBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(2,0), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(2,0), block_);
         block_ = newBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(4,0), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(4,0), block_);
         block_ = newRoadBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(0,2), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(0,2), block_);
         block_ = newRoadBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(2,2), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(2,2), block_);
         block_ = newRoadBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(4,2), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(4,2), block_);
         block_ = newRoadBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(0,4), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(0,4), block_);
         block_ = newRoadBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(2,4), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(2,4), block_);
         block_ = newRoadBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(4,4), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(4,4), block_);
     }
 
     static void initBuildingsSecondCity(DataBase _data) {
@@ -576,18 +576,18 @@ final class InitializationMap {
         gym_.setLevel(new LevelIndoorGym());
         gym_.setExitCity(newPoint(4,8));
         gym_.getLevel().setBlocks(new ObjectMap<Point,Block>());
-        gym_.getLevel().getBlocks().put(newPoint(0,0), newBuildingBlock(9, 9));
+        gym_.getLevel().getBlocks().addEntry(newPoint(0,0), newBuildingBlock(9, 9));
         gym_.getIndoor().setGymTrainers(new ObjectMap<Point,GymTrainer>());
         city_.setBuildings(new ObjectMap<Point,Building>());
-        city_.getBuildings().put(newPoint(4, 1), gym_);
+        city_.getBuildings().addEntry(newPoint(4, 1), gym_);
         pkCenter_ = new PokemonCenter();
         pkCenter_.setLevel(new LevelIndoorPokemonCenter());
         pkCenter_.setExitCity(newPoint(4,8));
         pkCenter_.getLevel().setBlocks(new ObjectMap<Point,Block>());
-        pkCenter_.getLevel().getBlocks().put(newPoint(0,0), newBuildingBlock(9, 9));
+        pkCenter_.getLevel().getBlocks().addEntry(newPoint(0,0), newBuildingBlock(9, 9));
         pkCenter_.getIndoor().setStorageCoords(newPoint(4, 0));
         pkCenter_.getIndoor().setGerants(new ObjectMap<Point,Person>());
-        city_.getBuildings().put(newPoint(2, 1), pkCenter_);
+        city_.getBuildings().addEntry(newPoint(2, 1), pkCenter_);
 //        map_.getCities().add(newCoords(1, 0, 1, 2));
 //        map_.getCities().add(newCoords(3, 0, 2, 2));
     }
@@ -603,12 +603,12 @@ final class InitializationMap {
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,3),new StringList(JACKPOT)));
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,4),new StringList(JACKPOT)));
         gymTrainer_ = newGymTrainer(list_, 200, 1);
-        gym_.getIndoor().getGymTrainers().put(newPoint(1, 7), gymTrainer_);
+        gym_.getIndoor().getGymTrainers().addEntry(newPoint(1, 7), gymTrainer_);
         list_ = new CustList<NameLevelMoves>();
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,3),new StringList(JACKPOT)));
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,4),new StringList(JACKPOT)));
         gymTrainer_ = newGymTrainer(list_, 200, 1);
-        gym_.getIndoor().getGymTrainers().put(newPoint(7, 7), gymTrainer_);
+        gym_.getIndoor().getGymTrainers().addEntry(newPoint(7, 7), gymTrainer_);
         gym_.getIndoor().setGymLeaderCoords(newPoint(4, 1));
         list_ = new CustList<NameLevelMoves>();
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,5),new StringList(JACKPOT)));
@@ -625,8 +625,8 @@ final class InitializationMap {
         PokemonCenter pk_;
         city_ = (City) map_.getPlaces().getVal((short) 3);
         pk_ = (PokemonCenter) city_.getBuildings().getVal(newPoint(2, 1));
-        pk_.getIndoor().getGerants().put(newPoint(0, 4), newGerantPokemon(GeranceType.FOSSILE));
-        pk_.getIndoor().getGerants().put(newPoint(8, 4), newGerantPokemon(GeranceType.HOST));
+        pk_.getIndoor().getGerants().addEntry(newPoint(0, 4), newGerantPokemon(GeranceType.FOSSILE));
+        pk_.getIndoor().getGerants().addEntry(newPoint(8, 4), newGerantPokemon(GeranceType.HOST));
     }
 
     static void initBlockThirdRoad(DataBase _data) {
@@ -636,23 +636,23 @@ final class InitializationMap {
         road_.setName(R_4);
         Block block_;
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(0,0), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(0,0), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(2,0), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(2,0), block_);
         block_ = newDesertBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(4,0), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(4,0), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(0,2), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(0,2), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(2,2), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(2,2), block_);
         block_ = newDesertBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(4,2), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(4,2), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(0,4), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(0,4), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(2,4), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(2,4), block_);
         block_ = newDesertBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(4,4), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(4,4), block_);
     }
 
     static void initBlockCave(DataBase _data) {
@@ -665,54 +665,54 @@ final class InitializationMap {
         Block block_;
         level_ = (LevelCave)cave_.getLevelsMap().getVal((byte) 0);
         block_ = newRockBlock(2, 2);
-        level_.getBlocks().put(newPoint(0,0), block_);
+        level_.getBlocks().addEntry(newPoint(0,0), block_);
         block_ = newRockBlock(2, 2);
-        level_.getBlocks().put(newPoint(2,0), block_);
+        level_.getBlocks().addEntry(newPoint(2,0), block_);
         block_ = newRockBlock(2, 2);
-        level_.getBlocks().put(newPoint(4,0), block_);
+        level_.getBlocks().addEntry(newPoint(4,0), block_);
         block_ = newRockBlock(2, 2);
-        level_.getBlocks().put(newPoint(6,0), block_);
+        level_.getBlocks().addEntry(newPoint(6,0), block_);
         block_ = newRockBlock(2, 2);
-        level_.getBlocks().put(newPoint(0,2), block_);
+        level_.getBlocks().addEntry(newPoint(0,2), block_);
         block_ = newRockBlock(2, 2);
-        level_.getBlocks().put(newPoint(2,2), block_);
+        level_.getBlocks().addEntry(newPoint(2,2), block_);
         block_ = newRockBlock(2, 2);
-        level_.getBlocks().put(newPoint(4,2), block_);
+        level_.getBlocks().addEntry(newPoint(4,2), block_);
         block_ = newRockBlock(2, 2);
-        level_.getBlocks().put(newPoint(6,2), block_);
+        level_.getBlocks().addEntry(newPoint(6,2), block_);
         block_ = newRockBlock(2, 2);
-        level_.getBlocks().put(newPoint(0,4), block_);
+        level_.getBlocks().addEntry(newPoint(0,4), block_);
         block_ = newRockBlock(2, 2);
-        level_.getBlocks().put(newPoint(2,4), block_);
+        level_.getBlocks().addEntry(newPoint(2,4), block_);
         block_ = newRockBlock(2, 2);
-        level_.getBlocks().put(newPoint(4,4), block_);
+        level_.getBlocks().addEntry(newPoint(4,4), block_);
         block_ = newRockBlock(2, 2);
-        level_.getBlocks().put(newPoint(6,4), block_);
+        level_.getBlocks().addEntry(newPoint(6,4), block_);
         level_ = (LevelCave)cave_.getLevelsMap().getVal((byte) 1);
         block_ = newRockBlock(2, 2, 0);
-        level_.getBlocks().put(newPoint(0,0), block_);
+        level_.getBlocks().addEntry(newPoint(0,0), block_);
         block_ = newRockBlock(2, 2, 1);
-        level_.getBlocks().put(newPoint(2,0), block_);
+        level_.getBlocks().addEntry(newPoint(2,0), block_);
         block_ = newRockBlock(2, 2, 1);
-        level_.getBlocks().put(newPoint(4,0), block_);
+        level_.getBlocks().addEntry(newPoint(4,0), block_);
         block_ = newRockBlock(2, 2);
-        level_.getBlocks().put(newPoint(6,0), block_);
+        level_.getBlocks().addEntry(newPoint(6,0), block_);
         block_ = newRockBlock(2, 2, 0);
-        level_.getBlocks().put(newPoint(0,2), block_);
+        level_.getBlocks().addEntry(newPoint(0,2), block_);
         block_ = newRockBlock(2, 2);
-        level_.getBlocks().put(newPoint(2,2), block_);
+        level_.getBlocks().addEntry(newPoint(2,2), block_);
         block_ = newRockBlock(2, 2);
-        level_.getBlocks().put(newPoint(4,2), block_);
+        level_.getBlocks().addEntry(newPoint(4,2), block_);
         block_ = newRockBlock(2, 2);
-        level_.getBlocks().put(newPoint(6,2), block_);
+        level_.getBlocks().addEntry(newPoint(6,2), block_);
         block_ = newRockBlock(2, 2, 0);
-        level_.getBlocks().put(newPoint(0,4), block_);
+        level_.getBlocks().addEntry(newPoint(0,4), block_);
         block_ = newRockBlock(2, 2);
-        level_.getBlocks().put(newPoint(2,4), block_);
+        level_.getBlocks().addEntry(newPoint(2,4), block_);
         block_ = newRockBlock(2, 2);
-        level_.getBlocks().put(newPoint(4,4), block_);
+        level_.getBlocks().addEntry(newPoint(4,4), block_);
         block_ = newRockBlock(2, 2);
-        level_.getBlocks().put(newPoint(6,4), block_);
+        level_.getBlocks().addEntry(newPoint(6,4), block_);
     }
 
     static void initCaveAreas(DataBase _data) {
@@ -900,7 +900,7 @@ final class InitializationMap {
         dual_ = newDualFight(allyList_, list_, 300);
         dual_.setNames(new StringList(DUAL_THREE_TR_ONE,DUAL_THREE_TR_TWO));
         dual_.setPt(newPoint(3, 0));
-        ((LevelCave)cave_.getLevelsMap().getVal((byte) 0)).getDualFights().put(newPoint(2, 0), dual_);
+        ((LevelCave)cave_.getLevelsMap().getVal((byte) 0)).getDualFights().addEntry(newPoint(2, 0), dual_);
         //map_.getBeatGymLeader().add(newCoords(5, 0, 2, 0));
         foeTeamsList_ = new CustList<PokemonTeam>();
         list_ = new CustList<NameLevelMoves>();
@@ -909,7 +909,7 @@ final class InitializationMap {
         foeTeamList_ = newTeam(list_, 200);
         foeTeamsList_.add(foeTeamList_);
         trainer_ = newTrainer(foeTeamsList_, 1);
-        ((LevelCave)cave_.getLevelsMap().getVal((byte) 0)).getCharacters().put(newPoint(1, 5), trainer_);
+        ((LevelCave)cave_.getLevelsMap().getVal((byte) 0)).getCharacters().addEntry(newPoint(1, 5), trainer_);
         //map_.getBeatTrainer().add(new NbFightCoords(newCoords(5, 0, 1, 5),0));
         foeTeamsList_ = new CustList<PokemonTeam>();
         list_ = new CustList<NameLevelMoves>();
@@ -918,7 +918,7 @@ final class InitializationMap {
         foeTeamList_ = newTeam(list_, 200);
         foeTeamsList_.add(foeTeamList_);
         trainer_ = newTrainer(foeTeamsList_, 1);
-        ((LevelCave)cave_.getLevelsMap().getVal((byte) 1)).getCharacters().put(newPoint(5, 1), trainer_);
+        ((LevelCave)cave_.getLevelsMap().getVal((byte) 1)).getCharacters().addEntry(newPoint(5, 1), trainer_);
         //map_.getBeatTrainer().add(new NbFightCoords(newCoords(5, 1, 5, 1),0));
     }
 
@@ -943,10 +943,10 @@ final class InitializationMap {
         Block block_;
         level_ = (LevelLeague) road_.getLevelsMap().getVal((byte) 0);
         block_ = newBuildingBlock(9, 9);
-        level_.getBlocks().put(newPoint(0,0), block_);
+        level_.getBlocks().addEntry(newPoint(0,0), block_);
         level_ = (LevelLeague) road_.getLevelsMap().getVal((byte) 1);
         block_ = newBuildingBlock(9, 9);
-        level_.getBlocks().put(newPoint(0,0), block_);
+        level_.getBlocks().addEntry(newPoint(0,0), block_);
         road_.setBegin(newPoint(4,8));
         level_ = (LevelLeague) road_.getLevelsMap().getVal((byte) 0);
         level_.setAccessPoint(newPoint(4, 0));
@@ -973,12 +973,12 @@ final class InitializationMap {
         league_.getRooms().get(1).getTrainer().setName(LEAGUE_TR_TWO);
         //map_.getBeatGymLeader().add(newCoords(6, 0, 4, 8));
         map_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        map_.getAccessCondition().put(newCoords(4, 0, 0, 4), new EqList<Coords>(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
-        map_.getAccessCondition().put(newCoords(4, 0, 1, 4), new EqList<Coords>(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
-        map_.getAccessCondition().put(newCoords(4, 0, 2, 4), new EqList<Coords>(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
-        map_.getAccessCondition().put(newCoords(4, 0, 3, 4), new EqList<Coords>(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
-        map_.getAccessCondition().put(newCoords(4, 0, 4, 4), new EqList<Coords>(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
-        map_.getAccessCondition().put(newCoords(4, 0, 5, 4), new EqList<Coords>(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
+        map_.getAccessCondition().addEntry(newCoords(4, 0, 0, 4), new EqList<Coords>(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
+        map_.getAccessCondition().addEntry(newCoords(4, 0, 1, 4), new EqList<Coords>(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
+        map_.getAccessCondition().addEntry(newCoords(4, 0, 2, 4), new EqList<Coords>(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
+        map_.getAccessCondition().addEntry(newCoords(4, 0, 3, 4), new EqList<Coords>(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
+        map_.getAccessCondition().addEntry(newCoords(4, 0, 4, 4), new EqList<Coords>(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
+        map_.getAccessCondition().addEntry(newCoords(4, 0, 5, 4), new EqList<Coords>(newCoords(1, 0, 5, 1, 4, 1),newCoords(3, 0, 4, 1, 4, 1)));
     }
 
     static void initBlockThirdCity(DataBase _data) {
@@ -987,23 +987,23 @@ final class InitializationMap {
         City city_ = (City) map_.getPlaces().getVal((short) 7);
         Block block_;
         block_ = newRoadBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(0,0), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(0,0), block_);
         block_ = newRoadBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(2,0), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(2,0), block_);
         block_ = newRoadBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(4,0), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(4,0), block_);
         block_ = newRoadBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(0,2), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(0,2), block_);
         block_ = newBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(2,2), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(2,2), block_);
         block_ = newWaterBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(4,2), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(4,2), block_);
         block_ = newWaterBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(0,4), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(0,4), block_);
         block_ = newWaterBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(2,4), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(2,4), block_);
         block_ = newRoadBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(4,4), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(4,4), block_);
     }
 
     static void initBuildingsThirdCity(DataBase _data) {
@@ -1014,11 +1014,11 @@ final class InitializationMap {
         pkCenter_.setLevel(new LevelIndoorPokemonCenter());
         pkCenter_.setExitCity(newPoint(4,8));
         pkCenter_.getLevel().setBlocks(new ObjectMap<Point,Block>());
-        pkCenter_.getLevel().getBlocks().put(newPoint(0,0), newBuildingBlock(9, 9));
+        pkCenter_.getLevel().getBlocks().addEntry(newPoint(0,0), newBuildingBlock(9, 9));
         pkCenter_.getIndoor().setStorageCoords(newPoint(4, 0));
         pkCenter_.getIndoor().setGerants(new ObjectMap<Point,Person>());
-        pkCenter_.getIndoor().getGerants().put(newPoint(0, 4), newGerantPokemon(GeranceType.FOSSILE));
-        city_.getBuildings().put(newPoint(3,3), pkCenter_);
+        pkCenter_.getIndoor().getGerants().addEntry(newPoint(0, 4), newGerantPokemon(GeranceType.FOSSILE));
+        city_.getBuildings().addEntry(newPoint(3,3), pkCenter_);
         //5, 1, 4, 0
     }
 
@@ -1028,23 +1028,23 @@ final class InitializationMap {
         City city_ = (City) map_.getPlaces().getVal((short) 8);
         Block block_;
         block_ = newRoadBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(0,0), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(0,0), block_);
         block_ = newRoadBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(2,0), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(2,0), block_);
         block_ = newRoadBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(4,0), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(4,0), block_);
         block_ = newRoadBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(0,2), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(0,2), block_);
         block_ = newBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(2,2), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(2,2), block_);
         block_ = newWaterBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(4,2), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(4,2), block_);
         block_ = newWaterBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(0,4), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(0,4), block_);
         block_ = newWaterBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(2,4), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(2,4), block_);
         block_ = newRoadBlock(2, 2);
-        city_.getLevel().getBlocks().put(newPoint(4,4), block_);
+        city_.getLevel().getBlocks().addEntry(newPoint(4,4), block_);
     }
 
     static void initBuildingsFourthCity(DataBase _data) {
@@ -1055,11 +1055,11 @@ final class InitializationMap {
         pkCenter_.setLevel(new LevelIndoorPokemonCenter());
         pkCenter_.setExitCity(newPoint(4,8));
         pkCenter_.getLevel().setBlocks(new ObjectMap<Point,Block>());
-        pkCenter_.getLevel().getBlocks().put(newPoint(0,0), newBuildingBlock(9, 9));
+        pkCenter_.getLevel().getBlocks().addEntry(newPoint(0,0), newBuildingBlock(9, 9));
         pkCenter_.getIndoor().setStorageCoords(newPoint(4, 0));
         pkCenter_.getIndoor().setGerants(new ObjectMap<Point,Person>());
-        pkCenter_.getIndoor().getGerants().put(newPoint(0, 4), newGerantPokemon(GeranceType.HOST));
-        city_.getBuildings().put(newPoint(3,3), pkCenter_);
+        pkCenter_.getIndoor().getGerants().addEntry(newPoint(0, 4), newGerantPokemon(GeranceType.HOST));
+        city_.getBuildings().addEntry(newPoint(3,3), pkCenter_);
         //5, 1, 4, 0
     }
 
@@ -1070,23 +1070,23 @@ final class InitializationMap {
         road_.setName(MOTORWAY_9);
         Block block_;
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(0,0), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(0,0), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(2,0), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(2,0), block_);
         block_ = newDesertBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(4,0), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(4,0), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(0,2), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(0,2), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(2,2), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(2,2), block_);
         block_ = newDesertBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(4,2), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(4,2), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(0,4), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(0,4), block_);
         block_ = newRoadBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(2,4), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(2,4), block_);
         block_ = newDesertBlock(2, 2);
-        road_.getLevel().getBlocks().put(newPoint(4,4), block_);
+        road_.getLevel().getBlocks().addEntry(newPoint(4,4), block_);
     }
 
     static void initTrainersFourthRoad(DataBase _data) {
@@ -1129,18 +1129,18 @@ final class InitializationMap {
 //        map_.joinCavePlace(newCoords(5, 1, 4, 0), newCoords(7, 0, 2, 0), "file", "file");
 //        map_.joinCavePlace(newCoords(5, 1, 4, 0), newCoords(7, 0, 2, 0), "file", "file");
         InitializationDataBase.joinCavePlace(map_, newCoords(5, 1, 4, 0), newCoords(8, 0, 0, 0), FILE, FILE);
-//        map_.getAccessCondition().put(newCoords(5, 1, 4, 0), new List<Coords>(newCoords(6, 0, 4, 8)));
+//        map_.getAccessCondition().addEntry(newCoords(5, 1, 4, 0), new List<Coords>(newCoords(6, 0, 4, 8)));
         map_.join((short)7,(short) 4, newPoint(0,0), newPoint(0,5), Direction.UP);
         //map_.join(_pl1, _pl2, _p1, _p2, _dir1);
-        map_.getAccessCondition().put(newCoords(5, 1, 4, 0), new EqList<Coords>(newCoords(6, 0, 4, 8)));
-        map_.getAccessCondition().put(newCoords(7, 0, 0, 0), new EqList<Coords>(newCoords(6, 0, 4, 8)));
-        map_.getAccessCondition().put(newCoords(7, 0, 1, 0), new EqList<Coords>(newCoords(6, 0, 4, 8)));
-        map_.getAccessCondition().put(newCoords(7, 0, 2, 0), new EqList<Coords>(newCoords(6, 0, 4, 8)));
-        map_.getAccessCondition().put(newCoords(7, 0, 3, 0), new EqList<Coords>(newCoords(6, 0, 4, 8)));
-        map_.getAccessCondition().put(newCoords(7, 0, 4, 0), new EqList<Coords>(newCoords(6, 0, 4, 8)));
-        map_.getAccessCondition().put(newCoords(7, 0, 5, 0), new EqList<Coords>(newCoords(6, 0, 4, 8)));
-        //map_.getAccessCondition().put(newCoords(7, 0, 6, 0), new List<Coords>(newCoords(6, 0, 4, 8)));
-        //map_.getAccessCondition().put(newCoords(7, 0, 7, 0), new List<Coords>(newCoords(6, 0, 4, 8)));
+        map_.getAccessCondition().addEntry(newCoords(5, 1, 4, 0), new EqList<Coords>(newCoords(6, 0, 4, 8)));
+        map_.getAccessCondition().addEntry(newCoords(7, 0, 0, 0), new EqList<Coords>(newCoords(6, 0, 4, 8)));
+        map_.getAccessCondition().addEntry(newCoords(7, 0, 1, 0), new EqList<Coords>(newCoords(6, 0, 4, 8)));
+        map_.getAccessCondition().addEntry(newCoords(7, 0, 2, 0), new EqList<Coords>(newCoords(6, 0, 4, 8)));
+        map_.getAccessCondition().addEntry(newCoords(7, 0, 3, 0), new EqList<Coords>(newCoords(6, 0, 4, 8)));
+        map_.getAccessCondition().addEntry(newCoords(7, 0, 4, 0), new EqList<Coords>(newCoords(6, 0, 4, 8)));
+        map_.getAccessCondition().addEntry(newCoords(7, 0, 5, 0), new EqList<Coords>(newCoords(6, 0, 4, 8)));
+        //map_.getAccessCondition().addEntry(newCoords(7, 0, 6, 0), new List<Coords>(newCoords(6, 0, 4, 8)));
+        //map_.getAccessCondition().addEntry(newCoords(7, 0, 7, 0), new List<Coords>(newCoords(6, 0, 4, 8)));
         map_.join((short) 9, (short)7, newPoint(0,0), newPoint(0,5), Direction.UP);
     }
 
@@ -1243,18 +1243,18 @@ final class InitializationMap {
             }
         }
         for (String p: _data.getPokedex().getKeys()) {
-            _data.getMaxiPkBack().put(p, getImageByString("2;-13;-15;-15;-15"));
-            _data.getMaxiPkFront().put(p, getImageByString("2;-14;-15;-15;-15"));
-            _data.getMiniPk().put(p, getImageByString("2;-15;-15;-15;-15"));
+            _data.getMaxiPkBack().addEntry(p, getImageByString("2;-13;-15;-15;-15"));
+            _data.getMaxiPkFront().addEntry(p, getImageByString("2;-14;-15;-15;-15"));
+            _data.getMiniPk().addEntry(p, getImageByString("2;-15;-15;-15;-15"));
         }
         for (String p: _data.getItems().getKeys()) {
-            _data.getMiniItems().put(p, getImageByString("2;-16;-16;-16;-16"));
+            _data.getMiniItems().addEntry(p, getImageByString("2;-16;-16;-16;-16"));
         }
         for (String p: _data.getStatus().getKeys()) {
-            _data.getAnimStatus().put(p, getImageByString("2;-17;-16;-16;-16"));
+            _data.getAnimStatus().addEntry(p, getImageByString("2;-17;-16;-16;-16"));
         }
         for (Statistic p: Statistic.getStatisticsWithBoost()) {
-            _data.getAnimStatis().put(p.name(), getImageByString("2;-18;-16;-16;-16"));
+            _data.getAnimStatis().addEntry(p.name(), getImageByString("2;-18;-16;-16;-16"));
         }
         StringList moveTypes_ = new StringList();
         for (TypesDuo t : _data.getTableTypes().getKeys()) {
@@ -1271,8 +1271,8 @@ final class InitializationMap {
         int p_ = 1;
         for (String p: moveTypes_) {
             String str_ = Long.toString(p_);
-            _data.getTypesColors().put(p, StringList.concat(str_,DataBase.SEPARATOR_RGB, str_,DataBase.SEPARATOR_RGB, str_));
-            _data.getTypesImages().put(p, getImageByString(StringList.concat("2",DataBase.SEPARATOR_RGB,str_,DataBase.SEPARATOR_RGB,str_,DataBase.SEPARATOR_RGB,str_,DataBase.SEPARATOR_RGB,str_)));
+            _data.getTypesColors().addEntry(p, StringList.concat(str_,DataBase.SEPARATOR_RGB, str_,DataBase.SEPARATOR_RGB, str_));
+            _data.getTypesImages().addEntry(p, getImageByString(StringList.concat("2",DataBase.SEPARATOR_RGB,str_,DataBase.SEPARATOR_RGB,str_,DataBase.SEPARATOR_RGB,str_,DataBase.SEPARATOR_RGB,str_)));
             p_++;
         }
         StringList building_ = new StringList("18");
@@ -1320,12 +1320,12 @@ final class InitializationMap {
             water_.add("-16776961");
         }
         _data.addImage(WATER, getImageByString(StringList.join(water_, ";")));
-//        _data.getPeople().put(DataBase.PEOPLE_FOLDER+DataBase.SEPARATOR_FILES+"trainer", "2;-18000;-18000;-18000;-18000");
-//        _data.getPeople().put(DataBase.PEOPLE_FOLDER+DataBase.SEPARATOR_FILES+"person", "2;-1800;-1800;-1800;-1800");
-//        _data.getPeople().put(DataBase.PEOPLE_FOLDER+DataBase.SEPARATOR_FILES+"trainer_one", "2;-19000;-19000;-19000;-19000");
-//        _data.getPeople().put(DataBase.PEOPLE_FOLDER+DataBase.SEPARATOR_FILES+"trainer_two", "2;-19008;-19008;-19008;-19008");
-//        _data.getPeople().put(DataBase.PEOPLE_FOLDER+DataBase.SEPARATOR_FILES+"ally", "2;-19508;-19508;-19508;-19508");
-//        _data.getPeople().put(DataBase.PEOPLE_FOLDER+DataBase.SEPARATOR_FILES+"gerant", "2;-20508;-20508;-20508;-20508");
+//        _data.getPeople().addEntry(DataBase.PEOPLE_FOLDER+DataBase.SEPARATOR_FILES+"trainer", "2;-18000;-18000;-18000;-18000");
+//        _data.getPeople().addEntry(DataBase.PEOPLE_FOLDER+DataBase.SEPARATOR_FILES+"person", "2;-1800;-1800;-1800;-1800");
+//        _data.getPeople().addEntry(DataBase.PEOPLE_FOLDER+DataBase.SEPARATOR_FILES+"trainer_one", "2;-19000;-19000;-19000;-19000");
+//        _data.getPeople().addEntry(DataBase.PEOPLE_FOLDER+DataBase.SEPARATOR_FILES+"trainer_two", "2;-19008;-19008;-19008;-19008");
+//        _data.getPeople().addEntry(DataBase.PEOPLE_FOLDER+DataBase.SEPARATOR_FILES+"ally", "2;-19508;-19508;-19508;-19508");
+//        _data.getPeople().addEntry(DataBase.PEOPLE_FOLDER+DataBase.SEPARATOR_FILES+"gerant", "2;-20508;-20508;-20508;-20508");
         _data.addPerson(TRAINER, getImageByString("2;-18000;-18000;-18000;-18000"));
         _data.addPerson(PERSON, getImageByString("2;-1800;-1800;-1800;-1800"));
         _data.addPerson(TRAINER_ONE, getImageByString("2;-19000;-19000;-19000;-19000"));
@@ -1356,7 +1356,7 @@ final class InitializationMap {
                         herosTop_.add(String.valueOf(iHeros_));
                     }
                     herosTop_.addAllElts(herosBottom_);
-                    _data.getOverWorldHeros().put(key_, getImageByString(StringList.join(herosTop_, ";")));
+                    _data.getOverWorldHeros().addEntry(key_, getImageByString(StringList.join(herosTop_, ";")));
                     iHeros_++;
                 }
             }
@@ -1369,8 +1369,8 @@ final class InitializationMap {
                     iHerosBis_++;
                 }
                 herosTop_.addAllElts(herosBottom_);
-                _data.getBackHeros().put(key_, getImageByString(StringList.join(herosTop_, ";")));
-                _data.getFrontHeros().put(key_, getImageByString(StringList.join(herosTop_, ";")));
+                _data.getBackHeros().addEntry(key_, getImageByString(StringList.join(herosTop_, ";")));
+                _data.getFrontHeros().addEntry(key_, getImageByString(StringList.join(herosTop_, ";")));
                 iHerosBis_++;
             }
         }
@@ -1378,13 +1378,13 @@ final class InitializationMap {
         _data.setImageTmHm(getImageByString("2;-800;-800;-800;-800"));
         _data.setAnimAbsorb(getImageByString("2;-700;-800;-800;-800"));
         _data.setStorage(getImageByString("2;-3;-3;-3;-3"));
-        _data.getMiniMap().put(MINI, getImageByString("2;118;218;112;200"));
-        _data.getMiniMap().put(MINI1, getImageByString("2;218;118;112;200"));
-        _data.getMiniMap().put(MINI2, getImageByString("2;218;112;118;200"));
-        _data.getMiniMap().put(MINI3, getImageByString("2;218;112;200;118"));
-        _data.getMiniMap().put(MINI4, getImageByString("2;218;200;112;118"));
-        _data.getMiniMap().put(MINI5, getImageByString("2;200;218;112;118"));
-        _data.getMiniMap().put(MINI6, getImageByString("2;200;218;212;118"));
+        _data.getMiniMap().addEntry(MINI, getImageByString("2;118;218;112;200"));
+        _data.getMiniMap().addEntry(MINI1, getImageByString("2;218;118;112;200"));
+        _data.getMiniMap().addEntry(MINI2, getImageByString("2;218;112;118;200"));
+        _data.getMiniMap().addEntry(MINI3, getImageByString("2;218;112;200;118"));
+        _data.getMiniMap().addEntry(MINI4, getImageByString("2;218;200;112;118"));
+        _data.getMiniMap().addEntry(MINI5, getImageByString("2;200;218;112;118"));
+        _data.getMiniMap().addEntry(MINI6, getImageByString("2;200;218;212;118"));
         _data.setEndGameImage(getImageByString("1;1"));
     }
 
@@ -1395,47 +1395,47 @@ final class InitializationMap {
         tile_ = new TileMiniMap();
         tile_.setFile(MINI);
         tile_.setPlace((short) 0);
-        map_.getMiniMap().put(new MiniMapCoords((short) 0,(short) 0), tile_);
+        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 0), tile_);
         tile_ = new TileMiniMap();
         tile_.setFile(MINI1);
         tile_.setPlace((short) 1);
-        map_.getMiniMap().put(new MiniMapCoords((short) 0,(short) 1), tile_);
+        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 1), tile_);
         tile_ = new TileMiniMap();
         tile_.setFile(MINI);
         tile_.setPlace((short) 2);
-        map_.getMiniMap().put(new MiniMapCoords((short) 0,(short) 2), tile_);
+        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 2), tile_);
         tile_ = new TileMiniMap();
         tile_.setFile(MINI1);
         tile_.setPlace((short) 3);
-        map_.getMiniMap().put(new MiniMapCoords((short) 0,(short) 3), tile_);
+        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 3), tile_);
         tile_ = new TileMiniMap();
         tile_.setFile(MINI);
         tile_.setPlace((short) 4);
-        map_.getMiniMap().put(new MiniMapCoords((short) 0,(short) 4), tile_);
+        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 4), tile_);
         tile_ = new TileMiniMap();
         tile_.setFile(MINI2);
         tile_.setPlace((short) 5);
-        map_.getMiniMap().put(new MiniMapCoords((short) 0,(short) 5), tile_);
+        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 5), tile_);
         tile_ = new TileMiniMap();
         tile_.setFile(MINI3);
         tile_.setPlace((short) 6);
-        map_.getMiniMap().put(new MiniMapCoords((short) 0,(short) 6), tile_);
+        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 6), tile_);
         tile_ = new TileMiniMap();
         tile_.setFile(MINI1);
         tile_.setPlace((short) 7);
-        map_.getMiniMap().put(new MiniMapCoords((short) 0,(short) 7), tile_);
+        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 7), tile_);
         tile_ = new TileMiniMap();
         tile_.setFile(MINI1);
         tile_.setPlace((short) 8);
-        map_.getMiniMap().put(new MiniMapCoords((short) 0,(short) 8), tile_);
+        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 8), tile_);
         tile_ = new TileMiniMap();
         tile_.setFile(MINI4);
         tile_.setPlace((short) -1);
-        map_.getMiniMap().put(new MiniMapCoords((short) 0,(short) 9), tile_);
+        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 9), tile_);
         tile_ = new TileMiniMap();
         tile_.setFile(MINI6);
         tile_.setPlace((short) 9);
-        map_.getMiniMap().put(new MiniMapCoords((short) 0,(short) 10), tile_);
+        map_.getMiniMap().addEntry(new MiniMapCoords((short) 0,(short) 10), tile_);
         map_.setUnlockedCity(MINI5);
     }
 

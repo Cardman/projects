@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import aiki.fight.pokemon.enums.GenderRepartition;
@@ -22,6 +23,12 @@ import code.util.StringMap;
 
 public class ExchangedDataTest extends InitializationDataBase {
 
+    private DataBase data;
+    @Before
+    public void initTests() {
+        data = initDb();
+    }
+
     @Test
     public void new_ExchangedData_1Test() {
         ExchangedData ex_ = new ExchangedData();
@@ -33,7 +40,7 @@ public class ExchangedDataTest extends InitializationDataBase {
 
     @Test
     public void new_ExchangedData_DataBase_1Test() {
-        ExchangedData ex_ = new ExchangedData(_data_);
+        ExchangedData ex_ = new ExchangedData(data);
         StringList abilities_ = ex_.getAbilities();
         assertEq(107, abilities_.size());
         assertTrue(StringList.contains(abilities_, TOXITOUCHE));
@@ -284,7 +291,7 @@ public class ExchangedDataTest extends InitializationDataBase {
 
     @Test
     public void check1Test() {
-        ExchangedData ex_ = new ExchangedData(_data_);
+        ExchangedData ex_ = new ExchangedData(data);
         PokemonPlayer pk_ = newPokemonPlayer(PIKACHU, STATIK, Gender.NO_GENDER, NULL_REF);
         ex_.setPokemon(pk_);
         ex_.check();
@@ -293,7 +300,7 @@ public class ExchangedDataTest extends InitializationDataBase {
 
     @Test
     public void check2Test() {
-        ExchangedData ex_ = new ExchangedData(_data_);
+        ExchangedData ex_ = new ExchangedData(data);
         PokemonPlayer pk_ = newPokemonPlayer(PIKACHU, STATIK, Gender.NO_GENDER, MULTI_EXP);
         ex_.setPokemon(pk_);
         ex_.check();
@@ -302,7 +309,7 @@ public class ExchangedDataTest extends InitializationDataBase {
 
     @Test
     public void check3Test() {
-        ExchangedData ex_ = new ExchangedData(_data_);
+        ExchangedData ex_ = new ExchangedData(data);
         PokemonPlayer pk_ = newPokemonPlayer(PTITARD, STATIK, Gender.NO_GENDER, NULL_REF);
         ex_.setPokemon(pk_);
         ex_.check();
@@ -311,7 +318,7 @@ public class ExchangedDataTest extends InitializationDataBase {
 
     @Test
     public void check4Test() {
-        ExchangedData ex_ = new ExchangedData(_data_);
+        ExchangedData ex_ = new ExchangedData(data);
         PokemonPlayer pk_ = newPokemonPlayer(NULL_REF, STATIK, Gender.NO_GENDER, NULL_REF);
         ex_.setPokemon(pk_);
         ex_.check();
@@ -320,7 +327,7 @@ public class ExchangedDataTest extends InitializationDataBase {
 
     @Test
     public void check5Test() {
-        ExchangedData ex_ = new ExchangedData(_data_);
+        ExchangedData ex_ = new ExchangedData(data);
         PokemonPlayer pk_ = newPokemonPlayer(PIKACHU, STATIK, Gender.NO_GENDER, INVALID_DATA_KEY);
         ex_.setPokemon(pk_);
         ex_.check();
@@ -329,7 +336,7 @@ public class ExchangedDataTest extends InitializationDataBase {
 
     @Test
     public void check6Test() {
-        ExchangedData ex_ = new ExchangedData(_data_);
+        ExchangedData ex_ = new ExchangedData(data);
         PokemonPlayer pk_ = newPokemonPlayer(PIKACHU, NULL_REF, Gender.NO_GENDER, NULL_REF);
         ex_.setPokemon(pk_);
         ex_.check();
@@ -338,7 +345,7 @@ public class ExchangedDataTest extends InitializationDataBase {
 
     @Test
     public void check7Test() {
-        ExchangedData ex_ = new ExchangedData(_data_);
+        ExchangedData ex_ = new ExchangedData(data);
         PokemonPlayer pk_ = newPokemonPlayer(PIKACHU, INVALID_DATA_KEY, Gender.NO_GENDER, NULL_REF);
         ex_.setPokemon(pk_);
         ex_.check();
@@ -347,7 +354,7 @@ public class ExchangedDataTest extends InitializationDataBase {
 
     @Test
     public void getTeam1Test() {
-        ExchangedData ex_ = new ExchangedData(_data_);
+        ExchangedData ex_ = new ExchangedData(data);
         CustList<UsablePokemon> list_ = new CustList<UsablePokemon>();
         PokemonPlayer pk_ = newPokemonPlayer(PIKACHU, INVALID_DATA_KEY, Gender.NO_GENDER, NULL_REF);
         list_.add(pk_);

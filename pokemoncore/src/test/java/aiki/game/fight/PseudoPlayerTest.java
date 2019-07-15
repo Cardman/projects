@@ -1,6 +1,8 @@
 package aiki.game.fight;
 import static aiki.db.EquallablePkUtil.assertEq;
 
+import aiki.db.DataBase;
+import org.junit.Before;
 import org.junit.Test;
 
 import aiki.fight.pokemon.NameLevel;
@@ -15,6 +17,11 @@ import code.util.EqList;
 
 public class PseudoPlayerTest extends InitializationDataBase {
 
+    private DataBase data;
+    @Before
+    public void initTests() {
+        data = initDb();
+    }
     @Test
     public void new_PseudoPlayer_List_List_1Test() {
         Pokemon pokemon_ = new WildPk();
@@ -23,7 +30,7 @@ public class PseudoPlayerTest extends InitializationDataBase {
         pokemon_.setAbility(ABSORB_EAU);
         pokemon_.setItem(MULTI_EXP);
         pokemon_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(pokemon_, _data_);
+        PokemonPlayer pk_ = new PokemonPlayer(pokemon_, data);
         pk_.setWonExpSinceLastLevel(new Rate("3/2"));
         CustList<CustList<NameLevel>> evolutions_;
         evolutions_ = new CustList<CustList<NameLevel>>();

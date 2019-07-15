@@ -18,7 +18,7 @@ public final class ComparatorsTest {
     private DataBase data;
     @Before
     public void initDb() {
-        data = InitializationDataBase.initDataBase();
+        data = InitializationDataBase.initDb();
     }
     @Test
     public void compareCoords1Test() {

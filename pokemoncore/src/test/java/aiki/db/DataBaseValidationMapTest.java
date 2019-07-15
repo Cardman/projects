@@ -2196,7 +2196,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
 
     @Test
     public void calculateIntersectWithScreenDirection1Test() {
-        DataBase data_ = InitializationDataBase.initDataBase();
+        DataBase data_ = InitializationDataBase.initDb();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NULL_REF, Sex.GIRL, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
@@ -2219,7 +2219,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
 
     @Test
     public void calculateIntersectWithScreenDirection2Test() {
-        DataBase data_ = InitializationDataBase.initDataBase();
+        DataBase data_ = InitializationDataBase.initDb();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NULL_REF, Sex.BOY, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
@@ -2243,7 +2243,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
 
     @Test
     public void calculateIntersectWithScreenDirection3Test() {
-        DataBase data_ = InitializationDataBase.initDataBase();
+        DataBase data_ = InitializationDataBase.initDb();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NULL_REF, Sex.GIRL, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
@@ -2266,7 +2266,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
 
     @Test
     public void calculateIntersectWithScreenDirection4Test() {
-        DataBase data_ = InitializationDataBase.initDataBase();
+        DataBase data_ = InitializationDataBase.initDb();
         Game game_ = new Game(data_);
         game_.initUtilisateur(NULL_REF, Sex.BOY, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
@@ -2350,7 +2350,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     }
     @Test
     public void bg1Test() {
-        DataBase data_ = InitializationDataBase.initDataBase();
+        DataBase data_ = InitializationDataBase.initDb();
         assertEq(81,Level.getLevelBackgroundImage(data_,newCoords(6, 1, 4, 5)).size());
         assertEq(new Coords(),data_.getMap().getCity(new MiniMapCoords((short)0,(short)0)));
         assertEq(newCoords(1,0,1,2), data_.getMap().getCity(new MiniMapCoords((short)0,(short)1)));
@@ -2364,79 +2364,79 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
 
     @Test
     public void fg1Test() {
-        DataBase data_ = InitializationDataBase.initDataBase();
+        DataBase data_ = InitializationDataBase.initDb();
         assertEq(2,Level.getLevelForegroundImage(data_,newCoords(6, 1, 4, 5)).size());
     }
 
     @Test
     public void fg2Test() {
-        DataBase data_ = InitializationDataBase.initDataBase();
+        DataBase data_ = InitializationDataBase.initDb();
         assertEq(2,Level.getLevelForegroundImage(data_,newCoords(0, 0, 0, 5)).size());
     }
 
     @Test
     public void fg3Test() {
-        DataBase data_ = InitializationDataBase.initDataBase();
+        DataBase data_ = InitializationDataBase.initDb();
         assertEq(10,Level.getLevelForegroundImage(data_,newCoords(2, 0, 9, 4)).size());
     }
 
     @Test
     public void fg4Test() {
-        DataBase data_ = InitializationDataBase.initDataBase();
+        DataBase data_ = InitializationDataBase.initDb();
         assertEq(4,Level.getLevelForegroundImage(data_,newCoords(5, 1, 6, 5)).size());
     }
 
     @Test
     public void fg5Test() {
-        DataBase data_ = InitializationDataBase.initDataBase();
+        DataBase data_ = InitializationDataBase.initDb();
         assertEq(6,Level.getLevelForegroundImage(data_,newCoords(5, 0, 6, 5)).size());
     }
 
     @Test
     public void fg6Test() {
-        DataBase data_ = InitializationDataBase.initDataBase();
+        DataBase data_ = InitializationDataBase.initDb();
         assertEq(2,Level.getLevelForegroundImage(data_,newCoords(4, 0, 4, 3)).size());
     }
 
     @Test
     public void fg7Test() {
-        DataBase data_ = InitializationDataBase.initDataBase();
+        DataBase data_ = InitializationDataBase.initDb();
         assertEq(2,Level.getLevelForegroundImage(data_,newCoords(6, 0, 4, 5)).size());
     }
 
     @Test
     public void fg8Test() {
-        DataBase data_ = InitializationDataBase.initDataBase();
+        DataBase data_ = InitializationDataBase.initDb();
         assertEq(4,Level.getLevelForegroundImage(data_,newCoords(1, 0, 5, 1, 4, 4)).size());
     }
 
     @Test
     public void fg9Test() {
-        DataBase data_ = InitializationDataBase.initDataBase();
+        DataBase data_ = InitializationDataBase.initDb();
         assertEq(6,Level.getLevelForegroundImage(data_,newCoords(1, 0, 1, 1, 4, 4)).size());
     }
 
     @Test
     public void fg10Test() {
-        DataBase data_ = InitializationDataBase.initDataBase();
+        DataBase data_ = InitializationDataBase.initDb();
         assertEq(4,Level.getLevelForegroundImage(data_,newCoords(3, 0, 2, 1, 4, 4)).size());
     }
 
     @Test
     public void fg11Test() {
-        DataBase data_ = InitializationDataBase.initDataBase();
+        DataBase data_ = InitializationDataBase.initDb();
         assertEq(1,Level.getLevelForegroundImage(data_,newCoords(8,0,0,0)).size());
     }
 
     @Test
     public void fg12Test() {
-        DataBase data_ = InitializationDataBase.initDataBase();
+        DataBase data_ = InitializationDataBase.initDb();
         assertEq(0,Level.getLevelForegroundImage(data_,newCoords(3, 0,  4, 4)).size());
     }
 
     @Test
     public void fg13Test() {
-        DataBase data_ = InitializationDataBase.initDataBase();
+        DataBase data_ = InitializationDataBase.initDb();
         assertEq(0,Level.getLevelForegroundImage(data_,newCoords(7,0,0,0)).size());
     }
 
@@ -2500,7 +2500,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     }
     @Test
     public void isEmptyForAddingTest() {
-        DataBase data_ = InitializationDataBase.initDataBase();
+        DataBase data_ = InitializationDataBase.initDb();
         assertTrue(data_.getMap().isEmptyForAdding(newCoords(0,0,0,0)));
         assertTrue(!data_.getMap().isEmptyForAdding(newCoords(0, 0, 1, 1)));
         assertTrue(!data_.getMap().isEmptyForAdding(newCoords(0, 0, 0, 1)));
@@ -2532,12 +2532,12 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     }
     @Test
     public void getLevelImage1Test() {
-        DataBase data_ = InitializationDataBase.initDataBase();
+        DataBase data_ = InitializationDataBase.initDb();
         assertEq(36,data_.getLevelImage((short)0,(byte)0).size());
     }
     @Test
     public void getLevelImage2Test() {
-        DataBase data_ = InitializationDataBase.initDataBase();
+        DataBase data_ = InitializationDataBase.initDb();
         assertEq(81,data_.getLevelImage((short)1,(byte)0,new Point((short)1,(short)1)).size());
     }
     @Test

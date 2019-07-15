@@ -1,6 +1,8 @@
 package aiki.map.pokemon;
 import static org.junit.Assert.assertTrue;
 
+import aiki.db.DataBase;
+import org.junit.Before;
 import org.junit.Test;
 
 import aiki.fight.moves.DamagingMoveData;
@@ -15,6 +17,11 @@ import aiki.facade.enums.SelectedBoolean;
 
 public class CriteriaForSearchingMoveTest extends InitializationDataBase {
 
+    private DataBase data;
+    @Before
+    public void initTests() {
+        data = initDb();
+    }
     @Test
     public void matchName1Test() {
         CriteriaForSearchingMove criteria_;
@@ -137,10 +144,10 @@ public class CriteriaForSearchingMoveTest extends InitializationDataBase {
         CriteriaForSearchingMove criteria_;
         criteria_ = new CriteriaForSearchingMove();
         criteria_.setSelectedClass(DamagingMoveData.MOVE);
-        assertTrue(criteria_.matchClass(_data_.getMove(BATAILLE)));
-        assertTrue(!criteria_.matchClass(_data_.getMove(RELAIS)));
+        assertTrue(criteria_.matchClass(data.getMove(BATAILLE)));
+        assertTrue(!criteria_.matchClass(data.getMove(RELAIS)));
         criteria_.setSelectedClass(StatusMoveData.MOVE);
-        assertTrue(!criteria_.matchClass(_data_.getMove(BATAILLE)));
-        assertTrue(criteria_.matchClass(_data_.getMove(RELAIS)));
+        assertTrue(!criteria_.matchClass(data.getMove(BATAILLE)));
+        assertTrue(criteria_.matchClass(data.getMove(RELAIS)));
     }
 }

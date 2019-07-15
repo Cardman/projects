@@ -2769,7 +2769,7 @@ public final class DocumentReaderAikiCoreUtil {
         _d.initializeWildPokemon();
         _perCentLoading.addPercent(delta_);
 
-        _d.validateEvolutions();
+        _d.initFamilies();
         for (int[][] i : _d.getMaxiPkBack().values()) {
             if (i.length == 0) {
                 _d.setError(true);

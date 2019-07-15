@@ -3,6 +3,8 @@ import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import aiki.db.DataBase;
+import org.junit.Before;
 import org.junit.Test;
 
 import aiki.game.fight.InitializationDataBase;
@@ -21,11 +23,16 @@ import aiki.facade.enums.SelectedBoolean;
 
 public class PaginationPokemonPlayerTest extends InitializationDataBase {
 
+    private DataBase data;
+    @Before
+    public void initTests() {
+        data = initDb();
+    }
     @Test
     public void match1Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
         pagination_.getCriteria().setContentOfName("P*");
         Pokemon pk_ = new WildPk();
@@ -34,7 +41,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel((short) 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, _data_);
+        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
@@ -42,7 +49,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void match2Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.getCriteria().setSearchModeAbility(SearchingMode.META_CHARACTER);
         pagination_.getCriteria().setContentOfAbility("P*");
         Pokemon pk_ = new WildPk();
@@ -51,7 +58,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel((short) 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, _data_);
+        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
@@ -59,7 +66,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void match3Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.getCriteria().setSearchModeItem(SearchingMode.META_CHARACTER);
         pagination_.getCriteria().setContentOfItem(NULL_REF);
         pagination_.getCriteria().setWithItem(SelectedBoolean.YES);
@@ -69,7 +76,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel((short) 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, _data_);
+        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
@@ -77,7 +84,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void match4Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.getCriteria().setGender(Gender.FEMALE);
         Pokemon pk_ = new WildPk();
         pk_.setName(NUCLEOS);
@@ -85,7 +92,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel((short) 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, _data_);
+        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
@@ -93,7 +100,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void match5Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.getCriteria().setGender(Gender.MALE);
         Pokemon pk_ = new WildPk();
         pk_.setName(NUCLEOS);
@@ -101,7 +108,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel((short) 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, _data_);
+        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
@@ -109,7 +116,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void match6Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.getCriteria().setContentOfMove(CHARGE);
         pagination_.getCriteria().setSearchModeMove(SearchingMode.WHOLE_STRING);
         Pokemon pk_ = new WildPk();
@@ -118,7 +125,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel((short) 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, _data_);
+        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
@@ -126,7 +133,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void match7Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.getCriteria().setMaxLevel(1L);
         Pokemon pk_ = new WildPk();
         pk_.setName(NUCLEOS);
@@ -134,7 +141,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel((short) 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, _data_);
+        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
@@ -142,7 +149,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void match8Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.getCriteria().setContentOfMove(VAGUE_PSY);
         pagination_.getCriteria().setSearchModeMove(SearchingMode.WHOLE_STRING);
         Pokemon pk_ = new WildPk();
@@ -151,7 +158,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel((short) 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, _data_);
+        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data);
         assertTrue(pagination_.match(pkPlayer_));
     }
 
@@ -159,7 +166,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void match9Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.getCriteria().setSearchModeItem(SearchingMode.META_CHARACTER);
         pagination_.getCriteria().setContentOfItem("BAIE*");
         pagination_.getCriteria().setWithItem(SelectedBoolean.YES);
@@ -169,7 +176,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel((short) 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(MULTI_EXP);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, _data_);
+        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
@@ -177,7 +184,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void match10Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.getCriteria().setMaxNbPossEvols(0L);
         Pokemon pk_ = new WildPk();
         pk_.setName(NUCLEOS);
@@ -185,7 +192,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel((short) 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(MULTI_EXP);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, _data_);
+        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
@@ -193,7 +200,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void match11Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.getCriteria().setMaxNbPossEvols(1L);
         Pokemon pk_ = new WildPk();
         pk_.setName(NUCLEOS);
@@ -201,7 +208,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel((short) 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(MULTI_EXP);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, _data_);
+        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data);
         assertTrue(pagination_.match(pkPlayer_));
     }
 
@@ -209,7 +216,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void sortable1Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         assertTrue(pagination_.sortable());
     }
 
@@ -217,7 +224,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void sortable2Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.getCmpName().setPriority(1);
         assertTrue(pagination_.sortable());
     }
@@ -226,7 +233,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void sortable3Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.getCmpLevel().setPriority(1);
         assertTrue(pagination_.sortable());
     }
@@ -235,7 +242,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void sortable4Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.getCmpAbility().setPriority(1);
         assertTrue(pagination_.sortable());
     }
@@ -244,7 +251,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void sortable5Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.getCmpItem().setPriority(1);
         assertTrue(pagination_.sortable());
     }
@@ -253,7 +260,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void sortable6Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.getCmpGender().setPriority(1);
         assertTrue(pagination_.sortable());
     }
@@ -262,7 +269,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void sortable7Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.getCmpPossEvos().setPriority(1);
         assertTrue(pagination_.sortable());
     }
@@ -271,7 +278,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void sortable8Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpLevel().setPriority(1);
         assertTrue(!pagination_.sortable());
@@ -281,7 +288,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void sort1Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         SortingPokemonPlayer sorting_;
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
@@ -339,7 +346,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void sort2Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpLevel().setPriority(4);
@@ -425,7 +432,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void sort3Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.getCmpName().setPriority(4);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpLevel().setPriority(3);
@@ -509,7 +516,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void sort4Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.getCmpName().setPriority(4);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpLevel().setPriority(3);
@@ -593,7 +600,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void sort5Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.getCmpName().setPriority(4);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpLevel().setPriority(3);
@@ -677,7 +684,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void calculateRendered1Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -737,7 +744,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void pages1Test() {
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -781,7 +788,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void search1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -799,7 +806,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -883,7 +890,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void search2Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -901,7 +908,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -928,7 +935,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void search3Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -942,7 +949,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.getCmpAbility().setPriority(1);
         pagination_.getCmpAbility().setIncreasing(SelectedBoolean.YES);
         pagination_.getCmpName().setPriority(1);
@@ -1004,7 +1011,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void search4Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         player_.getBox().add(new Egg(PIKACHU));
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
@@ -1023,7 +1030,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1105,7 +1112,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void search5Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         player_.getBox().add(new Egg(PIKACHU));
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
@@ -1124,7 +1131,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1163,7 +1170,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void search6Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1181,7 +1188,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpPossEvos().setPriority(6);
         pagination_.getCmpPossEvos().setIncreasing(SelectedBoolean.YES);
@@ -1265,7 +1272,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void checkLine1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1283,7 +1290,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1304,7 +1311,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void changePage1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1322,7 +1329,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1359,7 +1366,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void currentIndex1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1377,7 +1384,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1398,7 +1405,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void currentIndex2Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         player_.getBox().add(new Egg(PIKACHU));
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
@@ -1415,7 +1422,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1436,7 +1443,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void currentIndex3Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
@@ -1452,7 +1459,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1473,7 +1480,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void currentObject1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1491,7 +1498,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1512,7 +1519,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void currentObject2Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         player_.getBox().add(new Egg(PIKACHU));
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
@@ -1529,7 +1536,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1550,7 +1557,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void enabledPrevious1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1568,7 +1575,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1588,7 +1595,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void enabledNext1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1606,7 +1613,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1626,7 +1633,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void next1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1644,7 +1651,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1681,7 +1688,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void previous1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1699,7 +1706,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1740,7 +1747,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void begin1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1758,7 +1765,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1799,7 +1806,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void end1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1817,7 +1824,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -1849,7 +1856,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void nextDelta1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1867,7 +1874,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.setDelta(3);
         pagination_.getCmpName().setPriority(5);
@@ -1900,7 +1907,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void previousDelta1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1918,7 +1925,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.setDelta(3);
         pagination_.getCmpName().setPriority(5);
@@ -1958,7 +1965,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void newSearch1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1976,7 +1983,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCmpName().setPriority(5);
         pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
@@ -2035,7 +2042,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
     public void clear1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -2053,7 +2060,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         player_.getBox().add(pk_);
         PaginationPokemonPlayer pagination_;
         pagination_ = new PaginationPokemonPlayer();
-        pagination_.setTranslation(_data_,LANGUAGE);
+        pagination_.setTranslation(data,LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.setDelta(3);
         pagination_.getCmpName().setPriority(5);
@@ -2075,7 +2082,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.currentIndex());
     }
 
-    private static SortingPokemonPlayer toSorting(
+    private SortingPokemonPlayer toSorting(
             PokemonPlayer _pk, int _index) {
         SortingPokemonPlayer sorting_;
         sorting_ = new SortingPokemonPlayer();
@@ -2085,11 +2092,11 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         sorting_.setGender(_pk.getGender());
         sorting_.setItem(_pk.getItem());
         sorting_.setIndex(_index);
-        sorting_.setNbPossEvos((short) _pk.getDirectEvolutions(_data_).size());
+        sorting_.setNbPossEvos((short) _pk.getDirectEvolutions(data).size());
         return sorting_;
     }
 
-    private static PokemonPlayer newPokemonPlayer(
+    private PokemonPlayer newPokemonPlayer(
             String _name,
             Gender _gender,
             int _level,
@@ -2101,6 +2108,6 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel((short) _level);
         pk_.setAbility(_ability);
         pk_.setItem(_object);
-        return new PokemonPlayer(pk_, _data_);
+        return new PokemonPlayer(pk_, data);
     }
 }

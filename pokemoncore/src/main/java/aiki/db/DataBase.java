@@ -861,15 +861,7 @@ public class DataBase implements WithMathFactory {
                 setError(true);
             }
         }
-        families = new StringMap<PokemonFamily>();
-        StringList listEvoBases_ = new StringList();
-        for (PokemonData d : getPokedex().values()) {
-            listEvoBases_.add(d.getBaseEvo());
-        }
-        listEvoBases_.removeDuplicates();
-        for (String p : listEvoBases_) {
-            families.put(p, new PokemonFamily(this, p));
-        }
+        initFamilies();
         EqList<StringList> lists_ = new EqList<StringList>();
         for (PokemonFamily f : families.values()) {
             lists_.add(f.getAllPokemon());
@@ -883,6 +875,18 @@ public class DataBase implements WithMathFactory {
         }
         if (!StringList.equalsSet(allPokemon_, pokedex.getKeys())) {
             setError(true);
+        }
+    }
+
+    public void initFamilies() {
+        families = new StringMap<PokemonFamily>();
+        StringList listEvoBases_ = new StringList();
+        for (PokemonData d : getPokedex().values()) {
+            listEvoBases_.add(d.getBaseEvo());
+        }
+        listEvoBases_.removeDuplicates();
+        for (String p : listEvoBases_) {
+            families.put(p, new PokemonFamily(this, p));
         }
     }
 
@@ -2133,14 +2137,31 @@ public class DataBase implements WithMathFactory {
     }
 
     public void completeMembers(String _pokemonName, PokemonData _pokemon) {
-        avgWeight.addNb(_pokemon.getWeight());
+        updateInfo(_pokemonName,_pokemon);
         pokedex.put(_pokemonName, _pokemon);
+    }
+
+    public void completeQuickMembers(String _pokemonName, PokemonData _pokemon) {
+        updateInfo(_pokemonName,_pokemon);
+        pokedex.addEntry(_pokemonName, _pokemon);
+    }
+
+    private void updateInfo(String _pokemonName, PokemonData _pokemon) {
+        avgWeight.addNb(_pokemon.getWeight());
         if (_pokemon.getGenderRep() == GenderRepartition.LEGENDARY) {
             legPks.add(_pokemonName);
         }
     }
-
+    public void completeQuickMembers(String _moveName, MoveData _move) {
+        updateInfo(_moveName, _move);
+        moves.addEntry(_moveName, _move);
+    }
     public void completeMembers(String _moveName, MoveData _move) {
+        updateInfo(_moveName, _move);
+        moves.put(_moveName, _move);
+    }
+
+    private void updateInfo(String _moveName, MoveData _move) {
         if (_move instanceof DamagingMoveData) {
             categories.add(_move.getCategory());
         }
@@ -2349,10 +2370,19 @@ public class DataBase implements WithMathFactory {
                 }
             }
         }
-        moves.put(_moveName, _move);
     }
 
     public void completeMembers(String _objectName, Item _object) {
+        updateInfo(_objectName, _object);
+        items.put(_objectName, _object);
+    }
+
+    public void completeQuickMembers(String _objectName, Item _object) {
+        updateInfo(_objectName, _object);
+        items.addEntry(_objectName, _object);
+    }
+
+    private void updateInfo(String _objectName, Item _object) {
         if (_object instanceof ItemForBattle) {
             ItemForBattle obj_ = (ItemForBattle) _object;
             if (!obj_.getEffectEndRound().isEmpty()) {
@@ -2374,10 +2404,19 @@ public class DataBase implements WithMathFactory {
             variables.addAllElts(getVariableWords(StringList.join(new StringList(obj_
                     .getFailStatus().values()), EMPTY_STRING)));
         }
-        items.put(_objectName, _object);
     }
 
     public void completeMembers(String _abilityName, AbilityData _ability) {
+        updateInfo(_abilityName, _ability);
+        abilities.put(_abilityName, _ability);
+    }
+
+    public void completeQuickMembers(String _abilityName, AbilityData _ability) {
+        updateInfo(_abilityName, _ability);
+        abilities.addEntry(_abilityName, _ability);
+    }
+
+    private void updateInfo(String _abilityName, AbilityData _ability) {
         if (!_ability.getEffectEndRound().isEmpty()) {
             EndRoundMainElements endTurn_ = new EndRoundMainElements();
             endTurn_.setNumberIncrement((short) _ability.getEffectEndRound()
@@ -2396,10 +2435,19 @@ public class DataBase implements WithMathFactory {
         variables.addAllElts(getVariableWords(_ability.getMultPower()));
         variables.addAllElts(getVariableWords(StringList.join(new StringList(_ability
                 .getFailStatus().values()), EMPTY_STRING)));
-        abilities.put(_abilityName, _ability);
     }
 
     public void completeMembers(String _statusName, Status _status) {
+        updateInfo(_statusName, _status);
+        status.put(_statusName, _status);
+    }
+
+    public void completeQuickMembers(String _statusName, Status _status) {
+        updateInfo(_statusName, _status);
+        status.addEntry(_statusName, _status);
+    }
+
+    private void updateInfo(String _statusName, Status _status) {
         if (!_status.getEffectEndRound().isEmpty()) {
             EndRoundMainElements endTurn_ = new EndRoundMainElements();
             endTurn_.setNumberIncrement((short) _status.getEffectEndRound()
@@ -2424,7 +2472,6 @@ public class DataBase implements WithMathFactory {
             }
             evtEndRound.add(endTurn_);
         }
-        status.put(_statusName, _status);
     }
 
     public void initCombosTest() {

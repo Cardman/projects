@@ -2,7 +2,9 @@ package aiki.game.fight;
 import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import aiki.db.DataBase;
 import code.util.CustList;
+import org.junit.Before;
 import org.junit.Test;
 
 import aiki.fight.enums.Statistic;
@@ -22,6 +24,11 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
 
     private static final String PIKA = "PIKA";
 
+    private DataBase data;
+    @Before
+    public void initTests() {
+        data = initDb();
+    }
     @Test
     public void new_PseudoPlayerFighter_PokemonPlayer_1Test() {
         Pokemon pokemon_ = new WildPk();
@@ -30,7 +37,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
@@ -62,7 +69,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
@@ -100,7 +107,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
@@ -109,9 +116,9 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3,2));
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         PseudoPlayerFighter pseudoFighter_ = new PseudoPlayerFighter(pseudoPk_, true, new CustList<NameLevel>());
-        Rate nbPoints_ = pseudoFighter_.numberNecessaryPointsForGrowingLevel((short) 4, _data_);
+        Rate nbPoints_ = pseudoFighter_.numberNecessaryPointsForGrowingLevel((short) 4, data);
         assertEq(new Rate("7"),nbPoints_);
-        nbPoints_ = pseudoFighter_.numberNecessaryPointsForGrowingLevel((short) 5, _data_);
+        nbPoints_ = pseudoFighter_.numberNecessaryPointsForGrowingLevel((short) 5, data);
         assertEq(new Rate("9"),nbPoints_);
     }
 
@@ -127,7 +134,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
@@ -136,7 +143,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         PseudoPlayerFighter pseudoFighter_ = new PseudoPlayerFighter(pseudoPk_, true, new CustList<NameLevel>());
-        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(_data_);
+        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(data);
         assertEq(3, result_.getLevel());
         assertEq(new Rate("7"), result_.getExpPoints());
     }
@@ -153,7 +160,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
@@ -163,7 +170,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         PseudoPlayerFighter pseudoFighter_ = new PseudoPlayerFighter(pseudoPk_, true, new CustList<NameLevel>());
         pseudoFighter_.setWonExp(new Rate("4"));
-        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(_data_);
+        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(data);
         assertEq(4, result_.getLevel());
         assertEq(new Rate("16"), result_.getExpPoints());
     }
@@ -180,7 +187,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
@@ -189,7 +196,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("1000"));
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         PseudoPlayerFighter pseudoFighter_ = new PseudoPlayerFighter(pseudoPk_, true, new CustList<NameLevel>());
-        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(_data_);
+        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(data);
         assertEq(100, result_.getLevel());
         assertEq(new Rate("199"), result_.getExpPoints());
     }
@@ -206,7 +213,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
@@ -214,7 +221,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemonUser_.setHappiness((short) 140);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         PseudoPlayerFighter pseudoFighter_ = new PseudoPlayerFighter(pseudoPk_, true, new CustList<NameLevel>());
-        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(_data_);
+        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(data);
         assertEq(100, result_.getLevel());
     }
 
@@ -230,7 +237,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
@@ -239,8 +246,8 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3));
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         PseudoPlayerFighter pseudoFighter_ = new PseudoPlayerFighter(pseudoPk_, true, new CustList<NameLevel>());
-        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(_data_);
-        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), _data_);
+        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(data);
+        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
         assertEq(Rate.zero(), pseudoFighter_.getWonExp());
         assertEq(new Rate("3"), pseudoFighter_.getWonExpSinceLastLevel());
     }
@@ -257,7 +264,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
@@ -267,8 +274,8 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         PseudoPlayerFighter pseudoFighter_ = new PseudoPlayerFighter(pseudoPk_, true, new CustList<NameLevel>());
         pseudoFighter_.setWonExp(new Rate(4));
-        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(_data_);
-        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), _data_);
+        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(data);
+        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
         assertEq(Rate.zero(), pseudoFighter_.getWonExp());
         assertEq(new Rate("2"), pseudoFighter_.getWonExpSinceLastLevel());
     }
@@ -285,7 +292,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
@@ -295,8 +302,8 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         PseudoPlayerFighter pseudoFighter_ = new PseudoPlayerFighter(pseudoPk_, true, new CustList<NameLevel>());
         pseudoFighter_.setWonExp(new Rate(14));
-        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(_data_);
-        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), _data_);
+        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(data);
+        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
         assertEq(Rate.zero(), pseudoFighter_.getWonExp());
         assertEq(new Rate("3"), pseudoFighter_.getWonExpSinceLastLevel());
     }
@@ -313,7 +320,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         moves_.put(MORPHING, (short) 10);
         moves_.put(BROUHAHA, (short) 10);
         moves_.put(POUV_ANTIQUE, (short) 10);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_, moves_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data, moves_);
         pokemonUser_.initIv(new Difficulty());
         pokemonUser_.getEv().put(Statistic.ATTACK, (short) 1);
         pokemonUser_.setNickname(PIKA);
@@ -323,8 +330,8 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         PseudoPlayerFighter pseudoFighter_ = new PseudoPlayerFighter(pseudoPk_, true, new CustList<NameLevel>());
         pseudoFighter_.setWonExp(new Rate("1000"));
-        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(_data_);
-        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), _data_);
+        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(data);
+        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
         assertEq(new Rate("801"), pseudoFighter_.getWonExp());
         assertEq(Rate.zero(), pseudoFighter_.getWonExpSinceLastLevel());
     }
@@ -337,13 +344,13 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         PseudoPlayerFighter pseudoFighter_ = new PseudoPlayerFighter(pseudoPk_, true, new CustList<NameLevel>());
         pseudoFighter_.setWonExp(new Rate("1000"));
-        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(_data_);
-        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), _data_);
-        StringList moves_ = pseudoFighter_.newMoves(result_.getLevel(), _data_);
+        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(data);
+        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
+        StringList moves_ = pseudoFighter_.newMoves(result_.getLevel(), data);
         assertEq(9, moves_.size());
         assertTrue(StringList.contains(moves_, ECUME));
         assertTrue(StringList.contains(moves_, HYPNOSE));
@@ -364,17 +371,17 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();
         PseudoPlayerFighter pseudoFighter_ = new PseudoPlayerFighter(pseudoPk_, true, evos_);
         pseudoFighter_.setWonExp(new Rate("1000"));
-        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(_data_);
-        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), _data_);
-        pseudoFighter_.getMoves().add(pseudoFighter_.newMoves(result_.getLevel(), _data_));
+        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(data);
+        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
+        pseudoFighter_.getMoves().add(pseudoFighter_.newMoves(result_.getLevel(), data));
         pseudoFighter_.setLevel(result_.getLevel());
-        pseudoFighter_.changeLevelsEvolutions(_data_);
+        pseudoFighter_.changeLevelsEvolutions(data);
         assertEq(PTITARD, pseudoFighter_.getName());
         assertEq(31, pseudoFighter_.getLevel());
         assertEq(new Rate("48"), pseudoFighter_.getWonExpSinceLastLevel());
@@ -389,18 +396,18 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();
         evos_.add(new NameLevel(TETARTE,(short)32));
         PseudoPlayerFighter pseudoFighter_ = new PseudoPlayerFighter(pseudoPk_, true, evos_);
         pseudoFighter_.setWonExp(new Rate("1000"));
-        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(_data_);
-        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), _data_);
-        pseudoFighter_.getMoves().add(pseudoFighter_.newMoves(result_.getLevel(), _data_));
+        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(data);
+        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
+        pseudoFighter_.getMoves().add(pseudoFighter_.newMoves(result_.getLevel(), data));
         pseudoFighter_.setLevel(result_.getLevel());
-        pseudoFighter_.changeLevelsEvolutions(_data_);
+        pseudoFighter_.changeLevelsEvolutions(data);
         assertEq(PTITARD, pseudoFighter_.getName());
         assertEq(31, pseudoFighter_.getLevel());
         assertEq(new Rate("48"), pseudoFighter_.getWonExpSinceLastLevel());
@@ -417,18 +424,18 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();
         evos_.add(new NameLevel(TETARTE,(short)25));
         PseudoPlayerFighter pseudoFighter_ = new PseudoPlayerFighter(pseudoPk_, true, evos_);
         pseudoFighter_.setWonExp(new Rate("1000"));
-        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(_data_);
-        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), _data_);
-        pseudoFighter_.getMoves().add(pseudoFighter_.newMoves(result_.getLevel(), _data_));
+        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(data);
+        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
+        pseudoFighter_.getMoves().add(pseudoFighter_.newMoves(result_.getLevel(), data));
         pseudoFighter_.setLevel(result_.getLevel());
-        pseudoFighter_.changeLevelsEvolutions(_data_);
+        pseudoFighter_.changeLevelsEvolutions(data);
         assertEq(TETARTE, pseudoFighter_.getName());
         assertEq(31, pseudoFighter_.getLevel());
         assertEq(new Rate("48"), pseudoFighter_.getWonExpSinceLastLevel());
@@ -445,7 +452,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();
@@ -453,11 +460,11 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         evos_.add(new NameLevel(TARTARD,(short)25));
         PseudoPlayerFighter pseudoFighter_ = new PseudoPlayerFighter(pseudoPk_, true, evos_);
         pseudoFighter_.setWonExp(new Rate("1000"));
-        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(_data_);
-        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), _data_);
-        pseudoFighter_.getMoves().add(pseudoFighter_.newMoves(result_.getLevel(), _data_));
+        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(data);
+        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
+        pseudoFighter_.getMoves().add(pseudoFighter_.newMoves(result_.getLevel(), data));
         pseudoFighter_.setLevel(result_.getLevel());
-        pseudoFighter_.changeLevelsEvolutions(_data_);
+        pseudoFighter_.changeLevelsEvolutions(data);
         assertEq(TETARTE, pseudoFighter_.getName());
         assertEq(31, pseudoFighter_.getLevel());
         assertEq(new Rate("48"), pseudoFighter_.getWonExpSinceLastLevel());
@@ -476,18 +483,18 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();
         evos_.add(new NameLevel(TARTARD,(short)25));
         PseudoPlayerFighter pseudoFighter_ = new PseudoPlayerFighter(pseudoPk_, true, evos_);
         pseudoFighter_.setWonExp(new Rate("1000"));
-        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(_data_);
-        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), _data_);
-        pseudoFighter_.getMoves().add(pseudoFighter_.newMoves(result_.getLevel(), _data_));
+        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(data);
+        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
+        pseudoFighter_.getMoves().add(pseudoFighter_.newMoves(result_.getLevel(), data));
         pseudoFighter_.setLevel(result_.getLevel());
-        pseudoFighter_.changeLevelsEvolutions(_data_);
+        pseudoFighter_.changeLevelsEvolutions(data);
         assertEq(TETARTE, pseudoFighter_.getName());
         assertEq(31, pseudoFighter_.getLevel());
         assertEq(new Rate("48"), pseudoFighter_.getWonExpSinceLastLevel());
@@ -504,7 +511,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();
@@ -512,12 +519,12 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         evos_.add(new NameLevel(TARTARD,(short)25));
         PseudoPlayerFighter pseudoFighter_ = new PseudoPlayerFighter(pseudoPk_, true, evos_);
         pseudoFighter_.setWonExp(new Rate("1000"));
-        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(_data_);
-        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), _data_);
-        pseudoFighter_.getMoves().add(pseudoFighter_.newMoves(result_.getLevel(), _data_));
+        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(data);
+        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
+        pseudoFighter_.getMoves().add(pseudoFighter_.newMoves(result_.getLevel(), data));
         pseudoFighter_.setLevel(result_.getLevel());
-        pseudoFighter_.changeLevelsEvolutions(_data_);
-        pseudoFighter_.changeLevelsEvolutions(_data_);
+        pseudoFighter_.changeLevelsEvolutions(data);
+        pseudoFighter_.changeLevelsEvolutions(data);
         assertEq(TETARTE, pseudoFighter_.getName());
         assertEq(31, pseudoFighter_.getLevel());
         assertEq(new Rate("48"), pseudoFighter_.getWonExpSinceLastLevel());
@@ -536,7 +543,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();
@@ -544,12 +551,12 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         evos_.add(new NameLevel(TARPAUD,(short)25));
         PseudoPlayerFighter pseudoFighter_ = new PseudoPlayerFighter(pseudoPk_, true, evos_);
         pseudoFighter_.setWonExp(new Rate("1000"));
-        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(_data_);
-        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), _data_);
-        pseudoFighter_.getMoves().add(pseudoFighter_.newMoves(result_.getLevel(), _data_));
+        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(data);
+        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
+        pseudoFighter_.getMoves().add(pseudoFighter_.newMoves(result_.getLevel(), data));
         pseudoFighter_.setLevel(result_.getLevel());
-        pseudoFighter_.changeLevelsEvolutions(_data_);
-        pseudoFighter_.changeLevelsEvolutions(_data_);
+        pseudoFighter_.changeLevelsEvolutions(data);
+        pseudoFighter_.changeLevelsEvolutions(data);
         assertEq(TARPAUD, pseudoFighter_.getName());
         assertEq(31, pseudoFighter_.getLevel());
         assertEq(new Rate("48"), pseudoFighter_.getWonExpSinceLastLevel());
@@ -568,7 +575,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();
@@ -576,12 +583,12 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         evos_.add(new NameLevel(TARTARD,(short)25));
         PseudoPlayerFighter pseudoFighter_ = new PseudoPlayerFighter(pseudoPk_, true, evos_);
         pseudoFighter_.setWonExp(new Rate("1000"));
-        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(_data_);
-        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), _data_);
-        pseudoFighter_.getMoves().add(pseudoFighter_.newMoves(result_.getLevel(), _data_));
+        LevelExpPoints result_ = pseudoFighter_.newLevelWonPoints(data);
+        pseudoFighter_.changeWonPoints(result_.getLevel(), result_.getExpPoints(), data);
+        pseudoFighter_.getMoves().add(pseudoFighter_.newMoves(result_.getLevel(), data));
         pseudoFighter_.setLevel(result_.getLevel());
-        pseudoFighter_.changeLevelsEvolutions(_data_);
-        StringList moves_ = pseudoFighter_.newMovesEvolution(_data_);
+        pseudoFighter_.changeLevelsEvolutions(data);
+        StringList moves_ = pseudoFighter_.newMovesEvolution(data);
         assertEq(8, moves_.size());
         assertTrue(StringList.contains(moves_, TOURNIQUET));
         assertTrue(StringList.contains(moves_, ECUME));
@@ -601,7 +608,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();
@@ -609,7 +616,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         evos_.add(new NameLevel(TARTARD,(short)25));
         PseudoPlayerFighter pseudoFighter_ = new PseudoPlayerFighter(pseudoPk_, true, evos_);
         pseudoFighter_.setWonExp(new Rate("1000"));
-        pseudoFighter_.calculateNewLevel((byte) 0, _data_);
+        pseudoFighter_.calculateNewLevel((byte) 0, data);
         assertEq(TETARTE, pseudoFighter_.getName());
         assertEq(31, pseudoFighter_.getLevel());
         assertEq(new Rate("48"), pseudoFighter_.getWonExpSinceLastLevel());
@@ -651,7 +658,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();
@@ -659,7 +666,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         evos_.add(new NameLevel(TARTARD,(short)32));
         PseudoPlayerFighter pseudoFighter_ = new PseudoPlayerFighter(pseudoPk_, true, evos_);
         pseudoFighter_.setWonExp(new Rate("1000"));
-        pseudoFighter_.calculateNewLevel((byte) 0, _data_);
+        pseudoFighter_.calculateNewLevel((byte) 0, data);
         assertEq(PTITARD, pseudoFighter_.getName());
         assertEq(31, pseudoFighter_.getLevel());
         assertEq(new Rate("48"), pseudoFighter_.getWonExpSinceLastLevel());
@@ -695,7 +702,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 99);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();
@@ -703,7 +710,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         evos_.add(new NameLevel(TARTARD,(short)100));
         PseudoPlayerFighter pseudoFighter_ = new PseudoPlayerFighter(pseudoPk_, true, evos_);
         pseudoFighter_.setWonExp(new Rate("10000"));
-        pseudoFighter_.calculateNewLevel((byte) 0, _data_);
+        pseudoFighter_.calculateNewLevel((byte) 0, data);
         assertEq(TETARTE, pseudoFighter_.getName());
         assertEq(100, pseudoFighter_.getLevel());
         assertEq(new Rate("0"), pseudoFighter_.getWonExpSinceLastLevel());
@@ -748,14 +755,14 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 99);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();
         evos_.add(new NameLevel(TARTARD,(short)100));
         PseudoPlayerFighter pseudoFighter_ = new PseudoPlayerFighter(pseudoPk_, true, evos_);
         pseudoFighter_.setWonExp(new Rate("10000"));
-        pseudoFighter_.calculateNewLevel((byte) 0, _data_);
+        pseudoFighter_.calculateNewLevel((byte) 0, data);
         assertEq(TETARTE, pseudoFighter_.getName());
         assertEq(100, pseudoFighter_.getLevel());
         assertEq(new Rate("0"), pseudoFighter_.getWonExpSinceLastLevel());
@@ -780,14 +787,14 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel((short) 100);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data_);
+        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();
         evos_.add(new NameLevel(TARTARD,(short)100));
         PseudoPlayerFighter pseudoFighter_ = new PseudoPlayerFighter(pseudoPk_, true, evos_);
         pseudoFighter_.setWonExp(new Rate("10000"));
-        pseudoFighter_.calculateNewLevel((byte) 0, _data_);
+        pseudoFighter_.calculateNewLevel((byte) 0, data);
         assertEq(TETARTE, pseudoFighter_.getName());
         assertEq(100, pseudoFighter_.getLevel());
         assertEq(new Rate("0"), pseudoFighter_.getWonExpSinceLastLevel());

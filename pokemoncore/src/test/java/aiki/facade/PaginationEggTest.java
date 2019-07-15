@@ -4,10 +4,12 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import aiki.db.DataBase;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import org.junit.Before;
 import org.junit.Test;
 
 import aiki.game.fight.InitializationDataBase;
@@ -22,11 +24,16 @@ import aiki.facade.enums.SelectedBoolean;
 
 public class PaginationEggTest extends InitializationDataBase {
 
+    private DataBase data;
+    @Before
+    public void initTests() {
+        data = initDb();
+    }
     @Test
     public void match1Test() {
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setMinSteps(1L);
@@ -40,7 +47,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void match2Test() {
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
         pagination_.getCriteria().setContentOfName("P*");
         Egg egg_;
@@ -53,7 +60,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void match3Test() {
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.getCriteria().setMinSteps(1L);
         Egg egg_;
         egg_ = new Egg(NUCLEOS);
@@ -64,7 +71,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void match4Test() {
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         Egg egg_;
         egg_ = new Egg(NUCLEOS);
         egg_.versEclosion((short) 15);
@@ -75,7 +82,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void sortable1Test() {
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         assertTrue(pagination_.sortable());
     }
 
@@ -83,7 +90,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void sortable2Test() {
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.getCmpName().setPriority(1);
         assertTrue(pagination_.sortable());
     }
@@ -92,7 +99,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void sortable3Test() {
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.getCmpSteps().setPriority(1);
         assertTrue(pagination_.sortable());
     }
@@ -101,7 +108,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void sortable4Test() {
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.getCmpName().setPriority(1);
         pagination_.getCmpSteps().setPriority(1);
         assertTrue(!pagination_.sortable());
@@ -111,7 +118,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void sort1Test() {
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         SortingEgg sorting_;
         Egg egg_;
         sorting_ = new SortingEgg();
@@ -768,7 +775,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void search1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -791,7 +798,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("*P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -833,7 +840,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void search2Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -859,7 +866,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("*P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -904,7 +911,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void search3Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -930,7 +937,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("*P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -977,7 +984,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void search4Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1003,7 +1010,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("*Z*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -1023,7 +1030,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void search5Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1053,11 +1060,11 @@ public class PaginationEggTest extends InitializationDataBase {
         pk_.setLevel((short) 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, _data_);
+        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data);
         player_.getBox().add(pkPlayer_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("*Z*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -1077,7 +1084,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void search6Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1103,7 +1110,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("*P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -1149,7 +1156,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void checkLine1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1175,7 +1182,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -1193,7 +1200,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void checkLine2Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1219,7 +1226,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -1238,7 +1245,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void checkLine3Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1264,7 +1271,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -1283,7 +1290,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void changePage1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1309,7 +1316,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -1357,7 +1364,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void changePage2Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1383,7 +1390,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -1432,7 +1439,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void changePage3Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1458,7 +1465,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -1507,7 +1514,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void currentIndex1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1533,7 +1540,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -1550,7 +1557,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void currentIndex2Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1576,7 +1583,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -1594,7 +1601,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void currentIndex3Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1620,7 +1627,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -1638,7 +1645,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void currentObject1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1664,7 +1671,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -1681,7 +1688,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void currentObject2Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1707,7 +1714,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -1725,7 +1732,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void currentObject3Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1751,7 +1758,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -1769,7 +1776,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void enabledPrevious1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1795,7 +1802,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -1812,7 +1819,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void enabledPrevious2Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1838,7 +1845,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -1856,7 +1863,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void enabledPrevious3Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1882,7 +1889,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("B*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -1899,7 +1906,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void enabledNext1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1925,7 +1932,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -1942,7 +1949,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void enabledNext2Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1968,7 +1975,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -1986,7 +1993,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void enabledNext3Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2012,7 +2019,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("B*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -2029,7 +2036,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void next1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2055,7 +2062,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -2073,7 +2080,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void previous1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2099,7 +2106,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -2118,7 +2125,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void begin1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2147,7 +2154,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -2167,7 +2174,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void end1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2196,7 +2203,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -2214,7 +2221,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void nextDelta1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2243,7 +2250,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.setDelta(3);
         pagination_.getCmpName().setPriority(1);
@@ -2259,7 +2266,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void nextDelta2Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2288,7 +2295,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.setDelta(3);
         pagination_.getCmpName().setPriority(1);
@@ -2305,7 +2312,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void previousDelta1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2334,7 +2341,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.setDelta(3);
         pagination_.getCmpName().setPriority(1);
@@ -2352,7 +2359,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void previousDelta2Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2381,7 +2388,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.setDelta(3);
         pagination_.getCmpName().setPriority(1);
@@ -2400,7 +2407,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void changeNbResultsPerPage1Test() {
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.changeNbResultsPerPage(3);
         assertEq(1, pagination_.getDelta());
         assertEq(3, pagination_.getNbResultsPerPage());
@@ -2414,7 +2421,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void changeNbResultsPerPage2Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2443,7 +2450,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("B*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -2466,7 +2473,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void changeNbResultsPerPage3Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2495,7 +2502,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.setNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -2520,7 +2527,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void newSearch1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2543,7 +2550,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.changeNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("*P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -2582,7 +2589,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void newSearch2Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2605,7 +2612,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.changeNbResultsPerPage(2);
         pagination_.getCriteria().setContentOfName("*P*");
         pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
@@ -2629,7 +2636,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void clear1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2658,7 +2665,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.changeNbResultsPerPage(2);
         pagination_.setDelta(3);
         pagination_.getCmpName().setPriority(1);
@@ -2678,7 +2685,7 @@ public class PaginationEggTest extends InitializationDataBase {
     public void clear2Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, _data_);
+        Player player_ = new Player(NICKNAME, null, diff_, true, data);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2707,7 +2714,7 @@ public class PaginationEggTest extends InitializationDataBase {
         player_.getBox().add(egg_);
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
-        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.setTranslation(data, LANGUAGE);
         pagination_.changeNbResultsPerPage(3);
         pagination_.setDelta(1);
         pagination_.getCriteria().setContentOfName("L*");

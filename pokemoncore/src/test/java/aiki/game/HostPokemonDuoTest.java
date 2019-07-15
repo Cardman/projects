@@ -1,6 +1,8 @@
 package aiki.game;
 import static org.junit.Assert.assertTrue;
 
+import aiki.db.DataBase;
+import org.junit.Before;
 import org.junit.Test;
 
 import aiki.game.fight.InitializationDataBase;
@@ -12,12 +14,17 @@ import aiki.map.pokemon.enums.Gender;
 
 public class HostPokemonDuoTest extends InitializationDataBase {
 
+    private DataBase data;
+    @Before
+    public void initTests() {
+        data = initDb();
+    }
     @Test
     public void validate1Test() {
         HostPokemonDuo host_ = new HostPokemonDuo();
         host_.setFirstPokemon(new PokemonPlayer());
         host_.setSecondPokemon(new PokemonPlayer());
-        assertTrue(host_.validate(_data_));
+        assertTrue(host_.validate(data));
     }
 
     @Test
@@ -38,7 +45,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setItem(NULL_REF);
         pk_.setLevel((short) 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_));
-        assertTrue(host_.validate(_data_));
+        assertTrue(host_.validate(data));
     }
 
     @Test
@@ -59,7 +66,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setItem(NULL_REF);
         pk_.setLevel((short) 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_));
-        assertTrue(host_.validate(_data_));
+        assertTrue(host_.validate(data));
     }
 
     @Test
@@ -80,7 +87,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setItem(NULL_REF);
         pk_.setLevel((short) 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_));
-        assertTrue(host_.validate(_data_));
+        assertTrue(host_.validate(data));
     }
 
     @Test
@@ -101,7 +108,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setItem(NULL_REF);
         pk_.setLevel((short) 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_));
-        assertTrue(host_.validate(_data_));
+        assertTrue(host_.validate(data));
     }
 
     @Test
@@ -122,7 +129,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setItem(NULL_REF);
         pk_.setLevel((short) 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_));
-        assertTrue(host_.validate(_data_));
+        assertTrue(host_.validate(data));
     }
 
     @Test
@@ -143,7 +150,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setItem(NULL_REF);
         pk_.setLevel((short) 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_));
-        assertTrue(host_.validate(_data_));
+        assertTrue(host_.validate(data));
     }
 
     @Test
@@ -164,7 +171,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setItem(NULL_REF);
         pk_.setLevel((short) 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_));
-        assertTrue(host_.validate(_data_));
+        assertTrue(host_.validate(data));
     }
 
     @Test
@@ -185,7 +192,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setItem(NULL_REF);
         pk_.setLevel((short) 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_));
-        assertTrue(host_.validate(_data_));
+        assertTrue(host_.validate(data));
     }
 
     @Test
@@ -200,7 +207,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setLevel((short) 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_));
         host_.setSecondPokemon(new PokemonPlayer());
-        assertTrue(!host_.validate(_data_));
+        assertTrue(!host_.validate(data));
     }
 
     @Test
@@ -215,7 +222,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setLevel((short) 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_));
         host_.setSecondPokemon(new PokemonPlayer());
-        assertTrue(!host_.validate(_data_));
+        assertTrue(!host_.validate(data));
     }
 
     @Test
@@ -230,7 +237,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setLevel((short) 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_));
         host_.setSecondPokemon(new PokemonPlayer());
-        assertTrue(!host_.validate(_data_));
+        assertTrue(!host_.validate(data));
     }
 
     @Test
@@ -245,7 +252,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setLevel((short) 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_));
         host_.setFirstPokemon(new PokemonPlayer());
-        assertTrue(!host_.validate(_data_));
+        assertTrue(!host_.validate(data));
     }
 
     @Test
@@ -260,7 +267,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setLevel((short) 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_));
         host_.setFirstPokemon(new PokemonPlayer());
-        assertTrue(!host_.validate(_data_));
+        assertTrue(!host_.validate(data));
     }
 
     @Test
@@ -275,7 +282,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setLevel((short) 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_));
         host_.setFirstPokemon(new PokemonPlayer());
-        assertTrue(!host_.validate(_data_));
+        assertTrue(!host_.validate(data));
     }
 
     @Test
@@ -296,7 +303,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setItem(NULL_REF);
         pk_.setLevel((short) 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_));
-        assertTrue(!host_.validate(_data_));
+        assertTrue(!host_.validate(data));
     }
 
     @Test
@@ -317,7 +324,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setItem(NULL_REF);
         pk_.setLevel((short) 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_));
-        assertTrue(!host_.validate(_data_));
+        assertTrue(!host_.validate(data));
     }
 
     @Test
@@ -338,7 +345,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setItem(NULL_REF);
         pk_.setLevel((short) 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_));
-        assertTrue(!host_.validate(_data_));
+        assertTrue(!host_.validate(data));
     }
 
     @Test
@@ -359,7 +366,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setItem(NULL_REF);
         pk_.setLevel((short) 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_));
-        assertTrue(!host_.validate(_data_));
+        assertTrue(!host_.validate(data));
     }
 
     @Test
@@ -380,7 +387,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setItem(NULL_REF);
         pk_.setLevel((short) 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_));
-        assertTrue(!host_.validate(_data_));
+        assertTrue(!host_.validate(data));
     }
 
     @Test
@@ -401,7 +408,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setItem(NULL_REF);
         pk_.setLevel((short) 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_));
-        assertTrue(!host_.validate(_data_));
+        assertTrue(!host_.validate(data));
     }
 
     @Test
@@ -422,7 +429,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setItem(NULL_REF);
         pk_.setLevel((short) 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_));
-        assertTrue(!host_.validate(_data_));
+        assertTrue(!host_.validate(data));
     }
 
     @Test
@@ -443,7 +450,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setItem(NULL_REF);
         pk_.setLevel((short) 5);
         host_.setFirstPokemon(newPokemonPlayer(pk_));
-        assertTrue(!host_.validate(_data_));
+        assertTrue(!host_.validate(data));
     }
 
     @Test
@@ -452,7 +459,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         host_.setFirstPokemon(new PokemonPlayer());
         host_.setSecondPokemon(new PokemonPlayer());
         host_.setNbSteps(4);
-        assertTrue(!host_.validate(_data_));
+        assertTrue(!host_.validate(data));
     }
 
     @Test
@@ -474,7 +481,7 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setLevel((short) 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_));
         host_.setNbSteps(-4);
-        assertTrue(!host_.validate(_data_));
+        assertTrue(!host_.validate(data));
     }
 
     @Test
@@ -496,10 +503,10 @@ public class HostPokemonDuoTest extends InitializationDataBase {
         pk_.setLevel((short) 5);
         host_.setSecondPokemon(newPokemonPlayer(pk_));
         host_.setNbSteps(-4);
-        assertTrue(!host_.validate(_data_));
+        assertTrue(!host_.validate(data));
     }
 
-    private static PokemonPlayer newPokemonPlayer(Pokemon _pokemon) {
-        return new PokemonPlayer(_pokemon, _data_);
+    private PokemonPlayer newPokemonPlayer(Pokemon _pokemon) {
+        return new PokemonPlayer(_pokemon, data);
     }
 }

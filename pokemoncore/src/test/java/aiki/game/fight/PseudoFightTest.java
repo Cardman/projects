@@ -2,6 +2,8 @@ package aiki.game.fight;
 import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import aiki.db.DataBase;
+import org.junit.Before;
 import org.junit.Test;
 
 import aiki.fight.pokemon.NameLevel;
@@ -22,6 +24,11 @@ import code.util.StringList;
 
 public class PseudoFightTest extends InitializationDataBase {
 
+    private DataBase data;
+    @Before
+    public void initTests() {
+        data = initDb();
+    }
     @Test
     public void new_PseudoFight_List_PseudoPlayer_int_List_1Test() {
         Pokemon pokemon_ = new WildPk();
@@ -30,18 +37,18 @@ public class PseudoFightTest extends InitializationDataBase {
         pokemon_.setAbility(ABSORB_EAU);
         pokemon_.setItem(OEUF_CHANCE);
         pokemon_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(pokemon_, _data_);
+        PokemonPlayer pk_ = new PokemonPlayer(pokemon_, data);
         pk_.setWonExpSinceLastLevel(new Rate("3/2"));
         CustList<PokemonPlayer> team_;
         team_ = new CustList<PokemonPlayer>();
         team_.add(pk_);
-        pk_ = new PokemonPlayer(pokemon_, _data_);
+        pk_ = new PokemonPlayer(pokemon_, data);
         pk_.setWonExpSinceLastLevel(new Rate("3/2"));
         team_.add(pk_);
-        pk_ = new PokemonPlayer(pokemon_, _data_);
+        pk_ = new PokemonPlayer(pokemon_, data);
         pk_.setWonExpSinceLastLevel(new Rate("3/2"));
         team_.add(pk_);
-        pk_ = new PokemonPlayer(pokemon_, _data_);
+        pk_ = new PokemonPlayer(pokemon_, data);
         pk_.setWonExpSinceLastLevel(new Rate("3/2"));
         team_.add(pk_);
         CustList<CustList<NameLevel>> evolutions_;
@@ -210,25 +217,25 @@ public class PseudoFightTest extends InitializationDataBase {
         assertEq(Fighter.BACK, pseudoFight_.getActions().last().getVal((byte) 1));
     }
 
-    private static PseudoFight simulation1() {
+    private PseudoFight simulation1() {
         Pokemon pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
         pokemon_.setAbility(ABSORB_EAU);
         pokemon_.setItem(OEUF_CHANCE);
         pokemon_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(pokemon_, _data_);
+        PokemonPlayer pk_ = new PokemonPlayer(pokemon_, data);
         pk_.setWonExpSinceLastLevel(new Rate("3/2"));
         CustList<PokemonPlayer> team_;
         team_ = new CustList<PokemonPlayer>();
         team_.add(pk_);
-        pk_ = new PokemonPlayer(pokemon_, _data_);
+        pk_ = new PokemonPlayer(pokemon_, data);
         pk_.setWonExpSinceLastLevel(new Rate("3/2"));
         team_.add(pk_);
-        pk_ = new PokemonPlayer(pokemon_, _data_);
+        pk_ = new PokemonPlayer(pokemon_, data);
         pk_.setWonExpSinceLastLevel(new Rate("3/2"));
         team_.add(pk_);
-        pk_ = new PokemonPlayer(pokemon_, _data_);
+        pk_ = new PokemonPlayer(pokemon_, data);
         pk_.setWonExpSinceLastLevel(new Rate("3/2"));
         team_.add(pk_);
         CustList<CustList<NameLevel>> evolutions_;
@@ -304,7 +311,7 @@ public class PseudoFightTest extends InitializationDataBase {
         pseudoFight_ = simulation1();
         Difficulty diff_ = new Difficulty();
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
-        Rate rate_ = pseudoFight_.rateWonPoint((byte) 0,(byte) 0, diff_, _data_);
+        Rate rate_ = pseudoFight_.rateWonPoint((byte) 0,(byte) 0, diff_, data);
         assertEq(Rate.one(), rate_);
     }
 
@@ -322,7 +329,7 @@ public class PseudoFightTest extends InitializationDataBase {
         playerFighters_.add((byte) 1);
         playerFighters_.add((byte) 2);
         playerFighters_.add((byte) 3);
-        Bytes fightersExpObj_ = pseudoFight_.fightersWearingExpObject(playerFighters_, _data_);
+        Bytes fightersExpObj_ = pseudoFight_.fightersWearingExpObject(playerFighters_, data);
         assertEq(1, fightersExpObj_.size());
         assertEq(3, fightersExpObj_.first());
     }
@@ -346,7 +353,7 @@ public class PseudoFightTest extends InitializationDataBase {
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         diff_.setWinTrainerExp(new Rate("3/2"));
         diff_.setRateWinningExpPtsFight(Rate.one());
-        pseudoFight_.addExp((byte) 0, playerFighters_, fightersExpObj_,(byte) 0, new Rate("5550"), diff_, _data_);
+        pseudoFight_.addExp((byte) 0, playerFighters_, fightersExpObj_,(byte) 0, new Rate("5550"), diff_, data);
         assertEq(new Rate("2775/2"),pseudoFight_.getPlayerFighters().get(0).getWonExp());
     }
 
@@ -369,7 +376,7 @@ public class PseudoFightTest extends InitializationDataBase {
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         diff_.setWinTrainerExp(new Rate("3/2"));
         diff_.setRateWinningExpPtsFight(Rate.one());
-        pseudoFight_.addExp((byte) 3, playerFighters_, fightersExpObj_,(byte) 0, new Rate("5550"), diff_, _data_);
+        pseudoFight_.addExp((byte) 3, playerFighters_, fightersExpObj_,(byte) 0, new Rate("5550"), diff_, data);
         assertEq(new Rate("2775"),pseudoFight_.getPlayerFighters().get(3).getWonExp());
     }
 
@@ -392,7 +399,7 @@ public class PseudoFightTest extends InitializationDataBase {
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         diff_.setWinTrainerExp(new Rate("3/2"));
         diff_.setRateWinningExpPtsFight(Rate.one());
-        pseudoFight_.addExp((byte) 1, playerFighters_, fightersExpObj_,(byte) 0, new Rate("5550"), diff_, _data_);
+        pseudoFight_.addExp((byte) 1, playerFighters_, fightersExpObj_,(byte) 0, new Rate("5550"), diff_, data);
         assertEq(new Rate("8325/4"),pseudoFight_.getPlayerFighters().get(1).getWonExp());
     }
 
@@ -415,7 +422,7 @@ public class PseudoFightTest extends InitializationDataBase {
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         diff_.setWinTrainerExp(new Rate("3/2"));
         diff_.setRateWinningExpPtsFight(Rate.one());
-        pseudoFight_.addExp((byte) 2, playerFighters_, fightersExpObj_,(byte) 0, new Rate("5550"), diff_, _data_);
+        pseudoFight_.addExp((byte) 2, playerFighters_, fightersExpObj_,(byte) 0, new Rate("5550"), diff_, data);
         assertEq(new Rate("0"),pseudoFight_.getPlayerFighters().get(2).getWonExp());
     }
 
@@ -437,7 +444,7 @@ public class PseudoFightTest extends InitializationDataBase {
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         diff_.setWinTrainerExp(new Rate("3/2"));
         diff_.setRateWinningExpPtsFight(Rate.one());
-        pseudoFight_.addExp((byte) 0, playerFighters_, fightersExpObj_,(byte) 0, new Rate("5550"), diff_, _data_);
+        pseudoFight_.addExp((byte) 0, playerFighters_, fightersExpObj_,(byte) 0, new Rate("5550"), diff_, data);
         assertEq(new Rate("2775"),pseudoFight_.getPlayerFighters().get(0).getWonExp());
     }
 
@@ -457,7 +464,7 @@ public class PseudoFightTest extends InitializationDataBase {
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         diff_.setWinTrainerExp(new Rate("3/2"));
         diff_.setRateWinningExpPtsFight(Rate.one());
-        pseudoFight_.addExp((byte) 0, playerFighters_, fightersExpObj_,(byte) 0, new Rate("5550"), diff_, _data_);
+        pseudoFight_.addExp((byte) 0, playerFighters_, fightersExpObj_,(byte) 0, new Rate("5550"), diff_, data);
         assertEq(new Rate("0"),pseudoFight_.getPlayerFighters().get(0).getWonExp());
     }
 
@@ -477,7 +484,7 @@ public class PseudoFightTest extends InitializationDataBase {
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         diff_.setWinTrainerExp(new Rate("3/2"));
         diff_.setRateWinningExpPtsFight(Rate.one());
-        pseudoFight_.addExpFighters(playerFighters_, (byte) 0, diff_, _data_);
+        pseudoFight_.addExpFighters(playerFighters_, (byte) 0, diff_, data);
         assertEq(new Rate("2775/2"),pseudoFight_.getPlayerFighters().get(0).getWonExp());
         assertEq(new Rate("8325/4"),pseudoFight_.getPlayerFighters().get(1).getWonExp());
         assertEq(new Rate("0"),pseudoFight_.getPlayerFighters().get(2).getWonExp());
@@ -501,7 +508,7 @@ public class PseudoFightTest extends InitializationDataBase {
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         diff_.setWinTrainerExp(new Rate("3/2"));
         diff_.setRateWinningExpPtsFight(Rate.one());
-        pseudoFight_.addExpFighters(playerFighters_, (byte) 0, diff_, _data_);
+        pseudoFight_.addExpFighters(playerFighters_, (byte) 0, diff_, data);
         assertEq(new Rate("8325/2"),pseudoFight_.getPlayerFighters().get(0).getWonExp());
         assertEq(new Rate("19425/4"),pseudoFight_.getPlayerFighters().get(1).getWonExp());
         assertEq(new Rate("2775"),pseudoFight_.getPlayerFighters().get(2).getWonExp());
@@ -520,7 +527,7 @@ public class PseudoFightTest extends InitializationDataBase {
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         diff_.setWinTrainerExp(new Rate("3/2"));
         diff_.setRateWinningExpPtsFight(Rate.one());
-        pseudoFight_.presimulateFight(diff_, _data_);
+        pseudoFight_.presimulateFight(diff_, data);
         PseudoPlayerFighter pseudoFighter_;
         pseudoFighter_ = pseudoFight_.getPlayerFighters().get(0);
         assertEq(TETARTE,pseudoFighter_.getName());
@@ -669,25 +676,25 @@ public class PseudoFightTest extends InitializationDataBase {
         assertTrue(!pseudoFighter_.isFront());
     }
 
-    private static PseudoFight simulation2() {
+    private PseudoFight simulation2() {
         Pokemon pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
         pokemon_.setAbility(ABSORB_EAU);
         pokemon_.setItem(OEUF_CHANCE);
         pokemon_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(pokemon_, _data_);
+        PokemonPlayer pk_ = new PokemonPlayer(pokemon_, data);
         pk_.setWonExpSinceLastLevel(new Rate("3/2"));
         CustList<PokemonPlayer> team_;
         team_ = new CustList<PokemonPlayer>();
         team_.add(pk_);
-        pk_ = new PokemonPlayer(pokemon_, _data_);
+        pk_ = new PokemonPlayer(pokemon_, data);
         pk_.setWonExpSinceLastLevel(new Rate("3/2"));
         team_.add(pk_);
-        pk_ = new PokemonPlayer(pokemon_, _data_);
+        pk_ = new PokemonPlayer(pokemon_, data);
         pk_.setWonExpSinceLastLevel(new Rate("3/2"));
         team_.add(pk_);
-        pk_ = new PokemonPlayer(pokemon_, _data_);
+        pk_ = new PokemonPlayer(pokemon_, data);
         pk_.setWonExpSinceLastLevel(new Rate("3/2"));
         team_.add(pk_);
         CustList<CustList<NameLevel>> evolutions_;
@@ -782,7 +789,7 @@ public class PseudoFightTest extends InitializationDataBase {
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         diff_.setWinTrainerExp(new Rate("3/2"));
         diff_.setRateWinningExpPtsFight(Rate.one());
-        pseudoFight_.presimulateFight(diff_, _data_);
+        pseudoFight_.presimulateFight(diff_, data);
         PseudoPlayerFighter pseudoFighter_;
         pseudoFighter_ = pseudoFight_.getPlayerFighters().get(0);
         assertEq(TETARTE,pseudoFighter_.getName());
@@ -944,7 +951,7 @@ public class PseudoFightTest extends InitializationDataBase {
     }
 
     /*
-    private static PseudoFight simulation3() {
+    private PseudoFight simulation3() {
         Pokemon pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -1218,7 +1225,7 @@ public class PseudoFightTest extends InitializationDataBase {
         assertTrue(!pseudoFighter_.isFront());
     }
 
-    private static PseudoFight simulation4() {
+    private PseudoFight simulation4() {
         Pokemon pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
@@ -1440,25 +1447,25 @@ public class PseudoFightTest extends InitializationDataBase {
     }
     */
 
-    private static PseudoFight simulation5() {
+    private PseudoFight simulation5() {
         Pokemon pokemon_ = new WildPk();
         pokemon_.setLevel((short) 3);
         pokemon_.setName(PTITARD);
         pokemon_.setAbility(ABSORB_EAU);
         pokemon_.setItem(OEUF_CHANCE);
         pokemon_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(pokemon_, _data_);
+        PokemonPlayer pk_ = new PokemonPlayer(pokemon_, data);
         pk_.setWonExpSinceLastLevel(new Rate("3/2"));
         CustList<PokemonPlayer> team_;
         team_ = new CustList<PokemonPlayer>();
         team_.add(pk_);
-        pk_ = new PokemonPlayer(pokemon_, _data_);
+        pk_ = new PokemonPlayer(pokemon_, data);
         pk_.setWonExpSinceLastLevel(new Rate("3/2"));
         team_.add(pk_);
-        pk_ = new PokemonPlayer(pokemon_, _data_);
+        pk_ = new PokemonPlayer(pokemon_, data);
         pk_.setWonExpSinceLastLevel(new Rate("3/2"));
         team_.add(pk_);
-        pk_ = new PokemonPlayer(pokemon_, _data_);
+        pk_ = new PokemonPlayer(pokemon_, data);
         pk_.setWonExpSinceLastLevel(new Rate("3/2"));
         team_.add(pk_);
         CustList<CustList<NameLevel>> evolutions_;
@@ -1520,7 +1527,7 @@ public class PseudoFightTest extends InitializationDataBase {
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
         diff_.setWinTrainerExp(new Rate("3/2"));
         diff_.setRateWinningExpPtsFight(Rate.one());
-        pseudoFight_.presimulateFight(diff_, _data_);
+        pseudoFight_.presimulateFight(diff_, data);
         PseudoPlayerFighter pseudoFighter_;
         pseudoFighter_ = pseudoFight_.getPlayerFighters().get(0);
         assertEq(TETARTE,pseudoFighter_.getName());

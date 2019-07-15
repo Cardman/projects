@@ -3,6 +3,7 @@ import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 import aiki.fight.pokemon.PokemonData;
+import aiki.game.fight.InitializationDataBase;
 import aiki.instances.Instances;
 import org.junit.Test;
 
@@ -61,6 +62,12 @@ import code.util.StringMap;
 
 
 public class DataBaseTest {
+
+    @Test
+    public void test() {
+        DataBase data_ = InitializationDataBase.initDataBase();
+        assertTrue(!data_.isError());
+    }
 
     @Test
     public void toUpperCaseTest() {

@@ -1,6 +1,8 @@
 package aiki.game;
 import static aiki.db.EquallablePkUtil.assertEq;
 
+import aiki.db.DataBase;
+import org.junit.Before;
 import org.junit.Test;
 
 import aiki.game.fight.InitializationDataBase;
@@ -10,11 +12,16 @@ import code.maths.Rate;
 
 public class DifficultyTest extends InitializationDataBase {
 
+    private DataBase data;
+    @Before
+    public void initTests() {
+        data = initDb();
+    }
     @Test
     public void validate1Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvFoe((short) -1);
-        diff_.validate(_data_);
+        diff_.validate(data);
         assertEq(0, diff_.getIvFoe());
     }
 
@@ -22,7 +29,7 @@ public class DifficultyTest extends InitializationDataBase {
     public void validate2Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((short) -1);
-        diff_.validate(_data_);
+        diff_.validate(data);
         assertEq(0, diff_.getIvPlayer());
     }
 
@@ -30,7 +37,7 @@ public class DifficultyTest extends InitializationDataBase {
     public void validate3Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvFoe((short) 1000);
-        diff_.validate(_data_);
+        diff_.validate(data);
         assertEq(31, diff_.getIvFoe());
     }
 
@@ -38,7 +45,7 @@ public class DifficultyTest extends InitializationDataBase {
     public void validate4Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((short) 1000);
-        diff_.validate(_data_);
+        diff_.validate(data);
         assertEq(31, diff_.getIvPlayer());
     }
 
@@ -46,7 +53,7 @@ public class DifficultyTest extends InitializationDataBase {
     public void validate5Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setRateLooseMoneyWin(new Rate("-1"));
-        diff_.validate(_data_);
+        diff_.validate(data);
         assertEq(Rate.one(), diff_.getRateLooseMoneyWin());
     }
 
@@ -54,7 +61,7 @@ public class DifficultyTest extends InitializationDataBase {
     public void isValid8Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setRateWinMoneyBase(new Rate("-1"));
-        diff_.validate(_data_);
+        diff_.validate(data);
         assertEq(Rate.one(), diff_.getRateWinMoneyBase());
     }
 
@@ -62,7 +69,7 @@ public class DifficultyTest extends InitializationDataBase {
     public void isValid9Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setRateWinningExpPtsFight(new Rate("-1"));
-        diff_.validate(_data_);
+        diff_.validate(data);
         assertEq(Rate.one(), diff_.getRateWinningExpPtsFight());
     }
 
@@ -70,7 +77,7 @@ public class DifficultyTest extends InitializationDataBase {
     public void isValid10Test() {
         Difficulty diff_ = new Difficulty();
         diff_.setWinTrainerExp(new Rate("-1"));
-        diff_.validate(_data_);
+        diff_.validate(data);
         assertEq(new Rate("3/2"), diff_.getWinTrainerExp());
     }
 }
