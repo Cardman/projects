@@ -2766,4 +2766,97 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.validate(new PerCentImpl(),new LoadFlagSample());
         assertTrue(data_.isError());
     }
+    @Test
+    public void validate21Test() {
+        DataBase data_ =init();
+        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getMap().setPlaces(new ShortMap<Place>());
+        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        PokemonData pokemon_ = Instances.newPokemonData();
+        pokemon_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.HP,new StatBaseEv((short)1,(short)1));
+        pokemon_.getLevMoves().add(new LevelMove((short)1,CHARGE3));
+        pokemon_.getHiddenMoves().add((short)100);
+        pokemon_.getTechnicalMoves().add((short)100);
+        data_.completeMembers(PIKACHU, pokemon_);
+        data_.completeMembers(TREMPETTE,Instances.newAbilityData());
+        data_.getTm().addEntry((short)100,CHARGE);
+        data_.getHm().addEntry((short)100,CHARGE);
+        DamagingMoveData damagingMoveData_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setStatisAtt(Statistic.ATTACK);
+        effectDamage_.setPower("100");
+        effectDamage_.setTargetChoice(TargetChoice.ANY_FOE);
+        damagingMoveData_.getEffects().add(effectDamage_);
+        damagingMoveData_.setAccuracy("1");
+        damagingMoveData_.setTypes(new StringList(ELECTRICK));
+        damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
+        data_.completeMembers(CHARGE, damagingMoveData_);
+        damagingMoveData_ = Instances.newDamagingMoveData();
+        effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setStatisAtt(Statistic.SPECIAL_ATTACK);
+        effectDamage_.setPower("100");
+        effectDamage_.setTargetChoice(TargetChoice.ANY_FOE);
+        damagingMoveData_.getEffects().add(effectDamage_);
+        damagingMoveData_.setAccuracy("1");
+        damagingMoveData_.setTypes(new StringList(ELECTRICK));
+        damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
+        data_.completeMembers(CHARGE2, damagingMoveData_);
+        initConstants(data_);
+        data_.getConstNum().addEntry(DataBase.STRONG_MOVE,Rate.newRate("90"));
+        initExpPoints(data_);
+        initRandomLaws(data_);
+        data_.getTableTypes().addEntry(new TypesDuo(ELECTRICK,ELECTRICK),Rate.one());
+        data_.completeVariables();
+        data_.validate(new PerCentImpl(),new LoadFlagSample());
+        assertTrue(data_.isError());
+    }
+    @Test
+    public void validate22Test() {
+        DataBase data_ =init();
+        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getMap().setPlaces(new ShortMap<Place>());
+        data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
+        PokemonData pokemon_ = Instances.newPokemonData();
+        pokemon_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)1));
+        pokemon_.getStatistics().addEntry(Statistic.HP,new StatBaseEv((short)1,(short)1));
+        pokemon_.getLevMoves().add(new LevelMove((short)1,CHARGE2));
+        pokemon_.getHiddenMoves().add((short)100);
+        pokemon_.getTechnicalMoves().add((short)100);
+        data_.completeMembers(PIKACHU, pokemon_);
+        data_.completeMembers(TREMPETTE,Instances.newAbilityData());
+        data_.getTm().addEntry((short)100,CHARGE);
+        data_.getHm().addEntry((short)100,CHARGE);
+        DamagingMoveData damagingMoveData_ = Instances.newDamagingMoveData();
+        EffectDamage effectDamage_ = Instances.newEffectDamage();
+        effectDamage_.setStatisAtt(Statistic.ATTACK);
+        effectDamage_.setPower("100");
+        effectDamage_.setTargetChoice(TargetChoice.ANY_FOE);
+        damagingMoveData_.getEffects().add(effectDamage_);
+        damagingMoveData_.setAccuracy("1");
+        damagingMoveData_.setTypes(new StringList(ELECTRICK));
+        damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
+        data_.completeMembers(CHARGE, damagingMoveData_);
+        damagingMoveData_ = Instances.newDamagingMoveData();
+        damagingMoveData_.setAccuracy("1");
+        damagingMoveData_.setTypes(new StringList(ELECTRICK));
+        damagingMoveData_.setTargetChoice(TargetChoice.ANY_FOE);
+        data_.completeMembers(CHARGE2, damagingMoveData_);
+        initConstants(data_);
+        data_.getConstNum().addEntry(DataBase.STRONG_MOVE,Rate.newRate("90"));
+        initExpPoints(data_);
+        initRandomLaws(data_);
+        data_.getTableTypes().addEntry(new TypesDuo(ELECTRICK,ELECTRICK),Rate.one());
+        data_.completeVariables();
+        data_.validate(new PerCentImpl(),new LoadFlagSample());
+        assertTrue(data_.isError());
+    }
 }

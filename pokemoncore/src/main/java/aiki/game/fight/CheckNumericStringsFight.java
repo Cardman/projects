@@ -71,18 +71,25 @@ public final class CheckNumericStringsFight {
             return;
         }
         pk_.setAbility(_data.getAbilities().getKeys().first());
+        StringList moves_ = new StringList();
+        for (String m: pokemonData_.getMovesAtLevel(pk_.getLevel(), _data.getNbMaxMoves())) {
+            MoveData fAtt_ = _data.getMove(m);
+            if (fAtt_ == null) {
+                continue;
+            }
+            moves_.add(m);
+        }
+        if (moves_.isEmpty()) {
+            _data.setError(true);
+            return;
+        }
         PokemonPlayer pkUser_ = new PokemonPlayer(pk_, _data);
         user_.getTeam().add(pkUser_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         PkTrainer foePokemon_ = new PkTrainer();
         foePokemon_.setName(_data.getPokedex().getKeys().first());
         foePokemon_.setAbility(_data.getAbilities().getKeys().first());
-        if (_data.getMoves().isEmpty()) {
-            _data.setError(true);
-            return;
-        }
-        foePokemon_
-                .setMoves(new StringList(_data.getMoves().getKeys().first()));
+        foePokemon_.setMoves(moves_);
         foeTeam_.add(foePokemon_);
         GymLeader trainer_ = new GymLeader();
         trainer_.setTeam(foeTeam_);
