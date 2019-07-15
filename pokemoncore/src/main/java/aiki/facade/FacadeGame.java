@@ -182,7 +182,7 @@ public class FacadeGame implements WithMathFactory {
         language = _language;
     }
 
-    void initializePaginatorTranslations() {
+    public void initializePaginatorTranslations() {
         paginationEgg.setTranslation(data, language);
         firstPaginationPk.setTranslation(data, language);
         paginationHealingItem.setTranslation(data, language);
@@ -234,9 +234,6 @@ public class FacadeGame implements WithMathFactory {
     public void directInteraction() {
         game.setInterfaceType(InterfaceType.RIEN);
         Coords coords_ = closestTile();
-        if (!coords_.isValid()) {
-            return;
-        }
         game.directInteraction(coords_, data.getMap());
     }
 
@@ -417,12 +414,6 @@ public class FacadeGame implements WithMathFactory {
     public void switchBoxTeam() {
         int currentIndex_ = firstPaginationPk.currentIndex();
         if (currentIndex_ != CustList.INDEX_NOT_FOUND_ELT) {
-            if (paginationEgg.currentIndex() != CustList.INDEX_NOT_FOUND_ELT) {
-                return;
-            }
-            if (!game.getPlayer().enabledSwitchPokemonBoxTeam()) {
-                return;
-            }
             game.getPlayer().switchPokemon(currentIndex_, data);
             firstPaginationPk.clear();
             // firstPaginationPk.search(game.getPlayer().getBox());
@@ -435,18 +426,42 @@ public class FacadeGame implements WithMathFactory {
 
     void switchEggBoxTeam() {
         int currentIndex_ = paginationEgg.currentIndex();
-        if (currentIndex_ == CustList.INDEX_NOT_FOUND_ELT) {
-            return;
-        }
-        if (!game.getPlayer().enabledSwitchPokemonBoxTeam()) {
-            return;
-        }
         game.getPlayer().switchPokemon(currentIndex_, data);
         // paginationEgg.search(game.getPlayer().getBox());
         // firstPaginationPk.search(game.getPlayer().getBox());
         // secondPaginationPk.search(game.getPlayer().getBox());
     }
 
+    public boolean isSwitchable() {
+        int currentIndexPk_ = firstPaginationPk.currentIndex();
+        if (currentIndexPk_ == CustList.INDEX_NOT_FOUND_ELT) {
+            currentIndexPk_ = paginationEgg.currentIndex();
+            if (currentIndexPk_ == CustList.INDEX_NOT_FOUND_ELT) {
+                return false;
+            }
+            int selected_ = game.getPlayer().getChosenTeamPokemon();
+            if (selected_ == CustList.INDEX_NOT_FOUND_ELT) {
+                return false;
+            }
+            UsablePokemon us_ = game.getPlayer().getTeam().get(selected_);
+            if (us_ instanceof Egg) {
+                return true;
+            }
+            int nbPk_ = game.getPlayer().getPokemonPlayerList().size();
+            if (nbPk_ > CustList.ONE_ELEMENT) {
+                return true;
+            }
+            return false;
+        }
+        if (paginationEgg.currentIndex() != CustList.INDEX_NOT_FOUND_ELT) {
+            return false;
+        }
+        int selected_ = game.getPlayer().getChosenTeamPokemon();
+        if (selected_ == CustList.INDEX_NOT_FOUND_ELT) {
+            return false;
+        }
+        return true;
+    }
     public boolean isSelectedPkTeamStorage() {
         int nbPk_ = game.getPlayer().getPokemonPlayerList().size();
         if (nbPk_ <= CustList.ONE_ELEMENT) {
@@ -505,35 +520,21 @@ public class FacadeGame implements WithMathFactory {
         // }
     }
 
-    public boolean isSwitchable() {
+
+
+    public void release() {
         int currentIndexPk_ = firstPaginationPk.currentIndex();
         if (currentIndexPk_ == CustList.INDEX_NOT_FOUND_ELT) {
             currentIndexPk_ = paginationEgg.currentIndex();
-            if (currentIndexPk_ == CustList.INDEX_NOT_FOUND_ELT) {
-                return false;
-            }
-            int selected_ = game.getPlayer().getChosenTeamPokemon();
-            if (selected_ == CustList.INDEX_NOT_FOUND_ELT) {
-                return false;
-            }
-            UsablePokemon us_ = game.getPlayer().getTeam().get(selected_);
-            if (us_ instanceof Egg) {
-                return true;
-            }
-            int nbPk_ = game.getPlayer().getPokemonPlayerList().size();
-            if (nbPk_ > CustList.ONE_ELEMENT) {
-                return true;
-            }
-            return false;
+            game.getPlayer().releasePokemon(currentIndexPk_, data);
+            paginationEgg.clear();
+            // release egg
+            // paginationEgg.search(game.getPlayer().getBox());
+        } else {
+            game.getPlayer().releasePokemon(currentIndexPk_, data);
+            // release pokemon
+            firstPaginationPk.clear();
         }
-        if (paginationEgg.currentIndex() != CustList.INDEX_NOT_FOUND_ELT) {
-            return false;
-        }
-        int selected_ = game.getPlayer().getChosenTeamPokemon();
-        if (selected_ == CustList.INDEX_NOT_FOUND_ELT) {
-            return false;
-        }
-        return true;
     }
 
     public boolean isReleasable() {
@@ -552,33 +553,6 @@ public class FacadeGame implements WithMathFactory {
         }
         return game.getPlayer().isReleasable(currentIndexPk_, data);
     }
-
-    public void release() {
-        int currentIndexPk_ = firstPaginationPk.currentIndex();
-        if (currentIndexPk_ == CustList.INDEX_NOT_FOUND_ELT) {
-            currentIndexPk_ = paginationEgg.currentIndex();
-            if (currentIndexPk_ == CustList.INDEX_NOT_FOUND_ELT) {
-                return;
-            }
-            game.getPlayer().releasePokemon(currentIndexPk_, data);
-            paginationEgg.clear();
-            // release egg
-            // paginationEgg.search(game.getPlayer().getBox());
-        } else {
-            if (paginationEgg.currentIndex() != CustList.INDEX_NOT_FOUND_ELT) {
-                return;
-            }
-            int boxSize_ = game.getPlayer().getBox().size();
-            game.getPlayer().releasePokemon(currentIndexPk_, data);
-            // release pokemon
-            if (boxSize_ <= game.getPlayer().getBox().size()) {
-                firstPaginationPk.clear();
-                // firstPaginationPk.search(game.getPlayer().getBox());
-                // secondPaginationPk.search(game.getPlayer().getBox());
-            }
-        }
-    }
-
     public void clearFoundResultsStoragePokemon() {
         paginationEgg.clear();
         firstPaginationPk.clear();
@@ -964,9 +938,6 @@ public class FacadeGame implements WithMathFactory {
         }
         Player pl_ = getPlayer();
         UsablePokemon us_ = pl_.getTeam().get(pl_.getChosenTeamPokemon());
-        if (!(us_ instanceof PokemonPlayer)) {
-            return false;
-        }
         PokemonPlayer pk_ = (PokemonPlayer) us_;
         return !pk_.getItem().isEmpty();
     }
@@ -2433,48 +2404,29 @@ public class FacadeGame implements WithMathFactory {
         comment.clearMessages();
         game.roundWhileKoPlayer(data, _enableAnimation);
         comment.addComment(game.getCommentGame());
-        if (!_enableAnimation) {
-            enabledMovingHero = !game.getFight().getFightType().isExisting();
-            if (enabledMovingHero) {
-                changeToFightScene = false;
-                game.directInteraction(game.closestTile(getMap()), getMap());
-            }
-        }
+        exitDirectFight(_enableAnimation);
     }
+
 
     public void endRoundFightKoUser() {
         comment.clearMessages();
         game.endRoundFightKoUser(data);
         comment.addComment(game.getCommentGame());
-        enabledMovingHero = !game.getFight().getFightType().isExisting();
-        if (enabledMovingHero) {
-            changeToFightScene = false;
-            game.directInteraction(game.closestTile(getMap()), getMap());
-        }
+        exitFight();
     }
 
     public void sendSubstitutes() {
         comment.clearMessages();
         game.sendSubstitutes(data);
         comment.addComment(game.getCommentGame());
-        enabledMovingHero = !game.getFight().getFightType().isExisting();
-        if (enabledMovingHero) {
-            changeToFightScene = false;
-            game.directInteraction(game.closestTile(getMap()), getMap());
-        }
+        exitFight();
     }
 
     public void roundAllThrowers(boolean _enableAnimation) {
         comment.clearMessages();
         game.roundAllThrowers(data, _enableAnimation);
         comment.addComment(game.getCommentGame());
-        if (!_enableAnimation) {
-            enabledMovingHero = !game.getFight().getFightType().isExisting();
-            if (enabledMovingHero) {
-                changeToFightScene = false;
-                game.directInteraction(game.closestTile(getMap()), getMap());
-            }
-        }
+        exitDirectFight(_enableAnimation);
     }
 
     public void roundUser() {
@@ -2487,11 +2439,7 @@ public class FacadeGame implements WithMathFactory {
         comment.clearMessages();
         game.endRoundFightBasic(data);
         comment.addComment(game.getCommentGame());
-        enabledMovingHero = !game.getFight().getFightType().isExisting();
-        if (enabledMovingHero) {
-            changeToFightScene = false;
-            game.directInteraction(game.closestTile(getMap()), getMap());
-        }
+        exitFight();
     }
 
     public boolean isErrorFight() {
@@ -2590,11 +2538,7 @@ public class FacadeGame implements WithMathFactory {
         comment.clearMessages();
         game.learnAndEvolve(data);
         comment.addComment(game.getCommentGame());
-        enabledMovingHero = !game.getFight().getFightType().isExisting();
-        if (enabledMovingHero) {
-            changeToFightScene = false;
-            game.directInteraction(game.closestTile(getMap()), getMap());
-        }
+        exitFight();
     }
 
     // %%%%end%%%% fight evolutions and learning moves
@@ -2607,24 +2551,14 @@ public class FacadeGame implements WithMathFactory {
     public void attemptFlee(boolean _enableAnimation) {
         comment.clearMessages();
         game.attemptFlee(data, _enableAnimation);
-        if (!_enableAnimation) {
-            enabledMovingHero = !game.getFight().getFightType().isExisting();
-            if (enabledMovingHero) {
-                changeToFightScene = false;
-                game.directInteraction(game.closestTile(getMap()), getMap());
-            }
-        }
+        exitDirectFight(_enableAnimation);
         // comment.addComment(game.getPlayer().getCommentGame());
     }
 
     public void endRoundFightFlee() {
         comment.clearMessages();
         game.endRoundFightFlee(data);
-        enabledMovingHero = !game.getFight().getFightType().isExisting();
-        if (enabledMovingHero) {
-            changeToFightScene = false;
-            game.directInteraction(game.closestTile(getMap()), getMap());
-        }
+        exitFight();
     }
 
     public Rate calculateFleeingRate() {
@@ -2636,74 +2570,62 @@ public class FacadeGame implements WithMathFactory {
         comment.clearMessages();
         game.attemptCatchingWildPokemon(_ball, data, _enableAnimation);
         comment.addComment(game.getCommentGame());
-        if (!_enableAnimation) {
-            enabledMovingHero = !game.getFight().getFightType().isExisting();
-            if (enabledMovingHero) {
-                changeToFightScene = false;
-                game.directInteraction(game.closestTile(getMap()), getMap());
-            }
-        }
+        exitDirectFight(_enableAnimation);
     }
 
     public void endRoundFightBall() {
         game.endRoundFightBall(data);
-        enabledMovingHero = !game.getFight().getFightType().isExisting();
-        if (enabledMovingHero) {
-            changeToFightScene = false;
-            game.directInteraction(game.closestTile(getMap()), getMap());
-        }
+        exitFight();
     }
 
     public void endRoundFightSuccessBall() {
         game.endRoundFightSuccessBall(data);
-        enabledMovingHero = !game.getFight().getFightType().isExisting();
-        if (enabledMovingHero) {
-            changeToFightScene = false;
-            game.directInteraction(game.closestTile(getMap()), getMap());
-        }
+        exitFight();
     }
 
     public void notCatchKoWildPokemon() {
         comment.clearMessages();
         game.notCatchKoWildPokemon(data);
         comment.addComment(game.getPlayer().getCommentGame());
-        enabledMovingHero = !game.getFight().getFightType().isExisting();
-        if (enabledMovingHero) {
-            changeToFightScene = false;
-            game.directInteraction(game.closestTile(getMap()), getMap());
-        }
+        exitFight();
     }
 
     public void catchKoWildPokemon(String _ball, String _pseudo) {
         comment.clearMessages();
-        String pseudo_ = _pseudo;
-        if (pseudo_.isEmpty()) {
-            pseudo_ = data.translatePokemon(game.getFight().wildPokemon()
-                    .getName());
-        }
+        String pseudo_ = getNicknameOrDefault(_pseudo);
         game.catchKoWildPokemon(_ball, pseudo_, data);
         comment.addComment(game.getPlayer().getCommentGame());
+        exitFight();
+    }
+
+    public void catchWildPokemon(String _pseudo) {
+        comment.clearMessages();
+        String pseudo_ = getNicknameOrDefault(_pseudo);
+        game.catchWildPokemon(pseudo_, data);
+        comment.addComment(game.getPlayer().getCommentGame());
+        exitFight();
+    }
+
+    public void exitDirectFight(boolean _enableAnimation) {
+        if (!_enableAnimation) {
+            exitFight();
+        }
+    }
+
+    public void exitFight() {
         enabledMovingHero = !game.getFight().getFightType().isExisting();
         if (enabledMovingHero) {
             changeToFightScene = false;
             game.directInteraction(game.closestTile(getMap()), getMap());
         }
     }
-
-    public void catchWildPokemon(String _pseudo) {
-        comment.clearMessages();
+    public String getNicknameOrDefault(String _pseudo) {
         String pseudo_ = _pseudo;
         if (pseudo_.isEmpty()) {
             pseudo_ = data.translatePokemon(game.getFight().wildPokemon()
                     .getName());
         }
-        game.catchWildPokemon(pseudo_, data);
-        comment.addComment(game.getPlayer().getCommentGame());
-        enabledMovingHero = !game.getFight().getFightType().isExisting();
-        if (enabledMovingHero) {
-            changeToFightScene = false;
-            game.directInteraction(game.closestTile(getMap()), getMap());
-        }
+        return pseudo_;
     }
 
     // %%%%end%%%% wild fight
@@ -2805,6 +2727,10 @@ public class FacadeGame implements WithMathFactory {
 
     public Game getGame() {
         return game;
+    }
+
+    public void setGame(Game _game) {
+        game = _game;
     }
 
     public StringList getPlaces() {

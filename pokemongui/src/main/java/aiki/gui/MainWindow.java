@@ -532,6 +532,7 @@ public final class MainWindow extends NetGroupFrame {
                 return;
             }
         }
+        facade.initializePaginatorTranslations();
         ThreadInvoker.invokeNow(new AfterLoadZip(this));
     }
 
@@ -560,6 +561,7 @@ public final class MainWindow extends NetGroupFrame {
                 return;
             }
         }
+        facade.initializePaginatorTranslations();
         ThreadInvoker.invokeNow(new AfterLoadZip(this));
         if (!_files.isEmpty() && _files.values().first() instanceof Game) {
             if (!facade.checkAndSetGame((Game) _files.values().first())) {
@@ -1039,6 +1041,7 @@ public final class MainWindow extends NetGroupFrame {
             return;
         }
         facade.clearGame();
+        facade.initializePaginatorTranslations();
         inBattle = false;
         ThreadInvoker.invokeNow(new ReinitComponents(this));
 //        battle.setVisible(false);
