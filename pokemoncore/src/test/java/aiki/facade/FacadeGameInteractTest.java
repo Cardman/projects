@@ -35,6 +35,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
         facadeGame_.directInteraction();
         facadeGame_.interact();
         assertEq(InterfaceType.RIEN, game_.getInterfaceType());
+        assertTrue(!facadeGame_.isFishArea());
     }
 
     @Test
@@ -48,6 +49,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
         facadeGame_.setData(data);
         facadeGame_.setGame(game_);
         facadeGame_.directInteraction();
+        assertTrue(facadeGame_.isFishArea());
         facadeGame_.interact();
         assertTrue(facadeGame_.isChangeToFightScene());
     }
@@ -239,6 +241,21 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
         assertEq(InterfaceType.FOSSILE, game_.getInterfaceType());
     }
 
+    @Test
+    public void interact16Test() {
+        Game game_ = new Game(data);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
+        game_.setPlayerCoords(newCoords(0, 0, 0, 5));
+        game_.setPlayerOrientation(Direction.DOWN);
+        //newCoords(0, 0, 0, 6) is in this data invalid
+        FacadeGame facadeGame_ = new FacadeGame();
+        facadeGame_.setData(data);
+        facadeGame_.setGame(game_);
+        facadeGame_.directInteraction();
+        assertTrue(!facadeGame_.isFishArea());
+        facadeGame_.interact();
+        assertEq(InterfaceType.RIEN, game_.getInterfaceType());
+    }
     private static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) _place);

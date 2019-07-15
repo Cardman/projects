@@ -1706,9 +1706,6 @@ public class FacadeGame implements WithMathFactory {
     // %%%%begin%%%% option items
     public void chooseObject() {
         String item_ = paginationItem.currentObject();
-        if (item_ == null) {
-            return;
-        }
         game.getPlayer().chooseObject(item_);
     }
 

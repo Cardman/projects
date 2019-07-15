@@ -8,7 +8,6 @@ import aiki.game.params.Difficulty;
 import aiki.map.enums.Direction;
 import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.PokemonPlayer;
-import aiki.map.pokemon.UsablePokemon;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
