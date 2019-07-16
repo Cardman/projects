@@ -16,4 +16,7 @@
 		<java.lang.String class="m" key="" value="msg"/>
 		<java.lang.String class="m" value="messages_tarot"/>
 	</sm>
+	<sl field="addedFiles">
+		<str value="resources_cards/css/tarot.css"/>
+	</sl>
 </cfg>

@@ -19,13 +19,18 @@ import code.gui.ChangeableTitle;
 import code.gui.LabelButton;
 import code.gui.LoadingWeb;
 import code.gui.ProgressingWebDialog;
+import code.resources.ResourceFiles;
 import code.sml.Document;
+import code.sml.util.ResourcesMessagesUtil;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringList;
 import code.util.StringMap;
 
 public final class RenderedPage implements ProcessingSession {
 
+    private static final String SEPARATOR_PATH = "/";
+    private static final String IMPLICIT_LANGUAGE = "//";
     private DualPanel page;
     private final JScrollPane scroll;
     private final Navigation navigation;
@@ -96,12 +101,14 @@ public final class RenderedPage implements ProcessingSession {
     public void initialize(String _conf, BeanLgNames _stds) {
         start();
         standards = _stds;
-        navigation.loadConfiguration(_conf, _stds, new InterruptImpl());
+        String content_ = ResourceFiles.ressourceFichier(_conf);
+        navigation.loadConfiguration(content_, _stds, new InterruptImpl());
         if (navigation.isError()) {
             setupText(true);
             directScroll();
             return;
         }
+        updateFiles(navigation);
         navigation.initializeSession();
         setupText(true);
         directScroll();
@@ -125,28 +132,22 @@ public final class RenderedPage implements ProcessingSession {
     public void initializeHtml(String _conf, BeanLgNames _lgNames) {
         start();
         standards = _lgNames;
-        navigation.loadConfiguration(_conf, _lgNames, new InterruptImpl());
+        String content_ = ResourceFiles.ressourceFichier(_conf);
+        navigation.loadConfiguration(content_, _lgNames, new InterruptImpl());
         if (navigation.isError()) {
             setupText(true);
             finish(false);
             return;
         }
+        updateFiles(navigation);
         navigation.initializeSession();
         setupText(true);
         finish(false);
     }
-    public void initSession(String _conf, BeanLgNames _lgNames) {
-        start();
-        standards = _lgNames;
-        navigation.loadConfiguration(_conf, _lgNames, new InterruptImpl());
-        if (navigation.isError()) {
-            setupText(true);
-            directScroll();
-            return;
-        }
-        navigation.initializeSession();
-        setupText(true);
-        directScroll();
+
+
+    static String getRealFilePath(String _lg, String _link) {
+        return StringList.replace(_link, IMPLICIT_LANGUAGE, StringList.concat(SEPARATOR_PATH,_lg,SEPARATOR_PATH));
     }
     public void refresh() {
         if (processing.get()) {
@@ -170,17 +171,38 @@ public final class RenderedPage implements ProcessingSession {
     public void reInitSession(String _conf, BeanLgNames _lgNames) {
         start();
         standards = _lgNames;
-        navigation.loadConfiguration(_conf, _lgNames, new InterruptImpl());
+        String content_ = ResourceFiles.ressourceFichier(_conf);
+        navigation.loadConfiguration(content_, _lgNames, new InterruptImpl());
         if (navigation.isError()) {
             setupText(true);
             directScroll();
             return;
         }
+        updateFiles(navigation);
         navigation.initializeSession();
         setupText(true);
         directScroll();
     }
 
+    static void updateFiles(Navigation _navigation) {
+        String lg_ = _navigation.getLanguage();
+        StringMap<String> files_ = new StringMap<String>();
+        Configuration session_ = _navigation.getSession();
+        String resourcesFolder_ = _navigation.getResourcesFolder();
+        for (String a: session_.getAddedFiles()) {
+            String name_ = StringList.concat(resourcesFolder_, a);
+            files_.put(a,ResourceFiles.ressourceFichier(name_));
+        }
+        for (String a: session_.getProperties().values()) {
+            String folder_ = session_.getMessagesFolder();
+            String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,lg_,a);
+            files_.put(fileName_,ResourceFiles.ressourceFichier(StringList.concat(resourcesFolder_,fileName_)));
+        }
+        String realFilePath_ = getRealFilePath(lg_, session_.getFirstUrl());
+        String rel_ = StringList.concat(resourcesFolder_,realFilePath_);
+        files_.put(realFilePath_,ResourceFiles.ressourceFichier(rel_));
+        _navigation.setFiles(files_);
+    }
     public void start() {
         processing.set(true);
     }

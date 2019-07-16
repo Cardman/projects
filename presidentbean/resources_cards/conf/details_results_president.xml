@@ -16,4 +16,7 @@
 		<java.lang.String class="m" key="" value="msg"/>
 		<java.lang.String class="m" value="messages_president"/>
 	</sm>
+	<sl field="addedFiles">
+		<str value="resources_cards/css/president.css"/>
+	</sl>
 </cfg>

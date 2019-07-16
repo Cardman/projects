@@ -6,6 +6,7 @@ import javax.swing.Timer;
 import code.formathtml.HtmlPage;
 import code.formathtml.render.MetaDocument;
 import code.formathtml.util.BeanLgNames;
+import code.resources.ResourceFiles;
 import code.sml.Document;
 import code.util.StringList;
 
@@ -56,10 +57,12 @@ public final class ThreadActions extends Thread {
             return;
         }
         if (usedFirstUrl) {
-            page.getNavigation().loadConfiguration(fileName, stds, new InterruptImpl());
+            String content_ = ResourceFiles.ressourceFichier(fileName);
+            page.getNavigation().loadConfiguration(content_, stds, new InterruptImpl());
             if (!page.getNavigation().isError()) {
                 HtmlPage htmlPage_ = page.getNavigation().getHtmlPage();
                 htmlPage_.setUrl(-1);
+                RenderedPage.updateFiles(page.getNavigation());
                 page.getNavigation().initializeSession();
             }
             afterAction();

@@ -27,4 +27,7 @@
 	<hav class="cfg" field="accessValue"/>
 	<sm class="cfg" field="lateValidators"/>
 	<sm class="cfg" field="lateTranslators"/>
+	<sl field="addedFiles">
+		<str value="web_game/css/difficulty.css"/>
+	</sl>
 </cfg>

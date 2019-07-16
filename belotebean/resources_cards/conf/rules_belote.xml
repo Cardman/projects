@@ -16,4 +16,7 @@
 		<java.lang.String class="m" key="" value="msg"/>
 		<java.lang.String class="m" value="messages_belote"/>
 	</sm>
+	<sl field="addedFiles">
+		<str value="resources_cards/css/belote.css"/>
+	</sl>
 </cfg>

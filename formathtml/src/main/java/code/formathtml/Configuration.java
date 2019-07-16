@@ -37,7 +37,6 @@ import code.formathtml.util.StdStruct;
 import code.formathtml.util.StringMapObjectStruct;
 import code.formathtml.util.TranslatorStruct;
 import code.formathtml.util.ValidatorStruct;
-import code.resources.ResourceFiles;
 import code.sml.Document;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -112,6 +111,7 @@ public class Configuration implements ExecutableCode {
 
     private String resourceUrl;
 
+    private StringList addedFiles = new StringList();
     private Interrupt interrupt;
 
     @Override
@@ -165,29 +165,12 @@ public class Configuration implements ExecutableCode {
             return;
         }
         StringMap<String> classFiles_ = new StringMap<String>();
-        boolean allFound_ = true;
         for (String f: content_) {
-            boolean found_ = false;
             for (EntryCust<String, String> e: _files.entryList()) {
                 if (StringList.quickEq(e.getKey(), f)) {
                     classFiles_.put(f, e.getValue());
-                    found_ = true;
                     break;
                 }
-            }
-            if (!found_) {
-                allFound_ = false;
-            }
-        }
-        if (!allFound_) {
-            classFiles_.clear();
-            for (String f: content_) {
-                String contentFile_ = ResourceFiles.ressourceFichier(f);
-                if (contentFile_.isEmpty()) {
-                    setupValiatorsTranslators();
-                    return;
-                }
-                classFiles_.put(f, contentFile_);
             }
         }
         //!classFiles_.isEmpty()
@@ -1092,5 +1075,13 @@ public class Configuration implements ExecutableCode {
         lc_.add(getCatchVars());
         context.getAnalyzing().setCatchVars(lc_);
         context.getAnalyzing().getParameters().putAllMap(getParameters());
+    }
+
+    public StringList getAddedFiles() {
+        return addedFiles;
+    }
+
+    public void setAddedFiles(StringList _addedFiles) {
+        addedFiles = _addedFiles;
     }
 }

@@ -1,6 +1,5 @@
 package code.formathtml;
 import code.expressionlanguage.structs.NullStruct;
-import code.resources.ResourceFiles;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -114,9 +113,6 @@ public final class ExtractFromResources {
                 content_ = e.getValue();
                 break;
             }
-        }
-        if (content_ == null) {
-            content_ = ResourceFiles.ressourceFichierUrls(_fileName, _resourcesFolder);
         }
         if (content_ == null) {
             _conf.getContext().setException(NullStruct.NULL_VALUE);

@@ -22,4 +22,10 @@
 	<hav class="cfg" field="accessValue"/>
 	<sm class="cfg" field="lateValidators"/>
 	<sm class="cfg" field="lateTranslators"/>
+	<sl field="addedFiles">
+		<str value="web_prog/css/difficulty.css"/>
+		<str value="web_prog/html/gameprogall.html"/>
+		<str value="web_prog/html/gameprognotatall.html"/>
+		<str value="web_prog/html/gameprogpart.html"/>
+	</sl>
 </cfg>

@@ -14,12 +14,9 @@ import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
 import code.formathtml.util.StdStruct;
-import code.resources.ResourceFiles;
 import code.sml.*;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.*;
-import code.util.*;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -144,24 +141,9 @@ public final class Navigation {
         }
     }
 
-    public void loadConfiguration(String _conf, BeanLgNames _lgNames, Interrupt _i) {
+    public void loadConfiguration(String _cont, BeanLgNames _lgNames, Interrupt _i) {
         error = false;
-        boolean found_ = false;
-        String fileName_ = EMPTY_STRING;
-        for (EntryCust<String, String> e: files.entryList()) {
-            if (StringList.quickEq(e.getKey(),_conf)) {
-                fileName_ = e.getKey();
-                found_ = true;
-                break;
-            }
-        }
-        String content_;
-        if (found_) {
-            content_ = files.getVal(fileName_);
-        } else {
-            content_ = ResourceFiles.ressourceFichier(_conf);
-        }
-        DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(content_);
+        DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(_cont);
         Document doc_ = res_.getDocument();
         if (doc_ == null) {
             error = true;

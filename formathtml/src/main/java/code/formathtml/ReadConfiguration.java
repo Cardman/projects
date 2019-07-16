@@ -6,7 +6,6 @@ import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultInitializer;
 import code.expressionlanguage.DefaultLockingClass;
-import code.expressionlanguage.SingleContextEl;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -15,6 +14,8 @@ import code.expressionlanguage.variables.VariableSuffix;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
 import code.sml.Element;
+import code.sml.ElementList;
+import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -96,6 +97,9 @@ public final class ReadConfiguration {
             if (StringList.quickEq(fieldName_, "uncompressed")) {
                 _configuration.setUncompressed(Boolean.parseBoolean(c.getAttribute("value")));
                 continue;
+            }
+            if (StringList.quickEq(fieldName_, "addedFiles")) {
+                _configuration.setAddedFiles(getStringList(c));
             }
         }
         if (!found_) {
@@ -240,5 +244,17 @@ public final class ReadConfiguration {
             i_++;
         }
         return validators_;
+    }
+    static StringList getStringList(Element _elt) {
+        ElementList childElements_ = _elt.getChildElements();
+        int len_ = childElements_.getLength();
+        StringList list_ = new StringList(new CollCapacity(len_));
+        for (Element c: childElements_) {
+            list_.add(getString(c));
+        }
+        return list_;
+    }
+    static String getString(Element _elt) {
+        return _elt.getAttribute("value");
     }
 }
