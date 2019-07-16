@@ -72,18 +72,20 @@ public final class CheckNumericStringsFight {
         }
         pk_.setAbility(_data.getAbilities().getKeys().first());
         StringList moves_ = new StringList();
+        StringMap<Short> movesPp_ = new StringMap<Short>();
         for (String m: pokemonData_.getMovesAtLevel(pk_.getLevel(), _data.getNbMaxMoves())) {
             MoveData fAtt_ = _data.getMove(m);
             if (fAtt_ == null) {
                 continue;
             }
+            movesPp_.put(m,fAtt_.getPp());
             moves_.add(m);
         }
         if (moves_.isEmpty()) {
             _data.setError(true);
             return;
         }
-        PokemonPlayer pkUser_ = new PokemonPlayer(pk_, _data);
+        PokemonPlayer pkUser_ = new PokemonPlayer(pk_, _data,movesPp_);
         user_.getTeam().add(pkUser_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         PkTrainer foePokemon_ = new PkTrainer();
