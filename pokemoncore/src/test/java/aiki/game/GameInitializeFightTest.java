@@ -38,7 +38,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Game game_ = new Game(data);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
@@ -66,7 +66,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Game game_ = new Game(data);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)2,(short)0));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
@@ -88,7 +88,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Game game_ = new Game(data);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)0,(short)2));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
@@ -123,7 +123,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         game_.getPlayer().getCaughtPk().put(ARTIKODIN, true);
         game_.getPlayer().getTeam().add(lasPk_);
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)0,(short)2));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
@@ -161,7 +161,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         game_.getPlayer().getCaughtPk().put(MEW, true);
         game_.getPlayer().getTeam().add(lasPk_);
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)2,(short)2));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
@@ -199,7 +199,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         game_.getPlayer().getCaughtPk().put(MEW, true);
         game_.getPlayer().getTeam().add(lasPk_);
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)2,(short)2));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
@@ -214,7 +214,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Game game_ = new Game(data);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)2,(short)0));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
@@ -231,7 +231,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Game game_ = new Game(data);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
@@ -248,7 +248,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Game game_ = new Game(data);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
@@ -265,7 +265,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Game game_ = new Game(data);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
@@ -282,7 +282,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Game game_ = new Game(data);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)2,(short)0));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
@@ -311,7 +311,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         game_.getPlayer().getCaughtPk().put(ARTIKODIN, true);
         game_.getPlayer().getTeam().add(lasPk_);
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)0,(short)2));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
@@ -338,7 +338,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         game_.getPlayer().getCaughtPk().put(ARTIKODIN, true);
         game_.getPlayer().getTeam().add(lasPk_);
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)3,(short)2));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -370,7 +370,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         game_.getPlayer().getCaughtPk().put(ARTIKODIN, true);
         game_.getPlayer().getTeam().add(lasPk_);
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)3,(short)2));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -391,7 +391,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Game game_ = new Game(data);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
@@ -409,7 +409,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         Game game_ = new Game(data);
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         current_.getLevel().getPoint().affect(new Point((short)0,(short)2));
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);

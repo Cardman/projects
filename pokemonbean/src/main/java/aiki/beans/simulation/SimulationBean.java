@@ -237,11 +237,13 @@ public class SimulationBean extends CommonBean {
                     ok = true;
                 }
                 places = new CustList<PlaceIndex>();
-                for (Short i: data_.getMap().getPlaces().getKeys()) {
+                short i_ = 0;
+                for (Place p: data_.getMap().getPlaces()) {
                     PlaceIndex pl_ = new PlaceIndex();
-                    pl_.setIndex(i);
-                    pl_.setPlace(data_.getMap().getPlaces().getVal(i));
+                    pl_.setIndex(i_);
+                    pl_.setPlace(p);
                     places.add(pl_);
+                    i_++;
                 }
                 places.sortElts(new ComparatorPlaceIndex());
             }
@@ -497,7 +499,7 @@ public class SimulationBean extends CommonBean {
         }
         StringBuilder placeName_ = new StringBuilder();
         DataBase data_ = (DataBase) getDataBase();
-        Place pl_ = data_.getMap().getPlaces().getVal(coords.getNumberPlace());
+        Place pl_ = data_.getMap().getPlace(coords.getNumberPlace());
         placeName_.append(pl_.getName());
         placeName_.append(SPACE);
         if (pl_ instanceof Cave) {
@@ -512,7 +514,7 @@ public class SimulationBean extends CommonBean {
 
     private String getTrainerName(Coords _coords) {
         DataBase data_ = (DataBase) getDataBase();
-        Place pl_ = data_.getMap().getPlaces().getVal(_coords.getNumberPlace());
+        Place pl_ = data_.getMap().getPlace(_coords.getNumberPlace());
         Level level_ = pl_.getLevelByCoords(_coords);
         if (level_ instanceof LevelIndoorGym) {
             LevelIndoorGym g_ = (LevelIndoorGym) level_;
@@ -536,7 +538,7 @@ public class SimulationBean extends CommonBean {
     public String clickLevel(Long _indexOne, Long _indexTwo) {
         //getForms().removeKey(INSIDE);
         DataBase data_ = (DataBase) getDataBase();
-        Place pl_ = data_.getMap().getPlaces().getVal(_indexOne.shortValue());
+        Place pl_ = data_.getMap().getPlace(_indexOne.shortValue());
         if (pl_ instanceof League) {
             League l_ = (League) pl_;
             coords = new Coords();

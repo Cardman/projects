@@ -91,7 +91,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         pkData_.getEvolutions().addEntry(PIKACHU, evoMv_);
         data_.completeMembers(PIKACHU3,pkData_);
         data_.sortEndRound();
-        data_.getMap().setPlaces(new ShortMap<Place>());
+        initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         data_.getMap().setUnlockedCity(NULL_REF);
         data_.getMap().setSideLength(2);
@@ -114,6 +114,10 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         assertTrue(data_.isError());
     }
 
+    private static void initPlaces(DataBase _data) {
+        _data.getMap().setPlaces(new CustList<Place>());
+    }
+
     @Test
     public void fail2Test() {
         DataBase data_ =new DataBase();
@@ -125,7 +129,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         pkData_.getLevMoves().add(new LevelMove((short)2,LUTTE));
         data_.completeMembers(PIKACHU,pkData_);
         data_.sortEndRound();
-        data_.getMap().setPlaces(new ShortMap<Place>());
+        initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         data_.getMap().setUnlockedCity(NULL_REF);
         data_.getMap().setSideLength(2);

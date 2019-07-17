@@ -181,7 +181,7 @@ public class FightSimulation {
         foeCoords = _foeCoords;
         freeTeams = false;
         noFight = _index;
-        Place place_ = _import.getMap().getPlaces().getVal(foeCoords.getNumberPlace());
+        Place place_ = _import.getMap().getPlace(foeCoords.getNumberPlace());
         maxActions.clear();
         mult.clear();
         items.clear();
@@ -237,7 +237,7 @@ public class FightSimulation {
         foeCoords = new Coords(_foeCoords);
         freeTeams = false;
         noFight = _index;
-        Place place_ = _import.getMap().getPlaces().getVal(foeCoords.getNumberPlace());
+        Place place_ = _import.getMap().getPlace(foeCoords.getNumberPlace());
         maxActions.clear();
         mult.clear();
         items.clear();
@@ -309,7 +309,7 @@ public class FightSimulation {
     }
 
     public void nextFight(DataBase _import) {
-        Place place_ = _import.getMap().getPlaces().getVal(foeCoords.getNumberPlace());
+        Place place_ = _import.getMap().getPlace(foeCoords.getNumberPlace());
         CustList<Level> list_ = place_.getLevelsList();
         byte index_ = foeCoords.getLevel().getLevelIndex();
         index_++;
@@ -336,7 +336,7 @@ public class FightSimulation {
         if (freeTeams) {
             return false;
         }
-        Place place_ = _import.getMap().getPlaces().getVal(foeCoords.getNumberPlace());
+        Place place_ = _import.getMap().getPlace(foeCoords.getNumberPlace());
         if (!(place_ instanceof League)) {
             return false;
         }
@@ -1500,7 +1500,7 @@ public class FightSimulation {
                 gymLeaders_.add(gym_);
             }
         } else {
-            Place place_ = _import.getMap().getPlaces().getVal(foeCoords.getNumberPlace());
+            Place place_ = _import.getMap().getPlace(foeCoords.getNumberPlace());
             if (place_ instanceof League) {
                 int i_ = CustList.FIRST_INDEX;
                 for (LevelLeague l: ((League)place_).getRooms()) {
@@ -1584,7 +1584,7 @@ public class FightSimulation {
             probleme = true;
             return;
         }
-        Place place_ = _import.getMap().getPlaces().getVal(foeCoords.getNumberPlace());
+        Place place_ = _import.getMap().getPlace(foeCoords.getNumberPlace());
         CustList<Trainer> trainers_;
         CustList<DualFight> duals_;
         trainers_ = new CustList<Trainer>();

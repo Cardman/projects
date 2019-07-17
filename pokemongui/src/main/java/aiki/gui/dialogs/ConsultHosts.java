@@ -71,7 +71,7 @@ public final class ConsultHosts extends Dialog {
             }
         }
         for (short p: hostsByPlace_.getKeys()) {
-            Place pl_ = facade.getMap().getPlaces().getVal(p);
+            Place pl_ = facade.getMap().getPlace(p);
             Panel hosting_ = new Panel();
             hosting_.setLayout(new GridLayout(0,1));
             JLabel place_ = new JLabel(pl_.getName());

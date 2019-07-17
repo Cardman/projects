@@ -2530,7 +2530,7 @@ public final class DocumentReaderAikiCoreUtil {
         _d.setImagesTiles(new StringMap<ObjectMap<ScreenCoords, int[][]>>());
         _d.setLinks(new StringMap<int[][]>());
         _d.setMiniMap(new StringMap<int[][]>());
-        for (Place p : _d.getMap().getPlaces().values()) {
+        for (Place p : _d.getMap().getPlaces()) {
             if (p instanceof League) {
                 League l_ = (League) p;
                 for (Level l : l_.getLevelsList()) {
@@ -8155,11 +8155,10 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static ByteMap<LevelCave> getMapByteLevelCave(Element _elt) {
+    private static CustList<LevelCave> getMapByteLevelCave(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ByteMap<LevelCave> map_ = new ByteMap<LevelCave>(cap_);
         CustList<Byte> keys_ = new CustList<Byte>(cap_);
         CustList<LevelCave> values_ = new CustList<LevelCave>(cap_);
         for (Element c: childElements_) {
@@ -8169,17 +8168,12 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getLevelCave(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
-        }
-        return map_;
+        return values_;
     }
-    private static ShortMap<Place> getMapShortPlace(Element _elt) {
+    private static CustList<Place> getMapShortPlace(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ShortMap<Place> map_ = new ShortMap<Place>(cap_);
         CustList<Short> keys_ = new CustList<Short>(cap_);
         CustList<Place> values_ = new CustList<Place>(cap_);
         for (Element c: childElements_) {
@@ -8189,11 +8183,7 @@ public final class DocumentReaderAikiCoreUtil {
                 values_.add(getPlace(c));
             }
         }
-        int min_ = Math.min(keys_.size(), values_.size());
-        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
-        }
-        return map_;
+        return values_;
     }
     private static ShortMap<EqList<Point>> getMapShortListPoint(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();

@@ -114,7 +114,7 @@ public class GameProgressionBean extends Bean {
         FacadeGame facade_ = (FacadeGame) getDataBase();
         short key_ = remainingOtherTrainerPlaces.getKey(_index.intValue());
         DataMap dataMap_ = facade_.getMap();
-        return dataMap_.getPlaces().getVal(key_).getName();
+        return dataMap_.getPlace(key_).getName();
     }
     public String getTrPokemonNotAll(Long _key, Long _indexList, Long _indexElt) {
         FacadeGame facade_ = (FacadeGame) getDataBase();

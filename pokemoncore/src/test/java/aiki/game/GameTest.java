@@ -879,7 +879,7 @@ public class GameTest extends InitializationDataBase {
         game_.getPlayer().switchTeamOrder((short) 1);
         assertEq(PTITARD, ((PokemonPlayer) game_.getPlayer().getTeam().get(0)).getName());
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
@@ -913,7 +913,7 @@ public class GameTest extends InitializationDataBase {
         game_.getPlayer().switchTeamOrder((short) 1);
         assertEq(PTITARD, ((PokemonPlayer) game_.getPlayer().getTeam().get(0)).getName());
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
@@ -949,7 +949,7 @@ public class GameTest extends InitializationDataBase {
         game_.getPlayer().switchTeamOrder((short) 1);
         assertEq(PTITARD, ((PokemonPlayer) game_.getPlayer().getTeam().get(0)).getName());
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
@@ -986,7 +986,7 @@ public class GameTest extends InitializationDataBase {
         game_.getPlayer().switchTeamOrder((short) 1);
         assertEq(TETARTE, ((PokemonPlayer) game_.getPlayer().getTeam().get(0)).getName());
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
@@ -1024,7 +1024,7 @@ public class GameTest extends InitializationDataBase {
         game_.getPlayer().setChosenTeamPokemon((short) 0);
         game_.getPlayer().learnMove(TOURNIQUET, data);
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
@@ -1062,7 +1062,7 @@ public class GameTest extends InitializationDataBase {
         game_.getPlayer().setChosenTeamPokemon((short) 0);
         game_.getPlayer().learnMove(TOURNIQUET, data);
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
@@ -1102,7 +1102,7 @@ public class GameTest extends InitializationDataBase {
         game_.getPlayer().setChosenTeamPokemon((short) 0);
         game_.getPlayer().learnMove(TOURNIQUET, data);
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
@@ -1144,7 +1144,7 @@ public class GameTest extends InitializationDataBase {
         game_.getPlayer().setChosenTeamPokemon((short) 0);
         game_.getPlayer().learnMove(TOURNIQUET, data);
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
@@ -1185,7 +1185,7 @@ public class GameTest extends InitializationDataBase {
         game_.getPlayer().setChosenTeamPokemon((short) 0);
         game_.getPlayer().learnMove(TOURNIQUET, data);
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
@@ -1226,7 +1226,7 @@ public class GameTest extends InitializationDataBase {
         game_.getPlayer().setChosenTeamPokemon((short) 0);
         game_.getPlayer().learnMove(TOURNIQUET, data);
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
@@ -1263,7 +1263,7 @@ public class GameTest extends InitializationDataBase {
         game_.getPlayer().switchTeamOrder((short) 1);
         assertEq(PTITARD, ((PokemonPlayer) game_.getPlayer().getTeam().get(0)).getName());
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
@@ -1300,7 +1300,7 @@ public class GameTest extends InitializationDataBase {
         game_.getPlayer().switchTeamOrder((short) 1);
         assertEq(PTITARD, ((PokemonPlayer) game_.getPlayer().getTeam().get(0)).getName());
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
@@ -1339,7 +1339,7 @@ public class GameTest extends InitializationDataBase {
         game_.getPlayer().switchTeamOrder((short) 1);
         assertEq(TETARTE, ((PokemonPlayer) game_.getPlayer().getTeam().get(0)).getName());
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
@@ -1437,7 +1437,7 @@ public class GameTest extends InitializationDataBase {
         game_.getPlayer().switchTeamOrder((short) 1);
         assertEq(PTITARD, ((PokemonPlayer) game_.getPlayer().getTeam().get(0)).getName());
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;
@@ -1475,7 +1475,7 @@ public class GameTest extends InitializationDataBase {
         game_.getPlayer().switchTeamOrder((short) 1);
         assertEq(PTITARD, ((PokemonPlayer) game_.getPlayer().getTeam().get(0)).getName());
         DataMap map_ = data.getMap();
-        Campaign pl_ = (Campaign) map_.getPlaces().getVal((short) 0);
+        Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
         LevelWithWildPokemon level_ = pl_.getLevelCompaignByCoords(current_);
         AreaApparition area_;

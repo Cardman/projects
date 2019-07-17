@@ -378,7 +378,11 @@ public final class Game {
             return false;
         }
         boolean correctCoords_ = true;
-        Place curPlace_ = _data.getMap().getPlaces().getVal(playerCoords.getNumberPlace());
+        short numberPlace_ = playerCoords.getNumberPlace();
+        Place curPlace_ = null;
+        if (_data.getMap().getPlaces().isValidIndex(numberPlace_)) {
+            curPlace_ = _data.getMap().getPlace(numberPlace_);
+        }
         if (curPlace_ == null) {
             correctCoords_ = false;
         } else {
@@ -504,7 +508,7 @@ public final class Game {
         if (indexPeriodFishing < 0) {
             return false;
         }
-        Place currentPlace_ = map_.getPlaces().getVal(playerCoords.getNumberPlace());
+        Place currentPlace_ = map_.getPlace(playerCoords.getNumberPlace());
         if (currentPlace_ instanceof League) {
             if (rankLeague < playerCoords.getLevel().getLevelIndex()) {
                 return false;
@@ -535,11 +539,11 @@ public final class Game {
                 map_.getForegroundImages().put(k, new CustList<int[][]>());
                 continue;
             }
-            Place place_ = map_.getPlaces().getVal(coords_.getNumberPlace());
+            Place place_ = map_.getPlace(coords_.getNumberPlace());
             Level level_ = place_.getLevelByCoords(coords_);
             CustList<int[][]> images_ = new CustList<int[][]>();
             Point pt_ = coords_.getLevel().getPoint();
-            for (Place p: map_.getPlaces().values()) {
+            for (Place p: map_.getPlaces()) {
                 if (!(p instanceof League)) {
                     continue;
                 }
@@ -963,7 +967,7 @@ public final class Game {
     public void takeObject(DataBase _d) {
         DataMap d_=_d.getMap();
         Coords voisin_ = closestTile(d_);
-        Place pl_ = d_.getPlaces().getVal(voisin_.getNumberPlace());
+        Place pl_ = d_.getPlace(voisin_.getNumberPlace());
         LevelWithWildPokemon l_ = (LevelWithWildPokemon) pl_.getLevelByCoords(voisin_);
         Point pt_ = voisin_.getLevel().getPoint();
         if (l_.getItems().contains(pt_)) {
@@ -999,7 +1003,7 @@ public final class Game {
     public void initTrainerFight(DataBase _d) {
         DataMap d_=_d.getMap();
         Coords voisin_= closestTile(d_);
-        Place pl_ = d_.getPlaces().getVal(voisin_.getNumberPlace());
+        Place pl_ = d_.getPlace(voisin_.getNumberPlace());
         if (pl_ instanceof League) {
             TrainerLeague tr_ = ((League)pl_).getRooms().get(voisin_.getLevel().getLevelIndex()).getTrainer();
             FightFacade.initFight(fight,player,difficulty,tr_,_d);
@@ -1065,7 +1069,7 @@ public final class Game {
         if (!voisin_.isValid()) {
             return false;
         }
-        Place pl_ = d_.getPlaces().getVal(voisin_.getNumberPlace());
+        Place pl_ = d_.getPlace(voisin_.getNumberPlace());
         if (pl_ instanceof League) {
             League league_ = (League) pl_;
             LevelLeague level_ = league_.getRooms().get(voisin_.getLevel().getLevelIndex());
@@ -1109,7 +1113,7 @@ public final class Game {
         }
         DataMap d_=_d.getMap();
         Coords voisin_= closestTile(d_);
-        Place pl_ = d_.getPlaces().getVal(voisin_.getNumberPlace());
+        Place pl_ = d_.getPlace(voisin_.getNumberPlace());
         if (pl_ instanceof League) {
             TrainerLeague tr_ = ((League)pl_).getRooms().get(voisin_.getLevel().getLevelIndex()).getTrainer();
             return _d.getTrainer(tr_.getImageMaxiFileName());
@@ -1161,7 +1165,7 @@ public final class Game {
     public void initLegendaryPokemonFight(DataBase _d){
         DataMap d_=_d.getMap();
         Coords voisin_= closestTile(d_);
-        Place place_ = d_.getPlaces().getVal(voisin_.getNumberPlace());
+        Place place_ = d_.getPlace(voisin_.getNumberPlace());
         Level level_ = place_.getLevelByCoords(voisin_);
         Point pt_ = voisin_.getLevel().getPoint();
         WildPk pkLeg_ = ((LevelWithWildPokemon)level_).getPokemon(pt_);
@@ -1271,7 +1275,7 @@ public final class Game {
         }
         DataMap d_=_import.getMap();
         Coords coordsFoe_ = closestTile(d_);
-        Place pl_ = d_.getPlaces().getVal(playerCoords.getNumberPlace());
+        Place pl_ = d_.getPlace(playerCoords.getNumberPlace());
         int sommeNiveau_ = 0;
         Team equipeAdv_=fight.getFoeTeam();
         for(byte c:equipeAdv_.getMembers().getKeys()){
@@ -1549,7 +1553,7 @@ public final class Game {
         StringList partiallyAccessiblePlaces_ = new StringList();
         StringList fullAccessiblePlaces_ = new StringList();
         for (Short c: accessiblePlaces_) {
-            Place pl_ = map_.getPlaces().getVal(c);
+            Place pl_ = map_.getPlace(c);
             if (inaccessiblePlaces_.containsObj(c)) {
                 partiallyAccessiblePlaces_.add(pl_.getName());
             } else {
@@ -1571,7 +1575,7 @@ public final class Game {
 
     void addPossibleBeatLeader(DataBase _import) {
         Coords next_ = closestTile(_import.getMap());
-        City city_ = (City) _import.getMap().getPlaces().getVal(next_.getNumberPlace());
+        City city_ = (City) _import.getMap().getPlace(next_.getNumberPlace());
         Gym building_ = (Gym) city_.getBuildings().getVal(next_.getInsideBuilding());
         LevelIndoorGym lev_ = (LevelIndoorGym) city_.getLevelByCoords(next_);
         boolean canBeat_ = beatGymTrainer.getVal(next_.getNumberPlace()).containsAllObj(building_.getIndoor().getGymTrainers().getKeys());
@@ -1833,7 +1837,7 @@ public final class Game {
         if (!n_.isValid()) {
             return false;
         }
-        Place place_ = _import.getMap().getPlaces().getVal(n_.getNumberPlace());
+        Place place_ = _import.getMap().getPlace(n_.getNumberPlace());
         Level level_ = place_.getLevelByCoords(n_);
         Point pt_ = n_.getLevel().getPoint();
         if (level_ instanceof LevelWithWildPokemon) {
@@ -1865,7 +1869,7 @@ public final class Game {
         }
         for (NbFightCoords k: beatTrainer.getKeys()) {
             Coords coords_ = k.getCoords();
-            Campaign place_ = (Campaign) _d.getMap().getPlaces().getVal(coords_.getNumberPlace());
+            Campaign place_ = (Campaign) _d.getMap().getPlace(coords_.getNumberPlace());
             LevelWithWildPokemon level_ = place_.getLevelCompaignByCoords(coords_);
             TrainerMultiFights trainer_ = (TrainerMultiFights) level_.getCharacters().getVal(coords_.getLevel().getPoint());
             if (k.getNbFight() == trainer_.getTeamsRewards().getLastIndex()) {
@@ -2002,7 +2006,7 @@ public final class Game {
         if(!voisin_.isValid()){
             return;
         }
-        Place nextPl_ = map_.getPlaces().getVal(voisin_.getNumberPlace());
+        Place nextPl_ = map_.getPlace(voisin_.getNumberPlace());
         if (nextPl_ instanceof League) {
             if (!isEmpty(map_, voisin_)) {
                 return;
@@ -2033,7 +2037,7 @@ public final class Game {
                 EqList<Coords> noBeaten_ = new EqList<Coords>(map_.getAccessCondition().getVal(voisin_));
                 noBeaten_.removeAllElements(leaders_);
                 for (Coords c: noBeaten_) {
-                    Place pl_ = map_.getPlaces().getVal(c.getNumberPlace());
+                    Place pl_ = map_.getPlace(c.getNumberPlace());
                     String name_ = map_.getTrainerName(c);
                     commentGame.addMessage(mess_.getVal(NO_BEATEN_TRAINER), name_, pl_.getName());
                 }
@@ -2042,7 +2046,7 @@ public final class Game {
         }
         int nbPlaces_ = map_.getPlaces().size();
         for (short p=CustList.FIRST_INDEX;p<nbPlaces_;p++) {
-            Place place_ = map_.getPlaces().getVal(p);
+            Place place_ = map_.getPlace(p);
             if (!(place_ instanceof League)) {
                 continue;
             }
@@ -2142,7 +2146,7 @@ public final class Game {
             interfaceType=InterfaceType.RIEN;
             return;
         }
-        Place pl_ = _map.getPlaces().getVal(_voisin.getNumberPlace());
+        Place pl_ = _map.getPlace(_voisin.getNumberPlace());
         Point pt_ = _voisin.getLevel().getPoint();
         if (pl_ instanceof League) {
             LevelLeague level_ = ((League)pl_).getRooms().get(_voisin.getLevel().getLevelIndex());
@@ -2385,7 +2389,7 @@ public final class Game {
     }
 
     public boolean isEmpty(DataMap _map, Coords _coords) {
-        Place place_ = _map.getPlaces().getVal(_coords.getNumberPlace());
+        Place place_ = _map.getPlace(_coords.getNumberPlace());
         Level level_ = place_.getLevelByCoords(_coords);
         Point pt_ = _coords.getLevel().getPoint();
         if (!(level_ instanceof LevelWithWildPokemon)) {

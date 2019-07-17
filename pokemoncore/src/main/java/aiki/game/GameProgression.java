@@ -77,18 +77,18 @@ public final class GameProgression {
         }
         beatenImportantTrainers = new CustList<TrainerPlaceNames>();
         for (Coords c: _game.getBeatenGymLeader()) {
-            Place pl_ = _data.getMap().getPlaces().getVal(c.getNumberPlace());
+            Place pl_ = _data.getMap().getPlace(c.getNumberPlace());
             beatenImportantTrainers.add(new TrainerPlaceNames(_data.getMap().getTrainerName(c), pl_.getName()));
         }
         unBeatenImportantTrainers = new CustList<TrainerPlaceNames>();
         for (Coords c: _game.getUnBeatenGymLeader()) {
-            Place pl_ = _data.getMap().getPlaces().getVal(c.getNumberPlace());
+            Place pl_ = _data.getMap().getPlace(c.getNumberPlace());
             unBeatenImportantTrainers.add(new TrainerPlaceNames(_data.getMap().getTrainerName(c), pl_.getName()));
         }
         remainingOtherTrainerPlaces = new ShortMap<Integer>();
         for (NbFightCoords k: _game.getBeatTrainer().getKeys()) {
             Coords coords_ = k.getCoords();
-            Campaign place_ = (Campaign) _data.getMap().getPlaces().getVal(coords_.getNumberPlace());
+            Campaign place_ = (Campaign) _data.getMap().getPlace(coords_.getNumberPlace());
             LevelWithWildPokemon level_ = place_.getLevelCompaignByCoords(coords_);
             TrainerMultiFights trainer_ = (TrainerMultiFights) level_.getCharacters().getVal(coords_.getLevel().getPoint());
             if (k.getNbFight() < trainer_.getTeamsRewards().getLastIndex()) {
@@ -108,11 +108,11 @@ public final class GameProgression {
         visitedPlaces = new StringList();
         unVisitedPlaces = new StringList();
         for (Coords c: _game.getVisited()) {
-            Place pl_ = _data.getMap().getPlaces().getVal(c.getNumberPlace());
+            Place pl_ = _data.getMap().getPlace(c.getNumberPlace());
             visitedPlaces.add(pl_.getName());
         }
         for (Coords c: _game.getUnVisited()) {
-            Place pl_ = _data.getMap().getPlaces().getVal(c.getNumberPlace());
+            Place pl_ = _data.getMap().getPlace(c.getNumberPlace());
             unVisitedPlaces.add(pl_.getName());
         }
         int nbRemainingEggs_ = _game.getPlayer().getEggsList().size();

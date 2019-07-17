@@ -1311,7 +1311,7 @@ public final class Instances {
     public static DataMap newDataMap() {
         DataMap object_ = new DataMap();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setPlaces(new ShortMap<Place>(cap_));
+        object_.setPlaces(new CustList<Place>(cap_));
         object_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>(cap_));
         object_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>(cap_));
         object_.setUnlockedCity(DataBase.EMPTY_STRING);
@@ -1513,7 +1513,7 @@ public final class Instances {
         Cave object_ = new Cave();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setName(DataBase.EMPTY_STRING);
-        object_.setLevels(new ByteMap<LevelCave>(cap_));
+        object_.setLevels(new CustList<LevelCave>(cap_));
         object_.setLinksWithOtherPlaces(new ObjectMap<LevelPoint,Link>(cap_));
         return object_;
     }

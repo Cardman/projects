@@ -16,8 +16,8 @@ public final class ComparatorCoords implements Comparing<Coords> {
 
     @Override
     public int compare(Coords _o1, Coords _o2) {
-        Place plOne_ = data.getMap().getPlaces().getVal(_o1.getNumberPlace());
-        Place plTwo_ = data.getMap().getPlaces().getVal(_o2.getNumberPlace());
+        Place plOne_ = data.getMap().getPlace(_o1.getNumberPlace());
+        Place plTwo_ = data.getMap().getPlace(_o2.getNumberPlace());
         int res_ = plOne_.getName().compareTo(plTwo_.getName());
         if (res_ != CustList.EQ_CMP) {
             return res_;

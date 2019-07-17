@@ -236,7 +236,7 @@ public class FacadeGame implements WithMathFactory {
 
     public String getCurrentPlace() {
         short noPlace_ = game.getPlayerCoords().getNumberPlace();
-        Place pl_ = data.getMap().getPlaces().getVal(noPlace_);
+        Place pl_ = data.getMap().getPlace(noPlace_);
         return pl_.getName();
     }
 
@@ -982,7 +982,7 @@ public class FacadeGame implements WithMathFactory {
             if (Numbers.eq(tile_.getPlace(), CustList.INDEX_NOT_FOUND_ELT)) {
                 continue;
             }
-            Place pl_ = data.getMap().getPlaces().getVal(tile_.getPlace());
+            Place pl_ = data.getMap().getPlace(tile_.getPlace());
             if (!(pl_ instanceof City)) {
                 continue;
             }
@@ -1008,7 +1008,7 @@ public class FacadeGame implements WithMathFactory {
         if (!coords_.isValid()) {
             return DataBase.EMPTY_STRING;
         }
-        Place pl_ = data.getMap().getPlaces().getVal(coords_.getNumberPlace());
+        Place pl_ = data.getMap().getPlace(coords_.getNumberPlace());
         return pl_.getName();
     }
 
@@ -1123,8 +1123,7 @@ public class FacadeGame implements WithMathFactory {
         if (_buy) {
             Coords coords_;
             coords_ = game.closestTile(data.getMap());
-            City pl_ = (City) data.getMap().getPlaces()
-                    .getVal(coords_.getNumberPlace());
+            City pl_ = (City) data.getMap().getPlace(coords_.getNumberPlace());
             LevelIndoorPokemonCenter lev_ = (LevelIndoorPokemonCenter) pl_
                     .getLevelByCoords(coords_);
             Seller seller_ = (Seller) lev_.getGerants().getVal(
@@ -1408,8 +1407,7 @@ public class FacadeGame implements WithMathFactory {
     public void searchTmToBuy() {
         Coords coords_;
         coords_ = game.closestTile(data.getMap());
-        City pl_ = (City) data.getMap().getPlaces()
-                .getVal(coords_.getNumberPlace());
+        City pl_ = (City) data.getMap().getPlace(coords_.getNumberPlace());
         LevelIndoorPokemonCenter lev_ = (LevelIndoorPokemonCenter) pl_
                 .getLevelByCoords(coords_);
         Seller seller_ = (Seller) lev_.getGerants().getVal(
@@ -1883,7 +1881,7 @@ public class FacadeGame implements WithMathFactory {
         if (!next_.isValid()) {
             return false;
         }
-        Place pl_ = data.getMap().getPlaces().getVal(next_.getNumberPlace());
+        Place pl_ = data.getMap().getPlace(next_.getNumberPlace());
         Level l_ = pl_.getLevelByCoords(next_);
         if (l_.getBlockByPoint(next_.getLevel().getPoint()).getType() == EnvironmentType.WATER) {
             return true;

@@ -79,9 +79,9 @@ public class DataMapClosestTileTest {
         City cityOne_ = city();
         Road roadOne_ = vroad();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setPlaces(new ShortMap<Place>());
-        dataMap_.getPlaces().put((short)0,cityOne_);
-        dataMap_.getPlaces().put((short)1,roadOne_);
+        dataMap_.setPlaces(new CustList<Place>());
+        dataMap_.getPlaces().add(cityOne_);
+        dataMap_.getPlaces().add(roadOne_);
         dataMap_.join((short)0, (short)1, new Point((short)4,(short)0), new Point((short)1,(short)5), Direction.UP);
         dataMap = dataMap_;
     }

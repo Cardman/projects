@@ -118,9 +118,9 @@ public class TreeTest {
     public void initialize1Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new ShortMap<Place>());
+        initPlaces(dataMap_);
         City city_ = city();
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
+        dataMap_.getPlaces().add( city_);
         Road road_ = vroad();
         AreaApparition areaApp_ = new AreaApparition();
         areaApp_.setMultFight((byte) 1);
@@ -144,7 +144,7 @@ public class TreeTest {
         areaApp_.initializeWildPokemon();
         road_.getLevelRoad().getWildPokemonAreas().add(areaApp_);
         road_.getLevel().getBlocks().getVal(point(0,0)).setIndexApparition((short) 0);
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), road_);
+        dataMap_.getPlaces().add( road_);
         Tree tree_ = new Tree();
         tree_.initialize(dataMap_);
         assertEq(2, tree_.getPlaces().size());
@@ -204,13 +204,17 @@ public class TreeTest {
         assertEq(new Dims(3,6), area_.getDimsBlocks().getVal(point(0, 0)));
     }
 
+    private static void initPlaces(DataMap _dataMap) {
+        _dataMap.setPlaces(new CustList<Place>());
+    }
+
     @Test
     public void isValid1Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new ShortMap<Place>());
+        initPlaces(dataMap_);
         City city_ = city();
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
+        dataMap_.getPlaces().add( city_);
         Road road_ = vroad();
         AreaApparition areaApp_ = new AreaApparition();
         areaApp_.setMultFight((byte) 1);
@@ -234,7 +238,7 @@ public class TreeTest {
         areaApp_.initializeWildPokemon();
         road_.getLevelRoad().getWildPokemonAreas().add(areaApp_);
         road_.getLevel().getBlocks().getVal(point(0,0)).setIndexApparition((short) 0);
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), road_);
+        dataMap_.getPlaces().add( road_);
         Tree tree_ = new Tree();
         tree_.initialize(dataMap_);
         assertTrue(!tree_.isValid(coords(0, 0, 3, 3), true));
@@ -244,9 +248,9 @@ public class TreeTest {
     public void isValid2Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new ShortMap<Place>());
+        initPlaces(dataMap_);
         City city_ = city();
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
+        dataMap_.getPlaces().add( city_);
         Road road_ = vroad();
         AreaApparition areaApp_ = new AreaApparition();
         areaApp_.setMultFight((byte) 1);
@@ -270,7 +274,7 @@ public class TreeTest {
         areaApp_.initializeWildPokemon();
         road_.getLevelRoad().getWildPokemonAreas().add(areaApp_);
         road_.getLevel().getBlocks().getVal(point(0,0)).setIndexApparition((short) 0);
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), road_);
+        dataMap_.getPlaces().add( road_);
         Tree tree_ = new Tree();
         tree_.initialize(dataMap_);
         assertTrue(tree_.isValid(coords(0, 4, 5, 3, 3), true));

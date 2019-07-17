@@ -76,7 +76,7 @@ public class SolutionBean extends CommonBean {
             StepDto s_ = new StepDto(treeMap_);
             CustList<PlaceTrainerDto> places_ = new CustList<PlaceTrainerDto>();
             for (Coords cTrainer_: step_.getImportantsTrainers()) {
-                Place pl_ = data_.getMap().getPlaces().getVal(cTrainer_.getNumberPlace());
+                Place pl_ = data_.getMap().getPlace(cTrainer_.getNumberPlace());
                 Level level_ = pl_.getLevelByCoords(cTrainer_);
                 String trainerName_ = DataBase.EMPTY_STRING;
                 if (level_ instanceof LevelIndoorGym) {
@@ -130,7 +130,7 @@ public class SolutionBean extends CommonBean {
         keys_.sortElts(new ComparatorPlaceLevel());
         DataBase data_ = (DataBase) getDataBase();
         PlaceLevel key_ = keys_.get(_indexPlace.intValue());
-        Place place_ = data_.getMap().getPlaces().getVal(key_.getPlace());
+        Place place_ = data_.getMap().getPlace(key_.getPlace());
         String name_ = place_.getName();
         if (place_.getLevelsMap().size() == DataBase.ONE_POSSIBLE_CHOICE) {
             return name_;

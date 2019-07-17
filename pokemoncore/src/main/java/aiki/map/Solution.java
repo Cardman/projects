@@ -10,7 +10,7 @@ public class Solution {
 
     private CustList<Step> steps;
 
-    public Solution(ObjectMap<Coords, Condition> _accessibility, ShortMap<Place> _places, Tree _tree) {
+    public Solution(ObjectMap<Coords, Condition> _accessibility, CustList<Place> _places, Tree _tree) {
         steps = new CustList<Step>();
         Step step_ = new Step(_accessibility, _places, _tree);
         steps.add(step_);

@@ -83,7 +83,7 @@ public abstract class Level {
     public static ObjectMap<Point, int[][]> getLevelBackgroundImage(
             DataBase _data, Coords _coords) {
         int sideLen_ = _data.getMap().getSideLength();
-        Place pl_ = _data.getMap().getPlaces().getVal(_coords.getNumberPlace());
+        Place pl_ = _data.getMap().getPlace(_coords.getNumberPlace());
         Level lev_ = pl_.getLevelByCoords(_coords);
         ObjectMap<Point, int[][]> tiles_ = new ObjectMap<Point, int[][]>();
         for (Point p : lev_.getBlocks().getKeys()) {
@@ -106,12 +106,12 @@ public abstract class Level {
 
     public static ObjectMap<Point, int[][]> getLevelForegroundImage(
             DataBase _data, Coords _coords) {
-        Place pl_ = _data.getMap().getPlaces().getVal(_coords.getNumberPlace());
+        Place pl_ = _data.getMap().getPlace(_coords.getNumberPlace());
         Level lev_ = pl_.getLevelByCoords(_coords);
         ObjectMap<Point, int[][]> frontTiles_ = new ObjectMap<Point, int[][]>();
         Coords curCoords_ = new Coords(_coords);
         curCoords_.getLevel().setPoint(new Point((short)0,(short)0));
-        for (Place p : _data.getMap().getPlaces().values()) {
+        for (Place p : _data.getMap().getPlaces()) {
             if (!(p instanceof League)) {
                 continue;
             }

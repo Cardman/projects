@@ -118,9 +118,9 @@ public class PlaceAreaTest {
     public void initialize1Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new ShortMap<Place>());
+        initPlaces(dataMap_);
         City city_ = city();
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
+        dataMap_.getPlaces().add( city_);
         PlaceArea areaPl_ = new PlaceArea();
         areaPl_.initialize(city_);
         assertEq(1, areaPl_.getBuildings().size());
@@ -161,11 +161,15 @@ public class PlaceAreaTest {
         assertEq(new Dims(3,3), area_.getDimsBlocks().getVal(point(6, 6)));
     }
 
+    private static void initPlaces(DataMap _dataMap) {
+        _dataMap.setPlaces(new CustList<Place>());
+    }
+
     @Test
     public void initialize2Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new ShortMap<Place>());
+        initPlaces(dataMap_);
         Road road_ = vroad();
         AreaApparition areaApp_ = new AreaApparition();
         areaApp_.setMultFight((byte) 1);
@@ -189,7 +193,7 @@ public class PlaceAreaTest {
         areaApp_.initializeWildPokemon();
         road_.getLevelRoad().getWildPokemonAreas().add(areaApp_);
         road_.getLevel().getBlocks().getVal(point(0,0)).setIndexApparition((short) 0);
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), road_);
+        dataMap_.getPlaces().add( road_);
         PlaceArea areaPl_ = new PlaceArea();
         areaPl_.initialize(road_);
         assertEq(0, areaPl_.getBuildings().size());
@@ -215,9 +219,9 @@ public class PlaceAreaTest {
     public void isValid1Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new ShortMap<Place>());
+        initPlaces(dataMap_);
         City city_ = city();
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
+        dataMap_.getPlaces().add( city_);
         PlaceArea areaPl_ = new PlaceArea();
         areaPl_.initialize(city_);
         assertTrue(areaPl_.isValid(coords(0, 4, 5, 0, 0), true));
@@ -227,9 +231,9 @@ public class PlaceAreaTest {
     public void isValid2Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new ShortMap<Place>());
+        initPlaces(dataMap_);
         City city_ = city();
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
+        dataMap_.getPlaces().add( city_);
         PlaceArea areaPl_ = new PlaceArea();
         areaPl_.initialize(city_);
         assertTrue(!areaPl_.isValid(coords(0, 4, 6, 0, 0), true));
@@ -239,7 +243,7 @@ public class PlaceAreaTest {
     public void isValid3Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new ShortMap<Place>());
+        initPlaces(dataMap_);
         Road road_ = vroad();
         AreaApparition areaApp_ = new AreaApparition();
         areaApp_.setMultFight((byte) 1);
@@ -263,7 +267,7 @@ public class PlaceAreaTest {
         areaApp_.initializeWildPokemon();
         road_.getLevelRoad().getWildPokemonAreas().add(areaApp_);
         road_.getLevel().getBlocks().getVal(point(0,0)).setIndexApparition((short) 0);
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), road_);
+        dataMap_.getPlaces().add( road_);
         PlaceArea areaPl_ = new PlaceArea();
         areaPl_.initialize(road_);
         assertTrue(areaPl_.isValid(coords(0, 0, 0, 0), true));

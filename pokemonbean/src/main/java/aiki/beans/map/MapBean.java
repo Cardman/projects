@@ -22,11 +22,13 @@ public class MapBean extends CommonBean {
         getForms().removeKey(INSIDE);
         places = new CustList<PlaceIndex>();
         DataBase data_ = (DataBase) getDataBase();
-        for (Short i: data_.getMap().getPlaces().getKeys()) {
+        short i_ = 0;
+        for (Place p: data_.getMap().getPlaces()) {
             PlaceIndex pl_ = new PlaceIndex();
-            pl_.setIndex(i);
-            pl_.setPlace(data_.getMap().getPlaces().getVal(i));
+            pl_.setIndex(i_);
+            pl_.setPlace(p);
             places.add(pl_);
+            i_++;
         }
         places.sortElts(new ComparatorPlaceIndex());
     }

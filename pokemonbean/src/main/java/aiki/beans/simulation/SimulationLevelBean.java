@@ -43,11 +43,13 @@ public class SimulationLevelBean extends CommonBean {
         noFight = (Integer) getForms().getVal(NO_FIGHT);
         CustList<PlaceIndex> places_ = new CustList<PlaceIndex>();
         DataBase data_ = (DataBase) getDataBase();
-        for (Short i: data_.getMap().getPlaces().getKeys()) {
+        short i_ = 0;
+        for (Place p: data_.getMap().getPlaces()) {
             PlaceIndex pl_ = new PlaceIndex();
-            pl_.setIndex(i);
-            pl_.setPlace(data_.getMap().getPlaces().getVal(i));
+            pl_.setIndex(i_);
+            pl_.setPlace(p);
             places_.add(pl_);
+            i_++;
         }
         places_.sortElts(new ComparatorPlaceIndex());
         possibleMultiLayer = false;
@@ -58,7 +60,7 @@ public class SimulationLevelBean extends CommonBean {
         if (getForms().contains(INSIDE)) {
             Point ptInside_ = (Point) getForms().getVal(INSIDE);
             Short pl_ = (Short) getForms().getVal(PLACE_MAP_INDEX);
-            Place place_ = data_.getMap().getPlaces().getVal(pl_);
+            Place place_ = data_.getMap().getPlace(pl_);
             if (place_ instanceof City) {
                 City city_ = (City) place_;
                 if (city_.getBuildings().getVal(ptInside_) instanceof Gym) {
@@ -76,16 +78,16 @@ public class SimulationLevelBean extends CommonBean {
             outside = true;
             Byte lev_ = (Byte) getForms().getVal(LEVEL_MAP_INDEX);
             Short pl_ = (Short) getForms().getVal(PLACE_MAP_INDEX);
-            if (data_.getMap().getPlaces().getVal(pl_) instanceof League) {
+            if (data_.getMap().getPlace(pl_) instanceof League) {
                 possibleMultiLayer = true;
             }
-            if (data_.getMap().getPlaces().getVal(pl_) instanceof Cave) {
+            if (data_.getMap().getPlace(pl_) instanceof Cave) {
                 possibleMultiLayer = true;
             }
-            if (data_.getMap().getPlaces().getVal(pl_) instanceof Road) {
+            if (data_.getMap().getPlace(pl_) instanceof Road) {
                 road = true;
             }
-            placeName = data_.getMap().getPlaces().getVal(pl_).getName();
+            placeName = data_.getMap().getPlace(pl_).getName();
             levelIndex = lev_.intValue();
             for (EntryCust<Point,int[][]> pt_: data_.getLevelImage(pl_, lev_).entryList()) {
                 tiles.put(pt_.getKey(), BaseSixtyFourUtil.getStringByImage(pt_.getValue()));
@@ -118,7 +120,7 @@ public class SimulationLevelBean extends CommonBean {
         Short pl_ = (Short) getForms().getVal(PLACE_MAP_INDEX);
         Byte lev_ = (Byte) getForms().getVal(LEVEL_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
-        Place p_ = data_.getMap().getPlaces().getVal(pl_);
+        Place p_ = data_.getMap().getPlace(pl_);
         //getForms().put(FROM_LIST, false);
         if (p_ instanceof City) {
             City c_ = (City) p_;

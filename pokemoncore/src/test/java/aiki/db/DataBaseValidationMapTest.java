@@ -67,9 +67,9 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
-        map_.getPlaces().addEntry((short)0,Instances.newRoad());
+        map_.getPlaces().add(Instances.newRoad());
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -95,9 +95,9 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
-        map_.getPlaces().addEntry((short)0,Instances.newRoad());
+        map_.getPlaces().add(Instances.newRoad());
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -124,7 +124,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Road r_ = Instances.newRoad();
         Block block_ = Instances.newBlock();
@@ -169,8 +169,8 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         dual_.setPt(new Point((short)4,(short)4));
         r_.getLevelRoad().getDualFights().addEntry(new Point((short)3,(short)3), dual_);
         r_.getLevelRoad().getItems().addEntry(new Point((short)5,(short)5),ELECTRICK);
-        map_.getPlaces().addEntry((short)0, r_);
-        map_.getPlaces().addEntry((short)1, Instances.newCity());
+        map_.getPlaces().add(r_);
+        map_.getPlaces().add(Instances.newCity());
         City city_ = Instances.newCity();
         PokemonCenter pokemonCenter_ = Instances.newPokemonCenter();
         pokemonCenter_.getIndoor().getBlocks().addEntry(new Point((short)0,(short)0),Instances.newBlock());
@@ -205,7 +205,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         gym_.getIndoor().setGymLeaderCoords(new Point((short)2,(short)2));
         gym_.setExitCity(new Point((short)10,(short)10));
         city_.getBuildings().addEntry(new Point((short)1,(short)1), gym_);
-        map_.getPlaces().addEntry((short)2, city_);
+        map_.getPlaces().add(city_);
         city_ = Instances.newCity();
         block_ = Instances.newBlock();
         block_.setHeight((short) 2);
@@ -225,7 +225,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         block_.setWidth((short) 2);
         block_.setIndexApparition((short) 0);
         city_.getLevelOutdoor().getBlocks().addEntry(new Point((short)10,(short)0),block_);
-        map_.getPlaces().addEntry((short)3, city_);
+        map_.getPlaces().add(city_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -252,7 +252,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Road r_ = Instances.newRoad();
         Block block_ = Instances.newBlock();
@@ -279,8 +279,8 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         DualFight dual_ = Instances.newDualFight();
         dual_.setPt(new Point((short)4,(short)4));
         r_.getLevelRoad().getDualFights().addEntry(new Point((short)3,(short)3), dual_);
-        map_.getPlaces().addEntry((short)0, r_);
-        map_.getPlaces().addEntry((short)1, Instances.newCity());
+        map_.getPlaces().add( r_);
+        map_.getPlaces().add( Instances.newCity());
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -308,7 +308,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Road r_ = Instances.newRoad();
         Block block_ = Instances.newBlock();
@@ -316,7 +316,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         block_.setWidth((short) 1);
         block_.setIndexApparition((short)0);
         r_.getLevelRoad().getBlocks().addEntry(new Point((short)0,(short)0), block_);
-        map_.getPlaces().addEntry((short)0, r_);
+        map_.getPlaces().add( r_);
         League league_ = Instances.newLeague();
         LevelLeague room_ = Instances.newLevelLeague();
         block_ = Instances.newBlock();
@@ -339,10 +339,10 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         room_.setNextLevelTarget(new Point((short)1,(short)1));
         league_.getRooms().add(room_);
         league_.setBegin(new Point((short)1,(short)1));
-        map_.getPlaces().addEntry((short)1, league_);
+        map_.getPlaces().add( league_);
         league_ = Instances.newLeague();
         league_.setAccessCoords(newCoords(1,5,2,2));
-        map_.getPlaces().addEntry((short)2, league_);
+        map_.getPlaces().add( league_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -373,7 +373,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Road r_ = Instances.newRoad();
         Block block_ = Instances.newBlock();
@@ -391,15 +391,15 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         r_.getLevelRoad().getLegendaryPks().addEntry(new Point((short)5,(short)5),Instances.newWildPk());
         r_.getLevelRoad().getTm().addEntry(new Point((short)5,(short)5),(short)100);
         r_.getLevelRoad().getHm().addEntry(new Point((short)5,(short)5),(short)100);
-        map_.getPlaces().addEntry((short)0, r_);
-        map_.getPlaces().addEntry((short)1, Instances.newCity());
+        map_.getPlaces().add( r_);
+        map_.getPlaces().add( Instances.newCity());
         City city_ = Instances.newCity();
         Gym gym_ = Instances.newGym();
         gym_.setExitCity(new Point((short)10,(short)10));
         city_.getBuildings().addEntry(new Point((short)1,(short)1), gym_);
         city_.getBuildings().addEntry(new Point((short)1,(short)2), Instances.newGym());
         city_.getBuildings().addEntry(new Point((short)1,(short)3), Instances.newPokemonCenter());
-        map_.getPlaces().addEntry((short)2, city_);
+        map_.getPlaces().add( city_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -426,7 +426,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Cave r_ = Instances.newCave();
         Block block_ = Instances.newBlock();
@@ -436,13 +436,13 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         LevelCave levelCave_ = Instances.newLevelCave();
         levelCave_.getLinksOtherLevels().addEntry(new Point((short)1,(short)1),new Link(ELECTRICK,newCoords(5,2,5,8,4,9)));
         levelCave_.getBlocks().addEntry(new Point((short)0,(short)0), block_);
-        r_.getLevels().addEntry((byte)0, levelCave_);
+        r_.getLevels().add(levelCave_);
         levelCave_ = Instances.newLevelCave();
-        r_.getLevels().addEntry((byte)1,levelCave_);
+        r_.getLevels().add(levelCave_);
         LevelPoint lPt_ = new LevelPoint();
         lPt_.setLevelIndex((byte) 5);
         r_.getLinksWithOtherPlaces().addEntry(lPt_,new Link(ELECTRICK,newCoords(5,2,5,8,4,9)));
-        map_.getPlaces().addEntry((short)0, r_);
+        map_.getPlaces().add( r_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -469,7 +469,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Cave r_ = Instances.newCave();
         Block block_ = Instances.newBlock();
@@ -479,13 +479,13 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         LevelCave levelCave_ = Instances.newLevelCave();
         levelCave_.getLinksOtherLevels().addEntry(new Point((short)1,(short)1),new Link(ELECTRICK,newCoords(0,0,5,8,4,9)));
         levelCave_.getBlocks().addEntry(new Point((short)0,(short)0), block_);
-        r_.getLevels().addEntry((byte)0, levelCave_);
+        r_.getLevels().add(levelCave_);
         levelCave_ = Instances.newLevelCave();
-        r_.getLevels().addEntry((byte)1,levelCave_);
+        r_.getLevels().add(levelCave_);
         LevelPoint lPt_ = new LevelPoint();
         lPt_.setLevelIndex((byte) 1);
         r_.getLinksWithOtherPlaces().addEntry(lPt_,new Link(ELECTRICK,newCoords(5,2,5,8,4,9)));
-        map_.getPlaces().addEntry((short)0, r_);
+        map_.getPlaces().add( r_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -512,7 +512,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Cave r_ = Instances.newCave();
         Block block_ = Instances.newBlock();
@@ -527,14 +527,14 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         levelCave_.getTm().addEntry(new Point((short)0,(short)0),(short)0);
         levelCave_.getHm().addEntry(new Point((short)0,(short)0),(short)0);
         levelCave_.getLegendaryPks().addEntry(new Point((short)0,(short)0),Instances.newWildPk());
-        r_.getLevels().addEntry((byte)0, levelCave_);
+        r_.getLevels().add(levelCave_);
         levelCave_ = Instances.newLevelCave();
-        r_.getLevels().addEntry((byte)1,levelCave_);
+        r_.getLevels().add(levelCave_);
         LevelPoint lPt_ = new LevelPoint();
         lPt_.setPoint(new Point((short)1,(short)1));
         lPt_.setLevelIndex((byte) 1);
         r_.getLinksWithOtherPlaces().addEntry(lPt_,new Link(ELECTRICK,newCoords(5,2,5,8,4,9)));
-        map_.getPlaces().addEntry((short)0, r_);
+        map_.getPlaces().add( r_);
         Road road_ = Instances.newRoad();
         block_ = Instances.newBlock();
         block_.setHeight((short) 1);
@@ -542,7 +542,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         road_.getLevelRoad().getBlocks().addEntry(new Point((short)0,(short)0), block_);
         road_.getLinksWithCaves().add(new Point((short)1,(short)1),new Link(ELECTRICK,newCoords(0,0,5,8,4,9)));
         road_.getLinksWithCaves().add(new Point((short)1,(short)0),new Link(ELECTRICK,newCoords(0,0,0,0)));
-        map_.getPlaces().addEntry((short)1, road_);
+        map_.getPlaces().add( road_);
         City city_ = Instances.newCity();
         block_ = Instances.newBlock();
         block_.setHeight((short) 1);
@@ -550,7 +550,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         city_.getLevelOutdoor().getBlocks().addEntry(new Point((short)0,(short)0), block_);
         city_.getLinksWithCaves().add(new Point((short)1,(short)1),new Link(ELECTRICK,newCoords(0,0,5,8,4,9)));
         city_.getLinksWithCaves().add(new Point((short)1,(short)0),new Link(ELECTRICK,newCoords(0,0,0,0)));
-        map_.getPlaces().addEntry((short)2, city_);
+        map_.getPlaces().add( city_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -577,7 +577,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Cave r_ = Instances.newCave();
         Block block_ = Instances.newBlock();
@@ -587,14 +587,14 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         levelCave_.getLinksOtherLevels().addEntry(new Point((short)1,(short)1),new Link(ELECTRICK,newCoords(0,0,5,8,4,9)));
         levelCave_.getBlocks().addEntry(new Point((short)0,(short)0), block_);
         levelCave_.getItems().addEntry(new Point((short)1,(short)0),ELECTRICK);
-        r_.getLevels().addEntry((byte)0, levelCave_);
+        r_.getLevels().add(levelCave_);
         levelCave_ = Instances.newLevelCave();
-        r_.getLevels().addEntry((byte)1,levelCave_);
+        r_.getLevels().add(levelCave_);
         LevelPoint lPt_ = new LevelPoint();
         lPt_.setPoint(new Point((short)1,(short)1));
         lPt_.setLevelIndex((byte) 1);
         r_.getLinksWithOtherPlaces().addEntry(lPt_,new Link(ELECTRICK,newCoords(5,2,5,8,4,9)));
-        map_.getPlaces().addEntry((short)0, r_);
+        map_.getPlaces().add( r_);
         Road road_ = Instances.newRoad();
         block_ = Instances.newBlock();
         block_.setHeight((short) 1);
@@ -602,7 +602,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         road_.getLevelRoad().getBlocks().addEntry(new Point((short)0,(short)0), block_);
         road_.getLinksWithCaves().add(new Point((short)1,(short)1),new Link(ELECTRICK,newCoords(0,0,5,8,4,9)));
         road_.getLinksWithCaves().add(new Point((short)1,(short)0),new Link(ELECTRICK,newCoords(0,0,1,0)));
-        map_.getPlaces().addEntry((short)1, road_);
+        map_.getPlaces().add( road_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -629,7 +629,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Cave r_ = Instances.newCave();
         Block block_ = Instances.newBlock();
@@ -639,14 +639,14 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         levelCave_.getLinksOtherLevels().addEntry(new Point((short)1,(short)1),new Link(ELECTRICK,newCoords(0,0,5,8,4,9)));
         levelCave_.getBlocks().addEntry(new Point((short)0,(short)0), block_);
         levelCave_.getItems().addEntry(new Point((short)1,(short)0),ELECTRICK);
-        r_.getLevels().addEntry((byte)0, levelCave_);
+        r_.getLevels().add(levelCave_);
         levelCave_ = Instances.newLevelCave();
-        r_.getLevels().addEntry((byte)1,levelCave_);
+        r_.getLevels().add(levelCave_);
         LevelPoint lPt_ = new LevelPoint();
         lPt_.setPoint(new Point((short)1,(short)1));
         lPt_.setLevelIndex((byte) 1);
         r_.getLinksWithOtherPlaces().addEntry(lPt_,new Link(ELECTRICK,newCoords(1,0,1,0)));
-        map_.getPlaces().addEntry((short)0, r_);
+        map_.getPlaces().add( r_);
         Road road_ = Instances.newRoad();
         block_ = Instances.newBlock();
         block_.setHeight((short) 1);
@@ -655,7 +655,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         road_.getLinksWithCaves().add(new Point((short)1,(short)1),new Link(ELECTRICK,newCoords(0,0,5,8,4,9)));
         road_.getLinksWithCaves().add(new Point((short)1,(short)0),new Link(ELECTRICK,newCoords(0,0,1,0)));
         road_.getLevelRoad().getItems().addEntry(new Point((short)1,(short)0),ELECTRICK);
-        map_.getPlaces().addEntry((short)1, road_);
+        map_.getPlaces().add( road_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -682,7 +682,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Cave r_ = Instances.newCave();
         Block block_ = Instances.newBlock();
@@ -692,19 +692,19 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         levelCave_.getLinksOtherLevels().addEntry(new Point((short)1,(short)1),new Link(ELECTRICK,newCoords(0,1,1,0)));
         levelCave_.getBlocks().addEntry(new Point((short)0,(short)0), block_);
         levelCave_.getItems().addEntry(new Point((short)1,(short)0),ELECTRICK);
-        r_.getLevels().addEntry((byte)0, levelCave_);
+        r_.getLevels().add(levelCave_);
         levelCave_ = Instances.newLevelCave();
         block_ = Instances.newBlock();
         block_.setHeight((short) 1);
         block_.setWidth((short) 2);
         levelCave_.getBlocks().addEntry(new Point((short)0,(short)0), block_);
         levelCave_.getItems().addEntry(new Point((short)1,(short)0),ELECTRICK);
-        r_.getLevels().addEntry((byte)1,levelCave_);
+        r_.getLevels().add(levelCave_);
         LevelPoint lPt_ = new LevelPoint();
         lPt_.setPoint(new Point((short)1,(short)1));
         lPt_.setLevelIndex((byte) 1);
         r_.getLinksWithOtherPlaces().addEntry(lPt_,new Link(ELECTRICK,newCoords(1,0,1,0)));
-        map_.getPlaces().addEntry((short)0, r_);
+        map_.getPlaces().add( r_);
         Road road_ = Instances.newRoad();
         block_ = Instances.newBlock();
         block_.setHeight((short) 1);
@@ -713,7 +713,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         road_.getLinksWithCaves().add(new Point((short)1,(short)1),new Link(ELECTRICK,newCoords(0,0,5,8,4,9)));
         road_.getLinksWithCaves().add(new Point((short)1,(short)0),new Link(ELECTRICK,newCoords(0,0,1,0)));
         road_.getLevelRoad().getItems().addEntry(new Point((short)1,(short)0),ELECTRICK);
-        map_.getPlaces().addEntry((short)1, road_);
+        map_.getPlaces().add( road_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -732,6 +732,10 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         assertTrue(data_.isError());
     }
 
+    private static void initPlaces(DataMap _map) {
+        _map.setPlaces(new CustList<Place>());
+    }
+
     @Test
     public void fail13Test() {
         DataBase data_ =new DataBase();
@@ -740,7 +744,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Cave r_ = Instances.newCave();
         Block block_ = Instances.newBlock();
@@ -750,19 +754,19 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         levelCave_.getLinksOtherLevels().addEntry(new Point((short)1,(short)1),new Link(ELECTRICK,newCoords(0,1,1,0)));
         levelCave_.getBlocks().addEntry(new Point((short)0,(short)0), block_);
         levelCave_.getItems().addEntry(new Point((short)1,(short)1),ELECTRICK);
-        r_.getLevels().addEntry((byte)0, levelCave_);
+        r_.getLevels().add(levelCave_);
         levelCave_ = Instances.newLevelCave();
         block_ = Instances.newBlock();
         block_.setHeight((short) 1);
         block_.setWidth((short) 2);
         levelCave_.getBlocks().addEntry(new Point((short)0,(short)0), block_);
         levelCave_.getItems().addEntry(new Point((short)1,(short)0),ELECTRICK);
-        r_.getLevels().addEntry((byte)1,levelCave_);
+        r_.getLevels().add(levelCave_);
         LevelPoint lPt_ = new LevelPoint();
         lPt_.setPoint(new Point((short)1,(short)1));
         lPt_.setLevelIndex((byte) 1);
         r_.getLinksWithOtherPlaces().addEntry(lPt_,new Link(ELECTRICK,newCoords(1,0,1,0)));
-        map_.getPlaces().addEntry((short)0, r_);
+        map_.getPlaces().add( r_);
         Road road_ = Instances.newRoad();
         block_ = Instances.newBlock();
         block_.setHeight((short) 1);
@@ -771,8 +775,8 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         road_.getLinksWithCaves().add(new Point((short)1,(short)1),new Link(ELECTRICK,newCoords(0,0,5,8,4,9)));
         road_.getLinksWithCaves().add(new Point((short)1,(short)0),new Link(ELECTRICK,newCoords(0,0,1,0)));
         road_.getLevelRoad().getItems().addEntry(new Point((short)1,(short)0),ELECTRICK);
-        map_.getPlaces().addEntry((short)1, road_);
-        map_.getPlaces().addEntry((short)2, Instances.newCave());
+        map_.getPlaces().add( road_);
+        map_.getPlaces().add( Instances.newCave());
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -799,7 +803,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Cave r_ = Instances.newCave();
         Block block_ = Instances.newBlock();
@@ -809,19 +813,19 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         levelCave_.getLinksOtherLevels().addEntry(new Point((short)1,(short)1),new Link(ELECTRICK,newCoords(0,1,1,0)));
         levelCave_.getBlocks().addEntry(new Point((short)0,(short)0), block_);
         levelCave_.getItems().addEntry(new Point((short)1,(short)0),ELECTRICK);
-        r_.getLevels().addEntry((byte)0, levelCave_);
+        r_.getLevels().add(levelCave_);
         levelCave_ = Instances.newLevelCave();
         block_ = Instances.newBlock();
         block_.setHeight((short) 1);
         block_.setWidth((short) 2);
         levelCave_.getBlocks().addEntry(new Point((short)0,(short)0), block_);
         levelCave_.getItems().addEntry(new Point((short)1,(short)0),ELECTRICK);
-        r_.getLevels().addEntry((byte)1,levelCave_);
+        r_.getLevels().add(levelCave_);
         LevelPoint lPt_ = new LevelPoint();
         lPt_.setPoint(new Point((short)1,(short)1));
         lPt_.setLevelIndex((byte) 1);
         r_.getLinksWithOtherPlaces().addEntry(lPt_,new Link(ELECTRICK,newCoords(1,0,1,0)));
-        map_.getPlaces().addEntry((short)0, r_);
+        map_.getPlaces().add( r_);
         City city_ = Instances.newCity();
         block_ = Instances.newBlock();
         block_.setHeight((short) 1);
@@ -829,7 +833,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         city_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
         city_.getLinksWithCaves().add(new Point((short)1,(short)1),new Link(ELECTRICK,newCoords(0,0,5,8,4,9)));
         city_.getLinksWithCaves().add(new Point((short)1,(short)0),new Link(ELECTRICK,newCoords(0,0,1,0)));
-        map_.getPlaces().addEntry((short)1, city_);
+        map_.getPlaces().add( city_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -856,7 +860,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Cave r_ = Instances.newCave();
         Block block_ = Instances.newBlock();
@@ -865,19 +869,19 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         LevelCave levelCave_ = Instances.newLevelCave();
         levelCave_.getLinksOtherLevels().addEntry(new Point((short)1,(short)1),new Link(ELECTRICK,newCoords(0,1,1,0)));
         levelCave_.getBlocks().addEntry(new Point((short)0,(short)0), block_);
-        r_.getLevels().addEntry((byte)0, levelCave_);
+        r_.getLevels().add(levelCave_);
         levelCave_ = Instances.newLevelCave();
         block_ = Instances.newBlock();
         block_.setHeight((short) 1);
         block_.setWidth((short) 2);
         levelCave_.getLinksOtherLevels().addEntry(new Point((short)1,(short)0),new Link(ELECTRICK,newCoords(0,1,1,0)));
         levelCave_.getBlocks().addEntry(new Point((short)0,(short)0), block_);
-        r_.getLevels().addEntry((byte)1,levelCave_);
+        r_.getLevels().add(levelCave_);
         LevelPoint lPt_ = new LevelPoint();
         lPt_.setPoint(new Point((short)1,(short)1));
         lPt_.setLevelIndex((byte) 1);
         r_.getLinksWithOtherPlaces().addEntry(lPt_,new Link(ELECTRICK,newCoords(1,0,1,0)));
-        map_.getPlaces().addEntry((short)0, r_);
+        map_.getPlaces().add( r_);
         City city_ = Instances.newCity();
         block_ = Instances.newBlock();
         block_.setHeight((short) 1);
@@ -885,7 +889,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         city_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
         city_.getLinksWithCaves().add(new Point((short)1,(short)1),new Link(ELECTRICK,newCoords(0,0,5,8,4,9)));
         city_.getLinksWithCaves().add(new Point((short)1,(short)0),new Link(ELECTRICK,newCoords(0,0,1,0)));
-        map_.getPlaces().addEntry((short)1, city_);
+        map_.getPlaces().add( city_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -912,7 +916,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Cave r_ = Instances.newCave();
         Block block_ = Instances.newBlock();
@@ -921,19 +925,19 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         LevelCave levelCave_ = Instances.newLevelCave();
         levelCave_.getLinksOtherLevels().addEntry(new Point((short)1,(short)1),new Link(ELECTRICK,newCoords(0,1,1,0)));
         levelCave_.getBlocks().addEntry(new Point((short)0,(short)0), block_);
-        r_.getLevels().addEntry((byte)0, levelCave_);
+        r_.getLevels().add(levelCave_);
         levelCave_ = Instances.newLevelCave();
         block_ = Instances.newBlock();
         block_.setHeight((short) 1);
         block_.setWidth((short) 2);
         levelCave_.getLinksOtherLevels().addEntry(new Point((short)1,(short)1),new Link(ELECTRICK,newCoords(0,1,1,0)));
         levelCave_.getBlocks().addEntry(new Point((short)0,(short)0), block_);
-        r_.getLevels().addEntry((byte)1,levelCave_);
+        r_.getLevels().add(levelCave_);
         LevelPoint lPt_ = new LevelPoint();
         lPt_.setPoint(new Point((short)1,(short)1));
         lPt_.setLevelIndex((byte) 1);
         r_.getLinksWithOtherPlaces().addEntry(lPt_,new Link(ELECTRICK,newCoords(1,0,1,0)));
-        map_.getPlaces().addEntry((short)0, r_);
+        map_.getPlaces().add( r_);
         City city_ = Instances.newCity();
         block_ = Instances.newBlock();
         block_.setHeight((short) 1);
@@ -941,7 +945,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         city_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
         city_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         city_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)2,(short)2),Direction.RIGHT),newCoords(2,0,5,5));
-        map_.getPlaces().addEntry((short)1, city_);
+        map_.getPlaces().add( city_);
         Road road_ = Instances.newRoad();
         block_ = Instances.newBlock();
         block_.setHeight((short) 1);
@@ -949,7 +953,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         road_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
         road_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         road_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)2,(short)2),Direction.RIGHT),newCoords(1,0,5,5));
-        map_.getPlaces().addEntry((short)2, road_);
+        map_.getPlaces().add( road_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -975,9 +979,9 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
-        map_.getPlaces().addEntry((short)0,Instances.newCity());
+        map_.getPlaces().add(Instances.newCity());
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -1003,11 +1007,11 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         City city_ = Instances.newCity();
         city_.getBuildings().addEntry(new Point((short)2,(short)2),Instances.newPokemonCenter());
-        map_.getPlaces().addEntry((short)0, city_);
+        map_.getPlaces().add( city_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -1035,7 +1039,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Cave r_ = Instances.newCave();
         Block block_ = Instances.newBlock();
@@ -1044,19 +1048,19 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         LevelCave levelCave_ = Instances.newLevelCave();
         levelCave_.getLinksOtherLevels().addEntry(new Point((short)1,(short)1),new Link(ELECTRICK,newCoords(0,1,1,0)));
         levelCave_.getBlocks().addEntry(new Point((short)0,(short)0), block_);
-        r_.getLevels().addEntry((byte)0, levelCave_);
+        r_.getLevels().add(levelCave_);
         levelCave_ = Instances.newLevelCave();
         block_ = Instances.newBlock();
         block_.setHeight((short) 1);
         block_.setWidth((short) 2);
         levelCave_.getLinksOtherLevels().addEntry(new Point((short)1,(short)1),new Link(ELECTRICK,newCoords(0,1,1,0)));
         levelCave_.getBlocks().addEntry(new Point((short)0,(short)0), block_);
-        r_.getLevels().addEntry((byte)1,levelCave_);
+        r_.getLevels().add(levelCave_);
         LevelPoint lPt_ = new LevelPoint();
         lPt_.setPoint(new Point((short)1,(short)1));
         lPt_.setLevelIndex((byte) 1);
         r_.getLinksWithOtherPlaces().addEntry(lPt_,new Link(ELECTRICK,newCoords(1,0,1,0)));
-        map_.getPlaces().addEntry((short)0, r_);
+        map_.getPlaces().add( r_);
         City city_ = Instances.newCity();
         block_ = Instances.newBlock();
         block_.setHeight((short) 1);
@@ -1067,7 +1071,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         city_.getLinksWithCaves().addEntry(new Point((short)0,(short)0), lk_);
         city_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         city_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)2,(short)2),Direction.RIGHT),newCoords(2,0,5,5));
-        map_.getPlaces().addEntry((short)1, city_);
+        map_.getPlaces().add( city_);
         Road road_ = Instances.newRoad();
         block_ = Instances.newBlock();
         block_.setHeight((short) 1);
@@ -1075,7 +1079,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         road_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
         road_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         road_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)2,(short)2),Direction.RIGHT),newCoords(1,0,5,5));
-        map_.getPlaces().addEntry((short)2, road_);
+        map_.getPlaces().add( road_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -1102,7 +1106,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Cave r_ = Instances.newCave();
         Block block_ = Instances.newBlock();
@@ -1111,19 +1115,19 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         LevelCave levelCave_ = Instances.newLevelCave();
         levelCave_.getLinksOtherLevels().addEntry(new Point((short)1,(short)1),new Link(ELECTRICK,newCoords(0,1,1,0)));
         levelCave_.getBlocks().addEntry(new Point((short)0,(short)0), block_);
-        r_.getLevels().addEntry((byte)0, levelCave_);
+        r_.getLevels().add(levelCave_);
         levelCave_ = Instances.newLevelCave();
         block_ = Instances.newBlock();
         block_.setHeight((short) 1);
         block_.setWidth((short) 2);
         levelCave_.getLinksOtherLevels().addEntry(new Point((short)1,(short)1),new Link(ELECTRICK,newCoords(0,1,1,0)));
         levelCave_.getBlocks().addEntry(new Point((short)0,(short)0), block_);
-        r_.getLevels().addEntry((byte)1,levelCave_);
+        r_.getLevels().add(levelCave_);
         LevelPoint lPt_ = new LevelPoint();
         lPt_.setPoint(new Point((short)1,(short)1));
         lPt_.setLevelIndex((byte) 1);
         r_.getLinksWithOtherPlaces().addEntry(lPt_,new Link(ELECTRICK,newCoords(1,0,1,10)));
-        map_.getPlaces().addEntry((short)0, r_);
+        map_.getPlaces().add( r_);
         City city_ = Instances.newCity();
         block_ = Instances.newBlock();
         block_.setHeight((short) 1);
@@ -1134,7 +1138,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         city_.getLinksWithCaves().addEntry(new Point((short)0,(short)0), lk_);
         city_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         city_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)2,(short)2),Direction.RIGHT),newCoords(2,0,5,5));
-        map_.getPlaces().addEntry((short)1, city_);
+        map_.getPlaces().add( city_);
         Road road_ = Instances.newRoad();
         block_ = Instances.newBlock();
         block_.setHeight((short) 1);
@@ -1142,7 +1146,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         road_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
         road_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         road_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)2,(short)2),Direction.RIGHT),newCoords(1,0,5,5));
-        map_.getPlaces().addEntry((short)2, road_);
+        map_.getPlaces().add( road_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -1169,7 +1173,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Cave r_ = Instances.newCave();
         Block block_ = Instances.newBlock();
@@ -1178,19 +1182,19 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         LevelCave levelCave_ = Instances.newLevelCave();
         levelCave_.getLinksOtherLevels().addEntry(new Point((short)1,(short)1),new Link(ELECTRICK,newCoords(0,1,1,0)));
         levelCave_.getBlocks().addEntry(new Point((short)0,(short)0), block_);
-        r_.getLevels().addEntry((byte)0, levelCave_);
+        r_.getLevels().add(levelCave_);
         levelCave_ = Instances.newLevelCave();
         block_ = Instances.newBlock();
         block_.setHeight((short) 1);
         block_.setWidth((short) 2);
         levelCave_.getLinksOtherLevels().addEntry(new Point((short)1,(short)1),new Link(ELECTRICK,newCoords(0,1,1,0)));
         levelCave_.getBlocks().addEntry(new Point((short)0,(short)0), block_);
-        r_.getLevels().addEntry((byte)1,levelCave_);
+        r_.getLevels().add(levelCave_);
         LevelPoint lPt_ = new LevelPoint();
         lPt_.setPoint(new Point((short)1,(short)1));
         lPt_.setLevelIndex((byte) 1);
         r_.getLinksWithOtherPlaces().addEntry(lPt_,new Link(ELECTRICK,newCoords(1,0,1,10)));
-        map_.getPlaces().addEntry((short)0, r_);
+        map_.getPlaces().add( r_);
         City city_ = Instances.newCity();
         block_ = Instances.newBlock();
         block_.setHeight((short) 1);
@@ -1200,7 +1204,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         city_.getLinksWithCaves().addEntry(new Point((short)0,(short)0), lk_);
         city_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         city_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)2,(short)2),Direction.RIGHT),newCoords(2,0,5,5));
-        map_.getPlaces().addEntry((short)1, city_);
+        map_.getPlaces().add( city_);
         Road road_ = Instances.newRoad();
         block_ = Instances.newBlock();
         block_.setHeight((short) 1);
@@ -1208,7 +1212,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         road_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
         road_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         road_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)2,(short)2),Direction.RIGHT),newCoords(1,0,5,5));
-        map_.getPlaces().addEntry((short)2, road_);
+        map_.getPlaces().add( road_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -1235,7 +1239,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Road road_ = Instances.newRoad();
         Block block_ = Instances.newBlock();
@@ -1244,7 +1248,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         road_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
         road_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         road_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)1,(short)1),Direction.RIGHT),newCoords(1,0,0,0));
-        map_.getPlaces().addEntry((short)0, road_);
+        map_.getPlaces().add( road_);
         City city_ = Instances.newCity();
         block_ = Instances.newBlock();
         block_.setHeight((short) 2);
@@ -1253,7 +1257,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         city_.getBuildings().addEntry(new Point((short)1,(short)1),Instances.newPokemonCenter());
         city_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         city_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)0,(short)0),Direction.LEFT),newCoords(0,0,1,1));
-        map_.getPlaces().addEntry((short)1, city_);
+        map_.getPlaces().add( city_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -1280,7 +1284,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Road road_ = Instances.newRoad();
         Block block_ = Instances.newBlock();
@@ -1292,7 +1296,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         DualFight dualFight_ = Instances.newDualFight();
         dualFight_.setPt(new Point((short)1,(short)1));
         road_.getLevelRoad().getDualFights().addEntry(new Point((short)0, (short) 1),dualFight_);
-        map_.getPlaces().addEntry((short)0, road_);
+        map_.getPlaces().add( road_);
         City city_ = Instances.newCity();
         block_ = Instances.newBlock();
         block_.setHeight((short) 2);
@@ -1301,7 +1305,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         city_.getBuildings().addEntry(new Point((short)1,(short)0),Instances.newPokemonCenter());
         city_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         city_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)0,(short)0),Direction.LEFT),newCoords(0,0,1,1));
-        map_.getPlaces().addEntry((short)1, city_);
+        map_.getPlaces().add( city_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         map_.getAccessCondition().put(newCoords(1,0,1,1),new EqList<Coords>(newCoords(0,0,0,1)));
@@ -1362,7 +1366,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.completeMembers(PIKACHU2,pokemonData_);
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Road road_ = Instances.newRoad();
         Block block_ = Instances.newBlock();
@@ -1374,7 +1378,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         DualFight dualFight_ = Instances.newDualFight();
         dualFight_.setPt(new Point((short)1,(short)1));
         road_.getLevelRoad().getDualFights().addEntry(new Point((short)0, (short) 1),dualFight_);
-        map_.getPlaces().addEntry((short)0, road_);
+        map_.getPlaces().add( road_);
         City city_ = Instances.newCity();
         block_ = Instances.newBlock();
         block_.setHeight((short) 2);
@@ -1383,7 +1387,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         city_.getBuildings().addEntry(new Point((short)1,(short)0),Instances.newPokemonCenter());
         city_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         city_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)0,(short)0),Direction.LEFT),newCoords(0,0,1,1));
-        map_.getPlaces().addEntry((short)1, city_);
+        map_.getPlaces().add( city_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         map_.getAccessCondition().put(newCoords(1,0,1,1),new EqList<Coords>(newCoords(0,0,0,1)));
@@ -1433,7 +1437,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.completeMembers(PIKACHU,pokemonData_);
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Road road_ = Instances.newRoad();
         Block block_ = Instances.newBlock();
@@ -1448,7 +1452,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         road_.getLevelRoad().getWildPokemonAreas().add(areaApparition_);
         road_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         road_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)1,(short)1),Direction.RIGHT),newCoords(1,0,0,0));
-        map_.getPlaces().addEntry((short)0, road_);
+        map_.getPlaces().add( road_);
         City city_ = Instances.newCity();
         block_ = Instances.newBlock();
         block_.setHeight((short) 2);
@@ -1457,7 +1461,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         city_.getBuildings().addEntry(new Point((short)1,(short)0),Instances.newPokemonCenter());
         city_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         city_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)0,(short)0),Direction.LEFT),newCoords(0,0,1,1));
-        map_.getPlaces().addEntry((short)1, city_);
+        map_.getPlaces().add( city_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -1531,7 +1535,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.completeMembers(PIKACHU2,pokemonData_);
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Road road_ = Instances.newRoad();
         Block block_ = Instances.newBlock();
@@ -1546,7 +1550,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         road_.getLevelRoad().getWildPokemonAreas().add(areaApparition_);
         road_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         road_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)1,(short)1),Direction.RIGHT),newCoords(1,0,0,0));
-        map_.getPlaces().addEntry((short)0, road_);
+        map_.getPlaces().add( road_);
         City city_ = Instances.newCity();
         block_ = Instances.newBlock();
         block_.setHeight((short) 2);
@@ -1555,7 +1559,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         city_.getBuildings().addEntry(new Point((short)1,(short)0),Instances.newPokemonCenter());
         city_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         city_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)0,(short)0),Direction.LEFT),newCoords(0,0,1,1));
-        map_.getPlaces().addEntry((short)1, city_);
+        map_.getPlaces().add( city_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -1631,7 +1635,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.completeMembers(TREMPETTE2,Instances.newEvolvingItem());
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Road road_ = Instances.newRoad();
         Block block_ = Instances.newBlock();
@@ -1646,7 +1650,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         road_.getLevelRoad().getWildPokemonAreas().add(areaApparition_);
         road_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         road_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)1,(short)1),Direction.RIGHT),newCoords(1,0,0,0));
-        map_.getPlaces().addEntry((short)0, road_);
+        map_.getPlaces().add( road_);
         City city_ = Instances.newCity();
         block_ = Instances.newBlock();
         block_.setHeight((short) 2);
@@ -1655,7 +1659,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         city_.getBuildings().addEntry(new Point((short)1,(short)0),Instances.newPokemonCenter());
         city_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         city_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)0,(short)0),Direction.LEFT),newCoords(0,0,1,1));
-        map_.getPlaces().addEntry((short)1, city_);
+        map_.getPlaces().add( city_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -1682,7 +1686,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Road road_ = Instances.newRoad();
         Block block_ = Instances.newBlock();
@@ -1697,7 +1701,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         road_.getLevelRoad().getWildPokemonAreas().add(areaApparition_);
         road_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         road_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)1,(short)1),Direction.RIGHT),newCoords(1,0,0,0));
-        map_.getPlaces().addEntry((short)0, road_);
+        map_.getPlaces().add( road_);
         City city_ = Instances.newCity();
         block_ = Instances.newBlock();
         block_.setHeight((short) 2);
@@ -1706,7 +1710,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         city_.getBuildings().addEntry(new Point((short)1,(short)0),Instances.newPokemonCenter());
         city_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         city_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)0,(short)0),Direction.LEFT),newCoords(0,0,1,1));
-        map_.getPlaces().addEntry((short)1, city_);
+        map_.getPlaces().add( city_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -1747,7 +1751,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Road road_ = Instances.newRoad();
         Block block_ = Instances.newBlock();
@@ -1762,7 +1766,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         road_.getLevelRoad().getWildPokemonAreas().add(areaApparition_);
         road_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         road_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)1,(short)1),Direction.RIGHT),newCoords(1,0,0,0));
-        map_.getPlaces().addEntry((short)0, road_);
+        map_.getPlaces().add( road_);
         City city_ = Instances.newCity();
         block_ = Instances.newBlock();
         block_.setHeight((short) 2);
@@ -1771,7 +1775,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         city_.getBuildings().addEntry(new Point((short)1,(short)0),Instances.newPokemonCenter());
         city_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         city_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)0,(short)0),Direction.LEFT),newCoords(0,0,1,1));
-        map_.getPlaces().addEntry((short)1, city_);
+        map_.getPlaces().add( city_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -1812,7 +1816,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Road road_ = Instances.newRoad();
         Block block_ = Instances.newBlock();
@@ -1827,7 +1831,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         road_.getLevelRoad().getWildPokemonAreas().add(areaApparition_);
         road_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         road_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)1,(short)1),Direction.RIGHT),newCoords(1,0,0,0));
-        map_.getPlaces().addEntry((short)0, road_);
+        map_.getPlaces().add( road_);
         City city_ = Instances.newCity();
         block_ = Instances.newBlock();
         block_.setHeight((short) 2);
@@ -1836,7 +1840,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         city_.getBuildings().addEntry(new Point((short)1,(short)0),Instances.newPokemonCenter());
         city_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         city_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)0,(short)0),Direction.LEFT),newCoords(0,0,1,1));
-        map_.getPlaces().addEntry((short)1, city_);
+        map_.getPlaces().add( city_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -1877,7 +1881,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Road road_ = Instances.newRoad();
         Block block_ = Instances.newBlock();
@@ -1892,7 +1896,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         road_.getLevelRoad().getWildPokemonAreas().add(areaApparition_);
         road_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         road_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)1,(short)1),Direction.RIGHT),newCoords(1,0,0,0));
-        map_.getPlaces().addEntry((short)0, road_);
+        map_.getPlaces().add( road_);
         City city_ = Instances.newCity();
         block_ = Instances.newBlock();
         block_.setHeight((short) 2);
@@ -1902,7 +1906,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         city_.getBuildings().addEntry(new Point((short)1,(short)0), gym_);
         city_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         city_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)0,(short)0),Direction.LEFT),newCoords(0,0,1,1));
-        map_.getPlaces().addEntry((short)1, city_);
+        map_.getPlaces().add( city_);
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -1932,7 +1936,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Road road_ = Instances.newRoad();
         Block block_ = Instances.newBlock();
@@ -1947,7 +1951,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         road_.getLevelRoad().getWildPokemonAreas().add(areaApparition_);
         road_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         road_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)1,(short)1),Direction.RIGHT),newCoords(1,0,0,0));
-        map_.getPlaces().addEntry((short)0, road_);
+        map_.getPlaces().add( road_);
         City city_ = Instances.newCity();
         block_ = Instances.newBlock();
         block_.setHeight((short) 2);
@@ -1957,8 +1961,8 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         city_.getBuildings().addEntry(new Point((short)1,(short)0), gym_);
         city_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         city_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)0,(short)0),Direction.LEFT),newCoords(0,0,1,1));
-        map_.getPlaces().addEntry((short)1, city_);
-        map_.getPlaces().addEntry((short)2, Instances.newLeague());
+        map_.getPlaces().add( city_);
+        map_.getPlaces().add( Instances.newLeague());
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -1986,7 +1990,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         Road road_ = Instances.newRoad();
         Block block_ = Instances.newBlock();
@@ -2001,7 +2005,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         road_.getLevelRoad().getWildPokemonAreas().add(areaApparition_);
         road_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         road_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)1,(short)1),Direction.RIGHT),newCoords(1,0,0,0));
-        map_.getPlaces().addEntry((short)0, road_);
+        map_.getPlaces().add( road_);
         City city_ = Instances.newCity();
         block_ = Instances.newBlock();
         block_.setHeight((short) 2);
@@ -2011,8 +2015,8 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         city_.getBuildings().addEntry(new Point((short)1,(short)0), gym_);
         city_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         city_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)0,(short)0),Direction.LEFT),newCoords(0,0,1,1));
-        map_.getPlaces().addEntry((short)1, city_);
-        map_.getPlaces().addEntry((short)2, Instances.newLeague());
+        map_.getPlaces().add( city_);
+        map_.getPlaces().add( Instances.newLeague());
         map_.setUnlockedCity(NULL_REF);
         map_.setSideLength(2);
         WildPk pkm_ = new WildPk();
@@ -2041,7 +2045,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         data_.completeVariables();
         initConstants(data_);
@@ -2060,7 +2064,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setScreenWidth(1);
         map_.setSpaceBetweenLeftAndHeros(10);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
@@ -2081,7 +2085,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setScreenHeight(1);
         map_.setSpaceBetweenTopAndHeros(10);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
@@ -2102,7 +2106,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setSpaceBetweenLeftAndHeros(-2);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         data_.completeVariables();
@@ -2122,7 +2126,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setSpaceBetweenTopAndHeros(-2);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         data_.completeVariables();
@@ -2142,7 +2146,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setSideLength(-2);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         data_.completeVariables();
@@ -2162,7 +2166,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setScreenHeight(-2);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         data_.completeVariables();
@@ -2182,9 +2186,53 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setScreenWidth(-2);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        data_.completeVariables();
+        initConstants(data_);
+        initRandomLaws(data_);
+        initExpPoints(data_);
+        data_.getMap().validate(data_);
+        data_.validateImages();
+        assertTrue(data_.isError());
+    }
+
+    @Test
+    public void fail42Test() {
+        DataBase data_ =new DataBase();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        DataMap map_ = data_.getMap();
+        map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
+        initPlaces(map_);
+        map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
+        Cave r_ = Instances.newCave();
+        Block block_ = Instances.newBlock();
+        block_.setHeight((short) 1);
+        block_.setWidth((short) 1);
+        block_.setIndexApparition((short)10);
+        LevelCave levelCave_ = Instances.newLevelCave();
+        levelCave_.getLinksOtherLevels().addEntry(new Point((short)1,(short)1),new Link(ELECTRICK,newCoords(0,0,5,8,4,9)));
+        levelCave_.getBlocks().addEntry(new Point((short)0,(short)0), block_);
+        r_.getLevels().add(levelCave_);
+        levelCave_ = Instances.newLevelCave();
+        r_.getLevels().add(levelCave_);
+        LevelPoint lPt_ = new LevelPoint();
+        lPt_.setLevelIndex((byte) 1);
+        r_.getLinksWithOtherPlaces().addEntry(lPt_,new Link(ELECTRICK,newCoords(1,2,5,8,4,9)));
+        map_.getPlaces().add( r_);
+        map_.getPlaces().add( Instances.newCave());
+        map_.setUnlockedCity(NULL_REF);
+        map_.setSideLength(2);
+        WildPk pkm_ = new WildPk();
+        pkm_.setName(ELECTRICK);
+        pkm_.setAbility(ELECTRICK);
+        pkm_.setItem(ELECTRICK);
+        pkm_.setLevel((short) 1200);
+        map_.setFirstPokemon(pkm_);
+        map_.setBegin(newCoords(0, 0, 0, 0));
         data_.completeVariables();
         initConstants(data_);
         initRandomLaws(data_);
@@ -2299,8 +2347,8 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         Road road_ = Instances.newRoad();
-        map_.setPlaces(new ShortMap<Place>());
-        map_.getPlaces().addEntry((short)0,road_);
+        initPlaces(map_);
+        map_.getPlaces().add(road_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         TileMiniMap t_ = new TileMiniMap();
         t_.setFile(ELECTRICK);
@@ -2328,8 +2376,8 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         City road_ = Instances.newCity();
-        map_.setPlaces(new ShortMap<Place>());
-        map_.getPlaces().addEntry((short)0,road_);
+        initPlaces(map_);
+        map_.getPlaces().add(road_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         TileMiniMap t_ = new TileMiniMap();
         t_.setFile(ELECTRICK);
@@ -2449,7 +2497,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         City city_ = Instances.newCity();
         Block block_ = Instances.newBlock();
@@ -2460,7 +2508,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         city_.getSavedlinks().addEntry(new PlaceInterConnect(new Point((short)0,(short)2),Direction.UP),newCoords(0,0,1,1));
         city_.getSavedlinks().addEntry(new PlaceInterConnect(new Point((short)0,(short)2),Direction.DOWN),newCoords(0,0,1,1));
         city_.getSavedlinks().addEntry(new PlaceInterConnect(new Point((short)0,(short)2),Direction.RIGHT),newCoords(0,0,1,1));
-        map_.getPlaces().addEntry((short)0, city_);
+        map_.getPlaces().add( city_);
          Road road_ = Instances.newRoad();
         block_ = Instances.newBlock();
         block_.setHeight((short) 2);
@@ -2468,7 +2516,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         road_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
         road_.setPointsWithCitiesAndOtherRoads(new ObjectMap<PlaceInterConnect, Coords>());
         road_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(new Point((short)0,(short)0),Direction.LEFT),newCoords(0,0,1,1));
-        map_.getPlaces().addEntry((short)1, road_);
+        map_.getPlaces().add( road_);
         assertTrue(!map_.validSavedLink());
     }
 
@@ -2480,7 +2528,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
-        map_.setPlaces(new ShortMap<Place>());
+        initPlaces(map_);
         map_.setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         City city_ = Instances.newCity();
         Block block_ = Instances.newBlock();
@@ -2488,14 +2536,14 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         block_.setWidth((short) 2);
         city_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
         city_.getSavedlinks().addEntry(new PlaceInterConnect(new Point((short)0,(short)0),Direction.RIGHT),newCoords(1,0,0,0));
-        map_.getPlaces().addEntry((short)0, city_);
+        map_.getPlaces().add( city_);
         Road road_ = Instances.newRoad();
         block_ = Instances.newBlock();
         block_.setHeight((short) 2);
         block_.setWidth((short) 2);
         road_.getLevel().getBlocks().addEntry(new Point((short)0,(short)0), block_);
         road_.getSavedlinks().addEntry(new PlaceInterConnect(new Point((short)0,(short)0),Direction.LEFT),newCoords(2,0,1,1));
-        map_.getPlaces().addEntry((short)1, road_);
+        map_.getPlaces().add( road_);
         assertTrue(!map_.validSavedLink());
     }
     @Test

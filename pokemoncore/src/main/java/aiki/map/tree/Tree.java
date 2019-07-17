@@ -11,7 +11,7 @@ public class Tree {
 
     public void initialize(DataMap _dataMap) {
         places = new CustList<PlaceArea>();
-        for (Place p : _dataMap.getPlaces().values()) {
+        for (Place p : _dataMap.getPlaces()) {
             PlaceArea placeArea_ = new PlaceArea();
             placeArea_.initialize(p);
             places.add(placeArea_);

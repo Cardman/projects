@@ -94,7 +94,7 @@ public final class City extends Place implements InitializedPlace {
                 _data.setError(true);
                 continue;
             }
-            Place tar_ = _data.getMap().getPlaces().getVal(c_.getNumberPlace());
+            Place tar_ = _data.getMap().getPlace(c_.getNumberPlace());
             Level tarLevel_ = tar_.getLevelByCoords(c_);
             if (!tarLevel_.isEmptyForAdding(c_.getLevel().getPoint())) {
                 _data.setError(true);

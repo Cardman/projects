@@ -63,7 +63,7 @@ public class GeneralHelpBean extends CommonBean {
     public void beforeDisplaying() {
         DataBase data_ = (DataBase) getDataBase();
         miniMap = data_.getMap().getImages(data_);
-        begin = data_.getMap().getPlaces().getVal(data_.getMap().getBegin().getNumberPlace()).getName();
+        begin = data_.getMap().getPlace(data_.getMap().getBegin().getNumberPlace()).getName();
         firstPokemon = data_.getMap().getFirstPokemon();
         namesPlaces = new TreeMap<MiniMapCoords, String>(new ComparatorMiniMapCoords());
         for (MiniMapCoords m: miniMap.getKeys()) {

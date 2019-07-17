@@ -1008,7 +1008,7 @@ public class DataBase implements WithMathFactory {
                 setError(true);
             }
         }
-        for (Place p : map.getPlaces().values()) {
+        for (Place p : map.getPlaces()) {
             if (!p.hasValidImage(this)) {
                 setError(true);
             }

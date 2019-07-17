@@ -87,11 +87,13 @@ public class PokemonBean extends CommonBean {
     public void beforeDisplaying() {
         DataBase data_ = (DataBase) getDataBase();
         places = new CustList<PlaceIndex>();
-        for (Short i: data_.getMap().getPlaces().getKeys()) {
+        short i_ = 0;
+        for (Place p: data_.getMap().getPlaces()) {
             PlaceIndex pl_ = new PlaceIndex();
-            pl_.setIndex(i);
-            pl_.setPlace(data_.getMap().getPlaces().getVal(i));
+            pl_.setIndex(i_);
+            pl_.setPlace(p);
             places.add(pl_);
+            i_++;
         }
 //        places.sort(new NaturalComparator<PlaceIndex>() {
 //            @Override

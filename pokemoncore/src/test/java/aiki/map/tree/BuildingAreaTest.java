@@ -72,9 +72,9 @@ public class BuildingAreaTest {
     public void initialize1Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new ShortMap<Place>());
+        initPlaces(dataMap_);
         City city_ = city();
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
+        dataMap_.getPlaces().add(city_);
         BuildingArea area_ = new BuildingArea();
         area_.initialize(city_.getBuildings().getVal(point(4,5)));
         assertEq(6, area_.getLevel().getHeight());
@@ -87,13 +87,17 @@ public class BuildingAreaTest {
         assertEq(new Dims(6, 6), area_.getLevel().getDimsBlocks().getVal(point(0, 0)));
     }
 
+    private static void initPlaces(DataMap _dataMap) {
+        _dataMap.setPlaces(new CustList<Place>());
+    }
+
     @Test
     public void isValid1Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new ShortMap<Place>());
+        initPlaces(dataMap_);
         City city_ = city();
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
+        dataMap_.getPlaces().add(city_);
         BuildingArea area_ = new BuildingArea();
         area_.initialize(city_.getBuildings().getVal(point(4,5)));
         assertTrue(!area_.isValid(point(9,9), false));
@@ -108,9 +112,9 @@ public class BuildingAreaTest {
     public void isValid2Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new ShortMap<Place>());
+        initPlaces(dataMap_);
         City city_ = city();
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
+        dataMap_.getPlaces().add(city_);
         BuildingArea area_ = new BuildingArea();
         area_.initialize(city_.getBuildings().getVal(point(4,5)));
         assertTrue(!area_.isValid(point(9,9), true));

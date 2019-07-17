@@ -33,7 +33,7 @@ public class Step {
     private Step() {
     }
 
-    public Step(ObjectMap<Coords, Condition> _accessibility, ShortMap<Place> _places, Tree _tree) {
+    public Step(ObjectMap<Coords, Condition> _accessibility, CustList<Place> _places, Tree _tree) {
         caughtPokemon = new ObjectMap<Coords,CustList<GenderName>>();
         importantsTrainers = new EqList<Coords>();
         caughtPokemonPlaceLevel = new ObjectMap<PlaceLevel,CustList<GenderName>>();
@@ -49,7 +49,7 @@ public class Step {
         allImportantsTrainers.addAllElts(importantsTrainers);
     }
 
-    public Step nextStep(ObjectMap<Coords, Condition> _accessibility, ShortMap<Place> _places, Tree _tree) {
+    public Step nextStep(ObjectMap<Coords, Condition> _accessibility, CustList<Place> _places, Tree _tree) {
         Step step_ = new Step();
         step_.caughtPokemonPlaceLevel = new ObjectMap<PlaceLevel,CustList<GenderName>>();
         step_.caughtPokemon = new ObjectMap<Coords,CustList<GenderName>>();
@@ -76,14 +76,14 @@ public class Step {
         return step_;
     }
 
-    void calculatePkTrainers(ShortMap<Place> _places, Tree _tree) {
+    void calculatePkTrainers(CustList<Place> _places, Tree _tree) {
         for (Coords c: accessibleCoords) {
             PlaceArea plArea_ = _tree.getPlace(c.getNumberPlace());
             LevelArea levArea_ = plArea_.getLevel(c.getLevel().getLevelIndex());
             caughtPokemon.put(c, levArea_.getPokemon(c.getLevel().getPoint()));
         }
         for (Coords c: accessibleCoords) {
-            Place pl_ = _places.getVal(c.getNumberPlace());
+            Place pl_ = _places.get(c.getNumberPlace());
             Level level_ = pl_.getLevelByCoords(c);
             if (level_ instanceof LevelWithWildPokemon) {
                 LevelWithWildPokemon lev_ = (LevelWithWildPokemon) level_;
@@ -114,7 +114,7 @@ public class Step {
         }
         for (Coords c: accessibleCoords) {
             Coords c_ = new Coords(c);
-            Place pl_ = _places.getVal(c.getNumberPlace());
+            Place pl_ = _places.get(c.getNumberPlace());
             Level level_ = pl_.getLevelByCoords(c);
             if (level_ instanceof LevelIndoorGym) {
                 LevelIndoorGym lev_ = (LevelIndoorGym) level_;

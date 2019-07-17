@@ -823,7 +823,7 @@ public class InitializationDataBase {
     public static DataBase initDataBase() {
         DataBase data_ = coreDataBase();
         data_.sortEndRound();
-        data_.getMap().setPlaces(new ShortMap<Place>());
+        initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         data_.getMap().setUnlockedCity(NULL_REF);
         data_.getMap().setSideLength(2);
@@ -907,10 +907,14 @@ public class InitializationDataBase {
         return data_;
     }
 
+    private static void initPlaces(DataBase _data) {
+        _data.getMap().setPlaces(new CustList<Place>());
+    }
+
     public static DataBase initDb() {
         DataBase data_ = coreDataBase();
         data_.sortEndRound();
-        data_.getMap().setPlaces(new ShortMap<Place>());
+        initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords,TileMiniMap>());
         data_.getMap().setUnlockedCity(NULL_REF);
         data_.getMap().setSideLength(2);
@@ -1716,7 +1720,7 @@ public class InitializationDataBase {
 
     public static void joinLevelCave(DataMap _dataMap, short _place, LevelPoint _l1, LevelPoint _l2,
                                      String _imgName) {
-        Cave cave_ = (Cave) _dataMap.getPlaces().getVal(_place);
+        Cave cave_ = (Cave) _dataMap.getPlace(_place);
         LevelCave l1_ = (LevelCave) cave_.getLevelsMap().getVal(
                 _l1.getLevelIndex());
         ObjectMap<Point, Link> links_ = l1_.getLinksOtherLevels();
@@ -1743,8 +1747,8 @@ public class InitializationDataBase {
         if (!_dataMap.isEmptyForAdding(_coordsPlace)) {
             return;
         }
-        Cave cave_ = (Cave) _dataMap.getPlaces().getVal(_coordsCave.getNumberPlace());
-        InitializedPlace place_ = (InitializedPlace) _dataMap.getPlaces().getVal(_coordsPlace
+        Cave cave_ = (Cave) _dataMap.getPlace(_coordsCave.getNumberPlace());
+        InitializedPlace place_ = (InitializedPlace) _dataMap.getPlace(_coordsPlace
                 .getNumberPlace());
         ObjectMap<LevelPoint, Link> links1_ = cave_.getLinksWithOtherPlaces();
         Link link1_ = new Link();
@@ -1760,14 +1764,14 @@ public class InitializationDataBase {
 
     public static void addCave(DataMap _dataMap) {
         Cave cave_ = new Cave();
-        cave_.setLevels(new ByteMap< LevelCave>());
+        cave_.setLevels(new CustList< LevelCave>());
         cave_.setLinksWithOtherPlaces(new ObjectMap<LevelPoint, Link>());
         addNewLevel(cave_);
         _dataMap.addPlace(cave_);
     }
 
     public static void addLevelCave(DataMap _dataMap, short _cave) {
-        Cave cave_ = (Cave) _dataMap.getPlaces().getVal(_cave);
+        Cave cave_ = (Cave) _dataMap.getPlace(_cave);
         addNewLevel(cave_);
     }
 
@@ -1782,21 +1786,7 @@ public class InitializationDataBase {
         level_.setLegendaryPks(new ObjectMap<Point, WildPk>());
         level_.setWildPokemonAreas(new CustList<AreaApparition>());
         level_.setLinksOtherLevels(new ObjectMap<Point, Link>());
-        _cave.getLevels().addEntry(indexOfAddedLevel(_cave), level_);
+        _cave.getLevels().add(level_);
     }
 
-    public static byte indexOfAddedLevel(Cave _cave) {
-        Bytes keys_ = new Bytes(_cave.getLevels().getKeys());
-        if (keys_.isEmpty()) {
-            return (short) CustList.FIRST_INDEX;
-        }
-        long max_ = keys_.getMaximum((byte) -1);
-        for (byte s = CustList.FIRST_INDEX; s < max_; s++) {
-            if (keys_.containsObj(s)) {
-                continue;
-            }
-            return s;
-        }
-        return (byte) (max_ + 1);
-    }
 }

@@ -112,34 +112,34 @@ public class DataMapJoiningTest {
         Road roadFive_ = hroad();
         Road roadSix_ = hroad();
         DataMap dataMap_ = new DataMap();
-        dataMap_.setPlaces(new ShortMap<Place>());
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),cityOne_);
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),roadOne_);
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),cityTwo_);
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),roadTwo_);
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),cityThree_);
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),roadThree_);
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),cityFour_);
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),roadFour_);
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),roadFive_);
+        dataMap_.setPlaces(new CustList<Place>());
+        dataMap_.getPlaces().add(cityOne_);
+        dataMap_.getPlaces().add(roadOne_);
+        dataMap_.getPlaces().add(cityTwo_);
+        dataMap_.getPlaces().add(roadTwo_);
+        dataMap_.getPlaces().add(cityThree_);
+        dataMap_.getPlaces().add(roadThree_);
+        dataMap_.getPlaces().add(cityFour_);
+        dataMap_.getPlaces().add(roadFour_);
+        dataMap_.getPlaces().add(roadFive_);
         Coords coordsAccessLeague_ = new Coords();
         coordsAccessLeague_.setNumberPlace((short) 8);
         coordsAccessLeague_.setLevel(new LevelPoint());
         coordsAccessLeague_.getLevel().setLevelIndex((byte) 0);
         coordsAccessLeague_.getLevel().setPoint(new Point((short)5,(short)1));
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),league(coordsAccessLeague_));
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),roadSix_);
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(),cityFive_);
+        dataMap_.getPlaces().add(league(coordsAccessLeague_));
+        dataMap_.getPlaces().add(roadSix_);
+        dataMap_.getPlaces().add(cityFive_);
         dataMap = dataMap_;
     }
     @Test
     public void join1Test() {
         dataMap.join((short)0, (short)1, new Point((short)4,(short)0), new Point((short)1,(short)5), Direction.UP);
         assertTrue(dataMap.validSavedLink());
-        City cityZero_ = (City) dataMap.getPlaces().getVal((short) 0);
+        City cityZero_ = (City) dataMap.getPlace((short) 0);
         assertEq(3, cityZero_.getPointsWithCitiesAndOtherRoads().size());
         assertEq(1, cityZero_.getSavedlinks().size());
-        Road roadOne_ = (Road) dataMap.getPlaces().getVal((short) 1);
+        Road roadOne_ = (Road) dataMap.getPlace((short) 1);
         assertEq(3, roadOne_.getPointsWithCitiesAndOtherRoads().size());
         assertEq(1, roadOne_.getSavedlinks().size());
         assertTrue(cityZero_.getPointsWithCitiesAndOtherRoads().contains(new PlaceInterConnect(new Point((short)3,(short)0), Direction.UP)));
@@ -200,10 +200,10 @@ public class DataMapJoiningTest {
     public void join2Test() {
         dataMap.join((short)2, (short)3, new Point((short)8,(short)4), new Point((short)0,(short)1), Direction.RIGHT);
         assertTrue(dataMap.validSavedLink());
-        City cityTwo_ = (City) dataMap.getPlaces().getVal((short) 2);
+        City cityTwo_ = (City) dataMap.getPlace((short) 2);
         assertEq(3, cityTwo_.getPointsWithCitiesAndOtherRoads().size());
         assertEq(1, cityTwo_.getSavedlinks().size());
-        Road roadTwo_ = (Road) dataMap.getPlaces().getVal((short) 3);
+        Road roadTwo_ = (Road) dataMap.getPlace((short) 3);
         assertEq(3, roadTwo_.getPointsWithCitiesAndOtherRoads().size());
         assertEq(1, roadTwo_.getSavedlinks().size());
         assertTrue(cityTwo_.getPointsWithCitiesAndOtherRoads().contains(new PlaceInterConnect(new Point((short)8,(short)3), Direction.RIGHT)));
@@ -252,10 +252,10 @@ public class DataMapJoiningTest {
     public void join3Test() {
         dataMap.join((short)4, (short)5, new Point((short)4,(short)8), new Point((short)1,(short)0), Direction.DOWN);
         assertTrue(dataMap.validSavedLink());
-        City cityZero_ = (City) dataMap.getPlaces().getVal((short) 4);
+        City cityZero_ = (City) dataMap.getPlace((short) 4);
         assertEq(3, cityZero_.getPointsWithCitiesAndOtherRoads().size());
         assertEq(1, cityZero_.getSavedlinks().size());
-        Road roadOne_ = (Road) dataMap.getPlaces().getVal((short) 5);
+        Road roadOne_ = (Road) dataMap.getPlace((short) 5);
         assertEq(3, roadOne_.getPointsWithCitiesAndOtherRoads().size());
         assertEq(1, roadOne_.getSavedlinks().size());
         assertTrue(cityZero_.getPointsWithCitiesAndOtherRoads().contains(new PlaceInterConnect(new Point((short)3,(short)8), Direction.DOWN)));
@@ -304,10 +304,10 @@ public class DataMapJoiningTest {
     public void join4Test() {
         dataMap.join((short)6, (short)7, new Point((short)0,(short)4), new Point((short)5,(short)1), Direction.LEFT);
         assertTrue(dataMap.validSavedLink());
-        City cityTwo_ = (City) dataMap.getPlaces().getVal((short) 6);
+        City cityTwo_ = (City) dataMap.getPlace((short) 6);
         assertEq(3, cityTwo_.getPointsWithCitiesAndOtherRoads().size());
         assertEq(1, cityTwo_.getSavedlinks().size());
-        Road roadTwo_ = (Road) dataMap.getPlaces().getVal((short) 7);
+        Road roadTwo_ = (Road) dataMap.getPlace((short) 7);
         assertEq(3, roadTwo_.getPointsWithCitiesAndOtherRoads().size());
         assertEq(1, roadTwo_.getSavedlinks().size());
         assertTrue(cityTwo_.getPointsWithCitiesAndOtherRoads().contains(new PlaceInterConnect(new Point((short)0,(short)3), Direction.LEFT)));
@@ -355,10 +355,10 @@ public class DataMapJoiningTest {
     @Test
     public void initializeLinks1Test() {
         dataMap.join((short)0, (short)1, new Point((short)4,(short)0), new Point((short)1,(short)5), Direction.UP);
-        City cityZero_ = (City) dataMap.getPlaces().getVal((short) 0);
+        City cityZero_ = (City) dataMap.getPlace((short) 0);
         cityZero_.getPointsWithCitiesAndOtherRoads().clear();
         assertEq(1, cityZero_.getSavedlinks().size());
-        Road roadOne_ = (Road) dataMap.getPlaces().getVal((short) 1);
+        Road roadOne_ = (Road) dataMap.getPlace((short) 1);
         roadOne_.getPointsWithCitiesAndOtherRoads().clear();
         assertEq(1, roadOne_.getSavedlinks().size());
         dataMap.initializeLinks();
@@ -409,13 +409,13 @@ public class DataMapJoiningTest {
     public void initializeLinks2Test() {
         dataMap.join((short)0, (short)1, new Point((short)4,(short)0), new Point((short)1,(short)5), Direction.UP);
         dataMap.join((short)1, (short)2, new Point((short)1,(short)0), new Point((short)4,(short)8), Direction.UP);
-        City cityZero_ = (City) dataMap.getPlaces().getVal((short) 0);
+        City cityZero_ = (City) dataMap.getPlace((short) 0);
         cityZero_.getPointsWithCitiesAndOtherRoads().clear();
         assertEq(1, cityZero_.getSavedlinks().size());
-        Road roadOne_ = (Road) dataMap.getPlaces().getVal((short) 1);
+        Road roadOne_ = (Road) dataMap.getPlace((short) 1);
         roadOne_.getPointsWithCitiesAndOtherRoads().clear();
         assertEq(2, roadOne_.getSavedlinks().size());
-        City cityOne_ = (City) dataMap.getPlaces().getVal((short) 2);
+        City cityOne_ = (City) dataMap.getPlace((short) 2);
         cityOne_.getPointsWithCitiesAndOtherRoads().clear();
         assertEq(1, cityOne_.getSavedlinks().size());
         dataMap.initializeLinks();

@@ -166,7 +166,7 @@ final class InitializationMap {
     static void initBlockFirstRoad(DataBase _data) {
         DataMap map_ = _data.getMap();
         map_.addRoad();
-        Road road_ = (Road) map_.getPlaces().getVal((short) 0);
+        Road road_ = (Road) map_.getPlace((short) 0);
         road_.setName(R_1);
         Block block_;
         block_ = newRoadBlock(2, 2, 0);
@@ -191,7 +191,7 @@ final class InitializationMap {
 
     static void initTrainersFirstRoad(DataBase _data) {
         DataMap map_ = _data.getMap();
-        Road road_ = (Road) map_.getPlaces().getVal((short) 0);
+        Road road_ = (Road) map_.getPlace((short) 0);
         PokemonTeam foeTeamList_;
         CustList<NameLevelMoves> list_;
         CustList<PokemonTeam> foeTeamsList_;
@@ -213,7 +213,7 @@ final class InitializationMap {
 
     static void initFirstRoadAreas(DataBase _data) {
         DataMap map_ = _data.getMap();
-        Road road_ = (Road) map_.getPlaces().getVal((short) 0);
+        Road road_ = (Road) map_.getPlace((short) 0);
         AreaApparition area_;
         WildPk wild_;
         area_ = new AreaApparition();
@@ -330,7 +330,7 @@ final class InitializationMap {
     static void initBlockFirstCity(DataBase _data) {
         DataMap map_ = _data.getMap();
         map_.addCity(CITY);
-        City city_ = (City) map_.getPlaces().getVal((short) 1);
+        City city_ = (City) map_.getPlace((short) 1);
         Block block_;
         block_ = newBlock(2, 2);
         city_.getLevel().getBlocks().addEntry(newPoint(0,0), block_);
@@ -354,7 +354,7 @@ final class InitializationMap {
 
     static void initBuildingsFirstCity(DataBase _data) {
         DataMap map_ = _data.getMap();
-        City city_ = (City) map_.getPlaces().getVal((short) 1);
+        City city_ = (City) map_.getPlace((short) 1);
         Gym gym_;
         gym_ = new Gym();
         gym_.setLevel(new LevelIndoorGym());
@@ -377,7 +377,7 @@ final class InitializationMap {
 
     static void initTrainersFirstCity(DataBase _data) {
         DataMap map_ = _data.getMap();
-        City city_ = (City) map_.getPlaces().getVal((short) 1);
+        City city_ = (City) map_.getPlace((short) 1);
         Gym gym_;
         GymTrainer gymTrainer_;
         GymLeader gymLeader_;
@@ -404,7 +404,7 @@ final class InitializationMap {
 
     static void initPokemonCenterFirstCity(DataBase _data) {
         DataMap map_ = _data.getMap();
-        City city_ = (City) map_.getPlaces().getVal((short) 1);
+        City city_ = (City) map_.getPlace((short) 1);
         PokemonCenter pk_;
         pk_ = (PokemonCenter) city_.getBuildings().getVal(newPoint(1, 1));
         pk_.getIndoor().getGerants().addEntry(newPoint(0, 4), newGerantPokemon(GeranceType.HEAL));
@@ -429,7 +429,7 @@ final class InitializationMap {
     static void initBlockSecondRoad(DataBase _data) {
         DataMap map_ = _data.getMap();
         map_.addRoad();
-        Road road_ = (Road) map_.getPlaces().getVal((short) 2);
+        Road road_ = (Road) map_.getPlace((short) 2);
         road_.setName(R_2);
         Block block_;
         block_ = newRoadBlock(2, 2);
@@ -483,7 +483,7 @@ final class InitializationMap {
         list_ = new CustList<NameLevelMoves>();
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,5),new StringList(JACKPOT)));
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,8),new StringList(JACKPOT)));
-        Road road_ = (Road) map_.getPlaces().getVal((short) 2);
+        Road road_ = (Road) map_.getPlace((short) 2);
         DualFight dual_;
         dual_ = newDualFight(allyList_, list_, 300);
         dual_.setNames(new StringList(DUAL_ONE_TR_ONE,DUAL_ONE_TR_TWO));
@@ -496,7 +496,7 @@ final class InitializationMap {
         list_ = new CustList<NameLevelMoves>();
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,5),new StringList(JACKPOT)));
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,8),new StringList(JACKPOT)));
-        road_ = (Road) map_.getPlaces().getVal((short) 2);
+        road_ = (Road) map_.getPlace((short) 2);
         dual_ = newDualFight(allyList_, list_, 300);
         dual_.setNames(new StringList(DUAL_TWO_TR_ONE,DUAL_TWO_TR_TWO));
         dual_.setPt(newPoint(5, 0));
@@ -515,7 +515,7 @@ final class InitializationMap {
     static void initSecondRoadAreas(DataBase _data) {
         DataMap map_ = _data.getMap();
         WildPk wild_;
-        Road road_ = (Road) map_.getPlaces().getVal((short) 2);
+        Road road_ = (Road) map_.getPlace((short) 2);
         wild_ = new WildPk();
         wild_.setName(MEW);
         wild_.setLevel((short) 1);
@@ -533,7 +533,7 @@ final class InitializationMap {
 
     static void initItemsSecondRoad(DataBase _data) {
         DataMap map_ = _data.getMap();
-        Road road_ = (Road) map_.getPlaces().getVal((short) 2);
+        Road road_ = (Road) map_.getPlace((short) 2);
         road_.addObject(newCoords(2, 0, 6, 5), HYPER_BALL);
         //map_.getTakenObjects().add(newCoords(2, 0, 6, 5));
         road_.addTm(newCoords(2, 0, 7, 5), (short) 2);
@@ -544,7 +544,7 @@ final class InitializationMap {
     static void initBlockSecondCity(DataBase _data) {
         DataMap map_ = _data.getMap();
         map_.addCity(CITY_TWO);
-        City city_ = (City) map_.getPlaces().getVal((short) 3);
+        City city_ = (City) map_.getPlace((short) 3);
         Block block_;
         block_ = newRoadBlock(2, 2);
         city_.getLevel().getBlocks().addEntry(newPoint(0,0), block_);
@@ -571,7 +571,7 @@ final class InitializationMap {
         City city_;
         Gym gym_;
         PokemonCenter pkCenter_;
-        city_ = (City) map_.getPlaces().getVal((short) 3);
+        city_ = (City) map_.getPlace((short) 3);
         gym_ = new Gym();
         gym_.setLevel(new LevelIndoorGym());
         gym_.setExitCity(newPoint(4,8));
@@ -594,7 +594,7 @@ final class InitializationMap {
 
     static void initTrainersSecondCity(DataBase _data) {
         DataMap map_ = _data.getMap();
-        City city_ = (City) map_.getPlaces().getVal((short) 3);
+        City city_ = (City) map_.getPlace((short) 3);
         CustList<NameLevelMoves> list_;
         GymTrainer gymTrainer_;
         GymLeader gymLeader_;
@@ -623,7 +623,7 @@ final class InitializationMap {
         //map_.getTakenObjects().add(newCoords(0, 0, 0, 1));
         City city_;
         PokemonCenter pk_;
-        city_ = (City) map_.getPlaces().getVal((short) 3);
+        city_ = (City) map_.getPlace((short) 3);
         pk_ = (PokemonCenter) city_.getBuildings().getVal(newPoint(2, 1));
         pk_.getIndoor().getGerants().addEntry(newPoint(0, 4), newGerantPokemon(GeranceType.FOSSILE));
         pk_.getIndoor().getGerants().addEntry(newPoint(8, 4), newGerantPokemon(GeranceType.HOST));
@@ -632,7 +632,7 @@ final class InitializationMap {
     static void initBlockThirdRoad(DataBase _data) {
         DataMap map_ = _data.getMap();
         map_.addRoad();
-        Road road_ = (Road) map_.getPlaces().getVal((short) 4);
+        Road road_ = (Road) map_.getPlace((short) 4);
         road_.setName(R_4);
         Block block_;
         block_ = newRoadBlock(2, 2);
@@ -658,7 +658,7 @@ final class InitializationMap {
     static void initBlockCave(DataBase _data) {
         DataMap map_ = _data.getMap();
         InitializationDataBase.addCave(map_);
-        Cave cave_ = (Cave) map_.getPlaces().getVal((short) 5);
+        Cave cave_ = (Cave) map_.getPlace((short) 5);
         cave_.setName(CAVE);
         InitializationDataBase.addLevelCave(map_, (short) 5);
         LevelCave level_;
@@ -717,7 +717,7 @@ final class InitializationMap {
 
     static void initCaveAreas(DataBase _data) {
         DataMap map_ = _data.getMap();
-        Cave road_ = (Cave) map_.getPlaces().getVal((short) 5);
+        Cave road_ = (Cave) map_.getPlace((short) 5);
         LevelCave level_;
         //map level_ = road_.getLevels().getVal((byte) 0);
         level_ = (LevelCave)road_.getLevelsMap().getVal((byte) 1);
@@ -883,14 +883,14 @@ final class InitializationMap {
 
     static void initTrainersCave(DataBase _data) {
         DataMap map_ = _data.getMap();
-        //Road road_ = (Road) map_.getPlaces().getVal((short) 0);
+        //Road road_ = (Road) map_.getPlace((short) 0);
         PokemonTeam foeTeamList_;
         CustList<NameLevelMoves> list_;
         CustList<PokemonTeam> foeTeamsList_;
         TrainerMultiFights trainer_;
         CustList<NameLevelMoves> allyList_;
         DualFight dual_;
-        Cave cave_ = (Cave) map_.getPlaces().getVal((short) 5);
+        Cave cave_ = (Cave) map_.getPlace((short) 5);
         allyList_ = new CustList<NameLevelMoves>();
         allyList_.add(new NameLevelMoves(new NameLevel(PIKACHU,35),new StringList(JACKPOT,CHARGE)));
         allyList_.add(new NameLevelMoves(new NameLevel(PIKACHU,38),new StringList(TONNERRE)));
@@ -924,21 +924,21 @@ final class InitializationMap {
 
     static void initOtherCharactersFirstRoad(DataBase _data) {
         DataMap map_ = _data.getMap();
-        Road road_ = (Road) map_.getPlaces().getVal((short) 0);
+        Road road_ = (Road) map_.getPlace((short) 0);
         road_.addPerson(newCoords(0, 0, 0, 1), newDealerObject(new StringList(HYPER_BALL), new Shorts((short)5)));
     }
 
     static void initLeague(DataBase _data) {
         DataMap map_ = _data.getMap();
         map_.addLeague(FILE, newCoords(4, 0, 5, 4));
-        League league_ =(League) map_.getPlaces().getVal((short) 6);
+        League league_ =(League) map_.getPlace((short) 6);
         league_.setName(LIGUE);
         map_.addLevelLeague((short) 6);
     }
 
     static void initBlockLeague(DataBase _data) {
         DataMap map_ = _data.getMap();
-        League road_ = (League) map_.getPlaces().getVal((short) 6);
+        League road_ = (League) map_.getPlace((short) 6);
         LevelLeague level_;
         Block block_;
         level_ = (LevelLeague) road_.getLevelsMap().getVal((byte) 0);
@@ -957,7 +957,7 @@ final class InitializationMap {
 
     static void initLeagueTrainers(DataBase _data) {
         DataMap map_ = _data.getMap();
-        League league_ = (League) map_.getPlaces().getVal((short) 6);
+        League league_ = (League) map_.getPlace((short) 6);
         CustList<NameLevelMoves> list_;
         list_ = new CustList<NameLevelMoves>();
         list_.add(new NameLevelMoves(new NameLevel(PIKACHU,35),new StringList(JACKPOT)));
@@ -984,7 +984,7 @@ final class InitializationMap {
     static void initBlockThirdCity(DataBase _data) {
         DataMap map_ = _data.getMap();
         map_.addCity(CITY_7);
-        City city_ = (City) map_.getPlaces().getVal((short) 7);
+        City city_ = (City) map_.getPlace((short) 7);
         Block block_;
         block_ = newRoadBlock(2, 2);
         city_.getLevel().getBlocks().addEntry(newPoint(0,0), block_);
@@ -1008,7 +1008,7 @@ final class InitializationMap {
 
     static void initBuildingsThirdCity(DataBase _data) {
         DataMap map_ = _data.getMap();
-        City city_ = (City) map_.getPlaces().getVal((short) 7);
+        City city_ = (City) map_.getPlace((short) 7);
         PokemonCenter pkCenter_;
         pkCenter_ = new PokemonCenter();
         pkCenter_.setLevel(new LevelIndoorPokemonCenter());
@@ -1025,7 +1025,7 @@ final class InitializationMap {
     static void initBlockFourthCity(DataBase _data) {
         DataMap map_ = _data.getMap();
         map_.addCity(CITY_8);
-        City city_ = (City) map_.getPlaces().getVal((short) 8);
+        City city_ = (City) map_.getPlace((short) 8);
         Block block_;
         block_ = newRoadBlock(2, 2);
         city_.getLevel().getBlocks().addEntry(newPoint(0,0), block_);
@@ -1049,7 +1049,7 @@ final class InitializationMap {
 
     static void initBuildingsFourthCity(DataBase _data) {
         DataMap map_ = _data.getMap();
-        City city_ = (City) map_.getPlaces().getVal((short) 8);
+        City city_ = (City) map_.getPlace((short) 8);
         PokemonCenter pkCenter_;
         pkCenter_ = new PokemonCenter();
         pkCenter_.setLevel(new LevelIndoorPokemonCenter());
@@ -1066,7 +1066,7 @@ final class InitializationMap {
     static void initBlockFourthRoad(DataBase _data) {
         DataMap map_ = _data.getMap();
         map_.addRoad();
-        Road road_ = (Road) map_.getPlaces().getVal((short) 9);
+        Road road_ = (Road) map_.getPlace((short) 9);
         road_.setName(MOTORWAY_9);
         Block block_;
         block_ = newRoadBlock(2, 2);
@@ -1091,7 +1091,7 @@ final class InitializationMap {
 
     static void initTrainersFourthRoad(DataBase _data) {
         DataMap map_ = _data.getMap();
-        Road road_ = (Road) map_.getPlaces().getVal((short) 9);
+        Road road_ = (Road) map_.getPlace((short) 9);
         PokemonTeam foeTeamList_;
         CustList<NameLevelMoves> list_;
         CustList<PokemonTeam> foeTeamsList_;
@@ -1146,7 +1146,7 @@ final class InitializationMap {
 
     static void initImages(DataBase _data) {
         DataMap map_ = _data.getMap();
-        for (Place p: map_.getPlaces().values()) {
+        for (Place p: map_.getPlaces()) {
             if (p instanceof City) {
                 for (Building b: ((City)p).getBuildings().values()) {
                     for (Block c: b.getLevel().getBlocks().values()) {
@@ -1182,7 +1182,7 @@ final class InitializationMap {
                 }
             }
         }
-        for (Place p: map_.getPlaces().values()) {
+        for (Place p: map_.getPlaces()) {
             for (Level l: p.getLevelsMap().values()) {
                 if (l instanceof LevelWithWildPokemon) {
                     for (CharacterInRoadCave c: ((LevelWithWildPokemon)l).getCharacters().values()) {

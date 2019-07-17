@@ -139,7 +139,7 @@ public final class FightFacade {
         DataMap d_ = _d.getMap();
         if (_coords.isValid()) {
             LevelPoint lp_ = _coords.getLevel();
-            Block bl_ = d_.getPlaces().getVal(_coords.getNumberPlace()).getLevelByCoords(_coords).getBlockByPoint(lp_.getPoint());
+            Block bl_ = d_.getPlace(_coords.getNumberPlace()).getLevelByCoords(_coords).getBlockByPoint(lp_.getPoint());
             if (bl_.isValid()) {
                 _fight.setEnvType(bl_.getType());
             } else {

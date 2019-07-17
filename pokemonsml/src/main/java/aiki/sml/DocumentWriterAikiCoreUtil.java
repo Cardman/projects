@@ -4487,27 +4487,21 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapByteLevelCave(ByteMap<LevelCave> _object, String _fieldName, Document _document) {
+    private static Element setMapByteLevelCave(CustList<LevelCave> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<Byte, LevelCave> s: _object.entryList()) {
-            Element sub_ = DocumentWriterCoreUtil.setByte(s.getKey(), EMPTY_STRING, _document);
-            DocumentWriterCoreUtil.setKey(sub_);
-            elt_.appendChild(sub_);
-            sub_ = setLevelCave(s.getValue(), EMPTY_STRING, _document);
+        for (LevelCave s: _object) {
+            Element sub_ = setLevelCave(s, EMPTY_STRING, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
-    private static Element setMapShortPlace(ShortMap<Place> _object, String _fieldName, Document _document) {
+    private static Element setMapShortPlace(CustList<Place> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<Short, Place> s: _object.entryList()) {
-            Element sub_ = DocumentWriterCoreUtil.setShort(s.getKey(), EMPTY_STRING, _document);
-            DocumentWriterCoreUtil.setKey(sub_);
-            elt_.appendChild(sub_);
-            sub_ = setPlace(s.getValue(), EMPTY_STRING, _document);
+        for (Place s: _object) {
+            Element sub_ = setPlace(s, EMPTY_STRING, _document);
             elt_.appendChild(sub_);
         }
         return elt_;

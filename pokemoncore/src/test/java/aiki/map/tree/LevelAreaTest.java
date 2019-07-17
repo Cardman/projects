@@ -100,9 +100,9 @@ public class LevelAreaTest {
     public void initialize1Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new ShortMap<Place>());
+        initPlaces(dataMap_);
         City city_ = city();
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
+        dataMap_.getPlaces().add( city_);
         LevelArea area_ = new LevelArea();
         area_.initialize(city_.getLevel());
         assertEq(9, area_.getHeight());
@@ -135,7 +135,7 @@ public class LevelAreaTest {
     public void initialize2Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new ShortMap<Place>());
+        initPlaces(dataMap_);
         Road road_ = vroad();
         AreaApparition areaApp_ = new AreaApparition();
         areaApp_.setMultFight((byte) 1);
@@ -159,7 +159,7 @@ public class LevelAreaTest {
         areaApp_.initializeWildPokemon();
         road_.getLevelRoad().getWildPokemonAreas().add(areaApp_);
         road_.getLevel().getBlocks().getVal(point(0,0)).setIndexApparition((short) 0);
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), road_);
+        dataMap_.getPlaces().add( road_);
         LevelArea area_ = new LevelArea();
         area_.initialize(road_.getLevel());
         assertEq(6, area_.getHeight());
@@ -182,7 +182,7 @@ public class LevelAreaTest {
     public void initialize3Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new ShortMap<Place>());
+        initPlaces(dataMap_);
         Road road_ = vroad();
         AreaApparition areaApp_ = new AreaApparition();
         areaApp_.setMultFight((byte) 1);
@@ -206,7 +206,7 @@ public class LevelAreaTest {
         areaApp_.initializeWildPokemon();
         road_.getLevelRoad().getWildPokemonAreas().add(areaApp_);
         road_.getLevel().getBlocks().getVal(point(0,0)).setIndexApparition((short) 0);
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), road_);
+        dataMap_.getPlaces().add( road_);
         LevelArea area_ = new LevelArea();
         area_.initialize(road_.getLevel());
         assertEq(6, area_.getHeight());
@@ -229,9 +229,9 @@ public class LevelAreaTest {
     public void getPokemon1Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new ShortMap<Place>());
+        initPlaces(dataMap_);
         City city_ = city();
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
+        dataMap_.getPlaces().add( city_);
         LevelArea area_ = new LevelArea();
         area_.initialize(city_.getLevel());
         assertEq(0, area_.getPokemon(point(0,0)).size());
@@ -244,7 +244,7 @@ public class LevelAreaTest {
     public void getPokemon2Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new ShortMap<Place>());
+        initPlaces(dataMap_);
         Road road_ = vroad();
         AreaApparition areaApp_ = new AreaApparition();
         areaApp_.setMultFight((byte) 1);
@@ -268,7 +268,7 @@ public class LevelAreaTest {
         areaApp_.initializeWildPokemon();
         road_.getLevelRoad().getWildPokemonAreas().add(areaApp_);
         road_.getLevel().getBlocks().getVal(point(0,0)).setIndexApparition((short) 0);
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), road_);
+        dataMap_.getPlaces().add( road_);
         LevelArea area_ = new LevelArea();
         area_.initialize(road_.getLevel());
         CustList<GenderName> list_;
@@ -284,9 +284,9 @@ public class LevelAreaTest {
     public void isValid1Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new ShortMap<Place>());
+        initPlaces(dataMap_);
         City city_ = city();
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
+        dataMap_.getPlaces().add( city_);
         LevelArea area_ = new LevelArea();
         area_.initialize(city_.getLevel());
         assertTrue(!area_.isValid(point(9,9), false));
@@ -301,9 +301,9 @@ public class LevelAreaTest {
     public void isValid2Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new ShortMap<Place>());
+        initPlaces(dataMap_);
         City city_ = city();
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
+        dataMap_.getPlaces().add( city_);
         LevelArea area_ = new LevelArea();
         area_.initialize(city_.getLevel());
         assertTrue(!area_.isValid(point(9,9), true));
@@ -318,9 +318,9 @@ public class LevelAreaTest {
     public void size1Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new ShortMap<Place>());
+        initPlaces(dataMap_);
         City city_ = city();
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
+        dataMap_.getPlaces().add( city_);
         LevelArea area_ = new LevelArea();
         area_.initialize(city_.getLevel());
         assertEq(81, area_.size());
@@ -330,19 +330,23 @@ public class LevelAreaTest {
     public void allAccessible1Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new ShortMap<Place>());
+        initPlaces(dataMap_);
         City city_ = city();
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
+        dataMap_.getPlaces().add( city_);
         LevelArea area_ = new LevelArea();
         area_.initialize(city_.getLevel());
         assertTrue(!area_.allAccessible());
+    }
+
+    private static void initPlaces(DataMap _dataMap) {
+        _dataMap.setPlaces(new CustList<Place>());
     }
 
     @Test
     public void allAccessible2Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new ShortMap<Place>());
+        initPlaces(dataMap_);
         Road road_ = vroad();
         AreaApparition areaApp_ = new AreaApparition();
         areaApp_.setMultFight((byte) 1);
@@ -366,7 +370,7 @@ public class LevelAreaTest {
         areaApp_.initializeWildPokemon();
         road_.getLevelRoad().getWildPokemonAreas().add(areaApp_);
         road_.getLevel().getBlocks().getVal(point(0,0)).setIndexApparition((short) 0);
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), road_);
+        dataMap_.getPlaces().add( road_);
         LevelArea area_ = new LevelArea();
         area_.initialize(road_.getLevel());
         assertTrue(area_.allAccessible());
@@ -376,9 +380,9 @@ public class LevelAreaTest {
     public void isAccessible1Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new ShortMap<Place>());
+        initPlaces(dataMap_);
         City city_ = city();
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
+        dataMap_.getPlaces().add( city_);
         LevelArea area_ = new LevelArea();
         area_.initialize(city_.getLevel());
         assertTrue(!area_.isAccessible(point(3, 3)));
@@ -388,9 +392,9 @@ public class LevelAreaTest {
     public void isAccessible2Test() {
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
-        dataMap_.setPlaces(new ShortMap<Place>());
+        initPlaces(dataMap_);
         City city_ = city();
-        dataMap_.getPlaces().put((short) dataMap_.getPlaces().size(), city_);
+        dataMap_.getPlaces().add( city_);
         LevelArea area_ = new LevelArea();
         area_.initialize(city_.getLevel());
         assertTrue(area_.isAccessible(point(2, 3)));
