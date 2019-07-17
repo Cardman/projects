@@ -25,7 +25,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         NumberStruct.calculateOperator(_conf, res_, _arg, _op, _catString, _left.getStruct(), _right.getStruct());
         return new Argument(res_.getResult());
     }
-    static Argument calculateIncrDecr(Argument _left,ExecutableCode _conf, String _op, ClassArgumentMatching _arg) {
+    public static Argument calculateIncrDecr(Argument _left,ExecutableCode _conf, String _op, ClassArgumentMatching _arg) {
         Argument o_;
         if (StringList.quickEq(_op, Block.INCR)) {
             o_ = new Argument(ExecAddOperation.addOne((NumberStruct) _left.getStruct(), _conf, _arg));
@@ -45,7 +45,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         }
         return new Argument(res_);
     }
-    static Argument calculateModEx(Argument _a, ExecutableCode _cont, Argument _b,ClassArgumentMatching _order) {
+    public static Argument calculateModEx(Argument _a, ExecutableCode _cont, Argument _b,ClassArgumentMatching _order) {
         LgNames stds_ = _cont.getStandards();
         String div_;
         div_ = stds_.getAliasDivisionZero();

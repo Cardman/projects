@@ -2636,4 +2636,38 @@ public abstract class ContextEl implements ExecutableCode {
         getInternGlobal();
         getInternGlobalClass();
     }
+
+    @Override
+    public boolean hasToExit(String _className) {
+        Classes classes_ = getClasses();
+        String idClass_ = Templates.getIdFromAllTypes(_className);
+        ContextEl cont_ = getContextEl();
+        String curClass_ = cont_.getLastPage().getGlobalClass();
+        curClass_ = Templates.getIdFromAllTypes(curClass_);
+        if (StringList.quickEq(curClass_, idClass_)) {
+            return false;
+        }
+        if (classes_.isCustomType(_className)) {
+            DefaultLockingClass locks_ = classes_.getLocks();
+            if (cont_.isInitEnums()) {
+                InitClassState res_ = locks_.getState(idClass_);
+                if (res_ != InitClassState.SUCCESS) {
+                    getContextEl().failInitEnums();
+                    return true;
+                }
+                return false;
+            }
+            InitClassState res_ = locks_.getState(getContextEl(), _className);
+            if (res_ == InitClassState.NOT_YET) {
+                getContextEl().setInitClass(new NotInitializedClass(_className));
+                return true;
+            }
+            if (res_ == InitClassState.ERROR) {
+                CausingErrorStruct causing_ = new CausingErrorStruct(_className, this);
+                setException(causing_);
+                return true;
+            }
+        }
+        return false;
+    }
 }

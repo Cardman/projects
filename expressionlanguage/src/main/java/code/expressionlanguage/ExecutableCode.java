@@ -9,4 +9,5 @@ public interface ExecutableCode extends Analyzable {
     void setException(Struct _struct);
 
     Struct getException();
+    boolean hasToExit(String _className);
 }

@@ -3310,7 +3310,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"str\" expression=\"const\" isstringconst=\"true\" className=\"java.lang.Object\"/><c:while defined=\"str\">{str;.}<c:unset var=\"str\"/><c:continue/>NOT DISPLAYED</c:while></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"str\" expression=\"&quot;&quot;\" className=\"java.lang.String\"/><c:set expression=\"str;.=&quot;const&quot;\"/><c:while condition=\"str;.==&quot;const&quot;\">{str;.}<c:set expression=\"str;.=&quot;toto&quot;\"/><c:continue/>NOT DISPLAYED</c:while></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -3343,7 +3343,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"str\" expression=\"const\" isstringconst=\"true\" className=\"java.lang.Object\"/><c:while defined=\"str\">{str;.}<c:break/>NOT DISPLAYED<c:unset var=\"str\"/></c:while></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"str\" expression=\"&quot;&quot;\" className=\"java.lang.String\"/><c:set expression=\"str;.=&quot;const&quot;\"/><c:while condition=\"str;.==&quot;const&quot;\">{str;.}<c:break/>NOT DISPLAYED</c:while></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();

@@ -32,16 +32,9 @@ import code.util.ints.MathFactory;
 
 final class ExtractObject {
 
-    static final String NAMESPACE_URI = "javahtml";
     static final String EMPTY_STRING = "";
-    static final String RETURN_LINE = "\n";
-    static final String RETURN_TAB = "\n\t";
 
-    static final String SPACE = " ";
-    static final String VAR_METHOD = "varMethod";
-    static final String BEAN_ATTRIBUTE = "bean";
     static final String COMMA = ",";
-    static final String DOT = ".";
     private static final String INSTANCE = "$new ";
     private static final char BEGIN_ARGS = '(';
     private static final char SEP_ARGS = ',';

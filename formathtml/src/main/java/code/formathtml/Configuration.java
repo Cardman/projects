@@ -6,9 +6,12 @@ import code.bean.validator.Validator;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.calls.PageEl;
+import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeOwnersDepends;
 import code.expressionlanguage.instr.ResultAfterInstKeyWord;
 import code.expressionlanguage.methods.AccessingImportingBlock;
@@ -25,6 +28,7 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.CausingErrorStruct;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -1083,5 +1087,23 @@ public class Configuration implements ExecutableCode {
 
     public void setAddedFiles(StringList _addedFiles) {
         addedFiles = _addedFiles;
+    }
+
+    @Override
+    public boolean hasToExit(String _className) {
+        Classes classes_ = getClasses();
+        if (classes_.isCustomType(_className)) {
+            InitClassState res_ = classes_.getLocks().getState(getContextEl(), _className);
+            if (res_ == InitClassState.NOT_YET) {
+                getContextEl().setInitClass(new NotInitializedClass(_className));
+                return true;
+            }
+            if (res_ == InitClassState.ERROR) {
+                CausingErrorStruct causing_ = new CausingErrorStruct(_className,this);
+                setException(causing_);
+                return true;
+            }
+        }
+        return false;
     }
 }

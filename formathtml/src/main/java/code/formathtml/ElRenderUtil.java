@@ -3,31 +3,24 @@ package code.formathtml;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.errors.custom.BadElError;
 import code.expressionlanguage.errors.custom.BadOperandsNumber;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.ConstType;
 import code.expressionlanguage.instr.Delimiters;
 import code.expressionlanguage.instr.ElResolver;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.opers.DotOperation;
-import code.expressionlanguage.opers.MethodOperation;
-import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.PossibleIntermediateDotted;
-import code.expressionlanguage.opers.StandardInstancingOperation;
-import code.expressionlanguage.opers.StaticAccessOperation;
-import code.expressionlanguage.opers.StaticInitOperation;
+import code.expressionlanguage.opers.*;
 import code.expressionlanguage.opers.exec.ReductibleOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.ErrorStruct;
-import code.formathtml.exec.DirectExecCalculableOperation;
-import code.formathtml.exec.ExecAffectationOperation;
-import code.formathtml.exec.ExecCompoundAffectationOperation;
-import code.formathtml.exec.ExecDynOperationNode;
-import code.formathtml.exec.ExecMethodOperation;
-import code.formathtml.exec.ExecPossibleIntermediateDotted;
-import code.formathtml.exec.ExecSemiAffectationOperation;
+import code.formathtml.exec.RendCalculableOperation;
+import code.formathtml.exec.RendAffectationOperation;
+import code.formathtml.exec.RendCompoundAffectationOperation;
+import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.exec.RendMethodOperation;
+import code.formathtml.exec.RendPossibleIntermediateDotted;
+import code.formathtml.exec.RendSemiAffectationOperation;
 import code.formathtml.exec.InternGlobalOperation;
 import code.formathtml.util.BadElRender;
 import code.util.CustList;
@@ -80,7 +73,7 @@ public final class ElRenderUtil {
             return Argument.createVoid();
         }
         context_.setAnalyzing(null);
-        CustList<ExecDynOperationNode> out_ = getExecutableNodes(all_, _conf);
+        CustList<RendDynOperationNode> out_ = getExecutableNodes(all_, _conf);
         calculate(out_, _conf);
         Argument arg_ = out_.last().getArgument();
         return arg_;
@@ -107,6 +100,7 @@ public final class ElRenderUtil {
         OperationsSequence opTwo_ = getOperationsSequence(_index, el_, _conf, d_);
         OperationNode op_ = createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_, _conf);
         CustList<OperationNode> all_ = getSortedDescNodes(op_, static_, _conf);
+        CustList<RendDynOperationNode> out_ = getExecutableNodes(all_, _conf);
         if (!_conf.getClasses().isEmptyErrors()) {
             BadElRender badEl_ = new BadElRender();
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
@@ -117,52 +111,45 @@ public final class ElRenderUtil {
             return Argument.createVoid();
         }
         context_.setAnalyzing(null);
-        CustList<ExecDynOperationNode> out_ = getExecutableNodes(all_, _conf);
         calculate(out_, _conf);
         Argument arg_  = out_.last().getArgument();
         return arg_;
     }
-    public static CustList<ExecDynOperationNode> getExecutableNodes(CustList<OperationNode> _list, Analyzable _an) {
-        CustList<ExecDynOperationNode> out_ = new CustList<ExecDynOperationNode>();
+    public static CustList<RendDynOperationNode> getExecutableNodes(CustList<OperationNode> _list, Analyzable _an) {
+        CustList<RendDynOperationNode> out_ = new CustList<RendDynOperationNode>();
         OperationNode root_ = _list.last();
         OperationNode current_ = root_;
-        ExecDynOperationNode exp_ = (ExecDynOperationNode) ExecDynOperationNode.createExecOperationNode(current_, _an);
+        RendDynOperationNode exp_ = RendDynOperationNode.createExecOperationNode(current_, _an);
         while (true) {
             if (current_ == null) {
                 break;
             }
             OperationNode op_ = current_.getFirstChild();
             if (op_ != null) {
-                ExecDynOperationNode loc_ = (ExecDynOperationNode) ExecDynOperationNode.createExecOperationNode(op_, _an);
-                if (!(exp_ instanceof ExecMethodOperation)) {
-                    return out_;
-                }
-                ((ExecMethodOperation)exp_).appendChild(loc_);
+                RendDynOperationNode loc_ = RendDynOperationNode.createExecOperationNode(op_, _an);
+                ((RendMethodOperation)exp_).appendChild(loc_);
                 exp_ = loc_;
                 current_ = op_;
                 continue;
             }
             while (true) {
-                if (exp_ instanceof ExecAffectationOperation) {
-                    ((ExecAffectationOperation)exp_).setup();
+                if (exp_ instanceof RendAffectationOperation) {
+                    ((RendAffectationOperation)exp_).setup();
                 }
-                if (exp_ instanceof ExecSemiAffectationOperation) {
-                    ((ExecSemiAffectationOperation)exp_).setup();
+                if (exp_ instanceof RendSemiAffectationOperation) {
+                    ((RendSemiAffectationOperation)exp_).setup();
                 }
-                if (exp_ instanceof ExecCompoundAffectationOperation) {
-                    ((ExecCompoundAffectationOperation)exp_).setup();
+                if (exp_ instanceof RendCompoundAffectationOperation) {
+                    ((RendCompoundAffectationOperation)exp_).setup();
                 }
                 out_.add(exp_);
                 op_ = current_.getNextSibling();
                 if (op_ != null) {
-                    ExecDynOperationNode loc_ = (ExecDynOperationNode) ExecDynOperationNode.createExecOperationNode(op_, _an);
-                    ExecMethodOperation par_ = exp_.getParent();
-                    if (par_ == null) {
-                        return out_;
-                    }
+                    RendDynOperationNode loc_ = RendDynOperationNode.createExecOperationNode(op_, _an);
+                    RendMethodOperation par_ = exp_.getParent();
                     par_.appendChild(loc_);
-                    if (op_.getParent() instanceof DotOperation) {
-                        exp_.setSiblingSet((ExecPossibleIntermediateDotted) loc_);
+                    if (op_.getParent() instanceof DotOperation && loc_ instanceof RendPossibleIntermediateDotted) {
+                        exp_.setSiblingSet((RendPossibleIntermediateDotted) loc_);
                     }
                     exp_ = loc_;
                     current_ = op_;
@@ -173,16 +160,16 @@ public final class ElRenderUtil {
                     current_ = null;
                     break;
                 }
-                ExecMethodOperation par_ = exp_.getParent();
+                RendMethodOperation par_ = exp_.getParent();
                 if (op_ == root_) {
-                    if (par_ instanceof ExecAffectationOperation) {
-                        ((ExecAffectationOperation)par_).setup();
+                    if (par_ instanceof RendAffectationOperation) {
+                        ((RendAffectationOperation)par_).setup();
                     }
-                    if (par_ instanceof ExecSemiAffectationOperation) {
-                        ((ExecSemiAffectationOperation)par_).setup();
+                    if (par_ instanceof RendSemiAffectationOperation) {
+                        ((RendSemiAffectationOperation)par_).setup();
                     }
-                    if (par_ instanceof ExecCompoundAffectationOperation) {
-                        ((ExecCompoundAffectationOperation)par_).setup();
+                    if (par_ instanceof RendCompoundAffectationOperation) {
+                        ((RendCompoundAffectationOperation)par_).setup();
                     }
                     out_.add(par_);
                     current_ = null;
@@ -216,7 +203,7 @@ public final class ElRenderUtil {
         OperationNode current_ = _current;
         while (true) {
             _context.setOkNumOp(true);
-            current_.analyze(_context);
+            processAnalyze(_context, current_);
             if (current_ instanceof ReductibleOperable) {
                 ((ReductibleOperable)current_).tryCalculateNode(_context);
             }
@@ -250,7 +237,7 @@ public final class ElRenderUtil {
             }
             if (par_ == _root) {
                 _context.setOkNumOp(true);
-                par_.analyze(_context);
+                processAnalyze(_context, par_);
                 ClassArgumentMatching cl_ = par_.getResultClass();
                 if (PrimitiveTypeUtil.isPrimitive(cl_, _context)) {
                     cl_.setUnwrapObject(cl_);
@@ -266,12 +253,25 @@ public final class ElRenderUtil {
             current_ = par_;
         }
     }
+
+    private static void processAnalyze(Configuration _context, OperationNode _current) {
+        if (!(_current instanceof AbstractInvokingConstructor)) {
+            _current.analyze(_context);
+        } else {
+            BadOperandsNumber badNb_ = new BadOperandsNumber();
+            badNb_.setFileName(_context.getCurrentFileName());
+            badNb_.setOperandsNumber(0);
+            badNb_.setIndexFile(_context.getCurrentLocationIndex());
+            _context.getClasses().addError(badNb_);
+        }
+    }
+
     private static OperationNode createFirstChild(OperationNode _block, Configuration _context, int _index) {
         if (!(_block instanceof MethodOperation)) {
             return null;
         }
         MethodOperation block_ = (MethodOperation) _block;
-        if (block_.getChildren() == null || block_.getChildren().isEmpty()) {
+        if (block_.getChildren().isEmpty()) {
             if (_context.getOptions().isInitializeStaticClassFirst() && block_ instanceof StandardInstancingOperation) {
                 if (_index == CustList.FIRST_INDEX) {
                     Delimiters d_ = block_.getOperations().getDelimiter();
@@ -374,12 +374,12 @@ public final class ElRenderUtil {
         }
         return OperationNode.createOperationNode(_index, _indexChild, _m, _op, _an);
     }
-    static void calculate(CustList<ExecDynOperationNode> _nodes, Configuration _context) {     
+    static void calculate(CustList<RendDynOperationNode> _nodes, Configuration _context) {
         int ind_ = 0;
         int len_ = _nodes.size();
         while (ind_ < len_) {
-            ExecDynOperationNode curr_ = _nodes.get(ind_);
-            if (!(curr_ instanceof DirectExecCalculableOperation)) {
+            RendDynOperationNode curr_ = _nodes.get(ind_);
+            if (!(curr_ instanceof RendCalculableOperation)) {
                 ind_++;
                 continue;
             }
@@ -388,13 +388,13 @@ public final class ElRenderUtil {
                 ind_++;
                 continue;
             }
-            DirectExecCalculableOperation dir_ = (DirectExecCalculableOperation) curr_;
+            RendCalculableOperation dir_ = (RendCalculableOperation) curr_;
             dir_.calculate(_context);
             a_ = curr_.getArgument();
             if (_context.getException() != null) {
                 return;
             }
-            ind_ = ExecDynOperationNode.getNextIndex(curr_, a_.getStruct());
+            ind_ = RendDynOperationNode.getNextIndex(curr_, a_.getStruct());
         }
         
     }

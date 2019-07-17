@@ -113,36 +113,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     }
 
     public static boolean hasToExit(ExecutableCode _conf, String _className) {
-        Classes classes_ = _conf.getClasses();
-        String idClass_ = Templates.getIdFromAllTypes(_className);
-        ContextEl cont_ = _conf.getContextEl();
-        String curClass_ = cont_.getLastPage().getGlobalClass();
-        curClass_ = Templates.getIdFromAllTypes(curClass_);
-        if (StringList.quickEq(curClass_, idClass_)) {
-            return false;
-        }
-        if (classes_.isCustomType(_className)) {
-            DefaultLockingClass locks_ = classes_.getLocks();
-            if (cont_.isInitEnums()) {
-                InitClassState res_ = locks_.getState(idClass_);
-                if (res_ != InitClassState.SUCCESS) {
-                    _conf.getContextEl().failInitEnums();
-                    return true;
-                }
-                return false;
-            }
-            InitClassState res_ = locks_.getState(_conf.getContextEl(), _className);
-            if (res_ == InitClassState.NOT_YET) {
-                _conf.getContextEl().setInitClass(new NotInitializedClass(_className));
-                return true;
-            }
-            if (res_ == InitClassState.ERROR) {
-                CausingErrorStruct causing_ = new CausingErrorStruct(_className, _conf);
-                _conf.setException(causing_);
-                return true;
-            }
-        }
-        return false;
+        return _conf.hasToExit(_className);
     }
     public static Argument instancePrepare(ExecutableCode _conf, String _className, ConstructorId _constId, Argument _previous, CustList<Argument> _arguments) {
         return instancePrepare(_conf, _className, _constId, _previous, _arguments, "", -1, false);

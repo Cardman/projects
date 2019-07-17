@@ -8,13 +8,13 @@ import code.expressionlanguage.errors.custom.UnknownClassName;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stacks.LoopStack;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
-import code.formathtml.exec.ExecInvokingOperation;
 import code.formathtml.util.*;
 import code.sml.*;
 import code.util.CustList;
@@ -134,8 +134,6 @@ public final class FormatHtml {
     private static final String PACKAGE_BLOCK_TAG = "package";
     private static final String CLASS_BLOCK_TAG = "class";
     private static final String FIELD_BLOCK_TAG = "field";
-    private static final String PARAM_BLOCK_TAG = "param";
-    private static final String SET_RETURNED_VALUE_BLOCK_TAG = "setreturnedvalue";
     private static final String TMP_BLOCK_TAG = "tmp";
     private static final String SUBMIT_BLOCK_TAG = "submit";
     private static final String FORM_BLOCK_TAG = "form";
@@ -356,92 +354,6 @@ public final class FormatHtml {
         }
     }
 
-    private static StringMap<LocalVariable> newParametersBeforeRender(Configuration _conf, Node _node) {
-        ImportingPage ip_ = _conf.getLastPage();
-        StringMap<LocalVariable> parameters_ = new StringMap<LocalVariable>();
-        String prefix_ = ip_.getPrefix();
-        for (Element n: _node.getChildElements()) {
-            if (!StringList.quickEq(n.getTagName(),StringList.concat(prefix_,PARAM_BLOCK_TAG))) {
-                continue;
-            }
-            ip_.setProcessingNode(n);
-            if (!n.hasAttribute(ATTRIBUTE_VAR)) {
-                ip_.setProcessingAttribute(EMPTY_STRING);
-                ip_.setLookForAttrValue(false);
-            } else {
-                ip_.setProcessingAttribute(ATTRIBUTE_VAR);
-                ip_.setLookForAttrValue(true);
-            }
-            ip_.setOffset(0);
-            String var_ = n.getAttribute(ATTRIBUTE_VAR);
-            if (!StringList.isWord(var_)) {
-                BadVariableName b_ = new BadVariableName();
-                b_.setFileName(_conf.getCurrentFileName());
-                b_.setIndexFile(_conf.getCurrentLocationIndex());
-                b_.setVarName(var_);
-                _conf.getClasses().getErrorsDet().add(b_);
-                BadElRender badEl_ = new BadElRender();
-                badEl_.setErrors(_conf.getClasses().getErrorsDet());
-                badEl_.setFileName(_conf.getCurrentFileName());
-                badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
-                return parameters_;
-            }
-            VariableInformation vi_ = tryToGetVariableInformation(_conf, ip_, n);
-            if (_conf.getContext().getException() != null) {
-                return parameters_;
-            }
-            String className_ = vi_.getClassName();
-
-            Struct obj_ = vi_.getStruct();
-            parameters_.put(var_, tryToCreateVariable(_conf, ip_, className_, obj_));
-            if (_conf.getContext().getException() != null) {
-                return parameters_;
-            }
-        }
-        return parameters_;
-    }
-    private static StringMap<LocalVariable> newReturnedValues(Configuration _conf, Node _node) {
-        ImportingPage ip_ = _conf.getLastPage();
-        StringMap<LocalVariable> parameters_ = new StringMap<LocalVariable>();
-        String prefix_ = ip_.getPrefix();
-        for (Element n: _node.getChildElements()) {
-            if (!StringList.quickEq(n.getTagName(),StringList.concat(prefix_,SET_BLOCK_TAG))) {
-                continue;
-            }
-            ip_.setProcessingNode(n);
-            if (!n.hasAttribute(ATTRIBUTE_VAR)) {
-                ip_.setProcessingAttribute(EMPTY_STRING);
-                ip_.setLookForAttrValue(false);
-            } else {
-                ip_.setProcessingAttribute(ATTRIBUTE_VAR);
-                ip_.setLookForAttrValue(true);
-            }
-            ip_.setOffset(0);
-            String var_ = n.getAttribute(ATTRIBUTE_VAR);
-            if (!StringList.isWord(var_)) {
-                BadVariableName b_ = new BadVariableName();
-                b_.setFileName(_conf.getCurrentFileName());
-                b_.setIndexFile(_conf.getCurrentLocationIndex());
-                b_.setVarName(var_);
-                _conf.getClasses().getErrorsDet().add(b_);
-                BadElRender badEl_ = new BadElRender();
-                badEl_.setErrors(_conf.getClasses().getErrorsDet());
-                badEl_.setFileName(_conf.getCurrentFileName());
-                badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
-                return parameters_;
-            }
-            VariableInformation vi_ = tryToGetVoidVariable(_conf, ip_, n);
-            String className_ = vi_.getClassName();
-
-            LocalVariable loc_ = new LocalVariable();
-            loc_.setClassName(className_);
-            parameters_.put(var_, loc_);
-        }
-        return parameters_;
-    }
-
     static String processHtmlJava(String _htmlText, Configuration _conf, String _loc, StringMap<String> _files, String... _resourcesFolder) {
         String htmlText_ = _htmlText;
         String beanName_ = null;
@@ -552,9 +464,6 @@ public final class FormatHtml {
                     break;
                 }
                 ip_ = _conf.getLastPage();
-                for (EntryCust<String, LocalVariable> e: last_.getReturnedValues().entryList()) {
-                    ip_.putLocalVar(e.getKey(), e.getValue());
-                }
                 processBlock(_conf, ip_);
                 if (_conf.getContext().getException() != null) {
                     throwException(_conf);
@@ -789,31 +698,6 @@ public final class FormatHtml {
                 return ip_;
             }
             processBlock(_conf, ip_);
-            return ip_;
-        }
-        if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,PARAM_BLOCK_TAG))) {
-            Element set_ = en_;
-            processSetClassNameParamTag(_conf, _ip, set_);
-            if (_conf.getContext().getException() != null) {
-                return ip_;
-            }
-            processBlock(_conf, ip_);
-            return ip_;
-        }
-        if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,SET_RETURNED_VALUE_BLOCK_TAG))) {
-            Element set_ = en_;
-            processSetReturnValueTag(_conf, ip_, set_);
-            if (_conf.getContext().getException() != null) {
-                return ip_;
-            }
-            processBlock(_conf, ip_);
-            return ip_;
-        }
-        if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,UNSET_BLOCK_TAG))) {
-            Element set_ = en_;
-            String var_ = set_.getAttribute(ATTRIBUTE_VAR);
-            ip_.removeLocalVar(var_);
-            processBlock(_conf, _ip);
             return ip_;
         }
         if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,CONTINUE_TAG))) {
@@ -1340,11 +1224,6 @@ public final class FormatHtml {
                 processBlock(_conf, ip_);
                 return ip_;
             }
-            StringMap<LocalVariable> params_ = newParametersBeforeRender(_conf, en_);
-            if (_conf.getContext().getException() != null) {
-                return ip_;
-            }
-            StringMap<LocalVariable> returnedValues_ = newReturnedValues(_conf, en_);
             if (_conf.getContext().getException() != null) {
                 return ip_;
             }
@@ -1386,8 +1265,6 @@ public final class FormatHtml {
                 newIp_.setGlobalArgumentStruct(newBean_, _conf);
             }
             _conf.addPage(newIp_);
-            newIp_.getParameters().putAllMap(params_);
-            newIp_.getReturnedValues().putAllMap(returnedValues_);
             checkSyntax(_conf, newElt_.getRoot().getOwnerDocument(), newElt_.getHtml());
             return newIp_;
         }
@@ -1535,58 +1412,7 @@ public final class FormatHtml {
         ip_.setReadWrite(null);
         return ip_;
     }
-    private static void processSetReturnValueTag(Configuration _conf, ImportingPage _ip,
-            Element _set) {
-        String var_ = _set.getAttribute(ATTRIBUTE_VAR);
-        LocalVariable ret_ = ExtractObject.getCurrentLocVariable(_conf, 0, _ip.getReturnedValues(), var_);
-        if (_conf.getContext().getException() != null) {
-            return;
-        }
-        Struct elt_ = tryToGetObject(_conf, _ip, _set);
-        if (_conf.getContext().getException() != null) {
-            return;
-        }
-        String className_ = ret_.getClassName();
-        checkClass(_conf, _ip, className_, elt_);
-        if (_conf.getContext().getException() != null) {
-            return;
-        }
-        ret_.setStruct(elt_);
-    }
-    private static void processSetClassNameParamTag(Configuration _conf, ImportingPage _ip,
-            Element _set) {
-        String var_ = _set.getAttribute(ATTRIBUTE_VAR);
-        LocalVariable ret_ = ExtractObject.getCurrentLocVariable(_conf, 0, _ip.getParameters(), var_);
-        if (_conf.getContext().getException() != null) {
-            return;
-        }
-        String className_ = _set.getAttribute(ATTRIBUTE_CLASS_NAME);
-        if (className_.isEmpty()) {
-            className_ = _conf.getStandards().getAliasObject();
-        }
-        _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
-        _ip.setLookForAttrValue(true);
-        String res_ = _conf.resolveCorrectTypeWithoutErrors(className_, true);
-        if (res_.isEmpty()) {
-            UnknownClassName un_ = new UnknownClassName();
-            un_.setClassName(className_);
-            un_.setFileName(_conf.getCurrentFileName());
-            un_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().getErrorsDet().add(un_);
-            BadElRender badEl_ = new BadElRender();
-            badEl_.setErrors(_conf.getClasses().getErrorsDet());
-            badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
-            return;
-        }
-        className_ = res_;
-        checkClass(_conf, _ip, className_, ret_.getStruct());
-        if (_conf.getContext().getException() != null) {
-            return;
-        }
-        ret_.setClassName(className_);
-    }
+
     private static void processSetTag(Configuration _conf, ImportingPage _ip,
             Element _set) {
         if (!_set.hasAttribute(ATTRIBUTE_VAR)) {
@@ -1620,74 +1446,6 @@ public final class FormatHtml {
         _ip.putLocalVar(var_, tryToCreateVariable(_conf, _ip, className_, obj_));
     }
 
-    static VariableInformation tryToGetVoidVariable(Configuration _conf, ImportingPage _ip,
-            Element _element) {
-        String className_ = _element.getAttribute(ATTRIBUTE_CLASS_NAME);
-        if (!className_.isEmpty()) {
-            _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
-            _ip.setLookForAttrValue(true);
-            _ip.setOffset(0);
-            String res_ = _conf.resolveCorrectTypeWithoutErrors(className_, true);
-            if (res_.isEmpty()) {
-                UnknownClassName un_ = new UnknownClassName();
-                un_.setClassName(className_);
-                un_.setFileName(_conf.getCurrentFileName());
-                un_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().getErrorsDet().add(un_);
-                BadElRender badEl_ = new BadElRender();
-                badEl_.setErrors(_conf.getClasses().getErrorsDet());
-                badEl_.setFileName(_conf.getCurrentFileName());
-                badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
-                className_ = _conf.getStandards().getAliasObject();
-            } else {
-                className_ = res_;
-            }
-        } else {
-            className_ = _conf.getStandards().getAliasObject();
-        }
-        VariableInformation vi_ = new VariableInformation();
-        vi_.setClassName(className_);
-        return vi_;
-    }
-    static Struct tryToGetObject(Configuration _conf, ImportingPage _ip,
-            Element _element) {
-        String numExpr_ = _element.getAttribute(NUMBER_EXPRESSION);
-        String expression_ = _element.getAttribute(EXPRESSION_ATTRIBUTE);
-        if (!numExpr_.isEmpty()) {
-            expression_ = numExpr_;
-            String evalBool_ = _element.getAttribute(EVALUATE_BOOLEAN);
-            boolean eval_ = Boolean.parseBoolean(evalBool_);
-            _ip.setProcessingAttribute(NUMBER_EXPRESSION);
-            _ip.setLookForAttrValue(true);
-            _ip.setOffset(0);
-            return ExtractObject.evaluateMathExpression(_ip, _conf, eval_, numExpr_);
-        }
-        _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
-        _ip.setLookForAttrValue(true);
-        _ip.setOffset(0);
-        if (_element.hasAttribute(IS_STRING_CONST_ATTRIBUTE)){
-            if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                return NullStruct.NULL_VALUE;
-            }
-            return new StringStruct(expression_);
-        } else if (_element.hasAttribute(IS_CHAR_CONST_ATTRIBUTE)){
-            if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                return NullStruct.NULL_VALUE;
-            }
-            return new CharStruct(ExtractObject.getChar(_conf, expression_));
-        } else if (_element.hasAttribute(IS_BOOL_CONST_ATTRIBUTE)){
-            if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                return NullStruct.NULL_VALUE;
-            }
-            return new BooleanStruct(Boolean.parseBoolean(expression_));
-        } else if (StringList.isNumber(expression_)) {
-            String primLong_ = _conf.getStandards().getAliasPrimLong();
-            return ExtractObject.instanceByString(_conf, primLong_, expression_);
-        } else {
-            return ElRenderUtil.processEl(expression_, 0, _conf).getStruct();
-        }
-    }
     static VariableInformation tryToGetVariableInformation(Configuration _conf, ImportingPage _ip,
             Element _element) {
         String className_ = _element.getAttribute(ATTRIBUTE_CLASS_NAME);
@@ -2025,89 +1783,7 @@ public final class FormatHtml {
         loc_.setClassName(_className);
         return loc_;
     }
-    static void checkClass(Configuration _conf, ImportingPage _ip, String _class, Struct _object) {
-        if (PrimitiveTypeUtil.primitiveTypeNullObject(_class, _object, _conf.getContext())) {
-            Mapping mapping_ = new Mapping();
-            mapping_.setArg(EMPTY_STRING);
-            mapping_.setParam(_class);
-            BadImplicitCast cast_ = new BadImplicitCast();
-            cast_.setMapping(mapping_);
-            cast_.setFileName(_conf.getCurrentFileName());
-            cast_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().getErrorsDet().add(cast_);
-            BadElRender badEl_ = new BadElRender();
-            badEl_.setErrors(_conf.getClasses().getErrorsDet());
-            badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
-            return;
-        }
-        if (_object == NullStruct.NULL_VALUE) {
-            return;
-        }
-        _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
-        _ip.setLookForAttrValue(true);
-        _ip.setOffset(0);
-        ContextEl context_ = _conf.getContext();
-        LgNames lgNames_ = _conf.getStandards();
-        String argClassName_ = lgNames_.getStructClassName(_object, context_);
-        if (!PrimitiveTypeUtil.isPrimitive(_class, context_)) {
-            Mapping mapping_ = new Mapping();
-            mapping_.setArg(argClassName_);
-            String paramName_ = _conf.getLastPage().getPageEl().formatVarType(_class, context_);
-            mapping_.setParam(paramName_);
-            if (!Templates.isCorrectExecute(argClassName_, paramName_, context_)) {
-                BadImplicitCast cast_ = new BadImplicitCast();
-                cast_.setMapping(mapping_);
-                cast_.setFileName(_conf.getCurrentFileName());
-                cast_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().getErrorsDet().add(cast_);
-                BadElRender badEl_ = new BadElRender();
-                badEl_.setErrors(_conf.getClasses().getErrorsDet());
-                badEl_.setFileName(_conf.getCurrentFileName());
-                badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
-                return;
-            }
-        } else {
-            if (PrimitiveTypeUtil.getOrderClass(_class, _conf.getContext()) > 0) {
-                if (PrimitiveTypeUtil.getOrderClass(argClassName_, _conf.getContext()) == 0) {
-                    Mapping mapping_ = new Mapping();
-                    mapping_.setArg(argClassName_);
-                    mapping_.setParam(_class);
-                    BadImplicitCast cast_ = new BadImplicitCast();
-                    cast_.setMapping(mapping_);
-                    cast_.setFileName(_conf.getCurrentFileName());
-                    cast_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getClasses().getErrorsDet().add(cast_);
-                    BadElRender badEl_ = new BadElRender();
-                    badEl_.setErrors(_conf.getClasses().getErrorsDet());
-                    badEl_.setFileName(_conf.getCurrentFileName());
-                    badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
-                    return;
-                }
-            } else {
-                String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(argClassName_, _conf.getStandards());
-                if (!StringList.quickEq(typeNameArg_, context_.getStandards().getAliasPrimBoolean())) {
-                    Mapping mapping_ = new Mapping();
-                    mapping_.setArg(typeNameArg_);
-                    mapping_.setParam(_class);
-                    BadImplicitCast cast_ = new BadImplicitCast();
-                    cast_.setMapping(mapping_);
-                    cast_.setFileName(_conf.getCurrentFileName());
-                    cast_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getClasses().getErrorsDet().add(cast_);
-                    BadElRender badEl_ = new BadElRender();
-                    badEl_.setErrors(_conf.getClasses().getErrorsDet());
-                    badEl_.setFileName(_conf.getCurrentFileName());
-                    badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
-                    return;
-                }
-            }
-        }
-    }
+
     static void checkSyntax(Configuration _conf,Document _doc, String _html) {
         Element root_ = _doc.getDocumentElement();
         Node en_ = root_;
