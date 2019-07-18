@@ -6539,6 +6539,42 @@ public final class ElRenderUtilTest {
         assertEq(8, ((NumberStruct)arr_.getInstance()[0]).intStruct());
     }
     @Test
+    public void processEl377Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int exmeth($int q,$int...p){\n");
+        xml_.append("  $var sum = q;.;:\n");
+        xml_.append("  $foreach($var i:p;.;){\n");
+        xml_.append("   sum;.+=i;:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return sum;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Configuration cont_ = contextEl(files_, true,false);
+        addImportingPage(cont_);
+        Argument arg_ = processEl("pkg.ExTwo.exmeth($id(pkg.ExTwo,$static,$int,$int...),4,8)", cont_);
+        assertEq(12,arg_.getNumber());
+    }
+    @Test
+    public void processEl378Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int exmeth($int q,$int p){\n");
+        xml_.append("  $return q;.;+p;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Configuration cont_ = contextEl(files_, true,false);
+        addImportingPage(cont_);
+        Argument arg_ = processEl("pkg.ExTwo.exmeth($id(pkg.ExTwo,$static,$int,$int),4,8)", cont_);
+        assertEq(12,arg_.getNumber());
+    }
+    @Test
     public void procesAffect0Test() {
         Configuration context_ = contextEl(true,false);
         addImportingPage(context_);

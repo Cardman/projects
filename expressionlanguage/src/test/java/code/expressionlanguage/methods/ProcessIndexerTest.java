@@ -464,6 +464,166 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         assertEq(5, ret_.getNumber());
     }
     @Test
+    public void calculate1022Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int test(){\n");
+        xml_.append("  Ex e = new Ex();\n");
+        xml_.append("  e[$id(Ex,int,int...),9] = 5;\n");
+        xml_.append("  return e[$id(Ex,int,int...),9];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public int[] inst=new int[2];\n");
+        xml_.append(" public int this(int q,int... p)\n");
+        xml_.append(" {\n");
+        xml_.append("  return inst[0]+q+p.length;\n");
+        xml_.append(" }\n");
+        xml_.append(" public void this(int q,int... p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[0] = value+q+p.length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq(23, ret_.getNumber());
+    }
+    @Test
+    public void calculate1023Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int test(){\n");
+        xml_.append("  Ex e = new Ex();\n");
+        xml_.append("  e[$id(Ex,int...),9] = 5;\n");
+        xml_.append("  return e[$id(Ex,int...),9];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public int[] inst=new int[2];\n");
+        xml_.append(" public int this(int... p)\n");
+        xml_.append(" {\n");
+        xml_.append("  return inst[0]+p[0];\n");
+        xml_.append(" }\n");
+        xml_.append(" public void this(int... p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[0] = value+p[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq(23, ret_.getNumber());
+    }
+    @Test
+    public void calculate1024Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int test(){\n");
+        xml_.append("  Ex e = new Ex();\n");
+        xml_.append("  e[$id(Ex,int...),new int[]{9}] = 5;\n");
+        xml_.append("  return e[$id(Ex,int...),new int[]{9}];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public int[] inst=new int[2];\n");
+        xml_.append(" public int this(int... p)\n");
+        xml_.append(" {\n");
+        xml_.append("  return inst[0]+p[0];\n");
+        xml_.append(" }\n");
+        xml_.append(" public void this(int... p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[0] = value+p[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq(23, ret_.getNumber());
+    }
+    @Test
+    public void calculate1025Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int test(){\n");
+        xml_.append("  Ex e = new Ex();\n");
+        xml_.append("  e[$id(Ex,int,int...),9,8] = 5;\n");
+        xml_.append("  return e[$id(Ex,int,int...),9,8];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public int[] inst=new int[2];\n");
+        xml_.append(" public int this(int q,int... p)\n");
+        xml_.append(" {\n");
+        xml_.append("  return inst[0]+q+p[0];\n");
+        xml_.append(" }\n");
+        xml_.append(" public void this(int q,int... p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[0] = value+q+p[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq(39, ret_.getNumber());
+    }
+    @Test
+    public void calculate1026Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int test(){\n");
+        xml_.append("  Ex e = new Ex();\n");
+        xml_.append("  e[$id(Ex,int,int...),9,new int[]{8}] = 5;\n");
+        xml_.append("  return e[$id(Ex,int,int...),9,new int[]{8}];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public int[] inst=new int[2];\n");
+        xml_.append(" public int this(int q,int... p)\n");
+        xml_.append(" {\n");
+        xml_.append("  return inst[0]+q+p[0];\n");
+        xml_.append(" }\n");
+        xml_.append(" public void this(int q,int... p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[0] = value+q+p[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq(39, ret_.getNumber());
+    }
+    @Test
     public void calculate103Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();

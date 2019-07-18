@@ -65,12 +65,14 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             CustList<Argument> firstArgs_ = new CustList<Argument>();
             CustList<Argument> optArgs_ = new CustList<Argument>();
             int lenCh_ = _children.size();
+            int natVarArg_ = _natVararg;
             for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
                 if (_children.get(i) instanceof ExecIdFctOperation) {
+                    natVarArg_++;
                     continue;
                 }
                 Argument a_ = _nodes.get(i);
-                if (i >= _natVararg) {
+                if (i >= natVarArg_) {
                     optArgs_.add(a_);
                 } else {
                     firstArgs_.add(a_);
