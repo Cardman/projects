@@ -29,9 +29,9 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
 
     private boolean staticChoiceMethod;
 
-    private String lastType = EMPTY_STRING;
+    private String lastType;
 
-    private int naturalVararg = -1;
+    private int naturalVararg;
 
     private int anc;
 
@@ -113,10 +113,6 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
             }
         }
         return ExecInvokingOperation.callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
-    }
-
-    public ClassMethodId getClassMethodId() {
-        return classMethodId;
     }
 
 }

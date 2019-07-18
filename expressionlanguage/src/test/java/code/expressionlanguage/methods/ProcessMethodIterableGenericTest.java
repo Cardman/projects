@@ -1048,6 +1048,34 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         assertEq(2, ((NumberStruct)field_).intStruct());
     }
     @Test
+    public void instanceArgument1431Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append(" $public $static Ex<String> inst=$new Ex<>():\n");
+        xml_.append(" $static{\n");
+        xml_.append("  ExThree.inst++:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int res(#T v){\n");
+        xml_.append("  $return ($int)inst+($int)v;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return (pkg.Ex.inst).$classchoice(pkg.Ex)res(8):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
     public void instanceArgument144Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();

@@ -54,9 +54,6 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         a_.setStruct(array_);
         return a_;
     }
-    static void setCheckedElement(Struct _array,NumberStruct _index, Argument _element, ExecutableCode _conf) {
-        ExecInvokingOperation.setElement(_array, _index, _element.getStruct(), _conf);
-    }
 
     @Override
     public boolean resultCanBeSet() {

@@ -26,14 +26,6 @@ public final class RendCallDynMethodOperation extends RendInvokingOperation impl
         }
         Argument previous_ = getPreviousArg(this,_conf);
         Argument argres_ = ExecInvokingOperation.prepareCallDyn(previous_, arguments_, _conf);
-        NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
-        if (statusInit_ != null) {
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
-            if (_conf.getContextEl().hasException()) {
-                return;
-            }
-            argres_ = ExecInvokingOperation.prepareCallDyn(previous_, arguments_, _conf);
-        }
         processCall(_conf,argres_);
     }
 
