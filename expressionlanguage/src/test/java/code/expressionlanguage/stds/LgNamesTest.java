@@ -1414,7 +1414,7 @@ public class LgNamesTest {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId fct_ = new MethodId(true, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
-        Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", fct_, args_, contextEl_);
+        Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", fct_, args_, contextEl_,null);
         assertEq(2, ret_.getNumber());
     }
     @Test
@@ -1443,7 +1443,7 @@ public class LgNamesTest {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId fct_ = new MethodId(true, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
-        Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", fct_, args_, contextEl_);
+        Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", fct_, args_, contextEl_,null);
         assertEq(2, ret_.getNumber());
     }
 }

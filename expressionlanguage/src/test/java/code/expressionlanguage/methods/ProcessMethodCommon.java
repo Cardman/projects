@@ -30,7 +30,7 @@ public abstract class ProcessMethodCommon {
             return new Argument();
         }
         Argument argGlLoc_ = new Argument();
-        return ProcessMethod.calculateArgument(argGlLoc_, _class, fct_, _args, _cont);
+        return ProcessMethod.calculateArgument(argGlLoc_, _class, fct_, _args, _cont,null);
     }
 
     protected static MethodId getMethodId(String _name, String..._classNames) {

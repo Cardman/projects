@@ -97,7 +97,7 @@ public final class RunnableStruct implements FieldableStruct, EnumerableStruct,R
         ClassMethodId mId_ = TypeUtil.getConcreteMethodsToCall(type_, id_, r_).getVal(base_);
         Argument arg_ = new Argument();
         arg_.setStruct(this);
-        ProcessMethod.calculateArgument(arg_, mId_.getClassName(), mId_.getConstraints(), new CustList<Argument>(), r_);
+        ProcessMethod.calculateArgument(arg_, mId_.getClassName(), mId_.getConstraints(), new CustList<Argument>(), r_,null);
         r_.getCustInit().prExc(r_);
     }
 }

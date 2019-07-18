@@ -119,14 +119,6 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         }
         Argument previous_ = getPreviousArgument();
         Argument argres_ = getArgument(previous_, arguments_, _conf, _right);
-        NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
-        if (statusInit_ != null) {
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
-            if (_conf.getContextEl().hasException()) {
-                return Argument.createVoid();
-            }
-            argres_ = getArgument(previous_, arguments_, _conf, _right);
-        }
         processCall(_conf,argres_);
         return getArgument();
     }

@@ -39,7 +39,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             String classNameFound_ = classMethodId.getClassName();
             MethodId id_ = classMethodId.getConstraints();
             Argument res_;
-            res_ = ProcessMethod.calculateArgument(Argument.createVoid(), classNameFound_, id_, firstArgs_, _conf.getContextEl());
+            res_ = ProcessMethod.calculateArgument(Argument.createVoid(), classNameFound_, id_, firstArgs_, _conf.getContextEl(),null);
             settable.endCalculate(_conf, res_);
             setSimpleArgument(res_, _conf);
             return;

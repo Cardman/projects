@@ -39,8 +39,8 @@ public final class ProcessMethod {
         return page_.getGlobalArgument();
     }
 
-    public static Argument calculateArgument(Argument _global, String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
-        MethodPageEl page_ = _cont.createCallingMethod(_global, _class, _method, _args,null);
+    public static Argument calculateArgument(Argument _global, String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont, Argument _right) {
+        MethodPageEl page_ = _cont.createCallingMethod(_global, _class, _method, _args,_right);
         _cont.addPage(page_);
         _cont.getInit().loopCalling(_cont);
         return page_.getReturnedArgument();
