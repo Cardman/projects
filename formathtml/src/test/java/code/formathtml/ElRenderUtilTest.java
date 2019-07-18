@@ -8013,7 +8013,7 @@ public final class ElRenderUtilTest {
         conf_.setStandards((BeanLgNames) cont_.getStandards());
         addImportingPage(conf_);
         Argument argument_ = processEl("(pkg.Ex.res++).inst", conf_);
-        assertEq(7,argument_.getNumber());
+        assertEq(6,argument_.getNumber());
     }
     @Test
     public void processEl420Test() {
@@ -8109,7 +8109,7 @@ public final class ElRenderUtilTest {
         conf_.setStandards((BeanLgNames) cont_.getStandards());
         addImportingPage(conf_);
         Argument argument_ = processEl("(pkg.Ex.res[0]++).inst", conf_);
-        assertEq(7,argument_.getNumber());
+        assertEq(6,argument_.getNumber());
     }
     @Test
     public void processEl423Test() {
@@ -8211,7 +8211,7 @@ public final class ElRenderUtilTest {
         conf_.setStandards((BeanLgNames) cont_.getStandards());
         addImportingPage(conf_);
         Argument argument_ = processEl("(pkg.Ex.res.res[0]++).inst", conf_);
-        assertEq(7,argument_.getNumber());
+        assertEq(6,argument_.getNumber());
     }
     @Test
     public void processEl426Test() {
@@ -8316,7 +8316,7 @@ public final class ElRenderUtilTest {
         conf_.setStandards((BeanLgNames) cont_.getStandards());
         addImportingPage(conf_);
         Argument argument_ = processEl("(pkg.Ex.res.res++).inst", conf_);
-        assertEq(7,argument_.getNumber());
+        assertEq(6,argument_.getNumber());
     }
     @Test
     public void processEl429Test() {
@@ -8438,7 +8438,7 @@ public final class ElRenderUtilTest {
         addImportingPage(conf_);
         conf_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("(v;.++).inst", conf_);
-        assertEq(7,argument_.getNumber());
+        assertEq(6,argument_.getNumber());
         assertEq(7,((NumberStruct)((FieldableStruct)lv_.getStruct()).getStruct(new ClassField("pkg.Ex","inst"))).intStruct());
     }
     @Test
@@ -8644,6 +8644,489 @@ public final class ElRenderUtilTest {
         conf_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("++$new pkg.Ex(5)[0]", conf_);
         assertEq(6,argument_.getNumber());
+    }
+    @Test
+    public void processEl438Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int[] inst=$new $int[1]:\n");
+        xml_.append(" $public Ex(){}\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append("  inst[0]=p;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int $this($int p){\n");
+        xml_.append("  $return inst[p;.;]:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p){\n");
+        xml_.append("  inst[p;.;]=$value;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = EquallableExUtil.newConfiguration();
+        Options opt_ = new Options();
+        opt_.setInitializeStaticClassFirst(false);
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdTwo(opt_);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        ((FieldableStruct)value_).setStruct(new ClassField("pkg.Ex","inst"),new IntStruct(6));
+        lv_.setStruct(value_);
+        lv_.setClassName("pkg.Ex");
+        localVars_.put("v", lv_);
+        conf_.setContext(cont_);
+        conf_.setStandards((BeanLgNames) cont_.getStandards());
+        addImportingPage(conf_);
+        conf_.getLastPage().setLocalVars(localVars_);
+        Argument argument_ = processEl("$new pkg.Ex(5)[0]++", conf_);
+        assertEq(5,argument_.getNumber());
+    }
+    @Test
+    public void processEl439Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int myval:\n");
+        xml_.append(" $public ExTwo(){}\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append("  myval=p;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public ExTwo[] inst={$new ExTwo()}:\n");
+        xml_.append(" $public Ex(){}\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append("  inst[0]=$new ExTwo(p;.;):\n");
+        xml_.append(" }\n");
+        xml_.append(" $public ExTwo $this($int p){\n");
+        xml_.append("  $return inst[p;.;]:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p){\n");
+        xml_.append("  inst[p;.;]=$value;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = EquallableExUtil.newConfiguration();
+        Options opt_ = new Options();
+        opt_.setInitializeStaticClassFirst(false);
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdTwo(opt_);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        ((FieldableStruct)value_).setStruct(new ClassField("pkg.Ex","inst"),new IntStruct(6));
+        lv_.setStruct(value_);
+        lv_.setClassName("pkg.Ex");
+        localVars_.put("v", lv_);
+        conf_.setContext(cont_);
+        conf_.setStandards((BeanLgNames) cont_.getStandards());
+        addImportingPage(conf_);
+        conf_.getLastPage().setLocalVars(localVars_);
+        Argument argument_ = processEl("$new pkg.Ex(5)[0].myval", conf_);
+        assertEq(5,argument_.getNumber());
+    }
+    @Test
+    public void processEl440Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int myval:\n");
+        xml_.append(" $public ExTwo(){}\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append("  myval=p;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public ExTwo[] inst={$new ExTwo()}:\n");
+        xml_.append(" $public Ex(){}\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append("  inst[0]=$new ExTwo(p;.;):\n");
+        xml_.append(" }\n");
+        xml_.append(" $public ExTwo $this($int p){\n");
+        xml_.append("  $return inst[p;.;]:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p){\n");
+        xml_.append("  inst[p;.;]=$value;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = EquallableExUtil.newConfiguration();
+        Options opt_ = new Options();
+        opt_.setInitializeStaticClassFirst(false);
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdTwo(opt_);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        ((FieldableStruct)value_).setStruct(new ClassField("pkg.Ex","inst"),new IntStruct(6));
+        lv_.setStruct(value_);
+        lv_.setClassName("pkg.Ex");
+        localVars_.put("v", lv_);
+        conf_.setContext(cont_);
+        conf_.setStandards((BeanLgNames) cont_.getStandards());
+        addImportingPage(conf_);
+        conf_.getLastPage().setLocalVars(localVars_);
+        Argument argument_ = processEl("($new pkg.Ex(5)[0]=$new pkg.ExTwo(15)).myval", conf_);
+        assertEq(15,argument_.getNumber());
+    }
+    @Test
+    public void processEl441Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$operator+ pkg.ExTwo(pkg.ExTwo a, pkg.ExTwo b) {\n");
+        xml_.append(" $var o =$new pkg.ExTwo():\n");
+        xml_.append(" o;.myval=a;.;myval+b;.;myval:\n");
+        xml_.append(" $return o;.:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int myval:\n");
+        xml_.append(" $public ExTwo(){}\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append("  myval=p;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public ExTwo[] inst={$new ExTwo()}:\n");
+        xml_.append(" $public Ex(){}\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append("  inst[0]=$new ExTwo(p;.;):\n");
+        xml_.append(" }\n");
+        xml_.append(" $public ExTwo $this($int p){\n");
+        xml_.append("  $return inst[p;.;]:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p){\n");
+        xml_.append("  inst[p;.;]=$value;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = EquallableExUtil.newConfiguration();
+        Options opt_ = new Options();
+        opt_.setInitializeStaticClassFirst(false);
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdTwo(opt_);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        ((FieldableStruct)value_).setStruct(new ClassField("pkg.Ex","inst"),new IntStruct(6));
+        lv_.setStruct(value_);
+        lv_.setClassName("pkg.Ex");
+        localVars_.put("v", lv_);
+        conf_.setContext(cont_);
+        conf_.setStandards((BeanLgNames) cont_.getStandards());
+        addImportingPage(conf_);
+        conf_.getLastPage().setLocalVars(localVars_);
+        Argument argument_ = processEl("($new pkg.Ex(5)[0]+=$new pkg.ExTwo(15)).myval", conf_);
+        assertEq(20,argument_.getNumber());
+    }
+    @Test
+    public void processEl442Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$operator++ pkg.ExTwo(pkg.ExTwo a) {\n");
+        xml_.append(" $var o =$new pkg.ExTwo():\n");
+        xml_.append(" o;.myval=a;.;myval+1:\n");
+        xml_.append(" $return o;.:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int myval:\n");
+        xml_.append(" $public ExTwo(){}\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append("  myval=p;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public ExTwo[] inst={$new ExTwo()}:\n");
+        xml_.append(" $public Ex(){}\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append("  inst[0]=$new ExTwo(p;.;):\n");
+        xml_.append(" }\n");
+        xml_.append(" $public ExTwo $this($int p){\n");
+        xml_.append("  $return inst[p;.;]:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p){\n");
+        xml_.append("  inst[p;.;]=$value;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = EquallableExUtil.newConfiguration();
+        Options opt_ = new Options();
+        opt_.setInitializeStaticClassFirst(false);
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdTwo(opt_);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        ((FieldableStruct)value_).setStruct(new ClassField("pkg.Ex","inst"),new IntStruct(6));
+        lv_.setStruct(value_);
+        lv_.setClassName("pkg.Ex");
+        localVars_.put("v", lv_);
+        conf_.setContext(cont_);
+        conf_.setStandards((BeanLgNames) cont_.getStandards());
+        addImportingPage(conf_);
+        conf_.getLastPage().setLocalVars(localVars_);
+        Argument argument_ = processEl("(++$new pkg.Ex(5)[0]).myval", conf_);
+        assertEq(6,argument_.getNumber());
+    }
+    @Test
+    public void processEl443Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$operator++ pkg.ExTwo(pkg.ExTwo a) {\n");
+        xml_.append(" $var o =$new pkg.ExTwo():\n");
+        xml_.append(" o;.myval=a;.;myval+1:\n");
+        xml_.append(" $return o;.:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int myval:\n");
+        xml_.append(" $public ExTwo(){}\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append("  myval=p;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public ExTwo[] inst={$new ExTwo()}:\n");
+        xml_.append(" $public Ex(){}\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append("  inst[0]=$new ExTwo(p;.;):\n");
+        xml_.append(" }\n");
+        xml_.append(" $public ExTwo $this($int p){\n");
+        xml_.append("  $return inst[p;.;]:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p){\n");
+        xml_.append("  inst[p;.;]=$value;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = EquallableExUtil.newConfiguration();
+        Options opt_ = new Options();
+        opt_.setInitializeStaticClassFirst(false);
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdTwo(opt_);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        ((FieldableStruct)value_).setStruct(new ClassField("pkg.Ex","inst"),new IntStruct(6));
+        lv_.setStruct(value_);
+        lv_.setClassName("pkg.Ex");
+        localVars_.put("v", lv_);
+        conf_.setContext(cont_);
+        conf_.setStandards((BeanLgNames) cont_.getStandards());
+        addImportingPage(conf_);
+        conf_.getLastPage().setLocalVars(localVars_);
+        Argument argument_ = processEl("($new pkg.Ex(5)[0]++).myval", conf_);
+        assertEq(5,argument_.getNumber());
+    }
+    @Test
+    public void processEl444Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$operator+ pkg.ExTwo(pkg.ExTwo a, pkg.ExTwo b) {\n");
+        xml_.append(" $var o =$new pkg.ExTwo():\n");
+        xml_.append(" o;.myval=a;.;myval+b;.;myval:\n");
+        xml_.append(" $return o;.:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int myval:\n");
+        xml_.append(" $public ExTwo(){}\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append("  myval=p;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append(" $public ExTwo[] inst={$new ExTwo()}:\n");
+        xml_.append(" $public Ex(){}\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append("  inst[0]=$new ExTwo(p;.;):\n");
+        xml_.append(" }\n");
+        xml_.append(" $public ExTwo $this(#T p){\n");
+        xml_.append("  $return inst[$($int)p;.;]:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this(#T p){\n");
+        xml_.append("  inst[$($int)p;.;]=$value;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = EquallableExUtil.newConfiguration();
+        Options opt_ = new Options();
+        opt_.setInitializeStaticClassFirst(false);
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdTwo(opt_);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        conf_.setContext(cont_);
+        conf_.setStandards((BeanLgNames) cont_.getStandards());
+        addImportingPage(conf_);
+        conf_.getLastPage().setLocalVars(localVars_);
+        processEl("$new pkg.Ex<java.lang.Integer>(5).$classchoice(pkg.Ex<java.lang.String>)[\"\"]", conf_);
+        assertNotNull(conf_.getException());
+    }
+    @Test
+    public void processEl445Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int myval:\n");
+        xml_.append(" $public ExTwo(){}\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append("  myval=p;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub:Ex {\n");
+        xml_.append(" $public ExSub(){}\n");
+        xml_.append(" $public ExSub($int p){\n");
+        xml_.append("  $super(p;.;):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public ExTwo[] inst={$new ExTwo()}:\n");
+        xml_.append(" $public Ex(){}\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append("  inst[0]=$new ExTwo(p;.;):\n");
+        xml_.append(" }\n");
+        xml_.append(" $public ExTwo $this($int p){\n");
+        xml_.append("  $return inst[p;.;]:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p){\n");
+        xml_.append("  inst[p;.;]=$value;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = EquallableExUtil.newConfiguration();
+        Options opt_ = new Options();
+        opt_.setInitializeStaticClassFirst(false);
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdTwo(opt_);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        ((FieldableStruct)value_).setStruct(new ClassField("pkg.Ex","inst"),new IntStruct(6));
+        lv_.setStruct(value_);
+        lv_.setClassName("pkg.Ex");
+        localVars_.put("v", lv_);
+        conf_.setContext(cont_);
+        conf_.setStandards((BeanLgNames) cont_.getStandards());
+        addImportingPage(conf_);
+        conf_.getLastPage().setLocalVars(localVars_);
+        Argument argument_ = processEl("$new pkg.ExSub(5).$super[0].myval", conf_);
+        assertEq(5,argument_.getNumber());
+    }
+    @Test
+    public void processEl446Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int[] inst=$new $int[1]:\n");
+        xml_.append(" $public Ex(){}\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append("  inst[0]=p;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int $this($int p){\n");
+        xml_.append("  $return inst[p;.;]:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p){\n");
+        xml_.append("  inst[p;.;]=$value;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = EquallableExUtil.newConfiguration();
+        Options opt_ = new Options();
+        opt_.setInitializeStaticClassFirst(false);
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdTwo(opt_);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        ((FieldableStruct)value_).setStruct(new ClassField("pkg.Ex","inst"),new IntStruct(6));
+        lv_.setStruct(value_);
+        lv_.setClassName("pkg.Ex");
+        localVars_.put("v", lv_);
+        conf_.setContext(cont_);
+        conf_.setStandards((BeanLgNames) cont_.getStandards());
+        addImportingPage(conf_);
+        conf_.getLastPage().setLocalVars(localVars_);
+        processEl("$new pkg.Ex(5)[0]/=0", conf_);
+        assertNotNull(conf_.getException());
+    }
+    @Test
+    public void processEl447Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int myval:\n");
+        xml_.append(" $public ExTwo(){}\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append("  myval=p;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub:Ex {\n");
+        xml_.append(" $public ExSub(){}\n");
+        xml_.append(" $public ExSub($int p){\n");
+        xml_.append("  $super(p;.;):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static Ex st:\n");
+        xml_.append(" $public ExTwo[] inst={$new ExTwo()}:\n");
+        xml_.append(" $public Ex(){}\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append("  inst[0]=$new ExTwo(p;.;):\n");
+        xml_.append(" }\n");
+        xml_.append(" $public ExTwo $this($int p){\n");
+        xml_.append("  $return inst[p;.;]:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p){\n");
+        xml_.append("  inst[p;.;]=$value;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = EquallableExUtil.newConfiguration();
+        Options opt_ = new Options();
+        opt_.setInitializeStaticClassFirst(false);
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdTwo(opt_);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        ((FieldableStruct)value_).setStruct(new ClassField("pkg.Ex","inst"),new IntStruct(6));
+        lv_.setStruct(value_);
+        lv_.setClassName("pkg.Ex");
+        localVars_.put("v", lv_);
+        conf_.setContext(cont_);
+        conf_.setStandards((BeanLgNames) cont_.getStandards());
+        addImportingPage(conf_);
+        conf_.getLastPage().setLocalVars(localVars_);
+        processEl("pkg.Ex.st[0].myval", conf_);
+        assertNotNull(conf_.getException());
     }
     @Test
     public void procesAffect00Test() {
