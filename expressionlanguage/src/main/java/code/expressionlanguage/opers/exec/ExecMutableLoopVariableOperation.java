@@ -93,11 +93,14 @@ public final class ExecMutableLoopVariableOperation extends ExecLeafOperation im
         PageEl ip_ = _conf.getOperationPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LoopVariable locVar_ = ip_.getVars().getVal(variableName);
-        String formattedClassVar_ = locVar_.getClassName();
+        return checkSet(_conf,locVar_,_right);
+    }
+    public static Argument checkSet(ExecutableCode _conf, LoopVariable _loc, Argument _right) {
+        String formattedClassVar_ = _loc.getClassName();
         if (!Templates.checkObject(formattedClassVar_, _right, _conf)) {
             return Argument.createVoid();
         }
-        locVar_.setStruct(_right.getStruct());
+        _loc.setStruct(_right.getStruct());
         return _right;
     }
     private Argument getCommonCompoundSetting(ExecutableCode _conf, Struct _store, String _op, Argument _right) {
@@ -127,7 +130,7 @@ public final class ExecMutableLoopVariableOperation extends ExecLeafOperation im
         return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
-    private static void setVar(ExecutableCode _conf, LoopVariable _var,Argument _value) {
+    public static void setVar(ExecutableCode _conf, LoopVariable _var,Argument _value) {
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return;
         }

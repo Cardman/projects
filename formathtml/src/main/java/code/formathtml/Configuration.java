@@ -742,6 +742,11 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
+    public boolean hasDeclarator() {
+        return true;
+    }
+
+    @Override
     public boolean isGearConst() {
         return context.isGearConst();
     }
@@ -1032,12 +1037,15 @@ public class Configuration implements ExecutableCode {
 
     @Override
     public boolean isValidSingleToken(String _id) {
-        return context.isValidSingleToken(_id);
+        if (!isValidToken(_id)) {
+            return false;
+        }
+        return context.idDisjointToken(_id);
     }
 
     @Override
     public boolean isValidToken(String _id) {
-        return context.isValidToken(_id);
+        return context.isValidToken(_id,false);
     }
 
     @Override
@@ -1067,8 +1075,16 @@ public class Configuration implements ExecutableCode {
     }
 
     public void setupAnalyzing() {
+        boolean merged_ = false;
+        String currentVarSetting_ = "";
+        if (context.getAnalyzing() != null) {
+            merged_ = isMerged();
+            currentVarSetting_ = getCurrentVarSetting();
+        }
         context.setAnalyzing(new AnalyzedPageEl());
         context.getAnalyzing().setGlobalClass(getGlobalClass());
+        context.getAnalyzing().initLocalVars();
+        context.getAnalyzing().initMutableLoopVars();
         CustList<StringMap<LocalVariable>> l_ = new CustList<StringMap<LocalVariable>>();
         l_.add(getLocalVars());
         context.getAnalyzing().setLocalVars(l_);
@@ -1079,6 +1095,8 @@ public class Configuration implements ExecutableCode {
         lc_.add(getCatchVars());
         context.getAnalyzing().setCatchVars(lc_);
         context.getAnalyzing().getParameters().putAllMap(getParameters());
+        context.getAnalyzing().setMerged(merged_);
+        context.getAnalyzing().setCurrentVarSetting(currentVarSetting_);
     }
 
     public StringList getAddedFiles() {

@@ -17,21 +17,23 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
     }
     static RendSettableElResult tryGetSettable(RendMethodOperation _operation) {
         RendDynOperationNode root_ = _operation.getFirstChild();
-        RendSettableElResult elt_ = null;
+        RendSettableElResult elt_;
         while (root_ instanceof RendIdOperation) {
             root_ = ((RendIdOperation)root_).getFirstChild();
         }
         if (!(root_ instanceof RendDotOperation)) {
-            if (root_ instanceof RendSettableElResult) {
-                elt_ = (RendSettableElResult) root_;
-            }
+            elt_ = castTo(root_);
         } else {
             RendDynOperationNode beforeLast_ = ((RendMethodOperation)root_).getChildrenNodes().last();
-            if (beforeLast_ instanceof RendSettableElResult) {
-                elt_ = (RendSettableElResult) beforeLast_;
-            }
+            elt_ = castTo(beforeLast_);
         }
         return elt_;
+    }
+    private static RendSettableElResult castTo(RendDynOperationNode _op) {
+        if (_op instanceof RendSettableElResult) {
+            return (RendSettableElResult) _op;
+        }
+        return null;
     }
     public RendSettableElResult getSettable() {
         return settable;

@@ -4,8 +4,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.AbstractArrayInstancingOperation;
-import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.Ints;
@@ -29,24 +29,13 @@ public final class RendArrayElementOperation extends
         className_ = page_.formatVarType(cl_, _conf);
 
         int nbCh_ = _arguments.size();
-        int[] args_;
-
-        args_ = new int[CustList.ONE_ELEMENT];
-        args_[CustList.FIRST_INDEX] = _arguments.size();
         Argument a_ = new Argument();
 
         Ints dims_;
         dims_ = new Ints();
         dims_.add(nbCh_);
         Struct str_ = PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf);
-        for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
-            Argument chArg_ = _arguments.get(i);
-            IntStruct i_ = new IntStruct(i);
-            RendArrOperation.setCheckedElement(str_, i_, chArg_, _conf);
-            if (_conf.getContextEl().hasExceptionOrFailInit()) {
-                return a_;
-            }
-        }
+        Templates.setCheckedElements(_arguments,str_,_conf);
         a_.setStruct(str_);
         return a_;
     }

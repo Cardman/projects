@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.opers.SettableAbstractFieldOperation;
@@ -13,21 +12,16 @@ import code.expressionlanguage.opers.exec.ExecNumericOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.FieldableStruct;
-import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
-import code.util.StringList;
 
 public final class RendSettableFieldOperation extends
         RendAbstractFieldOperation implements RendSettableElResult {
 
     private boolean variable;
     private FieldInfo fieldMetaInfo;
-    private boolean staticAccess;
 
     private boolean catString;
 
@@ -37,7 +31,6 @@ public final class RendSettableFieldOperation extends
         super(_s);
         variable = _s.isVariable();
         fieldMetaInfo = _s.getFieldMetaInfo();
-        staticAccess = _s.isStaticAccess();
         catString = _s.isCatString();
         anc = _s.getAnc();
     }

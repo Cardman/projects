@@ -22,9 +22,6 @@ public abstract class RendAbstractArrayInstancingOperation extends RendInvokingO
     public final String getClassName() {
         return className;
     }
-    public final void setClassName(String _className) {
-        className = _className;
-    }
 
     @Override
     public void calculate(ExecutableCode _conf) {

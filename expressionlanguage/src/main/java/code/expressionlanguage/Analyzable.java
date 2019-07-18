@@ -99,6 +99,7 @@ public interface Analyzable {
     AnalyzedPageEl getAnalyzing();
     Ints getCurrentBadIndexes();
     Block getCurrentBlock();
+    boolean hasDeclarator();
     boolean isGearConst();
     StringList getNeedInterfaces();
 

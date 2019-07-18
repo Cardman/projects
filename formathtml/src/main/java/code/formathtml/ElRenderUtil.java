@@ -63,6 +63,7 @@ public final class ElRenderUtil {
         boolean static_ = argGl_ == null || argGl_.isNull();
         _conf.setStaticContext(static_);
         CustList<OperationNode> all_ = getSortedDescNodes(op_, static_, _conf);
+        CustList<RendDynOperationNode> out_ = getExecutableNodes(all_, _conf);
         if (!_conf.getClasses().isEmptyErrors()) {
             BadElRender badEl_ = new BadElRender();
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
@@ -73,7 +74,6 @@ public final class ElRenderUtil {
             return Argument.createVoid();
         }
         context_.setAnalyzing(null);
-        CustList<RendDynOperationNode> out_ = getExecutableNodes(all_, _conf);
         calculate(out_, _conf);
         Argument arg_ = out_.last().getArgument();
         return arg_;

@@ -329,21 +329,19 @@ public final class ElUtil {
         return isDeclaringVariable(_par);
     }
     public static boolean isDeclaringVariable(VariableOperation _var, Analyzable _an) {
-        Block bl_ = _an.getCurrentBlock();
         if (!_an.isMerged()) {
             return false;
         }
-        if (!(bl_.getPreviousSibling() instanceof DeclareVariable)) {
+        if (!_an.hasDeclarator()) {
             return false;
         }
         return isDeclaringVariable(_var);
     }
     public static boolean isDeclaringVariable(MethodOperation _par, Analyzable _an) {
-        Block bl_ = _an.getCurrentBlock();
         if (!_an.isMerged()) {
             return false;
         }
-        if (!(bl_.getPreviousSibling() instanceof DeclareVariable)) {
+        if (!_an.hasDeclarator()) {
             return false;
         }
         return isDeclaringVariable(_par);

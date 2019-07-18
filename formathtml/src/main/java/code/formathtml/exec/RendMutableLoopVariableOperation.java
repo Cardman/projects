@@ -5,6 +5,7 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.MutableLoopVariableOperation;
+import code.expressionlanguage.opers.exec.ExecMutableLoopVariableOperation;
 import code.expressionlanguage.opers.exec.ExecNumericOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.structs.Struct;
@@ -83,15 +84,7 @@ public final class RendMutableLoopVariableOperation extends RendLeafOperation im
         PageEl ip_ = _conf.getOperationPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LoopVariable locVar_ = ip_.getVars().getVal(variableName);
-        Argument left_ = new Argument();
-        String formattedClassVar_ = locVar_.getClassName();
-        formattedClassVar_ = _conf.getOperationPageEl().formatVarType(formattedClassVar_, _conf);
-        left_.setStruct(locVar_.getStruct());
-        if (!Templates.checkObject(formattedClassVar_, _right, _conf)) {
-            return Argument.createVoid();
-        }
-        locVar_.setStruct(_right.getStruct());
-        return _right;
+        return ExecMutableLoopVariableOperation.checkSet(_conf,locVar_,_right);
     }
     Argument getCommonCompoundSetting(ExecutableCode _conf, Struct _store, String _op, Argument _right) {
         PageEl ip_ = _conf.getOperationPageEl();
@@ -104,7 +97,7 @@ public final class RendMutableLoopVariableOperation extends RendLeafOperation im
         ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
         Argument res_;
         res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
-        setVar(_conf,locVar_,res_);
+        ExecMutableLoopVariableOperation.setVar(_conf,locVar_,res_);
         return res_;
     }
     Argument getCommonSemiSetting(ExecutableCode _conf, Struct _store, String _op, boolean _post) {
@@ -118,19 +111,10 @@ public final class RendMutableLoopVariableOperation extends RendLeafOperation im
         ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
         Argument res_;
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
-        setVar(_conf,locVar_,res_);
+        ExecMutableLoopVariableOperation.setVar(_conf,locVar_,res_);
         return RendSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
-    private static void setVar(ExecutableCode _conf, LoopVariable _var,Argument _value) {
-        if (_conf.getContextEl().hasExceptionOrFailInit()) {
-            return;
-        }
-        _var.setStruct(_value.getStruct());
-    }
-    public String getVariableName() {
-        return variableName;
-    }
     @Override
     public Argument endCalculate(ExecutableCode _conf, Argument _right) {
         return endCalculate(_conf, false, null, _right);

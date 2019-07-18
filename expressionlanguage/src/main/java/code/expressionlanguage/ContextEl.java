@@ -774,6 +774,12 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     @Override
+    public boolean hasDeclarator() {
+        Block bl_ = getCurrentBlock();
+        return bl_.getPreviousSibling() instanceof DeclareVariable;
+    }
+
+    @Override
     public AnalyzedPageEl getAnalyzing() {
         return analyzing;
     }
@@ -2586,6 +2592,10 @@ public abstract class ContextEl implements ExecutableCode {
         if (!isValidToken(_id)) {
             return false;
         }
+        return idDisjointToken(_id);
+    }
+
+    public boolean idDisjointToken(String _id) {
         if (options.getSuffixVar() != VariableSuffix.DISTINCT) {
             if (containsLocalVar(_id)) {
                 return false;
@@ -2603,11 +2613,16 @@ public abstract class ContextEl implements ExecutableCode {
         }
         return true;
     }
+
     @Override
     public boolean isValidToken(String _id) {
         Block b_ = getCurrentBlock();
         boolean pred_ = b_.getFile().isPredefined();
-        if (pred_) {
+        return isValidToken(_id, pred_);
+    }
+
+    public boolean isValidToken(String _id, boolean _pred) {
+        if (_pred) {
             if (!StringList.isDollarWord(_id)) {
                 return false;
             }

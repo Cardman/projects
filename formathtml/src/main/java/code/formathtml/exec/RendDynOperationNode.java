@@ -264,10 +264,6 @@ public abstract class RendDynOperationNode {
         }
         if (_anaNode instanceof CmpOperation) {
             CmpOperation c_ = (CmpOperation) _anaNode;
-            if (!c_.isOkNum()) {
-                ErrorPartOperation err_ = new ErrorPartOperation(c_.getIndexInEl(), c_.getIndexChild(), c_.getParent(), c_.getOperations());
-                return new RendErrorPartOperation(err_);
-            }
             return new RendAbstractCmpOperation(c_);
         }
         if (_anaNode instanceof InstanceOfOperation) {
@@ -303,10 +299,6 @@ public abstract class RendDynOperationNode {
         if (_anaNode instanceof OrOperation) {
             OrOperation c_ = (OrOperation) _anaNode;
             return new RendOrOperation(c_);
-        }
-        if (_anaNode instanceof AssocationOperation) {
-            AssocationOperation c_ = (AssocationOperation) _anaNode;
-            return new RendAssocationOperation(c_);
         }
         if (_anaNode instanceof CompoundAffectationOperation) {
             CompoundAffectationOperation c_ = (CompoundAffectationOperation) _anaNode;

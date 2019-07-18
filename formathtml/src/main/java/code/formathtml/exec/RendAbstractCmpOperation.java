@@ -18,10 +18,6 @@ public class RendAbstractCmpOperation extends RendMethodOperation implements Ren
         op = _a.getOp();
     }
 
-    public final boolean isStringCompare() {
-        return stringCompare;
-    }
-
     @Override
     public void calculate(ExecutableCode _conf) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();

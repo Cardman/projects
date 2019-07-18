@@ -41,18 +41,11 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         lastType = _s.getLastType();
     }
 
-    public void setFieldName(String _fieldName) {
-        fieldName = _fieldName;
-    }
-
     @Override
     public void calculate(ExecutableCode _conf) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> arguments_ = new CustList<Argument>();
-        for (RendDynOperationNode o: chidren_) {
-            if (o instanceof RendStaticInitOperation) {
-                continue;
-            }
+        for (RendDynOperationNode o: filterInvoking(chidren_)) {
             arguments_.add(o.getArgument());
         }
         Argument previous_ = getPreviousArg(this,_conf);

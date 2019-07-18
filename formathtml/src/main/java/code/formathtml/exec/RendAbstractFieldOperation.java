@@ -38,9 +38,6 @@ public abstract class RendAbstractFieldOperation extends RendLeafOperation imple
             argres_ = getCommonArgument(previous_, _conf);
         }
         Argument arg_ = argres_;
-        if (arg_ == null) {
-            return;
-        }
         boolean simple_ = false;
         if (this instanceof RendSettableFieldOperation) {
             RendSettableFieldOperation s_ = (RendSettableFieldOperation) this;

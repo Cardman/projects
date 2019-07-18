@@ -6,6 +6,7 @@ import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.VariableOperation;
 import code.expressionlanguage.opers.exec.ExecNumericOperation;
+import code.expressionlanguage.opers.exec.ExecVariableOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
@@ -83,16 +84,10 @@ public final class RendVariableOperation extends RendLeafOperation implements
         setSimpleArgument(arg_, _conf);
     }
     Argument getCommonSetting(ExecutableCode _conf, Argument _right) {
-        PageEl ip_ = _conf.getOperationPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
+        PageEl ip_ = _conf.getOperationPageEl();
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
-        String formattedClassVar_ = locVar_.getClassName();
-        formattedClassVar_ = _conf.getOperationPageEl().formatVarType(formattedClassVar_, _conf);
-        if (!Templates.checkObject(formattedClassVar_, _right, _conf)) {
-            return Argument.createVoid();
-        }
-        locVar_.setStruct(_right.getStruct());
-        return _right;
+        return ExecVariableOperation.checkSet(_conf,locVar_,_right);
     }
     Argument getCommonCompoundSetting(ExecutableCode _conf, Struct _store, String _op, Argument _right) {
         PageEl ip_ = _conf.getOperationPageEl();
@@ -105,7 +100,7 @@ public final class RendVariableOperation extends RendLeafOperation implements
         ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
         Argument res_;
         res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
-        locVar_.setStruct(res_.getStruct());
+        ExecVariableOperation.setVar(_conf, locVar_, res_);
         return res_;
     }
     Argument getCommonSemiSetting(ExecutableCode _conf, Struct _store, String _op, boolean _post) {
@@ -119,7 +114,7 @@ public final class RendVariableOperation extends RendLeafOperation implements
         ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
         Argument res_;
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
-        locVar_.setStruct(res_.getStruct());
+        ExecVariableOperation.setVar(_conf, locVar_, res_);
         return RendSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 

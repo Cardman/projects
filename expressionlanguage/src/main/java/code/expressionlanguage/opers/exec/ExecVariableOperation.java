@@ -92,14 +92,17 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
     }
 
     private Argument getCommonSetting(ExecutableCode _conf, Argument _right) {
-        PageEl ip_ = _conf.getOperationPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
+        PageEl ip_ = _conf.getOperationPageEl();
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
-        String formattedClassVar_ = locVar_.getClassName();
+        return checkSet(_conf,locVar_,_right);
+    }
+    public static Argument checkSet(ExecutableCode _conf, LocalVariable _loc, Argument _right) {
+        String formattedClassVar_ = _loc.getClassName();
         if (!Templates.checkObject(formattedClassVar_, _right, _conf)) {
             return Argument.createVoid();
         }
-        locVar_.setStruct(_right.getStruct());
+        _loc.setStruct(_right.getStruct());
         return _right;
     }
     private Argument getCommonCompoundSetting(ExecutableCode _conf, Struct _store, String _op, Argument _right) {
@@ -129,7 +132,7 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
         return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
-    private static void setVar(ExecutableCode _conf, LocalVariable _var,Argument _value) {
+    public static void setVar(ExecutableCode _conf, LocalVariable _var,Argument _value) {
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return;
         }
