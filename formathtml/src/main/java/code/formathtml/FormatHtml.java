@@ -585,7 +585,7 @@ public final class FormatHtml {
                     indexes_.setInput(0);
                 }
                 processAttributes(_conf, _loc, _files, ip_, doc_, tag_,
-                        indexes_, containersMap_, containers_, _resourcesFolder);
+                        indexes_, containers_, _resourcesFolder);
                 if (_conf.getContext().getException() != null) {
                     throwException(_conf);
                     if (_conf.getContext().getException() != null) {
@@ -1156,7 +1156,7 @@ public final class FormatHtml {
                 ip_.setProcessingAttribute(ATTRIBUTE_NAME);
                 ip_.setLookForAttrValue(true);
                 ip_.setOffset(0);
-                setIndexes(indexes_, _conf, ip_, containersMap_, containers_, selectTag_, name_);
+                setIndexes(indexes_, _conf, ip_, containers_, selectTag_, name_);
                 if (_conf.getContext().getException() != null) {
                     return ip_;
                 }
@@ -1276,7 +1276,7 @@ public final class FormatHtml {
                     FormatHtml.appendChild(doc_, _conf, currentNode_, (Element) nLoc_);
                     Element tag_ = (Element) currentNode_.getLastChild();
                     processAttributes(_conf, _loc, _files, ipMess_, doc_, tag_,
-                            indexes_, containersMap_, containers_, _resourcesFolder);
+                            indexes_, containers_, _resourcesFolder);
                     if (_conf.getContext().getException() != null) {
                         return ip_;
                     }
@@ -2527,11 +2527,10 @@ public final class FormatHtml {
     }
 
     private static void setIndexes(IndexesFormInput _indexes,
-            Configuration _conf,
-            ImportingPage _ip,
-            LongMap<LongTreeMap<NodeContainer>> _containersMap,
-            LongTreeMap<NodeContainer> _containers,
-            Element _input, String _name) {
+                                   Configuration _conf,
+                                   ImportingPage _ip,
+                                   LongTreeMap<NodeContainer> _containers,
+                                   Element _input, String _name) {
         String name_ = _name;
         if (name_.endsWith(GET_LOC_VAR)) {
             _indexes.setNb(-1);
@@ -2718,12 +2717,11 @@ public final class FormatHtml {
         return false;
     }
 
-    private static void processAttributes(Configuration _conf, String _loc, StringMap< String> _files,
-                ImportingPage _ip,Document _doc, Element _tag,
-                IndexesFormInput _indexes,
-                LongMap<LongTreeMap<NodeContainer>> _containersMap,
-                LongTreeMap<NodeContainer> _containers,
-            String... _resourcesFolder) {
+    private static void processAttributes(Configuration _conf, String _loc, StringMap<String> _files,
+                                          ImportingPage _ip, Document _doc, Element _tag,
+                                          IndexesFormInput _indexes,
+                                          LongTreeMap<NodeContainer> _containers,
+                                          String... _resourcesFolder) {
         String prefixWrite_ = _conf.getPrefix();
         String beanName_ = _ip.getBeanName();
         StringList attributesNames_ = new StringList();
@@ -3006,7 +3004,7 @@ public final class FormatHtml {
                 _ip.setProcessingAttribute(ATTRIBUTE_NAME);
                 _ip.setLookForAttrValue(true);
                 _ip.setOffset(0);
-                setIndexes(_indexes, _conf, _ip, _containersMap, _containers, _tag, name_);
+                setIndexes(_indexes, _conf, _ip, _containers, _tag, name_);
                 if (_conf.getContext().getException() != null) {
                     return;
                 }
@@ -3027,7 +3025,7 @@ public final class FormatHtml {
                 _ip.setProcessingAttribute(ATTRIBUTE_NAME);
                 _ip.setLookForAttrValue(true);
                 _ip.setOffset(0);
-                setIndexes(_indexes, _conf, _ip, _containersMap, _containers, _tag, name_);
+                setIndexes(_indexes, _conf, _ip, _containers, _tag, name_);
                 if (_conf.getContext().getException() != null) {
                     return;
                 }

@@ -491,9 +491,9 @@ public abstract class ExecOperationNode implements Operable {
         }
         ExecPossibleIntermediateDotted n_ = getSiblingSet();
         if (n_ != null) {
-            _nodes.getVal((ExecOperationNode)n_).setPreviousArgument(_argument);
+            _nodes.getValue(n_.getOrder()).setPreviousArgument(_argument);
         }
-        _nodes.getVal(this).setArgument(_argument);
+        _nodes.getValue(getOrder()).setArgument(_argument);
         _conf.getCoverage().passBlockOperation(_conf, this,_argument);
     }
 

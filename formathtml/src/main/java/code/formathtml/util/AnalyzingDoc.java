@@ -1,5 +1,6 @@
 package code.formathtml.util;
 
+import code.formathtml.RendBlock;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -8,6 +9,8 @@ public final class AnalyzingDoc {
     private StringList languages = new StringList();
     private String language = "";
     private String[] resourcesFolder;
+
+    private RendBlock currentBlock;
 
     public void setFiles(StringMap<String> _files) {
         files = _files;
@@ -39,5 +42,13 @@ public final class AnalyzingDoc {
 
     public void setResourcesFolder(String[] _resourcesFolder) {
         resourcesFolder = _resourcesFolder;
+    }
+
+    public RendBlock getCurrentBlock() {
+        return currentBlock;
+    }
+
+    public void setCurrentBlock(RendBlock _currentBlock) {
+        currentBlock = _currentBlock;
     }
 }

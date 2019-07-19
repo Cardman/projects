@@ -286,6 +286,9 @@ public final class ImportingPage {
         blockStacks.removeLast();
     }
 
+    public void removeRendLastBlock() {
+        rendBlockStacks.removeLast();
+    }
     public CustList<BlockHtml> getBlockStacks() {
         return blockStacks;
     }
@@ -424,7 +427,7 @@ public final class ImportingPage {
     }
 
     public boolean hasBlock() {
-        return !noBlock();
+        return !rendBlockStacks.isEmpty();
     }
 
     public RendLoopBlockStack getLastLoopIfPossible() {

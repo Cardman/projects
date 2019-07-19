@@ -56,7 +56,7 @@ public final class RendWhileCondition extends RendCondition implements RendLoop 
         ip_.addBlock(l_);
         c_ = (RendLoopBlockStack) ip_.getRendLastStack();
         if (c_.isFinished()) {
-            ip_.removeLastBlock();
+            ip_.removeRendLastBlock();
             processBlock(_cont);
             return;
         }

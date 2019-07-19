@@ -780,6 +780,12 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     @Override
+    public boolean hasLoopDeclarator() {
+        Block bl_ = getCurrentBlock();
+        return bl_ instanceof ForMutableIterativeLoop;
+    }
+
+    @Override
     public AnalyzedPageEl getAnalyzing() {
         return analyzing;
     }

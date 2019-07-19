@@ -137,7 +137,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
         if (ip_.hasBlock()) {
             RendRemovableVars bl_ = ip_.getRendLastStack();
             if (bl_.getBlock() == this) {
-                ip_.removeLastBlock();
+                ip_.removeRendLastBlock();
                 processBlock(_cont);
                 return;
             }

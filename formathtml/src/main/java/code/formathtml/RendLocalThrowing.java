@@ -38,7 +38,7 @@ public final class RendLocalThrowing implements RendCallingFinally {
                             return;
                         }
                     }
-                    bkIp_.removeLastBlock();
+                    bkIp_.removeRendLastBlock();
                     continue;
                 }
                 RendBlock n_ = currentBlock_.getNextSibling();
@@ -89,7 +89,7 @@ public final class RendLocalThrowing implements RendCallingFinally {
                     bkIp_.getRendReadWrite().setRead(try_.getLastBlock());
                     return;
                 }
-                bkIp_.removeLastBlock();
+                bkIp_.removeRendLastBlock();
             }
             _conf.removeLastPage();
         }

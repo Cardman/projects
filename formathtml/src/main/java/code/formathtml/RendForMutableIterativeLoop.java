@@ -289,7 +289,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             for (String v: variableNames) {
                 ip_.getVars().removeKey(v);
             }
-            ip_.removeLastBlock();
+            ip_.removeRendLastBlock();
             processBlock(_cont);
             return;
         }

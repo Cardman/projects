@@ -247,6 +247,9 @@ public abstract class RendBlock {
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,TAG_DEFAULT))) {
             return new RendDefaultCondition(new OffsetsBlock());
         }
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,IMPORT_BLOCK_TAG))) {
+            return new RendImport(elt_,new OffsetsBlock());
+        }
         return new RendSubmit(elt_,new OffsetsBlock());
     }
     private static OffsetStringInfo newOffsetStringInfo(Element _elt,String _key) {
@@ -332,7 +335,7 @@ public abstract class RendBlock {
         } else {
             RendParentBlock n_ = _bl.getParent();
             //n_ != null because strictly in class
-            if (_ip.hasBlock()) {
+            if (_ip.hasBlock() && !(n_ instanceof RendDocumentBlock)) {
                 parElt_ =  new RendParentElement(n_);
             } else {
                 //directly at the root => last element in the block root

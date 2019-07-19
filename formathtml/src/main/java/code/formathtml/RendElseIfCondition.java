@@ -40,7 +40,7 @@ public final class RendElseIfCondition extends RendCondition implements RendBrea
             }
         }
         if (if_.getLastBlock() == this) {
-            ip_.removeLastBlock();
+            ip_.removeRendLastBlock();
             processBlock(_cont);
             return;
         }

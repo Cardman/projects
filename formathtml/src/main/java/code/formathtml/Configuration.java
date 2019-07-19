@@ -115,6 +115,7 @@ public class Configuration implements ExecutableCode {
 
     private AnalyzingDoc analyzingDoc = new AnalyzingDoc();
     private RendLocalThrowing rendLocalThrowing = new RendLocalThrowing();
+    private StringMap<RendDocumentBlock> renders = new StringMap<RendDocumentBlock>();
     @Override
     public boolean isMerged() {
         return context.isMerged();
@@ -741,7 +742,14 @@ public class Configuration implements ExecutableCode {
 
     @Override
     public boolean hasDeclarator() {
-        return true;
+        RendBlock currentBlock_ = analyzingDoc.getCurrentBlock();
+        return currentBlock_.getPreviousSibling() instanceof RendDeclareVariable;
+    }
+
+    @Override
+    public boolean hasLoopDeclarator() {
+        RendBlock currentBlock_ = analyzingDoc.getCurrentBlock();
+        return currentBlock_ instanceof RendForMutableIterativeLoop;
     }
 
     @Override
@@ -1137,5 +1145,9 @@ public class Configuration implements ExecutableCode {
 
     public RendLocalThrowing getRendLocalThrowing() {
         return rendLocalThrowing;
+    }
+
+    public StringMap<RendDocumentBlock> getRenders() {
+        return renders;
     }
 }

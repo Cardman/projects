@@ -41,6 +41,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
             return;
         }
         while (true) {
+            _cont.getAnalyzingDoc().setCurrentBlock(en_);
             if (en_ instanceof RendParentBlock && en_.getFirstChild() == null) {
                 OffsetsBlock off_ = en_.getOffset();
                 RendEmptyInstruction empty_ = new RendEmptyInstruction(off_);

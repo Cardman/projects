@@ -29,7 +29,7 @@ public abstract class RendAbstractCatchEval extends RendParentBlock implements R
         RendTryBlockStack ts_ = (RendTryBlockStack) ip_.getRendLastStack();
         ts_.setException(NullStruct.NULL_VALUE);
         if (ts_.getLastBlock() == this) {
-            ip_.removeLastBlock();
+            ip_.removeRendLastBlock();
             processBlock(_cont);
         } else {
             ts_.setCurrentBlock(this);
@@ -46,6 +46,6 @@ public abstract class RendAbstractCatchEval extends RendParentBlock implements R
             _ip.setFinallyToProcess(true);
             return;
         }
-        _ip.removeLastBlock();
+        _ip.removeRendLastBlock();
     }
 }

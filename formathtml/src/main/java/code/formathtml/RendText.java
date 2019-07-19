@@ -203,11 +203,6 @@ public final class RendText extends RendLeaf implements RendWithEl, RendReducabl
     @Override
     public void processEl(Configuration _cont) {
         ImportingPage lastPage_ = _cont.getLastPage();
-        if (lastPage_.getRendText() == this) {
-            lastPage_.setRendText(null);
-            processBlock(_cont);
-            return;
-        }
         RendReadWrite rend_ = lastPage_.getRendReadWrite();
         Node write_ = rend_.getWrite();
         Document doc_ = write_.getOwnerDocument();
@@ -225,6 +220,6 @@ public final class RendText extends RendLeaf implements RendWithEl, RendReducabl
             t_.appendData(standards_.processString(argument_,_cont));
         }
         t_.appendData(texts.last());
-        lastPage_.setRendText(this);
+        processBlock(_cont);
     }
 }

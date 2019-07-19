@@ -303,11 +303,10 @@ public final class ElUtil {
     }
 
     public static boolean isDeclaringLoopVariable(MutableLoopVariableOperation _var, Analyzable _an) {
-        Block bl_ = _an.getCurrentBlock();
         if (!_an.isMerged()) {
             return false;
         }
-        if (!(bl_ instanceof ForMutableIterativeLoop)) {
+        if (!_an.hasLoopDeclarator()) {
             return false;
         }
         if (_an.getForLoopPartState() != ForLoopPart.INIT) {
@@ -316,11 +315,10 @@ public final class ElUtil {
         return isDeclaringVariable(_var);
     }
     public static boolean isDeclaringLoopVariable(MethodOperation _par, Analyzable _an) {
-        Block bl_ = _an.getCurrentBlock();
         if (!_an.isMerged()) {
             return false;
         }
-        if (!(bl_ instanceof ForMutableIterativeLoop)) {
+        if (!_an.hasLoopDeclarator()) {
             return false;
         }
         if (_an.getForLoopPartState() != ForLoopPart.INIT) {

@@ -47,6 +47,6 @@ public abstract class RendParentBlock extends RendBlock {
     }
 
     public void removeVarAndLoop(ImportingPage _ip) {
-        _ip.removeLastBlock();
+        _ip.removeRendLastBlock();
     }
 }

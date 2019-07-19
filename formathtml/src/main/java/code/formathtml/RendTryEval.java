@@ -36,7 +36,7 @@ public final class RendTryEval extends RendParentBlock implements RendEval {
             _ip.setFinallyToProcess(true);
             return;
         }
-        _ip.removeLastBlock();
+        _ip.removeRendLastBlock();
     }
 
     @Override

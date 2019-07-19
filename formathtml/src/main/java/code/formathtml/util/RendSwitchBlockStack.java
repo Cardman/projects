@@ -32,7 +32,7 @@ public final class RendSwitchBlockStack extends SwitchStack implements RendRemov
     public void removeVarAndLoop(ImportingPage _ip) {
         RendParentBlock cur_ = getCurentVisitedBlock();
         cur_.removeLocalVars(_ip);
-        _ip.removeLastBlock();
+        _ip.removeRendLastBlock();
     }
 
     @Override

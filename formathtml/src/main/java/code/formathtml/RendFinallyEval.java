@@ -27,7 +27,7 @@ public final class RendFinallyEval extends RendParentBlock implements RendEval {
         RendTryBlockStack ts_ = (RendTryBlockStack) ip_.getRendLastStack();
         ts_.setCurrentBlock(this);
         if (ts_.isVisitedFinally()) {
-            ip_.removeLastBlock();
+            ip_.removeRendLastBlock();
             processBlock(_cont);
             return;
         }
@@ -38,7 +38,7 @@ public final class RendFinallyEval extends RendParentBlock implements RendEval {
     @Override
     public void processToFinally(ImportingPage _ip, RendTryBlockStack _stack) {
         removeLocalVars(_ip);
-        _ip.removeLastBlock();
+        _ip.removeRendLastBlock();
     }
 
 
@@ -48,7 +48,7 @@ public final class RendFinallyEval extends RendParentBlock implements RendEval {
         RendTryBlockStack ts_ = (RendTryBlockStack) ip_.getRendLastStack();
         ts_.setCurrentBlock(this);
         if (ts_.isVisitedFinally()) {
-            ip_.removeLastBlock();
+            ip_.removeRendLastBlock();
             processBlock(_cont);
             return;
         }
@@ -63,7 +63,7 @@ public final class RendFinallyEval extends RendParentBlock implements RendEval {
         RendTryBlockStack tryStack_ = (RendTryBlockStack) ip_.getRendLastStack();
         RendCallingFinally call_ = tryStack_.getCalling();
         if (call_ != null) {
-            ip_.removeLastBlock();
+            ip_.removeRendLastBlock();
             if (call_ instanceof RendLocalThrowing) {
                 _context.setException(tryStack_.getException());
             }

@@ -1476,9 +1476,14 @@ public final class ElRenderUtilTest {
     public void processEl330Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
+        Document document_ = DocumentBuilder.parseSaxNotNullRowCol("<tag><c:set className=\"$int\" value=\"arg=2,arg2=4\"/></tag>").getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", document_);
+        RendBlock nextSibling_ = rendDocumentBlock_.getFirstChild().getFirstChild().getNextSibling();
         context_.setMerged(true);
+        context_.getAnalyzingDoc().setCurrentBlock(nextSibling_);
         context_.setCurrentVarSetting(context_.getStandards().getAliasLong());
-        processEl("arg=2,arg2=4", context_);
+        String expression_ = ((RendLine) nextSibling_).getExpression();
+        processEl(expression_, context_);
         StringMap<LocalVariable> localVars_ = context_.getLastPage().getLocalVars();
         assertEq(2,((NumberStruct)localVars_.getVal("arg").getStruct()).intStruct());
         assertEq(4,((NumberStruct)localVars_.getVal("arg2").getStruct()).intStruct());

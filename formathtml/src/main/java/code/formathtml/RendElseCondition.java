@@ -42,7 +42,7 @@ public final class RendElseCondition extends RendParentBlock implements RendWith
             ip_.getRendReadWrite().setRead(getFirstChild());
             return;
         }
-        ip_.removeLastBlock();
+        ip_.removeRendLastBlock();
         processBlock(_cont);
     }
 
