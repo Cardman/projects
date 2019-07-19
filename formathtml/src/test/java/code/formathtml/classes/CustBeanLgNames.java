@@ -9,7 +9,7 @@ import code.formathtml.DefaultInitialization;
 import code.formathtml.util.*;
 import code.util.*;
 
-public final class CustBeanLgNames extends BeanLgNames {
+public final class CustBeanLgNames extends BeanNatLgNames {
 
     private static final String TYPE_INTS = "code.formathtml.classes.Ints";
     private static final String TYPE_RATE = "code.formathtml.classes.Rate";

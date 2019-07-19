@@ -7,10 +7,13 @@ import code.expressionlanguage.calls.util.CustomFoundConstructor;
 import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.ProcessMethod;
+import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.StandardInstancingOperation;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.formathtml.Configuration;
 import code.util.CustList;
+import code.util.IdMap;
 import code.util.StringList;
 
 public final class RendStandardInstancingOperation extends RendInvokingOperation implements RendCalculableOperation {
@@ -61,8 +64,28 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         processCall(_conf,argres_);
     }
 
-    Argument getArgument(Argument _previous,CustList<Argument> _arguments,
-            ExecutableCode _conf) {
+    @Override
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
+        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
+        CustList<Argument> arguments_ = new CustList<Argument>();
+        for (RendDynOperationNode o: filterInvoking(chidren_)) {
+            arguments_.add(getArgument(_nodes,o));
+        }
+        Argument previous_ = getPreviousArg(this,_nodes,_conf);
+        Argument argres_ = getArgument(previous_, arguments_, _conf);
+        NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
+        if (statusInit_ != null) {
+            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
+            if (_conf.getContextEl().hasException()) {
+                return;
+            }
+            argres_ = getArgument(previous_, arguments_, _conf);
+        }
+        processCall(_nodes,_conf,argres_);
+    }
+
+    Argument getArgument(Argument _previous, CustList<Argument> _arguments,
+                         ExecutableCode _conf) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         CustList<RendDynOperationNode> filter_ = filterInvoking(chidren_);
         int off_ = StringList.getFirstPrintableCharIndex(methodName);

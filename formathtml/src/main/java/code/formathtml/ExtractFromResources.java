@@ -40,9 +40,7 @@ public final class ExtractFromResources {
         return value_;
     }
     static StringMap<String> getInnerMessagesFromLocaleClass(Configuration _conf, String _loc, String _relative, StringMap<String> _files, String... _resourcesFolder) {
-        String folder_ = ExtractObject.getMessageFolder(_conf);
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,_loc,_relative);
-        String content_ = getContentFile(_conf, _files, fileName_, _resourcesFolder);
+        String content_ = tryGetContent(_conf,_loc,_relative,_files,_resourcesFolder);
         if (_conf.getContext().getException() != null) {
             return new StringMap<String>();
         }
@@ -52,6 +50,11 @@ public final class ExtractFromResources {
             return new StringMap<String>();
         }
         return getMessages(content_);
+    }
+    static String tryGetContent(Configuration _conf, String _loc, String _relative, StringMap<String> _files, String... _resourcesFolder) {
+        String folder_ = ExtractObject.getMessageFolder(_conf);
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,_loc,_relative);
+        return getContentFile(_conf, _files, fileName_, _resourcesFolder);
     }
 
     static int indexCorrectMessages(String _content) {

@@ -2,7 +2,10 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AffectationOperation;
+import code.formathtml.Configuration;
+import code.util.IdMap;
 
 public final class RendAffectationOperation extends RendMethodOperation implements RendCalculableOperation {
 
@@ -19,7 +22,7 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
         RendDynOperationNode root_ = _operation.getFirstChild();
         RendSettableElResult elt_;
         while (root_ instanceof RendIdOperation) {
-            root_ = ((RendIdOperation)root_).getFirstChild();
+            root_ = root_.getFirstChild();
         }
         if (!(root_ instanceof RendDotOperation)) {
             elt_ = castTo(root_);
@@ -48,4 +51,12 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
         setSimpleArgument(op_.getArgument(), _conf);
     }
 
+    @Override
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
+        RendDynOperationNode right_ = getChildrenNodes().last();
+        Argument rightArg_ = getArgument(_nodes,right_);
+        settable.calculateSetting(_nodes,_conf,rightArg_);
+        RendDynOperationNode op_ = (RendDynOperationNode)settable;
+        setSimpleArgument(getArgument(_nodes,op_), _conf);
+    }
 }

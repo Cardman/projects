@@ -1,19 +1,22 @@
 package code.formathtml;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.errors.custom.BadElError;
 import code.expressionlanguage.errors.custom.BadOperandsNumber;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.ConstType;
 import code.expressionlanguage.instr.Delimiters;
 import code.expressionlanguage.instr.ElResolver;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.*;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.exec.ReductibleOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendCalculableOperation;
 import code.formathtml.exec.RendAffectationOperation;
 import code.formathtml.exec.RendCompoundAffectationOperation;
@@ -63,7 +66,7 @@ public final class ElRenderUtil {
         boolean static_ = argGl_ == null || argGl_.isNull();
         _conf.setStaticContext(static_);
         CustList<OperationNode> all_ = getSortedDescNodes(op_, static_, _conf);
-        CustList<RendDynOperationNode> out_ = getExecutableNodes(all_, _conf);
+        CustList<RendDynOperationNode> out_ = getExecutableNodes(all_);
         if (!_conf.getClasses().isEmptyErrors()) {
             BadElRender badEl_ = new BadElRender();
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
@@ -78,7 +81,69 @@ public final class ElRenderUtil {
         Argument arg_ = out_.last().getArgument();
         return arg_;
     }
+    public static CustList<RendDynOperationNode> getAnalyzedOperations(String _el, Configuration _conf, int _minIndex, char _begin, char _end, Calculation _calcul) {
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf, _minIndex, _begin, _end);
+        if (d_.getBadOffset() >= 0) {
+            BadElError badEl_ = new BadElError();
+            badEl_.setOffsetInEl(d_.getBadOffset());
+            badEl_.setEl(_el);
+            badEl_.setFileName(_conf.getCurrentFileName());
+            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+            _conf.getClasses().addError(badEl_);
+            OperationsSequence tmpOp_ = new OperationsSequence();
+            tmpOp_.setDelimiter(new Delimiters());
+            ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
+            String argClName_ = _conf.getStandards().getAliasObject();
+            e_.setResultClass(new ClassArgumentMatching(argClName_));
+            e_.setOrder(0);
+            return new CustList<RendDynOperationNode>((RendDynOperationNode)RendDynOperationNode.createExecOperationNode(e_));
+        }
+        int beg_ = d_.getIndexBegin();
+        int end_ = d_.getIndexEnd();
+        int cap_ = end_+1 - beg_;
+        StringBuilder str_ = new StringBuilder(cap_);
+        for (int i = beg_; i <= end_; i++) {
+            if (d_.getEscapings().contains(i)) {
+                str_.append(' ');
+            } else {
+                str_.append(_el.charAt(i));
+            }
+        }
+        _conf.setNextIndex(end_+2);
+        String el_ = str_.toString();
+        boolean static_ = _conf.isStaticContext();
+        OperationsSequence opTwo_ = getOperationsSequence(_minIndex, el_, _conf, d_);
+        OperationNode op_ = createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_, _conf);
+        CustList<OperationNode> all_ = getSortedDescNodes(op_, static_, _conf);
+        CustList<RendDynOperationNode> out_ = getExecutableNodes(all_);
+        return out_;
+    }
 
+    public static CustList<RendDynOperationNode> getAnalyzedOperations(String _el, int _index, Configuration _conf, Calculation _calcul) {
+        Delimiters d_ = ElResolver.checkSyntax(_el, _conf, _index);
+        if (d_.getBadOffset() >= 0) {
+            BadElError badEl_ = new BadElError();
+            badEl_.setOffsetInEl(d_.getBadOffset());
+            badEl_.setEl(_el);
+            badEl_.setFileName(_conf.getCurrentFileName());
+            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+            _conf.getClasses().addError(badEl_);
+            OperationsSequence tmpOp_ = new OperationsSequence();
+            tmpOp_.setDelimiter(new Delimiters());
+            ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
+            String argClName_ = _conf.getStandards().getAliasObject();
+            e_.setResultClass(new ClassArgumentMatching(argClName_));
+            e_.setOrder(0);
+            return new CustList<RendDynOperationNode>((RendDynOperationNode)RendDynOperationNode.createExecOperationNode(e_));
+        }
+        String el_ = _el.substring(_index);
+        boolean static_ = _conf.isStaticContext();
+        OperationsSequence opTwo_ = getOperationsSequence(_index, el_, _conf, d_);
+        OperationNode op_ = createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_, _conf);
+        CustList<OperationNode> all_ = getSortedDescNodes(op_, static_, _conf);
+        CustList<RendDynOperationNode> out_ = getExecutableNodes(all_);
+        return out_;
+    }
     public static Argument processEl(String _el, int _index, Configuration _conf) {
         ContextEl context_ = _conf.getContext();
         _conf.setupAnalyzing();
@@ -100,7 +165,7 @@ public final class ElRenderUtil {
         OperationsSequence opTwo_ = getOperationsSequence(_index, el_, _conf, d_);
         OperationNode op_ = createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_, _conf);
         CustList<OperationNode> all_ = getSortedDescNodes(op_, static_, _conf);
-        CustList<RendDynOperationNode> out_ = getExecutableNodes(all_, _conf);
+        CustList<RendDynOperationNode> out_ = getExecutableNodes(all_);
         if (!_conf.getClasses().isEmptyErrors()) {
             BadElRender badEl_ = new BadElRender();
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
@@ -115,18 +180,18 @@ public final class ElRenderUtil {
         Argument arg_  = out_.last().getArgument();
         return arg_;
     }
-    public static CustList<RendDynOperationNode> getExecutableNodes(CustList<OperationNode> _list, Analyzable _an) {
+    public static CustList<RendDynOperationNode> getExecutableNodes(CustList<OperationNode> _list) {
         CustList<RendDynOperationNode> out_ = new CustList<RendDynOperationNode>();
         OperationNode root_ = _list.last();
         OperationNode current_ = root_;
-        RendDynOperationNode exp_ = RendDynOperationNode.createExecOperationNode(current_, _an);
+        RendDynOperationNode exp_ = RendDynOperationNode.createExecOperationNode(current_);
         while (true) {
             if (current_ == null) {
                 break;
             }
             OperationNode op_ = current_.getFirstChild();
             if (op_ != null) {
-                RendDynOperationNode loc_ = RendDynOperationNode.createExecOperationNode(op_, _an);
+                RendDynOperationNode loc_ = RendDynOperationNode.createExecOperationNode(op_);
                 ((RendMethodOperation)exp_).appendChild(loc_);
                 exp_ = loc_;
                 current_ = op_;
@@ -145,7 +210,7 @@ public final class ElRenderUtil {
                 out_.add(exp_);
                 op_ = current_.getNextSibling();
                 if (op_ != null) {
-                    RendDynOperationNode loc_ = RendDynOperationNode.createExecOperationNode(op_, _an);
+                    RendDynOperationNode loc_ = RendDynOperationNode.createExecOperationNode(op_);
                     RendMethodOperation par_ = exp_.getParent();
                     par_.appendChild(loc_);
                     if (op_.getParent() instanceof DotOperation && loc_ instanceof RendPossibleIntermediateDotted) {
@@ -374,6 +439,49 @@ public final class ElRenderUtil {
         }
         return OperationNode.createOperationNode(_index, _indexChild, _m, _op, _an);
     }
+
+    public static Argument calculateReuse(CustList<RendDynOperationNode> _nodes, Configuration _context, Argument _arg) {
+        Argument globalArgument_ = _context.getLastPage().getGlobalArgument();
+        _context.getLastPage().setGlobalArgumentStruct(_arg.getStruct(),_context);
+        Argument argument_ = calculateReuse(_nodes, _context);
+        _context.getLastPage().setGlobalArgumentStruct(globalArgument_.getStruct(),_context);
+        return argument_;
+    }
+    public static Argument calculateReuse(CustList<RendDynOperationNode> _nodes, Configuration _context) {
+        IdMap<RendDynOperationNode,ArgumentsPair> arguments_;
+        arguments_ = new IdMap<RendDynOperationNode,ArgumentsPair>();
+        for (RendDynOperationNode o: _nodes) {
+            ArgumentsPair a_ = new ArgumentsPair();
+            a_.setArgument(o.getArgument());
+            if (o instanceof RendPossibleIntermediateDotted) {
+                a_.setPreviousArgument(((RendPossibleIntermediateDotted)o).getPreviousArgument());
+            }
+            arguments_.addEntry(o, a_);
+        }
+        int fr_ = 0;
+        int len_ = _nodes.size();
+        while (fr_ < len_) {
+            RendDynOperationNode o = arguments_.getKey(fr_);
+            ArgumentsPair pair_ = arguments_.getValue(fr_);
+            if (!(o instanceof RendCalculableOperation)) {
+                fr_++;
+                continue;
+            }
+            if (pair_.getArgument() != null) {
+                fr_++;
+                continue;
+            }
+            RendCalculableOperation a_ = (RendCalculableOperation)o;
+            a_.calculate(arguments_, _context);
+            if (_context.getException() != null) {
+                return Argument.createVoid();
+            }
+            Argument res_ = pair_.getArgument();
+            Struct st_ = res_.getStruct();
+            fr_ = RendDynOperationNode.getNextIndex(o, st_);
+        }
+        return arguments_.lastValue().getArgument();
+    }
     static void calculate(CustList<RendDynOperationNode> _nodes, Configuration _context) {
         int ind_ = 0;
         int len_ = _nodes.size();
@@ -399,4 +507,39 @@ public final class ElRenderUtil {
         
     }
 
+    public static CustList<RendDynOperationNode> getReducedNodes(RendDynOperationNode _root) {
+        CustList<RendDynOperationNode> out_ = new CustList<RendDynOperationNode>();
+        RendDynOperationNode current_ = _root;
+        while (current_ != null) {
+            RendDynOperationNode op_ = current_.getFirstChild();
+            if (op_ != null) {
+                if (current_.getArgument() == null) {
+                    current_ = op_;
+                    continue;
+                }
+            }
+            while (true) {
+                current_.setOrder(out_.size());
+                out_.add(current_);
+                op_ = current_.getNextSibling();
+                if (op_ != null) {
+                    current_ = op_;
+                    break;
+                }
+                op_ = current_.getParent();
+                if (op_ == _root) {
+                    op_.setOrder(out_.size());
+                    out_.add(op_);
+                    current_ = null;
+                    break;
+                }
+                if (op_ == null) {
+                    current_ = null;
+                    break;
+                }
+                current_ = op_;
+            }
+        }
+        return out_;
+    }
 }

@@ -5,6 +5,7 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.ConstType;
+import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.FinalVariableOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
@@ -12,6 +13,8 @@ import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
+import code.formathtml.Configuration;
+import code.util.IdMap;
 
 public final class RendFinalVariableOperation extends RendLeafOperation implements RendCalculableOperation {
 
@@ -30,6 +33,12 @@ public final class RendFinalVariableOperation extends RendLeafOperation implemen
     public void calculate(ExecutableCode _conf) {
         Argument arg_ = getCommonArgument(_conf);
         setSimpleArgument(arg_, _conf);
+    }
+
+    @Override
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
+        Argument arg_ = getCommonArgument(_conf);
+        setSimpleArgument(arg_, _conf,_nodes);
     }
 
     Argument getCommonArgument(ExecutableCode _conf) {

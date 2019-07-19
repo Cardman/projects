@@ -5,9 +5,12 @@ import code.expressionlanguage.calls.util.*;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.*;
+import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.InvokingOperation;
 import code.expressionlanguage.structs.*;
+import code.formathtml.Configuration;
 import code.util.CustList;
+import code.util.IdMap;
 
 public abstract class RendInvokingOperation extends RendMethodOperation implements RendPossibleIntermediateDotted {
     private boolean intermediate;
@@ -36,6 +39,22 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
             res_ = _res;
         }
         setSimpleArgument(res_, _conf);
+    }
+    void processCall(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, Configuration _conf, Argument _res) {
+        CustomFoundConstructor ctor_ = _conf.getContextEl().getCallCtor();
+        CustomFoundMethod method_ = _conf.getContextEl().getCallMethod();
+        CustomReflectMethod ref_ = _conf.getContextEl().getReflectMethod();
+        Argument res_;
+        if (ctor_ != null) {
+            res_ = ProcessMethod.instanceArgument(ctor_.getClassName(), ctor_.getCurrentObject(), ctor_.getId(), ctor_.getArguments(), _conf.getContextEl());
+        } else if (method_ != null) {
+            res_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(), method_.getId(), method_.getArguments(), _conf.getContextEl(),method_.getRight());
+        } else if (ref_ != null) {
+            res_ = ProcessMethod.reflectArgument(ref_.getGl(), ref_.getArguments(), _conf.getContextEl(), ref_.getReflect(), ref_.isLambda());
+        } else {
+            res_ = _res;
+        }
+        setSimpleArgument(res_, _conf,_nodes);
     }
     static CustList<Argument> listArguments(CustList<RendDynOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, ExecutableCode _context) {
         if (!_children.isEmpty() && _children.first() instanceof RendVarargOperation) {

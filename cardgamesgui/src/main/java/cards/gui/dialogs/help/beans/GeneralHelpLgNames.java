@@ -1,8 +1,8 @@
 package cards.gui.dialogs.help.beans;
 
-import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.BeanNatLgNames;
 
-public final class GeneralHelpLgNames extends BeanLgNames {
+public final class GeneralHelpLgNames extends BeanNatLgNames {
 
     @Override
     public void buildOther() {

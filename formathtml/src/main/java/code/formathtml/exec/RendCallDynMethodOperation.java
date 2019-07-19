@@ -7,9 +7,12 @@ import code.expressionlanguage.calls.util.CustomFoundMethod;
 import code.expressionlanguage.calls.util.CustomReflectMethod;
 import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
+import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.CallDynMethodOperation;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
+import code.formathtml.Configuration;
 import code.util.CustList;
+import code.util.IdMap;
 
 public final class RendCallDynMethodOperation extends RendInvokingOperation implements RendCalculableOperation {
 
@@ -27,6 +30,14 @@ public final class RendCallDynMethodOperation extends RendInvokingOperation impl
         Argument previous_ = getPreviousArg(this,_conf);
         Argument argres_ = ExecInvokingOperation.prepareCallDyn(previous_, arguments_, _conf);
         processCall(_conf,argres_);
+    }
+
+    @Override
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
+        CustList<Argument> arguments_ = getArguments(_nodes,this);
+        Argument previous_ = getPreviousArg(this,_nodes,_conf);
+        Argument argres_ = ExecInvokingOperation.prepareCallDyn(previous_, arguments_, _conf);
+        processCall(_nodes,_conf,argres_);
     }
 
 }

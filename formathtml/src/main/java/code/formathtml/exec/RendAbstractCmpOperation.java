@@ -2,12 +2,15 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.ProcessMethod;
+import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.CmpOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
+import code.formathtml.Configuration;
 import code.util.CustList;
+import code.util.IdMap;
 
-public class RendAbstractCmpOperation extends RendMethodOperation implements RendCalculableOperation {
+public final class RendAbstractCmpOperation extends RendMethodOperation implements RendCalculableOperation {
 
     private boolean stringCompare;
     private String op;
@@ -28,6 +31,18 @@ public class RendAbstractCmpOperation extends RendMethodOperation implements Ren
         Argument arg_ = calculateCommon(first_, second_);
         setSimpleArgument(arg_, _conf);
     }
+
+    @Override
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
+        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
+        RendDynOperationNode opOne_ = chidren_.first();
+        RendDynOperationNode opTwo_ = chidren_.last();
+        Argument first_ = getArgument(_nodes,opOne_);
+        Argument second_ = getArgument(_nodes,opTwo_);
+        Argument arg_ = calculateCommon(first_, second_);
+        setSimpleArgument(arg_, _conf,_nodes);
+    }
+
     private Argument calculateCommon(Argument _one, Argument _two) {
         String op_ = getOp().trim();
         if (stringCompare) {

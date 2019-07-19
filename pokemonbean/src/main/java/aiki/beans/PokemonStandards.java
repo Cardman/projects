@@ -249,14 +249,11 @@ import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ByteStruct;
-import code.formathtml.util.RealInstanceStruct;
+import code.formathtml.util.*;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.DefaultInitialization;
-import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.BeanStruct;
-import code.formathtml.util.StdStruct;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.sml.Element;
@@ -266,7 +263,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import aiki.facade.enums.SelectedBoolean;
 
-public final class PokemonStandards extends BeanLgNames {
+public final class PokemonStandards extends BeanNatLgNames {
     public static final String TYPE_ACTIVITY_OF_MOVE = "aiki.game.fight.ActivityOfMove";
     public static final String TYPE_MOVE_TARGET = "aiki.game.fight.util.MoveTarget";
     public static final String TYPE_TARGET_COORDS = "aiki.game.fight.TargetCoords";

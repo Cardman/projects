@@ -35,12 +35,7 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.types.PartTypeUtil;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
-import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.BeanStruct;
-import code.formathtml.util.StdStruct;
-import code.formathtml.util.StringMapObjectStruct;
-import code.formathtml.util.TranslatorStruct;
-import code.formathtml.util.ValidatorStruct;
+import code.formathtml.util.*;
 import code.sml.Document;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -118,6 +113,8 @@ public class Configuration implements ExecutableCode {
     private StringList addedFiles = new StringList();
     private Interrupt interrupt;
 
+    private AnalyzingDoc analyzingDoc = new AnalyzingDoc();
+    private RendLocalThrowing rendLocalThrowing = new RendLocalThrowing();
     @Override
     public boolean isMerged() {
         return context.isMerged();
@@ -145,6 +142,7 @@ public class Configuration implements ExecutableCode {
         }
         standards.build();
         standards.setupOverrides(context);
+        standards.buildIterables(this);
     }
 
     public final void setupClasses(StringMap<String> _files) {
@@ -793,7 +791,7 @@ public class Configuration implements ExecutableCode {
 
     @Override
     public boolean isEnabledInternVars() {
-        return false;
+        return context.isEnabledInternVars();
     }
 
     public boolean isInternGlobal() {
@@ -1123,5 +1121,21 @@ public class Configuration implements ExecutableCode {
             }
         }
         return false;
+    }
+
+    public boolean hasPages() {
+        return !noPages();
+    }
+
+    public AnalyzingDoc getAnalyzingDoc() {
+        return analyzingDoc;
+    }
+
+    public void setAnalyzingDoc(AnalyzingDoc _analyzingDoc) {
+        analyzingDoc = _analyzingDoc;
+    }
+
+    public RendLocalThrowing getRendLocalThrowing() {
+        return rendLocalThrowing;
     }
 }

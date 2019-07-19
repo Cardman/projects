@@ -7,12 +7,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
-import code.formathtml.util.BeanStruct;
-import code.formathtml.util.BlockHtml;
-import code.formathtml.util.NodeAttribute;
-import code.formathtml.util.ProcessingHtml;
-import code.formathtml.util.ReadWriteHtml;
-import code.formathtml.util.StdStruct;
+import code.formathtml.util.*;
 import code.sml.Element;
 import code.sml.Node;
 import code.sml.RowCol;
@@ -43,9 +38,12 @@ public final class ImportingPage {
 
     private CustList<BlockHtml> blockStacks = new CustList<BlockHtml>();
 
+    private CustList<RendRemovableVars> rendBlockStacks = new CustList<RendRemovableVars>();
+
     private String beanName;
 
     private StringMap<LocalVariable> returnedValues = new StringMap<LocalVariable>();
+    private StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
 
     private String readUrl = "";
 
@@ -58,6 +56,7 @@ public final class ImportingPage {
     private String prefix = EMPTY_STRING;
 
     private ReadWriteHtml readWrite;
+    private RendReadWrite rendReadWrite;
 
     private ProcessingHtml processingHtml;
 
@@ -69,6 +68,9 @@ public final class ImportingPage {
 
     private int offset;
 
+    private boolean finallyToProcess;
+
+    private RendText rendText;
     public ImportingPage(boolean _rendering) {
         rendering = _rendering;
         processingHtml = new ProcessingHtml();
@@ -155,6 +157,18 @@ public final class ImportingPage {
 
     public void setReadWrite(ReadWriteHtml _readWrite) {
         readWrite = _readWrite;
+    }
+
+    public RendReadWrite getRendReadWrite() {
+        return rendReadWrite;
+    }
+
+    public void setNullRendReadWrite() {
+        rendReadWrite = null;
+    }
+
+    public void setRendReadWrite(RendReadWrite _rendReadWrite) {
+        rendReadWrite = _rendReadWrite;
     }
 
     public Element getRoot() {
@@ -263,6 +277,11 @@ public final class ImportingPage {
     public void addBlock(BlockHtml _b) {
         blockStacks.add(_b);
     }
+
+    public void addBlock(RendRemovableVars _b) {
+        rendBlockStacks.add(_b);
+    }
+
     public void removeLastBlock() {
         blockStacks.removeLast();
     }
@@ -382,5 +401,53 @@ public final class ImportingPage {
 
     public void setInternGlobal(Struct _internGlobal) {
         internGlobal = _internGlobal;
+    }
+
+    public boolean isFinallyToProcess() {
+        return finallyToProcess;
+    }
+
+    public void setFinallyToProcess(boolean _finallyToProcess) {
+        finallyToProcess = _finallyToProcess;
+    }
+
+    public CustList<RendRemovableVars> getRendBlockStacks() {
+        return rendBlockStacks;
+    }
+
+    public void setRendBlockStacks(CustList<RendRemovableVars> _rendBlockStacks) {
+        rendBlockStacks = _rendBlockStacks;
+    }
+
+    public RendRemovableVars getRendLastStack() {
+        return rendBlockStacks.last();
+    }
+
+    public boolean hasBlock() {
+        return !noBlock();
+    }
+
+    public RendLoopBlockStack getLastLoopIfPossible() {
+        RendLoopBlockStack c_ = null;
+        if (hasBlock() && getRendLastStack() instanceof RendLoopBlockStack) {
+            c_ = (RendLoopBlockStack) getRendLastStack();
+        }
+        return c_;
+    }
+
+    public StringMap<LocalVariable> getInternVars() {
+        return internVars;
+    }
+
+    public void setInternVars(StringMap<LocalVariable> _internVars) {
+        internVars = _internVars;
+    }
+
+    public RendText getRendText() {
+        return rendText;
+    }
+
+    public void setRendText(RendText _rendText) {
+        rendText = _rendText;
     }
 }

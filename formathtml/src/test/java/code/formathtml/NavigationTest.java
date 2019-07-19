@@ -8645,7 +8645,9 @@ public class NavigationTest {
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl context_ = InitializationLgNames.buildStdOne(opt_);
         nav_.getSession().setContext(context_);
-        nav_.getSession().setStandards((BeanLgNames) context_.getStandards());
+        BeanLgNames standards_ = (BeanLgNames) context_.getStandards();
+        nav_.getSession().setStandards(standards_);
+        standards_.buildIterables(nav_.getSession());
         return nav_;
     }
 
@@ -8656,7 +8658,9 @@ public class NavigationTest {
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl context_ = InitializationLgNames.buildStdOne(opt_);
         conf_.setContext(context_);
-        conf_.setStandards((BeanLgNames) context_.getStandards());
+        BeanLgNames standards_ = (BeanLgNames) context_.getStandards();
+        conf_.setStandards(standards_);
+        standards_.buildIterables(conf_);
         return conf_;
     }
 }

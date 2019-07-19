@@ -9,6 +9,7 @@ import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.ProcessMethod;
+import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.FctOperation;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -16,7 +17,9 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
+import code.formathtml.Configuration;
 import code.util.CustList;
+import code.util.IdMap;
 import code.util.StringList;
 
 public final class RendFctOperation extends RendInvokingOperation implements RendCalculableOperation {
@@ -65,6 +68,23 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
         }
         processCall(_conf,argres_);
     }
+
+    @Override
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
+        CustList<Argument> arguments_ = getArguments(_nodes,this);
+        Argument previous_ = getPreviousArg(this,_nodes,_conf);
+        Argument argres_ = getArgument(previous_, arguments_, _conf);
+        NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
+        if (statusInit_ != null) {
+            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
+            if (_conf.getContextEl().hasException()) {
+                return;
+            }
+            argres_ = getArgument(previous_, arguments_, _conf);
+        }
+        processCall(_nodes,_conf,argres_);
+    }
+
     Argument getArgument(Argument _previous, CustList<Argument> _arguments, ExecutableCode _conf) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);

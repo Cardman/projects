@@ -366,7 +366,9 @@ public class ExtractConditionTest {
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl context_ = InitializationLgNames.buildStdOne(opt_);
         conf_.setContext(context_);
-        conf_.setStandards((BeanLgNames) context_.getStandards());
+        BeanLgNames standards_ = (BeanLgNames) context_.getStandards();
+        conf_.setStandards(standards_);
+        standards_.buildIterables(conf_);
         return conf_;
     }
 

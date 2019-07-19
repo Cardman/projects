@@ -2,12 +2,15 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.ProcessMethod;
+import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.UnaryBinOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.structs.NumberStruct;
+import code.formathtml.Configuration;
 import code.util.CustList;
+import code.util.IdMap;
 
 public final class RendUnaryBinOperation extends RendAbstractUnaryOperation {
 
@@ -23,8 +26,16 @@ public final class RendUnaryBinOperation extends RendAbstractUnaryOperation {
         setSimpleArgument(a_, _conf);
     }
 
+    @Override
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
+        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
+        Argument arg_ = getArgument(_nodes,chidren_.first());
+        Argument a_ = getArgument(_conf, arg_);
+        setSimpleArgument(a_, _conf,_nodes);
+    }
+
     Argument getArgument(ExecutableCode _conf,
-            Argument _in) {
+                         Argument _in) {
         Argument out_ = new Argument();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         ClassArgumentMatching res_ = getResultClass();

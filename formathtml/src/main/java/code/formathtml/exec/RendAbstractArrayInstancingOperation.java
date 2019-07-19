@@ -2,8 +2,11 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AbstractArrayInstancingOperation;
+import code.formathtml.Configuration;
 import code.util.CustList;
+import code.util.IdMap;
 
 public abstract class RendAbstractArrayInstancingOperation extends RendInvokingOperation implements RendCalculableOperation {
     private String methodName;
@@ -35,6 +38,16 @@ public abstract class RendAbstractArrayInstancingOperation extends RendInvokingO
         res_ = argres_;
         setSimpleArgument(res_, _conf);
     }
+
+    @Override
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
+        CustList<Argument> arguments_ = getArguments(_nodes,this);
+        Argument argres_ = getArgument(arguments_, _conf);
+        Argument res_;
+        res_ = argres_;
+        setSimpleArgument(res_, _conf,_nodes);
+    }
+
     abstract Argument getArgument(CustList<Argument> _arguments,
-            ExecutableCode _conf);
+                                  ExecutableCode _conf);
 }

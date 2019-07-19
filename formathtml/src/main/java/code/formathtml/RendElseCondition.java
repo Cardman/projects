@@ -1,0 +1,55 @@
+package code.formathtml;
+
+import code.expressionlanguage.files.OffsetsBlock;
+import code.formathtml.util.RendIfStack;
+import code.formathtml.util.RendReadWrite;
+
+public final class RendElseCondition extends RendParentBlock implements RendWithEl, RendReducableOperations, RendBuildableElMethod,RendBreakableBlock {
+
+    RendElseCondition(OffsetsBlock _offset) {
+        super(_offset);
+    }
+
+    @Override
+    public String getRealLabel() {
+        RendBlock p_ = getPreviousSibling();
+        while (!(p_ instanceof RendIfCondition)) {
+            if (p_ == null) {
+                return EMPTY_STRING;
+            }
+            p_ = p_.getPreviousSibling();
+        }
+        return ((RendIfCondition)p_).getLabel();
+    }
+
+    @Override
+    public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
+
+    }
+
+    @Override
+    public void reduce(Configuration _context) {
+
+    }
+
+    @Override
+    public void processEl(Configuration _cont) {
+        ImportingPage ip_ = _cont.getLastPage();
+        RendIfStack if_ = (RendIfStack) ip_.getRendLastStack();
+        if_.setCurentVisitedBlock(this);
+        if (!if_.isEntered()) {
+            if_.setEntered(true);
+            ip_.getRendReadWrite().setRead(getFirstChild());
+            return;
+        }
+        ip_.removeLastBlock();
+        processBlock(_cont);
+    }
+
+    @Override
+    public void exitStack(Configuration _conf) {
+        ImportingPage ip_ = _conf.getLastPage();
+        RendReadWrite rw_ = ip_.getRendReadWrite();
+        rw_.setRead(this);
+    }
+}

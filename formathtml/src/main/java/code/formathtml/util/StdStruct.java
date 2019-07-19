@@ -117,7 +117,7 @@ public final class StdStruct implements RealInstanceStruct {
             return new StringBuilderStruct((StringBuilder) _element);
         }
         BeanLgNames lgNames_ = (BeanLgNames) _context.getStandards();
-        String className_ = lgNames_.getOtherStructClassName(_element, _context);
+        String className_ = lgNames_.getStdBeanStructClassName(_element, _context);
         if (StringList.quickEq(className_, lgNames_.getAliasObject())) {
             return StdStruct.newInstance(_element, _alias);
         }

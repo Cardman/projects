@@ -459,27 +459,8 @@ final class ExtractObject {
         return _obj.charAt(CustList.FIRST_INDEX);
     }
     /**This method use the equal operator*/
-    static boolean eq(Configuration _conf, Struct _objOne, Struct _objTwo) {
-        ImportingPage ip_ = _conf.getLastPage();
-        LocalVariable lvOne_ = new LocalVariable();
-        lvOne_.setClassName(_conf.getStandards().getAliasObject());
-        lvOne_.setStruct(_objOne);
-        String nameOne_ = ip_.getNextTempVar();
-        ip_.putLocalVar(nameOne_, lvOne_);
-        LocalVariable lvTwo_ = new LocalVariable();
-        lvTwo_.setClassName(_conf.getStandards().getAliasObject());
-        lvTwo_.setStruct(_objTwo);
-        String nameTwo_ = ip_.getNextTempVar();
-        ip_.putLocalVar(nameTwo_, lvTwo_);
-        String el_ = StringList.concat(nameOne_,GET_LOC_VAR,CMP,CMP,nameTwo_,GET_LOC_VAR);
-        Argument arg_ = ElRenderUtil.processEl(el_, 0, _conf);
-        ip_.removeLocalVar(nameOne_);
-        ip_.removeLocalVar(nameTwo_);
-        if (_conf.getContext().getException() != null) {
-            return false;
-        }
-        BooleanStruct ret_ = (BooleanStruct)arg_.getStruct();
-        return ret_.getInstance();
+    static boolean eq(Struct _objOne, Struct _objTwo) {
+        return _objOne.sameReference(_objTwo);
     }
     static void checkNullPointer(Configuration _conf, Struct _obj) {
         if (_obj == NullStruct.NULL_VALUE) {

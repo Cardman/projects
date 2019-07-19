@@ -1,6 +1,7 @@
 package code.formathtml;
 import static code.formathtml.EquallableExUtil.assertEq;
 
+import code.formathtml.util.BeanLgNames;
 import org.junit.Test;
 
 import code.expressionlanguage.ContextEl;
@@ -107,6 +108,9 @@ public class ExtractFromResourcesTest {
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl context_ = InitializationLgNames.buildStdOne(opt_);
         conf_.setContext(context_);
+        BeanLgNames standards_ = (BeanLgNames) context_.getStandards();
+        conf_.setStandards(standards_);
+        standards_.buildIterables(conf_);
         return conf_;
     }
 }

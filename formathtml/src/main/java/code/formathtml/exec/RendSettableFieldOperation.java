@@ -6,6 +6,7 @@ import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ProcessMethod;
+import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.exec.ExecNumericOperation;
@@ -15,7 +16,9 @@ import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
+import code.formathtml.Configuration;
 import code.formathtml.util.BeanLgNames;
+import code.util.IdMap;
 
 public final class RendSettableFieldOperation extends
         RendAbstractFieldOperation implements RendSettableElResult {
@@ -82,6 +85,22 @@ public final class RendSettableFieldOperation extends
         }
         setSimpleArgument(arg_, _conf);
     }
+
+    @Override
+    public void calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
+        Argument previous_ = getPreviousArg(this,_nodes,_conf);
+        Argument arg_ = getCommonSetting(previous_, _conf, _right);
+        NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
+        if (statusInit_ != null) {
+            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
+            if (_conf.getContextEl().hasException()) {
+                return;
+            }
+            arg_ = getCommonSetting(previous_, _conf, _right);
+        }
+        setSimpleArgument(arg_, _conf,_nodes);
+    }
+
     @Override
     public void calculateCompoundSetting(ExecutableCode _conf, String _op,
             Argument _right) {
@@ -91,6 +110,16 @@ public final class RendSettableFieldOperation extends
         Argument arg_ = getCommonCompoundSetting(previous_, store_, _conf, _op, _right);
         setSimpleArgument(arg_, _conf);
     }
+
+    @Override
+    public void calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right) {
+        Argument previous_ = getPreviousArg(this,_nodes,_conf);
+        Argument current_ = getArgument(_nodes,this);
+        Struct store_ = current_.getStruct();
+        Argument arg_ = getCommonCompoundSetting(previous_, store_, _conf, _op, _right);
+        setSimpleArgument(arg_, _conf,_nodes);
+    }
+
     @Override
     public void calculateSemiSetting(ExecutableCode _conf, String _op,
             boolean _post) {
@@ -101,6 +130,16 @@ public final class RendSettableFieldOperation extends
         setSimpleArgument(arg_, _conf);
         
     }
+
+    @Override
+    public void calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post) {
+        Argument previous_ = getPreviousArg(this,_nodes,_conf);
+        Argument current_ = getArgument(_nodes,this);
+        Struct store_ = current_.getStruct();
+        Argument arg_ = getCommonSemiSetting(previous_, store_, _conf, _op, _post);
+        setSimpleArgument(arg_, _conf,_nodes);
+    }
+
     Argument getCommonSetting(Argument _previous, ExecutableCode _conf, Argument _right) {
         int off_ = getOff();
         String fieldType_ = fieldMetaInfo.getRealType();
@@ -211,6 +250,33 @@ public final class RendSettableFieldOperation extends
         ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, _right.getStruct());
         Argument a_ = RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
         setSimpleArgument(a_, _conf);
+        return a_;
+    }
+
+    @Override
+    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
+        return endCalculate(_nodes,_conf, false, null, _right);
+    }
+
+    @Override
+    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, boolean _post, Argument _stored, Argument _right) {
+        int off_ = getOff();
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        Classes classes_ = _conf.getClasses();
+        ClassField fieldId_ = fieldMetaInfo.getClassField();
+        String className_ = fieldId_.getClassName();
+        if (fieldMetaInfo.isStaticField()) {
+            classes_.initializeStaticField(fieldId_, _right.getStruct());
+            Argument a_ = RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
+            setSimpleArgument(a_, _conf,_nodes);
+            return a_;
+        }
+        Argument previousNode_ = getPreviousArg(this,_nodes,_conf);
+        Argument previous_ = new Argument();
+        previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, previousNode_.getStruct(), _conf));
+        ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, _right.getStruct());
+        Argument a_ = RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
+        setSimpleArgument(a_, _conf,_nodes);
         return a_;
     }
 }

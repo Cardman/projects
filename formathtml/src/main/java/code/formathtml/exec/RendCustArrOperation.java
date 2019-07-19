@@ -10,6 +10,7 @@ import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.ProcessMethod;
+import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.ArrOperation;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.exec.ExecNumericOperation;
@@ -19,7 +20,9 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.Struct;
+import code.formathtml.Configuration;
 import code.util.CustList;
+import code.util.IdMap;
 import code.util.StringList;
 
 public final class RendCustArrOperation extends RendInvokingOperation implements RendCalculableOperation,RendSettableElResult {
@@ -63,6 +66,19 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     }
 
     @Override
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
+        if (resultCanBeSet()) {
+            Struct array_;
+            array_ = getPreviousArgument(_nodes,this).getStruct();
+            Argument a_ = new Argument();
+            a_.setStruct(array_);
+            setQuickSimpleArgument(a_, _conf,_nodes);
+            return;
+        }
+        processCalling(_nodes,_conf, null);
+    }
+
+    @Override
     public boolean resultCanBeSet() {
         return variable;
     }
@@ -70,6 +86,11 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     @Override
     public void calculateSetting(ExecutableCode _conf, Argument _right) {
         processCalling(_conf, _right);
+    }
+
+    @Override
+    public void calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
+        processCalling(_nodes,_conf, _right);
     }
 
     @Override
@@ -89,6 +110,22 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     }
 
     @Override
+    public void calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right) {
+        Argument a_ = getArgument(_nodes,this);
+        Struct store_;
+        store_ = a_.getStruct();
+        Argument left_ = new Argument();
+        left_.setStruct(store_);
+        ClassArgumentMatching clArg_ = getResultClass();
+        Argument res_;
+        res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, clArg_);
+        if (_conf.getContextEl().hasException()) {
+            return;
+        }
+        processCalling(_nodes,_conf,res_);
+    }
+
+    @Override
     public void calculateSemiSetting(ExecutableCode _conf, String _op, boolean _post) {
         Argument a_ = getArgument();
         Struct store_;
@@ -102,6 +139,19 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     }
 
     @Override
+    public void calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post) {
+        Argument a_ = getArgument(_nodes,this);
+        Struct store_;
+        store_ = a_.getStruct();
+        Argument left_ = new Argument();
+        left_.setStruct(store_);
+        ClassArgumentMatching clArg_ = getResultClass();
+        Argument res_;
+        res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, clArg_);
+        processCalling(_nodes,_conf,res_);
+    }
+
+    @Override
     public Argument endCalculate(ExecutableCode _conf, Argument _right) {
         return endCalculate(_conf,false,null,_right);
     }
@@ -109,6 +159,24 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     @Override
     public Argument endCalculate(ExecutableCode _conf, boolean _post, Argument _stored, Argument _right) {
         return processCalling(_conf,_right);
+    }
+
+    @Override
+    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
+        return endCalculate(_nodes,_conf,false,null,_right);
+    }
+
+    @Override
+    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, boolean _post, Argument _stored, Argument _right) {
+        return processCalling(_nodes,_conf,_right);
+    }
+
+    private Argument processCalling(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
+        CustList<Argument> arguments_ = getArguments(_nodes,this);
+        Argument previous_ = getPreviousArgument(_nodes,this);
+        Argument argres_ = getArgument(previous_, arguments_, _conf, _right);
+        processCall(_nodes,_conf,argres_);
+        return getArgument(_nodes,this);
     }
 
     private Argument processCalling(ExecutableCode _conf, Argument _right) {

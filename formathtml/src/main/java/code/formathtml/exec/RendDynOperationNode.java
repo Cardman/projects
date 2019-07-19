@@ -5,6 +5,7 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.Delimiters;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.*;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -12,7 +13,9 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.Struct;
+import code.formathtml.Configuration;
 import code.util.CustList;
+import code.util.IdMap;
 
 public abstract class RendDynOperationNode {
 
@@ -62,7 +65,7 @@ public abstract class RendDynOperationNode {
         _cont.setOffset(indexBegin+_offset);
     }
 
-    public static RendDynOperationNode createExecOperationNode(OperationNode _anaNode, Analyzable _conf) {
+    public static RendDynOperationNode createExecOperationNode(OperationNode _anaNode) {
         if (_anaNode instanceof InternGlobalOperation) {
             InternGlobalOperation m_ = (InternGlobalOperation) _anaNode;
             return new RendInternGlobalOperation(m_);
@@ -82,6 +85,10 @@ public abstract class RendDynOperationNode {
         if (_anaNode instanceof ConstantOperation) {
             ConstantOperation c_ = (ConstantOperation) _anaNode;
             return new RendConstantOperation(c_);
+        }
+        if (_anaNode instanceof InternVariableOperation) {
+            InternVariableOperation c_ = (InternVariableOperation) _anaNode;
+            return new RendInternVariableOperation(c_);
         }
         if (_anaNode instanceof CallDynMethodOperation) {
             CallDynMethodOperation c_ = (CallDynMethodOperation) _anaNode;
@@ -349,6 +356,32 @@ public abstract class RendDynOperationNode {
         }
     }
 
+    protected static Argument getPreviousArg(RendPossibleIntermediateDotted _possible, IdMap<RendDynOperationNode,ArgumentsPair> _nodes, Configuration _conf) {
+        Argument previous_;
+        if (_possible.isIntermediateDottedOperation()) {
+            previous_ = getPreviousArgument(_nodes, _possible);
+        } else {
+            previous_ = _conf.getLastPage().getGlobalArgument();
+        }
+        return previous_;
+    }
+    protected static CustList<Argument> getArguments(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendMethodOperation _method) {
+        CustList<Argument> a_ = new CustList<Argument>();
+        for (RendDynOperationNode o: _method.getChildrenNodes()) {
+            a_.add(getArgument(_nodes, o));
+        }
+        return a_;
+    }
+    protected static Argument getArgument(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendDynOperationNode _node) {
+        return getArgumentPair(_nodes,_node).getArgument();
+    }
+    protected static ArgumentsPair getArgumentPair(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendDynOperationNode _node) {
+        return _nodes.getValue(_node.getOrder());
+    }
+    protected static Argument getPreviousArgument(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendPossibleIntermediateDotted _node) {
+        return _nodes.getValue(_node.getOrder()).getPreviousArgument();
+    }
+
     public final RendMethodOperation getParent() {
         return parent;
     }
@@ -392,6 +425,23 @@ public abstract class RendDynOperationNode {
         return argument;
     }
 
+
+    public final void setSimpleArgument(Argument _argument, Configuration _conf, IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {
+        setQuickSimpleArgument(_argument, _conf, _nodes);
+        setNextSiblingsArg(_argument, _conf);
+    }
+
+    protected final void setQuickSimpleArgument(Argument _argument, Configuration _conf, IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {
+        if (_conf.getContextEl().hasException()) {
+            return;
+        }
+        RendPossibleIntermediateDotted n_ = getSiblingSet();
+        if (n_ != null) {
+            _nodes.getVal((RendDynOperationNode)n_).setPreviousArgument(_argument);
+        }
+        _nodes.getVal(this).setArgument(_argument);
+    }
+
     public final void setSimpleArgument(Argument _argument, ExecutableCode _conf) {
         setQuickSimpleArgument(_argument, _conf);
         setNextSiblingsArg(_argument, _conf);
@@ -427,5 +477,11 @@ public abstract class RendDynOperationNode {
 
     public final void setSiblingSet(RendPossibleIntermediateDotted _siblingSet) {
         siblingSet = _siblingSet;
+    }
+
+    public abstract RendDynOperationNode getFirstChild();
+
+    public void setOrder(int _order) {
+        order = _order;
     }
 }

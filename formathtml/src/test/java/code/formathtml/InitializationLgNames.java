@@ -43,16 +43,7 @@ public final class InitializationLgNames {
         ContextEl out_ = ContextFactory.build(_stack,lk_, di_, _opt, kw_, _lgNames,4);
         return out_;
     }
-    public static BeanLgNames initStandards(ContextEl _cont) {
-        BeanLgNames lgNames_ = new CustBeanLgNames();
-        _cont.setStandards(lgNames_);
-        lgNames_.setAliasRate("java.lang.Long");
-        lgNames_.setAliasDataBase("code.formathtml.classes.SimpleDataBase");
-        basicStandards(lgNames_);
-        lgNames_.build();
-        lgNames_.setupOverrides(_cont);
-        return lgNames_;
-    }
+
     private static void basicStandards(BeanLgNames _lgNames) {
         _lgNames.setDefaultPkg("java.lang");
         _lgNames.setAliasObject("java.lang.Object");
@@ -326,13 +317,5 @@ public final class InitializationLgNames {
         _lgNames.setFalseString("false");
         _lgNames.setTrueString("true");
         _lgNames.setNullString("");
-    }
-    public static void initAdvStandards(ContextEl _cont) {
-        CustLgNames lgNames_ = new CustLgNames();
-        basicStandards(lgNames_);
-        lgNames_.setAliasMath("$math");
-        lgNames_.build();
-        _cont.setStandards(lgNames_);
-        lgNames_.setupOverrides(_cont);
     }
 }

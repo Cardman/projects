@@ -2,6 +2,7 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.LambdaOperation;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -10,6 +11,8 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.structs.LambdaConstructorStruct;
 import code.expressionlanguage.structs.LambdaFieldStruct;
 import code.expressionlanguage.structs.LambdaMethodStruct;
+import code.formathtml.Configuration;
+import code.util.IdMap;
 
 public final class RendLambdaOperation extends RendLeafOperation implements RendCalculableOperation,RendPossibleIntermediateDotted {
 
@@ -48,6 +51,13 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
         Argument previous_ = getPreviousArg(this,_conf);
         Argument res_ = getCommonArgument(previous_, _conf);
         setSimpleArgument(res_, _conf);
+    }
+
+    @Override
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
+        Argument previous_ = getPreviousArg(this,_nodes,_conf);
+        Argument res_ = getCommonArgument(previous_, _conf);
+        setSimpleArgument(res_, _conf,_nodes);
     }
 
     Argument getCommonArgument(Argument _previous, ExecutableCode _conf) {

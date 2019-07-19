@@ -4,8 +4,11 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
+import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.ValuesOperation;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
+import code.formathtml.Configuration;
+import code.util.IdMap;
 
 public final class RendValuesOperation extends RendLeafOperation implements RendCalculableOperation {
 
@@ -31,6 +34,21 @@ public final class RendValuesOperation extends RendLeafOperation implements Rend
         }
         Argument argRes_ = argres_;
         setSimpleArgument(argRes_, _conf);
+    }
+
+    @Override
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
+        Argument argres_ = getCommonArgument(_conf);
+        NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
+        if (statusInit_ != null) {
+            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
+            if (_conf.getContextEl().hasException()) {
+                return;
+            }
+            argres_ = getCommonArgument(_conf);
+        }
+        Argument argRes_ = argres_;
+        setSimpleArgument(argRes_, _conf,_nodes);
     }
 
     Argument getCommonArgument(ExecutableCode _conf) {

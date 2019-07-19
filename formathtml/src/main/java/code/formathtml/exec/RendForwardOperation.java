@@ -2,7 +2,10 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.ForwardOperation;
+import code.formathtml.Configuration;
+import code.util.IdMap;
 
 public final class RendForwardOperation extends RendLeafOperation implements RendCalculableOperation,RendPossibleIntermediateDotted {
     private boolean intermediate;
@@ -22,6 +25,12 @@ public final class RendForwardOperation extends RendLeafOperation implements Ren
     public void calculate(ExecutableCode _conf) {
         Argument previous_ = getPreviousArg(this,_conf);
         setSimpleArgument(previous_, _conf);
+    }
+
+    @Override
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
+        Argument previous_ = getPreviousArg(this,_nodes,_conf);
+        setSimpleArgument(previous_, _conf,_nodes);
     }
 
     @Override

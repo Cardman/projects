@@ -139,7 +139,6 @@ public final class FormatHtml {
     private static final String FORM_BLOCK_TAG = "form";
     private static final String TR_BEGIN_BLOCK_TAG = "tr_begin";
     private static final String TR_END_BLOCK_TAG = "tr_end";
-    private static final String UNSET_BLOCK_TAG = "unset";
     private static final String SET_BLOCK_TAG = "set";
     private static final String CONTINUE_TAG = "continue";
     private static final String BREAK_TAG = "break";
@@ -354,6 +353,86 @@ public final class FormatHtml {
         }
     }
 
+    public static String getRes(RendDocumentBlock _rend,Configuration _conf) {
+        Struct bean_ = getBean(_conf, _rend.getBeanName());
+
+        ImportingPage ip_ = new ImportingPage(false);
+        int tabWidth_ = _conf.getTabWidth();
+        ip_.setTabWidth(tabWidth_);
+        ip_.setHtml(_conf.getHtml());
+        ip_.setReadUrl(_conf.getCurrentUrl());
+//        ip_.setBeanName(_beanName);
+        ip_.setPrefix(_conf.getPrefix());
+//        Element r_ = _docOrig.getDocumentElement();
+        if (bean_ != null && bean_ != NullStruct.NULL_VALUE) {
+            ip_.setGlobalArgumentStruct(bean_, _conf);
+        }
+        _conf.addPage(ip_);
+//        Node en_ = r_;
+        FullDocument doc_ = DocumentBuilder.newXmlDocument(tabWidth_);
+        appendChild(doc_, _conf, doc_, _rend.getElt());
+        RendReadWrite rw_ = new RendReadWrite();
+        rw_.setRead(_rend.getFirstChild());
+        rw_.setWrite(doc_);
+        rw_.setDocument(doc_);
+//        ip_.setRoot(r_);
+        ip_.setRendReadWrite(rw_);
+        while (true) {
+            Boolean res_ = removeCall(_conf);
+            if (res_ == null) {
+                break;
+            }
+            if (res_) {
+                continue;
+            }
+            processTags(_conf);
+            if (_conf.getContext().hasExceptionOrFailInit()) {
+                break;
+            }
+        }
+        return doc_.export();
+    }
+    static Boolean removeCall(Configuration _context) {
+        ImportingPage p_ = _context.getLastPage();
+        if (p_.getRendReadWrite() == null) {
+            _context.removeLastPage();
+            if (_context.getImporting().isEmpty()) {
+                return null;
+            }
+            if(processException(_context)) {
+                return true;
+            }
+            return null;
+        }
+        return false;
+    }
+    static boolean processException(Configuration _context) {
+        if (_context.getException() != null) {
+            _context.getRendLocalThrowing().removeBlockFinally(_context);
+            return _context.getException() == null;
+        }
+        return true;
+    }
+    static void processTags(Configuration _context) {
+        ImportingPage ip_ = _context.getLastPage();
+        RendReadWrite rw_ = ip_.getRendReadWrite();
+        RendBlock en_ = rw_.getRead();
+        if (en_ != null) {
+//            ip_.setGlobalOffset(en_.getOffset().getOffsetTrim());
+            ip_.setOffset(0);
+        }
+        tryProcessEl(_context);
+    }
+    static void tryProcessEl(Configuration _context) {
+        ImportingPage lastPage_ = _context.getLastPage();
+        RendReadWrite rw_ = lastPage_.getRendReadWrite();
+        RendBlock en_ = rw_.getRead();
+        if (en_ instanceof RendWithEl) {
+            ((RendWithEl)en_).processEl(_context);
+            return;
+        }
+        lastPage_.setNullRendReadWrite();
+    }
     static String processHtmlJava(String _htmlText, Configuration _conf, String _loc, StringMap<String> _files, String... _resourcesFolder) {
         String htmlText_ = _htmlText;
         String beanName_ = null;
@@ -458,7 +537,6 @@ public final class FormatHtml {
             }
             ip_ = _conf.getLastPage();
             if (ip_.getReadWrite() == null) {
-                ImportingPage last_ = _conf.getLastPage();
                 _conf.removeLastPage();
                 if (_conf.noPages()) {
                     break;
@@ -968,7 +1046,7 @@ public final class FormatHtml {
                     enter_ = true;
                 }
             } else {
-                if (ExtractObject.eq(_conf, value_, arg_.getStruct())) {
+                if (ExtractObject.eq(value_, arg_.getStruct())) {
                     enter_ = true;
                 }
                 if (_conf.getContext().getException() != null) {
@@ -1222,9 +1300,6 @@ public final class FormatHtml {
             }
             if (newElt_ == null) {
                 processBlock(_conf, ip_);
-                return ip_;
-            }
-            if (_conf.getContext().getException() != null) {
                 return ip_;
             }
             boolean keepField_ = en_.hasAttribute(KEEPFIELD_ATTRIBUTE);
@@ -2481,7 +2556,7 @@ public final class FormatHtml {
             }
             index_ = lv_.getIndex();
             for (EntryCust<Long, NodeContainer> e: _containers.entryList()) {
-                if (!ExtractObject.eq(_conf, e.getValue().getStruct(), obj_)) {
+                if (!ExtractObject.eq(e.getValue().getStruct(), obj_)) {
                     if (_conf.getContext().getException() != null) {
                         return;
                     }
@@ -2539,7 +2614,7 @@ public final class FormatHtml {
                 return;
             }
             for (EntryCust<Long, NodeContainer> e: _containers.entryList()) {
-                if (!ExtractObject.eq(_conf,e.getValue().getStruct(), obj_)) {
+                if (!ExtractObject.eq(e.getValue().getStruct(), obj_)) {
                     if (_conf.getContext().getException() != null) {
                         return;
                     }
@@ -3379,7 +3454,7 @@ public final class FormatHtml {
                 }
                 if (returnedVarValue_ != null) {
                     for (Struct a: returnedVarValue_) {
-                        if (ExtractObject.eq(_conf, a, o_)) {
+                        if (ExtractObject.eq(a, o_)) {
                             if (_conf.getContext().getException() != null) {
                                 return;
                             }
@@ -3456,7 +3531,7 @@ public final class FormatHtml {
                     }
                     option_.setAttribute(ATTRIBUTE_VALUE, nameEnum_);
                     for (Struct d: defaults_) {
-                        if (ExtractObject.eq(_conf, o_, d)) {
+                        if (ExtractObject.eq(o_, d)) {
                             if (_conf.getContext().getException() != null) {
                                 return;
                             }
@@ -3709,7 +3784,7 @@ public final class FormatHtml {
                 if (o == null) {
                     continue;
                 }
-                if (ExtractObject.eq(_conf, o_, o)) {
+                if (ExtractObject.eq(o_, o)) {
                     if (_conf.getContext().getException() != null) {
                         return;
                     }
@@ -4120,46 +4195,45 @@ public final class FormatHtml {
 
     static void appendChild(Document _doc, Configuration _conf, Node _parent, Element _read) {
         Element currentNode_;
-        String prefix_ = getPrefix(_conf, _read.getOwnerDocument());
+        String prefix_ = _conf.getPrefix();
         if (_parent instanceof Document) {
             if (prefix_.isEmpty()) {
                 currentNode_ = _doc.createElement(_read.getTagName());
-                setNormalAttributes(_doc, _conf, _read, currentNode_);
+                setNormalAttributes(_read, currentNode_);
             } else {
                 String nodeName_ = _read.getTagName();
                 String newNodeName_;
                 if (nodeName_.startsWith(prefix_)) {
                     String suffix_ = _read.getTagName().substring(prefix_.length());
-                    newNodeName_ = StringList.concat(getPrefix(_conf, (Document)_parent),suffix_);
+                    newNodeName_ = StringList.concat(prefix_,suffix_);
                 } else {
                     newNodeName_ = nodeName_;
                 }
                 currentNode_ = _doc.createElement(newNodeName_);
-                setPrefixedAttributes(_doc, _conf, _read, currentNode_, prefix_);
+                setPrefixedAttributes(prefix_, _read, currentNode_, prefix_);
             }
             ((Document)_parent).appendChild(currentNode_);
             return;
         }
-        String replacing_ = _conf.getPrefix();
         if (!prefix_.isEmpty()) {
             String nodeName_ = _read.getTagName();
             String newNodeName_;
             if (nodeName_.startsWith(prefix_)) {
                 String suffix_ = _read.getTagName().substring(prefix_.length());
-                newNodeName_ = StringList.concat(replacing_,suffix_);
+                newNodeName_ = StringList.concat(prefix_,suffix_);
             } else {
                 newNodeName_ = nodeName_;
             }
             currentNode_ = _doc.createElement(newNodeName_);
-            setPrefixedAttributes(_doc, _conf, _read, currentNode_, prefix_);
+            setPrefixedAttributes(prefix_, _read, currentNode_, prefix_);
         } else {
             currentNode_ = _doc.createElement(_read.getTagName());
-            setNormalAttributes(_doc, _conf, _read, currentNode_);
+            setNormalAttributes(_read, currentNode_);
         }
         ((MutableNode)_parent).appendChild(currentNode_);
     }
 
-    private static void setNormalAttributes(Document _doc, Configuration _conf, Element _read, Element _write) {
+    private static void setNormalAttributes(Element _read, Element _write) {
         NamedNodeMap map_ = _read.getAttributes();
         int nbAttrs_ = map_.getLength();
         for (int i = 0; i < nbAttrs_; i++) {
@@ -4169,9 +4243,8 @@ public final class FormatHtml {
             _write.setAttribute(name_, value_);
         }
     }
-    private static void setPrefixedAttributes(Document _doc, Configuration _conf, Element _read, Element _write, String _readPrefix) {
+    private static void setPrefixedAttributes(String _pref, Element _read, Element _write, String _readPrefix) {
         NamedNodeMap map_ = _read.getAttributes();
-        String mainPrefix_ = _conf.getPrefix();
         int nbAttrs_ = map_.getLength();
         for (int i = 0; i < nbAttrs_; i++) {
             Attr at_ = map_.item(i);
@@ -4181,7 +4254,7 @@ public final class FormatHtml {
                 _write.setAttribute(name_, value_);
             } else {
                 String suffix_ = name_.substring(_readPrefix.length());
-                _write.setAttribute(StringList.concat(mainPrefix_, suffix_), value_);
+                _write.setAttribute(StringList.concat(_pref, suffix_), value_);
             }
         }
     }

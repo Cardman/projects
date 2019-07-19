@@ -9,11 +9,14 @@ import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.ProcessMethod;
+import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.SuperFctOperation;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
+import code.formathtml.Configuration;
 import code.util.CustList;
+import code.util.IdMap;
 import code.util.StringList;
 
 public final class RendSuperFctOperation extends RendInvokingOperation implements RendCalculableOperation {
@@ -56,6 +59,22 @@ public final class RendSuperFctOperation extends RendInvokingOperation implement
             argres_ = getArgument(previous_, arguments_, _conf);
         }
         processCall(_conf,argres_);
+    }
+
+    @Override
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
+        CustList<Argument> arguments_ = getArguments(_nodes,this);
+        Argument previous_ = getPreviousArg(this,_nodes,_conf);
+        Argument argres_ = getArgument(previous_, arguments_, _conf);
+        NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
+        if (statusInit_ != null) {
+            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
+            if (_conf.getContextEl().hasException()) {
+                return;
+            }
+            argres_ = getArgument(previous_, arguments_, _conf);
+        }
+        processCall(_nodes,_conf,argres_);
     }
 
     Argument getArgument(Argument _previous, CustList<Argument> _arguments, ExecutableCode _conf) {

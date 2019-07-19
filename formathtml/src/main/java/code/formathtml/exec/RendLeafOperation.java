@@ -7,4 +7,9 @@ public abstract class RendLeafOperation extends RendDynOperationNode {
     RendLeafOperation(LeafOperation _l) {
         super(_l);
     }
+
+    @Override
+    public RendDynOperationNode getFirstChild() {
+        return null;
+    }
 }
