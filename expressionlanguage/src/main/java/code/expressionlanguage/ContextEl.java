@@ -1082,16 +1082,6 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     @Override
-    public Struct getInternGlobal() {
-        return null;
-    }
-
-    @Override
-    public String getInternGlobalClass() {
-        return null;
-    }
-
-    @Override
     public String resolveAccessibleIdType(String _in) {
         Block bl_ = getCurrentBlock();
         int rc_ = getCurrentLocationIndex();
@@ -2667,8 +2657,7 @@ public abstract class ContextEl implements ExecutableCode {
 
     @Override
     public void processInternKeyWord(String _exp, int _fr, ResultAfterInstKeyWord _out) {
-        getInternGlobal();
-        getInternGlobalClass();
+        //because of looping on characters
     }
 
     @Override

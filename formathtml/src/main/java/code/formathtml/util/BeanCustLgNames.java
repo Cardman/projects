@@ -49,7 +49,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         String locName_ = context_.getNextTempVar();
         String exp_;
         LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(getAliasIterable());
+        locVar_.setClassName(StringList.concat(getAliasIterable(),"<?>"));
         _context.getInternVars().put(locName_, locVar_);
         iteratorVar = locName_;
         String simpleIterator_ = getAliasIterator();
@@ -57,7 +57,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         expsIterator = ElRenderUtil.getAnalyzedOperations(exp_,0, _context, Calculation.staticCalculation(true));
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
-        locVar_.setClassName(getAliasIteratorType());
+        locVar_.setClassName(StringList.concat(getAliasIteratorType(),"<?>"));
         _context.getInternVars().put(locName_, locVar_);
         hasNextVar = locName_;
         String hasNext_ = getAliasHasNext();
@@ -65,7 +65,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         expsHasNext = ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
-        locVar_.setClassName(getAliasIteratorType());
+        locVar_.setClassName(StringList.concat(getAliasIteratorType(),"<?>"));
         _context.getInternVars().put(locName_, locVar_);
         nextVar = locName_;
         String next_ = getAliasNext();

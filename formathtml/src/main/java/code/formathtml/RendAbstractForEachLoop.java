@@ -291,10 +291,6 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
         ImportingPage ip_ = _cont.getLastPage();
         RendLoopBlockStack c_ = ip_.getLastLoopIfPossible();
         if (c_ != null && c_.getBlock() == this) {
-            if (c_.isEvaluatingKeepLoop()) {
-                processLastElementLoop(_cont);
-                return;
-            }
             removeVarAndLoop(ip_);
             processBlock(_cont);
             return;
@@ -341,18 +337,7 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
         lv_.setContainer(its_);
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         varsLoop_.put(variableName, lv_);
-        if (iterStr_ != null) {
-            iteratorHasNext(_cont);
-            return;
-        }
-        if (finished_) {
-            removeVarAndLoop(ip_);
-            l_.setEvaluatingKeepLoop(false);
-            processBlock(_cont);
-            return;
-        }
-        StringMap<LoopVariable> vars_ = ip_.getVars();
-        incrementLoop(_cont, l_, vars_);
+        processLastElementLoop(_cont);
     }
 
     Struct processLoop(Configuration _conf) {

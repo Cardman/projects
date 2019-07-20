@@ -25,6 +25,7 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.BeanNatLgNames;
 import code.formathtml.util.RendLoopBlockStack;
 import code.formathtml.util.RendReadWrite;
 import code.util.CustList;
@@ -130,7 +131,10 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
 
     private StringList getCustomType(StringList _names, Configuration _context) {
         StringList out_ = new StringList();
-        LgNames stds_ = _context.getStandards();
+        BeanLgNames stds_ = _context.getAdvStandards();
+        if (stds_ instanceof BeanNatLgNames) {
+            return _names;
+        }
         for (String f : _names) {
             String iterable_ = stds_.getAliasIterableTable();
             String type_ = Templates.getFullTypeByBases(f, iterable_, _context);
@@ -225,6 +229,9 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
 
     public void checkIterableCandidates(StringList _types, Configuration _cont) {
         if (_types.size() == 1) {
+            if (_cont.getStandards() instanceof BeanNatLgNames) {
+                return;
+            }
             KeyWords keyWords_ = _cont.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
             String type_ = _types.first();
@@ -367,10 +374,6 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         ImportingPage ip_ = _cont.getLastPage();
         RendLoopBlockStack c_ = ip_.getLastLoopIfPossible();
         if (c_ != null && c_.getBlock() == this) {
-            if (c_.isEvaluatingKeepLoop()) {
-                processLastElementLoop(_cont);
-                return;
-            }
             removeVarAndLoop(ip_);
             processBlock(_cont);
             return;
@@ -382,8 +385,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         }
         Struct iterStr_;
         long length_ = CustList.INDEX_NOT_FOUND_ELT;
-        Classes cls_ = _cont.getClasses();
-        String locName_ = cls_.getIteratorTableVarCust();
+        String locName_ = _cont.getAdvStandards().getIteratorTableVarCust();
         LocalVariable locVar_ = new LocalVariable();
         locVar_.setClassName(stds_.getStructClassName(its_, _cont.getContext()));
         locVar_.setStruct(its_);
@@ -391,6 +393,14 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         Argument arg_ = ElRenderUtil.calculateReuse(stds_.getExpsIteratorTableCust(),_cont);
         if (_cont.getContext().hasExceptionOrFailInit()) {
             return;
+        }
+        if (stds_ instanceof BeanNatLgNames) {
+            locName_ = _cont.getAdvStandards().getIteratorVar();
+            locVar_ = new LocalVariable();
+            locVar_.setClassName(stds_.getStructClassName(arg_.getStruct(), _cont.getContext()));
+            locVar_.setStruct(arg_.getStruct());
+            _cont.getLastPage().getInternVars().put(locName_, locVar_);
+            arg_=ElRenderUtil.calculateReuse(stds_.getExpsIterator(),_cont);
         }
         iterStr_ = arg_.getStruct();
         RendLoopBlockStack l_ = new RendLoopBlockStack();
@@ -414,7 +424,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         lv_.setIndexClassName(importedClassIndexName);
         lv_.setContainer(its_);
         varsLoop_.put(variableNameSecond, lv_);
-        iteratorHasNext(_cont);
+        processLastElementLoop(_cont);
     }
 
     Struct processLoop(Configuration _conf) {
@@ -471,11 +481,10 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
     public void incrementLoop(Configuration _conf, RendLoopBlockStack _l,
                               StringMap<LoopVariable> _vars) {
         _l.setIndex(_l.getIndex() + 1);
-        Classes cls_ = _conf.getClasses();
         BeanLgNames stds_ = _conf.getAdvStandards();
         Struct iterator_ = _l.getStructIterator();
         ImportingPage call_ = _conf.getLastPage();
-        String locName_ = cls_.getNextPairVarCust();
+        String locName_ = _conf.getAdvStandards().getNextPairVarCust();
         LocalVariable locVar_ = new LocalVariable();
         locVar_.setClassName(stds_.getStructClassName(iterator_, _conf.getContext()));
         locVar_.setStruct(iterator_);
@@ -484,7 +493,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         if (_conf.getContext().hasExceptionOrFailInit()) {
             return;
         }
-        locName_ = cls_.getFirstVarCust();
+        locName_ = _conf.getAdvStandards().getFirstVarCust();
         locVar_ = new LocalVariable();
         Struct value_ = nextPair_.getStruct();
         locVar_.setClassName(stds_.getStructClassName(value_, _conf.getContext()));
@@ -500,7 +509,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         LoopVariable lv_ = _vars.getVal(variableNameFirst);
         lv_.setStruct(arg_.getStruct());
         lv_.setIndex(lv_.getIndex() + 1);
-        locName_ = cls_.getSecondVarCust();
+        locName_ = _conf.getAdvStandards().getSecondVarCust();
         locVar_ = new LocalVariable();
         value_ = nextPair_.getStruct();
         locVar_.setClassName(stds_.getStructClassName(value_, _conf.getContextEl()));
@@ -523,8 +532,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         BeanLgNames stds_ = _conf.getAdvStandards();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
         Struct strIter_ = l_.getStructIterator();
-        Classes cls_ = _conf.getClasses();
-        String locName_ = cls_.getHasNextPairVarCust();
+        String locName_ = _conf.getAdvStandards().getHasNextPairVarCust();
         LocalVariable locVar_ = new LocalVariable();
         locVar_.setClassName(stds_.getStructClassName(strIter_, _conf.getContext()));
         locVar_.setStruct(strIter_);

@@ -52,4 +52,18 @@ public abstract class CommonRender {
         standards_.buildIterables(conf_);
         return conf_;
     }
+    Configuration contextElThird(StringMap<String> _files) {
+        Configuration conf_ =  EquallableExUtil.newConfiguration();
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
+        Classes.validateAll(_files, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        conf_.setContext(cont_);
+        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
+        conf_.setStandards(standards_);
+        standards_.buildIterables(conf_);
+        return conf_;
+    }
 }

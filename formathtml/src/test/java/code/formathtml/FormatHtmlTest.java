@@ -9225,46 +9225,6 @@ public class FormatHtmlTest {
         assertEq("key", beanTwo_.getForms().getKeys().first());
         assertEq("sample_value", (String)beanTwo_.getForms().values().first());
     }
-    @Test
-    public void processImports1FailTest() {
-        String locale_ = "en";
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\"formathtml.classe\"><a/><c:class name=\"BeanTwo\"><a/><c:field prepare=\"$intern.typedString=message\"><a/></c:field></c:class></c:package></c:import></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page1.html", html_);
-        files_.put("page2.html", htmlTwo_);
-        BeanOne bean_ = new BeanOne();
-        bean_.getComposite().getStrings().add("FIRST");
-        bean_.getComposite().getStrings().add("SECOND");
-        bean_.getComposite().setInteger(5);
-        bean_.getTree().put("ONE", 1);
-        bean_.getTree().put("TWO", 2);
-        bean_.setForms(new StringMapObject());
-        bean_.getForms().put("key", "sample_value");
-        BeanTwo beanTwo_ = new BeanTwo();
-        beanTwo_.setTypedString("TITLE");
-        beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = newConfiguration();
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_one", bean_);
-        conf_.getBeans().put("bean_two", beanTwo_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
-        conf_.setDocument(DocumentBuilder.parseSax(html_));
-        setup(conf_);
-        FormatHtml.processImports(html_, conf_, locale_, files_);
-        assertNotNull(conf_.getContext().getException());
-
-
-
-    }
 
     @Test
     public void processImports2FailTest() {
@@ -9413,73 +9373,6 @@ public class FormatHtmlTest {
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertNotNull(conf_.getContext().getException());
     }
-
-    @Test
-    public void processImports7FailTest() {
-        String locale_ = "en";
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"compos\" expression=\"$new formathtml.classe.AbstractBean()\"/></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page1.html", html_);
-        BeanOne bean_ = new BeanOne();
-        bean_.getComposite().getStrings().add("FIRST");
-        bean_.getComposite().getStrings().add("SECOND");
-        bean_.getComposite().setInteger(5);
-        bean_.getComposites().get(0).setStrings(new StringList("F"));
-        bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = newConfiguration();
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_one", bean_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
-        conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        conf_.setDocument(doc_);
-        conf_.setHtml(html_);
-        setup(conf_);
-        FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-        assertNotNull(conf_.getContext().getException());
-    }
-
-    @Test
-    public void processImports8FailTest() {
-        String locale_ = "en";
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"compos\" expression=\"$new code.formathtml.classes.AbstractBean()\"/></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page1.html", html_);
-        BeanOne bean_ = new BeanOne();
-        bean_.getComposite().getStrings().add("FIRST");
-        bean_.getComposite().getStrings().add("SECOND");
-        bean_.getComposite().setInteger(5);
-        bean_.getComposites().get(0).setStrings(new StringList("F"));
-        bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = newConfiguration();
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_one", bean_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
-        conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = DocumentBuilder.parseSax(html_);
-        conf_.setDocument(doc_);
-        conf_.setHtml(html_);
-        setup(conf_);
-        FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-        assertNotNull(conf_.getContext().getException());
-    }
-
 
     @Test
     public void processImports9FailTest() {

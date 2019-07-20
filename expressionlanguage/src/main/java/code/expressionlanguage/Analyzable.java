@@ -85,8 +85,6 @@ public interface Analyzable {
     int getCurrentChildTypeIndex();
 
     boolean isMerged();
-    Struct getInternGlobal();
-    String getInternGlobalClass();
 
 
     void setMerged(boolean _merged);

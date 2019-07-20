@@ -275,7 +275,7 @@ public class Configuration implements ExecutableCode {
             removeLastPage();
             return NullStruct.NULL_VALUE;
         }
-        if (_bean == null || _bean.getForms() == null) {
+        if (_bean.getForms() == null) {
             ExtractObject.setForms(this, strBean_, new StringMapObjectStruct(new StringMapObject()));
         } else {
             ExtractObject.setForms(this, strBean_, new StringMapObjectStruct(_bean.getForms()));
@@ -629,6 +629,9 @@ public class Configuration implements ExecutableCode {
 
     @Override
     public LocalVariable getLocalVar(String _key) {
+        if (importing.isEmpty()) {
+            return context.getLocalVar(_key);
+        }
         return getLastPage().getLocalVar(_key);
     }
 
@@ -639,11 +642,18 @@ public class Configuration implements ExecutableCode {
 
     @Override
     public boolean containsLocalVar(String _key) {
+        if (importing.isEmpty()) {
+            return context.containsLocalVar(_key);
+        }
         return getLastPage().containsLocalVar(_key);
     }
 
     @Override
     public void putLocalVar(String _key, LocalVariable _loc) {
+        if (importing.isEmpty()) {
+            context.putLocalVar(_key, _loc);
+            return;
+        }
         getLastPage().putLocalVar(_key, _loc);
     }
 
@@ -657,12 +667,15 @@ public class Configuration implements ExecutableCode {
 
     @Override
     public LocalVariable getCatchVar(String _key) {
+        if (importing.isEmpty()) {
+            return context.getCatchVar(_key);
+        }
         return getLastPage().getCatchVars().getVal(_key);
     }
 
     @Override
     public StringMap<LocalVariable> getParameters() {
-        return getLastPage().getParameters();
+        return context.getParameters();
     }
 
     @Override
@@ -828,14 +841,12 @@ public class Configuration implements ExecutableCode {
         return !analyzingDoc.getInternGlobalClass().isEmpty();
     }
 
-    @Override
     public Struct getInternGlobal() {
         return getLastPage().getInternGlobal();
     }
 
-    @Override
     public String getInternGlobalClass() {
-        return getLastPage().getInternGlobal().getClassName(this);
+        return analyzingDoc.getInternGlobalClass();
     }
 
     @Override
@@ -883,6 +894,9 @@ public class Configuration implements ExecutableCode {
             if (standards.getStandards().contains(type_)) {
                 return type_;
             }
+        }
+        if (res_.isEmpty()) {
+            return standards.getAliasObject();
         }
         return res_;
     }

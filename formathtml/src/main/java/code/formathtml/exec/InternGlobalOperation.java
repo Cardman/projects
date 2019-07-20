@@ -7,6 +7,7 @@ import code.expressionlanguage.opers.LeafOperation;
 import code.expressionlanguage.opers.MethodOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
+import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -29,7 +30,7 @@ public final class InternGlobalOperation extends LeafOperation {
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         LgNames stds_ = _conf.getStandards();
-        String arg_ = _conf.getInternGlobalClass();
+        String arg_ = ((Configuration)_conf).getInternGlobalClass();
         if (arg_ == null) {
             arg_ = stds_.getAliasObject();
         }
