@@ -69,7 +69,6 @@ final class ExtractObject {
     private static final String BEFORE_DISPLAYING ="beforeDisplaying";
     private static final String GET_DATA_BASE ="getDataBase";
     private static final String SET_DATA_BASE ="setDataBase";
-    private static final String GET_LANGUAGE ="getLanguage";
     private static final String SET_LANGUAGE ="setLanguage";
 
     private ExtractObject() {
@@ -411,14 +410,6 @@ final class ExtractObject {
         setBeanResult(_conf, 0, SET_DATA_BASE, _it, _dataBase, _conf.getStandards().getAliasObject());
     }
 
-    static String getLanguage(Configuration _conf, Struct _it) {
-        Struct str_ = getResult(_conf, 0, GET_LANGUAGE, _it, _conf.getAdvStandards().getBean());
-        if (str_ instanceof DisplayableStruct) {
-            return ((DisplayableStruct) str_).getDisplayedString(_conf).getInstance();
-        }
-        return EMPTY_STRING;
-    }
-
     static void setLanguage(Configuration _conf, Struct _it, String _scope) {
         setBeanResult(_conf, 0, SET_LANGUAGE, _it, new StringStruct(_scope), _conf.getStandards().getAliasString());
     }
@@ -481,7 +472,7 @@ final class ExtractObject {
         String method_;
         String param_ = _conf.getAdvStandards().getAliasDisplayable();
         String arg_ = _conf.getStandards().getStructClassName(_obj, context_);
-        if (Templates.isCorrectExecute(arg_, param_, context_)) {Thread.dumpStack();
+        if (Templates.isCorrectExecute(arg_, param_, context_)) {
             method_ = _conf.getAdvStandards().getAliasDisplay();
         }  else {
             method_ = _conf.getStandards().getAliasToString();

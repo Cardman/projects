@@ -15,10 +15,7 @@ import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.ElementList;
-import code.util.CollCapacity;
-import code.util.CustList;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public final class ReadConfiguration {
 
@@ -82,7 +79,7 @@ public final class ReadConfiguration {
                 continue;
             }
             if (StringList.quickEq(fieldName_, "tabWidth")) {
-                _configuration.setTabWidth(BeanLgNames.parseInt(c.getAttribute("value")));
+                _configuration.setTabWidth(Numbers.parseInt(c.getAttribute("value")));
                 continue;
             }
             if (StringList.quickEq(fieldName_, "filesConfName")) {
@@ -100,6 +97,10 @@ public final class ReadConfiguration {
             }
             if (StringList.quickEq(fieldName_, "addedFiles")) {
                 _configuration.setAddedFiles(getStringList(c));
+                continue;
+            }
+            if (StringList.quickEq(fieldName_, "renderFiles")) {
+                _configuration.setRenderFiles(getStringList(c));
             }
         }
         if (!found_) {
@@ -121,11 +122,11 @@ public final class ReadConfiguration {
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute("field");
             if (StringList.quickEq(fieldName_, "stackOverFlow")) {
-                context_.setStackOverFlow(BeanLgNames.parseInt(c.getAttribute("value")));
+                context_.setStackOverFlow(Numbers.parseInt(c.getAttribute("value")));
                 continue;
             }
             if (StringList.quickEq(fieldName_, "tabWidth")) {
-                context_.setTabWidth(BeanLgNames.parseInt(c.getAttribute("value")));
+                context_.setTabWidth(Numbers.parseInt(c.getAttribute("value")));
                 continue;
             }
             if (StringList.quickEq(fieldName_, "options")) {

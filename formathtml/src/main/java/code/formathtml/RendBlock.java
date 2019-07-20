@@ -1,9 +1,13 @@
 package code.formathtml;
 
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.variables.LocalVariable;
+import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.RendParentElement;
 import code.formathtml.util.RendReadWrite;
 import code.sml.*;
@@ -269,11 +273,83 @@ public abstract class RendBlock {
             return;
         }
         UnexpectedTagName un_ = new UnexpectedTagName();
-//        un_.setFileName(_block.getFile().getFileName());
+        un_.setFileName(_cont.getCurrentFileName());
         un_.setIndexFile(_block.getOffset().getOffsetTrim());
         _cont.getClasses().addError(un_);
     }
 
+    protected static Argument iteratorTable(Struct _arg, Configuration _cont) {
+        String locName_ = _cont.getAdvStandards().getIteratorTableVarCust();
+        BeanLgNames stds_ = _cont.getAdvStandards();
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(stds_.getStructClassName(_arg, _cont.getContext()));
+        locVar_.setStruct(_arg);
+        _cont.getLastPage().getInternVars().put(locName_, locVar_);
+        return ElRenderUtil.calculateReuse(stds_.getExpsIteratorTableCust(),_cont);
+    }
+    protected static Argument hasNextPair(Struct _arg,Configuration _conf) {
+        String locName_ = _conf.getAdvStandards().getHasNextPairVarCust();
+        BeanLgNames stds_ = _conf.getAdvStandards();
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(stds_.getStructClassName(_arg, _conf.getContext()));
+        locVar_.setStruct(_arg);
+        _conf.getLastPage().getInternVars().put(locName_, locVar_);
+        return ElRenderUtil.calculateReuse(stds_.getExpsHasNextPairCust(),_conf);
+    }
+    protected static Argument nextPair(Struct _arg,Configuration _conf) {
+        String locName_ = _conf.getAdvStandards().getNextPairVarCust();
+        BeanLgNames stds_ = _conf.getAdvStandards();
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(stds_.getStructClassName(_arg, _conf.getContext()));
+        locVar_.setStruct(_arg);
+        _conf.getLastPage().getInternVars().put(locName_, locVar_);
+        return ElRenderUtil.calculateReuse(stds_.getExpsNextPairCust(), _conf);
+    }
+    protected static Argument first(Struct _arg,Configuration _conf) {
+        String locName_ = _conf.getAdvStandards().getFirstVarCust();
+        BeanLgNames stds_ = _conf.getAdvStandards();
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(stds_.getStructClassName(_arg, _conf.getContext()));
+        locVar_.setStruct(_arg);
+        _conf.getLastPage().getInternVars().put(locName_, locVar_);
+        return ElRenderUtil.calculateReuse(stds_.getExpsFirstCust(),_conf);
+    }
+    protected static Argument second(Struct _arg,Configuration _conf) {
+        String locName_ = _conf.getAdvStandards().getSecondVarCust();
+        BeanLgNames stds_ = _conf.getAdvStandards();
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(stds_.getStructClassName(_arg, _conf.getContextEl()));
+        locVar_.setStruct(_arg);
+        _conf.getLastPage().getInternVars().put(locName_, locVar_);
+        return ElRenderUtil.calculateReuse(stds_.getExpsSecondCust(),_conf);
+    }
+    protected static Argument iterator(Struct _arg,Configuration _cont) {
+        String locName_ = _cont.getAdvStandards().getIteratorVar();
+        BeanLgNames stds_ = _cont.getAdvStandards();
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(stds_.getStructClassName(_arg, _cont.getContext()));
+        locVar_.setStruct(_arg);
+        _cont.getLastPage().getInternVars().put(locName_, locVar_);
+        return ElRenderUtil.calculateReuse(stds_.getExpsIterator(),_cont);
+    }
+    protected static Argument hasNext(Struct _arg,Configuration _cont) {
+        String locName_ = _cont.getAdvStandards().getHasNextVar();
+        BeanLgNames stds_ = _cont.getAdvStandards();
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(stds_.getStructClassName(_arg, _cont.getContext()));
+        locVar_.setStruct(_arg);
+        _cont.getLastPage().getInternVars().put(locName_, locVar_);
+        return ElRenderUtil.calculateReuse(stds_.getExpsHasNext(),_cont);
+    }
+    protected static Argument next(Struct _arg,Configuration _cont) {
+        String locName_ = _cont.getAdvStandards().getNextVar();
+        BeanLgNames stds_ = _cont.getAdvStandards();
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(stds_.getStructClassName(_arg, _cont.getContext()));
+        locVar_.setStruct(_arg);
+        _cont.getLastPage().getInternVars().put(locName_, locVar_);
+        return ElRenderUtil.calculateReuse(stds_.getExpsNext(),_cont);
+    }
     public static CustList<RendBlock> getDirectChildren(RendBlock _block) {
         CustList<RendBlock> l_ = new CustList<RendBlock>();
         RendBlock child_ = _block.getFirstChild();

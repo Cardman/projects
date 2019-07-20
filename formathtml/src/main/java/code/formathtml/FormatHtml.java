@@ -831,7 +831,8 @@ public final class FormatHtml {
         }
         if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,RETURN_TAG))) {
             ip_.setReturning(true);
-            return removeBlockFinally(_conf, ip_);
+            removeBlockFinally(_conf, ip_);
+            return ip_;
         }
 
         if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,CATCH_TAG))) {
@@ -1453,38 +1454,37 @@ public final class FormatHtml {
         }
         return null;
     }
-    private static ImportingPage removeBlockFinally(Configuration _conf,
+    private static void removeBlockFinally(Configuration _conf,
             ImportingPage _ip) {
         String prefix_ = _conf.getLastPage().getPrefix();
         ReadWriteHtml rw_ = _ip.getReadWrite();
-        ImportingPage ip_ = _ip;
-        while (!ip_.noBlock()) {
-            BlockHtml bl_ = ip_.getLastStack();
+        while (!_ip.noBlock()) {
+            BlockHtml bl_ = _ip.getLastStack();
             if (bl_ instanceof TryHtmlStack) {
                 TryHtmlStack t_ = (TryHtmlStack) bl_;
                 if (t_.getVisitedCatch() >= CustList.FIRST_INDEX) {
                     Element catchBlock_ = t_.getCurrentCatchNode();
                     String var_ = catchBlock_.getAttribute(ATTRIBUTE_VAR);
-                    ip_.getCatchVars().removeKey(var_);
+                    _ip.getCatchVars().removeKey(var_);
                 }
                 if (StringList.quickEq(t_.getLastCatchNode().getTagName(),StringList.concat(prefix_,TAG_FINALLY))) {
                     if (t_.getLastCatchNode().hasChildNodes()) {
                         rw_.setRead(t_.getLastCatchNode());
                         rw_.setWrite(t_.getWriteNode());
-                        return ip_;
+                        return;
                     }
                 }
-                ip_.removeLastBlock();
+                _ip.removeLastBlock();
             } else if (bl_ instanceof LoopHtmlStack){
                 LoopHtmlStack loopStack_ = (LoopHtmlStack) bl_;
                 Element forNode_ = loopStack_.getReadNode();
-                removeVarAndLoop(_conf, forNode_, ip_.getVars());
+                removeVarAndLoop(_conf, forNode_, _ip.getVars());
             } else {
-                ip_.removeLastBlock();
+                _ip.removeLastBlock();
             }
         }
-        ip_.setReadWrite(null);
-        return ip_;
+        _ip.setReadWrite(null);
+        return;
     }
 
     private static void processSetTag(Configuration _conf, ImportingPage _ip,

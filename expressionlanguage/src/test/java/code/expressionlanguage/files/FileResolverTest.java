@@ -3096,8 +3096,8 @@ public final class FileResolverTest {
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
-        assertTrue(instr_ instanceof AbstractForEachLoop);
-        AbstractForEachLoop th_ = (AbstractForEachLoop) instr_;
+        assertTrue(instr_ instanceof ForEachLoop);
+        ForEachLoop th_ = (ForEachLoop) instr_;
         assertEq("$long",th_.getClassIndexName());
         assertEq("$int",th_.getClassName());
         assertEq("i",th_.getVariableName());
@@ -4310,8 +4310,8 @@ public final class FileResolverTest {
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
-        assertTrue(instr_ instanceof AbstractForEachLoop);
-        AbstractForEachLoop th_ = (AbstractForEachLoop) instr_;
+        assertTrue(instr_ instanceof ForEachLoop);
+        ForEachLoop th_ = (ForEachLoop) instr_;
         assertEq("$long",th_.getClassIndexName());
         assertEq("$int",th_.getClassName());
         assertEq("i",th_.getVariableName());
@@ -6968,8 +6968,8 @@ public final class FileResolverTest {
         assertEq(0, method_.getParametersTypesOffset().size());
         assertEq(0, method_.getParametersNamesOffset().size());
         instr_ = method_.getFirstChild();
-        assertTrue(instr_ instanceof AbstractForEachLoop);
-        AbstractForEachLoop for_ = (AbstractForEachLoop) instr_;
+        assertTrue(instr_ instanceof ForEachLoop);
+        ForEachLoop for_ = (ForEachLoop) instr_;
         assertEq("$long",for_.getClassIndexName());
         assertEq("$int",for_.getClassName());
         assertEq("i",for_.getVariableName());
@@ -7640,8 +7640,8 @@ public final class FileResolverTest {
         assertEq(0, method_.getParametersTypesOffset().size());
         assertEq(0, method_.getParametersNamesOffset().size());
         instr_ = method_.getFirstChild();
-        assertTrue(instr_ instanceof AbstractForEachLoop);
-        AbstractForEachLoop for_ = (AbstractForEachLoop) instr_;
+        assertTrue(instr_ instanceof ForEachLoop);
+        ForEachLoop for_ = (ForEachLoop) instr_;
         assertEq("$long",for_.getClassIndexName());
         assertEq("$int",for_.getClassName());
         assertEq("i",for_.getVariableName());

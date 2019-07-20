@@ -16,13 +16,13 @@ public final class RendNullCatchEval extends RendAbstractCatchEval {
             if (!(pBlock_ instanceof RendTryEval)) {
                 if (!(pBlock_ instanceof RendPossibleEmpty)) {
                     UnexpectedTagName un_ = new UnexpectedTagName();
-//                un_.setFileName(getFile().getFileName());
+                    un_.setFileName(_cont.getCurrentFileName());
                     un_.setIndexFile(getOffset().getOffsetTrim());
                     _cont.getClasses().addError(un_);
                 } else if (!(pBlock_.getPreviousSibling() instanceof RendAbstractCatchEval)) {
                     if (!(pBlock_.getPreviousSibling() instanceof RendTryEval)) {
                         UnexpectedTagName un_ = new UnexpectedTagName();
-//                un_.setFileName(getFile().getFileName());
+                        un_.setFileName(_cont.getCurrentFileName());
                         un_.setIndexFile(getOffset().getOffsetTrim());
                         _cont.getClasses().addError(un_);
                     }

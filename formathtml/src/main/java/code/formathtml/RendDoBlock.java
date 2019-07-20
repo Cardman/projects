@@ -69,23 +69,23 @@ public final class RendDoBlock extends RendParentBlock implements RendLoop {
         RendBlock pBlock_ = getNextSibling();
         if (pBlock_ == null) {
             UnexpectedTagName un_ = new UnexpectedTagName();
-//                un_.setFileName(getFile().getFileName());
+            un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             _cont.getClasses().addError(un_);
         } else if (!(pBlock_ instanceof RendDoWhileCondition)) {
             if (!(pBlock_ instanceof RendPossibleEmpty)) {
                 UnexpectedTagName un_ = new UnexpectedTagName();
-//                un_.setFileName(getFile().getFileName());
+                un_.setFileName(_cont.getCurrentFileName());
                 un_.setIndexFile(pBlock_.getOffset().getOffsetTrim());
                 _cont.getClasses().addError(un_);
             } else if (pBlock_.getNextSibling() == null){
                 UnexpectedTagName un_ = new UnexpectedTagName();
-//                un_.setFileName(getFile().getFileName());
+                un_.setFileName(_cont.getCurrentFileName());
                 un_.setIndexFile(pBlock_.getOffset().getOffsetTrim());
                 _cont.getClasses().addError(un_);
             } else if (!(pBlock_.getNextSibling() instanceof RendDoWhileCondition)){
                 UnexpectedTagName un_ = new UnexpectedTagName();
-//                un_.setFileName(getFile().getFileName());
+                un_.setFileName(_cont.getCurrentFileName());
                 un_.setIndexFile(pBlock_.getNextSibling().getOffset().getOffsetTrim());
                 _cont.getClasses().addError(un_);
             }

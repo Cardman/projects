@@ -186,9 +186,6 @@ public abstract class BeanLgNames extends LgNames {
         return -result_;
     }
 
-    public void buildBeans() {
-    }
-
     public StringMap<String> getIterables() {
         return iterables;
     }

@@ -57,7 +57,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             UnexpectedTagName un_ = new UnexpectedTagName();
-//            un_.setFileName(getFile().getFileName());
+            un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             _cont.getClasses().addError(un_);
             opValue = ElRenderUtil.getAnalyzedOperations(value,0, _cont, Calculation.staticCalculation(stCtx_));
@@ -98,7 +98,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
                     return;
                 }
                 UnexpectedTypeError un_ = new UnexpectedTypeError();
-//                un_.setFileName(getFile().getFileName());
+                un_.setFileName(_cont.getCurrentFileName());
                 un_.setIndexFile(valueOffset);
                 un_.setType(opValue.last().getResultClass());
                 _cont.getClasses().addError(un_);
@@ -110,7 +110,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
         ClassArgumentMatching resCase_ = op_.getResultClass();
         if (resCase_.matchVoid(_cont)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
-//            un_.setFileName(getFile().getFileName());
+            un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(valueOffset);
             un_.setType(resCase_);
             _cont.getClasses().addError(un_);
@@ -119,7 +119,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
-//            un_.setFileName(getFile().getFileName());
+            un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(valueOffset);
             un_.setType(resCase_);
             _cont.getClasses().addError(un_);
@@ -128,7 +128,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
         }
         if (!PrimitiveTypeUtil.canBeUseAsArgument(resSwitch_, resCase_, _cont)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
-//            un_.setFileName(getFile().getFileName());
+            un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(valueOffset);
             un_.setType(resCase_);
             _cont.getClasses().addError(un_);
@@ -146,7 +146,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
                 if (a_ != null) {
                     if (_arg.getStruct().sameReference(a_.getStruct())) {
                         UnexpectedTagName un_ = new UnexpectedTagName();
-//                        un_.setFileName(getFile().getFileName());
+                        un_.setFileName(_cont.getCurrentFileName());
                         un_.setIndexFile(getValueOffset()+ getOffset().getOffsetTrim());
                         _cont.getClasses().addError(un_);
                         break;
@@ -165,7 +165,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
                 String v_ = c_.value.trim();
                 if (StringList.quickEq(v_, value.trim())) {
                     UnexpectedTagName un_ = new UnexpectedTagName();
-//                    un_.setFileName(getFile().getFileName());
+                    un_.setFileName(_cont.getCurrentFileName());
                     un_.setIndexFile(getValueOffset()+ getOffset().getOffsetTrim());
                     _cont.getClasses().addError(un_);
                     break;

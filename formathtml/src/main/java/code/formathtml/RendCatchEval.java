@@ -55,14 +55,14 @@ public final class RendCatchEval extends RendAbstractCatchEval {
         if (_cont.getAnalyzing().containsCatchVar(variableName)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableName);
-//            d_.setFileName(getFile().getFileName());
+            d_.setFileName(_cont.getCurrentFileName());
             d_.setIndexFile(variableNameOffset);
             _cont.getClasses().addError(d_);
             return;
         }
         if (!_cont.isValidSingleToken(variableName)) {
             BadVariableName b_ = new BadVariableName();
-//            b_.setFileName(getFile().getFileName());
+            b_.setFileName(_cont.getCurrentFileName());
             b_.setIndexFile(variableNameOffset);
             b_.setVarName(variableName);
             _cont.getClasses().addError(b_);
@@ -75,13 +75,13 @@ public final class RendCatchEval extends RendAbstractCatchEval {
             if (!(pBlock_ instanceof RendTryEval)) {
                 if (!(pBlock_ instanceof RendPossibleEmpty)) {
                     UnexpectedTagName un_ = new UnexpectedTagName();
-//                un_.setFileName(getFile().getFileName());
+                    un_.setFileName(_cont.getCurrentFileName());
                     un_.setIndexFile(getOffset().getOffsetTrim());
                     _cont.getClasses().addError(un_);
                 } else if (!(pBlock_.getPreviousSibling() instanceof RendAbstractCatchEval)) {
                     if (!(pBlock_.getPreviousSibling() instanceof RendTryEval)) {
                         UnexpectedTagName un_ = new UnexpectedTagName();
-//                un_.setFileName(getFile().getFileName());
+                        un_.setFileName(_cont.getCurrentFileName());
                         un_.setIndexFile(getOffset().getOffsetTrim());
                         _cont.getClasses().addError(un_);
                     }

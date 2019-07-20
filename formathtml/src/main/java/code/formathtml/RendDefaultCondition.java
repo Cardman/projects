@@ -19,7 +19,7 @@ public final class RendDefaultCondition extends RendParentBlock implements RendB
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             UnexpectedTagName un_ = new UnexpectedTagName();
-//            un_.setFileName(getFile().getFileName());
+            un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             _cont.getClasses().addError(un_);
         } else {
@@ -27,7 +27,7 @@ public final class RendDefaultCondition extends RendParentBlock implements RendB
             while (first_ != this) {
                 if (first_ instanceof RendDefaultCondition) {
                     UnexpectedTagName un_ = new UnexpectedTagName();
-//                    un_.setFileName(getFile().getFileName());
+                    un_.setFileName(_cont.getCurrentFileName());
                     un_.setIndexFile(getOffset().getOffsetTrim());
                     _cont.getClasses().addError(un_);
                     break;

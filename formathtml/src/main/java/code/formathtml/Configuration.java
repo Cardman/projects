@@ -37,6 +37,8 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.util.*;
 import code.sml.Document;
+import code.sml.DocumentBuilder;
+import code.sml.DocumentResult;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.Ints;
@@ -111,6 +113,7 @@ public class Configuration implements ExecutableCode {
     private String resourceUrl;
 
     private StringList addedFiles = new StringList();
+    private StringList renderFiles = new StringList();
     private Interrupt interrupt;
 
     private AnalyzingDoc analyzingDoc = new AnalyzingDoc();
@@ -144,6 +147,8 @@ public class Configuration implements ExecutableCode {
         standards.build();
         standards.setupOverrides(context);
         standards.buildIterables(this);
+        renderFiles.removeAllString(firstUrl);
+        renderFiles.add(firstUrl);
     }
 
     public final void setupClasses(StringMap<String> _files) {
@@ -224,6 +229,21 @@ public class Configuration implements ExecutableCode {
         for (EntryCust<String, String> e: getLateTranslators().entryList()) {
             Struct str_ = ElRenderUtil.processEl(StringList.concat(INSTANCE,e.getValue(),NO_PARAM), 0, this).getStruct();
             getBuiltTranslators().put(e.getKey(), str_);
+        }
+    }
+
+    public void setupRenders(StringMap<String> _files) {
+        renders.clear();
+        getAnalyzing().setEnabledInternVars(false);
+        for (String s: renderFiles) {
+            DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(_files.getVal(s));
+            if (res_.getDocument() == null) {
+                continue;
+            }
+            renders.put(s,RendBlock.newRendDocumentBlock(this,getPrefix(),res_.getDocument()));
+        }
+        for (EntryCust<String,RendDocumentBlock> d: renders.entryList()) {
+            d.getValue().buildFctInstructions(this);
         }
     }
     void setupValiatorsTranslators(String _language) {
@@ -1181,5 +1201,13 @@ public class Configuration implements ExecutableCode {
 
     public StringMap<RendDocumentBlock> getRenders() {
         return renders;
+    }
+
+    public void setRenderFiles(StringList _renderFiles) {
+        renderFiles = _renderFiles;
+    }
+
+    public StringList getRenderFiles() {
+        return renderFiles;
     }
 }

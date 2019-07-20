@@ -39,7 +39,7 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
         LgNames stds_ = _cont.getStandards();
         if (!elCondition_.getResultClass().isBoolType(_cont)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
-//            un_.setFileName(getFile().getFileName());
+            un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(conditionOffset);
             un_.setType(opCondition.last().getResultClass());
             _cont.getClasses().addError(un_);

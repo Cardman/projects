@@ -328,7 +328,7 @@ public final class MetaDocument {
                         par_ = par_.getParentNode();
                     }
                     if (elt_.getAttribute("src").contains(";")) {
-                        Integer delay_ = BeanLgNames.parseInt(elt_.getAttribute("delay"));
+                        Integer delay_ = Numbers.parseInt(elt_.getAttribute("delay"));
                         MetaAnimatedImage imgs_ = new MetaAnimatedImage(currentParent, StringList.splitStrings(elt_.getAttribute("src"), ";"), title_, delay_, anchor_);
                         imgs_.setStyle(styleLoc_);
                         currentParent.appendChild(imgs_);
@@ -363,7 +363,7 @@ public final class MetaDocument {
                         if (vis_ == null) {
                             vis_ = 1;
                         }
-                        MetaInput input_ = new MetaComboList(currentParent, name_, BeanLgNames.parseInt(elt_.getAttribute("n-i")), strings_, values_, selected_, vis_);
+                        MetaInput input_ = new MetaComboList(currentParent, name_, Numbers.parseInt(elt_.getAttribute("n-i")), strings_, values_, selected_, vis_);
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     } else {
@@ -379,7 +379,7 @@ public final class MetaDocument {
                             strings_.add(c.getTextContent());
                             i_++;
                         }
-                        MetaInput input_ = new MetaComboBox(currentParent, name_, BeanLgNames.parseInt(elt_.getAttribute("n-i")), strings_, values_, selected_);
+                        MetaInput input_ = new MetaComboBox(currentParent, name_, Numbers.parseInt(elt_.getAttribute("n-i")), strings_, values_, selected_);
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     }
@@ -440,7 +440,7 @@ public final class MetaDocument {
                     if (cols_ == null) {
                         cols_ = 32;
                     }
-                    MetaInput input_ = new MetaTextArea(currentParent, name_, BeanLgNames.parseInt(elt_.getAttribute("n-i")), cols_, rows_, elt_.getTextContent());
+                    MetaInput input_ = new MetaTextArea(currentParent, name_, Numbers.parseInt(elt_.getAttribute("n-i")), cols_, rows_, elt_.getTextContent());
                     input_.setStyle(styleLoc_);
                     currentParent.appendChild(input_);
                 }

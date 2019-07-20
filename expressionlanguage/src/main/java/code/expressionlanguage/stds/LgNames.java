@@ -9,9 +9,8 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.methods.AbstractForEachLoop;
-import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ForEachLoop;
+import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.PredefinedClasses;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.util.*;
@@ -1138,10 +1137,10 @@ public abstract class LgNames {
         out_.removeDuplicates();
         return new IterableAnalysisResult(out_);
     }
-    public AbstractForEachLoop newForeachLoop(ContextEl _importingPage,
-                                              OffsetStringInfo _className, OffsetStringInfo _variable,
-                                              OffsetStringInfo _expression, OffsetStringInfo _classIndex,
-                                              OffsetStringInfo _label, OffsetsBlock _offset) {
+    public ForEachLoop newForeachLoop(ContextEl _importingPage,
+                                      OffsetStringInfo _className, OffsetStringInfo _variable,
+                                      OffsetStringInfo _expression, OffsetStringInfo _classIndex,
+                                      OffsetStringInfo _label, OffsetsBlock _offset) {
         return new ForEachLoop(_importingPage, _className, _variable, _expression, _classIndex, _label, _offset);
     }
 

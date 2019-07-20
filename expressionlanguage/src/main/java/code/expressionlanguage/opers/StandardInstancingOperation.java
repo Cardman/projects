@@ -25,7 +25,6 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -158,8 +157,8 @@ public final class StandardInstancingOperation extends
                     typeAff_ = ret_;
                 }
             }
-        } else if (m_ == null && cur_ instanceof AbstractForEachLoop) {
-            AbstractForEachLoop i_ = (AbstractForEachLoop) _an.getCurrentBlock();
+        } else if (m_ == null && cur_ instanceof ForEachLoop) {
+            ForEachLoop i_ = (ForEachLoop) _an.getCurrentBlock();
             typeAff_ = i_.getImportedClassName();
             if (!typeAff_.isEmpty()) {
                 String iter_ = _an.getStandards().getAliasIterable();
@@ -204,8 +203,7 @@ public final class StandardInstancingOperation extends
         className = _conf.getStandards().getAliasObject();
         KeyWords keyWords_ = _conf.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
-        String className_ = methodName.trim().substring(newKeyWord_.length()).trim();
-        String realClassName_ = className_;
+        String realClassName_ = methodName.trim().substring(newKeyWord_.length()).trim();
         CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(filter_, _conf);
         if (!isIntermediateDottedOperation()) {
@@ -296,17 +294,16 @@ public final class StandardInstancingOperation extends
         StringMap<StringList> vars_ = _conf.getCurrentConstraints();
         if (!Templates.isCorrectTemplateAll(realClassName_, vars_, _conf, true)) {
             int rc_ = _conf.getCurrentLocationIndex();
-            AccessingImportingBlock r_ = _conf.getAnalyzing().getImporting();
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(realClassName_);
-            un_.setFileName(r_.getFile().getFileName());
+            un_.setFileName(_conf.getCurrentFileName());
             un_.setIndexFile(rc_);
             _conf.getClasses().addError(un_);
             realClassName_ = _conf.getStandards().getAliasObject();
         }
         analyzeCtor(_conf, realClassName_, firstArgs_);
     }
-    void analyzeCtor(Analyzable _conf, String _realClassName, CustList<ClassArgumentMatching> _firstArgs) {
+    private void analyzeCtor(Analyzable _conf, String _realClassName, CustList<ClassArgumentMatching> _firstArgs) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         LgNames stds_ = _conf.getStandards();

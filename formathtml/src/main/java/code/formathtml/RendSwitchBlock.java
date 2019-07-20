@@ -71,7 +71,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
         ClassArgumentMatching clArg_ = op_.getResultClass();
         if (clArg_.matchVoid(_cont)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
-//            un_.setFileName(getFile().getFileName());
+            un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(valueOffset);
             un_.setType(clArg_);
             _cont.getClasses().addError(un_);
@@ -79,7 +79,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
         String type_ = clArg_.getSingleNameOrEmpty();
         if (type_.isEmpty()) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
-//            un_.setFileName(getFile().getFileName());
+            un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(valueOffset);
             un_.setType(clArg_);
             _cont.getClasses().addError(un_);
@@ -89,7 +89,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
                 if (!StringList.quickEq(id_, _cont.getStandards().getAliasString())) {
                     if (!(_cont.getClassBody(id_) instanceof EnumBlock)) {
                         UnexpectedTypeError un_ = new UnexpectedTypeError();
-//                        un_.setFileName(getFile().getFileName());
+                        un_.setFileName(_cont.getCurrentFileName());
                         un_.setIndexFile(valueOffset);
                         un_.setType(clArg_);
                         _cont.getClasses().addError(un_);
@@ -117,7 +117,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             UnexpectedTagName un_ = new UnexpectedTagName();
-//            un_.setFileName(getFile().getFileName());
+            un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             _cont.getClasses().addError(un_);
             first_ = first_.getNextSibling();

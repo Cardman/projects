@@ -643,10 +643,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         StringMap<StringList> vars_ = _conf.getCurrentConstraints();
         if (!Templates.isCorrectTemplateAll(cl_, vars_, _conf, true)) {
-            AccessingImportingBlock r_ = _conf.getAnalyzing().getImporting();
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(cl_);
-            un_.setFileName(r_.getFile().getFileName());
+            un_.setFileName(_conf.getCurrentFileName());
             un_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(un_);
             cl_ = _conf.getStandards().getAliasObject();

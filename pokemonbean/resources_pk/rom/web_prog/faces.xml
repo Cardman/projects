@@ -28,4 +28,9 @@
 		<str value="web_prog/html/gameprognotatall.html"/>
 		<str value="web_prog/html/gameprogpart.html"/>
 	</sl>
+	<sl field="renderFiles">
+		<str value="web_prog/html/gameprogall.html"/>
+		<str value="web_prog/html/gameprognotatall.html"/>
+		<str value="web_prog/html/gameprogpart.html"/>
+	</sl>
 </cfg>

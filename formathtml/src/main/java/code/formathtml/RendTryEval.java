@@ -47,7 +47,7 @@ public final class RendTryEval extends RendParentBlock implements RendEval {
             if (!(nBlock_ instanceof RendFinallyEval)) {
                 if (!(nBlock_ instanceof RendPossibleEmpty)) {
                     UnexpectedTagName un_ = new UnexpectedTagName();
-//                un_.setFileName(getFile().getFileName());
+                    un_.setFileName(_cont.getCurrentFileName());
                     un_.setIndexFile(getOffset().getOffsetTrim());
                     _cont.getClasses().addError(un_);
                 }

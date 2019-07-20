@@ -52,7 +52,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
 
 
     public void buildBeans() {
-        super.buildBeans();
         StringMap<StandardField> fields_;
         fields_ = new StringMap<StandardField>();
         StandardClass std_;
@@ -270,10 +269,9 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         out_.removeDuplicates();
         return new NativeIterableAnalysisResult(out_, nativeCmp_);
     }
-    static String getIterableFullTypeByStds(String _subType, ContextEl _context) {
-        String baseSubType_ = _subType;
+    private static String getIterableFullTypeByStds(String _subType, ContextEl _context) {
         BeanLgNames lgNames_ = (BeanLgNames) _context.getStandards();
-        String it_ = lgNames_.getIterables().getVal(baseSubType_);
+        String it_ = lgNames_.getIterables().getVal(_subType);
         if (it_ == null) {
             return null;
         }
@@ -298,7 +296,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         return expsNext;
     }
 
-    public CustList<RendDynOperationNode> getExpsDisplay() {
+    private CustList<RendDynOperationNode> getExpsDisplay() {
         return expsDisplay;
     }
 
@@ -348,9 +346,13 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         }
         String param_ = _cont.getAdvStandards().getAliasDisplayable();
         ContextEl context_ = _cont.getContext();
-        String arg_ = _cont.getStandards().getStructClassName(struct_, context_);
+        String arg_ = getStructClassName(struct_, context_);
         if (Templates.isCorrectExecute(arg_, param_, context_)) {
-            struct_ = ElRenderUtil.calculateReuse(getExpsDisplay(), _cont,_arg).getStruct();
+            LocalVariable locVar_ = new LocalVariable();
+            locVar_.setClassName(arg_);
+            locVar_.setStruct(struct_);
+            _cont.getLastPage().getInternVars().put(displayVar, locVar_);
+            struct_ = ElRenderUtil.calculateReuse(getExpsDisplay(), _cont).getStruct();
             return ((DisplayableStruct)struct_).getDisplayedString(_cont).getInstance();
         }
         return _arg.getObjectClassName(context_);
@@ -505,7 +507,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         }
         return getOtherResultBean(_cont, _instance, _method, argsObj_);
     }
-    ResultErrorStd prIterator(ContextEl _cont, String _name, Struct _struct) {
+    private ResultErrorStd prIterator(ContextEl _cont, String _name, Struct _struct) {
         ResultErrorStd result_ = new ResultErrorStd();
         Object instance_ = ((StdStruct) _struct).getInstance();
         LgNames lgNames_ = _cont.getStandards();

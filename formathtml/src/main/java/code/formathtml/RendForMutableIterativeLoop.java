@@ -152,7 +152,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             mapping_.setParam(_cont.getStandards().getAliasLong());
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
-//            cast_.setFileName(getFile().getFileName());
+            cast_.setFileName(_cont.getCurrentFileName());
             cast_.setIndexFile(classIndexNameOffset);
             _cont.getClasses().addError(cast_);
         }
@@ -200,7 +200,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             LgNames stds_ = _cont.getStandards();
             if (!elCondition_.getResultClass().isBoolType(_cont)) {
                 UnexpectedTypeError un_ = new UnexpectedTypeError();
-//                un_.setFileName(getFile().getFileName());
+                un_.setFileName(_cont.getCurrentFileName());
                 un_.setIndexFile(expressionOffset);
                 un_.setType(opExp.last().getResultClass());
                 _cont.getClasses().addError(un_);

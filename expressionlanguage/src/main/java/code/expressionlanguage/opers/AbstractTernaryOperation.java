@@ -173,8 +173,8 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
                     type_ = ret_;
                 }
             }
-        } else if (m_ == null && cur_ instanceof AbstractForEachLoop) {
-            AbstractForEachLoop i_ = (AbstractForEachLoop) _conf.getCurrentBlock();
+        } else if (m_ == null && cur_ instanceof ForEachLoop) {
+            ForEachLoop i_ = (ForEachLoop) _conf.getCurrentBlock();
             type_ = i_.getImportedClassName();
             if (!type_.isEmpty()) {
                 type_ = PrimitiveTypeUtil.getPrettyArrayType(type_);

@@ -1,8 +1,5 @@
 package code.gui;
 import java.io.File;
-import java.io.IOException;
-import java.util.zip.ZipException;
-import java.util.zip.ZipFile;
 
 import code.util.StringList;
 
@@ -34,19 +31,19 @@ public final class ConstFiles {
 
     private static final String HOME_PATH = StringList.replaceBackSlashDot(System.getProperty(USER_HOME));
 
-    private static final String TMP_USER_FOLDER = ConstFiles.initialize(INIT_FOLDER,HOME_PATH);
+    private static final String TMP_USER_FOLDER = ConstFiles.initialize();
 
     private ConstFiles() {
     }
 
-    private static String initialize(String _initFolder, String _homePath) {
+    private static String initialize() {
         if (!isExecutedJar()) {
             //use TMP_FOLDER as INIT_FOLDER
-            String tmpFolder_ = _initFolder;
+            String tmpFolder_ = INIT_FOLDER;
             return tmpFolder_.substring(0, tmpFolder_.length() - 1);
         }
-        if (!_homePath.startsWith(SEPARATEUR)) {
-            String virtualStore_ = StringList.concat(_homePath,RELATIVE_VIRTUAL_STORE);
+        if (!HOME_PATH.startsWith(SEPARATEUR)) {
+            String virtualStore_ = StringList.concat(HOME_PATH,RELATIVE_VIRTUAL_STORE);
             //<home>/AppData/Local/VirtualStore/
             String jarFolder_ = getInitFolder();
             boolean isStandardProgramFilesExecuted_ = false;
@@ -87,8 +84,7 @@ public final class ConstFiles {
                 	return jarFolder_.substring(0, jarFolder_.length() - 1);
                 }
             } else {
-            	String tmpFolder_ = _initFolder;
-                return tmpFolder_.substring(0, tmpFolder_.length() - 1);
+                return INIT_FOLDER.substring(0, INIT_FOLDER.length() - 1);
             }
             //use temp folder
             String tmpUserFolder_ = StringList.concat(TMP_FOLDER,USER_NAME);
@@ -127,7 +123,7 @@ public final class ConstFiles {
     }
 
     private static String getPath() {
-        String init_ = ConstFiles.getInitFolder();
+        String init_ = getInitFolder();
         if (!JAVA_PATH.contains(SEPARATEUR)) {
             return StringList.concat(init_, JAVA_PATH);
         }
@@ -138,28 +134,8 @@ public final class ConstFiles {
         return INIT_FOLDER;
     }
 
-    public static boolean isZippedFile(String _path) {
-        try {
-            ZipFile zipFile_ = new ZipFile(_path);
-            zipFile_.close();
-            return true;
-        } catch (ZipException _0) {
-            return false;
-        } catch (IOException _0) {
-            return false;
-        }
-    }
-
     public static String getTmpUserFolderSl() {
         return StringList.concat(TMP_USER_FOLDER,SEPARATEUR);
-    }
-
-    public static String getTmpUserFolder() {
-        return TMP_USER_FOLDER;
-    }
-
-    public static String getUserName() {
-        return USER_NAME;
     }
 
     public static String getHomePath() {

@@ -52,7 +52,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
             if (_conf.containsMutableLoopVar(str_) || _conf.getAnalyzing().containsVar(str_)) {
                 DuplicateVariable d_ = new DuplicateVariable();
                 d_.setId(str_);
-                d_.setFileName(page_.getCurrentBlock().getFile().getFileName());
+                d_.setFileName(_conf.getCurrentFileName());
                 d_.setIndexFile(page_.getTraceIndex());
                 _conf.getClasses().addError(d_);
                 setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
@@ -60,7 +60,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
             }
             if (!_conf.isValidSingleToken(str_)) {
                 BadVariableName b_ = new BadVariableName();
-                b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
+                b_.setFileName(_conf.getCurrentFileName());
                 b_.setIndexFile(page_.getTraceIndex());
                 b_.setVarName(str_);
                 _conf.getClasses().addError(b_);

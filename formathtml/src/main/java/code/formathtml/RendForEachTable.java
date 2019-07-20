@@ -158,27 +158,27 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             mapping_.setParam(_cont.getStandards().getAliasLong());
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
-//            cast_.setFileName(getFile().getFileName());
+            cast_.setFileName(_cont.getCurrentFileName());
             cast_.setIndexFile(classIndexNameOffset);
             _cont.getClasses().addError(cast_);
         }
         if (_cont.getAnalyzing().containsVar(variableNameFirst)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableNameFirst);
-//            d_.setFileName(getFile().getFileName());
+            d_.setFileName(_cont.getCurrentFileName());
             d_.setIndexFile(variableNameOffsetFirst);
             _cont.getClasses().addError(d_);
         }
         if (_cont.getAnalyzing().containsMutableLoopVar(variableNameFirst)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableNameFirst);
-//            d_.setFileName(getFile().getFileName());
+            d_.setFileName(_cont.getCurrentFileName());
             d_.setIndexFile(variableNameOffsetFirst);
             _cont.getClasses().addError(d_);
         }
         if (!_cont.isValidSingleToken(variableNameFirst)) {
             BadVariableName b_ = new BadVariableName();
-//            b_.setFileName(getFile().getFileName());
+            b_.setFileName(_cont.getCurrentFileName());
             b_.setIndexFile(variableNameOffsetFirst);
             b_.setVarName(variableNameFirst);
             _cont.getClasses().addError(b_);
@@ -186,20 +186,20 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         if (_cont.getAnalyzing().containsVar(variableNameSecond)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableNameSecond);
-//            d_.setFileName(getFile().getFileName());
+            d_.setFileName(_cont.getCurrentFileName());
             d_.setIndexFile(variableNameOffsetSecond);
             _cont.getClasses().addError(d_);
         }
         if (_cont.getAnalyzing().containsMutableLoopVar(variableNameSecond)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableNameSecond);
-//            d_.setFileName(getFile().getFileName());
+            d_.setFileName(_cont.getCurrentFileName());
             d_.setIndexFile(variableNameOffsetSecond);
             _cont.getClasses().addError(d_);
         }
         if (!_cont.isValidSingleToken(variableNameSecond)) {
             BadVariableName b_ = new BadVariableName();
-//            b_.setFileName(getFile().getFileName());
+            b_.setFileName(_cont.getCurrentFileName());
             b_.setIndexFile(variableNameOffsetSecond);
             b_.setVarName(variableNameSecond);
             _cont.getClasses().addError(b_);
@@ -254,7 +254,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
                 if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
-//                    cast_.setFileName(getFile().getFileName());
+                    cast_.setFileName(_cont.getCurrentFileName());
                     cast_.setIndexFile(expressionOffset);
                     _cont.getClasses().addError(cast_);
                 }
@@ -278,7 +278,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
                 if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
-//                    cast_.setFileName(getFile().getFileName());
+                    cast_.setFileName(_cont.getCurrentFileName());
                     cast_.setIndexFile(expressionOffset);
                     _cont.getClasses().addError(cast_);
                 }
@@ -289,7 +289,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             mapping_.setParam(_cont.getStandards().getAliasIterableTable());
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
-//            cast_.setFileName(getFile().getFileName());
+            cast_.setFileName(_cont.getCurrentFileName());
             cast_.setIndexFile(expressionOffset);
             _cont.getClasses().addError(cast_);
         }
@@ -299,7 +299,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         if (StringList.quickEq(variableNameFirst, variableNameSecond)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableNameSecond);
-//            d_.setFileName(getFile().getFileName());
+            d_.setFileName(_cont.getCurrentFileName());
             d_.setIndexFile(variableNameOffsetSecond);
             _cont.getClasses().addError(d_);
         }
@@ -385,22 +385,12 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         }
         Struct iterStr_;
         long length_ = CustList.INDEX_NOT_FOUND_ELT;
-        String locName_ = _cont.getAdvStandards().getIteratorTableVarCust();
-        LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(stds_.getStructClassName(its_, _cont.getContext()));
-        locVar_.setStruct(its_);
-        _cont.getLastPage().getInternVars().put(locName_, locVar_);
-        Argument arg_ = ElRenderUtil.calculateReuse(stds_.getExpsIteratorTableCust(),_cont);
+        Argument arg_ = iteratorTable(its_,_cont);
         if (_cont.getContext().hasExceptionOrFailInit()) {
             return;
         }
         if (stds_ instanceof BeanNatLgNames) {
-            locName_ = _cont.getAdvStandards().getIteratorVar();
-            locVar_ = new LocalVariable();
-            locVar_.setClassName(stds_.getStructClassName(arg_.getStruct(), _cont.getContext()));
-            locVar_.setStruct(arg_.getStruct());
-            _cont.getLastPage().getInternVars().put(locName_, locVar_);
-            arg_=ElRenderUtil.calculateReuse(stds_.getExpsIterator(),_cont);
+            arg_=iterator(arg_.getStruct(),_cont);
         }
         iterStr_ = arg_.getStruct();
         RendLoopBlockStack l_ = new RendLoopBlockStack();
@@ -481,25 +471,14 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
     public void incrementLoop(Configuration _conf, RendLoopBlockStack _l,
                               StringMap<LoopVariable> _vars) {
         _l.setIndex(_l.getIndex() + 1);
-        BeanLgNames stds_ = _conf.getAdvStandards();
         Struct iterator_ = _l.getStructIterator();
         ImportingPage call_ = _conf.getLastPage();
-        String locName_ = _conf.getAdvStandards().getNextPairVarCust();
-        LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(stds_.getStructClassName(iterator_, _conf.getContext()));
-        locVar_.setStruct(iterator_);
-        _conf.getLastPage().getInternVars().put(locName_, locVar_);
-        Argument nextPair_ = ElRenderUtil.calculateReuse(stds_.getExpsNextPairCust(), _conf);
+        Argument nextPair_ = nextPair(iterator_,_conf);
         if (_conf.getContext().hasExceptionOrFailInit()) {
             return;
         }
-        locName_ = _conf.getAdvStandards().getFirstVarCust();
-        locVar_ = new LocalVariable();
         Struct value_ = nextPair_.getStruct();
-        locVar_.setClassName(stds_.getStructClassName(value_, _conf.getContext()));
-        locVar_.setStruct(value_);
-        _conf.getLastPage().getInternVars().put(locName_, locVar_);
-        Argument arg_ = ElRenderUtil.calculateReuse(stds_.getExpsFirstCust(),_conf);
+        Argument arg_ = first(value_,_conf);
         if (_conf.getContext().hasExceptionOrFailInit()) {
             return;
         }
@@ -509,13 +488,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         LoopVariable lv_ = _vars.getVal(variableNameFirst);
         lv_.setStruct(arg_.getStruct());
         lv_.setIndex(lv_.getIndex() + 1);
-        locName_ = _conf.getAdvStandards().getSecondVarCust();
-        locVar_ = new LocalVariable();
-        value_ = nextPair_.getStruct();
-        locVar_.setClassName(stds_.getStructClassName(value_, _conf.getContextEl()));
-        locVar_.setStruct(value_);
-        _conf.getLastPage().getInternVars().put(locName_, locVar_);
-        arg_ = ElRenderUtil.calculateReuse(stds_.getExpsSecondCust(),_conf);
+        arg_ = second(value_,_conf);
         if (_conf.getContext().hasExceptionOrFailInit()) {
             return;
         }
@@ -529,15 +502,9 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
     }
     private Boolean iteratorHasNext(Configuration _conf) {
         ImportingPage ip_ = _conf.getLastPage();
-        BeanLgNames stds_ = _conf.getAdvStandards();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
         Struct strIter_ = l_.getStructIterator();
-        String locName_ = _conf.getAdvStandards().getHasNextPairVarCust();
-        LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(stds_.getStructClassName(strIter_, _conf.getContext()));
-        locVar_.setStruct(strIter_);
-        _conf.getLastPage().getInternVars().put(locName_, locVar_);
-        Argument arg_ = ElRenderUtil.calculateReuse(stds_.getExpsHasNextPairCust(),_conf);
+        Argument arg_ = hasNextPair(strIter_,_conf);
         if (_conf.getContext().hasExceptionOrFailInit()) {
             return null;
         }

@@ -68,4 +68,9 @@
 		<str value="web_fight/html/fighter.html"/>
 		<str value="web_fight/html/team.html"/>
 	</sl>
+	<sl field="renderFiles">
+		<str value="web_fight/html/fightdetail.html"/>
+		<str value="web_fight/html/fighter.html"/>
+		<str value="web_fight/html/team.html"/>
+	</sl>
 </cfg>

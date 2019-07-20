@@ -271,12 +271,14 @@ public final class Navigation {
             } else {
                 Document doc_ = session.getDocument();
                 node_ = DocumentBuilder.getFirstElementByAttribute(doc_, NUMBER_ANCHOR, String.valueOf(htmlPage_.getUrl()));
-                if (node_.getAttribute(ATTRIBUTE_HREF).isEmpty()) {
-                    htmlPage_.setUsedFieldUrl(StringList.concat(ip_.getPrefix(),ATTRIBUTE_COMMAND));
-                } else if (node_.getAttribute(ATTRIBUTE_HREF).endsWith(END_PATH)) {
-                    htmlPage_.setUsedFieldUrl(StringList.concat(ip_.getPrefix(),ATTRIBUTE_COMMAND));
-                } else {
-                    htmlPage_.setUsedFieldUrl(ATTRIBUTE_HREF);
+                if (node_ != null) {
+                    if (node_.getAttribute(ATTRIBUTE_HREF).isEmpty()) {
+                        htmlPage_.setUsedFieldUrl(StringList.concat(ip_.getPrefix(),ATTRIBUTE_COMMAND));
+                    } else if (node_.getAttribute(ATTRIBUTE_HREF).endsWith(END_PATH)) {
+                        htmlPage_.setUsedFieldUrl(StringList.concat(ip_.getPrefix(),ATTRIBUTE_COMMAND));
+                    } else {
+                        htmlPage_.setUsedFieldUrl(ATTRIBUTE_HREF);
+                    }
                 }
             }
             ip_.setProcessingNode(node_);
@@ -313,7 +315,7 @@ public final class Navigation {
                 ip_.addToOffset(indexPoint_+1+action_.indexOf(BEGIN_ARGS));
                 for (String l: StringList.splitChars(strArgs_, SEP_ARGS)) {
                     Argument a_ = ElRenderUtil.processEl(l, 0, session);
-                    if (a_ == null || !session.getContext().getClasses().isEmptyErrors()) {
+                    if (!session.getContext().getClasses().isEmptyErrors()) {
                         BadFormatNumber badFormat_ = new BadFormatNumber();
                         badFormat_.setNumber(l);
                         badFormat_.setFileName(session.getCurrentFileName());
@@ -448,8 +450,7 @@ public final class Navigation {
             }
             e.setValue(bean_);
         }
-        String currentUrl_ = _anchorRef;
-        session.setCurrentUrl(currentUrl_);
+        session.setCurrentUrl(_anchorRef);
         String dest_ = StringList.getFirstToken(_anchorRef, REF_TAG);
         textToBeChanged_ = ExtractFromResources.loadPage(language,session, files, dest_, resourcesFolder);
         if (session.getContext().getException() != null) {
@@ -479,7 +480,7 @@ public final class Navigation {
             return;
         }
         currentBeanName = currentBeanName_;
-        currentUrl = currentUrl_;
+        currentUrl = _anchorRef;
         setupText(textToBeChanged_);
     }
 
