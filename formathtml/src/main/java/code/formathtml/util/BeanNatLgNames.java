@@ -346,8 +346,14 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         if (struct_ instanceof DisplayableStruct) {
             return ((DisplayableStruct)struct_).getDisplayedString(_cont).getInstance();
         }
-        struct_ = ElRenderUtil.calculateReuse(getExpsDisplay(), _cont,_arg).getStruct();
-        return ((DisplayableStruct)struct_).getDisplayedString(_cont).getInstance();
+        String param_ = _cont.getAdvStandards().getAliasDisplayable();
+        ContextEl context_ = _cont.getContext();
+        String arg_ = _cont.getStandards().getStructClassName(struct_, context_);
+        if (Templates.isCorrectExecute(arg_, param_, context_)) {
+            struct_ = ElRenderUtil.calculateReuse(getExpsDisplay(), _cont,_arg).getStruct();
+            return ((DisplayableStruct)struct_).getDisplayedString(_cont).getInstance();
+        }
+        return _arg.getObjectClassName(context_);
     }
 
     @Override

@@ -130,6 +130,41 @@ public final class RenderForEachTableTest extends CommonRender {
         FormatHtml.getRes(rendDocumentBlock_, context_);
         assertNotNull(context_.getException());
     }
+
+    @Test
+    public void process5Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html xmlns:c='javahtml' bean=\"bean_one\"><body><table><c:for key=\"k\" value=\"v\" map=\"tree\"><tr><td>{k;}</td><td>{v;}</td></tr></c:for></table></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        BeanOne bean_ = new BeanOne();
+        bean_.getComposite().getStrings().add("FIRST");
+        bean_.getComposite().getStrings().add("SECOND");
+        bean_.getComposite().setInteger(5);
+        bean_.getTree().put("ONE", 1);
+        bean_.getTree().put("TWO", 2);
+        Configuration conf_ = contextElSec();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.getBeans().put("bean_one", bean_);
+        conf_.getBuiltBeans().put("bean_one",new BeanStruct(bean_));
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        conf_.setHtml(html_);
+        conf_.setDocument(doc_);
+
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertEq("<html xmlns:c=\"javahtml\" bean=\"bean_one\"><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", FormatHtml.getRes(rendDocumentBlock_,conf_));
+    }
     private static String getCustomPair() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.CustPair<U,V> :$pair<U,V>{\n");

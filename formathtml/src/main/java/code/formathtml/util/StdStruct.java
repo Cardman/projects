@@ -16,6 +16,8 @@ import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringBuilderStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
+import code.maths.LgInt;
+import code.maths.Rate;
 import code.util.*;
 import code.util.StringList;
 import code.util.ints.Displayable;
@@ -38,6 +40,15 @@ public final class StdStruct implements RealInstanceStruct {
         className = _className;
     }
 
+    public StdStruct(Rate _instance, String _className) {
+        instance = _instance;
+        className = _className;
+    }
+
+    public StdStruct(LgInt _instance, String _className) {
+        instance = _instance;
+        className = _className;
+    }
     public StdStruct(Displayable _instance, String _className) {
         instance = _instance;
         className = _className;
@@ -68,12 +79,6 @@ public final class StdStruct implements RealInstanceStruct {
     }
     public static StdStruct newListByte(Bytes _instance, String _className) {
         return new StdStruct((Object)_instance, _className);
-    }
-    public static Struct defaultClass(String _element, Analyzable _context) {
-        if (PrimitiveTypeUtil.isPrimitive(_element, _context)) {
-            return PrimitiveTypeUtil.defaultValue(_element, _context);
-        }
-        return NullStruct.NULL_VALUE;
     }
 
     public static Struct wrapStd(Object _element, ContextEl _context) {

@@ -481,7 +481,7 @@ final class ExtractObject {
         String method_;
         String param_ = _conf.getAdvStandards().getAliasDisplayable();
         String arg_ = _conf.getStandards().getStructClassName(_obj, context_);
-        if (Templates.isCorrectExecute(arg_, param_, context_)) {
+        if (Templates.isCorrectExecute(arg_, param_, context_)) {Thread.dumpStack();
             method_ = _conf.getAdvStandards().getAliasDisplay();
         }  else {
             method_ = _conf.getStandards().getAliasToString();

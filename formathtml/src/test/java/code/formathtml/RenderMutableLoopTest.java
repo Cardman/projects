@@ -95,4 +95,24 @@ public final class RenderMutableLoopTest extends CommonRender {
         assertTrue(context_.getClasses().isEmptyErrors());
         assertEq("<html>0-Pair-1-Impair-2-Pair-3-Impair-</html>",FormatHtml.getRes(rendDocumentBlock_,context_));
     }
+    @Test
+    public void process5Test() {
+        Configuration context_ = contextEl();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:set className=\"$var\" value=\"i=0\"/><c:for init=\"i;.=0\" condition=\"i;.&lt;4\" step=\"i;.++\">{i;.}-<c:if condition=\"i;.%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html>0-Pair-1-Impair-2-Pair-3-Impair-</html>",FormatHtml.getRes(rendDocumentBlock_,context_));
+    }
+    @Test
+    public void process6Test() {
+        Configuration context_ = contextEl();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$int\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\">{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html>0-Pair-1-Impair-2-Pair-3-Impair-</html>",FormatHtml.getRes(rendDocumentBlock_,context_));
+    }
 }

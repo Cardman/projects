@@ -175,6 +175,9 @@ public final class BeanCustLgNames extends BeanLgNames {
 
     public String processString(Argument _arg, Configuration _cont) {
         Struct struct_ = _arg.getStruct();
-        return ((DisplayableStruct)struct_).getDisplayedString(_cont).getInstance();
+        if (struct_ instanceof DisplayableStruct) {
+            return ((DisplayableStruct)struct_).getDisplayedString(_cont).getInstance();
+        }
+        return struct_.getClassName(_cont);
     }
 }

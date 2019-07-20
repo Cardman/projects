@@ -138,41 +138,6 @@ public final class RendText extends RendLeaf implements RendWithEl, RendReducabl
 //                }
 //                _conf.getLastPage().setOffset(i_);
                 CustList<RendDynOperationNode> opsLoc_ = ElRenderUtil.getAnalyzedOperations(expression, _conf, i_, LEFT_EL, RIGHT_EL, Calculation.staticCalculation(st_));
-                Mapping mapping_ = new Mapping();
-                mapping_.setArg(opsLoc_.last().getResultClass());
-                mapping_.setParam(_conf.getAdvStandards().getAliasDisplayable());
-                if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
-                    mapping_ = new Mapping();
-                    mapping_.setArg(opsLoc_.last().getResultClass());
-                    mapping_.setParam(_conf.getStandards().getAliasNumber());
-                    if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
-                        mapping_ = new Mapping();
-                        mapping_.setArg(opsLoc_.last().getResultClass());
-                        mapping_.setParam(_conf.getStandards().getAliasCharSequence());
-                        if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
-                            mapping_ = new Mapping();
-                            mapping_.setArg(opsLoc_.last().getResultClass());
-                            mapping_.setParam(_conf.getStandards().getAliasError());
-                            if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
-                                mapping_ = new Mapping();
-                                mapping_.setArg(opsLoc_.last().getResultClass());
-                                mapping_.setParam(_conf.getStandards().getAliasBoolean());
-                                if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
-                                    mapping_ = new Mapping();
-                                    mapping_.setArg(opsLoc_.last().getResultClass());
-                                    mapping_.setParam(_conf.getStandards().getAliasStackTraceElement());
-                                    if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
-                                        BadImplicitCast cast_ = new BadImplicitCast();
-                                        cast_.setMapping(mapping_);
-//                    cast_.setFileName(getFile().getFileName());
-                                        cast_.setIndexFile(expressionOffset);
-                                        _conf.getClasses().addError(cast_);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
                 opExp.add(opsLoc_);
                 i_ = _conf.getNextIndex();
                 continue;
