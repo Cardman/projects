@@ -29,33 +29,6 @@ public abstract class RendAbstractFieldOperation extends RendLeafOperation imple
     }
 
     @Override
-    public final void calculate(ExecutableCode _conf) {
-        Argument previous_ = getPreviousArg(this,_conf);
-        Argument argres_ = getCommonArgument(previous_, _conf);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
-        if (statusInit_ != null) {
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
-            argres_ = getCommonArgument(previous_, _conf);
-        }
-        Argument arg_ = argres_;
-        boolean simple_ = false;
-        if (this instanceof RendSettableFieldOperation) {
-            RendSettableFieldOperation s_ = (RendSettableFieldOperation) this;
-            if (s_.resultCanBeSet()) {
-                simple_ = true;
-            }
-        }
-        if (simple_) {
-            setQuickSimpleArgument(arg_, _conf);
-        } else {
-            setSimpleArgument(arg_, _conf);
-        }
-    }
-
-    @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
         Argument argres_ = getCommonArgument(previous_, _conf);

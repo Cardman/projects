@@ -30,12 +30,6 @@ public final class RendFinalVariableOperation extends RendLeafOperation implemen
     }
 
     @Override
-    public void calculate(ExecutableCode _conf) {
-        Argument arg_ = getCommonArgument(_conf);
-        setSimpleArgument(arg_, _conf);
-    }
-
-    @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         Argument arg_ = getCommonArgument(_conf);
         setSimpleArgument(arg_, _conf,_nodes);

@@ -19,17 +19,6 @@ public final class RendTernaryOperation extends RendMethodOperation implements R
     }
 
     @Override
-    public void calculate(ExecutableCode _conf) {
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (RendDynOperationNode o: chidren_) {
-            arguments_.add(o.getArgument());
-        }
-        Argument res_ = getArgument(arguments_, _conf);
-        setSimpleArgument(res_, _conf);
-    }
-
-    @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         Argument res_ = getArgument(arguments_, _conf);

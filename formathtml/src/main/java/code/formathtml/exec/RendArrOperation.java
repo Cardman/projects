@@ -25,22 +25,6 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
     }
 
     @Override
-    public void calculate(ExecutableCode _conf) {
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
-        int max_ = chidren_.size();
-        if (resultCanBeSet()) {
-            max_--;
-        }
-        Argument a_ = getArgument(max_, _conf);
-        if (resultCanBeSet()) {
-            setQuickSimpleArgument(a_, _conf);
-        } else {
-            setSimpleArgument(a_, _conf);
-        }
-    }
-
-    @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
@@ -59,7 +43,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
     Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, int _maxIndexChildren, Configuration _conf) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         Struct array_;
-        array_ = getPreviousArgument().getStruct();
+        array_ = getPreviousArgument(_nodes,this).getStruct();
         Argument a_ = new Argument();
         for (int i = CustList.FIRST_INDEX; i < _maxIndexChildren; i++) {
             NumberStruct o_ = (NumberStruct)getArgument(_nodes, chidren_.get(i)).getStruct();
@@ -111,7 +95,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
     @Override
     public void calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = getArgument();
+        Argument a_ = getArgument(_nodes,this);
         RendDynOperationNode lastElement_ = chidren_.last();
         Argument last_ = getArgument(_nodes,lastElement_);
         Struct array_;

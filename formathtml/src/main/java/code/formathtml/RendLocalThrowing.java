@@ -43,7 +43,11 @@ public final class RendLocalThrowing implements RendCallingFinally {
                 }
                 RendBlock n_ = currentBlock_.getNextSibling();
                 //process try block
-                while (n_ instanceof RendAbstractCatchEval) {
+                while (n_ instanceof RendAbstractCatchEval || n_ instanceof RendPossibleEmpty) {
+                    if (n_ instanceof RendPossibleEmpty) {
+                        n_ = n_.getNextSibling();
+                        continue;
+                    }
                     if (n_ instanceof RendCatchEval) {
                         RendCatchEval ca_ = (RendCatchEval) n_;
                         String name_ = ca_.getImportedClassName();

@@ -437,9 +437,9 @@ public abstract class RendDynOperationNode {
         }
         RendPossibleIntermediateDotted n_ = getSiblingSet();
         if (n_ != null) {
-            _nodes.getVal((RendDynOperationNode)n_).setPreviousArgument(_argument);
+            _nodes.getValue(n_.getOrder()).setPreviousArgument(_argument);
         }
-        _nodes.getVal(this).setArgument(_argument);
+        _nodes.getValue(getOrder()).setArgument(_argument);
     }
 
     public final void setSimpleArgument(Argument _argument, ExecutableCode _conf) {

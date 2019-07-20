@@ -20,18 +20,6 @@ public abstract class RendStdNumericOperation extends RendNumericOperation {
     abstract Argument calculateOper(Argument _a, String _op, Argument _b, ExecutableCode _cont);
 
     @Override
-    public void calculate(ExecutableCode _conf) {
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = chidren_.first().getArgument();
-        Argument c_ = chidren_.last().getArgument();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+getOpOffset(), _conf);
-        Argument r_;
-        r_ = calculateOper(a_, op, c_, _conf);
-        a_ = r_;
-        setSimpleArgument(a_, _conf);
-    }
-
-    @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         Argument a_ = getArgument(_nodes,chidren_.first());

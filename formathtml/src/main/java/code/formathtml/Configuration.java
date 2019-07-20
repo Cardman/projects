@@ -747,9 +747,22 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
+    public void setupDeclaratorClass(String _className) {
+        RendBlock currentBlock_ = analyzingDoc.getCurrentBlock();
+        RendBlock previousSibling_ = currentBlock_.getPreviousSibling();
+        ((RendDeclareVariable)previousSibling_).setImportedClassName(_className);
+    }
+
+    @Override
     public boolean hasLoopDeclarator() {
         RendBlock currentBlock_ = analyzingDoc.getCurrentBlock();
         return currentBlock_ instanceof RendForMutableIterativeLoop;
+    }
+
+    @Override
+    public void setupLoopDeclaratorClass(String _className) {
+        RendBlock currentBlock_ = analyzingDoc.getCurrentBlock();
+        ((RendForMutableIterativeLoop)currentBlock_).setImportedClassName(_className);
     }
 
     @Override

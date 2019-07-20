@@ -1275,8 +1275,7 @@ public final class FormatHtml {
                     ipMess_.getReadWrite().setRead(nLoc_);
                     FormatHtml.appendChild(doc_, _conf, currentNode_, (Element) nLoc_);
                     Element tag_ = (Element) currentNode_.getLastChild();
-                    processAttributes(_conf, _loc, _files, ipMess_, doc_, tag_,
-                            indexes_, containers_, _resourcesFolder);
+                    processImportedNode(_conf, ipMess_, tag_);
                     if (_conf.getContext().getException() != null) {
                         return ip_;
                     }
@@ -1379,7 +1378,6 @@ public final class FormatHtml {
                     if (_conf.getContext().getException() != null) {
                         return ip_;
                     }
-                    continue;
                 }
                 processBlock(_conf, ip_);
                 return ip_;
@@ -1407,7 +1405,6 @@ public final class FormatHtml {
                     if (_conf.getContext().getException() != null) {
                         return ip_;
                     }
-                    continue;
                 }
                 processBlock(_conf, ip_);
                 return ip_;
@@ -2717,6 +2714,25 @@ public final class FormatHtml {
         return false;
     }
 
+    private static void processImportedNode(Configuration _conf,
+                                            ImportingPage _ip, Element _tag) {
+        String beanName_ = _ip.getBeanName();
+        if (StringList.quickEq(_tag.getTagName(),TAG_A)) {
+            String attr_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND));
+            if (!attr_.isEmpty()) {
+                CustList<BlockHtml> stacks_ = _ip.getBlockStacks();
+                attr_ = format(stacks_, attr_, false);
+                _tag.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND), attr_);
+            }
+            String href_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND));
+            if (href_.startsWith(CALL_METHOD)) {
+                _tag.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND), StringList.concat(CALL_METHOD,beanName_,DOT,href_.substring(1)));
+            }
+            if (_tag.hasAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND))) {
+                _tag.setAttribute(ATTRIBUTE_HREF, EMPTY_STRING);
+            }
+        }
+    }
     private static void processAttributes(Configuration _conf, String _loc, StringMap<String> _files,
                                           ImportingPage _ip, Document _doc, Element _tag,
                                           IndexesFormInput _indexes,

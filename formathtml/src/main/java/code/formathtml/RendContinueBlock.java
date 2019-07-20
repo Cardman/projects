@@ -83,7 +83,7 @@ public final class RendContinueBlock extends RendLeaf implements RendBuildableEl
             }
             ip_.setFinallyToProcess(false);
             bl_.removeVarAndLoop(ip_);
-            if (ip_.isFinallyToProcess()) {
+            if (bl_ instanceof RendTryBlockStack&&ip_.isFinallyToProcess()) {
                 ((RendTryBlockStack)bl_).setCalling(this);
                 return;
             }

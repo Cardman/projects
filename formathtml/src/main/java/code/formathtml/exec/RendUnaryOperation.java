@@ -1,12 +1,9 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.UnaryOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.structs.NumberStruct;
 import code.formathtml.Configuration;
 import code.util.CustList;
@@ -19,14 +16,6 @@ public final class RendUnaryOperation extends RendAbstractUnaryOperation {
     public RendUnaryOperation(UnaryOperation _u) {
         super(_u);
         oper = _u.getOper();
-    }
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        Argument arg_ = chidren_.first().getArgument();
-        Argument a_ = getArgument(_conf, arg_);
-        setSimpleArgument(a_, _conf);
     }
 
     @Override

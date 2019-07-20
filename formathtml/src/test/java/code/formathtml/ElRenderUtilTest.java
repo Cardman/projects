@@ -43,6 +43,19 @@ public final class ElRenderUtilTest {
     private static final String COMPOSITE = "code.expressionlanguage.classes.Composite";
     private static final String ALIAS_BEAN_ONE = "code.expressionlanguage.classes.BeanOne";
     @Test
+    public void processSimpleTest() {
+        Configuration context_ = contextEl();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\">{i;}-<c:if condition=\"i;%2==0\">Pair</c:if> <c:else>Impair</c:else>-</c:for></html>").getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        addImportingPage(context_);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        context_.setException(null);
+        context_.clearPages();
+//        System.out.println(FormatHtml.getRes(rendDocumentBlock_,context_));
+//        addImportingPage(context_);
+
+    }
+    @Test
     public void processEl1Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
@@ -9204,8 +9217,8 @@ public final class ElRenderUtilTest {
 
     private static Argument calculate(CustList<OperationNode> _ops, Configuration _an) {
         CustList<RendDynOperationNode> out_ = ElRenderUtil.getExecutableNodes(_ops);
-        ElRenderUtil.calculate(out_, _an);
-        return out_.last().getArgument();
+        out_ = ElRenderUtil.getReducedNodes(out_.last());
+        return ElRenderUtil.calculateReuse(out_, _an);
     }
     private static void addImportingPage(Configuration _conf) {
         _conf.addPage(new ImportingPage(false));

@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.util.RendIfStack;
@@ -20,6 +21,29 @@ public final class RendElseIfCondition extends RendCondition implements RendBrea
             p_ = p_.getPreviousSibling();
         }
         return ((RendIfCondition)p_).getLabel();
+    }
+
+    @Override
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc) {
+        super.buildExpressionLanguage(_cont, _doc);
+        RendBlock pBlock_ = getPreviousSibling();
+        if (!(pBlock_ instanceof RendIfCondition)) {
+            if (!(pBlock_ instanceof RendElseIfCondition)) {
+                if (!(pBlock_ instanceof RendPossibleEmpty)) {
+                    UnexpectedTagName un_ = new UnexpectedTagName();
+//                un_.setFileName(getFile().getFileName());
+                    un_.setIndexFile(getOffset().getOffsetTrim());
+                    _cont.getClasses().addError(un_);
+                } else if (!(pBlock_.getPreviousSibling() instanceof RendIfCondition)){
+                    if (!(pBlock_.getPreviousSibling() instanceof RendElseIfCondition)){
+                        UnexpectedTagName un_ = new UnexpectedTagName();
+//                un_.setFileName(getFile().getFileName());
+                        un_.setIndexFile(getOffset().getOffsetTrim());
+                        _cont.getClasses().addError(un_);
+                    }
+                }
+            }
+        }
     }
 
     @Override

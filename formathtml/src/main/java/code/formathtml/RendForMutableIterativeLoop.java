@@ -246,10 +246,6 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendLoopBlockStack c_ = ip_.getLastLoopIfPossible();
         if (c_ != null && c_.getBlock() == this) {
-            if (c_.isEvaluatingKeepLoop()) {
-                processLastElementLoop(_cont);
-                return;
-            }
             if (c_.isFinished()) {
                 for (String v: variableNames) {
                     ip_.getVars().removeKey(v);
@@ -319,7 +315,6 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         ImportingPage ip_ = _conf.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
-        l_.setEvaluatingKeepLoop(true);
         RendBlock forLoopLoc_ = l_.getBlock();
         rw_.setRead(forLoopLoc_);
         if (!opStep.isEmpty()) {
@@ -335,6 +330,5 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         if (!keep_) {
             l_.setFinished(true);
         }
-        l_.setEvaluatingKeepLoop(false);
     }
 }

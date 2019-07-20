@@ -1,7 +1,6 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AffectationOperation;
 import code.formathtml.Configuration;
@@ -43,20 +42,11 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
     }
 
     @Override
-    public void calculate(ExecutableCode _conf) {
-        RendDynOperationNode right_ = getChildrenNodes().last();
-        Argument rightArg_ = right_.getArgument();
-        settable.calculateSetting(_conf, rightArg_);
-        RendDynOperationNode op_ = (RendDynOperationNode)settable;
-        setSimpleArgument(op_.getArgument(), _conf);
-    }
-
-    @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         RendDynOperationNode right_ = getChildrenNodes().last();
         Argument rightArg_ = getArgument(_nodes,right_);
         settable.calculateSetting(_nodes,_conf,rightArg_);
         RendDynOperationNode op_ = (RendDynOperationNode)settable;
-        setSimpleArgument(getArgument(_nodes,op_), _conf);
+        setSimpleArgument(getArgument(_nodes,op_), _conf,_nodes);
     }
 }

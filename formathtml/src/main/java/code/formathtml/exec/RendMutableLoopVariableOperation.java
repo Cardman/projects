@@ -3,7 +3,6 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.PageEl;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.MutableLoopVariableOperation;
 import code.expressionlanguage.opers.exec.ExecMutableLoopVariableOperation;
@@ -30,16 +29,6 @@ public final class RendMutableLoopVariableOperation extends RendLeafOperation im
         catString = _v.isCatString();
         variableName  = _v.getVariableName();
         off = _v.getOff();
-    }
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        Argument arg_ = getCommonArgument(_conf);
-        if (resultCanBeSet()) {
-            setQuickSimpleArgument(arg_, _conf);
-        } else {
-            setSimpleArgument(arg_, _conf);
-        }
     }
 
     @Override

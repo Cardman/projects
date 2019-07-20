@@ -3,7 +3,6 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.PageEl;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.VariableOperation;
 import code.expressionlanguage.opers.exec.ExecNumericOperation;
@@ -38,16 +37,6 @@ public final class RendVariableOperation extends RendLeafOperation implements
         return variable;
     }
 
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        Argument arg_ = getCommonArgument(_conf);
-        if (resultCanBeSet()) {
-            setQuickSimpleArgument(arg_, _conf);
-        } else {
-            setSimpleArgument(arg_, _conf);
-        }
-    }
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {

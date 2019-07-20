@@ -100,7 +100,9 @@ public interface Analyzable {
     Ints getCurrentBadIndexes();
     Block getCurrentBlock();
     boolean hasDeclarator();
+    void setupDeclaratorClass(String _className);
     boolean hasLoopDeclarator();
+    void setupLoopDeclaratorClass(String _className);
     boolean isGearConst();
     StringList getNeedInterfaces();
 

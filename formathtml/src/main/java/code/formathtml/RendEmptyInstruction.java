@@ -2,7 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.files.OffsetsBlock;
 
-public final class RendEmptyInstruction extends RendLeaf implements RendBuildableElMethod {
+public final class RendEmptyInstruction extends RendLeaf implements RendBuildableElMethod,RendPossibleEmpty {
     RendEmptyInstruction(OffsetsBlock _offset) {
         super(_offset);
     }

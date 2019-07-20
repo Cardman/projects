@@ -27,19 +27,6 @@ public abstract class RendAbstractArrayInstancingOperation extends RendInvokingO
     }
 
     @Override
-    public void calculate(ExecutableCode _conf) {
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (RendDynOperationNode o: chidren_) {
-            arguments_.add(o.getArgument());
-        }
-        Argument argres_ = getArgument(arguments_, _conf);
-        Argument res_;
-        res_ = argres_;
-        setSimpleArgument(res_, _conf);
-    }
-
-    @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         Argument argres_ = getArgument(arguments_, _conf);

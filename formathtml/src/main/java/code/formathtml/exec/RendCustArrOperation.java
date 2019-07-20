@@ -3,13 +3,8 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.calls.util.CustomFoundConstructor;
-import code.expressionlanguage.calls.util.CustomFoundMethod;
-import code.expressionlanguage.calls.util.CustomReflectMethod;
-import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.ArrOperation;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
@@ -50,19 +45,6 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         naturalVararg = _arr.getNaturalVararg();
         anc = _arr.getAnc();
         staticChoiceMethod = _arr.isStaticChoiceMethod();
-    }
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        if (resultCanBeSet()) {
-            Struct array_;
-            array_ = getPreviousArgument().getStruct();
-            Argument a_ = new Argument();
-            a_.setStruct(array_);
-            setQuickSimpleArgument(a_, _conf);
-            return;
-        }
-        processCalling(_conf, null);
     }
 
     @Override

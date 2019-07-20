@@ -47,13 +47,6 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
     }
 
     @Override
-    public void calculate(ExecutableCode _conf) {
-        Argument previous_ = getPreviousArg(this,_conf);
-        Argument res_ = getCommonArgument(previous_, _conf);
-        setSimpleArgument(res_, _conf);
-    }
-
-    @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
         Argument res_ = getCommonArgument(previous_, _conf);

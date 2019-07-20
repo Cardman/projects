@@ -64,8 +64,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
                     ClassArgumentMatching n_ = new ClassArgumentMatching(type_);
                     LocalVariable lv_ = _conf.getLocalVar(inf_);
                     lv_.setClassName(type_);
-                    DeclareVariable d_ = (DeclareVariable) _conf.getCurrentBlock().getPreviousSibling();
-                    d_.setImportedClassName(type_);
+                    _conf.setupDeclaratorClass(type_);
                     _conf.setCurrentVarSetting(type_);
                     v_.setResultClass(n_);
                 }
@@ -81,8 +80,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
                     ClassArgumentMatching n_ = new ClassArgumentMatching(type_);
                     LoopVariable lv_ = _conf.getMutableLoopVar(inf_);
                     lv_.setClassName(type_);
-                    ForMutableIterativeLoop d_ = (ForMutableIterativeLoop) _conf.getCurrentBlock();
-                    d_.setImportedClassName(type_);
+                    _conf.setupLoopDeclaratorClass(type_);
                     _conf.setCurrentVarSetting(type_);
                     v_.setResultClass(n_);
                 }

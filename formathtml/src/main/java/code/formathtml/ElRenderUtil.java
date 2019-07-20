@@ -77,9 +77,8 @@ public final class ElRenderUtil {
             return Argument.createVoid();
         }
         context_.setAnalyzing(null);
-        calculate(out_, _conf);
-        Argument arg_ = out_.last().getArgument();
-        return arg_;
+        out_ = getReducedNodes(out_.last());
+        return calculateReuse(out_, _conf);
     }
     public static CustList<RendDynOperationNode> getAnalyzedOperations(String _el, Configuration _conf, int _minIndex, char _begin, char _end, Calculation _calcul) {
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf, _minIndex, _begin, _end);
@@ -176,9 +175,8 @@ public final class ElRenderUtil {
             return Argument.createVoid();
         }
         context_.setAnalyzing(null);
-        calculate(out_, _conf);
-        Argument arg_  = out_.last().getArgument();
-        return arg_;
+        out_ = getReducedNodes(out_.last());
+        return calculateReuse(out_, _conf);
     }
     public static CustList<RendDynOperationNode> getExecutableNodes(CustList<OperationNode> _list) {
         CustList<RendDynOperationNode> out_ = new CustList<RendDynOperationNode>();
@@ -481,30 +479,6 @@ public final class ElRenderUtil {
             fr_ = RendDynOperationNode.getNextIndex(o, st_);
         }
         return arguments_.lastValue().getArgument();
-    }
-    static void calculate(CustList<RendDynOperationNode> _nodes, Configuration _context) {
-        int ind_ = 0;
-        int len_ = _nodes.size();
-        while (ind_ < len_) {
-            RendDynOperationNode curr_ = _nodes.get(ind_);
-            if (!(curr_ instanceof RendCalculableOperation)) {
-                ind_++;
-                continue;
-            }
-            Argument a_ = curr_.getArgument();
-            if (a_ != null) {
-                ind_++;
-                continue;
-            }
-            RendCalculableOperation dir_ = (RendCalculableOperation) curr_;
-            dir_.calculate(_context);
-            a_ = curr_.getArgument();
-            if (_context.getException() != null) {
-                return;
-            }
-            ind_ = RendDynOperationNode.getNextIndex(curr_, a_.getStruct());
-        }
-        
     }
 
     public static CustList<RendDynOperationNode> getReducedNodes(RendDynOperationNode _root) {

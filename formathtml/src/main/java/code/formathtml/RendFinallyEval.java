@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.util.RendReadWrite;
 import code.formathtml.util.RendTryBlockStack;
@@ -23,16 +24,24 @@ public final class RendFinallyEval extends RendParentBlock implements RendEval {
 
     @Override
     public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
-        ImportingPage ip_ = _cont.getLastPage();
-        RendTryBlockStack ts_ = (RendTryBlockStack) ip_.getRendLastStack();
-        ts_.setCurrentBlock(this);
-        if (ts_.isVisitedFinally()) {
-            ip_.removeRendLastBlock();
-            processBlock(_cont);
-            return;
+        RendBlock pBlock_ = getPreviousSibling();
+        if (!(pBlock_ instanceof RendAbstractCatchEval)) {
+            if (!(pBlock_ instanceof RendTryEval)) {
+                if (!(pBlock_ instanceof RendPossibleEmpty)) {
+                    UnexpectedTagName un_ = new UnexpectedTagName();
+//                un_.setFileName(getFile().getFileName());
+                    un_.setIndexFile(getOffset().getOffsetTrim());
+                    _cont.getClasses().addError(un_);
+                } else if (!(pBlock_.getPreviousSibling() instanceof RendAbstractCatchEval)) {
+                    if (!(pBlock_.getPreviousSibling() instanceof RendTryEval)) {
+                        UnexpectedTagName un_ = new UnexpectedTagName();
+//                un_.setFileName(getFile().getFileName());
+                        un_.setIndexFile(getOffset().getOffsetTrim());
+                        _cont.getClasses().addError(un_);
+                    }
+                }
+            }
         }
-        ts_.setVisitedFinally(true);
-        ip_.getRendReadWrite().setRead(getFirstChild());
     }
 
     @Override

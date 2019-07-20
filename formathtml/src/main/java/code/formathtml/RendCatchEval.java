@@ -3,6 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.errors.custom.BadVariableName;
 import code.expressionlanguage.errors.custom.DuplicateVariable;
+import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.variables.LocalVariable;
@@ -69,6 +70,24 @@ public final class RendCatchEval extends RendAbstractCatchEval {
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(importedClassName);
         _cont.getAnalyzing().putCatchVar(variableName, lv_);
+        RendBlock pBlock_ = getPreviousSibling();
+        if (!(pBlock_ instanceof RendAbstractCatchEval)) {
+            if (!(pBlock_ instanceof RendTryEval)) {
+                if (!(pBlock_ instanceof RendPossibleEmpty)) {
+                    UnexpectedTagName un_ = new UnexpectedTagName();
+//                un_.setFileName(getFile().getFileName());
+                    un_.setIndexFile(getOffset().getOffsetTrim());
+                    _cont.getClasses().addError(un_);
+                } else if (!(pBlock_.getPreviousSibling() instanceof RendAbstractCatchEval)) {
+                    if (!(pBlock_.getPreviousSibling() instanceof RendTryEval)) {
+                        UnexpectedTagName un_ = new UnexpectedTagName();
+//                un_.setFileName(getFile().getFileName());
+                        un_.setIndexFile(getOffset().getOffsetTrim());
+                        _cont.getClasses().addError(un_);
+                    }
+                }
+            }
+        }
     }
 
     @Override

@@ -48,7 +48,7 @@ public final class RendIfCondition extends RendCondition implements RendBreakabl
         RendIfStack if_ = new RendIfStack();
         if_.setLastBlock(this);
         RendBlock n_ = getNextSibling();
-        while (n_ instanceof RendElseIfCondition || n_ instanceof RendElseCondition || n_ instanceof RendEmptyInstruction) {
+        while (n_ instanceof RendElseIfCondition || n_ instanceof RendElseCondition || n_ instanceof RendPossibleEmpty) {
             if (n_ instanceof RendParentBlock) {
                 if_.setLastBlock((RendParentBlock) n_);
             }

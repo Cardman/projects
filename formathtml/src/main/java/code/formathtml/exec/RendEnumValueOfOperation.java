@@ -23,23 +23,6 @@ public final class RendEnumValueOfOperation extends RendAbstractUnaryOperation {
 
 
     @Override
-    public void calculate(ExecutableCode _conf) {
-        RendDynOperationNode first_ = getFirstChild();
-        Argument arg_ = first_.getArgument();
-        Argument argres_ = getCommonArgument(arg_, _conf);
-        NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
-        if (statusInit_ != null) {
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
-            if (_conf.getContextEl().hasException()) {
-                return;
-            }
-            argres_ = getCommonArgument(arg_, _conf);
-        }
-        Argument argRes_ = argres_;
-        setSimpleArgument(argRes_, _conf);
-    }
-
-    @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         RendDynOperationNode first_ = getFirstChild();
         Argument arg_ = getArgument(_nodes,first_);

@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.util.RendLoopBlockStack;
@@ -65,6 +66,29 @@ public final class RendDoBlock extends RendParentBlock implements RendLoop {
 
     @Override
     public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
-
+        RendBlock pBlock_ = getNextSibling();
+        if (pBlock_ == null) {
+            UnexpectedTagName un_ = new UnexpectedTagName();
+//                un_.setFileName(getFile().getFileName());
+            un_.setIndexFile(getOffset().getOffsetTrim());
+            _cont.getClasses().addError(un_);
+        } else if (!(pBlock_ instanceof RendDoWhileCondition)) {
+            if (!(pBlock_ instanceof RendPossibleEmpty)) {
+                UnexpectedTagName un_ = new UnexpectedTagName();
+//                un_.setFileName(getFile().getFileName());
+                un_.setIndexFile(pBlock_.getOffset().getOffsetTrim());
+                _cont.getClasses().addError(un_);
+            } else if (pBlock_.getNextSibling() == null){
+                UnexpectedTagName un_ = new UnexpectedTagName();
+//                un_.setFileName(getFile().getFileName());
+                un_.setIndexFile(pBlock_.getOffset().getOffsetTrim());
+                _cont.getClasses().addError(un_);
+            } else if (!(pBlock_.getNextSibling() instanceof RendDoWhileCondition)){
+                UnexpectedTagName un_ = new UnexpectedTagName();
+//                un_.setFileName(getFile().getFileName());
+                un_.setIndexFile(pBlock_.getNextSibling().getOffset().getOffsetTrim());
+                _cont.getClasses().addError(un_);
+            }
+        }
     }
 }

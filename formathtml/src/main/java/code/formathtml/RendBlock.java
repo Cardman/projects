@@ -17,6 +17,7 @@ public abstract class RendBlock {
     static final String ATTRIBUTE_ESCAPED_EAMP = "escapedamp";
     static final String ATTRIBUTE_CLASS_NAME = "className";
     static final String ATTRIBUTE_INDEX_CLASS_NAME = "indexclassName";
+    static final String ATTRIBUTE_FROM = "from";
     static final String ATTRIBUTE_INIT = "init";
     static final String ATTRIBUTE_STEP = "step";
     static final String ATTRIBUTE_LABEL = "label";
@@ -135,40 +136,40 @@ public abstract class RendBlock {
         if (_elt instanceof Text) {
             Text t_ = (Text) _elt;
             if (t_.getTextContent().trim().isEmpty()) {
-                return new RendEmptyInstruction(new OffsetsBlock());
+                return new RendEmptyText(new OffsetStringInfo(0,t_.getTextContent()),new OffsetsBlock());
             }
             return new RendText(new OffsetStringInfo(0,t_.getTextContent()),new OffsetsBlock());
         }
         Element elt_ = (Element) _elt;
         String tagName_ = elt_.getTagName();
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,FOR_BLOCK_TAG))) {
+            if (elt_.hasAttribute(ATTRIBUTE_LIST)) {
+                return new RendForEachLoop(_conf,
+                        newOffsetStringInfo(elt_,ATTRIBUTE_CLASS_NAME),
+                        newOffsetStringInfo(elt_,ATTRIBUTE_VAR),
+                        newOffsetStringInfo(elt_,ATTRIBUTE_LIST),
+                        newOffsetStringInfo(elt_,ATTRIBUTE_INDEX_CLASS_NAME),
+                        newOffsetStringInfo(elt_,ATTRIBUTE_LABEL),
+                        new OffsetsBlock()
+                );
+            }
+            if (elt_.hasAttribute(ATTRIBUTE_MAP)) {
+                return new RendForEachTable(_conf,
+                        newOffsetStringInfo(elt_,KEY_CLASS_NAME_ATTRIBUTE),
+                        newOffsetStringInfo(elt_,ATTRIBUTE_KEY),
+                        newOffsetStringInfo(elt_,VAR_CLASS_NAME_ATTRIBUTE),
+                        newOffsetStringInfo(elt_,ATTRIBUTE_VALUE),
+                        newOffsetStringInfo(elt_,ATTRIBUTE_MAP),
+                        newOffsetStringInfo(elt_,ATTRIBUTE_INDEX_CLASS_NAME),
+                        newOffsetStringInfo(elt_,ATTRIBUTE_LABEL),
+                        new OffsetsBlock()
+                );
+            }
             if (elt_.hasAttribute(ATTRIBUTE_VAR)) {
-                if (elt_.hasAttribute(ATTRIBUTE_LIST)) {
-                    return new RendForEachLoop(_conf,
-                            newOffsetStringInfo(elt_,ATTRIBUTE_CLASS_NAME),
-                            newOffsetStringInfo(elt_,ATTRIBUTE_VAR),
-                            newOffsetStringInfo(elt_,ATTRIBUTE_LIST),
-                            newOffsetStringInfo(elt_,ATTRIBUTE_INDEX_CLASS_NAME),
-                            newOffsetStringInfo(elt_,ATTRIBUTE_LABEL),
-                            new OffsetsBlock()
-                    );
-                }
-                if (elt_.hasAttribute(ATTRIBUTE_MAP)) {
-                    return new RendForEachTable(_conf,
-                            newOffsetStringInfo(elt_,KEY_CLASS_NAME_ATTRIBUTE),
-                            newOffsetStringInfo(elt_,ATTRIBUTE_KEY),
-                            newOffsetStringInfo(elt_,VAR_CLASS_NAME_ATTRIBUTE),
-                            newOffsetStringInfo(elt_,ATTRIBUTE_VALUE),
-                            newOffsetStringInfo(elt_,ATTRIBUTE_MAP),
-                            newOffsetStringInfo(elt_,ATTRIBUTE_INDEX_CLASS_NAME),
-                            newOffsetStringInfo(elt_,ATTRIBUTE_LABEL),
-                            new OffsetsBlock()
-                    );
-                }
                 return new RendForIterativeLoop(_conf,
                         newOffsetStringInfo(elt_,ATTRIBUTE_CLASS_NAME),
                         newOffsetStringInfo(elt_,ATTRIBUTE_VAR),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_INIT),
+                        newOffsetStringInfo(elt_,ATTRIBUTE_FROM),
                         newOffsetStringInfo(elt_,ATTRIBUTE_TO),
                         newOffsetBooleanInfo(elt_,ATTRIBUTE_EQ),
                         newOffsetStringInfo(elt_,ATTRIBUTE_STEP),
@@ -180,8 +181,8 @@ public abstract class RendBlock {
             return new RendForMutableIterativeLoop(_conf,
                     newOffsetStringInfo(elt_,ATTRIBUTE_CLASS_NAME),
                     newOffsetStringInfo(elt_,ATTRIBUTE_INIT),
-                    newOffsetStringInfo(elt_,ATTRIBUTE_STEP),
                     newOffsetStringInfo(elt_,ATTRIBUTE_CONDITION),
+                    newOffsetStringInfo(elt_,ATTRIBUTE_STEP),
                     newOffsetStringInfo(elt_,ATTRIBUTE_INDEX_CLASS_NAME)
                     ,newOffsetStringInfo(elt_,ATTRIBUTE_LABEL),
                     new OffsetsBlock());

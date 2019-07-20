@@ -8093,7 +8093,7 @@ public class FormatHtmlTest {
         String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=<html>Description <a href=\"$go\">two</a></html>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String content_ = "one=Description one\ntwo=<html>Description <a c:command=\"$go\">two</a></html>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field prepare=\"$intern.typedString=message\"><a/></c:field></c:class></c:package><c:form form=\"key\"/></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a><c:message value='msg_example,two'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
@@ -8123,7 +8123,7 @@ public class FormatHtmlTest {
         conf_.setDocument(DocumentBuilder.parseSax(html_));
         setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a n-a=\"0\" c:command=\"go\" href=\"\">Test {0}2</a>Description <a n-a='1' href=\"$bean_two.go\">two</a></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a n-a=\"0\" c:command=\"go\" href=\"\">Test {0}2</a>Description <a n-a='1' c:command=\"$bean_two.go\" href=\"\">two</a></body></html>", render_);
         assertEq(1, beanTwo_.getForms().size());
         assertEq("key", beanTwo_.getForms().getKeys().first());
         assertEq("sample_value", (String)beanTwo_.getForms().values().first());

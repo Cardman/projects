@@ -129,7 +129,7 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
             }
             ip_.setFinallyToProcess(false);
             bl_.removeVarAndLoop(ip_);
-            if (ip_.isFinallyToProcess()) {
+            if (bl_ instanceof TryBlockStack&&ip_.isFinallyToProcess()) {
                 ((TryBlockStack)bl_).setCalling(this);
                 return;
             }

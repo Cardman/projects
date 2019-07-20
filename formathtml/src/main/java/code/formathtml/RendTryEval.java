@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.util.RendReadWrite;
@@ -41,7 +42,17 @@ public final class RendTryEval extends RendParentBlock implements RendEval {
 
     @Override
     public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
-
+        RendBlock nBlock_ = getNextSibling();
+        if (!(nBlock_ instanceof RendAbstractCatchEval)) {
+            if (!(nBlock_ instanceof RendFinallyEval)) {
+                if (!(nBlock_ instanceof RendPossibleEmpty)) {
+                    UnexpectedTagName un_ = new UnexpectedTagName();
+//                un_.setFileName(getFile().getFileName());
+                    un_.setIndexFile(getOffset().getOffsetTrim());
+                    _cont.getClasses().addError(un_);
+                }
+            }
+        }
     }
 
     @Override
@@ -49,8 +60,10 @@ public final class RendTryEval extends RendParentBlock implements RendEval {
         ImportingPage ip_ = _cont.getLastPage();
         RendBlock n_ = getNextSibling();
         RendTryBlockStack tryStack_ = new RendTryBlockStack();
-        while (n_ instanceof RendAbstractCatchEval || n_ instanceof RendFinallyEval) {
-            tryStack_.setLastBlock((RendParentBlock) n_);
+        while (n_ instanceof RendAbstractCatchEval || n_ instanceof RendFinallyEval || n_ instanceof RendPossibleEmpty) {
+            if (n_ instanceof RendParentBlock) {
+                tryStack_.setLastBlock((RendParentBlock) n_);
+            }
             n_ = n_.getNextSibling();
         }
         tryStack_.setCurrentBlock(this);

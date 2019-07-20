@@ -1,7 +1,6 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.ForwardOperation;
 import code.formathtml.Configuration;
@@ -19,12 +18,6 @@ public final class RendForwardOperation extends RendLeafOperation implements Ren
     @Override
     public void setPreviousArgument(Argument _argument) {
         previousArgument = _argument;
-    }
-
-    @Override
-    public void calculate(ExecutableCode _conf) {
-        Argument previous_ = getPreviousArg(this,_conf);
-        setSimpleArgument(previous_, _conf);
     }
 
     @Override

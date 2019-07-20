@@ -106,7 +106,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
                 first_ = first_.getNextSibling();
                 continue;
             }
-            if (elt_ instanceof RendEmptyInstruction) {
+            if (elt_ instanceof RendPossibleEmpty) {
                 first_ = first_.getNextSibling();
                 continue;
             }
@@ -153,8 +153,10 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
         CustList<RendParentBlock> children_;
         children_ = new CustList<RendParentBlock>();
         while (n_ != null) {
-            children_.add((RendParentBlock)n_);
-            if_.setLastVisitedBlock((RendParentBlock) n_);
+            if (n_ instanceof RendParentBlock) {
+                children_.add((RendParentBlock)n_);
+                if_.setLastVisitedBlock((RendParentBlock) n_);
+            }
             n_ = n_.getNextSibling();
         }
         if_.setBlock(this);

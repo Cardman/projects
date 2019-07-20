@@ -780,9 +780,22 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     @Override
+    public void setupDeclaratorClass(String _className) {
+        Block bl_ = getCurrentBlock();
+        Block previousSibling_ = bl_.getPreviousSibling();
+        ((DeclareVariable)previousSibling_).setImportedClassName(_className);
+    }
+
+    @Override
     public boolean hasLoopDeclarator() {
         Block bl_ = getCurrentBlock();
         return bl_ instanceof ForMutableIterativeLoop;
+    }
+
+    @Override
+    public void setupLoopDeclaratorClass(String _className) {
+        Block bl_ = getCurrentBlock();
+        ((ForMutableIterativeLoop)bl_).setImportedClassName(_className);
     }
 
     @Override
