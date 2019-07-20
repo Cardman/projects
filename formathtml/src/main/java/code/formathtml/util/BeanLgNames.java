@@ -1,13 +1,10 @@
 package code.formathtml.util;
 
-import code.bean.Bean;
 import code.bean.translator.Translator;
-import code.bean.validator.Message;
 import code.bean.validator.Validator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.NumberInfos;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.*;
@@ -16,26 +13,13 @@ import code.formathtml.Configuration;
 import code.formathtml.exec.RendDynOperationNode;
 import code.sml.Element;
 import code.util.CustList;
-import code.util.*;
-import code.util.ObjectMap;
 import code.util.Replacement;
-import code.util.SimpleItr;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.StringMapObject;
-import code.util.ints.Countable;
-import code.util.ints.Displayable;
 import code.util.ints.MathFactory;
-import code.util.ints.SimpleEntries;
-import code.util.ints.SimpleEntry;
-import code.util.ints.SimpleIterable;
-import code.util.ints.SimpleList;
 
 public abstract class BeanLgNames extends LgNames {
 
-    private static final int DEFAULT_RADIX = 10;
-    private static final long MULTMIN_RADIX_TEN = Long.MIN_VALUE / DEFAULT_RADIX;
-    private static final long N_MULTMAX_RADIX_TEN = -Long.MAX_VALUE / DEFAULT_RADIX;
     static final String VALIDATE = "validate";
     static final String SET_FORMS = "setForms";
     static final String GET_FORMS = "getForms";
@@ -46,9 +30,12 @@ public abstract class BeanLgNames extends LgNames {
     static final String SET_DATA_BASE = "setDataBase";
     static final String GET_DATA_BASE = "getDataBase";
     static final String BEFORE_DISPLAYING = "beforeDisplaying";
-    private static final String ON = "on";
-    static final String aliasStringMapObject = "code.util.StringMapObject";
+    static final String ALIAS_STRING_MAP_OBJECT = "code.util.StringMapObject";
     static final String BEAN = "code.bean.Bean";
+    private static final int DEFAULT_RADIX = 10;
+    private static final long MULTMIN_RADIX_TEN = Long.MIN_VALUE / DEFAULT_RADIX;
+    private static final long N_MULTMAX_RADIX_TEN = -Long.MAX_VALUE / DEFAULT_RADIX;
+    private static final String ON = "on";
     private final String validator = "code.bean.validator.Validator";
 
     private final String valueChangedEvent = "code.formathtml.util.ValueChangeEvent";
@@ -739,7 +726,7 @@ public abstract class BeanLgNames extends LgNames {
     }
 
     public String getAliasStringMapObject() {
-        return aliasStringMapObject;
+        return ALIAS_STRING_MAP_OBJECT;
     }
     public String getCustList() {
         return custList;

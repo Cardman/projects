@@ -52,8 +52,4 @@ public final class RendThisOperation extends RendLeafOperation implements RendCa
         return null;
     }
 
-    @Override
-    public void setPreviousArgument(Argument _argument) {
-    }
-
 }

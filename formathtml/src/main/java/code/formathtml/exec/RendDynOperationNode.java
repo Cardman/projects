@@ -1,5 +1,4 @@
 package code.formathtml.exec;
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -442,31 +441,6 @@ public abstract class RendDynOperationNode {
         _nodes.getValue(getOrder()).setArgument(_argument);
     }
 
-    public final void setSimpleArgument(Argument _argument, ExecutableCode _conf) {
-        setQuickSimpleArgument(_argument, _conf);
-        setNextSiblingsArg(_argument, _conf);
-    }
-
-    public final void setQuickSimpleArgument(Argument _argument, ExecutableCode _conf) {
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        argument = _argument;
-        RendPossibleIntermediateDotted n_ = getSiblingSet();
-        if (n_ != null) {
-            n_.setPreviousArgument(_argument);
-        }
-    }
-
-    Argument getPreviousArg(RendPossibleIntermediateDotted _inter, ExecutableCode _conf) {
-        Argument previous_;
-        if (_inter.isIntermediateDottedOperation()) {
-            previous_ = _inter.getPreviousArgument();
-        } else {
-            previous_ = _conf.getOperationPageEl().getGlobalArgument();
-        }
-        return previous_;
-    }
     public final ClassArgumentMatching getResultClass() {
         return resultClass;
     }

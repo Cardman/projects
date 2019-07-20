@@ -89,8 +89,4 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
         return previousArgument;
     }
 
-    @Override
-    public void setPreviousArgument(Argument _previousArgument) {
-        previousArgument = _previousArgument;
-    }
 }

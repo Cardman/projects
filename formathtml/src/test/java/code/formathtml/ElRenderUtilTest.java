@@ -6,13 +6,9 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.options.ContextFactory;
-import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
-import code.sml.DocumentResult;
 import org.junit.Test;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.Delimiters;
@@ -42,19 +38,6 @@ public final class ElRenderUtilTest {
     private static final String ARR_ARR_INTEGER = "[[java.lang.Integer";
     private static final String COMPOSITE = "code.expressionlanguage.classes.Composite";
     private static final String ALIAS_BEAN_ONE = "code.expressionlanguage.classes.BeanOne";
-    @Test
-    public void processSimpleTest() {
-        Configuration context_ = contextEl();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\">{i;}-<c:if condition=\"i;%2==0\">Pair</c:if> <c:else>Impair</c:else>-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
-        addImportingPage(context_);
-        rendDocumentBlock_.buildFctInstructions(context_);
-        context_.setException(null);
-        context_.clearPages();
-//        System.out.println(FormatHtml.getRes(rendDocumentBlock_,context_));
-//        addImportingPage(context_);
-
-    }
     @Test
     public void processEl1Test() {
         Configuration context_ = contextEl();

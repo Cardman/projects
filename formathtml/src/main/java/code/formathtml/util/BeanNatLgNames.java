@@ -85,17 +85,17 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         method_ = new StandardMethod(SET_LANGUAGE, params_, getAliasVoid(), false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_FORMS, params_, aliasStringMapObject, false, MethodModifier.NORMAL, std_);
+        method_ = new StandardMethod(GET_FORMS, params_, ALIAS_STRING_MAP_OBJECT, false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasStringMapObject);
+        params_ = new StringList(ALIAS_STRING_MAP_OBJECT);
         method_ = new StandardMethod(SET_FORMS, params_, getAliasVoid(), false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
         getStandards().put(BEAN, std_);
         fields_ = new StringMap<StandardField>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        std_ = new StandardClass(aliasStringMapObject, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
-        getStandards().put(aliasStringMapObject, std_);
+        std_ = new StandardClass(ALIAS_STRING_MAP_OBJECT, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
+        getStandards().put(ALIAS_STRING_MAP_OBJECT, std_);
         fields_ = new StringMap<StandardField>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
@@ -227,44 +227,26 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(display_,PARS));
         expsDisplay = ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
 
-
-
-//        String nextPair_ = getAliasNextPair();
-//        String hasNextPair_ = getAliasHasNextPair();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getCustMap()));
         _context.getInternVars().put(locName_, locVar_);
-        iteratorTableVarCust=(locName_);
+        iteratorTableVarCust= locName_;
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(ENTRIES,PARS));
-        expsIteratorTableCust=(ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true)));
-//        locName_ = context_.getNextTempVar();
-//        locVar_ = new LocalVariable();
-//        locVar_.setClassName(StringList.concat(getAliasSimpleIterableType()));
-//        _context.getInternVars().put(locName_, locVar_);
-//        hasNextPairVarCust=(locName_);
-//        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNextPair_,PARS));
-//        expsHasNextPairCust=(ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true)));
-//        locName_ = context_.getNextTempVar();
-//        locVar_ = new LocalVariable();
-//        locVar_.setClassName(StringList.concat(getAliasIteratorTableType(),"<?,?>"));
-//        _context.getInternVars().put(locName_, locVar_);
-//        nextPairVarCust=(locName_);
-//        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(nextPair_,PARS));
-//        expsNextPairCust=(ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true)));
+        expsIteratorTableCust= ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getCustEntry()));
         _context.getInternVars().put(locName_, locVar_);
-        firstVarCust=(locName_);
+        firstVarCust= locName_;
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(GET_KEY,PARS));
-        expsFirstCust=(ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true)));
+        expsFirstCust= ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getCustEntry()));
         _context.getInternVars().put(locName_, locVar_);
-        secondVarCust=(locName_);
+        secondVarCust= locName_;
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(GET_VALUE,PARS));
-        expsSecondCust=(ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true)));
+        expsSecondCust= ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
 
         _context.clearPages();
     }

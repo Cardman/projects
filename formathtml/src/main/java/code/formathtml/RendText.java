@@ -136,7 +136,7 @@ public final class RendText extends RendLeaf implements RendWithEl, RendReducabl
 //                        return EMPTY_STRING;
 //                    }
 //                }
-                _conf.getLastPage().setOffset(i_);
+//                _conf.getLastPage().setOffset(i_);
                 CustList<RendDynOperationNode> opsLoc_ = ElRenderUtil.getAnalyzedOperations(expression, _conf, i_, LEFT_EL, RIGHT_EL, Calculation.staticCalculation(st_));
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(opsLoc_.last().getResultClass());

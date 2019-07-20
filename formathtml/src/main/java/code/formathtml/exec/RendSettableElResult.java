@@ -13,19 +13,6 @@ public interface RendSettableElResult {
 
 
     void calculateSetting(
-            ExecutableCode _conf, Argument _right);
-
-    void calculateCompoundSetting(
-            ExecutableCode _conf, String _op, Argument _right);
-
-    void calculateSemiSetting(
-            ExecutableCode _conf, String _op, boolean _post);
-    Argument endCalculate(ExecutableCode _conf, Argument _right);
-
-    Argument endCalculate(ExecutableCode _conf, boolean _post, Argument _stored, Argument _right);
-
-
-    void calculateSetting(
             IdMap<RendDynOperationNode,ArgumentsPair> _nodes, Configuration _conf, Argument _right);
 
     void calculateCompoundSetting(

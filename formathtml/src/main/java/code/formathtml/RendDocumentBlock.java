@@ -22,10 +22,13 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
         elt = _elt;
     }
 
-    public final void buildFctInstructions(Configuration _cont) {
+    public void buildFctInstructions(Configuration _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
+        if (_cont.getBuiltBeans().contains(beanName)) {
+            page_.setGlobalClass(_cont.getBuiltBeans().getVal(beanName).getClassName(_cont));
+        }
         RendBlock firstChild_ = getFirstChild();
         StringMap<StringList> vars_ = _cont.getCurrentConstraints();
         Mapping mapping_ = new Mapping();

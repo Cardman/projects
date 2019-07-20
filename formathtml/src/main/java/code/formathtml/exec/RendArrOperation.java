@@ -57,39 +57,10 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         a_.setStruct(array_);
         return a_;
     }
-    Argument getArgument(int _maxIndexChildren, ExecutableCode _conf) {
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        Struct array_;
-        array_ = getPreviousArgument().getStruct();
-        Argument a_ = new Argument();
-        for (int i = CustList.FIRST_INDEX; i < _maxIndexChildren; i++) {
-            NumberStruct o_ = (NumberStruct)chidren_.get(i).getArgument().getStruct();
-            int indexEl_ = chidren_.get(i).getIndexInEl();
-            setRelativeOffsetPossibleLastPage(indexEl_, _conf);
-            array_ = ExecInvokingOperation.getElement(array_, o_, _conf);
-            if (_conf.getContextEl().hasException()) {
-                return a_;
-            }
-        }
-        a_.setStruct(array_);
-        return a_;
-    }
 
     @Override
     public boolean resultCanBeSet() {
         return variable;
-    }
-
-    @Override
-    public void calculateSetting(ExecutableCode _conf, Argument _right) {
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = getArgument();
-        RendDynOperationNode lastElement_ = chidren_.last();
-        Argument last_ = lastElement_.getArgument();
-        Struct array_;
-        array_ = getPreviousArgument().getStruct();
-        a_.setStruct(affectArray(array_, last_, lastElement_.getIndexInEl(), _right, _conf));
-        setSimpleArgument(a_, _conf);
     }
 
     @Override
@@ -105,21 +76,6 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
     }
 
     @Override
-    public void calculateCompoundSetting(ExecutableCode _conf, String _op,
-            Argument _right) {
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = getArgument();
-        Struct store_;
-        store_ = a_.getStruct();
-        RendDynOperationNode lastElement_ = chidren_.last();
-        Argument last_ = lastElement_.getArgument();
-        Struct array_;
-        array_ = getPreviousArgument().getStruct();
-        a_.setStruct(compoundAffectArray(array_, store_, last_, lastElement_.getIndexInEl(), _op, _right, _conf));
-        setSimpleArgument(a_, _conf);
-    }
-
-    @Override
     public void calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         Argument a_ = getArgument(_nodes,this);
@@ -131,21 +87,6 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         array_ = getPreviousArgument(_nodes,this).getStruct();
         a_.setStruct(compoundAffectArray(array_, store_, last_, lastElement_.getIndexInEl(), _op, _right, _conf));
         setSimpleArgument(a_, _conf,_nodes);
-    }
-
-    @Override
-    public void calculateSemiSetting(ExecutableCode _conf, String _op,
-            boolean _post) {
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = getArgument();
-        Struct store_;
-        store_ = a_.getStruct();
-        RendDynOperationNode lastElement_ = chidren_.last();
-        Argument last_ = lastElement_.getArgument();
-        Struct array_;
-        array_ = getPreviousArgument().getStruct();
-        a_.setStruct(semiAffectArray(array_, store_, last_, lastElement_.getIndexInEl(), _op, _post, _conf));
-        setSimpleArgument(a_, _conf);
     }
 
     @Override
@@ -194,25 +135,6 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         ExecInvokingOperation.setElement(_array, o_, res_.getStruct(), _conf);
         Argument out_ = RendSemiAffectationOperation.getPrePost(_post, left_, res_);
         return out_.getStruct();
-    }
-
-    @Override
-    public Argument endCalculate(ExecutableCode _conf, Argument _right) {
-        return endCalculate(_conf, false, null, _right);
-    }
-    @Override
-    public Argument endCalculate(ExecutableCode _conf, boolean _post,
-            Argument _stored, Argument _right) {
-        Struct array_;
-        array_ = getPreviousArgument().getStruct();
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
-        RendDynOperationNode lastElement_ = chidren_.last();
-        Argument index_ = lastElement_.getArgument();
-        ExecInvokingOperation.setElement(array_, (NumberStruct)index_.getStruct(), _right.getStruct(), _conf);
-        Argument out_ = RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
-        setSimpleArgument(out_, _conf);
-        return out_;
     }
 
     @Override

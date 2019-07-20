@@ -45,6 +45,7 @@ public abstract class RendBlock {
     static final String COMMA = ",";
     static final String SUBMIT_TYPE = "submit";
     static final String INPUT_TAG = "input";
+    static final String EMPTY_STRING = "";
 
     private static final String FOR_BLOCK_TAG = "for";
     private static final String WHILE_BLOCK_TAG = "while";
@@ -74,7 +75,6 @@ public abstract class RendBlock {
     private static final String TAG_DO = "do";
     private static final String IF_BLOCK_TAG = "if";
     private static final String ELSE_IF_BLOCK_TAG = "elseif";
-    protected static final String EMPTY_STRING = "";
 
     private RendParentBlock parent;
 
@@ -251,7 +251,10 @@ public abstract class RendBlock {
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,IMPORT_BLOCK_TAG))) {
             return new RendImport(elt_,new OffsetsBlock());
         }
-        return new RendSubmit(elt_,new OffsetsBlock());
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,SUBMIT_BLOCK_TAG))) {
+            return new RendSubmit(elt_,new OffsetsBlock());
+        }
+        return new RendStdElement(elt_,new OffsetsBlock());
     }
     private static OffsetStringInfo newOffsetStringInfo(Element _elt,String _key) {
         return new OffsetStringInfo(0,_elt.getAttribute(_key));

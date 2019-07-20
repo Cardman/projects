@@ -66,8 +66,4 @@ public abstract class RendAbstractFieldOperation extends RendLeafOperation imple
         return previousArgument;
     }
 
-    @Override
-    public final void setPreviousArgument(Argument _previousArgument) {
-        previousArgument = _previousArgument;
-    }
 }

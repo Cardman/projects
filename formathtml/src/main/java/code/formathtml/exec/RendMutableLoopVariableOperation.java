@@ -58,25 +58,9 @@ public final class RendMutableLoopVariableOperation extends RendLeafOperation im
     }
 
     @Override
-    public void calculateSetting(ExecutableCode _conf, Argument _right) {
-        Argument arg_ = getCommonSetting(_conf, _right);
-        setSimpleArgument(arg_, _conf);
-    }
-
-    @Override
     public void calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
         Argument arg_ = getCommonSetting(_conf, _right);
         setSimpleArgument(arg_, _conf,_nodes);
-    }
-
-    @Override
-    public void calculateCompoundSetting(ExecutableCode _conf, String _op,
-            Argument _right) {
-        Argument a_ = getArgument();
-        Struct store_;
-        store_ = a_.getStruct();
-        Argument arg_ = getCommonCompoundSetting(_conf, store_, _op, _right);
-        setSimpleArgument(arg_, _conf);
     }
 
     @Override
@@ -86,16 +70,6 @@ public final class RendMutableLoopVariableOperation extends RendLeafOperation im
         store_ = a_.getStruct();
         Argument arg_ = getCommonCompoundSetting(_conf, store_, _op, _right);
         setSimpleArgument(arg_, _conf,_nodes);
-    }
-
-    @Override
-    public void calculateSemiSetting(ExecutableCode _conf, String _op,
-            boolean _post) {
-        Argument a_ = getArgument();
-        Struct store_;
-        store_ = a_.getStruct();
-        Argument arg_ = getCommonSemiSetting(_conf, store_, _op, _post);
-        setSimpleArgument(arg_, _conf);
     }
 
     @Override
@@ -140,22 +114,6 @@ public final class RendMutableLoopVariableOperation extends RendLeafOperation im
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
         ExecMutableLoopVariableOperation.setVar(_conf,locVar_,res_);
         return RendSemiAffectationOperation.getPrePost(_post, left_, res_);
-    }
-
-    @Override
-    public Argument endCalculate(ExecutableCode _conf, Argument _right) {
-        return endCalculate(_conf, false, null, _right);
-    }
-    @Override
-    public Argument endCalculate(ExecutableCode _conf, boolean _post,
-            Argument _stored, Argument _right) {
-        PageEl ip_ = _conf.getOperationPageEl();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
-        LoopVariable locVar_ = ip_.getVars().getVal(variableName);
-        locVar_.setStruct(_right.getStruct());
-        Argument out_ = RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
-        setSimpleArgument(out_, _conf);
-        return out_;
     }
 
     @Override

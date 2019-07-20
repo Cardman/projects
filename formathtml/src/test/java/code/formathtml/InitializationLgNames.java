@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.formathtml.util.BeanCustLgNames;
 import org.junit.Assert;
 
 import code.expressionlanguage.ContextEl;
@@ -30,6 +31,14 @@ public final class InitializationLgNames {
     }
     public static ContextEl buildStdTwo(Options _opt) {
         BeanLgNames lgNames_ = new CustLgNames();
+        basicStandards(lgNames_);
+        lgNames_.setAliasMath("java.lang.$math");
+        ContextEl context_ = build(CustList.INDEX_NOT_FOUND_ELT,lgNames_, _opt);
+        Assert.assertTrue(context_.getClasses().isEmptyStdError());
+        return context_;
+    }
+    public static ContextEl buildStdThree(Options _opt) {
+        BeanLgNames lgNames_ = new BeanCustLgNames();
         basicStandards(lgNames_);
         lgNames_.setAliasMath("java.lang.$math");
         ContextEl context_ = build(CustList.INDEX_NOT_FOUND_ELT,lgNames_, _opt);

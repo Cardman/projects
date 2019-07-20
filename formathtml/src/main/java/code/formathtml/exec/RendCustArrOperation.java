@@ -66,29 +66,8 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     }
 
     @Override
-    public void calculateSetting(ExecutableCode _conf, Argument _right) {
-        processCalling(_conf, _right);
-    }
-
-    @Override
     public void calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
         processCalling(_nodes,_conf, _right);
-    }
-
-    @Override
-    public void calculateCompoundSetting(ExecutableCode _conf, String _op, Argument _right) {
-        Argument a_ = getArgument();
-        Struct store_;
-        store_ = a_.getStruct();
-        Argument left_ = new Argument();
-        left_.setStruct(store_);
-        ClassArgumentMatching clArg_ = getResultClass();
-        Argument res_;
-        res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, clArg_);
-        if (_conf.getContextEl().hasException()) {
-            return;
-        }
-        processCalling(_conf,res_);
     }
 
     @Override
@@ -108,19 +87,6 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     }
 
     @Override
-    public void calculateSemiSetting(ExecutableCode _conf, String _op, boolean _post) {
-        Argument a_ = getArgument();
-        Struct store_;
-        store_ = a_.getStruct();
-        Argument left_ = new Argument();
-        left_.setStruct(store_);
-        ClassArgumentMatching clArg_ = getResultClass();
-        Argument res_;
-        res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, clArg_);
-        processCalling(_conf,res_);
-    }
-
-    @Override
     public void calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post) {
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
@@ -131,16 +97,6 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         Argument res_;
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, clArg_);
         processCalling(_nodes,_conf,res_);
-    }
-
-    @Override
-    public Argument endCalculate(ExecutableCode _conf, Argument _right) {
-        return endCalculate(_conf,false,null,_right);
-    }
-
-    @Override
-    public Argument endCalculate(ExecutableCode _conf, boolean _post, Argument _stored, Argument _right) {
-        return processCalling(_conf,_right);
     }
 
     @Override
@@ -159,18 +115,6 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         Argument argres_ = getArgument(previous_, arguments_, _conf, _right);
         processCall(_nodes,_conf,argres_);
         return getArgument(_nodes,this);
-    }
-
-    private Argument processCalling(ExecutableCode _conf, Argument _right) {
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (RendDynOperationNode o: chidren_) {
-            arguments_.add(o.getArgument());
-        }
-        Argument previous_ = getPreviousArgument();
-        Argument argres_ = getArgument(previous_, arguments_, _conf, _right);
-        processCall(_conf,argres_);
-        return getArgument();
     }
 
     Argument getArgument(Argument _previous, CustList<Argument> _arguments, ExecutableCode _conf, Argument _right) {

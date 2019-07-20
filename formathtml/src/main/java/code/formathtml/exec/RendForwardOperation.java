@@ -16,11 +16,6 @@ public final class RendForwardOperation extends RendLeafOperation implements Ren
     }
 
     @Override
-    public void setPreviousArgument(Argument _argument) {
-        previousArgument = _argument;
-    }
-
-    @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
         setSimpleArgument(previous_, _conf,_nodes);

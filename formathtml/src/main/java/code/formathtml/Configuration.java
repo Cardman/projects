@@ -591,6 +591,9 @@ public class Configuration implements ExecutableCode {
 
     @Override
     public String getGlobalClass() {
+        if (importing.isEmpty()) {
+            return context.getGlobalClass();
+        }
         return getLastPage().getGlobalClass();
     }
 
@@ -606,11 +609,17 @@ public class Configuration implements ExecutableCode {
 
     @Override
     public String getCurrentFileName() {
+        if (importing.isEmpty()) {
+            return "";
+        }
         return getLastPage().getReadUrl();
     }
 
     @Override
     public LoopVariable getVar(String _var) {
+        if (importing.isEmpty()) {
+            return context.getVar(_var);
+        }
         return getLastPage().getVars().getVal(_var);
     }
 
@@ -816,11 +825,7 @@ public class Configuration implements ExecutableCode {
     }
 
     public boolean isInternGlobal() {
-        return getLastPage().isInternGlobal();
-    }
-
-    public void setInternGlobal(Struct _internGlobal) {
-        getLastPage().setInternGlobal(_internGlobal);
+        return !analyzingDoc.getInternGlobalClass().isEmpty();
     }
 
     @Override
@@ -1051,7 +1056,7 @@ public class Configuration implements ExecutableCode {
 
     @Override
     public int getCurrentLocationIndex() {
-        return getLastPage().getSum();
+        return 0;
     }
 
     @Override

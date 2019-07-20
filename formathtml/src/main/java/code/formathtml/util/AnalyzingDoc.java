@@ -11,6 +11,7 @@ public final class AnalyzingDoc {
     private String[] resourcesFolder;
 
     private RendBlock currentBlock;
+    private String internGlobalClass="";
 
     public void setFiles(StringMap<String> _files) {
         files = _files;
@@ -50,5 +51,13 @@ public final class AnalyzingDoc {
 
     public void setCurrentBlock(RendBlock _currentBlock) {
         currentBlock = _currentBlock;
+    }
+
+    public String getInternGlobalClass() {
+        return internGlobalClass;
+    }
+
+    public void setInternGlobalClass(String _internGlobalClass) {
+        internGlobalClass = _internGlobalClass;
     }
 }

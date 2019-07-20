@@ -398,10 +398,6 @@ public final class ImportingPage {
         return internGlobal;
     }
 
-    public boolean isInternGlobal() {
-        return internGlobal != null;
-    }
-
     public void setInternGlobal(Struct _internGlobal) {
         internGlobal = _internGlobal;
     }

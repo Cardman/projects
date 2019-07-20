@@ -24,22 +24,6 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
         previousArgument = _inter.getPreviousArgument();
     }
 
-    void processCall(ExecutableCode _conf, Argument _res) {
-        CustomFoundConstructor ctor_ = _conf.getContextEl().getCallCtor();
-        CustomFoundMethod method_ = _conf.getContextEl().getCallMethod();
-        CustomReflectMethod ref_ = _conf.getContextEl().getReflectMethod();
-        Argument res_;
-        if (ctor_ != null) {
-            res_ = ProcessMethod.instanceArgument(ctor_.getClassName(), ctor_.getCurrentObject(), ctor_.getId(), ctor_.getArguments(), _conf.getContextEl());
-        } else if (method_ != null) {
-            res_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(), method_.getId(), method_.getArguments(), _conf.getContextEl(),method_.getRight());
-        } else if (ref_ != null) {
-            res_ = ProcessMethod.reflectArgument(ref_.getGl(), ref_.getArguments(), _conf.getContextEl(), ref_.getReflect(), ref_.isLambda());
-        } else {
-            res_ = _res;
-        }
-        setSimpleArgument(res_, _conf);
-    }
     void processCall(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, Configuration _conf, Argument _res) {
         CustomFoundConstructor ctor_ = _conf.getContextEl().getCallCtor();
         CustomFoundMethod method_ = _conf.getContextEl().getCallMethod();
@@ -137,11 +121,6 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
     @Override
     public final Argument getPreviousArgument() {
         return previousArgument;
-    }
-
-    @Override
-    public final void setPreviousArgument(Argument _previousArgument) {
-        previousArgument = _previousArgument;
     }
 
 }

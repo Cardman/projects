@@ -336,6 +336,7 @@ public final class FormatHtml {
                         continue;
                     }
                     if (nThree_.hasAttribute(ATTRIBUTE_PREPARE_BEAN)) {
+                        _conf.getAnalyzingDoc().setInternGlobalClass(bean_.getClassName(_conf));
                         ip_.setInternGlobal(bean_);
                         ip_.setProcessingNode(nThree_);
                         ip_.setProcessingAttribute(ATTRIBUTE_PREPARE_BEAN);
@@ -343,6 +344,7 @@ public final class FormatHtml {
                         ip_.setLookForAttrValue(true);
                         String el_ = nThree_.getAttribute(ATTRIBUTE_PREPARE_BEAN);
                         ElRenderUtil.processEl(el_, 0, _conf);
+                        _conf.getAnalyzingDoc().setInternGlobalClass(EMPTY_STRING);
                         ip_.setInternGlobal(null);
                         if (_conf.getContext().getException() != null) {
                             return;
