@@ -80,7 +80,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
 //        newIp_.setPrefix(newElt_.getPrefix());
         RendReadWrite rwLoc_ = new RendReadWrite();
         Struct newBean_ = FormatHtml.getBean(_cont, beanName_);
-        ExtractObject.beforeDiplaying(_cont, newBean_, false);
+        beforeDisplaying(newBean_,_cont);
         if (_cont.getContext().getException() != null) {
             return;
         }

@@ -20,18 +20,23 @@ import code.util.ints.MathFactory;
 
 public abstract class BeanLgNames extends LgNames {
 
-    static final String VALIDATE = "validate";
-    static final String SET_FORMS = "setForms";
-    static final String GET_FORMS = "getForms";
-    static final String SET_LANGUAGE = "setLanguage";
-    static final String GET_LANGUAGE = "getLanguage";
-    static final String SET_SCOPE = "setScope";
-    static final String GET_SCOPE = "getScope";
-    static final String SET_DATA_BASE = "setDataBase";
-    static final String GET_DATA_BASE = "getDataBase";
-    static final String BEFORE_DISPLAYING = "beforeDisplaying";
     static final String ALIAS_STRING_MAP_OBJECT = "code.util.StringMapObject";
     static final String BEAN = "code.bean.Bean";
+    private static final String FORMS = "forms";
+    private static final String SET_FORMS = "setForms";
+    private static final String GET_FORMS = "getForms";
+    private static final String LANGUAGE = "language";
+    private static final String SET_LANGUAGE = "setLanguage";
+    private static final String GET_LANGUAGE = "getLanguage";
+    private static final String SCOPE = "scope";
+    private static final String SET_SCOPE = "setScope";
+    private static final String GET_SCOPE = "getScope";
+    private static final String DATA_BASE = "dataBase";
+    private static final String SET_DATA_BASE = "setDataBase";
+    private static final String GET_DATA_BASE = "getDataBase";
+    private static final String BEFORE_DISPLAYING = "beforeDisplaying";
+
+
     private static final int DEFAULT_RADIX = 10;
     private static final long MULTMIN_RADIX_TEN = Long.MIN_VALUE / DEFAULT_RADIX;
     private static final long N_MULTMAX_RADIX_TEN = -Long.MAX_VALUE / DEFAULT_RADIX;
@@ -43,6 +48,7 @@ public abstract class BeanLgNames extends LgNames {
     private String errorEl = "$badEl";
     private String aliasRate;
     private String aliasDataBase;
+    private String aliasDataBaseField=DATA_BASE;
 
     private final String custEntry = "$custentry";
     private final String custEntries = "$custentries";
@@ -57,6 +63,19 @@ public abstract class BeanLgNames extends LgNames {
     private String aliasGet;
     private String aliasSize;
     private String aliasSimpleIterator;
+    private String aliasForms=FORMS;
+    private String aliasSetForms=SET_FORMS;
+    private String aliasGetForms=GET_FORMS;
+    private String aliasLanguage=LANGUAGE;
+    private String aliasSetLanguage=SET_LANGUAGE;
+    private String aliasGetLanguage=GET_LANGUAGE;
+    private String aliasScope=SCOPE;
+    private String aliasSetScope=SET_SCOPE;
+    private String aliasGetScope=GET_SCOPE;
+    private String aliasSetDataBase=SET_DATA_BASE;
+    private String aliasGetDataBase=GET_DATA_BASE;
+    private String aliasBeforeDisplaying=BEFORE_DISPLAYING;
+    private String aliasBean = BEAN;
 
     private StringMap<String> iterables = new StringMap<String>();
 
@@ -211,6 +230,7 @@ public abstract class BeanLgNames extends LgNames {
 
     public abstract String getSecondVarCust();
 
+    public abstract String getBeforeDisplayingVar();
     public abstract CustList<RendDynOperationNode> getExpsIteratorTableCust();
 
     public abstract CustList<RendDynOperationNode> getExpsHasNextPairCust();
@@ -220,6 +240,7 @@ public abstract class BeanLgNames extends LgNames {
     public abstract CustList<RendDynOperationNode> getExpsFirstCust();
 
     public abstract CustList<RendDynOperationNode> getExpsSecondCust();
+    public abstract CustList<RendDynOperationNode> getExpsBeforeDisplaying();
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont,
             ConstructorId _method, Struct... _args) {
@@ -799,4 +820,114 @@ public abstract class BeanLgNames extends LgNames {
         aliasSimpleIterator = _aliasSimpleIterator;
     }
 
+    public String getAliasBean() {
+        return aliasBean;
+    }
+
+    public void setAliasBean(String _aliasBean) {
+        aliasBean = _aliasBean;
+    }
+
+    public String getAliasBeforeDisplaying() {
+        return aliasBeforeDisplaying;
+    }
+
+    public void setAliasBeforeDisplaying(String _aliasBeforeDisplaying) {
+        aliasBeforeDisplaying = _aliasBeforeDisplaying;
+    }
+
+    public String getAliasDataBaseField() {
+        return aliasDataBaseField;
+    }
+
+    public void setAliasDataBaseField(String _aliasDataBaseField) {
+        aliasDataBaseField = _aliasDataBaseField;
+    }
+
+    public String getAliasGetDataBase() {
+        return aliasGetDataBase;
+    }
+
+    public void setAliasGetDataBase(String _aliasGetDataBase) {
+        aliasGetDataBase = _aliasGetDataBase;
+    }
+
+    public String getAliasSetDataBase() {
+        return aliasSetDataBase;
+    }
+
+    public void setAliasSetDataBase(String _aliasSetDataBase) {
+        aliasSetDataBase = _aliasSetDataBase;
+    }
+
+    public String getAliasForms() {
+        return aliasForms;
+    }
+
+    public void setAliasForms(String _aliasForms) {
+        aliasForms = _aliasForms;
+    }
+
+    public String getAliasGetForms() {
+        return aliasGetForms;
+    }
+
+    public void setAliasGetForms(String _aliasGetForms) {
+        aliasGetForms = _aliasGetForms;
+    }
+
+    public String getAliasSetForms() {
+        return aliasSetForms;
+    }
+
+    public void setAliasSetForms(String _aliasSetForms) {
+        aliasSetForms = _aliasSetForms;
+    }
+
+    public String getAliasLanguage() {
+        return aliasLanguage;
+    }
+
+    public void setAliasLanguage(String _aliasLanguage) {
+        aliasLanguage = _aliasLanguage;
+    }
+    public String getAliasGetLanguage() {
+        return aliasGetLanguage;
+    }
+
+    public void setAliasGetLanguage(String _aliasGetLanguage) {
+        aliasGetLanguage = _aliasGetLanguage;
+    }
+
+    public String getAliasSetLanguage() {
+        return aliasSetLanguage;
+    }
+
+    public void setAliasSetLanguage(String _aliasSetLanguage) {
+        aliasSetLanguage = _aliasSetLanguage;
+    }
+
+    public String getAliasScope() {
+        return aliasScope;
+    }
+
+    public void setAliasScope(String _aliasScope) {
+        aliasScope = _aliasScope;
+    }
+
+    public String getAliasGetScope() {
+        return aliasGetScope;
+    }
+
+    public void setAliasGetScope(String _aliasGetScope) {
+        aliasGetScope = _aliasGetScope;
+    }
+
+    public String getAliasSetScope() {
+        return aliasSetScope;
+    }
+
+    public void setAliasSetScope(String _aliasSetScope) {
+        aliasSetScope = _aliasSetScope;
+    }
 }

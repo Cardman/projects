@@ -572,24 +572,6 @@ final class ExtractObject {
         return _vars.getVal(_candidate);
     }
 
-    static LocalVariable getCurrentLocVariable(Configuration _conf, int _offset,StringMap<LocalVariable> _vars, String _candidate) {
-        if (!_vars.contains(_candidate)) {
-            _conf.getLastPage().addToOffset(_offset);
-            UndefinedVariableError und_ = new UndefinedVariableError();
-            und_.setId(_candidate);
-            und_.setFileName(_conf.getCurrentFileName());
-            und_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getClasses().getErrorsDet().add(und_);
-            BadElRender badEl_ = new BadElRender();
-            badEl_.setErrors(_conf.getClasses().getErrorsDet());
-            badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
-            return new LocalVariable();
-        }
-        return _vars.getVal(_candidate);
-    }
-
     static String formatMessage(Configuration _conf,String _loc, ImportingPage _ip, Element _element, StringMap<String> _files, String... _resourcesFolder) {
         String value_ = _element.getAttribute(ATTRIBUTE_VALUE);
         if (!_conf.noPages()) {

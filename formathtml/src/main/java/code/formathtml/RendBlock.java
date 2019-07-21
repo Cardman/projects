@@ -5,6 +5,9 @@ import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.util.BeanLgNames;
@@ -350,6 +353,22 @@ public abstract class RendBlock {
         _cont.getLastPage().getInternVars().put(locName_, locVar_);
         return ElRenderUtil.calculateReuse(stds_.getExpsNext(),_cont);
     }
+    protected static void beforeDisplaying(Struct _arg,Configuration _cont) {
+        if (_arg == null || _arg == NullStruct.NULL_VALUE) {
+            return;
+        }
+        BeanLgNames stds_ = _cont.getAdvStandards();
+        String clName_ = stds_.getStructClassName(_arg, _cont.getContext());
+        if (!Templates.isCorrectExecute(clName_,stds_.getAliasBean(),_cont)) {
+            return;
+        }
+        String locName_ = stds_.getBeforeDisplayingVar();
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(clName_);
+        locVar_.setStruct(_arg);
+        _cont.getLastPage().getInternVars().put(locName_, locVar_);
+        ElRenderUtil.calculateReuse(stds_.getExpsBeforeDisplaying(),_cont);
+    }
     public static CustList<RendBlock> getDirectChildren(RendBlock _block) {
         CustList<RendBlock> l_ = new CustList<RendBlock>();
         RendBlock child_ = _block.getFirstChild();
@@ -415,7 +434,7 @@ public abstract class RendBlock {
         } else {
             RendParentBlock n_ = _bl.getParent();
             //n_ != null because strictly in class
-            if (_ip.hasBlock() && !(n_ instanceof RendDocumentBlock)) {
+            if (_ip.hasBlock()) {
                 parElt_ =  new RendParentElement(n_);
             } else {
                 //directly at the root => last element in the block root

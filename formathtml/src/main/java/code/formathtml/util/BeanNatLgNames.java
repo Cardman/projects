@@ -23,7 +23,16 @@ import code.util.*;
 import code.util.ints.*;
 
 public abstract class BeanNatLgNames extends BeanLgNames {
-
+    private static final String VALIDATE = "validate";
+    private static final String SET_FORMS = "setForms";
+    private static final String GET_FORMS = "getForms";
+    private static final String SET_LANGUAGE = "setLanguage";
+    private static final String GET_LANGUAGE = "getLanguage";
+    private static final String SET_SCOPE = "setScope";
+    private static final String GET_SCOPE = "getScope";
+    private static final String SET_DATA_BASE = "setDataBase";
+    private static final String GET_DATA_BASE = "getDataBase";
+    private static final String BEFORE_DISPLAYING = "beforeDisplaying";
     private static final String GET_INDEXES = "getIndexes";
     private static final String GET_OLD_VALUE = "getOldValue";
     private static final String GET_NEW_VALUE = "getNewValue";
@@ -45,10 +54,12 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     private String iteratorTableVarCust;
     private String firstVarCust;
     private String secondVarCust;
+    private String beforeDisplayingVar;
 
     private CustList<RendDynOperationNode> expsIteratorTableCust;
     private CustList<RendDynOperationNode> expsFirstCust;
     private CustList<RendDynOperationNode> expsSecondCust;
+    private CustList<RendDynOperationNode> expsBeforeDisplaying;
 
 
     public void buildBeans() {
@@ -247,6 +258,15 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(GET_VALUE,PARS));
         expsSecondCust= ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
 
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasBean()));
+        _context.getInternVars().put(locName_, locVar_);
+        beforeDisplayingVar = locName_;
+        String beforeDisplaying_ = getAliasBeforeDisplaying();
+        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(beforeDisplaying_,PARS));
+        expsBeforeDisplaying= ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+
         _context.clearPages();
     }
     @Override
@@ -320,6 +340,10 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         return secondVarCust;
     }
 
+    public String getBeforeDisplayingVar() {
+        return beforeDisplayingVar;
+    }
+
     public CustList<RendDynOperationNode> getExpsIteratorTableCust() {
         return expsIteratorTableCust;
     }
@@ -339,6 +363,11 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     public CustList<RendDynOperationNode> getExpsSecondCust() {
         return expsSecondCust;
     }
+
+    public CustList<RendDynOperationNode> getExpsBeforeDisplaying() {
+        return expsBeforeDisplaying;
+    }
+
     public String processString(Argument _arg, Configuration _cont) {
         Struct struct_ = _arg.getStruct();
         if (struct_ instanceof DisplayableStruct) {

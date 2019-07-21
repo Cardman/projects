@@ -4,15 +4,18 @@ import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
+import code.expressionlanguage.variables.VariableSuffix;
 import code.formathtml.Configuration;
 import code.formathtml.ElRenderUtil;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendDynOperationNode;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.StringMap;
 
 public final class BeanCustLgNames extends BeanLgNames {
 
@@ -27,6 +30,7 @@ public final class BeanCustLgNames extends BeanLgNames {
     private String nextPairVarCust;
     private String firstVarCust;
     private String secondVarCust;
+    private String beforeDisplayingVar;
 
     private CustList<RendDynOperationNode> expsIterator;
     private CustList<RendDynOperationNode> expsHasNext;
@@ -36,6 +40,7 @@ public final class BeanCustLgNames extends BeanLgNames {
     private CustList<RendDynOperationNode> expsNextPairCust;
     private CustList<RendDynOperationNode> expsFirstCust;
     private CustList<RendDynOperationNode> expsSecondCust;
+    private CustList<RendDynOperationNode> expsBeforeDisplaying;
     @Override
     public void buildOther() {
 
@@ -111,9 +116,86 @@ public final class BeanCustLgNames extends BeanLgNames {
         String second_ = getAliasGetSecond();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(second_,PARS));
         expsSecondCust= ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
-        
+
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasBean()));
+        _context.getInternVars().put(locName_, locVar_);
+        beforeDisplayingVar = locName_;
+        String beforeDisplaying_ = getAliasBeforeDisplaying();
+        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(beforeDisplaying_,PARS));
+        expsBeforeDisplaying= ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+
         _context.clearPages();
     }
+
+    @Override
+    public StringMap<String> buildFiles(ContextEl _context) {
+        StringMap<String> files_ = super.buildFiles(_context);
+        KeyWords keyWords_ = _context.getKeyWords();
+        String public_ = keyWords_.getKeyWordPublic();
+        String private_ = keyWords_.getKeyWordPrivate();
+        String interface_ = keyWords_.getKeyWordInterface();
+        String class_ = keyWords_.getKeyWordClass();
+        String return_ = keyWords_.getKeyWordReturn();
+        String abstract_ = keyWords_.getKeyWordAbstract();
+        String endLine_ = String.valueOf(_context.getOptions().getEndLine());
+        String suffix_ = String.valueOf(_context.getOptions().getSuffix());
+        String suffixParam_ = "";
+        if (_context.getOptions().getSuffixVar() == VariableSuffix.DISTINCT) {
+            suffixParam_ = StringList.concat(suffix_,".",suffix_);
+        } else if (_context.getOptions().getSuffixVar() != VariableSuffix.NONE) {
+            suffixParam_ = suffix_;
+        }
+        StringBuilder file_ = new StringBuilder();
+        file_.append(public_).append(" ").append(class_).append(" ").append(getAliasBean()).append("{");
+        String string_ = getAliasString();
+        String language_ = getAliasLanguage();
+        String scope_ = getAliasScope();
+        String dataBase_ = getAliasDataBaseField();
+        String this_ = keyWords_.getKeyWordThis();
+        String object_ = getAliasObject();
+        String forms_ = getAliasForms();
+        file_.append(" ").append(private_).append(" ").append(string_).append(" ").append(language_).append(endLine_);
+        file_.append(" ").append(private_).append(" ").append(string_).append(" ").append(scope_).append(endLine_);
+        file_.append(" ").append(private_).append(" ").append(object_).append(" ").append(dataBase_).append(endLine_);
+        file_.append(" ").append(private_).append(" ").append(ALIAS_STRING_MAP_OBJECT).append(" ").append(forms_).append(endLine_);
+        file_.append(" ").append(public_).append(" ").append(getAliasVoid()).append(" ").append(getAliasBeforeDisplaying()).append("(){");
+        file_.append(" ").append("}");
+        file_.append(" ").append(public_).append(" ").append(string_).append(" ").append(getAliasGetLanguage()).append("(){");
+        file_.append("  ").append(return_).append(" ").append(language_).append(endLine_);
+        file_.append(" ").append("}");
+        file_.append(" ").append(public_).append(" ").append(getAliasVoid()).append(" ").append(getAliasSetLanguage()).append("(").append(string_).append(" language").append(")").append("{");
+        file_.append("  ").append(this_).append(".").append(language_).append("=language").append(suffixParam_).append(endLine_);
+        file_.append(" ").append("}");
+        file_.append(" ").append(public_).append(" ").append(string_).append(" ").append(getAliasGetScope()).append("(){");
+        file_.append("  ").append(return_).append(" ").append(scope_).append(endLine_);
+        file_.append(" ").append("}");
+        file_.append(" ").append(public_).append(" ").append(getAliasVoid()).append(" ").append(getAliasSetScope()).append("(").append(string_).append(" scope").append(")").append("{");
+        file_.append("  ").append(this_).append(".").append(scope_).append("=scope").append(suffixParam_).append(endLine_);
+        file_.append(" ").append("}");
+        file_.append(" ").append(public_).append(" ").append(object_).append(" ").append(getAliasGetDataBase()).append("(){");
+        file_.append("  ").append(return_).append(" ").append(dataBase_).append(endLine_);
+        file_.append(" ").append("}");
+        file_.append(" ").append(public_).append(" ").append(getAliasVoid()).append(" ").append(getAliasSetDataBase()).append("(").append(object_).append(" dataBase").append(")").append("{");
+        file_.append("  ").append(this_).append(".").append(dataBase_).append("=dataBase").append(suffixParam_).append(endLine_);
+        file_.append(" ").append("}");
+        file_.append(" ").append(public_).append(" ").append(ALIAS_STRING_MAP_OBJECT).append(" ").append(getAliasGetForms()).append("(){");
+        file_.append("  ").append(return_).append(" ").append(forms_).append(endLine_);
+        file_.append(" ").append("}");
+        file_.append(" ").append(public_).append(" ").append(getAliasVoid()).append(" ").append(getAliasSetForms()).append("(").append(ALIAS_STRING_MAP_OBJECT).append(" forms").append(")").append("{");
+        file_.append("  ").append(this_).append(".").append(forms_).append("=forms").append(suffixParam_).append(endLine_);
+        file_.append(" ").append("}");
+        file_.append("}");
+        files_.put(getAliasBean(), file_.toString());
+        getPredefinedInterfacesInitOrder().add(getAliasBean());
+        file_ = new StringBuilder();
+        file_.append(public_).append(" ").append(class_).append(" ").append(ALIAS_STRING_MAP_OBJECT).append("{}");
+        files_.put(ALIAS_STRING_MAP_OBJECT, file_.toString());
+        getPredefinedInterfacesInitOrder().add(ALIAS_STRING_MAP_OBJECT);
+        return files_;
+    }
+
     public String getIteratorVar() {
         return iteratorVar;
     }
@@ -153,6 +235,10 @@ public final class BeanCustLgNames extends BeanLgNames {
         return secondVarCust;
     }
 
+    public String getBeforeDisplayingVar() {
+        return beforeDisplayingVar;
+    }
+
     public CustList<RendDynOperationNode> getExpsIteratorTableCust() {
         return expsIteratorTableCust;
     }
@@ -171,6 +257,10 @@ public final class BeanCustLgNames extends BeanLgNames {
 
     public CustList<RendDynOperationNode> getExpsSecondCust() {
         return expsSecondCust;
+    }
+
+    public CustList<RendDynOperationNode> getExpsBeforeDisplaying() {
+        return expsBeforeDisplaying;
     }
 
     public String processString(Argument _arg, Configuration _cont) {
