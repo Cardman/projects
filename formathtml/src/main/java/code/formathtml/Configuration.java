@@ -876,7 +876,7 @@ public class Configuration implements ExecutableCode {
 
     @Override
     public String resolveAccessibleIdTypeWithoutError(String _in) {
-        return resolveDynamicType(_in, null);
+        return resolveDynamicTypeEmpty(_in, null);
     }
     @Override
     public String resolveCorrectType(String _in) {
@@ -893,7 +893,7 @@ public class Configuration implements ExecutableCode {
 
     @Override
     public String resolveCorrectTypeWithoutErrors(String _in, boolean _exact) {
-        return resolveDynamicType(_in, null);
+        return resolveDynamicTypeEmpty(_in, null);
     }
 
     @Override
@@ -921,6 +921,17 @@ public class Configuration implements ExecutableCode {
         return res_;
     }
 
+    public String resolveDynamicTypeEmpty(String _in, RootBlock _file) {
+        String res_ = PartTypeUtil.processExec(_in, context);
+        if (res_.isEmpty()) {
+            String defPkg_ = standards.getDefaultPkg();
+            String type_ = ContextEl.removeDottedSpaces(StringList.concat(defPkg_,".",_in));
+            if (standards.getStandards().contains(type_)) {
+                return type_;
+            }
+        }
+        return res_;
+    }
     @Override
     public AnalyzedPageEl getAnalyzing() {
         return context.getAnalyzing();
