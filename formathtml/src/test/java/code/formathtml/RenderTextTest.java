@@ -113,6 +113,26 @@ public final class RenderTextTest extends CommonRender {
         assertNull(conf_.getException());
     }
     @Test
+    public void process6Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body>{$new $int[]\\{0,1\\}.length}</body></html>";
+        Configuration conf_ = contextElThird(new StringMap<String>());
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertEq("<html><body>2</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
+    }
+    @Test
     public void process1FailTest() {
         String folder_ = "messages";
         String relative_ = "sample/file";

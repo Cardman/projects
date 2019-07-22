@@ -262,6 +262,15 @@ public abstract class RendBlock {
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,SUBMIT_BLOCK_TAG))) {
             return new RendSubmit(elt_,new OffsetsBlock());
         }
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,PACKAGE_BLOCK_TAG))) {
+            return new RendPackage(newOffsetStringInfo(elt_,ATTRIBUTE_NAME),new OffsetsBlock());
+        }
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,CLASS_BLOCK_TAG))) {
+            return new RendClass(newOffsetStringInfo(elt_,ATTRIBUTE_NAME),new OffsetsBlock());
+        }
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,FIELD_BLOCK_TAG))) {
+            return new RendField(newOffsetStringInfo(elt_,ATTRIBUTE_PREPARE_BEAN),new OffsetsBlock());
+        }
         return new RendStdElement(elt_,new OffsetsBlock());
     }
     private static OffsetStringInfo newOffsetStringInfo(Element _elt,String _key) {

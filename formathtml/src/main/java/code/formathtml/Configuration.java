@@ -1109,14 +1109,8 @@ public final class Configuration implements ExecutableCode {
                 int afterSuper_ = i_ + keyWordIntern_.length();
                 String trim_ = _string.substring(afterSuper_).trim();
                 if (trim_.startsWith(".")) {
-                    while (true) {
-                        if (_string.charAt(afterSuper_) == '.') {
-                            //_string.charAt(afterSuper_) != EXTERN_CLASS && !foundHat_
-                            break;
-                        }
-                        afterSuper_++;
-                    }
-                    i_ = afterSuper_;
+                    //_string.charAt(afterSuper_) != EXTERN_CLASS && !foundHat_
+                    i_ = _string.indexOf('.',afterSuper_);
                     _out.setNextIndex(i_);
                 }
             }

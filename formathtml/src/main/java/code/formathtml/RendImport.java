@@ -1,12 +1,15 @@
 package code.formathtml;
 
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.*;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.Node;
+import code.util.CustList;
 import code.util.StringMap;
 
 public final class RendImport extends RendParentBlock implements RendWithEl, RendReducableOperations,RendBuildableElMethod {
@@ -42,9 +45,6 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
         }
         AnalyzingDoc analyzingDoc_ = _cont.getAnalyzingDoc();
         String lg_ = analyzingDoc_.getLanguage();
-//        StringMap<String> files_ = analyzingDoc_.getFiles();
-//        String[] resourcesFolder_ = analyzingDoc_.getResourcesFolder();
-
         String pageName_ = elt.getAttribute(PAGE_ATTRIBUTE);
         if (pageName_.isEmpty()) {
             processBlock(_cont);
@@ -68,14 +68,6 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
             processBlock(_cont);
             return;
         }
-//        BeanElement newElt_ = FormatHtml.tryToOpenDocument(lg_,elt, ip_, _cont, files_, resourcesFolder_);
-//        if (_cont.getContext().getException() != null) {
-//            return;
-//        }
-//        if (newElt_ == null) {
-//            processBlock(_cont);
-//            return;
-//        }
         String beanName_ = val_.getBeanName();
         ImportingPage newIp_ = new ImportingPage(false);
         newIp_.setTabWidth(_cont.getTabWidth());
@@ -85,9 +77,33 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
 //        newIp_.setProcessingNode(newElt_.getRoot().getFirstChild());
 //        newIp_.setReadUrl(newElt_.getUrl());
         newIp_.setBeanName(beanName_);
-//        newIp_.setPrefix(newElt_.getPrefix());
         RendReadWrite rwLoc_ = new RendReadWrite();
         Struct newBean_ = FormatHtml.getBean(_cont, beanName_);
+        if (newBean_ != null) {
+            String className_ = newBean_.getClassName(_cont);
+            for (RendBlock p: getDirectChildren(this)) {
+                for (RendBlock c: getDirectChildren(p)) {
+                    if (!(c instanceof RendClass)) {
+                        continue;
+                    }
+                    RendClass cl_ = (RendClass) c;
+                    if (!Templates.isCorrectExecute(className_,cl_.getFullName(),_cont)) {
+                        continue;
+                    }
+                    for (RendBlock f: getDirectChildren(c)) {
+                        if (f instanceof RendField) {
+                            CustList<RendDynOperationNode> exps_ = ((RendField) f).getExps();
+                            ip_.setInternGlobal(newBean_);
+                            ElRenderUtil.calculateReuse(exps_,_cont);
+                            if (_cont.getContext().getException() != null) {
+                                return;
+                            }
+                            ip_.setInternGlobal(null);
+                        }
+                    }
+                }
+            }
+        }
         beforeDisplaying(newBean_,_cont);
         if (_cont.getContext().getException() != null) {
             return;
