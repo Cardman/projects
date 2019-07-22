@@ -15,6 +15,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
     private boolean staticContext;
     private Element elt;
     private String beanName;
+    private CustList<RendBlock> bodies = new CustList<RendBlock>();
     RendDocumentBlock(Element _elt, OffsetsBlock _offset) {
         super(_offset);
         beanName = _elt.getAttribute("bean");
@@ -47,6 +48,11 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
         }
         while (true) {
             _cont.getAnalyzingDoc().setCurrentBlock(en_);
+            if (en_ instanceof RendStdElement) {
+                if (StringList.quickEq(((RendStdElement)en_).getRead().getTagName(),BODY_TAG)) {
+                    bodies.add(en_);
+                }
+            }
             if (en_ instanceof RendParentBlock && en_.getFirstChild() == null) {
                 OffsetsBlock off_ = en_.getOffset();
                 RendEmptyInstruction empty_ = new RendEmptyInstruction(off_);
@@ -178,5 +184,9 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
 
     public String getBeanName() {
         return beanName;
+    }
+
+    public CustList<RendBlock> getBodies() {
+        return bodies;
     }
 }

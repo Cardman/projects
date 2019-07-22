@@ -60,6 +60,14 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
             processBlock(_cont);
             return;
         }
+        if (val_.getBodies().size() != 1) {
+            processBlock(_cont);
+            return;
+        }
+        if (val_.getBodies().first().getFirstChild() == null) {
+            processBlock(_cont);
+            return;
+        }
 //        BeanElement newElt_ = FormatHtml.tryToOpenDocument(lg_,elt, ip_, _cont, files_, resourcesFolder_);
 //        if (_cont.getContext().getException() != null) {
 //            return;
@@ -86,9 +94,9 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
         }
         rwLoc_.setDocument(rw_.getDocument());
         rwLoc_.setWrite(write_);
-        rwLoc_.setRead(val_.getFirstChild());
+        rwLoc_.setRead(val_.getBodies().first().getFirstChild());
         newIp_.setRendReadWrite(rwLoc_);
-        if (newBean_ != null && newBean_ != NullStruct.NULL_VALUE) {
+        if (newBean_ != null) {
             newIp_.setGlobalArgumentStruct(newBean_, _cont);
         }
         RendIfStack if_ = new RendIfStack();

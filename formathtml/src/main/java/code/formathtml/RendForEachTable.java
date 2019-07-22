@@ -400,7 +400,6 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         l_.setStructIterator(iterStr_);
         l_.setMaxIteration(length_);
         ip_.addBlock(l_);
-        l_.setEvaluatingKeepLoop(true);
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         LoopVariable lv_ = new LoopVariable();
         lv_.setIndex(-1);
@@ -455,7 +454,6 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
         RendBlock forLoopLoc_ = l_.getBlock();
         rw_.setRead(forLoopLoc_);
-        l_.setEvaluatingKeepLoop(true);
         Boolean has_ = iteratorHasNext(_conf);
         if (has_ == null) {
             return;
@@ -465,7 +463,6 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             incrementLoop(_conf, l_, vars_);
         } else {
             l_.setFinished(true);
-            l_.setEvaluatingKeepLoop(false);
         }
     }
     public void incrementLoop(Configuration _conf, RendLoopBlockStack _l,

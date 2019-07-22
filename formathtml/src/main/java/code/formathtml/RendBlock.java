@@ -51,6 +51,7 @@ public abstract class RendBlock {
     static final String CALL_METHOD = "$";
     static final String COMMA = ",";
     static final String SUBMIT_TYPE = "submit";
+    static final String BODY_TAG = "body";
     static final String INPUT_TAG = "input";
     static final String EMPTY_STRING = "";
 
@@ -199,7 +200,7 @@ public abstract class RendBlock {
             if (previousSibling_ instanceof Text && previousSibling_.getTextContent().trim().isEmpty()) {
                 previousSibling_ = previousSibling_.getPreviousSibling();
             }
-            if (previousSibling_ instanceof Element && StringList.quickEq(((Element) previousSibling_).getTagName(),TAG_DO)) {
+            if (previousSibling_ instanceof Element && StringList.quickEq(((Element) previousSibling_).getTagName(),StringList.concat(_prefix,TAG_DO))) {
                 return new RendDoWhileCondition(newOffsetStringInfo(elt_,ATTRIBUTE_CONDITION),new OffsetsBlock());
             }
             return new RendWhileCondition(newOffsetStringInfo(elt_,ATTRIBUTE_CONDITION),newOffsetStringInfo(elt_,ATTRIBUTE_LABEL),new OffsetsBlock());
@@ -354,7 +355,7 @@ public abstract class RendBlock {
         return ElRenderUtil.calculateReuse(stds_.getExpsNext(),_cont);
     }
     protected static void beforeDisplaying(Struct _arg,Configuration _cont) {
-        if (_arg == null || _arg == NullStruct.NULL_VALUE) {
+        if (_arg == null) {
             return;
         }
         BeanLgNames stds_ = _cont.getAdvStandards();

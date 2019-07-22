@@ -15,7 +15,6 @@ public final class RendDoWhileCondition extends RendCondition {
         ImportingPage ip_ = _cont.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
-        l_.setEvaluatingKeepLoop(true);
         rw_.setRead(this);
 //        _cont.getLastPage().setGlobalOffset(getOffset().getOffsetTrim());
         _cont.getLastPage().setOffset(0);
@@ -26,7 +25,6 @@ public final class RendDoWhileCondition extends RendCondition {
         if (!keep_) {
             l_.setFinished(true);
         }
-        l_.setEvaluatingKeepLoop(false);
         rw_.setRead(getPreviousSibling());
     }
 }

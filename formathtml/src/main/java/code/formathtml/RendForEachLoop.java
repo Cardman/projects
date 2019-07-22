@@ -318,7 +318,6 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         l_.setStructIterator(iterStr_);
         l_.setMaxIteration(length_);
         ip_.addBlock(l_);
-        l_.setEvaluatingKeepLoop(true);
         LoopVariable lv_ = new LoopVariable();
         lv_.setIndex(-1);
         lv_.setClassName(importedClassName);
@@ -367,7 +366,6 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
         RendBlock forLoopLoc_ = l_.getBlock();
         rw_.setRead(forLoopLoc_);
-        l_.setEvaluatingKeepLoop(true);
         boolean hasNext_;
         if (l_.getStructIterator() != null) {
             Boolean has_ = iteratorHasNext(_conf);
@@ -383,7 +381,6 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             incrementLoop(_conf, l_, vars_);
         } else {
             l_.setFinished(true);
-            l_.setEvaluatingKeepLoop(false);
         }
     }
 
@@ -430,7 +427,6 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         }
         lv_.setStruct(element_);
         lv_.setIndex(lv_.getIndex() + 1);
-        _l.setEvaluatingKeepLoop(false);
         abs_.getRendReadWrite().setRead(getFirstChild());
     }
 }

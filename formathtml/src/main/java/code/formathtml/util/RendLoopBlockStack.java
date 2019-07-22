@@ -6,8 +6,6 @@ import code.formathtml.RendParentBlock;
 
 public final class RendLoopBlockStack extends LoopStack implements RendRemovableVars {
 
-    private boolean evaluatingKeepLoop;
-
     private RendParentBlock block;
 
     @Override
@@ -22,14 +20,6 @@ public final class RendLoopBlockStack extends LoopStack implements RendRemovable
     public void removeVarAndLoop(ImportingPage _ip) {
         block.removeLocalVars(_ip);
         block.removeVarAndLoop(_ip);
-    }
-
-    public boolean isEvaluatingKeepLoop() {
-        return evaluatingKeepLoop;
-    }
-
-    public void setEvaluatingKeepLoop(boolean _evaluatingKeepLoop) {
-        evaluatingKeepLoop = _evaluatingKeepLoop;
     }
 
     @Override

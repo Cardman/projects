@@ -34,16 +34,8 @@ public final class RendWhileCondition extends RendCondition implements RendLoop 
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendLoopBlockStack c_ = ip_.getLastLoopIfPossible();
         if (c_ != null && c_.getBlock() == this) {
-            if (c_.isEvaluatingKeepLoop()) {
-                processLastElementLoop(_cont);
-                return;
-            }
-            if (c_.isFinished()) {
-                removeVarAndLoop(ip_);
-                processBlock(_cont);
-                return;
-            }
-            rw_.setRead(getFirstChild());
+            removeVarAndLoop(ip_);
+            processBlock(_cont);
             return;
         }
         Boolean res_ = evaluateCondition(_cont);
@@ -73,7 +65,6 @@ public final class RendWhileCondition extends RendCondition implements RendLoop 
         ImportingPage ip_ = _conf.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
-        l_.setEvaluatingKeepLoop(true);
         RendBlock forLoopLoc_ = l_.getBlock();
         rw_.setRead(forLoopLoc_);
         Boolean keep_ = keepLoop(_conf);
@@ -82,8 +73,9 @@ public final class RendWhileCondition extends RendCondition implements RendLoop 
         }
         if (!keep_) {
             l_.setFinished(true);
+        } else {
+            rw_.setRead(forLoopLoc_.getFirstChild());
         }
-        l_.setEvaluatingKeepLoop(false);
     }
 
     public Boolean keepLoop(Configuration _conf) {

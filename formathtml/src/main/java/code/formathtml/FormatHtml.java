@@ -369,7 +369,7 @@ public final class FormatHtml {
 //        ip_.setBeanName(_beanName);
         ip_.setPrefix(_conf.getPrefix());
 //        Element r_ = _docOrig.getDocumentElement();
-        if (bean_ != null && bean_ != NullStruct.NULL_VALUE) {
+        if (bean_ != null) {
             ip_.setGlobalArgumentStruct(bean_, _conf);
         }
         _conf.addPage(ip_);
@@ -392,6 +392,9 @@ public final class FormatHtml {
             }
             processTags(_conf);
             if (_conf.getContext().hasExceptionOrFailInit()) {
+                _conf.getRendLocalThrowing().removeBlockFinally(_conf);
+            }
+            if (_conf.getContext().hasExceptionOrFailInit()) {
                 break;
             }
         }
@@ -404,20 +407,11 @@ public final class FormatHtml {
             if (_context.getImporting().isEmpty()) {
                 return null;
             }
-            if(processException(_context)) {
-                return true;
-            }
-            return null;
+            return true;
         }
         return false;
     }
-    static boolean processException(Configuration _context) {
-        if (_context.getException() != null) {
-            _context.getRendLocalThrowing().removeBlockFinally(_context);
-            return _context.getException() == null;
-        }
-        return true;
-    }
+
     static void processTags(Configuration _context) {
         ImportingPage ip_ = _context.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
