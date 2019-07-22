@@ -8484,6 +8484,34 @@ public final class ElRenderUtilTest {
         assertNotNull(conf_.getException());
     }
     @Test
+    public void processEl448Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append(" $public $static Ex<String> inst=$new Ex<>():\n");
+        xml_.append(" $static{\n");
+        xml_.append("  ExThree.inst++:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int res(#T v){\n");
+        xml_.append("  $return ($int)inst+($int)v;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return 5:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Configuration conf_ = getConfiguration(files_);
+        processEl("pkg.Ex.$this", conf_);
+        assertNotNull(conf_.getException());
+    }
+    @Test
     public void procesAffect00Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);

@@ -26,7 +26,9 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
+        _cont.setStaticContext(true);
         if (_cont.getBuiltBeans().contains(beanName)) {
+            _cont.setStaticContext(false);
             page_.setGlobalClass(_cont.getBuiltBeans().getVal(beanName).getClassName(_cont));
         }
         RendBlock firstChild_ = getFirstChild();

@@ -3,7 +3,6 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.PageEl;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.ThisOperation;
 import code.expressionlanguage.structs.Struct;
@@ -13,13 +12,11 @@ import code.util.IdMap;
 public final class RendThisOperation extends RendLeafOperation implements RendCalculableOperation,RendPossibleIntermediateDotted {
 
     private boolean intermediate;
-    private int nbAncestors;
     private int off;
 
     public RendThisOperation(ThisOperation _t) {
         super(_t);
         intermediate = _t.isIntermediate();
-        nbAncestors = _t.getNbAncestors();
         off = _t.getOff();
     }
 
@@ -35,10 +32,6 @@ public final class RendThisOperation extends RendLeafOperation implements RendCa
         Struct struct_ = ip_.getGlobalArgument().getStruct();
         Argument a_ = new Argument();
         a_.setStruct(struct_);
-        if (isIntermediateDottedOperation()) {
-            String c_ = getResultClass().getName();
-            a_.setStruct(PrimitiveTypeUtil.getParent(nbAncestors, c_, a_.getStruct(), _conf));
-        }
         return a_;
     }
 

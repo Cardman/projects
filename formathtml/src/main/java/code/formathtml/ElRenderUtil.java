@@ -319,6 +319,16 @@ public final class ElRenderUtil {
 
     private static void processAnalyze(Configuration _context, OperationNode _current) {
         if (!(_current instanceof AbstractInvokingConstructor)) {
+            if (_current instanceof ThisOperation) {
+                if (((ThisOperation)_current).isIntermediateDottedOperation()) {
+                    BadOperandsNumber badNb_ = new BadOperandsNumber();
+                    badNb_.setFileName(_context.getCurrentFileName());
+                    badNb_.setOperandsNumber(0);
+                    badNb_.setIndexFile(_context.getCurrentLocationIndex());
+                    _context.getClasses().addError(badNb_);
+                    return;
+                }
+            }
             _current.analyze(_context);
         } else {
             BadOperandsNumber badNb_ = new BadOperandsNumber();

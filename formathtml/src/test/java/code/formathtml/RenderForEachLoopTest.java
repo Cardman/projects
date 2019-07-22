@@ -2,6 +2,9 @@ package code.formathtml;
 
 import code.bean.Bean;
 import code.bean.translator.Translator;
+import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.Initializer;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.MyTranslator;
 import code.formathtml.util.BeanStruct;
@@ -190,6 +193,43 @@ public final class RenderForEachLoopTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertEq("<html/>",FormatHtml.getRes(rendDocumentBlock_,context_));
+    }
+    @Test
+    public void process8Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html bean=\"bean_one\"><body><ul><c:for var=\"s\" list=\"array\" className='$int'><li>{s;}</li></c:for></ul></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $int[] array:");
+        file_.append(" $public $void beforeDisplaying(){");
+        file_.append("  array={1,2}:");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        Configuration context_ = contextElThird(filesSec_);
+        context_.setBeans(new StringMap<Bean>());
+        addImportingPage(context_);
+        Struct bean_ = ElRenderUtil.processEl("$new pkg.BeanOne()", 0, context_).getStruct();
+        context_.getBuiltBeans().put("bean_one",bean_);
+        context_.setMessagesFolder(folder_);
+        context_.setProperties(new StringMap<String>());
+        context_.getProperties().put("msg_example", relative_);
+        context_.setTranslators(new StringMap<Translator>());
+        context_.getTranslators().put("trans", new MyTranslator());
+        context_.clearPages();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_);
+        context_.getContext().setAnalyzing(new AnalyzedPageEl());
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html bean=\"bean_one\"><body><ul><li>1</li><li>2</li></ul></body></html>",FormatHtml.getRes(rendDocumentBlock_, context_));
     }
     private static String getCustomList() {
         StringBuilder xml_ = new StringBuilder();

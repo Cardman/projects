@@ -48,7 +48,7 @@ import code.util.StringMap;
 import code.util.StringMapObject;
 import code.util.ints.MathFactory;
 
-public class Configuration implements ExecutableCode {
+public final class Configuration implements ExecutableCode {
     private static final String INSTANCE = "$new ";
 
     private static final String NO_PARAM = "()";
@@ -129,7 +129,7 @@ public class Configuration implements ExecutableCode {
         context.setMerged(_merged);
     }
 
-    public final void init() {
+    public void init() {
         htmlPage = new HtmlPage();
         document = null;
         currentUrl = firstUrl;
@@ -151,14 +151,16 @@ public class Configuration implements ExecutableCode {
         renderFiles.add(firstUrl);
     }
 
-    public final void setupClasses(StringMap<String> _files) {
-        String conf_ = getFilesConfName();
-        if (conf_ == null) {
+    public void setupClasses(StringMap<String> _files) {
+        if (!(standards instanceof BeanCustLgNames)) {
             setupValiatorsTranslators();
             return;
         }
+        String conf_ = getFilesConfName();
+        if (conf_ == null) {
+            return;
+        }
         if (context == null) {
-            setupValiatorsTranslators();
             return;
         }
         StringList content_ = new StringList();
@@ -169,7 +171,6 @@ public class Configuration implements ExecutableCode {
             }
         }
         if (content_.isEmpty()) {
-            setupValiatorsTranslators();
             return;
         }
         StringMap<String> classFiles_ = new StringMap<String>();
@@ -182,28 +183,8 @@ public class Configuration implements ExecutableCode {
             }
         }
         //!classFiles_.isEmpty()
-        StringList duplicates_;
-        duplicates_ = new StringList();
-        duplicates_.addAllElts(getLateValidators().getKeys());
-        duplicates_.addAllElts(getValidators().getKeys());
-        int len_ = duplicates_.size();
-        duplicates_.removeDuplicates();
-        if (len_ != duplicates_.size()) {
-            setupValiatorsTranslators();
-            return;
-        }
-        duplicates_.clear();
-        duplicates_.addAllElts(getLateTranslators().getKeys());
-        duplicates_.addAllElts(getTranslators().getKeys());
-        len_ = duplicates_.size();
-        duplicates_.removeDuplicates();
-        if (len_ != duplicates_.size()) {
-            setupValiatorsTranslators();
-            return;
-        }
         Classes.validateAll(classFiles_, context);
         if (!context.getClasses().getErrorsDet().isEmpty()) {
-            setupValiatorsTranslators();
             return;
         }
         StringList types_ = new StringList();
@@ -218,7 +199,6 @@ public class Configuration implements ExecutableCode {
         }
         for (String s: types_) {
             if (!context.getClasses().isCustomType(s)) {
-                setupValiatorsTranslators();
                 return;
             }
         }
@@ -366,7 +346,7 @@ public class Configuration implements ExecutableCode {
         return strBean_;
     }
 
-    final void setSepPrefix(String _prefix) {
+    void setSepPrefix(String _prefix) {
         prefix = StringList.concat(_prefix,SEP);
     }
 
@@ -427,19 +407,19 @@ public class Configuration implements ExecutableCode {
         messagesFolder = _messagesFolder;
     }
 
-    public final HtmlPage getHtmlPage() {
+    public HtmlPage getHtmlPage() {
         return htmlPage;
     }
 
-    public final void setHtmlPage(HtmlPage _htmlPage) {
+    public void setHtmlPage(HtmlPage _htmlPage) {
         htmlPage = _htmlPage;
     }
 
-    public final MathFactory getMathFactory() {
+    public MathFactory getMathFactory() {
         return mathFactory;
     }
 
-    public final void setMathFactory(MathFactory _mathFactory) {
+    public void setMathFactory(MathFactory _mathFactory) {
         mathFactory = _mathFactory;
     }
 
@@ -451,70 +431,70 @@ public class Configuration implements ExecutableCode {
         tabWidth = _tabWidth;
     }
 
-    public final Document getDocument() {
+    public Document getDocument() {
         return document;
     }
 
-    public final void setDocument(Document _document) {
+    public void setDocument(Document _document) {
         document = _document;
     }
 
 
-    public final String joinPages() {
+    public String joinPages() {
         StringList l_ = new StringList();
         for (ImportingPage p: importing) {
             l_.add(p.getInfos(this));
         }
         return StringList.join(l_, RETURN_LINE);
     }
-    public final boolean noPages() {
+    public boolean noPages() {
         return importing.isEmpty();
     }
-    public final void clearPages() {
+    public void clearPages() {
         importing.clear();
     }
-    public final void addPage(ImportingPage _page) {
+    public void addPage(ImportingPage _page) {
         importing.add(_page);
     }
-    public final ImportingPage getLastPage() {
+    public ImportingPage getLastPage() {
         return importing.last();
     }
-    public final void removeLastPage() {
+    public void removeLastPage() {
         importing.removeLast();
     }
-    public final CustList<ImportingPage> getImporting() {
+    public CustList<ImportingPage> getImporting() {
         return importing;
     }
 
-    public final String getCurrentUrl() {
+    public String getCurrentUrl() {
         return currentUrl;
     }
 
-    public final void setCurrentUrl(String _currentUrl) {
+    public void setCurrentUrl(String _currentUrl) {
         currentUrl = _currentUrl;
     }
 
-    public final String getHtml() {
+    public String getHtml() {
         return html;
     }
 
-    public final void setHtml(String _html) {
+    public void setHtml(String _html) {
         html = _html;
     }
 
-    public final String getResourceUrl() {
+    public String getResourceUrl() {
         return resourceUrl;
     }
 
-    public final void setResourceUrl(String _resourceUrl) {
+    public void setResourceUrl(String _resourceUrl) {
         resourceUrl = _resourceUrl;
     }
 
-    public final String getPrefix() {
+    public String getPrefix() {
         return prefix;
     }
 
-    public final void setPrefix(String _prefix) {
+    public void setPrefix(String _prefix) {
         prefix = _prefix;
     }
 
@@ -582,14 +562,14 @@ public class Configuration implements ExecutableCode {
         return getContext().getClassBody(_type);
     }
     @Override
-    public final LgNames getStandards() {
+    public LgNames getStandards() {
         return getAdvStandards();
     }
 
-    public final BeanLgNames getAdvStandards() {
+    public BeanLgNames getAdvStandards() {
         return standards;
     }
-    public final void setStandards(BeanLgNames _standards) {
+    public void setStandards(BeanLgNames _standards) {
         standards = _standards;
     }
 

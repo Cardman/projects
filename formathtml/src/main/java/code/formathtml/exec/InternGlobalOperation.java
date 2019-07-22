@@ -29,11 +29,7 @@ public final class InternGlobalOperation extends LeafOperation {
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        LgNames stds_ = _conf.getStandards();
         String arg_ = ((Configuration)_conf).getInternGlobalClass();
-        if (arg_ == null) {
-            arg_ = stds_.getAliasObject();
-        }
         if (_conf.isStaticContext()) {
             StaticAccessThisError static_ = new StaticAccessThisError();
             static_.setClassName(arg_);
