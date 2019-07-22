@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import static code.formathtml.EquallableExUtil.assertEq;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public final class RenderForEachTableTest extends CommonRender {
@@ -54,6 +55,7 @@ public final class RenderForEachTableTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html xmlns:c=\"javahtml\" bean=\"bean_one\"><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
     }
     @Test
     public void process2Test() {
@@ -79,6 +81,7 @@ public final class RenderForEachTableTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>",FormatHtml.getRes(rendDocumentBlock_,context_));
+        assertNull(context_.getException());
     }
     @Test
     public void process3Test() {
@@ -164,6 +167,215 @@ public final class RenderForEachTableTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html xmlns:c=\"javahtml\" bean=\"bean_one\"><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
+    }
+
+    @Test
+    public void process6Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html bean=\"bean_one\"><body><table><c:for key=\"k\" value=\"v\" map=\"tree\"><c:for key=\"l\" value=\"w\" map=\"tree\"><tr><td>{k;}</td><td>{v;}</td><td>{l;}</td><td>{w;}</td></tr></c:for></c:for></table></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        BeanOne bean_ = new BeanOne();
+        bean_.getComposite().getStrings().add("FIRST");
+        bean_.getComposite().getStrings().add("SECOND");
+        bean_.getComposite().setInteger(5);
+        bean_.getTree().put("ONE", 1);
+        bean_.getTree().put("TWO", 2);
+        Configuration conf_ = contextElSec();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.getBeans().put("bean_one", bean_);
+        conf_.getBuiltBeans().put("bean_one",new BeanStruct(bean_));
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        conf_.setHtml(html_);
+        conf_.setDocument(doc_);
+
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertEq("<html bean=\"bean_one\"><body><table><tr><td>ONE</td><td>1</td><td>ONE</td><td>1</td></tr><tr><td>ONE</td><td>1</td><td>TWO</td><td>2</td></tr><tr><td>TWO</td><td>2</td><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td><td>TWO</td><td>2</td></tr></table></body></html>", FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
+    }
+    @Test
+    public void process7Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPairFailFirst());
+        Configuration context_ = contextElThird(files_);
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("<html><body><table>");
+        xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;()\"/>");
+        xml_.append("<c:set value=\"inst;.add(1,1)\"/>");
+        xml_.append("<c:for key=\"k\" keyClassName=\"$int\" value=\"v\" varClassName=\"$int\" map=\"inst;.\">");
+        xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
+        xml_.append("</c:for>");
+        xml_.append("</table></body></html>");
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        FormatHtml.getRes(rendDocumentBlock_, context_);
+        assertNotNull(context_.getException());
+    }
+    @Test
+    public void process8Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPairFailSecond());
+        Configuration context_ = contextElThird(files_);
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("<html><body><table>");
+        xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;()\"/>");
+        xml_.append("<c:set value=\"inst;.add(1,1)\"/>");
+        xml_.append("<c:for key=\"k\" keyClassName=\"$int\" value=\"v\" varClassName=\"$int\" map=\"inst;.\">");
+        xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
+        xml_.append("</c:for>");
+        xml_.append("</table></body></html>");
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        FormatHtml.getRes(rendDocumentBlock_, context_);
+        assertNotNull(context_.getException());
+    }
+    @Test
+    public void process9Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTableFailHas());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration context_ = contextElThird(files_);
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("<html><body><table>");
+        xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;()\"/>");
+        xml_.append("<c:set value=\"inst;.add(1,1)\"/>");
+        xml_.append("<c:for key=\"k\" keyClassName=\"$int\" value=\"v\" varClassName=\"$int\" map=\"inst;.\">");
+        xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
+        xml_.append("</c:for>");
+        xml_.append("</table></body></html>");
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        FormatHtml.getRes(rendDocumentBlock_, context_);
+        assertNotNull(context_.getException());
+    }
+    @Test
+    public void process10Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTableFailNext());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration context_ = contextElThird(files_);
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("<html><body><table>");
+        xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;()\"/>");
+        xml_.append("<c:set value=\"inst;.add(1,1)\"/>");
+        xml_.append("<c:for key=\"k\" keyClassName=\"$int\" value=\"v\" varClassName=\"$int\" map=\"inst;.\">");
+        xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
+        xml_.append("</c:for>");
+        xml_.append("</table></body></html>");
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        FormatHtml.getRes(rendDocumentBlock_, context_);
+        assertNotNull(context_.getException());
+    }
+    @Test
+    public void process11Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTableFail());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration context_ = contextElThird(files_);
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("<html><body><table>");
+        xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;()\"/>");
+        xml_.append("<c:set value=\"inst;.add(1,1)\"/>");
+        xml_.append("<c:for key=\"k\" keyClassName=\"$int\" value=\"v\" varClassName=\"$int\" map=\"inst;.\">");
+        xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
+        xml_.append("</c:for>");
+        xml_.append("</table></body></html>");
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        FormatHtml.getRes(rendDocumentBlock_, context_);
+        assertNotNull(context_.getException());
+    }
+    @Test
+    public void process12Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration context_ = contextElThird(files_);
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("<html><body><table>");
+        xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;\" value=\"inst\"/>");
+        xml_.append("<c:for key=\"k\" keyClassName=\"$int\" value=\"v\" varClassName=\"$int\" map=\"inst;.\">");
+        xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
+        xml_.append("</c:for>");
+        xml_.append("</table></body></html>");
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        FormatHtml.getRes(rendDocumentBlock_, context_);
+        assertNotNull(context_.getException());
+    }
+    @Test
+    public void process13Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTableFailBis());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration context_ = contextElThird(files_);
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("<html><body><table>");
+        xml_.append("<c:for key=\"k\" keyClassName=\"$int\" value=\"v\" varClassName=\"$int\" map=\"$new pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;()\">");
+        xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
+        xml_.append("</c:for>");
+        xml_.append("</table></body></html>");
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        FormatHtml.getRes(rendDocumentBlock_, context_);
+        assertNotNull(context_.getException());
     }
     private static String getCustomPair() {
         StringBuilder xml_ = new StringBuilder();
@@ -188,11 +400,111 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("}\n");
         return xml_.toString();
     }
+    private static String getCustomPairFailFirst() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.CustPair<U,V> :$pair<U,V>{\n");
+        xml_.append(" $private U first:\n");
+        xml_.append(" $private V second:\n");
+        xml_.append(" $public CustPair(){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public CustPair(U f,V s){\n");
+        xml_.append("  first = f;.;:\n");
+        xml_.append("  second = s;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public U getFirst(){\n");
+        xml_.append("  $int i = 1/0:\n");
+        xml_.append("  $return first:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public V getSecond(){\n");
+        xml_.append("  $return second:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void setFirst(U f){\n");
+        xml_.append("  first = f;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        return xml_.toString();
+    }
+    private static String getCustomPairFailSecond() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.CustPair<U,V> :$pair<U,V>{\n");
+        xml_.append(" $private U first:\n");
+        xml_.append(" $private V second:\n");
+        xml_.append(" $public CustPair(){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public CustPair(U f,V s){\n");
+        xml_.append("  first = f;.;:\n");
+        xml_.append("  second = s;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public U getFirst(){\n");
+        xml_.append("  $return first:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public V getSecond(){\n");
+        xml_.append("  $int i = 1/0:\n");
+        xml_.append("  $return second:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void setFirst(U f){\n");
+        xml_.append("  first = f;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        return xml_.toString();
+    }
     private static String getCustomTable() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.CustTable<U,V> :$iterableTable<U,V>{\n");
         xml_.append(" $private CustList<CustPair<U,V>> list:\n");
         xml_.append(" $public (){\n");
+        xml_.append("  list=$new CustList<CustPair<U,V>>():\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void add(U f,V s){\n");
+        xml_.append("  list.add($new CustPair<U,V>(f;.;,s;.;)):\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void add(CustPair<U,V> p){\n");
+        xml_.append("  list.add(p;.;):\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int size(){\n");
+        xml_.append("  $return list.size():\n");
+        xml_.append(" }\n");
+        xml_.append(" $public CustPair<U,V> get($int index){\n");
+        xml_.append("  $return list.get(index;.;):\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $iteratorTable<U,V> iteratorTable(){\n");
+        xml_.append("  $return $new CustIterTable<U,V>($this):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        return xml_.toString();
+    }
+    private static String getCustomTableFail() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.CustTable<U,V> :$iterableTable<U,V>{\n");
+        xml_.append(" $private CustList<CustPair<U,V>> list:\n");
+        xml_.append(" $public (){\n");
+        xml_.append("  list=$new CustList<CustPair<U,V>>():\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void add(U f,V s){\n");
+        xml_.append("  list.add($new CustPair<U,V>(f;.;,s;.;)):\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void add(CustPair<U,V> p){\n");
+        xml_.append("  list.add(p;.;):\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int size(){\n");
+        xml_.append("  $return list.size():\n");
+        xml_.append(" }\n");
+        xml_.append(" $public CustPair<U,V> get($int index){\n");
+        xml_.append("  $return list.get(index;.;):\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $iteratorTable<U,V> iteratorTable(){\n");
+        xml_.append("  $int i = 1/0:\n");
+        xml_.append("  $return $new CustIterTable<U,V>($this):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        return xml_.toString();
+    }
+    private static String getCustomTableFailBis() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.CustTable<U,V> :$iterableTable<U,V>{\n");
+        xml_.append(" $private CustList<CustPair<U,V>> list:\n");
+        xml_.append(" $public (){\n");
+        xml_.append("  $int i = 1/0:\n");
         xml_.append("  list=$new CustList<CustPair<U,V>>():\n");
         xml_.append(" }\n");
         xml_.append(" $public $void add(U f,V s){\n");
@@ -230,6 +542,48 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append(" $public $boolean hasNextPair(){\n");
         xml_.append("  $return index;;;<length;;;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        return xml_.toString();
+    }
+    private static String getCustomIteratorTableFailNext() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.CustIterTable<U,V> :$iteratorTable<U,V>{\n");
+        xml_.append(" $private CustTable<U,V> list:\n");
+        xml_.append(" $private $int length:\n");
+        xml_.append(" $private $int index:\n");
+        xml_.append(" $public CustIterTable(CustTable<U,V> i){\n");
+        xml_.append("  list;;;=i;.;:\n");
+        xml_.append("  length;;;=list;;;size():\n");
+        xml_.append(" }\n");
+        xml_.append(" $public CustPair<U,V> nextPair(){\n");
+        xml_.append("  CustPair<U,V> out=list;;;get(index;;;):\n");
+        xml_.append("  index;;;/=0:\n");
+        xml_.append("  $return out;.:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $boolean hasNextPair(){\n");
+        xml_.append("  $return index;;;<length;;;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        return xml_.toString();
+    }
+    private static String getCustomIteratorTableFailHas() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.CustIterTable<U,V> :$iteratorTable<U,V>{\n");
+        xml_.append(" $private CustTable<U,V> list:\n");
+        xml_.append(" $private $int length:\n");
+        xml_.append(" $private $int index:\n");
+        xml_.append(" $public CustIterTable(CustTable<U,V> i){\n");
+        xml_.append("  list;;;=i;.;:\n");
+        xml_.append("  length;;;=list;;;size():\n");
+        xml_.append(" }\n");
+        xml_.append(" $public CustPair<U,V> nextPair(){\n");
+        xml_.append("  CustPair<U,V> out=list;;;get(index;;;):\n");
+        xml_.append("  index;;;++:\n");
+        xml_.append("  $return out;.:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $boolean hasNextPair(){\n");
+        xml_.append("  $return index;;;/0<length;;;:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         return xml_.toString();

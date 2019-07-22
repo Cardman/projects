@@ -8,6 +8,8 @@ import code.util.StringMap;
 import org.junit.Test;
 
 import static code.formathtml.EquallableExUtil.assertEq;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class RenderDoWhileTest extends CommonRender {
@@ -29,6 +31,7 @@ public class RenderDoWhileTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>0<br/>1<br/>2<br/></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
     }
     @Test
     public void process2Test() {
@@ -48,5 +51,26 @@ public class RenderDoWhileTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>0<br/></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
+    }
+    @Test
+    public void process3Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:set className='$var' value='i=0'/><c:do>{i;.}<br/><c:set value='i;.++'/></c:do><c:while condition='i;.&gt;=2/0'/></body></html>";
+        Configuration conf_ = contextElSec();
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        FormatHtml.getRes(rendDocumentBlock_,conf_);
+        assertNotNull(conf_.getException());
     }
 }

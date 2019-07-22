@@ -9,6 +9,8 @@ import code.util.StringMap;
 import org.junit.Test;
 
 import static code.formathtml.EquallableExUtil.assertEq;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public final class RenderForIterativeLoopTest extends CommonRender {
@@ -35,6 +37,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>0 - 0<br/>1 - 1<br/>2 - 2<br/></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
     }
     @Test
     public void process2Test() {
@@ -59,6 +62,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>0 - 0<br/>2 - 1<br/></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
     }
     @Test
     public void process3Test() {
@@ -83,6 +87,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>0 - 0<br/>1 - 1<br/>2 - 2<br/></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
     }
     @Test
     public void process4Test() {
@@ -107,6 +112,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>0 - 0<br/>2 - 1<br/></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
     }
     @Test
     public void process5Test() {
@@ -131,6 +137,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>2 - 0<br/>1 - 1<br/>0 - 2<br/></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
     }
     @Test
     public void process6Test() {
@@ -155,6 +162,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>2 - 0<br/>0 - 1<br/></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
     }
     @Test
     public void process7Test() {
@@ -179,6 +187,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>2 - 0<br/>1 - 1<br/>0 - 2<br/></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
     }
     @Test
     public void process8Test() {
@@ -203,6 +212,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>2 - 0<br/>0 - 1<br/></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
     }
     @Test
     public void process9Test() {
@@ -227,6 +237,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>0 - 0<br/>1 - 1<br/></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
     }
     @Test
     public void process10Test() {
@@ -251,6 +262,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>0 - 0<br/></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
     }
     @Test
     public void process11Test() {
@@ -275,6 +287,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>0 - 0<br/>1 - 1<br/></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
     }
     @Test
     public void process12Test() {
@@ -299,6 +312,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>0 - 0<br/></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
     }
     @Test
     public void process13Test() {
@@ -323,6 +337,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>2 - 0<br/>1 - 1<br/></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
     }
     @Test
     public void process14Test() {
@@ -347,6 +362,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>2 - 0<br/></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
     }
     @Test
     public void process15Test() {
@@ -371,6 +387,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>2 - 0<br/>1 - 1<br/></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
     }
     @Test
     public void process16Test() {
@@ -395,6 +412,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>2 - 0<br/></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
     }
     @Test
     public void process17Test() {
@@ -419,5 +437,181 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body/></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
+    }
+    @Test
+    public void process18Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html><body><c:for className=\"$int\" var=\"k\" from=\"0\" to=\"2\" step=\"1\">{k;} - {k;;} - <c:for className=\"$int\" var=\"l\" from=\"0\" to=\"2\" step=\"1\">{l;} - {l;;} -<br/></c:for>+<br/></c:for></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        Configuration conf_ = contextElSec();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertEq("<html><body>0 - 0 - 0 - 0 -<br/>1 - 1 -<br/>+<br/>1 - 1 - 0 - 0 -<br/>1 - 1 -<br/>+<br/></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
+    }
+    @Test
+    public void process19Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html><body><c:for className=\"$int\" var=\"k\" from=\"0/0\" to=\"2\" step=\"0\">{k;} - {k;;}<br/></c:for></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        Configuration conf_ = contextElSec();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        FormatHtml.getRes(rendDocumentBlock_,conf_);
+        assertNotNull(conf_.getException());
+    }
+    @Test
+    public void process20Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html><body><c:for className=\"$int\" var=\"k\" from=\"0\" to=\"2/0\" step=\"1\">{k;} - {k;;}<br/></c:for></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        Configuration conf_ = contextElSec();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        FormatHtml.getRes(rendDocumentBlock_,conf_);
+        assertNotNull(conf_.getException());
+    }
+    @Test
+    public void process21Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html><body><c:for className=\"$int\" var=\"k\" from=\"0\" to=\"2\" step=\"1/0\">{k;} - {k;;}<br/></c:for></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        Configuration conf_ = contextElSec();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        FormatHtml.getRes(rendDocumentBlock_,conf_);
+        assertNotNull(conf_.getException());
+    }
+    @Test
+    public void process22Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html><body><c:set className='java.lang.Integer' value='v'/><c:for className=\"java.lang.Integer\" var=\"k\" from=\"v;.\" to=\"2\" step=\"0\">{k;} - {k;;}<br/></c:for></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        Configuration conf_ = contextElSec();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        FormatHtml.getRes(rendDocumentBlock_,conf_);
+        assertNotNull(conf_.getException());
+    }
+    @Test
+    public void process23Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html><body><c:set className='java.lang.Integer' value='v'/><c:for className=\"java.lang.Integer\" var=\"k\" from=\"0\" to=\"v;.\" step=\"1\">{k;} - {k;;}<br/></c:for></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        Configuration conf_ = contextElSec();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        FormatHtml.getRes(rendDocumentBlock_,conf_);
+        assertNotNull(conf_.getException());
+    }
+    @Test
+    public void process24Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html><body><c:set className='java.lang.Integer' value='v'/><c:for className=\"java.lang.Integer\" var=\"k\" from=\"0\" to=\"2\" step=\"v;.\">{k;} - {k;;}<br/></c:for></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        Configuration conf_ = contextElSec();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        FormatHtml.getRes(rendDocumentBlock_,conf_);
+        assertNotNull(conf_.getException());
     }
 }
