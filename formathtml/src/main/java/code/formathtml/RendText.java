@@ -52,22 +52,33 @@ public final class RendText extends RendLeaf implements RendWithEl, RendReducabl
         int i_ = CustList.FIRST_INDEX;
         while (i_ < length_) {
             char cur_ = expression.charAt(i_);
+            if (escaped_) {
+                if (cur_ == QUOTE) {
+                    if (i_ < length_ - 1) {
+                        if (expression.charAt(i_ + 1) == QUOTE) {
+                            str_.append(QUOTE);
+                            i_++;
+                            i_++;
+                            continue;
+                        }
+                    }
+                    escaped_ = false;
+                } else {
+                    str_.append(cur_);
+                }
+                i_++;
+                continue;
+            }
             if (cur_ == QUOTE) {
-                escaped_ = !escaped_;
                 if (i_ < length_ - 1) {
                     if (expression.charAt(i_ + 1) == QUOTE) {
                         str_.append(QUOTE);
                         i_++;
                         i_++;
-                        escaped_ = false;
                         continue;
                     }
                 }
-                i_++;
-                continue;
-            }
-            if (escaped_) {
-                str_.append(cur_);
+                escaped_ = true;
                 i_++;
                 continue;
             }
@@ -143,7 +154,7 @@ public final class RendText extends RendLeaf implements RendWithEl, RendReducabl
                 continue;
             }
             if (cur_ == RIGHT_EL){
-                _conf.getLastPage().setOffset(i_);
+//                _conf.getLastPage().setOffset(i_);
                 BadElRender badEl_ = new BadElRender();
                 badEl_.setErrors(_conf.getClasses().getErrorsDet());
                 badEl_.setFileName(_conf.getCurrentFileName());

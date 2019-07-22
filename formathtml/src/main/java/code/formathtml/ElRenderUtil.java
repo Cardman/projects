@@ -95,6 +95,8 @@ public final class ElRenderUtil {
             String argClName_ = _conf.getStandards().getAliasObject();
             e_.setResultClass(new ClassArgumentMatching(argClName_));
             e_.setOrder(0);
+            int end_ = d_.getIndexEnd();
+            _conf.setNextIndex(end_+2);
             return new CustList<RendDynOperationNode>((RendDynOperationNode)RendDynOperationNode.createExecOperationNode(e_));
         }
         int beg_ = d_.getIndexBegin();
@@ -411,22 +413,18 @@ public final class ElRenderUtil {
         if (i_ < len_) {
             KeyWords keyWords_ = _conf.getKeyWords();
             String keyWordIntern_ = keyWords_.getKeyWordIntern();
-            int firstPrintChar_ = i_;
             int lastPrintChar_ = len_ - 1;
-            while (lastPrintChar_ >= 0) {
-                if (!Character.isWhitespace(_string.charAt(lastPrintChar_))) {
-                    break;
-                }
+            while (Character.isWhitespace(_string.charAt(lastPrintChar_))) {
                 lastPrintChar_--;
             }
             len_ = lastPrintChar_+1;
-            String sub_ = _string.substring(firstPrintChar_, len_);
+            String sub_ = _string.substring(i_, len_);
             if (_conf.isInternGlobal()) {
                 if (StringList.quickEq(sub_, keyWordIntern_)) {
                     OperationsSequence op_ = new OperationsSequence();
                     op_.setConstType(ConstType.WORD);
                     op_.setOperators(new IntTreeMap< String>());
-                    op_.setValue(_string, firstPrintChar_);
+                    op_.setValue(_string, i_);
                     op_.setDelimiter(_d);
                     return op_;
                 }

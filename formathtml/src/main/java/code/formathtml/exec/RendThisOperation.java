@@ -9,14 +9,12 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.util.IdMap;
 
-public final class RendThisOperation extends RendLeafOperation implements RendCalculableOperation,RendPossibleIntermediateDotted {
+public final class RendThisOperation extends RendLeafOperation implements RendCalculableOperation {
 
-    private boolean intermediate;
     private int off;
 
     public RendThisOperation(ThisOperation _t) {
         super(_t);
-        intermediate = _t.isIntermediate();
         off = _t.getOff();
     }
 
@@ -33,16 +31,6 @@ public final class RendThisOperation extends RendLeafOperation implements RendCa
         Argument a_ = new Argument();
         a_.setStruct(struct_);
         return a_;
-    }
-
-    @Override
-    public boolean isIntermediateDottedOperation() {
-        return intermediate;
-    }
-
-    @Override
-    public Argument getPreviousArgument() {
-        return null;
     }
 
 }
