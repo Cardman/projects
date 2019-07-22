@@ -23,7 +23,7 @@ public abstract class RendBlock {
     static final String ATTRIBUTE_VALUE = "value";
     static final String ATTRIBUTE_ESCAPED_EAMP = "escapedamp";
     static final String ATTRIBUTE_CLASS_NAME = "className";
-    static final String ATTRIBUTE_INDEX_CLASS_NAME = "indexclassName";
+    static final String ATTRIBUTE_INDEX_CLASS_NAME = "indexClassName";
     static final String ATTRIBUTE_FROM = "from";
     static final String ATTRIBUTE_INIT = "init";
     static final String ATTRIBUTE_STEP = "step";

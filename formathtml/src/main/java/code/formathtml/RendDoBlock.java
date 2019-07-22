@@ -38,7 +38,11 @@ public final class RendDoBlock extends RendParentBlock implements RendLoop {
         if (c_ != null && c_.getBlock() == this) {
             if (c_.isFinished()) {
                 removeVarAndLoop(ip_);
-                RendBlock next_ = getNextSibling();
+                RendBlock nextSibling_ = getNextSibling();
+                if (nextSibling_ instanceof RendPossibleEmpty) {
+                    nextSibling_ = nextSibling_.getNextSibling();
+                }
+                RendBlock next_ = nextSibling_;
                 rw_.setRead(next_);
                 next_.processBlock(_cont);
                 return;
@@ -61,7 +65,11 @@ public final class RendDoBlock extends RendParentBlock implements RendLoop {
     public void processLastElementLoop(Configuration _conf) {
         ImportingPage ip_ = _conf.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
-        rw_.setRead(getNextSibling());
+        RendBlock nextSibling_ = getNextSibling();
+        if (nextSibling_ instanceof RendPossibleEmpty) {
+            nextSibling_ = nextSibling_.getNextSibling();
+        }
+        rw_.setRead(nextSibling_);
     }
 
     @Override

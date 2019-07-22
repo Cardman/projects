@@ -77,10 +77,13 @@ public final class RendBreakBlock extends RendLeaf implements RendBuildableElMet
                     break;
                 }
             } else {
-                RendBreakableBlock br_ = (RendBreakableBlock) bl_.getBlock();
-                if (StringList.quickEq(label, br_.getRealLabel())){
-                    bl_.getCurrentVisitedBlock().removeLocalVars(ip_);
-                    break;
+                RendParentBlock par_ = bl_.getBlock();
+                if (par_ instanceof RendBreakableBlock) {
+                    RendBreakableBlock br_ = (RendBreakableBlock) par_;
+                    if (StringList.quickEq(label, br_.getRealLabel())){
+                        bl_.getCurrentVisitedBlock().removeLocalVars(ip_);
+                        break;
+                    }
                 }
             }
             ip_.setFinallyToProcess(false);

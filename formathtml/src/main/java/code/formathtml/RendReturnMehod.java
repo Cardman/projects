@@ -4,7 +4,7 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.util.RendRemovableVars;
 import code.formathtml.util.RendTryBlockStack;
 
-public final class RendReturnMehod extends RendLeaf implements RendCallingFinally {
+public final class RendReturnMehod extends RendLeaf implements RendCallingFinally,RendBuildableElMethod {
     RendReturnMehod(OffsetsBlock _offset) {
         super(_offset);
     }
@@ -27,5 +27,10 @@ public final class RendReturnMehod extends RendLeaf implements RendCallingFinall
             }
         }
         ip_.setNullRendReadWrite();
+    }
+
+    @Override
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc) {
+
     }
 }

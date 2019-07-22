@@ -25,6 +25,10 @@ public final class RendDoWhileCondition extends RendCondition {
         if (!keep_) {
             l_.setFinished(true);
         }
-        rw_.setRead(getPreviousSibling());
+        RendBlock previousSibling_ = getPreviousSibling();
+        if (previousSibling_ instanceof RendPossibleEmpty) {
+            previousSibling_ = previousSibling_.getPreviousSibling();
+        }
+        rw_.setRead(previousSibling_);
     }
 }

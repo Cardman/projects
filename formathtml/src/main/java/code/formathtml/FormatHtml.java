@@ -29,7 +29,7 @@ import code.util.StringMapObject;
 public final class FormatHtml {
 
     static final String ATTRIBUTE_CLASS_NAME = "className";
-    static final String ATTRIBUTE_INDEX_CLASS_NAME = "indexclassName";
+    static final String ATTRIBUTE_INDEX_CLASS_NAME = "indexClassName";
     static final String EMPTY_STRING = "";
     static final String RETURN_LINE = "\n";
 

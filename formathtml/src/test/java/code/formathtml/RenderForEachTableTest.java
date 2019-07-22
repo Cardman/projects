@@ -377,6 +377,306 @@ public final class RenderForEachTableTest extends CommonRender {
         FormatHtml.getRes(rendDocumentBlock_, context_);
         assertNotNull(context_.getException());
     }
+    @Test
+    public void process14Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration context_ = contextElThird(files_);
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("<html><body><table>");
+        xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;ONE&quot;,1)\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;TWO&quot;,2)\"/>");
+        xml_.append("<c:for key=\"k\" keyClassName=\"$var\" value=\"v\" varClassName=\"$var\" map=\"(pkg.CustTable&lt;?java.lang.String,?java.lang.Integer&gt;)inst;.\">");
+        xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
+        xml_.append("</c:for>");
+        xml_.append("</table></body></html>");
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>",FormatHtml.getRes(rendDocumentBlock_,context_));
+        assertNull(context_.getException());
+    }
+    @Test
+    public void process15Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration context_ = contextElThird(files_);
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("<html><body><table>");
+        xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;ONE&quot;,1)\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;TWO&quot;,2)\"/>");
+        xml_.append("<c:for key=\"k\" keyClassName=\"$var\" value=\"v\" varClassName=\"$var\" map=\"(pkg.CustTable&lt;!java.lang.String,!java.lang.Integer&gt;)inst;.\">");
+        xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
+        xml_.append("</c:for>");
+        xml_.append("</table></body></html>");
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>",FormatHtml.getRes(rendDocumentBlock_,context_));
+        assertNull(context_.getException());
+    }
+    @Test
+    public void process16Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration context_ = contextElThird(files_);
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("<html><body><table>");
+        xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;ONE&quot;,1)\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;TWO&quot;,2)\"/>");
+        xml_.append("<c:for key=\"k\" keyClassName=\"$var\" value=\"v\" varClassName=\"$var\" map=\"(pkg.CustTable&lt;?,?&gt;)inst;.\">");
+        xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
+        xml_.append("</c:for>");
+        xml_.append("</table></body></html>");
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>",FormatHtml.getRes(rendDocumentBlock_,context_));
+        assertNull(context_.getException());
+    }
+    @Test
+    public void process1FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration context_ = contextElThird(files_);
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("<html><body><table>");
+        xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;ONE&quot;,1)\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;TWO&quot;,2)\"/>");
+        xml_.append("<c:for key=\"k\" keyClassName=\"$var\" value=\"v\" varClassName=\"$var\" map=\"$null\">");
+        xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
+        xml_.append("</c:for>");
+        xml_.append("</table></body></html>");
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(!context_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process2FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration context_ = contextElThird(files_);
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("<html><body><table>");
+        xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;ONE&quot;,1)\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;TWO&quot;,2)\"/>");
+        xml_.append("<c:for key=\"k\" keyClassName=\"java.lang.Integer\" value=\"v\" varClassName=\"java.lang.String\" map=\"inst;.\">");
+        xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
+        xml_.append("</c:for>");
+        xml_.append("</table></body></html>");
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(!context_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process3FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration context_ = contextElThird(files_);
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("<html><body><table>");
+        xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;ONE&quot;,1)\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;TWO&quot;,2)\"/>");
+        xml_.append("<c:for key=\"k\" keyClassName=\"java.lang.Integer\" value=\"k\" varClassName=\"java.lang.String\" map=\"inst;.\">");
+        xml_.append("<tr><td>{k;}</td><td>{k;}</td></tr>");
+        xml_.append("</c:for>");
+        xml_.append("</table></body></html>");
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(!context_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process4FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration context_ = contextElThird(files_);
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("<html><body><table>");
+        xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;ONE&quot;,1)\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;TWO&quot;,2)\"/>");
+        xml_.append("<c:for key=\"k\" keyClassName=\"java.lang.Integer\" value=\"k\" varClassName=\"java.lang.String\" map=\"0\">");
+        xml_.append("<tr><td>{k;}</td><td>{k;}</td></tr>");
+        xml_.append("</c:for>");
+        xml_.append("</table></body></html>");
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(!context_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process5FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration context_ = contextElThird(files_);
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("<html><body><table>");
+        xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;ONE&quot;,1)\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;TWO&quot;,2)\"/>");
+        xml_.append("<c:for key=\"#k\" keyClassName=\"java.lang.Integer\" value=\"#v\" varClassName=\"java.lang.String\" map=\"0\">");
+        xml_.append("<tr><td>{k;}</td><td>{k;}</td></tr>");
+        xml_.append("</c:for>");
+        xml_.append("</table></body></html>");
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(!context_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process6FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration context_ = contextElThird(files_);
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("<html><body><table>");
+        xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;ONE&quot;,1)\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;TWO&quot;,2)\"/>");
+        xml_.append("<c:for key=\"k\" keyClassName=\"java.lang.Integer\" value=\"v\" varClassName=\"java.lang.String\" map=\"0\">");
+        xml_.append("<c:for key=\"k\" keyClassName=\"java.lang.Integer\" value=\"v\" varClassName=\"java.lang.String\" map=\"0\">");
+        xml_.append("<tr><td>{k;}</td><td>{k;}</td></tr>");
+        xml_.append("</c:for>");
+        xml_.append("</c:for>");
+        xml_.append("</table></body></html>");
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(!context_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process7FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration context_ = contextElThird(files_);
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("<html><body><table>");
+        xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;ONE&quot;,1)\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;TWO&quot;,2)\"/>");
+        xml_.append("<c:for className=\"$var\" init=\"k=0\" condition=\"k;&lt;4\" step=\"k;++\">");
+        xml_.append("<c:for key=\"k\" keyClassName=\"java.lang.Integer\" value=\"v\" varClassName=\"java.lang.String\" map=\"0\">");
+        xml_.append("<tr><td>{k;}</td><td>{k;}</td></tr>");
+        xml_.append("</c:for>");
+        xml_.append("</c:for>");
+        xml_.append("</table></body></html>");
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(!context_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process8FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration context_ = contextElThird(files_);
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("<html><body><table>");
+        xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;ONE&quot;,1)\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;TWO&quot;,2)\"/>");
+        xml_.append("<c:for className=\"$var\" init=\"v=0\" condition=\"v;&lt;4\" step=\"v;++\">");
+        xml_.append("<c:for key=\"k\" keyClassName=\"java.lang.Integer\" value=\"v\" varClassName=\"java.lang.String\" map=\"0\">");
+        xml_.append("<tr><td>{k;}</td><td>{k;}</td></tr>");
+        xml_.append("</c:for>");
+        xml_.append("</c:for>");
+        xml_.append("</table></body></html>");
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(!context_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process9FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration context_ = contextElThird(files_);
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("<html><body><table>");
+        xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;ONE&quot;,1)\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;TWO&quot;,2)\"/>");
+        xml_.append("<c:for indexClassName='java.lang.String' key=\"k\" keyClassName=\"java.lang.Integer\" value=\"v\" varClassName=\"java.lang.String\" map=\"0\">");
+        xml_.append("<tr><td>{k;}</td><td>{k;}</td></tr>");
+        xml_.append("</c:for>");
+        xml_.append("</table></body></html>");
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(!context_.getClasses().isEmptyErrors());
+    }
     private static String getCustomPair() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.CustPair<U,V> :$pair<U,V>{\n");

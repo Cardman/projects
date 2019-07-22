@@ -842,4 +842,444 @@ public final class RenderSwitchTest extends CommonRender {
         FormatHtml.getRes(rendDocumentBlock_,conf_);
         assertNotNull(conf_.getException());
     }
+    @Test
+    public void process40Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='10'><c:case value='10'>10<c:break/></c:case><c:case value='8'>8</c:case></c:switch></body></html>";
+        Configuration conf_ = contextElSec();
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertEq("<html><body>10</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
+    }
+    @Test
+    public void process41Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='10' label='label'><c:case value='10'>10<c:break label='label'/></c:case><c:case value='8'>8</c:case></c:switch></body></html>";
+        Configuration conf_ = contextElSec();
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertEq("<html><body>10</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
+    }
+    @Test
+    public void process42Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='10'>\n<c:case value='8'>Text</c:case>\n<c:case value='10'/>\n</c:switch></body></html>";
+        Configuration conf_ = contextElSec();
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertEq("<html><body/></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
+    }
+    @Test
+    public void process43Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='10'>\n<c:case value='8'/>\n<c:default>Text</c:default>\n</c:switch></body></html>";
+        Configuration conf_ = contextElSec();
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertEq("<html><body>Text</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
+    }
+    @Test
+    public void process1FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='10'><c:case value='pkg.ExEnum.ONE'/></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $enum pkg.ExEnum{");
+        enum_.append("ONE,TWO,THREE,FOUR:");
+        enum_.append("$public $int field:");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        Configuration conf_ = contextElSec(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void proces2FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='(pkg.ExEnum)$null'><c:case value='2'>Text</c:case><c:case value='$null'>Other</c:case></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $enum pkg.ExEnum{");
+        enum_.append("ONE,TWO,THREE,FOUR:");
+        enum_.append("$public $int field:");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        Configuration conf_ = contextElSec(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process3FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='10'><c:case value='8'/><c:case value='8'/></c:switch></body></html>";
+        Configuration conf_ = contextElSec();
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process4FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='10'><c:default/><c:default/></c:switch></body></html>";
+        Configuration conf_ = contextElSec();
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process5FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='pkg.ExEnum.ONE'><c:case value='TWO'>Text</c:case><c:case value='TWO'>Other</c:case></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $enum pkg.ExEnum{");
+        enum_.append("ONE,TWO,THREE,FOUR");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        Configuration conf_ = contextElSec(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process6FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='pkg.ExEnum.ONE'><c:case value='$null'>Text</c:case><c:case value='$null'>Other</c:case></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $enum pkg.ExEnum{");
+        enum_.append("ONE,TWO,THREE,FOUR");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        Configuration conf_ = contextElSec(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process7FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='pkg.ExEnum.ONE'><c:case value='pkg.ExEnum.res()'>Text</c:case></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $enum pkg.ExEnum{");
+        enum_.append("ONE,TWO,THREE,FOUR:");
+        enum_.append("$public $static $int res(){");
+        enum_.append(" $return 0:");
+        enum_.append("}");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        Configuration conf_ = contextElSec(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process8FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='pkg.ExEnum.ONE'><c:case value='pkg.ExEnum.res()'>Text</c:case></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $enum pkg.ExEnum{");
+        enum_.append("ONE,TWO,THREE,FOUR:");
+        enum_.append("$public $static $void res(){");
+        enum_.append("}");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        Configuration conf_ = contextElSec(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process9FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='$null'><c:case value='pkg.ExEnum.res()'>Text</c:case></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $enum pkg.ExEnum{");
+        enum_.append("ONE,TWO,THREE,FOUR:");
+        enum_.append("$public $static $void res(){");
+        enum_.append("}");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        Configuration conf_ = contextElSec(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process10FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='0'><c:case value='pkg.ExEnum.res()'>Text</c:case></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $enum pkg.ExEnum{");
+        enum_.append("ONE,TWO,THREE,FOUR:");
+        enum_.append("$public $static $int res(){");
+        enum_.append(" $return 0:");
+        enum_.append("}");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        Configuration conf_ = contextElSec(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process11FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:case value='pkg.ExEnum.res()'>Text</c:case></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $enum pkg.ExEnum{");
+        enum_.append("ONE,TWO,THREE,FOUR:");
+        enum_.append("$public $static $int res(){");
+        enum_.append(" $return 0:");
+        enum_.append("}");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        Configuration conf_ = contextElSec(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process12FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:default>Text</c:default></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $enum pkg.ExEnum{");
+        enum_.append("ONE,TWO,THREE,FOUR:");
+        enum_.append("$public $static $int res(){");
+        enum_.append(" $return 0:");
+        enum_.append("}");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        Configuration conf_ = contextElSec(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process13FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='10'><c:case value='8'/><c:if condition=\"$true\"/></c:switch></body></html>";
+        Configuration conf_ = contextElSec();
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process14FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='$new pkg.ExCl()'><c:case value='$null'>Text</c:case></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $class pkg.ExCl{");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        Configuration conf_ = contextElSec(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process15FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='pkg.ExCl.res()'><c:case value='$null'>Text</c:case></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $class pkg.ExCl{");
+        enum_.append("$public $static $void res(){");
+        enum_.append("}");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        Configuration conf_ = contextElSec(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
 }

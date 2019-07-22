@@ -50,6 +50,13 @@ public final class RendTryEval extends RendParentBlock implements RendEval {
                     un_.setFileName(_cont.getCurrentFileName());
                     un_.setIndexFile(getOffset().getOffsetTrim());
                     _cont.getClasses().addError(un_);
+                } else if (!(nBlock_.getNextSibling() instanceof RendAbstractCatchEval)){
+                    if (!(nBlock_.getNextSibling() instanceof RendFinallyEval)) {
+                        UnexpectedTagName un_ = new UnexpectedTagName();
+                        un_.setFileName(_cont.getCurrentFileName());
+                        un_.setIndexFile(getOffset().getOffsetTrim());
+                        _cont.getClasses().addError(un_);
+                    }
                 }
             }
         }

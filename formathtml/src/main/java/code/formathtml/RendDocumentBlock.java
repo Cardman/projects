@@ -6,6 +6,7 @@ import code.expressionlanguage.errors.custom.DuplicateLabel;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.methods.FunctionBlock;
+import code.formathtml.util.BeanCustLgNames;
 import code.sml.Element;
 import code.util.StringList;
 import code.util.StringMap;
@@ -32,7 +33,6 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
             _cont.setStaticContext(false);
             page_.setGlobalClass(_cont.getBuiltBeans().getVal(beanName).getClassName(_cont));
         }
-        RendBlock firstChild_ = getFirstChild();
         StringMap<StringList> vars_ = _cont.getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
@@ -43,9 +43,6 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
         CustList<RendLoop> parentsContinuable_ = new CustList<RendLoop>();
         CustList<RendEval> parentsReturnable_ = new CustList<RendEval>();
         StringList labels_ = new StringList();
-        if (firstChild_ == null) {
-            return;
-        }
         while (true) {
             _cont.getAnalyzingDoc().setCurrentBlock(en_);
             if (en_ instanceof RendStdElement) {
@@ -53,14 +50,14 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
                     bodies.add(en_);
                 }
             }
-            if (en_ instanceof RendParentBlock && en_.getFirstChild() == null) {
-                OffsetsBlock off_ = en_.getOffset();
-                RendEmptyInstruction empty_ = new RendEmptyInstruction(off_);
-                ((RendParentBlock)en_).appendChild(empty_);
-            }
             checkBreakable(en_,_cont,labels_);
-            RendBlock n_ = en_.getFirstChild();
-            if (en_ instanceof RendParentBlock && n_ != null) {
+            if (en_ instanceof RendParentBlock) {
+                RendBlock first_ = en_.getFirstChild();
+                if (first_ == null) {
+                    OffsetsBlock off_ = en_.getOffset();
+                    RendEmptyInstruction empty_ = new RendEmptyInstruction(off_);
+                    ((RendParentBlock)en_).appendChild(empty_);
+                }
                 _cont.getAnalyzing().initLocalVars();
                 _cont.getAnalyzing().initVars();
                 _cont.getAnalyzing().initMutableLoopVars();
@@ -87,15 +84,16 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
                 }
                 parents_.add((RendParentBlock) en_);
             }
+            RendBlock n_ = en_.getFirstChild();
             if (en_ != root_) {
                 tryBuildExpressionLanguage(en_, _cont,this);
+                if (!(en_ instanceof RendForMutableIterativeLoop)) {
+                    reduce(en_,_cont);
+                }
             }
             if (n_ != null) {
                 en_ = n_;
                 continue;
-            }
-            if (en_ instanceof RendBreakableBlock && !((RendBreakableBlock)en_).getRealLabel().isEmpty()) {
-                labels_.removeLast();
             }
             while (true) {
                 n_ = en_.getNextSibling();
@@ -110,6 +108,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
                 }
                 if (par_ instanceof RendForMutableIterativeLoop) {
                     ((RendForMutableIterativeLoop)par_).buildIncrementPart(_cont,this);
+                    reduce(par_,_cont);
                 }
                 parents_.removeLast();
                 if (par_ instanceof RendBreakableBlock) {
@@ -141,6 +140,11 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
                 }
                 en_ = par_;
             }
+        }
+    }
+    static void reduce(RendBlock _block,Configuration _cont) {
+        if (_cont.getAdvStandards() instanceof BeanCustLgNames && _block instanceof RendReducableOperations) {
+            ((RendReducableOperations)_block).reduce(_cont);
         }
     }
     static void checkBreakable(RendBlock _block,Configuration _conf,StringList _labels) {

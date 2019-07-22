@@ -211,4 +211,213 @@ public final class RenderMutableLoopTest extends CommonRender {
         FormatHtml.getRes(rendDocumentBlock_,context_);
         assertNotNull(context_.getException());
     }
+    @Test
+    public void process15Test() {
+        Configuration context_ = contextEl();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"\" step=\"i;++\"><c:if condition='i;&gt;=4'><c:break/></c:if>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html>0-Pair-1-Impair-2-Pair-3-Impair-</html>",FormatHtml.getRes(rendDocumentBlock_,context_));
+        assertNull(context_.getException());
+    }
+    @Test
+    public void process16Test() {
+        Configuration context_ = contextEl();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"\" step=\"i;++\" label='lab'><c:if condition='i;&gt;=4'><c:break label='lab'/></c:if>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html>0-Pair-1-Impair-2-Pair-3-Impair-</html>",FormatHtml.getRes(rendDocumentBlock_,context_));
+        assertNull(context_.getException());
+    }
+    @Test
+    public void process17Test() {
+        Configuration context_ = contextEl();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"\" step=\"i;++\" label='lab'><c:try><c:if condition='i;&gt;=4'><c:break label='lab'/></c:if>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:try><c:finally>Finally-<c:if condition='i;&gt;=4'><c:break label='lab'/></c:if></c:finally></c:for></html>").getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html>0-Pair-Finally-1-Impair-Finally-2-Pair-Finally-3-Impair-Finally-Finally-</html>",FormatHtml.getRes(rendDocumentBlock_,context_));
+        assertNull(context_.getException());
+    }
+    @Test
+    public void process18Test() {
+        Configuration context_ = contextEl();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"\" step=\"i;++\" label='lab'><c:try><c:if condition='i;&gt;=4'><c:break label='lab'/></c:if>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:try><c:catch>Catch-<c:if condition='i;&gt;=4'><c:break label='lab'/></c:if></c:catch></c:for></html>").getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html>0-Pair-1-Impair-2-Pair-3-Impair-</html>",FormatHtml.getRes(rendDocumentBlock_,context_));
+        assertNull(context_.getException());
+    }
+    @Test
+    public void process19Test() {
+        Configuration context_ = contextEl();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"\" step=\"i;++\" label='lab'><c:try><c:if condition='i;&gt;=4'><c:break label='lab'/></c:if>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:try><c:finally>Finally-</c:finally></c:for></html>").getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html>0-Pair-Finally-1-Impair-Finally-2-Pair-Finally-3-Impair-Finally-Finally-</html>",FormatHtml.getRes(rendDocumentBlock_,context_));
+        assertNull(context_.getException());
+    }
+    @Test
+    public void process20Test() {
+        Configuration context_ = contextEl();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"\" step=\"i;++\" label='lab'><c:try><c:if condition='i;&gt;=4'><td><c:break label='lab'/></td></c:if>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:try><c:finally>Finally-</c:finally></c:for></html>").getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html>0-Pair-Finally-1-Impair-Finally-2-Pair-Finally-3-Impair-Finally-<td/>Finally-</html>",FormatHtml.getRes(rendDocumentBlock_,context_));
+        assertNull(context_.getException());
+    }
+    @Test
+    public void process21Test() {
+        Configuration context_ = contextEl();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\">{i;}-<c:if condition=\"i;%2==0\">Pair-<c:continue/></c:if>Impair-</c:for></html>").getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html>0-Pair-1-Impair-2-Pair-3-Impair-</html>",FormatHtml.getRes(rendDocumentBlock_,context_));
+        assertNull(context_.getException());
+    }
+    @Test
+    public void process22Test() {
+        Configuration context_ = contextEl();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\" label='label'>{i;}-<c:if condition=\"i;%2==0\">Pair-<c:continue label='label'/></c:if>Impair-</c:for></html>").getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html>0-Pair-1-Impair-2-Pair-3-Impair-</html>",FormatHtml.getRes(rendDocumentBlock_,context_));
+        assertNull(context_.getException());
+    }
+    @Test
+    public void process23Test() {
+        Configuration context_ = contextEl();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$int\" init=\"i=0\" condition=\"i;&lt;2\" step=\"i;++\" label='label'><c:for className=\"$int\" init=\"j=0\" condition=\"j;&lt;2\" step=\"j;++\">{i;}-{j;}-<c:if condition=\"i;%2==0\">=<c:continue label='label'/></c:if></c:for>+</c:for></html>").getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html>0-0-=1-0-1-1-+</html>",FormatHtml.getRes(rendDocumentBlock_,context_));
+        assertNull(context_.getException());
+    }
+    @Test
+    public void process24Test() {
+        Configuration context_ = contextEl();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\" label='label'>{i;}-<c:if condition=\"i;%2==0\">Pair-<c:try>Cont-<c:continue label='label'/></c:try><c:catch/></c:if>Impair-</c:for></html>").getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html>0-Pair-Cont-1-Impair-2-Pair-Cont-3-Impair-</html>",FormatHtml.getRes(rendDocumentBlock_,context_));
+        assertNull(context_.getException());
+    }
+    @Test
+    public void process25Test() {
+        Configuration context_ = contextEl();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\" label='label'>{i;}-<c:if condition=\"i;%2==0\">Pair-<c:try>Cont-<c:continue label='label'/></c:try><c:finally>Finally-</c:finally></c:if>Impair-</c:for></html>").getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html>0-Pair-Cont-Finally-1-Impair-2-Pair-Cont-Finally-3-Impair-</html>",FormatHtml.getRes(rendDocumentBlock_,context_));
+        assertNull(context_.getException());
+    }
+
+    @Test
+    public void process26Test() {
+        Configuration context_ = contextElThird(new StringMap<String>());
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:set className='$int' value='j'/><c:for className=\"$var\" init=\"i=0\" condition=\"j;.&lt;4\" step=\"\">{j;.}-<c:if condition=\"j;.%2==0\">Pair</c:if><c:else>Impair</c:else>-<c:set value='j;.++'/></c:for></html>").getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html>0-Pair-1-Impair-2-Pair-3-Impair-</html>",FormatHtml.getRes(rendDocumentBlock_,context_));
+        assertNull(context_.getException());
+    }
+    @Test
+    public void process27Test() {
+        Configuration context_ = contextElThird(new StringMap<String>());
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:set className='$int' value='j'/><c:for className=\"$var\" init=\"\" condition=\"j;.&lt;4\" step=\"j;.++\">{j;.}-<c:if condition=\"j;.%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html>0-Pair-1-Impair-2-Pair-3-Impair-</html>",FormatHtml.getRes(rendDocumentBlock_,context_));
+        assertNull(context_.getException());
+    }
+    @Test
+    public void process28Test() {
+        Configuration context_ = contextElThird(new StringMap<String>());
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"\" step=\"i;++\"><c:if condition='i;&gt;=4'><c:break/></c:if>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html>0-Pair-1-Impair-2-Pair-3-Impair-</html>",FormatHtml.getRes(rendDocumentBlock_,context_));
+        assertNull(context_.getException());
+    }
+    @Test
+    public void process1FailTest() {
+        Configuration context_ = contextEl();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\">{i;}-<c:if condition=\"i;%2==0\">Pair-<c:try>Cont-<c:continue label='label'/></c:try><c:finally>Finally-</c:finally></c:if>Impair-</c:for></html>").getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(!context_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process2FailTest() {
+        Configuration context_ = contextEl();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\">{i;}-<c:if condition=\"i;%2==0\">Pair-<c:try>Cont-<c:break label='label'/></c:try><c:finally>Finally-</c:finally></c:if>Impair-</c:for></html>").getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(!context_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process3FailTest() {
+        Configuration context_ = contextEl();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"4\" step=\"i;++\" label='label'>{i;}-<c:if condition=\"i;%2==0\">Pair-<c:try>Cont-<c:continue label='label'/></c:try><c:finally>Finally-</c:finally></c:if>Impair-</c:for></html>").getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(!context_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process4FailTest() {
+        Configuration context_ = contextEl();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" indexClassName='java.lang.String' condition=\"4\" step=\"i;++\" label='label'>{i;}-<c:if condition=\"i;%2==0\">Pair-<c:try>Cont-<c:continue label='label'/></c:try><c:finally>Finally-</c:finally></c:if>Impair-</c:for></html>").getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(!context_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process5FailTest() {
+        Configuration context_ = contextEl();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\" label='#t'>{i;}-<c:if condition=\"i;%2==0\">Pair-<c:try>Cont-<c:continue label='label'/></c:try><c:finally>Finally-</c:finally></c:if>Impair-</c:for></html>").getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(!context_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process6FailTest() {
+        Configuration context_ = contextEl();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\" label='t'><c:for className=\"$var\" init=\"j=0\" condition=\"j;&lt;4\" step=\"j;++\" label='t'>{i;}-</c:for></c:for></html>").getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(!context_.getClasses().isEmptyErrors());
+    }
 }

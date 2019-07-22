@@ -8,22 +8,15 @@ import code.sml.MutableNode;
 import code.sml.Node;
 import code.sml.Text;
 
-public final class RendEmptyText extends RendLeaf implements RendWithEl, RendReducableOperations,RendBuildableElMethod,RendPossibleEmpty {
-    private static final char SEP_TR = ',';
-    private static final char RIGHT_EL = '}';
-    private static final char LEFT_EL = '{';
-    private static final char QUOTE = 39;
-    private static final char ESCAPED = '\\';
-    private final String expression;
+public final class RendEmptyText extends RendLeaf implements RendWithEl,RendBuildableElMethod,RendPossibleEmpty {
 
-    private int expressionOffset;
+    private final String expression;
 
     private boolean add = true;
 
     RendEmptyText(OffsetStringInfo _left, OffsetsBlock _offset) {
         super(_offset);
         expression = _left.getInfo();
-        expressionOffset = _left.getOffset();
     }
 
     @Override
@@ -43,10 +36,6 @@ public final class RendEmptyText extends RendLeaf implements RendWithEl, RendRed
         } else if (getNextSibling() instanceof RendDefaultCondition) {
             add = false;
         }
-    }
-
-    @Override
-    public void reduce(Configuration _context) {
     }
 
     @Override

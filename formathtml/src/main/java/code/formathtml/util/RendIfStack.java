@@ -1,8 +1,6 @@
 package code.formathtml.util;
 import code.expressionlanguage.stacks.IfStack;
-import code.formathtml.ImportingPage;
-import code.formathtml.RendBlock;
-import code.formathtml.RendParentBlock;
+import code.formathtml.*;
 import code.sml.Element;
 import code.sml.Node;
 import code.util.CustList;
@@ -36,6 +34,10 @@ public final class RendIfStack extends IfStack implements RendRemovableVars {
     @Override
     public void removeVarAndLoop(ImportingPage _ip) {
         RendParentBlock cur_ = getCurrentVisitedBlock();
+        if (cur_ instanceof RendElement) {
+            RendReadWrite rw_ = _ip.getRendReadWrite();
+            rw_.setWrite(rw_.getWrite().getParentNode());
+        }
         cur_.removeLocalVars(_ip);
         _ip.removeRendLastBlock();
     }
