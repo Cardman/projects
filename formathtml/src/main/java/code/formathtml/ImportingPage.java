@@ -287,6 +287,12 @@ public final class ImportingPage {
     }
 
     public void removeRendLastBlock() {
+        RendRemovableVars last_ = rendBlockStacks.last();
+        if (last_ instanceof RendIfStack) {
+            if (last_.getBlock() instanceof RendElement) {
+                rendReadWrite.setWrite(rendReadWrite.getWrite().getParentNode());
+            }
+        }
         rendBlockStacks.removeLast();
     }
     public CustList<BlockHtml> getBlockStacks() {

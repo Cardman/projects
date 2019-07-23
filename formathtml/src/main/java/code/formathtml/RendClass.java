@@ -7,7 +7,7 @@ import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.util.StringList;
 
-public final class RendClass extends RendParentBlock implements RendBuildableElMethod {
+public final class RendClass extends RendParentBlock {
     private String name;
     private String fullName=EMPTY_STRING;
     RendClass(OffsetStringInfo _name, OffsetsBlock _offset) {
@@ -34,11 +34,6 @@ public final class RendClass extends RendParentBlock implements RendBuildableElM
                 _cont.getClasses().addError(un_);
             }
         }
-    }
-
-    @Override
-    public void processEl(Configuration _cont) {
-
     }
 
     public String getFullName() {

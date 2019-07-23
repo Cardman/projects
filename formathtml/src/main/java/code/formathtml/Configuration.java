@@ -39,13 +39,7 @@ import code.formathtml.util.*;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.Ints;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.StringMapObject;
+import code.util.*;
 import code.util.ints.MathFactory;
 
 public final class Configuration implements ExecutableCode {
@@ -119,6 +113,11 @@ public final class Configuration implements ExecutableCode {
     private AnalyzingDoc analyzingDoc = new AnalyzingDoc();
     private RendLocalThrowing rendLocalThrowing = new RendLocalThrowing();
     private StringMap<RendDocumentBlock> renders = new StringMap<RendDocumentBlock>();
+
+    private LongMap<LongTreeMap<NodeContainer>> containersMap;
+    private LongTreeMap<NodeContainer> containers;
+    private IndexesFormInput indexes;
+
     @Override
     public boolean isMerged() {
         return context.isMerged();
@@ -225,6 +224,11 @@ public final class Configuration implements ExecutableCode {
         for (EntryCust<String,RendDocumentBlock> d: renders.entryList()) {
             d.getValue().buildFctInstructions(this);
         }
+    }
+    public void initForms() {
+        containersMap = new LongMap<LongTreeMap<NodeContainer>>();
+        containers = new LongTreeMap<NodeContainer>();
+        indexes = new IndexesFormInput();
     }
     void setupValiatorsTranslators(String _language) {
         for (EntryCust<String, Bean> e: getBeans().entryList()) {
@@ -1194,5 +1198,21 @@ public final class Configuration implements ExecutableCode {
 
     public StringList getRenderFiles() {
         return renderFiles;
+    }
+
+    public IndexesFormInput getIndexes() {
+        return indexes;
+    }
+
+    public LongMap<LongTreeMap<NodeContainer>> getContainersMap() {
+        return containersMap;
+    }
+
+    public LongTreeMap<NodeContainer> getContainers() {
+        return containers;
+    }
+
+    public void setContainers(LongTreeMap<NodeContainer> _containers) {
+        containers = _containers;
     }
 }

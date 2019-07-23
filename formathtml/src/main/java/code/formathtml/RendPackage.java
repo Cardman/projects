@@ -4,7 +4,7 @@ import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 
-public final class RendPackage extends RendParentBlock implements RendBuildableElMethod {
+public final class RendPackage extends RendParentBlock {
     private String name;
     RendPackage(OffsetStringInfo _name, OffsetsBlock _offset) {
         super(_offset);
@@ -19,11 +19,6 @@ public final class RendPackage extends RendParentBlock implements RendBuildableE
             un_.setIndexFile(getOffset().getOffsetTrim());
             _cont.getClasses().addError(un_);
         }
-    }
-
-    @Override
-    public void processEl(Configuration _cont) {
-
     }
 
     public String getName() {

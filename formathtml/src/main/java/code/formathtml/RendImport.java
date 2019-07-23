@@ -2,19 +2,22 @@ package code.formathtml;
 
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.*;
-import code.sml.Document;
 import code.sml.Element;
 import code.sml.Node;
 import code.util.CustList;
-import code.util.StringMap;
+import code.util.StringList;
 
 public final class RendImport extends RendParentBlock implements RendWithEl, RendReducableOperations,RendBuildableElMethod {
     private static final String PAGE_ATTRIBUTE = "page";
     private Element elt;
+
+    private CustList<CustList<RendDynOperationNode>> opExp;
+
+    private StringList texts = new StringList();
+
     RendImport(Element _elt, OffsetsBlock _offset) {
         super(_offset);
         elt = _elt;
@@ -22,12 +25,16 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
 
     @Override
     public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc) {
-
+        ResultText res_ = new ResultText();
+        String pageName_ = elt.getAttribute(PAGE_ATTRIBUTE);
+        res_.build(pageName_,_cont,_doc);
+        opExp = res_.getOpExp();
+        texts = res_.getTexts();
     }
 
     @Override
     public void reduce(Configuration _context) {
-
+        ResultText.reduce(opExp);
     }
 
     @Override
@@ -45,12 +52,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
         }
         AnalyzingDoc analyzingDoc_ = _cont.getAnalyzingDoc();
         String lg_ = analyzingDoc_.getLanguage();
-        String pageName_ = elt.getAttribute(PAGE_ATTRIBUTE);
-        if (pageName_.isEmpty()) {
-            processBlock(_cont);
-            return;
-        }
-        pageName_ = ExtractObject.formatNumVariables(pageName_, _cont, ip_);
+        String pageName_ = ResultText.render(opExp,texts,_cont);
         if (_cont.getContext().getException() != null) {
             return;
         }

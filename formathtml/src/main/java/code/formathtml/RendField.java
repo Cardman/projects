@@ -8,7 +8,7 @@ import code.expressionlanguage.opers.Calculation;
 import code.formathtml.exec.RendDynOperationNode;
 import code.util.CustList;
 
-public final class RendField extends RendParentBlock implements RendBuildableElMethod {
+public final class RendField extends RendParentBlock {
     private String prepare;
     private int prepareOffset;
     private CustList<RendDynOperationNode> exps;
@@ -36,11 +36,6 @@ public final class RendField extends RendParentBlock implements RendBuildableElM
             exps = ElRenderUtil.getAnalyzedOperations(prepare,0,_cont, Calculation.staticCalculation(st_));
             _cont.getAnalyzingDoc().setInternGlobalClass(EMPTY_STRING);
         }
-    }
-
-    @Override
-    public void processEl(Configuration _cont) {
-
     }
 
     public CustList<RendDynOperationNode> getExps() {

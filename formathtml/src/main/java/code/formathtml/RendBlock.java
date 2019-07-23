@@ -277,18 +277,12 @@ public abstract class RendBlock {
         return new OffsetStringInfo(0,_elt.getAttribute(_key));
     }
 
+    public abstract void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc);
     private static OffsetBooleanInfo newOffsetBooleanInfo(Element _elt, String _key) {
         return new OffsetBooleanInfo(0,_elt.hasAttribute(_key));
     }
     protected static void tryBuildExpressionLanguage(RendBlock _block, Configuration _cont,RendDocumentBlock _doc) {
-        if (_block instanceof RendBuildableElMethod) {
-            ((RendBuildableElMethod)_block).buildExpressionLanguage(_cont,_doc);
-            return;
-        }
-        UnexpectedTagName un_ = new UnexpectedTagName();
-        un_.setFileName(_cont.getCurrentFileName());
-        un_.setIndexFile(_block.getOffset().getOffsetTrim());
-        _cont.getClasses().addError(un_);
+        _block.buildExpressionLanguage(_cont,_doc);
     }
 
     protected static Argument iteratorTable(Struct _arg, Configuration _cont) {

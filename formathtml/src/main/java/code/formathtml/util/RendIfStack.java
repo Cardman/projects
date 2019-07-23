@@ -34,10 +34,6 @@ public final class RendIfStack extends IfStack implements RendRemovableVars {
     @Override
     public void removeVarAndLoop(ImportingPage _ip) {
         RendParentBlock cur_ = getCurrentVisitedBlock();
-        if (cur_ instanceof RendElement) {
-            RendReadWrite rw_ = _ip.getRendReadWrite();
-            rw_.setWrite(rw_.getWrite().getParentNode());
-        }
         cur_.removeLocalVars(_ip);
         _ip.removeRendLastBlock();
     }

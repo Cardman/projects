@@ -193,4 +193,8 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
     public CustList<RendBlock> getBodies() {
         return bodies;
     }
+
+    @Override
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc) {
+    }
 }

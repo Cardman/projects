@@ -356,7 +356,8 @@ public final class FormatHtml {
     }
 
     public static String getRes(RendDocumentBlock _rend,Configuration _conf) {
-        Struct bean_ = getBean(_conf, _rend.getBeanName());
+        String beanName_ = _rend.getBeanName();
+        Struct bean_ = getBean(_conf, beanName_);
         _conf.addPage(new ImportingPage(false));
         RendBlock.beforeDisplaying(bean_,_conf);
         _conf.removeLastPage();
@@ -366,7 +367,7 @@ public final class FormatHtml {
         ip_.setTabWidth(tabWidth_);
         ip_.setHtml(_conf.getHtml());
         ip_.setReadUrl(_conf.getCurrentUrl());
-//        ip_.setBeanName(_beanName);
+        ip_.setBeanName(beanName_);
         ip_.setPrefix(_conf.getPrefix());
 //        Element r_ = _docOrig.getDocumentElement();
         if (bean_ != null) {
@@ -522,11 +523,12 @@ public final class FormatHtml {
         rw_.setWrite(doc_);
         ip_.setRoot(r_);
         ip_.setReadWrite(rw_);
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
-        containersMap_ = new LongMap<LongTreeMap<NodeContainer>>();
-        LongTreeMap<NodeContainer> containers_;
-        containers_ = new LongTreeMap<NodeContainer>();
-        IndexesFormInput indexes_ = new IndexesFormInput();
+        _conf.initForms();
+//        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+//        containersMap_ = new LongMap<LongTreeMap<NodeContainer>>();
+//        LongTreeMap<NodeContainer> containers_;
+//        containers_ = new LongTreeMap<NodeContainer>();
+//        IndexesFormInput indexes_ = new IndexesFormInput();
         Element curForm_ = null;
         long currentAnchor_ = 0;
         long currentForm_ = 0;
@@ -562,7 +564,7 @@ public final class FormatHtml {
                         _conf.clearPages();
                         break;
                     }
-                    ImportingPage ret_ = processProcessingTags(_loc,_conf, doc_, ip_, containersMap_, containers_, indexes_, currentForm_, bean_, _loc, _files, _resourcesFolder);
+                    ImportingPage ret_ = processProcessingTags(_loc,_conf, doc_, ip_, currentForm_, bean_, _loc, _files, _resourcesFolder);
                     if (_conf.getContext().getException() != null) {
                         throwException(_conf);
                         if (_conf.getContext().getException() != null) {
@@ -578,13 +580,13 @@ public final class FormatHtml {
                 Element tag_ = (Element) currentNode_.getLastChild();
                 if (StringList.quickEq(((Element) en_).getTagName(),TAG_FORM)) {
                     curForm_ = tag_;
-                    containersMap_.put(currentForm_, containers_);
-                    containers_ = new LongTreeMap< NodeContainer>();
+                    _conf.getContainersMap().put(currentForm_, _conf.getContainers());
+                    _conf.setContainers(new LongTreeMap< NodeContainer>());
                     currentForm_++;
-                    indexes_.setInput(0);
+                    _conf.getIndexes().setInput(0);
                 }
                 processAttributes(_conf, _loc, _files, ip_, doc_, tag_,
-                        indexes_, containers_, _resourcesFolder);
+                        _resourcesFolder);
                 if (_conf.getContext().getException() != null) {
                     throwException(_conf);
                     if (_conf.getContext().getException() != null) {
@@ -596,10 +598,10 @@ public final class FormatHtml {
                     curForm_.setAttribute(NUMBER_FORM, String.valueOf(currentForm_ - 1));
                 }
                 if (StringList.quickEq(tag_.getTagName(), TAG_A) && (tag_.hasAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND))|| !tag_.getAttribute(ATTRIBUTE_HREF).isEmpty() )) {
-                    currentAnchor_ = indexes_.getAnchor();
+                    currentAnchor_ = _conf.getIndexes().getAnchor();
                     tag_.setAttribute(NUMBER_ANCHOR, String.valueOf(currentAnchor_));
                     currentAnchor_++;
-                    indexes_.setAnchor(currentAnchor_);
+                    _conf.getIndexes().setAnchor(currentAnchor_);
                 }
                 processElementOrText(_conf, ip_, true);
                 if (_conf.getContext().getException() != null) {
@@ -643,6 +645,8 @@ public final class FormatHtml {
                 }
             }
         }
+        LongMap<LongTreeMap<NodeContainer>> containersMap_ = _conf.getContainersMap();
+        LongTreeMap<NodeContainer> containers_ = _conf.getContainers();
         containersMap_.put(currentForm_, containers_);
         containersMap_.removeKey(0L);
         if (currentForm_ > 1) {
@@ -751,19 +755,13 @@ public final class FormatHtml {
     }
 
     private static ImportingPage processProcessingTags(String _lg, Configuration _conf, Document _doc,
-            ImportingPage _ip,
-            LongMap<LongTreeMap<NodeContainer>> _containersMap,
-            LongTreeMap<NodeContainer> _containers,
-            IndexesFormInput _indexes,
-            long _currentForm,
-            Struct _mainBean,
-            String _loc, StringMap<String> _files, String... _resourcesFolder) {
-        LongMap<LongTreeMap<NodeContainer>> containersMap_ = _containersMap;
+                                                       ImportingPage _ip,
+                                                       long _currentForm,
+                                                       Struct _mainBean,
+                                                       String _loc, StringMap<String> _files, String... _resourcesFolder) {
         String prefix_ = _conf.getLastPage().getPrefix();
-        LongTreeMap<NodeContainer> containers_ = _containers;
         ReadWriteHtml rw_ = _ip.getReadWrite();
-        IndexesFormInput indexes_ = _indexes;
-        long currentAnchor_ = _indexes.getAnchor();
+        long currentAnchor_ = _conf.getIndexes().getAnchor();
         Document doc_ = _doc;
         Element en_ = (Element) rw_.getRead();
         ImportingPage ip_ = _ip;
@@ -1156,14 +1154,14 @@ public final class FormatHtml {
                 ip_.setProcessingAttribute(ATTRIBUTE_NAME);
                 ip_.setLookForAttrValue(true);
                 ip_.setOffset(0);
-                setIndexes(indexes_, _conf, ip_, containers_, selectTag_, name_);
+                setIndexes(_conf, ip_, selectTag_, name_);
                 if (_conf.getContext().getException() != null) {
                     return ip_;
                 }
-                if (indexes_.getNb() >= 0) {
+                if (_conf.getIndexes().getNb() >= 0) {
                     FormInputCoords inputs_ = new FormInputCoords();
                     inputs_.setForm(_currentForm - 1);
-                    inputs_.setInput(indexes_.getNb());
+                    inputs_.setInput(_conf.getIndexes().getNb());
                     StringList allOptions_ = new StringList();
                     ElementList elts_ = selectTag_.getElementsByTagName(TAG_OPTION);
                     int nbElts_ = elts_.getLength();
@@ -1172,7 +1170,7 @@ public final class FormatHtml {
                         allOptions_.add(opt_.getAttribute(ATTRIBUTE_VALUE));
                     }
                     _conf.getHtmlPage().getSelects().put(inputs_, allOptions_);
-                    selectTag_.setAttribute(NUMBER_INPUT, String.valueOf(indexes_.getNb()));
+                    selectTag_.setAttribute(NUMBER_INPUT, String.valueOf(_conf.getIndexes().getNb()));
                 }
                 selectTag_.setAttribute(ATTRIBUTE_NAME, StringList.concat(ip_.getBeanName(),DOT,name_));
             }
@@ -1276,13 +1274,10 @@ public final class FormatHtml {
                     FormatHtml.appendChild(doc_, _conf, currentNode_, (Element) nLoc_);
                     Element tag_ = (Element) currentNode_.getLastChild();
                     processImportedNode(_conf, ipMess_, tag_);
-                    if (_conf.getContext().getException() != null) {
-                        return ip_;
-                    }
                     if (StringList.quickEq(tag_.getTagName(), TAG_A) && (tag_.hasAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND))|| !tag_.getAttribute(ATTRIBUTE_HREF).isEmpty() )) {
                         tag_.setAttribute(NUMBER_ANCHOR, String.valueOf(currentAnchor_));
                         currentAnchor_++;
-                        _indexes.setAnchor(currentAnchor_);
+                        _conf.getIndexes().setAnchor(currentAnchor_);
                     }
                 }
                 j_ = true;
@@ -2522,14 +2517,12 @@ public final class FormatHtml {
         return !elt_.getAttribute(INTERPRET).isEmpty();
     }
 
-    private static void setIndexes(IndexesFormInput _indexes,
-                                   Configuration _conf,
+    private static void setIndexes(Configuration _conf,
                                    ImportingPage _ip,
-                                   LongTreeMap<NodeContainer> _containers,
                                    Element _input, String _name) {
         String name_ = _name;
         if (name_.endsWith(GET_LOC_VAR)) {
-            _indexes.setNb(-1);
+            _conf.getIndexes().setNb(-1);
             return;
         }
         Struct obj_;
@@ -2550,15 +2543,9 @@ public final class FormatHtml {
                 return;
             }
             index_ = lv_.getIndex();
-            for (EntryCust<Long, NodeContainer> e: _containers.entryList()) {
+            for (EntryCust<Long, NodeContainer> e: _conf.getContainers().entryList()) {
                 if (!ExtractObject.eq(e.getValue().getStruct(), obj_)) {
-                    if (_conf.getContext().getException() != null) {
-                        return;
-                    }
                     continue;
-                }
-                if (_conf.getContext().getException() != null) {
-                    return;
                 }
                 if (e.getValue().getIndex() != index_) {
                     continue;
@@ -2608,15 +2595,9 @@ public final class FormatHtml {
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            for (EntryCust<Long, NodeContainer> e: _containers.entryList()) {
+            for (EntryCust<Long, NodeContainer> e: _conf.getContainers().entryList()) {
                 if (!ExtractObject.eq(e.getValue().getStruct(), obj_)) {
-                    if (_conf.getContext().getException() != null) {
-                        return;
-                    }
                     continue;
-                }
-                if (_conf.getContext().getException() != null) {
-                    return;
                 }
                 if (!StringList.quickEq(e.getValue().getLastToken(), end_)) {
                     continue;
@@ -2633,7 +2614,7 @@ public final class FormatHtml {
             _ip.setGlobalArgumentStruct(current_, _conf);
         }
         if (found_ == -1) {
-            long currentInput_ = _indexes.getInput();
+            long currentInput_ = _conf.getIndexes().getInput();
             NodeContainer nodeCont_ = new NodeContainer(name_);
             nodeCont_.setEnabled(true);
             nodeCont_.setLastToken(end_);
@@ -2691,12 +2672,12 @@ public final class FormatHtml {
             nodeInfos_.setInputClass(class_);
             nodeInfos_.setVarMethod(_input.getAttribute(StringList.concat(_conf.getPrefix(),VAR_METHOD)));
             nodeInfos_.setChanging(_input.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VALUE_CHANGE_EVENT)));
-            _containers.put(currentInput_, nodeCont_);
-            _indexes.setNb(currentInput_);
+            _conf.getContainers().put(currentInput_, nodeCont_);
+            _conf.getIndexes().setNb(currentInput_);
             currentInput_++;
-            _indexes.setInput(currentInput_);
+            _conf.getIndexes().setInput(currentInput_);
         } else {
-            _indexes.setNb(found_);
+            _conf.getIndexes().setNb(found_);
         }
     }
 
@@ -2734,8 +2715,6 @@ public final class FormatHtml {
     }
     private static void processAttributes(Configuration _conf, String _loc, StringMap<String> _files,
                                           ImportingPage _ip, Document _doc, Element _tag,
-                                          IndexesFormInput _indexes,
-                                          LongTreeMap<NodeContainer> _containers,
                                           String... _resourcesFolder) {
         String prefixWrite_ = _conf.getPrefix();
         String beanName_ = _ip.getBeanName();
@@ -3019,12 +2998,12 @@ public final class FormatHtml {
                 _ip.setProcessingAttribute(ATTRIBUTE_NAME);
                 _ip.setLookForAttrValue(true);
                 _ip.setOffset(0);
-                setIndexes(_indexes, _conf, _ip, _containers, _tag, name_);
+                setIndexes(_conf, _ip, _tag, name_);
                 if (_conf.getContext().getException() != null) {
                     return;
                 }
-                if (_indexes.getNb() >= 0) {
-                    _tag.setAttribute(NUMBER_INPUT, String.valueOf(_indexes.getNb()));
+                if (_conf.getIndexes().getNb() >= 0) {
+                    _tag.setAttribute(NUMBER_INPUT, String.valueOf(_conf.getIndexes().getNb()));
                 }
                 attributesNames_.removeAllString(NUMBER_INPUT);
                 _tag.setAttribute(ATTRIBUTE_NAME, StringList.concat(beanName_,DOT,name_));
@@ -3040,12 +3019,12 @@ public final class FormatHtml {
                 _ip.setProcessingAttribute(ATTRIBUTE_NAME);
                 _ip.setLookForAttrValue(true);
                 _ip.setOffset(0);
-                setIndexes(_indexes, _conf, _ip, _containers, _tag, name_);
+                setIndexes(_conf, _ip, _tag, name_);
                 if (_conf.getContext().getException() != null) {
                     return;
                 }
-                if (_indexes.getNb() >= 0) {
-                    _tag.setAttribute(NUMBER_INPUT, String.valueOf(_indexes.getNb()));
+                if (_conf.getIndexes().getNb() >= 0) {
+                    _tag.setAttribute(NUMBER_INPUT, String.valueOf(_conf.getIndexes().getNb()));
                 }
                 attributesNames_.removeAllString(NUMBER_INPUT);
                 _tag.setAttribute(ATTRIBUTE_NAME, StringList.concat(beanName_,DOT,name_));

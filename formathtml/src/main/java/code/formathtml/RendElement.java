@@ -131,7 +131,6 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
             RendRemovableVars bl_ = ip_.getRendLastStack();
             if (bl_.getBlock() == this) {
                 ip_.removeRendLastBlock();
-                rw_.setWrite(write_.getParentNode());
                 processBlock(_cont);
                 return;
             }
