@@ -35,6 +35,7 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.types.PartTypeUtil;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
+import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.*;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -115,6 +116,9 @@ public final class Configuration implements ExecutableCode {
     private StringMap<RendDocumentBlock> renders = new StringMap<RendDocumentBlock>();
 
     private LongMap<LongTreeMap<NodeContainer>> containersMap;
+    private CustList<CustList<RendDynOperationNode>> callsExps = new CustList<CustList<RendDynOperationNode>>();
+    private CustList<StringList> anchorsArgs = new CustList<StringList>();
+    private CustList<StringList> anchorsVars = new CustList<StringList>();
     private LongTreeMap<NodeContainer> containers;
     private IndexesFormInput indexes;
 
@@ -227,6 +231,8 @@ public final class Configuration implements ExecutableCode {
         }
     }
     public void initForms() {
+        callsExps = new CustList<CustList<RendDynOperationNode>>();
+        anchorsArgs = new CustList<StringList>();
         containersMap = new LongMap<LongTreeMap<NodeContainer>>();
         containers = new LongTreeMap<NodeContainer>();
         indexes = new IndexesFormInput();
@@ -921,6 +927,9 @@ public final class Configuration implements ExecutableCode {
     public AnalyzedPageEl getAnalyzing() {
         return context.getAnalyzing();
     }
+    public CustList<StringMap<LocalVariable>> getLocalVarsAna() {
+        return context.getAnalyzing().getLocalVars();
+    }
 
     @Override
     public ObjectMap<ClassMethodId,Integer> lookupImportStaticMethods(
@@ -1215,5 +1224,17 @@ public final class Configuration implements ExecutableCode {
 
     public void setContainers(LongTreeMap<NodeContainer> _containers) {
         containers = _containers;
+    }
+
+    public CustList<CustList<RendDynOperationNode>> getCallsExps() {
+        return callsExps;
+    }
+
+    public CustList<StringList> getAnchorsArgs() {
+        return anchorsArgs;
+    }
+
+    public CustList<StringList> getAnchorsVars() {
+        return anchorsVars;
     }
 }

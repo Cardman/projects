@@ -2606,21 +2606,25 @@ public abstract class ContextEl implements ExecutableCode {
 
     public boolean idDisjointToken(String _id) {
         if (options.getSuffixVar() != VariableSuffix.DISTINCT) {
-            if (containsLocalVar(_id)) {
-                return false;
-            }
-            if (analyzing.containsCatchVar(_id)) {
-                return false;
-            }
-            if (analyzing.containsMutableLoopVar(_id)) {
-                return false;
-            }
-            if (analyzing.containsVar(_id)) {
-                return false;
-            }
-            return !getParameters().contains(_id);
+            return isNotVar(_id);
         }
         return true;
+    }
+
+    public boolean isNotVar(String _id) {
+        if (containsLocalVar(_id)) {
+            return false;
+        }
+        if (analyzing.containsCatchVar(_id)) {
+            return false;
+        }
+        if (analyzing.containsMutableLoopVar(_id)) {
+            return false;
+        }
+        if (analyzing.containsVar(_id)) {
+            return false;
+        }
+        return !getParameters().contains(_id);
     }
 
     @Override

@@ -356,6 +356,7 @@ public final class FormatHtml {
     }
 
     public static String getRes(RendDocumentBlock _rend,Configuration _conf) {
+        _conf.initForms();
         String beanName_ = _rend.getBeanName();
         Struct bean_ = getBean(_conf, beanName_);
         _conf.addPage(new ImportingPage(false));
@@ -761,7 +762,6 @@ public final class FormatHtml {
                                                        String _loc, StringMap<String> _files, String... _resourcesFolder) {
         String prefix_ = _conf.getLastPage().getPrefix();
         ReadWriteHtml rw_ = _ip.getReadWrite();
-        long currentAnchor_ = _conf.getIndexes().getAnchor();
         Document doc_ = _doc;
         Element en_ = (Element) rw_.getRead();
         ImportingPage ip_ = _ip;
@@ -1248,6 +1248,7 @@ public final class FormatHtml {
             setEscapedChars(_conf, docLoc_, ipMess_.getHtml());
             Element rootLoc_ = docLoc_.getDocumentElement();
             CustList<NodeAction> nas_ = getDeepChildNodesDocOrder(rootLoc_);
+            long currentAnchor_ = _conf.getIndexes().getAnchor();
             boolean j_ = false;
             for (NodeAction n: nas_) {
                 if (n.getActions().first() == ActionNext.NONE) {

@@ -64,6 +64,11 @@ public abstract class RendBlock {
     static final String LT_END_TAG = "</";
     static final char GT_TAG = '>';
     static final char LT_BEGIN_TAG = '<';
+    static final String TAG_A = "a";
+    static final String NUMBER_FORM = "n-f";
+    static final String NUMBER_ANCHOR = "n-a";
+    static final String NUMBER_INPUT = "n-i";
+    static final String DOT = ".";
     private static final String FOR_BLOCK_TAG = "for";
     private static final String WHILE_BLOCK_TAG = "while";
     private static final String ELSE_BLOCK_TAG = "else";
@@ -279,7 +284,19 @@ public abstract class RendBlock {
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,FIELD_BLOCK_TAG))) {
             return new RendField(newOffsetStringInfo(elt_,ATTRIBUTE_PREPARE_BEAN),new OffsetsBlock());
         }
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,MESSAGE_BLOCK_TAG))) {
+            return new RendMessage(elt_,new OffsetsBlock());
+        }
         return new RendStdElement(elt_,new OffsetsBlock());
+    }
+
+    protected static void incrAncNb(Configuration _cont, Element _nextEltWrite) {
+        if (StringList.quickEq(_nextEltWrite.getTagName(), TAG_A) && (_nextEltWrite.hasAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND))|| !_nextEltWrite.getAttribute(ATTRIBUTE_HREF).isEmpty() )) {
+            long currentAnchor_ = _cont.getIndexes().getAnchor();
+            _nextEltWrite.setAttribute(NUMBER_ANCHOR, String.valueOf(currentAnchor_));
+            currentAnchor_++;
+            _cont.getIndexes().setAnchor(currentAnchor_);
+        }
     }
     private static OffsetStringInfo newOffsetStringInfo(Element _elt,String _key) {
         return new OffsetStringInfo(0,_elt.getAttribute(_key));
@@ -387,9 +404,6 @@ public abstract class RendBlock {
     }
     static String escapeParam(Configuration _conf, Argument _arg) {
         String str_ = _conf.getAdvStandards().processString(_arg,_conf);
-        if (_conf.getContext().getException() != null) {
-            return EMPTY_STRING;
-        }
         StringMap<String> rep_ = new StringMap<String>();
         String quote_ = String.valueOf(QUOTE);
         rep_.put(String.valueOf(LEFT_EL), StringList.concat(quote_,String.valueOf(LEFT_EL),quote_));

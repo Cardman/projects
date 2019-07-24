@@ -5,18 +5,17 @@ import code.expressionlanguage.errors.custom.UnknownClassName;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
+import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.BadElRender;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.StdStruct;
 import code.formathtml.util.ValueChangeEvent;
 import code.sml.DocumentBuilder;
-import code.util.CustList;
-import code.util.Longs;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 final class HtmlRequest {
 
@@ -76,6 +75,28 @@ final class HtmlRequest {
         Argument arg_ = ElRenderUtil.processEl(_action, 0, _conf);
         if (_conf.getContext().getException() != null || !_conf.getClasses().getErrorsDet().isEmpty()) {
             return NullStruct.NULL_VALUE;
+        }
+        return arg_.getStruct();
+    }
+
+    static Struct invokeMethodWithNumbersTer(Configuration _conf, Argument _bean, int _url) {
+        StringList varNames_ = _conf.getAnchorsVars().get(_url);
+        StringList args_ = _conf.getAnchorsArgs().get(_url);
+        ImportingPage ip_ = _conf.getLastPage();
+        int s_ = varNames_.size();
+        for (int i =0; i< s_; i++) {
+            LocalVariable locVar_ = new LocalVariable();
+            locVar_.setClassName(_conf.getStandards().getAliasPrimInteger());
+            locVar_.setStruct(new IntStruct(Numbers.parseInt(args_.get(i))));
+            ip_.putLocalVar(varNames_.get(i), locVar_);
+        }
+        CustList<RendDynOperationNode> exps_ = _conf.getCallsExps().get(_url);
+        Argument arg_ = ElRenderUtil.calculateReuse(exps_,_conf,_bean);
+        if (_conf.getContext().getException() != null || !_conf.getClasses().getErrorsDet().isEmpty()) {
+            return NullStruct.NULL_VALUE;
+        }
+        for (String n: varNames_) {
+            ip_.removeLocalVar(n);
         }
         return arg_.getStruct();
     }

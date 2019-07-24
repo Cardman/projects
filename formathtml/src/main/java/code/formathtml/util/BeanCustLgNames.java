@@ -406,6 +406,10 @@ public final class BeanCustLgNames extends BeanLgNames {
             candidate_ = StringList.concatNbs(_var,index_);
             index_++;
         }
+        return sufficLocal(_context, candidate_);
+    }
+
+    public static String sufficLocal(ContextEl _context, String _candidate) {
         String suffix_ = String.valueOf(_context.getOptions().getSuffix());
         String suffixLocal_ = "";
         if (_context.getOptions().getSuffixVar() == VariableSuffix.DISTINCT) {
@@ -413,8 +417,9 @@ public final class BeanCustLgNames extends BeanLgNames {
         } else if (_context.getOptions().getSuffixVar() != VariableSuffix.NONE) {
             suffixLocal_ = suffix_;
         }
-        return StringList.concat(candidate_,suffixLocal_);
+        return StringList.concat(_candidate,suffixLocal_);
     }
+
     public String getIteratorVar() {
         return iteratorVar;
     }
