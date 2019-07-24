@@ -13,8 +13,6 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public abstract class RendElement extends RendParentBlock implements RendWithEl, RendReducableOperations, RendBuildableElMethod {
-    private static final char RIGHT_EL = '}';
-    private static final char LEFT_EL = '{';
     private static final char ESCAPED = '\\';
     private Element read;
     private StringMap<CustList<RendDynOperationNode>> attributes = new StringMap<CustList<RendDynOperationNode>>();

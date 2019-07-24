@@ -145,7 +145,11 @@ public final class ResultText {
     public static void reduce(CustList<CustList<RendDynOperationNode>> _opExp) {
         int s_ = _opExp.size();
         for (int i = 0; i < s_; i++) {
-            _opExp.set(i,ElRenderUtil.getReducedNodes(_opExp.get(i).last()));
+            CustList<RendDynOperationNode> l_ = _opExp.get(i);
+            if (l_.isEmpty()) {
+                continue;
+            }
+            _opExp.set(i,ElRenderUtil.getReducedNodes(l_.last()));
         }
     }
     public static String render(CustList<CustList<RendDynOperationNode>> _opExp,StringList _texts,Configuration _cont) {

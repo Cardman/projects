@@ -16,11 +16,14 @@ import code.formathtml.util.RendReadWrite;
 import code.sml.*;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.StringMap;
 
 public abstract class RendBlock {
     static final String TAG_PARAM = "param";
     static final String ATTRIBUTE_VALUE_SUBMIT = "message";
     static final String ATTRIBUTE_VALUE = "value";
+    static final String ATTRIBUTE_QUOTED = "quoted";
+    static final String ATTRIBUTE_ESCAPED = "escaped";
     static final String ATTRIBUTE_ESCAPED_EAMP = "escapedamp";
     static final String ATTRIBUTE_CLASS_NAME = "className";
     static final String ATTRIBUTE_INDEX_CLASS_NAME = "indexClassName";
@@ -54,7 +57,13 @@ public abstract class RendBlock {
     static final String BODY_TAG = "body";
     static final String INPUT_TAG = "input";
     static final String EMPTY_STRING = "";
-
+    static final char RIGHT_EL = '}';
+    static final char LEFT_EL = '{';
+    static final char QUOTE = 39;
+    static final String TMP_BLOCK_TAG = "tmp";
+    static final String LT_END_TAG = "</";
+    static final char GT_TAG = '>';
+    static final char LT_BEGIN_TAG = '<';
     private static final String FOR_BLOCK_TAG = "for";
     private static final String WHILE_BLOCK_TAG = "while";
     private static final String ELSE_BLOCK_TAG = "else";
@@ -63,7 +72,6 @@ public abstract class RendBlock {
     private static final String PACKAGE_BLOCK_TAG = "package";
     private static final String CLASS_BLOCK_TAG = "class";
     private static final String FIELD_BLOCK_TAG = "field";
-    private static final String TMP_BLOCK_TAG = "tmp";
     private static final String SUBMIT_BLOCK_TAG = "submit";
     private static final String FORM_BLOCK_TAG = "form";
     private static final String TR_BEGIN_BLOCK_TAG = "tr_begin";
@@ -377,6 +385,27 @@ public abstract class RendBlock {
         String prop_ = _conf.getProperties().getVal(_key);
         return prop_;
     }
+    static String escapeParam(Configuration _conf, Argument _arg) {
+        String str_ = _conf.getAdvStandards().processString(_arg,_conf);
+        if (_conf.getContext().getException() != null) {
+            return EMPTY_STRING;
+        }
+        StringMap<String> rep_ = new StringMap<String>();
+        String quote_ = String.valueOf(QUOTE);
+        rep_.put(String.valueOf(LEFT_EL), StringList.concat(quote_,String.valueOf(LEFT_EL),quote_));
+        rep_.put(String.valueOf(RIGHT_EL), StringList.concat(quote_,String.valueOf(RIGHT_EL),quote_));
+        rep_.put(String.valueOf(QUOTE), StringList.concat(quote_,quote_));
+        return StringList.replaceMultiple(str_, rep_);
+    }
+    protected static String escapeParam(String _arg) {
+        StringMap<String> rep_ = new StringMap<String>();
+        String quote_ = String.valueOf(QUOTE);
+        rep_.put(String.valueOf(LEFT_EL), StringList.concat(quote_,String.valueOf(LEFT_EL),quote_));
+        rep_.put(String.valueOf(RIGHT_EL), StringList.concat(quote_,String.valueOf(RIGHT_EL),quote_));
+        rep_.put(String.valueOf(QUOTE), StringList.concat(quote_,quote_));
+        return StringList.replaceMultiple(_arg, rep_);
+    }
+
     public static CustList<RendBlock> getDirectChildren(RendBlock _block) {
         CustList<RendBlock> l_ = new CustList<RendBlock>();
         RendBlock child_ = _block.getFirstChild();

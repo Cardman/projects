@@ -1,6 +1,8 @@
 package code.formathtml;
 
 import code.bean.translator.Translator;
+import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.classes.MyTranslator;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -112,5 +114,67 @@ public final class RenderWhileTest extends CommonRender {
         assertTrue(conf_.getClasses().isEmptyErrors());
         FormatHtml.getRes(rendDocumentBlock_,conf_);
         assertNotNull(conf_.getException());
+    }
+    @Test
+    public void process7Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html bean='bean_one'><body><c:while condition='nb&lt;=2'>{nb}<br/><c:set value='nb++'/></c:while></body></html>";
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $int nb:");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        Configuration conf_ = contextElThird(filesSec_);
+        conf_.setMessagesFolder(folder_);
+        addImportingPage(conf_);
+        Struct bean_ = ElRenderUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
+        conf_.getBuiltBeans().put("bean_one",bean_);
+        conf_.clearPages();
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertEq("<html bean=\"bean_one\"><body>0<br/>1<br/>2<br/></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
+    }
+    @Test
+    public void process8Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html bean='bean_one'><body>Loop:<c:while condition='nb&lt;=2'>{nb}<br/><c:set value='nb++'/></c:while></body></html>";
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $int nb:");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        Configuration conf_ = contextElThird(filesSec_);
+        conf_.setMessagesFolder(folder_);
+        addImportingPage(conf_);
+        Struct bean_ = ElRenderUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
+        conf_.getBuiltBeans().put("bean_one",bean_);
+        conf_.clearPages();
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertEq("<html bean=\"bean_one\"><body>Loop:0<br/>1<br/>2<br/></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
     }
 }

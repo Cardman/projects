@@ -66,10 +66,6 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
             processBlock(_cont);
             return;
         }
-        if (val_.getBodies().first().getFirstChild() == null) {
-            processBlock(_cont);
-            return;
-        }
         String beanName_ = val_.getBeanName();
         ImportingPage newIp_ = new ImportingPage(false);
         newIp_.setTabWidth(_cont.getTabWidth());
