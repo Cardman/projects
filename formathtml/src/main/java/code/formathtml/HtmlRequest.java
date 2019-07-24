@@ -72,6 +72,13 @@ final class HtmlRequest {
         return arg_.getStruct();
     }
 
+    static Struct invokeMethodWithNumbersBis(Configuration _conf, String _action) {
+        Argument arg_ = ElRenderUtil.processEl(_action, 0, _conf);
+        if (_conf.getContext().getException() != null || !_conf.getClasses().getErrorsDet().isEmpty()) {
+            return NullStruct.NULL_VALUE;
+        }
+        return arg_.getStruct();
+    }
     static void setObject(Configuration _conf, NodeContainer _nodeContainer,
             Struct _attribute,
             Longs _indexes) {

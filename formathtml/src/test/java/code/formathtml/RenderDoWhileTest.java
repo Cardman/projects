@@ -12,7 +12,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-public class RenderDoWhileTest extends CommonRender {
+public final class RenderDoWhileTest extends CommonRender {
     @Test
     public void process1Test() {
         String folder_ = "messages";

@@ -19,12 +19,16 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
     private CustList<RendBlock> bodies = new CustList<RendBlock>();
     RendDocumentBlock(Element _elt, OffsetsBlock _offset) {
         super(_offset);
-        beanName = _elt.getAttribute("bean");
-        staticContext = !_elt.hasAttribute("bean");
         elt = _elt;
     }
 
     public void buildFctInstructions(Configuration _cont) {
+        beanName = elt.getAttribute("bean");
+        setupStaticInfo();
+        if (beanName.isEmpty()) {
+            beanName = elt.getAttribute(StringList.concat(_cont.getPrefix(),"bean"));
+            setupStaticInfo();
+        }
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
@@ -142,6 +146,11 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
             }
         }
     }
+
+    private void setupStaticInfo() {
+        staticContext = beanName.isEmpty();
+    }
+
     static void reduce(RendBlock _block,Configuration _cont) {
         if (_cont.getAdvStandards() instanceof BeanCustLgNames && _block instanceof RendReducableOperations) {
             ((RendReducableOperations)_block).reduce(_cont);

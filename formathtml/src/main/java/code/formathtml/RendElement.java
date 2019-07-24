@@ -118,10 +118,7 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
         }
         txts_.add(calculateVariables_.toString());
     }
-    @Override
-    public void reduce(Configuration _context) {
 
-    }
     @Override
     public void processEl(Configuration _cont) {
         ImportingPage ip_ = _cont.getLastPage();

@@ -19,4 +19,9 @@ public final class RendStdElement extends RendElement {
     protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read) {
 
     }
+
+    @Override
+    public void reduce(Configuration _context) {
+
+    }
 }

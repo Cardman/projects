@@ -373,6 +373,10 @@ public abstract class RendBlock {
         _cont.getLastPage().getInternVars().put(locName_, locVar_);
         ElRenderUtil.calculateReuse(stds_.getExpsBeforeDisplaying(),_cont);
     }
+    protected static String getProperty(Configuration _conf, String _key) {
+        String prop_ = _conf.getProperties().getVal(_key);
+        return prop_;
+    }
     public static CustList<RendBlock> getDirectChildren(RendBlock _block) {
         CustList<RendBlock> l_ = new CustList<RendBlock>();
         RendBlock child_ = _block.getFirstChild();

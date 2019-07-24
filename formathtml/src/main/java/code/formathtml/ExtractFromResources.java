@@ -39,6 +39,11 @@ public final class ExtractFromResources {
         }
         return value_;
     }
+
+    static String getQuickFormat(StringMap<String> _messages, String _key) {
+        String value_ = _messages.getVal(_key);
+        return value_;
+    }
     static StringMap<String> getInnerMessagesFromLocaleClass(Configuration _conf, String _loc, String _relative, StringMap<String> _files, String... _resourcesFolder) {
         String content_ = tryGetContent(_conf,_loc,_relative,_files,_resourcesFolder);
         if (_conf.getContext().getException() != null) {

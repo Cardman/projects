@@ -213,6 +213,7 @@ public final class Configuration implements ExecutableCode {
 
     public void setupRenders(StringMap<String> _files) {
         renders.clear();
+        analyzingDoc.setFiles(_files);
         getAnalyzing().setEnabledInternVars(false);
         for (String s: renderFiles) {
             DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(_files.getVal(s));

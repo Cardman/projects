@@ -1141,7 +1141,7 @@ public final class FormatHtml {
             //format class before evaluate it
             if (!class_.isEmpty()) {
                 CustList<BlockHtml> stacks_ = ip_.getBlockStacks();
-                class_ = format(stacks_, class_, false);
+//                class_ = format(stacks_, class_, false);
                 selectTag_.setAttribute(ATTRIBUTE_CLASS, class_);
                 evaluateAttribute(_conf, selectTag_, ATTRIBUTE_CLASS);
             }
@@ -2700,8 +2700,6 @@ public final class FormatHtml {
         if (StringList.quickEq(_tag.getTagName(),TAG_A)) {
             String attr_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND));
             if (!attr_.isEmpty()) {
-                CustList<BlockHtml> stacks_ = _ip.getBlockStacks();
-                attr_ = format(stacks_, attr_, false);
                 _tag.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND), attr_);
             }
             String href_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND));
@@ -3100,13 +3098,13 @@ public final class FormatHtml {
             if (!attr_.isEmpty()) {
                 attributesNames_.removeAllString(ATTRIBUTE_HREF);
                 CustList<BlockHtml> stacks_ = _ip.getBlockStacks();
-                attr_ = format(stacks_, attr_, false);
+//                attr_ = format(stacks_, attr_, false);
                 _tag.setAttribute(ATTRIBUTE_HREF, attr_);
             }
             attr_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND));
             if (!attr_.isEmpty()) {
                 CustList<BlockHtml> stacks_ = _ip.getBlockStacks();
-                attr_ = format(stacks_, attr_, false);
+//                attr_ = format(stacks_, attr_, false);
                 _tag.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND), attr_);
             }
             String href_ = _tag.getAttribute(ATTRIBUTE_HREF);
@@ -3127,20 +3125,20 @@ public final class FormatHtml {
             if (!attr_.isEmpty()) {
                 CustList<BlockHtml> stacks_ = _ip.getBlockStacks();
                 attributesNames_.removeAllString(ATTRIBUTE_ACTION);
-                attr_ = format(stacks_, attr_, false);
+//                attr_ = format(stacks_, attr_, false);
                 _tag.setAttribute(ATTRIBUTE_ACTION, attr_);
             }
             attr_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND));
             if (!attr_.isEmpty()) {
                 CustList<BlockHtml> stacks_ = _ip.getBlockStacks();
-                attr_ = format(stacks_, attr_, false);
+//                attr_ = format(stacks_, attr_, false);
                 _tag.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND), attr_);
             }
             attr_ = _tag.getAttribute(ATTRIBUTE_NAME);
             if (!attr_.isEmpty()) {
                 CustList<BlockHtml> stacks_ = _ip.getBlockStacks();
                 attributesNames_.removeAllString(ATTRIBUTE_NAME);
-                attr_ = format(stacks_, attr_, true);
+//                attr_ = format(stacks_, attr_, true);
                 _tag.setAttribute(ATTRIBUTE_NAME, attr_);
             }
             String href_ = _tag.getAttribute(ATTRIBUTE_ACTION);

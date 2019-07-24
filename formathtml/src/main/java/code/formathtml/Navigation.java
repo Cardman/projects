@@ -290,17 +290,14 @@ public final class Navigation {
                     .substring(indexPoint_ + 1);
             String methodName_;
             String suffix_;
-            String strArgs_;
             boolean getArg_ = true;
             if (action_.indexOf(BEGIN_ARGS) == CustList.INDEX_NOT_FOUND_ELT) {
                 methodName_ = action_;
                 suffix_ = EMPTY_STRING;
-                strArgs_ = EMPTY_STRING;
                 getArg_ = false;
             } else {
                 methodName_ = action_.substring(CustList.FIRST_INDEX, action_.indexOf(BEGIN_ARGS));
                 suffix_ = action_.substring(action_.indexOf(BEGIN_ARGS));
-                strArgs_ = suffix_.substring(CustList.SECOND_INDEX, suffix_.length() - 1);
                 StringBuilder str_ = new StringBuilder();
                 for (char c: suffix_.toCharArray()) {
                     if (isPartOfArgument(c)) {
@@ -309,29 +306,6 @@ public final class Navigation {
                     str_.append(c);
                 }
                 suffix_ = str_.toString();
-            }
-            CustList<Argument> args_ = new CustList<Argument>();
-            if (getArg_) {
-                ip_.addToOffset(indexPoint_+1+action_.indexOf(BEGIN_ARGS));
-                for (String l: StringList.splitChars(strArgs_, SEP_ARGS)) {
-                    Argument a_ = ElRenderUtil.processEl(l, 0, session);
-                    if (!session.getContext().getClasses().isEmptyErrors()) {
-                        BadFormatNumber badFormat_ = new BadFormatNumber();
-                        badFormat_.setNumber(l);
-                        badFormat_.setFileName(session.getCurrentFileName());
-                        badFormat_.setIndexFile(session.getCurrentLocationIndex());
-                        session.getClasses().getErrorsDet().add(badFormat_);
-                        BadElRender badEl_ = new BadElRender();
-                        badEl_.setErrors(session.getClasses().getErrorsDet());
-                        badEl_.setFileName(session.getCurrentFileName());
-                        badEl_.setIndexFile(session.getCurrentLocationIndex());
-                        session.getContext().setException(new ErrorStruct(session, badEl_.display(session.getClasses()), session.getAdvStandards().getErrorEl()));
-                        return;
-                    }
-                    args_.add(a_);
-                    ip_.addToOffset(l.length()+1);
-                }
-                ip_.setOffset(0);
             }
             String beanName_ = _anchorRef
                     .substring(_anchorRef.indexOf(CALL_METHOD) + 1, indexPoint_);
@@ -342,8 +316,14 @@ public final class Navigation {
             }
             ip_.setOffset(indexPoint_+1);
             ip_.setGlobalArgumentStruct(bean_, session);
-            Struct return_ = HtmlRequest.invokeMethodWithNumbers(
-                    session, bean_, methodName_, Argument.toArgArray(args_));
+            Struct return_;
+            if (getArg_) {
+                return_ = HtmlRequest.invokeMethodWithNumbersBis(
+                        session, action_);
+            } else {
+                return_ = HtmlRequest.invokeMethodWithNumbersBis(
+                        session, StringList.concat(action_,"()"));
+            }
             if (session.getContext().getException() != null) {
                 return;
             }

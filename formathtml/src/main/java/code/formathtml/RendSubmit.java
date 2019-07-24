@@ -1,22 +1,22 @@
 package code.formathtml;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.opers.Calculation;
-import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.AnalyzingDoc;
-import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.BadElRender;
+import code.formathtml.util.ResultText;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.MutableNode;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 
 public final class RendSubmit extends RendElement {
-    private StringMap<CustList<RendDynOperationNode>> args = new StringMap<CustList<RendDynOperationNode>>();
-    private StringMap<String> parts = new StringMap<String>();
+
+    private StringMap<ResultText> opExp;
+
     private String preformatted;
     RendSubmit(Element _elt, OffsetsBlock _offset) {
         super(_elt, _offset);
@@ -28,38 +28,49 @@ public final class RendSubmit extends RendElement {
         String value_ = _read.getAttribute(ATTRIBUTE_VALUE_SUBMIT);
         StringList elts_ = StringList.splitStrings(value_, COMMA);
         String var_ = elts_.first();
-        String fileName_ = ExtractObject.getProperty(_cont, var_);
+        String fileName_ = getProperty(_cont, var_);
         if (fileName_ == null) {
-            fileName_ = var_;
+            BadElRender badEl_ = new BadElRender();
+            badEl_.setErrors(_cont.getClasses().getErrorsDet());
+            badEl_.setFileName(_cont.getCurrentFileName());
+            badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+            _cont.getClasses().addError(badEl_);
+            return;
         }
         AnalyzingDoc a_ = _cont.getAnalyzingDoc();
         String language_ = a_.getLanguage();
         StringMap<String> files_ = a_.getFiles();
         String[] resourcesFolder_ = a_.getResourcesFolder();
         String content_ = ExtractFromResources.tryGetContent(_cont, language_, fileName_, files_, resourcesFolder_);
-        if (content_ == null) {
-            return;
-        }
         int index_ = ExtractFromResources.indexCorrectMessages(content_);
         if (index_ >= 0) {
+            BadElRender badEl_ = new BadElRender();
+            badEl_.setErrors(_cont.getClasses().getErrorsDet());
+            badEl_.setFileName(_cont.getCurrentFileName());
+            badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+            _cont.getClasses().addError(badEl_);
             return;
         }
         StringMap<String> messages_ = ExtractFromResources.getMessages(content_);
         String key_ = elts_.last();
-        preformatted = ExtractFromResources.getFormat(messages_, key_, _cont, language_, fileName_);
+        preformatted = ExtractFromResources.getQuickFormat(messages_, key_);
         if (preformatted == null) {
+            BadElRender badEl_ = new BadElRender();
+            badEl_.setErrors(_cont.getClasses().getErrorsDet());
+            badEl_.setFileName(_cont.getCurrentFileName());
+            badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+            _cont.getClasses().addError(badEl_);
             return;
         }
+        opExp = new StringMap<ResultText>();
         preformatted = DocumentBuilder.transformSpecialChars(preformatted, _read.hasAttribute(ATTRIBUTE_ESCAPED_EAMP));
         int i_ = CustList.FIRST_INDEX;
         while (_read.hasAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)))) {
             _list.removeAllString(StringList.concat(TAG_PARAM,Long.toString(i_)));
             String attribute_ = _read.getAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)));
-            if (attribute_.startsWith(CALL_METHOD)) {
-                args.put(StringList.concat(TAG_PARAM,Long.toString(i_)),ElRenderUtil.getAnalyzedOperations(attribute_,1,_cont,Calculation.staticCalculation(_doc.isStaticContext())));
-            } else {
-                parts.put(StringList.concat(TAG_PARAM,Long.toString(i_)),attribute_);
-            }
+            ResultText r_ = new ResultText();
+            r_.build(attribute_,_cont,_doc);
+            opExp.addEntry(StringList.concat(TAG_PARAM,Long.toString(i_)),r_);
             i_++;
         }
         _list.removeAllString(ATTRIBUTE_VALUE);
@@ -67,41 +78,30 @@ public final class RendSubmit extends RendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read) {
-        if (preformatted == null) {
-            return;
+    public void reduce(Configuration _context) {
+        for (EntryCust<String,ResultText> e:opExp.entryList()) {
+            ResultText.reduce(e.getValue().getOpExp());
         }
+    }
+
+    @Override
+    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read) {
         Element curWr_ = (Element) _nextWrite;
         Document ownerDocument_ = curWr_.getOwnerDocument();
-        ImportingPage ip_ = _cont.getLastPage();
-        ip_.setProcessingAttribute(ATTRIBUTE_VALUE_SUBMIT);
+//        ImportingPage ip_ = _cont.getLastPage();
+//        ip_.setProcessingAttribute(ATTRIBUTE_VALUE_SUBMIT);
 //        ip_.setOffset(var_.length()+1);
-        ip_.setLookForAttrValue(true);
+//        ip_.setLookForAttrValue(true);
         curWr_.removeAttribute(ATTRIBUTE_VALUE_SUBMIT);
         curWr_.removeAttribute(ATTRIBUTE_ESCAPED_EAMP);
         StringList objects_ = new StringList();
-        BeanLgNames stds_ = _cont.getAdvStandards();
-
-        int i_ = CustList.FIRST_INDEX;
-        while (_read.hasAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)))) {
-            if (args.contains(StringList.concat(TAG_PARAM,Long.toString(i_)))) {
-                ip_.setProcessingAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)));
-                ip_.setLookForAttrValue(true);
-                ip_.setOffset(1);
-                CustList<RendDynOperationNode> o_ = args.getVal(StringList.concat(TAG_PARAM, Long.toString(i_)));
-                Argument argument_ = ElRenderUtil.calculateReuse(o_, _cont);
-                if (_cont.getContext().hasExceptionOrFailInit()) {
-                    return;
-                }
-                objects_.add(stds_.processString(argument_,_cont));
-                if (_cont.getContext().hasExceptionOrFailInit()) {
-                    return;
-                }
-            } else {
-                objects_.add(parts.getVal(StringList.concat(TAG_PARAM, Long.toString(i_))));
+        for (EntryCust<String,ResultText> e:opExp.entryList()) {
+            ResultText r_ = e.getValue();
+            objects_.add(ResultText.render(r_.getOpExp(), r_.getTexts(),_cont));
+            if (_cont.getContext().hasExceptionOrFailInit()) {
+                return;
             }
-            curWr_.removeAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)));
-            i_++;
+            curWr_.removeAttribute(e.getKey());
         }
         curWr_.setAttribute(ATTRIBUTE_VALUE, StringList.simpleStringsFormat(preformatted, objects_));
         curWr_.setAttribute(ATTRIBUTE_TYPE, SUBMIT_TYPE);
