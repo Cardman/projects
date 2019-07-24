@@ -116,11 +116,13 @@ public final class Configuration implements ExecutableCode {
     private StringMap<RendDocumentBlock> renders = new StringMap<RendDocumentBlock>();
 
     private LongMap<LongTreeMap<NodeContainer>> containersMap;
+    private LongTreeMap<NodeContainer> containers;
+    private IndexesFormInput indexes;
     private CustList<CustList<RendDynOperationNode>> callsExps = new CustList<CustList<RendDynOperationNode>>();
     private CustList<StringList> anchorsArgs = new CustList<StringList>();
     private CustList<StringList> anchorsVars = new CustList<StringList>();
-    private LongTreeMap<NodeContainer> containers;
-    private IndexesFormInput indexes;
+    private BooleanList constAnchors = new BooleanList();
+    private StringList anchorsNames = new StringList();
 
     @Override
     public boolean isMerged() {
@@ -233,6 +235,9 @@ public final class Configuration implements ExecutableCode {
     public void initForms() {
         callsExps = new CustList<CustList<RendDynOperationNode>>();
         anchorsArgs = new CustList<StringList>();
+        anchorsVars = new CustList<StringList>();
+        constAnchors = new BooleanList();
+        anchorsNames = new StringList();
         containersMap = new LongMap<LongTreeMap<NodeContainer>>();
         containers = new LongTreeMap<NodeContainer>();
         indexes = new IndexesFormInput();
@@ -1236,5 +1241,13 @@ public final class Configuration implements ExecutableCode {
 
     public CustList<StringList> getAnchorsVars() {
         return anchorsVars;
+    }
+
+    public BooleanList getConstAnchors() {
+        return constAnchors;
+    }
+
+    public StringList getAnchorsNames() {
+        return anchorsNames;
     }
 }

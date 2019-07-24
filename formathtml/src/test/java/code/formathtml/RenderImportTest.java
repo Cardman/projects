@@ -17,6 +17,56 @@ import static org.junit.Assert.assertTrue;
 
 public final class RenderImportTest extends CommonRender {
     @Test
+    public void process0Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+
+        String html_ = "<html c:bean='bean_one'><body><c:import page=\"page2.html\"><c:package name='pkg'><c:class name='BeanTwo'><c:field prepare='$intern.array=$new $int[]{3,4}'/></c:class></c:package></c:import></body></html>";
+        String htmlTwo_ = "<html c:bean='bean_two'><body><ul><c:for var=\"s\" list=\"arrayBis\" className='$int'><li>{s;}</li></c:for></ul></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        Document docSec_ = DocumentBuilder.parseSax(htmlTwo_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne{");
+        file_.append(" $public $int[] array={1,2}:");
+        file_.append("}");
+        file_.append("$public $class pkg.BeanTwo:code.bean.Bean{");
+        file_.append(" $public $int[] array:");
+        file_.append(" $public $int[] arrayBis:");
+        file_.append(" $public $void beforeDisplaying(){");
+        file_.append("  arrayBis=array:");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        Configuration context_ = contextElThird(filesSec_);
+        addImportingPage(context_);
+        Struct bean_ = ElRenderUtil.processEl("$new pkg.BeanOne()", 0, context_).getStruct();
+        context_.getBuiltBeans().put("bean_one",bean_);
+        bean_ = ElRenderUtil.processEl("$new pkg.BeanTwo()", 0, context_).getStruct();
+        context_.getBuiltBeans().put("bean_two",bean_);
+        context_.setMessagesFolder(folder_);
+        context_.setProperties(new StringMap<String>());
+        context_.getProperties().put("msg_example", relative_);
+        context_.setTranslators(new StringMap<Translator>());
+        context_.getTranslators().put("trans", new MyTranslator());
+        context_.clearPages();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_);
+        RendDocumentBlock rendDocumentBlockSec_ = RendBlock.newRendDocumentBlock(context_, "c:", docSec_);
+        context_.getRenders().put("page1.html",rendDocumentBlock_);
+        context_.getRenders().put("page2.html",rendDocumentBlockSec_);
+        context_.getContext().setAnalyzing(new AnalyzedPageEl());
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        rendDocumentBlockSec_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html><body><ul><li>3</li><li>4</li></ul></body></html>",FormatHtml.getRes(rendDocumentBlock_, context_));
+        assertNull(context_.getException());
+    }
+    @Test
     public void process1Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
@@ -226,8 +276,8 @@ public final class RenderImportTest extends CommonRender {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 
-        String html_ = "<html bean='bean_one'><body><c:import page=\"page2.html\"><c:package name='pkg'><c:class name='BeanTwo'><c:field prepare='$intern.array=$new $int[]{3,4}'/></c:class></c:package></c:import></body></html>";
-        String htmlTwo_ = "<html bean='bean_two'><body><ul><c:for var=\"s\" list=\"arrayBis\" className='$int'><li>{s;}</li></c:for></ul></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><c:import page=\"page2.html\"><c:package name='pkg'><c:class name='BeanTwo'><c:field prepare='$intern.array=$new $int[]{3,4}'/></c:class></c:package></c:import></body></html>";
+        String htmlTwo_ = "<html c:bean='bean_two'><body><ul><c:for var=\"s\" list=\"arrayBis\" className='$int'><li>{s;}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -269,7 +319,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
-        assertEq("<html bean=\"bean_one\"><body><ul><li>3</li><li>4</li></ul></body></html>",FormatHtml.getRes(rendDocumentBlock_, context_));
+        assertEq("<html><body><ul><li>3</li><li>4</li></ul></body></html>",FormatHtml.getRes(rendDocumentBlock_, context_));
         assertNull(context_.getException());
     }
     @Test
@@ -308,9 +358,9 @@ public final class RenderImportTest extends CommonRender {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 
-        String html_ = "<html bean='bean_one'><body><c:import page=\"page2.html\"/></body></html>";
-        String htmlTwo_ = "<html bean='bean_two'><body><c:import page=\"page3.html\"><c:package name='pkg'><c:class name='BeanThree'><c:field prepare='$intern.nb=3'/></c:class></c:package></c:import></body></html>";
-        String htmlThree_ = "<html bean='bean_three'><body>{nb}</body></html>";
+        String html_ = "<html c:bean='bean_one'><body><c:import page=\"page2.html\"/></body></html>";
+        String htmlTwo_ = "<html c:bean='bean_two'><body><c:import page=\"page3.html\"><c:package name='pkg'><c:class name='BeanThree'><c:field prepare='$intern.nb=3'/></c:class></c:package></c:import></body></html>";
+        String htmlThree_ = "<html c:bean='bean_three'><body>{nb}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -361,7 +411,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlockSec_.buildFctInstructions(context_);
         rendDocumentBlockThird_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
-        assertEq("<html bean=\"bean_one\"><body>3</body></html>",FormatHtml.getRes(rendDocumentBlock_, context_));
+        assertEq("<html><body>3</body></html>",FormatHtml.getRes(rendDocumentBlock_, context_));
         assertNull(context_.getException());
     }
     @Test
@@ -371,9 +421,9 @@ public final class RenderImportTest extends CommonRender {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 
-        String html_ = "<html bean='bean_one'><body><c:import page=\"page2.html\"/></body></html>";
-        String htmlTwo_ = "<html bean='bean_two'><body><c:import page=\"page3.html\"><c:package name='pkg'><c:class name='BeanThree'><c:field prepare='$intern.nb=3/0'/></c:class></c:package></c:import></body></html>";
-        String htmlThree_ = "<html bean='bean_three'><body>{nb}</body></html>";
+        String html_ = "<html c:bean='bean_one'><body><c:import page=\"page2.html\"/></body></html>";
+        String htmlTwo_ = "<html c:bean='bean_two'><body><c:import page=\"page3.html\"><c:package name='pkg'><c:class name='BeanThree'><c:field prepare='$intern.nb=3/0'/></c:class></c:package></c:import></body></html>";
+        String htmlThree_ = "<html c:bean='bean_three'><body>{nb}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -434,9 +484,9 @@ public final class RenderImportTest extends CommonRender {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 
-        String html_ = "<html bean='bean_one'><body><c:import page=\"page2.html\"/></body></html>";
-        String htmlTwo_ = "<html bean='bean_two'><body><c:import page=\"page3.html\"><c:package name='pkg'><c:class name='BeanThree'><c:field prepare='$intern.nb=3'/></c:class></c:package></c:import></body></html>";
-        String htmlThree_ = "<html bean='bean_three'><body>{nb}</body></html>";
+        String html_ = "<html c:bean='bean_one'><body><c:import page=\"page2.html\"/></body></html>";
+        String htmlTwo_ = "<html c:bean='bean_two'><body><c:import page=\"page3.html\"><c:package name='pkg'><c:class name='BeanThree'><c:field prepare='$intern.nb=3'/></c:class></c:package></c:import></body></html>";
+        String htmlThree_ = "<html c:bean='bean_three'><body>{nb}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -500,8 +550,8 @@ public final class RenderImportTest extends CommonRender {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 
-        String html_ = "<html bean='bean_one'><body><c:import page=\"page2.html\">\n<c:package name='pkg'>\n<c:class name='BeanTwo'>\n<c:field prepare='$intern.array=$new $int[]{3,4}'/></c:class>\n<c:class name='BeanOne'>\n<c:field prepare='$intern.array=$new $int[]{3,4}'/></c:class></c:package></c:import></body></html>";
-        String htmlTwo_ = "<html bean='bean_two'><body><ul><c:for var=\"s\" list=\"arrayBis\" className='$int'><li>{s;}</li></c:for></ul></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><c:import page=\"page2.html\">\n<c:package name='pkg'>\n<c:class name='BeanTwo'>\n<c:field prepare='$intern.array=$new $int[]{3,4}'/></c:class>\n<c:class name='BeanOne'>\n<c:field prepare='$intern.array=$new $int[]{3,4}'/></c:class></c:package></c:import></body></html>";
+        String htmlTwo_ = "<html c:bean='bean_two'><body><ul><c:for var=\"s\" list=\"arrayBis\" className='$int'><li>{s;}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -543,7 +593,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
-        assertEq("<html bean=\"bean_one\"><body><ul><li>3</li><li>4</li></ul></body></html>",FormatHtml.getRes(rendDocumentBlock_, context_));
+        assertEq("<html><body><ul><li>3</li><li>4</li></ul></body></html>",FormatHtml.getRes(rendDocumentBlock_, context_));
         assertNull(context_.getException());
     }
     @Test
@@ -553,8 +603,8 @@ public final class RenderImportTest extends CommonRender {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 
-        String html_ = "<html bean='bean_one'><body><c:import page=\"page2.html\">\n<c:package name='pkg'>\n<c:class name='BeanTwo'>\n<c:field prepare='$intern.array=$new $int[]{3,4}'/></c:class>\n<c:class name='BeanOne'>\n<c:field prepare='$intern.array=$new $int[]{3,4}'/></c:class></c:package></c:import></body></html>";
-        String htmlTwo_ = "<html bean='bean_two'><body/></html>";
+        String html_ = "<html c:bean='bean_one'><body><c:import page=\"page2.html\">\n<c:package name='pkg'>\n<c:class name='BeanTwo'>\n<c:field prepare='$intern.array=$new $int[]{3,4}'/></c:class>\n<c:class name='BeanOne'>\n<c:field prepare='$intern.array=$new $int[]{3,4}'/></c:class></c:package></c:import></body></html>";
+        String htmlTwo_ = "<html c:bean='bean_two'><body/></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -596,7 +646,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
-        assertEq("<html bean=\"bean_one\"><body/></html>",FormatHtml.getRes(rendDocumentBlock_, context_));
+        assertEq("<html><body/></html>",FormatHtml.getRes(rendDocumentBlock_, context_));
         assertNull(context_.getException());
     }
     @Test
@@ -606,8 +656,8 @@ public final class RenderImportTest extends CommonRender {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 
-        String html_ = "<html bean='bean_one'><body><c:import page=\"page2.html\">\n<c:package name='pkg'>\n<c:class name='BeanTwo'>\n<c:field prepare='$intern.array=$new $int[]{3,4}'/></c:class>\n<c:class name='BeanOne'>\n<c:field prepare='$intern.array=$new $int[]{3,4}'/></c:class></c:package></c:import></body></html>";
-        String htmlTwo_ = "<html bean='bean_two'/>";
+        String html_ = "<html c:bean='bean_one'><body><c:import page=\"page2.html\">\n<c:package name='pkg'>\n<c:class name='BeanTwo'>\n<c:field prepare='$intern.array=$new $int[]{3,4}'/></c:class>\n<c:class name='BeanOne'>\n<c:field prepare='$intern.array=$new $int[]{3,4}'/></c:class></c:package></c:import></body></html>";
+        String htmlTwo_ = "<html c:bean='bean_two'/>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -649,7 +699,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
-        assertEq("<html bean=\"bean_one\"><body/></html>",FormatHtml.getRes(rendDocumentBlock_, context_));
+        assertEq("<html><body/></html>",FormatHtml.getRes(rendDocumentBlock_, context_));
         assertNull(context_.getException());
     }
     @Test
@@ -659,8 +709,8 @@ public final class RenderImportTest extends CommonRender {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 
-        String html_ = "<html bean='bean_one'><body><c:import page=\"page3.html\">\n<c:package name='pkg'>\n<c:class name='BeanTwo'>\n<c:field prepare='$intern.array=$new $int[]{3,4}'/></c:class>\n<c:class name='BeanOne'>\n<c:field prepare='$intern.array=$new $int[]{3,4}'/></c:class></c:package></c:import></body></html>";
-        String htmlTwo_ = "<html bean='bean_two'/>";
+        String html_ = "<html c:bean='bean_one'><body><c:import page=\"page3.html\">\n<c:package name='pkg'>\n<c:class name='BeanTwo'>\n<c:field prepare='$intern.array=$new $int[]{3,4}'/></c:class>\n<c:class name='BeanOne'>\n<c:field prepare='$intern.array=$new $int[]{3,4}'/></c:class></c:package></c:import></body></html>";
+        String htmlTwo_ = "<html c:bean='bean_two'/>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -702,7 +752,7 @@ public final class RenderImportTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
-        assertEq("<html bean=\"bean_one\"><body/></html>",FormatHtml.getRes(rendDocumentBlock_, context_));
+        assertEq("<html><body/></html>",FormatHtml.getRes(rendDocumentBlock_, context_));
         assertNull(context_.getException());
     }
     @Test
@@ -712,8 +762,8 @@ public final class RenderImportTest extends CommonRender {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 
-        String html_ = "<html bean='bean_one'><body><c:import page=\"{1/0}\">\n<c:package name='pkg'>\n<c:class name='BeanTwo'>\n<c:field prepare='$intern.array=$new $int[]{3,4}'/></c:class>\n<c:class name='BeanOne'>\n<c:field prepare='$intern.array=$new $int[]{3,4}'/></c:class></c:package></c:import></body></html>";
-        String htmlTwo_ = "<html bean='bean_two'/>";
+        String html_ = "<html c:bean='bean_one'><body><c:import page=\"{1/0}\">\n<c:package name='pkg'>\n<c:class name='BeanTwo'>\n<c:field prepare='$intern.array=$new $int[]{3,4}'/></c:class>\n<c:class name='BeanOne'>\n<c:field prepare='$intern.array=$new $int[]{3,4}'/></c:class></c:package></c:import></body></html>";
+        String htmlTwo_ = "<html c:bean='bean_two'/>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -765,9 +815,9 @@ public final class RenderImportTest extends CommonRender {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 
-        String html_ = "<html bean='bean_one'><body><c:import page=\"page2.html\"/></body></html>";
-        String htmlTwo_ = "<html bean='bean_two'><body><c:class name='BeanThree'/><c:import page=\"page3.html\"><c:package name='pkg'><c:class name='BeanThree'><c:field prepare='$intern.nb=3'/></c:class></c:package></c:import></body></html>";
-        String htmlThree_ = "<html bean='bean_three'><body>{nb}</body></html>";
+        String html_ = "<html c:bean='bean_one'><body><c:import page=\"page2.html\"/></body></html>";
+        String htmlTwo_ = "<html c:bean='bean_two'><body><c:class name='BeanThree'/><c:import page=\"page3.html\"><c:package name='pkg'><c:class name='BeanThree'><c:field prepare='$intern.nb=3'/></c:class></c:package></c:import></body></html>";
+        String htmlThree_ = "<html c:bean='bean_three'><body>{nb}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -826,9 +876,9 @@ public final class RenderImportTest extends CommonRender {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 
-        String html_ = "<html bean='bean_one'><body><c:import page=\"page2.html\"/></body></html>";
-        String htmlTwo_ = "<html bean='bean_two'><body><c:field name='BeanThree'/><c:import page=\"page3.html\"><c:package name='pkg'><c:class name='BeanThree'><c:field prepare='$intern.nb=3'/></c:class></c:package></c:import></body></html>";
-        String htmlThree_ = "<html bean='bean_three'><body>{nb}</body></html>";
+        String html_ = "<html c:bean='bean_one'><body><c:import page=\"page2.html\"/></body></html>";
+        String htmlTwo_ = "<html c:bean='bean_two'><body><c:field name='BeanThree'/><c:import page=\"page3.html\"><c:package name='pkg'><c:class name='BeanThree'><c:field prepare='$intern.nb=3'/></c:class></c:package></c:import></body></html>";
+        String htmlThree_ = "<html c:bean='bean_three'><body>{nb}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -887,9 +937,9 @@ public final class RenderImportTest extends CommonRender {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 
-        String html_ = "<html bean='bean_one'><body><c:import page=\"page2.html\"/></body></html>";
-        String htmlTwo_ = "<html bean='bean_two'><body><c:package name='BeanThree'/><c:import page=\"page3.html\"><c:package name='pkg'><c:class name='BeanThree'><c:field prepare='$intern.nb=3'/></c:class></c:package></c:import></body></html>";
-        String htmlThree_ = "<html bean='bean_three'><body>{nb}</body></html>";
+        String html_ = "<html c:bean='bean_one'><body><c:import page=\"page2.html\"/></body></html>";
+        String htmlTwo_ = "<html c:bean='bean_two'><body><c:package name='BeanThree'/><c:import page=\"page3.html\"><c:package name='pkg'><c:class name='BeanThree'><c:field prepare='$intern.nb=3'/></c:class></c:package></c:import></body></html>";
+        String htmlThree_ = "<html c:bean='bean_three'><body>{nb}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -948,9 +998,9 @@ public final class RenderImportTest extends CommonRender {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 
-        String html_ = "<html bean='bean_one'><body><c:import page=\"page2.html\"/></body></html>";
-        String htmlTwo_ = "<html bean='bean_two'><body><c:import page=\"page3.html\"><c:package name='pk'><c:class name='BeanThree'><c:field prepare='$intern.nb=3'/></c:class></c:package></c:import></body></html>";
-        String htmlThree_ = "<html bean='bean_three'><body>{nb}</body></html>";
+        String html_ = "<html c:bean='bean_one'><body><c:import page=\"page2.html\"/></body></html>";
+        String htmlTwo_ = "<html c:bean='bean_two'><body><c:import page=\"page3.html\"><c:package name='pk'><c:class name='BeanThree'><c:field prepare='$intern.nb=3'/></c:class></c:package></c:import></body></html>";
+        String htmlThree_ = "<html c:bean='bean_three'><body>{nb}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Document doc_ = DocumentBuilder.parseSax(html_);

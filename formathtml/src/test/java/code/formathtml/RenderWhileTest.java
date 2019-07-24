@@ -119,7 +119,7 @@ public final class RenderWhileTest extends CommonRender {
     public void process7Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html bean='bean_one'><body><c:while condition='nb&lt;=2'>{nb}<br/><c:set value='nb++'/></c:while></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><c:while condition='nb&lt;=2'>{nb}<br/><c:set value='nb++'/></c:while></body></html>";
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -143,14 +143,14 @@ public final class RenderWhileTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html bean=\"bean_one\"><body>0<br/>1<br/>2<br/></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>0<br/>1<br/>2<br/></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
     public void process8Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html bean='bean_one'><body>Loop:<c:while condition='nb&lt;=2'>{nb}<br/><c:set value='nb++'/></c:while></body></html>";
+        String html_ = "<html c:bean='bean_one'><body>Loop:<c:while condition='nb&lt;=2'>{nb}<br/><c:set value='nb++'/></c:while></body></html>";
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -174,7 +174,7 @@ public final class RenderWhileTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html bean=\"bean_one\"><body>Loop:0<br/>1<br/>2<br/></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>Loop:0<br/>1<br/>2<br/></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
 }

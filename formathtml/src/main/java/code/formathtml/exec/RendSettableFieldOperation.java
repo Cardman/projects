@@ -17,7 +17,7 @@ import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
-import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.BeanNatLgNames;
 import code.util.IdMap;
 
 public final class RendSettableFieldOperation extends
@@ -56,7 +56,7 @@ public final class RendSettableFieldOperation extends
         Classes classes_ = _conf.getClasses();
         if (!classes_.isCustomType(className_)) {
             Struct default_ = _previous.getStruct();
-            ResultErrorStd res_ = BeanLgNames.getField(_conf.getContextEl(), fieldId_, default_);
+            ResultErrorStd res_ = BeanNatLgNames.getField(_conf.getContextEl(), fieldId_, default_);
             Argument a_ = new Argument();
             a_.setStruct(res_.getResult());
             return a_;
@@ -114,7 +114,7 @@ public final class RendSettableFieldOperation extends
         String fieldName_ = fieldId_.getFieldName();
         Classes classes_ = _conf.getClasses();
         if (!classes_.isCustomType(className_)) {
-            BeanLgNames.setField(_conf.getContextEl(), fieldId_, _previous.getStruct(), _right.getStruct());
+            BeanNatLgNames.setField(_conf.getContextEl(), fieldId_, _previous.getStruct(), _right.getStruct());
             return _right;
         }
         Argument previous_ = new Argument();

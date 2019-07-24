@@ -206,7 +206,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html bean=\"bean_one\"><body><ul><c:for var=\"s\" list=\"array\" className='$int'><li>{s;}</li></c:for></ul></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><ul><c:for var=\"s\" list=\"array\" className='$int'><li>{s;}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -235,7 +235,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
-        assertEq("<html bean=\"bean_one\"><body><ul><li>1</li><li>2</li></ul></body></html>",FormatHtml.getRes(rendDocumentBlock_, context_));
+        assertEq("<html><body><ul><li>1</li><li>2</li></ul></body></html>",FormatHtml.getRes(rendDocumentBlock_, context_));
         assertNull(context_.getException());
     }
     @Test

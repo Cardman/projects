@@ -134,6 +134,9 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
         FormatHtml.appendChild(ownerDocument_,_cont,write_,read);
         MutableNode nextWrite_ = write_.getLastChild();
         processExecAttr(_cont,nextWrite_,read);
+        if (_cont.getContext().hasExceptionOrFailInit()) {
+            return;
+        }
         RendIfStack if_ = new RendIfStack();
         if_.setLastBlock(this);
         if_.setBlock(this);

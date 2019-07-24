@@ -20,13 +20,9 @@ public class NodeContainer {
 
     private String beanName;
 
-    private final NodeInformations nodeInformation;
+    private final NodeInformations nodeInformation = new NodeInformations();
 
     private boolean enabled = true;
-
-    public NodeContainer(String _name) {
-        nodeInformation = new NodeInformations(_name);
-    }
 
     public Struct getStruct() {
         return object;

@@ -620,12 +620,7 @@ public final class Navigation {
             Element input_ = DocumentBuilder.getFirstElementByAttribute(doc_, NUMBER_INPUT, Long.toString(e.getKey()));
             session.getLastPage().setProcessingNode(input_);
             session.getLastPage().setProcessingAttribute(EMPTY_STRING);
-            String simpleKey_ = nCont_.getNodeInformation().getName();
             Struct obj_ = nCont_.getTypedStruct();
-            Longs indexes_ = new Longs();
-            for (String n: positiveNumbers(simpleKey_)) {
-                indexes_.add(Numbers.parseLongZero(n));
-            }
             String changingValue_ = EMPTY_STRING;
             nCont_.getNodeInformation().setChanging(changingValue_);
             Struct newObj_;
@@ -644,22 +639,11 @@ public final class Navigation {
             newObj_ = res_.getResult();
             Struct procObj_ = e.getValue().getStruct();
             session.getLastPage().setGlobalArgumentStruct(procObj_, session);
-            HtmlRequest.setObject(session, e.getValue(), newObj_, indexes_);
+            HtmlRequest.setObject(session, e.getValue(), newObj_);
             if (session.getContext().getException() != null) {
                 return;
             }
         }
-    }
-
-    private static StringList positiveNumbers(String _string) {
-        StringList tokens_ = StringList.getWordsSeparators(_string);
-        StringList newList_ = new StringList();
-        for (String t: tokens_) {
-            if (StringList.isPositiveNumber(t)) {
-                newList_.add(t);
-            }
-        }
-        return newList_;
     }
 
     private void processFormErrors(Document _doc, Element _formElement, long _id,

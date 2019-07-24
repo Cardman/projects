@@ -10,7 +10,6 @@ import code.sml.*;
 import code.util.BooleanList;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class RendMessage extends RendParentBlock implements RendWithEl, RendReducableOperations,RendBuildableElMethod {
 
@@ -25,6 +24,8 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
     private StringList args = new StringList();
     private Document locDoc;
     private StringList varNames = new StringList();
+
+
     RendMessage(Element _elt, OffsetsBlock _offset) {
         super(_offset);
         elt = _elt;
@@ -34,40 +35,8 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
     public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc) {
         opExp = new CustList<CustList<RendDynOperationNode>>();
         String value_ = elt.getAttribute(ATTRIBUTE_VALUE);
-        StringList elts_ = StringList.splitStrings(value_, COMMA);
-        String var_ = elts_.first();
-        String fileName_ = getProperty(_cont, var_);
-        if (fileName_ == null) {
-            BadElRender badEl_ = new BadElRender();
-            badEl_.setErrors(_cont.getClasses().getErrorsDet());
-            badEl_.setFileName(_cont.getCurrentFileName());
-            badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-            _cont.getClasses().addError(badEl_);
-            return;
-        }
-        AnalyzingDoc a_ = _cont.getAnalyzingDoc();
-        String language_ = a_.getLanguage();
-        StringMap<String> files_ = a_.getFiles();
-        String[] resourcesFolder_ = a_.getResourcesFolder();
-        String content_ = ExtractFromResources.tryGetContent(_cont, language_, fileName_, files_, resourcesFolder_);
-        int index_ = ExtractFromResources.indexCorrectMessages(content_);
-        if (index_ >= 0) {
-            BadElRender badEl_ = new BadElRender();
-            badEl_.setErrors(_cont.getClasses().getErrorsDet());
-            badEl_.setFileName(_cont.getCurrentFileName());
-            badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-            _cont.getClasses().addError(badEl_);
-            return;
-        }
-        StringMap<String> messages_ = ExtractFromResources.getMessages(content_);
-        String key_ = elts_.last();
-        preformatted = ExtractFromResources.getQuickFormat(messages_, key_);
+        preformatted = getPre(_cont,value_);
         if (preformatted == null) {
-            BadElRender badEl_ = new BadElRender();
-            badEl_.setErrors(_cont.getClasses().getErrorsDet());
-            badEl_.setFileName(_cont.getCurrentFileName());
-            badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-            _cont.getClasses().addError(badEl_);
             return;
         }
         boolean st_ = _doc.isStaticContext();
@@ -103,7 +72,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
             StringList formArg_ = new StringList();
             StringList varNames_ = new StringList();
             for (int i = 0; i< l_; i++) {
-                String varLoc_ = "tmpLoc";
+                String varLoc_ = TMP_LOC;
                 int indexLoc_ = 0;
                 while (!_cont.getContext().isNotVar(varLoc_) || StringList.contains(varNames_,varLoc_)) {
                     varLoc_ = StringList.concatNbs(varLoc_,indexLoc_);
@@ -224,6 +193,8 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                 if (StringList.quickEq(nextEltWrite_.getTagName(), TAG_A)){
                     _cont.getAnchorsArgs().add(anchorArg_);
                     _cont.getAnchorsVars().add(varNames);
+                    _cont.getConstAnchors().add(false);
+                    _cont.getAnchorsNames().add(EMPTY_STRING);
                 }
                 incrAncNb(_cont, nextEltWrite_);
             } else {

@@ -7,11 +7,10 @@ import code.bean.validator.Validator;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
@@ -33,7 +32,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     private static final String SET_DATA_BASE = "setDataBase";
     private static final String GET_DATA_BASE = "getDataBase";
     private static final String BEFORE_DISPLAYING = "beforeDisplaying";
-    private static final String GET_INDEXES = "getIndexes";
     private static final String GET_OLD_VALUE = "getOldValue";
     private static final String GET_NEW_VALUE = "getNewValue";
     private static final String GET_VALUE = "getValue";
@@ -61,6 +59,308 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     private CustList<RendDynOperationNode> expsSecondCust;
     private CustList<RendDynOperationNode> expsBeforeDisplaying;
 
+    static Object[] adaptedArgs(StringList _params, BeanNatLgNames _stds, Struct... _args) {
+        int len_ = _params.size();
+        Object[] args_ = new Object[len_];
+        for (int i = 0; i < len_; i++) {
+            Struct argStruct_ = _args[i];
+            if (argStruct_ == NullStruct.NULL_VALUE) {
+                continue;
+            }
+            if (argStruct_ instanceof ArrayStruct) {
+                ArrayStruct arr_ = (ArrayStruct) argStruct_;
+                Struct[] str_ = arr_.getInstance();
+                String compo_ = PrimitiveTypeUtil.getQuickComponentType(arr_.getClassName());
+                if (StringList.quickEq(compo_, _stds.getAliasPrimByte())) {
+                    byte[] adapt_ = new byte[str_.length];
+                    int i_ = CustList.FIRST_INDEX;
+                    for (Struct s: str_) {
+                        adapt_[i_] = ((NumberStruct)s).byteStruct();
+                        i_++;
+                    }
+                    args_[i] = adapt_;
+                    continue;
+                }
+                if (StringList.quickEq(compo_, _stds.getAliasPrimShort())) {
+                    short[] adapt_ = new short[str_.length];
+                    int i_ = CustList.FIRST_INDEX;
+                    for (Struct s: str_) {
+                        adapt_[i_] = ((NumberStruct)s).shortStruct();
+                        i_++;
+                    }
+                    args_[i] = adapt_;
+                    continue;
+                }
+                if (StringList.quickEq(compo_, _stds.getAliasPrimInteger())) {
+                    int[] adapt_ = new int[str_.length];
+                    int i_ = CustList.FIRST_INDEX;
+                    for (Struct s: str_) {
+                        adapt_[i_] = ((NumberStruct)s).intStruct();
+                        i_++;
+                    }
+                    args_[i] = adapt_;
+                    continue;
+                }
+                if (StringList.quickEq(compo_, _stds.getAliasPrimChar())) {
+                    char[] adapt_ = new char[str_.length];
+                    int i_ = CustList.FIRST_INDEX;
+                    for (Struct s: str_) {
+                        adapt_[i_] = ((CharStruct) s).getChar();
+                        i_++;
+                    }
+                    args_[i] = adapt_;
+                    continue;
+                }
+                if (StringList.quickEq(compo_, _stds.getAliasPrimLong())) {
+                    long[] adapt_ = new long[str_.length];
+                    int i_ = CustList.FIRST_INDEX;
+                    for (Struct s: str_) {
+                        adapt_[i_] = ((NumberStruct)s).longStruct();
+                        i_++;
+                    }
+                    args_[i] = adapt_;
+                    continue;
+                }
+                if (StringList.quickEq(compo_, _stds.getAliasPrimFloat())) {
+                    float[] adapt_ = new float[str_.length];
+                    int i_ = CustList.FIRST_INDEX;
+                    for (Struct s: str_) {
+                        adapt_[i_] = ((NumberStruct)s).floatStruct();
+                        i_++;
+                    }
+                    args_[i] = adapt_;
+                    continue;
+                }
+                if (StringList.quickEq(compo_, _stds.getAliasPrimDouble())) {
+                    double[] adapt_ = new double[str_.length];
+                    int i_ = CustList.FIRST_INDEX;
+                    for (Struct s: str_) {
+                        adapt_[i_] = ((NumberStruct)s).doubleStruct();
+                        i_++;
+                    }
+                    args_[i] = adapt_;
+                    continue;
+                }
+                if (StringList.quickEq(compo_, _stds.getAliasString())) {
+                    String[] adapt_ = new String[str_.length];
+                    int i_ = CustList.FIRST_INDEX;
+                    for (Struct s: str_) {
+                        adapt_[i_] = ((CharSequenceStruct)s).toStringInstance();
+                        i_++;
+                    }
+                    args_[i] = adapt_;
+                    continue;
+                }
+                if (StringList.quickEq(compo_, _stds.getAliasReplacement())) {
+                    Replacement[] adapt_ = new Replacement[str_.length];
+                    int i_ = CustList.FIRST_INDEX;
+                    for (Struct s: str_) {
+                        adapt_[i_] = ((ReplacementStruct) s).getInstance();
+                        i_++;
+                    }
+                    args_[i] = adapt_;
+                    continue;
+                }
+                if (StringList.quickEq(compo_, _stds.getAliasPrimBoolean())) {
+                    boolean[] adapt_ = new boolean[str_.length];
+                    int i_ = CustList.FIRST_INDEX;
+                    for (Struct s: str_) {
+                        adapt_[i_] = ((BooleanStruct) s).getInstance();
+                        i_++;
+                    }
+                    args_[i] = adapt_;
+                    continue;
+                }
+                args_[i] = _stds.getOtherArguments(str_, compo_);
+                continue;
+            }
+            String p_ = _params.get(i);
+            String pType_ = PrimitiveTypeUtil.toPrimitive(p_, _stds);
+            if (argStruct_ instanceof NumberStruct) {
+                if (argStruct_ instanceof CharStruct) {
+                    if (StringList.quickEq(pType_, _stds.getAliasPrimChar())) {
+                        args_[i] = ((CharStruct) argStruct_).getChar();
+                    } else {
+                        args_[i] = ((NumberStruct) argStruct_).longStruct();
+                    }
+                } else if (argStruct_ instanceof IntStruct) {
+                    args_[i] = ((NumberStruct) argStruct_).intStruct();
+                } else if (argStruct_ instanceof DoubleStruct) {
+                    args_[i] = ((DoubleStruct) argStruct_).doubleStruct();
+                } else {
+                    if (StringList.quickEq(pType_, _stds.getAliasPrimChar())) {
+                        args_[i] = (char) ((NumberStruct) argStruct_).intStruct();
+                    } else {
+                        args_[i] = ((NumberStruct) argStruct_).longStruct();
+                    }
+                }
+            } else if (argStruct_ instanceof StringStruct) {
+                args_[i] = ((StringStruct)argStruct_).getInstance();
+            } else if (argStruct_ instanceof StringBuilderStruct) {
+                args_[i] = ((StringBuilderStruct)argStruct_).getInstance();
+            } else if (argStruct_ instanceof BooleanStruct) {
+                args_[i] = ((BooleanStruct)argStruct_).getInstance();
+            } else {
+                args_[i] = ((RealInstanceStruct)argStruct_).getInstance();
+            }
+        }
+        return args_;
+    }
+
+    static Object adaptedArg(BeanNatLgNames _stds, Struct _args) {
+        if (_args == NullStruct.NULL_VALUE) {
+            return null;
+        }
+        if (_args instanceof ArrayStruct) {
+            ArrayStruct arr_ = (ArrayStruct) _args;
+            Struct[] str_ = arr_.getInstance();
+            String compo_ = PrimitiveTypeUtil.getQuickComponentType(arr_.getClassName());
+            if (StringList.quickEq(compo_, _stds.getAliasPrimByte())) {
+                byte[] adapt_ = new byte[str_.length];
+                int i_ = CustList.FIRST_INDEX;
+                for (Struct s: str_) {
+                    adapt_[i_] = ((NumberStruct)s).byteStruct();
+                    i_++;
+                }
+                return adapt_;
+            }
+            if (StringList.quickEq(compo_, _stds.getAliasPrimShort())) {
+                short[] adapt_ = new short[str_.length];
+                int i_ = CustList.FIRST_INDEX;
+                for (Struct s: str_) {
+                    adapt_[i_] = ((NumberStruct)s).shortStruct();
+                    i_++;
+                }
+                return adapt_;
+            }
+            if (StringList.quickEq(compo_, _stds.getAliasPrimInteger())) {
+                int[] adapt_ = new int[str_.length];
+                int i_ = CustList.FIRST_INDEX;
+                for (Struct s: str_) {
+                    adapt_[i_] = ((NumberStruct)s).intStruct();
+                    i_++;
+                }
+                return adapt_;
+            }
+            if (StringList.quickEq(compo_, _stds.getAliasPrimChar())) {
+                char[] adapt_ = new char[str_.length];
+                int i_ = CustList.FIRST_INDEX;
+                for (Struct s: str_) {
+                    adapt_[i_] = ((CharStruct) s).getChar();
+                    i_++;
+                }
+                return adapt_;
+            }
+            if (StringList.quickEq(compo_, _stds.getAliasPrimLong())) {
+                long[] adapt_ = new long[str_.length];
+                int i_ = CustList.FIRST_INDEX;
+                for (Struct s: str_) {
+                    adapt_[i_] = ((NumberStruct)s).longStruct();
+                    i_++;
+                }
+                return adapt_;
+            }
+            if (StringList.quickEq(compo_, _stds.getAliasPrimFloat())) {
+                float[] adapt_ = new float[str_.length];
+                int i_ = CustList.FIRST_INDEX;
+                for (Struct s: str_) {
+                    adapt_[i_] = ((NumberStruct)s).floatStruct();
+                    i_++;
+                }
+                return adapt_;
+            }
+            if (StringList.quickEq(compo_, _stds.getAliasPrimDouble())) {
+                double[] adapt_ = new double[str_.length];
+                int i_ = CustList.FIRST_INDEX;
+                for (Struct s: str_) {
+                    adapt_[i_] = ((NumberStruct)s).doubleStruct();
+                    i_++;
+                }
+                return adapt_;
+            }
+            if (StringList.quickEq(compo_, _stds.getAliasString())) {
+                String[] adapt_ = new String[str_.length];
+                int i_ = CustList.FIRST_INDEX;
+                for (Struct s: str_) {
+                    adapt_[i_] = ((CharSequenceStruct)s).toStringInstance();
+                    i_++;
+                }
+                return adapt_;
+            }
+            if (StringList.quickEq(compo_, _stds.getAliasReplacement())) {
+                Replacement[] adapt_ = new Replacement[str_.length];
+                int i_ = CustList.FIRST_INDEX;
+                for (Struct s: str_) {
+                    adapt_[i_] = ((ReplacementStruct) s).getInstance();
+                    i_++;
+                }
+                return adapt_;
+            }
+            if (StringList.quickEq(compo_, _stds.getAliasPrimBoolean())) {
+                boolean[] adapt_ = new boolean[str_.length];
+                int i_ = CustList.FIRST_INDEX;
+                for (Struct s: str_) {
+                    adapt_[i_] = ((BooleanStruct) s).getInstance();
+                    i_++;
+                }
+                return adapt_;
+            }
+            return _stds.getOtherArguments(str_, compo_);
+        }
+        if (_args instanceof NumberStruct) {
+            if (_args instanceof CharStruct) {
+                return ((CharStruct) _args).getChar();
+            }
+            if (_args instanceof IntStruct) {
+                return ((IntStruct) _args).intStruct();
+            }
+            return ((NumberStruct) _args).longStruct();
+        }
+        if (_args instanceof StringStruct) {
+            return ((StringStruct)_args).getInstance();
+        }
+        if (_args instanceof StringBuilderStruct) {
+            return ((StringBuilderStruct)_args).getInstance();
+        }
+        if (_args instanceof BooleanStruct) {
+            return ((BooleanStruct) _args).getInstance();
+        }
+        return ((RealInstanceStruct) _args).getInstance();
+    }
+
+    public Object getOtherArguments(Struct[] _str, String _base) {
+        return null;
+    }
+    public static ResultErrorStd getField(ContextEl _cont, ClassField _classField, Struct _instance) {
+        BeanNatLgNames lgNames_ = (BeanNatLgNames) _cont.getStandards();
+        String type_ = _classField.getClassName();
+        String booleanType_ = lgNames_.getAliasBoolean();
+        String charType_ = lgNames_.getAliasCharacter();
+        String byteType_ = lgNames_.getAliasByte();
+        String shortType_ = lgNames_.getAliasShort();
+        String intType_ = lgNames_.getAliasInteger();
+        String longType_ = lgNames_.getAliasLong();
+        String floatType_ = lgNames_.getAliasFloat();
+        String doubleType_ = lgNames_.getAliasDouble();
+        if (StringList.quickEq(type_, booleanType_)
+                || StringList.quickEq(type_, charType_)
+                || StringList.quickEq(type_, byteType_)
+                || StringList.quickEq(type_, shortType_)
+                || StringList.quickEq(type_, intType_)
+                || StringList.quickEq(type_, longType_)
+                || StringList.quickEq(type_, floatType_)
+                || StringList.quickEq(type_, doubleType_)) {
+            return lgNames_.getSimpleResult(_cont, _classField);
+        }
+        return lgNames_.getOtherResult(_cont, _classField, _instance);
+    }
+
+    public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
+        return new ResultErrorStd();
+    }
+    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
+        return new ResultErrorStd();
+    }
 
     public void buildBeans() {
         StringMap<StandardField> fields_;
@@ -146,9 +446,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(GET_OLD_VALUE, params_, getAliasObject(), false, MethodModifier.NORMAL, cl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(GET_INDEXES, params_, getCustList(), false, MethodModifier.NORMAL, cl_);
         methods_.put(method_.getId(), method_);
         getStandards().put(getValueChangedEvent(), cl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
@@ -387,6 +684,28 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         return _arg.getObjectClassName(context_);
     }
 
+    public static ResultErrorStd setField(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
+        BeanNatLgNames lgNames_ = (BeanNatLgNames) _cont.getStandards();
+        Object value_ = adaptedArg(lgNames_, _value);
+        return lgNames_.setOtherResult(_cont, _classField, _instance, value_);
+    }
+
+    @Override
+    public ResultErrorStd getOtherResult(ContextEl _cont,
+                                         ConstructorId _method, Struct... _args) {
+        if (StringList.quickEq(_method.getName(),getAliasObject())) {
+            return super.getOtherResult(_cont,_method,_args);
+        }
+        StringList list_ = _method.getParametersTypes();
+        Object[] argsObj_ = adaptedArgs(list_, this, _args);
+        return getOtherResultBean(_cont, _method, argsObj_);
+    }
+
+    public ResultErrorStd getOtherResultBean(ContextEl _cont,
+                                             ConstructorId _method, Object... _args) {
+        return new ResultErrorStd();
+    }
+
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
                                          ClassMethodId _method, Struct... _args) {
@@ -396,15 +715,14 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         if (StringList.quickEq(type_, getAliasEnums())) {
             return super.getOtherResult(_cont,_instance,_method,_args);
         }
-        BeanLgNames b_ = (BeanLgNames) _cont.getStandards();
-        Object[] argsObj_ = adaptedArgs(list_, b_, _args);
+        Object[] argsObj_ = adaptedArgs(list_, this, _args);
         Object instance_ = null;
         if (!_method.getConstraints().isStaticMethod()) {
             instance_ = ((RealInstanceStruct)_instance).getInstance();
         }
         if (instance_ instanceof Displayable) {
             String name_ = _method.getConstraints().getName();
-            if (StringList.quickEq(name_, b_.getAliasDisplay()) || StringList.quickEq(name_, b_.getAliasToString())) {
+            if (StringList.quickEq(name_, getAliasDisplay()) || StringList.quickEq(name_, getAliasToString())) {
                 res_.setResult(new StringStruct(((Displayable)instance_).display()));
                 return res_;
             }
@@ -516,11 +834,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
                 res_.setResult(db_.getOldValue());
                 return res_;
             }
-            if (StringList.quickEq(_method.getConstraints().getName(), GET_INDEXES)) {
-                Longs value_ = db_.getIndexes();
-                res_.setResult(StdStruct.newListLong(value_, StringList.concat(getCustList(),Templates.TEMPLATE_BEGIN,getAliasLong(),Templates.TEMPLATE_END)));
-                return res_;
-            }
         }
         if (instance_ instanceof Validator) {
             Validator validator_ = (Validator) instance_;
@@ -535,6 +848,10 @@ public abstract class BeanNatLgNames extends BeanLgNames {
             }
         }
         return getOtherResultBean(_cont, _instance, _method, argsObj_);
+    }
+    public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
+                                             ClassMethodId _method, Object... _args) {
+        return new ResultErrorStd();
     }
     private ResultErrorStd prIterator(ContextEl _cont, String _name, Struct _struct) {
         ResultErrorStd result_ = new ResultErrorStd();

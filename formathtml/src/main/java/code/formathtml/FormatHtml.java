@@ -370,19 +370,16 @@ public final class FormatHtml {
         ip_.setReadUrl(_conf.getCurrentUrl());
         ip_.setBeanName(beanName_);
         ip_.setPrefix(_conf.getPrefix());
-//        Element r_ = _docOrig.getDocumentElement();
         if (bean_ != null) {
             ip_.setGlobalArgumentStruct(bean_, _conf);
         }
         _conf.addPage(ip_);
-//        Node en_ = r_;
         FullDocument doc_ = DocumentBuilder.newXmlDocument(tabWidth_);
         appendChild(doc_, _conf, doc_, _rend.getElt());
         RendReadWrite rw_ = new RendReadWrite();
         rw_.setRead(_rend.getFirstChild());
         rw_.setWrite(doc_);
         rw_.setDocument(doc_);
-//        ip_.setRoot(r_);
         ip_.setRendReadWrite(rw_);
         while (true) {
             Boolean res_ = removeCall(_conf);
@@ -400,6 +397,26 @@ public final class FormatHtml {
                 break;
             }
         }
+        if (_conf.getContext().hasExceptionOrFailInit()) {
+            return EMPTY_STRING;
+        }
+        LongMap<LongTreeMap<NodeContainer>> containersMap_ = _conf.getContainersMap();
+//        LongTreeMap<NodeContainer> containers_ = _conf.getContainers();
+//        containersMap_.put(currentForm_, containers_);
+//        containersMap_.removeKey(0L);
+//        if (currentForm_ > 1) {
+//            curForm_.setAttribute(NUMBER_FORM, String.valueOf(currentForm_ - 1));
+//        }
+//        for (Long k: containersMap_.getKeys()) {
+//            containersMap_.move(k, k - 1);
+//        }
+        _conf.getHtmlPage().setContainers(containersMap_);
+        _conf.getHtmlPage().setCallsExps(_conf.getCallsExps());
+        _conf.getHtmlPage().setAnchorsArgs(_conf.getAnchorsArgs());
+        _conf.getHtmlPage().setAnchorsVars(_conf.getAnchorsVars());
+        _conf.getHtmlPage().setAnchorsNames(_conf.getAnchorsNames());
+        _conf.getHtmlPage().setConstAnchors(_conf.getConstAnchors());
+        doc_.getDocumentElement().removeAttribute(StringList.concat(_conf.getPrefix(),BEAN_ATTRIBUTE));
         return doc_.export();
     }
     static Boolean removeCall(Configuration _context) {
@@ -525,11 +542,6 @@ public final class FormatHtml {
         ip_.setRoot(r_);
         ip_.setReadWrite(rw_);
         _conf.initForms();
-//        LongMap<LongTreeMap<NodeContainer>> containersMap_;
-//        containersMap_ = new LongMap<LongTreeMap<NodeContainer>>();
-//        LongTreeMap<NodeContainer> containers_;
-//        containers_ = new LongTreeMap<NodeContainer>();
-//        IndexesFormInput indexes_ = new IndexesFormInput();
         Element curForm_ = null;
         long currentAnchor_ = 0;
         long currentForm_ = 0;
@@ -2616,7 +2628,7 @@ public final class FormatHtml {
         }
         if (found_ == -1) {
             long currentInput_ = _conf.getIndexes().getInput();
-            NodeContainer nodeCont_ = new NodeContainer(name_);
+            NodeContainer nodeCont_ = new NodeContainer();
             nodeCont_.setEnabled(true);
             nodeCont_.setLastToken(end_);
             nodeCont_.setIndex(index_);
@@ -3108,14 +3120,9 @@ public final class FormatHtml {
 //                attr_ = format(stacks_, attr_, false);
                 _tag.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND), attr_);
             }
-            String href_ = _tag.getAttribute(ATTRIBUTE_HREF);
+            String href_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND));
             if (href_.startsWith(CALL_METHOD)) {
-                _tag.setAttribute(ATTRIBUTE_HREF, StringList.concat(CALL_METHOD,beanName_,DOT,href_.substring(1)));
-            } else {
-                href_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND));
-                if (href_.startsWith(CALL_METHOD)) {
-                    _tag.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND), StringList.concat(CALL_METHOD,beanName_,DOT,href_.substring(1)));
-                }
+                _tag.setAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND), StringList.concat(CALL_METHOD,beanName_,DOT,href_.substring(1)));
             }
             if (_tag.hasAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND))) {
                 _tag.setAttribute(ATTRIBUTE_HREF, EMPTY_STRING);

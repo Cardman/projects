@@ -6104,7 +6104,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><a href=\"$element\">LINK_ONE</a><a href=\"\" c:command=\"$element\">LINK_TWO</a><a/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><a href=\"\" c:command=\"$element\">LINK_ONE</a><a href=\"\" c:command=\"$element\">LINK_TWO</a><a/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -6134,7 +6134,7 @@ public class FormatHtmlTest {
 
 
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a n-a=\"0\" href=\"$bean_one.element\">LINK_ONE</a><a n-a=\"1\" c:command=\"$bean_one.element\" href=\"\">LINK_TWO</a><a/></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a n-a=\"0\" c:command=\"$bean_one.element\" href=\"\">LINK_ONE</a><a n-a=\"1\" c:command=\"$bean_one.element\" href=\"\">LINK_TWO</a><a/></body></html>", render_);
     }
 
     @Test

@@ -1,8 +1,6 @@
 package code.formathtml;
 
 import code.expressionlanguage.files.OffsetsBlock;
-import code.formathtml.util.AnalyzingDoc;
-import code.formathtml.util.BadElRender;
 import code.formathtml.util.ResultText;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -26,40 +24,8 @@ public final class RendSubmit extends RendElement {
     protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _all, StringList _list) {
         _list.removeAllString(ATTRIBUTE_VALUE_SUBMIT);
         String value_ = _read.getAttribute(ATTRIBUTE_VALUE_SUBMIT);
-        StringList elts_ = StringList.splitStrings(value_, COMMA);
-        String var_ = elts_.first();
-        String fileName_ = getProperty(_cont, var_);
-        if (fileName_ == null) {
-            BadElRender badEl_ = new BadElRender();
-            badEl_.setErrors(_cont.getClasses().getErrorsDet());
-            badEl_.setFileName(_cont.getCurrentFileName());
-            badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-            _cont.getClasses().addError(badEl_);
-            return;
-        }
-        AnalyzingDoc a_ = _cont.getAnalyzingDoc();
-        String language_ = a_.getLanguage();
-        StringMap<String> files_ = a_.getFiles();
-        String[] resourcesFolder_ = a_.getResourcesFolder();
-        String content_ = ExtractFromResources.tryGetContent(_cont, language_, fileName_, files_, resourcesFolder_);
-        int index_ = ExtractFromResources.indexCorrectMessages(content_);
-        if (index_ >= 0) {
-            BadElRender badEl_ = new BadElRender();
-            badEl_.setErrors(_cont.getClasses().getErrorsDet());
-            badEl_.setFileName(_cont.getCurrentFileName());
-            badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-            _cont.getClasses().addError(badEl_);
-            return;
-        }
-        StringMap<String> messages_ = ExtractFromResources.getMessages(content_);
-        String key_ = elts_.last();
-        preformatted = ExtractFromResources.getQuickFormat(messages_, key_);
+        preformatted = getPre(_cont,value_);
         if (preformatted == null) {
-            BadElRender badEl_ = new BadElRender();
-            badEl_.setErrors(_cont.getClasses().getErrorsDet());
-            badEl_.setFileName(_cont.getCurrentFileName());
-            badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-            _cont.getClasses().addError(badEl_);
             return;
         }
         opExp = new StringMap<ResultText>();

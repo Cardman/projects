@@ -22,6 +22,7 @@ public abstract class CommonRender {
     }
     Configuration contextEl(StringMap<String> _files) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
+        conf_.setPrefix("c:");
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
@@ -40,6 +41,7 @@ public abstract class CommonRender {
     }
     Configuration contextElSec(StringMap<String> _files) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
+        conf_.setPrefix("c:");
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
@@ -54,6 +56,7 @@ public abstract class CommonRender {
     }
     Configuration contextElThird(StringMap<String> _files) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
+        conf_.setPrefix("c:");
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);

@@ -4,7 +4,6 @@ import code.util.StringList;
 
 public class NodeInformations {
 
-    private final String name;
     private String id = "";
     private String inputClass = "";
     private String changing = "";
@@ -12,9 +11,6 @@ public class NodeInformations {
     private String varMethod = "";
     private String type = "";
     private StringList value = new StringList();
-    public NodeInformations(String _name) {
-        name = _name;
-    }
     public String getId() {
         return id;
     }
@@ -45,9 +41,7 @@ public class NodeInformations {
     public void setVarMethod(String _varMethod) {
         varMethod = _varMethod;
     }
-    public String getName() {
-        return name;
-    }
+
     public String getType() {
         return type;
     }

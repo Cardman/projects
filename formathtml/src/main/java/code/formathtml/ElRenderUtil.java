@@ -154,10 +154,12 @@ public final class ElRenderUtil {
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, _index);
         if (d_.getBadOffset() >= 0) {
             _conf.getLastPage().setOffset(d_.getBadOffset());
-            BadElRender badEl_ = new BadElRender();
-            badEl_.setErrors(_conf.getClasses().getErrorsDet());
+            BadElError badEl_ = new BadElError();
+            badEl_.setOffsetInEl(d_.getBadOffset());
+            badEl_.setEl(_el);
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+            _conf.getClasses().addError(badEl_);
             _conf.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
             context_.setAnalyzing(null);
             return Argument.createVoid();

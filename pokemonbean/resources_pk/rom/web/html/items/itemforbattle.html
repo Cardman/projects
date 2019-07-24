@@ -355,7 +355,7 @@
 					<tbody>
 						<c:for key="s" map="increasingMaxNbRoundTrap" value="r" varClassName="java.lang.Short">
 							<tr>
-								<td><a href="$clickTrapMove({s;;})">{getTrTrapMove(s;;)}</a></td>
+								<td><a c:command="$clickTrapMove({s;;})">{getTrTrapMove(s;;)}</a></td>
 								<td>{r;}</td>
 							</tr>
 						</c:for>
@@ -376,7 +376,7 @@
 					<tbody>
 						<c:for key="s" map="increasingMaxNbRoundGlobalMove" value="r" varClassName="java.lang.Short">
 							<tr>
-								<td><a href="$clickGlobalMove({s;;})">{getTrGlobalMove(s;;)}</a></td>
+								<td><a c:command="$clickGlobalMove({s;;})">{getTrGlobalMove(s;;)}</a></td>
 								<td>{r;}</td>
 							</tr>
 						</c:for>
@@ -397,7 +397,7 @@
 					<tbody>
 						<c:for key="s" map="increasingMaxNbRoundTeamMove" value="r" varClassName="java.lang.Short">
 							<tr>
-								<td><a href="$clickTeamMove({s;;})">{getTrTeamMove(s;;)}</a></td>
+								<td><a c:command="$clickTeamMove({s;;})">{getTrTeamMove(s;;)}</a></td>
 								<td>{r;}</td>
 							</tr>
 						</c:for>

@@ -73,15 +73,22 @@ final class HtmlRequest {
 
     static Struct invokeMethodWithNumbersBis(Configuration _conf, String _action) {
         Argument arg_ = ElRenderUtil.processEl(_action, 0, _conf);
-        if (_conf.getContext().getException() != null || !_conf.getClasses().getErrorsDet().isEmpty()) {
+        if (!_conf.getClasses().getErrorsDet().isEmpty() || _conf.getContext().getException() != null) {
             return NullStruct.NULL_VALUE;
         }
         return arg_.getStruct();
     }
 
-    static Struct invokeMethodWithNumbersTer(Configuration _conf, Argument _bean, int _url) {
-        StringList varNames_ = _conf.getAnchorsVars().get(_url);
-        StringList args_ = _conf.getAnchorsArgs().get(_url);
+    static Struct redirect(Configuration _conf, Argument _bean, int _url) {
+        if (_conf.getHtmlPage().getConstAnchors().get(_url)) {
+            String action_ = _conf.getHtmlPage().getAnchorsNames().get(_url);
+            if (action_.indexOf('(') == CustList.INDEX_NOT_FOUND_ELT) {
+                action_ = StringList.concat(action_,"()");
+            }
+            return invokeMethodWithNumbersBis(_conf,action_);
+        }
+        StringList varNames_ = _conf.getHtmlPage().getAnchorsVars().get(_url);
+        StringList args_ = _conf.getHtmlPage().getAnchorsArgs().get(_url);
         ImportingPage ip_ = _conf.getLastPage();
         int s_ = varNames_.size();
         for (int i =0; i< s_; i++) {
@@ -90,19 +97,18 @@ final class HtmlRequest {
             locVar_.setStruct(new IntStruct(Numbers.parseInt(args_.get(i))));
             ip_.putLocalVar(varNames_.get(i), locVar_);
         }
-        CustList<RendDynOperationNode> exps_ = _conf.getCallsExps().get(_url);
+        CustList<RendDynOperationNode> exps_ = _conf.getHtmlPage().getCallsExps().get(_url);
         Argument arg_ = ElRenderUtil.calculateReuse(exps_,_conf,_bean);
-        if (_conf.getContext().getException() != null || !_conf.getClasses().getErrorsDet().isEmpty()) {
-            return NullStruct.NULL_VALUE;
-        }
         for (String n: varNames_) {
             ip_.removeLocalVar(n);
+        }
+        if (_conf.getContext().getException() != null) {
+            return NullStruct.NULL_VALUE;
         }
         return arg_.getStruct();
     }
     static void setObject(Configuration _conf, NodeContainer _nodeContainer,
-            Struct _attribute,
-            Longs _indexes) {
+            Struct _attribute) {
         Struct obj_ = _nodeContainer.getStruct();
         if (obj_ == NullStruct.NULL_VALUE) {
             String err_ = _conf.getStandards().getAliasNullPe();
@@ -111,7 +117,7 @@ final class HtmlRequest {
             return;
         }
         long index_ = _nodeContainer.getIndex();
-        ValueChangeEvent chg_ = calculateChange(_nodeContainer, _attribute, _indexes);
+        ValueChangeEvent chg_ = calculateChange(_nodeContainer, _attribute);
         if (index_ >= 0) {
             boolean key_ = _nodeContainer.isKey();
             ContextEl context_ = _conf.getContext();
@@ -204,8 +210,7 @@ final class HtmlRequest {
         }
     }
     private static ValueChangeEvent calculateChange(NodeContainer _nodeContainer,
-            Struct _attribute,
-            Longs _indexes) {
+            Struct _attribute) {
         String varMethod_ = _nodeContainer.getNodeInformation().getVarMethod();
         if (!varMethod_.isEmpty()) {
             return null;
@@ -214,6 +219,6 @@ final class HtmlRequest {
         if (method_.isEmpty()) {
             return null;
         }
-        return new ValueChangeEvent(_indexes, _nodeContainer.getTypedStruct(), _attribute);
+        return new ValueChangeEvent(_nodeContainer.getTypedStruct(), _attribute);
     }
 }

@@ -10,9 +10,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
-import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.RendParentElement;
-import code.formathtml.util.RendReadWrite;
+import code.formathtml.util.*;
 import code.sml.*;
 import code.util.CustList;
 import code.util.StringList;
@@ -69,6 +67,7 @@ public abstract class RendBlock {
     static final String NUMBER_ANCHOR = "n-a";
     static final String NUMBER_INPUT = "n-i";
     static final String DOT = ".";
+    static final String TMP_LOC = "tmpLoc";
     private static final String FOR_BLOCK_TAG = "for";
     private static final String WHILE_BLOCK_TAG = "while";
     private static final String ELSE_BLOCK_TAG = "else";
@@ -275,6 +274,9 @@ public abstract class RendBlock {
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,SUBMIT_BLOCK_TAG))) {
             return new RendSubmit(elt_,new OffsetsBlock());
         }
+        if (StringList.quickEq(tagName_,TAG_A)) {
+            return new RendAnchor(elt_,new OffsetsBlock());
+        }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,PACKAGE_BLOCK_TAG))) {
             return new RendPackage(newOffsetStringInfo(elt_,ATTRIBUTE_NAME),new OffsetsBlock());
         }
@@ -290,6 +292,45 @@ public abstract class RendBlock {
         return new RendStdElement(elt_,new OffsetsBlock());
     }
 
+    static String getPre(Configuration _cont, String _value) {
+        StringList elts_ = StringList.splitStrings(_value, COMMA);
+        String var_ = elts_.first();
+        String fileName_ = getProperty(_cont, var_);
+        if (fileName_ == null) {
+            BadElRender badEl_ = new BadElRender();
+            badEl_.setErrors(_cont.getClasses().getErrorsDet());
+            badEl_.setFileName(_cont.getCurrentFileName());
+            badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+            _cont.getClasses().addError(badEl_);
+            return null;
+        }
+        AnalyzingDoc a_ = _cont.getAnalyzingDoc();
+        String language_ = a_.getLanguage();
+        StringMap<String> files_ = a_.getFiles();
+        String[] resourcesFolder_ = a_.getResourcesFolder();
+        String content_ = ExtractFromResources.tryGetContent(_cont, language_, fileName_, files_, resourcesFolder_);
+        int index_ = ExtractFromResources.indexCorrectMessages(content_);
+        if (index_ >= 0) {
+            BadElRender badEl_ = new BadElRender();
+            badEl_.setErrors(_cont.getClasses().getErrorsDet());
+            badEl_.setFileName(_cont.getCurrentFileName());
+            badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+            _cont.getClasses().addError(badEl_);
+            return null;
+        }
+        StringMap<String> messages_ = ExtractFromResources.getMessages(content_);
+        String key_ = elts_.last();
+        String format_ = ExtractFromResources.getQuickFormat(messages_, key_);
+        if (format_ == null) {
+            BadElRender badEl_ = new BadElRender();
+            badEl_.setErrors(_cont.getClasses().getErrorsDet());
+            badEl_.setFileName(_cont.getCurrentFileName());
+            badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+            _cont.getClasses().addError(badEl_);
+            return null;
+        }
+        return format_;
+    }
     protected static void incrAncNb(Configuration _cont, Element _nextEltWrite) {
         if (StringList.quickEq(_nextEltWrite.getTagName(), TAG_A) && (_nextEltWrite.hasAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND))|| !_nextEltWrite.getAttribute(ATTRIBUTE_HREF).isEmpty() )) {
             long currentAnchor_ = _cont.getIndexes().getAnchor();

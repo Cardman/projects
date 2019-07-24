@@ -4,20 +4,13 @@ import code.util.Longs;
 
 public class ValueChangeEvent {
 
-    private final Longs indexes;
-
     private final Struct oldValue;
 
     private final Struct newValue;
 
-    public ValueChangeEvent(Longs _indexes,Struct _oldValue, Struct _newValue) {
-        indexes = _indexes;
+    public ValueChangeEvent(Struct _oldValue, Struct _newValue) {
         oldValue = _oldValue;
         newValue = _newValue;
-    }
-
-    public Longs getIndexes() {
-        return indexes;
     }
 
     public Struct getOldValue() {
