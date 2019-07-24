@@ -1,4 +1,4 @@
-package code.formathtml.util;
+package code.formathtml.structs;
 
 import code.expressionlanguage.structs.Struct;
 

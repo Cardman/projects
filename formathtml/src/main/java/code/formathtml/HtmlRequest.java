@@ -12,7 +12,7 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.BadElRender;
 import code.formathtml.util.NodeContainer;
-import code.formathtml.util.StdStruct;
+import code.formathtml.structs.StdStruct;
 import code.formathtml.util.ValueChangeEvent;
 import code.sml.DocumentBuilder;
 import code.util.*;

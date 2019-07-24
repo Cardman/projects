@@ -5,6 +5,7 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.*;
 import code.sml.*;
 import code.util.BooleanList;

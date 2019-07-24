@@ -6,8 +6,8 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
-import code.formathtml.util.RendRemovableVars;
-import code.formathtml.util.RendTryBlockStack;
+import code.formathtml.stacks.RendRemovableVars;
+import code.formathtml.stacks.RendTryBlockStack;
 
 public final class RendLocalThrowing implements RendCallingFinally {
     @Override

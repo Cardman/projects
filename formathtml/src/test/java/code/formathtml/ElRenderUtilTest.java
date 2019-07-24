@@ -26,7 +26,7 @@ import code.formathtml.classes.Composite;
 import code.formathtml.classes.CustLgNames;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.StdStruct;
+import code.formathtml.structs.StdStruct;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;

@@ -1,4 +1,4 @@
-package code.formathtml.util;
+package code.formathtml.stacks;
 
 import code.formathtml.ImportingPage;
 import code.formathtml.RendParentBlock;

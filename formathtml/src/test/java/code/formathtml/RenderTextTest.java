@@ -186,4 +186,40 @@ public final class RenderTextTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(!conf_.getClasses().isEmptyErrors());
     }
+    @Test
+    public void process4FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body>1+1{</body></html>";
+        Configuration conf_ = contextElSec();
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process5FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body>1+1{}<br/>'</body></html>";
+        Configuration conf_ = contextElSec();
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
 }

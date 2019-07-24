@@ -17,11 +17,10 @@ import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.formathtml.util.BeanNatLgNames;
-import code.formathtml.util.RealInstanceStruct;
+import code.formathtml.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.StdStruct;
+import code.formathtml.structs.StdStruct;
 import code.util.*;
 
 public final class CustLgNames extends BeanNatLgNames {

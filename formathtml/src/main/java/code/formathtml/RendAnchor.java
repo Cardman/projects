@@ -2,15 +2,9 @@ package code.formathtml;
 
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.structs.DisplayableStruct;
-import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.BadElRender;
-import code.formathtml.util.BeanCustLgNames;
-import code.formathtml.util.ResultText;
 import code.sml.Element;
 import code.sml.MutableNode;
 import code.util.CustList;

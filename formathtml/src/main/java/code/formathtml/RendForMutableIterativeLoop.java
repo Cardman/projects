@@ -2,10 +2,8 @@ package code.formathtml;
 
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.errors.custom.UnexpectedTypeError;
-import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
@@ -18,8 +16,8 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.exec.RendDynOperationNode;
-import code.formathtml.util.RendLoopBlockStack;
-import code.formathtml.util.RendReadWrite;
+import code.formathtml.stacks.RendLoopBlockStack;
+import code.formathtml.stacks.RendReadWrite;
 import code.util.CustList;
 import code.util.StringList;
 

@@ -4,7 +4,7 @@ import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.MyTranslator;
-import code.formathtml.util.BeanStruct;
+import code.formathtml.structs.BeanStruct;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.util.StringMap;

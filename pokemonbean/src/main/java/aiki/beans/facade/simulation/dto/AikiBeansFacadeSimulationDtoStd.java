@@ -12,7 +12,7 @@ import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
-import code.formathtml.util.RealInstanceStruct;
+import code.formathtml.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;

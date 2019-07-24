@@ -1,7 +1,6 @@
 package code.formathtml;
 
 import code.expressionlanguage.files.OffsetsBlock;
-import code.formathtml.util.ResultText;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;

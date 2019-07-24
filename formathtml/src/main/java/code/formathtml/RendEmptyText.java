@@ -2,7 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.formathtml.util.RendReadWrite;
+import code.formathtml.stacks.RendReadWrite;
 import code.sml.Document;
 import code.sml.MutableNode;
 import code.sml.Node;

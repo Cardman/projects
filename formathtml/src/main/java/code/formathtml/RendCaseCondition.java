@@ -15,14 +15,13 @@ import code.expressionlanguage.instr.Delimiters;
 import code.expressionlanguage.instr.ElResolver;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.EnumBlock;
-import code.expressionlanguage.methods.FunctionBlock;
 import code.expressionlanguage.methods.InnerTypeOrElement;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.formathtml.exec.RendDynOperationNode;
-import code.formathtml.util.RendReadWrite;
-import code.formathtml.util.RendSwitchBlockStack;
+import code.formathtml.stacks.RendReadWrite;
+import code.formathtml.stacks.RendSwitchBlockStack;
 import code.util.CustList;
 import code.util.StringList;
 

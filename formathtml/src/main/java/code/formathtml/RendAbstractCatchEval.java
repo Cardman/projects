@@ -2,8 +2,8 @@ package code.formathtml;
 
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.structs.NullStruct;
-import code.formathtml.util.RendReadWrite;
-import code.formathtml.util.RendTryBlockStack;
+import code.formathtml.stacks.RendReadWrite;
+import code.formathtml.stacks.RendTryBlockStack;
 
 public abstract class RendAbstractCatchEval extends RendParentBlock implements RendEval {
     RendAbstractCatchEval(OffsetsBlock _offset) {

@@ -6,6 +6,9 @@ import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.DefaultInitialization;
+import code.formathtml.structs.BeanStruct;
+import code.formathtml.structs.RealInstanceStruct;
+import code.formathtml.structs.StdStruct;
 import code.formathtml.util.*;
 import code.util.*;
 

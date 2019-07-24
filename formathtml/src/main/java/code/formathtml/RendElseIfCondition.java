@@ -3,8 +3,8 @@ package code.formathtml;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.formathtml.util.RendIfStack;
-import code.formathtml.util.RendReadWrite;
+import code.formathtml.stacks.RendIfStack;
+import code.formathtml.stacks.RendReadWrite;
 
 public final class RendElseIfCondition extends RendCondition implements RendBreakableBlock {
     RendElseIfCondition(OffsetStringInfo _condition, OffsetsBlock _offset) {

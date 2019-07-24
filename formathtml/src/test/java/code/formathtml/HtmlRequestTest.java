@@ -28,7 +28,7 @@ import code.formathtml.classes.BeanTwo;
 import code.formathtml.classes.Composite;
 import code.formathtml.classes.MyTranslator;
 import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.BeanStruct;
+import code.formathtml.structs.BeanStruct;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.ValueChangeEvent;
 import code.util.StringList;

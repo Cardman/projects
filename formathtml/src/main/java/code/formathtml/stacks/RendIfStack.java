@@ -1,9 +1,6 @@
-package code.formathtml.util;
+package code.formathtml.stacks;
 import code.expressionlanguage.stacks.IfStack;
 import code.formathtml.*;
-import code.sml.Element;
-import code.sml.Node;
-import code.util.CustList;
 
 public final class RendIfStack extends IfStack implements RendRemovableVars {
 

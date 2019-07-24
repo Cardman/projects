@@ -18,6 +18,9 @@ import code.formathtml.Configuration;
 import code.formathtml.ElRenderUtil;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.structs.RealInstanceStruct;
+import code.formathtml.structs.StdStruct;
+import code.formathtml.structs.StringMapObjectStruct;
 import code.util.*;
 import code.util.ints.*;
 
