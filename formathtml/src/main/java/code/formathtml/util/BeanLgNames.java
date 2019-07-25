@@ -240,6 +240,7 @@ public abstract class BeanLgNames extends LgNames {
     public abstract CustList<RendDynOperationNode> getExpsSecondCust();
     public abstract CustList<RendDynOperationNode> getExpsBeforeDisplaying();
 
+    public abstract String getStringKey(Configuration _conf, Struct _instance);
 
     public ResultErrorStd getStructToBeValidated(StringList _values, String _className, ContextEl _context) {
         ResultErrorStd res_ = new ResultErrorStd();

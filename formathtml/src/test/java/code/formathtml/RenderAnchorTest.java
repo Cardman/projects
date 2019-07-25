@@ -258,7 +258,7 @@ public final class RenderAnchorTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click({1})\">two</a>After\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><a c:command='$click({\"\"})'>two</a></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><a c:command='$click({\"\"},{$null})'>two</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);

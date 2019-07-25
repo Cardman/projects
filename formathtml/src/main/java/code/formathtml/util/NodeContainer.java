@@ -1,11 +1,14 @@
 package code.formathtml.util;
 import code.bean.Bean;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
+import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.structs.BeanStruct;
 import code.formathtml.structs.StdStruct;
+import code.util.CustList;
 
 public class NodeContainer {
 
@@ -16,6 +19,10 @@ public class NodeContainer {
     private String access;
 
     private boolean key;
+    private ClassField idField;
+    private String varPrevName;
+    private String varName;
+    private CustList<RendDynOperationNode> opsWrite;
     private String lastToken;
 
     private long index = -1;
@@ -74,6 +81,14 @@ public class NodeContainer {
         lastToken = _lastToken;
     }
 
+    public ClassField getIdField() {
+        return idField;
+    }
+
+    public void setIdField(ClassField _idField) {
+        idField = _idField;
+    }
+
     public long getIndex() {
         return index;
     }
@@ -110,4 +125,27 @@ public class NodeContainer {
         key = _key;
     }
 
+    public String getVarPrevName() {
+        return varPrevName;
+    }
+
+    public void setVarPrevName(String _varPrevName) {
+        varPrevName = _varPrevName;
+    }
+
+    public String getVarName() {
+        return varName;
+    }
+
+    public void setVarName(String _varName) {
+        varName = _varName;
+    }
+
+    public CustList<RendDynOperationNode> getOpsWrite() {
+        return opsWrite;
+    }
+
+    public void setOpsWrite(CustList<RendDynOperationNode> _opsWrite) {
+        opsWrite = _opsWrite;
+    }
 }

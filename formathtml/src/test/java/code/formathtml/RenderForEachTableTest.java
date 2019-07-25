@@ -28,7 +28,7 @@ public final class RenderForEachTableTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml' bean=\"bean_one\"><body><table><c:for key=\"k\" keyClassName=\"java.lang.String\" value=\"v\" varClassName=\"$int\" map=\"tree\"><tr><td>{k;}</td><td>{v;}</td></tr></c:for></table></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><table><c:for key=\"k\" keyClassName=\"java.lang.String\" value=\"v\" varClassName=\"$int\" map=\"tree\"><tr><td>{k;}</td><td>{v;}</td></tr></c:for></table></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -54,7 +54,7 @@ public final class RenderForEachTableTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html xmlns:c=\"javahtml\" bean=\"bean_one\"><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", FormatHtml.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -140,7 +140,7 @@ public final class RenderForEachTableTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml' bean=\"bean_one\"><body><table><c:for key=\"k\" value=\"v\" map=\"tree\"><tr><td>{k;}</td><td>{v;}</td></tr></c:for></table></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><table><c:for key=\"k\" value=\"v\" map=\"tree\"><tr><td>{k;}</td><td>{v;}</td></tr></c:for></table></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -166,7 +166,7 @@ public final class RenderForEachTableTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html xmlns:c=\"javahtml\" bean=\"bean_one\"><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", FormatHtml.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
 

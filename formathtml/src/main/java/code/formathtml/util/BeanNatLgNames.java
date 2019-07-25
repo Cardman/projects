@@ -668,6 +668,17 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         return expsBeforeDisplaying;
     }
 
+    @Override
+    public String getStringKey(Configuration _conf, Struct _instance) {
+        ContextEl cont_ = _conf.getContext();
+        if (_instance instanceof EnumerableStruct) {
+            return ((EnumerableStruct) _instance).getName();
+        }
+        ResultErrorStd res_ = getName(cont_, _instance);
+        Struct str_ = res_.getResult();
+        return processString(new Argument(str_),_conf);
+    }
+
     public String processString(Argument _arg, Configuration _cont) {
         Struct struct_ = _arg.getStruct();
         if (struct_ instanceof DisplayableStruct) {

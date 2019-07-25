@@ -5,7 +5,9 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.DisplayableStruct;
+import code.expressionlanguage.structs.EnumerableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.VariableSuffix;
@@ -485,6 +487,14 @@ public final class BeanCustLgNames extends BeanLgNames {
 
     public CustList<RendDynOperationNode> getExpsBeforeDisplaying() {
         return expsBeforeDisplaying;
+    }
+
+    @Override
+    public String getStringKey(Configuration _conf, Struct _instance) {
+        if (_instance instanceof EnumerableStruct) {
+            return ((EnumerableStruct) _instance).getName();
+        }
+        return processString(new Argument(_instance),_conf);
     }
 
     public String processString(Argument _arg, Configuration _cont) {

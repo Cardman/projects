@@ -23,12 +23,8 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
     }
 
     public void buildFctInstructions(Configuration _cont) {
-        beanName = elt.getAttribute("bean");
+        beanName = elt.getAttribute(StringList.concat(_cont.getPrefix(),BEAN_ATTRIBUTE));
         setupStaticInfo();
-        if (beanName.isEmpty()) {
-            beanName = elt.getAttribute(StringList.concat(_cont.getPrefix(),"bean"));
-            setupStaticInfo();
-        }
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);

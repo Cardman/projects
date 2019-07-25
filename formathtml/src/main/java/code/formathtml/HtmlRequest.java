@@ -11,6 +11,7 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.BadElRender;
+import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.structs.StdStruct;
 import code.formathtml.util.ValueChangeEvent;
@@ -106,6 +107,24 @@ final class HtmlRequest {
             return NullStruct.NULL_VALUE;
         }
         return arg_.getStruct();
+    }
+    static void setRendObject(Configuration _conf, NodeContainer _nodeContainer,
+                          Struct _attribute) {
+        Struct obj_ = _nodeContainer.getStruct();
+        String attrName_ = _nodeContainer.getVarName();
+        String prev_ = _nodeContainer.getVarPrevName();
+        CustList<RendDynOperationNode> wr_ = _nodeContainer.getOpsWrite();
+        ImportingPage ip_ = _conf.getLastPage();
+        LocalVariable lv_ = new LocalVariable();
+        BeanLgNames stds_ = _conf.getAdvStandards();
+        lv_.setClassName(stds_.getStructClassName(obj_, _conf.getContext()));
+        lv_.setStruct(obj_);
+        ip_.putLocalVar(prev_, lv_);
+        lv_ = new LocalVariable();
+        lv_.setClassName(stds_.getStructClassName(_attribute, _conf.getContext()));
+        lv_.setStruct(_attribute);
+        ip_.putLocalVar(attrName_, lv_);
+        ElRenderUtil.calculateReuse(wr_,_conf);
     }
     static void setObject(Configuration _conf, NodeContainer _nodeContainer,
             Struct _attribute) {

@@ -6,17 +6,20 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.Calculation;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.BadElRender;
+import code.formathtml.util.NodeContainer;
 import code.sml.Element;
 import code.sml.MutableNode;
 import code.util.CustList;
+import code.util.LongTreeMap;
 import code.util.StringList;
 
-public final class RendAnchor extends RendElement {
+public final class RendForm extends RendElement {
     private CustList<CustList<RendDynOperationNode>> opExp;
 
     private StringList texts = new StringList();
     private StringList varNames = new StringList();
-    RendAnchor(Element _elt, OffsetsBlock _offset) {
+
+    RendForm(Element _elt, OffsetsBlock _offset) {
         super(_elt, _offset);
     }
 
@@ -64,30 +67,42 @@ public final class RendAnchor extends RendElement {
 
     @Override
     protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read) {
+        long currentForm_ = _cont.getCurrentForm();
+        _cont.getContainersMap().put(currentForm_, _cont.getContainers());
+        _cont.setContainers(new LongTreeMap< NodeContainer>());
+        currentForm_++;
+        _cont.setCurrentForm(currentForm_);
+        _cont.getIndexes().setInput(0);
         String href_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND));
-        _cont.getCallsExps().add(new CustList<RendDynOperationNode>());
-        _cont.getConstAnchors().add(true);
-        _cont.getAnchorsArgs().add(new StringList());
-        _cont.getAnchorsVars().add(varNames);
+        _cont.getCallsFormExps().add(new CustList<RendDynOperationNode>());
+        _cont.getFormsArgs().add(new StringList());
+        _cont.getFormsVars().add(varNames);
+        Element elt_ = (Element) _nextWrite;
         if (!href_.startsWith(CALL_METHOD)) {
-            if (((Element)_nextWrite).hasAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND))) {
-                ((Element)_nextWrite).setAttribute(ATTRIBUTE_HREF, EMPTY_STRING);
+            if (elt_.hasAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND))) {
+                elt_.setAttribute(ATTRIBUTE_ACTION, EMPTY_STRING);
             }
-            _cont.getAnchorsNames().add(EMPTY_STRING);
-            incrAncNb(_cont, (Element) _nextWrite);
+            _cont.getFormsNames().add(EMPTY_STRING);
+            currentForm_ = _cont.getCurrentForm();
+            elt_.setAttribute(NUMBER_FORM, String.valueOf(currentForm_ - 1));
+            _cont.setCurForm(elt_);
             return;
         }
         String render_ = ResultText.render(opExp, texts, _cont);
         if (_cont.getContext().hasExceptionOrFailInit()) {
-            _cont.getAnchorsNames().add(EMPTY_STRING);
-            incrAncNb(_cont, (Element) _nextWrite);
+            _cont.getFormsNames().add(EMPTY_STRING);
+            currentForm_ = _cont.getCurrentForm();
+            elt_.setAttribute(NUMBER_FORM, String.valueOf(currentForm_ - 1));
+            _cont.setCurForm(elt_);
             return;
         }
-        _cont.getAnchorsNames().add(render_);
+        _cont.getFormsNames().add(render_);
         String beanName_ = _cont.getLastPage().getBeanName();
-        ((Element)_nextWrite).setAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND), StringList.concat(CALL_METHOD,beanName_,DOT,render_));
-        ((Element)_nextWrite).setAttribute(ATTRIBUTE_HREF, EMPTY_STRING);
-        incrAncNb(_cont, (Element) _nextWrite);
+        elt_.setAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND), StringList.concat(CALL_METHOD,beanName_,DOT,render_));
+        elt_.setAttribute(ATTRIBUTE_ACTION, EMPTY_STRING);
+        currentForm_ = _cont.getCurrentForm();
+        elt_.setAttribute(NUMBER_FORM, String.valueOf(currentForm_ - 1));
+        _cont.setCurForm(elt_);
     }
 
     @Override

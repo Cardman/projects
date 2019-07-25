@@ -40,6 +40,7 @@ import code.formathtml.util.*;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
+import code.sml.Element;
 import code.util.*;
 import code.util.ints.MathFactory;
 
@@ -123,6 +124,14 @@ public final class Configuration implements ExecutableCode {
     private CustList<StringList> anchorsVars = new CustList<StringList>();
     private BooleanList constAnchors = new BooleanList();
     private StringList anchorsNames = new StringList();
+
+    private CustList<CustList<RendDynOperationNode>> callsFormExps = new CustList<CustList<RendDynOperationNode>>();
+    private CustList<StringList> formsArgs = new CustList<StringList>();
+    private CustList<StringList> formsVars = new CustList<StringList>();
+    private StringList formsNames = new StringList();
+    private long currentForm;
+    private Element curForm;
+
 
     @Override
     public boolean isMerged() {
@@ -241,6 +250,12 @@ public final class Configuration implements ExecutableCode {
         containersMap = new LongMap<LongTreeMap<NodeContainer>>();
         containers = new LongTreeMap<NodeContainer>();
         indexes = new IndexesFormInput();
+        callsFormExps = new CustList<CustList<RendDynOperationNode>>();
+        formsArgs = new CustList<StringList>();
+        formsVars = new CustList<StringList>();
+        formsNames = new StringList();
+        currentForm = 0;
+        curForm = null;
     }
     void setupValiatorsTranslators(String _language) {
         for (EntryCust<String, Bean> e: getBeans().entryList()) {
@@ -1249,5 +1264,37 @@ public final class Configuration implements ExecutableCode {
 
     public StringList getAnchorsNames() {
         return anchorsNames;
+    }
+
+    public CustList<CustList<RendDynOperationNode>> getCallsFormExps() {
+        return callsFormExps;
+    }
+
+    public StringList getFormsNames() {
+        return formsNames;
+    }
+
+    public CustList<StringList> getFormsVars() {
+        return formsVars;
+    }
+
+    public CustList<StringList> getFormsArgs() {
+        return formsArgs;
+    }
+
+    public long getCurrentForm() {
+        return currentForm;
+    }
+
+    public void setCurrentForm(long _currentForm) {
+        currentForm = _currentForm;
+    }
+
+    public Element getCurForm() {
+        return curForm;
+    }
+
+    public void setCurForm(Element _curForm) {
+        curForm = _curForm;
     }
 }

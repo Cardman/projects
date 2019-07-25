@@ -6,6 +6,7 @@ import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.BadElRender;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
+import code.util.Ints;
 import code.util.StringList;
 
 public final class ResultText {
@@ -15,6 +16,8 @@ public final class ResultText {
     private CustList<CustList<RendDynOperationNode>> opExp;
 
     private StringList texts = new StringList();
+    private Ints expOffsets = new Ints();
+    private Ints expEnds = new Ints();
     public void build(String _expression,Configuration _conf, RendDocumentBlock _doc) {
         opExp = new CustList<CustList<RendDynOperationNode>>();
         boolean st_ = _doc.isStaticContext();
@@ -57,6 +60,7 @@ public final class ResultText {
             if (cur_ == LEFT_EL) {
                 texts.add(str_.toString());
                 str_.delete(0,str_.length());
+                expOffsets.add(i_);
                 i_++;
                 if (i_ >= length_ || _expression.charAt(i_) == RIGHT_EL) {
                     BadElRender badEl_ = new BadElRender();
@@ -70,6 +74,7 @@ public final class ResultText {
                 CustList<RendDynOperationNode> opsLoc_ = ElRenderUtil.getAnalyzedOperations(_expression, _conf, i_, LEFT_EL, RIGHT_EL, Calculation.staticCalculation(st_));
                 opExp.add(opsLoc_);
                 i_ = _conf.getNextIndex();
+                expEnds.add(i_);
                 continue;
             }
             if (cur_ == RIGHT_EL){
@@ -87,6 +92,25 @@ public final class ResultText {
         texts.add(str_.toString());
     }
 
+    public String quickRender(String _expression,StringList _args) {
+        StringBuilder str_ = new StringBuilder();
+        int length_ = _expression.length();
+        int i_ = CustList.FIRST_INDEX;
+        int iExp_ = CustList.FIRST_INDEX;
+        while (i_ < length_) {
+            if (expOffsets.isValidIndex(iExp_)) {
+                if (expOffsets.get(iExp_) == i_) {
+                    str_.append(_args.get(iExp_));
+                    i_ = expEnds.get(iExp_);
+                    iExp_++;
+                    continue;
+                }
+            }
+            str_.append(_expression.charAt(i_));
+            i_++;
+        }
+        return str_.toString();
+    }
     public static void reduce(CustList<CustList<RendDynOperationNode>> _opExp) {
         int s_ = _opExp.size();
         for (int i = 0; i < s_; i++) {

@@ -73,12 +73,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
             StringList formArg_ = new StringList();
             StringList varNames_ = new StringList();
             for (int i = 0; i< l_; i++) {
-                String varLoc_ = TMP_LOC;
-                int indexLoc_ = 0;
-                while (!_cont.getContext().isNotVar(varLoc_) || StringList.contains(varNames_,varLoc_)) {
-                    varLoc_ = StringList.concatNbs(varLoc_,indexLoc_);
-                    indexLoc_++;
-                }
+                String varLoc_ = lookForVar(_cont, varNames_);
                 varNames_.add(varLoc_);
             }
             varNames = varNames_;
@@ -127,6 +122,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
     @Override
     public void reduce(Configuration _context) {
         ResultText.reduce(opExp);
+        ResultText.reduce(callsExps);
     }
 
     @Override

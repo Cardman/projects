@@ -1,19 +1,22 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.stds.ResultErrorStd;
+import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
+import code.formathtml.exec.*;
 import code.formathtml.stacks.RendParentElement;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.*;
 import code.sml.*;
-import code.util.CustList;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public abstract class RendBlock {
     static final String TAG_PARAM = "param";
@@ -43,7 +46,12 @@ public abstract class RendBlock {
     static final String ATTRIBUTE_ACTION = "action";
     static final String ATTRIBUTE_TO = "to";
     static final String ATTRIBUTE_EQ = "eq";
-
+    static final String TAG_OPTION = "option";
+    static final String SELECTED = "selected";
+    static final String VAR_METHOD = "varMethod";
+    static final String BEAN_ATTRIBUTE = "bean";
+    static final String ATTRIBUTE_VALUE_CHANGE_EVENT = "valueChangeEvent";
+    static final String CHECKED = "checked";
     static final String ATTRIBUTE_CONDITION = "condition";
     static final String KEY_CLASS_NAME_ATTRIBUTE = "keyClassName";
     static final String VAR_CLASS_NAME_ATTRIBUTE = "varClassName";
@@ -67,6 +75,20 @@ public abstract class RendBlock {
     static final String NUMBER_INPUT = "n-i";
     static final String DOT = ".";
     static final String TMP_LOC = "tmpLoc";
+
+    static final String CHECKBOX = "checkbox";
+
+    static final String TEXT = "text";
+
+    static final String RANGE = "range";
+
+    static final String RADIO = "radio";
+
+    static final String NUMBER = "number";
+    static final String TEXT_AREA = "textarea";
+    static final String SELECT_TAG = "select";
+    static final String ATTRIBUTE_VALIDATOR = "validator";
+    static final String ATTRIBUTE_VAR_VALUE = "varValue";
     private static final String FOR_BLOCK_TAG = "for";
     private static final String WHILE_BLOCK_TAG = "while";
     private static final String ELSE_BLOCK_TAG = "else";
@@ -77,13 +99,10 @@ public abstract class RendBlock {
     private static final String FIELD_BLOCK_TAG = "field";
     private static final String SUBMIT_BLOCK_TAG = "submit";
     private static final String FORM_BLOCK_TAG = "form";
-    private static final String TR_BEGIN_BLOCK_TAG = "tr_begin";
-    private static final String TR_END_BLOCK_TAG = "tr_end";
     private static final String SET_BLOCK_TAG = "set";
     private static final String CONTINUE_TAG = "continue";
     private static final String BREAK_TAG = "break";
     private static final String RETURN_TAG = "return";
-    private static final String EXIT_TAG = "exit";
     private static final String TRY_TAG = "try";
     private static final String CATCH_TAG = "catch";
     private static final String THROW_TAG = "throw";
@@ -288,6 +307,14 @@ public abstract class RendBlock {
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,MESSAGE_BLOCK_TAG))) {
             return new RendMessage(elt_,new OffsetsBlock());
         }
+        if (StringList.quickEq(tagName_,FORM_BLOCK_TAG)) {
+            return new RendForm(elt_,new OffsetsBlock());
+        }
+        if (StringList.quickEq(tagName_,INPUT_TAG)) {
+            if (StringList.quickEq(elt_.getAttribute(ATTRIBUTE_TYPE),RADIO)) {
+                return new RendRadio(elt_,new OffsetsBlock());
+            }
+        }
         return new RendStdElement(elt_,new OffsetsBlock());
     }
 
@@ -438,9 +465,159 @@ public abstract class RendBlock {
         _cont.getLastPage().getInternVars().put(locName_, locVar_);
         ElRenderUtil.calculateReuse(stds_.getExpsBeforeDisplaying(),_cont);
     }
+
+    static String getStringKey(Configuration _conf, Struct _instance) {
+        return _conf.getAdvStandards().getStringKey(_conf,_instance);
+    }
+
+    protected static void fetchName(Configuration _cont, Element _read, Element _write, CustList<RendDynOperationNode> _opsRead, ClassField _idField, String _varName, CustList<RendDynOperationNode> _opsWrite) {
+        String name_ = _read.getAttribute(ATTRIBUTE_NAME);
+        if (name_.isEmpty()) {
+            return;
+        }
+        Struct obj_;
+        Struct currentField_;
+        long index_ = -1;
+        long found_ = -1;
+        IdMap<RendDynOperationNode, ArgumentsPair> args_ = ElRenderUtil.getAllArgs(_opsRead, _cont);
+        RendDynOperationNode root_ = args_.lastKey();
+        RendDynOperationNode res_;
+        if (root_ instanceof RendIdOperation) {
+            res_ = RendAffectationOperation.getIdOp((RendMethodOperation) root_);
+        } else {
+            res_ = root_;
+        }
+        RendSettableElResult settable_ = RendAffectationOperation.castDottedTo(res_);
+        ArgumentsPair pair_ = args_.getValue(((RendSettableFieldOperation) settable_).getOrder());
+        if (((RendSettableFieldOperation) settable_).isIntermediateDottedOperation()) {
+            obj_ = pair_.getPreviousArgument().getStruct();
+        } else {
+            obj_ = _cont.getLastPage().getGlobalArgument().getStruct();
+        }
+        for (EntryCust<Long, NodeContainer> e: _cont.getContainers().entryList()) {
+            if (!ExtractObject.eq(e.getValue().getStruct(), obj_)) {
+                continue;
+            }
+            if (!e.getValue().getIdField().eq(_idField)) {
+                continue;
+            }
+            found_ = e.getKey();
+            break;
+        }
+        currentField_ = pair_.getArgument().getStruct();
+        if (found_ == -1) {
+            long currentInput_ = _cont.getIndexes().getInput();
+            NodeContainer nodeCont_ = new NodeContainer();
+            nodeCont_.setEnabled(true);
+            nodeCont_.setIdField(_idField);
+            nodeCont_.setIndex(index_);
+            nodeCont_.setTypedStruct(currentField_);
+            nodeCont_.setBeanName(_cont.getLastPage().getBeanName());
+            nodeCont_.setStruct(obj_);
+            StringList strings_ = StringList.splitInTwo(_varName, _varName.indexOf(','));
+            nodeCont_.setVarPrevName(StringList.removeChars(strings_.first(),','));
+            nodeCont_.setVarName(StringList.removeChars(strings_.last(),','));
+            nodeCont_.setOpsWrite(_opsWrite);
+            NodeInformations nodeInfos_ = nodeCont_.getNodeInformation();
+            String id_ = _write.getAttribute(ATTRIBUTE_ID);
+            if (id_.isEmpty()) {
+                id_ = _write.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_GROUP_ID));
+            }
+            String type_ = _write.getAttribute(ATTRIBUTE_TYPE);
+            String class_ = _write.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CLASS_NAME));
+            if (class_.isEmpty()) {
+                if (StringList.quickEq(type_,NUMBER)) {
+                    class_= _cont.getStandards().getAliasLong();
+                }
+                if (StringList.quickEq(type_,RANGE)) {
+                    class_= _cont.getStandards().getAliasLong();
+                }
+                if (StringList.quickEq(type_,RADIO)) {
+                    class_= _cont.getStandards().getAliasLong();
+                }
+                if (StringList.quickEq(type_,TEXT)) {
+                    class_= _cont.getStandards().getAliasString();
+                }
+                if (StringList.quickEq(type_,CHECKBOX)) {
+                    class_= _cont.getStandards().getAliasBoolean();
+                }
+                if (StringList.quickEq(_write.getTagName(), SELECT_TAG)) {
+                    type_ = SELECT_TAG;
+                    if (_write.hasAttribute(ATTRIBUTE_MULTIPLE)) {
+                        class_ = _cont.getAdvStandards().getCustList();
+                    } else {
+                        class_ = _cont.getStandards().getAliasString();
+                    }
+                }
+                if (StringList.quickEq(_write.getTagName(), TEXT_AREA)) {
+                    type_ = TEXT_AREA;
+                    class_ = _cont.getStandards().getAliasString();
+                }
+            } else {
+                if (StringList.quickEq(_write.getTagName(), SELECT_TAG)) {
+                    type_ = SELECT_TAG;
+                }
+                if (StringList.quickEq(_write.getTagName(), TEXT_AREA)) {
+                    type_ = TEXT_AREA;
+                }
+            }
+            nodeInfos_.setType(type_);
+            nodeInfos_.setValidator(_write.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VALIDATOR)));
+            nodeInfos_.setId(id_);
+            nodeInfos_.setInputClass(class_);
+            nodeInfos_.setVarMethod(_write.getAttribute(StringList.concat(_cont.getPrefix(),VAR_METHOD)));
+            nodeInfos_.setChanging(_write.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VALUE_CHANGE_EVENT)));
+            _cont.getContainers().put(currentInput_, nodeCont_);
+            _cont.getIndexes().setNb(currentInput_);
+            currentInput_++;
+            _cont.getIndexes().setInput(currentInput_);
+        } else {
+            _cont.getIndexes().setNb(found_);
+        }
+        if (_cont.getIndexes().getNb() >= 0) {
+            _write.setAttribute(NUMBER_INPUT, String.valueOf(_cont.getIndexes().getNb()));
+        }
+//        attributesNames_.removeAllString(NUMBER_INPUT);
+        _write.setAttribute(ATTRIBUTE_NAME, StringList.concat(_cont.getLastPage().getBeanName(),DOT,name_));
+    }
+
+    protected static void fetchValue(Configuration _cont, Element _read, Element _write, CustList<RendDynOperationNode> _ops) {
+//        _conf.getLastPage().setProcessingAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VAR_VALUE));
+//        _conf.getLastPage().setLookForAttrValue(true);
+//        _conf.getLastPage().setOffset(0);
+        if (StringList.quickEq(_read.getTagName(),INPUT_TAG)) {
+            Argument o_ = ElRenderUtil.calculateReuse(_ops,_cont);
+            if (_cont.getContext().getException() != null) {
+                return;
+            }
+            if (o_.getStruct() == NullStruct.NULL_VALUE) {
+                _write.setAttribute(ATTRIBUTE_VALUE, EMPTY_STRING);
+            } else if (o_.getStruct() instanceof BooleanStruct) {
+                if (((BooleanStruct) o_.getStruct()).getInstance()) {
+                    _write.setAttribute(CHECKED, CHECKED);
+                } else {
+                    _write.removeAttribute(CHECKED);
+                }
+            } else {
+                _write.setAttribute(ATTRIBUTE_VALUE, _cont.getAdvStandards().processString(o_,_cont));
+            }
+        }
+        if (StringList.quickEq(_read.getTagName(),TEXT_AREA)) {
+            Argument o_ = ElRenderUtil.calculateReuse(_ops,_cont);
+            if (_cont.getContext().getException() != null) {
+                return;
+            }
+            if (o_.getStruct() == NullStruct.NULL_VALUE) {
+                o_.setStruct(new StringStruct(EMPTY_STRING));
+            }
+            Document doc_ = _write.getOwnerDocument();
+            Text text_ = doc_.createTextNode(_cont.getAdvStandards().processString(o_,_cont));
+            _write.appendChild(text_);
+        }
+        _write.removeAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VAR_VALUE));
+    }
     protected static String getProperty(Configuration _conf, String _key) {
-        String prop_ = _conf.getProperties().getVal(_key);
-        return prop_;
+        return _conf.getProperties().getVal(_key);
     }
     static String escapeParam(Configuration _conf, Argument _arg) {
         String str_ = _conf.getAdvStandards().processString(_arg,_conf);
@@ -473,14 +650,6 @@ public abstract class RendBlock {
         return offset;
     }
 
-    public boolean accessibleCondition() {
-        return true;
-    }
-
-    public boolean accessibleForNext() {
-        return true;
-    }
-
     public final RendBlock getPreviousSibling() {
         return previousSibling;
     }
@@ -498,6 +667,16 @@ public abstract class RendBlock {
 
     public final RendParentBlock getParent() {
         return parent;
+    }
+
+    protected static String lookForVar(Configuration _cont, StringList _varNames) {
+        String varLoc_ = TMP_LOC;
+        int indexLoc_ = 0;
+        while (!_cont.getContext().isNotVar(varLoc_) || StringList.contains(_varNames,varLoc_)) {
+            varLoc_ = StringList.concatNbs(varLoc_,indexLoc_);
+            indexLoc_++;
+        }
+        return varLoc_;
     }
 
     public final void processBlock(Configuration _conf) {

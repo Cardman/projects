@@ -30,12 +30,14 @@ public final class RendSettableFieldOperation extends
 
     private int anc;
 
+    private ClassArgumentMatching previous;
     public RendSettableFieldOperation(SettableAbstractFieldOperation _s) {
         super(_s);
         variable = _s.isVariable();
         fieldMetaInfo = _s.getFieldMetaInfo();
         catString = _s.isCatString();
         anc = _s.getAnc();
+        previous = _s.getPreviousResultClass();
     }
 
     @Override
@@ -215,5 +217,13 @@ public final class RendSettableFieldOperation extends
         Argument a_ = RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
         setSimpleArgument(a_, _conf,_nodes);
         return a_;
+    }
+
+    public FieldInfo getFieldMetaInfo() {
+        return fieldMetaInfo;
+    }
+
+    public ClassArgumentMatching getPrevious() {
+        return previous;
     }
 }

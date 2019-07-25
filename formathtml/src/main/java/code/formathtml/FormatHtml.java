@@ -403,25 +403,30 @@ public final class FormatHtml {
             return EMPTY_STRING;
         }
         LongMap<LongTreeMap<NodeContainer>> containersMap_ = _conf.getContainersMap();
-//        LongTreeMap<NodeContainer> containers_ = _conf.getContainers();
-//        containersMap_.put(currentForm_, containers_);
-//        containersMap_.removeKey(0L);
-//        if (currentForm_ > 1) {
-//            curForm_.setAttribute(NUMBER_FORM, String.valueOf(currentForm_ - 1));
-//        }
-//        for (Long k: containersMap_.getKeys()) {
-//            containersMap_.move(k, k - 1);
-//        }
+        LongTreeMap<NodeContainer> containers_ = _conf.getContainers();
+        long currentForm_ = _conf.getCurrentForm();
+        containersMap_.put(currentForm_, containers_);
+        containersMap_.removeKey(0L);
+        if (currentForm_ > 1) {
+            _conf.getCurForm().setAttribute(NUMBER_FORM, String.valueOf(currentForm_ - 1));
+        }
+        for (Long k: containersMap_.getKeys()) {
+            containersMap_.move(k, k - 1);
+        }
         _conf.getHtmlPage().setContainers(containersMap_);
         _conf.getHtmlPage().setCallsExps(_conf.getCallsExps());
         _conf.getHtmlPage().setAnchorsArgs(_conf.getAnchorsArgs());
         _conf.getHtmlPage().setAnchorsVars(_conf.getAnchorsVars());
         _conf.getHtmlPage().setAnchorsNames(_conf.getAnchorsNames());
         _conf.getHtmlPage().setConstAnchors(_conf.getConstAnchors());
+        _conf.getHtmlPage().setCallsFormExps(_conf.getCallsFormExps());
+        _conf.getHtmlPage().setFormsArgs(_conf.getFormsArgs());
+        _conf.getHtmlPage().setFormsVars(_conf.getFormsVars());
+        _conf.getHtmlPage().setFormsNames(_conf.getFormsNames());
         doc_.getDocumentElement().removeAttribute(StringList.concat(_conf.getPrefix(),BEAN_ATTRIBUTE));
         return doc_.export();
     }
-    static Boolean removeCall(Configuration _context) {
+    private static Boolean removeCall(Configuration _context) {
         ImportingPage p_ = _context.getLastPage();
         if (p_.getRendReadWrite() == null) {
             _context.removeLastPage();
@@ -433,17 +438,14 @@ public final class FormatHtml {
         return false;
     }
 
-    static void processTags(Configuration _context) {
+    private static void processTags(Configuration _context) {
         ImportingPage ip_ = _context.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendBlock en_ = rw_.getRead();
-        if (en_ != null) {
-//            ip_.setGlobalOffset(en_.getOffset().getOffsetTrim());
-            ip_.setOffset(0);
-        }
+        ip_.setOffset(en_.getOffset().getOffsetTrim());
         tryProcessEl(_context);
     }
-    static void tryProcessEl(Configuration _context) {
+    private static void tryProcessEl(Configuration _context) {
         ImportingPage lastPage_ = _context.getLastPage();
         RendReadWrite rw_ = lastPage_.getRendReadWrite();
         RendBlock en_ = rw_.getRead();
@@ -544,7 +546,6 @@ public final class FormatHtml {
         ip_.setRoot(r_);
         ip_.setReadWrite(rw_);
         _conf.initForms();
-        Element curForm_ = null;
         long currentAnchor_ = 0;
         long currentForm_ = 0;
         while (true) {
@@ -579,7 +580,7 @@ public final class FormatHtml {
                         _conf.clearPages();
                         break;
                     }
-                    ImportingPage ret_ = processProcessingTags(_loc,_conf, doc_, ip_, currentForm_, bean_, _loc, _files, _resourcesFolder);
+                    ImportingPage ret_ = processProcessingTags(_loc,_conf, doc_, ip_, bean_, _loc, _files, _resourcesFolder);
                     if (_conf.getContext().getException() != null) {
                         throwException(_conf);
                         if (_conf.getContext().getException() != null) {
@@ -594,10 +595,12 @@ public final class FormatHtml {
                 appendChild(doc_, _conf, currentNode_, (Element) en_);
                 Element tag_ = (Element) currentNode_.getLastChild();
                 if (StringList.quickEq(((Element) en_).getTagName(),TAG_FORM)) {
-                    curForm_ = tag_;
+                    _conf.setCurForm(tag_);
+                    currentForm_ = _conf.getCurrentForm();
                     _conf.getContainersMap().put(currentForm_, _conf.getContainers());
                     _conf.setContainers(new LongTreeMap< NodeContainer>());
                     currentForm_++;
+                    _conf.setCurrentForm(currentForm_);
                     _conf.getIndexes().setInput(0);
                 }
                 processAttributes(_conf, _loc, _files, ip_, doc_, tag_,
@@ -610,7 +613,8 @@ public final class FormatHtml {
                     continue;
                 }
                 if (StringList.quickEq(((Element) en_).getTagName(),TAG_FORM)) {
-                    curForm_.setAttribute(NUMBER_FORM, String.valueOf(currentForm_ - 1));
+                    currentForm_ = _conf.getCurrentForm();
+                    _conf.getCurForm().setAttribute(NUMBER_FORM, String.valueOf(currentForm_ - 1));
                 }
                 if (StringList.quickEq(tag_.getTagName(), TAG_A) && (tag_.hasAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_COMMAND))|| !tag_.getAttribute(ATTRIBUTE_HREF).isEmpty() )) {
                     currentAnchor_ = _conf.getIndexes().getAnchor();
@@ -662,10 +666,11 @@ public final class FormatHtml {
         }
         LongMap<LongTreeMap<NodeContainer>> containersMap_ = _conf.getContainersMap();
         LongTreeMap<NodeContainer> containers_ = _conf.getContainers();
+        currentForm_ = _conf.getCurrentForm();
         containersMap_.put(currentForm_, containers_);
         containersMap_.removeKey(0L);
         if (currentForm_ > 1) {
-            curForm_.setAttribute(NUMBER_FORM, String.valueOf(currentForm_ - 1));
+            _conf.getCurForm().setAttribute(NUMBER_FORM, String.valueOf(currentForm_ - 1));
         }
         for (Long k: containersMap_.getKeys()) {
             containersMap_.move(k, k - 1);
@@ -771,7 +776,6 @@ public final class FormatHtml {
 
     private static ImportingPage processProcessingTags(String _lg, Configuration _conf, Document _doc,
                                                        ImportingPage _ip,
-                                                       long _currentForm,
                                                        Struct _mainBean,
                                                        String _loc, StringMap<String> _files, String... _resourcesFolder) {
         String prefix_ = _conf.getLastPage().getPrefix();
@@ -1174,7 +1178,7 @@ public final class FormatHtml {
                 }
                 if (_conf.getIndexes().getNb() >= 0) {
                     FormInputCoords inputs_ = new FormInputCoords();
-                    inputs_.setForm(_currentForm - 1);
+                    inputs_.setForm(_conf.getCurrentForm() - 1);
                     inputs_.setInput(_conf.getIndexes().getNb());
                     StringList allOptions_ = new StringList();
                     ElementList elts_ = selectTag_.getElementsByTagName(TAG_OPTION);
@@ -3220,36 +3224,29 @@ public final class FormatHtml {
         if (o_ == NullStruct.NULL_VALUE) {
             o_ = new StringStruct(EMPTY_STRING);
         }
-        //TODO converter
         Text text_ = _doc.createTextNode(ExtractObject.toString(_conf, o_));
         _tag.appendChild(text_);
     }
 
     private static void setValueInput(Configuration _conf, Element _tag) {
         String attribute_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VAR_VALUE));
-        Long value_ = BeanLgNames.parseLong(attribute_);
-        if (value_ != null) {
-            //TODO converter
-            _tag.setAttribute(ATTRIBUTE_VALUE, Long.toString(value_));
-        } else {
-            _conf.getLastPage().setProcessingAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VAR_VALUE));
-            _conf.getLastPage().setLookForAttrValue(true);
-            _conf.getLastPage().setOffset(0);
-            Struct o_ = ElRenderUtil.processEl(attribute_, 0, _conf).getStruct();
-            if (_conf.getContext().getException() != null) {
-                return;
-            }
-            if (o_ == NullStruct.NULL_VALUE) {
-                _tag.setAttribute(ATTRIBUTE_VALUE, null);
-            } else if (o_ instanceof BooleanStruct) {
-                if (((BooleanStruct) o_).getInstance()) {
-                    _tag.setAttribute(CHECKED, CHECKED);
-                } else {
-                    _tag.removeAttribute(CHECKED);
-                }
+        _conf.getLastPage().setProcessingAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VAR_VALUE));
+        _conf.getLastPage().setLookForAttrValue(true);
+        _conf.getLastPage().setOffset(0);
+        Struct o_ = ElRenderUtil.processEl(attribute_, 0, _conf).getStruct();
+        if (_conf.getContext().getException() != null) {
+            return;
+        }
+        if (o_ == NullStruct.NULL_VALUE) {
+            _tag.setAttribute(ATTRIBUTE_VALUE, EMPTY_STRING);
+        } else if (o_ instanceof BooleanStruct) {
+            if (((BooleanStruct) o_).getInstance()) {
+                _tag.setAttribute(CHECKED, CHECKED);
             } else {
-                _tag.setAttribute(ATTRIBUTE_VALUE, ExtractObject.toString(_conf, o_));
+                _tag.removeAttribute(CHECKED);
             }
+        } else {
+            _tag.setAttribute(ATTRIBUTE_VALUE, ExtractObject.toString(_conf, o_));
         }
     }
 

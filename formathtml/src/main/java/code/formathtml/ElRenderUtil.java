@@ -457,6 +457,12 @@ public final class ElRenderUtil {
     }
     public static Argument calculateReuse(CustList<RendDynOperationNode> _nodes, Configuration _context) {
         IdMap<RendDynOperationNode,ArgumentsPair> arguments_;
+        arguments_ = getAllArgs(_nodes,_context);
+        return arguments_.lastValue().getArgument();
+    }
+
+    public static IdMap<RendDynOperationNode,ArgumentsPair> getAllArgs(CustList<RendDynOperationNode> _nodes, Configuration _context) {
+        IdMap<RendDynOperationNode,ArgumentsPair> arguments_;
         arguments_ = new IdMap<RendDynOperationNode,ArgumentsPair>();
         for (RendDynOperationNode o: _nodes) {
             ArgumentsPair a_ = new ArgumentsPair();
@@ -482,15 +488,14 @@ public final class ElRenderUtil {
             RendCalculableOperation a_ = (RendCalculableOperation)o;
             a_.calculate(arguments_, _context);
             if (_context.getException() != null) {
-                return Argument.createVoid();
+                return arguments_;
             }
             Argument res_ = pair_.getArgument();
             Struct st_ = res_.getStruct();
             fr_ = RendDynOperationNode.getNextIndex(o, st_);
         }
-        return arguments_.lastValue().getArgument();
+        return arguments_;
     }
-
     public static CustList<RendDynOperationNode> getReducedNodes(RendDynOperationNode _root) {
         CustList<RendDynOperationNode> out_ = new CustList<RendDynOperationNode>();
         RendDynOperationNode current_ = _root;
