@@ -16,25 +16,7 @@ public abstract class CommonRender {
         _conf.addPage(new ImportingPage(false));
         _conf.getContext().setAnalyzing(new AnalyzedPageEl());
     }
-    Configuration contextEl() {
-        StringMap<String> files_ = new StringMap<String>();
-        return contextEl(files_);
-    }
-    Configuration contextEl(StringMap<String> _files) {
-        Configuration conf_ =  EquallableExUtil.newConfiguration();
-        conf_.setPrefix("c:");
-        Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
-        ContextEl cont_ = InitializationLgNames.buildStdTwo(opt_);
-        Classes.validateAll(_files, cont_);
-        assertTrue(cont_.getClasses().isEmptyErrors());
-        conf_.setContext(cont_);
-        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
-        conf_.setStandards(standards_);
-        standards_.buildIterables(conf_);
-        return conf_;
-    }
+
     Configuration contextElSec() {
         StringMap<String> files_ = new StringMap<String>();
         return contextElSec(files_);
@@ -53,6 +35,9 @@ public abstract class CommonRender {
         conf_.setStandards(standards_);
         standards_.buildIterables(conf_);
         return conf_;
+    }
+    Configuration contextElThird() {
+        return contextElThird(new StringMap<String>());
     }
     Configuration contextElThird(StringMap<String> _files) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();

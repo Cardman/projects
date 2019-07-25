@@ -455,6 +455,92 @@ public final class RenderForEachTableTest extends CommonRender {
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>",FormatHtml.getRes(rendDocumentBlock_,context_));
         assertNull(context_.getException());
     }
+
+    @Test
+    public void process17Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("<html><body><table>");
+        xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;ONE&quot;,1)\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;TWO&quot;,2)\"/>");
+        xml_.append("<c:for key=\"k\" value=\"v\" map=\"inst;.\">");
+        xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
+        xml_.append("</c:for>");
+        xml_.append("</table></body></html>");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        filesSec_.put(CUST_ITER_PATH, getCustomIterator());
+        filesSec_.put(CUST_LIST_PATH, getCustomList());
+        filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        filesSec_.put(CUST_TABLE_PATH, getCustomTable());
+        filesSec_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration conf_ = contextElThird(filesSec_);
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(xml_.toString());
+        conf_.setHtml(xml_.toString());
+        conf_.setDocument(doc_);
+
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
+    }
+
+    @Test
+    public void process18Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("<html><body><table>");
+        xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;ONE&quot;,1)\"/>");
+        xml_.append("<c:set value=\"inst;.add(&quot;TWO&quot;,2)\"/>");
+        xml_.append("<c:for key=\"k\" value=\"v\" map=\"inst;.\">");
+        xml_.append("<c:for key=\"l\" value=\"w\" map=\"inst;.\">");
+        xml_.append("<tr><td>{k;}</td><td>{v;}</td><td>{l;}</td><td>{w;}</td></tr>");
+        xml_.append("</c:for>");
+        xml_.append("</c:for>");
+        xml_.append("</table></body></html>");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        filesSec_.put(CUST_ITER_PATH, getCustomIterator());
+        filesSec_.put(CUST_LIST_PATH, getCustomList());
+        filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        filesSec_.put(CUST_TABLE_PATH, getCustomTable());
+        filesSec_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration conf_ = contextElThird(filesSec_);
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(xml_.toString());
+        conf_.setHtml(xml_.toString());
+        conf_.setDocument(doc_);
+
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td><td>ONE</td><td>1</td></tr><tr><td>ONE</td><td>1</td><td>TWO</td><td>2</td></tr><tr><td>TWO</td><td>2</td><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td><td>TWO</td><td>2</td></tr></table></body></html>", FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
+    }
     @Test
     public void process1FailTest() {
         StringMap<String> files_ = new StringMap<String>();

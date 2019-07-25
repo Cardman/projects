@@ -44,6 +44,9 @@ public final class RendSubmit extends RendElement {
 
     @Override
     public void reduce(Configuration _context) {
+        if (preformatted == null) {
+            return;
+        }
         for (EntryCust<String,ResultText> e:opExp.entryList()) {
             ResultText.reduce(e.getValue().getOpExp());
         }

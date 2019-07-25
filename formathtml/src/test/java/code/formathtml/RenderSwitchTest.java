@@ -18,7 +18,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='8'/></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -38,7 +38,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='10'/></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -58,7 +58,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='8'>Text</c:case></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -78,7 +78,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='10'>Text</c:case></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -98,7 +98,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='8'>Text</c:case><c:case value='10'/></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -118,7 +118,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='10'>Text</c:case><c:case value='8'/></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -138,7 +138,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='10'/><c:case value='8'>Text</c:case></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -158,7 +158,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='8'/><c:case value='10'>Text</c:case></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -178,7 +178,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:default/></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -198,7 +198,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:default>Text</c:default></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -218,7 +218,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='8'/><c:default>Text</c:default></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -238,7 +238,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:default>Text</c:default><c:case value='10'/></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -258,7 +258,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='10'/><c:default>Text</c:default></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -278,7 +278,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:case value='\"8\"'/></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -298,7 +298,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:case value='\"10\"'/></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -318,7 +318,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:case value='\"8\"'>Text</c:case></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -338,7 +338,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:case value='\"10\"'>Text</c:case></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -358,7 +358,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:case value='\"8\"'>Text</c:case><c:case value='\"10\"'/></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -378,7 +378,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:case value='\"10\"'>Text</c:case><c:case value='\"8\"'/></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -398,7 +398,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:case value='\"10\"'/><c:case value='\"8\"'>Text</c:case></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -418,7 +418,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:case value='\"8\"'/><c:case value='\"10\"'>Text</c:case></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -438,7 +438,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:default/></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -458,7 +458,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:default>Text</c:default></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -478,7 +478,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:case value='\"8\"'/><c:default>Text</c:default></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -498,7 +498,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:default>Text</c:default><c:case value='\"10\"'/></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -518,7 +518,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:case value='\"10\"'/><c:default>Text</c:default></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -538,7 +538,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='(java.lang.String)$null'><c:case value='\"10\"'/><c:default>Text</c:default></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -558,7 +558,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='(java.lang.String)$null'><c:case value='(java.lang.String)$null'/><c:default>Text</c:default></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -578,7 +578,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='(java.lang.String)$null'><c:case value='(java.lang.String)$null'>Text</c:case></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -604,7 +604,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElSec(files_);
+        Configuration conf_ = contextElThird(files_);
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -630,7 +630,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElSec(files_);
+        Configuration conf_ = contextElThird(files_);
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -656,7 +656,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElSec(files_);
+        Configuration conf_ = contextElThird(files_);
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -682,7 +682,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElSec(files_);
+        Configuration conf_ = contextElThird(files_);
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -708,7 +708,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElSec(files_);
+        Configuration conf_ = contextElThird(files_);
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -734,7 +734,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElSec(files_);
+        Configuration conf_ = contextElThird(files_);
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -760,7 +760,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElSec(files_);
+        Configuration conf_ = contextElThird(files_);
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -780,7 +780,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:default>Text</c:default><c:case value='8'/></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -807,7 +807,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElSec(files_);
+        Configuration conf_ = contextElThird(files_);
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -827,7 +827,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='1/0'><c:case value='8'/></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -847,7 +847,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='10'>10<c:break/></c:case><c:case value='8'>8</c:case></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -867,7 +867,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10' label='label'><c:case value='10'>10<c:break label='label'/></c:case><c:case value='8'>8</c:case></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -887,7 +887,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'>\n<c:case value='8'>Text</c:case>\n<c:case value='10'/>\n</c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -907,7 +907,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'>\n<c:case value='8'/>\n<c:default>Text</c:default>\n</c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -934,7 +934,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElSec(files_);
+        Configuration conf_ = contextElThird(files_);
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -959,7 +959,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElSec(files_);
+        Configuration conf_ = contextElThird(files_);
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -977,7 +977,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='8'/><c:case value='8'/></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -995,7 +995,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:default/><c:default/></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -1019,7 +1019,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElSec(files_);
+        Configuration conf_ = contextElThird(files_);
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -1043,7 +1043,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElSec(files_);
+        Configuration conf_ = contextElThird(files_);
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -1070,7 +1070,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElSec(files_);
+        Configuration conf_ = contextElThird(files_);
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -1096,7 +1096,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElSec(files_);
+        Configuration conf_ = contextElThird(files_);
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -1122,7 +1122,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElSec(files_);
+        Configuration conf_ = contextElThird(files_);
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -1149,7 +1149,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElSec(files_);
+        Configuration conf_ = contextElThird(files_);
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -1176,7 +1176,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElSec(files_);
+        Configuration conf_ = contextElThird(files_);
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -1203,7 +1203,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElSec(files_);
+        Configuration conf_ = contextElThird(files_);
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -1221,7 +1221,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='8'/><c:if condition=\"$true\"/></c:switch></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -1244,7 +1244,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElSec(files_);
+        Configuration conf_ = contextElThird(files_);
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -1269,7 +1269,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElSec(files_);
+        Configuration conf_ = contextElThird(files_);
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);

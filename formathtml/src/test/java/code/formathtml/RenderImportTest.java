@@ -75,7 +75,7 @@ public final class RenderImportTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setBeans(new StringMap<Bean>());
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -104,7 +104,7 @@ public final class RenderImportTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setBeans(new StringMap<Bean>());
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -133,7 +133,7 @@ public final class RenderImportTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setBeans(new StringMap<Bean>());
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -162,7 +162,7 @@ public final class RenderImportTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setBeans(new StringMap<Bean>());
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -191,7 +191,7 @@ public final class RenderImportTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setBeans(new StringMap<Bean>());
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -220,7 +220,7 @@ public final class RenderImportTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setBeans(new StringMap<Bean>());
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -249,7 +249,7 @@ public final class RenderImportTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setBeans(new StringMap<Bean>());
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -331,7 +331,7 @@ public final class RenderImportTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setBeans(new StringMap<Bean>());
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());

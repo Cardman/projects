@@ -17,7 +17,7 @@ public final class RenderTextTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>{$new $int[]\\{0,1\\}.length}</body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -37,7 +37,7 @@ public final class RenderTextTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>'{escaped}'</body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -57,7 +57,7 @@ public final class RenderTextTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>'{escaped}'{1+1}</body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -77,7 +77,7 @@ public final class RenderTextTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>'{''escaped}'{1+1}</body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -97,7 +97,7 @@ public final class RenderTextTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>''{1+1}</body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -137,7 +137,7 @@ public final class RenderTextTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>{1+1</body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -155,7 +155,7 @@ public final class RenderTextTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>}1+1</body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -173,7 +173,7 @@ public final class RenderTextTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set value='{(1})'/></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -191,7 +191,7 @@ public final class RenderTextTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>1+1{</body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -209,7 +209,7 @@ public final class RenderTextTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>1+1{}<br/>'</body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);

@@ -20,7 +20,7 @@ public final class RenderWhileTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:while condition='i;.&lt;=2'>{i;.}<br/><c:set value='i;.++'/></c:while></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -40,7 +40,7 @@ public final class RenderWhileTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:while condition='i;.&gt;=2'>{i;.}<br/><c:set value='i;.++'/></c:while></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -60,7 +60,7 @@ public final class RenderWhileTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:while condition='i;.&lt;2'><c:set className='$var' value='j=0'/><c:while condition='j;.&lt;2'>{i;.}-{j;.}<br/><c:set value='j;.++'/></c:while><br/><c:set value='i;.++'/></c:while></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -80,7 +80,7 @@ public final class RenderWhileTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:while condition='i;.&gt;=2/0'>{i;.}<br/><c:set value='i;.++'/></c:while></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -100,7 +100,7 @@ public final class RenderWhileTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:while condition='i;.&gt;=2/(i;.-1)'>{i;.}<br/><c:set value='i;.++'/></c:while></body></html>";
-        Configuration conf_ = contextElSec();
+        Configuration conf_ = contextElThird();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);

@@ -1,8 +1,9 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.stds.IterableAnalysisResult;
@@ -13,7 +14,6 @@ import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BadElRender;
 import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.BeanNatLgNames;
 import code.formathtml.util.FormInputCoords;
 import code.sml.*;
 import code.util.CustList;
@@ -25,6 +25,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
     private CustList<RendDynOperationNode> opsValue = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsWrite = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsMap = new CustList<RendDynOperationNode>();
+    private CustList<RendDynOperationNode> opsDefault = new CustList<RendDynOperationNode>();
     private String varName = EMPTY_STRING;
     private ClassField idField;
     private Element elt;
@@ -48,14 +49,52 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         String map_ = elt.getAttribute(ATTRIBUTE_MAP);
         opsMap = ElRenderUtil.getAnalyzedOperations(map_, 0, _cont, Calculation.staticCalculation(st_));
         if (multiple) {
-            IterableAnalysisResult it_ = _cont.getStandards().getCustomType(opsValue.last().getResultClass().getNames(), _cont.getContext());
-            StringList candidates_ = it_.getClassName();
-            if (candidates_.size() != 1) {
+            StringList names_ = opsValue.last().getResultClass().getNames();
+            if (!opsValue.last().getResultClass().isVariable()) {
+                IterableAnalysisResult it_ = _cont.getStandards().getCustomType(names_, _cont.getContext());
+                StringList candidates_ = it_.getClassName();
+                if (candidates_.size() != 1) {
+                    BadElRender badEl_ = new BadElRender();
+                    badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                    badEl_.setFileName(_cont.getCurrentFileName());
+                    badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+                    _cont.getClasses().addError(badEl_);
+                }
+            }
+        }
+        String default_ = elt.getAttribute(DEFAULT_ATTRIBUTE);
+        if (!default_.isEmpty()) {
+            String mName_ = elt.getAttribute(ATTRIBUTE_CONVERT);
+            if (mName_.trim().isEmpty()) {
                 BadElRender badEl_ = new BadElRender();
                 badEl_.setErrors(_cont.getClasses().getErrorsDet());
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(_cont.getCurrentLocationIndex());
                 _cont.getClasses().addError(badEl_);
+            }
+            String concat_ = StringList.concat(mName_,"(\"",default_,"\")");
+            opsDefault = ElRenderUtil.getAnalyzedOperations(concat_,0,_cont,Calculation.staticCalculation(st_));
+            Mapping m_ = new Mapping();
+            m_.setArg(opsDefault.last().getResultClass());
+            if (!multiple) {
+                m_.setParam(_cont.getStandards().getAliasCharSequence());
+                if (!Templates.isCorrectOrNumbers(m_,_cont)) {
+                    BadElRender badEl_ = new BadElRender();
+                    badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                    badEl_.setFileName(_cont.getCurrentFileName());
+                    badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+                    _cont.getClasses().addError(badEl_);
+                }
+            } else {
+                IterableAnalysisResult it_ = _cont.getStandards().getCustomType(opsDefault.last().getResultClass().getNames(), _cont.getContext());
+                StringList candidates_ = it_.getClassName();
+                if (candidates_.size() != 1) {
+                    BadElRender badEl_ = new BadElRender();
+                    badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                    badEl_.setFileName(_cont.getCurrentFileName());
+                    badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+                    _cont.getClasses().addError(badEl_);
+                }
             }
         }
     }
@@ -66,6 +105,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         opsValue = reduceList(opsValue);
         opsWrite = reduceList(opsWrite);
         opsMap = reduceList(opsMap);
+        opsDefault = reduceList(opsDefault);
     }
 
     @Override
@@ -90,11 +130,10 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         if (default_.isEmpty()) {
             processOptionsMapEnumName(_cont, map_.getStruct(),
                     doc_, docElementSelect_,
-                    value_.getStruct(),multiple);
+                    value_.getStruct());
         } else {
-            String className_ = elt.getAttribute(ATTRIBUTE_CLASS_NAME);
-            processOptionsMapEnum(_cont, map_.getStruct(), default_,
-                    doc_, docElementSelect_, className_);
+            processOptionsMapEnum(_cont, map_.getStruct(),
+                    doc_, docElementSelect_);
         }
 
         docElementSelect_.setAttribute(ATTRIBUTE_NAME, name_);
@@ -117,86 +156,29 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         processBlock(_cont);
     }
 
-    private static void processOptionsMapEnum(Configuration _conf, Struct _extractedMap,
-                                              String _default, Document _docSelect, Element _docElementSelect, String _className) {
-        StringList names_;
-        BeanLgNames stds_ = _conf.getAdvStandards();
-        if (!_className.isEmpty()) {
-            ContextEl cont_ = _conf.getContext();
-            names_ = stds_.getDefaultValues(cont_, _className, _default);
-        } else {
-            names_ = new StringList(_default);
+    private void processOptionsMapEnum(Configuration _conf, Struct _extractedMap,
+                                       Document _docSelect, Element _docElementSelect) {
+        Argument argDef_ = ElRenderUtil.calculateReuse(opsDefault, _conf);
+        if (_conf.getContext().hasExceptionOrFailInit()) {
+            return;
+        }
+        CustList<Struct> obj_ = values(_conf,argDef_.getStruct());
+        if (_conf.getContext().hasExceptionOrFailInit()) {
+            return;
         }
         Argument arg_ = iteratorMultTable(_extractedMap, _conf);
         if (_conf.getContext().getException() != null) {
             return;
         }
         Struct l_ = arg_.getStruct();
-        while (true) {
-            Argument hasNext_ = hasNextPair(l_, _conf);
-            if (_conf.getContext().getException() != null) {
-                return;
-            }
-            if (!((BooleanStruct)hasNext_.getStruct()).getInstance()) {
-                break;
-            }
-            Argument nextPair_ = nextPair(l_, _conf);
-            if (_conf.getContext().getException() != null) {
-                return;
-            }
-            Struct entry_ = nextPair_.getStruct();
-            Argument first_ = first(entry_, _conf);
-            if (_conf.getContext().getException() != null) {
-                return;
-            }
-            Struct o_ = first_.getStruct();
-            if (o_ == NullStruct.NULL_VALUE) {
-                continue;
-            }
-            Element option_ = _docSelect.createElement(TAG_OPTION);
-            String cmp_ = getStringKey(_conf, o_);
-            option_.setAttribute(ATTRIBUTE_VALUE, cmp_);
-            for (String n: names_) {
-                if (StringList.quickEq(n,cmp_)) {
-                    option_.setAttribute(SELECTED, SELECTED);
-                    break;
-                }
-            }
-            Argument second_ = second(entry_, _conf);
-            if (_conf.getContext().getException() != null) {
-                return;
-            }
-            option_.appendChild(_docSelect.createTextNode(stds_.processString(second_,_conf)));
-            _docElementSelect.appendChild(option_);
-        }
+        processOptions(_conf, _docSelect, _docElementSelect, obj_, l_);
     }
-    private static void processOptionsMapEnumName(Configuration _conf, Struct _extractedMap,
-                                                  Document _docSelect, Element _docElementSelect, Struct _returnedVarValue,
-                                                  boolean _multiple) {
-        BeanLgNames stds_ = _conf.getAdvStandards();
-        IdList<Struct> obj_ = new IdList<Struct>();
-        if (_multiple) {
-            Argument arg_ = iterator(_returnedVarValue,_conf);
-            if (_conf.getContext().getException() != null) {
-                return;
-            }
-            Struct it_ = arg_.getStruct();
-            while (true) {
-                Argument hasNext_ = hasNext(it_, _conf);
-                if (_conf.getContext().getException() != null) {
-                    return;
-                }
-                if (!((BooleanStruct)hasNext_.getStruct()).getInstance()) {
-                    break;
-                }
-                Argument next_ = next(it_, _conf);
-                if (_conf.getContext().getException() != null) {
-                    return;
-                }
-                obj_.add(next_.getStruct());
-            }
-        } else {
-            obj_.add(_returnedVarValue);
+
+    private void processOptionsMapEnumName(Configuration _conf, Struct _extractedMap,
+                                           Document _docSelect, Element _docElementSelect, Struct _returnedVarValue) {
+        CustList<Struct> obj_ = values(_conf,_returnedVarValue);
+        if (_conf.getContext().getException() != null) {
+            return;
         }
         Argument arg_ = iteratorMultTable(_extractedMap,_conf);
         if (_conf.getContext().getException() != null) {
@@ -204,15 +186,20 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         }
         Struct l_;
         l_ = arg_.getStruct();
+        processOptions(_conf, _docSelect, _docElementSelect, obj_, l_);
+    }
+
+    private void processOptions(Configuration _conf, Document _docSelect, Element _docElementSelect, CustList<Struct> _obj, Struct _l) {
+        BeanLgNames stds_ = _conf.getAdvStandards();
         while (true) {
-            Argument hasNext_ = hasNextPair(l_, _conf);
+            Argument hasNext_ = hasNextPair(_l, _conf);
             if (_conf.getContext().getException() != null) {
                 return;
             }
             if (!((BooleanStruct)hasNext_.getStruct()).getInstance()) {
                 break;
             }
-            Argument nextPair_ = nextPair(l_, _conf);
+            Argument nextPair_ = nextPair(_l, _conf);
             if (_conf.getContext().getException() != null) {
                 return;
             }
@@ -227,9 +214,10 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             }
             Element option_ = _docSelect.createElement(TAG_OPTION);
             option_.setAttribute(ATTRIBUTE_VALUE, getStringKey(_conf, o_));
-            for (Struct o: obj_) {
-                if (ExtractObject.eq(o_, o)) {
+            for (Struct n: _obj) {
+                if (n.sameReference(o_)) {
                     option_.setAttribute(SELECTED, SELECTED);
+                    break;
                 }
             }
             Argument second_ = second(entry_, _conf);
@@ -239,6 +227,34 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             option_.appendChild(_docSelect.createTextNode(stds_.processString(second_,_conf)));
             _docElementSelect.appendChild(option_);
         }
+    }
+
+    CustList<Struct> values(Configuration _conf,Struct _returnedVarValue) {
+        IdList<Struct> obj_ = new IdList<Struct>();
+        if (multiple) {
+            Argument arg_ = iterator(_returnedVarValue,_conf);
+            if (_conf.getContext().getException() != null) {
+                return obj_;
+            }
+            Struct it_ = arg_.getStruct();
+            while (true) {
+                Argument hasNext_ = hasNext(it_, _conf);
+                if (_conf.getContext().getException() != null) {
+                    return obj_;
+                }
+                if (!((BooleanStruct)hasNext_.getStruct()).getInstance()) {
+                    break;
+                }
+                Argument next_ = next(it_, _conf);
+                if (_conf.getContext().getException() != null) {
+                    return obj_;
+                }
+                obj_.add(next_.getStruct());
+            }
+        } else {
+            obj_.add(_returnedVarValue);
+        }
+        return obj_;
     }
     Argument processIndexes(Configuration _cont, Element _read, Element _write) {
         Argument arg_ = fetchName(_cont, _read, _write, opsRead, idField, varName, opsWrite);
