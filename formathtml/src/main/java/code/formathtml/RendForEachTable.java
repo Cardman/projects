@@ -373,19 +373,15 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             processBlock(_cont);
             return;
         }
-        BeanLgNames stds_ = _cont.getAdvStandards();
         Struct its_ = processLoop(_cont);
         if (_cont.getContext().hasExceptionOrFailInit()) {
             return;
         }
         Struct iterStr_;
         long length_ = CustList.INDEX_NOT_FOUND_ELT;
-        Argument arg_ = iteratorTable(its_,_cont);
+        Argument arg_ = iteratorMultTable(its_,_cont);
         if (_cont.getContext().hasExceptionOrFailInit()) {
             return;
-        }
-        if (stds_ instanceof BeanNatLgNames) {
-            arg_=iterator(arg_.getStruct(),_cont);
         }
         iterStr_ = arg_.getStruct();
         RendLoopBlockStack l_ = new RendLoopBlockStack();

@@ -8,7 +8,6 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exec.*;
@@ -32,6 +31,7 @@ public abstract class RendBlock {
     static final String ATTRIBUTE_STEP = "step";
     static final String ATTRIBUTE_LABEL = "label";
     static final String ATTRIBUTE_NAME = "name";
+    static final String DEFAULT_ATTRIBUTE = "default";
     static final String ATTRIBUTE_PREPARE_BEAN = "prepare";
     static final String ATTRIBUTE_FORM = "form";
     static final String ATTRIBUTE_LIST = "list";
@@ -307,6 +307,9 @@ public abstract class RendBlock {
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,MESSAGE_BLOCK_TAG))) {
             return new RendMessage(elt_,new OffsetsBlock());
         }
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,SELECT_TAG))) {
+            return new RendSelect(elt_,new OffsetsBlock());
+        }
         if (StringList.quickEq(tagName_,FORM_BLOCK_TAG)) {
             return new RendForm(elt_,new OffsetsBlock());
         }
@@ -377,14 +380,21 @@ public abstract class RendBlock {
         _block.buildExpressionLanguage(_cont,_doc);
     }
 
-    protected static Argument iteratorTable(Struct _arg, Configuration _cont) {
+    protected static Argument iteratorMultTable(Struct _arg, Configuration _cont) {
         String locName_ = _cont.getAdvStandards().getIteratorTableVarCust();
         BeanLgNames stds_ = _cont.getAdvStandards();
         LocalVariable locVar_ = new LocalVariable();
         locVar_.setClassName(stds_.getStructClassName(_arg, _cont.getContext()));
         locVar_.setStruct(_arg);
         _cont.getLastPage().getInternVars().put(locName_, locVar_);
-        return ElRenderUtil.calculateReuse(stds_.getExpsIteratorTableCust(),_cont);
+        Argument arg_ = ElRenderUtil.calculateReuse(stds_.getExpsIteratorTableCust(), _cont);
+        if (_cont.getContext().hasExceptionOrFailInit()) {
+            return arg_;
+        }
+        if (stds_ instanceof BeanNatLgNames) {
+            arg_=iterator(arg_.getStruct(),_cont);
+        }
+        return arg_;
     }
     protected static Argument hasNextPair(Struct _arg,Configuration _conf) {
         String locName_ = _conf.getAdvStandards().getHasNextPairVarCust();
@@ -470,16 +480,19 @@ public abstract class RendBlock {
         return _conf.getAdvStandards().getStringKey(_conf,_instance);
     }
 
-    protected static void fetchName(Configuration _cont, Element _read, Element _write, CustList<RendDynOperationNode> _opsRead, ClassField _idField, String _varName, CustList<RendDynOperationNode> _opsWrite) {
+    protected static Argument fetchName(Configuration _cont, Element _read, Element _write, CustList<RendDynOperationNode> _opsRead, ClassField _idField, String _varName, CustList<RendDynOperationNode> _opsWrite) {
         String name_ = _read.getAttribute(ATTRIBUTE_NAME);
         if (name_.isEmpty()) {
-            return;
+            return Argument.createVoid();
         }
         Struct obj_;
         Struct currentField_;
         long index_ = -1;
         long found_ = -1;
         IdMap<RendDynOperationNode, ArgumentsPair> args_ = ElRenderUtil.getAllArgs(_opsRead, _cont);
+        if (_cont.getContext().hasExceptionOrFailInit()) {
+            return Argument.createVoid();
+        }
         RendDynOperationNode root_ = args_.lastKey();
         RendDynOperationNode res_;
         if (root_ instanceof RendIdOperation) {
@@ -504,7 +517,8 @@ public abstract class RendBlock {
             found_ = e.getKey();
             break;
         }
-        currentField_ = pair_.getArgument().getStruct();
+        Argument arg_ = pair_.getArgument();
+        currentField_ = arg_.getStruct();
         if (found_ == -1) {
             long currentInput_ = _cont.getIndexes().getInput();
             NodeContainer nodeCont_ = new NodeContainer();
@@ -574,17 +588,29 @@ public abstract class RendBlock {
         } else {
             _cont.getIndexes().setNb(found_);
         }
-        if (_cont.getIndexes().getNb() >= 0) {
-            _write.setAttribute(NUMBER_INPUT, String.valueOf(_cont.getIndexes().getNb()));
-        }
+        _write.setAttribute(NUMBER_INPUT, String.valueOf(_cont.getIndexes().getNb()));
 //        attributesNames_.removeAllString(NUMBER_INPUT);
         _write.setAttribute(ATTRIBUTE_NAME, StringList.concat(_cont.getLastPage().getBeanName(),DOT,name_));
+        return arg_;
+    }
+    static CustList<RendDynOperationNode> reduceList(CustList<RendDynOperationNode> _list) {
+        if (_list.isEmpty()) {
+            return _list;
+        }
+        return ElRenderUtil.getReducedNodes(_list.last());
     }
 
     protected static void fetchValue(Configuration _cont, Element _read, Element _write, CustList<RendDynOperationNode> _ops) {
 //        _conf.getLastPage().setProcessingAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VAR_VALUE));
 //        _conf.getLastPage().setLookForAttrValue(true);
 //        _conf.getLastPage().setOffset(0);
+        if (_cont.getContext().hasExceptionOrFailInit()) {
+            return;
+        }
+        String name_ = _read.getAttribute(ATTRIBUTE_NAME);
+        if (name_.isEmpty()) {
+            return;
+        }
         if (StringList.quickEq(_read.getTagName(),INPUT_TAG)) {
             Argument o_ = ElRenderUtil.calculateReuse(_ops,_cont);
             if (_cont.getContext().getException() != null) {

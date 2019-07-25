@@ -2,7 +2,6 @@ package code.formathtml;
 import static code.formathtml.EquallableExUtil.assertEq;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 import code.bean.validator.Validator;
 import code.expressionlanguage.AnalyzedPageEl;
@@ -953,17 +952,31 @@ public class HtmlRequestTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_three\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><c:for var=\"n\" list=\"numbers\"><input type=\"radio\" name=\"index\" c:varValue=\"n;\"/></c:for><c:for var=\"n\" list=\"numbersTwo\"><input type=\"radio\" name=\"indexTwo\" c:varValue=\"n;\"/></c:for><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><c:for var=\"n\" list=\"numbers\"><input type=\"radio\" name=\"index\" c:varValue=\"n;\"/></c:for><c:for var=\"n\" list=\"numbersTwo\"><input type=\"radio\" name=\"indexTwo\" c:varValue=\"n;\"/></c:for><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        BeanThree bean_ = new BeanThree();
-
-        bean_.setScope("session");
-        Configuration conf_ = contextElSec();
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $int index:");
+        file_.append(" $public $int indexTwo:");
+        file_.append(" $public $int[] numbers:");
+        file_.append(" $public $int[] numbersTwo:");
+        file_.append(" $public $void beforeDisplaying(){");
+        file_.append("  numbers={2,4,6}:");
+        file_.append("  numbersTwo={2,4,6}:");
+        file_.append("  index=4:");
+        file_.append("  indexTwo=6:");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        Configuration conf_ = contextElThird(filesSec_);
         conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_three", bean_);
-        conf_.getBuiltBeans().put("bean_three",new BeanStruct(bean_));
+        addImportingPage(conf_);
+        Struct bean_ = ElRenderUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
+        conf_.getBuiltBeans().put("bean_one",bean_);
+        conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
         conf_.setValidators(new StringMap<Validator>());
@@ -972,25 +985,21 @@ public class HtmlRequestTest extends CommonRender {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        bean_.getNumbers().add(2);
-        bean_.getNumbers().add(4);
-        bean_.getNumbers().add(6);
-        bean_.getNumbersTwo().add(2);
-        bean_.getNumbersTwo().add(4);
-        bean_.getNumbersTwo().add(6);
-
-        bean_.setIndex(4);
-        bean_.setIndexTwo(6);
         Document doc_ = DocumentBuilder.parseSax(html_);
+        conf_.getAnalyzingDoc().setFiles(files_);
+        conf_.getAnalyzingDoc().setLanguage(locale_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         FormatHtml.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
-        HtmlRequest.setRendObject(conf_,conf_.getContainersMap().firstValue().getValue(0),new IntStruct(2));
-        assertEq(2,bean_.getIndex());
-        assertEq(6,bean_.getIndexTwo());
+        NodeContainer nCont_ = conf_.getContainersMap().firstValue().getValue(0);
+        NodeContainer nContBis_ = conf_.getContainersMap().firstValue().getValue(1);
+        HtmlRequest.setRendObject(conf_,nCont_,new IntStruct(2));
+        assertEq(2, ((NumberStruct)((FieldableStruct)bean_).getStruct(nCont_.getIdField())).intStruct());
+        assertEq(6, ((NumberStruct)((FieldableStruct)bean_).getStruct(nContBis_.getIdField())).intStruct());
     }
     @Test
     public void setRendObject2Test() {
@@ -1006,10 +1015,8 @@ public class HtmlRequestTest extends CommonRender {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
         file_.append(" $public Dto first:");
-//        file_.append(" $public Dto second:");
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  first=$new Dto(4):");
-//        file_.append("  second=$new Dto(6):");
         file_.append(" }");
         file_.append("}");
         file_.append("$public $class pkg.Dto{");

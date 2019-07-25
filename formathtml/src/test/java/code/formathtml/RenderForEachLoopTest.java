@@ -648,6 +648,18 @@ public final class RenderForEachLoopTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
     }
+    @Test
+    public void process9FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        Configuration context_ = contextElThird(files_);
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;()\" className='java.lang.String'>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(!context_.getClasses().isEmptyErrors());
+    }
     private static String getCustomList() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.CustList<#U> :$iterable<#U>{\n");

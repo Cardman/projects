@@ -87,7 +87,7 @@ public final class ResultInput {
     private CustList<RendDynOperationNode> opsWrite = new CustList<RendDynOperationNode>();
     private String varName = "";
     private ClassField idField;
-    public void build(Configuration _cont, RendDocumentBlock _doc, Element _read) {
+    public void build(Configuration _cont, RendDocumentBlock _doc, Element _read,String _varValue) {
         String name_ = _read.getAttribute(ATTRIBUTE_NAME);
         boolean st_ = _doc.isStaticContext();
         if (!name_.isEmpty()) {
@@ -137,8 +137,8 @@ public final class ResultInput {
                 }
             }
         }
-        if (_read.hasAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VAR_VALUE))) {
-            String value_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VAR_VALUE));
+        if (_read.hasAttribute(_varValue)) {
+            String value_ = _read.getAttribute(_varValue);
             opsValue = ElRenderUtil.getAnalyzedOperations(value_, 0, _cont, Calculation.staticCalculation(st_));
         }
     }

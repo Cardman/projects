@@ -1,10 +1,12 @@
 package code.formathtml;
 
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.opers.util.ClassField;
 import code.formathtml.exec.*;
 import code.sml.Element;
 import code.util.CustList;
+import code.util.StringList;
 
 public abstract class RendInput extends RendElement {
     private CustList<RendDynOperationNode> opsRead = new CustList<RendDynOperationNode>();
@@ -18,7 +20,7 @@ public abstract class RendInput extends RendElement {
 
     protected void processAnaInput(Configuration _cont, RendDocumentBlock _doc, Element _read) {
         ResultInput r_ = new ResultInput();
-        r_.build(_cont, _doc,_read);
+        r_.build(_cont, _doc,_read,StringList.concat(_cont.getPrefix(),ATTRIBUTE_VAR_VALUE));
         opsRead = r_.getOpsRead();
         opsValue = r_.getOpsValue();
         opsWrite = r_.getOpsWrite();
@@ -32,15 +34,10 @@ public abstract class RendInput extends RendElement {
         opsValue = reduceList(opsValue);
         opsWrite = reduceList(opsWrite);
     }
-    private static CustList<RendDynOperationNode> reduceList(CustList<RendDynOperationNode> _list) {
-        if (_list.isEmpty()) {
-            return _list;
-        }
-        return ElRenderUtil.getReducedNodes(_list.last());
-    }
-    protected void processIndexes(Configuration _cont, Element _read, Element _write) {
-        fetchName(_cont, _read, _write, opsRead, idField, varName, opsWrite);
+    protected Argument processIndexes(Configuration _cont, Element _read, Element _write) {
+        Argument arg_ = fetchName(_cont, _read, _write, opsRead, idField, varName, opsWrite);
         fetchValue(_cont,_read,_write,opsValue);
+        return arg_;
     }
 
     protected CustList<RendDynOperationNode> getOpsRead() {

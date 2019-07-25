@@ -175,7 +175,6 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
         ImportingPage ip_ = _cont.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         Node oldWrite_ = rw_.getWrite();
-        Node write_ = rw_.getWrite();
         MutableNode root_ = docLoc_.getDocumentElement();
         MutableNode read_ = root_.getFirstChild();
         Document ownerDocument_ = rw_.getDocument();
@@ -183,8 +182,8 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
         while (true) {
             if (read_ instanceof Element) {
                 Element eltRead_ = (Element) read_;
-                FormatHtml.appendChild(ownerDocument_,_cont,write_, eltRead_);
-                MutableNode nextWrite_ = write_.getLastChild();
+                FormatHtml.appendChild(ownerDocument_,_cont,rw_.getWrite(), eltRead_);
+                MutableNode nextWrite_ = rw_.getWrite().getLastChild();
                 Element nextEltWrite_ = (Element) nextWrite_;
                 processImportedNode(_cont,ip_, nextEltWrite_);
                 if (StringList.quickEq(nextEltWrite_.getTagName(), TAG_A)){
@@ -197,13 +196,12 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
             } else {
                 Text txt_ = (Text) read_;
                 Text t_ = ownerDocument_.createTextNode(txt_.getTextContent());
-                ((MutableNode)write_).appendChild(t_);
+                ((MutableNode)rw_.getWrite()).appendChild(t_);
             }
             MutableNode firstChild_ = read_.getFirstChild();
             if (firstChild_ != null) {
-                MutableNode nextWrite_ = write_.getLastChild();
+                MutableNode nextWrite_ = rw_.getWrite().getLastChild();
                 rw_.setWrite(nextWrite_);
-                write_ = nextWrite_;
                 read_ = firstChild_;
                 continue;
             }
@@ -219,7 +217,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                     stop_ = true;
                     break;
                 }
-                write_ = write_.getParentNode();
+                rw_.setWrite(rw_.getWrite().getParentNode());
                 read_ = parentNode_;
             }
             if (stop_) {

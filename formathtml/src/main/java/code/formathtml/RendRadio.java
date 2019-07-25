@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -21,19 +22,19 @@ public final class RendRadio extends RendInput {
     @Override
     protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read) {
         Element elt_ = (Element) _nextWrite;
-        processIndexes(_cont,_read, elt_);
+        Argument arg_ = processIndexes(_cont, _read, elt_);
+        if (_cont.getContext().hasExceptionOrFailInit()) {
+            return;
+        }
         String name_ = _read.getAttribute(ATTRIBUTE_NAME);
         if (name_.isEmpty()) {
             return;
         }
-        Struct res_ = ElRenderUtil.calculateReuse(getOpsRead(), _cont).getStruct();
+        Struct res_ = arg_.getStruct();
         if (res_ == NullStruct.NULL_VALUE) {
             elt_.removeAttribute(CHECKED);
         } else {
             String strObj_ = getStringKey(_cont, res_);
-            if (_cont.getContext().getException() != null) {
-                return;
-            }
             if (StringList.quickEq(elt_.getAttribute(ATTRIBUTE_VALUE),strObj_)) {
                 elt_.setAttribute(CHECKED, CHECKED);
             } else {
