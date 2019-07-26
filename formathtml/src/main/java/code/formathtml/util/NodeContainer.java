@@ -22,7 +22,9 @@ public class NodeContainer {
     private ClassField idField;
     private String varPrevName;
     private String varName;
+    private String varNameConvert;
     private CustList<RendDynOperationNode> opsWrite;
+    private CustList<RendDynOperationNode> opsConvert;
     private String lastToken;
 
     private long index = -1;
@@ -147,5 +149,21 @@ public class NodeContainer {
 
     public void setOpsWrite(CustList<RendDynOperationNode> _opsWrite) {
         opsWrite = _opsWrite;
+    }
+
+    public String getVarNameConvert() {
+        return varNameConvert;
+    }
+
+    public void setVarNameConvert(String _varNameConvert) {
+        varNameConvert = _varNameConvert;
+    }
+
+    public CustList<RendDynOperationNode> getOpsConvert() {
+        return opsConvert;
+    }
+
+    public void setOpsConvert(CustList<RendDynOperationNode> _opsConvert) {
+        opsConvert = _opsConvert;
     }
 }

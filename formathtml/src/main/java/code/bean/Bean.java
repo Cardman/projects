@@ -1,7 +1,7 @@
 package code.bean;
 import code.util.StringMapObject;
 
-public class Bean {
+public abstract class Bean {
 
     private Object dataBase;
 
@@ -13,9 +13,7 @@ public class Bean {
 
     private String language;
 
-    public void beforeDisplaying() {
-        //implemented by sub classes
-    }
+    public abstract void beforeDisplaying();
 
     public Object getDataBase() {
         return dataBase;

@@ -1,6 +1,6 @@
 package code.formathtml;
 
-import code.bean.Bean;
+import code.bean.BeanInfo;
 import code.bean.translator.Translator;
 import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
@@ -63,7 +63,7 @@ public final class ReadConfiguration {
                 continue;
             }
             if (StringList.quickEq(fieldName_, "beans")) {
-                _configuration.setBeans(loadBeans(c));
+                _configuration.setBeansInfos(loadBeans(c));
                 continue;
             }
             if (StringList.quickEq(fieldName_, "properties")) {
@@ -151,10 +151,10 @@ public final class ReadConfiguration {
         }
         return options_;
     }
-    static StringMap<Bean> loadBeans(Element _elt) {
-        StringMap<Bean> beans_ = new StringMap<Bean>();
+    static StringMap<BeanInfo> loadBeans(Element _elt) {
+        StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>();
         StringList keys_ = new StringList();
-        CustList<Bean> values_ = new CustList<Bean>();
+        CustList<BeanInfo> values_ = new CustList<BeanInfo>();
         for (Element c: _elt.getChildElements()) {
             if (c.hasAttribute("key")) {
                 keys_.add(c.getAttribute("value"));
@@ -168,8 +168,8 @@ public final class ReadConfiguration {
         }
         return beans_;
     }
-    static Bean loadBean(Element _elt) {
-        Bean bean_ = new Bean();
+    static BeanInfo loadBean(Element _elt) {
+        BeanInfo bean_ = new BeanInfo();
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute("field");
             if (StringList.quickEq(fieldName_, "scope")) {

@@ -1124,7 +1124,7 @@ public class HtmlRequestTest extends CommonRender {
 
     private static void setup(Configuration _conf) {
         _conf.setSepPrefix("c");
-        _conf.setupValiatorsTranslators("en");
+        _conf.setupValiatorsTranslatorsTmp();
     }
 
     private static Configuration newConfiguration() {

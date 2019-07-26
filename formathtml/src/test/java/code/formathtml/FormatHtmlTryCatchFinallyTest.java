@@ -874,7 +874,7 @@ public class FormatHtmlTryCatchFinallyTest {
 
     private static void setup(Configuration _conf) {
         _conf.setSepPrefix("c");
-        _conf.setupValiatorsTranslators("LOCALE");
+        _conf.setupValiatorsTranslatorsTmp();
     }
 
     private static void assertXmlEqualRuntime(String _htmlExp, String _htmlRes) {

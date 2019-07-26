@@ -26,6 +26,7 @@ public abstract class RendBlock {
     static final String ATTRIBUTE_ESCAPED_EAMP = "escapedamp";
     static final String ATTRIBUTE_CLASS_NAME = "className";
     static final String ATTRIBUTE_CONVERT = "convert";
+    static final String ATTRIBUTE_CONVERT_VALUE = "convertValue";
     static final String ATTRIBUTE_INDEX_CLASS_NAME = "indexClassName";
     static final String ATTRIBUTE_FROM = "from";
     static final String ATTRIBUTE_INIT = "init";
@@ -381,6 +382,30 @@ public abstract class RendBlock {
         _block.buildExpressionLanguage(_cont,_doc);
     }
 
+    static void appendChild(Document _doc, Node _parent, Element _read) {
+        Element currentNode_;
+        if (_parent instanceof Document) {
+            currentNode_ = _doc.createElement(_read.getTagName());
+            setNormalAttributes(_read, currentNode_);
+            ((Document)_parent).appendChild(currentNode_);
+            return;
+        }
+        currentNode_ = _doc.createElement(_read.getTagName());
+        setNormalAttributes(_read, currentNode_);
+        ((MutableNode)_parent).appendChild(currentNode_);
+    }
+
+    private static void setNormalAttributes(Element _read, Element _write) {
+        NamedNodeMap map_ = _read.getAttributes();
+        int nbAttrs_ = map_.getLength();
+        for (int i = 0; i < nbAttrs_; i++) {
+            Attr at_ = map_.item(i);
+            String name_ = at_.getName();
+            String value_ = at_.getValue();
+            _write.setAttribute(name_, value_);
+        }
+    }
+
     protected static Argument iteratorMultTable(Struct _arg, Configuration _cont) {
         String locName_ = _cont.getAdvStandards().getIteratorTableVarCust();
         BeanLgNames stds_ = _cont.getAdvStandards();
@@ -481,7 +506,7 @@ public abstract class RendBlock {
         return _conf.getAdvStandards().getStringKey(_conf,_instance);
     }
 
-    protected static Argument fetchName(Configuration _cont, Element _read, Element _write, CustList<RendDynOperationNode> _opsRead, ClassField _idField, String _varName, CustList<RendDynOperationNode> _opsWrite) {
+    protected static Argument fetchName(Configuration _cont, Element _read, Element _write, FieldUpdates _f) {
         String name_ = _read.getAttribute(ATTRIBUTE_NAME);
         if (name_.isEmpty()) {
             return Argument.createVoid();
@@ -490,7 +515,11 @@ public abstract class RendBlock {
         Struct currentField_;
         long index_ = -1;
         long found_ = -1;
-        IdMap<RendDynOperationNode, ArgumentsPair> args_ = ElRenderUtil.getAllArgs(_opsRead, _cont);
+        CustList<RendDynOperationNode> opsRead_ = _f.getOpsRead();
+        CustList<RendDynOperationNode> opsWrite_ = _f.getOpsWrite();
+        ClassField idField_ = _f.getIdField();
+        String varName_ = _f.getVarName();
+        IdMap<RendDynOperationNode, ArgumentsPair> args_ = ElRenderUtil.getAllArgs(opsRead_, _cont);
         if (_cont.getContext().hasExceptionOrFailInit()) {
             return Argument.createVoid();
         }
@@ -509,10 +538,10 @@ public abstract class RendBlock {
             obj_ = _cont.getLastPage().getGlobalArgument().getStruct();
         }
         for (EntryCust<Long, NodeContainer> e: _cont.getContainers().entryList()) {
-            if (!ExtractObject.eq(e.getValue().getStruct(), obj_)) {
+            if (!e.getValue().getStruct().sameReference(obj_)) {
                 continue;
             }
-            if (!e.getValue().getIdField().eq(_idField)) {
+            if (!e.getValue().getIdField().eq(idField_)) {
                 continue;
             }
             found_ = e.getKey();
@@ -524,15 +553,17 @@ public abstract class RendBlock {
             long currentInput_ = _cont.getIndexes().getInput();
             NodeContainer nodeCont_ = new NodeContainer();
             nodeCont_.setEnabled(true);
-            nodeCont_.setIdField(_idField);
+            nodeCont_.setIdField(idField_);
             nodeCont_.setIndex(index_);
             nodeCont_.setTypedStruct(currentField_);
             nodeCont_.setBeanName(_cont.getLastPage().getBeanName());
             nodeCont_.setStruct(obj_);
-            StringList strings_ = StringList.splitInTwo(_varName, _varName.indexOf(','));
+            StringList strings_ = StringList.splitInTwo(varName_, varName_.indexOf(','));
             nodeCont_.setVarPrevName(StringList.removeChars(strings_.first(),','));
             nodeCont_.setVarName(StringList.removeChars(strings_.last(),','));
-            nodeCont_.setOpsWrite(_opsWrite);
+            nodeCont_.setOpsWrite(opsWrite_);
+            nodeCont_.setOpsConvert(_f.getOpsConverter());
+            nodeCont_.setVarNameConvert(_f.getVarNameConverter());
             NodeInformations nodeInfos_ = nodeCont_.getNodeInformation();
             String id_ = _write.getAttribute(ATTRIBUTE_ID);
             if (id_.isEmpty()) {

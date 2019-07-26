@@ -17,6 +17,18 @@ public abstract class CommonRender {
         _conf.getContext().setAnalyzing(new AnalyzedPageEl());
     }
 
+    static Navigation newNavigation(Configuration _conf) {
+        Navigation nav_ = new Navigation();
+        nav_.setSession(_conf);
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl context_ = _conf.getContext();
+        BeanLgNames standards_ = (BeanLgNames) context_.getStandards();
+        nav_.getSession().setStandards(standards_);
+        standards_.buildIterables(nav_.getSession());
+        return nav_;
+    }
     Configuration contextElSec() {
         StringMap<String> files_ = new StringMap<String>();
         return contextElSec(files_);

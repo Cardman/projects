@@ -292,20 +292,22 @@ public final class BeanCustLgNames extends BeanLgNames {
         file_.append("}");
         file_.append(return_).append(" ").append(getValue_).append("(").append(trLoc("index",_context)).append(")").append(endLine_);
         file_.append("}");
+
         file_.append(public_).append(" ").append(void_).append(" ").append(addEntry_).append("(").append(string_).append(" ").append(tr("k",_context)).append(",").append(object_).append(" ").append(tr("v",_context)).append("){");
         file_.append(string_).append("[] ").append(keys_).append("=").append(new_).append(" ").append(string_).append("[").append(this_).append(".").append(keys_).append(".").append(length_).append("+1]").append(endLine_);
         file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context)).append("=0").append(endLine_).append(trLoop("i",_context)).append("<").append(this_).append(".").append(keys_).append(".").append(length_).append(endLine_).append(trLoop("i",_context)).append("++){");
-        file_.append(keys_).append("[").append(trLoop("i",_context)).append("]=").append(this_).append(".").append(keys_).append("[").append(trLoop("i",_context)).append("]").append(endLine_);
+        file_.append(trLoc(keys_,_context)).append("[").append(trLoop("i",_context)).append("]=").append(this_).append(".").append(keys_).append("[").append(trLoop("i",_context)).append("]").append(endLine_);
         file_.append("}");
-        file_.append(keys_).append("[").append(this_).append(".").append(keys_).append(".").append(length_).append("]=").append(trParam("k",_context)).append(endLine_);
-        file_.append(this_).append(".").append(keys_).append("=").append(keys_).append(endLine_);
+        file_.append(trLoc(keys_,_context)).append("[").append(this_).append(".").append(keys_).append(".").append(length_).append("]=").append(trParam("k",_context)).append(endLine_);
+        file_.append(this_).append(".").append(keys_).append("=").append(trLoc(keys_,_context)).append(endLine_);
         file_.append(object_).append("[] ").append(values_).append("=").append(new_).append(" ").append(object_).append("[").append(this_).append(".").append(values_).append(".").append(length_).append("+1]").append(endLine_);
         file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context)).append("=0").append(endLine_).append(trLoop("i",_context)).append("<").append(this_).append(".").append(values_).append(".").append(length_).append(endLine_).append(trLoop("i",_context)).append("++){");
-        file_.append(values_).append("[").append(trLoop("i",_context)).append("]=").append(this_).append(".").append(values_).append("[").append(trLoop("i",_context)).append("]").append(endLine_);
+        file_.append(trLoc(values_,_context)).append("[").append(trLoop("i",_context)).append("]=").append(this_).append(".").append(values_).append("[").append(trLoop("i",_context)).append("]").append(endLine_);
         file_.append("}");
-        file_.append(values_).append("[").append(this_).append(".").append(values_).append(".").append(length_).append("]=").append(trParam("v",_context)).append(endLine_);
-        file_.append(this_).append(".").append(values_).append("=").append(values_).append(endLine_);
+        file_.append(trLoc(values_,_context)).append("[").append(this_).append(".").append(values_).append(".").append(length_).append("]=").append(trParam("v",_context)).append(endLine_);
+        file_.append(this_).append(".").append(values_).append("=").append(trLoc(values_,_context)).append(endLine_);
         file_.append("}");
+
         file_.append(public_).append(" ").append(int_).append(" ").append(indexOfEntry_).append("(").append(string_).append(" ").append(tr("k",_context)).append("){");
         file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context)).append("=0").append(endLine_).append(trLoop("i",_context)).append("<").append(this_).append(".").append(keys_).append(".").append(length_).append(endLine_).append(trLoop("i",_context)).append("++){");
         file_.append(if_).append("(").append(this_).append(".").append(keys_).append("[").append(trLoop("i",_context)).append("]==").append(trParam("k",_context)).append("){");

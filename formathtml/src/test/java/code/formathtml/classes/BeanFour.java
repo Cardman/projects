@@ -48,4 +48,9 @@ public class BeanFour extends Bean {
     public void setInvisibleField(int _invisibleField) {
         invisibleField = _invisibleField;
     }
+
+    @Override
+    public void beforeDisplaying() {
+
+    }
 }

@@ -228,4 +228,9 @@ public class BeanSeven extends Bean {
     public void setStrings(StringList _strings) {
         strings = _strings;
     }
+
+    @Override
+    public void beforeDisplaying() {
+
+    }
 }

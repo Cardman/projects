@@ -36,4 +36,9 @@ public class BeanSix extends Bean {
     public void setMyEnumThree(EnumNumber _myEnumThree) {
         myEnumThree = _myEnumThree;
     }
+
+    @Override
+    public void beforeDisplaying() {
+
+    }
 }

@@ -1,5 +1,6 @@
 package code.formathtml;
 import code.bean.Bean;
+import code.bean.BeanInfo;
 import code.bean.validator.Message;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -8,6 +9,7 @@ import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
+import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
@@ -189,12 +191,8 @@ public final class Navigation {
 
     public void initializeSession() {
         session.setupClasses(files);
-        for (EntryCust<String, Bean> e: session.getBeans().entryList()) {
-//            Bean bean_ = session.newBean(e.getValue());
-//            bean_.setForms(new StringMap<Object>());
-//            bean_.setDataBase(dataBase);
-//            e.setValue(bean_);
-            session.getBuiltBeans().put(e.getKey(), session.newBean(language, dataBase, e.getValue(), true));
+        for (EntryCust<String, BeanInfo> e: session.getBeansInfos().entryList()) {
+            session.getBuiltBeans().put(e.getKey(), session.newSimpleBean(language, dataBase, e.getValue()));
             if (session.getContext().getException() != null) {
                 return;
             }
@@ -224,6 +222,63 @@ public final class Navigation {
         setupText(htmlText);
     }
 
+    public void initializeRendSession() {
+        session.setupClasses(files);
+        BeanLgNames stds_ = session.getAdvStandards();
+        if (!(stds_ instanceof BeanCustLgNames)) {
+            for (EntryCust<String, BeanInfo> e: session.getBeansInfos().entryList()) {
+                session.getBuiltBeans().put(e.getKey(), session.newSimpleBean(language, dataBase, e.getValue()));
+                if (session.getContext().getException() != null) {
+                    return;
+                }
+            }
+        } else {
+            String keyWordNew_ = session.getKeyWords().getKeyWordNew();
+            String aliasStringMapObject_ = stds_.getAliasStringMapObject();
+            for (EntryCust<String, BeanInfo> e: session.getBeansInfos().entryList()) {
+                session.addPage(new ImportingPage(false));
+                BeanInfo info_ = e.getValue();
+                Struct strBean_ = ElRenderUtil.processEl(StringList.concat(keyWordNew_," ", info_.getClassName(),"()"), 0, session).getStruct();
+                Struct map_ = ElRenderUtil.processEl(StringList.concat(keyWordNew_," ",aliasStringMapObject_,"()"), 0, session).getStruct();
+                ExtractObject.setForms(session, strBean_,map_);
+                session.removeLastPage();
+                if (session.getContext().getException() != null) {
+                    return;
+                }
+                session.getBuiltBeans().put(e.getKey(),strBean_);
+            }
+        }
+
+        session.setupRenders(files);
+        if (!session.getClasses().isEmptyErrors()) {
+            return;
+        }
+        String currentUrl_ = session.getFirstUrl();
+        String realFilePath_ = ExtractFromResources.getRealFilePath(language, currentUrl_);
+        String text_ = files.getVal(realFilePath_);
+        if (text_ == null) {
+            return;
+        }
+        String currentBeanName_;
+        DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(text_);
+        Document doc_ = res_.getDocument();
+        if (doc_ == null) {
+            session.getContext().setException(NullStruct.NULL_VALUE);
+            return;
+        }
+        Element root_ = doc_.getDocumentElement();
+        session.setDocument(doc_);
+        currentBeanName_ = root_.getAttribute(StringList.concat(session.getPrefix(),FormatHtml.BEAN_ATTRIBUTE));
+        RendDocumentBlock rendDocumentBlock_ = session.getRenders().getVal(realFilePath_);
+        htmlText = FormatHtml.getRes(rendDocumentBlock_,session);
+        if (htmlText.isEmpty()) {
+            return;
+        }
+        //For title
+        currentBeanName = currentBeanName_;
+        currentUrl = currentUrl_;
+        setupText(htmlText);
+    }
     public void refresh() {
         for (Bean b: session.getBeans().values()) {
             b.setLanguage(language);
@@ -252,6 +307,215 @@ public final class Navigation {
         }
     }
 
+    public void processRendAnchorRequest(String _anchorRef) {
+        String textToBeChanged_;
+        if (_anchorRef.contains(CALL_METHOD)) {
+            session.clearPages();
+            HtmlPage htmlPage_ = session.getHtmlPage();
+            ImportingPage ip_ = new ImportingPage(true);
+            ip_.setPrefix(session.getPrefix());
+            ip_.setHtml(htmlText);
+            session.addPage(ip_);
+            FormatHtml.setEscapedChars(session, session.getDocument(), htmlText);
+            Element node_;
+            if (htmlPage_.isForm()) {
+                Document doc_ = session.getDocument();
+                node_ = DocumentBuilder.getFirstElementByAttribute(doc_, NUMBER_FORM, String.valueOf(htmlPage_.getUrl()));
+            } else {
+                Document doc_ = session.getDocument();
+                node_ = DocumentBuilder.getFirstElementByAttribute(doc_, NUMBER_ANCHOR, String.valueOf(htmlPage_.getUrl()));
+                if (node_ != null) {
+                    if (node_.getAttribute(ATTRIBUTE_HREF).isEmpty()) {
+                        htmlPage_.setUsedFieldUrl(StringList.concat(ip_.getPrefix(),ATTRIBUTE_COMMAND));
+                    } else if (node_.getAttribute(ATTRIBUTE_HREF).endsWith(END_PATH)) {
+                        htmlPage_.setUsedFieldUrl(StringList.concat(ip_.getPrefix(),ATTRIBUTE_COMMAND));
+                    } else {
+                        htmlPage_.setUsedFieldUrl(ATTRIBUTE_HREF);
+                    }
+                }
+            }
+            ip_.setProcessingNode(node_);
+            ip_.setProcessingAttribute(htmlPage_.getUsedFieldUrl());
+            ip_.setLookForAttrValue(true);
+            ip_.setOffset(0);
+            int indexPoint_ = _anchorRef.indexOf(DOT);
+            String action_ = _anchorRef
+                    .substring(indexPoint_ + 1);
+            String methodName_;
+            String suffix_;
+            boolean getArg_ = true;
+            if (action_.indexOf(BEGIN_ARGS) == CustList.INDEX_NOT_FOUND_ELT) {
+                methodName_ = action_;
+                suffix_ = EMPTY_STRING;
+                getArg_ = false;
+            } else {
+                methodName_ = action_.substring(CustList.FIRST_INDEX, action_.indexOf(BEGIN_ARGS));
+                suffix_ = action_.substring(action_.indexOf(BEGIN_ARGS));
+                StringBuilder str_ = new StringBuilder();
+                for (char c: suffix_.toCharArray()) {
+                    if (isPartOfArgument(c)) {
+                        continue;
+                    }
+                    str_.append(c);
+                }
+                suffix_ = str_.toString();
+            }
+            String beanName_ = _anchorRef
+                    .substring(_anchorRef.indexOf(CALL_METHOD) + 1, indexPoint_);
+            ip_.setOffset(_anchorRef.indexOf(CALL_METHOD) + 1);
+            Struct bean_ = getNotNullBean(beanName_);
+            if (session.getContext().getException() != null) {
+                return;
+            }
+            ip_.setOffset(indexPoint_+1);
+            ip_.setGlobalArgumentStruct(bean_, session);
+            Struct return_;
+            if (htmlPage_.isForm()) {
+                if (getArg_) {
+                    return_ = HtmlRequest.invokeMethodWithNumbersBis(
+                            session, action_);
+                } else {
+                    return_ = HtmlRequest.invokeMethodWithNumbersBis(
+                            session, StringList.concat(action_,"()"));
+                }
+            } else {
+                return_=HtmlRequest.redirect(session,new Argument(bean_),(int)htmlPage_.getUrl());
+            }
+            if (session.getContext().getException() != null) {
+                return;
+            }
+            Struct forms_ = ExtractObject.getForms(session, bean_);
+            if (session.getContext().getException() != null) {
+                return;
+            }
+            String urlDest_ = currentUrl;
+            if (return_ != NullStruct.NULL_VALUE) {
+                ip_.setOffset(_anchorRef.length());
+                urlDest_ = getUrlDest(StringList.concat(beanName_, DOT, methodName_,suffix_), return_);
+                if (session.getContext().getException() != null) {
+                    return;
+                }
+                if (urlDest_ == null) {
+                    urlDest_ = currentUrl;
+                }
+            }
+            for (EntryCust<String, Struct> e: session.getBuiltBeans().entryList()) {
+                boolean reinit_ = reinitBean(urlDest_, beanName_, e.getKey());
+                if (session.getContext().getException() != null) {
+                    return;
+                }
+                if (!reinit_) {
+                    continue;
+                }
+                bean_ = e.getValue();
+                bean_ = session.newBean(language, bean_);
+                if (session.getContext().getException() != null) {
+                    return;
+                }
+                ExtractObject.setForms(session, bean_, forms_);
+                if (session.getContext().getException() != null) {
+                    return;
+                }
+                e.setValue(bean_);
+            }
+            String currentUrl_ = urlDest_;
+            session.setCurrentUrl(currentUrl_);
+            String dest_ = StringList.getFirstToken(urlDest_, REF_TAG);
+            textToBeChanged_ = files.getVal(dest_);
+            if (textToBeChanged_ == null) {
+                return;
+            }
+            String currentBeanName_;
+            DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(textToBeChanged_);
+            Document doc_ = res_.getDocument();
+            if (doc_ == null) {
+                session.getContext().setException(NullStruct.NULL_VALUE);
+                return;
+            }
+            Element root_ = doc_.getDocumentElement();
+            session.setDocument(doc_);
+            currentBeanName_ = root_.getAttribute(StringList.concat(session.getPrefix(),FormatHtml.BEAN_ATTRIBUTE));
+            bean_ = getNotNullBean(currentBeanName_);
+            if (session.getContext().getException() != null) {
+                return;
+            }
+            ExtractObject.setForms(session, bean_, forms_);
+            RendDocumentBlock rendDocumentBlock_ = session.getRenders().getVal(dest_);
+            textToBeChanged_ = FormatHtml.getRes(rendDocumentBlock_,session);
+            if (textToBeChanged_.isEmpty()) {
+                return;
+            }
+            currentBeanName = currentBeanName_;
+            currentUrl = currentUrl_;
+            setupText(textToBeChanged_);
+            return;
+        }
+        if (_anchorRef.isEmpty()) {
+            return;
+        }
+        Struct bean_ = getBean(currentBeanName);
+        if (bean_ == null) {
+            bean_ = NullStruct.NULL_VALUE;
+        }
+        Struct forms_;
+        session.addPage(new ImportingPage(false));
+        forms_ = ExtractObject.getForms(session, bean_);
+        session.removeLastPage();
+        session.getContext().setException(null);
+        for (EntryCust<String, Struct> e: session.getBuiltBeans().entryList()) {
+            boolean reinitBean_ = reinitBean(_anchorRef, currentBeanName, e.getKey());
+            if (session.getContext().getException() != null) {
+                return;
+            }
+            if (!reinitBean_) {
+                continue;
+            }
+            bean_ = e.getValue();
+            bean_ = session.newBean(language,bean_);
+            if (session.getContext().getException() != null) {
+                return;
+            }
+            session.addPage(new ImportingPage(false));
+            ExtractObject.setForms(session, bean_, forms_);
+            session.removeLastPage();
+            if (session.getContext().getException() != null) {
+                return;
+            }
+            e.setValue(bean_);
+        }
+        session.setCurrentUrl(_anchorRef);
+        String dest_ = StringList.getFirstToken(_anchorRef, REF_TAG);
+        textToBeChanged_ = files.getVal(dest_);
+        if (textToBeChanged_ == null) {
+            return;
+        }
+        DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(textToBeChanged_);
+        Document doc_ = res_.getDocument();
+        if (doc_ == null) {
+            session.getContext().setException(NullStruct.NULL_VALUE);
+            return;
+        }
+        String currentBeanName_;
+        Element root_ = doc_.getDocumentElement();
+        session.setDocument(doc_);
+        currentBeanName_ = root_.getAttribute(StringList.concat(session.getPrefix(),FormatHtml.BEAN_ATTRIBUTE));
+        bean_ = getBean(currentBeanName_);
+        if (bean_ == null) {
+            bean_ = NullStruct.NULL_VALUE;
+        }
+        session.addPage(new ImportingPage(false));
+        ExtractObject.setForms(session, bean_, forms_);
+        session.removeLastPage();
+        session.getContext().setException(null);
+        RendDocumentBlock rendDocumentBlock_ = session.getRenders().getVal(dest_);
+        textToBeChanged_ = FormatHtml.getRes(rendDocumentBlock_,session);
+        if (textToBeChanged_.isEmpty()) {
+            return;
+        }
+        currentBeanName = currentBeanName_;
+        currentUrl = _anchorRef;
+        setupText(textToBeChanged_);
+    }
     public void processAnchorRequest(String _anchorRef) {
         String textToBeChanged_;
         if (_anchorRef.contains(CALL_METHOD)) {
@@ -475,6 +739,138 @@ public final class Navigation {
         return true;
     }
 
+    public void processRendFormRequest() {
+        session.clearPages();
+        HtmlPage htmlPage_ = session.getHtmlPage();
+        ImportingPage ip_ = new ImportingPage(true);
+        ip_.setPrefix(session.getPrefix());
+        ip_.setHtml(htmlText);
+        session.addPage(ip_);
+        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        containersMap_ = htmlPage_.getContainers();
+        long lg_ = htmlPage_.getUrl();
+        Document doc_ = session.getDocument();
+        String actionCommand_ = EMPTY_STRING;
+        //retrieving form that is submitted
+        Element formElement_ = DocumentBuilder.getFirstElementByAttribute(doc_, NUMBER_FORM, String.valueOf(lg_));
+        if (formElement_ == null) {
+            htmlPage_.setUsedFieldUrl(EMPTY_STRING);
+            session.getContext().setException(NullStruct.NULL_VALUE);
+            return;
+        }
+        htmlPage_.setForm(true);
+
+        //As soon as the form is retrieved, then process on it and exit from the loop
+        actionCommand_ = formElement_.getAttribute(ATTRIBUTE_ACTION);
+        htmlPage_.setUsedFieldUrl(ATTRIBUTE_ACTION);
+        if (actionCommand_.isEmpty()
+                || actionCommand_.endsWith(END_PATH)) {
+            actionCommand_ = formElement_.getAttribute(StringList.concat(ip_.getPrefix(),ATTRIBUTE_COMMAND));
+            htmlPage_.setUsedFieldUrl(StringList.concat(ip_.getPrefix(),ATTRIBUTE_COMMAND));
+        }
+
+        StringMap<String> errors_;
+        errors_ = new StringMap<String>();
+        StringMap<StringList> errorsArgs_;
+        errorsArgs_ = new StringMap<StringList>();
+        //TODO converters
+        String objClass_ = session.getStandards().getAliasObject();
+        for (EntryCust<Long, NodeContainer> e: containersMap_.getVal(lg_).entryList()) {
+            NodeInformations nInfos_ = e.getValue().getNodeInformation();
+            String valId_ = nInfos_.getValidator();
+            String id_ = nInfos_.getId();
+            if (valId_.isEmpty()) {
+                continue;
+            }
+            Element node_ = DocumentBuilder.getElementById(doc_, ATTRIBUTE_ID, StringList.concat(ip_.getPrefix(),ATTRIBUTE_GROUP_ID), id_);
+            ip_.setProcessingNode(node_);
+            ip_.setProcessingAttribute(StringList.concat(ip_.getPrefix(),ATTRIBUTE_VALIDATOR));
+            ip_.setLookForAttrValue(true);
+            ip_.setOffset(0);
+            Struct validator_ = session.getBuiltValidators().getVal(valId_);
+            if (validator_ == null) {
+                session.getContext().setException(new ErrorStruct(session,session.getStandards().getAliasNullPe()));
+                return;
+            }
+            StringList v_ = nInfos_.getValue();
+            String className_ = nInfos_.getInputClass();
+            ResultErrorStd resError_ = session.getAdvStandards().getStructToBeValidated(v_, className_, session.getContext());
+            if (resError_.getError() != null) {
+                String err_ = resError_.getError();
+                session.getContext().setException(new ErrorStruct(session,err_));
+                return;
+            }
+            ContextEl context_ = session.getContext();
+            Struct obj_ = resError_.getResult();
+            LocalVariable lv_ = new LocalVariable();
+            String valName_ = ip_.getNextTempVar();
+            lv_ = new LocalVariable();
+            lv_.setStruct(validator_);
+            lv_.setClassName(validator_.getClassName(context_));
+            ip_.putLocalVar(valName_, lv_);
+            String navName_ = ip_.getNextTempVar();
+            lv_ = new LocalVariable();
+            lv_.setStruct(StdStruct.wrapStd(this, context_));
+            lv_.setClassName(objClass_);
+            ip_.putLocalVar(navName_, lv_);
+            String nodName_ = ip_.getNextTempVar();
+            lv_ = new LocalVariable();
+            lv_.setStruct(StdStruct.wrapStd(node_, context_));
+            lv_.setClassName(objClass_);
+            ip_.putLocalVar(nodName_, lv_);
+            String objName_ = ip_.getNextTempVar();
+            lv_ = new LocalVariable();
+            lv_.setStruct(obj_);
+            lv_.setClassName(objClass_);
+            ip_.putLocalVar(objName_, lv_);
+            StringBuilder expression_ = new StringBuilder(valName_).append(GET_LOC_VAR).append(VALIDATE).append(BEGIN_ARGS);
+            expression_.append(navName_).append(GET_LOC_VAR).append(SEP_ARGS);
+            expression_.append(nodName_).append(GET_LOC_VAR).append(SEP_ARGS);
+            expression_.append(objName_).append(GET_LOC_VAR).append(END_ARGS);
+            Argument message_ = ElRenderUtil.processEl(expression_.toString(), 0, session);
+            if (session.getContext().getException() != null) {
+                return;
+            }
+            if (!message_.isNull()) {
+                StdStruct std_ = (StdStruct) message_.getStruct();
+                Message messageTr_ = (Message) std_.getInstance();
+                errors_.put(id_, messageTr_.format());
+                errorsArgs_.put(id_, messageTr_.getArgs());
+            }
+        }
+        //begin deleting previous errors
+        ElementList spansForm_ = formElement_.getElementsByTagName(TAG_SPAN);
+        int lengthSpansForom_ = spansForm_.getLength();
+        for (int j = CustList.FIRST_INDEX; j < lengthSpansForom_; j++) {
+            Element elt_ = spansForm_.item(j);
+            if (!elt_.hasAttribute(StringList.concat(ip_.getPrefix(),ATTRIBUTE_FOR))) {
+                continue;
+            }
+            NodeList children_ = elt_.getChildNodes();
+            int ch_ = children_.getLength();
+            for (int i = CustList.FIRST_INDEX; i < ch_; i++) {
+                elt_.removeChild((MutableNode) children_.item(i));
+            }
+            Text text_ = doc_.createTextNode(FormatHtml.SPACE);
+            elt_.appendChild(text_);
+        }
+        //end deleting previous errors
+        if (!errors_.isEmpty()) {
+//            processFormErrors(doc_, formElement_, lg_, errors_, errorsArgs_);
+            session.clearPages();
+            return;
+        }
+        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(lg_);
+        //Setting values for bean
+        updateRendBean(containers_);
+        session.clearPages();
+        if (session.getContext().getException() != null) {
+            return;
+        }
+
+        //invoke application
+        processRendAnchorRequest(actionCommand_);
+    }
     public void processFormRequest() {
         session.clearPages();
         HtmlPage htmlPage_ = session.getHtmlPage();
@@ -644,6 +1040,31 @@ public final class Navigation {
         }
     }
 
+    private void updateRendBean(LongTreeMap< NodeContainer> _containers) {
+        Document doc_ = session.getDocument();
+        for (EntryCust<Long, NodeContainer> e: _containers.entryList()) {
+            NodeContainer nCont_ = e.getValue();
+            if (!nCont_.isEnabled()) {
+                continue;
+            }
+            Element input_ = DocumentBuilder.getFirstElementByAttribute(doc_, NUMBER_INPUT, Long.toString(e.getKey()));
+            session.getLastPage().setProcessingNode(input_);
+            session.getLastPage().setProcessingAttribute(EMPTY_STRING);
+            Struct newObj_;
+            StringList v_ = nCont_.getNodeInformation().getValue();
+            ResultErrorStd res_ = session.getAdvStandards().convert(v_, nCont_, session);
+            if (session.getContext().getException() != null) {
+                return;
+            }
+            newObj_ = res_.getResult();
+            Struct procObj_ = e.getValue().getStruct();
+            session.getLastPage().setGlobalArgumentStruct(procObj_, session);
+            HtmlRequest.setRendObject(session, e.getValue(), newObj_);
+            if (session.getContext().getException() != null) {
+                return;
+            }
+        }
+    }
     private void processFormErrors(Document _doc, Element _formElement, long _id,
             StringMap<String> _errors, StringMap<StringList> _errorsArgs) {
         HtmlPage htmlPage_ = session.getHtmlPage();

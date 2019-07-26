@@ -1933,12 +1933,6 @@ public final class PokemonStandards extends BeanNatLgNames {
             res_.setResult(new BeanStruct(bean_));
             return res_;
         }
-        if (StringList.quickEq(name_,AikiBeansStd.TYPE_COMMON_BEAN)) {
-            CommonBean bean_ = new CommonBean();
-            bean_.setClassName(AikiBeansStd.TYPE_COMMON_BEAN);
-            res_.setResult(new BeanStruct(bean_));
-            return res_;
-        }
         if (StringList.quickEq(name_,AikiBeansEffectsStd.TYPE_COMBOS_BEAN)) {
             CombosBean bean_ = new CombosBean();
             bean_.setClassName(AikiBeansEffectsStd.TYPE_COMBOS_BEAN);
@@ -2032,12 +2026,6 @@ public final class PokemonStandards extends BeanNatLgNames {
         if (StringList.quickEq(name_,AikiBeansEndroundStd.TYPE_END_ROUND_BEAN)) {
             EndRoundBean bean_ = new EndRoundBean();
             bean_.setClassName(AikiBeansEndroundStd.TYPE_END_ROUND_BEAN);
-            res_.setResult(new BeanStruct(bean_));
-            return res_;
-        }
-        if (StringList.quickEq(name_,AikiBeansFightStd.TYPE_COMMON_FIGHT_BEAN)) {
-            CommonFightBean bean_ = new CommonFightBean();
-            bean_.setClassName(AikiBeansFightStd.TYPE_COMMON_FIGHT_BEAN);
             res_.setResult(new BeanStruct(bean_));
             return res_;
         }

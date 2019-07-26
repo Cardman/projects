@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import code.bean.BeanInfo;
 import org.junit.Test;
 
 import code.bean.Bean;
@@ -81,7 +82,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -127,7 +128,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -172,7 +173,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         assertTrue(!nav_.reinitBean("page2.html", "bean_one", "bean_one"));
         setupBeansAfter(conf_);
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
@@ -215,7 +216,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         assertTrue(!nav_.reinitBean("page2.html", "bean_one", "bean_two"));
         setupBeansAfter(conf_);
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
@@ -258,7 +259,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         assertTrue(nav_.reinitBean("page2.html", "bean_one", "bean_one"));
         setupBeansAfter(conf_);
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
@@ -301,7 +302,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         assertTrue(nav_.reinitBean("page2.html", "bean_one", "bean_one"));
         setupBeansAfter(conf_);
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
@@ -344,7 +345,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         assertTrue(!nav_.reinitBean("page1.html", "bean_one", "bean_one"));
         setupBeansAfter(conf_);
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
@@ -388,7 +389,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("page2.html");
         setupBeansAfter(conf_);
@@ -401,6 +402,18 @@ public class NavigationTest {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         assertEq(0,nav_.getTooltips().size());
+    }
+
+    private static void initSession(Navigation _nav) {
+        StringMap<BeanInfo> map_ = new StringMap<BeanInfo>();
+        for (EntryCust<String, Bean> e: _nav.getSession().getBeans().entryList()) {
+            BeanInfo i_ = new BeanInfo();
+            i_.setClassName(e.getValue().getClassName());
+            i_.setScope(e.getValue().getScope());
+            map_.add(e.getKey(),i_);
+        }
+        _nav.getSession().setBeansInfos(map_);
+        _nav.initializeSession();
     }
 
     @Test
@@ -437,7 +450,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("page2.html");
         setupBeansAfter(conf_);
@@ -489,7 +502,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("$bean_one.goToPage");
         setupBeansAfter(conf_);
@@ -541,7 +554,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("$bean_one.goToNullPage");
         setupBeansAfter(conf_);
@@ -593,7 +606,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("$bean_one.goToPage(4)");
         setupBeansAfter(conf_);
@@ -645,7 +658,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("");
         setupBeansAfter(conf_);
@@ -697,7 +710,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("$bean_one.goToPage(4)");
         setupBeansAfter(conf_);
@@ -749,7 +762,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("$bean_one.goToPage(4)");
         setupBeansAfter(conf_);
@@ -802,7 +815,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("$bean_one.goToPage(4)");
         setupBeansAfter(conf_);
@@ -851,7 +864,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("page2.html#here");
         setupBeansAfter(conf_);
@@ -900,7 +913,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("page2.html#here");
         setupBeansAfter(conf_);
@@ -953,7 +966,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("$bean_one.goToPage(4)");
         setupBeansAfter(conf_);
@@ -1005,7 +1018,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("page2.html");
         setupBeansAfter(conf_);
@@ -1054,7 +1067,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("$bean_seven.goTwoArgs(4i,8i)");
         setupBeansAfter(conf_);
@@ -1107,7 +1120,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -1187,7 +1200,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -1267,7 +1280,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -1347,7 +1360,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -1418,7 +1431,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -1489,7 +1502,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -1569,7 +1582,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -1650,7 +1663,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -1720,7 +1733,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -1799,7 +1812,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -1878,7 +1891,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -1957,7 +1970,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -2036,7 +2049,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         BeanTwo beanTwoChanged_ = (BeanTwo) nav_.getSession().getBeans().getVal("bean_two");
         beanTwoChanged_.setTypedString(null);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -2118,7 +2131,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         BeanTwo beanTwoChanged_ = (BeanTwo) nav_.getSession().getBeans().getVal("bean_two");
         beanTwoChanged_.setChosenNumber(null);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -2199,7 +2212,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -2277,7 +2290,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -2355,7 +2368,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -2433,7 +2446,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -2512,7 +2525,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         BeanTwo beanTwoChanged_ = (BeanTwo) nav_.getSession().getBeans().getVal("bean_two");
         beanTwoChanged_.setRate(new Rate("2"));
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -2593,7 +2606,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -2673,7 +2686,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -2752,7 +2765,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -2832,7 +2845,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -2912,7 +2925,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -2992,7 +3005,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -3072,7 +3085,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -3143,7 +3156,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -3214,7 +3227,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -3296,7 +3309,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -3379,7 +3392,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -3462,7 +3475,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -3545,7 +3558,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -3635,7 +3648,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -3725,7 +3738,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -3803,7 +3816,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -3893,7 +3906,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -3975,7 +3988,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -4058,7 +4071,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -4130,7 +4143,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -4213,7 +4226,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -4296,7 +4309,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -4380,7 +4393,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -4460,7 +4473,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
         setupBeansAfter(conf_);
@@ -4527,7 +4540,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -4607,7 +4620,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -4677,7 +4690,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -4757,7 +4770,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
 //        nav_.processFormRequest("bean_two.typedString=%u0178", "myform");
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -4839,7 +4852,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -4912,7 +4925,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
 //        nav_.processFormRequest("bean_three.index=1", "myform");
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -4985,7 +4998,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -5055,7 +5068,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -5135,7 +5148,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -5197,7 +5210,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -5262,7 +5275,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -5327,7 +5340,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -5397,7 +5410,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -5477,7 +5490,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -5556,7 +5569,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -5635,7 +5648,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -5701,7 +5714,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -5780,7 +5793,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -5859,7 +5872,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -5926,7 +5939,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -6005,7 +6018,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -6084,7 +6097,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -6164,7 +6177,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -6246,7 +6259,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -6326,7 +6339,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -6406,7 +6419,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
         setupBeansAfter(conf_);
@@ -6467,7 +6480,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
 //        nav_.processFormRequest("bean_three.index=1", "myform");
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -6531,7 +6544,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
 //        nav_.processFormRequest("bean_three.index=1", "myform");
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -6595,7 +6608,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
 //        nav_.processFormRequest("bean_three.index=1", "myform");
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -6665,7 +6678,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -6739,7 +6752,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -6807,7 +6820,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
 //        nav_.processFormRequest("bean_three.index=1", "myform");
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -6871,7 +6884,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
 //        nav_.processFormRequest("bean_three.index=1", "myform");
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -6935,7 +6948,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
 //        nav_.processFormRequest("bean_three.index=1", "myform");
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -6997,7 +7010,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
 //        nav_.processFormRequest("bean_one.getComposites()[0].getString()=ONE&bean_one.getComposites()[1].getString()=TWO", "myform");
 //        assertXMLEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.getComposites()[0].getString()\" varMethod=\"setString\" value=\"0\" varValue=\"c;getString()\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.getComposites()[1].getString()\" varMethod=\"setString\" value=\"1\" varValue=\"c;getString()\"/></form></body></html>", nav_.getHtmlText());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.c;getString()\" c:varMethod=\"setString\" value=\"0\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.c;getString()\" c:varMethod=\"setString\" value=\"1\"/></form></body></html>", nav_.getHtmlText());
@@ -7071,7 +7084,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
 //        nav_.processFormRequest("bean_one.getComposites()[0].getString()=ONE&bean_one.getComposites()[1].getString()=TWO", "myform");
 //        assertXMLEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.getComposites()[0].getString()\" varMethod=\"setString\" value=\"0\" varValue=\"c;getString()\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.getComposites()[1].getString()\" varMethod=\"setString\" value=\"1\" varValue=\"c;getString()\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.c;getString()\" c:varMethod=\"setString\" value=\"0\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.c;getString()\" c:varMethod=\"setString\" value=\"1\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
@@ -7145,7 +7158,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
 //        assertXMLEqualNoPrefix("<html bean=\"bean_seven\"><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.getStrings()[0]\" value=\"FIRST\" varValue=\"c;\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.getStrings()[1]\" value=\"SECOND\" varValue=\"c;\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.c;\" value=\"FIRST\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.c;\" value=\"SECOND\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -7219,7 +7232,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
 //        assertXMLEqualNoPrefix("<html bean=\"bean_seven\"><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateStringsSave\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.getStrings()[0]\" value=\"FIRST\" varValue=\"c;\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.getStrings()[1]\" value=\"SECOND\" varValue=\"c;\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateStringsSave\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.c;\" value=\"FIRST\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.c;\" value=\"SECOND\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -7293,7 +7306,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
 //        assertXMLEqualNoPrefix("<html bean=\"bean_seven\"><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateMap\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.getTree()[0]goto!value\" value=\"1\" varValue=\"v;\" c:className=\"java.lang.Integer\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.getTree()[1]goto!value\" value=\"2\" varValue=\"v;\" c:className=\"java.lang.Integer\"/></form></body></html>", nav_.getHtmlText());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateMap\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.v;\" value=\"1\" c:className=\"java.lang.Integer\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.v;\" value=\"2\" c:className=\"java.lang.Integer\"/></form></body></html>", nav_.getHtmlText());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -7376,7 +7389,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -7445,7 +7458,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
 //        assertXMLEqualNoPrefix("<html bean=\"bean_seven\"><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateMap\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.getTree()[0]goto!key\" value=\"keyone\" varValue=\"k;\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.getTree()[1]goto!key\" value=\"keytwo\" varValue=\"k;\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateMap\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.k;\" value=\"keyone\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.k;\" value=\"keytwo\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -7520,7 +7533,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form name='myform' n-f='0' action='' c:command='$bean_seven.validateIntsSave'><input n-i='0' type='text' c:className='java.lang.Integer' name='bean_seven.i;' value='1'/><input n-i='1' type='text' c:className='java.lang.Integer' name='bean_seven.i;' value='3'/></form></body></html>", nav_.getHtmlText());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -7607,7 +7620,7 @@ public class NavigationTest {
         nav_.setFiles(files_);
         nav_.setDataBase(d_);
         nav_.getSession().setDataBaseClassName("code.formathtml.classes.SimpleDataBase");
-        nav_.initializeSession();
+        initSession(nav_);
         StringBuilder res_ = new StringBuilder();
         res_.append("<html xmlns:c='javahtml'>");
         res_.append("<body>");
@@ -7866,7 +7879,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         StringBuilder res_ = new StringBuilder("");
         res_.append("<html xmlns:c='javahtml'>");
         res_.append("<body>");
@@ -8300,7 +8313,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -8381,7 +8394,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         BeanTwo beanTwoChanged_ = (BeanTwo) nav_.getSession().getBeans().getVal("bean_two");
         beanTwoChanged_.setChosenNumber(null);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -8440,7 +8453,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -8500,7 +8513,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         nav_.getHtmlPage().setUrl(-1);
         nav_.processFormRequest();
         assertNotNull(nav_.getSession().getContext().getException());
@@ -8545,7 +8558,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -8602,7 +8615,7 @@ public class NavigationTest {
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
-        nav_.initializeSession();
+        initSession(nav_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();

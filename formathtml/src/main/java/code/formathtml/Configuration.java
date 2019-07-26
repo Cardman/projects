@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.bean.Bean;
+import code.bean.BeanInfo;
 import code.bean.translator.Translator;
 import code.bean.validator.Validator;
 import code.expressionlanguage.AnalyzedPageEl;
@@ -64,6 +65,7 @@ public final class Configuration implements ExecutableCode {
     private StringMap<Translator> translators = new StringMap<Translator>();
 
     private StringMap<Bean> beans = new StringMap<Bean>();
+    private StringMap<BeanInfo> beansInfos = new StringMap<BeanInfo>();
 
     private StringMap<StringMap<String>> navigation = new StringMap<StringMap<String>>();
 
@@ -229,13 +231,20 @@ public final class Configuration implements ExecutableCode {
     public void setupRenders(StringMap<String> _files) {
         renders.clear();
         analyzingDoc.setFiles(_files);
+        context.setAnalyzing(new AnalyzedPageEl());
         getAnalyzing().setEnabledInternVars(false);
         for (String s: renderFiles) {
             DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(_files.getVal(s));
-            if (res_.getDocument() == null) {
+            Document document_ = res_.getDocument();
+            if (document_ == null) {
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(getClasses().getErrorsDet());
+                badEl_.setFileName(getCurrentFileName());
+                badEl_.setIndexFile(getCurrentLocationIndex());
+                getClasses().addError(badEl_);
                 continue;
             }
-            renders.put(s,RendBlock.newRendDocumentBlock(this,getPrefix(),res_.getDocument()));
+            renders.put(s,RendBlock.newRendDocumentBlock(this,getPrefix(), document_));
         }
         for (EntryCust<String,RendDocumentBlock> d: renders.entryList()) {
             d.getValue().buildFctInstructions(this);
@@ -257,12 +266,9 @@ public final class Configuration implements ExecutableCode {
         currentForm = 0;
         curForm = null;
     }
-    void setupValiatorsTranslators(String _language) {
+    void setupValiatorsTranslatorsTmp() {
         for (EntryCust<String, Bean> e: getBeans().entryList()) {
-            Struct str_ = newBean(_language, null, e.getValue(), false);
-            if (context.getException() != null) {
-                return;
-            }
+            Struct str_ = new BeanStruct( e.getValue());
             getBuiltBeans().put(e.getKey(), str_);
         }
         for (EntryCust<String, Validator> e: getValidators().entryList()) {
@@ -286,10 +292,7 @@ public final class Configuration implements ExecutableCode {
         }
     }
 
-    public Struct newBean(String _language, Object _dataBase, Bean _bean, boolean _set) {
-        if (!_set) {
-            return new BeanStruct(_bean);
-        }
+    public Struct newSimpleBean(String _language, Object _dataBase, BeanInfo _bean) {
         addPage(new ImportingPage(false));
         Struct strBean_ = ElRenderUtil.processEl(StringList.concat(INSTANCE,_bean.getClassName(),NO_PARAM), 0, this).getStruct();
         if (context.getException() != null) {
@@ -306,11 +309,7 @@ public final class Configuration implements ExecutableCode {
             removeLastPage();
             return NullStruct.NULL_VALUE;
         }
-        if (_bean.getForms() == null) {
-            ExtractObject.setForms(this, strBean_, new StringMapObjectStruct(new StringMapObject()));
-        } else {
-            ExtractObject.setForms(this, strBean_, new StringMapObjectStruct(_bean.getForms()));
-        }
+        ExtractObject.setForms(this, strBean_, new StringMapObjectStruct(new StringMapObject()));
         if (context.getException() != null) {
             removeLastPage();
             return NullStruct.NULL_VALUE;
@@ -331,7 +330,6 @@ public final class Configuration implements ExecutableCode {
         }
         return strBean_;
     }
-
     Struct newBean(String _language, Struct _bean) {
         addPage(new ImportingPage(false));
         Struct strBean_ = ElRenderUtil.processEl(StringList.concat(INSTANCE,_bean.getClassName(getContext()),NO_PARAM), 0, this).getStruct();
@@ -404,6 +402,14 @@ public final class Configuration implements ExecutableCode {
 
     public void setTranslators(StringMap<Translator> _translators) {
         translators = _translators;
+    }
+
+    public StringMap<BeanInfo> getBeansInfos() {
+        return beansInfos;
+    }
+
+    public void setBeansInfos(StringMap<BeanInfo> _beansInfos) {
+        beansInfos = _beansInfos;
     }
 
     public StringMap<Bean> getBeans() {

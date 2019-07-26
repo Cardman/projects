@@ -27,7 +27,7 @@ public final class RenderSelectTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><c:select default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\"/></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -77,7 +77,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -86,7 +86,7 @@ public final class RenderSelectTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\"/></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -110,6 +110,13 @@ public final class RenderSelectTest extends CommonRender {
         file_.append("  numbersTwo={2,4,6}:");
         file_.append("  index=4:");
         file_.append("  indexTwo=6:");
+        file_.append(" }");
+        file_.append(" $public CustList<String> conv(String[] a){");
+        file_.append("  CustList<String> o = $new CustList<>():");
+        file_.append("  $foreach(String e:a;.;){");
+        file_.append("   o;.add(e;):");
+        file_.append("  }");
+        file_.append("  $return o;.:");
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
@@ -138,7 +145,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -147,7 +154,7 @@ public final class RenderSelectTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><c:select default=\"TWO\" convert='idStr' name=\"choice\" map=\"combo\" varValue=\"choice\"/></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select default=\"TWO\" convert='idStr' name=\"choice\" map=\"combo\" varValue=\"choice\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -200,7 +207,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -209,7 +216,7 @@ public final class RenderSelectTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><c:select multiple='' convert='idStr' default=\"TWO\" name=\"choice\" map=\"combo\" varValue=\"choice\"/></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select multiple='' convert='idStr' default=\"TWO\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -241,6 +248,13 @@ public final class RenderSelectTest extends CommonRender {
         file_.append("  }");
         file_.append("  $return s;.:");
         file_.append(" }");
+        file_.append(" $public CustList<String> conv(String[] a){");
+        file_.append("  CustList<String> o = $new CustList<>():");
+        file_.append("  $foreach(String e:a;.;){");
+        file_.append("   o;.add(e;):");
+        file_.append("  }");
+        file_.append("  $return o;.:");
+        file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         filesSec_.put(CUST_ITER_PATH, getCustomIterator());
@@ -268,7 +282,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -277,7 +291,7 @@ public final class RenderSelectTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\"/></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -301,6 +315,13 @@ public final class RenderSelectTest extends CommonRender {
         file_.append("  numbersTwo={2,4,6}:");
         file_.append("  index=4:");
         file_.append("  indexTwo=6:");
+        file_.append(" }");
+        file_.append(" $public CustList<String> conv(String[] a){");
+        file_.append("  CustList<String> o = $new CustList<>():");
+        file_.append("  $foreach(String e:a;.;){");
+        file_.append("   o;.add(e;):");
+        file_.append("  }");
+        file_.append("  $return o;.:");
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
@@ -338,7 +359,7 @@ public final class RenderSelectTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\"/></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -362,6 +383,13 @@ public final class RenderSelectTest extends CommonRender {
         file_.append("  numbersTwo={2,4,6}:");
         file_.append("  index=4:");
         file_.append("  indexTwo=6:");
+        file_.append(" }");
+        file_.append(" $public CustList<String> conv(String[] a){");
+        file_.append("  CustList<String> o = $new CustList<>():");
+        file_.append("  $foreach(String e:a;.;){");
+        file_.append("   o;.add(e;):");
+        file_.append("  }");
+        file_.append("  $return o;.:");
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
@@ -399,7 +427,7 @@ public final class RenderSelectTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\"/></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -420,6 +448,13 @@ public final class RenderSelectTest extends CommonRender {
         file_.append("  numbersTwo={2,4,6}:");
         file_.append("  index=4:");
         file_.append("  indexTwo=6:");
+        file_.append(" }");
+        file_.append(" $public CustList<String> conv(String[] a){");
+        file_.append("  CustList<String> o = $new CustList<>():");
+        file_.append("  $foreach(String e:a;.;){");
+        file_.append("   o;.add(e;):");
+        file_.append("  }");
+        file_.append("  $return o;.:");
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
@@ -457,7 +492,7 @@ public final class RenderSelectTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"$null\"/></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"$null\" convertValue='conv'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -478,6 +513,13 @@ public final class RenderSelectTest extends CommonRender {
         file_.append("  numbersTwo={2,4,6}:");
         file_.append("  index=4:");
         file_.append("  indexTwo=6:");
+        file_.append(" }");
+        file_.append(" $public CustList<String> conv(String[] a){");
+        file_.append("  CustList<String> o = $new CustList<>():");
+        file_.append("  $foreach(String e:a;.;){");
+        file_.append("   o;.add(e;):");
+        file_.append("  }");
+        file_.append("  $return o;.:");
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
@@ -515,7 +557,7 @@ public final class RenderSelectTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\"/></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -539,6 +581,13 @@ public final class RenderSelectTest extends CommonRender {
         file_.append("  numbersTwo={2,4,6}:");
         file_.append("  index=4:");
         file_.append("  indexTwo=6:");
+        file_.append(" }");
+        file_.append(" $public CustList<String> conv(String[] a){");
+        file_.append("  CustList<String> o = $new CustList<>():");
+        file_.append("  $foreach(String e:a;.;){");
+        file_.append("   o;.add(e;):");
+        file_.append("  }");
+        file_.append("  $return o;.:");
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
@@ -576,7 +625,7 @@ public final class RenderSelectTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\"/></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -600,6 +649,13 @@ public final class RenderSelectTest extends CommonRender {
         file_.append("  numbersTwo={2,4,6}:");
         file_.append("  index=4:");
         file_.append("  indexTwo=6:");
+        file_.append(" }");
+        file_.append(" $public CustList<String> conv(String[] a){");
+        file_.append("  CustList<String> o = $new CustList<>():");
+        file_.append("  $foreach(String e:a;.;){");
+        file_.append("   o;.add(e;):");
+        file_.append("  }");
+        file_.append("  $return o;.:");
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
@@ -637,7 +693,7 @@ public final class RenderSelectTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\"/></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -661,6 +717,13 @@ public final class RenderSelectTest extends CommonRender {
         file_.append("  numbersTwo={2,4,6}:");
         file_.append("  index=4:");
         file_.append("  indexTwo=6:");
+        file_.append(" }");
+        file_.append(" $public CustList<String> conv(String[] a){");
+        file_.append("  CustList<String> o = $new CustList<>():");
+        file_.append("  $foreach(String e:a;.;){");
+        file_.append("   o;.add(e;):");
+        file_.append("  }");
+        file_.append("  $return o;.:");
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
@@ -698,7 +761,7 @@ public final class RenderSelectTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\"/></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -722,6 +785,13 @@ public final class RenderSelectTest extends CommonRender {
         file_.append("  numbersTwo={2,4,6}:");
         file_.append("  index=4:");
         file_.append("  indexTwo=6:");
+        file_.append(" }");
+        file_.append(" $public CustList<String> conv(String[] a){");
+        file_.append("  CustList<String> o = $new CustList<>():");
+        file_.append("  $foreach(String e:a;.;){");
+        file_.append("   o;.add(e;):");
+        file_.append("  }");
+        file_.append("  $return o;.:");
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
@@ -759,7 +829,7 @@ public final class RenderSelectTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\"/></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -783,6 +853,13 @@ public final class RenderSelectTest extends CommonRender {
         file_.append("  numbersTwo={2,4,6}:");
         file_.append("  index=4:");
         file_.append("  indexTwo=6:");
+        file_.append(" }");
+        file_.append(" $public CustList<String> conv(String[] a){");
+        file_.append("  CustList<String> o = $new CustList<>():");
+        file_.append("  $foreach(String e:a;.;){");
+        file_.append("   o;.add(e;):");
+        file_.append("  }");
+        file_.append("  $return o;.:");
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
@@ -815,12 +892,144 @@ public final class RenderSelectTest extends CommonRender {
         assertNotNull(conf_.getException());
     }
     @Test
+    public void process13Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></form></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $enum pkg.ExEnum{ONE,TWO}");
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public CustTable<ExEnum,Integer> combo=$new CustTable<>():");
+        file_.append(" {");
+        file_.append("  combo.add(ExEnum.ONE,1):");
+        file_.append("  combo.add(ExEnum.TWO,2):");
+        file_.append("  combo.add($null,3):");
+        file_.append(" }");
+        file_.append(" $public ExEnum choice=ExEnum.TWO:");
+        file_.append(" $public $int index:");
+        file_.append(" $public $int indexTwo:");
+        file_.append(" $public $int[] numbers:");
+        file_.append(" $public $int[] numbersTwo:");
+        file_.append(" $public $void beforeDisplaying(){");
+        file_.append("  numbers={2,4,6}:");
+        file_.append("  numbersTwo={2,4,6}:");
+        file_.append("  index=4:");
+        file_.append("  indexTwo=6:");
+        file_.append(" }");
+        file_.append(" $public ExEnum conv(String a){");
+        file_.append("  $return ExEnum.valueOf(a;.;):");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        filesSec_.put(CUST_ITER_PATH, getCustomIterator());
+        filesSec_.put(CUST_LIST_PATH, getCustomList());
+        filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        filesSec_.put(CUST_TABLE_PATH, getCustomTable());
+        filesSec_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration conf_ = contextElThird(filesSec_);
+        conf_.setBeans(new StringMap<Bean>());
+        addImportingPage(conf_);
+        Struct bean_ = ElRenderUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
+        conf_.getBuiltBeans().put("bean_one",bean_);
+        conf_.clearPages();
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        conf_.getAnalyzingDoc().setFiles(files_);
+        conf_.getAnalyzingDoc().setLanguage(locale_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
+    }
+    @Test
+    public void process14Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></form></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $enum pkg.ExEnum{ONE,TWO}");
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public CustTable<ExEnum,Integer> combo=$new CustTable<>():");
+        file_.append(" {");
+        file_.append("  combo.add(ExEnum.ONE,1):");
+        file_.append("  combo.add(ExEnum.TWO,2):");
+        file_.append(" }");
+        file_.append(" $public CustList<ExEnum> choice=$new CustList<>():");
+        file_.append(" {");
+        file_.append("  choice.add(ExEnum.TWO):");
+        file_.append(" }");
+        file_.append(" $public $int index:");
+        file_.append(" $public $int indexTwo:");
+        file_.append(" $public $int[] numbers:");
+        file_.append(" $public $int[] numbersTwo:");
+        file_.append(" $public $void beforeDisplaying(){");
+        file_.append("  numbers={2,4,6}:");
+        file_.append("  numbersTwo={2,4,6}:");
+        file_.append("  index=4:");
+        file_.append("  indexTwo=6:");
+        file_.append(" }");
+        file_.append(" $public CustList<ExEnum> conv(String[] a){");
+        file_.append("  CustList<ExEnum> o = $new CustList<>():");
+        file_.append("  $foreach(String e:a;.;){");
+        file_.append("   o;.add(ExEnum.valueOf(e;)):");
+        file_.append("  }");
+        file_.append("  $return o;.:");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        filesSec_.put(CUST_ITER_PATH, getCustomIterator());
+        filesSec_.put(CUST_LIST_PATH, getCustomList());
+        filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        filesSec_.put(CUST_TABLE_PATH, getCustomTable());
+        filesSec_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration conf_ = contextElThird(filesSec_);
+        conf_.setBeans(new StringMap<Bean>());
+        addImportingPage(conf_);
+        Struct bean_ = ElRenderUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
+        conf_.getBuiltBeans().put("bean_one",bean_);
+        conf_.clearPages();
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        conf_.getAnalyzingDoc().setFiles(files_);
+        conf_.getAnalyzingDoc().setLanguage(locale_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
+    }
+    @Test
     public void process1FailTest() {
         String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"0\"/></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"0\" convertValue='conv'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();

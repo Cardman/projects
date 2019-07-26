@@ -100,8 +100,12 @@ public final class ResultText {
         while (i_ < length_) {
             if (expOffsets.isValidIndex(iExp_)) {
                 if (expOffsets.get(iExp_) == i_) {
-                    str_.append(_args.get(iExp_));
-                    i_ = expEnds.get(iExp_);
+                    if (_args.isValidIndex(iExp_)) {
+                        str_.append(_args.get(iExp_));
+                    }
+                    if (expEnds.isValidIndex(iExp_)) {
+                        i_ = expEnds.get(iExp_);
+                    }
                     iExp_++;
                     continue;
                 }

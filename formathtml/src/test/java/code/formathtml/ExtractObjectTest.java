@@ -1491,7 +1491,7 @@ public class ExtractObjectTest {
 
     private static void addImportingPage(Configuration _conf, boolean _rendering) {
         _conf.setSepPrefix("c");
-        _conf.setupValiatorsTranslators("en");
+        _conf.setupValiatorsTranslatorsTmp();
         _conf.addPage(new ImportingPage(_rendering));
     }
 

@@ -9,7 +9,7 @@ import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
 
-public class CommonFightBean extends Bean {
+public abstract class CommonFightBean extends Bean {
 
     protected static final String FIGHTER = "fighter";
     protected static final String NO_FIGHTER = "no_fighter";

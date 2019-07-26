@@ -6,7 +6,7 @@ import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public class CommonBean extends Bean {
+public abstract class CommonBean extends Bean {
     protected static final String ABILITIES = "abilities";
     protected static final String ABILITIES_SET = "abilities_set";
     protected static final String ABILITY = "ability";

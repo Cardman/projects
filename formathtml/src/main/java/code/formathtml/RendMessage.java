@@ -182,7 +182,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
         while (true) {
             if (read_ instanceof Element) {
                 Element eltRead_ = (Element) read_;
-                FormatHtml.appendChild(ownerDocument_,_cont,rw_.getWrite(), eltRead_);
+                appendChild(ownerDocument_, rw_.getWrite(), eltRead_);
                 MutableNode nextWrite_ = rw_.getWrite().getLastChild();
                 Element nextEltWrite_ = (Element) nextWrite_;
                 processImportedNode(_cont,ip_, nextEltWrite_);

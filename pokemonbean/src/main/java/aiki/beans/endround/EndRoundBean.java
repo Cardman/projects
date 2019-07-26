@@ -33,6 +33,12 @@ public class EndRoundBean extends CommonBean {
     private static final String PAGE_MULTIRELATION = "web/html/endround/multirelation.html";
     private static final String PAGE_POSITIONRELATION = "web/html/endround/positionrelation.html";
     private static final String PAGE_POSITIONTARGET = "web/html/endround/positiontarget.html";
+
+    @Override
+    public void beforeDisplaying() {
+        //impl
+    }
+
     public String getPage(Long _index) {
         CustList<EndRoundMainElements> evts_ = getEvts();
         EndRoundMainElements elt_ = evts_.get(_index.intValue());

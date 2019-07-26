@@ -9408,7 +9408,7 @@ public class FormatHtmlTest {
     }
     private static void setup(Configuration _conf) {
         _conf.setSepPrefix("c");
-        _conf.setupValiatorsTranslators("en");
+        _conf.setupValiatorsTranslatorsTmp();
     }
 
     private static void assertXmlEqualRuntime(String _htmlExp, String _htmlRes) {

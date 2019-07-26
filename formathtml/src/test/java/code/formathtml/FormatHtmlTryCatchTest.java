@@ -985,7 +985,7 @@ public class FormatHtmlTryCatchTest {
 
     private static void setup(Configuration _conf) {
         _conf.setSepPrefix("c");
-        _conf.setupValiatorsTranslators("LOCALE");
+        _conf.setupValiatorsTranslatorsTmp();
     }
 
     //updateValue

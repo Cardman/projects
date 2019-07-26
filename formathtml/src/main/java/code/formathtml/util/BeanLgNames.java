@@ -4,10 +4,13 @@ import code.bean.translator.Translator;
 import code.bean.validator.Validator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.NumberInfos;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.Configuration;
+import code.formathtml.ElRenderUtil;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.structs.StdStruct;
 import code.sml.Element;
@@ -74,6 +77,7 @@ public abstract class BeanLgNames extends LgNames {
     private String aliasGetDataBase=GET_DATA_BASE;
     private String aliasBeforeDisplaying=BEFORE_DISPLAYING;
     private String aliasBean = BEAN;
+    private String aliasStringMapObject = ALIAS_STRING_MAP_OBJECT;
 
     private StringMap<String> iterables = new StringMap<String>();
 
@@ -242,6 +246,46 @@ public abstract class BeanLgNames extends LgNames {
 
     public abstract String getStringKey(Configuration _conf, Struct _instance);
 
+    public ResultErrorStd convert(StringList _values, NodeContainer _container, Configuration _conf) {
+        String beanName_ = _container.getBeanName();
+        Struct bean_ = _conf.getBuiltBeans().getVal(beanName_);
+        if (bean_ != null) {
+            CustList<RendDynOperationNode> ops_ = _container.getOpsConvert();
+            if (!ops_.isEmpty()) {
+                String varNameConvert_ = _container.getVarNameConvert();
+                int len_ = _values.size();
+                ArrayStruct arr_ = new ArrayStruct(new Struct[len_],PrimitiveTypeUtil.getPrettyArrayType(getAliasString()));
+                for (int i = 0; i < len_; i++) {
+                    arr_.getInstance()[i] = new StringStruct(_values.get(i));
+                }
+                LocalVariable lv_ = new LocalVariable();
+                BeanLgNames stds_ = _conf.getAdvStandards();
+                lv_.setClassName(stds_.getStructClassName(arr_, _conf.getContext()));
+                lv_.setStruct(arr_);
+                _conf.getLastPage().putLocalVar(varNameConvert_, lv_);
+                _conf.getLastPage().setGlobalArgumentStruct(bean_, _conf);
+                Argument res_ = ElRenderUtil.calculateReuse(ops_, _conf);
+                ResultErrorStd out_ = new ResultErrorStd();
+                if (_conf.getContext().hasExceptionOrFailInit()) {
+                    return out_;
+                }
+                out_.setResult(res_.getStruct());
+                return out_;
+            }
+        }
+        Struct obj_ = _container.getTypedStruct();
+        String className_ = _container.getNodeInformation().getInputClass();
+        if (obj_ != NullStruct.NULL_VALUE) {
+            ContextEl context_ = _conf.getContext();
+            className_ = context_.getStandards().getStructClassName(obj_, context_);
+        }
+        ResultErrorStd out_ = getStructToBeValidated(_values, className_, _conf.getContext());
+        if (out_.getError() != null) {
+            String err_ = out_.getError();
+            _conf.getContext().setException(new ErrorStruct(_conf,err_));
+        }
+        return out_;
+    }
     public ResultErrorStd getStructToBeValidated(StringList _values, String _className, ContextEl _context) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(_className, getAliasBoolean()) || StringList.quickEq(_className, getAliasPrimBoolean())) {
@@ -419,9 +463,6 @@ public abstract class BeanLgNames extends LgNames {
         aliasDataBase = _aliasDataBase;
     }
 
-    public String getAliasStringMapObject() {
-        return ALIAS_STRING_MAP_OBJECT;
-    }
     public String getCustList() {
         return custList;
     }
@@ -605,5 +646,12 @@ public abstract class BeanLgNames extends LgNames {
 
     public void setAliasSetScope(String _aliasSetScope) {
         aliasSetScope = _aliasSetScope;
+    }
+    public String getAliasStringMapObject() {
+        return aliasStringMapObject;
+    }
+
+    public void setAliasStringMapObject(String _aliasStringMapObject) {
+        aliasStringMapObject = _aliasStringMapObject;
     }
 }

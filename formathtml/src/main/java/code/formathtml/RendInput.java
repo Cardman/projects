@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.opers.util.ClassField;
 import code.formathtml.exec.*;
+import code.formathtml.util.FieldUpdates;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
@@ -35,7 +36,13 @@ public abstract class RendInput extends RendElement {
         opsWrite = reduceList(opsWrite);
     }
     protected Argument processIndexes(Configuration _cont, Element _read, Element _write) {
-        Argument arg_ = fetchName(_cont, _read, _write, opsRead, idField, varName, opsWrite);
+        FieldUpdates f_ = new FieldUpdates();
+        f_.setIdField(idField);
+        f_.setOpsRead(opsRead);
+        f_.setOpsWrite(opsWrite);
+        f_.setOpsValue(opsValue);
+        f_.setVarName(varName);
+        Argument arg_ = fetchName(_cont, _read, _write, f_);
         fetchValue(_cont,_read,_write,opsValue);
         return arg_;
     }

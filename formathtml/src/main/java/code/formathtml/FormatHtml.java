@@ -424,6 +424,8 @@ public final class FormatHtml {
         _conf.getHtmlPage().setFormsVars(_conf.getFormsVars());
         _conf.getHtmlPage().setFormsNames(_conf.getFormsNames());
         doc_.getDocumentElement().removeAttribute(StringList.concat(_conf.getPrefix(),BEAN_ATTRIBUTE));
+        _conf.setDocument(doc_);
+        _conf.clearPages();
         return doc_.export();
     }
     private static Boolean removeCall(Configuration _context) {

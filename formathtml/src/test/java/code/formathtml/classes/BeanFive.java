@@ -214,4 +214,8 @@ public class BeanFive extends Bean {
         map = _map;
     }
 
+    @Override
+    public void beforeDisplaying() {
+
+    }
 }

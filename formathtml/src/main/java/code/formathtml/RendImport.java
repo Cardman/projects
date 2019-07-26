@@ -79,7 +79,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
 //        newIp_.setReadUrl(newElt_.getUrl());
         newIp_.setBeanName(beanName_);
         RendReadWrite rwLoc_ = new RendReadWrite();
-        Struct newBean_ = FormatHtml.getBean(_cont, beanName_);
+        Struct newBean_ = _cont.getBuiltBeans().getVal(beanName_);
         if (newBean_ != null) {
             String className_ = newBean_.getClassName(_cont);
             for (RendBlock p: getDirectChildren(this)) {
