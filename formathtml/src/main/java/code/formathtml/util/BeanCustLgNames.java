@@ -1,14 +1,13 @@
 package code.formathtml.util;
 
+import code.bean.BeanInfo;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.structs.DisplayableStruct;
-import code.expressionlanguage.structs.EnumerableStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.formathtml.Configuration;
@@ -16,6 +15,7 @@ import code.formathtml.ElRenderUtil;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendDynOperationNode;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -424,6 +424,30 @@ public final class BeanCustLgNames extends BeanLgNames {
         return StringList.concat(_candidate,suffixLocal_);
     }
 
+
+    @Override
+    public void initBeans(Configuration _conf,String _language,Struct _db) {
+        String aliasStringMapObject_ = getAliasStringMapObject();
+        String keyWordNew_ = _conf.getKeyWords().getKeyWordNew();
+        CustList<RendDynOperationNode> opsMap_ = ElRenderUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", aliasStringMapObject_, "()"), 0, _conf, Calculation.staticCalculation(false));
+        for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
+            BeanInfo info_ = e.getValue();
+            _conf.addPage(new ImportingPage(false));
+            Argument arg_ = ElRenderUtil.calculateReuse(info_.getExps(), _conf);
+            if (_conf.getContext().getException() != null) {
+                _conf.removeLastPage();
+                return;
+            }
+            Struct strBean_ = arg_.getStruct();
+            Struct map_ = ElRenderUtil.calculateReuse(opsMap_, _conf).getStruct();
+            ((FieldableStruct)strBean_).setStruct(new ClassField(getAliasBean(),getAliasForms()),map_);
+            ((FieldableStruct)strBean_).setStruct(new ClassField(getAliasBean(),getAliasDataBaseField()),_db);
+            ((FieldableStruct)strBean_).setStruct(new ClassField(getAliasBean(),getAliasLanguage()),new StringStruct(_language));
+            ((FieldableStruct)strBean_).setStruct(new ClassField(getAliasBean(),getAliasScope()),new StringStruct(info_.getScope()));
+            _conf.removeLastPage();
+            _conf.getBuiltBeans().put(e.getKey(),strBean_);
+        }
+    }
     public String getIteratorVar() {
         return iteratorVar;
     }

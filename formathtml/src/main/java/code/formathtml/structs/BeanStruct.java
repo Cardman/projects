@@ -4,7 +4,6 @@ import code.bean.Bean;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.structs.RealInstanceStruct;
 
 public final class BeanStruct implements RealInstanceStruct {
 
@@ -31,8 +30,10 @@ public final class BeanStruct implements RealInstanceStruct {
 
     @Override
     public Object getInstance() {
-        return bean;
+        return getBean();
     }
 
-
+    public Bean getBean() {
+        return bean;
+    }
 }

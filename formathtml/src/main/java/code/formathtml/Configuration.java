@@ -330,6 +330,22 @@ public final class Configuration implements ExecutableCode {
         }
         return strBean_;
     }
+    public Struct newSimpleBean(String _language, Struct _dataBase, BeanInfo _bean) {
+        addPage(new ImportingPage(false));
+        Struct strBean_ = ElRenderUtil.processEl(StringList.concat(INSTANCE,_bean.getClassName(),NO_PARAM), 0, this).getStruct();
+        BeanStruct str_ = (BeanStruct) strBean_;
+        Bean bean_ = str_.getBean();
+        Object db_ = null;
+        if (_dataBase instanceof StdStruct) {
+            db_ = ((StdStruct)_dataBase).getInstance();
+        }
+        bean_.setDataBase(db_);
+        bean_.setForms(new StringMapObject());
+        bean_.setLanguage(_language);
+        bean_.setScope(_bean.getScope());
+        removeLastPage();
+        return strBean_;
+    }
     Struct newBean(String _language, Struct _bean) {
         addPage(new ImportingPage(false));
         Struct strBean_ = ElRenderUtil.processEl(StringList.concat(INSTANCE,_bean.getClassName(getContext()),NO_PARAM), 0, this).getStruct();
@@ -1144,8 +1160,8 @@ public final class Configuration implements ExecutableCode {
         String keyWordIntern_ = keyWords_.getKeyWordIntern();
         String sub_ = _string.substring(_fr);
         int i_ = _fr;
-        if (ContextEl.startsWithKeyWord(sub_, keyWordIntern_)) {
-            if (isInternGlobal()) {
+        if (isInternGlobal()) {
+            if (ContextEl.startsWithKeyWord(sub_, keyWordIntern_)) {
                 int afterSuper_ = i_ + keyWordIntern_.length();
                 String trim_ = _string.substring(afterSuper_).trim();
                 if (trim_.startsWith(".")) {

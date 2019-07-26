@@ -11,9 +11,9 @@ import code.expressionlanguage.instr.ElResolver;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.*;
-import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.exec.ReductibleOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.Struct;
@@ -334,6 +334,22 @@ public final class ElRenderUtil {
                 }
             }
             _current.analyze(_context);
+            if (_current instanceof AffectationOperation) {
+                SettableElResult settable_ = ((AffectationOperation) _current).getSettable();
+                if (settable_ instanceof SettableAbstractFieldOperation) {
+                    SettableAbstractFieldOperation field_ = (SettableAbstractFieldOperation) settable_;
+                    FieldInfo info_ = field_.getFieldMetaInfo();
+                    if (info_ != null) {
+                        if (info_.isFinalField()) {
+                            BadOperandsNumber badNb_ = new BadOperandsNumber();
+                            badNb_.setFileName(_context.getCurrentFileName());
+                            badNb_.setOperandsNumber(0);
+                            badNb_.setIndexFile(_context.getCurrentLocationIndex());
+                            _context.getClasses().addError(badNb_);
+                        }
+                    }
+                }
+            }
         } else {
             BadOperandsNumber badNb_ = new BadOperandsNumber();
             badNb_.setFileName(_context.getCurrentFileName());

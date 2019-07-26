@@ -1,6 +1,7 @@
 package code.formathtml.util;
 
 import code.bean.Bean;
+import code.bean.BeanInfo;
 import code.bean.translator.Translator;
 import code.bean.validator.Message;
 import code.bean.validator.Validator;
@@ -329,6 +330,16 @@ public abstract class BeanNatLgNames extends BeanLgNames {
             return ((BooleanStruct) _args).getInstance();
         }
         return ((RealInstanceStruct) _args).getInstance();
+    }
+
+    @Override
+    public void initBeans(Configuration _conf,String _language,Struct _db) {
+        for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
+            _conf.getBuiltBeans().put(e.getKey(), _conf.newSimpleBean(_language, _db, e.getValue()));
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
+        }
     }
 
     public Object getOtherArguments(Struct[] _str, String _base) {

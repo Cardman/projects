@@ -4,11 +4,13 @@ import code.bean.BeanInfo;
 import code.bean.validator.Message;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
+import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
@@ -122,6 +124,7 @@ public final class Navigation {
     private StringMap<String> files = new StringMap<String>();
 
     private Object dataBase;
+    private Struct dataBaseStruct = NullStruct.NULL_VALUE;
 
     private StringList tooltips = new StringList();
 
@@ -171,6 +174,12 @@ public final class Navigation {
 
     public void setDataBase(Object _dataBase) {
         dataBase = _dataBase;
+        if (dataBase != null) {
+            String className_ = session.getDataBaseClassName();
+            dataBaseStruct = StdStruct.wrapStd(dataBase, session.getContext(), className_);
+        } else {
+            dataBaseStruct = NullStruct.NULL_VALUE;
+        }
     }
 
     public StringList getTooltips() {
@@ -224,31 +233,17 @@ public final class Navigation {
 
     public void initializeRendSession() {
         session.setupClasses(files);
-        BeanLgNames stds_ = session.getAdvStandards();
-        if (!(stds_ instanceof BeanCustLgNames)) {
-            for (EntryCust<String, BeanInfo> e: session.getBeansInfos().entryList()) {
-                session.getBuiltBeans().put(e.getKey(), session.newSimpleBean(language, dataBase, e.getValue()));
-                if (session.getContext().getException() != null) {
-                    return;
-                }
-            }
-        } else {
-            String keyWordNew_ = session.getKeyWords().getKeyWordNew();
-            String aliasStringMapObject_ = stds_.getAliasStringMapObject();
-            for (EntryCust<String, BeanInfo> e: session.getBeansInfos().entryList()) {
-                session.addPage(new ImportingPage(false));
-                BeanInfo info_ = e.getValue();
-                Struct strBean_ = ElRenderUtil.processEl(StringList.concat(keyWordNew_," ", info_.getClassName(),"()"), 0, session).getStruct();
-                Struct map_ = ElRenderUtil.processEl(StringList.concat(keyWordNew_," ",aliasStringMapObject_,"()"), 0, session).getStruct();
-                ExtractObject.setForms(session, strBean_,map_);
-                session.removeLastPage();
-                if (session.getContext().getException() != null) {
-                    return;
-                }
-                session.getBuiltBeans().put(e.getKey(),strBean_);
-            }
+        String keyWordNew_ = session.getKeyWords().getKeyWordNew();
+        for (EntryCust<String, BeanInfo> e: session.getBeansInfos().entryList()) {
+            BeanInfo info_ = e.getValue();
+            CustList<RendDynOperationNode> exps_ = ElRenderUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", info_.getClassName(), "()"), 0, session, Calculation.staticCalculation(true));
+            info_.setExps(exps_);
         }
-
+        if (!session.getClasses().isEmptyErrors()) {
+            return;
+        }
+        BeanLgNames stds_ = session.getAdvStandards();
+        stds_.initBeans(session,language,dataBaseStruct);
         session.setupRenders(files);
         if (!session.getClasses().isEmptyErrors()) {
             return;

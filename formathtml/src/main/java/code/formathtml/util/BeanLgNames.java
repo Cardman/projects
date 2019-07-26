@@ -246,6 +246,7 @@ public abstract class BeanLgNames extends LgNames {
 
     public abstract String getStringKey(Configuration _conf, Struct _instance);
 
+    public abstract void initBeans(Configuration _conf,String _language,Struct _db);
     public ResultErrorStd convert(StringList _values, NodeContainer _container, Configuration _conf) {
         String beanName_ = _container.getBeanName();
         Struct bean_ = _conf.getBuiltBeans().getVal(beanName_);
