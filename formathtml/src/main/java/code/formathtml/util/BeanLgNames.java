@@ -254,15 +254,24 @@ public abstract class BeanLgNames extends LgNames {
             CustList<RendDynOperationNode> ops_ = _container.getOpsConvert();
             if (!ops_.isEmpty()) {
                 String varNameConvert_ = _container.getVarNameConvert();
-                int len_ = _values.size();
-                ArrayStruct arr_ = new ArrayStruct(new Struct[len_],PrimitiveTypeUtil.getPrettyArrayType(getAliasString()));
-                for (int i = 0; i < len_; i++) {
-                    arr_.getInstance()[i] = new StringStruct(_values.get(i));
-                }
                 LocalVariable lv_ = new LocalVariable();
                 BeanLgNames stds_ = _conf.getAdvStandards();
-                lv_.setClassName(stds_.getStructClassName(arr_, _conf.getContext()));
-                lv_.setStruct(arr_);
+                if (_container.isArrayConverter()) {
+                    int len_ = _values.size();
+                    ArrayStruct arr_ = new ArrayStruct(new Struct[len_],PrimitiveTypeUtil.getPrettyArrayType(getAliasString()));
+                    for (int i = 0; i < len_; i++) {
+                        arr_.getInstance()[i] = new StringStruct(_values.get(i));
+                    }
+                    lv_.setClassName(stds_.getStructClassName(arr_, _conf.getContext()));
+                    lv_.setStruct(arr_);
+                } else {
+                    lv_.setClassName(getAliasString());
+                    if (!_values.isEmpty()) {
+                        lv_.setStruct(new StringStruct(_values.first()));
+                    } else {
+                        lv_.setStruct(NullStruct.NULL_VALUE);
+                    }
+                }
                 _conf.getLastPage().putLocalVar(varNameConvert_, lv_);
                 _conf.getLastPage().setGlobalArgumentStruct(bean_, _conf);
                 Argument res_ = ElRenderUtil.calculateReuse(ops_, _conf);

@@ -96,38 +96,6 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         return labelOffset;
     }
 
-    public int getClassNameOffset() {
-        return classNameOffset;
-    }
-
-    public int getClassIndexNameOffset() {
-        return classIndexNameOffset;
-    }
-
-    public int getVariableNameOffset() {
-        return variableNameOffset;
-    }
-
-    public int getInitOffset() {
-        return initOffset;
-    }
-
-    public int getExpressionOffset() {
-        return expressionOffset;
-    }
-
-    public int getStepOffset() {
-        return stepOffset;
-    }
-
-    public int getEqOffset() {
-        return eqOffset;
-    }
-
-    public String getClassIndexName() {
-        return classIndexName;
-    }
-
     public String getClassName() {
         return className;
     }

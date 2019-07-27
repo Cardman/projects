@@ -92,10 +92,6 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         return label;
     }
 
-    public int getExpressionOffset() {
-        return expressionOffset;
-    }
-
     public int getLabelOffset() {
         return labelOffset;
     }
@@ -139,10 +135,6 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         }
         out_.removeDuplicates();
         return out_;
-    }
-
-    public String getClassIndexName() {
-        return classIndexName;
     }
 
     public void buildEl(Configuration _cont,RendDocumentBlock _doc) {
@@ -319,38 +311,6 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
 
     public String getLabel() {
         return label;
-    }
-
-    public String getClassNameFirst() {
-        return classNameFirst;
-    }
-
-    public String getVariableNameFirst() {
-        return variableNameFirst;
-    }
-
-    public String getClassNameSecond() {
-        return classNameSecond;
-    }
-
-    public String getVariableNameSecond() {
-        return variableNameSecond;
-    }
-
-    public int getClassNameOffsetFirst() {
-        return classNameOffsetFirst;
-    }
-
-    public int getClassNameOffsetSecond() {
-        return classNameOffsetSecond;
-    }
-
-    public int getVariableNameOffsetFirst() {
-        return variableNameOffsetFirst;
-    }
-
-    public int getVariableNameOffsetSecond() {
-        return variableNameOffsetSecond;
     }
 
     public String getExpression() {

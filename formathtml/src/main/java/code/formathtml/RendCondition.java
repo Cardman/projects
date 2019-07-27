@@ -49,10 +49,6 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
         opCondition = ElRenderUtil.getReducedNodes(r_);
     }
 
-    public final String getCondition() {
-        return condition;
-    }
-
     final Boolean evaluateCondition(Configuration _context) {
         ImportingPage last_ = _context.getLastPage();
         last_.setOffset(conditionOffset);

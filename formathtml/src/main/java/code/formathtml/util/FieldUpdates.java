@@ -12,6 +12,7 @@ public final class FieldUpdates {
     private ClassField idField;
     private CustList<RendDynOperationNode> opsConverter = new CustList<RendDynOperationNode>();
     private String varNameConverter = "";
+    private boolean arrayConverter;
 
     public ClassField getIdField() {
         return idField;
@@ -67,5 +68,13 @@ public final class FieldUpdates {
 
     public void setVarNameConverter(String _varNameConverter) {
         varNameConverter = _varNameConverter;
+    }
+
+    public boolean isArrayConverter() {
+        return arrayConverter;
+    }
+
+    public void setArrayConverter(boolean _arrayConverter) {
+        arrayConverter = _arrayConverter;
     }
 }

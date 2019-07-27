@@ -30,11 +30,11 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
     private CustList<RendDynOperationNode> opsDefault = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsConverter = new CustList<RendDynOperationNode>();
     private String varName = EMPTY_STRING;
-    private String converterValue = EMPTY_STRING;
     private ClassField idField;
     private Element elt;
     private boolean multiple;
     private String varNameConverter = "";
+    private boolean arrayConverter;
     RendSelect(Element _elt, OffsetsBlock _offset) {
         super(_offset);
         elt = _elt;
@@ -53,10 +53,10 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         multiple = elt.hasAttribute(ATTRIBUTE_MULTIPLE);
         String map_ = elt.getAttribute(ATTRIBUTE_MAP);
         opsMap = ElRenderUtil.getAnalyzedOperations(map_, 0, _cont, Calculation.staticCalculation(st_));
-        converterValue = elt.getAttribute(ATTRIBUTE_CONVERT_VALUE);
+        String converterValue_ = elt.getAttribute(ATTRIBUTE_CONVERT_VALUE);
         if (_cont.getAdvStandards() instanceof BeanCustLgNames) {
             if (multiple) {
-                if (converterValue.trim().isEmpty()) {
+                if (converterValue_.trim().isEmpty()) {
                     BadElRender badEl_ = new BadElRender();
                     badEl_.setErrors(_cont.getClasses().getErrorsDet());
                     badEl_.setFileName(_cont.getCurrentFileName());
@@ -69,9 +69,10 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 varNames_.add(varLoc_);
                 varNameConverter = varLoc_;
                 LocalVariable lv_ = new LocalVariable();
+                arrayConverter = true;
                 lv_.setClassName(PrimitiveTypeUtil.getPrettyArrayType(string_));
                 _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
-                String preRend_ = StringList.concat(converterValue,"(",BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),")");
+                String preRend_ = StringList.concat(converterValue_,"(",BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),")");
                 opsConverter = ElRenderUtil.getAnalyzedOperations(preRend_,0,_cont,Calculation.staticCalculation(st_));
                 for (String v:varNames_) {
                     _cont.getLocalVarsAna().last().removeKey(v);
@@ -103,7 +104,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 m_.setArg(opsValue.last().getResultClass());
                 m_.setParam(_cont.getStandards().getAliasCharSequence());
                 if (!Templates.isCorrectOrNumbers(m_,_cont)) {
-                    if (converterValue.trim().isEmpty()) {
+                    if (converterValue_.trim().isEmpty()) {
                         BadElRender badEl_ = new BadElRender();
                         badEl_.setErrors(_cont.getClasses().getErrorsDet());
                         badEl_.setFileName(_cont.getCurrentFileName());
@@ -118,7 +119,30 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                     LocalVariable lv_ = new LocalVariable();
                     lv_.setClassName(string_);
                     _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
-                    String preRend_ = StringList.concat(converterValue,"(",BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),")");
+                    String preRend_ = StringList.concat(converterValue_,"(",BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),")");
+                    opsConverter = ElRenderUtil.getAnalyzedOperations(preRend_,0,_cont,Calculation.staticCalculation(st_));
+                    for (String v:varNames_) {
+                        _cont.getLocalVarsAna().last().removeKey(v);
+                    }
+                    m_.setArg(opsConverter.last().getResultClass());
+                    m_.setParam(opsValue.last().getResultClass());
+                    if (!Templates.isCorrectOrNumbers(m_,_cont)) {
+                        BadElRender badEl_ = new BadElRender();
+                        badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                        badEl_.setFileName(_cont.getCurrentFileName());
+                        badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+                        _cont.getClasses().addError(badEl_);
+                    }
+                } else if (!converterValue_.trim().isEmpty()) {
+                    String string_ = _cont.getStandards().getAliasString();
+                    StringList varNames_ = new StringList();
+                    String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
+                    varNames_.add(varLoc_);
+                    varNameConverter = varLoc_;
+                    LocalVariable lv_ = new LocalVariable();
+                    lv_.setClassName(string_);
+                    _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
+                    String preRend_ = StringList.concat(converterValue_,"(",BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),")");
                     opsConverter = ElRenderUtil.getAnalyzedOperations(preRend_,0,_cont,Calculation.staticCalculation(st_));
                     for (String v:varNames_) {
                         _cont.getLocalVarsAna().last().removeKey(v);
@@ -180,6 +204,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         opsWrite = reduceList(opsWrite);
         opsMap = reduceList(opsMap);
         opsDefault = reduceList(opsDefault);
+        opsConverter = reduceList(opsConverter);
     }
 
     @Override
@@ -331,6 +356,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         f_.setVarName(varName);
         f_.setVarNameConverter(varNameConverter);
         f_.setOpsConverter(opsConverter);
+        f_.setArrayConverter(arrayConverter);
         Argument arg_ = fetchName(_cont, _read, _write, f_);
         fetchValue(_cont,_read,_write,opsValue);
         return arg_;

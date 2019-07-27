@@ -25,6 +25,8 @@ public class NodeContainer {
     private String varNameConvert;
     private CustList<RendDynOperationNode> opsWrite;
     private CustList<RendDynOperationNode> opsConvert;
+    private boolean arrayConverter;
+
     private String lastToken;
 
     private long index = -1;
@@ -165,5 +167,13 @@ public class NodeContainer {
 
     public void setOpsConvert(CustList<RendDynOperationNode> _opsConvert) {
         opsConvert = _opsConvert;
+    }
+
+    public boolean isArrayConverter() {
+        return arrayConverter;
+    }
+
+    public void setArrayConverter(boolean _arrayConverter) {
+        arrayConverter = _arrayConverter;
     }
 }

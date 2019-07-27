@@ -678,6 +678,7 @@ public abstract class RendBlock {
             nodeCont_.setOpsWrite(opsWrite_);
             nodeCont_.setOpsConvert(_f.getOpsConverter());
             nodeCont_.setVarNameConvert(_f.getVarNameConverter());
+            nodeCont_.setArrayConverter(_f.isArrayConverter());
             NodeInformations nodeInfos_ = nodeCont_.getNodeInformation();
             String id_ = _write.getAttribute(ATTRIBUTE_ID);
             if (id_.isEmpty()) {

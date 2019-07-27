@@ -83,32 +83,8 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         return labelOffset;
     }
 
-    public int getClassNameOffset() {
-        return classNameOffset;
-    }
-
-    public int getClassIndexNameOffset() {
-        return classIndexNameOffset;
-    }
-
-    public int getVariableNameOffset() {
-        return variableNameOffset;
-    }
-
-    public int getExpressionOffset() {
-        return expressionOffset;
-    }
-
-    public String getClassIndexName() {
-        return classIndexName;
-    }
-
     public String getClassName() {
         return className;
-    }
-
-    public String getVariableName() {
-        return variableName;
     }
 
     public String getExpression() {
