@@ -218,6 +218,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         }
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
+        _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_MAP);
         boolean static_ = _doc.isStaticContext();
         opList = ElRenderUtil.getAnalyzedOperations(expression, 0, _cont, Calculation.staticCalculation(static_));
     }
@@ -409,8 +410,8 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
 
     Struct processLoop(Configuration _conf) {
         ImportingPage ip_ = _conf.getLastPage();
-//        ip_.setGlobalOffset(expressionOffset);
-        ip_.setOffset(0);
+        ip_.setOffset(expressionOffset);
+        ip_.setProcessingAttribute(ATTRIBUTE_MAP);
         Argument arg_ = ElRenderUtil.calculateReuse(opList,_conf);
         if (_conf.getContext().hasExceptionOrFailInit()) {
             return NullStruct.NULL_VALUE;

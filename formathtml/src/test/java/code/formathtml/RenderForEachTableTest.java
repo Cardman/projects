@@ -50,7 +50,7 @@ public final class RenderForEachTableTest extends CommonRender {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
 
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
@@ -75,8 +75,9 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = xml_.toString();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -100,8 +101,9 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = xml_.toString();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -125,8 +127,9 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = xml_.toString();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -162,7 +165,7 @@ public final class RenderForEachTableTest extends CommonRender {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
 
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
@@ -198,7 +201,7 @@ public final class RenderForEachTableTest extends CommonRender {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
 
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
@@ -222,8 +225,9 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = xml_.toString();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -247,8 +251,9 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = xml_.toString();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -272,8 +277,9 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = xml_.toString();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -297,8 +303,9 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = xml_.toString();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -322,8 +329,9 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = xml_.toString();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -346,8 +354,9 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = xml_.toString();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -369,8 +378,9 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = xml_.toString();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -395,8 +405,9 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = xml_.toString();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -421,8 +432,9 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = xml_.toString();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -447,8 +459,9 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = xml_.toString();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -486,11 +499,12 @@ public final class RenderForEachTableTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = DocumentBuilder.parseSax(xml_.toString());
-        conf_.setHtml(xml_.toString());
+        String html_ = xml_.toString();
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        conf_.setHtml(html_);
         conf_.setDocument(doc_);
 
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
@@ -530,11 +544,12 @@ public final class RenderForEachTableTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = DocumentBuilder.parseSax(xml_.toString());
-        conf_.setHtml(xml_.toString());
+        String html_ = xml_.toString();
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        conf_.setHtml(html_);
         conf_.setDocument(doc_);
 
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
@@ -559,8 +574,9 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = xml_.toString();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
@@ -583,8 +599,9 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = xml_.toString();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
@@ -607,8 +624,9 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("<tr><td>{k;}</td><td>{k;}</td></tr>");
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = xml_.toString();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
@@ -631,8 +649,9 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("<tr><td>{k;}</td><td>{k;}</td></tr>");
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = xml_.toString();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
@@ -655,8 +674,9 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("<tr><td>{k;}</td><td>{k;}</td></tr>");
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = xml_.toString();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
@@ -681,8 +701,9 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = xml_.toString();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
@@ -707,8 +728,9 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = xml_.toString();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
@@ -733,8 +755,9 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = xml_.toString();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
@@ -757,8 +780,9 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("<tr><td>{k;}</td><td>{k;}</td></tr>");
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(xml_.toString()).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = xml_.toString();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());

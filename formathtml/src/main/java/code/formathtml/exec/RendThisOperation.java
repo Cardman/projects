@@ -24,7 +24,7 @@ public final class RendThisOperation extends RendLeafOperation implements RendCa
         setSimpleArgument(arg_, _conf,_nodes);
     }
 
-    Argument getCommonArgument(ExecutableCode _conf) {
+    Argument getCommonArgument(Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         PageEl ip_ = _conf.getOperationPageEl();
         Struct struct_ = ip_.getGlobalArgument().getStruct();

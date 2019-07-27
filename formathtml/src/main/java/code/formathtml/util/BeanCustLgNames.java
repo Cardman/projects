@@ -445,7 +445,7 @@ public final class BeanCustLgNames extends BeanLgNames {
             ((FieldableStruct)strBean_).setStruct(new ClassField(getAliasBean(),getAliasLanguage()),new StringStruct(_language));
             ((FieldableStruct)strBean_).setStruct(new ClassField(getAliasBean(),getAliasScope()),new StringStruct(info_.getScope()));
             _conf.removeLastPage();
-            _conf.getBuiltBeans().put(e.getKey(),strBean_);
+            _conf.getBuiltBeans().addEntry(e.getKey(),strBean_);
         }
     }
     public String getIteratorVar() {

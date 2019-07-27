@@ -25,7 +25,7 @@ public final class RendTernaryOperation extends RendMethodOperation implements R
         setSimpleArgument(res_, _conf,_nodes);
     }
 
-    Argument  getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
+    Argument  getArgument(CustList<Argument> _arguments, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetLocal, _conf);
         Boolean obj_ = ((BooleanStruct) _arguments.first().getStruct()).getInstance();
         Argument arg_;

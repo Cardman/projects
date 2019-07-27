@@ -35,7 +35,7 @@ public final class RendFinalVariableOperation extends RendLeafOperation implemen
         setSimpleArgument(arg_, _conf,_nodes);
     }
 
-    Argument getCommonArgument(ExecutableCode _conf) {
+    Argument getCommonArgument(Configuration _conf) {
         Argument a_;
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         PageEl ip_ = _conf.getOperationPageEl();

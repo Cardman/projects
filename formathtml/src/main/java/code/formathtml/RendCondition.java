@@ -5,7 +5,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.UnexpectedTypeError;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.methods.FunctionBlock;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -25,15 +24,12 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
         conditionOffset = _condition.getOffset();
     }
 
-    public int getConditionOffset() {
-        return conditionOffset;
-    }
-
     @Override
     public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(conditionOffset);
         page_.setOffset(0);
+        _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_CONDITION);
         opCondition = ElRenderUtil.getAnalyzedOperations(condition,0, _cont, Calculation.staticCalculation(_doc.isStaticContext()));
         RendDynOperationNode elCondition_ = opCondition.last();
         LgNames stds_ = _cont.getStandards();
@@ -52,12 +48,6 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
         RendDynOperationNode r_ = opCondition.last();
         opCondition = ElRenderUtil.getReducedNodes(r_);
     }
-    public RendDynOperationNode getRoot() {
-        return getOpCondition().last();
-    }
-    public CustList<RendDynOperationNode> getOpCondition() {
-        return opCondition;
-    }
 
     public final String getCondition() {
         return condition;
@@ -65,8 +55,8 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
 
     final Boolean evaluateCondition(Configuration _context) {
         ImportingPage last_ = _context.getLastPage();
-        last_.setOffset(0);
-//        last_.setGlobalOffset(conditionOffset);
+        last_.setOffset(conditionOffset);
+        last_.setProcessingAttribute(ATTRIBUTE_CONDITION);
         Argument arg_ = ElRenderUtil.calculateReuse(opCondition,_context);
         if (_context.getContext().hasExceptionOrFailInit()) {
             return null;

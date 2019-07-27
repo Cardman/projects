@@ -8,6 +8,7 @@ import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
+import code.formathtml.Configuration;
 import code.util.StringList;
 
 public final class RendArrayFieldOperation extends RendAbstractFieldOperation {
@@ -17,7 +18,7 @@ public final class RendArrayFieldOperation extends RendAbstractFieldOperation {
     }
 
     @Override
-    Argument getCommonArgument(Argument _previous, ExecutableCode _conf) {
+    Argument getCommonArgument(Argument _previous, Configuration _conf) {
         Argument a_;
         setRelativeOffsetPossibleLastPage(getIndexInEl()+getOff(), _conf);
         Argument arg_ = _previous;

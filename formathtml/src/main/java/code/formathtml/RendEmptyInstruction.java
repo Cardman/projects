@@ -1,10 +1,13 @@
 package code.formathtml;
 
 import code.expressionlanguage.files.OffsetsBlock;
+import code.util.IntTreeMap;
+import code.util.StringMap;
 
 public final class RendEmptyInstruction extends RendLeaf implements RendBuildableElMethod,RendPossibleEmpty {
     RendEmptyInstruction(OffsetsBlock _offset) {
         super(_offset);
+        setEscapedChars(new StringMap<IntTreeMap<Integer>>());
     }
 
     @Override

@@ -1,6 +1,5 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.ArrOperation;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
@@ -103,14 +102,14 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         setSimpleArgument(a_, _conf,_nodes);
     }
 
-    Struct affectArray(Struct _array, Argument _index, int _indexEl, Argument _right, ExecutableCode _conf) {
+    Struct affectArray(Struct _array, Argument _index, int _indexEl, Argument _right, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         NumberStruct o_ = (NumberStruct)_index.getStruct();
         ExecInvokingOperation.setElement(_array, o_, _right.getStruct(), _conf);
         return _right.getStruct();
     }
 
-    Struct compoundAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, Argument _right, ExecutableCode _conf) {
+    Struct compoundAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, Argument _right, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         NumberStruct o_ = (NumberStruct)_index.getStruct();
         Argument left_ = new Argument();
@@ -124,7 +123,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         ExecInvokingOperation.setElement(_array, o_, res_.getStruct(), _conf);
         return res_.getStruct();
     }
-    Struct semiAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, boolean _post, ExecutableCode _conf) {
+    Struct semiAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, boolean _post, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         NumberStruct o_ = (NumberStruct)_index.getStruct();
         Argument left_ = new Argument();

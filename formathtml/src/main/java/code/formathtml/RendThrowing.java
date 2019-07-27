@@ -23,10 +23,6 @@ public final class RendThrowing extends RendLeaf implements RendBuildableElMetho
         expressionOffset = _expression.getOffset();
     }
 
-    public int getExpressionOffset() {
-        return expressionOffset;
-    }
-
     public String getExpression() {
         return expression;
     }
@@ -34,9 +30,9 @@ public final class RendThrowing extends RendLeaf implements RendBuildableElMetho
     @Override
     public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         page_.setGlobalOffset(expressionOffset);
+        _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_VALUE);
         opThrow = ElRenderUtil.getAnalyzedOperations(expression,0, _cont, Calculation.staticCalculation(_doc.isStaticContext()));
 
     }
@@ -49,8 +45,8 @@ public final class RendThrowing extends RendLeaf implements RendBuildableElMetho
     @Override
     public void processEl(Configuration _cont) {
         ImportingPage ip_ = _cont.getLastPage();
-        ip_.setOffset(0);
-//        ip_.setGlobalOffset(expressionOffset);
+        ip_.setOffset(expressionOffset);
+        ip_.setProcessingAttribute(ATTRIBUTE_VALUE);
         Argument argument_ = ElRenderUtil.calculateReuse(opThrow, _cont);
         if (_cont.getContext().hasExceptionOrFailInit()) {
             return;

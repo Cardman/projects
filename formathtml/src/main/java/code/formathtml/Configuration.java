@@ -4,10 +4,7 @@ import code.bean.Bean;
 import code.bean.BeanInfo;
 import code.bean.translator.Translator;
 import code.bean.validator.Validator;
-import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.InitClassState;
+import code.expressionlanguage.*;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.common.GeneMethod;
@@ -234,7 +231,8 @@ public final class Configuration implements ExecutableCode {
         context.setAnalyzing(new AnalyzedPageEl());
         getAnalyzing().setEnabledInternVars(false);
         for (String s: renderFiles) {
-            DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(_files.getVal(s));
+            String file_ = _files.getVal(s);
+            DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(file_);
             Document document_ = res_.getDocument();
             if (document_ == null) {
                 BadElRender badEl_ = new BadElRender();
@@ -244,7 +242,7 @@ public final class Configuration implements ExecutableCode {
                 getClasses().addError(badEl_);
                 continue;
             }
-            renders.put(s,RendBlock.newRendDocumentBlock(this,getPrefix(), document_));
+            renders.put(s,RendBlock.newRendDocumentBlock(this,getPrefix(), document_, file_));
         }
         for (EntryCust<String,RendDocumentBlock> d: renders.entryList()) {
             d.getValue().buildFctInstructions(this);
@@ -269,7 +267,7 @@ public final class Configuration implements ExecutableCode {
     void setupValiatorsTranslatorsTmp() {
         for (EntryCust<String, Bean> e: getBeans().entryList()) {
             Struct str_ = new BeanStruct( e.getValue());
-            getBuiltBeans().put(e.getKey(), str_);
+            getBuiltBeans().addEntry(e.getKey(), str_);
         }
         for (EntryCust<String, Validator> e: getValidators().entryList()) {
             Struct str_ = new ValidatorStruct(e.getValue());
@@ -353,6 +351,51 @@ public final class Configuration implements ExecutableCode {
             removeLastPage();
             return NullStruct.NULL_VALUE;
         }
+        Struct db_ = ExtractObject.getDataBase(this, _bean);
+        if (context.getException() != null) {
+            removeLastPage();
+            return NullStruct.NULL_VALUE;
+        }
+        ExtractObject.setDataBase(this, strBean_, db_);
+        if (context.getException() != null) {
+            removeLastPage();
+            return NullStruct.NULL_VALUE;
+        }
+        Struct forms_ = ExtractObject.getForms(this, _bean);
+        if (context.getException() != null) {
+            removeLastPage();
+            return NullStruct.NULL_VALUE;
+        }
+        ExtractObject.setForms(this, strBean_, forms_);
+        if (context.getException() != null) {
+            removeLastPage();
+            return NullStruct.NULL_VALUE;
+        }
+        ExtractObject.setLanguage(this, strBean_, _language);
+        if (context.getException() != null) {
+            removeLastPage();
+            return NullStruct.NULL_VALUE;
+        }
+        String str_ = ExtractObject.getScope(this, _bean);
+        if (context.getException() != null) {
+            removeLastPage();
+            return NullStruct.NULL_VALUE;
+        }
+        ExtractObject.setScope(this, strBean_, str_);
+        removeLastPage();
+        if (context.getException() != null) {
+            return NullStruct.NULL_VALUE;
+        }
+        return strBean_;
+    }
+    Struct newBean(String _language, Struct _bean, BeanInfo _info) {
+        addPage(new ImportingPage(false));
+        Argument arg_ = ElRenderUtil.calculateReuse(_info.getExps(), this);
+        if (context.getException() != null) {
+            removeLastPage();
+            return NullStruct.NULL_VALUE;
+        }
+        Struct strBean_ = arg_.getStruct();
         Struct db_ = ExtractObject.getDataBase(this, _bean);
         if (context.getException() != null) {
             removeLastPage();
@@ -744,6 +787,9 @@ public final class Configuration implements ExecutableCode {
     @Override
     public void setOffset(int _offset) {
         getLastPage().setOffset(_offset);
+    }
+    public void setOpOffset(int _offset) {
+        getLastPage().setOpOffset(_offset);
     }
 
     @Override
@@ -1137,7 +1183,12 @@ public final class Configuration implements ExecutableCode {
 
     @Override
     public int getCurrentLocationIndex() {
-        return 0;
+        AnalyzedPageEl analyzing_ = context.getAnalyzing();
+        if (analyzing_ == null) {
+            return 0;
+        }
+        int offset_ = analyzing_.getOffset();
+        return analyzingDoc.getSum(offset_)+analyzing_.getTraceIndex()-offset_;
     }
 
     @Override

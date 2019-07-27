@@ -52,10 +52,6 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
         return labelOffset;
     }
 
-    public int getValueOffset() {
-        return valueOffset;
-    }
-
     public String getValue() {
         return value;
     }
@@ -65,6 +61,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
+        _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_VALUE);
         opValue = ElRenderUtil.getAnalyzedOperations(value,0, _cont, Calculation.staticCalculation(_doc.isStaticContext()));
         RendDynOperationNode op_ = opValue.last();
         ClassArgumentMatching clArg_ = op_.getResultClass();
@@ -141,8 +138,8 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
                 return;
             }
         }
-//        ip_.setGlobalOffset(valueOffset);
-        ip_.setOffset(0);
+        ip_.setOffset(valueOffset);
+        ip_.setProcessingAttribute(ATTRIBUTE_VALUE);
         Argument arg_ =  ElRenderUtil.calculateReuse(opValue,_cont);
         if (_cont.getContext().hasExceptionOrFailInit()) {
             return;

@@ -50,6 +50,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
+        _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_VALUE);
         RendParentBlock par_ = getParent();
         boolean stCtx_ = _doc.isStaticContext();
         if (!(par_ instanceof RendSwitchBlock)) {
@@ -184,8 +185,6 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
             rw_.setRead(getFirstChild());
             return;
         }
-//        ip_.setGlobalOffset(valueOffset);
-        ip_.setOffset(0);
         sw_.setEntered(true);
         rw_.setRead(getFirstChild());
     }

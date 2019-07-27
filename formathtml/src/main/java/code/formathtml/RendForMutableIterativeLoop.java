@@ -89,30 +89,6 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         return labelOffset;
     }
 
-    public int getClassNameOffset() {
-        return classNameOffset;
-    }
-
-    public int getClassIndexNameOffset() {
-        return classIndexNameOffset;
-    }
-
-    public int getInitOffset() {
-        return initOffset;
-    }
-
-    public int getExpressionOffset() {
-        return expressionOffset;
-    }
-
-    public int getStepOffset() {
-        return stepOffset;
-    }
-
-    public String getClassIndexName() {
-        return classIndexName;
-    }
-
     public String getClassName() {
         return className;
     }
@@ -174,6 +150,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         _cont.getVariablesNames().clear();
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
+        _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_INIT);
         _cont.setForLoopPartState(ForLoopPart.INIT);
         if (init.trim().isEmpty()) {
             opInit = new CustList<RendDynOperationNode>();
@@ -187,6 +164,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         _cont.setMerged(false);
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
+        _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_CONDITION);
         _cont.setForLoopPartState(ForLoopPart.CONDITION);
         if (expression.trim().isEmpty()) {
             opExp = new CustList<RendDynOperationNode>();
@@ -214,6 +192,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         _an.setForLoopPartState(ForLoopPart.STEP);
         _an.setMerged(true);
         _an.getLocalVariables().last().clear();
+        _an.getAnalyzingDoc().setAttribute(ATTRIBUTE_STEP);
         boolean static_ = _doc.isStaticContext();
         if (step.trim().isEmpty()) {
             opStep = new CustList<RendDynOperationNode>();
@@ -251,8 +230,8 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             processBlock(_cont);
             return;
         }
-//        ip_.setGlobalOffset(initOffset);
-        ip_.setOffset(0);
+        ip_.setOffset(initOffset);
+        ip_.setProcessingAttribute(ATTRIBUTE_INIT);
         Struct struct_ = PrimitiveTypeUtil.defaultValue(importedClassName, _cont);
         for (String v: variableNames) {
             LoopVariable lv_ = new LoopVariable();
@@ -291,8 +270,8 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         if (opExp.isEmpty()) {
             return true;
         }
-        last_.setOffset(0);
-//        last_.setGlobalOffset(expressionOffset);
+        last_.setOffset(expressionOffset);
+        last_.setProcessingAttribute(ATTRIBUTE_CONDITION);
         Argument arg_ = ElRenderUtil.calculateReuse(opExp,_context);
         if (_context.getContext().hasExceptionOrFailInit()) {
             return null;
@@ -311,6 +290,8 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
         RendBlock forLoopLoc_ = l_.getBlock();
         rw_.setRead(forLoopLoc_);
+        ip_.setOffset(stepOffset);
+        ip_.setProcessingAttribute(ATTRIBUTE_STEP);
         if (!opStep.isEmpty()) {
             ElRenderUtil.calculateReuse(opStep,_conf);
             if (_conf.getContext().hasExceptionOrFailInit()) {

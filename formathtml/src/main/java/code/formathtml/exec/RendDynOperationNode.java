@@ -60,8 +60,8 @@ public abstract class RendDynOperationNode {
         parent = _parent;
     }
 
-    public final void setRelativeOffsetPossibleLastPage(int _offset, ExecutableCode _cont) {
-        _cont.setOffset(indexBegin+_offset);
+    public final void setRelativeOffsetPossibleLastPage(int _offset, Configuration _cont) {
+        _cont.setOpOffset(indexBegin+_offset);
     }
 
     public static RendDynOperationNode createExecOperationNode(OperationNode _anaNode) {
@@ -335,7 +335,7 @@ public abstract class RendDynOperationNode {
         return out_;
     }
 
-    final void setNextSiblingsArg(Argument _arg, ExecutableCode _cont) {
+    final void setNextSiblingsArg(Argument _arg, Configuration _cont) {
         if (_cont.getContextEl().hasException()) {
             return;
         }

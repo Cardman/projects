@@ -47,8 +47,6 @@ public final class RendDefaultCondition extends RendParentBlock implements RendB
             rw_.setRead(getFirstChild());
             return;
         }
-//        ip_.setGlobalOffset(getOffset().getOffsetTrim());
-        ip_.setOffset(0);
         sw_.setEntered(true);
         rw_.setRead(getFirstChild());
     }

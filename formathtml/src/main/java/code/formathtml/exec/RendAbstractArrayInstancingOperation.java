@@ -36,5 +36,5 @@ public abstract class RendAbstractArrayInstancingOperation extends RendInvokingO
     }
 
     abstract Argument getArgument(CustList<Argument> _arguments,
-                                  ExecutableCode _conf);
+                                  Configuration _conf);
 }

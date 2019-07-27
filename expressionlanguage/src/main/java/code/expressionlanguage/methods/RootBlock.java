@@ -653,7 +653,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                                 DuplicateMethod duplicate_;
                                 duplicate_ = new DuplicateMethod();
                                 duplicate_.setIndexFile(r_);
-                                duplicate_.setFileName(className_);
+                                duplicate_.setFileName(getFile().getFileName());
                                 duplicate_.setId(id_.getSignature(_context));
                                 _context.getClasses().addError(duplicate_);
                             }

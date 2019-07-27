@@ -59,7 +59,7 @@ public abstract class RendAbstractFieldOperation extends RendLeafOperation imple
     public boolean isIntermediateDottedOperation() {
         return intermediate;
     }
-    abstract Argument getCommonArgument(Argument _previous, ExecutableCode _conf);
+    abstract Argument getCommonArgument(Argument _previous, Configuration _conf);
 
     @Override
     public final Argument getPreviousArgument() {

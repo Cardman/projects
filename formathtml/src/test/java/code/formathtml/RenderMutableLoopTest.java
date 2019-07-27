@@ -14,8 +14,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process1Test() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\">{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\">{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -25,8 +26,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process2Test() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;+=1\">{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;+=1\">{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -59,8 +61,9 @@ public final class RenderMutableLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Configuration context_ = contextElThird(files_);
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=$new pkg.Ex()\" condition=\"i;&lt;$new pkg.Ex(4)\" step=\"i;++\">{i;inst}-<c:if condition=\"i;inst%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$var\" init=\"i=$new pkg.Ex()\" condition=\"i;&lt;$new pkg.Ex(4)\" step=\"i;++\">{i;inst}-<c:if condition=\"i;inst%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -93,8 +96,9 @@ public final class RenderMutableLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         Configuration context_ = contextElThird(files_);
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=$new pkg.Ex()\" condition=\"i;&lt;$new pkg.Ex(4)\" step=\"i;+=$new pkg.Ex(1)\">{i;inst}-<c:if condition=\"i;inst%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$var\" init=\"i=$new pkg.Ex()\" condition=\"i;&lt;$new pkg.Ex(4)\" step=\"i;+=$new pkg.Ex(1)\">{i;inst}-<c:if condition=\"i;inst%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -104,8 +108,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process5Test() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:set className=\"$var\" value=\"i=0\"/><c:for init=\"i;.=0\" condition=\"i;.&lt;4\" step=\"i;.++\">{i;.}-<c:if condition=\"i;.%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:set className=\"$var\" value=\"i=0\"/><c:for init=\"i;.=0\" condition=\"i;.&lt;4\" step=\"i;.++\">{i;.}-<c:if condition=\"i;.%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -115,8 +120,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process6Test() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$int\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\">{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$int\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\">{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -126,8 +132,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process7Test() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:set className='$int' value='j'/><c:for className=\"$var\" init=\"i=0\" condition=\"j;.&lt;4\" step=\"\">{j;.}-<c:if condition=\"j;.%2==0\">Pair</c:if><c:else>Impair</c:else>-<c:set value='j;.++'/></c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:set className='$int' value='j'/><c:for className=\"$var\" init=\"i=0\" condition=\"j;.&lt;4\" step=\"\">{j;.}-<c:if condition=\"j;.%2==0\">Pair</c:if><c:else>Impair</c:else>-<c:set value='j;.++'/></c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -137,8 +144,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process8Test() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:set className='$int' value='j'/><c:for className=\"$var\" init=\"\" condition=\"j;.&lt;4\" step=\"j;.++\">{j;.}-<c:if condition=\"j;.%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:set className='$int' value='j'/><c:for className=\"$var\" init=\"\" condition=\"j;.&lt;4\" step=\"j;.++\">{j;.}-<c:if condition=\"j;.%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -148,8 +156,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process9Test() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$int\" init=\"i=0\" condition=\"i;&gt;4\" step=\"i;++\">{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$int\" init=\"i=0\" condition=\"i;&gt;4\" step=\"i;++\">{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -159,8 +168,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process10Test() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$int\" init=\"i=0\" condition=\"i;&lt;2\" step=\"i;++\"><c:for className=\"$int\" init=\"j=0\" condition=\"j;&lt;2\" step=\"j;++\">{i;}-{j;}-</c:for>+</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$int\" init=\"i=0\" condition=\"i;&lt;2\" step=\"i;++\"><c:for className=\"$int\" init=\"j=0\" condition=\"j;&lt;2\" step=\"j;++\">{i;}-{j;}-</c:for>+</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -170,8 +180,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process11Test() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$int\" init=\"i=1/0\" condition=\"i;&lt;4\" step=\"i;++\">{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$int\" init=\"i=1/0\" condition=\"i;&lt;4\" step=\"i;++\">{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -181,8 +192,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process12Test() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$int\" init=\"i=0\" condition=\"i;&lt;4/0\" step=\"i;++\">{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$int\" init=\"i=0\" condition=\"i;&lt;4/0\" step=\"i;++\">{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -192,8 +204,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process13Test() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$int\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;/=0\">{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$int\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;/=0\">{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -203,8 +216,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process14Test() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$int\" init=\"i=0\" condition=\"i;&gt;4/(i;-1)\" step=\"i;++\">{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$int\" init=\"i=0\" condition=\"i;&gt;4/(i;-1)\" step=\"i;++\">{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -214,8 +228,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process15Test() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"\" step=\"i;++\"><c:if condition='i;&gt;=4'><c:break/></c:if>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$var\" init=\"i=0\" condition=\"\" step=\"i;++\"><c:if condition='i;&gt;=4'><c:break/></c:if>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -225,8 +240,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process16Test() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"\" step=\"i;++\" label='lab'><c:if condition='i;&gt;=4'><c:break label='lab'/></c:if>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$var\" init=\"i=0\" condition=\"\" step=\"i;++\" label='lab'><c:if condition='i;&gt;=4'><c:break label='lab'/></c:if>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -236,8 +252,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process17Test() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"\" step=\"i;++\" label='lab'><c:try><c:if condition='i;&gt;=4'><c:break label='lab'/></c:if>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:try><c:finally>Finally-<c:if condition='i;&gt;=4'><c:break label='lab'/></c:if></c:finally></c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$var\" init=\"i=0\" condition=\"\" step=\"i;++\" label='lab'><c:try><c:if condition='i;&gt;=4'><c:break label='lab'/></c:if>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:try><c:finally>Finally-<c:if condition='i;&gt;=4'><c:break label='lab'/></c:if></c:finally></c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -247,8 +264,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process18Test() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"\" step=\"i;++\" label='lab'><c:try><c:if condition='i;&gt;=4'><c:break label='lab'/></c:if>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:try><c:catch>Catch-<c:if condition='i;&gt;=4'><c:break label='lab'/></c:if></c:catch></c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$var\" init=\"i=0\" condition=\"\" step=\"i;++\" label='lab'><c:try><c:if condition='i;&gt;=4'><c:break label='lab'/></c:if>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:try><c:catch>Catch-<c:if condition='i;&gt;=4'><c:break label='lab'/></c:if></c:catch></c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -258,8 +276,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process19Test() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"\" step=\"i;++\" label='lab'><c:try><c:if condition='i;&gt;=4'><c:break label='lab'/></c:if>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:try><c:finally>Finally-</c:finally></c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$var\" init=\"i=0\" condition=\"\" step=\"i;++\" label='lab'><c:try><c:if condition='i;&gt;=4'><c:break label='lab'/></c:if>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:try><c:finally>Finally-</c:finally></c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -269,8 +288,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process20Test() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"\" step=\"i;++\" label='lab'><c:try><c:if condition='i;&gt;=4'><td><c:break label='lab'/></td></c:if>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:try><c:finally>Finally-</c:finally></c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$var\" init=\"i=0\" condition=\"\" step=\"i;++\" label='lab'><c:try><c:if condition='i;&gt;=4'><td><c:break label='lab'/></td></c:if>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:try><c:finally>Finally-</c:finally></c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -280,8 +300,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process21Test() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\">{i;}-<c:if condition=\"i;%2==0\">Pair-<c:continue/></c:if>Impair-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\">{i;}-<c:if condition=\"i;%2==0\">Pair-<c:continue/></c:if>Impair-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -291,8 +312,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process22Test() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\" label='label'>{i;}-<c:if condition=\"i;%2==0\">Pair-<c:continue label='label'/></c:if>Impair-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\" label='label'>{i;}-<c:if condition=\"i;%2==0\">Pair-<c:continue label='label'/></c:if>Impair-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -302,8 +324,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process23Test() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$int\" init=\"i=0\" condition=\"i;&lt;2\" step=\"i;++\" label='label'><c:for className=\"$int\" init=\"j=0\" condition=\"j;&lt;2\" step=\"j;++\">{i;}-{j;}-<c:if condition=\"i;%2==0\">=<c:continue label='label'/></c:if></c:for>+</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$int\" init=\"i=0\" condition=\"i;&lt;2\" step=\"i;++\" label='label'><c:for className=\"$int\" init=\"j=0\" condition=\"j;&lt;2\" step=\"j;++\">{i;}-{j;}-<c:if condition=\"i;%2==0\">=<c:continue label='label'/></c:if></c:for>+</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -313,8 +336,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process24Test() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\" label='label'>{i;}-<c:if condition=\"i;%2==0\">Pair-<c:try>Cont-<c:continue label='label'/></c:try><c:catch/></c:if>Impair-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\" label='label'>{i;}-<c:if condition=\"i;%2==0\">Pair-<c:try>Cont-<c:continue label='label'/></c:try><c:catch/></c:if>Impair-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -324,8 +348,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process25Test() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\" label='label'>{i;}-<c:if condition=\"i;%2==0\">Pair-<c:try>Cont-<c:continue label='label'/></c:try><c:finally>Finally-</c:finally></c:if>Impair-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\" label='label'>{i;}-<c:if condition=\"i;%2==0\">Pair-<c:try>Cont-<c:continue label='label'/></c:try><c:finally>Finally-</c:finally></c:if>Impair-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -336,8 +361,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process26Test() {
         Configuration context_ = contextElThird(new StringMap<String>());
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:set className='$int' value='j'/><c:for className=\"$var\" init=\"i=0\" condition=\"j;.&lt;4\" step=\"\">{j;.}-<c:if condition=\"j;.%2==0\">Pair</c:if><c:else>Impair</c:else>-<c:set value='j;.++'/></c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:set className='$int' value='j'/><c:for className=\"$var\" init=\"i=0\" condition=\"j;.&lt;4\" step=\"\">{j;.}-<c:if condition=\"j;.%2==0\">Pair</c:if><c:else>Impair</c:else>-<c:set value='j;.++'/></c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -347,8 +373,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process27Test() {
         Configuration context_ = contextElThird(new StringMap<String>());
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:set className='$int' value='j'/><c:for className=\"$var\" init=\"\" condition=\"j;.&lt;4\" step=\"j;.++\">{j;.}-<c:if condition=\"j;.%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:set className='$int' value='j'/><c:for className=\"$var\" init=\"\" condition=\"j;.&lt;4\" step=\"j;.++\">{j;.}-<c:if condition=\"j;.%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -358,8 +385,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process28Test() {
         Configuration context_ = contextElThird(new StringMap<String>());
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"\" step=\"i;++\"><c:if condition='i;&gt;=4'><c:break/></c:if>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$var\" init=\"i=0\" condition=\"\" step=\"i;++\"><c:if condition='i;&gt;=4'><c:break/></c:if>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -369,8 +397,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process1FailTest() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\">{i;}-<c:if condition=\"i;%2==0\">Pair-<c:try>Cont-<c:continue label='label'/></c:try><c:finally>Finally-</c:finally></c:if>Impair-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\">{i;}-<c:if condition=\"i;%2==0\">Pair-<c:try>Cont-<c:continue label='label'/></c:try><c:finally>Finally-</c:finally></c:if>Impair-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
@@ -378,8 +407,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process2FailTest() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\">{i;}-<c:if condition=\"i;%2==0\">Pair-<c:try>Cont-<c:break label='label'/></c:try><c:finally>Finally-</c:finally></c:if>Impair-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\">{i;}-<c:if condition=\"i;%2==0\">Pair-<c:try>Cont-<c:break label='label'/></c:try><c:finally>Finally-</c:finally></c:if>Impair-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
@@ -387,8 +417,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process3FailTest() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"4\" step=\"i;++\" label='label'>{i;}-<c:if condition=\"i;%2==0\">Pair-<c:try>Cont-<c:continue label='label'/></c:try><c:finally>Finally-</c:finally></c:if>Impair-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$var\" init=\"i=0\" condition=\"4\" step=\"i;++\" label='label'>{i;}-<c:if condition=\"i;%2==0\">Pair-<c:try>Cont-<c:continue label='label'/></c:try><c:finally>Finally-</c:finally></c:if>Impair-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
@@ -396,8 +427,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process4FailTest() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" indexClassName='java.lang.String' condition=\"4\" step=\"i;++\" label='label'>{i;}-<c:if condition=\"i;%2==0\">Pair-<c:try>Cont-<c:continue label='label'/></c:try><c:finally>Finally-</c:finally></c:if>Impair-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$var\" init=\"i=0\" indexClassName='java.lang.String' condition=\"4\" step=\"i;++\" label='label'>{i;}-<c:if condition=\"i;%2==0\">Pair-<c:try>Cont-<c:continue label='label'/></c:try><c:finally>Finally-</c:finally></c:if>Impair-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
@@ -405,8 +437,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process5FailTest() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\" label='#t'>{i;}-<c:if condition=\"i;%2==0\">Pair-<c:try>Cont-<c:continue label='label'/></c:try><c:finally>Finally-</c:finally></c:if>Impair-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\" label='#t'>{i;}-<c:if condition=\"i;%2==0\">Pair-<c:try>Cont-<c:continue label='label'/></c:try><c:finally>Finally-</c:finally></c:if>Impair-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
@@ -414,8 +447,9 @@ public final class RenderMutableLoopTest extends CommonRender {
     @Test
     public void process6FailTest() {
         Configuration context_ = contextElThird();
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\" label='t'><c:for className=\"$var\" init=\"j=0\" condition=\"j;&lt;4\" step=\"j;++\" label='t'>{i;}-</c:for></c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for className=\"$var\" init=\"i=0\" condition=\"i;&lt;4\" step=\"i;++\" label='t'><c:for className=\"$var\" init=\"j=0\" condition=\"j;&lt;4\" step=\"j;++\" label='t'>{i;}-</c:for></c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());

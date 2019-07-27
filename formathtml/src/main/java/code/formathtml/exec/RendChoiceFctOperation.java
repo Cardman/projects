@@ -1,7 +1,6 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -59,7 +58,7 @@ public final class RendChoiceFctOperation extends RendInvokingOperation implemen
         processCall(_nodes,_conf,argres_);
     }
 
-    Argument getArgument(Argument _previous, CustList<Argument> _arguments, ExecutableCode _conf) {
+    Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);

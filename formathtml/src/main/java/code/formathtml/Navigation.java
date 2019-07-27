@@ -11,7 +11,6 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exec.RendDynOperationNode;
-import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
@@ -201,7 +200,7 @@ public final class Navigation {
     public void initializeSession() {
         session.setupClasses(files);
         for (EntryCust<String, BeanInfo> e: session.getBeansInfos().entryList()) {
-            session.getBuiltBeans().put(e.getKey(), session.newSimpleBean(language, dataBase, e.getValue()));
+            session.getBuiltBeans().addEntry(e.getKey(), session.newSimpleBean(language, dataBase, e.getValue()));
             if (session.getContext().getException() != null) {
                 return;
             }
@@ -394,24 +393,9 @@ public final class Navigation {
                     urlDest_ = currentUrl;
                 }
             }
-            for (EntryCust<String, Struct> e: session.getBuiltBeans().entryList()) {
-                boolean reinit_ = reinitBean(urlDest_, beanName_, e.getKey());
-                if (session.getContext().getException() != null) {
-                    return;
-                }
-                if (!reinit_) {
-                    continue;
-                }
-                bean_ = e.getValue();
-                bean_ = session.newBean(language, bean_);
-                if (session.getContext().getException() != null) {
-                    return;
-                }
-                ExtractObject.setForms(session, bean_, forms_);
-                if (session.getContext().getException() != null) {
-                    return;
-                }
-                e.setValue(bean_);
+            processInitBeans(urlDest_,beanName_,forms_);
+            if (session.getContext().getException() != null) {
+                return;
             }
             String currentUrl_ = urlDest_;
             session.setCurrentUrl(currentUrl_);
@@ -457,26 +441,9 @@ public final class Navigation {
         forms_ = ExtractObject.getForms(session, bean_);
         session.removeLastPage();
         session.getContext().setException(null);
-        for (EntryCust<String, Struct> e: session.getBuiltBeans().entryList()) {
-            boolean reinitBean_ = reinitBean(_anchorRef, currentBeanName, e.getKey());
-            if (session.getContext().getException() != null) {
-                return;
-            }
-            if (!reinitBean_) {
-                continue;
-            }
-            bean_ = e.getValue();
-            bean_ = session.newBean(language,bean_);
-            if (session.getContext().getException() != null) {
-                return;
-            }
-            session.addPage(new ImportingPage(false));
-            ExtractObject.setForms(session, bean_, forms_);
-            session.removeLastPage();
-            if (session.getContext().getException() != null) {
-                return;
-            }
-            e.setValue(bean_);
+        processInitBeans(_anchorRef,currentBeanName,forms_);
+        if (session.getContext().getException() != null) {
+            return;
         }
         session.setCurrentUrl(_anchorRef);
         String dest_ = StringList.getFirstToken(_anchorRef, REF_TAG);
@@ -510,6 +477,30 @@ public final class Navigation {
         currentBeanName = currentBeanName_;
         currentUrl = _anchorRef;
         setupText(textToBeChanged_);
+    }
+    void processInitBeans(String _dest, String _beanName, Struct _forms) {
+        int s_ = session.getBuiltBeans().size();
+        for (int i = 0; i < s_; i++) {
+            String key_ = session.getBuiltBeans().getKey(i);
+            boolean reinit_ = reinitBean(_dest, _beanName, key_);
+            if (session.getContext().getException() != null) {
+                break;
+            }
+            if (!reinit_) {
+                continue;
+            }
+            Struct bean_ = session.getBuiltBeans().getValue(i);
+            BeanInfo info_ = session.getBeansInfos().getValue(i);
+            bean_ = session.newBean(language, bean_,info_);
+            if (session.getContext().getException() != null) {
+                break;
+            }
+            ExtractObject.setForms(session, bean_, _forms);
+            if (session.getContext().getException() != null) {
+                break;
+            }
+            session.getBuiltBeans().setValue(i,bean_);
+        }
     }
     public void processAnchorRequest(String _anchorRef) {
         String textToBeChanged_;

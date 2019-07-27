@@ -39,7 +39,7 @@ public final class RendEnumValueOfOperation extends RendAbstractUnaryOperation {
         setSimpleArgument(argRes_, _conf,_nodes);
     }
 
-    Argument getCommonArgument(Argument _argument, ExecutableCode _conf) {
+    Argument getCommonArgument(Argument _argument, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+argOffset, _conf);
         return ExecInvokingOperation.getEnumValue(className, _argument, _conf);
     }

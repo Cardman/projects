@@ -8,6 +8,7 @@ import code.expressionlanguage.opers.DimensionArrayInstancing;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NumberStruct;
+import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -23,7 +24,7 @@ public final class RendDimensionArrayInstancing extends
 
     @Override
     Argument getArgument(CustList<Argument> _arguments,
-            ExecutableCode _conf) {
+                         Configuration _conf) {
         LgNames stds_ = _conf.getStandards();
         String size_;
         size_ = stds_.getAliasBadSize();

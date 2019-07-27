@@ -64,7 +64,7 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
     }
 
     Argument getArgument(Argument _previous, CustList<Argument> _arguments,
-                         ExecutableCode _conf) {
+                         Configuration _conf) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         CustList<RendDynOperationNode> filter_ = filterInvoking(chidren_);
         int off_ = StringList.getFirstPrintableCharIndex(methodName);

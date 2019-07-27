@@ -31,7 +31,7 @@ public final class RendInstanceOfOperation extends RendAbstractUnaryOperation {
         setSimpleArgument(argres_, _conf,_nodes);
     }
 
-    Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
+    Argument getArgument(CustList<Argument> _arguments, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
         LgNames stds_ = _conf.getStandards();
         Argument objArg_ = _arguments.first();

@@ -1,7 +1,6 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -115,7 +114,11 @@ public abstract class RendBlock {
     private static final String TAG_DO = "do";
     private static final String IF_BLOCK_TAG = "if";
     private static final String ELSE_IF_BLOCK_TAG = "elseif";
-
+    private static final char END_ESCAPED = ';';
+    private static final char ENCODED = '&';
+    private static final char EQUALS = '=';
+    private static final char QUOT = 34;
+    private static final char APOS = 39;
     private RendParentBlock parent;
 
     private RendBlock nextSibling;
@@ -124,6 +127,7 @@ public abstract class RendBlock {
 
     private OffsetsBlock offset;
 
+    private StringMap<IntTreeMap<Integer>> escapedChars;
 
     RendBlock(OffsetsBlock _offset) {
         offset = _offset;
@@ -132,16 +136,18 @@ public abstract class RendBlock {
         parent = _b;
     }
 
-    public static RendDocumentBlock newRendDocumentBlock(Configuration _conf,String _prefix, Document _doc) {
+    public static RendDocumentBlock newRendDocumentBlock(Configuration _conf, String _prefix, Document _doc, String _docText) {
         Element documentElement_ = _doc.getDocumentElement();
         Node curNode_ = documentElement_;
+        int indexGlobal_ = _docText.indexOf(LT_BEGIN_TAG)+1;
         RendDocumentBlock out_ = new RendDocumentBlock(documentElement_,new OffsetsBlock());
-        RendBlock curWrite_ = newRendBlock(out_, _conf, _prefix, curNode_);
+        RendBlock curWrite_ = newRendBlockEsc(indexGlobal_,out_, _conf, _prefix, curNode_,_docText);
         out_.appendChild(curWrite_);
         while (curWrite_ != null) {
             MutableNode firstChild_ = curNode_.getFirstChild();
             if (firstChild_ != null) {
-                RendBlock rendBlock_ = newRendBlock((RendParentBlock) curWrite_, _conf, _prefix, firstChild_);
+                indexGlobal_ = indexOfBeginNode(firstChild_, _docText, indexGlobal_);
+                RendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,(RendParentBlock) curWrite_, _conf, _prefix, firstChild_,_docText);
                 ((RendParentBlock) curWrite_).appendChild(rendBlock_);
                 curWrite_ = rendBlock_;
                 curNode_ = firstChild_;
@@ -151,7 +157,8 @@ public abstract class RendBlock {
                 MutableNode nextSibling_ = curNode_.getNextSibling();
                 RendParentBlock par_ = curWrite_.getParent();
                 if (nextSibling_ != null) {
-                    RendBlock rendBlock_ = newRendBlock(par_, _conf, _prefix, nextSibling_);
+                    indexGlobal_ = indexOfBeginNode(nextSibling_, _docText, indexGlobal_);
+                    RendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,par_, _conf, _prefix, nextSibling_,_docText);
                     par_.appendChild(rendBlock_);
                     curWrite_ = rendBlock_;
                     curNode_ = nextSibling_;
@@ -172,60 +179,160 @@ public abstract class RendBlock {
         }
         return out_;
     }
-    private static RendBlock newRendBlock(RendParentBlock _curParent,Configuration _conf,String _prefix,Node _elt) {
+
+    private static IntTreeMap< Integer> getIndexesSpecChars(String _html, boolean _realAttr, AttributePart _att, int _beginNode) {
+        int begin_ = _att.getBegin();
+        int end_ = _att.getEnd();
+        int i_ = begin_;
+        int delta_ = 0;
+        if (_realAttr) {
+            delta_ = begin_ - _beginNode;
+        }
+        IntTreeMap< Integer> indexes_;
+        indexes_ = new IntTreeMap< Integer>();
+        while (i_ < end_) {
+            if (_html.charAt(i_) == ENCODED) {
+                int beginEscaped_ = i_;
+                i_++;
+                while (_html.charAt(i_) != END_ESCAPED) {
+                    i_++;
+                }
+                indexes_.put(beginEscaped_ - _beginNode - delta_, i_ - beginEscaped_);
+            }
+            i_++;
+        }
+        return indexes_;
+    }
+    private static StringMap<AttributePart> getAttributes(String _html, int _from, int _to) {
+        StringMap<AttributePart> attributes_;
+        attributes_ = new StringMap<AttributePart>();
+        StringBuilder str_ = new StringBuilder();
+        int beginToken_ = _from;
+        int delimiter_ = -1;
+        for (int i = _from; i < _to; i++) {
+            char ch_ = _html.charAt(i);
+            if (delimiter_ == -1) {
+                if (ch_ == APOS) {
+                    delimiter_ = ch_;
+                    beginToken_ = i + 1;
+                } else if (ch_ == QUOT) {
+                    delimiter_ = ch_;
+                    beginToken_ = i + 1;
+                }
+            } else {
+                if (ch_ == delimiter_) {
+                    AttributePart attrPart_ = new AttributePart();
+                    attrPart_.setBegin(beginToken_);
+                    attrPart_.setEnd(i);
+                    attributes_.put(str_.toString(), attrPart_);
+                    str_ = new StringBuilder();
+                    delimiter_ = -1;
+                    continue;
+                }
+            }
+            if (delimiter_ == -1) {
+                if (Character.isWhitespace(ch_) || ch_ == EQUALS) {
+                    continue;
+                }
+                str_.append(ch_);
+            }
+        }
+        return attributes_;
+    }
+    private static int indexOfBeginNode(Node _node, String _html, int _from) {
+        if (_node instanceof Element) {
+            return _html.indexOf(StringList.concat(String.valueOf(LT_BEGIN_TAG),((Element) _node).getTagName()), _from) + 1;
+        }
+        int indexText_ = _html.indexOf(GT_TAG, _from);
+        while (_html.charAt(indexText_ + 1) == LT_BEGIN_TAG) {
+            indexText_ = _html.indexOf(GT_TAG, indexText_ + 1);
+        }
+        return indexText_ + 1;
+    }
+    private static RendBlock newRendBlockEsc(int _begin,RendParentBlock _curParent,Configuration _conf,String _prefix,Node _elt, String _docText) {
+        RendBlock bl_ = newRendBlock(_begin, _curParent, _conf, _prefix, _elt, _docText);
+        if (_elt instanceof Text) {
+            int endHeader_ = _docText.indexOf(LT_BEGIN_TAG, _begin);
+            AttributePart attrPart_ = new AttributePart();
+            attrPart_.setBegin(_begin);
+            attrPart_.setEnd(endHeader_);
+            IntTreeMap<Integer> esc_ = getIndexesSpecChars(_docText, false, attrPart_, _begin);
+            StringMap<IntTreeMap<Integer>> infos_ = new StringMap<IntTreeMap<Integer>>();
+            infos_.addEntry(EMPTY_STRING,esc_);
+            bl_.escapedChars = infos_;
+        } else {
+            Element elt_ = (Element) _elt;
+            String tagName_ = elt_.getTagName();
+            int endHeader_ = _docText.indexOf(GT_TAG, _begin);
+            int beginHeader_ = _begin + tagName_.length();
+            StringMap<AttributePart> attr_;
+            attr_ = getAttributes(_docText, beginHeader_, endHeader_);
+            StringMap<IntTreeMap<Integer>> infos_ = new StringMap<IntTreeMap<Integer>>();
+            for (EntryCust<String, AttributePart> e: attr_.entryList()) {
+                infos_.put(e.getKey(), getIndexesSpecChars(_docText, true, e.getValue(), _begin));
+            }
+            bl_.escapedChars = infos_;
+        }
+        return bl_;
+    }
+    private static RendBlock newRendBlock(int _begin,RendParentBlock _curParent,Configuration _conf,String _prefix,Node _elt, String _docText) {
         if (_elt instanceof Text) {
             Text t_ = (Text) _elt;
             if (t_.getTextContent().trim().isEmpty()) {
-                return new RendEmptyText(new OffsetStringInfo(0,t_.getTextContent()),new OffsetsBlock());
+                return new RendEmptyText(new OffsetStringInfo(_begin,t_.getTextContent()),new OffsetsBlock(_begin,_begin));
             }
-            return new RendText(new OffsetStringInfo(0,t_.getTextContent()),new OffsetsBlock());
+            return new RendText(new OffsetStringInfo(_begin,t_.getTextContent()),new OffsetsBlock(_begin,_begin));
         }
         Element elt_ = (Element) _elt;
         String tagName_ = elt_.getTagName();
+        int endHeader_ = _docText.indexOf(GT_TAG, _begin);
+        int beginHeader_ = _begin + tagName_.length();
+        StringMap<AttributePart> attr_;
+        attr_ = getAttributes(_docText, beginHeader_, endHeader_);
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,FOR_BLOCK_TAG))) {
             if (elt_.hasAttribute(ATTRIBUTE_LIST)) {
                 return new RendForEachLoop(_conf,
-                        newOffsetStringInfo(elt_,ATTRIBUTE_CLASS_NAME),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_VAR),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_LIST),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_INDEX_CLASS_NAME),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_LABEL),
-                        new OffsetsBlock()
+                        newOffsetStringInfo(elt_,ATTRIBUTE_CLASS_NAME, attr_),
+                        newOffsetStringInfo(elt_,ATTRIBUTE_VAR, attr_),
+                        newOffsetStringInfo(elt_,ATTRIBUTE_LIST, attr_),
+                        newOffsetStringInfo(elt_,ATTRIBUTE_INDEX_CLASS_NAME, attr_),
+                        newOffsetStringInfo(elt_,ATTRIBUTE_LABEL, attr_),
+                        new OffsetsBlock(_begin,_begin)
                 );
             }
             if (elt_.hasAttribute(ATTRIBUTE_MAP)) {
                 return new RendForEachTable(_conf,
-                        newOffsetStringInfo(elt_,KEY_CLASS_NAME_ATTRIBUTE),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_KEY),
-                        newOffsetStringInfo(elt_,VAR_CLASS_NAME_ATTRIBUTE),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_VALUE),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_MAP),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_INDEX_CLASS_NAME),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_LABEL),
-                        new OffsetsBlock()
+                        newOffsetStringInfo(elt_,KEY_CLASS_NAME_ATTRIBUTE, attr_),
+                        newOffsetStringInfo(elt_,ATTRIBUTE_KEY, attr_),
+                        newOffsetStringInfo(elt_,VAR_CLASS_NAME_ATTRIBUTE, attr_),
+                        newOffsetStringInfo(elt_,ATTRIBUTE_VALUE, attr_),
+                        newOffsetStringInfo(elt_,ATTRIBUTE_MAP, attr_),
+                        newOffsetStringInfo(elt_,ATTRIBUTE_INDEX_CLASS_NAME, attr_),
+                        newOffsetStringInfo(elt_,ATTRIBUTE_LABEL, attr_),
+                        new OffsetsBlock(_begin,_begin)
                 );
             }
             if (elt_.hasAttribute(ATTRIBUTE_VAR)) {
                 return new RendForIterativeLoop(_conf,
-                        newOffsetStringInfo(elt_,ATTRIBUTE_CLASS_NAME),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_VAR),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_FROM),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_TO),
+                        newOffsetStringInfo(elt_,ATTRIBUTE_CLASS_NAME, attr_),
+                        newOffsetStringInfo(elt_,ATTRIBUTE_VAR, attr_),
+                        newOffsetStringInfo(elt_,ATTRIBUTE_FROM, attr_),
+                        newOffsetStringInfo(elt_,ATTRIBUTE_TO, attr_),
                         newOffsetBooleanInfo(elt_,ATTRIBUTE_EQ),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_STEP),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_INDEX_CLASS_NAME),
-                        newOffsetStringInfo(elt_,ATTRIBUTE_LABEL),
-                        new OffsetsBlock()
+                        newOffsetStringInfo(elt_,ATTRIBUTE_STEP, attr_),
+                        newOffsetStringInfo(elt_,ATTRIBUTE_INDEX_CLASS_NAME, attr_),
+                        newOffsetStringInfo(elt_,ATTRIBUTE_LABEL, attr_),
+                        new OffsetsBlock(_begin,_begin)
                         );
             }
             return new RendForMutableIterativeLoop(_conf,
-                    newOffsetStringInfo(elt_,ATTRIBUTE_CLASS_NAME),
-                    newOffsetStringInfo(elt_,ATTRIBUTE_INIT),
-                    newOffsetStringInfo(elt_,ATTRIBUTE_CONDITION),
-                    newOffsetStringInfo(elt_,ATTRIBUTE_STEP),
-                    newOffsetStringInfo(elt_,ATTRIBUTE_INDEX_CLASS_NAME)
-                    ,newOffsetStringInfo(elt_,ATTRIBUTE_LABEL),
-                    new OffsetsBlock());
+                    newOffsetStringInfo(elt_,ATTRIBUTE_CLASS_NAME, attr_),
+                    newOffsetStringInfo(elt_,ATTRIBUTE_INIT, attr_),
+                    newOffsetStringInfo(elt_,ATTRIBUTE_CONDITION, attr_),
+                    newOffsetStringInfo(elt_,ATTRIBUTE_STEP, attr_),
+                    newOffsetStringInfo(elt_,ATTRIBUTE_INDEX_CLASS_NAME, attr_)
+                    ,newOffsetStringInfo(elt_,ATTRIBUTE_LABEL, attr_),
+                    new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,WHILE_BLOCK_TAG))) {
             MutableNode previousSibling_ = elt_.getPreviousSibling();
@@ -233,94 +340,94 @@ public abstract class RendBlock {
                 previousSibling_ = previousSibling_.getPreviousSibling();
             }
             if (previousSibling_ instanceof Element && StringList.quickEq(((Element) previousSibling_).getTagName(),StringList.concat(_prefix,TAG_DO))) {
-                return new RendDoWhileCondition(newOffsetStringInfo(elt_,ATTRIBUTE_CONDITION),new OffsetsBlock());
+                return new RendDoWhileCondition(newOffsetStringInfo(elt_,ATTRIBUTE_CONDITION, attr_),new OffsetsBlock(_begin,_begin));
             }
-            return new RendWhileCondition(newOffsetStringInfo(elt_,ATTRIBUTE_CONDITION),newOffsetStringInfo(elt_,ATTRIBUTE_LABEL),new OffsetsBlock());
+            return new RendWhileCondition(newOffsetStringInfo(elt_,ATTRIBUTE_CONDITION, attr_),newOffsetStringInfo(elt_,ATTRIBUTE_LABEL, attr_),new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,TAG_DO))) {
-            return new RendDoBlock(newOffsetStringInfo(elt_,ATTRIBUTE_LABEL),new OffsetsBlock());
+            return new RendDoBlock(newOffsetStringInfo(elt_,ATTRIBUTE_LABEL, attr_),new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,RETURN_TAG))) {
-            return new RendReturnMehod(new OffsetsBlock());
+            return new RendReturnMehod(new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,BREAK_TAG))) {
-            return new RendBreakBlock(newOffsetStringInfo(elt_,ATTRIBUTE_LABEL),new OffsetsBlock());
+            return new RendBreakBlock(newOffsetStringInfo(elt_,ATTRIBUTE_LABEL, attr_),new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,CONTINUE_TAG))) {
-            return new RendContinueBlock(newOffsetStringInfo(elt_,ATTRIBUTE_LABEL),new OffsetsBlock());
+            return new RendContinueBlock(newOffsetStringInfo(elt_,ATTRIBUTE_LABEL, attr_),new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,THROW_TAG))) {
-            return new RendThrowing(newOffsetStringInfo(elt_,ATTRIBUTE_VALUE),new OffsetsBlock());
+            return new RendThrowing(newOffsetStringInfo(elt_,ATTRIBUTE_VALUE, attr_),new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,SET_BLOCK_TAG))) {
             if (elt_.hasAttribute(ATTRIBUTE_CLASS_NAME)) {
-                _curParent.appendChild(new RendDeclareVariable(newOffsetStringInfo(elt_,ATTRIBUTE_CLASS_NAME),new OffsetsBlock()));
+                _curParent.appendChild(new RendDeclareVariable(newOffsetStringInfo(elt_,ATTRIBUTE_CLASS_NAME, attr_),new OffsetsBlock(_begin,_begin)));
             }
-            return new RendLine(newOffsetStringInfo(elt_,ATTRIBUTE_VALUE),new OffsetsBlock());
+            return new RendLine(newOffsetStringInfo(elt_,ATTRIBUTE_VALUE, attr_),new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,IF_BLOCK_TAG))) {
-            return new RendIfCondition(newOffsetStringInfo(elt_,ATTRIBUTE_CONDITION),newOffsetStringInfo(elt_,ATTRIBUTE_LABEL),new OffsetsBlock());
+            return new RendIfCondition(newOffsetStringInfo(elt_,ATTRIBUTE_CONDITION, attr_),newOffsetStringInfo(elt_,ATTRIBUTE_LABEL, attr_),new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,ELSE_IF_BLOCK_TAG))) {
-            return new RendElseIfCondition(newOffsetStringInfo(elt_,ATTRIBUTE_CONDITION),new OffsetsBlock());
+            return new RendElseIfCondition(newOffsetStringInfo(elt_,ATTRIBUTE_CONDITION, attr_),new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,ELSE_BLOCK_TAG))) {
-            return new RendElseCondition(new OffsetsBlock());
+            return new RendElseCondition(new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,TRY_TAG))) {
-            return new RendTryEval(newOffsetStringInfo(elt_,ATTRIBUTE_LABEL),new OffsetsBlock());
+            return new RendTryEval(newOffsetStringInfo(elt_,ATTRIBUTE_LABEL, attr_),new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,CATCH_TAG))) {
             if (elt_.hasAttribute(ATTRIBUTE_CLASS_NAME)) {
-                return new RendCatchEval(newOffsetStringInfo(elt_,ATTRIBUTE_CLASS_NAME),newOffsetStringInfo(elt_,ATTRIBUTE_VAR),new OffsetsBlock());
+                return new RendCatchEval(newOffsetStringInfo(elt_,ATTRIBUTE_CLASS_NAME, attr_),newOffsetStringInfo(elt_,ATTRIBUTE_VAR, attr_),new OffsetsBlock(_begin,_begin));
             }
-            return new RendNullCatchEval(new OffsetsBlock());
+            return new RendNullCatchEval(new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,TAG_FINALLY))) {
-            return new RendFinallyEval(new OffsetsBlock());
+            return new RendFinallyEval(new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,TAG_SWITCH))) {
-            return new RendSwitchBlock(newOffsetStringInfo(elt_,ATTRIBUTE_VALUE),newOffsetStringInfo(elt_,ATTRIBUTE_LABEL),new OffsetsBlock());
+            return new RendSwitchBlock(newOffsetStringInfo(elt_,ATTRIBUTE_VALUE, attr_),newOffsetStringInfo(elt_,ATTRIBUTE_LABEL, attr_),new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,TAG_CASE))) {
-            return new RendCaseCondition(newOffsetStringInfo(elt_,ATTRIBUTE_VALUE),new OffsetsBlock());
+            return new RendCaseCondition(newOffsetStringInfo(elt_,ATTRIBUTE_VALUE, attr_),new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,TAG_DEFAULT))) {
-            return new RendDefaultCondition(new OffsetsBlock());
+            return new RendDefaultCondition(new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,IMPORT_BLOCK_TAG))) {
-            return new RendImport(elt_,new OffsetsBlock());
+            return new RendImport(elt_,new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,SUBMIT_BLOCK_TAG))) {
-            return new RendSubmit(elt_,new OffsetsBlock());
+            return new RendSubmit(elt_,new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,TAG_A)) {
-            return new RendAnchor(elt_,new OffsetsBlock());
+            return new RendAnchor(elt_,new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,PACKAGE_BLOCK_TAG))) {
-            return new RendPackage(newOffsetStringInfo(elt_,ATTRIBUTE_NAME),new OffsetsBlock());
+            return new RendPackage(newOffsetStringInfo(elt_,ATTRIBUTE_NAME, attr_),new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,CLASS_BLOCK_TAG))) {
-            return new RendClass(newOffsetStringInfo(elt_,ATTRIBUTE_NAME),new OffsetsBlock());
+            return new RendClass(newOffsetStringInfo(elt_,ATTRIBUTE_NAME, attr_),new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,FIELD_BLOCK_TAG))) {
-            return new RendField(newOffsetStringInfo(elt_,ATTRIBUTE_PREPARE_BEAN),new OffsetsBlock());
+            return new RendField(newOffsetStringInfo(elt_,ATTRIBUTE_PREPARE_BEAN, attr_),new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,MESSAGE_BLOCK_TAG))) {
-            return new RendMessage(elt_,new OffsetsBlock());
+            return new RendMessage(elt_,new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,SELECT_TAG))) {
-            return new RendSelect(elt_,new OffsetsBlock());
+            return new RendSelect(elt_,new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,FORM_BLOCK_TAG)) {
-            return new RendForm(elt_,new OffsetsBlock());
+            return new RendForm(elt_,new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,INPUT_TAG)) {
             if (StringList.quickEq(elt_.getAttribute(ATTRIBUTE_TYPE),RADIO)) {
-                return new RendRadio(elt_,new OffsetsBlock());
+                return new RendRadio(elt_,new OffsetsBlock(_begin,_begin));
             }
         }
-        return new RendStdElement(elt_,new OffsetsBlock());
+        return new RendStdElement(elt_,new OffsetsBlock(_begin,_begin));
     }
 
     static String getPre(Configuration _cont, String _value) {
@@ -370,8 +477,15 @@ public abstract class RendBlock {
             _cont.getIndexes().setAnchor(currentAnchor_);
         }
     }
-    private static OffsetStringInfo newOffsetStringInfo(Element _elt,String _key) {
-        return new OffsetStringInfo(0,_elt.getAttribute(_key));
+    private static OffsetStringInfo newOffsetStringInfo(Element _elt, String _key, StringMap<AttributePart> _attr) {
+        AttributePart val_ = _attr.getVal(_key);
+        int begin_;
+        if (val_ == null) {
+            begin_ = 0;
+        } else {
+            begin_ = val_.getBegin();
+        }
+        return new OffsetStringInfo(begin_,_elt.getAttribute(_key));
     }
 
     public abstract void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc);
@@ -770,5 +884,13 @@ public abstract class RendBlock {
             }
         }
         return parElt_;
+    }
+
+    protected void setEscapedChars(StringMap<IntTreeMap<Integer>> _escapedChars) {
+        escapedChars = _escapedChars;
+    }
+
+    public StringMap<IntTreeMap<Integer>> getEscapedChars() {
+        return escapedChars;
     }
 }

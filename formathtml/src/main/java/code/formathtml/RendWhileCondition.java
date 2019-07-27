@@ -79,8 +79,6 @@ public final class RendWhileCondition extends RendCondition implements RendLoop 
     }
 
     public Boolean keepLoop(Configuration _conf) {
-//        _conf.getLastPage().setGlobalOffset(getOffset().getOffsetTrim());
-        _conf.getLastPage().setOffset(0);
         return evaluateCondition(_conf);
     }
 }

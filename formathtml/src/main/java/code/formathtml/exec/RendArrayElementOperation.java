@@ -7,6 +7,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.AbstractArrayInstancingOperation;
 import code.expressionlanguage.structs.Struct;
+import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -19,7 +20,7 @@ public final class RendArrayElementOperation extends
     }
 
     @Override
-    Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
+    Argument getArgument(CustList<Argument> _arguments, Configuration _conf) {
         String me_ = getMethodName();
         int off_ = StringList.getFirstPrintableCharIndex(me_);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);

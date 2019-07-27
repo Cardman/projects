@@ -29,7 +29,6 @@ import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.structs.StdStruct;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.StringMap;
 
 public final class ElRenderUtilTest {
@@ -1229,8 +1228,9 @@ public final class ElRenderUtilTest {
     public void processEl330Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
-        Document document_ = DocumentBuilder.parseSaxNotNullRowCol("<tag><c:set className=\"$int\" value=\"arg=2,arg2=4\"/></tag>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", document_);
+        String html_ = "<tag><c:set className=\"$int\" value=\"arg=2,arg2=4\"/></tag>";
+        Document document_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", document_, html_);
         RendBlock nextSibling_ = rendDocumentBlock_.getFirstChild().getFirstChild().getNextSibling();
         context_.setMerged(true);
         context_.getAnalyzingDoc().setCurrentBlock(nextSibling_);

@@ -16,8 +16,6 @@ public final class RendDoWhileCondition extends RendCondition {
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
         rw_.setRead(this);
-//        _cont.getLastPage().setGlobalOffset(getOffset().getOffsetTrim());
-        _cont.getLastPage().setOffset(0);
         Boolean keep_ = evaluateCondition(_cont);
         if (keep_ == null) {
             return;

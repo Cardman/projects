@@ -48,7 +48,7 @@ public final class RendVariableOperation extends RendLeafOperation implements
         }
     }
 
-    Argument getCommonArgument(ExecutableCode _conf) {
+    Argument getCommonArgument(Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         PageEl ip_ = _conf.getOperationPageEl();
         if (resultCanBeSet()) {
@@ -84,13 +84,13 @@ public final class RendVariableOperation extends RendLeafOperation implements
         setSimpleArgument(arg_, _conf,_nodes);
     }
 
-    Argument getCommonSetting(ExecutableCode _conf, Argument _right) {
+    Argument getCommonSetting(Configuration _conf, Argument _right) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         PageEl ip_ = _conf.getOperationPageEl();
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
         return ExecVariableOperation.checkSet(_conf,locVar_,_right);
     }
-    Argument getCommonCompoundSetting(ExecutableCode _conf, Struct _store, String _op, Argument _right) {
+    Argument getCommonCompoundSetting(Configuration _conf, Struct _store, String _op, Argument _right) {
         PageEl ip_ = _conf.getOperationPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
@@ -104,7 +104,7 @@ public final class RendVariableOperation extends RendLeafOperation implements
         ExecVariableOperation.setVar(_conf, locVar_, res_);
         return res_;
     }
-    Argument getCommonSemiSetting(ExecutableCode _conf, Struct _store, String _op, boolean _post) {
+    Argument getCommonSemiSetting(Configuration _conf, Struct _store, String _op, boolean _post) {
         PageEl ip_ = _conf.getOperationPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);

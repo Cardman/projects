@@ -167,14 +167,14 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
                 BadLabelName bad_ = new BadLabelName();
                 bad_.setName(label_);
                 bad_.setFileName(_conf.getCurrentFileName());
-                bad_.setIndexFile(0);
+                bad_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(bad_);
             } else if (!label_.isEmpty()){
                 if (StringList.contains(_labels, label_)) {
                     DuplicateLabel dup_ = new DuplicateLabel();
                     dup_.setId(label_);
                     dup_.setFileName(_conf.getCurrentFileName());
-                    dup_.setIndexFile(0);
+                    dup_.setIndexFile(_conf.getCurrentLocationIndex());
                     _conf.getClasses().addError(dup_);
                 } else {
                     _labels.add(label_);

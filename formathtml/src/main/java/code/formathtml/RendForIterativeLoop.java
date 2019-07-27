@@ -208,6 +208,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         }
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
+        _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_FROM);
         boolean static_ = _doc.isStaticContext();
         opInit = ElRenderUtil.getAnalyzedOperations(init,0, _cont, Calculation.staticCalculation(static_));
         RendDynOperationNode initEl_ = opInit.last();
@@ -223,6 +224,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         }
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
+        _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_TO);
         opExp = ElRenderUtil.getAnalyzedOperations(expression,0, _cont, Calculation.staticCalculation(static_));
         RendDynOperationNode expressionEl_ = opExp.last();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(elementClass_, expressionEl_.getResultClass(), _cont)) {
@@ -237,6 +239,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         }
         page_.setGlobalOffset(stepOffset);
         page_.setOffset(0);
+        _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_STEP);
         opStep = ElRenderUtil.getAnalyzedOperations(step, 0,_cont, Calculation.staticCalculation(static_));
         RendDynOperationNode stepEl_ = opStep.last();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(elementClass_, stepEl_.getResultClass(), _cont)) {
@@ -298,8 +301,8 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         long fromValue_ = 0;
 
         boolean eq_ = isEq();
-//        ip_.setGlobalOffset(initOffset);
-        ip_.setOffset(0);
+        ip_.setOffset(initOffset);
+        ip_.setProcessingAttribute(ATTRIBUTE_FROM);
         Argument argFrom_ = ElRenderUtil.calculateReuse(opInit,_conf);
         if (_conf.getContext().hasExceptionOrFailInit()) {
             return;
@@ -308,8 +311,8 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             _conf.setException(new ErrorStruct(_conf,null_));
             return;
         }
-//        ip_.setGlobalOffset(expressionOffset);
-        ip_.setOffset(0);
+        ip_.setOffset(expressionOffset);
+        ip_.setProcessingAttribute(ATTRIBUTE_TO);
         Argument argTo_ = ElRenderUtil.calculateReuse(opExp,_conf);
         if (_conf.getContext().hasExceptionOrFailInit()) {
             return;
@@ -318,8 +321,8 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             _conf.setException(new ErrorStruct(_conf,null_));
             return;
         }
-//        ip_.setGlobalOffset(stepOffset);
-        ip_.setOffset(0);
+        ip_.setOffset(stepOffset);
+        ip_.setProcessingAttribute(ATTRIBUTE_STEP);
         Argument argStep_ = ElRenderUtil.calculateReuse(opStep,_conf);
         if (_conf.getContext().hasExceptionOrFailInit()) {
             return;
@@ -420,8 +423,6 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
     public void incrementLoop(Configuration _conf, RendLoopBlockStack _l,
                               StringMap<LoopVariable> _vars) {
         _l.setIndex(_l.getIndex() + 1);
-//        _conf.getLastPage().setGlobalOffset(variableNameOffset);
-        _conf.getLastPage().setOffset(0);
         String var_ = getVariableName();
         LoopVariable lv_ = _vars.getVal(var_);
         long o_ = ((NumberStruct) lv_.getStruct()).longStruct()+lv_.getStep();

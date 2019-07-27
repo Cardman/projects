@@ -1,7 +1,6 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.CastOperation;
@@ -27,7 +26,7 @@ public final class RendCastOperation extends RendAbstractUnaryOperation {
         setSimpleArgument(argres_, _conf,_nodes);
     }
 
-    Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
+    Argument getArgument(CustList<Argument> _arguments, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
         Argument objArg_ = _arguments.first();
         String paramName_ = _conf.getOperationPageEl().formatVarType(className, _conf);

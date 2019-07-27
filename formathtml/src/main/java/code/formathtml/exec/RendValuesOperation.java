@@ -36,7 +36,7 @@ public final class RendValuesOperation extends RendLeafOperation implements Rend
         setSimpleArgument(argRes_, _conf,_nodes);
     }
 
-    Argument getCommonArgument(ExecutableCode _conf) {
+    Argument getCommonArgument(Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+argOffset, _conf);
         return ExecInvokingOperation.getEnumValues(className, _conf);
     }

@@ -43,7 +43,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.getProperties().put("msg_example", relative_);
         context_.setTranslators(new StringMap<Translator>());
         context_.getTranslators().put("trans", new MyTranslator());
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -73,7 +73,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.getProperties().put("msg_example", relative_);
         context_.setTranslators(new StringMap<Translator>());
         context_.getTranslators().put("trans", new MyTranslator());
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -103,7 +103,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.getProperties().put("msg_example", relative_);
         context_.setTranslators(new StringMap<Translator>());
         context_.getTranslators().put("trans", new MyTranslator());
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -133,7 +133,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.getProperties().put("msg_example", relative_);
         context_.setTranslators(new StringMap<Translator>());
         context_.getTranslators().put("trans", new MyTranslator());
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -163,7 +163,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.getProperties().put("msg_example", relative_);
         context_.setTranslators(new StringMap<Translator>());
         context_.getTranslators().put("trans", new MyTranslator());
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -176,8 +176,9 @@ public final class RenderForEachLoopTest extends CommonRender {
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         Configuration context_ = contextElThird(files_);
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -191,8 +192,9 @@ public final class RenderForEachLoopTest extends CommonRender {
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         Configuration context_ = contextElThird(files_);
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;()\" className='$int'>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;()\" className='$int'>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -229,7 +231,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setTranslators(new StringMap<Translator>());
         context_.getTranslators().put("trans", new MyTranslator());
         context_.clearPages();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getContext().setAnalyzing(new AnalyzedPageEl());
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
@@ -260,7 +262,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.getProperties().put("msg_example", relative_);
         context_.setTranslators(new StringMap<Translator>());
         context_.getTranslators().put("trans", new MyTranslator());
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -290,7 +292,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.getProperties().put("msg_example", relative_);
         context_.setTranslators(new StringMap<Translator>());
         context_.getTranslators().put("trans", new MyTranslator());
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -320,7 +322,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.getProperties().put("msg_example", relative_);
         context_.setTranslators(new StringMap<Translator>());
         context_.getTranslators().put("trans", new MyTranslator());
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -350,7 +352,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.getProperties().put("msg_example", relative_);
         context_.setTranslators(new StringMap<Translator>());
         context_.getTranslators().put("trans", new MyTranslator());
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -363,8 +365,9 @@ public final class RenderForEachLoopTest extends CommonRender {
         files_.put(CUST_ITER_PATH, getCustomFailIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         Configuration context_ = contextElThird(files_);
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -377,8 +380,9 @@ public final class RenderForEachLoopTest extends CommonRender {
         files_.put(CUST_ITER_PATH, getCustomFailIteratorBis());
         files_.put(CUST_LIST_PATH, getCustomList());
         Configuration context_ = contextElThird(files_);
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -391,8 +395,9 @@ public final class RenderForEachLoopTest extends CommonRender {
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomFailList());
         Configuration context_ = contextElThird(files_);
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -405,8 +410,9 @@ public final class RenderForEachLoopTest extends CommonRender {
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         Configuration context_ = contextElThird(files_);
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1/0,2,3)\" className='$int'>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1/0,2,3)\" className='$int'>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -419,8 +425,9 @@ public final class RenderForEachLoopTest extends CommonRender {
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         Configuration context_ = contextElThird(files_);
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for var=\"i\" list=\"(pkg.CustList&lt;?java.lang.Integer&gt;)$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for var=\"i\" list=\"(pkg.CustList&lt;?java.lang.Integer&gt;)$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -433,8 +440,9 @@ public final class RenderForEachLoopTest extends CommonRender {
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         Configuration context_ = contextElThird(files_);
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for var=\"i\" list=\"(pkg.CustList&lt;!java.lang.Integer&gt;)$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='java.lang.Object'>{i;}-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for var=\"i\" list=\"(pkg.CustList&lt;!java.lang.Integer&gt;)$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='java.lang.Object'>{i;}-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -447,8 +455,9 @@ public final class RenderForEachLoopTest extends CommonRender {
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         Configuration context_ = contextElThird(files_);
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for var=\"i\" list=\"(pkg.CustList&lt;?&gt;)$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='java.lang.Object'>{i;}-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for var=\"i\" list=\"(pkg.CustList&lt;?&gt;)$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='java.lang.Object'>{i;}-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
@@ -484,7 +493,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setTranslators(new StringMap<Translator>());
         context_.getTranslators().put("trans", new MyTranslator());
         context_.clearPages();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getContext().setAnalyzing(new AnalyzedPageEl());
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
@@ -521,7 +530,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setTranslators(new StringMap<Translator>());
         context_.getTranslators().put("trans", new MyTranslator());
         context_.clearPages();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getContext().setAnalyzing(new AnalyzedPageEl());
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
@@ -552,7 +561,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.getProperties().put("msg_example", relative_);
         context_.setTranslators(new StringMap<Translator>());
         context_.getTranslators().put("trans", new MyTranslator());
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
@@ -574,7 +583,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.getProperties().put("msg_example", relative_);
         context_.setTranslators(new StringMap<Translator>());
         context_.getTranslators().put("trans", new MyTranslator());
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
@@ -585,8 +594,9 @@ public final class RenderForEachLoopTest extends CommonRender {
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         Configuration context_ = contextElThird(files_);
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for var=\"i\" list=\"$null\" className='$var'>{i;}-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for var=\"i\" list=\"$null\" className='$var'>{i;}-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
@@ -605,8 +615,9 @@ public final class RenderForEachLoopTest extends CommonRender {
         xml_.append("$public $class pk.Cl2:Int4{}");
         files_.put("my_file",xml_.toString());
         Configuration context_ = contextElThird(files_);
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for var=\"i\" list=\"$bool($true,$new pk.Cl1[]{$new pk.Cl1()},$new pk.Cl2[]{$new pk.Cl2()})\" className='$var'>{i;}-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for var=\"i\" list=\"$bool($true,$new pk.Cl1[]{$new pk.Cl1()},$new pk.Cl2[]{$new pk.Cl2()})\" className='$var'>{i;}-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
@@ -625,8 +636,9 @@ public final class RenderForEachLoopTest extends CommonRender {
         xml_.append("$public $class pk.Cl2:Int4{}");
         files_.put("my_file",xml_.toString());
         Configuration context_ = contextElThird(files_);
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for var=\"i\" list=\"$bool($true,$new pk.Cl1[]{$new pk.Cl1()},$new pk.Cl2[]{$new pk.Cl2()})\" className='$int'>{i;}-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for var=\"i\" list=\"$bool($true,$new pk.Cl1[]{$new pk.Cl1()},$new pk.Cl2[]{$new pk.Cl2()})\" className='$int'>{i;}-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
@@ -648,7 +660,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.getProperties().put("msg_example", relative_);
         context_.setTranslators(new StringMap<Translator>());
         context_.getTranslators().put("trans", new MyTranslator());
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
@@ -670,7 +682,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.getProperties().put("msg_example", relative_);
         context_.setTranslators(new StringMap<Translator>());
         context_.getTranslators().put("trans", new MyTranslator());
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
@@ -692,7 +704,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.getProperties().put("msg_example", relative_);
         context_.setTranslators(new StringMap<Translator>());
         context_.getTranslators().put("trans", new MyTranslator());
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
@@ -703,8 +715,9 @@ public final class RenderForEachLoopTest extends CommonRender {
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         Configuration context_ = contextElThird(files_);
-        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol("<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;()\" className='java.lang.String'>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>").getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_);
+        String html_ = "<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;()\" className='java.lang.String'>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
@@ -738,7 +751,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setTranslators(new StringMap<Translator>());
         context_.getTranslators().put("trans", new MyTranslator());
         context_.clearPages();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getContext().setAnalyzing(new AnalyzedPageEl());
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);

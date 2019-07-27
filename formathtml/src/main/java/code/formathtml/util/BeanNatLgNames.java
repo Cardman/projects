@@ -335,7 +335,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     @Override
     public void initBeans(Configuration _conf,String _language,Struct _db) {
         for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
-            _conf.getBuiltBeans().put(e.getKey(), _conf.newSimpleBean(_language, _db, e.getValue()));
+            _conf.getBuiltBeans().addEntry(e.getKey(), _conf.newSimpleBean(_language, _db, e.getValue()));
             if (_conf.getContext().getException() != null) {
                 return;
             }

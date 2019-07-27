@@ -23,7 +23,7 @@ public final class RendFirstOptOperation extends RendAbstractUnaryOperation {
         setSimpleArgument(argres_, _conf,_nodes);
     }
 
-    Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
+    Argument getArgument(CustList<Argument> _arguments, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
         return _arguments.first();
     }

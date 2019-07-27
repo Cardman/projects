@@ -664,6 +664,8 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         Block forLoopLoc_ = l_.getBlock();
         rw_.setBlock(forLoopLoc_);
         int index_ = 0;
+        ip_.setOffset(0);
+        ip_.setGlobalOffset(stepOffset);
         if (!opStep.isEmpty()) {
             ExpressionLanguage from_ = ip_.getCurrentEl(_conf,this, CustList.FIRST_INDEX, 2);
             from_.calculateMember(_conf);

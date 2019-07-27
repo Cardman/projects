@@ -73,6 +73,7 @@ public final class ImportingPage {
     private int tabWidth;
 
     private int offset;
+    private int opOffset;
 
     private boolean finallyToProcess;
 
@@ -116,7 +117,7 @@ public final class ImportingPage {
     }
 
     public int getSum() {
-        return processingHtml.getSum(processingAttribute, offset);
+        return AnalyzingDoc.getSum(opOffset,offset,rendReadWrite.getRead(),processingAttribute);
     }
 
     public PageEl getPageEl() {
@@ -134,6 +135,11 @@ public final class ImportingPage {
     public void setOffset(int _offset) {
         offset = _offset;
     }
+
+    public void setOpOffset(int _opOffset) {
+        opOffset = _opOffset;
+    }
+
     public String getNextTempVar() {
         int i_ = CustList.FIRST_INDEX;
         while (true) {

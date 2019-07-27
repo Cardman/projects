@@ -62,7 +62,7 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
         processCall(_nodes,_conf,argres_);
     }
 
-    Argument getArgument(Argument _previous, CustList<Argument> _arguments, ExecutableCode _conf) {
+    Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);

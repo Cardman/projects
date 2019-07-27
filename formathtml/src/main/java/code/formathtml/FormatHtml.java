@@ -360,7 +360,7 @@ public final class FormatHtml {
     public static String getRes(RendDocumentBlock _rend,Configuration _conf) {
         _conf.initForms();
         String beanName_ = _rend.getBeanName();
-        Struct bean_ = getBean(_conf, beanName_);
+        Struct bean_ = _conf.getBuiltBeans().getVal(beanName_);
         _conf.addPage(new ImportingPage(false));
         RendBlock.beforeDisplaying(bean_,_conf);
         _conf.removeLastPage();

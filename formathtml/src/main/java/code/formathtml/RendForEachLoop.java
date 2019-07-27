@@ -168,6 +168,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         }
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
+        _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_LIST);
         boolean static_ = _doc.isStaticContext();
         opList = ElRenderUtil.getAnalyzedOperations(expression,0, _cont, Calculation.staticCalculation(static_));
     }
@@ -326,8 +327,8 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
 
     Struct processLoop(Configuration _conf) {
         ImportingPage ip_ = _conf.getLastPage();
-//        ip_.setGlobalOffset(expressionOffset);
-        ip_.setOffset(0);
+        ip_.setOffset(expressionOffset);
+        ip_.setProcessingAttribute(ATTRIBUTE_LIST);
         Argument arg_ = ElRenderUtil.calculateReuse(opList,_conf);
         if (_conf.getContext().hasExceptionOrFailInit()) {
             return NullStruct.NULL_VALUE;
@@ -397,7 +398,6 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         ImportingPage abs_ = _conf.getLastPage();
 
 //        abs_.setGlobalOffset(variableNameOffset);
-        abs_.setOffset(0);
         LoopVariable lv_ = _vars.getVal(variableName);
         Struct iterator_ = _l.getStructIterator();
         Struct element_ = NullStruct.NULL_VALUE;

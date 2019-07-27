@@ -23,7 +23,7 @@ public final class RendUnaryBinOperation extends RendAbstractUnaryOperation {
         setSimpleArgument(a_, _conf,_nodes);
     }
 
-    Argument getArgument(ExecutableCode _conf,
+    Argument getArgument(Configuration _conf,
                          Argument _in) {
         Argument out_ = new Argument();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
