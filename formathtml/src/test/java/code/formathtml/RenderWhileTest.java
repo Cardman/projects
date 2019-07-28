@@ -129,7 +129,7 @@ public final class RenderWhileTest extends CommonRender {
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setMessagesFolder(folder_);
         addImportingPage(conf_);
-        Struct bean_ = ElRenderUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
+        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
         conf_.getBuiltBeans().put("bean_one",bean_);
         conf_.clearPages();
         conf_.setProperties(new StringMap<String>());
@@ -160,7 +160,7 @@ public final class RenderWhileTest extends CommonRender {
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setMessagesFolder(folder_);
         addImportingPage(conf_);
-        Struct bean_ = ElRenderUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
+        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
         conf_.getBuiltBeans().put("bean_one",bean_);
         conf_.clearPages();
         conf_.setProperties(new StringMap<String>());

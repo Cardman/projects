@@ -168,7 +168,7 @@ final class ExtractObject {
                     }
                 }
                 _conf.getLastPage().setOffset(i_);
-                Argument argloc_ = ElRenderUtil.processEl(_pattern, _conf, i_, LEFT_EL, RIGHT_EL);
+                Argument argloc_ = DirRender.processEl(_pattern, _conf, i_, LEFT_EL, RIGHT_EL);
                 if (_conf.getContext().getException() != null) {
                     return EMPTY_STRING;
                 }
@@ -220,7 +220,7 @@ final class ExtractObject {
                         expression_.append(navName_).append(GET_LOC_VAR).append(SEP_ARGS);
                         expression_.append(beanName_).append(GET_LOC_VAR).append(SEP_ARGS);
                         expression_.append(objName_).append(GET_LOC_VAR).append(END_ARGS);
-                        Struct trStr_ = ElRenderUtil.processEl(expression_.toString(), 0, _conf).getStruct();
+                        Struct trStr_ = DirRender.processEl(expression_.toString(), 0, _conf).getStruct();
                         o_ = valueOf(_conf, trStr_);
                         if (_conf.getContext().getException() != null) {
                             return EMPTY_STRING;
@@ -294,7 +294,7 @@ final class ExtractObject {
             }
             if (curChar_ == LEFT_EL) {
                 _ip.setOffset(i_+1);
-                Argument arg_ = ElRenderUtil.processEl(numExpr_, _conf, i_+1, LEFT_EL, RIGHT_EL);
+                Argument arg_ = DirRender.processEl(numExpr_, _conf, i_+1, LEFT_EL, RIGHT_EL);
                 if (!_conf.getClasses().getErrorsDet().isEmpty()) {
                     BadElRender badEl_ = new BadElRender();
                     badEl_.setErrors(_conf.getClasses().getErrorsDet());
@@ -378,7 +378,7 @@ final class ExtractObject {
         } else {
             String escaped_ = StringList.replace(_arg, QUOTE_DOUBLE, StringList.concat(String.valueOf(ESCAPED),QUOTE_DOUBLE));
             String instanciation_ = StringList.concat(INSTANCE,_class,String.valueOf(BEGIN_ARGS),QUOTE_DOUBLE,escaped_,QUOTE_DOUBLE,String.valueOf(END_ARGS));
-            Argument obj_ = ElRenderUtil.processEl(instanciation_, 0, _conf);
+            Argument obj_ = DirRender.processEl(instanciation_, 0, _conf);
             if (_conf.getContext().getException() != null) {
                 return NullStruct.NULL_VALUE;
             }
@@ -531,7 +531,7 @@ final class ExtractObject {
         var_.setClassName(_classVar);
         ip_.putLocalVar(varName_, var_);
         String expression_ = StringList.concat(varName_,GET_LOC_VAR,_methodName,NO_PARAM_METHOD);
-        Argument arg_ = ElRenderUtil.processEl(expression_, 0, _conf);
+        Argument arg_ = DirRender.processEl(expression_, 0, _conf);
         ip_.removeLocalVar(varName_);
         if (arg_ == null) {
             return NullStruct.NULL_VALUE;
@@ -553,7 +553,7 @@ final class ExtractObject {
         var_.setClassName(_argumentClassName);
         ip_.putLocalVar(argName_, var_);
         String expression_ = StringList.concat(varName_,GET_LOC_VAR,_methodName,String.valueOf(BEGIN_ARGS),argName_,GET_LOC_VAR,String.valueOf(END_ARGS));
-        ElRenderUtil.processEl(expression_, 0, _conf);
+        DirRender.processEl(expression_, 0, _conf);
         ip_.removeLocalVar(varName_);
     }
 
@@ -587,7 +587,7 @@ final class ExtractObject {
             if (!_conf.noPages()) {
                 _conf.getLastPage().setOffset(1);
             }
-            Struct str_ = ElRenderUtil.processEl(value_, 1, _conf).getStruct();
+            Struct str_ = DirRender.processEl(value_, 1, _conf).getStruct();
             if (_conf.getContext().getException() != null) {
                 return EMPTY_STRING;
             }
@@ -648,7 +648,7 @@ final class ExtractObject {
             if (attribute_.startsWith(CALL_METHOD)) {
                 begin_ = 1;
             }
-            Struct o_ = ElRenderUtil.processEl(attribute_, begin_, _conf).getStruct();
+            Struct o_ = DirRender.processEl(attribute_, begin_, _conf).getStruct();
             if (_conf.getContext().getException() != null) {
                 return EMPTY_STRING;
             }

@@ -62,7 +62,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
             } else {
                 escaped.add(false);
             }
-            opExp.add(ElRenderUtil.getAnalyzedOperations(attribute_,0,_cont,Calculation.staticCalculation(st_)));
+            opExp.add(RenderExpUtil.getAnalyzedOperations(attribute_,0,_cont,Calculation.staticCalculation(st_)));
         }
         //if (!element_.getAttribute(ATTRIBUTE_ESCAPED).isEmpty()) {
         if (elt.getAttribute(ATTRIBUTE_ESCAPED).isEmpty()) {
@@ -94,7 +94,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                         if (href_.indexOf('(') == CustList.INDEX_NOT_FOUND_ELT) {
                             href_ = StringList.concat(href_,"()");
                         }
-                        CustList<RendDynOperationNode> expsCall_ = ElRenderUtil.getAnalyzedOperations(href_, 1, _cont, Calculation.staticCalculation(st_));
+                        CustList<RendDynOperationNode> expsCall_ = RenderExpUtil.getAnalyzedOperations(href_, 1, _cont, Calculation.staticCalculation(st_));
                         callsExps.add(expsCall_);
                         dynAnchors.add(true);
                     } else {
@@ -136,7 +136,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                 anchorArg_.add(args.get(i));
                 continue;
             }
-            Argument arg_ = ElRenderUtil.calculateReuse(opExp.get(i), _cont);
+            Argument arg_ = RenderExpUtil.calculateReuse(opExp.get(i), _cont);
             if (_cont.getContext().hasExceptionOrFailInit()) {
                 return;
             }

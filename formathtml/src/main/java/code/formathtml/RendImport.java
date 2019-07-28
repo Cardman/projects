@@ -60,7 +60,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
         if (_cont.getContext().getException() != null) {
             return;
         }
-        String link_ = ExtractFromResources.getRealFilePath(lg_,pageName_);
+        String link_ = RendExtractFromResources.getRealFilePath(lg_,pageName_);
         RendDocumentBlock val_ = _cont.getRenders().getVal(link_);
         if (val_ == null) {
             processBlock(_cont);
@@ -103,7 +103,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
                         if (f instanceof RendField) {
                             CustList<RendDynOperationNode> exps_ = ((RendField) f).getExps();
                             ip_.setInternGlobal(newBean_);
-                            ElRenderUtil.calculateReuse(exps_,_cont);
+                            RenderExpUtil.calculateReuse(exps_,_cont);
                             if (_cont.getContext().getException() != null) {
                                 return;
                             }

@@ -30,7 +30,7 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
         page_.setGlobalOffset(conditionOffset);
         page_.setOffset(0);
         _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_CONDITION);
-        opCondition = ElRenderUtil.getAnalyzedOperations(condition,0, _cont, Calculation.staticCalculation(_doc.isStaticContext()));
+        opCondition = RenderExpUtil.getAnalyzedOperations(condition,0, _cont, Calculation.staticCalculation(_doc.isStaticContext()));
         RendDynOperationNode elCondition_ = opCondition.last();
         LgNames stds_ = _cont.getStandards();
         if (!elCondition_.getResultClass().isBoolType(_cont)) {
@@ -46,14 +46,14 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
     @Override
     public void reduce(Configuration _context) {
         RendDynOperationNode r_ = opCondition.last();
-        opCondition = ElRenderUtil.getReducedNodes(r_);
+        opCondition = RenderExpUtil.getReducedNodes(r_);
     }
 
     final Boolean evaluateCondition(Configuration _context) {
         ImportingPage last_ = _context.getLastPage();
         last_.setOffset(conditionOffset);
         last_.setProcessingAttribute(ATTRIBUTE_CONDITION);
-        Argument arg_ = ElRenderUtil.calculateReuse(opCondition,_context);
+        Argument arg_ = RenderExpUtil.calculateReuse(opCondition,_context);
         if (_context.getContext().hasExceptionOrFailInit()) {
             return null;
         }

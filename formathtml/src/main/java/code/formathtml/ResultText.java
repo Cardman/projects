@@ -72,7 +72,7 @@ public final class ResultText {
                     return;
                 }
 //                _conf.getLastPage().setOffset(i_);
-                CustList<RendDynOperationNode> opsLoc_ = ElRenderUtil.getAnalyzedOperations(_expression, _conf, i_, LEFT_EL, RIGHT_EL, Calculation.staticCalculation(st_));
+                CustList<RendDynOperationNode> opsLoc_ = RenderExpUtil.getAnalyzedOperations(_expression, _conf, i_, LEFT_EL, RIGHT_EL, Calculation.staticCalculation(st_));
                 opExp.add(opsLoc_);
                 i_ = _conf.getNextIndex();
                 expEnds.add(i_);
@@ -146,7 +146,7 @@ public final class ResultText {
                     return;
                 }
 //                _conf.getLastPage().setOffset(i_);
-                CustList<RendDynOperationNode> opsLoc_ = ElRenderUtil.getAnalyzedOperations(_expression, _conf, i_, LEFT_EL, RIGHT_EL, Calculation.staticCalculation(st_));
+                CustList<RendDynOperationNode> opsLoc_ = RenderExpUtil.getAnalyzedOperations(_expression, _conf, i_, LEFT_EL, RIGHT_EL, Calculation.staticCalculation(st_));
                 opExp.add(opsLoc_);
                 i_ = _conf.getNextIndex();
                 expEnds.add(i_);
@@ -196,7 +196,7 @@ public final class ResultText {
             if (l_.isEmpty()) {
                 continue;
             }
-            _opExp.set(i,ElRenderUtil.getReducedNodes(l_.last()));
+            _opExp.set(i,RenderExpUtil.getReducedNodes(l_.last()));
         }
     }
     public static String render(CustList<CustList<RendDynOperationNode>> _opExp,StringList _texts,Configuration _cont) {
@@ -206,7 +206,7 @@ public final class ResultText {
         for (int i = 0; i < s_; i++) {
             str_.append(_texts.get(i));
             CustList<RendDynOperationNode> exp_ = _opExp.get(i);
-            Argument argument_ = ElRenderUtil.calculateReuse(exp_, _cont);
+            Argument argument_ = RenderExpUtil.calculateReuse(exp_, _cont);
             if (_cont.getContext().hasExceptionOrFailInit()) {
                 return str_.toString();
             }

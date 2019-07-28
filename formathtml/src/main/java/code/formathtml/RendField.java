@@ -34,7 +34,7 @@ public final class RendField extends RendParentBlock {
             page_.setGlobalOffset(prepareOffset);
             page_.setOffset(0);
             _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_PREPARE_BEAN);
-            exps = ElRenderUtil.getAnalyzedOperations(prepare,0,_cont, Calculation.staticCalculation(st_));
+            exps = RenderExpUtil.getAnalyzedOperations(prepare,0,_cont, Calculation.staticCalculation(st_));
             _cont.getAnalyzingDoc().setInternGlobalClass(EMPTY_STRING);
         }
     }

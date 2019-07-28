@@ -4,7 +4,6 @@ import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.methods.FunctionBlock;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendDynOperationNode;
@@ -33,13 +32,13 @@ public final class RendThrowing extends RendLeaf implements RendBuildableElMetho
         page_.setOffset(0);
         page_.setGlobalOffset(expressionOffset);
         _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_VALUE);
-        opThrow = ElRenderUtil.getAnalyzedOperations(expression,0, _cont, Calculation.staticCalculation(_doc.isStaticContext()));
+        opThrow = RenderExpUtil.getAnalyzedOperations(expression,0, _cont, Calculation.staticCalculation(_doc.isStaticContext()));
 
     }
     @Override
     public void reduce(Configuration _context) {
         RendDynOperationNode r_ = opThrow.last();
-        opThrow = ElRenderUtil.getReducedNodes(r_);
+        opThrow = RenderExpUtil.getReducedNodes(r_);
     }
 
     @Override
@@ -47,7 +46,7 @@ public final class RendThrowing extends RendLeaf implements RendBuildableElMetho
         ImportingPage ip_ = _cont.getLastPage();
         ip_.setOffset(expressionOffset);
         ip_.setProcessingAttribute(ATTRIBUTE_VALUE);
-        Argument argument_ = ElRenderUtil.calculateReuse(opThrow, _cont);
+        Argument argument_ = RenderExpUtil.calculateReuse(opThrow, _cont);
         if (_cont.getContext().hasExceptionOrFailInit()) {
             return;
         }

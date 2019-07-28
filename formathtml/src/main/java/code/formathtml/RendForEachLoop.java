@@ -94,7 +94,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
     @Override
     public void reduce(Configuration _context) {
         RendDynOperationNode r_ = opList.last();
-        opList = ElRenderUtil.getReducedNodes(r_);
+        opList = RenderExpUtil.getReducedNodes(r_);
     }
     public String getImportedClassName() {
         return importedClassName;
@@ -146,7 +146,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         page_.setOffset(0);
         _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_LIST);
         boolean static_ = _doc.isStaticContext();
-        opList = ElRenderUtil.getAnalyzedOperations(expression,0, _cont, Calculation.staticCalculation(static_));
+        opList = RenderExpUtil.getAnalyzedOperations(expression,0, _cont, Calculation.staticCalculation(static_));
     }
     public void inferArrayClass(Configuration _cont) {
         RendDynOperationNode el_ = opList.last();
@@ -305,7 +305,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         ImportingPage ip_ = _conf.getLastPage();
         ip_.setOffset(expressionOffset);
         ip_.setProcessingAttribute(ATTRIBUTE_LIST);
-        Argument arg_ = ElRenderUtil.calculateReuse(opList,_conf);
+        Argument arg_ = RenderExpUtil.calculateReuse(opList,_conf);
         if (_conf.getContext().hasExceptionOrFailInit()) {
             return NullStruct.NULL_VALUE;
         }

@@ -62,7 +62,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
         _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_VALUE);
-        opValue = ElRenderUtil.getAnalyzedOperations(value,0, _cont, Calculation.staticCalculation(_doc.isStaticContext()));
+        opValue = RenderExpUtil.getAnalyzedOperations(value,0, _cont, Calculation.staticCalculation(_doc.isStaticContext()));
         RendDynOperationNode op_ = opValue.last();
         ClassArgumentMatching clArg_ = op_.getResultClass();
         if (clArg_.matchVoid(_cont)) {
@@ -123,7 +123,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
     @Override
     public void reduce(Configuration _context) {
         RendDynOperationNode r_ = opValue.last();
-        opValue = ElRenderUtil.getReducedNodes(r_);
+        opValue = RenderExpUtil.getReducedNodes(r_);
     }
 
     @Override
@@ -140,7 +140,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
         }
         ip_.setOffset(valueOffset);
         ip_.setProcessingAttribute(ATTRIBUTE_VALUE);
-        Argument arg_ =  ElRenderUtil.calculateReuse(opValue,_cont);
+        Argument arg_ =  RenderExpUtil.calculateReuse(opValue,_cont);
         if (_cont.getContext().hasExceptionOrFailInit()) {
             return;
         }

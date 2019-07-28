@@ -345,7 +345,7 @@ public final class FormatHtml {
                         ip_.setOffset(0);
                         ip_.setLookForAttrValue(true);
                         String el_ = nThree_.getAttribute(ATTRIBUTE_PREPARE_BEAN);
-                        ElRenderUtil.processEl(el_, 0, _conf);
+                        DirRender.processEl(el_, 0, _conf);
                         _conf.getAnalyzingDoc().setInternGlobalClass(EMPTY_STRING);
                         ip_.setInternGlobal(null);
                         if (_conf.getContext().getException() != null) {
@@ -380,7 +380,7 @@ public final class FormatHtml {
         }
         _conf.addPage(ip_);
         FullDocument doc_ = DocumentBuilder.newXmlDocument(tabWidth_);
-        appendChild(doc_, _conf, doc_, _rend.getElt());
+        RendBlock.appendChild(doc_, doc_, _rend.getElt());
         RendReadWrite rw_ = new RendReadWrite();
         rw_.setRead(_rend.getFirstChild());
         rw_.setWrite(doc_);
@@ -881,7 +881,7 @@ public final class FormatHtml {
         }
         if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,THROW_TAG))) {
             String el_ = en_.getAttribute(EXPRESSION_ATTRIBUTE);
-            Argument arg_ = ElRenderUtil.processEl(el_, 0, _conf);
+            Argument arg_ = DirRender.processEl(el_, 0, _conf);
             if (_conf.getContext().getException() != null) {
                 return ip_;
             }
@@ -1024,7 +1024,7 @@ public final class FormatHtml {
             ip_.setOffset(0);
             ip_.setLookForAttrValue(true);
             String expr_ = en_.getAttribute(EXPRESSION_ATTRIBUTE);
-            Argument arg_ = ElRenderUtil.processEl(expr_, 0, _conf);
+            Argument arg_ = DirRender.processEl(expr_, 0, _conf);
             if (_conf.getContext().getException() != null) {
                 return ip_;
             }
@@ -1057,7 +1057,7 @@ public final class FormatHtml {
             ip_.setOffset(0);
             ip_.setLookForAttrValue(true);
             String expr_ = en_.getAttribute(EXPRESSION_ATTRIBUTE);
-            Argument arg_ = ElRenderUtil.processEl(expr_, 0, _conf);
+            Argument arg_ = DirRender.processEl(expr_, 0, _conf);
             if (_conf.getContext().getException() != null) {
                 return ip_;
             }
@@ -1507,7 +1507,7 @@ public final class FormatHtml {
             Element _set) {
         if (!_set.hasAttribute(ATTRIBUTE_VAR)) {
             String expression_ = _set.getAttribute(EXPRESSION_ATTRIBUTE);
-            ElRenderUtil.processEl(expression_, 0, _conf);
+            DirRender.processEl(expression_, 0, _conf);
             return;
         }
         String var_ = _set.getAttribute(ATTRIBUTE_VAR);
@@ -1617,7 +1617,7 @@ public final class FormatHtml {
                     struct_ = ExtractObject.instanceByString(_conf, className_, expression_);
                 } else {
                     className_ = _conf.getStandards().getAliasObject();
-                    Argument a_ = ElRenderUtil.processEl(expression_, 0, _conf);
+                    Argument a_ = DirRender.processEl(expression_, 0, _conf);
                     struct_ = a_.getStruct();
                 }
             } else {
@@ -1724,7 +1724,7 @@ public final class FormatHtml {
                     _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(0);
-                    Argument a_ = ElRenderUtil.processEl(expression_, 0, _conf);
+                    Argument a_ = DirRender.processEl(expression_, 0, _conf);
                     struct_ = a_.getStruct();
                     if (_conf.getContext().getException() == null) {
                         _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
@@ -2605,7 +2605,7 @@ public final class FormatHtml {
                         begin_ = name_.substring(CustList.FIRST_INDEX, i_);
                     }
                 }
-                obj_ = ElRenderUtil.processEl(begin_, 0, _conf).getStruct();
+                obj_ = DirRender.processEl(begin_, 0, _conf).getStruct();
                 if (_conf.getContext().getException() != null) {
                     return;
                 }
@@ -2631,7 +2631,7 @@ public final class FormatHtml {
             }
             Struct current_ = _ip.getGlobalArgument().getStruct();
             _ip.setGlobalArgumentStruct(obj_, _conf);
-            currentField_ = ElRenderUtil.processEl(end_, 0, _conf).getStruct();
+            currentField_ = DirRender.processEl(end_, 0, _conf).getStruct();
             if (_conf.getContext().getException() != null) {
                 return;
             }
@@ -2791,7 +2791,7 @@ public final class FormatHtml {
                     _ip.setProcessingAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)));
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(1);
-                    Struct str_ = ElRenderUtil.processEl(attribute_, 1, _conf).getStruct();
+                    Struct str_ = DirRender.processEl(attribute_, 1, _conf).getStruct();
                     if (_conf.getContext().getException() != null) {
                         return;
                     }
@@ -2844,7 +2844,7 @@ public final class FormatHtml {
                     _ip.setProcessingAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)));
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(1);
-                    Struct str_ = ElRenderUtil.processEl(attribute_, 1, _conf).getStruct();
+                    Struct str_ = DirRender.processEl(attribute_, 1, _conf).getStruct();
                     if (_conf.getContext().getException() != null) {
                         return;
                     }
@@ -2910,7 +2910,7 @@ public final class FormatHtml {
                         _ip.setProcessingAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)));
                         _ip.setLookForAttrValue(true);
                         _ip.setOffset(1);
-                        Struct str_ = ElRenderUtil.processEl(attribute_, 1, _conf).getStruct();
+                        Struct str_ = DirRender.processEl(attribute_, 1, _conf).getStruct();
                         if (_conf.getContext().getException() != null) {
                             return;
                         }
@@ -3071,7 +3071,7 @@ public final class FormatHtml {
                 _conf.getLastPage().setOffset(0);
                 Struct o_ = null;
                 if (!accessName_.isEmpty()) {
-                    o_ = ElRenderUtil.processEl(accessName_, 0, _conf).getStruct();
+                    o_ = DirRender.processEl(accessName_, 0, _conf).getStruct();
                     if (_conf.getContext().getException() != null) {
                         return;
                     }
@@ -3212,7 +3212,7 @@ public final class FormatHtml {
         _conf.getLastPage().setProcessingAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VAR_VALUE));
         _conf.getLastPage().setLookForAttrValue(true);
         _conf.getLastPage().setOffset(0);
-        Struct o_ = ElRenderUtil.processEl(attribute_, 0, _conf).getStruct();
+        Struct o_ = DirRender.processEl(attribute_, 0, _conf).getStruct();
         if (_conf.getContext().getException() != null) {
             return;
         }
@@ -3228,7 +3228,7 @@ public final class FormatHtml {
         _conf.getLastPage().setProcessingAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VAR_VALUE));
         _conf.getLastPage().setLookForAttrValue(true);
         _conf.getLastPage().setOffset(0);
-        Struct o_ = ElRenderUtil.processEl(attribute_, 0, _conf).getStruct();
+        Struct o_ = DirRender.processEl(attribute_, 0, _conf).getStruct();
         if (_conf.getContext().getException() != null) {
             return;
         }
@@ -3285,7 +3285,7 @@ public final class FormatHtml {
             }
             if (curChar_ == LEFT_EL) {
                 _ip.setOffset(i_+1);
-                Argument arg_ = ElRenderUtil.processEl(_pattern, _conf, i_+1, LEFT_EL, RIGHT_EL);
+                Argument arg_ = DirRender.processEl(_pattern, _conf, i_+1, LEFT_EL, RIGHT_EL);
                 if (_conf.getContext().getException() != null) {
                     BadElRender badEl_ = new BadElRender();
                     badEl_.setErrors(_conf.getClasses().getErrorsDet());
@@ -3349,7 +3349,7 @@ public final class FormatHtml {
             return;
         }
         String command_ = class_.substring(class_.indexOf(CALL_METHOD)+1);
-        Struct returnedObject_ = ElRenderUtil.processEl(command_, 0, _conf).getStruct();
+        Struct returnedObject_ = DirRender.processEl(command_, 0, _conf).getStruct();
         if (_conf.getContext().getException() != null) {
             return;
         }
@@ -3374,12 +3374,12 @@ public final class FormatHtml {
             _conf.getLastPage().setOffset(0);
             returnedVarValue_ = new IdList<Struct>();
             if (!_multiple) {
-                returnedVarValue_.add(ElRenderUtil.processEl(varValue_, 0, _conf).getStruct());
+                returnedVarValue_.add(DirRender.processEl(varValue_, 0, _conf).getStruct());
                 if (_conf.getContext().getException() != null) {
                     return;
                 }
             } else {
-                Struct o_ = ElRenderUtil.processEl(varValue_, 0, _conf).getStruct();
+                Struct o_ = DirRender.processEl(varValue_, 0, _conf).getStruct();
                 if (_conf.getContext().getException() != null) {
                     return;
                 }
@@ -3408,7 +3408,7 @@ public final class FormatHtml {
         _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_LIST);
         _conf.getLastPage().setLookForAttrValue(true);
         _conf.getLastPage().setOffset(0);
-        Struct li_ = ElRenderUtil.processEl(list_, 0, _conf).getStruct();
+        Struct li_ = DirRender.processEl(list_, 0, _conf).getStruct();
         if (_conf.getContext().getException() != null) {
             return;
         }
@@ -3475,12 +3475,12 @@ public final class FormatHtml {
                 _conf.getLastPage().setOffset(1);
                 IdList<Struct> defaults_ = new IdList<Struct>();
                 if (!_multiple) {
-                    defaults_.add(ElRenderUtil.processEl(command_, 0, _conf).getStruct());
+                    defaults_.add(DirRender.processEl(command_, 0, _conf).getStruct());
                     if (_conf.getContext().getException() != null) {
                         return;
                     }
                 } else {
-                    li_ = ElRenderUtil.processEl(command_, 0, _conf).getStruct();
+                    li_ = DirRender.processEl(command_, 0, _conf).getStruct();
                     if (_conf.getContext().getException() != null) {
                         return;
                     }
@@ -3599,7 +3599,7 @@ public final class FormatHtml {
             _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_VAR_VALUE);
             _conf.getLastPage().setLookForAttrValue(true);
             _conf.getLastPage().setOffset(0);
-            returnedVarValue_ = ElRenderUtil.processEl(varValue_, 0, _conf).getStruct();
+            returnedVarValue_ = DirRender.processEl(varValue_, 0, _conf).getStruct();
             if (_conf.getContext().getException() != null) {
                 return;
             }
@@ -3607,7 +3607,7 @@ public final class FormatHtml {
         _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_MAP);
         _conf.getLastPage().setLookForAttrValue(true);
         _conf.getLastPage().setOffset(0);
-        Struct map_ = ElRenderUtil.processEl(_map, 0, _conf).getStruct();
+        Struct map_ = DirRender.processEl(_map, 0, _conf).getStruct();
         if (_conf.getContext().getException() != null) {
             return;
         }
@@ -3633,7 +3633,7 @@ public final class FormatHtml {
                 _conf.getLastPage().setProcessingAttribute(DEFAULT_ATTRIBUTE);
                 _conf.getLastPage().setLookForAttrValue(true);
                 _conf.getLastPage().setOffset(1);
-                Struct defaultEnum_ = ElRenderUtil.processEl(default_, 1, _conf).getStruct();
+                Struct defaultEnum_ = DirRender.processEl(default_, 1, _conf).getStruct();
                 if (_conf.getContext().getException() != null) {
                     return;
                 }
@@ -4301,7 +4301,7 @@ public final class FormatHtml {
             _ip.setProcessingAttribute(ATTRIBUTE_LIST);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            container_ = ElRenderUtil.processEl(listAttr_, 0, _conf).getStruct();
+            container_ = DirRender.processEl(listAttr_, 0, _conf).getStruct();
             if (_conf.getContext().getException() != null) {
                 return;
             }
@@ -4316,7 +4316,7 @@ public final class FormatHtml {
             _ip.setProcessingAttribute(ATTRIBUTE_MAP);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            container_ = ElRenderUtil.processEl(mapAttr_, 0, _conf).getStruct();
+            container_ = DirRender.processEl(mapAttr_, 0, _conf).getStruct();
             if (_conf.getContext().getException() != null) {
                 return;
             }
@@ -4333,7 +4333,7 @@ public final class FormatHtml {
             _ip.setProcessingAttribute(ATTRIBUTE_FROM);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            Argument argFrom_ = ElRenderUtil.processEl(from_, 0, _conf);
+            Argument argFrom_ = DirRender.processEl(from_, 0, _conf);
             if (_conf.getContext().getException() != null) {
                 return;
             }
@@ -4356,7 +4356,7 @@ public final class FormatHtml {
             _ip.setProcessingAttribute(ATTRIBUTE_TO);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            Argument argTo_ = ElRenderUtil.processEl(to_, 0, _conf);
+            Argument argTo_ = DirRender.processEl(to_, 0, _conf);
             if (_conf.getContext().getException() != null) {
                 return;
             }
@@ -4379,7 +4379,7 @@ public final class FormatHtml {
             _ip.setProcessingAttribute(ATTRIBUTE_STEP);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            Argument argStep_ = ElRenderUtil.processEl(step_, 0, _conf);
+            Argument argStep_ = DirRender.processEl(step_, 0, _conf);
             if (_conf.getContext().getException() != null) {
                 return;
             }

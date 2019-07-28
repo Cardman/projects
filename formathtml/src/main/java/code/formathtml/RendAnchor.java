@@ -58,7 +58,7 @@ public final class RendAnchor extends RendElement {
                 pref_ = StringList.concat(pref_,"()");
             }
             boolean st_ = _doc.isStaticContext();
-            ElRenderUtil.getAnalyzedOperations(pref_,0,_cont,Calculation.staticCalculation(st_));
+            RenderExpUtil.getAnalyzedOperations(pref_,0,_cont,Calculation.staticCalculation(st_));
         }
     }
 

@@ -16,7 +16,7 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.Configuration;
-import code.formathtml.ElRenderUtil;
+import code.formathtml.RenderExpUtil;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.structs.BeanStruct;
@@ -550,7 +550,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         iteratorVar = locName_;
         String simpleIterator_ = getAliasSimpleIterator();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(simpleIterator_,PARS));
-        expsIterator = ElRenderUtil.getAnalyzedOperations(exp_,0, _context, Calculation.staticCalculation(true));
+        expsIterator = RenderExpUtil.getAnalyzedOperations(exp_,0, _context, Calculation.staticCalculation(true));
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(getAliasSimpleIteratorType());
@@ -558,7 +558,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         hasNextVar = locName_;
         String hasNext_ = getAliasHasNext();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNext_,PARS));
-        expsHasNext = ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+        expsHasNext = RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(getAliasSimpleIteratorType());
@@ -566,7 +566,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         nextVar = locName_;
         String next_ = getAliasNext();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(next_,PARS));
-        expsNext = ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+        expsNext = RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(getAliasDisplayable());
@@ -574,28 +574,28 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         displayVar = locName_;
         String display_ = getAliasDisplay();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(display_,PARS));
-        expsDisplay = ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+        expsDisplay = RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
 
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getCustMap()));
         _context.getInternVars().put(locName_, locVar_);
         iteratorTableVarCust= locName_;
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(ENTRIES,PARS));
-        expsIteratorTableCust= ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+        expsIteratorTableCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getCustEntry()));
         _context.getInternVars().put(locName_, locVar_);
         firstVarCust= locName_;
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(GET_KEY,PARS));
-        expsFirstCust= ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+        expsFirstCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
         locName_ = context_.getNextTempVar();
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getCustEntry()));
         _context.getInternVars().put(locName_, locVar_);
         secondVarCust= locName_;
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(GET_VALUE,PARS));
-        expsSecondCust= ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+        expsSecondCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
         _context.clearPages();
     }
     @Override
@@ -749,7 +749,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
             locVar_.setClassName(arg_);
             locVar_.setStruct(struct_);
             _cont.getLastPage().getInternVars().put(displayVar, locVar_);
-            struct_ = ElRenderUtil.calculateReuse(getExpsDisplay(), _cont).getStruct();
+            struct_ = RenderExpUtil.calculateReuse(getExpsDisplay(), _cont).getStruct();
             return ((DisplayableStruct)struct_).getDisplayedString(_cont).getInstance();
         }
         return _arg.getObjectClassName(context_);

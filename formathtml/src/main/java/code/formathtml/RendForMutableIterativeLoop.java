@@ -155,7 +155,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         if (init.trim().isEmpty()) {
             opInit = new CustList<RendDynOperationNode>();
         } else {
-            opInit = ElRenderUtil.getAnalyzedOperations(init,0, _cont, Calculation.staticCalculation(static_));
+            opInit = RenderExpUtil.getAnalyzedOperations(init,0, _cont, Calculation.staticCalculation(static_));
         }
         if (_cont.isMerged()) {
             StringList vars_ = _cont.getVariablesNames();
@@ -169,7 +169,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         if (expression.trim().isEmpty()) {
             opExp = new CustList<RendDynOperationNode>();
         } else {
-            opExp = ElRenderUtil.getAnalyzedOperations(expression, 0,_cont, Calculation.staticCalculation(static_));
+            opExp = RenderExpUtil.getAnalyzedOperations(expression, 0,_cont, Calculation.staticCalculation(static_));
         }
         if (!opExp.isEmpty()) {
             RendDynOperationNode elCondition_ = opExp.last();
@@ -197,7 +197,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         if (step.trim().isEmpty()) {
             opStep = new CustList<RendDynOperationNode>();
         } else {
-            opStep = ElRenderUtil.getAnalyzedOperations(step, 0, _an, Calculation.staticCalculation(static_));
+            opStep = RenderExpUtil.getAnalyzedOperations(step, 0, _an, Calculation.staticCalculation(static_));
         }
         _an.setMerged(false);
     }
@@ -205,15 +205,15 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
     public void reduce(Configuration _context) {
         if (!opInit.isEmpty()) {
             RendDynOperationNode i_ = opInit.last();
-            opInit = ElRenderUtil.getReducedNodes(i_);
+            opInit = RenderExpUtil.getReducedNodes(i_);
         }
         if (!opExp.isEmpty()) {
             RendDynOperationNode e_ = opExp.last();
-            opExp = ElRenderUtil.getReducedNodes(e_);
+            opExp = RenderExpUtil.getReducedNodes(e_);
         }
         if (!opStep.isEmpty()) {
             RendDynOperationNode s_ = opStep.last();
-            opStep = ElRenderUtil.getReducedNodes(s_);
+            opStep = RenderExpUtil.getReducedNodes(s_);
         }
     }
 
@@ -240,7 +240,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             ip_.getVars().put(v, lv_);
         }
         if (!opInit.isEmpty()) {
-            ElRenderUtil.calculateReuse(opInit,_cont);
+            RenderExpUtil.calculateReuse(opInit,_cont);
             if (_cont.getContext().hasExceptionOrFailInit()) {
                 return;
             }
@@ -272,7 +272,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         }
         last_.setOffset(expressionOffset);
         last_.setProcessingAttribute(ATTRIBUTE_CONDITION);
-        Argument arg_ = ElRenderUtil.calculateReuse(opExp,_context);
+        Argument arg_ = RenderExpUtil.calculateReuse(opExp,_context);
         if (_context.getContext().hasExceptionOrFailInit()) {
             return null;
         }
@@ -293,7 +293,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         ip_.setOffset(stepOffset);
         ip_.setProcessingAttribute(ATTRIBUTE_STEP);
         if (!opStep.isEmpty()) {
-            ElRenderUtil.calculateReuse(opStep,_conf);
+            RenderExpUtil.calculateReuse(opStep,_conf);
             if (_conf.getContext().hasExceptionOrFailInit()) {
                 return;
             }

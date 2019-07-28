@@ -51,7 +51,7 @@ public abstract class RendInput extends RendElement {
                 lv_.setClassName(string_);
                 _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
                 String preRend_ = StringList.concat(converterValue_,"(",BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),")");
-                opsConverter = ElRenderUtil.getAnalyzedOperations(preRend_,0,_cont,Calculation.staticCalculation(st_));
+                opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_,0,_cont,Calculation.staticCalculation(st_));
                 for (String v:varNames_) {
                     _cont.getLocalVarsAna().last().removeKey(v);
                 }

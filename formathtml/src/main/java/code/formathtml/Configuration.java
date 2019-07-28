@@ -217,12 +217,8 @@ public final class Configuration implements ExecutableCode {
             }
         }
         for (EntryCust<String, String> e: getLateValidators().entryList()) {
-            Struct str_ = ElRenderUtil.processEl(StringList.concat(INSTANCE,e.getValue(),NO_PARAM), 0, this).getStruct();
+            Struct str_ = RenderExpUtil.processEl(StringList.concat(INSTANCE,e.getValue(),NO_PARAM), 0, this).getStruct();
             getBuiltValidators().put(e.getKey(), str_);
-        }
-        for (EntryCust<String, String> e: getLateTranslators().entryList()) {
-            Struct str_ = ElRenderUtil.processEl(StringList.concat(INSTANCE,e.getValue(),NO_PARAM), 0, this).getStruct();
-            getBuiltTranslators().put(e.getKey(), str_);
         }
     }
 
@@ -293,7 +289,7 @@ public final class Configuration implements ExecutableCode {
 
     public Struct newSimpleBean(String _language, Object _dataBase, BeanInfo _bean) {
         addPage(new ImportingPage(false));
-        Struct strBean_ = ElRenderUtil.processEl(StringList.concat(INSTANCE,_bean.getClassName(),NO_PARAM), 0, this).getStruct();
+        Struct strBean_ = DirRender.processEl(StringList.concat(INSTANCE,_bean.getClassName(),NO_PARAM), 0, this).getStruct();
         if (context.getException() != null) {
             removeLastPage();
             return NullStruct.NULL_VALUE;
@@ -331,7 +327,7 @@ public final class Configuration implements ExecutableCode {
     }
     public Struct newSimpleBean(String _language, Struct _dataBase, BeanInfo _bean) {
         addPage(new ImportingPage(false));
-        Struct strBean_ = ElRenderUtil.processEl(StringList.concat(INSTANCE,_bean.getClassName(),NO_PARAM), 0, this).getStruct();
+        Struct strBean_ = RenderExpUtil.processEl(StringList.concat(INSTANCE,_bean.getClassName(),NO_PARAM), 0, this).getStruct();
         BeanStruct str_ = (BeanStruct) strBean_;
         Bean bean_ = str_.getBean();
         Object db_ = null;
@@ -347,7 +343,7 @@ public final class Configuration implements ExecutableCode {
     }
     Struct newBean(String _language, Struct _bean) {
         addPage(new ImportingPage(false));
-        Struct strBean_ = ElRenderUtil.processEl(StringList.concat(INSTANCE,_bean.getClassName(getContext()),NO_PARAM), 0, this).getStruct();
+        Struct strBean_ = DirRender.processEl(StringList.concat(INSTANCE,_bean.getClassName(getContext()),NO_PARAM), 0, this).getStruct();
         if (context.getException() != null) {
             removeLastPage();
             return NullStruct.NULL_VALUE;
@@ -391,7 +387,7 @@ public final class Configuration implements ExecutableCode {
     }
     Struct newBean(String _language, Struct _bean, BeanInfo _info) {
         addPage(new ImportingPage(false));
-        Argument arg_ = ElRenderUtil.calculateReuse(_info.getExps(), this);
+        Argument arg_ = RenderExpUtil.calculateReuse(_info.getExps(), this);
         if (context.getException() != null) {
             removeLastPage();
             return NullStruct.NULL_VALUE;

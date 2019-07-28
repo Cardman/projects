@@ -91,7 +91,7 @@ public final class ResultInput {
         String name_ = _read.getAttribute(ATTRIBUTE_NAME);
         boolean st_ = _doc.isStaticContext();
         if (!name_.isEmpty()) {
-            opsRead = ElRenderUtil.getAnalyzedOperations(name_, 0, _cont, Calculation.staticCalculation(st_));
+            opsRead = RenderExpUtil.getAnalyzedOperations(name_, 0, _cont, Calculation.staticCalculation(st_));
             RendDynOperationNode last_ = opsRead.last();
             RendDynOperationNode res_;
             if (last_ instanceof RendIdOperation) {
@@ -131,7 +131,7 @@ public final class ResultInput {
                 String accessClass_ = StringList.concat(_cont.getKeyWords().getKeyWordClasschoice(),"(",idField.getClassName(),")");
                 String assessField_ = StringList.concat("(",BeanCustLgNames.sufficLocal(_cont.getContext(),varPrevLoc_),").",accessClass_,idField.getFieldName());
                 String preRend_ = StringList.concat(assessField_,"=",BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_));
-                opsWrite = ElRenderUtil.getAnalyzedOperations(preRend_,0,_cont,Calculation.staticCalculation(st_));
+                opsWrite = RenderExpUtil.getAnalyzedOperations(preRend_,0,_cont,Calculation.staticCalculation(st_));
                 for (String v:varNames_) {
                     _cont.getLocalVarsAna().last().removeKey(v);
                 }
@@ -139,7 +139,7 @@ public final class ResultInput {
         }
         if (_read.hasAttribute(_varValue)) {
             String value_ = _read.getAttribute(_varValue);
-            opsValue = ElRenderUtil.getAnalyzedOperations(value_, 0, _cont, Calculation.staticCalculation(st_));
+            opsValue = RenderExpUtil.getAnalyzedOperations(value_, 0, _cont, Calculation.staticCalculation(st_));
         }
     }
 

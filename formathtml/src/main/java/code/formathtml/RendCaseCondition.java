@@ -60,7 +60,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             _cont.getClasses().addError(un_);
-            opValue = ElRenderUtil.getAnalyzedOperations(value,0, _cont, Calculation.staticCalculation(stCtx_));
+            opValue = RenderExpUtil.getAnalyzedOperations(value,0, _cont, Calculation.staticCalculation(stCtx_));
             return;
         }
         RendSwitchBlock sw_ = (RendSwitchBlock) par_;
@@ -91,7 +91,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
                     checkDuplicateEnumCase(_cont);
                     return;
                 }
-                opValue = ElRenderUtil.getAnalyzedOperations(value, 0,_cont, Calculation.staticCalculation(stCtx_));
+                opValue = RenderExpUtil.getAnalyzedOperations(value, 0,_cont, Calculation.staticCalculation(stCtx_));
                 Argument a_ = opValue.last().getArgument();
                 if (Argument.isNullValue(a_)) {
                     checkDuplicateCase(_cont, a_);
@@ -105,7 +105,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
                 return;
             }
         }
-        opValue = ElRenderUtil.getAnalyzedOperations(value,0, _cont, Calculation.staticCalculation(stCtx_));
+        opValue = RenderExpUtil.getAnalyzedOperations(value,0, _cont, Calculation.staticCalculation(stCtx_));
         RendDynOperationNode op_ = opValue.last();
         ClassArgumentMatching resCase_ = op_.getResultClass();
         if (resCase_.matchVoid(_cont)) {

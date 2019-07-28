@@ -223,7 +223,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         Configuration context_ = contextElThird(filesSec_);
         context_.setBeans(new StringMap<Bean>());
         addImportingPage(context_);
-        Struct bean_ = ElRenderUtil.processEl("$new pkg.BeanOne()", 0, context_).getStruct();
+        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, context_).getStruct();
         context_.getBuiltBeans().put("bean_one",bean_);
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
@@ -485,7 +485,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         Configuration context_ = contextElThird(filesSec_);
         context_.setBeans(new StringMap<Bean>());
         addImportingPage(context_);
-        Struct bean_ = ElRenderUtil.processEl("$new pkg.BeanOne()", 0, context_).getStruct();
+        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, context_).getStruct();
         context_.getBuiltBeans().put("bean_one",bean_);
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
@@ -522,7 +522,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         Configuration context_ = contextElThird(filesSec_);
         context_.setBeans(new StringMap<Bean>());
         addImportingPage(context_);
-        Struct bean_ = ElRenderUtil.processEl("$new pkg.BeanOne()", 0, context_).getStruct();
+        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, context_).getStruct();
         context_.getBuiltBeans().put("bean_one",bean_);
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
@@ -743,7 +743,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         Configuration context_ = contextElThird(filesSec_);
         context_.setBeans(new StringMap<Bean>());
         addImportingPage(context_);
-        Struct bean_ = ElRenderUtil.processEl("$new pkg.BeanOne()", 0, context_).getStruct();
+        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, context_).getStruct();
         context_.getBuiltBeans().put("bean_one",bean_);
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());

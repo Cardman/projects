@@ -1,10 +1,8 @@
 package code.formathtml;
 
 import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.methods.FunctionBlock;
 import code.expressionlanguage.opers.Calculation;
 import code.formathtml.exec.RendDynOperationNode;
 import code.util.CustList;
@@ -34,7 +32,7 @@ public final class RendLine extends RendLeaf implements RendWithEl, RendReducabl
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_VALUE);
-        opExp = ElRenderUtil.getAnalyzedOperations(expression,0,_cont, Calculation.staticCalculation(st_));
+        opExp = RenderExpUtil.getAnalyzedOperations(expression,0,_cont, Calculation.staticCalculation(st_));
         if (_cont.isMerged()) {
             StringList vars_ = _cont.getVariablesNames();
             ((RendDeclareVariable)getPreviousSibling()).getVariableNames().addAllElts(vars_);
@@ -46,7 +44,7 @@ public final class RendLine extends RendLeaf implements RendWithEl, RendReducabl
     @Override
     public void reduce(Configuration _context) {
         RendDynOperationNode r_ = opExp.last();
-        opExp = ElRenderUtil.getReducedNodes(r_);
+        opExp = RenderExpUtil.getReducedNodes(r_);
     }
 
     @Override
@@ -54,7 +52,7 @@ public final class RendLine extends RendLeaf implements RendWithEl, RendReducabl
         ImportingPage ip_ = _cont.getLastPage();
         ip_.setOffset(expressionOffset);
         ip_.setProcessingAttribute(ATTRIBUTE_VALUE);
-        ElRenderUtil.calculateReuse(opExp, _cont);
+        RenderExpUtil.calculateReuse(opExp, _cont);
         if (_cont.getContext().hasExceptionOrFailInit()) {
             return;
         }

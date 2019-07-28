@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.structs.*;
@@ -450,8 +449,8 @@ public abstract class RendBlock {
         String language_ = a_.getLanguage();
         StringMap<String> files_ = a_.getFiles();
         String[] resourcesFolder_ = a_.getResourcesFolder();
-        String content_ = ExtractFromResources.tryGetContent(_cont, language_, fileName_, files_, resourcesFolder_);
-        int index_ = ExtractFromResources.indexCorrectMessages(content_);
+        String content_ = RendExtractFromResources.tryGetContent(_cont, language_, fileName_, files_, resourcesFolder_);
+        int index_ = RendExtractFromResources.indexCorrectMessages(content_);
         if (index_ >= 0) {
             BadElRender badEl_ = new BadElRender();
             badEl_.setErrors(_cont.getClasses().getErrorsDet());
@@ -460,9 +459,9 @@ public abstract class RendBlock {
             _cont.getClasses().addError(badEl_);
             return null;
         }
-        StringMap<String> messages_ = ExtractFromResources.getMessages(content_);
+        StringMap<String> messages_ = RendExtractFromResources.getMessages(content_);
         String key_ = elts_.last();
-        String format_ = ExtractFromResources.getQuickFormat(messages_, key_);
+        String format_ = RendExtractFromResources.getQuickFormat(messages_, key_);
         if (format_ == null) {
             BadElRender badEl_ = new BadElRender();
             badEl_.setErrors(_cont.getClasses().getErrorsDet());
@@ -531,7 +530,7 @@ public abstract class RendBlock {
         locVar_.setClassName(stds_.getStructClassName(_arg, _cont.getContext()));
         locVar_.setStruct(_arg);
         _cont.getLastPage().getInternVars().put(locName_, locVar_);
-        Argument arg_ = ElRenderUtil.calculateReuse(stds_.getExpsIteratorTableCust(), _cont);
+        Argument arg_ = RenderExpUtil.calculateReuse(stds_.getExpsIteratorTableCust(), _cont);
         if (_cont.getContext().hasExceptionOrFailInit()) {
             return arg_;
         }
@@ -547,7 +546,7 @@ public abstract class RendBlock {
         locVar_.setClassName(stds_.getStructClassName(_arg, _conf.getContext()));
         locVar_.setStruct(_arg);
         _conf.getLastPage().getInternVars().put(locName_, locVar_);
-        return ElRenderUtil.calculateReuse(stds_.getExpsHasNextPairCust(),_conf);
+        return RenderExpUtil.calculateReuse(stds_.getExpsHasNextPairCust(),_conf);
     }
     protected static Argument nextPair(Struct _arg,Configuration _conf) {
         String locName_ = _conf.getAdvStandards().getNextPairVarCust();
@@ -556,7 +555,7 @@ public abstract class RendBlock {
         locVar_.setClassName(stds_.getStructClassName(_arg, _conf.getContext()));
         locVar_.setStruct(_arg);
         _conf.getLastPage().getInternVars().put(locName_, locVar_);
-        return ElRenderUtil.calculateReuse(stds_.getExpsNextPairCust(), _conf);
+        return RenderExpUtil.calculateReuse(stds_.getExpsNextPairCust(), _conf);
     }
     protected static Argument first(Struct _arg,Configuration _conf) {
         String locName_ = _conf.getAdvStandards().getFirstVarCust();
@@ -565,7 +564,7 @@ public abstract class RendBlock {
         locVar_.setClassName(stds_.getStructClassName(_arg, _conf.getContext()));
         locVar_.setStruct(_arg);
         _conf.getLastPage().getInternVars().put(locName_, locVar_);
-        return ElRenderUtil.calculateReuse(stds_.getExpsFirstCust(),_conf);
+        return RenderExpUtil.calculateReuse(stds_.getExpsFirstCust(),_conf);
     }
     protected static Argument second(Struct _arg,Configuration _conf) {
         String locName_ = _conf.getAdvStandards().getSecondVarCust();
@@ -574,7 +573,7 @@ public abstract class RendBlock {
         locVar_.setClassName(stds_.getStructClassName(_arg, _conf.getContextEl()));
         locVar_.setStruct(_arg);
         _conf.getLastPage().getInternVars().put(locName_, locVar_);
-        return ElRenderUtil.calculateReuse(stds_.getExpsSecondCust(),_conf);
+        return RenderExpUtil.calculateReuse(stds_.getExpsSecondCust(),_conf);
     }
     protected static Argument iterator(Struct _arg,Configuration _cont) {
         String locName_ = _cont.getAdvStandards().getIteratorVar();
@@ -583,7 +582,7 @@ public abstract class RendBlock {
         locVar_.setClassName(stds_.getStructClassName(_arg, _cont.getContext()));
         locVar_.setStruct(_arg);
         _cont.getLastPage().getInternVars().put(locName_, locVar_);
-        return ElRenderUtil.calculateReuse(stds_.getExpsIterator(),_cont);
+        return RenderExpUtil.calculateReuse(stds_.getExpsIterator(),_cont);
     }
     protected static Argument hasNext(Struct _arg,Configuration _cont) {
         String locName_ = _cont.getAdvStandards().getHasNextVar();
@@ -592,7 +591,7 @@ public abstract class RendBlock {
         locVar_.setClassName(stds_.getStructClassName(_arg, _cont.getContext()));
         locVar_.setStruct(_arg);
         _cont.getLastPage().getInternVars().put(locName_, locVar_);
-        return ElRenderUtil.calculateReuse(stds_.getExpsHasNext(),_cont);
+        return RenderExpUtil.calculateReuse(stds_.getExpsHasNext(),_cont);
     }
     protected static Argument next(Struct _arg,Configuration _cont) {
         String locName_ = _cont.getAdvStandards().getNextVar();
@@ -601,7 +600,7 @@ public abstract class RendBlock {
         locVar_.setClassName(stds_.getStructClassName(_arg, _cont.getContext()));
         locVar_.setStruct(_arg);
         _cont.getLastPage().getInternVars().put(locName_, locVar_);
-        return ElRenderUtil.calculateReuse(stds_.getExpsNext(),_cont);
+        return RenderExpUtil.calculateReuse(stds_.getExpsNext(),_cont);
     }
     protected static void beforeDisplaying(Struct _arg,Configuration _cont) {
         if (_arg == null) {
@@ -628,7 +627,7 @@ public abstract class RendBlock {
         CustList<RendDynOperationNode> opsWrite_ = _f.getOpsWrite();
         ClassField idField_ = _f.getIdField();
         String varName_ = _f.getVarName();
-        IdMap<RendDynOperationNode, ArgumentsPair> args_ = ElRenderUtil.getAllArgs(opsRead_, _cont);
+        IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(opsRead_, _cont);
         if (_cont.getContext().hasExceptionOrFailInit()) {
             return Argument.createVoid();
         }
@@ -701,7 +700,7 @@ public abstract class RendBlock {
         if (_list.isEmpty()) {
             return _list;
         }
-        return ElRenderUtil.getReducedNodes(_list.last());
+        return RenderExpUtil.getReducedNodes(_list.last());
     }
 
     protected static void fetchValue(Configuration _cont, Element _read, Element _write, CustList<RendDynOperationNode> _ops) {
@@ -719,7 +718,7 @@ public abstract class RendBlock {
             return;
         }
         if (StringList.quickEq(_read.getTagName(),INPUT_TAG)) {
-            Argument o_ = ElRenderUtil.calculateReuse(_ops,_cont);
+            Argument o_ = RenderExpUtil.calculateReuse(_ops,_cont);
             if (_cont.getContext().getException() != null) {
                 return;
             }
@@ -736,7 +735,7 @@ public abstract class RendBlock {
             }
         }
         if (StringList.quickEq(_read.getTagName(),TEXT_AREA)) {
-            Argument o_ = ElRenderUtil.calculateReuse(_ops,_cont);
+            Argument o_ = RenderExpUtil.calculateReuse(_ops,_cont);
             if (_cont.getContext().getException() != null) {
                 return;
             }

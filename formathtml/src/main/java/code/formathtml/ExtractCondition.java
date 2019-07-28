@@ -44,14 +44,14 @@ final class ExtractCondition {
             _ip.setProcessingAttribute(ATTRIBUTE_REF_EQ);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            Struct argTwo_ = ElRenderUtil.processEl(refEq_, 0, _conf).getStruct();
+            Struct argTwo_ = DirRender.processEl(refEq_, 0, _conf).getStruct();
             return ((BooleanStruct) argTwo_).getInstance();
         }
         if (return_ && !condition_.isEmpty()) {
             _ip.setProcessingAttribute(ATTRIBUTE_CONDITION);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            Argument a_ = ElRenderUtil.processEl(condition_, 0, _conf);
+            Argument a_ = DirRender.processEl(condition_, 0, _conf);
             Struct o_ = a_.getStruct();
             if (!(o_ instanceof BooleanStruct)) {
                 Mapping mapping_ = new Mapping();

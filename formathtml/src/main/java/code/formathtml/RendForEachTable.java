@@ -117,7 +117,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
     @Override
     public void reduce(Configuration _context) {
         RendDynOperationNode r_ = opList.last();
-        opList = ElRenderUtil.getReducedNodes(r_);
+        opList = RenderExpUtil.getReducedNodes(r_);
     }
 
     private StringList getCustomType(StringList _names, Configuration _context) {
@@ -212,7 +212,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         page_.setOffset(0);
         _cont.getAnalyzingDoc().setAttribute(ATTRIBUTE_MAP);
         boolean static_ = _doc.isStaticContext();
-        opList = ElRenderUtil.getAnalyzedOperations(expression, 0, _cont, Calculation.staticCalculation(static_));
+        opList = RenderExpUtil.getAnalyzedOperations(expression, 0, _cont, Calculation.staticCalculation(static_));
     }
 
     public void checkIterableCandidates(StringList _types, Configuration _cont) {
@@ -372,7 +372,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         ImportingPage ip_ = _conf.getLastPage();
         ip_.setOffset(expressionOffset);
         ip_.setProcessingAttribute(ATTRIBUTE_MAP);
-        Argument arg_ = ElRenderUtil.calculateReuse(opList,_conf);
+        Argument arg_ = RenderExpUtil.calculateReuse(opList,_conf);
         if (_conf.getContext().hasExceptionOrFailInit()) {
             return NullStruct.NULL_VALUE;
         }

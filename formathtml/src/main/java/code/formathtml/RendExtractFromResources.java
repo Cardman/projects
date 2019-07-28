@@ -6,7 +6,7 @@ import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class ExtractFromResources {
+public final class RendExtractFromResources {
     static final String RETURN_LINE = "\n";
     private static final String SEPARATOR_PATH = "/";
     private static final String IMPLICIT_LANGUAGE = "//";
@@ -15,13 +15,7 @@ public final class ExtractFromResources {
     private static final String TAB = "\t";
     private static final String EQUALS = "=";
     private static final String BEFORE_LINE_RETURN = "\r\n";
-    private ExtractFromResources() {
-    }
-
-    public static String loadPage(String _lg, Configuration _conf, StringMap<String> _files, String _link, String... _resourcesFolder) {
-        String link_ = getRealFilePath(_lg,_link);
-        String contents_ = getContentFile(_conf, _files, link_, _resourcesFolder);
-        return contents_;
+    private RendExtractFromResources() {
     }
 
     static String getRealFilePath(String _lg, String _link) {
@@ -40,6 +34,10 @@ public final class ExtractFromResources {
         return value_;
     }
 
+    static String getQuickFormat(StringMap<String> _messages, String _key) {
+        String value_ = _messages.getVal(_key);
+        return value_;
+    }
     static StringMap<String> getInnerMessagesFromLocaleClass(Configuration _conf, String _loc, String _relative, StringMap<String> _files, String... _resourcesFolder) {
         String content_ = tryGetContent(_conf,_loc,_relative,_files,_resourcesFolder);
         if (_conf.getContext().getException() != null) {
@@ -117,9 +115,6 @@ public final class ExtractFromResources {
                 content_ = e.getValue();
                 break;
             }
-        }
-        if (content_ == null) {
-            _conf.getContext().setException(NullStruct.NULL_VALUE);
         }
         return content_;
     }

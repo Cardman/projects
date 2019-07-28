@@ -10,7 +10,7 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.Configuration;
-import code.formathtml.ElRenderUtil;
+import code.formathtml.RenderExpUtil;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.structs.StdStruct;
@@ -19,7 +19,6 @@ import code.sml.Node;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.StringMapObject;
 import code.util.ints.MathFactory;
 
 public abstract class BeanLgNames extends LgNames {
@@ -320,7 +319,7 @@ public abstract class BeanLgNames extends LgNames {
                 }
                 _conf.getLastPage().putLocalVar(varNameConvert_, lv_);
                 _conf.getLastPage().setGlobalArgumentStruct(bean_, _conf);
-                Argument res_ = ElRenderUtil.calculateReuse(ops_, _conf);
+                Argument res_ = RenderExpUtil.calculateReuse(ops_, _conf);
                 ResultErrorStd out_ = new ResultErrorStd();
                 if (_conf.getContext().hasExceptionOrFailInit()) {
                     return out_;

@@ -7,14 +7,12 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.stds.IterableAnalysisResult;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exec.RendDynOperationNode;
-import code.formathtml.exec.RendFctOperation;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.*;
 import code.sml.*;
@@ -65,7 +63,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         boolean st_ = _doc.isStaticContext();
         multiple = elt.hasAttribute(ATTRIBUTE_MULTIPLE);
         String map_ = elt.getAttribute(ATTRIBUTE_MAP);
-        opsMap = ElRenderUtil.getAnalyzedOperations(map_, 0, _cont, Calculation.staticCalculation(st_));
+        opsMap = RenderExpUtil.getAnalyzedOperations(map_, 0, _cont, Calculation.staticCalculation(st_));
         String converterValue_ = elt.getAttribute(ATTRIBUTE_CONVERT_VALUE);
         if (_cont.getAdvStandards() instanceof BeanCustLgNames) {
             if (multiple) {
@@ -86,7 +84,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 lv_.setClassName(PrimitiveTypeUtil.getPrettyArrayType(string_));
                 _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
                 String preRend_ = StringList.concat(converterValue_,"(",BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),")");
-                opsConverter = ElRenderUtil.getAnalyzedOperations(preRend_,0,_cont,Calculation.staticCalculation(st_));
+                opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_,0,_cont,Calculation.staticCalculation(st_));
                 for (String v:varNames_) {
                     _cont.getLocalVarsAna().last().removeKey(v);
                 }
@@ -133,7 +131,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                     lv_.setClassName(string_);
                     _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
                     String preRend_ = StringList.concat(converterValue_,"(",BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),")");
-                    opsConverter = ElRenderUtil.getAnalyzedOperations(preRend_,0,_cont,Calculation.staticCalculation(st_));
+                    opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_,0,_cont,Calculation.staticCalculation(st_));
                     for (String v:varNames_) {
                         _cont.getLocalVarsAna().last().removeKey(v);
                     }
@@ -156,7 +154,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                     lv_.setClassName(string_);
                     _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
                     String preRend_ = StringList.concat(converterValue_,"(",BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),")");
-                    opsConverter = ElRenderUtil.getAnalyzedOperations(preRend_,0,_cont,Calculation.staticCalculation(st_));
+                    opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_,0,_cont,Calculation.staticCalculation(st_));
                     for (String v:varNames_) {
                         _cont.getLocalVarsAna().last().removeKey(v);
                     }
@@ -184,7 +182,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 _cont.getClasses().addError(badEl_);
             }
             String concat_ = StringList.concat(mName_,"(\"",default_,"\")");
-            opsDefault = ElRenderUtil.getAnalyzedOperations(concat_,0,_cont,Calculation.staticCalculation(st_));
+            opsDefault = RenderExpUtil.getAnalyzedOperations(concat_,0,_cont,Calculation.staticCalculation(st_));
             Mapping m_ = new Mapping();
             m_.setArg(opsDefault.last().getResultClass());
             if (!multiple) {
@@ -222,11 +220,11 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
 
     @Override
     public void processEl(Configuration _cont) {
-        Argument value_ = ElRenderUtil.calculateReuse(opsValue, _cont);
+        Argument value_ = RenderExpUtil.calculateReuse(opsValue, _cont);
         if (_cont.getContext().getException() != null) {
             return;
         }
-        Argument map_ = ElRenderUtil.calculateReuse(opsMap, _cont);
+        Argument map_ = RenderExpUtil.calculateReuse(opsMap, _cont);
         if (_cont.getContext().getException() != null) {
             return;
         }
@@ -285,7 +283,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
 
     private void processOptionsMapEnum(Configuration _conf, Struct _extractedMap,
                                        Document _docSelect, Element _docElementSelect) {
-        Argument argDef_ = ElRenderUtil.calculateReuse(opsDefault, _conf);
+        Argument argDef_ = RenderExpUtil.calculateReuse(opsDefault, _conf);
         if (_conf.getContext().hasExceptionOrFailInit()) {
             return;
         }

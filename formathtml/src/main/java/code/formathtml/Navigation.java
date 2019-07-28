@@ -235,7 +235,7 @@ public final class Navigation {
         String keyWordNew_ = session.getKeyWords().getKeyWordNew();
         for (EntryCust<String, BeanInfo> e: session.getBeansInfos().entryList()) {
             BeanInfo info_ = e.getValue();
-            CustList<RendDynOperationNode> exps_ = ElRenderUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", info_.getClassName(), "()"), 0, session, Calculation.staticCalculation(true));
+            CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", info_.getClassName(), "()"), 0, session, Calculation.staticCalculation(true));
             info_.setExps(exps_);
         }
         if (!session.getClasses().isEmptyErrors()) {
@@ -248,7 +248,7 @@ public final class Navigation {
             return;
         }
         String currentUrl_ = session.getFirstUrl();
-        String realFilePath_ = ExtractFromResources.getRealFilePath(language, currentUrl_);
+        String realFilePath_ = RendExtractFromResources.getRealFilePath(language, currentUrl_);
         String text_ = files.getVal(realFilePath_);
         if (text_ == null) {
             return;
@@ -302,7 +302,6 @@ public final class Navigation {
     }
 
     public void processRendAnchorRequest(String _anchorRef) {
-        String textToBeChanged_;
         if (_anchorRef.contains(CALL_METHOD)) {
             session.clearPages();
             HtmlPage htmlPage_ = session.getHtmlPage();
@@ -310,7 +309,6 @@ public final class Navigation {
             ip_.setPrefix(session.getPrefix());
             ip_.setHtml(htmlText);
             session.addPage(ip_);
-            FormatHtml.setEscapedChars(session, session.getDocument(), htmlText);
             Element node_;
             if (htmlPage_.isForm()) {
                 Document doc_ = session.getDocument();
@@ -357,136 +355,95 @@ public final class Navigation {
             String beanName_ = _anchorRef
                     .substring(_anchorRef.indexOf(CALL_METHOD) + 1, indexPoint_);
             ip_.setOffset(_anchorRef.indexOf(CALL_METHOD) + 1);
-            Struct bean_ = getNotNullBean(beanName_);
-            if (session.getContext().getException() != null) {
-                return;
-            }
+            Struct bean_ = getBeanOrNull(beanName_);
             ip_.setOffset(indexPoint_+1);
             ip_.setGlobalArgumentStruct(bean_, session);
             Struct return_;
             if (htmlPage_.isForm()) {
                 if (getArg_) {
-                    return_ = HtmlRequest.invokeMethodWithNumbersBis(
+                    return_ = RendRequestUtil.invokeMethodWithNumbersBis(
                             session, action_);
                 } else {
-                    return_ = HtmlRequest.invokeMethodWithNumbersBis(
+                    return_ = RendRequestUtil.invokeMethodWithNumbersBis(
                             session, StringList.concat(action_,"()"));
                 }
             } else {
-                return_=HtmlRequest.redirect(session,new Argument(bean_),(int)htmlPage_.getUrl());
+                return_=RendRequestUtil.redirect(session,new Argument(bean_),(int)htmlPage_.getUrl());
             }
             if (session.getContext().getException() != null) {
                 return;
             }
-            Argument arg_ = session.getAdvStandards().getForms(bean_, session);
-            if (session.getContext().getException() != null) {
-                return;
-            }
-            Struct forms_ = arg_.getStruct();
             String urlDest_ = currentUrl;
             if (return_ != NullStruct.NULL_VALUE) {
                 ip_.setOffset(_anchorRef.length());
-                urlDest_ = getUrlDest(StringList.concat(beanName_, DOT, methodName_,suffix_), return_);
-                if (session.getContext().getException() != null) {
-                    return;
-                }
+                urlDest_ = getRendUrlDest(StringList.concat(beanName_, DOT, methodName_,suffix_), return_);
                 if (urlDest_ == null) {
                     urlDest_ = currentUrl;
                 }
             }
-            processInitBeans(urlDest_,beanName_,forms_);
-            if (session.getContext().getException() != null) {
-                return;
-            }
-            String currentUrl_ = urlDest_;
-            session.setCurrentUrl(currentUrl_);
-            String dest_ = StringList.getFirstToken(urlDest_, REF_TAG);
-            textToBeChanged_ = files.getVal(dest_);
-            if (textToBeChanged_ == null) {
-                return;
-            }
-            String currentBeanName_;
-            DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(textToBeChanged_);
-            Document doc_ = res_.getDocument();
-            if (doc_ == null) {
-                session.getContext().setException(NullStruct.NULL_VALUE);
-                return;
-            }
-            Element root_ = doc_.getDocumentElement();
-            session.setDocument(doc_);
-            currentBeanName_ = root_.getAttribute(StringList.concat(session.getPrefix(),FormatHtml.BEAN_ATTRIBUTE));
-            bean_ = getNotNullBean(currentBeanName_);
-            if (session.getContext().getException() != null) {
-                return;
-            }
-            session.getAdvStandards().setForms(bean_, forms_,session);
-            RendDocumentBlock rendDocumentBlock_ = session.getRenders().getVal(dest_);
-            textToBeChanged_ = FormatHtml.getRes(rendDocumentBlock_,session);
-            if (textToBeChanged_.isEmpty()) {
-                return;
-            }
-            currentBeanName = currentBeanName_;
-            currentUrl = currentUrl_;
-            setupText(textToBeChanged_);
+            processAfterInvoke(urlDest_,beanName_,bean_);
             return;
         }
         if (_anchorRef.isEmpty()) {
             return;
         }
-        Struct bean_ = getBean(currentBeanName);
+        Struct bean_ = getBeanOrNull(currentBeanName);
+        processAfterInvoke(_anchorRef,currentBeanName,bean_);
+    }
+
+    private Struct getBeanOrNull(String _currentBeanName) {
+        Struct bean_ = getBean(_currentBeanName);
         if (bean_ == null) {
             bean_ = NullStruct.NULL_VALUE;
         }
-        session.addPage(new ImportingPage(false));
-        Argument arg_ = session.getAdvStandards().getForms(bean_, session);
+        return bean_;
+    }
+
+    void processAfterInvoke(String _dest, String _beanName, Struct _bean){
+        Argument arg_ = session.getAdvStandards().getForms(_bean, session);
         if (session.getContext().getException() != null) {
             return;
         }
         Struct forms_ = arg_.getStruct();
-        session.removeLastPage();
-        session.getContext().setException(null);
-        processInitBeans(_anchorRef,currentBeanName,forms_);
+        processInitBeans(_dest,_beanName,forms_);
         if (session.getContext().getException() != null) {
             return;
         }
-        session.setCurrentUrl(_anchorRef);
-        String dest_ = StringList.getFirstToken(_anchorRef, REF_TAG);
-        textToBeChanged_ = files.getVal(dest_);
+        session.setCurrentUrl(_dest);
+        String dest_ = StringList.getFirstToken(_dest, REF_TAG);
+        String textToBeChanged_ = files.getVal(dest_);
         if (textToBeChanged_ == null) {
             return;
         }
+        String currentBeanName_;
         DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(textToBeChanged_);
         Document doc_ = res_.getDocument();
         if (doc_ == null) {
             session.getContext().setException(NullStruct.NULL_VALUE);
             return;
         }
-        String currentBeanName_;
         Element root_ = doc_.getDocumentElement();
         session.setDocument(doc_);
         currentBeanName_ = root_.getAttribute(StringList.concat(session.getPrefix(),FormatHtml.BEAN_ATTRIBUTE));
-        bean_ = getBean(currentBeanName_);
-        if (bean_ == null) {
-            bean_ = NullStruct.NULL_VALUE;
+        Struct bean_ = getBeanOrNull(currentBeanName_);
+        if (session.getContext().getException() != null) {
+            return;
         }
-        session.addPage(new ImportingPage(false));
         session.getAdvStandards().setForms(bean_, forms_,session);
-        session.removeLastPage();
-        session.getContext().setException(null);
         RendDocumentBlock rendDocumentBlock_ = session.getRenders().getVal(dest_);
         textToBeChanged_ = FormatHtml.getRes(rendDocumentBlock_,session);
         if (textToBeChanged_.isEmpty()) {
             return;
         }
         currentBeanName = currentBeanName_;
-        currentUrl = _anchorRef;
+        currentUrl = _dest;
         setupText(textToBeChanged_);
     }
     void processInitBeans(String _dest, String _beanName, Struct _forms) {
         int s_ = session.getBuiltBeans().size();
         for (int i = 0; i < s_; i++) {
             String key_ = session.getBuiltBeans().getKey(i);
-            boolean reinit_ = reinitBean(_dest, _beanName, key_);
+            boolean reinit_ = reinitRendBean(_dest, _beanName, key_);
             if (session.getContext().getException() != null) {
                 break;
             }
@@ -650,10 +607,7 @@ public final class Navigation {
         if (_anchorRef.isEmpty()) {
             return;
         }
-        Struct bean_ = getBean(currentBeanName);
-        if (bean_ == null) {
-            bean_ = NullStruct.NULL_VALUE;
-        }
+        Struct bean_ = getBeanOrNull(currentBeanName);
         Struct forms_;
         session.addPage(new ImportingPage(false));
         forms_ = ExtractObject.getForms(session, bean_);
@@ -817,7 +771,7 @@ public final class Navigation {
             expression_.append(navName_).append(GET_LOC_VAR).append(SEP_ARGS);
             expression_.append(nodName_).append(GET_LOC_VAR).append(SEP_ARGS);
             expression_.append(objName_).append(GET_LOC_VAR).append(END_ARGS);
-            Argument message_ = ElRenderUtil.processEl(expression_.toString(), 0, session);
+            Argument message_ = RenderExpUtil.processEl(expression_.toString(), 0, session);
             if (session.getContext().getException() != null) {
                 return;
             }
@@ -949,7 +903,7 @@ public final class Navigation {
             expression_.append(navName_).append(GET_LOC_VAR).append(SEP_ARGS);
             expression_.append(nodName_).append(GET_LOC_VAR).append(SEP_ARGS);
             expression_.append(objName_).append(GET_LOC_VAR).append(END_ARGS);
-            Argument message_ = ElRenderUtil.processEl(expression_.toString(), 0, session);
+            Argument message_ = DirRender.processEl(expression_.toString(), 0, session);
             if (session.getContext().getException() != null) {
                 return;
             }
@@ -1049,7 +1003,7 @@ public final class Navigation {
             newObj_ = res_.getResult();
             Struct procObj_ = e.getValue().getStruct();
             session.getLastPage().setGlobalArgumentStruct(procObj_, session);
-            HtmlRequest.setRendObject(session, e.getValue(), newObj_);
+            RendRequestUtil.setRendObject(session, e.getValue(), newObj_);
             if (session.getContext().getException() != null) {
                 return;
             }
@@ -1194,6 +1148,30 @@ public final class Navigation {
         return true;
     }
 
+    boolean reinitRendBean(String _dest, String _beanName, String _currentBean) {
+        if (!StringList.quickEq(_currentBean,_beanName)) {
+            return false;
+        }
+        Struct bean_ = getNotNullBean(_currentBean);
+        if (session.getContext().getException() != null) {
+            return false;
+        }
+        session.addPage(new ImportingPage(false));
+        String scope_ = ExtractObject.getScope(session, bean_);
+        session.removeLastPage();
+        if (session.getContext().getException() != null) {
+            return false;
+        }
+        if (StringList.quickEq(scope_,SESSION)) {
+            return false;
+        }
+        if (StringList.quickEq(scope_,PAGE)) {
+            if (StringList.quickEq(currentUrl,StringList.getFirstToken(_dest, REF_TAG))) {
+                return false;
+            }
+        }
+        return true;
+    }
     void setupText(String _text) {
         String textToDisplay_ = _text;
         tooltips.clear();
@@ -1246,6 +1224,15 @@ public final class Navigation {
             session.getContext().setException(NullStruct.NULL_VALUE);
             return EMPTY_STRING;
         }
+        return cases_.getVal(case_);
+    }
+
+    private String getRendUrlDest(String _method, Struct _return) {
+        StringMap<String> cases_ = session.getNavigation().getVal(_method);
+        if (cases_ == null) {
+            return EMPTY_STRING;
+        }
+        String case_ = session.getAdvStandards().processString(new Argument(_return),session);
         return cases_.getVal(case_);
     }
     private Struct getNotNullBean(String _beanName) {

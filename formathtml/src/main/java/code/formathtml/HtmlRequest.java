@@ -62,7 +62,7 @@ final class HtmlRequest {
             varNames_.add(StringList.concat(locName_,GET_LOC_VAR));
             ip_.putLocalVar(locName_, locVar_);
         }
-        Argument arg_ = ElRenderUtil.processEl(StringList.concat(commandExtract_,LEFT_PAR, StringList.join(varNames_, COMMA),RIGHT_PAR), 0, _conf);
+        Argument arg_ = DirRender.processEl(StringList.concat(commandExtract_,LEFT_PAR, StringList.join(varNames_, COMMA),RIGHT_PAR), 0, _conf);
         if (_conf.getContext().getException() != null || !_conf.getClasses().getErrorsDet().isEmpty()) {
             return NullStruct.NULL_VALUE;
         }
@@ -73,59 +73,13 @@ final class HtmlRequest {
     }
 
     static Struct invokeMethodWithNumbersBis(Configuration _conf, String _action) {
-        Argument arg_ = ElRenderUtil.processEl(_action, 0, _conf);
+        Argument arg_ = DirRender.processEl(_action, 0, _conf);
         if (!_conf.getClasses().getErrorsDet().isEmpty() || _conf.getContext().getException() != null) {
             return NullStruct.NULL_VALUE;
         }
         return arg_.getStruct();
     }
 
-    static Struct redirect(Configuration _conf, Argument _bean, int _url) {
-        if (_conf.getHtmlPage().getConstAnchors().get(_url)) {
-            String action_ = _conf.getHtmlPage().getAnchorsNames().get(_url);
-            if (action_.indexOf('(') == CustList.INDEX_NOT_FOUND_ELT) {
-                action_ = StringList.concat(action_,"()");
-            }
-            return invokeMethodWithNumbersBis(_conf,action_);
-        }
-        StringList varNames_ = _conf.getHtmlPage().getAnchorsVars().get(_url);
-        StringList args_ = _conf.getHtmlPage().getAnchorsArgs().get(_url);
-        ImportingPage ip_ = _conf.getLastPage();
-        int s_ = varNames_.size();
-        for (int i =0; i< s_; i++) {
-            LocalVariable locVar_ = new LocalVariable();
-            locVar_.setClassName(_conf.getStandards().getAliasPrimInteger());
-            locVar_.setStruct(new IntStruct(Numbers.parseInt(args_.get(i))));
-            ip_.putLocalVar(varNames_.get(i), locVar_);
-        }
-        CustList<RendDynOperationNode> exps_ = _conf.getHtmlPage().getCallsExps().get(_url);
-        Argument arg_ = ElRenderUtil.calculateReuse(exps_,_conf,_bean);
-        for (String n: varNames_) {
-            ip_.removeLocalVar(n);
-        }
-        if (_conf.getContext().getException() != null) {
-            return NullStruct.NULL_VALUE;
-        }
-        return arg_.getStruct();
-    }
-    static void setRendObject(Configuration _conf, NodeContainer _nodeContainer,
-                          Struct _attribute) {
-        Struct obj_ = _nodeContainer.getStruct();
-        String attrName_ = _nodeContainer.getVarName();
-        String prev_ = _nodeContainer.getVarPrevName();
-        CustList<RendDynOperationNode> wr_ = _nodeContainer.getOpsWrite();
-        ImportingPage ip_ = _conf.getLastPage();
-        LocalVariable lv_ = new LocalVariable();
-        BeanLgNames stds_ = _conf.getAdvStandards();
-        lv_.setClassName(stds_.getStructClassName(obj_, _conf.getContext()));
-        lv_.setStruct(obj_);
-        ip_.putLocalVar(prev_, lv_);
-        lv_ = new LocalVariable();
-        lv_.setClassName(stds_.getStructClassName(_attribute, _conf.getContext()));
-        lv_.setStruct(_attribute);
-        ip_.putLocalVar(attrName_, lv_);
-        ElRenderUtil.calculateReuse(wr_,_conf);
-    }
     static void setObject(Configuration _conf, NodeContainer _nodeContainer,
             Struct _attribute) {
         Struct obj_ = _nodeContainer.getStruct();
@@ -181,7 +135,7 @@ final class HtmlRequest {
                 locVar_.setClassName(className_);
                 locVar_.setStruct(_attribute);
                 ip_.putLocalVar(tmp_, locVar_);
-                ElRenderUtil.processEl(StringList.concat(varMethod_,LEFT_PAR,tmp_,GET_LOC_VAR,RIGHT_PAR), 0, _conf);
+                DirRender.processEl(StringList.concat(varMethod_,LEFT_PAR,tmp_,GET_LOC_VAR,RIGHT_PAR), 0, _conf);
                 ip_.removeLocalVar(tmp_);
                 ip_.setGlobalArgumentStruct(current_, _conf);
                 return;
@@ -200,7 +154,7 @@ final class HtmlRequest {
             String expressionLeft_ = StringList.concat(nameVar_, GET_LOC_VAR, _nodeContainer.getLastToken());
             String expressionRight_ = StringList.concat(nameValue_, GET_LOC_VAR);
             String full_ = StringList.concat(expressionLeft_,String.valueOf(EQUALS),expressionRight_);
-            ElRenderUtil.processEl(full_, 0, _conf);
+            DirRender.processEl(full_, 0, _conf);
             if (_conf.getContext().getException() != null) {
                 return;
             }
@@ -223,7 +177,7 @@ final class HtmlRequest {
             str_.append(tmp_);
             str_.append(GET_LOC_VAR);
             str_.append(RIGHT_PAR);
-            ElRenderUtil.processEl(str_.toString(), 0, _conf);
+            DirRender.processEl(str_.toString(), 0, _conf);
             ip_.removeLocalVar(tmp_);
             ip_.setGlobalArgumentStruct(current_, _conf);
         }
