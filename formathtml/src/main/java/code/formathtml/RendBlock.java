@@ -426,6 +426,10 @@ public abstract class RendBlock {
             if (StringList.quickEq(elt_.getAttribute(ATTRIBUTE_TYPE),RADIO)) {
                 return new RendRadio(elt_,new OffsetsBlock(_begin,_begin));
             }
+            return new RendStdInput(elt_,new OffsetsBlock(_begin,_begin));
+        }
+        if (StringList.quickEq(tagName_,TEXT_AREA)) {
+            return new RendTextArea(elt_,new OffsetsBlock(_begin,_begin));
         }
         return new RendStdElement(elt_,new OffsetsBlock(_begin,_begin));
     }
@@ -709,6 +713,9 @@ public abstract class RendBlock {
         }
         String name_ = _read.getAttribute(ATTRIBUTE_NAME);
         if (name_.isEmpty()) {
+            return;
+        }
+        if (_ops.isEmpty()) {
             return;
         }
         if (StringList.quickEq(_read.getTagName(),INPUT_TAG)) {

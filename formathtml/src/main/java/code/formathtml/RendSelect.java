@@ -18,9 +18,7 @@ import code.formathtml.exec.RendFctOperation;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.*;
 import code.sml.*;
-import code.util.CustList;
-import code.util.IdList;
-import code.util.StringList;
+import code.util.*;
 
 public final class RendSelect extends RendParentBlock implements RendWithEl, RendReducableOperations,RendBuildableElMethod {
     private CustList<RendDynOperationNode> opsRead = new CustList<RendDynOperationNode>();
@@ -29,6 +27,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
     private CustList<RendDynOperationNode> opsMap = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsDefault = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsConverter = new CustList<RendDynOperationNode>();
+    private StringMap<ResultText> attributesText = new StringMap<ResultText>();
     private String varName = EMPTY_STRING;
     private ClassField idField;
     private Element elt;
@@ -49,6 +48,20 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         opsWrite = r_.getOpsWrite();
         varName = r_.getVarName();
         idField = r_.getIdField();
+        String id_ = elt.getAttribute(ATTRIBUTE_ID);
+        if (!id_.isEmpty()) {
+            ResultText rId_ = new ResultText();
+            rId_.buildId(id_,_cont,_doc);
+            attributesText.put(ATTRIBUTE_ID,rId_);
+        }
+        String prefixWrite_ = _cont.getPrefix();
+        String prefGr_ = StringList.concat(prefixWrite_, ATTRIBUTE_GROUP_ID);
+        String groupId_ = elt.getAttribute(ATTRIBUTE_GROUP_ID);
+        if (!groupId_.isEmpty()) {
+            ResultText rId_ = new ResultText();
+            rId_.buildId(groupId_,_cont,_doc);
+            attributesText.put(prefGr_,rId_);
+        }
         boolean st_ = _doc.isStaticContext();
         multiple = elt.hasAttribute(ATTRIBUTE_MULTIPLE);
         String map_ = elt.getAttribute(ATTRIBUTE_MAP);
@@ -234,7 +247,14 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             processOptionsMapEnum(_cont, map_.getStruct(),
                     doc_, docElementSelect_);
         }
-
+        for (EntryCust<String,ResultText> e: attributesText.entryList()) {
+            ResultText res_ = e.getValue();
+            String txt_ = ResultText.render(res_.getOpExp(), res_.getTexts(), _cont);
+            if (_cont.getContext().hasExceptionOrFailInit()) {
+                return;
+            }
+            docElementSelect_.setAttribute(e.getKey(),txt_);
+        }
         docElementSelect_.setAttribute(ATTRIBUTE_NAME, name_);
         if (!(_cont.getAdvStandards() instanceof BeanCustLgNames)) {
             docElementSelect_.setAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CLASS_NAME), elt.getAttribute(ATTRIBUTE_CLASS_NAME));

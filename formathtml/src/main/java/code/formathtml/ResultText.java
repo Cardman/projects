@@ -10,6 +10,7 @@ import code.util.Ints;
 import code.util.StringList;
 
 public final class ResultText {
+    private static final char ESCAPED = '\\';
     private static final char RIGHT_EL = '}';
     private static final char LEFT_EL = '{';
     private static final char QUOTE = 39;
@@ -91,7 +92,80 @@ public final class ResultText {
         }
         texts.add(str_.toString());
     }
-
+    public void buildId(String _expression,Configuration _conf, RendDocumentBlock _doc) {
+        opExp = new CustList<CustList<RendDynOperationNode>>();
+        boolean st_ = _doc.isStaticContext();
+        StringBuilder str_ = new StringBuilder();
+        int length_ = _expression.length();
+        boolean escaped_ = false;
+        int i_ = CustList.FIRST_INDEX;
+        while (i_ < length_) {
+            char cur_ = _expression.charAt(i_);
+            if (escaped_) {
+                if (cur_ == ESCAPED) {
+                    escaped_ = false;
+                    str_.append(ESCAPED);
+                    i_++;
+                    continue;
+                }
+                if (cur_ == LEFT_EL) {
+                    escaped_ = false;
+                    str_.append(LEFT_EL);
+                    i_++;
+                    continue;
+                }
+                if (cur_ == RIGHT_EL) {
+                    escaped_ = false;
+                    str_.append(RIGHT_EL);
+                    i_++;
+                    continue;
+                }
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                badEl_.setFileName(_conf.getCurrentFileName());
+                badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+                _conf.getContext().getClasses().addError(badEl_);
+                return;
+            }
+            if (cur_ == ESCAPED) {
+                escaped_ = true;
+                i_++;
+                continue;
+            }
+            if (cur_ == LEFT_EL) {
+                texts.add(str_.toString());
+                str_.delete(0,str_.length());
+                expOffsets.add(i_);
+                i_++;
+                if (i_ >= length_ || _expression.charAt(i_) == RIGHT_EL) {
+                    BadElRender badEl_ = new BadElRender();
+                    badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                    badEl_.setFileName(_conf.getCurrentFileName());
+                    badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+                    _conf.getClasses().addError(badEl_);
+                    return;
+                }
+//                _conf.getLastPage().setOffset(i_);
+                CustList<RendDynOperationNode> opsLoc_ = ElRenderUtil.getAnalyzedOperations(_expression, _conf, i_, LEFT_EL, RIGHT_EL, Calculation.staticCalculation(st_));
+                opExp.add(opsLoc_);
+                i_ = _conf.getNextIndex();
+                expEnds.add(i_);
+                continue;
+            }
+            if (cur_ == RIGHT_EL){
+//                _conf.getLastPage().setOffset(i_);
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                badEl_.setFileName(_conf.getCurrentFileName());
+                badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+                _conf.getClasses().addError(badEl_);
+                return;
+            }
+            str_.append(cur_);
+            i_++;
+        }
+        texts.add(str_.toString());
+    }
     public String quickRender(String _expression,StringList _args) {
         StringBuilder str_ = new StringBuilder();
         int length_ = _expression.length();
