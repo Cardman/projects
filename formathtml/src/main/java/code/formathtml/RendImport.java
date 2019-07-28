@@ -15,6 +15,7 @@ import code.util.StringList;
 
 public final class RendImport extends RendParentBlock implements RendWithEl, RendReducableOperations,RendBuildableElMethod {
     private static final String PAGE_ATTRIBUTE = "page";
+    private static final String KEEPFIELD_ATTRIBUTE = "keepfields";
     private Element elt;
 
     private CustList<CustList<RendDynOperationNode>> opExp;
@@ -80,6 +81,13 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
         newIp_.setBeanName(beanName_);
         RendReadWrite rwLoc_ = new RendReadWrite();
         Struct newBean_ = _cont.getBuiltBeans().getVal(beanName_);
+        boolean keepField_ = elt.hasAttribute(KEEPFIELD_ATTRIBUTE);
+        Struct mainBean_ = _cont.getMainBean();
+        _cont.getAdvStandards().setBeanForms(_cont, mainBean_, elt, keepField_,
+                beanName_);
+        if (_cont.getContext().getException() != null) {
+            return;
+        }
         if (newBean_ != null) {
             String className_ = newBean_.getClassName(_cont);
             for (RendBlock p: getDirectChildren(this)) {

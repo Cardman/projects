@@ -131,6 +131,7 @@ public final class Configuration implements ExecutableCode {
     private long currentForm;
     private Element curForm;
 
+    private Struct mainBean;
 
     @Override
     public boolean isMerged() {
@@ -396,22 +397,18 @@ public final class Configuration implements ExecutableCode {
             return NullStruct.NULL_VALUE;
         }
         Struct strBean_ = arg_.getStruct();
-        Struct db_ = ExtractObject.getDataBase(this, _bean);
+        standards.forwardDataBase(_bean,strBean_,this);
         if (context.getException() != null) {
             removeLastPage();
             return NullStruct.NULL_VALUE;
         }
-        ExtractObject.setDataBase(this, strBean_, db_);
+        Argument argForms_ = standards.getForms(_bean, this);
         if (context.getException() != null) {
             removeLastPage();
             return NullStruct.NULL_VALUE;
         }
-        Struct forms_ = ExtractObject.getForms(this, _bean);
-        if (context.getException() != null) {
-            removeLastPage();
-            return NullStruct.NULL_VALUE;
-        }
-        ExtractObject.setForms(this, strBean_, forms_);
+        Struct forms_ = argForms_.getStruct();
+        standards.setForms(strBean_, forms_, this);
         if (context.getException() != null) {
             removeLastPage();
             return NullStruct.NULL_VALUE;
@@ -1369,5 +1366,13 @@ public final class Configuration implements ExecutableCode {
 
     public void setCurForm(Element _curForm) {
         curForm = _curForm;
+    }
+
+    public Struct getMainBean() {
+        return mainBean;
+    }
+
+    public void setMainBean(Struct _mainBean) {
+        mainBean = _mainBean;
     }
 }

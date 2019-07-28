@@ -361,10 +361,13 @@ public final class FormatHtml {
         _conf.initForms();
         String beanName_ = _rend.getBeanName();
         Struct bean_ = _conf.getBuiltBeans().getVal(beanName_);
+        _conf.setMainBean(bean_);
         _conf.addPage(new ImportingPage(false));
         RendBlock.beforeDisplaying(bean_,_conf);
         _conf.removeLastPage();
-
+        if (_conf.getContext().hasExceptionOrFailInit()) {
+            return EMPTY_STRING;
+        }
         ImportingPage ip_ = new ImportingPage(false);
         int tabWidth_ = _conf.getTabWidth();
         ip_.setTabWidth(tabWidth_);
@@ -2668,7 +2671,6 @@ public final class FormatHtml {
                     class_= _conf.getStandards().getAliasBoolean();
                 }
                 if (StringList.quickEq(_input.getTagName(), SELECT_TAG)) {
-                    type_ = SELECT_TAG;
                     if (_input.hasAttribute(ATTRIBUTE_MULTIPLE)) {
                         class_ = _conf.getAdvStandards().getCustList();
                     } else {
@@ -2676,18 +2678,9 @@ public final class FormatHtml {
                     }
                 }
                 if (StringList.quickEq(_input.getTagName(), TEXT_AREA)) {
-                    type_ = TEXT_AREA;
                     class_ = _conf.getStandards().getAliasString();
                 }
-            } else {
-                if (StringList.quickEq(_input.getTagName(), SELECT_TAG)) {
-                    type_ = SELECT_TAG;
-                }
-                if (StringList.quickEq(_input.getTagName(), TEXT_AREA)) {
-                    type_ = TEXT_AREA;
-                }
             }
-            nodeInfos_.setType(type_);
             nodeInfos_.setValidator(_input.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VALIDATOR)));
             nodeInfos_.setId(id_);
             nodeInfos_.setInputClass(class_);

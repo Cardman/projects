@@ -90,7 +90,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                     }
                     Mapping m_ = new Mapping();
                     m_.setArg(opsConverter.last().getResultClass());
-                    m_.setParam(opsValue.last().getResultClass());
+                    m_.setParam(opsRead.last().getResultClass());
                     if (!Templates.isCorrectOrNumbers(m_,_cont)) {
                         BadElRender badEl_ = new BadElRender();
                         badEl_.setErrors(_cont.getClasses().getErrorsDet());
@@ -99,9 +99,9 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                         _cont.getClasses().addError(badEl_);
                     }
                 }
-            } else {
+            } else if (!opsRead.isEmpty()){
                 Mapping m_ = new Mapping();
-                m_.setArg(opsValue.last().getResultClass());
+                m_.setArg(opsRead.last().getResultClass());
                 m_.setParam(_cont.getStandards().getAliasCharSequence());
                 if (!Templates.isCorrectOrNumbers(m_,_cont)) {
                     if (converterValue_.trim().isEmpty()) {
@@ -125,7 +125,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                         _cont.getLocalVarsAna().last().removeKey(v);
                     }
                     m_.setArg(opsConverter.last().getResultClass());
-                    m_.setParam(opsValue.last().getResultClass());
+                    m_.setParam(opsRead.last().getResultClass());
                     if (!Templates.isCorrectOrNumbers(m_,_cont)) {
                         BadElRender badEl_ = new BadElRender();
                         badEl_.setErrors(_cont.getClasses().getErrorsDet());
@@ -148,7 +148,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                         _cont.getLocalVarsAna().last().removeKey(v);
                     }
                     m_.setArg(opsConverter.last().getResultClass());
-                    m_.setParam(opsValue.last().getResultClass());
+                    m_.setParam(opsRead.last().getResultClass());
                     if (!Templates.isCorrectOrNumbers(m_,_cont)) {
                         BadElRender badEl_ = new BadElRender();
                         badEl_.setErrors(_cont.getClasses().getErrorsDet());
@@ -236,10 +236,15 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         }
 
         docElementSelect_.setAttribute(ATTRIBUTE_NAME, name_);
-        docElementSelect_.setAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CLASS_NAME), elt.getAttribute(ATTRIBUTE_CLASS_NAME));
+        if (!(_cont.getAdvStandards() instanceof BeanCustLgNames)) {
+            docElementSelect_.setAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CLASS_NAME), elt.getAttribute(ATTRIBUTE_CLASS_NAME));
+        }
         write_.appendChild(docElementSelect_);
         if (!name_.isEmpty()) {
             processIndexes(_cont,elt,docElementSelect_);
+            if (_cont.getContext().getException() != null) {
+                return;
+            }
             FormInputCoords inputs_ = new FormInputCoords();
             inputs_.setForm(_cont.getCurrentForm() - 1);
             inputs_.setInput(_cont.getIndexes().getNb());
@@ -252,7 +257,9 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             }
             _cont.getHtmlPage().getSelects().put(inputs_, allOptions_);
         }
-        docElementSelect_.removeAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CLASS_NAME));
+        if (!(_cont.getAdvStandards() instanceof BeanCustLgNames)) {
+            docElementSelect_.removeAttribute(StringList.concat(_cont.getPrefix(), ATTRIBUTE_CLASS_NAME));
+        }
         processBlock(_cont);
     }
 

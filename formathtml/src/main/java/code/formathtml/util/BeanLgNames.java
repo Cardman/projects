@@ -11,18 +11,35 @@ import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.Configuration;
 import code.formathtml.ElRenderUtil;
+import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.structs.StdStruct;
 import code.sml.Element;
+import code.sml.Node;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.StringMapObject;
 import code.util.ints.MathFactory;
 
 public abstract class BeanLgNames extends LgNames {
 
     static final String ALIAS_STRING_MAP_OBJECT = "code.util.StringMapObject";
     static final String BEAN = "code.bean.Bean";
+    static final String ATTRIBUTE_TYPE = "type";
+    static final String ATTRIBUTE_CLASS_NAME = "className";
+    static final String CHECKBOX = "checkbox";
+
+    static final String TEXT = "text";
+
+    static final String RANGE = "range";
+
+    static final String RADIO = "radio";
+
+    static final String NUMBER = "number";
+    static final String TEXT_AREA = "textarea";
+    static final String SELECT_TAG = "select";
+    static final String ATTRIBUTE_MULTIPLE = "multiple";
     private static final String FORMS = "forms";
     private static final String SET_FORMS = "setForms";
     private static final String GET_FORMS = "getForms";
@@ -220,6 +237,7 @@ public abstract class BeanLgNames extends LgNames {
     public abstract CustList<RendDynOperationNode> getExpsHasNext();
     public abstract CustList<RendDynOperationNode> getExpsNext();
 
+    public abstract void beforeDisplaying(Struct _arg,Configuration _cont);
     public abstract String processString(Argument _arg,Configuration _cont);
 
     public abstract String getIteratorTableVarCust();
@@ -232,7 +250,6 @@ public abstract class BeanLgNames extends LgNames {
 
     public abstract String getSecondVarCust();
 
-    public abstract String getBeforeDisplayingVar();
     public abstract CustList<RendDynOperationNode> getExpsIteratorTableCust();
 
     public abstract CustList<RendDynOperationNode> getExpsHasNextPairCust();
@@ -242,11 +259,40 @@ public abstract class BeanLgNames extends LgNames {
     public abstract CustList<RendDynOperationNode> getExpsFirstCust();
 
     public abstract CustList<RendDynOperationNode> getExpsSecondCust();
-    public abstract CustList<RendDynOperationNode> getExpsBeforeDisplaying();
 
     public abstract String getStringKey(Configuration _conf, Struct _instance);
 
     public abstract void initBeans(Configuration _conf,String _language,Struct _db);
+    public String getInputClass(Element _write, Configuration _conf) {
+        String type_ = _write.getAttribute(ATTRIBUTE_TYPE);
+        String class_ = _write.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_CLASS_NAME));
+        if (StringList.quickEq(type_,NUMBER)) {
+            class_= _conf.getStandards().getAliasLong();
+        }
+        if (StringList.quickEq(type_,RANGE)) {
+            class_= _conf.getStandards().getAliasLong();
+        }
+        if (StringList.quickEq(type_,RADIO)) {
+            class_= _conf.getStandards().getAliasLong();
+        }
+        if (StringList.quickEq(type_,TEXT)) {
+            class_= _conf.getStandards().getAliasString();
+        }
+        if (StringList.quickEq(type_,CHECKBOX)) {
+            class_= _conf.getStandards().getAliasBoolean();
+        }
+        if (StringList.quickEq(_write.getTagName(), SELECT_TAG)) {
+            if (_write.hasAttribute(ATTRIBUTE_MULTIPLE)) {
+                class_ = _conf.getAdvStandards().getCustList();
+            } else {
+                class_ = _conf.getStandards().getAliasString();
+            }
+        }
+        if (StringList.quickEq(_write.getTagName(), TEXT_AREA)) {
+            class_ = _conf.getStandards().getAliasString();
+        }
+        return class_;
+    }
     public ResultErrorStd convert(StringList _values, NodeContainer _container, Configuration _conf) {
         String beanName_ = _container.getBeanName();
         Struct bean_ = _conf.getBuiltBeans().getVal(beanName_);
@@ -318,11 +364,13 @@ public abstract class BeanLgNames extends LgNames {
             res_.setResult(new StdStruct(_values, _className));
             return res_;
         }
-        if (StringList.quickEq(_className, getAliasDouble()) || StringList.quickEq(_className, getAliasPrimDouble())) {
+        if (PrimitiveTypeUtil.isPrimitiveOrWrapper(_className,_context)) {
             if (_values.isEmpty() || _values.first().trim().isEmpty()) {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
+        }
+        if (StringList.quickEq(_className, getAliasDouble()) || StringList.quickEq(_className, getAliasPrimDouble())) {
             Double val_ = parseDouble(_values.first());
             if (val_ == null) {
                 res_.setError(getAliasCast());
@@ -332,10 +380,6 @@ public abstract class BeanLgNames extends LgNames {
             return res_;
         }
         if (StringList.quickEq(_className, getAliasFloat()) || StringList.quickEq(_className, getAliasPrimFloat())) {
-            if (_values.isEmpty() || _values.first().trim().isEmpty()) {
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
             Float val_ = parseFloat(_values.first());
             if (val_ == null) {
                 res_.setError(getAliasCast());
@@ -345,10 +389,6 @@ public abstract class BeanLgNames extends LgNames {
             return res_;
         }
         if (StringList.quickEq(_className, getAliasLong()) || StringList.quickEq(_className, getAliasPrimLong())) {
-            if (_values.isEmpty() || _values.first().trim().isEmpty()) {
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
             Long val_ = parseLong(_values.first());
             if (val_ == null) {
                 res_.setError(getAliasCast());
@@ -358,10 +398,6 @@ public abstract class BeanLgNames extends LgNames {
             return res_;
         }
         if (StringList.quickEq(_className, getAliasInteger()) || StringList.quickEq(_className, getAliasPrimInteger())) {
-            if (_values.isEmpty() || _values.first().trim().isEmpty()) {
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
             Integer val_ = parseInt(_values.first());
             if (val_ == null) {
                 res_.setError(getAliasCast());
@@ -371,10 +407,6 @@ public abstract class BeanLgNames extends LgNames {
             return res_;
         }
         if (StringList.quickEq(_className, getAliasShort()) || StringList.quickEq(_className, getAliasPrimShort())) {
-            if (_values.isEmpty() || _values.first().trim().isEmpty()) {
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
             Short val_ = parseShort(_values.first());
             if (val_ == null) {
                 res_.setError(getAliasCast());
@@ -384,10 +416,6 @@ public abstract class BeanLgNames extends LgNames {
             return res_;
         }
         if (StringList.quickEq(_className, getAliasByte()) || StringList.quickEq(_className, getAliasPrimByte())) {
-            if (_values.isEmpty() || _values.first().trim().isEmpty()) {
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
             Byte val_ = parseByte(_values.first());
             if (val_ == null) {
                 res_.setError(getAliasCast());
@@ -397,15 +425,54 @@ public abstract class BeanLgNames extends LgNames {
             return res_;
         }
         if (StringList.quickEq(_className, getAliasCharacter()) || StringList.quickEq(_className, getAliasPrimChar())) {
-            if (_values.isEmpty() || _values.first().trim().isEmpty()) {
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            res_.setResult(new CharStruct(_values.first().charAt(0)));
+            res_.setResult(new CharStruct(_values.first().trim().charAt(0)));
             return res_;
         }
         return getOtherStructToBeValidated(_values, _className, _context);
     }
+
+    public void setBeanForms(Configuration _conf, Struct _mainBean,
+                                     Node _node, boolean _keepField, String _beanName) {
+        if (_mainBean == null) {
+            return;
+        }
+        Struct bean_ = _conf.getBuiltBeans().getVal(_beanName);
+        if (bean_ == null) {
+            return;
+        }
+        ImportingPage ip_ = _conf.getLastPage();
+        String prefix_ = ip_.getPrefix();
+        Argument forms_ = getForms(bean_, _conf);
+        if (_conf.getContext().getException() != null) {
+            return;
+        }
+        Argument formsMap_ = getForms(_mainBean,_conf);
+        if (_conf.getContext().getException() != null) {
+            return;
+        }
+        if (_keepField) {
+            for (Element f_: _node.getChildElements()) {
+                if (!StringList.quickEq(f_.getTagName(),StringList.concat(prefix_,"form"))) {
+                    continue;
+                }
+                String name_ = f_.getAttribute("form");
+                forwardMap(formsMap_.getStruct(),forms_.getStruct(),new StringStruct(name_),_conf);
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
+            }
+        } else {
+            //add option for copying forms (default copy)
+            putAllMap(forms_.getStruct(),formsMap_.getStruct(),_conf);
+        }
+    }
+
+
+    public abstract void forwardDataBase(Struct _bean, Struct _to, Configuration _conf);
+    public abstract Argument getForms(Struct _bean, Configuration _conf);
+    public abstract void setForms(Struct _bean, Struct _map, Configuration _conf);
+    public abstract void forwardMap(Struct _map, Struct _to, Struct _key, Configuration _conf);
+    public abstract void putAllMap(Struct _map, Struct _other, Configuration _conf);
     public Validator buildValidator(Element _element) {
         return null;
     }

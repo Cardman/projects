@@ -31,7 +31,10 @@ public final class StringMapObjectStruct implements RealInstanceStruct {
 
     @Override
     public Object getInstance() {
-        return bean;
+        return getBean();
     }
 
+    public StringMapObject getBean() {
+        return bean;
+    }
 }

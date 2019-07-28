@@ -378,10 +378,11 @@ public final class Navigation {
             if (session.getContext().getException() != null) {
                 return;
             }
-            Struct forms_ = ExtractObject.getForms(session, bean_);
+            Argument arg_ = session.getAdvStandards().getForms(bean_, session);
             if (session.getContext().getException() != null) {
                 return;
             }
+            Struct forms_ = arg_.getStruct();
             String urlDest_ = currentUrl;
             if (return_ != NullStruct.NULL_VALUE) {
                 ip_.setOffset(_anchorRef.length());
@@ -418,7 +419,7 @@ public final class Navigation {
             if (session.getContext().getException() != null) {
                 return;
             }
-            ExtractObject.setForms(session, bean_, forms_);
+            session.getAdvStandards().setForms(bean_, forms_,session);
             RendDocumentBlock rendDocumentBlock_ = session.getRenders().getVal(dest_);
             textToBeChanged_ = FormatHtml.getRes(rendDocumentBlock_,session);
             if (textToBeChanged_.isEmpty()) {
@@ -436,9 +437,12 @@ public final class Navigation {
         if (bean_ == null) {
             bean_ = NullStruct.NULL_VALUE;
         }
-        Struct forms_;
         session.addPage(new ImportingPage(false));
-        forms_ = ExtractObject.getForms(session, bean_);
+        Argument arg_ = session.getAdvStandards().getForms(bean_, session);
+        if (session.getContext().getException() != null) {
+            return;
+        }
+        Struct forms_ = arg_.getStruct();
         session.removeLastPage();
         session.getContext().setException(null);
         processInitBeans(_anchorRef,currentBeanName,forms_);
@@ -466,7 +470,7 @@ public final class Navigation {
             bean_ = NullStruct.NULL_VALUE;
         }
         session.addPage(new ImportingPage(false));
-        ExtractObject.setForms(session, bean_, forms_);
+        session.getAdvStandards().setForms(bean_, forms_,session);
         session.removeLastPage();
         session.getContext().setException(null);
         RendDocumentBlock rendDocumentBlock_ = session.getRenders().getVal(dest_);
@@ -495,7 +499,7 @@ public final class Navigation {
             if (session.getContext().getException() != null) {
                 break;
             }
-            ExtractObject.setForms(session, bean_, _forms);
+            session.getAdvStandards().setForms(bean_, _forms,session);
             if (session.getContext().getException() != null) {
                 break;
             }

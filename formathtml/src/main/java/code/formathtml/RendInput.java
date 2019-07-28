@@ -39,7 +39,7 @@ public abstract class RendInput extends RendElement {
         String converterValue_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CONVERT_VALUE));
         if (!converterValue_.trim().isEmpty()) {
             Mapping m_ = new Mapping();
-            m_.setArg(opsValue.last().getResultClass());
+            m_.setArg(opsRead.last().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());
             if (!Templates.isCorrectOrNumbers(m_,_cont)) {
                 String string_ = _cont.getStandards().getAliasString();
@@ -56,7 +56,7 @@ public abstract class RendInput extends RendElement {
                     _cont.getLocalVarsAna().last().removeKey(v);
                 }
                 m_.setArg(opsConverter.last().getResultClass());
-                m_.setParam(opsValue.last().getResultClass());
+                m_.setParam(opsRead.last().getResultClass());
                 if (!Templates.isCorrectOrNumbers(m_,_cont)) {
                     BadElRender badEl_ = new BadElRender();
                     badEl_.setErrors(_cont.getClasses().getErrorsDet());

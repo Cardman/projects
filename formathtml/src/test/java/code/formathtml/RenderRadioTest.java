@@ -477,4 +477,65 @@ public final class RenderRadioTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(!conf_.getClasses().isEmptyErrors());
     }
+    @Test
+    public void process2FailTest() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><form c:command=\"$validate\"><c:for var=\"n\" list=\"numbers\"><input type=\"radio\" name=\"index\" c:varValue=\"n;\" c:convertValue='conv'/></c:for><c:for var=\"n\" list=\"numbersTwo\"><input type=\"radio\" name=\"indexTwo\" c:varValue=\"n;\" c:convertValue='conv'/></c:for><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $int index:");
+        file_.append(" $public $int indexTwo:");
+        file_.append(" $public $int[] numbers:");
+        file_.append(" $public $int[] numbersTwo:");
+        file_.append(" $public $void beforeDisplaying(){");
+        file_.append("  numbers={2,4,6}:");
+        file_.append("  numbersTwo={2,4,6}:");
+        file_.append("  index=4:");
+        file_.append("  indexTwo=6:");
+        file_.append("  $var ch = getForms().getVal(\"index\"):");
+        file_.append("  $if (ch;. != $null){");
+        file_.append("   index=($int)ch;.:");
+        file_.append("  }");
+        file_.append("  ch;. = getForms().getVal(\"indexTwo\"):");
+        file_.append("  $if (ch;. != $null){");
+        file_.append("   indexTwo=($int)ch;.:");
+        file_.append("  }");
+        file_.append(" }");
+        file_.append(" $public $void validate(){");
+        file_.append("  getForms().put(\"index\",index):");
+        file_.append("  getForms().put(\"indexTwo\",indexTwo):");
+        file_.append(" }");
+        file_.append(" $public String conv(String s){");
+        file_.append("  $return s;.;:");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        Configuration conf_ = contextElThird(filesSec_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page1.html");
+        addImportingPage(conf_);
+        Struct bean_ = ElRenderUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
+        conf_.getBuiltBeans().put("bean_one",bean_);
+        conf_.clearPages();
+        conf_.setValidators(new StringMap<Validator>());
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setNavigation(new StringMap<StringMap<String>>());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        conf_.getAnalyzingDoc().setFiles(files_);
+        conf_.getAnalyzingDoc().setLanguage(locale_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
 }

@@ -19,9 +19,11 @@ import code.formathtml.Configuration;
 import code.formathtml.ElRenderUtil;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.structs.BeanStruct;
 import code.formathtml.structs.RealInstanceStruct;
 import code.formathtml.structs.StdStruct;
 import code.formathtml.structs.StringMapObjectStruct;
+import code.sml.Element;
 import code.util.*;
 import code.util.ints.*;
 
@@ -56,12 +58,10 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     private String iteratorTableVarCust;
     private String firstVarCust;
     private String secondVarCust;
-    private String beforeDisplayingVar;
 
     private CustList<RendDynOperationNode> expsIteratorTableCust;
     private CustList<RendDynOperationNode> expsFirstCust;
     private CustList<RendDynOperationNode> expsSecondCust;
-    private CustList<RendDynOperationNode> expsBeforeDisplaying;
 
     static Object[] adaptedArgs(StringList _params, BeanNatLgNames _stds, Struct... _args) {
         int len_ = _params.size();
@@ -341,7 +341,35 @@ public abstract class BeanNatLgNames extends BeanLgNames {
             }
         }
     }
-
+    @Override
+    public String getInputClass(Element _write, Configuration _conf) {
+        String class_ = _write.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_CLASS_NAME));
+        if (!class_.isEmpty()) {
+            return class_;
+        }
+        return super.getInputClass(_write,_conf);
+    }
+    @Override
+    public void forwardDataBase(Struct _bean, Struct _to, Configuration _conf) {
+        ((BeanStruct)_to).getBean().setDataBase(((BeanStruct)_bean).getBean().getDataBase());
+    }
+    @Override
+    public Argument getForms(Struct _bean, Configuration _conf) {
+        return new Argument(new StringMapObjectStruct(((BeanStruct)_bean).getBean().getForms()));
+    }
+    @Override
+    public void setForms(Struct _bean, Struct _map, Configuration _conf) {
+        ((BeanStruct)_bean).getBean().setForms(((StringMapObjectStruct)_map).getBean());
+    }
+    @Override
+    public void forwardMap(Struct _map, Struct _to, Struct _key, Configuration _conf) {
+        Object res_ = ((StringMapObjectStruct)_map).getBean().getVal(((StringStruct)_key).getInstance());
+        ((StringMapObjectStruct)_to).getBean().put(((StringStruct)_key).getInstance(),res_);
+    }
+    @Override
+    public void putAllMap(Struct _map, Struct _other, Configuration _conf) {
+        ((StringMapObjectStruct)_map).getBean().putAllMap(((StringMapObjectStruct)_other).getBean());
+    }
     public Object getOtherArguments(Struct[] _str, String _base) {
         return null;
     }
@@ -568,16 +596,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         secondVarCust= locName_;
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(GET_VALUE,PARS));
         expsSecondCust= ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
-
-        locName_ = context_.getNextTempVar();
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasBean()));
-        _context.getInternVars().put(locName_, locVar_);
-        beforeDisplayingVar = locName_;
-        String beforeDisplaying_ = getAliasBeforeDisplaying();
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(beforeDisplaying_,PARS));
-        expsBeforeDisplaying= ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
-
         _context.clearPages();
     }
     @Override
@@ -608,21 +626,33 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         }
         return StringList.concat(lgNames_.getAliasIterable(),"<",it_,">");
     }
+
+    @Override
     public String getIteratorVar() {
         return iteratorVar;
     }
+
+    @Override
     public String getHasNextVar() {
         return hasNextVar;
     }
+
+    @Override
     public String getNextVar() {
         return nextVar;
     }
+
+    @Override
     public CustList<RendDynOperationNode> getExpsIterator() {
         return expsIterator;
     }
+
+    @Override
     public CustList<RendDynOperationNode> getExpsHasNext() {
         return expsHasNext;
     }
+
+    @Override
     public CustList<RendDynOperationNode> getExpsNext() {
         return expsNext;
     }
@@ -631,52 +661,63 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         return expsDisplay;
     }
 
+
+    @Override
     public String getIteratorTableVarCust() {
         return iteratorTableVarCust;
     }
 
+
+    @Override
     public String getHasNextPairVarCust() {
         return getHasNextVar();
     }
 
+
+    @Override
     public String getNextPairVarCust() {
         return getNextVar();
     }
 
+
+    @Override
     public String getFirstVarCust() {
         return firstVarCust;
     }
 
+
+    @Override
     public String getSecondVarCust() {
         return secondVarCust;
     }
 
-    public String getBeforeDisplayingVar() {
-        return beforeDisplayingVar;
-    }
-
+    @Override
     public CustList<RendDynOperationNode> getExpsIteratorTableCust() {
         return expsIteratorTableCust;
     }
 
+
+    @Override
     public CustList<RendDynOperationNode> getExpsHasNextPairCust() {
         return getExpsHasNext();
     }
 
+
+    @Override
     public CustList<RendDynOperationNode> getExpsNextPairCust() {
         return getExpsNext();
     }
 
+
+    @Override
     public CustList<RendDynOperationNode> getExpsFirstCust() {
         return expsFirstCust;
     }
 
+
+    @Override
     public CustList<RendDynOperationNode> getExpsSecondCust() {
         return expsSecondCust;
-    }
-
-    public CustList<RendDynOperationNode> getExpsBeforeDisplaying() {
-        return expsBeforeDisplaying;
     }
 
     @Override
@@ -690,6 +731,11 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         return processString(new Argument(str_),_conf);
     }
 
+    @Override
+    public void beforeDisplaying(Struct _arg, Configuration _cont) {
+        ((BeanStruct)_arg).getBean().beforeDisplaying();
+    }
+    @Override
     public String processString(Argument _arg, Configuration _cont) {
         Struct struct_ = _arg.getStruct();
         if (struct_ instanceof DisplayableStruct) {

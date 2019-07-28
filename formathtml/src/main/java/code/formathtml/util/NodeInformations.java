@@ -9,7 +9,6 @@ public class NodeInformations {
     private String changing = "";
     private String validator = "";
     private String varMethod = "";
-    private String type = "";
     private StringList value = new StringList();
     public String getId() {
         return id;
@@ -42,12 +41,6 @@ public class NodeInformations {
         varMethod = _varMethod;
     }
 
-    public String getType() {
-        return type;
-    }
-    public void setType(String _type) {
-        type = _type;
-    }
     public StringList getValue() {
         return value;
     }

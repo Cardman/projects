@@ -4,6 +4,7 @@ import code.bean.BeanInfo;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.options.KeyWords;
@@ -34,6 +35,20 @@ public final class BeanCustLgNames extends BeanLgNames {
     private String secondVarCust;
     private String beforeDisplayingVar;
 
+    private String putVarCust;
+    private String putVarCustKey;
+    private String putVarCustValue;
+    private String putAllVarCust;
+    private String putAllVarCustArg;
+    private String getValVar;
+    private String getValVarArg;
+    private String getFormsVar;
+    private String setFormsVarArg;
+    private String setFormsVar;
+    private String getDataBaseVar;
+    private String setDataBaseVarArg;
+    private String setDataBaseVar;
+
     private CustList<RendDynOperationNode> expsIterator;
     private CustList<RendDynOperationNode> expsHasNext;
     private CustList<RendDynOperationNode> expsNext;
@@ -43,6 +58,15 @@ public final class BeanCustLgNames extends BeanLgNames {
     private CustList<RendDynOperationNode> expsFirstCust;
     private CustList<RendDynOperationNode> expsSecondCust;
     private CustList<RendDynOperationNode> expsBeforeDisplaying;
+
+    private CustList<RendDynOperationNode> expsPut;
+    private CustList<RendDynOperationNode> expsPutAll;
+    private CustList<RendDynOperationNode> expsGetVal;
+    private CustList<RendDynOperationNode> expsGetForms;
+    private CustList<RendDynOperationNode> expsSetForms;
+    private CustList<RendDynOperationNode> expsGetDataBase;
+    private CustList<RendDynOperationNode> expsSetDataBase;
+    private CustList<RendDynOperationNode> opsMap;
     private String aliasMapKeys = "keys";
     private String aliasMapValues = "values";
     private String aliasMapIndexOfEntry = "indexOfEntry";
@@ -147,6 +171,103 @@ public final class BeanCustLgNames extends BeanLgNames {
         String beforeDisplaying_ = getAliasBeforeDisplaying();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(beforeDisplaying_,PARS));
         expsBeforeDisplaying= ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasStringMapObject()));
+        _context.getInternVars().put(locName_, locVar_);
+        putVarCust = locName_;
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasString()));
+        _context.getInternVars().put(locName_, locVar_);
+        putVarCustKey = locName_;
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasObject()));
+        _context.getInternVars().put(locName_, locVar_);
+        putVarCustValue = locName_;
+        String put_ = getAliasMapPut();
+        exp_ = StringList.concat(putVarCust, LOC_VAR, StringList.concat(put_,"(",putVarCustKey,",",putVarCustValue,")"));
+        expsPut= ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasStringMapObject()));
+        _context.getInternVars().put(locName_, locVar_);
+        putAllVarCust = locName_;
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasStringMapObject()));
+        _context.getInternVars().put(locName_, locVar_);
+        putAllVarCustArg = locName_;
+        String putAll_ = getAliasMapPutAll();
+        exp_ = StringList.concat(putAllVarCust, LOC_VAR, StringList.concat(putAll_,"(",putAllVarCustArg,")"));
+        expsPutAll= ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasStringMapObject()));
+        _context.getInternVars().put(locName_, locVar_);
+        getValVar = locName_;
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasString()));
+        _context.getInternVars().put(locName_, locVar_);
+        getValVarArg = locName_;
+        String getVal_ = getAliasMapGetVal();
+        exp_ = StringList.concat(getValVar, LOC_VAR, StringList.concat(getVal_,"(",getValVarArg,")"));
+        expsGetVal= ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasBean()));
+        _context.getInternVars().put(locName_, locVar_);
+        setFormsVar = locName_;
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasStringMapObject()));
+        _context.getInternVars().put(locName_, locVar_);
+        setFormsVarArg = locName_;
+        String setForms_ = getAliasSetForms();
+        exp_ = StringList.concat(setFormsVar, LOC_VAR, StringList.concat(setForms_,"(",setFormsVarArg,")"));
+        expsSetForms= ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasBean()));
+        _context.getInternVars().put(locName_, locVar_);
+        getFormsVar = locName_;
+        String getForms_ = getAliasGetForms();
+        exp_ = StringList.concat(getFormsVar, LOC_VAR, StringList.concat(getForms_,PARS));
+        expsGetForms= ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasBean()));
+        _context.getInternVars().put(locName_, locVar_);
+        setDataBaseVar = locName_;
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasObject()));
+        _context.getInternVars().put(locName_, locVar_);
+        setDataBaseVarArg = locName_;
+        String setDataBase_ = getAliasSetDataBase();
+        exp_ = StringList.concat(setDataBaseVar, LOC_VAR, StringList.concat(setDataBase_,"(",setDataBaseVarArg,")"));
+        expsSetDataBase= ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasBean()));
+        _context.getInternVars().put(locName_, locVar_);
+        getDataBaseVar = locName_;
+        String getDataBase_ = getAliasGetDataBase();
+        exp_ = StringList.concat(getDataBaseVar, LOC_VAR, StringList.concat(getDataBase_,PARS));
+        expsGetDataBase= ElRenderUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+
+        String aliasStringMapObject_ = getAliasStringMapObject();
+        String keyWordNew_ = _context.getKeyWords().getKeyWordNew();
+        opsMap = ElRenderUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", aliasStringMapObject_, "()"), 0, _context, Calculation.staticCalculation(false));
 
         _context.clearPages();
     }
@@ -427,9 +548,6 @@ public final class BeanCustLgNames extends BeanLgNames {
 
     @Override
     public void initBeans(Configuration _conf,String _language,Struct _db) {
-        String aliasStringMapObject_ = getAliasStringMapObject();
-        String keyWordNew_ = _conf.getKeyWords().getKeyWordNew();
-        CustList<RendDynOperationNode> opsMap_ = ElRenderUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", aliasStringMapObject_, "()"), 0, _conf, Calculation.staticCalculation(false));
         for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
             BeanInfo info_ = e.getValue();
             _conf.addPage(new ImportingPage(false));
@@ -439,7 +557,13 @@ public final class BeanCustLgNames extends BeanLgNames {
                 return;
             }
             Struct strBean_ = arg_.getStruct();
-            Struct map_ = ElRenderUtil.calculateReuse(opsMap_, _conf).getStruct();
+            String clName_ = strBean_.getClassName(_conf);
+            if (!Templates.isCorrectExecute(clName_,getAliasBean(),_conf)) {
+                _conf.removeLastPage();
+                _conf.getBuiltBeans().addEntry(e.getKey(),strBean_);
+                continue;
+            }
+            Struct map_ = ElRenderUtil.calculateReuse(opsMap, _conf).getStruct();
             ((FieldableStruct)strBean_).setStruct(new ClassField(getAliasBean(),getAliasForms()),map_);
             ((FieldableStruct)strBean_).setStruct(new ClassField(getAliasBean(),getAliasDataBaseField()),_db);
             ((FieldableStruct)strBean_).setStruct(new ClassField(getAliasBean(),getAliasLanguage()),new StringStruct(_language));
@@ -448,70 +572,196 @@ public final class BeanCustLgNames extends BeanLgNames {
             _conf.getBuiltBeans().addEntry(e.getKey(),strBean_);
         }
     }
+    @Override
+    public void forwardDataBase(Struct _bean, Struct _to, Configuration _conf) {
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(_bean, _conf.getContext()));
+        locVar_.setStruct(_bean);
+        _conf.getLastPage().getInternVars().put(getDataBaseVar, locVar_);
+        Argument argument_ = ElRenderUtil.calculateReuse(expsGetDataBase, _conf);
+        _conf.getLastPage().getInternVars().removeKey(getDataBaseVar);
+        if (_conf.getContext().hasExceptionOrFailInit()) {
+            return;
+        }
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(_to, _conf.getContext()));
+        locVar_.setStruct(_to);
+        _conf.getLastPage().getInternVars().put(setDataBaseVar, locVar_);
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(argument_.getStruct(), _conf.getContext()));
+        locVar_.setStruct(argument_.getStruct());
+        _conf.getLastPage().getInternVars().put(setDataBaseVarArg, locVar_);
+        ElRenderUtil.calculateReuse(expsSetDataBase, _conf);
+        _conf.getLastPage().getInternVars().removeKey(setDataBaseVar);
+        _conf.getLastPage().getInternVars().removeKey(setDataBaseVarArg);
+    }
+    @Override
+    public Argument getForms(Struct _bean, Configuration _conf) {
+        String clName_ = _bean.getClassName(_conf);
+        if (!Templates.isCorrectExecute(clName_,getAliasBean(),_conf)) {
+            return ElRenderUtil.calculateReuse(opsMap, _conf);
+        }
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(_bean, _conf.getContext()));
+        locVar_.setStruct(_bean);
+        _conf.getLastPage().getInternVars().put(getFormsVar, locVar_);
+        Argument argument_ = ElRenderUtil.calculateReuse(expsGetForms, _conf);
+        _conf.getLastPage().getInternVars().removeKey(getFormsVar);
+        if (_conf.getContext().hasExceptionOrFailInit()) {
+            return argument_;
+        }
+        if (argument_.isNull()) {
+            return ElRenderUtil.calculateReuse(opsMap, _conf);
+        }
+        return argument_;
+    }
+    @Override
+    public void setForms(Struct _bean, Struct _map, Configuration _conf) {
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(_bean, _conf.getContext()));
+        locVar_.setStruct(_bean);
+        _conf.getLastPage().getInternVars().put(setFormsVar, locVar_);
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(_map, _conf.getContext()));
+        locVar_.setStruct(_map);
+        _conf.getLastPage().getInternVars().put(setFormsVarArg, locVar_);
+        ElRenderUtil.calculateReuse(expsSetForms, _conf);
+        _conf.getLastPage().getInternVars().removeKey(setFormsVar);
+        _conf.getLastPage().getInternVars().removeKey(setFormsVarArg);
+    }
+    @Override
+    public void forwardMap(Struct _map, Struct _to, Struct _key, Configuration _conf) {
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(_map, _conf.getContext()));
+        locVar_.setStruct(_map);
+        _conf.getLastPage().getInternVars().put(getValVar, locVar_);
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(_key, _conf.getContext()));
+        locVar_.setStruct(_key);
+        _conf.getLastPage().getInternVars().put(getValVarArg, locVar_);
+        Argument argument_ = ElRenderUtil.calculateReuse(expsGetVal, _conf);
+        _conf.getLastPage().getInternVars().removeKey(getValVar);
+        _conf.getLastPage().getInternVars().removeKey(getValVarArg);
+        if (_conf.getContext().hasExceptionOrFailInit()) {
+            return;
+        }
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(_to, _conf.getContext()));
+        locVar_.setStruct(_to);
+        _conf.getLastPage().getInternVars().put(putVarCust, locVar_);
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(_key, _conf.getContext()));
+        locVar_.setStruct(_key);
+        _conf.getLastPage().getInternVars().put(putVarCustKey, locVar_);
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(argument_.getStruct(), _conf.getContext()));
+        locVar_.setStruct(argument_.getStruct());
+        _conf.getLastPage().getInternVars().put(putVarCustValue, locVar_);
+        ElRenderUtil.calculateReuse(expsPut, _conf);
+        _conf.getLastPage().getInternVars().removeKey(putVarCust);
+        _conf.getLastPage().getInternVars().removeKey(putVarCustKey);
+        _conf.getLastPage().getInternVars().removeKey(putVarCustValue);
+    }
+    @Override
+    public void putAllMap(Struct _map, Struct _other, Configuration _conf) {
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(_map, _conf.getContext()));
+        locVar_.setStruct(_map);
+        _conf.getLastPage().getInternVars().put(putAllVarCust, locVar_);
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(_other, _conf.getContext()));
+        locVar_.setStruct(_other);
+        _conf.getLastPage().getInternVars().put(putAllVarCustArg, locVar_);
+        ElRenderUtil.calculateReuse(expsPutAll, _conf);
+        _conf.getLastPage().getInternVars().removeKey(putAllVarCust);
+        _conf.getLastPage().getInternVars().removeKey(putAllVarCustArg);
+    }
+
+    @Override
     public String getIteratorVar() {
         return iteratorVar;
     }
+
+    @Override
     public String getHasNextVar() {
         return hasNextVar;
     }
+
+    @Override
     public String getNextVar() {
         return nextVar;
     }
+
+    @Override
     public CustList<RendDynOperationNode> getExpsIterator() {
         return expsIterator;
     }
+
+    @Override
     public CustList<RendDynOperationNode> getExpsHasNext() {
         return expsHasNext;
     }
+
+    @Override
     public CustList<RendDynOperationNode> getExpsNext() {
         return expsNext;
     }
 
+    @Override
     public String getIteratorTableVarCust() {
         return iteratorTableVarCust;
     }
 
+    @Override
     public String getHasNextPairVarCust() {
         return hasNextPairVarCust;
     }
 
+    @Override
     public String getNextPairVarCust() {
         return nextPairVarCust;
     }
 
+    @Override
     public String getFirstVarCust() {
         return firstVarCust;
     }
 
+    @Override
     public String getSecondVarCust() {
         return secondVarCust;
     }
 
-    public String getBeforeDisplayingVar() {
+    private String getBeforeDisplayingVar() {
         return beforeDisplayingVar;
     }
 
+    @Override
     public CustList<RendDynOperationNode> getExpsIteratorTableCust() {
         return expsIteratorTableCust;
     }
 
+    @Override
     public CustList<RendDynOperationNode> getExpsHasNextPairCust() {
         return expsHasNextPairCust;
     }
 
+    @Override
     public CustList<RendDynOperationNode> getExpsNextPairCust() {
         return expsNextPairCust;
     }
 
+    @Override
     public CustList<RendDynOperationNode> getExpsFirstCust() {
         return expsFirstCust;
     }
 
+    @Override
     public CustList<RendDynOperationNode> getExpsSecondCust() {
         return expsSecondCust;
     }
 
-    public CustList<RendDynOperationNode> getExpsBeforeDisplaying() {
+    private CustList<RendDynOperationNode> getExpsBeforeDisplaying() {
         return expsBeforeDisplaying;
     }
 
@@ -523,6 +773,21 @@ public final class BeanCustLgNames extends BeanLgNames {
         return processString(new Argument(_instance),_conf);
     }
 
+    @Override
+    public void beforeDisplaying(Struct _arg, Configuration _cont) {
+        String clName_ = getStructClassName(_arg, _cont.getContext());
+        if (!Templates.isCorrectExecute(clName_,getAliasBean(),_cont)) {
+            return;
+        }
+        String locName_ = getBeforeDisplayingVar();
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(clName_);
+        locVar_.setStruct(_arg);
+        _cont.getLastPage().getInternVars().put(locName_, locVar_);
+        ElRenderUtil.calculateReuse(getExpsBeforeDisplaying(),_cont);
+    }
+
+    @Override
     public String processString(Argument _arg, Configuration _cont) {
         Struct struct_ = _arg.getStruct();
         if (struct_ instanceof DisplayableStruct) {

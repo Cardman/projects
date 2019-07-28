@@ -4,11 +4,14 @@ import code.bean.Bean;
 import code.bean.BeanInfo;
 import code.bean.translator.Translator;
 import code.bean.validator.Validator;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.classes.*;
 import code.formathtml.structs.BeanStruct;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
+import code.sml.Document;
+import code.sml.DocumentBuilder;
 import code.util.*;
 import org.junit.Test;
 
@@ -52,6 +55,7 @@ public final class RenderNativeNavTest extends CommonRender {
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
         Navigation nav_ = newNavigation(conf_);
+        nav_.setDataBase(new Composite());
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -97,6 +101,113 @@ public final class RenderNativeNavTest extends CommonRender {
         assertEq(0,nav_.getTooltips().size());
     }
 
+    @Test
+    public void process2Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field prepare=\"$intern.typedString=message\"><a/></c:field></c:class></c:package></c:import></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", htmlTwo_);
+        BeanOne bean_ = new BeanOne();
+        bean_.getComposite().getStrings().add("FIRST");
+        bean_.getComposite().getStrings().add("SECOND");
+        bean_.getComposite().setInteger(5);
+        bean_.getTree().put("ONE", 1);
+        bean_.getTree().put("TWO", 2);
+        bean_.setForms(new StringMapObject());
+        BeanTwo beanTwo_ = new BeanTwo();
+        beanTwo_.setTypedString("TITLE");
+        beanTwo_.setForms(new StringMapObject());
+        Configuration conf_ = contextElSec();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.setFirstUrl("page1.html");
+        bean_.getForms().put("key", "sample_value");
+        conf_.getBeans().put("bean_one", bean_);
+        conf_.getBuiltBeans().put("bean_one", new BeanStruct(bean_));
+        conf_.getBeans().put("bean_two", beanTwo_);
+        conf_.getBuiltBeans().put("bean_two", new BeanStruct(beanTwo_));
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        conf_.setHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        Document docSec_ = DocumentBuilder.parseSax(htmlTwo_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
+        RendDocumentBlock rendDocumentBlockSec_ = RendBlock.newRendDocumentBlock(conf_, "c:", docSec_, htmlTwo_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getRenders().put("page2.html",rendDocumentBlockSec_);
+        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        rendDocumentBlockSec_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertEq("<html><body><a href=\"\" c:command=\"go\" n-a=\"0\">Test {0}2</a></body></html>",FormatHtml.getRes(rendDocumentBlock_, conf_));
+        assertNull(conf_.getException());
+        assertEq(1, beanTwo_.getForms().size());
+        assertEq("key", beanTwo_.getForms().getKeys().first());
+        assertEq("sample_value", (String)beanTwo_.getForms().values().first());
+    }
+
+    @Test
+    public void process3Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a c:command=\"$go\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:import page=\"page2.html\" keepfields=\"y\"><c:package name=\"code.formathtml.classes\"><c:class name=\"BeanTwo\"><c:field prepare=\"$intern.typedString=message\"></c:field></c:class></c:package><c:form form=\"key\"/></c:import></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a><c:message value='msg_example,two'/></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", htmlTwo_);
+        BeanOne bean_ = new BeanOne();
+        bean_.getComposite().getStrings().add("FIRST");
+        bean_.getComposite().getStrings().add("SECOND");
+        bean_.getComposite().setInteger(5);
+        bean_.getTree().put("ONE", 1);
+        bean_.getTree().put("TWO", 2);
+        bean_.setForms(new StringMapObject());
+        bean_.getForms().put("key", "sample_value");
+        BeanTwo beanTwo_ = new BeanTwo();
+        beanTwo_.setTypedString("TITLE");
+        beanTwo_.setForms(new StringMapObject());
+        Configuration conf_ = contextElSec();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.getBeans().put("bean_one", bean_);
+        conf_.getBuiltBeans().put("bean_one", new BeanStruct(bean_));
+        conf_.getBeans().put("bean_two", beanTwo_);
+        conf_.getBuiltBeans().put("bean_two", new BeanStruct(beanTwo_));
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        Document docSec_ = DocumentBuilder.parseSax(htmlTwo_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
+        RendDocumentBlock rendDocumentBlockSec_ = RendBlock.newRendDocumentBlock(conf_, "c:", docSec_, htmlTwo_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getRenders().put("page2.html",rendDocumentBlockSec_);
+        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        conf_.getAnalyzingDoc().setLanguage(locale_);
+        conf_.getAnalyzingDoc().setFiles(files_);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        rendDocumentBlockSec_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        String render_ = FormatHtml.getRes(rendDocumentBlock_, conf_);
+        assertEq("<html><body><a href=\"\" c:command=\"go\" n-a=\"0\">Test {0}2</a>Description <a c:command=\"$bean_two.go\" href=\"\" n-a=\"1\">two</a></body></html>", render_);
+        assertEq(1, beanTwo_.getForms().size());
+        assertEq("key", beanTwo_.getForms().getKeys().first());
+        assertEq("sample_value", (String)beanTwo_.getForms().values().first());
+    }
     private static void setupBeansAfter(Configuration _conf) {
         cleanBeans(_conf);
         for (EntryCust<String, Struct> e: _conf.getBuiltBeans().entryList()) {
@@ -119,4 +230,5 @@ public final class RenderNativeNavTest extends CommonRender {
         _nav.getSession().setBeansInfos(map_);
         _nav.initializeRendSession();
     }
+
 }

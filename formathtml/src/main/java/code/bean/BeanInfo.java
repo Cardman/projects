@@ -7,7 +7,7 @@ public final class BeanInfo {
 
     private String scope = "";
 
-    private String className;
+    private String className = "";
 
     private CustList<RendDynOperationNode> exps = new CustList<RendDynOperationNode>();
 

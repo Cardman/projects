@@ -604,16 +604,7 @@ public abstract class RendBlock {
             return;
         }
         BeanLgNames stds_ = _cont.getAdvStandards();
-        String clName_ = stds_.getStructClassName(_arg, _cont.getContext());
-        if (!Templates.isCorrectExecute(clName_,stds_.getAliasBean(),_cont)) {
-            return;
-        }
-        String locName_ = stds_.getBeforeDisplayingVar();
-        LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(clName_);
-        locVar_.setStruct(_arg);
-        _cont.getLastPage().getInternVars().put(locName_, locVar_);
-        ElRenderUtil.calculateReuse(stds_.getExpsBeforeDisplaying(),_cont);
+        stds_.beforeDisplaying(_arg,_cont);
     }
 
     static String getStringKey(Configuration _conf, Struct _instance) {
@@ -684,45 +675,7 @@ public abstract class RendBlock {
             if (id_.isEmpty()) {
                 id_ = _write.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_GROUP_ID));
             }
-            String type_ = _write.getAttribute(ATTRIBUTE_TYPE);
-            String class_ = _write.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CLASS_NAME));
-            if (class_.isEmpty()) {
-                if (StringList.quickEq(type_,NUMBER)) {
-                    class_= _cont.getStandards().getAliasLong();
-                }
-                if (StringList.quickEq(type_,RANGE)) {
-                    class_= _cont.getStandards().getAliasLong();
-                }
-                if (StringList.quickEq(type_,RADIO)) {
-                    class_= _cont.getStandards().getAliasLong();
-                }
-                if (StringList.quickEq(type_,TEXT)) {
-                    class_= _cont.getStandards().getAliasString();
-                }
-                if (StringList.quickEq(type_,CHECKBOX)) {
-                    class_= _cont.getStandards().getAliasBoolean();
-                }
-                if (StringList.quickEq(_write.getTagName(), SELECT_TAG)) {
-                    type_ = SELECT_TAG;
-                    if (_write.hasAttribute(ATTRIBUTE_MULTIPLE)) {
-                        class_ = _cont.getAdvStandards().getCustList();
-                    } else {
-                        class_ = _cont.getStandards().getAliasString();
-                    }
-                }
-                if (StringList.quickEq(_write.getTagName(), TEXT_AREA)) {
-                    type_ = TEXT_AREA;
-                    class_ = _cont.getStandards().getAliasString();
-                }
-            } else {
-                if (StringList.quickEq(_write.getTagName(), SELECT_TAG)) {
-                    type_ = SELECT_TAG;
-                }
-                if (StringList.quickEq(_write.getTagName(), TEXT_AREA)) {
-                    type_ = TEXT_AREA;
-                }
-            }
-            nodeInfos_.setType(type_);
+            String class_ = _cont.getAdvStandards().getInputClass(_write,_cont);
             nodeInfos_.setValidator(_write.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VALIDATOR)));
             nodeInfos_.setId(id_);
             nodeInfos_.setInputClass(class_);
