@@ -57,6 +57,14 @@ public class FormEvent extends MouseAdapter {
                         nCont_.setEnabled(true);
                         DualTextField area_ = (DualTextField) input_;
                         nCont_.getNodeInformation().setValue(new StringList(area_.getValue()));
+                    } else if (input_ instanceof DualSpinner) {
+                        nCont_.setEnabled(true);
+                        DualSpinner area_ = (DualSpinner) input_;
+                        nCont_.getNodeInformation().setValue(new StringList(area_.getValue()));
+                    } else if (input_ instanceof DualSlider) {
+                        nCont_.setEnabled(true);
+                        DualSlider area_ = (DualSlider) input_;
+                        nCont_.getNodeInformation().setValue(new StringList(area_.getValue()));
                     } else if (input_ instanceof DualCheckedBox) {
                         nCont_.setEnabled(true);
                         DualCheckedBox ch_ = (DualCheckedBox) input_;

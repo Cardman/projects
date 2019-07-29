@@ -10,30 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 
-import code.formathtml.render.MetaAnchorLabel;
-import code.formathtml.render.MetaAnimatedImage;
-import code.formathtml.render.MetaButton;
-import code.formathtml.render.MetaCheckedBox;
-import code.formathtml.render.MetaComboBox;
-import code.formathtml.render.MetaComboList;
-import code.formathtml.render.MetaComponent;
-import code.formathtml.render.MetaContainer;
-import code.formathtml.render.MetaDocument;
-import code.formathtml.render.MetaForm;
-import code.formathtml.render.MetaImageMap;
-import code.formathtml.render.MetaIndentLabel;
-import code.formathtml.render.MetaIndentNbLabel;
-import code.formathtml.render.MetaListItem;
-import code.formathtml.render.MetaNumberedLabel;
-import code.formathtml.render.MetaOrderedList;
-import code.formathtml.render.MetaPlainLabel;
-import code.formathtml.render.MetaPointLabel;
-import code.formathtml.render.MetaRadioButton;
-import code.formathtml.render.MetaSeparator;
-import code.formathtml.render.MetaSimpleImage;
-import code.formathtml.render.MetaTable;
-import code.formathtml.render.MetaTextArea;
-import code.formathtml.render.MetaTextField;
+import code.formathtml.render.*;
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -130,6 +107,10 @@ public class WindowPage implements Runnable {
                 cur_.add(new DualButton((DualContainer) cur_,(MetaButton) meta_, page));
             } else if (meta_ instanceof MetaTextField) {
                 cur_.add(new DualTextField((DualContainer) cur_,(MetaTextField) meta_, page));
+            } else if (meta_ instanceof MetaSpinner) {
+                cur_.add(new DualSpinner((DualContainer) cur_,(MetaSpinner) meta_, page));
+            } else if (meta_ instanceof MetaSlider) {
+                cur_.add(new DualSlider((DualContainer) cur_,(MetaSlider) meta_, page));
             } else if (meta_ instanceof MetaTextArea) {
                 cur_.add(new DualTextArea((DualContainer) cur_,(MetaTextArea) meta_, page));
             } else if (meta_ instanceof MetaCheckedBox) {

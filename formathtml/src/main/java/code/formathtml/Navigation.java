@@ -427,10 +427,10 @@ public final class Navigation {
         session.setDocument(doc_);
         currentBeanName_ = root_.getAttribute(StringList.concat(session.getPrefix(),FormatHtml.BEAN_ATTRIBUTE));
         Struct bean_ = getBeanOrNull(currentBeanName_);
+        session.getAdvStandards().setForms(bean_, forms_,session);
         if (session.getContext().getException() != null) {
             return;
         }
-        session.getAdvStandards().setForms(bean_, forms_,session);
         RendDocumentBlock rendDocumentBlock_ = session.getRenders().getVal(dest_);
         textToBeChanged_ = RendBlock.getRes(rendDocumentBlock_,session);
         if (textToBeChanged_.isEmpty()) {
@@ -453,11 +453,7 @@ public final class Navigation {
             }
             Struct bean_ = session.getBuiltBeans().getValue(i);
             BeanInfo info_ = session.getBeansInfos().getValue(i);
-            bean_ = session.newBean(language, bean_,info_);
-            if (session.getContext().getException() != null) {
-                break;
-            }
-            session.getAdvStandards().setForms(bean_, _forms,session);
+            bean_ = session.newBean(language, bean_,info_,_forms);
             if (session.getContext().getException() != null) {
                 break;
             }
@@ -1226,10 +1222,7 @@ public final class Navigation {
         if (!StringList.quickEq(_currentBean,_beanName)) {
             return false;
         }
-        Struct bean_ = getNotNullBean(_currentBean);
-        if (session.getContext().getException() != null) {
-            return false;
-        }
+        Struct bean_ = getBeanOrNull(_currentBean);
         session.addPage(new ImportingPage(false));
         String scope_ = session.getAdvStandards().getScope(bean_,session);
         session.removeLastPage();

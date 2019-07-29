@@ -389,7 +389,7 @@ public final class Configuration implements ExecutableCode {
         }
         return strBean_;
     }
-    Struct newBean(String _language, Struct _bean, BeanInfo _info) {
+    Struct newBean(String _language, Struct _bean, BeanInfo _info, Struct _forms) {
         addPage(new ImportingPage(false));
         Argument arg_ = RenderExpUtil.calculateReuse(_info.getExps(), this);
         if (context.getException() != null) {
@@ -402,13 +402,7 @@ public final class Configuration implements ExecutableCode {
             removeLastPage();
             return NullStruct.NULL_VALUE;
         }
-        Argument argForms_ = standards.getForms(_bean, this);
-        if (context.getException() != null) {
-            removeLastPage();
-            return NullStruct.NULL_VALUE;
-        }
-        Struct forms_ = argForms_.getStruct();
-        standards.setForms(strBean_, forms_, this);
+        standards.setForms(strBean_, _forms, this);
         if (context.getException() != null) {
             removeLastPage();
             return NullStruct.NULL_VALUE;

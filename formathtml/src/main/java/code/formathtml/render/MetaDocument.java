@@ -396,6 +396,14 @@ public final class MetaDocument {
                         MetaInput input_ = new MetaTextField(currentParent, name_, BeanLgNames.parseInt(elt_.getAttribute("n-i")), cols_, elt_.getAttribute("value"));
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
+                    } else if (StringList.quickEq(type_, "number")) {
+                        MetaInput input_ = new MetaSpinner(currentParent, name_, BeanLgNames.parseInt(elt_.getAttribute("n-i")), elt_.getAttribute("value"));
+                        input_.setStyle(styleLoc_);
+                        currentParent.appendChild(input_);
+                    } else if (StringList.quickEq(type_, "range")) {
+                        MetaInput input_ = new MetaSlider(currentParent, name_, BeanLgNames.parseInt(elt_.getAttribute("n-i")), elt_.getAttribute("value"));
+                        input_.setStyle(styleLoc_);
+                        currentParent.appendChild(input_);
                     } else if (StringList.quickEq(type_, "checkbox")) {
                         MetaInput input_ = new MetaCheckedBox(currentParent, name_, BeanLgNames.parseInt(elt_.getAttribute("n-i")), elt_.hasAttribute("checked"));
                         input_.setStyle(styleLoc_);
