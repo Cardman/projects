@@ -1,11 +1,17 @@
 package code.formathtml.util;
 
+import code.bean.Bean;
 import code.bean.translator.Translator;
+import code.bean.validator.Message;
 import code.bean.validator.Validator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.NumberInfos;
+import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
@@ -13,13 +19,13 @@ import code.formathtml.Configuration;
 import code.formathtml.RenderExpUtil;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.structs.RealInstanceStruct;
 import code.formathtml.structs.StdStruct;
+import code.formathtml.structs.StringMapObjectStruct;
 import code.sml.Element;
 import code.sml.Node;
-import code.util.CustList;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.ints.MathFactory;
+import code.util.*;
+import code.util.ints.*;
 
 public abstract class BeanLgNames extends LgNames {
 
@@ -94,6 +100,12 @@ public abstract class BeanLgNames extends LgNames {
     private String aliasBeforeDisplaying=BEFORE_DISPLAYING;
     private String aliasBean = BEAN;
     private String aliasStringMapObject = ALIAS_STRING_MAP_OBJECT;
+    private String aliasMessage="code.bean.Message";
+    private String aliasNewMessage="newStandardMessage";
+    private String aliasMessageFormat="format";
+    private String aliasMessageGetArgs="getArgs";
+    private String aliasMessageSetArgs="setArgs";
+
 
     private StringMap<String> iterables = new StringMap<String>();
 
@@ -247,6 +259,37 @@ public abstract class BeanLgNames extends LgNames {
     public abstract String getStringKey(Configuration _conf, Struct _instance);
 
     public abstract void initBeans(Configuration _conf,String _language,Struct _db);
+
+    @Override
+    public void buildOther() {
+        StringMap<StandardField> fields_;
+        StringList params_;
+        StandardMethod method_;
+        StandardType std_;
+        CustList<StandardConstructor> constructors_;
+        ObjectMap<MethodId, StandardMethod> methods_;
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        std_ = new StandardClass(aliasMessage, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasNewMessage, params_, aliasMessage, false, MethodModifier.STATIC, std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasNewMessage, params_, aliasMessage, false, MethodModifier.STATIC, std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasMessageFormat, params_, getAliasString(), false, MethodModifier.NORMAL, std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasMessageGetArgs, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasString()), false, MethodModifier.NORMAL, std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasMessageSetArgs, params_, getAliasVoid(), true, MethodModifier.NORMAL, std_);
+        methods_.put(method_.getId(), method_);
+        getStandards().put(aliasMessage, std_);
+    }
+
     public String getInputClass(Element _write, Configuration _conf) {
         String type_ = _write.getAttribute(ATTRIBUTE_TYPE);
         String class_ = _write.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_CLASS_NAME));
@@ -277,31 +320,14 @@ public abstract class BeanLgNames extends LgNames {
         }
         return class_;
     }
-    public ResultErrorStd convert(StringList _values, NodeContainer _container, Configuration _conf) {
+    public ResultErrorStd convert(NodeContainer _container, Configuration _conf) {
         String beanName_ = _container.getBeanName();
         Struct bean_ = _conf.getBuiltBeans().getVal(beanName_);
         if (bean_ != null) {
             CustList<RendDynOperationNode> ops_ = _container.getOpsConvert();
             if (!ops_.isEmpty()) {
                 String varNameConvert_ = _container.getVarNameConvert();
-                LocalVariable lv_ = new LocalVariable();
-                BeanLgNames stds_ = _conf.getAdvStandards();
-                if (_container.isArrayConverter()) {
-                    int len_ = _values.size();
-                    ArrayStruct arr_ = new ArrayStruct(new Struct[len_],PrimitiveTypeUtil.getPrettyArrayType(getAliasString()));
-                    for (int i = 0; i < len_; i++) {
-                        arr_.getInstance()[i] = new StringStruct(_values.get(i));
-                    }
-                    lv_.setClassName(stds_.getStructClassName(arr_, _conf.getContext()));
-                    lv_.setStruct(arr_);
-                } else {
-                    lv_.setClassName(getAliasString());
-                    if (!_values.isEmpty()) {
-                        lv_.setStruct(new StringStruct(_values.first()));
-                    } else {
-                        lv_.setStruct(NullStruct.NULL_VALUE);
-                    }
-                }
+                LocalVariable lv_ = newLocVar(_container,_conf);
                 _conf.getLastPage().putLocalVar(varNameConvert_, lv_);
                 _conf.getLastPage().setGlobalArgumentStruct(bean_, _conf);
                 Argument res_ = RenderExpUtil.calculateReuse(ops_, _conf);
@@ -319,12 +345,34 @@ public abstract class BeanLgNames extends LgNames {
             ContextEl context_ = _conf.getContext();
             className_ = context_.getStandards().getStructClassName(obj_, context_);
         }
-        ResultErrorStd out_ = getStructToBeValidated(_values, className_, _conf.getContext());
+        StringList values_ = _container.getValue();
+        ResultErrorStd out_ = getStructToBeValidated(values_, className_, _conf.getContext());
         if (out_.getError() != null) {
             String err_ = out_.getError();
             _conf.getContext().setException(new ErrorStruct(_conf,err_));
         }
         return out_;
+    }
+    protected LocalVariable newLocVar(NodeContainer _container, Configuration _conf) {
+        LocalVariable locVar_ = new LocalVariable();
+        StringList values_ = _container.getValue();
+        if (_container.isArrayConverter()) {
+            int len_ = values_.size();
+            ArrayStruct arr_ = new ArrayStruct(new Struct[len_],PrimitiveTypeUtil.getPrettyArrayType(getAliasString()));
+            for (int i = 0; i < len_; i++) {
+                arr_.getInstance()[i] = new StringStruct(values_.get(i));
+            }
+            locVar_.setClassName(getStructClassName(arr_, _conf.getContext()));
+            locVar_.setStruct(arr_);
+        } else {
+            locVar_.setClassName(getAliasString());
+            if (!values_.isEmpty()) {
+                locVar_.setStruct(new StringStruct(values_.first()));
+            } else {
+                locVar_.setStruct(NullStruct.NULL_VALUE);
+            }
+        }
+        return locVar_;
     }
     public ResultErrorStd getStructToBeValidated(StringList _values, String _className, ContextEl _context) {
         ResultErrorStd res_ = new ResultErrorStd();
@@ -451,12 +499,60 @@ public abstract class BeanLgNames extends LgNames {
         }
     }
 
-
+    @Override
+    public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
+                                         ClassMethodId _method, Struct... _args) {
+        ResultErrorStd res_ = new ResultErrorStd();
+        StringList list_ = _method.getConstraints().getParametersTypes();
+        String type_ = _method.getClassName();
+        if (StringList.quickEq(type_, getAliasEnums())) {
+            return super.getOtherResult(_cont,_instance,_method,_args);
+        }
+        String name_ = _method.getConstraints().getName();
+        if (StringList.quickEq(name_, aliasNewMessage)) {
+            if (list_.isEmpty()) {
+                res_.setResult(StdStruct.newInstance(Message.newStandardMessage(),aliasMessage));
+            } else {
+                String value_ = ((StringStruct) _args[0]).getInstance();
+                res_.setResult(StdStruct.newInstance(Message.newStandardMessage(value_),aliasMessage));
+            }
+            return res_;
+        }
+        Message instance_ = (Message) ((RealInstanceStruct)_instance).getInstance();
+        if (StringList.quickEq(name_, aliasMessageFormat)) {
+            res_.setResult(StdStruct.wrapStd(instance_.format(),_cont));
+            return res_;
+        }
+        if (StringList.quickEq(name_, aliasMessageGetArgs)) {
+            StringList resArgs_ = instance_.getArgs();
+            String arrStr_ = PrimitiveTypeUtil.getPrettyArrayType(getAliasString());
+            int len_ = resArgs_.size();
+            ArrayStruct arr_ = new ArrayStruct(new Struct[len_],arrStr_);
+            for (int i = 0; i < len_; i++){
+                arr_.getInstance()[i] = StdStruct.wrapStd(resArgs_.get(i),_cont);
+            }
+            res_.setResult(arr_);
+            return res_;
+        }
+        Struct[] argsInst_ = ((ArrayStruct) _args[0]).getInstance();
+        int len_ = argsInst_.length;
+        String[] resArgs_ = new String[len_];
+        for (int i = 0; i < len_; i++){
+            Struct argInst_ = argsInst_[i];
+            if (argInst_ instanceof StringStruct) {
+                resArgs_[i] = ((StringStruct)argInst_).getInstance();
+            }
+        }
+        instance_.setArgs(resArgs_);
+        res_.setResult(NullStruct.NULL_VALUE);
+        return res_;
+    }
     public abstract void forwardDataBase(Struct _bean, Struct _to, Configuration _conf);
     public abstract Argument getForms(Struct _bean, Configuration _conf);
     public abstract void setForms(Struct _bean, Struct _map, Configuration _conf);
     public abstract void forwardMap(Struct _map, Struct _to, Struct _key, Configuration _conf);
     public abstract void putAllMap(Struct _map, Struct _other, Configuration _conf);
+    public abstract Message validate(Configuration _conf,NodeContainer _cont, Struct _validator);
     public Validator buildValidator(Element _element) {
         return null;
     }
@@ -714,5 +810,45 @@ public abstract class BeanLgNames extends LgNames {
 
     public void setAliasStringMapObject(String _aliasStringMapObject) {
         aliasStringMapObject = _aliasStringMapObject;
+    }
+
+    public String getAliasMessage() {
+        return aliasMessage;
+    }
+
+    public void setAliaMessage(String _aliasMessage) {
+        aliasMessage = _aliasMessage;
+    }
+
+    public String getAliasNewMessage() {
+        return aliasNewMessage;
+    }
+
+    public void setAliasNewMessage(String _aliasNewMessage) {
+        aliasNewMessage = _aliasNewMessage;
+    }
+
+    public String getAliasMessageFormat() {
+        return aliasMessageFormat;
+    }
+
+    public void setAliasMessageFormat(String _aliasMessageFormat) {
+        aliasMessageFormat = _aliasMessageFormat;
+    }
+
+    public String getAliasMessageGetArgs() {
+        return aliasMessageGetArgs;
+    }
+
+    public void setAliasMessageGetArgs(String _aliasMessageGetArgs) {
+        aliasMessageGetArgs = _aliasMessageGetArgs;
+    }
+
+    public String getAliasMessageSetArgs() {
+        return aliasMessageSetArgs;
+    }
+
+    public void setAliasMessageSetArgs(String _aliasMessageSetArgs) {
+        aliasMessageSetArgs = _aliasMessageSetArgs;
     }
 }

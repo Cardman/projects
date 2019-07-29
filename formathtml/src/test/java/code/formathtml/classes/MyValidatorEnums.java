@@ -11,6 +11,18 @@ public class MyValidatorEnums extends Validator {
     }
 
     @Override
+    public Message validate(Object _value) {
+        if (_value instanceof EnumNumbers) {
+            for (Object o: (EnumNumbers) _value) {
+                if (o == EnumNumber.FOUR) {
+                    return Message.newStandardMessage(BAD_SELECTION);
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
     public Message validate(Object _navigation, Object _node, Object _value) {
         if (_value instanceof EnumNumbers) {
             for (Object o: (EnumNumbers) _value) {

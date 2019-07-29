@@ -243,6 +243,7 @@ public final class Navigation {
         }
         BeanLgNames stds_ = session.getAdvStandards();
         stds_.initBeans(session,language,dataBaseStruct);
+        session.getAnalyzingDoc().setLanguage(language);
         session.setupRenders(files);
         if (!session.getClasses().isEmptyErrors()) {
             return;
@@ -717,10 +718,9 @@ public final class Navigation {
         errors_ = new StringMap<String>();
         StringMap<StringList> errorsArgs_;
         errorsArgs_ = new StringMap<StringList>();
-        //TODO converters
-        String objClass_ = session.getStandards().getAliasObject();
         for (EntryCust<Long, NodeContainer> e: containersMap_.getVal(lg_).entryList()) {
-            NodeInformations nInfos_ = e.getValue().getNodeInformation();
+            NodeContainer nCont_ = e.getValue();
+            NodeInformations nInfos_ = nCont_.getNodeInformation();
             String valId_ = nInfos_.getValidator();
             String id_ = nInfos_.getId();
             if (valId_.isEmpty()) {
@@ -733,51 +733,13 @@ public final class Navigation {
             ip_.setOffset(0);
             Struct validator_ = session.getBuiltValidators().getVal(valId_);
             if (validator_ == null) {
-                session.getContext().setException(new ErrorStruct(session,session.getStandards().getAliasNullPe()));
-                return;
+                continue;
             }
-            StringList v_ = nInfos_.getValue();
-            String className_ = nInfos_.getInputClass();
-            ResultErrorStd resError_ = session.getAdvStandards().getStructToBeValidated(v_, className_, session.getContext());
-            if (resError_.getError() != null) {
-                String err_ = resError_.getError();
-                session.getContext().setException(new ErrorStruct(session,err_));
-                return;
-            }
-            ContextEl context_ = session.getContext();
-            Struct obj_ = resError_.getResult();
-            LocalVariable lv_ = new LocalVariable();
-            String valName_ = ip_.getNextTempVar();
-            lv_ = new LocalVariable();
-            lv_.setStruct(validator_);
-            lv_.setClassName(validator_.getClassName(context_));
-            ip_.putLocalVar(valName_, lv_);
-            String navName_ = ip_.getNextTempVar();
-            lv_ = new LocalVariable();
-            lv_.setStruct(StdStruct.wrapStd(this, context_));
-            lv_.setClassName(objClass_);
-            ip_.putLocalVar(navName_, lv_);
-            String nodName_ = ip_.getNextTempVar();
-            lv_ = new LocalVariable();
-            lv_.setStruct(StdStruct.wrapStd(node_, context_));
-            lv_.setClassName(objClass_);
-            ip_.putLocalVar(nodName_, lv_);
-            String objName_ = ip_.getNextTempVar();
-            lv_ = new LocalVariable();
-            lv_.setStruct(obj_);
-            lv_.setClassName(objClass_);
-            ip_.putLocalVar(objName_, lv_);
-            StringBuilder expression_ = new StringBuilder(valName_).append(GET_LOC_VAR).append(VALIDATE).append(BEGIN_ARGS);
-            expression_.append(navName_).append(GET_LOC_VAR).append(SEP_ARGS);
-            expression_.append(nodName_).append(GET_LOC_VAR).append(SEP_ARGS);
-            expression_.append(objName_).append(GET_LOC_VAR).append(END_ARGS);
-            Argument message_ = RenderExpUtil.processEl(expression_.toString(), 0, session);
+            Message messageTr_ = session.getAdvStandards().validate(session,nCont_,validator_);
             if (session.getContext().getException() != null) {
                 return;
             }
-            if (!message_.isNull()) {
-                StdStruct std_ = (StdStruct) message_.getStruct();
-                Message messageTr_ = (Message) std_.getInstance();
+            if (messageTr_ != null) {
                 errors_.put(id_, messageTr_.format());
                 errorsArgs_.put(id_, messageTr_.getArgs());
             }
@@ -790,6 +752,9 @@ public final class Navigation {
             if (!elt_.hasAttribute(StringList.concat(ip_.getPrefix(),ATTRIBUTE_FOR))) {
                 continue;
             }
+            if (!elt_.getTextContent().trim().isEmpty()) {
+                continue;
+            }
             NodeList children_ = elt_.getChildNodes();
             int ch_ = children_.getLength();
             for (int i = CustList.FIRST_INDEX; i < ch_; i++) {
@@ -800,7 +765,7 @@ public final class Navigation {
         }
         //end deleting previous errors
         if (!errors_.isEmpty()) {
-//            processFormErrors(doc_, formElement_, lg_, errors_, errorsArgs_);
+            processRendFormErrors(doc_, formElement_, lg_, errors_, errorsArgs_);
             session.clearPages();
             return;
         }
@@ -996,7 +961,7 @@ public final class Navigation {
             session.getLastPage().setProcessingAttribute(EMPTY_STRING);
             Struct newObj_;
             StringList v_ = nCont_.getNodeInformation().getValue();
-            ResultErrorStd res_ = session.getAdvStandards().convert(v_, nCont_, session);
+            ResultErrorStd res_ = session.getAdvStandards().convert(nCont_, session);
             if (session.getContext().getException() != null) {
                 return;
             }
@@ -1008,6 +973,115 @@ public final class Navigation {
                 return;
             }
         }
+    }
+
+    private void processRendFormErrors(Document _doc, Element _formElement, long _id,
+                                   StringMap<String> _errors, StringMap<StringList> _errorsArgs) {
+        HtmlPage htmlPage_ = session.getHtmlPage();
+        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        containersMap_ = htmlPage_.getContainers();
+        CustList<IdFormat> idFormats_ = htmlPage_.getFormatIdMap().getVal(_id);
+        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(_id);
+        for (String i : _errors.getKeys()) {
+            int count_ = 0;
+            ElementList spans_ = _formElement.getElementsByTagName(TAG_SPAN);
+            int lengthSpans_ = spans_.getLength();
+            for (int j = CustList.FIRST_INDEX; j < lengthSpans_; j++) {
+                Element elt_ = spans_.item(j);
+                if (!StringList.quickEq(elt_.getAttribute(StringList.concat(session.getPrefix(),ATTRIBUTE_FOR)),i)) {
+                    count_++;
+                    continue;
+                }
+                if (!elt_.getTextContent().trim().isEmpty()) {
+                    count_++;
+                    continue;
+                }
+                NodeList children_ = elt_.getChildNodes();
+                int ch_ = children_.getLength();
+                for (int k = CustList.FIRST_INDEX; k < ch_; k++) {
+                    elt_.removeChild((MutableNode) children_.item(k));
+                }
+                String error_ = _errors.getVal(i);
+                IdFormat idFormat_ = idFormats_.get(count_);
+                String valueMessage_ = idFormat_.getFormat();
+                if (!valueMessage_.isEmpty()) {
+                    error_ = StringList.simpleStringsFormat(valueMessage_,_errorsArgs.getVal(i));
+                }
+                Text text_ = _doc.createTextNode(error_);
+                elt_.appendChild(text_);
+                count_++;
+            }
+        }
+        ElementList inputs_ = _doc.getElementsByTagName(TAG_INPUT);
+        int lengthInputs_ = inputs_.getLength();
+        for (int i = CustList.FIRST_INDEX; i < lengthInputs_; i++) {
+            Element elt_ = inputs_.item(i);
+            String idInput_ = elt_.getAttribute(NUMBER_INPUT);
+            if (idInput_.isEmpty()) {
+                continue;
+            }
+            NodeContainer nCont_ = containers_.getVal(Numbers.parseLongZero(idInput_));
+            if (StringList.quickEq(elt_.getAttribute(ATTRIBUTE_TYPE),TEXT)) {
+                elt_.setAttribute(ATTRIBUTE_VALUE, nCont_.getNodeInformation().getValue().first());
+                continue;
+            }
+            if (StringList.quickEq(elt_.getAttribute(ATTRIBUTE_TYPE),CHECKBOX)) {
+                if (StringList.quickEq(nCont_.getNodeInformation().getValue().first(),ON)) {
+                    elt_.setAttribute(CHECKED, CHECKED);
+                } else {
+                    elt_.removeAttribute(CHECKED);
+                }
+                continue;
+            }
+            if (StringList.quickEq(elt_.getAttribute(ATTRIBUTE_TYPE),RADIO)) {
+                String value_ = elt_.getAttribute(ATTRIBUTE_VALUE);
+                if (StringList.quickEq(nCont_.getNodeInformation().getValue().first(), value_)) {
+                    elt_.setAttribute(CHECKED, CHECKED);
+                } else {
+                    elt_.removeAttribute(CHECKED);
+                }
+                continue;
+            }
+            elt_.setAttribute(ATTRIBUTE_VALUE, nCont_.getNodeInformation().getValue().first());
+        }
+        inputs_ = _doc.getElementsByTagName(TAG_SELECT);
+        lengthInputs_ = inputs_.getLength();
+        for (int i = CustList.FIRST_INDEX; i < lengthInputs_; i++) {
+            Element elt_ = inputs_.item(i);
+            String idInput_ = elt_.getAttribute(NUMBER_INPUT);
+            if (idInput_.isEmpty()) {
+                continue;
+            }
+            NodeContainer nCont_ = containers_.getVal(Numbers.parseLongZero(idInput_));
+            ElementList options_ = elt_.getElementsByTagName(TAG_OPTION);
+            int optionsLen_ = options_.getLength();
+            for (int j = CustList.FIRST_INDEX; j < optionsLen_; j++) {
+                Element option_ = options_.item(j);
+                if (StringList.contains(nCont_.getNodeInformation().getValue(), option_.getAttribute(ATTRIBUTE_VALUE))) {
+                    option_.setAttribute(SELECTED, SELECTED);
+                } else {
+                    option_.removeAttribute(SELECTED);
+                }
+            }
+        }
+        inputs_ = _doc.getElementsByTagName(TEXT_AREA);
+        lengthInputs_ = inputs_.getLength();
+        for (int i = CustList.FIRST_INDEX; i < lengthInputs_; i++) {
+            Element elt_ = inputs_.item(i);
+            String idInput_ = elt_.getAttribute(NUMBER_INPUT);
+            if (idInput_.isEmpty()) {
+                continue;
+            }
+            NodeContainer nCont_ = containers_.getVal(Numbers.parseLongZero(idInput_));
+            NodeList children_ = elt_.getChildNodes();
+            int ch_ = children_.getLength();
+            for (int j = CustList.FIRST_INDEX; j < ch_; j++) {
+                elt_.removeChild((MutableNode) children_.item(j));
+            }
+            Text text_ = _doc.createTextNode(nCont_.getNodeInformation().getValue().first());
+            elt_.appendChild(text_);
+        }
+        setupText(_doc.export());
     }
     private void processFormErrors(Document _doc, Element _formElement, long _id,
             StringMap<String> _errors, StringMap<StringList> _errorsArgs) {

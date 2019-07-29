@@ -98,6 +98,7 @@ public abstract class RendInput extends RendElement {
 
     @Override
     public void reduce(Configuration _context) {
+        super.reduce(_context);
         opsRead = reduceList(opsRead);
         opsValue = reduceList(opsValue);
         opsWrite = reduceList(opsWrite);

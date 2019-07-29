@@ -302,13 +302,18 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             processOptionsMapEnum(_cont, map_.getStruct(),
                     doc_, docElementSelect_);
         }
+        boolean id_ = false;
         for (EntryCust<String,ResultText> e: attributesText.entryList()) {
             ResultText res_ = e.getValue();
             String txt_ = ResultText.render(res_.getOpExp(), res_.getTexts(), _cont);
             if (_cont.getContext().hasExceptionOrFailInit()) {
                 return;
             }
+            id_ = true;
             docElementSelect_.setAttribute(e.getKey(),txt_);
+        }
+        if (id_ && !elt.getAttribute(ATTRIBUTE_VALIDATOR).trim().isEmpty()) {
+            docElementSelect_.setAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VALIDATOR), elt.getAttribute(ATTRIBUTE_VALIDATOR));
         }
         docElementSelect_.setAttribute(ATTRIBUTE_NAME, name_);
         if (!(_cont.getAdvStandards() instanceof BeanCustLgNames)) {

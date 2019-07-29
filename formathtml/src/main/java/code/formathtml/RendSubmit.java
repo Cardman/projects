@@ -47,6 +47,7 @@ public final class RendSubmit extends RendElement {
         if (preformatted == null) {
             return;
         }
+        super.reduce(_context);
         for (EntryCust<String,ResultText> e:opExp.entryList()) {
             ResultText.reduce(e.getValue().getOpExp());
         }

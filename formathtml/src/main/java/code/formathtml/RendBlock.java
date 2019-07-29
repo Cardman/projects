@@ -39,6 +39,9 @@ public abstract class RendBlock {
     static final String ATTRIBUTE_LIST = "list";
     static final String ATTRIBUTE_MAP = "map";
     static final String ATTRIBUTE_ID = "id";
+    static final String SPAN_TAG = "span";
+    static final String ATTRIBUTE_FOR = "for";
+    static final String ATTRIBUTE_VALUE_MESSAGE = "valueMessage";
     static final String ATTRIBUTE_GROUP_ID = "groupId";
     static final String ATTRIBUTE_MULTIPLE = "multiple";
     static final String ATTRIBUTE_KEY = "key";
@@ -183,17 +186,25 @@ public abstract class RendBlock {
             return EMPTY_STRING;
         }
         LongMap<LongTreeMap<NodeContainer>> containersMap_ = _conf.getContainersMap();
+        LongMap<CustList<IdFormat>> formatIdMap_ = _conf.getFormatIdMap();
         LongTreeMap<NodeContainer> containers_ = _conf.getContainers();
+        CustList<IdFormat> formatId_ = _conf.getFormatId();
         long currentForm_ = _conf.getCurrentForm();
         containersMap_.put(currentForm_, containers_);
         containersMap_.removeKey(0L);
+        formatIdMap_.put(currentForm_, formatId_);
+        formatIdMap_.removeKey(0L);
         if (currentForm_ > 1) {
             _conf.getCurForm().setAttribute(NUMBER_FORM, String.valueOf(currentForm_ - 1));
         }
         for (Long k: containersMap_.getKeys()) {
             containersMap_.move(k, k - 1);
         }
+        for (Long k: formatIdMap_.getKeys()) {
+            formatIdMap_.move(k, k - 1);
+        }
         _conf.getHtmlPage().setContainers(containersMap_);
+        _conf.getHtmlPage().setFormatIdMap(formatIdMap_);
         _conf.getHtmlPage().setCallsExps(_conf.getCallsExps());
         _conf.getHtmlPage().setAnchorsArgs(_conf.getAnchorsArgs());
         _conf.getHtmlPage().setAnchorsVars(_conf.getAnchorsVars());
@@ -535,6 +546,11 @@ public abstract class RendBlock {
         if (StringList.quickEq(tagName_,TEXT_AREA)) {
             return new RendTextArea(elt_,new OffsetsBlock(_begin,_begin));
         }
+        if (StringList.quickEq(tagName_,SPAN_TAG)) {
+            if (!elt_.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_FOR)).isEmpty() && elt_.getTextContent().trim().isEmpty()) {
+                return new RendSpan(elt_,new OffsetsBlock(_begin,_begin));
+            }
+        }
         return new RendStdElement(elt_,new OffsetsBlock(_begin,_begin));
     }
 
@@ -731,6 +747,7 @@ public abstract class RendBlock {
             nodeCont_.setOpsConvert(_f.getOpsConverter());
             nodeCont_.setVarNameConvert(_f.getVarNameConverter());
             nodeCont_.setArrayConverter(_f.isArrayConverter());
+            nodeCont_.setBean(_cont.getLastPage().getGlobalArgument().getStruct());
             NodeInformations nodeInfos_ = nodeCont_.getNodeInformation();
             String id_ = _write.getAttribute(ATTRIBUTE_ID);
             if (id_.isEmpty()) {

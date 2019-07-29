@@ -30,8 +30,10 @@ public final class ValidatorStruct implements RealInstanceStruct {
 
     @Override
     public Object getInstance() {
-        return translator;
+        return getTranslator();
     }
 
-
+    public Validator getTranslator() {
+        return translator;
+    }
 }

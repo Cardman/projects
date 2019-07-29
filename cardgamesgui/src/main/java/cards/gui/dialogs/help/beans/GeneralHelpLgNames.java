@@ -4,8 +4,4 @@ import code.formathtml.util.BeanNatLgNames;
 
 public final class GeneralHelpLgNames extends BeanNatLgNames {
 
-    @Override
-    public void buildOther() {
-    }
-
 }

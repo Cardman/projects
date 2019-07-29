@@ -14,7 +14,9 @@ import code.formathtml.util.FieldUpdates;
 import code.sml.Document;
 import code.sml.Element;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.StringList;
+import code.util.StringMap;
 
 public final class RendTextArea extends RendParentBlock implements RendWithEl, RendReducableOperations,RendBuildableElMethod {
     private CustList<RendDynOperationNode> opsRead = new CustList<RendDynOperationNode>();
@@ -22,6 +24,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
     private CustList<RendDynOperationNode> opsWrite = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsConverter = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsConverterField = new CustList<RendDynOperationNode>();
+    private StringMap<ResultText> attributesText = new StringMap<ResultText>();
 
     private String varNameConverter = "";
     private String varNameConverterField = "";
@@ -106,6 +109,20 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
                 _cont.getClasses().addError(badEl_);
             }
         }
+        String id_ = elt.getAttribute(ATTRIBUTE_ID);
+        if (!id_.isEmpty()) {
+            ResultText rId_ = new ResultText();
+            rId_.buildId(id_,_cont,_doc);
+            attributesText.put(ATTRIBUTE_ID,rId_);
+        }
+        String prefixWrite_ = _cont.getPrefix();
+        String prefGr_ = StringList.concat(prefixWrite_, ATTRIBUTE_GROUP_ID);
+        String groupId_ = elt.getAttribute(prefGr_);
+        if (!groupId_.isEmpty()) {
+            ResultText rId_ = new ResultText();
+            rId_.buildId(groupId_,_cont,_doc);
+            attributesText.put(prefGr_,rId_);
+        }
     }
 
     @Override
@@ -115,6 +132,9 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
         opsWrite = reduceList(opsWrite);
         opsConverter = reduceList(opsConverter);
         opsConverterField = reduceList(opsConverterField);
+        for (EntryCust<String,ResultText> e: attributesText.entryList()) {
+            ResultText.reduce(e.getValue().getOpExp());
+        }
     }
 
     @Override
@@ -132,6 +152,17 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
         f_.setVarName(varName);
         f_.setVarNameConverter(varNameConverter);
         f_.setOpsConverter(opsConverter);
+        for (EntryCust<String,ResultText> e: attributesText.entryList()) {
+            ResultText res_ = e.getValue();
+            String txt_ = ResultText.render(res_.getOpExp(), res_.getTexts(), _cont);
+            if (_cont.getContext().hasExceptionOrFailInit()) {
+                return;
+            }
+            docElementSelect_.setAttribute(e.getKey(),txt_);
+        }
+        if (elt.hasAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VALIDATOR))) {
+            docElementSelect_.setAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VALIDATOR),elt.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VALIDATOR)));
+        }
         fetchName(_cont, elt, docElementSelect_, f_);
         fetchValue(_cont,elt,docElementSelect_,opsValue,varNameConverterField,opsConverterField);
         if (_cont.getContext().hasExceptionOrFailInit()) {

@@ -50,6 +50,13 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
         processAttributes(_cont,_doc,read,allAttributesNames_,attributesNames_);
     }
 
+    @Override
+    public void reduce(Configuration _context) {
+        for (EntryCust<String,ResultText> e: attributesText.entryList()) {
+            ResultText.reduce(e.getValue().getOpExp());
+        }
+    }
+
     protected abstract void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _all, StringList _list);
 
     public final Element getRead() {

@@ -92,6 +92,7 @@ public final class RendAnchor extends RendElement {
 
     @Override
     public void reduce(Configuration _context) {
+        super.reduce(_context);
         ResultText.reduce(opExp);
     }
 }

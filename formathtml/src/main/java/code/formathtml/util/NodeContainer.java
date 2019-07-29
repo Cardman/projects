@@ -9,10 +9,12 @@ import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.structs.BeanStruct;
 import code.formathtml.structs.StdStruct;
 import code.util.CustList;
+import code.util.StringList;
 
 public class NodeContainer {
 
     private Struct object = NullStruct.NULL_VALUE;
+    private Struct bean = NullStruct.NULL_VALUE;
 
     private Struct typedField = NullStruct.NULL_VALUE;
 
@@ -65,6 +67,9 @@ public class NodeContainer {
         }
     }
 
+    public StringList getValue() {
+        return nodeInformation.getValue();
+    }
     public void setTypedField(String _typedField) {
         typedField = new StringStruct(_typedField);
     }
@@ -175,5 +180,13 @@ public class NodeContainer {
 
     public void setArrayConverter(boolean _arrayConverter) {
         arrayConverter = _arrayConverter;
+    }
+
+    public Struct getBean() {
+        return bean;
+    }
+
+    public void setBean(Struct _bean) {
+        bean = _bean;
     }
 }

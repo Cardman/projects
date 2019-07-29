@@ -128,6 +128,8 @@ public final class Configuration implements ExecutableCode {
     private CustList<StringList> formsArgs = new CustList<StringList>();
     private CustList<StringList> formsVars = new CustList<StringList>();
     private StringList formsNames = new StringList();
+    private LongMap<CustList<IdFormat>> formatIdMap = new LongMap<CustList<IdFormat>>();
+    private CustList<IdFormat> formatId = new CustList<IdFormat>();
     private long currentForm;
     private Element curForm;
 
@@ -255,6 +257,8 @@ public final class Configuration implements ExecutableCode {
         containers = new LongTreeMap<NodeContainer>();
         indexes = new IndexesFormInput();
         callsFormExps = new CustList<CustList<RendDynOperationNode>>();
+        formatIdMap = new LongMap<CustList<IdFormat>>();
+        formatId = new CustList<IdFormat>();
         formsArgs = new CustList<StringList>();
         formsVars = new CustList<StringList>();
         formsNames = new StringList();
@@ -1334,6 +1338,18 @@ public final class Configuration implements ExecutableCode {
 
     public CustList<CustList<RendDynOperationNode>> getCallsFormExps() {
         return callsFormExps;
+    }
+
+    public LongMap<CustList<IdFormat>> getFormatIdMap() {
+        return formatIdMap;
+    }
+
+    public CustList<IdFormat> getFormatId() {
+        return formatId;
+    }
+
+    public void setFormatId(CustList<IdFormat> _formatId) {
+        formatId = _formatId;
     }
 
     public StringList getFormsNames() {

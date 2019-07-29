@@ -8,38 +8,15 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
-import code.sml.DocumentBuilder;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
-import code.util.StringMap;
 
 final class RendRequestUtil {
 
-    private static final String EMPTY_STRING = "";
     private RendRequestUtil() {
     }
 
-
-    static String formatErrorMessage(Configuration _conf,String _textId, boolean _escapeAmp,String _loc, StringMap<String> _files, String _resourcesFolder, CustList<String> _args) {
-        String value_ = _textId;
-        StringList elts_ = StringList.splitStrings(value_, FormatHtml.COMMA);
-        String var_ = elts_.first();
-        String fileName_ = ExtractObject.getProperty(_conf, var_);
-        if (fileName_ == null) {
-            fileName_ = var_;
-        }
-        StringMap<String> messages_ = RendExtractFromResources.getInnerMessagesFromLocaleClass(_conf, _loc, fileName_, _files, _resourcesFolder);
-        if (_conf.getContext().getException() != null) {
-            return EMPTY_STRING;
-        }
-        String preformatted_ = RendExtractFromResources.getFormat(messages_, elts_.last(), _conf, _loc, fileName_);
-        if (_conf.getContext().getException() != null) {
-            return EMPTY_STRING;
-        }
-        preformatted_ = DocumentBuilder.transformSpecialChars(preformatted_, _escapeAmp);
-        return StringList.simpleStringsFormat(preformatted_, _args);
-    }
 
     static Struct invokeMethodWithNumbersBis(Configuration _conf, String _action) {
         Argument arg_ = RenderExpUtil.processEl(_action, 0, _conf);

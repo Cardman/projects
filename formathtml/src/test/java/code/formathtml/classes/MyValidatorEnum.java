@@ -11,5 +11,9 @@ public class MyValidatorEnum extends Validator {
     public Message validate(Object _navigation, Object _node, Object _value) {
         return null;
     }
+    @Override
+    public Message validate(Object _value) {
+        return null;
+    }
 
 }

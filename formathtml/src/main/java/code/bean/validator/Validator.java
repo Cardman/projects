@@ -4,6 +4,7 @@ public abstract class Validator {
 
     private String className;
 
+    public abstract Message validate(Object _value);
     public abstract Message validate(Object _navigation, Object _node, Object _value);
 
     public String getClassName() {

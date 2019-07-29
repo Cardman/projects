@@ -1,9 +1,11 @@
 package code.formathtml.util;
 
 import code.bean.BeanInfo;
+import code.bean.validator.Message;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.util.ClassField;
@@ -15,6 +17,7 @@ import code.formathtml.Configuration;
 import code.formathtml.RenderExpUtil;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.structs.StdStruct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -72,6 +75,7 @@ public final class BeanCustLgNames extends BeanLgNames {
     private CustList<RendDynOperationNode> expsGetScope;
     private CustList<RendDynOperationNode> expsSetScope;
     private CustList<RendDynOperationNode> expsSetLanguage;
+    private CustList<RendDynOperationNode> expsValidate;
     private CustList<RendDynOperationNode> opsMap;
     private String aliasMapKeys = "keys";
     private String aliasMapValues = "values";
@@ -93,10 +97,16 @@ public final class BeanCustLgNames extends BeanLgNames {
     private String aliasMapSize = "size";
     private String aliasMapIsEmpty = "isEmpty";
     private String aliasMapClear = "clear";
-    @Override
-    public void buildOther() {
 
-    }
+    private String aliasValidator="code.bean.Validator";
+    private String aliasValidate="validate";
+    private String validateVar;
+    private String validateVarArgNewValue;
+    private String validateVarArgOldValue;
+    private String validateVarArgBean;
+    private String validateVarArgForm;
+    private String validateVarArgClassField;
+    private String vlidateVarArgNameField;
 
     public void buildIterables(Configuration _context) {
         ContextEl context_ = _context.getContext();
@@ -308,6 +318,52 @@ public final class BeanCustLgNames extends BeanLgNames {
         exp_ = StringList.concat(setLanguageVar, LOC_VAR, StringList.concat(setLanguage_,"(",setLanguageVarArg,")"));
         expsSetLanguage= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
 
+        StringList vars_ = new StringList();
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(aliasValidator));
+        _context.getInternVars().put(locName_, locVar_);
+        validateVar = locName_;
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasObject()));
+        _context.getInternVars().put(locName_, locVar_);
+        vars_.add(locName_);
+        validateVarArgNewValue = locName_;
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasObject()));
+        _context.getInternVars().put(locName_, locVar_);
+        vars_.add(locName_);
+        validateVarArgOldValue = locName_;
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasObject()));
+        _context.getInternVars().put(locName_, locVar_);
+        vars_.add(locName_);
+        validateVarArgBean = locName_;
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasObject()));
+        _context.getInternVars().put(locName_, locVar_);
+        vars_.add(locName_);
+        validateVarArgForm = locName_;
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasString()));
+        _context.getInternVars().put(locName_, locVar_);
+        vars_.add(locName_);
+        validateVarArgClassField = locName_;
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasString()));
+        _context.getInternVars().put(locName_, locVar_);
+        vars_.add(locName_);
+        vlidateVarArgNameField = locName_;
+
+        String validate_ = aliasValidate;
+        exp_ = StringList.concat(validateVar, LOC_VAR, StringList.concat(validate_,"(",StringList.join(vars_,','),")"));
+        expsValidate= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
         String aliasStringMapObject_ = getAliasStringMapObject();
         String keyWordNew_ = _context.getKeyWords().getKeyWordNew();
         opsMap = RenderExpUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", aliasStringMapObject_, "()"), 0, _context, Calculation.staticCalculation(false));
@@ -512,6 +568,20 @@ public final class BeanCustLgNames extends BeanLgNames {
         file_.append("}");
         files_.put(ALIAS_STRING_MAP_OBJECT, file_.toString());
         getPredefinedInterfacesInitOrder().add(ALIAS_STRING_MAP_OBJECT);
+        file_ = new StringBuilder();
+        file_.append(public_).append(" ").append(interface_).append(" ").append(aliasValidator).append("{");
+        file_.append(public_).append(" ").append(getAliasMessage()).append(" ").append(aliasValidate).append("(");
+        file_.append(object_).append(" ").append(tr("newValue",_context)).append(",");
+        file_.append(object_).append(" ").append(tr("oldValue",_context)).append(",");
+        file_.append(object_).append(" ").append(tr("bean",_context)).append(",");
+        file_.append(object_).append(" ").append(tr("form",_context)).append(",");
+        file_.append(string_).append(" ").append(tr("className",_context)).append(",");
+        file_.append(string_).append(" ").append(tr("fieldName",_context));
+        file_.append(")");
+        file_.append(endLine_);
+        file_.append("}");
+        files_.put(aliasValidator, file_.toString());
+        getPredefinedInterfacesInitOrder().add(aliasValidator);
         return files_;
     }
     private static String tr(String _var, ContextEl _context) {
@@ -788,6 +858,49 @@ public final class BeanCustLgNames extends BeanLgNames {
         return expsSecondCust;
     }
 
+    public Message validate(Configuration _conf,NodeContainer _cont, Struct _validator) {
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(_validator, _conf.getContext()));
+        locVar_.setStruct(_validator);
+        _conf.getLastPage().getInternVars().put(validateVar, locVar_);
+        locVar_ = newLocVar(_cont,_conf);
+        _conf.getLastPage().getInternVars().put(validateVarArgNewValue, locVar_);
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(getAliasObject());
+        locVar_.setStruct(_cont.getTypedStruct());
+        _conf.getLastPage().getInternVars().put(validateVarArgOldValue, locVar_);
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(getAliasObject());
+        locVar_.setStruct(_cont.getBean());
+        _conf.getLastPage().getInternVars().put(validateVarArgBean, locVar_);
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(getAliasObject());
+        locVar_.setStruct(_cont.getStruct());
+        _conf.getLastPage().getInternVars().put(validateVarArgForm, locVar_);
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(getAliasString());
+        locVar_.setStruct(new StringStruct(_cont.getIdField().getClassName()));
+        _conf.getLastPage().getInternVars().put(validateVarArgClassField, locVar_);
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(getAliasString());
+        locVar_.setStruct(new StringStruct(_cont.getIdField().getFieldName()));
+        _conf.getLastPage().getInternVars().put(vlidateVarArgNameField, locVar_);
+        Argument arg_ = RenderExpUtil.calculateReuse(expsValidate, _conf);
+        _conf.getLastPage().getInternVars().removeKey(validateVar);
+        _conf.getLastPage().getInternVars().removeKey(validateVarArgNewValue);
+        _conf.getLastPage().getInternVars().removeKey(validateVarArgOldValue);
+        _conf.getLastPage().getInternVars().removeKey(validateVarArgBean);
+        _conf.getLastPage().getInternVars().removeKey(validateVarArgForm);
+        _conf.getLastPage().getInternVars().removeKey(validateVarArgClassField);
+        _conf.getLastPage().getInternVars().removeKey(vlidateVarArgNameField);
+        if (_conf.getContext().hasException()) {
+            return null;
+        }
+        if (arg_.isNull()) {
+            return null;
+        }
+        return (Message)((StdStruct)arg_.getStruct()).getInstance();
+    }
     @Override
     public String getStringKey(Configuration _conf, Struct _instance) {
         if (_instance instanceof EnumerableStruct) {
@@ -1112,5 +1225,21 @@ public final class BeanCustLgNames extends BeanLgNames {
 
     public void setAliasMapClear(String _aliasMapClear) {
         aliasMapClear = _aliasMapClear;
+    }
+
+    public String getAliasValidator() {
+        return aliasValidator;
+    }
+
+    public void setAliasValidator(String _aliasValidator) {
+        aliasValidator = _aliasValidator;
+    }
+
+    public String getAliasValidate() {
+        return aliasValidate;
+    }
+
+    public void setAliasValidate(String _aliasValidate) {
+        aliasValidate = _aliasValidate;
     }
 }

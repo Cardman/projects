@@ -91,9 +91,4 @@ public final class RendRadio extends RendInput {
             }
         }
     }
-
-    @Override
-    public void reduce(Configuration _context) {
-        super.reduce(_context);
-    }
 }

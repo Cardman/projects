@@ -14,5 +14,11 @@ public class UnselectedRadio extends Validator {
         }
         return null;
     }
-
+    @Override
+    public Message validate(Object _value) {
+        if (_value == null) {
+            return Message.newStandardMessage();
+        }
+        return null;
+    }
 }

@@ -13,11 +13,10 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.Configuration;
-import code.formathtml.structs.BeanStruct;
-import code.formathtml.structs.RealInstanceStruct;
-import code.formathtml.structs.StdStruct;
-import code.formathtml.structs.StringMapObjectStruct;
+import code.formathtml.RenderExpUtil;
+import code.formathtml.structs.*;
 import code.sml.Element;
 import code.util.*;
 import code.util.ints.*;
@@ -343,6 +342,20 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     @Override
     public void putAllMap(Struct _map, Struct _other, Configuration _conf) {
         ((StringMapObjectStruct)_map).getBean().putAllMap(((StringMapObjectStruct)_other).getBean());
+    }
+    public Message validate(Configuration _conf,NodeContainer _cont, Struct _validator) {
+        StringList v_ = _cont.getValue();
+        NodeInformations nInfos_ = _cont.getNodeInformation();
+        String className_ = nInfos_.getInputClass();
+        ResultErrorStd resError_ = getStructToBeValidated(v_, className_, _conf.getContext());
+        if (resError_.getError() != null) {
+            String err_ = resError_.getError();
+            _conf.getContext().setException(new ErrorStruct(_conf,err_));
+            return null;
+        }
+        Struct obj_ = resError_.getResult();
+        Object ad_ = adaptedArg(this, obj_);
+        return ((ValidatorStruct)_validator).getTranslator().validate(ad_);
     }
     public Object getOtherArguments(Struct[] _str, String _base) {
         return null;
