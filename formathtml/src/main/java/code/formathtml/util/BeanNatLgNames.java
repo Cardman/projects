@@ -10,15 +10,10 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.Configuration;
-import code.formathtml.RenderExpUtil;
-import code.formathtml.ImportingPage;
-import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.structs.BeanStruct;
 import code.formathtml.structs.RealInstanceStruct;
 import code.formathtml.structs.StdStruct;
@@ -44,24 +39,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     private static final String GET_KEY = "getKey";
     private static final String ENTRIES = "entries";
 
-    private String iteratorVar;
-    private String hasNextVar;
-    private String nextVar;
-    private String displayVar;
-
-    private CustList<RendDynOperationNode> expsIterator;
-    private CustList<RendDynOperationNode> expsHasNext;
-    private CustList<RendDynOperationNode> expsNext;
-    private CustList<RendDynOperationNode> expsDisplay;
-
-
-    private String iteratorTableVarCust;
-    private String firstVarCust;
-    private String secondVarCust;
-
-    private CustList<RendDynOperationNode> expsIteratorTableCust;
-    private CustList<RendDynOperationNode> expsFirstCust;
-    private CustList<RendDynOperationNode> expsSecondCust;
 
     static Object[] adaptedArgs(StringList _params, BeanNatLgNames _stds, Struct... _args) {
         int len_ = _params.size();
@@ -336,9 +313,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     public void initBeans(Configuration _conf,String _language,Struct _db) {
         for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
             _conf.getBuiltBeans().addEntry(e.getKey(), _conf.newSimpleBean(_language, _db, e.getValue()));
-            if (_conf.getContext().getException() != null) {
-                return;
-            }
         }
     }
     @Override
@@ -375,25 +349,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
     public static ResultErrorStd getField(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames lgNames_ = (BeanNatLgNames) _cont.getStandards();
-        String type_ = _classField.getClassName();
-        String booleanType_ = lgNames_.getAliasBoolean();
-        String charType_ = lgNames_.getAliasCharacter();
-        String byteType_ = lgNames_.getAliasByte();
-        String shortType_ = lgNames_.getAliasShort();
-        String intType_ = lgNames_.getAliasInteger();
-        String longType_ = lgNames_.getAliasLong();
-        String floatType_ = lgNames_.getAliasFloat();
-        String doubleType_ = lgNames_.getAliasDouble();
-        if (StringList.quickEq(type_, booleanType_)
-                || StringList.quickEq(type_, charType_)
-                || StringList.quickEq(type_, byteType_)
-                || StringList.quickEq(type_, shortType_)
-                || StringList.quickEq(type_, intType_)
-                || StringList.quickEq(type_, longType_)
-                || StringList.quickEq(type_, floatType_)
-                || StringList.quickEq(type_, doubleType_)) {
-            return lgNames_.getSimpleResult(_cont, _classField);
-        }
         return lgNames_.getOtherResult(_cont, _classField, _instance);
     }
 
@@ -539,64 +494,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
 
     public void buildIterables(Configuration _context) {
         ContextEl context_ = _context.getContext();
-        _context.getImporting().add(new ImportingPage(false));
         context_.setAnalyzing(new AnalyzedPageEl());
-        context_.getAnalyzing().setEnabledInternVars(true);
-        String locName_ = context_.getNextTempVar();
-        String exp_;
-        LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(getAliasSimpleIterableType());
-        _context.getInternVars().put(locName_, locVar_);
-        iteratorVar = locName_;
-        String simpleIterator_ = getAliasSimpleIterator();
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(simpleIterator_,PARS));
-        expsIterator = RenderExpUtil.getAnalyzedOperations(exp_,0, _context, Calculation.staticCalculation(true));
-        locName_ = context_.getNextTempVar();
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(getAliasSimpleIteratorType());
-        _context.getInternVars().put(locName_, locVar_);
-        hasNextVar = locName_;
-        String hasNext_ = getAliasHasNext();
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNext_,PARS));
-        expsHasNext = RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
-        locName_ = context_.getNextTempVar();
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(getAliasSimpleIteratorType());
-        _context.getInternVars().put(locName_, locVar_);
-        nextVar = locName_;
-        String next_ = getAliasNext();
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(next_,PARS));
-        expsNext = RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
-        locName_ = context_.getNextTempVar();
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(getAliasDisplayable());
-        _context.getInternVars().put(locName_, locVar_);
-        displayVar = locName_;
-        String display_ = getAliasDisplay();
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(display_,PARS));
-        expsDisplay = RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
-
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getCustMap()));
-        _context.getInternVars().put(locName_, locVar_);
-        iteratorTableVarCust= locName_;
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(ENTRIES,PARS));
-        expsIteratorTableCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
-        locName_ = context_.getNextTempVar();
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getCustEntry()));
-        _context.getInternVars().put(locName_, locVar_);
-        firstVarCust= locName_;
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(GET_KEY,PARS));
-        expsFirstCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
-        locName_ = context_.getNextTempVar();
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getCustEntry()));
-        _context.getInternVars().put(locName_, locVar_);
-        secondVarCust= locName_;
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(GET_VALUE,PARS));
-        expsSecondCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
-        _context.clearPages();
     }
     @Override
     public IterableAnalysisResult getCustomType(StringList _names, ContextEl _context) {
@@ -627,105 +525,10 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         return StringList.concat(lgNames_.getAliasIterable(),"<",it_,">");
     }
 
-    @Override
-    public String getIteratorVar() {
-        return iteratorVar;
-    }
-
-    @Override
-    public String getHasNextVar() {
-        return hasNextVar;
-    }
-
-    @Override
-    public String getNextVar() {
-        return nextVar;
-    }
-
-    @Override
-    public CustList<RendDynOperationNode> getExpsIterator() {
-        return expsIterator;
-    }
-
-    @Override
-    public CustList<RendDynOperationNode> getExpsHasNext() {
-        return expsHasNext;
-    }
-
-    @Override
-    public CustList<RendDynOperationNode> getExpsNext() {
-        return expsNext;
-    }
-
-    private CustList<RendDynOperationNode> getExpsDisplay() {
-        return expsDisplay;
-    }
-
-
-    @Override
-    public String getIteratorTableVarCust() {
-        return iteratorTableVarCust;
-    }
-
-
-    @Override
-    public String getHasNextPairVarCust() {
-        return getHasNextVar();
-    }
-
-
-    @Override
-    public String getNextPairVarCust() {
-        return getNextVar();
-    }
-
-
-    @Override
-    public String getFirstVarCust() {
-        return firstVarCust;
-    }
-
-
-    @Override
-    public String getSecondVarCust() {
-        return secondVarCust;
-    }
-
-    @Override
-    public CustList<RendDynOperationNode> getExpsIteratorTableCust() {
-        return expsIteratorTableCust;
-    }
-
-
-    @Override
-    public CustList<RendDynOperationNode> getExpsHasNextPairCust() {
-        return getExpsHasNext();
-    }
-
-
-    @Override
-    public CustList<RendDynOperationNode> getExpsNextPairCust() {
-        return getExpsNext();
-    }
-
-
-    @Override
-    public CustList<RendDynOperationNode> getExpsFirstCust() {
-        return expsFirstCust;
-    }
-
-
-    @Override
-    public CustList<RendDynOperationNode> getExpsSecondCust() {
-        return expsSecondCust;
-    }
 
     @Override
     public String getStringKey(Configuration _conf, Struct _instance) {
         ContextEl cont_ = _conf.getContext();
-        if (_instance instanceof EnumerableStruct) {
-            return ((EnumerableStruct) _instance).getName();
-        }
         ResultErrorStd res_ = getName(cont_, _instance);
         Struct str_ = res_.getResult();
         return processString(new Argument(str_),_conf);
@@ -735,23 +538,94 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     public void beforeDisplaying(Struct _arg, Configuration _cont) {
         ((BeanStruct)_arg).getBean().beforeDisplaying();
     }
+
+    @Override
+    public String getScope(Struct _bean, Configuration _cont) {
+        return ((BeanStruct)_bean).getBean().getScope();
+    }
+
+    @Override
+    public void setScope(Struct _bean, String _scope, Configuration _cont) {
+        ((BeanStruct)_bean).getBean().setScope(_scope);
+    }
+
+    public void setLanguage(Struct _bean, String _scope,Configuration _cont) {
+        ((BeanStruct)_bean).getBean().setLanguage(_scope);
+    }
+
+
+    @Override
+    public Argument iteratorMultTable(Struct _arg, Configuration _cont) {
+        Object instance_ = ((RealInstanceStruct) _arg).getInstance();
+        SimpleIterable db_ = ((SimpleEntries)instance_).entries();
+        SimpleItr it_ = db_.simpleIterator();
+        String itStr_ = getCustEntry();
+        return new Argument(StdStruct.newInstance(it_, StringList.concat(getAliasSimpleIteratorType(),Templates.TEMPLATE_BEGIN,itStr_,Templates.TEMPLATE_END)));
+    }
+
+    @Override
+    public Argument hasNextPair(Struct _arg, Configuration _conf) {
+        Object instance_ = ((RealInstanceStruct) _arg).getInstance();
+        SimpleItr it_ = (SimpleItr) instance_;
+        return new Argument(new BooleanStruct(it_.hasNext()));
+    }
+
+    @Override
+    public Argument nextPair(Struct _arg, Configuration _conf) {
+        Object instance_ = ((RealInstanceStruct) _arg).getInstance();
+        Object resObj_ = ((SimpleItr)instance_).next();
+        return new Argument(StdStruct.newInstance(resObj_,getCustEntry()));
+    }
+
+    @Override
+    public Argument first(Struct _arg, Configuration _conf) {
+        Object instance_ = ((RealInstanceStruct) _arg).getInstance();
+        Object resObj_ = ((SimpleEntry)instance_).getSimpleKey();
+        return new Argument(StdStruct.wrapStd(resObj_, _conf.getContext()));
+    }
+
+    @Override
+    public Argument second(Struct _arg, Configuration _conf) {
+        Object instance_ = ((RealInstanceStruct) _arg).getInstance();
+        Object resObj_ = ((SimpleEntry)instance_).getSimpleValue();
+        return new Argument(StdStruct.wrapStd(resObj_, _conf.getContext()));
+    }
+
+    @Override
+    public Argument iterator(Struct _arg, Configuration _cont) {
+        Object instance_ = ((RealInstanceStruct) _arg).getInstance();
+        String typeInst_ = getStructClassName(_arg, _cont.getContext());
+        String it_ = getIterables().getVal(typeInst_);
+        return new Argument(StdStruct.newInstance(((SimpleIterable) instance_).simpleIterator(), StringList.concat(getAliasSimpleIteratorType(),Templates.TEMPLATE_BEGIN,it_,Templates.TEMPLATE_END)));
+    }
+
+    @Override
+    public Argument next(Struct _arg, Configuration _cont) {
+        Object instance_ = ((RealInstanceStruct) _arg).getInstance();
+        Object resObj_ = ((SimpleItr)instance_).next();
+        return new Argument(StdStruct.wrapStd(resObj_, _cont.getContext()));
+    }
+
+    @Override
+    public Argument hasNext(Struct _arg, Configuration _cont) {
+        Object instance_ = ((RealInstanceStruct) _arg).getInstance();
+        SimpleItr it_ = (SimpleItr) instance_;
+        return new Argument(new BooleanStruct(it_.hasNext()));
+    }
+
     @Override
     public String processString(Argument _arg, Configuration _cont) {
         Struct struct_ = _arg.getStruct();
         if (struct_ instanceof DisplayableStruct) {
             return ((DisplayableStruct)struct_).getDisplayedString(_cont).getInstance();
         }
-        String param_ = _cont.getAdvStandards().getAliasDisplayable();
-        ContextEl context_ = _cont.getContext();
-        String arg_ = getStructClassName(struct_, context_);
-        if (Templates.isCorrectExecute(arg_, param_, context_)) {
-            LocalVariable locVar_ = new LocalVariable();
-            locVar_.setClassName(arg_);
-            locVar_.setStruct(struct_);
-            _cont.getLastPage().getInternVars().put(displayVar, locVar_);
-            struct_ = RenderExpUtil.calculateReuse(getExpsDisplay(), _cont).getStruct();
-            return ((DisplayableStruct)struct_).getDisplayedString(_cont).getInstance();
+        if (struct_ instanceof RealInstanceStruct) {
+            Object inst_ = ((RealInstanceStruct) struct_).getInstance();
+            if (inst_ instanceof Displayable) {
+                return ((Displayable)inst_).display();
+            }
         }
+        ContextEl context_ = _cont.getContext();
         return _arg.getObjectClassName(context_);
     }
 

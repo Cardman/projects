@@ -29,7 +29,7 @@ public final class RenderTryTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body>Text</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -49,7 +49,7 @@ public final class RenderTryTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body>Text</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -69,7 +69,7 @@ public final class RenderTryTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body>Exc</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>Exc</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -89,7 +89,7 @@ public final class RenderTryTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body>Exc</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>Exc</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -109,7 +109,7 @@ public final class RenderTryTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body>Exc</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>Exc</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -129,7 +129,7 @@ public final class RenderTryTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body>Exc</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>Exc</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -149,7 +149,7 @@ public final class RenderTryTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body>Exc</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>Exc</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -169,7 +169,7 @@ public final class RenderTryTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body>Exc</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>Exc</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -189,7 +189,7 @@ public final class RenderTryTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body>Exc</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>Exc</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -209,7 +209,7 @@ public final class RenderTryTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body>Exc</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>Exc</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -229,7 +229,7 @@ public final class RenderTryTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body>Exc</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>Exc</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -249,7 +249,7 @@ public final class RenderTryTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body>Exc</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>Exc</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -269,7 +269,7 @@ public final class RenderTryTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body>Text</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -289,7 +289,7 @@ public final class RenderTryTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body>Text</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -309,7 +309,7 @@ public final class RenderTryTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body>Exc</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>Exc</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -329,7 +329,7 @@ public final class RenderTryTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body>Exc</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>Exc</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -349,7 +349,7 @@ public final class RenderTryTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body>Exc</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>Exc</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -369,7 +369,7 @@ public final class RenderTryTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body>Exc</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>Exc</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -389,7 +389,7 @@ public final class RenderTryTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body>code.expressionlanguage.exceptions.DivideZeroException</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>code.expressionlanguage.exceptions.DivideZeroException</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test

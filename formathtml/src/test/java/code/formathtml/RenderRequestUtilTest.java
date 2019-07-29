@@ -66,7 +66,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
-        FormatHtml.getRes(rendDocumentBlock_,conf_);
+        RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
         conf_.getLastPage().setGlobalArgumentStruct(bean_,conf_);
         Struct value_ = RendRequestUtil.redirect(conf_, new Argument(bean_), 0);
@@ -115,7 +115,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
-        FormatHtml.getRes(rendDocumentBlock_,conf_);
+        RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
         conf_.getLastPage().setGlobalArgumentStruct(bean_,conf_);
         Struct value_ = RendRequestUtil.redirect(conf_, new Argument(bean_), 0);
@@ -165,7 +165,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
-        FormatHtml.getRes(rendDocumentBlock_,conf_);
+        RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
         conf_.getLastPage().setGlobalArgumentStruct(bean_,conf_);
         Struct value_ = RendRequestUtil.redirect(conf_, new Argument(bean_), 0);
@@ -214,7 +214,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
-        FormatHtml.getRes(rendDocumentBlock_,conf_);
+        RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
         conf_.getLastPage().setGlobalArgumentStruct(bean_,conf_);
         Struct value_ = RendRequestUtil.redirect(conf_, new Argument(bean_), 0);
@@ -268,7 +268,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
-        FormatHtml.getRes(rendDocumentBlock_,conf_);
+        RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
         conf_.getLastPage().setGlobalArgumentStruct(bean_,conf_);
         Struct value_ = RendRequestUtil.redirect(conf_, new Argument(bean_), 1);
@@ -320,7 +320,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
-        FormatHtml.getRes(rendDocumentBlock_,conf_);
+        RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
         conf_.getLastPage().setGlobalArgumentStruct(bean_,conf_);
         Struct value_ = RendRequestUtil.redirect(conf_, new Argument(bean_), 1);
@@ -373,7 +373,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
-        FormatHtml.getRes(rendDocumentBlock_,conf_);
+        RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
         conf_.getLastPage().setGlobalArgumentStruct(bean_,conf_);
         Struct value_ = RendRequestUtil.redirect(conf_, new Argument(bean_), 1);
@@ -425,7 +425,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
-        FormatHtml.getRes(rendDocumentBlock_,conf_);
+        RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
         conf_.getLastPage().setGlobalArgumentStruct(bean_,conf_);
         Struct value_ = RendRequestUtil.redirect(conf_, new Argument(bean_), 1);
@@ -476,7 +476,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
-        FormatHtml.getRes(rendDocumentBlock_,conf_);
+        RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
         conf_.getLastPage().setGlobalArgumentStruct(bean_,conf_);
         RendRequestUtil.redirect(conf_, new Argument(bean_), 0);
@@ -525,7 +525,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
-        FormatHtml.getRes(rendDocumentBlock_,conf_);
+        RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
         conf_.getLastPage().setGlobalArgumentStruct(bean_,conf_);
         RendRequestUtil.redirect(conf_, new Argument(bean_), 0);
@@ -574,7 +574,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
-        FormatHtml.getRes(rendDocumentBlock_,conf_);
+        RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
         conf_.getLastPage().setGlobalArgumentStruct(bean_,conf_);
         RendRequestUtil.invokeMethodWithNumbersBis(conf_, "");
@@ -627,7 +627,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        FormatHtml.getRes(rendDocumentBlock_,conf_);
+        RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
         NodeContainer nCont_ = conf_.getContainersMap().firstValue().getValue(0);
         NodeContainer nContBis_ = conf_.getContainersMap().firstValue().getValue(1);
@@ -681,7 +681,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
-        FormatHtml.getRes(rendDocumentBlock_, conf_);
+        RendBlock.getRes(rendDocumentBlock_, conf_);
         addImportingPage(conf_);
         NodeContainer nCont_ = conf_.getContainersMap().firstValue().getValue(0);
         RendRequestUtil.setRendObject(conf_, nCont_,new IntStruct(2));

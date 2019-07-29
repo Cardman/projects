@@ -29,7 +29,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body>2</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>2</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -49,7 +49,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body>{escaped}</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>{escaped}</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -69,7 +69,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body>{escaped}2</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>{escaped}2</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -89,7 +89,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body>{'escaped}2</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>{'escaped}2</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -109,7 +109,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body>'2</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>'2</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -129,7 +129,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body>2</body></html>",FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body>2</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test

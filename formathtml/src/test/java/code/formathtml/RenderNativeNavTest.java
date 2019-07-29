@@ -148,7 +148,7 @@ public final class RenderNativeNavTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         rendDocumentBlockSec_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body><a href=\"\" c:command=\"go\" n-a=\"0\">Test {0}2</a></body></html>",FormatHtml.getRes(rendDocumentBlock_, conf_));
+        assertEq("<html><body><a href=\"\" c:command=\"go\" n-a=\"0\">Test {0}2</a></body></html>", RendBlock.getRes(rendDocumentBlock_, conf_));
         assertNull(conf_.getException());
         assertEq(1, beanTwo_.getForms().size());
         assertEq("key", beanTwo_.getForms().getKeys().first());
@@ -202,7 +202,7 @@ public final class RenderNativeNavTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         rendDocumentBlockSec_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        String render_ = FormatHtml.getRes(rendDocumentBlock_, conf_);
+        String render_ = RendBlock.getRes(rendDocumentBlock_, conf_);
         assertEq("<html><body><a href=\"\" c:command=\"go\" n-a=\"0\">Test {0}2</a>Description <a c:command=\"$bean_two.go\" href=\"\" n-a=\"1\">two</a></body></html>", render_);
         assertEq(1, beanTwo_.getForms().size());
         assertEq("key", beanTwo_.getForms().getKeys().first());

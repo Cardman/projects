@@ -409,17 +409,17 @@ public final class Configuration implements ExecutableCode {
             removeLastPage();
             return NullStruct.NULL_VALUE;
         }
-        ExtractObject.setLanguage(this, strBean_, _language);
+        standards.setLanguage(strBean_, _language,this);
         if (context.getException() != null) {
             removeLastPage();
             return NullStruct.NULL_VALUE;
         }
-        String str_ = ExtractObject.getScope(this, _bean);
+        String str_ = standards.getScope(_bean,this);
         if (context.getException() != null) {
             removeLastPage();
             return NullStruct.NULL_VALUE;
         }
-        ExtractObject.setScope(this, strBean_, str_);
+        standards.setScope(strBean_, str_,this);
         removeLastPage();
         if (context.getException() != null) {
             return NullStruct.NULL_VALUE;

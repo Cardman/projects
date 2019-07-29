@@ -59,7 +59,7 @@ public final class RenderAnchorTest extends CommonRender {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body><a c:command=\"$bean_one.click\" href=\"\" n-a=\"0\">two</a></body></html>", FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body><a c:command=\"$bean_one.click\" href=\"\" n-a=\"0\">two</a></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -107,7 +107,7 @@ public final class RenderAnchorTest extends CommonRender {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body><a c:command=\"$bean_one.click(5)\" href=\"\" n-a=\"0\">two</a></body></html>", FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body><a c:command=\"$bean_one.click(5)\" href=\"\" n-a=\"0\">two</a></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
         assertEq(1,conf_.getHtmlPage().getAnchorsNames().size());
         assertEq("click(5)",conf_.getHtmlPage().getAnchorsNames().get(0));
@@ -155,7 +155,7 @@ public final class RenderAnchorTest extends CommonRender {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body><a c:command=\"page1.html\" href=\"\" n-a=\"0\">two</a></body></html>", FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body><a c:command=\"page1.html\" href=\"\" n-a=\"0\">two</a></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -201,7 +201,7 @@ public final class RenderAnchorTest extends CommonRender {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body><a name=\"sample\">two</a></body></html>", FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body><a name=\"sample\">two</a></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -249,7 +249,7 @@ public final class RenderAnchorTest extends CommonRender {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        FormatHtml.getRes(rendDocumentBlock_,conf_);
+        RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(conf_.getException());
     }
     @Test

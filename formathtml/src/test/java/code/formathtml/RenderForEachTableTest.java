@@ -54,7 +54,7 @@ public final class RenderForEachTableTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -81,7 +81,7 @@ public final class RenderForEachTableTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
-        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>",FormatHtml.getRes(rendDocumentBlock_,context_));
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(context_.getException());
     }
     @Test
@@ -107,7 +107,7 @@ public final class RenderForEachTableTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
-        FormatHtml.getRes(rendDocumentBlock_, context_);
+        RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(context_.getException());
     }
     @Test
@@ -133,7 +133,7 @@ public final class RenderForEachTableTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
-        FormatHtml.getRes(rendDocumentBlock_, context_);
+        RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(context_.getException());
     }
 
@@ -169,7 +169,7 @@ public final class RenderForEachTableTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
 
@@ -205,7 +205,7 @@ public final class RenderForEachTableTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body><table><tr><td>ONE</td><td>1</td><td>ONE</td><td>1</td></tr><tr><td>ONE</td><td>1</td><td>TWO</td><td>2</td></tr><tr><td>TWO</td><td>2</td><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td><td>TWO</td><td>2</td></tr></table></body></html>", FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td><td>ONE</td><td>1</td></tr><tr><td>ONE</td><td>1</td><td>TWO</td><td>2</td></tr><tr><td>TWO</td><td>2</td><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test
@@ -231,7 +231,7 @@ public final class RenderForEachTableTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
-        FormatHtml.getRes(rendDocumentBlock_, context_);
+        RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(context_.getException());
     }
     @Test
@@ -257,7 +257,7 @@ public final class RenderForEachTableTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
-        FormatHtml.getRes(rendDocumentBlock_, context_);
+        RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(context_.getException());
     }
     @Test
@@ -283,7 +283,7 @@ public final class RenderForEachTableTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
-        FormatHtml.getRes(rendDocumentBlock_, context_);
+        RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(context_.getException());
     }
     @Test
@@ -309,7 +309,7 @@ public final class RenderForEachTableTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
-        FormatHtml.getRes(rendDocumentBlock_, context_);
+        RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(context_.getException());
     }
     @Test
@@ -335,7 +335,7 @@ public final class RenderForEachTableTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
-        FormatHtml.getRes(rendDocumentBlock_, context_);
+        RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(context_.getException());
     }
     @Test
@@ -360,7 +360,7 @@ public final class RenderForEachTableTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
-        FormatHtml.getRes(rendDocumentBlock_, context_);
+        RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(context_.getException());
     }
     @Test
@@ -384,7 +384,7 @@ public final class RenderForEachTableTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
-        FormatHtml.getRes(rendDocumentBlock_, context_);
+        RendBlock.getRes(rendDocumentBlock_, context_);
         assertNotNull(context_.getException());
     }
     @Test
@@ -411,7 +411,7 @@ public final class RenderForEachTableTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
-        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>",FormatHtml.getRes(rendDocumentBlock_,context_));
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(context_.getException());
     }
     @Test
@@ -438,7 +438,7 @@ public final class RenderForEachTableTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
-        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>",FormatHtml.getRes(rendDocumentBlock_,context_));
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(context_.getException());
     }
     @Test
@@ -465,7 +465,7 @@ public final class RenderForEachTableTest extends CommonRender {
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(context_.getClasses().isEmptyErrors());
-        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>",FormatHtml.getRes(rendDocumentBlock_,context_));
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
         assertNull(context_.getException());
     }
 
@@ -508,7 +508,7 @@ public final class RenderForEachTableTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
 
@@ -553,7 +553,7 @@ public final class RenderForEachTableTest extends CommonRender {
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body><table><tr><td>ONE</td><td>1</td><td>ONE</td><td>1</td></tr><tr><td>ONE</td><td>1</td><td>TWO</td><td>2</td></tr><tr><td>TWO</td><td>2</td><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td><td>TWO</td><td>2</td></tr></table></body></html>", FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td><td>ONE</td><td>1</td></tr><tr><td>ONE</td><td>1</td><td>TWO</td><td>2</td></tr><tr><td>TWO</td><td>2</td><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
     @Test

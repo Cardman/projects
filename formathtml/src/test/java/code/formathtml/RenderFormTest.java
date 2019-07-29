@@ -65,7 +65,7 @@ public final class RenderFormTest extends CommonRender {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        String res_ = FormatHtml.getRes(rendDocumentBlock_, conf_);
+        String res_ = RendBlock.getRes(rendDocumentBlock_, conf_);
         assertEq("<html><body><form action=\"\" c:command=\"$bean_one.click\" name=\"myform\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"4\" checked=\"checked\"/></form></body></html>",res_);
         assertNull(conf_.getException());
     }
@@ -118,7 +118,7 @@ public final class RenderFormTest extends CommonRender {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        String res_ = FormatHtml.getRes(rendDocumentBlock_, conf_);
+        String res_ = RendBlock.getRes(rendDocumentBlock_, conf_);
         assertEq("<html><body><form action=\"\" c:command=\"$bean_one.click(0)\" name=\"myform\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"4\" checked=\"checked\"/></form></body></html>",res_);
         assertNull(conf_.getException());
     }
@@ -171,7 +171,7 @@ public final class RenderFormTest extends CommonRender {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        String res_ = FormatHtml.getRes(rendDocumentBlock_, conf_);
+        String res_ = RendBlock.getRes(rendDocumentBlock_, conf_);
         assertEq("<html><body><form name=\"myform\" n-f=\"0\"/></body></html>",res_);
         assertNull(conf_.getException());
     }
@@ -224,7 +224,7 @@ public final class RenderFormTest extends CommonRender {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        FormatHtml.getRes(rendDocumentBlock_, conf_);
+        RendBlock.getRes(rendDocumentBlock_, conf_);
         assertNotNull(conf_.getException());
     }
     @Test
@@ -278,7 +278,7 @@ public final class RenderFormTest extends CommonRender {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        String res_ = FormatHtml.getRes(rendDocumentBlock_, conf_);
+        String res_ = RendBlock.getRes(rendDocumentBlock_, conf_);
         assertEq("<html><body><form action=\"\" c:command=\"$bean_one.click\" n-f=\"0\"/><form action=\"\" c:command=\"$bean_one.click2\" n-f=\"1\"/></body></html>",res_);
         assertNull(conf_.getException());
     }

@@ -23,7 +23,7 @@ public final class RendExtractFromResources {
     }
 
     static String getFormat(StringMap<String> _messages, String _key, Configuration _conf, String _loc, String _fileName) {
-        String fileNamePath_ = ResourcesMessagesUtil.getPropertiesPath(ExtractObject.getMessageFolder(_conf),_loc,_fileName);
+        String fileNamePath_ = ResourcesMessagesUtil.getPropertiesPath(_conf.getMessagesFolder(),_loc,_fileName);
         String value_ = _messages.getVal(_key);
         if (value_ == null) {
             _conf.getContext().setException(NullStruct.NULL_VALUE);
@@ -51,7 +51,7 @@ public final class RendExtractFromResources {
         return getMessages(content_);
     }
     static String tryGetContent(Configuration _conf, String _loc, String _relative, StringMap<String> _files, String... _resourcesFolder) {
-        String folder_ = ExtractObject.getMessageFolder(_conf);
+        String folder_ = _conf.getMessagesFolder();
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,_loc,_relative);
         return getContentFile(_conf, _files, fileName_, _resourcesFolder);
     }

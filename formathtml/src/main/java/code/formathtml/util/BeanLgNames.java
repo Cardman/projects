@@ -229,35 +229,20 @@ public abstract class BeanLgNames extends LgNames {
 
     public abstract void buildIterables(Configuration _context);
 
-    public abstract String getIteratorVar();
-    public abstract String getHasNextVar();
-    public abstract String getNextVar();
-    public abstract CustList<RendDynOperationNode> getExpsIterator();
-    public abstract CustList<RendDynOperationNode> getExpsHasNext();
-    public abstract CustList<RendDynOperationNode> getExpsNext();
-
     public abstract void beforeDisplaying(Struct _arg,Configuration _cont);
+    public abstract String getScope(Struct _bean, Configuration _cont);
+    public abstract void setScope(Struct _bean, String _scope,Configuration _cont);
+    public abstract void setLanguage(Struct _bean, String _scope,Configuration _cont);
     public abstract String processString(Argument _arg,Configuration _cont);
 
-    public abstract String getIteratorTableVarCust();
-
-    public abstract String getHasNextPairVarCust();
-
-    public abstract String getNextPairVarCust();
-
-    public abstract String getFirstVarCust();
-
-    public abstract String getSecondVarCust();
-
-    public abstract CustList<RendDynOperationNode> getExpsIteratorTableCust();
-
-    public abstract CustList<RendDynOperationNode> getExpsHasNextPairCust();
-
-    public abstract CustList<RendDynOperationNode> getExpsNextPairCust();
-
-    public abstract CustList<RendDynOperationNode> getExpsFirstCust();
-
-    public abstract CustList<RendDynOperationNode> getExpsSecondCust();
+    public abstract Argument iteratorMultTable(Struct _arg, Configuration _cont);
+    public abstract Argument hasNextPair(Struct _arg,Configuration _conf);
+    public abstract Argument nextPair(Struct _arg,Configuration _conf);
+    public abstract Argument first(Struct _arg,Configuration _conf);
+    public abstract Argument second(Struct _arg,Configuration _conf);
+    public abstract Argument iterator(Struct _arg,Configuration _cont);
+    public abstract Argument hasNext(Struct _arg,Configuration _cont);
+    public abstract Argument next(Struct _arg,Configuration _cont);
 
     public abstract String getStringKey(Configuration _conf, Struct _instance);
 

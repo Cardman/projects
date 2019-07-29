@@ -47,7 +47,7 @@ public final class RenderSubmitTest extends CommonRender {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body><input value=\"desc &amp;lt;text&amp;gt;\" type=\"submit\"/></body></html>", FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body><input value=\"desc &amp;lt;text&amp;gt;\" type=\"submit\"/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
 
@@ -92,7 +92,7 @@ public final class RenderSubmitTest extends CommonRender {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        assertEq("<html><body><input value=\"desc &amp;lt;TITLE2&amp;gt;\" type=\"submit\"/></body></html>", FormatHtml.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body><input value=\"desc &amp;lt;TITLE2&amp;gt;\" type=\"submit\"/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(conf_.getException());
     }
 
@@ -124,7 +124,7 @@ public final class RenderSubmitTest extends CommonRender {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
-        FormatHtml.getRes(rendDocumentBlock_,conf_);
+        RendBlock.getRes(rendDocumentBlock_,conf_);
         assertNotNull(conf_.getException());
     }
 

@@ -25,7 +25,6 @@ public final class BeanCustLgNames extends BeanLgNames {
     private String iteratorVar;
     private String hasNextVar;
     private String nextVar;
-    private String displayVar;
 
 
     private String iteratorTableVarCust;
@@ -48,7 +47,11 @@ public final class BeanCustLgNames extends BeanLgNames {
     private String getDataBaseVar;
     private String setDataBaseVarArg;
     private String setDataBaseVar;
-
+    private String getScopeVar;
+    private String setScopeVarArg;
+    private String setScopeVar;
+    private String setLanguageVarArg;
+    private String setLanguageVar;
     private CustList<RendDynOperationNode> expsIterator;
     private CustList<RendDynOperationNode> expsHasNext;
     private CustList<RendDynOperationNode> expsNext;
@@ -66,6 +69,9 @@ public final class BeanCustLgNames extends BeanLgNames {
     private CustList<RendDynOperationNode> expsSetForms;
     private CustList<RendDynOperationNode> expsGetDataBase;
     private CustList<RendDynOperationNode> expsSetDataBase;
+    private CustList<RendDynOperationNode> expsGetScope;
+    private CustList<RendDynOperationNode> expsSetScope;
+    private CustList<RendDynOperationNode> expsSetLanguage;
     private CustList<RendDynOperationNode> opsMap;
     private String aliasMapKeys = "keys";
     private String aliasMapValues = "values";
@@ -264,6 +270,43 @@ public final class BeanCustLgNames extends BeanLgNames {
         String getDataBase_ = getAliasGetDataBase();
         exp_ = StringList.concat(getDataBaseVar, LOC_VAR, StringList.concat(getDataBase_,PARS));
         expsGetDataBase= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasBean()));
+        _context.getInternVars().put(locName_, locVar_);
+        setScopeVar = locName_;
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasString()));
+        _context.getInternVars().put(locName_, locVar_);
+        setScopeVarArg = locName_;
+        String setScope_ = getAliasSetScope();
+        exp_ = StringList.concat(setScopeVar, LOC_VAR, StringList.concat(setScope_,"(",setScopeVarArg,")"));
+        expsSetScope= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasBean()));
+        _context.getInternVars().put(locName_, locVar_);
+        getScopeVar = locName_;
+        String getScope_ = getAliasGetScope();
+        exp_ = StringList.concat(getScopeVar, LOC_VAR, StringList.concat(getScope_,PARS));
+        expsGetScope= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
+
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasBean()));
+        _context.getInternVars().put(locName_, locVar_);
+        setLanguageVar = locName_;
+        locName_ = context_.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasString()));
+        _context.getInternVars().put(locName_, locVar_);
+        setLanguageVarArg = locName_;
+        String setLanguage_ = getAliasSetLanguage();
+        exp_ = StringList.concat(setLanguageVar, LOC_VAR, StringList.concat(setLanguage_,"(",setLanguageVarArg,")"));
+        expsSetLanguage= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context, Calculation.staticCalculation(true));
 
         String aliasStringMapObject_ = getAliasStringMapObject();
         String keyWordNew_ = _context.getKeyWords().getKeyWordNew();
@@ -677,57 +720,46 @@ public final class BeanCustLgNames extends BeanLgNames {
         _conf.getLastPage().getInternVars().removeKey(putAllVarCustArg);
     }
 
-    @Override
     public String getIteratorVar() {
         return iteratorVar;
     }
 
-    @Override
     public String getHasNextVar() {
         return hasNextVar;
     }
 
-    @Override
     public String getNextVar() {
         return nextVar;
     }
 
-    @Override
     public CustList<RendDynOperationNode> getExpsIterator() {
         return expsIterator;
     }
 
-    @Override
     public CustList<RendDynOperationNode> getExpsHasNext() {
         return expsHasNext;
     }
 
-    @Override
     public CustList<RendDynOperationNode> getExpsNext() {
         return expsNext;
     }
 
-    @Override
     public String getIteratorTableVarCust() {
         return iteratorTableVarCust;
     }
 
-    @Override
     public String getHasNextPairVarCust() {
         return hasNextPairVarCust;
     }
 
-    @Override
     public String getNextPairVarCust() {
         return nextPairVarCust;
     }
 
-    @Override
     public String getFirstVarCust() {
         return firstVarCust;
     }
 
-    @Override
     public String getSecondVarCust() {
         return secondVarCust;
     }
@@ -736,33 +768,24 @@ public final class BeanCustLgNames extends BeanLgNames {
         return beforeDisplayingVar;
     }
 
-    @Override
     public CustList<RendDynOperationNode> getExpsIteratorTableCust() {
         return expsIteratorTableCust;
     }
 
-    @Override
     public CustList<RendDynOperationNode> getExpsHasNextPairCust() {
         return expsHasNextPairCust;
     }
 
-    @Override
     public CustList<RendDynOperationNode> getExpsNextPairCust() {
         return expsNextPairCust;
     }
 
-    @Override
     public CustList<RendDynOperationNode> getExpsFirstCust() {
         return expsFirstCust;
     }
 
-    @Override
     public CustList<RendDynOperationNode> getExpsSecondCust() {
         return expsSecondCust;
-    }
-
-    private CustList<RendDynOperationNode> getExpsBeforeDisplaying() {
-        return expsBeforeDisplaying;
     }
 
     @Override
@@ -784,7 +807,142 @@ public final class BeanCustLgNames extends BeanLgNames {
         locVar_.setClassName(clName_);
         locVar_.setStruct(_arg);
         _cont.getLastPage().getInternVars().put(locName_, locVar_);
-        RenderExpUtil.calculateReuse(getExpsBeforeDisplaying(),_cont);
+        RenderExpUtil.calculateReuse(expsBeforeDisplaying,_cont);
+    }
+
+    public String getScope(Struct _bean, Configuration _cont) {
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(_bean, _cont.getContext()));
+        locVar_.setStruct(_bean);
+        _cont.getLastPage().getInternVars().put(getScopeVar, locVar_);
+        Argument argument_ = RenderExpUtil.calculateReuse(expsGetScope, _cont);
+        _cont.getLastPage().getInternVars().removeKey(getScopeVar);
+        if (_cont.getContext().hasExceptionOrFailInit() || argument_.isNull()) {
+            return "";
+        }
+        return argument_.getString();
+    }
+    public void setScope(Struct _bean, String _scope,Configuration _cont) {
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(_bean, _cont.getContext()));
+        locVar_.setStruct(_bean);
+        _cont.getLastPage().getInternVars().put(setScopeVar, locVar_);
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(getAliasString());
+        locVar_.setStruct(new StringStruct(_scope));
+        _cont.getLastPage().getInternVars().put(setScopeVarArg, locVar_);
+        RenderExpUtil.calculateReuse(expsSetScope, _cont);
+        _cont.getLastPage().getInternVars().removeKey(setScopeVar);
+        _cont.getLastPage().getInternVars().removeKey(setScopeVarArg);
+    }
+    public void setLanguage(Struct _bean, String _scope,Configuration _cont) {
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(_bean, _cont.getContext()));
+        locVar_.setStruct(_bean);
+        _cont.getLastPage().getInternVars().put(setLanguageVar, locVar_);
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(getAliasString());
+        locVar_.setStruct(new StringStruct(_scope));
+        _cont.getLastPage().getInternVars().put(setLanguageVarArg, locVar_);
+        RenderExpUtil.calculateReuse(expsSetLanguage, _cont);
+        _cont.getLastPage().getInternVars().removeKey(setLanguageVar);
+        _cont.getLastPage().getInternVars().removeKey(setLanguageVarArg);
+    }
+
+    @Override
+    public Argument iteratorMultTable(Struct _arg, Configuration _cont) {
+        String locName_ = getIteratorTableVarCust();
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(_arg, _cont.getContext()));
+        locVar_.setStruct(_arg);
+        _cont.getLastPage().getInternVars().put(locName_, locVar_);
+        Argument arg_ = RenderExpUtil.calculateReuse(getExpsIteratorTableCust(), _cont);
+        _cont.getLastPage().getInternVars().removeKey(locName_);
+        return arg_;
+    }
+
+    @Override
+    public Argument hasNextPair(Struct _arg, Configuration _conf) {
+        String locName_ = getHasNextPairVarCust();
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(_arg, _conf.getContext()));
+        locVar_.setStruct(_arg);
+        _conf.getLastPage().getInternVars().put(locName_, locVar_);
+        Argument arg_ = RenderExpUtil.calculateReuse(getExpsHasNextPairCust(),_conf);
+        _conf.getLastPage().getInternVars().removeKey(locName_);
+        return arg_;
+    }
+
+    @Override
+    public Argument nextPair(Struct _arg, Configuration _conf) {
+        String locName_ = getNextPairVarCust();
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(_arg, _conf.getContext()));
+        locVar_.setStruct(_arg);
+        _conf.getLastPage().getInternVars().put(locName_, locVar_);
+        Argument arg_ = RenderExpUtil.calculateReuse(getExpsNextPairCust(), _conf);
+        _conf.getLastPage().getInternVars().removeKey(locName_);
+        return arg_;
+    }
+
+    @Override
+    public Argument first(Struct _arg, Configuration _conf) {
+        String locName_ = getFirstVarCust();
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(_arg, _conf.getContext()));
+        locVar_.setStruct(_arg);
+        _conf.getLastPage().getInternVars().put(locName_, locVar_);
+        Argument arg_ = RenderExpUtil.calculateReuse(getExpsFirstCust(), _conf);
+        _conf.getLastPage().getInternVars().removeKey(locName_);
+        return arg_;
+    }
+
+    @Override
+    public Argument second(Struct _arg, Configuration _conf) {
+        String locName_ = getSecondVarCust();
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(_arg, _conf.getContextEl()));
+        locVar_.setStruct(_arg);
+        _conf.getLastPage().getInternVars().put(locName_, locVar_);
+        Argument arg_ = RenderExpUtil.calculateReuse(getExpsSecondCust(), _conf);
+        _conf.getLastPage().getInternVars().removeKey(locName_);
+        return arg_;
+    }
+
+    @Override
+    public Argument iterator(Struct _arg, Configuration _cont) {
+        String locName_ = getIteratorVar();
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(_arg, _cont.getContext()));
+        locVar_.setStruct(_arg);
+        _cont.getLastPage().getInternVars().put(locName_, locVar_);
+        Argument arg_ = RenderExpUtil.calculateReuse(getExpsIterator(), _cont);
+        _cont.getLastPage().getInternVars().removeKey(locName_);
+        return arg_;
+    }
+
+    @Override
+    public Argument next(Struct _arg, Configuration _cont) {
+        String locName_ = getNextVar();
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(_arg, _cont.getContext()));
+        locVar_.setStruct(_arg);
+        _cont.getLastPage().getInternVars().put(locName_, locVar_);
+        Argument arg_ = RenderExpUtil.calculateReuse(getExpsNext(), _cont);
+        _cont.getLastPage().getInternVars().removeKey(locName_);
+        return arg_;
+    }
+
+    @Override
+    public Argument hasNext(Struct _arg, Configuration _cont) {
+        String locName_ = getHasNextVar();
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(_arg, _cont.getContext()));
+        locVar_.setStruct(_arg);
+        _cont.getLastPage().getInternVars().put(locName_, locVar_);
+        Argument arg_ = RenderExpUtil.calculateReuse(getExpsHasNext(), _cont);
+        _cont.getLastPage().getInternVars().removeKey(locName_);
+        return arg_;
     }
 
     @Override

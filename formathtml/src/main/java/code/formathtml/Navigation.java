@@ -264,7 +264,7 @@ public final class Navigation {
         session.setDocument(doc_);
         currentBeanName_ = root_.getAttribute(StringList.concat(session.getPrefix(),FormatHtml.BEAN_ATTRIBUTE));
         RendDocumentBlock rendDocumentBlock_ = session.getRenders().getVal(realFilePath_);
-        htmlText = FormatHtml.getRes(rendDocumentBlock_,session);
+        htmlText = RendBlock.getRes(rendDocumentBlock_,session);
         if (htmlText.isEmpty()) {
             return;
         }
@@ -431,7 +431,7 @@ public final class Navigation {
         }
         session.getAdvStandards().setForms(bean_, forms_,session);
         RendDocumentBlock rendDocumentBlock_ = session.getRenders().getVal(dest_);
-        textToBeChanged_ = FormatHtml.getRes(rendDocumentBlock_,session);
+        textToBeChanged_ = RendBlock.getRes(rendDocumentBlock_,session);
         if (textToBeChanged_.isEmpty()) {
             return;
         }
@@ -1157,7 +1157,7 @@ public final class Navigation {
             return false;
         }
         session.addPage(new ImportingPage(false));
-        String scope_ = ExtractObject.getScope(session, bean_);
+        String scope_ = session.getAdvStandards().getScope(bean_,session);
         session.removeLastPage();
         if (session.getContext().getException() != null) {
             return false;

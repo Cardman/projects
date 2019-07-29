@@ -133,6 +133,109 @@ public abstract class RendBlock {
     RendBlock(OffsetsBlock _offset) {
         offset = _offset;
     }
+
+    public static String getRes(RendDocumentBlock _rend, Configuration _conf) {
+        _conf.initForms();
+        String beanName_ = _rend.getBeanName();
+        Struct bean_ = _conf.getBuiltBeans().getVal(beanName_);
+        _conf.setMainBean(bean_);
+        _conf.addPage(new ImportingPage(false));
+        beforeDisplaying(bean_,_conf);
+        _conf.removeLastPage();
+        if (_conf.getContext().hasExceptionOrFailInit()) {
+            return EMPTY_STRING;
+        }
+        ImportingPage ip_ = new ImportingPage(false);
+        int tabWidth_ = _conf.getTabWidth();
+        ip_.setTabWidth(tabWidth_);
+        ip_.setHtml(_conf.getHtml());
+        ip_.setReadUrl(_conf.getCurrentUrl());
+        ip_.setBeanName(beanName_);
+        ip_.setPrefix(_conf.getPrefix());
+        if (bean_ != null) {
+            ip_.setGlobalArgumentStruct(bean_, _conf);
+        }
+        _conf.addPage(ip_);
+        FullDocument doc_ = DocumentBuilder.newXmlDocument(tabWidth_);
+        appendChild(doc_, doc_, _rend.getElt());
+        RendReadWrite rw_ = new RendReadWrite();
+        rw_.setRead(_rend.getFirstChild());
+        rw_.setWrite(doc_);
+        rw_.setDocument(doc_);
+        ip_.setRendReadWrite(rw_);
+        while (true) {
+            Boolean res_ = removeCall(_conf);
+            if (res_ == null) {
+                break;
+            }
+            if (res_) {
+                continue;
+            }
+            processTags(_conf);
+            if (_conf.getContext().hasExceptionOrFailInit()) {
+                _conf.getRendLocalThrowing().removeBlockFinally(_conf);
+            }
+            if (_conf.getContext().hasExceptionOrFailInit()) {
+                break;
+            }
+        }
+        if (_conf.getContext().hasExceptionOrFailInit()) {
+            return EMPTY_STRING;
+        }
+        LongMap<LongTreeMap<NodeContainer>> containersMap_ = _conf.getContainersMap();
+        LongTreeMap<NodeContainer> containers_ = _conf.getContainers();
+        long currentForm_ = _conf.getCurrentForm();
+        containersMap_.put(currentForm_, containers_);
+        containersMap_.removeKey(0L);
+        if (currentForm_ > 1) {
+            _conf.getCurForm().setAttribute(NUMBER_FORM, String.valueOf(currentForm_ - 1));
+        }
+        for (Long k: containersMap_.getKeys()) {
+            containersMap_.move(k, k - 1);
+        }
+        _conf.getHtmlPage().setContainers(containersMap_);
+        _conf.getHtmlPage().setCallsExps(_conf.getCallsExps());
+        _conf.getHtmlPage().setAnchorsArgs(_conf.getAnchorsArgs());
+        _conf.getHtmlPage().setAnchorsVars(_conf.getAnchorsVars());
+        _conf.getHtmlPage().setAnchorsNames(_conf.getAnchorsNames());
+        _conf.getHtmlPage().setConstAnchors(_conf.getConstAnchors());
+        _conf.getHtmlPage().setCallsFormExps(_conf.getCallsFormExps());
+        _conf.getHtmlPage().setFormsArgs(_conf.getFormsArgs());
+        _conf.getHtmlPage().setFormsVars(_conf.getFormsVars());
+        _conf.getHtmlPage().setFormsNames(_conf.getFormsNames());
+        doc_.getDocumentElement().removeAttribute(StringList.concat(_conf.getPrefix(), BEAN_ATTRIBUTE));
+        _conf.setDocument(doc_);
+        _conf.clearPages();
+        return doc_.export();
+    }
+
+    private static Boolean removeCall(Configuration _context) {
+        ImportingPage p_ = _context.getLastPage();
+        if (p_.getRendReadWrite() == null) {
+            _context.removeLastPage();
+            if (_context.getImporting().isEmpty()) {
+                return null;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private static void processTags(Configuration _context) {
+        ImportingPage ip_ = _context.getLastPage();
+        RendReadWrite rw_ = ip_.getRendReadWrite();
+        RendBlock en_ = rw_.getRead();
+        ip_.setOffset(en_.getOffset().getOffsetTrim());
+        tryProcessEl(_context);
+    }
+
+    private static void tryProcessEl(Configuration _context) {
+        ImportingPage lastPage_ = _context.getLastPage();
+        RendReadWrite rw_ = lastPage_.getRendReadWrite();
+        RendBlock en_ = rw_.getRead();
+        ((RendWithEl)en_).processEl(_context);
+    }
+
     protected final void setParent(RendParentBlock _b) {
         parent = _b;
     }
@@ -526,83 +629,36 @@ public abstract class RendBlock {
     }
 
     protected static Argument iteratorMultTable(Struct _arg, Configuration _cont) {
-        String locName_ = _cont.getAdvStandards().getIteratorTableVarCust();
         BeanLgNames stds_ = _cont.getAdvStandards();
-        LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(stds_.getStructClassName(_arg, _cont.getContext()));
-        locVar_.setStruct(_arg);
-        _cont.getLastPage().getInternVars().put(locName_, locVar_);
-        Argument arg_ = RenderExpUtil.calculateReuse(stds_.getExpsIteratorTableCust(), _cont);
-        if (_cont.getContext().hasExceptionOrFailInit()) {
-            return arg_;
-        }
-        if (stds_ instanceof BeanNatLgNames) {
-            arg_=iterator(arg_.getStruct(),_cont);
-        }
-        return arg_;
+        return stds_.iteratorMultTable(_arg,_cont);
     }
     protected static Argument hasNextPair(Struct _arg,Configuration _conf) {
-        String locName_ = _conf.getAdvStandards().getHasNextPairVarCust();
         BeanLgNames stds_ = _conf.getAdvStandards();
-        LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(stds_.getStructClassName(_arg, _conf.getContext()));
-        locVar_.setStruct(_arg);
-        _conf.getLastPage().getInternVars().put(locName_, locVar_);
-        return RenderExpUtil.calculateReuse(stds_.getExpsHasNextPairCust(),_conf);
+        return stds_.hasNextPair(_arg,_conf);
     }
     protected static Argument nextPair(Struct _arg,Configuration _conf) {
-        String locName_ = _conf.getAdvStandards().getNextPairVarCust();
         BeanLgNames stds_ = _conf.getAdvStandards();
-        LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(stds_.getStructClassName(_arg, _conf.getContext()));
-        locVar_.setStruct(_arg);
-        _conf.getLastPage().getInternVars().put(locName_, locVar_);
-        return RenderExpUtil.calculateReuse(stds_.getExpsNextPairCust(), _conf);
+        return stds_.nextPair(_arg,_conf);
     }
     protected static Argument first(Struct _arg,Configuration _conf) {
-        String locName_ = _conf.getAdvStandards().getFirstVarCust();
         BeanLgNames stds_ = _conf.getAdvStandards();
-        LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(stds_.getStructClassName(_arg, _conf.getContext()));
-        locVar_.setStruct(_arg);
-        _conf.getLastPage().getInternVars().put(locName_, locVar_);
-        return RenderExpUtil.calculateReuse(stds_.getExpsFirstCust(),_conf);
+        return stds_.first(_arg,_conf);
     }
     protected static Argument second(Struct _arg,Configuration _conf) {
-        String locName_ = _conf.getAdvStandards().getSecondVarCust();
         BeanLgNames stds_ = _conf.getAdvStandards();
-        LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(stds_.getStructClassName(_arg, _conf.getContextEl()));
-        locVar_.setStruct(_arg);
-        _conf.getLastPage().getInternVars().put(locName_, locVar_);
-        return RenderExpUtil.calculateReuse(stds_.getExpsSecondCust(),_conf);
+        return stds_.second(_arg,_conf);
     }
     protected static Argument iterator(Struct _arg,Configuration _cont) {
-        String locName_ = _cont.getAdvStandards().getIteratorVar();
         BeanLgNames stds_ = _cont.getAdvStandards();
-        LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(stds_.getStructClassName(_arg, _cont.getContext()));
-        locVar_.setStruct(_arg);
-        _cont.getLastPage().getInternVars().put(locName_, locVar_);
-        return RenderExpUtil.calculateReuse(stds_.getExpsIterator(),_cont);
+        return stds_.iterator(_arg,_cont);
     }
     protected static Argument hasNext(Struct _arg,Configuration _cont) {
-        String locName_ = _cont.getAdvStandards().getHasNextVar();
         BeanLgNames stds_ = _cont.getAdvStandards();
-        LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(stds_.getStructClassName(_arg, _cont.getContext()));
-        locVar_.setStruct(_arg);
-        _cont.getLastPage().getInternVars().put(locName_, locVar_);
-        return RenderExpUtil.calculateReuse(stds_.getExpsHasNext(),_cont);
+        return stds_.hasNext(_arg,_cont);
     }
     protected static Argument next(Struct _arg,Configuration _cont) {
-        String locName_ = _cont.getAdvStandards().getNextVar();
         BeanLgNames stds_ = _cont.getAdvStandards();
-        LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(stds_.getStructClassName(_arg, _cont.getContext()));
-        locVar_.setStruct(_arg);
-        _cont.getLastPage().getInternVars().put(locName_, locVar_);
-        return RenderExpUtil.calculateReuse(stds_.getExpsNext(),_cont);
+        return stds_.next(_arg,_cont);
     }
     protected static void beforeDisplaying(Struct _arg,Configuration _cont) {
         if (_arg == null) {
