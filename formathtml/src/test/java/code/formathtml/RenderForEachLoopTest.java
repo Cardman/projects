@@ -1,11 +1,9 @@
 package code.formathtml;
 
 import code.bean.Bean;
-import code.bean.translator.Translator;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.classes.BeanOne;
-import code.formathtml.classes.MyTranslator;
 import code.formathtml.structs.BeanStruct;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -41,8 +39,6 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
-        context_.setTranslators(new StringMap<Translator>());
-        context_.getTranslators().put("trans", new MyTranslator());
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
@@ -71,8 +67,6 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
-        context_.setTranslators(new StringMap<Translator>());
-        context_.getTranslators().put("trans", new MyTranslator());
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
@@ -101,8 +95,6 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
-        context_.setTranslators(new StringMap<Translator>());
-        context_.getTranslators().put("trans", new MyTranslator());
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
@@ -131,8 +123,6 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
-        context_.setTranslators(new StringMap<Translator>());
-        context_.getTranslators().put("trans", new MyTranslator());
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
@@ -161,8 +151,6 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
-        context_.setTranslators(new StringMap<Translator>());
-        context_.getTranslators().put("trans", new MyTranslator());
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
@@ -228,8 +216,6 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
-        context_.setTranslators(new StringMap<Translator>());
-        context_.getTranslators().put("trans", new MyTranslator());
         context_.clearPages();
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getContext().setAnalyzing(new AnalyzedPageEl());
@@ -260,8 +246,6 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
-        context_.setTranslators(new StringMap<Translator>());
-        context_.getTranslators().put("trans", new MyTranslator());
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
@@ -290,8 +274,6 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
-        context_.setTranslators(new StringMap<Translator>());
-        context_.getTranslators().put("trans", new MyTranslator());
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
@@ -320,8 +302,6 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
-        context_.setTranslators(new StringMap<Translator>());
-        context_.getTranslators().put("trans", new MyTranslator());
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
@@ -350,8 +330,6 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
-        context_.setTranslators(new StringMap<Translator>());
-        context_.getTranslators().put("trans", new MyTranslator());
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
@@ -490,8 +468,6 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
-        context_.setTranslators(new StringMap<Translator>());
-        context_.getTranslators().put("trans", new MyTranslator());
         context_.clearPages();
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getContext().setAnalyzing(new AnalyzedPageEl());
@@ -527,8 +503,6 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
-        context_.setTranslators(new StringMap<Translator>());
-        context_.getTranslators().put("trans", new MyTranslator());
         context_.clearPages();
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getContext().setAnalyzing(new AnalyzedPageEl());
@@ -559,8 +533,6 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
-        context_.setTranslators(new StringMap<Translator>());
-        context_.getTranslators().put("trans", new MyTranslator());
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
@@ -581,8 +553,6 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
-        context_.setTranslators(new StringMap<Translator>());
-        context_.getTranslators().put("trans", new MyTranslator());
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
@@ -658,8 +628,6 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
-        context_.setTranslators(new StringMap<Translator>());
-        context_.getTranslators().put("trans", new MyTranslator());
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
@@ -680,8 +648,6 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
-        context_.setTranslators(new StringMap<Translator>());
-        context_.getTranslators().put("trans", new MyTranslator());
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
@@ -702,8 +668,6 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
-        context_.setTranslators(new StringMap<Translator>());
-        context_.getTranslators().put("trans", new MyTranslator());
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
@@ -748,8 +712,6 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
-        context_.setTranslators(new StringMap<Translator>());
-        context_.getTranslators().put("trans", new MyTranslator());
         context_.clearPages();
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getContext().setAnalyzing(new AnalyzedPageEl());

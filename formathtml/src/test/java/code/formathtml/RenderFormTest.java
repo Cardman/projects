@@ -1,10 +1,10 @@
 package code.formathtml;
 
 import code.bean.Bean;
-import code.bean.translator.Translator;
+
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.classes.MyTranslator;
+
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.util.StringMap;
@@ -52,8 +52,8 @@ public final class RenderFormTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
         conf_.getAnalyzingDoc().setLanguage(locale_);
@@ -105,8 +105,8 @@ public final class RenderFormTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
         conf_.getAnalyzingDoc().setLanguage(locale_);
@@ -158,8 +158,8 @@ public final class RenderFormTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
         conf_.getAnalyzingDoc().setLanguage(locale_);
@@ -211,8 +211,8 @@ public final class RenderFormTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
         conf_.getAnalyzingDoc().setLanguage(locale_);
@@ -265,8 +265,8 @@ public final class RenderFormTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
         conf_.getAnalyzingDoc().setLanguage(locale_);
@@ -318,8 +318,8 @@ public final class RenderFormTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
         conf_.getAnalyzingDoc().setLanguage(locale_);

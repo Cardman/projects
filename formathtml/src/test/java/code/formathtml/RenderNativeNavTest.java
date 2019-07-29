@@ -2,7 +2,7 @@ package code.formathtml;
 
 import code.bean.Bean;
 import code.bean.BeanInfo;
-import code.bean.translator.Translator;
+
 import code.bean.validator.Validator;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.structs.Struct;
@@ -16,9 +16,7 @@ import code.util.*;
 import org.junit.Test;
 
 import static code.formathtml.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public final class RenderNativeNavTest extends CommonRender {
 
@@ -48,8 +46,8 @@ public final class RenderNativeNavTest extends CommonRender {
         conf_.setValidators(new StringMap<Validator>());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
@@ -134,8 +132,8 @@ public final class RenderNativeNavTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         conf_.setHtml(html_);
         Document doc_ = DocumentBuilder.parseSax(html_);
         Document docSec_ = DocumentBuilder.parseSax(htmlTwo_);
@@ -187,8 +185,8 @@ public final class RenderNativeNavTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         Document docSec_ = DocumentBuilder.parseSax(htmlTwo_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
@@ -207,6 +205,124 @@ public final class RenderNativeNavTest extends CommonRender {
         assertEq(1, beanTwo_.getForms().size());
         assertEq("key", beanTwo_.getForms().getKeys().first());
         assertEq("sample_value", (String)beanTwo_.getForms().values().first());
+    }
+
+    @Test
+    public void process4Test() {
+        String locale_ = "LOCALE";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form c:command=\"$goToPage\"><input id=\"txt\" type=\"text\" name=\"selectedString\" c:varValue=\"selectedString\" c:validator=\"rate_val\"/><span c:for=\"txt\"/></form></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", htmlTwo_);
+        BeanOne beanTwo_ = new BeanOne();
+        beanTwo_.setScope("request");
+        Configuration conf_ = contextElSec();
+        conf_.setSepPrefix("c");
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.getBeans().put("bean_two", beanTwo_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page1.html");
+        conf_.setValidators(new StringMap<Validator>());
+        conf_.getValidators().put("rate_val", new MyValidator());
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setNavigation(new StringMap<StringMap<String>>());
+        conf_.getNavigation().put("bean_two.go", new StringMap<String>());
+        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
+        Navigation nav_ = newNavigation(conf_);
+        nav_.setLanguage(locale_);
+        nav_.setSession(conf_);
+        nav_.setFiles(files_);
+        nav_.getSession().getRenderFiles().add("page1.html");
+        initSession(nav_);
+        HtmlPage htmlPage_ = nav_.getHtmlPage();
+        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        containersMap_ = htmlPage_.getContainers();
+        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        NodeContainer nc_;
+        NodeInformations ni_;
+        StringList values_;
+        nc_ = containers_.getVal(0L);
+        nc_.setEnabled(true);
+        ni_ = nc_.getNodeInformation();
+        values_ = new StringList();
+        values_.add("ONE_TWO");
+        ni_.setValue(values_);
+        nav_.getHtmlPage().setUrl(0);
+        nav_.processRendFormRequest();
+        setupBeansAfter(conf_);
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_two", nav_.getCurrentBeanName());
+        assertEq("<html><body><form c:command=\"$bean_two.goToPage\" action=\"\" n-f=\"0\"><input id=\"txt\" type=\"text\" name=\"bean_two.selectedString\" c:validator=\"rate_val\" n-i=\"0\" value=\"ONE_TWO\"/><span c:for=\"txt\">ONE_TWO is not a no zero rate</span></form></body></html>", nav_.getHtmlText());
+        beanTwo_ = (BeanOne) conf_.getBeans().getVal("bean_two");
+        StringMapObject map_ = beanTwo_.getForms();
+        assertEq(0, map_.size());
+        assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
+        assertEq("",nav_.getTitle());
+        assertEq("",nav_.getReferenceScroll());
+        assertEq(0,nav_.getTooltips().size());
+    }
+
+    @Test
+    public void process5Test() {
+        String locale_ = "LOCALE";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form c:command=\"$go\"><input id=\"txt\" type=\"number\" name=\"typedInt\" c:varValue=\"typedInt\" c:validator=\"rate_val\"/><span c:for=\"txt\"/></form></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", htmlTwo_);
+        BeanTwo beanTwo_ = new BeanTwo();
+        beanTwo_.setScope("request");
+        Configuration conf_ = contextElSec();
+        conf_.setSepPrefix("c");
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.getBeans().put("bean_two", beanTwo_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page1.html");
+        conf_.setValidators(new StringMap<Validator>());
+        conf_.getValidators().put("rate_val", new MyValidator());
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setNavigation(new StringMap<StringMap<String>>());
+        conf_.getNavigation().put("bean_two.go", new StringMap<String>());
+        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
+        Navigation nav_ = newNavigation(conf_);
+        nav_.setLanguage(locale_);
+        nav_.setSession(conf_);
+        nav_.setFiles(files_);
+        nav_.getSession().getRenderFiles().add("page1.html");
+        initSession(nav_);
+        HtmlPage htmlPage_ = nav_.getHtmlPage();
+        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        containersMap_ = htmlPage_.getContainers();
+        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        NodeContainer nc_;
+        NodeInformations ni_;
+        StringList values_;
+        nc_ = containers_.getVal(0L);
+        nc_.setEnabled(true);
+        ni_ = nc_.getNodeInformation();
+        values_ = new StringList();
+        values_.add("ONE_TWO");
+        ni_.setValue(values_);
+        nav_.getHtmlPage().setUrl(0);
+        nav_.processRendFormRequest();
+        setupBeansAfter(conf_);
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_two", nav_.getCurrentBeanName());
+        assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input id=\"txt\" type=\"number\" name=\"bean_two.typedInt\" c:validator=\"rate_val\" n-i=\"0\" value=\"0\"/><span c:for=\"txt\"/></form></body></html>", nav_.getHtmlText());
+        beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
+        StringMapObject map_ = beanTwo_.getForms();
+        assertEq(0, map_.size());
+        assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
+        assertEq("",nav_.getTitle());
+        assertEq("",nav_.getReferenceScroll());
+        assertEq(0,nav_.getTooltips().size());
     }
     private static void setupBeansAfter(Configuration _conf) {
         cleanBeans(_conf);

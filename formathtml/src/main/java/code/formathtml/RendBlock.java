@@ -53,7 +53,6 @@ public abstract class RendBlock {
     static final String ATTRIBUTE_EQ = "eq";
     static final String TAG_OPTION = "option";
     static final String SELECTED = "selected";
-    static final String VAR_METHOD = "varMethod";
     static final String BEAN_ATTRIBUTE = "bean";
     static final String ATTRIBUTE_VALUE_CHANGE_EVENT = "valueChangeEvent";
     static final String CHECKED = "checked";
@@ -61,6 +60,7 @@ public abstract class RendBlock {
     static final String KEY_CLASS_NAME_ATTRIBUTE = "keyClassName";
     static final String VAR_CLASS_NAME_ATTRIBUTE = "varClassName";
     static final String ATTRIBUTE_TYPE = "type";
+    static final String ATTRIBUTE_TITLE = "title";
     static final String CALL_METHOD = "$";
     static final String COMMA = ",";
     static final String SUBMIT_TYPE = "submit";
@@ -151,7 +151,6 @@ public abstract class RendBlock {
         ImportingPage ip_ = new ImportingPage(false);
         int tabWidth_ = _conf.getTabWidth();
         ip_.setTabWidth(tabWidth_);
-        ip_.setHtml(_conf.getHtml());
         ip_.setReadUrl(_conf.getCurrentUrl());
         ip_.setBeanName(beanName_);
         ip_.setPrefix(_conf.getPrefix());
@@ -551,6 +550,9 @@ public abstract class RendBlock {
                 return new RendSpan(elt_,new OffsetsBlock(_begin,_begin));
             }
         }
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,TAG_A))) {
+            return new RendTitledAnchor(elt_,new OffsetsBlock(_begin,_begin));
+        }
         return new RendStdElement(elt_,new OffsetsBlock(_begin,_begin));
     }
 
@@ -569,8 +571,7 @@ public abstract class RendBlock {
         AnalyzingDoc a_ = _cont.getAnalyzingDoc();
         String language_ = a_.getLanguage();
         StringMap<String> files_ = a_.getFiles();
-        String[] resourcesFolder_ = a_.getResourcesFolder();
-        String content_ = RendExtractFromResources.tryGetContent(_cont, language_, fileName_, files_, resourcesFolder_);
+        String content_ = RendExtractFromResources.tryGetContent(_cont, language_, fileName_, files_);
         int index_ = RendExtractFromResources.indexCorrectMessages(content_);
         if (index_ >= 0) {
             BadElRender badEl_ = new BadElRender();
@@ -593,6 +594,34 @@ public abstract class RendBlock {
         }
         return format_;
     }
+
+    protected static void processLink(Configuration _cont, Element _nextWrite, Element _read, StringList _varNames, CustList<CustList<RendDynOperationNode>> _opExp, StringList _texts) {
+        String href_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND));
+        _cont.getCallsExps().add(new CustList<RendDynOperationNode>());
+        _cont.getConstAnchors().add(true);
+        _cont.getAnchorsArgs().add(new StringList());
+        _cont.getAnchorsVars().add(_varNames);
+        if (!href_.startsWith(CALL_METHOD)) {
+            if (_nextWrite.hasAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND))) {
+                _nextWrite.setAttribute(ATTRIBUTE_HREF, EMPTY_STRING);
+            }
+            _cont.getAnchorsNames().add(EMPTY_STRING);
+            incrAncNb(_cont, _nextWrite);
+            return;
+        }
+        String render_ = ResultText.render(_opExp, _texts, _cont);
+        if (_cont.getContext().hasExceptionOrFailInit()) {
+            _cont.getAnchorsNames().add(EMPTY_STRING);
+            incrAncNb(_cont, _nextWrite);
+            return;
+        }
+        _cont.getAnchorsNames().add(render_);
+        String beanName_ = _cont.getLastPage().getBeanName();
+        _nextWrite.setAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND), StringList.concat(CALL_METHOD,beanName_,DOT,render_));
+        _nextWrite.setAttribute(ATTRIBUTE_HREF, EMPTY_STRING);
+        incrAncNb(_cont, _nextWrite);
+    }
+
     protected static void incrAncNb(Configuration _cont, Element _nextEltWrite) {
         if (StringList.quickEq(_nextEltWrite.getTagName(), TAG_A) && (_nextEltWrite.hasAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND))|| !_nextEltWrite.getAttribute(ATTRIBUTE_HREF).isEmpty() )) {
             long currentAnchor_ = _cont.getIndexes().getAnchor();
@@ -757,7 +786,6 @@ public abstract class RendBlock {
             nodeInfos_.setValidator(_write.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VALIDATOR)));
             nodeInfos_.setId(id_);
             nodeInfos_.setInputClass(class_);
-            nodeInfos_.setVarMethod(_write.getAttribute(StringList.concat(_cont.getPrefix(),VAR_METHOD)));
             nodeInfos_.setChanging(_write.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VALUE_CHANGE_EVENT)));
             _cont.getContainers().put(currentInput_, nodeCont_);
             _cont.getIndexes().setNb(currentInput_);

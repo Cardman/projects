@@ -1,7 +1,7 @@
 package code.formathtml;
 
-import code.bean.translator.Translator;
-import code.formathtml.classes.MyTranslator;
+
+
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.util.StringMap;
@@ -21,8 +21,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -41,8 +41,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -61,8 +61,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -81,8 +81,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -101,8 +101,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -121,8 +121,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -141,8 +141,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -161,8 +161,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -181,8 +181,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -201,8 +201,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -221,8 +221,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -241,8 +241,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -261,8 +261,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -281,8 +281,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -301,8 +301,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -321,8 +321,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -341,8 +341,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -361,8 +361,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -381,8 +381,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -401,8 +401,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -419,8 +419,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -437,8 +437,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -455,8 +455,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -473,8 +473,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -491,8 +491,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -509,8 +509,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
@@ -527,8 +527,8 @@ public final class RenderTryTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);

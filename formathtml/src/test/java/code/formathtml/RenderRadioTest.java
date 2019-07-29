@@ -1,11 +1,11 @@
 package code.formathtml;
 
 import code.bean.Bean;
-import code.bean.translator.Translator;
+
 import code.bean.validator.Validator;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.classes.MyTranslator;
+
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.util.StringMap;
@@ -53,8 +53,8 @@ public final class RenderRadioTest extends CommonRender {
         conf_.setValidators(new StringMap<Validator>());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
@@ -102,8 +102,8 @@ public final class RenderRadioTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
         conf_.getAnalyzingDoc().setLanguage(locale_);
@@ -155,8 +155,8 @@ public final class RenderRadioTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
         conf_.getAnalyzingDoc().setLanguage(locale_);
@@ -208,8 +208,8 @@ public final class RenderRadioTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
         conf_.getAnalyzingDoc().setLanguage(locale_);
@@ -261,8 +261,8 @@ public final class RenderRadioTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
         conf_.getAnalyzingDoc().setLanguage(locale_);
@@ -314,8 +314,8 @@ public final class RenderRadioTest extends CommonRender {
         conf_.setValidators(new StringMap<Validator>());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
@@ -362,8 +362,8 @@ public final class RenderRadioTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
         conf_.getAnalyzingDoc().setLanguage(locale_);
@@ -412,8 +412,8 @@ public final class RenderRadioTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
         conf_.getAnalyzingDoc().setLanguage(locale_);
@@ -467,8 +467,8 @@ public final class RenderRadioTest extends CommonRender {
         conf_.setValidators(new StringMap<Validator>());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
@@ -521,8 +521,8 @@ public final class RenderRadioTest extends CommonRender {
         conf_.setValidators(new StringMap<Validator>());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
@@ -572,8 +572,8 @@ public final class RenderRadioTest extends CommonRender {
         conf_.setValidators(new StringMap<Validator>());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
@@ -685,8 +685,8 @@ public final class RenderRadioTest extends CommonRender {
         conf_.setValidators(new StringMap<Validator>());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
+
+
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);

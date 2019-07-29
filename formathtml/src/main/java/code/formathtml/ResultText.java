@@ -1,15 +1,20 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.Calculation;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.BadElRender;
 import code.formathtml.util.BeanLgNames;
+import code.sml.Element;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 
 public final class ResultText {
+    private static final String ATTRIBUTE_COMMAND = "command";
+    private static final String CALL_METHOD = "$";
     private static final char ESCAPED = '\\';
     private static final char RIGHT_EL = '}';
     private static final char LEFT_EL = '{';
@@ -165,6 +170,47 @@ public final class ResultText {
             i_++;
         }
         texts.add(str_.toString());
+    }
+    public static ResultText buildAnchor(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _all, StringList _list) {
+        String href_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND));
+        ResultText r_ = new ResultText();
+        r_.opExp = new CustList<CustList<RendDynOperationNode>>();
+        r_.texts = new StringList();
+        if (href_.startsWith(CALL_METHOD)) {
+            String lk_ = href_.substring(1);
+            r_.build(lk_,_cont,_doc);
+            CustList<CustList<RendDynOperationNode>> opExp_ = r_.getOpExp();
+            for (CustList<RendDynOperationNode> e: opExp_) {
+                Mapping m_ = new Mapping();
+                m_.setArg(e.last().getResultClass());
+                m_.setParam(_cont.getStandards().getAliasNumber());
+                if (!Templates.isCorrectOrNumbers(m_,_cont)) {
+                    BadElRender badEl_ = new BadElRender();
+                    badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                    badEl_.setFileName(_cont.getCurrentFileName());
+                    badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+                    _cont.getClasses().addError(badEl_);
+                }
+            }
+            StringList argList_ = new StringList();
+            for (CustList<RendDynOperationNode> e: opExp_) {
+                String cl_ = e.last().getResultClass().getSingleNameOrEmpty();
+                if (cl_.isEmpty()) {
+                    argList_.add(_cont.getKeyWords().getKeyWordNull());
+                } else {
+                    String cast_ = _cont.getKeyWords().getKeyWordCast();
+                    cast_ = StringList.concat(cast_,"(",cl_,")");
+                    argList_.add(StringList.concat(cast_,"0"));
+                }
+            }
+            String pref_ = r_.quickRender(lk_, argList_);
+            if (pref_.indexOf('(') < 0) {
+                pref_ = StringList.concat(pref_,"()");
+            }
+            boolean st_ = _doc.isStaticContext();
+            RenderExpUtil.getAnalyzedOperations(pref_,0,_cont,Calculation.staticCalculation(st_));
+        }
+        return r_;
     }
     public String quickRender(String _expression,StringList _args) {
         StringBuilder str_ = new StringBuilder();

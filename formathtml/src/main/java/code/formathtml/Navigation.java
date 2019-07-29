@@ -308,29 +308,7 @@ public final class Navigation {
             HtmlPage htmlPage_ = session.getHtmlPage();
             ImportingPage ip_ = new ImportingPage(true);
             ip_.setPrefix(session.getPrefix());
-            ip_.setHtml(htmlText);
             session.addPage(ip_);
-            Element node_;
-            if (htmlPage_.isForm()) {
-                Document doc_ = session.getDocument();
-                node_ = DocumentBuilder.getFirstElementByAttribute(doc_, NUMBER_FORM, String.valueOf(htmlPage_.getUrl()));
-            } else {
-                Document doc_ = session.getDocument();
-                node_ = DocumentBuilder.getFirstElementByAttribute(doc_, NUMBER_ANCHOR, String.valueOf(htmlPage_.getUrl()));
-                if (node_ != null) {
-                    if (node_.getAttribute(ATTRIBUTE_HREF).isEmpty()) {
-                        htmlPage_.setUsedFieldUrl(StringList.concat(ip_.getPrefix(),ATTRIBUTE_COMMAND));
-                    } else if (node_.getAttribute(ATTRIBUTE_HREF).endsWith(END_PATH)) {
-                        htmlPage_.setUsedFieldUrl(StringList.concat(ip_.getPrefix(),ATTRIBUTE_COMMAND));
-                    } else {
-                        htmlPage_.setUsedFieldUrl(ATTRIBUTE_HREF);
-                    }
-                }
-            }
-            ip_.setProcessingNode(node_);
-            ip_.setProcessingAttribute(htmlPage_.getUsedFieldUrl());
-            ip_.setLookForAttrValue(true);
-            ip_.setOffset(0);
             int indexPoint_ = _anchorRef.indexOf(DOT);
             String action_ = _anchorRef
                     .substring(indexPoint_ + 1);
@@ -685,13 +663,12 @@ public final class Navigation {
         HtmlPage htmlPage_ = session.getHtmlPage();
         ImportingPage ip_ = new ImportingPage(true);
         ip_.setPrefix(session.getPrefix());
-        ip_.setHtml(htmlText);
         session.addPage(ip_);
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
         long lg_ = htmlPage_.getUrl();
         Document doc_ = session.getDocument();
-        String actionCommand_ = EMPTY_STRING;
+        String actionCommand_;
         //retrieving form that is submitted
         Element formElement_ = DocumentBuilder.getFirstElementByAttribute(doc_, NUMBER_FORM, String.valueOf(lg_));
         if (formElement_ == null) {
@@ -702,13 +679,8 @@ public final class Navigation {
         htmlPage_.setForm(true);
 
         //As soon as the form is retrieved, then process on it and exit from the loop
-        actionCommand_ = formElement_.getAttribute(ATTRIBUTE_ACTION);
-        htmlPage_.setUsedFieldUrl(ATTRIBUTE_ACTION);
-        if (actionCommand_.isEmpty()
-                || actionCommand_.endsWith(END_PATH)) {
-            actionCommand_ = formElement_.getAttribute(StringList.concat(ip_.getPrefix(),ATTRIBUTE_COMMAND));
-            htmlPage_.setUsedFieldUrl(StringList.concat(ip_.getPrefix(),ATTRIBUTE_COMMAND));
-        }
+        actionCommand_ = formElement_.getAttribute(StringList.concat(ip_.getPrefix(),ATTRIBUTE_COMMAND));
+        htmlPage_.setUsedFieldUrl(StringList.concat(ip_.getPrefix(),ATTRIBUTE_COMMAND));
 
         StringMap<String> errors_;
         errors_ = new StringMap<String>();
@@ -719,14 +691,6 @@ public final class Navigation {
             NodeInformations nInfos_ = nCont_.getNodeInformation();
             String valId_ = nInfos_.getValidator();
             String id_ = nInfos_.getId();
-            if (valId_.isEmpty()) {
-                continue;
-            }
-            Element node_ = DocumentBuilder.getElementById(doc_, ATTRIBUTE_ID, StringList.concat(ip_.getPrefix(),ATTRIBUTE_GROUP_ID), id_);
-            ip_.setProcessingNode(node_);
-            ip_.setProcessingAttribute(StringList.concat(ip_.getPrefix(),ATTRIBUTE_VALIDATOR));
-            ip_.setLookForAttrValue(true);
-            ip_.setOffset(0);
             Struct validator_ = session.getBuiltValidators().getVal(valId_);
             if (validator_ == null) {
                 continue;
@@ -946,17 +910,12 @@ public final class Navigation {
     }
 
     private void updateRendBean(LongTreeMap< NodeContainer> _containers) {
-        Document doc_ = session.getDocument();
         for (EntryCust<Long, NodeContainer> e: _containers.entryList()) {
             NodeContainer nCont_ = e.getValue();
             if (!nCont_.isEnabled()) {
                 continue;
             }
-            Element input_ = DocumentBuilder.getFirstElementByAttribute(doc_, NUMBER_INPUT, Long.toString(e.getKey()));
-            session.getLastPage().setProcessingNode(input_);
-            session.getLastPage().setProcessingAttribute(EMPTY_STRING);
             Struct newObj_;
-            StringList v_ = nCont_.getNodeInformation().getValue();
             ResultErrorStd res_ = session.getAdvStandards().convert(nCont_, session);
             if (session.getContext().getException() != null) {
                 return;
