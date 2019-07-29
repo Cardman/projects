@@ -21,7 +21,10 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
     private CustList<RendDynOperationNode> opsValue = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsWrite = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsConverter = new CustList<RendDynOperationNode>();
+    private CustList<RendDynOperationNode> opsConverterField = new CustList<RendDynOperationNode>();
+
     private String varNameConverter = "";
+    private String varNameConverterField = "";
     private String varName = EMPTY_STRING;
     private ClassField idField;
     private Element elt;
@@ -77,6 +80,32 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
                 }
             }
         }
+        String converterField_ = elt.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CONVERT_FIELD));
+        if (!converterField_.trim().isEmpty()) {
+            String object_ = _cont.getStandards().getAliasObject();
+            StringList varNames_ = new StringList();
+            String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
+            varNames_.add(varLoc_);
+            varNameConverterField = varLoc_;
+            LocalVariable lv_ = new LocalVariable();
+            lv_.setClassName(object_);
+            _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
+            String preRend_ = StringList.concat(converterField_,"(",BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),")");
+            opsConverterField = RenderExpUtil.getAnalyzedOperations(preRend_,0,_cont,Calculation.staticCalculation(st_));
+            for (String v:varNames_) {
+                _cont.getLocalVarsAna().last().removeKey(v);
+            }
+            Mapping m_ = new Mapping();
+            m_.setArg(opsConverterField.last().getResultClass());
+            m_.setParam(_cont.getStandards().getAliasCharSequence());
+            if (!Templates.isCorrectOrNumbers(m_,_cont)) {
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                badEl_.setFileName(_cont.getCurrentFileName());
+                badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+                _cont.getClasses().addError(badEl_);
+            }
+        }
     }
 
     @Override
@@ -85,6 +114,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
         opsValue = reduceList(opsValue);
         opsWrite = reduceList(opsWrite);
         opsConverter = reduceList(opsConverter);
+        opsConverterField = reduceList(opsConverterField);
     }
 
     @Override
@@ -103,7 +133,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
         f_.setVarNameConverter(varNameConverter);
         f_.setOpsConverter(opsConverter);
         fetchName(_cont, elt, docElementSelect_, f_);
-        fetchValue(_cont,elt,docElementSelect_,opsValue);
+        fetchValue(_cont,elt,docElementSelect_,opsValue,varNameConverterField,opsConverterField);
         if (_cont.getContext().hasExceptionOrFailInit()) {
             return;
         }

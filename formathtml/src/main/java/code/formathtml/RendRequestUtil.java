@@ -94,5 +94,7 @@ final class RendRequestUtil {
         lv_.setStruct(_attribute);
         ip_.putLocalVar(attrName_, lv_);
         RenderExpUtil.calculateReuse(wr_,_conf);
+        ip_.removeLocalVar(prev_);
+        ip_.removeLocalVar(attrName_);
     }
 }

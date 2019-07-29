@@ -25,6 +25,8 @@ public abstract class RendBlock {
     static final String ATTRIBUTE_CLASS_NAME = "className";
     static final String ATTRIBUTE_CONVERT = "convert";
     static final String ATTRIBUTE_CONVERT_VALUE = "convertValue";
+    static final String ATTRIBUTE_CONVERT_FIELD = "convertField";
+    static final String ATTRIBUTE_CONVERT_FIELD_VALUE = "convertFieldValue";
     static final String ATTRIBUTE_INDEX_CLASS_NAME = "indexClassName";
     static final String ATTRIBUTE_FROM = "from";
     static final String ATTRIBUTE_INIT = "init";
@@ -703,7 +705,7 @@ public abstract class RendBlock {
         return RenderExpUtil.getReducedNodes(_list.last());
     }
 
-    protected static void fetchValue(Configuration _cont, Element _read, Element _write, CustList<RendDynOperationNode> _ops) {
+    protected static void fetchValue(Configuration _cont, Element _read, Element _write, CustList<RendDynOperationNode> _ops, String _varNameConv,CustList<RendDynOperationNode> _opsConv) {
 //        _conf.getLastPage().setProcessingAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VAR_VALUE));
 //        _conf.getLastPage().setLookForAttrValue(true);
 //        _conf.getLastPage().setOffset(0);
@@ -722,16 +724,18 @@ public abstract class RendBlock {
             if (_cont.getContext().getException() != null) {
                 return;
             }
-            if (o_.getStruct() == NullStruct.NULL_VALUE) {
-                _write.setAttribute(ATTRIBUTE_VALUE, EMPTY_STRING);
-            } else if (o_.getStruct() instanceof BooleanStruct) {
-                if (((BooleanStruct) o_.getStruct()).getInstance()) {
+            if (StringList.quickEq(_read.getAttribute(ATTRIBUTE_TYPE),CHECKBOX)) {
+                if (Argument.isTrueValue(o_)) {
                     _write.setAttribute(CHECKED, CHECKED);
                 } else {
                     _write.removeAttribute(CHECKED);
                 }
             } else {
-                _write.setAttribute(ATTRIBUTE_VALUE, _cont.getAdvStandards().processString(o_,_cont));
+                o_ = convertField(_cont,o_,_varNameConv,_opsConv);
+                if (_cont.getContext().getException() != null) {
+                    return;
+                }
+                _write.setAttribute(ATTRIBUTE_VALUE, _cont.getAdvStandards().processString(o_, _cont));
             }
         }
         if (StringList.quickEq(_read.getTagName(),TEXT_AREA)) {
@@ -739,14 +743,34 @@ public abstract class RendBlock {
             if (_cont.getContext().getException() != null) {
                 return;
             }
-            if (o_.getStruct() == NullStruct.NULL_VALUE) {
-                o_.setStruct(new StringStruct(EMPTY_STRING));
+            o_ = convertField(_cont,o_,_varNameConv,_opsConv);
+            if (_cont.getContext().getException() != null) {
+                return;
             }
             Document doc_ = _write.getOwnerDocument();
             Text text_ = doc_.createTextNode(_cont.getAdvStandards().processString(o_,_cont));
             _write.appendChild(text_);
         }
         _write.removeAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VAR_VALUE));
+    }
+    private static Argument convertField(Configuration _cont, Argument _o,String _varNameConv, CustList<RendDynOperationNode> _opsConv) {
+        Argument o_ = _o;
+        if (!_opsConv.isEmpty()) {
+            LocalVariable locVar_ = new LocalVariable();
+            locVar_.setClassName(_cont.getStandards().getAliasObject());
+            locVar_.setStruct(o_.getStruct());
+            _cont.getLastPage().putLocalVar(_varNameConv, locVar_);
+            Argument arg_ = RenderExpUtil.calculateReuse(_opsConv, _cont);
+            _cont.getLastPage().removeLocalVar(_varNameConv);
+            if (_cont.getContext().getException() != null) {
+                return Argument.createVoid();
+            }
+            o_ = arg_;
+        }
+        if (o_.getStruct() == NullStruct.NULL_VALUE) {
+            o_.setStruct(new StringStruct(EMPTY_STRING));
+        }
+        return o_;
     }
     protected static String getProperty(Configuration _conf, String _key) {
         return _conf.getProperties().getVal(_key);

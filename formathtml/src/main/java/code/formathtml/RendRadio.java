@@ -2,13 +2,23 @@ package code.formathtml;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.variables.LocalVariable;
+import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.util.BadElRender;
+import code.formathtml.util.BeanCustLgNames;
 import code.sml.Element;
 import code.sml.MutableNode;
+import code.util.CustList;
 import code.util.StringList;
 
 public final class RendRadio extends RendInput {
+    private CustList<RendDynOperationNode> opsConverterFieldValue = new CustList<RendDynOperationNode>();
+    private String varNameConverterFieldValue = "";
     RendRadio(Element _elt, OffsetsBlock _offset) {
         super(_elt, _offset);
     }
@@ -17,6 +27,33 @@ public final class RendRadio extends RendInput {
     protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _all, StringList _list) {
 //        _list.removeAllString(CHECKED);
         processAnaInput(_cont,_doc,_read);
+        boolean st_ = _doc.isStaticContext();
+        String converterFieldValue_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CONVERT_FIELD_VALUE));
+        if (!converterFieldValue_.trim().isEmpty()) {
+            String object_ = _cont.getStandards().getAliasObject();
+            StringList varNames_ = new StringList();
+            String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
+            varNames_.add(varLoc_);
+            varNameConverterFieldValue = varLoc_;
+            LocalVariable lv_ = new LocalVariable();
+            lv_.setClassName(object_);
+            _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
+            String preRend_ = StringList.concat(converterFieldValue_,"(",BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),")");
+            opsConverterFieldValue = RenderExpUtil.getAnalyzedOperations(preRend_,0,_cont,Calculation.staticCalculation(st_));
+            for (String v:varNames_) {
+                _cont.getLocalVarsAna().last().removeKey(v);
+            }
+            Mapping m_ = new Mapping();
+            m_.setArg(opsConverterFieldValue.last().getResultClass());
+            m_.setParam(_cont.getStandards().getAliasCharSequence());
+            if (!Templates.isCorrectOrNumbers(m_,_cont)) {
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                badEl_.setFileName(_cont.getCurrentFileName());
+                badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+                _cont.getClasses().addError(badEl_);
+            }
+        }
     }
 
     @Override
@@ -31,6 +68,18 @@ public final class RendRadio extends RendInput {
             return;
         }
         Struct res_ = arg_.getStruct();
+        if (!opsConverterFieldValue.isEmpty()) {
+            LocalVariable locVar_ = new LocalVariable();
+            locVar_.setClassName(_cont.getStandards().getAliasObject());
+            locVar_.setStruct(arg_.getStruct());
+            _cont.getLastPage().putLocalVar(varNameConverterFieldValue, locVar_);
+            Argument argConv_ = RenderExpUtil.calculateReuse(opsConverterFieldValue, _cont);
+            _cont.getLastPage().removeLocalVar(varNameConverterFieldValue);
+            if (_cont.getContext().getException() != null) {
+                return;
+            }
+            res_ = argConv_.getStruct();
+        }
         if (res_ == NullStruct.NULL_VALUE) {
             elt_.removeAttribute(CHECKED);
         } else {

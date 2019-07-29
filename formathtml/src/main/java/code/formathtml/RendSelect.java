@@ -25,12 +25,16 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
     private CustList<RendDynOperationNode> opsMap = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsDefault = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsConverter = new CustList<RendDynOperationNode>();
+    private CustList<RendDynOperationNode> opsConverterField = new CustList<RendDynOperationNode>();
+    private CustList<RendDynOperationNode> opsConverterFieldValue = new CustList<RendDynOperationNode>();
     private StringMap<ResultText> attributesText = new StringMap<ResultText>();
     private String varName = EMPTY_STRING;
     private ClassField idField;
     private Element elt;
     private boolean multiple;
     private String varNameConverter = "";
+    private String varNameConverterField = "";
+    private String varNameConverterFieldValue = "";
     private boolean arrayConverter;
     RendSelect(Element _elt, OffsetsBlock _offset) {
         super(_offset);
@@ -170,7 +174,58 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 }
             }
         }
-
+        String converterField_ = elt.getAttribute(ATTRIBUTE_CONVERT_FIELD);
+        if (!converterField_.trim().isEmpty()) {
+            String object_ = _cont.getStandards().getAliasObject();
+            StringList varNames_ = new StringList();
+            String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
+            varNames_.add(varLoc_);
+            varNameConverterField = varLoc_;
+            LocalVariable lv_ = new LocalVariable();
+            lv_.setClassName(object_);
+            _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
+            String preRend_ = StringList.concat(converterField_,"(",BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),")");
+            opsConverterField = RenderExpUtil.getAnalyzedOperations(preRend_,0,_cont,Calculation.staticCalculation(st_));
+            for (String v:varNames_) {
+                _cont.getLocalVarsAna().last().removeKey(v);
+            }
+            Mapping m_ = new Mapping();
+            m_.setArg(opsConverterField.last().getResultClass());
+            m_.setParam(_cont.getStandards().getAliasCharSequence());
+            if (!Templates.isCorrectOrNumbers(m_,_cont)) {
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                badEl_.setFileName(_cont.getCurrentFileName());
+                badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+                _cont.getClasses().addError(badEl_);
+            }
+        }
+        String converterFieldValue_ = elt.getAttribute(ATTRIBUTE_CONVERT_FIELD_VALUE);
+        if (!converterFieldValue_.trim().isEmpty()) {
+            String object_ = _cont.getStandards().getAliasObject();
+            StringList varNames_ = new StringList();
+            String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
+            varNames_.add(varLoc_);
+            varNameConverterFieldValue = varLoc_;
+            LocalVariable lv_ = new LocalVariable();
+            lv_.setClassName(object_);
+            _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
+            String preRend_ = StringList.concat(converterFieldValue_,"(",BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),")");
+            opsConverterFieldValue = RenderExpUtil.getAnalyzedOperations(preRend_,0,_cont,Calculation.staticCalculation(st_));
+            for (String v:varNames_) {
+                _cont.getLocalVarsAna().last().removeKey(v);
+            }
+            Mapping m_ = new Mapping();
+            m_.setArg(opsConverterFieldValue.last().getResultClass());
+            m_.setParam(_cont.getStandards().getAliasCharSequence());
+            if (!Templates.isCorrectOrNumbers(m_,_cont)) {
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                badEl_.setFileName(_cont.getCurrentFileName());
+                badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+                _cont.getClasses().addError(badEl_);
+            }
+        }
         String default_ = elt.getAttribute(DEFAULT_ATTRIBUTE);
         if (!default_.isEmpty()) {
             String mName_ = elt.getAttribute(ATTRIBUTE_CONVERT);
@@ -216,6 +271,8 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         opsMap = reduceList(opsMap);
         opsDefault = reduceList(opsDefault);
         opsConverter = reduceList(opsConverter);
+        opsConverterField = reduceList(opsConverterField);
+        opsConverterFieldValue = reduceList(opsConverterFieldValue);
     }
 
     @Override
@@ -329,7 +386,20 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 continue;
             }
             Element option_ = _docSelect.createElement(TAG_OPTION);
-            option_.setAttribute(ATTRIBUTE_VALUE, getStringKey(_conf, o_));
+            if (opsConverterField.isEmpty()) {
+                option_.setAttribute(ATTRIBUTE_VALUE, getStringKey(_conf, o_));
+            } else {
+                LocalVariable locVar_ = new LocalVariable();
+                locVar_.setClassName(_conf.getStandards().getAliasObject());
+                locVar_.setStruct(o_);
+                _conf.getLastPage().putLocalVar(varNameConverterField, locVar_);
+                Argument arg_ = RenderExpUtil.calculateReuse(opsConverterField, _conf);
+                _conf.getLastPage().removeLocalVar(varNameConverterField);
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
+                option_.setAttribute(ATTRIBUTE_VALUE,stds_.processString(arg_,_conf));
+            }
             for (Struct n: _obj) {
                 if (n.sameReference(o_)) {
                     option_.setAttribute(SELECTED, SELECTED);
@@ -340,7 +410,20 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            option_.appendChild(_docSelect.createTextNode(stds_.processString(second_,_conf)));
+            if (opsConverterFieldValue.isEmpty()) {
+                option_.appendChild(_docSelect.createTextNode(stds_.processString(second_,_conf)));
+            } else {
+                LocalVariable locVar_ = new LocalVariable();
+                locVar_.setClassName(_conf.getStandards().getAliasObject());
+                locVar_.setStruct(second_.getStruct());
+                _conf.getLastPage().putLocalVar(varNameConverterFieldValue, locVar_);
+                Argument arg_ = RenderExpUtil.calculateReuse(opsConverterFieldValue, _conf);
+                _conf.getLastPage().removeLocalVar(varNameConverterFieldValue);
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
+                option_.appendChild(_docSelect.createTextNode(stds_.processString(arg_,_conf)));
+            }
             _docElementSelect.appendChild(option_);
         }
     }
@@ -383,7 +466,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         f_.setOpsConverter(opsConverter);
         f_.setArrayConverter(arrayConverter);
         Argument arg_ = fetchName(_cont, _read, _write, f_);
-        fetchValue(_cont,_read,_write,opsValue);
+        fetchValue(_cont,_read,_write,opsValue,varNameConverterField,opsConverterField);
         return arg_;
     }
 }

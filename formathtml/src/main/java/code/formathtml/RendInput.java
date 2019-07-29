@@ -20,9 +20,11 @@ public abstract class RendInput extends RendElement {
     private CustList<RendDynOperationNode> opsValue = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsWrite = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsConverter = new CustList<RendDynOperationNode>();
+    private CustList<RendDynOperationNode> opsConverterField = new CustList<RendDynOperationNode>();
     private String varName = EMPTY_STRING;
     private ClassField idField;
     private String varNameConverter = "";
+    private String varNameConverterField = "";
     RendInput(Element _elt, OffsetsBlock _offset) {
         super(_elt, _offset);
     }
@@ -66,6 +68,32 @@ public abstract class RendInput extends RendElement {
                 }
             }
         }
+        String converterField_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CONVERT_FIELD));
+        if (!converterField_.trim().isEmpty()) {
+            String object_ = _cont.getStandards().getAliasObject();
+            StringList varNames_ = new StringList();
+            String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
+            varNames_.add(varLoc_);
+            varNameConverterField = varLoc_;
+            LocalVariable lv_ = new LocalVariable();
+            lv_.setClassName(object_);
+            _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
+            String preRend_ = StringList.concat(converterField_,"(",BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),")");
+            opsConverterField = RenderExpUtil.getAnalyzedOperations(preRend_,0,_cont,Calculation.staticCalculation(st_));
+            for (String v:varNames_) {
+                _cont.getLocalVarsAna().last().removeKey(v);
+            }
+            Mapping m_ = new Mapping();
+            m_.setArg(opsConverterField.last().getResultClass());
+            m_.setParam(_cont.getStandards().getAliasCharSequence());
+            if (!Templates.isCorrectOrNumbers(m_,_cont)) {
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                badEl_.setFileName(_cont.getCurrentFileName());
+                badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+                _cont.getClasses().addError(badEl_);
+            }
+        }
     }
 
     @Override
@@ -74,6 +102,7 @@ public abstract class RendInput extends RendElement {
         opsValue = reduceList(opsValue);
         opsWrite = reduceList(opsWrite);
         opsConverter = reduceList(opsConverter);
+        opsConverterField = reduceList(opsConverterField);
     }
     protected Argument processIndexes(Configuration _cont, Element _read, Element _write) {
         FieldUpdates f_ = new FieldUpdates();
@@ -85,8 +114,10 @@ public abstract class RendInput extends RendElement {
         f_.setVarNameConverter(varNameConverter);
         f_.setOpsConverter(opsConverter);
         Argument arg_ = fetchName(_cont, _read, _write, f_);
-        fetchValue(_cont,_read,_write,opsValue);
+        fetchValue(_cont,_read,_write,opsValue,varNameConverterField,opsConverterField);
         _write.removeAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CONVERT_VALUE));
+        _write.removeAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CONVERT_FIELD));
+        _write.removeAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CONVERT_FIELD_VALUE));
         return arg_;
     }
 
