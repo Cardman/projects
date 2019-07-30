@@ -48,6 +48,12 @@ public abstract class RendBlock {
     static final String ATTRIBUTE_KEY = "key";
     static final String ATTRIBUTE_VAR = "var";
     static final String ATTRIBUTE_HREF = "href";
+    static final String ATTRIBUTE_REL = "rel";
+    static final String STYLESHEET = "stylesheet";
+    static final String TAG_HEAD = "head";
+    static final String TAG_STYLE = "style";
+    static final String TAG_LINK = "link";
+    static final String RETURN_LINE = "\n";
     static final String ATTRIBUTE_COMMAND = "command";
     static final String ATTRIBUTE_ACTION = "action";
     static final String ATTRIBUTE_TO = "to";
@@ -523,6 +529,12 @@ public abstract class RendBlock {
         if (StringList.quickEq(tagName_,TAG_IMG)) {
             return new RendImg(elt_,new OffsetsBlock(_begin,_begin));
         }
+        if (StringList.quickEq(tagName_,TAG_LINK)) {
+            return new RendLink(elt_,new OffsetsBlock(_begin,_begin));
+        }
+        if (StringList.quickEq(tagName_,TAG_STYLE)) {
+            return new RendStyle(elt_,new OffsetsBlock(_begin,_begin));
+        }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,TAG_IMG))) {
             return new RendEscImg(elt_,new OffsetsBlock(_begin,_begin));
         }
@@ -663,6 +675,25 @@ public abstract class RendBlock {
         }
     }
 
+    protected static void appendText(String _fileContent, Document _ownerDocument, Element _eltStyle) {
+        CustList<Node> chNode_ = _eltStyle.getChildNodes();
+        if (chNode_.isEmpty()) {
+            Text text_ = _ownerDocument.createTextNode(_fileContent);
+            _eltStyle.appendChild(text_);
+        } else {
+            Text text_ = (Text) chNode_.last();
+            text_.appendData(_fileContent);
+        }
+    }
+    static String getCssHref(Element _link) {
+        if (!StringList.quickEq(_link.getAttribute(ATTRIBUTE_REL),STYLESHEET)) {
+            return null;
+        }
+        if (!_link.hasAttribute(ATTRIBUTE_HREF)){
+            return null;
+        }
+        return _link.getAttribute(ATTRIBUTE_HREF);
+    }
     public abstract void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc);
     private static OffsetBooleanInfo newOffsetBooleanInfo(Element _elt, String _key) {
         return new OffsetBooleanInfo(0,_elt.hasAttribute(_key));
