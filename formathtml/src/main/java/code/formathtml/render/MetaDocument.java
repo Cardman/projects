@@ -359,10 +359,7 @@ public final class MetaDocument {
                             strings_.add(c.getTextContent());
                             i_++;
                         }
-                        Integer vis_ = BeanLgNames.parseInt(elt_.getAttribute("rows"));
-                        if (vis_ == null) {
-                            vis_ = 1;
-                        }
+                        int vis_ = BeanLgNames.parseInt(elt_.getAttribute("rows"),1);
                         MetaInput input_ = new MetaComboList(currentParent, name_, Numbers.parseInt(elt_.getAttribute("n-i")), strings_, values_, selected_, vis_);
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
@@ -389,23 +386,20 @@ public final class MetaDocument {
                     String type_ = elt_.getAttribute("type");
                     String name_ = elt_.getAttribute("name");
                     if (StringList.quickEq(type_, "text")) {
-                        Integer cols_ = BeanLgNames.parseInt(elt_.getAttribute("cols"));
-                        if (cols_ == null) {
-                            cols_ = 32;
-                        }
-                        MetaInput input_ = new MetaTextField(currentParent, name_, BeanLgNames.parseInt(elt_.getAttribute("n-i")), cols_, elt_.getAttribute("value"));
+                        int cols_ = BeanLgNames.parseInt(elt_.getAttribute("cols"),32);
+                        MetaInput input_ = new MetaTextField(currentParent, name_, Numbers.parseInt(elt_.getAttribute("n-i")), cols_, elt_.getAttribute("value"));
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     } else if (StringList.quickEq(type_, "number")) {
-                        MetaInput input_ = new MetaSpinner(currentParent, name_, BeanLgNames.parseInt(elt_.getAttribute("n-i")), elt_.getAttribute("value"));
+                        MetaInput input_ = new MetaSpinner(currentParent, name_, Numbers.parseInt(elt_.getAttribute("n-i")), elt_.getAttribute("value"));
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     } else if (StringList.quickEq(type_, "range")) {
-                        MetaInput input_ = new MetaSlider(currentParent, name_, BeanLgNames.parseInt(elt_.getAttribute("n-i")), elt_.getAttribute("value"));
+                        MetaInput input_ = new MetaSlider(currentParent, name_, Numbers.parseInt(elt_.getAttribute("n-i")), elt_.getAttribute("value"));
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     } else if (StringList.quickEq(type_, "checkbox")) {
-                        MetaInput input_ = new MetaCheckedBox(currentParent, name_, BeanLgNames.parseInt(elt_.getAttribute("n-i")), elt_.hasAttribute("checked"));
+                        MetaInput input_ = new MetaCheckedBox(currentParent, name_, Numbers.parseInt(elt_.getAttribute("n-i")), elt_.hasAttribute("checked"));
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     } else if (StringList.quickEq(type_, "radio")) {
@@ -414,7 +408,7 @@ public final class MetaDocument {
                         } else {
                             indexesButtons.put(name_, 0);
                         }
-                        MetaInput input_ = new MetaRadioButton(currentParent, name_, BeanLgNames.parseInt(elt_.getAttribute("n-i")), indexesButtons.getVal(name_),elt_.hasAttribute("checked"), elt_.getAttribute("value"));
+                        MetaInput input_ = new MetaRadioButton(currentParent, name_, Numbers.parseInt(elt_.getAttribute("n-i")), indexesButtons.getVal(name_),elt_.hasAttribute("checked"), elt_.getAttribute("value"));
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     } else {
@@ -440,14 +434,8 @@ public final class MetaDocument {
                     skipChildrenBuild_ = true;
                     rowGroup = 0;
                     partGroup++;
-                    Integer rows_ = BeanLgNames.parseInt(elt_.getAttribute("rows"));
-                    if (rows_ == null) {
-                        rows_ = 32;
-                    }
-                    Integer cols_ = BeanLgNames.parseInt(elt_.getAttribute("cols"));
-                    if (cols_ == null) {
-                        cols_ = 32;
-                    }
+                    int rows_ = BeanLgNames.parseInt(elt_.getAttribute("rows"),32);
+                    int cols_ = BeanLgNames.parseInt(elt_.getAttribute("cols"),32);
                     MetaInput input_ = new MetaTextArea(currentParent, name_, Numbers.parseInt(elt_.getAttribute("n-i")), cols_, rows_, elt_.getTextContent());
                     input_.setStyle(styleLoc_);
                     currentParent.appendChild(input_);
@@ -622,14 +610,8 @@ public final class MetaDocument {
                     rowGroup = 0;
                     partGroup++;
                     MetaTable table_ = tables.last();
-                    Integer rows_ = BeanLgNames.parseInt(elt_.getAttribute("rowspan"));
-                    if (rows_ == null) {
-                        rows_ = 1;
-                    }
-                    Integer cols_ = BeanLgNames.parseInt(elt_.getAttribute("colspan"));
-                    if (cols_ == null) {
-                        cols_ = 1;
-                    }
+                    int rows_ = BeanLgNames.parseInt(elt_.getAttribute("rowspan"),1);
+                    int cols_ = BeanLgNames.parseInt(elt_.getAttribute("colspan"),1);
                     MetaContainer bl_ = new MetaCell(table_, rows_, cols_);
                     bl_.setStyle(styleLoc_);
                     MetaContainer line_ = new MetaLine(bl_);
@@ -639,10 +621,7 @@ public final class MetaDocument {
                     currentParent = line_;
                 }
                 if (StringList.quickEq(tagName_, "map")) {
-                    Integer width_ = BeanLgNames.parseInt(elt_.getAttribute("width"));
-                    if (width_ == null) {
-                        width_ = 1;
-                    }
+                    int width_ = BeanLgNames.parseInt(elt_.getAttribute("width"),1);
                     MetaContainer line_ = new MetaLine(curPar_);
                     if (li_) {
                         MetaIndentNbLabel ind_ = new MetaIndentNbLabel(line_);

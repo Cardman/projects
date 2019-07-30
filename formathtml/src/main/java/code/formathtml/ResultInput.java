@@ -3,6 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exec.*;
 import code.formathtml.util.BadElRender;
@@ -107,7 +108,15 @@ public final class ResultInput {
                 badEl_.setIndexFile(_cont.getCurrentLocationIndex());
                 _cont.getClasses().addError(badEl_);
             } else {
-                idField = ((RendSettableFieldOperation)settable_).getFieldMetaInfo().getClassField();
+                FieldInfo infoField_ = ((RendSettableFieldOperation) settable_).getFieldMetaInfo();
+                if (infoField_.isStaticField()) {
+                    BadElRender badEl_ = new BadElRender();
+                    badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                    badEl_.setFileName(_cont.getCurrentFileName());
+                    badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+                    _cont.getClasses().addError(badEl_);
+                }
+                idField = infoField_.getClassField();
                 String cl_ = ((RendSettableFieldOperation) settable_).getResultClass().getSingleNameOrEmpty();
                 ClassArgumentMatching pr_;
                 if (((RendSettableFieldOperation) settable_).isIntermediateDottedOperation()) {

@@ -16,7 +16,6 @@ import code.expressionlanguage.structs.*;
 import code.formathtml.*;
 import code.formathtml.structs.*;
 import code.sml.Element;
-import code.sml.Node;
 import code.util.*;
 import code.util.ints.*;
 
@@ -532,13 +531,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         Boolean nativeCmp_ = null;
         for (String f: _names) {
             String type_ = getIterableFullTypeByStds(f, _context);
-            String iterable_ = getAliasIterable();
-            if (type_ == null) {
-                type_ = Templates.getFullTypeByBases(f, iterable_, _context);
-                nativeCmp_ = false;
-            } else {
-                nativeCmp_ = true;
-            }
+            nativeCmp_ = true;
             if (type_ != null) {
                 out_.add(type_);
             }

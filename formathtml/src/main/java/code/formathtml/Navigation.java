@@ -397,6 +397,10 @@ public final class Navigation {
             return;
         }
         Struct bean_ = getBeanOrNull(currentBeanName);
+        session.clearPages();
+        ImportingPage ip_ = new ImportingPage(true);
+        ip_.setPrefix(session.getPrefix());
+        session.addPage(ip_);
         processAfterInvoke(_anchorRef,currentBeanName,bean_);
     }
 

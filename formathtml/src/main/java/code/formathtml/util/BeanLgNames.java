@@ -1,14 +1,13 @@
 package code.formathtml.util;
 
-import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.bean.validator.Message;
 import code.bean.validator.Validator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.NumberInfos;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
@@ -18,13 +17,10 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.Configuration;
 import code.formathtml.RendImport;
 import code.formathtml.RenderExpUtil;
-import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.structs.RealInstanceStruct;
 import code.formathtml.structs.StdStruct;
-import code.formathtml.structs.StringMapObjectStruct;
 import code.sml.Element;
-import code.sml.Node;
 import code.util.*;
 import code.util.ints.*;
 
@@ -60,10 +56,6 @@ public abstract class BeanLgNames extends LgNames {
     private static final String GET_DATA_BASE = "getDataBase";
     private static final String BEFORE_DISPLAYING = "beforeDisplaying";
 
-
-    private static final int DEFAULT_RADIX = 10;
-    private static final long MULTMIN_RADIX_TEN = Long.MIN_VALUE / DEFAULT_RADIX;
-    private static final long N_MULTMAX_RADIX_TEN = -Long.MAX_VALUE / DEFAULT_RADIX;
     private static final String ON = "on";
     private final String validator = "code.bean.validator.Validator";
 
@@ -159,6 +151,14 @@ public abstract class BeanLgNames extends LgNames {
         return int_.shortValue();
     }
 
+    public static int parseInt(String _string, int _def) {
+        String value_ = _string.trim();
+        if (value_.isEmpty()) {
+            return _def;
+        }
+        return Numbers.parseInt(value_);
+    }
+
     public static Integer parseInt(String _string) {
         Long int_ = parseLong(_string);
         if (int_ == null) {
@@ -174,66 +174,7 @@ public abstract class BeanLgNames extends LgNames {
     }
 
     public static Long parseLong(String _string) {
-        if (_string == null) {
-            return null;
-        }
-        long result_ = 0;
-        boolean negative_ = false;
-        int i_ = 0;
-        int max_ = _string.length();
-        long limit_;
-        long multmin_;
-        int digit_;
-
-        if (max_ > 0) {
-            if (_string.charAt(0) == '-') {
-                negative_ = true;
-                limit_ = Long.MIN_VALUE;
-                i_++;
-            } else {
-                limit_ = -Long.MAX_VALUE;
-            }
-            if (negative_) {
-                multmin_ = MULTMIN_RADIX_TEN;
-            } else {
-                multmin_ = N_MULTMAX_RADIX_TEN;
-            }
-            if (i_ < max_) {
-                char ch_ = _string.charAt(i_);
-                i_++;
-                if (ch_ < '0' || ch_ > '9') {
-                    return null;
-                }
-                digit_ = ch_ - '0';
-                result_ = -digit_;
-            }
-            while (i_ < max_) {
-                // Accumulating negatively avoids surprises near MAX_VALUE
-                char ch_ = _string.charAt(i_);
-                i_++;
-                if (ch_ < '0' || ch_ > '9') {
-                    return null;
-                }
-                digit_ = ch_ - '0';
-                if (result_ < multmin_) {
-                    return null;
-                }
-                result_ *= 10;
-                if (result_ < limit_ + digit_) {
-                    return null;
-                }
-                result_ -= digit_;
-            }
-        } else {
-            return null;
-        }
-        if (negative_) {
-            if (i_ > 1) {
-                return result_;
-            }
-            return null;
-        }
-        return -result_;
+        return NumParsers.parseLong(_string, 10);
     }
 
     public StringMap<String> getIterables() {
@@ -322,23 +263,19 @@ public abstract class BeanLgNames extends LgNames {
         return class_;
     }
     public ResultErrorStd convert(NodeContainer _container, Configuration _conf) {
-        String beanName_ = _container.getBeanName();
-        Struct bean_ = _conf.getBuiltBeans().getVal(beanName_);
-        if (bean_ != null) {
-            CustList<RendDynOperationNode> ops_ = _container.getOpsConvert();
-            if (!ops_.isEmpty()) {
-                String varNameConvert_ = _container.getVarNameConvert();
-                LocalVariable lv_ = newLocVar(_container,_conf);
-                _conf.getLastPage().putLocalVar(varNameConvert_, lv_);
-                _conf.getLastPage().setGlobalArgumentStruct(bean_, _conf);
-                Argument res_ = RenderExpUtil.calculateReuse(ops_, _conf);
-                ResultErrorStd out_ = new ResultErrorStd();
-                if (_conf.getContext().hasExceptionOrFailInit()) {
-                    return out_;
-                }
-                out_.setResult(res_.getStruct());
+        CustList<RendDynOperationNode> ops_ = _container.getOpsConvert();
+        if (!ops_.isEmpty()) {
+            String varNameConvert_ = _container.getVarNameConvert();
+            LocalVariable lv_ = newLocVar(_container,_conf);
+            _conf.getLastPage().putLocalVar(varNameConvert_, lv_);
+            _conf.getLastPage().setGlobalArgumentStruct(_container.getBean(), _conf);
+            Argument res_ = RenderExpUtil.calculateReuse(ops_, _conf);
+            ResultErrorStd out_ = new ResultErrorStd();
+            if (_conf.getContext().hasExceptionOrFailInit()) {
                 return out_;
             }
+            out_.setResult(res_.getStruct());
+            return out_;
         }
         Struct obj_ = _container.getTypedStruct();
         String className_ = _container.getNodeInformation().getInputClass();
@@ -377,14 +314,6 @@ public abstract class BeanLgNames extends LgNames {
     }
     public ResultErrorStd getStructToBeValidated(StringList _values, String _className, ContextEl _context) {
         ResultErrorStd res_ = new ResultErrorStd();
-        if (StringList.quickEq(_className, getAliasBoolean()) || StringList.quickEq(_className, getAliasPrimBoolean())) {
-            if (_values.isEmpty() || _values.first().trim().isEmpty()) {
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            res_.setResult(new BooleanStruct(StringList.quickEq(_values.first(),ON)));
-            return res_;
-        }
         if (StringList.quickEq(_className, getAliasString())) {
             if (_values.isEmpty()) {
                 res_.setResult(NullStruct.NULL_VALUE);
@@ -402,63 +331,31 @@ public abstract class BeanLgNames extends LgNames {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-        }
-        if (StringList.quickEq(_className, getAliasDouble()) || StringList.quickEq(_className, getAliasPrimDouble())) {
-            Double val_ = parseDouble(_values.first());
-            if (val_ == null) {
-                res_.setError(getAliasCast());
+            ClassArgumentMatching cl_ = new ClassArgumentMatching(_className);
+            if (PrimitiveTypeUtil.toPrimitive(cl_,this).matchClass(getAliasPrimBoolean())) {
+                res_.setResult(new BooleanStruct(StringList.quickEq(_values.first(),ON)));
                 return res_;
             }
-            res_.setResult(new DoubleStruct(val_));
-            return res_;
-        }
-        if (StringList.quickEq(_className, getAliasFloat()) || StringList.quickEq(_className, getAliasPrimFloat())) {
-            Float val_ = parseFloat(_values.first());
-            if (val_ == null) {
-                res_.setError(getAliasCast());
+            if (PrimitiveTypeUtil.toPrimitive(cl_,this).matchClass(getAliasPrimChar())) {
+                res_.setResult(new CharStruct(_values.first().trim().charAt(0)));
                 return res_;
             }
-            res_.setResult(new FloatStruct(val_));
-            return res_;
-        }
-        if (StringList.quickEq(_className, getAliasLong()) || StringList.quickEq(_className, getAliasPrimLong())) {
+            int order_ = PrimitiveTypeUtil.getIntOrderClass(cl_, _context);
+            if (order_ == 0) {
+                Double val_ = parseDouble(_values.first());
+                if (val_ == null) {
+                    res_.setError(getAliasCast());
+                    return res_;
+                }
+                res_.setResult(PrimitiveTypeUtil.convertObject(cl_,new DoubleStruct(val_),this));
+                return res_;
+            }
             Long val_ = parseLong(_values.first());
             if (val_ == null) {
                 res_.setError(getAliasCast());
                 return res_;
             }
-            res_.setResult(new LongStruct(val_));
-            return res_;
-        }
-        if (StringList.quickEq(_className, getAliasInteger()) || StringList.quickEq(_className, getAliasPrimInteger())) {
-            Integer val_ = parseInt(_values.first());
-            if (val_ == null) {
-                res_.setError(getAliasCast());
-                return res_;
-            }
-            res_.setResult(new IntStruct(val_));
-            return res_;
-        }
-        if (StringList.quickEq(_className, getAliasShort()) || StringList.quickEq(_className, getAliasPrimShort())) {
-            Short val_ = parseShort(_values.first());
-            if (val_ == null) {
-                res_.setError(getAliasCast());
-                return res_;
-            }
-            res_.setResult(new ShortStruct(val_));
-            return res_;
-        }
-        if (StringList.quickEq(_className, getAliasByte()) || StringList.quickEq(_className, getAliasPrimByte())) {
-            Byte val_ = parseByte(_values.first());
-            if (val_ == null) {
-                res_.setError(getAliasCast());
-                return res_;
-            }
-            res_.setResult(new ByteStruct(val_));
-            return res_;
-        }
-        if (StringList.quickEq(_className, getAliasCharacter()) || StringList.quickEq(_className, getAliasPrimChar())) {
-            res_.setResult(new CharStruct(_values.first().trim().charAt(0)));
+            res_.setResult(PrimitiveTypeUtil.convertObject(cl_,new LongStruct(val_),this));
             return res_;
         }
         return getOtherStructToBeValidated(_values, _className, _context);
