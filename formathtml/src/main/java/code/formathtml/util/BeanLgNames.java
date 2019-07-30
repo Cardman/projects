@@ -16,6 +16,7 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.Configuration;
+import code.formathtml.RendImport;
 import code.formathtml.RenderExpUtil;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendDynOperationNode;
@@ -464,7 +465,7 @@ public abstract class BeanLgNames extends LgNames {
     }
 
     public void setBeanForms(Configuration _conf, Struct _mainBean,
-                                     Node _node, boolean _keepField, String _beanName) {
+                             RendImport _node, boolean _keepField, String _beanName) {
         if (_mainBean == null) {
             return;
         }
@@ -475,7 +476,7 @@ public abstract class BeanLgNames extends LgNames {
         gearFw(_conf, _mainBean, _node, _keepField, bean_);
     }
 
-    protected abstract void gearFw(Configuration _conf, Struct _mainBean, Node _node, boolean _keepField, Struct _bean);
+    protected abstract void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean);
 
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,

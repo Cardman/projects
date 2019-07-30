@@ -13,8 +13,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
-import code.formathtml.Configuration;
-import code.formathtml.ImportingPage;
+import code.formathtml.*;
 import code.formathtml.structs.*;
 import code.sml.Element;
 import code.sml.Node;
@@ -336,18 +335,17 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         ((BeanStruct)_bean).getBean().setForms(storedForms);
     }
 
-    protected void gearFw(Configuration _conf, Struct _mainBean, Node _node, boolean _keepField, Struct _bean) {
-        ImportingPage ip_ = _conf.getLastPage();
-        String prefix_ = ip_.getPrefix();
+    @Override
+    protected void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean) {
 
         StringMapObject forms_ = ((BeanStruct)_bean).getBean().getForms();
         StringMapObject formsMap_ = ((BeanStruct)_mainBean).getBean().getForms();
         if (_keepField) {
-            for (Element f_: _node.getChildElements()) {
-                if (!StringList.quickEq(f_.getTagName(),StringList.concat(prefix_,"form"))) {
+            for (RendBlock f_: RendBlock.getDirectChildren(_node)) {
+                if (!(f_ instanceof RendImportForm)) {
                     continue;
                 }
-                String name_ = f_.getAttribute("form");
+                String name_ = ((RendImportForm)f_).getName();
                 forms_.put(name_,formsMap_.getVal(name_));
             }
         } else {

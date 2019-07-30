@@ -246,8 +246,8 @@ public final class Navigation {
         BeanLgNames stds_ = session.getAdvStandards();
         stds_.initBeans(session,language,dataBaseStruct);
         session.getAnalyzingDoc().setLanguages(languages);
-        session.setupRenders(files);
         session.setCurrentLanguage(language);
+        session.setupRenders(files);
         if (!session.getClasses().isEmptyErrors()) {
             return;
         }

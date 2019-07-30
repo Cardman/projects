@@ -24,9 +24,19 @@ public final class RendRadio extends RendInput {
     }
 
     @Override
-    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _all, StringList _list) {
-//        _list.removeAllString(CHECKED);
+    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list) {
         processAnaInput(_cont,_doc,_read);
+        _list.removeAllString(CHECKED);
+        _list.removeAllString(ATTRIBUTE_VALUE);
+        _list.removeAllString(ATTRIBUTE_NAME);
+        _list.removeAllString(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CLASS_NAME));
+        _list.removeAllString(NUMBER_INPUT);
+        _list.removeAllString(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CONVERT_VALUE));
+        _list.removeAllString(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CONVERT_FIELD_VALUE));
+        _list.removeAllString(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CONVERT_FIELD));
+        _list.removeAllString(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VAR_VALUE));
+        _list.removeAllString(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VALIDATOR));
+        _list.removeAllString(ATTRIBUTE_TYPE);
         boolean st_ = _doc.isStaticContext();
         String converterFieldValue_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_CONVERT_FIELD_VALUE));
         if (!converterFieldValue_.trim().isEmpty()) {

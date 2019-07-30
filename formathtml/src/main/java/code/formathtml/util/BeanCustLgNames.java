@@ -13,9 +13,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.VariableSuffix;
-import code.formathtml.Configuration;
-import code.formathtml.RenderExpUtil;
-import code.formathtml.ImportingPage;
+import code.formathtml.*;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.structs.StdStruct;
 import code.sml.Element;
@@ -771,9 +769,8 @@ public final class BeanCustLgNames extends BeanLgNames {
         _conf.getLastPage().getInternVars().removeKey(setFormsVarArg);
     }
 
-    protected void gearFw(Configuration _conf, Struct _mainBean, Node _node, boolean _keepField, Struct _bean) {
-        ImportingPage ip_ = _conf.getLastPage();
-        String prefix_ = ip_.getPrefix();
+    @Override
+    protected void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean) {
         Argument forms_ = getForms(_bean, _conf);
         if (_conf.getContext().getException() != null) {
             return;
@@ -783,11 +780,11 @@ public final class BeanCustLgNames extends BeanLgNames {
             return;
         }
         if (_keepField) {
-            for (Element f_: _node.getChildElements()) {
-                if (!StringList.quickEq(f_.getTagName(),StringList.concat(prefix_,"form"))) {
+            for (RendBlock f_: RendBlock.getDirectChildren(_node)) {
+                if (!(f_ instanceof RendImportForm)) {
                     continue;
                 }
-                String name_ = f_.getAttribute("form");
+                String name_ = ((RendImportForm)f_).getName();
                 forwardMap(formsMap_.getStruct(),forms_.getStruct(),new StringStruct(name_),_conf);
                 if (_conf.getContext().getException() != null) {
                     return;

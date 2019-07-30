@@ -13,6 +13,7 @@ import code.util.Ints;
 import code.util.StringList;
 
 public final class ResultText {
+    private static final String ATTRIBUTE_HREF = "href";
     private static final String ATTRIBUTE_COMMAND = "command";
     private static final String CALL_METHOD = "$";
     private static final char ESCAPED = '\\';
@@ -171,7 +172,9 @@ public final class ResultText {
         }
         texts.add(str_.toString());
     }
-    public static ResultText buildAnchor(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _all, StringList _list) {
+    public static ResultText buildAnchor(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list) {
+        _list.removeAllString(ATTRIBUTE_HREF);
+        _list.removeAllString(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND));
         String href_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND));
         ResultText r_ = new ResultText();
         r_.opExp = new CustList<CustList<RendDynOperationNode>>();

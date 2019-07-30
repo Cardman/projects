@@ -26,6 +26,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.consts.Constants;
 
 public final class RenderedPage implements ProcessingSession {
 
@@ -87,6 +88,7 @@ public final class RenderedPage implements ProcessingSession {
 
     public void setLanguage(String _language) {
         navigation.setLanguage(_language);
+        navigation.setLanguages(Constants.getAvailableLanguages());
     }
 
     public void setDataBase(Object _dataBase) {

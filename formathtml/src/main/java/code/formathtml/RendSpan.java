@@ -6,7 +6,7 @@ import code.sml.MutableNode;
 import code.util.StringList;
 import code.util.StringMap;
 
-public class RendSpan extends RendElement {
+public final class RendSpan extends RendElement {
     private ResultText result;
     private StringMap<String> formatted=new StringMap<String>();
     RendSpan(Element _elt, OffsetsBlock _offset) {
@@ -14,7 +14,9 @@ public class RendSpan extends RendElement {
     }
 
     @Override
-    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _all, StringList _list) {
+    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list) {
+        _list.removeAllString(StringList.concat(_cont.getPrefix(),ATTRIBUTE_FOR));
+        _list.removeAllString(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VALUE_MESSAGE));
         String id_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_FOR));
         result = new ResultText();
         result.buildId(id_,_cont,_doc);

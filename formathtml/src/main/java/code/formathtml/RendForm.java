@@ -24,7 +24,9 @@ public final class RendForm extends RendElement {
     }
 
     @Override
-    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _all, StringList _list) {
+    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list) {
+        _list.removeAllString(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND));
+        _list.removeAllString(ATTRIBUTE_ACTION);
         opExp = new CustList<CustList<RendDynOperationNode>>();
         String href_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND));
         ResultText r_ = new ResultText();

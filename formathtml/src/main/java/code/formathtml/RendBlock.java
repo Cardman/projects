@@ -44,6 +44,7 @@ public abstract class RendBlock {
     static final String ATTRIBUTE_VALUE_MESSAGE = "valueMessage";
     static final String ATTRIBUTE_GROUP_ID = "groupId";
     static final String ATTRIBUTE_MULTIPLE = "multiple";
+    static final String ATTRIBUTE_SRC = "src";
     static final String ATTRIBUTE_KEY = "key";
     static final String ATTRIBUTE_VAR = "var";
     static final String ATTRIBUTE_HREF = "href";
@@ -94,6 +95,7 @@ public abstract class RendBlock {
     static final String SELECT_TAG = "select";
     static final String ATTRIBUTE_VALIDATOR = "validator";
     static final String ATTRIBUTE_VAR_VALUE = "varValue";
+    static final String TAG_IMG = "img";
     private static final String FOR_BLOCK_TAG = "for";
     private static final String WHILE_BLOCK_TAG = "while";
     private static final String ELSE_BLOCK_TAG = "else";
@@ -518,8 +520,20 @@ public abstract class RendBlock {
         if (StringList.quickEq(tagName_,TAG_A)) {
             return new RendAnchor(elt_,new OffsetsBlock(_begin,_begin));
         }
+        if (StringList.quickEq(tagName_,TAG_IMG)) {
+            return new RendImg(elt_,new OffsetsBlock(_begin,_begin));
+        }
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,TAG_IMG))) {
+            return new RendEscImg(elt_,new OffsetsBlock(_begin,_begin));
+        }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,PACKAGE_BLOCK_TAG))) {
             return new RendPackage(newOffsetStringInfo(elt_,ATTRIBUTE_NAME, attr_),new OffsetsBlock(_begin,_begin));
+        }
+        if (StringList.quickEq(tagName_,FORM_BLOCK_TAG)) {
+            return new RendForm(elt_,new OffsetsBlock(_begin,_begin));
+        }
+        if (StringList.quickEq(tagName_,StringList.concat(_prefix,FORM_BLOCK_TAG))) {
+            return new RendImportForm(newOffsetStringInfo(elt_,ATTRIBUTE_FORM, attr_),new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,CLASS_BLOCK_TAG))) {
             return new RendClass(newOffsetStringInfo(elt_,ATTRIBUTE_NAME, attr_),new OffsetsBlock(_begin,_begin));
@@ -532,9 +546,6 @@ public abstract class RendBlock {
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,SELECT_TAG))) {
             return new RendSelect(elt_,new OffsetsBlock(_begin,_begin));
-        }
-        if (StringList.quickEq(tagName_,FORM_BLOCK_TAG)) {
-            return new RendForm(elt_,new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,INPUT_TAG)) {
             if (StringList.quickEq(elt_.getAttribute(ATTRIBUTE_TYPE),RADIO)) {
@@ -642,6 +653,14 @@ public abstract class RendBlock {
             begin_ = val_.getBegin();
         }
         return new OffsetStringInfo(begin_,_elt.getAttribute(_key));
+    }
+
+    static void removeUseLess(Element _read, StringList _list) {
+        int i_ = CustList.FIRST_INDEX;
+        while (_read.hasAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)))) {
+            _list.removeAllString(StringList.concat(TAG_PARAM,Long.toString(i_)));
+            i_++;
+        }
     }
 
     public abstract void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc);

@@ -233,7 +233,8 @@ public final class Configuration implements ExecutableCode {
         context.setAnalyzing(new AnalyzedPageEl());
         getAnalyzing().setEnabledInternVars(false);
         for (String s: renderFiles) {
-            String file_ = _files.getVal(s);
+            String link_ = RendExtractFromResources.getRealFilePath(currentLanguage,s);
+            String file_ = _files.getVal(link_);
             DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(file_);
             Document document_ = res_.getDocument();
             if (document_ == null) {
@@ -244,7 +245,7 @@ public final class Configuration implements ExecutableCode {
                 getClasses().addError(badEl_);
                 continue;
             }
-            renders.put(s,RendBlock.newRendDocumentBlock(this,getPrefix(), document_, file_));
+            renders.put(link_,RendBlock.newRendDocumentBlock(this,getPrefix(), document_, file_));
         }
         for (EntryCust<String,RendDocumentBlock> d: renders.entryList()) {
             d.getValue().buildFctInstructions(this);

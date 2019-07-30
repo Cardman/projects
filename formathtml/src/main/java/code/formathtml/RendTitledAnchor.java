@@ -25,15 +25,16 @@ public final class RendTitledAnchor extends RendElement {
     }
 
     @Override
-    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _all, StringList _list) {
+    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list) {
         opExp = new CustList<CustList<RendDynOperationNode>>();
-        ResultText res_ = ResultText.buildAnchor(_cont, _doc, _read, _all, _list);
+        ResultText res_ = ResultText.buildAnchor(_cont, _doc, _read, _list);
         opExp = res_.getOpExp();
         texts = res_.getTexts();
         _list.removeAllString(ATTRIBUTE_VALUE);
         String value_ = _read.getAttribute(ATTRIBUTE_VALUE);
         preformatted = getPre(_cont,value_);
         if (preformatted.isEmpty()) {
+            removeUseLess(_read, _list);
             return;
         }
         opExpTitle = new StringMap<ResultText>();
@@ -49,6 +50,7 @@ public final class RendTitledAnchor extends RendElement {
             opExpTitle.addEntry(StringList.concat(TAG_PARAM,Long.toString(i_)),r_);
             i_++;
         }
+        _list.removeAllString(ATTRIBUTE_TITLE);
     }
 
     @Override

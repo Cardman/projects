@@ -20,11 +20,12 @@ public final class RendSubmit extends RendElement {
     }
 
     @Override
-    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _all, StringList _list) {
+    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list) {
         _list.removeAllString(ATTRIBUTE_VALUE_SUBMIT);
         String value_ = _read.getAttribute(ATTRIBUTE_VALUE_SUBMIT);
         preformatted = getPre(_cont,value_);
         if (preformatted.isEmpty()) {
+            removeUseLess(_read, _list);
             return;
         }
         opExp = new StringMap<ResultText>();
