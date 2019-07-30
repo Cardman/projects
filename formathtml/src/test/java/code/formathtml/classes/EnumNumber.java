@@ -1,9 +1,8 @@
 package code.formathtml.classes;
 
 import code.util.StringList;
-import code.util.ints.Displayable;
 
-public enum EnumNumber implements Displayable {
+public enum EnumNumber {
     ONE,TWO,THREE,FOUR,FIVE,SIX;
 
     public static EnumNumber getByName(String _name) {
@@ -13,9 +12,5 @@ public enum EnumNumber implements Displayable {
             }
         }
         return null;
-    }
-    @Override
-    public String display() {
-        return name();
     }
 }

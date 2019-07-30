@@ -1,8 +1,6 @@
 package code.formathtml.classes;
 
 import code.util.*;
-import code.util.ints.ListableEntries;
-import code.util.ints.SimpleIterable;
 
 public final class NatTreeMapStringInteger extends AbsMap<String,Integer> {
 
@@ -17,24 +15,6 @@ public final class NatTreeMapStringInteger extends AbsMap<String,Integer> {
             index_++;
         }
         return CustList.INDEX_NOT_FOUND_ELT;
-    }
-    void applyChanges() {
-        for (int i = CustList.FIRST_INDEX; i < size(); i++) {
-            for (int j = i + 1; j < size(); j++) {
-                String c_ = getKey(i);
-                int res_ = c_.compareTo(getKey(j));
-                if (res_ > CustList.EQ_CMP) {
-                    String firstKey_ = getKey(i);
-                    String secondKey_ = getKey(j);
-                    Integer firstValue_ = getValue(i);
-                    Integer secondValue_ = getValue(j);
-                    setKey(j,firstKey_);
-                    setKey(i,secondKey_);
-                    setValue(j, firstValue_);
-                    setValue(i, secondValue_);
-                }
-            }
-        }
     }
 
 }

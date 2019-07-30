@@ -5,7 +5,6 @@ import code.bean.validator.Message;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.util.ClassField;
@@ -16,8 +15,6 @@ import code.expressionlanguage.variables.VariableSuffix;
 import code.formathtml.*;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.structs.StdStruct;
-import code.sml.Element;
-import code.sml.Node;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -112,7 +109,7 @@ public final class BeanCustLgNames extends BeanLgNames {
 
     public void buildIterables(Configuration _context) {
         ContextEl context_ = _context.getContext();
-        _context.getImporting().add(new ImportingPage(false));
+        _context.getImporting().add(new ImportingPage());
         context_.setAnalyzing(new AnalyzedPageEl());
         context_.getAnalyzing().setEnabledInternVars(true);
         String locName_ = context_.getNextTempVar();
@@ -409,7 +406,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         file_.append(" ").append(private_).append(" ").append(string_).append(" ").append(language_).append(endLine_);
         file_.append(" ").append(private_).append(" ").append(string_).append(" ").append(scope_).append(endLine_);
         file_.append(" ").append(private_).append(" ").append(object_).append(" ").append(dataBase_).append(endLine_);
-        file_.append(" ").append(private_).append(" ").append(ALIAS_STRING_MAP_OBJECT).append(" ").append(forms_).append(endLine_);
+        file_.append(" ").append(private_).append(" ").append(getAliasStringMapObject()).append(" ").append(forms_).append(endLine_);
         String void_ = getAliasVoid();
         file_.append(" ").append(public_).append(" ").append(void_).append(" ").append(getAliasBeforeDisplaying()).append("(){");
         file_.append(" ").append("}");
@@ -431,10 +428,10 @@ public final class BeanCustLgNames extends BeanLgNames {
         file_.append(" ").append(public_).append(" ").append(void_).append(" ").append(getAliasSetDataBase()).append("(").append(object_).append(" ").append(dataBase_).append(")").append("{");
         file_.append("  ").append(this_).append(".").append(dataBase_).append("=").append(dataBase_).append(suffixParam_).append(endLine_);
         file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(ALIAS_STRING_MAP_OBJECT).append(" ").append(getAliasGetForms()).append("(){");
+        file_.append(" ").append(public_).append(" ").append(getAliasStringMapObject()).append(" ").append(getAliasGetForms()).append("(){");
         file_.append("  ").append(return_).append(" ").append(forms_).append(endLine_);
         file_.append(" ").append("}");
-        file_.append(" ").append(public_).append(" ").append(void_).append(" ").append(getAliasSetForms()).append("(").append(ALIAS_STRING_MAP_OBJECT).append(" ").append(forms_).append(")").append("{");
+        file_.append(" ").append(public_).append(" ").append(void_).append(" ").append(getAliasSetForms()).append("(").append(getAliasStringMapObject()).append(" ").append(forms_).append(")").append("{");
         file_.append("  ").append(this_).append(".").append(forms_).append("=").append(forms_).append(suffixParam_).append(endLine_);
         file_.append(" ").append("}");
         file_.append("}");
@@ -453,7 +450,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         String removeKey_ = getAliasMapRemoveKey();
         String getKey_ = getAliasMapGetKey();
         String setKey_ = getAliasMapSetKey();
-        file_.append(public_).append(" ").append(class_).append(" ").append(ALIAS_STRING_MAP_OBJECT).append("{");
+        file_.append(public_).append(" ").append(class_).append(" ").append(getAliasStringMapObject()).append("{");
         file_.append(private_).append(" ").append(string_).append("[] ").append(keys_).append("=").append(new_).append(" ").append(string_).append("[0]").append(endLine_);
         file_.append(private_).append(" ").append(object_).append("[] ").append(values_).append("=").append(new_).append(" ").append(object_).append("[0]").append(endLine_);
         file_.append(public_).append(" ").append(string_).append("[] ").append(keys_).append("(){");
@@ -538,7 +535,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         file_.append("}");
         file_.append(return_).append(" -1").append(endLine_);
         file_.append("}");
-        file_.append(public_).append(" ").append(void_).append(" ").append(putAll_).append("(").append(ALIAS_STRING_MAP_OBJECT).append(" ").append(tr("m",_context)).append("){");
+        file_.append(public_).append(" ").append(void_).append(" ").append(putAll_).append("(").append(getAliasStringMapObject()).append(" ").append(tr("m",_context)).append("){");
         file_.append(int_).append(" ").append(tr("len",_context)).append("=").append(trParam("(m",_context)).append(").").append(keys_).append(".").append(length_).append(endLine_);
         file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context)).append("=0").append(endLine_).append(trLoop("i",_context)).append("<").append(trLoc("len",_context)).append(endLine_).append(trLoop("i",_context)).append("++){");
         file_.append(" ").append(put_).append("(").append(trParam("(m",_context)).append(").").append(keys_).append("[").append(trLoop("i",_context)).append("], ").append(trParam("(m",_context)).append(").").append(values_).append("[").append(trLoop("i",_context)).append("])").append(endLine_);
@@ -568,8 +565,8 @@ public final class BeanCustLgNames extends BeanLgNames {
         file_.append(this_).append(".").append(values_).append("=").append(values_).append(endLine_);
         file_.append("}");
         file_.append("}");
-        files_.put(ALIAS_STRING_MAP_OBJECT, file_.toString());
-        getPredefinedInterfacesInitOrder().add(ALIAS_STRING_MAP_OBJECT);
+        files_.put(getAliasStringMapObject(), file_.toString());
+        getPredefinedInterfacesInitOrder().add(getAliasStringMapObject());
         file_ = new StringBuilder();
         file_.append(public_).append(" ").append(interface_).append(" ").append(aliasValidator).append("{");
         file_.append(public_).append(" ").append(getAliasMessage()).append(" ").append(aliasValidate).append("(");
@@ -665,7 +662,7 @@ public final class BeanCustLgNames extends BeanLgNames {
     public void initBeans(Configuration _conf,String _language,Struct _db) {
         for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
             BeanInfo info_ = e.getValue();
-            _conf.addPage(new ImportingPage(false));
+            _conf.addPage(new ImportingPage());
             Argument arg_ = RenderExpUtil.calculateReuse(info_.getExps(), _conf);
             if (_conf.getContext().getException() != null) {
                 _conf.removeLastPage();

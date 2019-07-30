@@ -19,6 +19,60 @@ public final class RenderForEachLoopTest extends CommonRender {
     private static final String CUST_ITER_PATH = "pkg/CustIter";
     private static final String CUST_LIST_PATH = "pkg/CustList";
     @Test
+    public void process0Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html c:bean='bean_one'><body><c:if condition='!composite.strings.isEmpty()'>Not empty</c:if></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        BeanOne bean_ = new BeanOne();
+        bean_.getComposite().getStrings().add("FIRST");
+        bean_.getComposite().getStrings().add("SECOND");
+        bean_.getComposite().setInteger(5);
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        Configuration context_ = contextElSec();
+        context_.setBeans(new StringMap<Bean>());
+        context_.getBeans().put("bean_one", bean_);
+        context_.getBuiltBeans().put("bean_one",new BeanStruct(bean_));
+        context_.setMessagesFolder(folder_);
+        context_.setProperties(new StringMap<String>());
+        context_.getProperties().put("msg_example", relative_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html><body>Not empty</body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
+        assertNull(context_.getException());
+    }
+    @Test
+    public void process00Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html c:bean='bean_one'><body><c:if condition='composite.strings.isEmpty()'>Empty</c:if></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        BeanOne bean_ = new BeanOne();
+        bean_.getComposite().setInteger(5);
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        Configuration context_ = contextElSec();
+        context_.setBeans(new StringMap<Bean>());
+        context_.getBeans().put("bean_one", bean_);
+        context_.getBuiltBeans().put("bean_one",new BeanStruct(bean_));
+        context_.setMessagesFolder(folder_);
+        context_.setProperties(new StringMap<String>());
+        context_.getProperties().put("msg_example", relative_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html><body>Empty</body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
+        assertNull(context_.getException());
+    }
+    @Test
     public void process1Test() {
         String locale_ = "en";
         String folder_ = "messages";
@@ -715,6 +769,32 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.clearPages();
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getContext().setAnalyzing(new AnalyzedPageEl());
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(!context_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void process0FailTest() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"&quot;&quot;\" className='java.lang.String'><li>{s;length()}</li></c:for></ul></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        BeanOne bean_ = new BeanOne();
+        bean_.getComposite().getStrings().add("FIRST");
+        bean_.getComposite().getStrings().add("SECOND");
+        bean_.getComposite().setInteger(5);
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        Configuration context_ = contextElSec();
+        context_.setBeans(new StringMap<Bean>());
+        context_.getBeans().put("bean_one", bean_);
+        context_.getBuiltBeans().put("bean_one",new BeanStruct(bean_));
+        context_.setMessagesFolder(folder_);
+        context_.setProperties(new StringMap<String>());
+        context_.getProperties().put("msg_example", relative_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         assertTrue(!context_.getClasses().isEmptyErrors());

@@ -1,7 +1,6 @@
 package code.formathtml;
 
 import code.bean.BeanInfo;
-import code.bean.translator.Translator;
 import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultInitializer;
@@ -50,18 +49,6 @@ public final class ReadConfiguration {
                 _configuration.setLateValidators(loadStringMapString(c));
                 continue;
             }
-            if (StringList.quickEq(fieldName_, "validators")) {
-                _configuration.setTranslators(loadTranslator(c, stds_));
-                continue;
-            }
-            if (StringList.quickEq(fieldName_, "lateTranslators")) {
-                _configuration.setLateTranslators(loadStringMapString(c));
-                continue;
-            }
-            if (StringList.quickEq(fieldName_, "lateTranslators")) {
-                _configuration.setLateTranslators(loadStringMapString(c));
-                continue;
-            }
             if (StringList.quickEq(fieldName_, "beans")) {
                 _configuration.setBeansInfos(loadBeans(c));
                 continue;
@@ -72,10 +59,6 @@ public final class ReadConfiguration {
             }
             if (StringList.quickEq(fieldName_, "navigation")) {
                 _configuration.setNavigation(loadStringMapStrings(c));
-                continue;
-            }
-            if (StringList.quickEq(fieldName_, "mathFactory")) {
-                _configuration.setMathFactory(stds_.buildMathFactory(c));
                 continue;
             }
             if (StringList.quickEq(fieldName_, "tabWidth")) {
@@ -232,20 +215,7 @@ public final class ReadConfiguration {
         }
         return map_;
     }
-    static StringMap<Translator> loadTranslator(Element _elt, BeanLgNames _stds) {
-        StringMap<Translator> validators_ = new StringMap<Translator>();
-        int i_ = 0;
-        String key_ = "";
-        for (Element c: _elt.getChildElements()) {
-            if (i_ % 2 == 0) {
-                key_ = c.getAttribute("value");
-            } else {
-                validators_.put(key_, _stds.buildTranslator(c));
-            }
-            i_++;
-        }
-        return validators_;
-    }
+
     static StringList getStringList(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();

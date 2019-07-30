@@ -8,7 +8,7 @@ import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 
-public class HtmlPage {
+public final class HtmlPage {
 
     private LongMap<LongTreeMap<NodeContainer>> containers = new LongMap<LongTreeMap<NodeContainer>>();
 

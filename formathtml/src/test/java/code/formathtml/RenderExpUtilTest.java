@@ -8848,7 +8848,7 @@ public final class RenderExpUtilTest {
         return RenderExpUtil.calculateReuse(out_, _an);
     }
     private static void addImportingPage(Configuration _conf) {
-        _conf.addPage(new ImportingPage(false));
+        _conf.addPage(new ImportingPage());
         _conf.getContext().setAnalyzing(new AnalyzedPageEl());
     }
     private static void addBean(Configuration _conf, Object _bean, String _beanClass) {

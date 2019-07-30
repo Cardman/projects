@@ -7,7 +7,6 @@ import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendIfStack;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.stacks.RendRemovableVars;
-import code.formathtml.util.*;
 import code.sml.Element;
 import code.sml.Node;
 import code.util.CustList;
@@ -70,7 +69,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
             return;
         }
         String beanName_ = val_.getBeanName();
-        ImportingPage newIp_ = new ImportingPage(false);
+        ImportingPage newIp_ = new ImportingPage();
         newIp_.setTabWidth(_cont.getTabWidth());
 //        newIp_.setHtml(newElt_.getHtml());
         newIp_.setOffset(0);

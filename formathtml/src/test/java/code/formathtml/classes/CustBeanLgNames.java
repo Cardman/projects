@@ -151,7 +151,6 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         StandardClass cl_;
         cl_ = new StandardClass(TYPE_INTS, fields_, constructors_, methods_, getCustList(), MethodModifier.FINAL);
         cl_.getDirectInterfaces().add(getAliasCountable());
-        cl_.getDirectInterfaces().add(getAliasSimpleIterableType());
         getStandards().put(TYPE_INTS, cl_);
         getIterables().put(TYPE_INTS,getAliasInteger());
         DefaultInitialization.basicStandards(this);
@@ -170,7 +169,6 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         StandardClass cl_;
         cl_ = new StandardClass(TYPE_STRING_LIST, fields_, constructors_, methods_, getCustList(), MethodModifier.FINAL);
         cl_.getDirectInterfaces().add(getAliasCountable());
-        cl_.getDirectInterfaces().add(getAliasSimpleIterableType());
         cl_.getDirectInterfaces().add(getAliasDisplayable());
         params_ = new StringList();
         method_ = new StandardMethod(GET_REVERSE,params_,TYPE_STRING_LIST, false, MethodModifier.NORMAL,cl_);
@@ -1845,30 +1843,6 @@ public final class CustBeanLgNames extends BeanNatLgNames {
     }
 
     @Override
-    public StringList getDefaultValues(ContextEl _cont, String _className,
-            String _value) {
-        if (StringList.quickEq(_className, TYPE_ENUM_NUMBER)) {
-            return StringList.splitChars(_value, ',');
-        }
-        if (StringList.quickEq(_className, TYPE_ENUM_NUMBERS)) {
-            return new StringList(_value);
-        }
-        return new StringList();
-    }
-    @Override
-    public Object getOtherArguments(Struct[] _str, String _base) {
-        if (StringList.quickEq(_base, getAliasObject())) {
-            Object[] adapt_ = new Object[_str.length];
-            int i_ = CustList.FIRST_INDEX;
-            for (Struct s: _str) {
-                adapt_[i_] = ((RealInstanceStruct) s).getInstance();
-                i_++;
-            }
-            return adapt_;
-        }
-        return null;
-    }
-    @Override
     public String getOtherBeanStructClassName(Object _struct, ContextEl _context) {
         if (_struct instanceof int[]) {
             return PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger());
@@ -1980,30 +1954,6 @@ public final class CustBeanLgNames extends BeanNatLgNames {
                 list_.add(EnumNumber.getByName(s));
             }
             res_.setResult(new StdStruct(list_, _className));
-            return res_;
-        }
-        return res_;
-    }
-    @Override
-    public ResultErrorStd setOtherElementAtIndex(Struct _struct, int _index, boolean _key,
-            Struct _element, ContextEl _context) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        res_.setResult(NullStruct.NULL_VALUE);
-        if (((RealInstanceStruct)_struct).getInstance() instanceof StringList) {
-            ((StringList)((RealInstanceStruct)_struct).getInstance()).set(_index, ((StringStruct)_element).getInstance());
-            return res_;
-        }
-        if (((RealInstanceStruct)_struct).getInstance() instanceof NatTreeMapStringInteger) {
-            if (_key) {
-                ((NatTreeMapStringInteger)((RealInstanceStruct)_struct).getInstance()).setKey(_index, ((StringStruct)_element).getInstance());
-                ((NatTreeMapStringInteger)((RealInstanceStruct)_struct).getInstance()).applyChanges();
-                return res_;
-            }
-            ((NatTreeMapStringInteger)((RealInstanceStruct)_struct).getInstance()).setValue(_index, ((IntStruct)_element).intStruct());
-            return res_;
-        }
-        if (((RealInstanceStruct)_struct).getInstance() instanceof Ints) {
-            ((Ints)((RealInstanceStruct)_struct).getInstance()).set(_index, ((IntStruct)_element).intStruct());
             return res_;
         }
         return res_;

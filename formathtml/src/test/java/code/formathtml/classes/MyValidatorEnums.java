@@ -22,16 +22,4 @@ public class MyValidatorEnums extends Validator {
         return null;
     }
 
-    @Override
-    public Message validate(Object _navigation, Object _node, Object _value) {
-        if (_value instanceof EnumNumbers) {
-            for (Object o: (EnumNumbers) _value) {
-                if (o == EnumNumber.FOUR) {
-                    return Message.newStandardMessage(BAD_SELECTION);
-                }
-            }
-        }
-        return null;
-    }
-
 }

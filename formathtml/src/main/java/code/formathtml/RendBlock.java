@@ -16,6 +16,7 @@ import code.sml.*;
 import code.util.*;
 
 public abstract class RendBlock {
+    static final String SPACE = " ";
     static final String TAG_PARAM = "param";
     static final String ATTRIBUTE_VALUE_SUBMIT = "message";
     static final String ATTRIBUTE_VALUE = "value";
@@ -150,13 +151,13 @@ public abstract class RendBlock {
         String beanName_ = _rend.getBeanName();
         Struct bean_ = _conf.getBuiltBeans().getVal(beanName_);
         _conf.setMainBean(bean_);
-        _conf.addPage(new ImportingPage(false));
+        _conf.addPage(new ImportingPage());
         beforeDisplaying(bean_,_conf);
         _conf.removeLastPage();
         if (_conf.getContext().hasExceptionOrFailInit()) {
             return EMPTY_STRING;
         }
-        ImportingPage ip_ = new ImportingPage(false);
+        ImportingPage ip_ = new ImportingPage();
         int tabWidth_ = _conf.getTabWidth();
         ip_.setTabWidth(tabWidth_);
         ip_.setReadUrl(_conf.getCurrentUrl());

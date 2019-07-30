@@ -21,18 +21,6 @@ public class ShortValidator extends Validator {
         return message_;
     }
 
-    @Override
-    public Message validate(Object _navigation, Object _node, Object _value) {
-        Short nb_ = parseShort((String)_value);
-        if (nb_ != null && nb_ >= 0) {
-            return null;
-        }
-        Message message_;
-        message_ = new Message();
-        message_.setArgs((String)_value);
-        return message_;
-    }
-
     public static Short parseShort(String _string) {
         Long int_ = NumParsers.parseLong(_string,10);
         if (int_ == null) {

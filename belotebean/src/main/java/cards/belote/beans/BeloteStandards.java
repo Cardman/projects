@@ -2,6 +2,7 @@ package cards.belote.beans;
 
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.DeclaresBelote;
+import code.bean.Bean;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -22,10 +23,10 @@ import code.formathtml.util.*;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.DefaultInitialization;
-import code.util.CustList;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
+import code.util.ints.SimpleEntries;
+import code.util.ints.SimpleEntry;
+import code.util.ints.SimpleList;
 
 public final class BeloteStandards extends BeanNatLgNames {
 
@@ -99,10 +100,10 @@ public final class BeloteStandards extends BeanNatLgNames {
         method_ = new StandardMethod(PLAY_GAME, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_NICKNAMES, params_, getAliasSimpleIterableType(), false, MethodModifier.NORMAL,std_);
+        method_ = new StandardMethod(GET_NICKNAMES, params_, getCustList(), false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_SCORES, params_, getAliasSimpleIterableType(), false, MethodModifier.NORMAL,std_);
+        method_ = new StandardMethod(GET_SCORES, params_, getCustList(), false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
         getStandards().put(TYPE_BELOTE_BEAN, std_);
         fields_ = new StringMap<StandardField>();
@@ -383,6 +384,21 @@ public final class BeloteStandards extends BeanNatLgNames {
         }
         if (_struct instanceof BidBelote) {
             return TYPE_BID_BELOTE;
+        }
+        if (_struct instanceof Bean) {
+            return ((Bean)_struct).getClassName();
+        }
+        if (_struct instanceof SimpleList) {
+            return getCustList();
+        }
+        if (_struct instanceof SimpleEntries) {
+            return getCustMap();
+        }
+        if (_struct instanceof SimpleEntry) {
+            return getCustEntry();
+        }
+        if (_struct instanceof SimpleItr) {
+            return getAliasSimpleIteratorType();
         }
         return getAliasObject();
     }

@@ -28,9 +28,6 @@ public abstract class Bean {
     }
 
     public void setForms(StringMapObject _forms) {
-        if (_forms == null) {
-            return;
-        }
         forms = _forms;
     }
 
@@ -39,9 +36,6 @@ public abstract class Bean {
     }
 
     public void setScope(String _scope) {
-        if (_scope == null) {
-            return;
-        }
         scope = _scope;
     }
 

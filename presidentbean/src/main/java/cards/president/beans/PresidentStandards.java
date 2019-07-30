@@ -1,5 +1,6 @@
 package cards.president.beans;
 
+import code.bean.Bean;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -21,10 +22,10 @@ import code.formathtml.util.*;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.DefaultInitialization;
-import code.util.CustList;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
+import code.util.ints.SimpleEntries;
+import code.util.ints.SimpleEntry;
+import code.util.ints.SimpleList;
 
 public final class PresidentStandards extends BeanNatLgNames {
 
@@ -215,6 +216,21 @@ public final class PresidentStandards extends BeanNatLgNames {
     public String getOtherBeanStructClassName(Object _struct, ContextEl _context) {
         if (_struct instanceof LineDeal) {
             return TYPE_LINE_DEAL;
+        }
+        if (_struct instanceof Bean) {
+            return ((Bean)_struct).getClassName();
+        }
+        if (_struct instanceof SimpleList) {
+            return getCustList();
+        }
+        if (_struct instanceof SimpleEntries) {
+            return getCustMap();
+        }
+        if (_struct instanceof SimpleEntry) {
+            return getCustEntry();
+        }
+        if (_struct instanceof SimpleItr) {
+            return getAliasSimpleIteratorType();
         }
         return getAliasObject();
     }

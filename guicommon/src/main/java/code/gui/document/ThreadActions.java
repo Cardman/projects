@@ -52,7 +52,7 @@ public final class ThreadActions extends Thread {
     @Override
     public void run() {
         if (refresh) {
-            page.getNavigation().refresh();
+            page.getNavigation().rendRefresh();
             afterAction();
             return;
         }
@@ -63,17 +63,17 @@ public final class ThreadActions extends Thread {
                 HtmlPage htmlPage_ = page.getNavigation().getHtmlPage();
                 htmlPage_.setUrl(-1);
                 RenderedPage.updateFiles(page.getNavigation());
-                page.getNavigation().initializeSession();
+                page.getNavigation().initializeRendSession();
             }
             afterAction();
             return;
         }
         if (form) {
-            page.getNavigation().processFormRequest();
+            page.getNavigation().processRendFormRequest();
             afterAction();
             return;
         }
-        page.getNavigation().processAnchorRequest(anchor);
+        page.getNavigation().processRendAnchorRequest(anchor);
         afterAction();
     }
     private void afterAction() {

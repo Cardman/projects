@@ -2,7 +2,6 @@ package code.formathtml;
 
 import code.bean.Bean;
 import code.bean.BeanInfo;
-import code.bean.translator.Translator;
 import code.bean.validator.Validator;
 import code.expressionlanguage.*;
 import code.expressionlanguage.calls.PageEl;
@@ -59,8 +58,6 @@ public final class Configuration implements ExecutableCode {
 
     private StringMap<Validator> validators = new StringMap<Validator>();
 
-    private StringMap<Translator> translators = new StringMap<Translator>();
-
     private StringMap<Bean> beans = new StringMap<Bean>();
     private StringMap<BeanInfo> beansInfos = new StringMap<BeanInfo>();
 
@@ -93,7 +90,6 @@ public final class Configuration implements ExecutableCode {
 
     private final StringMap<Struct> builtBeans = new StringMap<Struct>();
     private final StringMap<Struct> builtValidators = new StringMap<Struct>();
-    private final StringMap<Struct> builtTranslators = new StringMap<Struct>();
 
     private HtmlPage htmlPage = new HtmlPage();
 
@@ -168,10 +164,6 @@ public final class Configuration implements ExecutableCode {
         renderFiles.add(firstUrl);
     }
 
-    public void setupClasses(StringMap<String> _files) {
-        setupValiatorsTranslators();
-    }
-
     public void setupRendClasses(StringMap<String> _files) {
         if (!(standards instanceof BeanCustLgNames)) {
             return;
@@ -212,9 +204,6 @@ public final class Configuration implements ExecutableCode {
             types_.add(e.getValue().getClassName());
         }
         for (EntryCust<String, String> e: getLateValidators().entryList()) {
-            types_.add(e.getValue());
-        }
-        for (EntryCust<String, String> e: getLateTranslators().entryList()) {
             types_.add(e.getValue());
         }
         for (String s: types_) {
@@ -269,72 +258,9 @@ public final class Configuration implements ExecutableCode {
         currentForm = 0;
         curForm = null;
     }
-    void setupValiatorsTranslatorsTmp() {
-        for (EntryCust<String, Bean> e: getBeans().entryList()) {
-            Struct str_ = new BeanStruct( e.getValue());
-            getBuiltBeans().addEntry(e.getKey(), str_);
-        }
-        for (EntryCust<String, Validator> e: getValidators().entryList()) {
-            Struct str_ = new ValidatorStruct(e.getValue());
-            getBuiltValidators().put(e.getKey(), str_);
-        }
-        for (EntryCust<String, Translator> e: getTranslators().entryList()) {
-            Struct str_ = new TranslatorStruct(e.getValue());
-            getBuiltTranslators().put(e.getKey(), str_);
-        }
-    }
 
-    void setupValiatorsTranslators() {
-        for (EntryCust<String, Validator> e: getValidators().entryList()) {
-            Struct str_ = new ValidatorStruct(e.getValue());
-            getBuiltValidators().put(e.getKey(), str_);
-        }
-        for (EntryCust<String, Translator> e: getTranslators().entryList()) {
-            Struct str_ = new TranslatorStruct(e.getValue());
-            getBuiltTranslators().put(e.getKey(), str_);
-        }
-    }
-
-    public Struct newSimpleBean(String _language, Object _dataBase, BeanInfo _bean) {
-        addPage(new ImportingPage(false));
-        Struct strBean_ = DirRender.processEl(StringList.concat(INSTANCE,_bean.getClassName(),NO_PARAM), 0, this).getStruct();
-        if (context.getException() != null) {
-            removeLastPage();
-            return NullStruct.NULL_VALUE;
-        }
-        if (_dataBase != null) {
-            String className_ = getDataBaseClassName();
-            ExtractObject.setDataBase(this, strBean_, StdStruct.wrapStd(_dataBase, context, className_));
-        } else {
-            ExtractObject.setDataBase(this, strBean_, NullStruct.NULL_VALUE);
-        }
-        if (context.getException() != null) {
-            removeLastPage();
-            return NullStruct.NULL_VALUE;
-        }
-        ExtractObject.setForms(this, strBean_, new StringMapObjectStruct(new StringMapObject()));
-        if (context.getException() != null) {
-            removeLastPage();
-            return NullStruct.NULL_VALUE;
-        }
-        ExtractObject.setLanguage(this, strBean_, _language);
-        if (context.getException() != null) {
-            removeLastPage();
-            return NullStruct.NULL_VALUE;
-        }
-        if (_bean.getScope() != null) {
-            ExtractObject.setScope(this, strBean_, _bean.getScope());
-        } else {
-            ExtractObject.setScope(this, strBean_, EMPTY_STRING);
-        }
-        removeLastPage();
-        if (context.getException() != null) {
-            return NullStruct.NULL_VALUE;
-        }
-        return strBean_;
-    }
     public Struct newSimpleBean(String _language, Struct _dataBase, BeanInfo _bean) {
-        addPage(new ImportingPage(false));
+        addPage(new ImportingPage());
         Struct strBean_ = RenderExpUtil.processEl(StringList.concat(INSTANCE,_bean.getClassName(),NO_PARAM), 0, this).getStruct();
         BeanStruct str_ = (BeanStruct) strBean_;
         Bean bean_ = str_.getBean();
@@ -349,52 +275,9 @@ public final class Configuration implements ExecutableCode {
         removeLastPage();
         return strBean_;
     }
-    Struct newBean(String _language, Struct _bean) {
-        addPage(new ImportingPage(false));
-        Struct strBean_ = DirRender.processEl(StringList.concat(INSTANCE,_bean.getClassName(getContext()),NO_PARAM), 0, this).getStruct();
-        if (context.getException() != null) {
-            removeLastPage();
-            return NullStruct.NULL_VALUE;
-        }
-        Struct db_ = ExtractObject.getDataBase(this, _bean);
-        if (context.getException() != null) {
-            removeLastPage();
-            return NullStruct.NULL_VALUE;
-        }
-        ExtractObject.setDataBase(this, strBean_, db_);
-        if (context.getException() != null) {
-            removeLastPage();
-            return NullStruct.NULL_VALUE;
-        }
-        Struct forms_ = ExtractObject.getForms(this, _bean);
-        if (context.getException() != null) {
-            removeLastPage();
-            return NullStruct.NULL_VALUE;
-        }
-        ExtractObject.setForms(this, strBean_, forms_);
-        if (context.getException() != null) {
-            removeLastPage();
-            return NullStruct.NULL_VALUE;
-        }
-        ExtractObject.setLanguage(this, strBean_, _language);
-        if (context.getException() != null) {
-            removeLastPage();
-            return NullStruct.NULL_VALUE;
-        }
-        String str_ = ExtractObject.getScope(this, _bean);
-        if (context.getException() != null) {
-            removeLastPage();
-            return NullStruct.NULL_VALUE;
-        }
-        ExtractObject.setScope(this, strBean_, str_);
-        removeLastPage();
-        if (context.getException() != null) {
-            return NullStruct.NULL_VALUE;
-        }
-        return strBean_;
-    }
+
     Struct newBean(String _language, Struct _bean, BeanInfo _info) {
-        addPage(new ImportingPage(false));
+        addPage(new ImportingPage());
         Argument arg_ = RenderExpUtil.calculateReuse(_info.getExps(), this);
         if (context.getException() != null) {
             removeLastPage();
@@ -448,14 +331,6 @@ public final class Configuration implements ExecutableCode {
 
     public void setValidators(StringMap<Validator> _validators) {
         validators = _validators;
-    }
-
-    public StringMap<Translator> getTranslators() {
-        return translators;
-    }
-
-    public void setTranslators(StringMap<Translator> _translators) {
-        translators = _translators;
     }
 
     public StringMap<BeanInfo> getBeansInfos() {
@@ -624,24 +499,12 @@ public final class Configuration implements ExecutableCode {
         lateValidators = _lateValidators;
     }
 
-    public StringMap<String> getLateTranslators() {
-        return lateTranslators;
-    }
-
-    public void setLateTranslators(StringMap<String> _lateTranslators) {
-        lateTranslators = _lateTranslators;
-    }
-
     public StringMap<Struct> getBuiltBeans() {
         return builtBeans;
     }
 
     public StringMap<Struct> getBuiltValidators() {
         return builtValidators;
-    }
-
-    public StringMap<Struct> getBuiltTranslators() {
-        return builtTranslators;
     }
 
     @Override
@@ -720,10 +583,7 @@ public final class Configuration implements ExecutableCode {
 
     @Override
     public LocalVariable getLocalVar(String _key) {
-        if (importing.isEmpty()) {
-            return context.getLocalVar(_key);
-        }
-        return getLastPage().getLocalVar(_key);
+        return context.getLocalVar(_key);
     }
 
     @Override
@@ -733,19 +593,12 @@ public final class Configuration implements ExecutableCode {
 
     @Override
     public boolean containsLocalVar(String _key) {
-        if (importing.isEmpty()) {
-            return context.containsLocalVar(_key);
-        }
-        return getLastPage().containsLocalVar(_key);
+        return context.containsLocalVar(_key);
     }
 
     @Override
     public void putLocalVar(String _key, LocalVariable _loc) {
-        if (importing.isEmpty()) {
-            context.putLocalVar(_key, _loc);
-            return;
-        }
-        getLastPage().putLocalVar(_key, _loc);
+        context.putLocalVar(_key, _loc);
     }
 
     public StringMap<LocalVariable> getLocalVars() {
@@ -758,10 +611,7 @@ public final class Configuration implements ExecutableCode {
 
     @Override
     public LocalVariable getCatchVar(String _key) {
-        if (importing.isEmpty()) {
-            return context.getCatchVar(_key);
-        }
-        return getLastPage().getCatchVars().getVal(_key);
+        return context.getCatchVar(_key);
     }
 
     @Override

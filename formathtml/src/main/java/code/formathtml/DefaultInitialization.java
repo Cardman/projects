@@ -11,7 +11,6 @@ public final class DefaultInitialization {
         _lgNames.setAliasVoid("$void");
         _lgNames.setAliasCharSequence("java.lang.CharSequence");
         _lgNames.setAliasDisplayable("code.util.ints.Displayable");
-        _lgNames.setAliasDisplay("display");
         _lgNames.setAliasCompareTo("compareTo");
         _lgNames.setAliasCompare("compare");
         _lgNames.setAliasEquals("equals");
@@ -144,7 +143,6 @@ public final class DefaultInitialization {
         _lgNames.setAliasTrimToSize("trimToSize");
         _lgNames.setAliasGet("get");
         _lgNames.setAliasSize("size");
-        _lgNames.setAliasSimpleIterator("iterator");
         _lgNames.setAliasErrorInitClass("java.lang.$defErrorClass");
         _lgNames.setAliasClone("clone");
         _lgNames.setAliasReadResources("readContent");

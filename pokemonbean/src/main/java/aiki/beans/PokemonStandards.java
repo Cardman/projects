@@ -235,6 +235,7 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.bean.Bean;
 import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
@@ -260,11 +261,11 @@ import code.formathtml.DefaultInitialization;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.sml.Element;
-import code.util.CustList;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import aiki.facade.enums.SelectedBoolean;
+import code.util.ints.SimpleEntries;
+import code.util.ints.SimpleEntry;
+import code.util.ints.SimpleList;
 
 public final class PokemonStandards extends BeanNatLgNames {
     public static final String TYPE_ACTIVITY_OF_MOVE = "aiki.game.fight.ActivityOfMove";
@@ -2897,6 +2898,21 @@ public final class PokemonStandards extends BeanNatLgNames {
         }
         if (_struct instanceof Person) {
             return PokemonStandards.TYPE_PERSON;
+        }
+        if (_struct instanceof Bean) {
+            return ((Bean)_struct).getClassName();
+        }
+        if (_struct instanceof SimpleList) {
+            return getCustList();
+        }
+        if (_struct instanceof SimpleEntries) {
+            return getCustMap();
+        }
+        if (_struct instanceof SimpleEntry) {
+            return getCustEntry();
+        }
+        if (_struct instanceof SimpleItr) {
+            return getAliasSimpleIteratorType();
         }
         return getAliasObject();
     }

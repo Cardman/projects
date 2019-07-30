@@ -3,6 +3,7 @@ package cards.tarot.beans;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
+import code.bean.Bean;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -26,10 +27,10 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.DefaultInitialization;
 import code.maths.Rate;
-import code.util.CustList;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
+import code.util.ints.SimpleEntries;
+import code.util.ints.SimpleEntry;
+import code.util.ints.SimpleList;
 
 public final class TarotStandards extends BeanNatLgNames {
     private static final String DISCARD_AFTER_CALL = "discardAfterCall";
@@ -144,10 +145,10 @@ public final class TarotStandards extends BeanNatLgNames {
         method_ = new StandardMethod(PLAY_VARIANT_MODE_GAME, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_NICKNAMES, params_, getAliasSimpleIterableType(), false, MethodModifier.NORMAL,std_);
+        method_ = new StandardMethod(GET_NICKNAMES, params_, getCustList(), false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_SCORES, params_, getAliasSimpleIterableType(), false, MethodModifier.NORMAL,std_);
+        method_ = new StandardMethod(GET_SCORES, params_, getCustList(), false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
         getStandards().put(TYPE_TAROT_BEAN, std_);
         fields_ = new StringMap<StandardField>();
@@ -759,6 +760,21 @@ public final class TarotStandards extends BeanNatLgNames {
         }
         if (_struct instanceof BidTarot) {
             return TYPE_BID_TAROT;
+        }
+        if (_struct instanceof Bean) {
+            return ((Bean)_struct).getClassName();
+        }
+        if (_struct instanceof SimpleList) {
+            return getCustList();
+        }
+        if (_struct instanceof SimpleEntries) {
+            return getCustMap();
+        }
+        if (_struct instanceof SimpleEntry) {
+            return getCustEntry();
+        }
+        if (_struct instanceof SimpleItr) {
+            return getAliasSimpleIteratorType();
         }
         return getAliasObject();
     }

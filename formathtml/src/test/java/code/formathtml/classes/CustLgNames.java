@@ -71,7 +71,6 @@ public final class CustLgNames extends BeanNatLgNames {
         stdcl_ = new StandardClass(aliasInts, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         method_ = new StandardMethod(aliasAdd, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
-        stdcl_.getDirectInterfaces().add(getAliasSimpleIterableType());
         std_ = stdcl_;
         getStandards().put(aliasInts, std_);
         getIterables().put(aliasInts,getAliasInteger());

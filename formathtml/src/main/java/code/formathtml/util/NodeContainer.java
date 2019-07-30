@@ -1,13 +1,8 @@
 package code.formathtml.util;
-import code.bean.Bean;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendDynOperationNode;
-import code.formathtml.structs.BeanStruct;
-import code.formathtml.structs.StdStruct;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -29,8 +24,6 @@ public class NodeContainer {
     private CustList<RendDynOperationNode> opsConvert;
     private boolean arrayConverter;
 
-    private String lastToken;
-
     private long index = -1;
 
     private String beanName;
@@ -44,17 +37,6 @@ public class NodeContainer {
     }
     public void setStruct(Struct _struct) {
         object = _struct;
-        if (object == null) {
-            object = NullStruct.NULL_VALUE;
-        }
-    }
-
-    public void setObject(Object _object, ContextEl _context) {
-        object = StdStruct.wrapStd(_object, _context);
-    }
-
-    public void setObject(Bean _object) {
-        object = new BeanStruct(_object);
     }
 
     public Struct getTypedStruct() {
@@ -62,16 +44,10 @@ public class NodeContainer {
     }
     public void setTypedStruct(Struct _typedField) {
         typedField = _typedField;
-        if (typedField == null) {
-            typedField = NullStruct.NULL_VALUE;
-        }
     }
 
     public StringList getValue() {
         return nodeInformation.getValue();
-    }
-    public void setTypedField(String _typedField) {
-        typedField = new StringStruct(_typedField);
     }
 
     public String getAccess() {
@@ -80,14 +56,6 @@ public class NodeContainer {
 
     public void setAccess(String _access) {
         access = _access;
-    }
-
-    public String getLastToken() {
-        return lastToken;
-    }
-
-    public void setLastToken(String _lastToken) {
-        lastToken = _lastToken;
     }
 
     public ClassField getIdField() {

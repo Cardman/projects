@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 public abstract class CommonRender {
 
     static void addImportingPage(Configuration _conf) {
-        _conf.addPage(new ImportingPage(false));
+        _conf.addPage(new ImportingPage());
         _conf.getContext().setAnalyzing(new AnalyzedPageEl());
     }
 
