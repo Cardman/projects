@@ -1,8 +1,6 @@
 package code.formathtml.util;
 
 import code.formathtml.RendBlock;
-import code.sml.DocumentBuilder;
-import code.sml.RowCol;
 import code.util.EntryCust;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -11,8 +9,6 @@ import code.util.StringMap;
 public final class AnalyzingDoc {
     private StringMap<String> files = new StringMap<String>();
     private StringList languages = new StringList();
-    private String language = "";
-    private String[] resourcesFolder;
 
     private RendBlock currentBlock;
     private String internGlobalClass="";
@@ -87,22 +83,6 @@ public final class AnalyzingDoc {
 
     public void setLanguages(StringList _languages) {
         languages = _languages;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String _language) {
-        language = _language;
-    }
-
-    public String[] getResourcesFolder() {
-        return resourcesFolder;
-    }
-
-    public void setResourcesFolder(String[] _resourcesFolder) {
-        resourcesFolder = _resourcesFolder;
     }
 
     public RendBlock getCurrentBlock() {

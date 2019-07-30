@@ -134,6 +134,7 @@ public final class Configuration implements ExecutableCode {
     private Element curForm;
 
     private Struct mainBean;
+    private String currentLanguage = "";
 
     @Override
     public boolean isMerged() {
@@ -168,8 +169,11 @@ public final class Configuration implements ExecutableCode {
     }
 
     public void setupClasses(StringMap<String> _files) {
+        setupValiatorsTranslators();
+    }
+
+    public void setupRendClasses(StringMap<String> _files) {
         if (!(standards instanceof BeanCustLgNames)) {
-            setupValiatorsTranslators();
             return;
         }
         String conf_ = getFilesConfName();
@@ -223,7 +227,6 @@ public final class Configuration implements ExecutableCode {
             getBuiltValidators().put(e.getKey(), str_);
         }
     }
-
     public void setupRenders(StringMap<String> _files) {
         renders.clear();
         analyzingDoc.setFiles(_files);
@@ -389,7 +392,7 @@ public final class Configuration implements ExecutableCode {
         }
         return strBean_;
     }
-    Struct newBean(String _language, Struct _bean, BeanInfo _info, Struct _forms) {
+    Struct newBean(String _language, Struct _bean, BeanInfo _info) {
         addPage(new ImportingPage(false));
         Argument arg_ = RenderExpUtil.calculateReuse(_info.getExps(), this);
         if (context.getException() != null) {
@@ -402,7 +405,7 @@ public final class Configuration implements ExecutableCode {
             removeLastPage();
             return NullStruct.NULL_VALUE;
         }
-        standards.setForms(strBean_, _forms, this);
+        standards.setStoredForms(strBean_, this);
         if (context.getException() != null) {
             removeLastPage();
             return NullStruct.NULL_VALUE;
@@ -1380,5 +1383,13 @@ public final class Configuration implements ExecutableCode {
 
     public void setMainBean(Struct _mainBean) {
         mainBean = _mainBean;
+    }
+
+    public String getCurrentLanguage() {
+        return currentLanguage;
+    }
+
+    public void setCurrentLanguage(String _currentLanguage) {
+        currentLanguage = _currentLanguage;
     }
 }

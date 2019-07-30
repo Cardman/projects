@@ -8,22 +8,19 @@ import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.*;
 import code.sml.*;
-import code.util.BooleanList;
-import code.util.CustList;
-import code.util.StringList;
+import code.util.*;
 
 public final class RendMessage extends RendParentBlock implements RendWithEl, RendReducableOperations,RendBuildableElMethod {
 
     private Element elt;
     private CustList<CustList<RendDynOperationNode>> opExp;
 
-    private String preformatted;
+    private StringMap<String> preformatted;
     private BooleanList quoted = new BooleanList();
     private BooleanList escaped = new BooleanList();
-    private BooleanList dynAnchors = new BooleanList();
-    private CustList<CustList<RendDynOperationNode>> callsExps = new CustList<CustList<RendDynOperationNode>>();
+    private StringMap<CustList<CustList<RendDynOperationNode>>> callsExps = new StringMap<CustList<CustList<RendDynOperationNode>>>();
     private StringList args = new StringList();
-    private Document locDoc;
+    private StringMap<Document> locDoc = new StringMap<Document>();
     private StringList varNames = new StringList();
 
 
@@ -37,7 +34,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
         opExp = new CustList<CustList<RendDynOperationNode>>();
         String value_ = elt.getAttribute(ATTRIBUTE_VALUE);
         preformatted = getPre(_cont,value_);
-        if (preformatted == null) {
+        if (preformatted.isEmpty()) {
             return;
         }
         boolean st_ = _doc.isStaticContext();
@@ -68,7 +65,6 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
         if (elt.getAttribute(ATTRIBUTE_ESCAPED).isEmpty()) {
             String lt_ = String.valueOf(LT_BEGIN_TAG);
             String gt_ = String.valueOf(GT_TAG);
-            String concat_ = StringList.concat(lt_,TMP_BLOCK_TAG,gt_,preformatted,LT_END_TAG,TMP_BLOCK_TAG,gt_);
             int l_ = opExp.size();
             StringList formArg_ = new StringList();
             StringList varNames_ = new StringList();
@@ -77,52 +73,57 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                 varNames_.add(varLoc_);
             }
             varNames = varNames_;
-            String preRend_;
             for (String v:varNames_) {
                 LocalVariable lv_ = new LocalVariable();
                 lv_.setClassName(_cont.getStandards().getAliasPrimInteger());
                 _cont.getLocalVarsAna().last().addEntry(v,lv_);
                 formArg_.add(StringList.concat("(", BeanCustLgNames.sufficLocal(_cont.getContext(),v),")"));
             }
-            preRend_=StringList.simpleStringsFormat(concat_, formArg_);
-            DocumentResult res2_ = DocumentBuilder.parseSaxNotNullRowCol(preRend_);
-            Document docLoc2_ = res2_.getDocument();
-            if (docLoc2_ != null) {
-                for (Element a: docLoc2_.getElementsByTagName(TAG_A)){
-                    String href_ = a.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND));
-                    if (href_.startsWith(CALL_METHOD)) {
-                        if (href_.indexOf('(') == CustList.INDEX_NOT_FOUND_ELT) {
-                            href_ = StringList.concat(href_,"()");
+            for (EntryCust<String,String> e: preformatted.entryList()) {
+                String preRend_;
+                String concat_ = StringList.concat(lt_,TMP_BLOCK_TAG,gt_,e.getValue(),LT_END_TAG,TMP_BLOCK_TAG,gt_);
+                preRend_=StringList.simpleStringsFormat(concat_, formArg_);
+                DocumentResult res2_ = DocumentBuilder.parseSaxNotNullRowCol(preRend_);
+                Document docLoc2_ = res2_.getDocument();
+                CustList<CustList<RendDynOperationNode>> callExpsLoc_ = new CustList<CustList<RendDynOperationNode>>();
+                if (docLoc2_ != null) {
+                    for (Element a: docLoc2_.getElementsByTagName(TAG_A)){
+                        String href_ = a.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND));
+                        if (href_.startsWith(CALL_METHOD)) {
+                            if (href_.indexOf('(') == CustList.INDEX_NOT_FOUND_ELT) {
+                                href_ = StringList.concat(href_,"()");
+                            }
+                            CustList<RendDynOperationNode> expsCall_ = RenderExpUtil.getAnalyzedOperations(href_, 1, _cont, Calculation.staticCalculation(st_));
+                            callExpsLoc_.add(expsCall_);
+                        } else {
+                            callExpsLoc_.add(new CustList<RendDynOperationNode>());
                         }
-                        CustList<RendDynOperationNode> expsCall_ = RenderExpUtil.getAnalyzedOperations(href_, 1, _cont, Calculation.staticCalculation(st_));
-                        callsExps.add(expsCall_);
-                        dynAnchors.add(true);
-                    } else {
-                        dynAnchors.add(false);
-                        callsExps.add(new CustList<RendDynOperationNode>());
                     }
                 }
+                for (String v:varNames_) {
+                    _cont.getLocalVarsAna().last().removeKey(v);
+                }
+                DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(concat_);
+                Document docLoc_ = res_.getDocument();
+                if (docLoc_ == null) {
+                    BadElRender badEl_ = new BadElRender();
+                    badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                    badEl_.setFileName(_cont.getCurrentFileName());
+                    badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+                    _cont.getClasses().addError(badEl_);
+                }
+                callsExps.addEntry(e.getKey(),callExpsLoc_);
+                locDoc.addEntry(e.getKey(),docLoc_);
             }
-            for (String v:varNames_) {
-                _cont.getLocalVarsAna().last().removeKey(v);
-            }
-            DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(concat_);
-            Document docLoc_ = res_.getDocument();
-            if (docLoc_ == null) {
-                BadElRender badEl_ = new BadElRender();
-                badEl_.setErrors(_cont.getClasses().getErrorsDet());
-                badEl_.setFileName(_cont.getCurrentFileName());
-                badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-                _cont.getClasses().addError(badEl_);
-            }
-            locDoc = docLoc_;
         }
     }
 
     @Override
     public void reduce(Configuration _context) {
         ResultText.reduce(opExp);
-        ResultText.reduce(callsExps);
+        for (EntryCust<String,CustList<CustList<RendDynOperationNode>>> e: callsExps.entryList()) {
+            ResultText.reduce(e.getValue());
+        }
     }
 
     @Override
@@ -150,9 +151,9 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
             anchorArg_.add(res_);
         }
         String preRend_;
-        preRend_=StringList.simpleStringsFormat(preformatted, objects_);
+        preRend_=StringList.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_);
         CustList<Document> docs_ = new CustList<Document>();
-        docs_.add(locDoc);
+        docs_.add(locDoc.getVal(_cont.getCurrentLanguage()));
         String lt_ = String.valueOf(LT_BEGIN_TAG);
         String gt_ = String.valueOf(GT_TAG);
         String concat_ = StringList.concat(lt_,TMP_BLOCK_TAG,gt_,preRend_,LT_END_TAG,TMP_BLOCK_TAG,gt_);
@@ -178,7 +179,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
         MutableNode root_ = docLoc_.getDocumentElement();
         MutableNode read_ = root_.getFirstChild();
         Document ownerDocument_ = rw_.getDocument();
-        _cont.getCallsExps().addAllElts(callsExps);
+        _cont.getCallsExps().addAllElts(callsExps.getVal(_cont.getCurrentLanguage()));
         while (true) {
             if (read_ instanceof Element) {
                 Element eltRead_ = (Element) read_;

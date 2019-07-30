@@ -14,7 +14,7 @@ public final class RendSubmit extends RendElement {
 
     private StringMap<ResultText> opExp;
 
-    private String preformatted;
+    private StringMap<String> preformatted;
     RendSubmit(Element _elt, OffsetsBlock _offset) {
         super(_elt, _offset);
     }
@@ -24,11 +24,13 @@ public final class RendSubmit extends RendElement {
         _list.removeAllString(ATTRIBUTE_VALUE_SUBMIT);
         String value_ = _read.getAttribute(ATTRIBUTE_VALUE_SUBMIT);
         preformatted = getPre(_cont,value_);
-        if (preformatted == null) {
+        if (preformatted.isEmpty()) {
             return;
         }
         opExp = new StringMap<ResultText>();
-        preformatted = DocumentBuilder.transformSpecialChars(preformatted, _read.hasAttribute(ATTRIBUTE_ESCAPED_EAMP));
+        for (EntryCust<String,String> e: preformatted.entryList()) {
+            e.setValue(DocumentBuilder.transformSpecialChars(e.getValue(), _read.hasAttribute(ATTRIBUTE_ESCAPED_EAMP)));
+        }
         int i_ = CustList.FIRST_INDEX;
         while (_read.hasAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)))) {
             _list.removeAllString(StringList.concat(TAG_PARAM,Long.toString(i_)));
@@ -44,7 +46,7 @@ public final class RendSubmit extends RendElement {
 
     @Override
     public void reduce(Configuration _context) {
-        if (preformatted == null) {
+        if (preformatted.isEmpty()) {
             return;
         }
         super.reduce(_context);
@@ -72,7 +74,7 @@ public final class RendSubmit extends RendElement {
             }
             curWr_.removeAttribute(e.getKey());
         }
-        curWr_.setAttribute(ATTRIBUTE_VALUE, StringList.simpleStringsFormat(preformatted, objects_));
+        curWr_.setAttribute(ATTRIBUTE_VALUE, StringList.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_));
         curWr_.setAttribute(ATTRIBUTE_TYPE, SUBMIT_TYPE);
         ownerDocument_.renameNode(curWr_, INPUT_TAG);
     }

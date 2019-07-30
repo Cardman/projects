@@ -118,7 +118,8 @@ public final class Navigation {
 
     private String currentUrl;
 
-    private String language;
+    private String language = "";
+    private StringList languages = new StringList();
 
     private StringMap<String> files = new StringMap<String>();
 
@@ -169,6 +170,7 @@ public final class Navigation {
     }
     public void setLanguage(String _language) {
         language = _language;
+        session.setCurrentLanguage(language);
     }
 
     public void setDataBase(Object _dataBase) {
@@ -231,7 +233,7 @@ public final class Navigation {
     }
 
     public void initializeRendSession() {
-        session.setupClasses(files);
+        session.setupRendClasses(files);
         String keyWordNew_ = session.getKeyWords().getKeyWordNew();
         for (EntryCust<String, BeanInfo> e: session.getBeansInfos().entryList()) {
             BeanInfo info_ = e.getValue();
@@ -243,8 +245,9 @@ public final class Navigation {
         }
         BeanLgNames stds_ = session.getAdvStandards();
         stds_.initBeans(session,language,dataBaseStruct);
-        session.getAnalyzingDoc().setLanguage(language);
+        session.getAnalyzingDoc().setLanguages(languages);
         session.setupRenders(files);
+        session.setCurrentLanguage(language);
         if (!session.getClasses().isEmptyErrors()) {
             return;
         }
@@ -301,7 +304,34 @@ public final class Navigation {
             setupText(textToBeChanged_);
         }
     }
-
+    public void rendRefresh() {
+        for (Bean b: session.getBeans().values()) {
+            b.setLanguage(language);
+        }
+        session.setCurrentLanguage(language);
+        processRendAnchorRequest(currentUrl);
+        if (session.getContext().getException() != null) {
+            session.setCurrentUrl(currentUrl);
+            String currentUrl_ = StringList.getFirstToken(currentUrl,REF_TAG);
+            String textToBeChanged_ = ExtractFromResources.loadPage(language,session, files, currentUrl_, resourcesFolder);
+            if (session.getContext().getException() != null) {
+                return;
+            }
+            DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(textToBeChanged_);
+            Document doc_ = res_.getDocument();
+            if (doc_ == null) {
+                session.getContext().setException(NullStruct.NULL_VALUE);
+                return;
+            }
+            session.setDocument(doc_);
+            textToBeChanged_ = FormatHtml.processImports(
+                    textToBeChanged_, session, language, files, resourcesFolder);
+            if (textToBeChanged_ == null) {
+                return;
+            }
+            setupText(textToBeChanged_);
+        }
+    }
     public void processRendAnchorRequest(String _anchorRef) {
         if (_anchorRef.contains(CALL_METHOD)) {
             session.clearPages();
@@ -379,12 +409,11 @@ public final class Navigation {
     }
 
     void processAfterInvoke(String _dest, String _beanName, Struct _bean){
-        Argument arg_ = session.getAdvStandards().getForms(_bean, session);
+        session.getAdvStandards().storeForms(_bean, session);
         if (session.getContext().getException() != null) {
             return;
         }
-        Struct forms_ = arg_.getStruct();
-        processInitBeans(_dest,_beanName,forms_);
+        processInitBeans(_dest,_beanName);
         if (session.getContext().getException() != null) {
             return;
         }
@@ -405,7 +434,7 @@ public final class Navigation {
         session.setDocument(doc_);
         currentBeanName_ = root_.getAttribute(StringList.concat(session.getPrefix(),FormatHtml.BEAN_ATTRIBUTE));
         Struct bean_ = getBeanOrNull(currentBeanName_);
-        session.getAdvStandards().setForms(bean_, forms_,session);
+        session.getAdvStandards().setStoredForms(bean_,session);
         if (session.getContext().getException() != null) {
             return;
         }
@@ -418,7 +447,7 @@ public final class Navigation {
         currentUrl = _dest;
         setupText(textToBeChanged_);
     }
-    void processInitBeans(String _dest, String _beanName, Struct _forms) {
+    void processInitBeans(String _dest, String _beanName) {
         int s_ = session.getBuiltBeans().size();
         for (int i = 0; i < s_; i++) {
             String key_ = session.getBuiltBeans().getKey(i);
@@ -431,7 +460,7 @@ public final class Navigation {
             }
             Struct bean_ = session.getBuiltBeans().getValue(i);
             BeanInfo info_ = session.getBeansInfos().getValue(i);
-            bean_ = session.newBean(language, bean_,info_,_forms);
+            bean_ = session.newBean(language, bean_,info_);
             if (session.getContext().getException() != null) {
                 break;
             }
@@ -691,11 +720,7 @@ public final class Navigation {
             NodeInformations nInfos_ = nCont_.getNodeInformation();
             String valId_ = nInfos_.getValidator();
             String id_ = nInfos_.getId();
-            Struct validator_ = session.getBuiltValidators().getVal(valId_);
-            if (validator_ == null) {
-                continue;
-            }
-            Message messageTr_ = session.getAdvStandards().validate(session,nCont_,validator_);
+            Message messageTr_ = session.getAdvStandards().validate(session,nCont_,valId_);
             if (session.getContext().getException() != null) {
                 return;
             }
@@ -1336,5 +1361,9 @@ public final class Navigation {
 
     public void setResourcesFolder(String _resourcesFolder) {
         resourcesFolder = _resourcesFolder;
+    }
+
+    public void setLanguages(StringList _languages) {
+        languages = _languages;
     }
 }

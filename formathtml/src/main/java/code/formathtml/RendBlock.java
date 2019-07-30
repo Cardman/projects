@@ -556,7 +556,7 @@ public abstract class RendBlock {
         return new RendStdElement(elt_,new OffsetsBlock(_begin,_begin));
     }
 
-    static String getPre(Configuration _cont, String _value) {
+    static StringMap<String> getPre(Configuration _cont, String _value) {
         StringList elts_ = StringList.splitStrings(_value, COMMA);
         String var_ = elts_.first();
         String fileName_ = getProperty(_cont, var_);
@@ -566,33 +566,36 @@ public abstract class RendBlock {
             badEl_.setFileName(_cont.getCurrentFileName());
             badEl_.setIndexFile(_cont.getCurrentLocationIndex());
             _cont.getClasses().addError(badEl_);
-            return null;
+            return new StringMap<String>();
         }
+        StringMap<String> pres_ = new StringMap<String>();
         AnalyzingDoc a_ = _cont.getAnalyzingDoc();
-        String language_ = a_.getLanguage();
-        StringMap<String> files_ = a_.getFiles();
-        String content_ = RendExtractFromResources.tryGetContent(_cont, language_, fileName_, files_);
-        int index_ = RendExtractFromResources.indexCorrectMessages(content_);
-        if (index_ >= 0) {
-            BadElRender badEl_ = new BadElRender();
-            badEl_.setErrors(_cont.getClasses().getErrorsDet());
-            badEl_.setFileName(_cont.getCurrentFileName());
-            badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-            _cont.getClasses().addError(badEl_);
-            return null;
+        for (String l: a_.getLanguages()) {
+            StringMap<String> files_ = a_.getFiles();
+            String content_ = RendExtractFromResources.tryGetContent(_cont, l, fileName_, files_);
+            int index_ = RendExtractFromResources.indexCorrectMessages(content_);
+            if (index_ >= 0) {
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                badEl_.setFileName(_cont.getCurrentFileName());
+                badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+                _cont.getClasses().addError(badEl_);
+                return new StringMap<String>();
+            }
+            StringMap<String> messages_ = RendExtractFromResources.getMessages(content_);
+            String key_ = elts_.last();
+            String format_ = RendExtractFromResources.getQuickFormat(messages_, key_);
+            if (format_ == null) {
+                BadElRender badEl_ = new BadElRender();
+                badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                badEl_.setFileName(_cont.getCurrentFileName());
+                badEl_.setIndexFile(_cont.getCurrentLocationIndex());
+                _cont.getClasses().addError(badEl_);
+                return new StringMap<String>();
+            }
+            pres_.addEntry(l,format_);
         }
-        StringMap<String> messages_ = RendExtractFromResources.getMessages(content_);
-        String key_ = elts_.last();
-        String format_ = RendExtractFromResources.getQuickFormat(messages_, key_);
-        if (format_ == null) {
-            BadElRender badEl_ = new BadElRender();
-            badEl_.setErrors(_cont.getClasses().getErrorsDet());
-            badEl_.setFileName(_cont.getCurrentFileName());
-            badEl_.setIndexFile(_cont.getCurrentLocationIndex());
-            _cont.getClasses().addError(badEl_);
-            return null;
-        }
-        return format_;
+        return pres_;
     }
 
     protected static void processLink(Configuration _cont, Element _nextWrite, Element _read, StringList _varNames, CustList<CustList<RendDynOperationNode>> _opExp, StringList _texts) {

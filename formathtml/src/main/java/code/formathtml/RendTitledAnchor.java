@@ -19,7 +19,7 @@ public final class RendTitledAnchor extends RendElement {
 
     private StringMap<ResultText> opExpTitle;
 
-    private String preformatted;
+    private StringMap<String> preformatted;
     RendTitledAnchor(Element _elt, OffsetsBlock _offset) {
         super(_elt, _offset);
     }
@@ -33,11 +33,13 @@ public final class RendTitledAnchor extends RendElement {
         _list.removeAllString(ATTRIBUTE_VALUE);
         String value_ = _read.getAttribute(ATTRIBUTE_VALUE);
         preformatted = getPre(_cont,value_);
-        if (preformatted == null) {
+        if (preformatted.isEmpty()) {
             return;
         }
         opExpTitle = new StringMap<ResultText>();
-        preformatted = DocumentBuilder.transformSpecialChars(preformatted, _read.hasAttribute(ATTRIBUTE_ESCAPED_EAMP));
+        for (EntryCust<String,String> e: preformatted.entryList()) {
+            e.setValue(DocumentBuilder.transformSpecialChars(e.getValue(), _read.hasAttribute(ATTRIBUTE_ESCAPED_EAMP)));
+        }
         int i_ = CustList.FIRST_INDEX;
         while (_read.hasAttribute(StringList.concat(TAG_PARAM,Long.toString(i_)))) {
             _list.removeAllString(StringList.concat(TAG_PARAM,Long.toString(i_)));
@@ -70,7 +72,7 @@ public final class RendTitledAnchor extends RendElement {
             }
             curWr_.removeAttribute(e.getKey());
         }
-        curWr_.setAttribute(ATTRIBUTE_TITLE, StringList.simpleStringsFormat(preformatted, objects_));
+        curWr_.setAttribute(ATTRIBUTE_TITLE, StringList.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_));
         ownerDocument_.renameNode(curWr_, TAG_A);
         processLink(_cont,curWr_,_read,varNames,opExp,texts);
     }

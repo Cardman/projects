@@ -4,10 +4,11 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.sml.Element;
 import code.sml.MutableNode;
 import code.util.StringList;
+import code.util.StringMap;
 
 public class RendSpan extends RendElement {
     private ResultText result;
-    private String formatted="";
+    private StringMap<String> formatted=new StringMap<String>();
     RendSpan(Element _elt, OffsetsBlock _offset) {
         super(_elt, _offset);
     }
@@ -17,6 +18,9 @@ public class RendSpan extends RendElement {
         String id_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_FOR));
         result = new ResultText();
         result.buildId(id_,_cont,_doc);
+        for (String l: _cont.getAnalyzingDoc().getLanguages()) {
+            formatted.addEntry(l,"");
+        }
         String valueMessage_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VALUE_MESSAGE));
         if (!valueMessage_.isEmpty()) {
             formatted = getPre(_cont, valueMessage_);
@@ -33,7 +37,7 @@ public class RendSpan extends RendElement {
         ((Element)_nextWrite).setAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_FOR),txt_);
         IdFormat id_ = new IdFormat();
         id_.setId(txt_);
-        id_.setFormat(formatted);
+        id_.setFormat(formatted.getVal(_cont.getCurrentLanguage()));
         _cont.getFormatId().add(id_);
     }
 

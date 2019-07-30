@@ -6,6 +6,7 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.formathtml.util.BeanLgNames;
+import code.util.StringList;
 import code.util.StringMap;
 
 import static org.junit.Assert.assertTrue;
@@ -17,6 +18,10 @@ public abstract class CommonRender {
         _conf.getContext().setAnalyzing(new AnalyzedPageEl());
     }
 
+    static void setLocale(String _locale, Configuration _conf) {
+        _conf.setCurrentLanguage(_locale);
+        _conf.getAnalyzingDoc().setLanguages(new StringList(_locale));
+    }
     static Navigation newNavigation(Configuration _conf) {
         Navigation nav_ = new Navigation();
         nav_.setSession(_conf);

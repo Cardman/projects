@@ -54,8 +54,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
                 return;
             }
         }
-        AnalyzingDoc analyzingDoc_ = _cont.getAnalyzingDoc();
-        String lg_ = analyzingDoc_.getLanguage();
+        String lg_ = _cont.getCurrentLanguage();
         String pageName_ = ResultText.render(opExp,texts,_cont);
         if (_cont.getContext().getException() != null) {
             return;

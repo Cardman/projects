@@ -13,11 +13,11 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.Configuration;
-import code.formathtml.RenderExpUtil;
+import code.formathtml.ImportingPage;
 import code.formathtml.structs.*;
 import code.sml.Element;
+import code.sml.Node;
 import code.util.*;
 import code.util.ints.*;
 
@@ -38,6 +38,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     private static final String GET_KEY = "getKey";
     private static final String ENTRIES = "entries";
 
+    private StringMapObject storedForms;
 
     static Object[] adaptedArgs(StringList _params, BeanNatLgNames _stds, Struct... _args) {
         int len_ = _params.size();
@@ -326,24 +327,41 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     public void forwardDataBase(Struct _bean, Struct _to, Configuration _conf) {
         ((BeanStruct)_to).getBean().setDataBase(((BeanStruct)_bean).getBean().getDataBase());
     }
-    @Override
-    public Argument getForms(Struct _bean, Configuration _conf) {
-        return new Argument(new StringMapObjectStruct(((BeanStruct)_bean).getBean().getForms()));
+    public void storeForms(Struct _bean, Configuration _conf) {
+        storedForms = ((BeanStruct)_bean).getBean().getForms();
     }
+
     @Override
-    public void setForms(Struct _bean, Struct _map, Configuration _conf) {
-        ((BeanStruct)_bean).getBean().setForms(((StringMapObjectStruct)_map).getBean());
+    public void setStoredForms(Struct _bean, Configuration _conf) {
+        ((BeanStruct)_bean).getBean().setForms(storedForms);
     }
+
+    protected void gearFw(Configuration _conf, Struct _mainBean, Node _node, boolean _keepField, Struct _bean) {
+        ImportingPage ip_ = _conf.getLastPage();
+        String prefix_ = ip_.getPrefix();
+
+        StringMapObject forms_ = ((BeanStruct)_bean).getBean().getForms();
+        StringMapObject formsMap_ = ((BeanStruct)_mainBean).getBean().getForms();
+        if (_keepField) {
+            for (Element f_: _node.getChildElements()) {
+                if (!StringList.quickEq(f_.getTagName(),StringList.concat(prefix_,"form"))) {
+                    continue;
+                }
+                String name_ = f_.getAttribute("form");
+                forms_.put(name_,formsMap_.getVal(name_));
+            }
+        } else {
+            //add option for copying forms (default copy)
+            forms_.putAllMap(formsMap_);
+        }
+    }
+
     @Override
-    public void forwardMap(Struct _map, Struct _to, Struct _key, Configuration _conf) {
-        Object res_ = ((StringMapObjectStruct)_map).getBean().getVal(((StringStruct)_key).getInstance());
-        ((StringMapObjectStruct)_to).getBean().put(((StringStruct)_key).getInstance(),res_);
-    }
-    @Override
-    public void putAllMap(Struct _map, Struct _other, Configuration _conf) {
-        ((StringMapObjectStruct)_map).getBean().putAllMap(((StringMapObjectStruct)_other).getBean());
-    }
-    public Message validate(Configuration _conf,NodeContainer _cont, Struct _validator) {
+    public Message validate(Configuration _conf, NodeContainer _cont, String _validatorId) {
+        Validator validator_ = _conf.getValidators().getVal(_validatorId);
+        if (validator_ == null) {
+            return null;
+        }
         StringList v_ = _cont.getValue();
         NodeInformations nInfos_ = _cont.getNodeInformation();
         String className_ = nInfos_.getInputClass();
@@ -355,8 +373,9 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         }
         Struct obj_ = resError_.getResult();
         Object ad_ = adaptedArg(this, obj_);
-        return ((ValidatorStruct)_validator).getTranslator().validate(ad_);
+        return validator_.validate(ad_);
     }
+
     public Object getOtherArguments(Struct[] _str, String _base) {
         return null;
     }

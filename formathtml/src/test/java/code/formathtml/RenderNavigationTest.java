@@ -81,7 +81,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
@@ -111,6 +111,12 @@ public final class RenderNavigationTest extends CommonRender {
         choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
         assertEq("ONE", ((StringStruct) choice_).getInstance());
     }
+
+    private static void initSession(Navigation _nav) {
+        _nav.setLanguages(new StringList(_nav.getLanguage()));
+        _nav.initializeRendSession();
+    }
+
     @Test
     public void form2Test() {
         String locale_ = "en";
@@ -179,7 +185,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
@@ -268,7 +274,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -362,7 +368,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -459,7 +465,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -561,7 +567,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
@@ -652,7 +658,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"/></form></body></html>", nav_.getHtmlText());
@@ -737,7 +743,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -828,7 +834,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -913,7 +919,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.choice\">2</textarea></form></body></html>", nav_.getHtmlText());
@@ -1013,7 +1019,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
@@ -1114,7 +1120,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></form></body></html>", nav_.getHtmlText());
@@ -1215,7 +1221,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\"/></form></body></html>", nav_.getHtmlText());
@@ -1324,7 +1330,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,three\"/></form></body></html>", nav_.getHtmlText());
@@ -1425,7 +1431,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><textarea id=\"myId\" c:validator=\"valRef\" n-i=\"0\" name=\"bean_one.choice\">TWO</textarea><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></form></body></html>", nav_.getHtmlText());
@@ -1527,7 +1533,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"1\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
@@ -1637,7 +1643,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"1\" checked=\"checked\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
@@ -1736,7 +1742,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -1842,7 +1848,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/><input type=\"text\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"1\" checked=\"checked\"/><textarea/><select name=\"\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
@@ -1952,7 +1958,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></form></body></html>", nav_.getHtmlText());
@@ -2053,7 +2059,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">NOT DELETE</span></form></body></html>", nav_.getHtmlText());
@@ -2154,7 +2160,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"> </span></form></body></html>", nav_.getHtmlText());
@@ -2255,7 +2261,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span>NOT DELETE</span></form></body></html>", nav_.getHtmlText());
@@ -2356,7 +2362,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("", nav_.getHtmlText());
     }
     @Test
@@ -2432,7 +2438,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"range\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"4\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
@@ -2545,7 +2551,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"4\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
@@ -2652,7 +2658,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processRendFormRequest();
         assertNotNull(nav_.getSession().getException());
@@ -2725,7 +2731,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processRendFormRequest();
         assertNotNull(nav_.getSession().getException());
@@ -2798,7 +2804,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processRendFormRequest();
         assertNotNull(nav_.getSession().getException());
@@ -2864,7 +2870,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertNull(nav_.getSession().getException());
         nav_.getHtmlPage().setUrl(0);
         nav_.processRendFormRequest();
@@ -2937,7 +2943,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("request");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processRendFormRequest();
         assertNotNull(nav_.getSession().getException());
@@ -2998,7 +3004,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3091,7 +3097,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        nav_.initializeRendSession();
+        initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate(2,4)\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());

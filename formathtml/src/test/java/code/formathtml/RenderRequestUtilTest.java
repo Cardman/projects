@@ -58,7 +58,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        conf_.getAnalyzingDoc().setLanguage(locale_);
+        setLocale(locale_, conf_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
@@ -107,7 +107,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        conf_.getAnalyzingDoc().setLanguage(locale_);
+        setLocale(locale_, conf_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
@@ -157,7 +157,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        conf_.getAnalyzingDoc().setLanguage(locale_);
+        setLocale(locale_, conf_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
@@ -206,7 +206,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        conf_.getAnalyzingDoc().setLanguage(locale_);
+        setLocale(locale_, conf_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
@@ -260,7 +260,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        conf_.getAnalyzingDoc().setLanguage(locale_);
+        setLocale(locale_, conf_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
@@ -312,7 +312,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        conf_.getAnalyzingDoc().setLanguage(locale_);
+        setLocale(locale_, conf_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
@@ -365,7 +365,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        conf_.getAnalyzingDoc().setLanguage(locale_);
+        setLocale(locale_, conf_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
@@ -417,7 +417,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        conf_.getAnalyzingDoc().setLanguage(locale_);
+        setLocale(locale_, conf_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
@@ -468,7 +468,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        conf_.getAnalyzingDoc().setLanguage(locale_);
+        setLocale(locale_, conf_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
@@ -517,7 +517,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        conf_.getAnalyzingDoc().setLanguage(locale_);
+        setLocale(locale_, conf_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
@@ -566,7 +566,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        conf_.getAnalyzingDoc().setLanguage(locale_);
+        setLocale(locale_, conf_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
@@ -621,7 +621,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        conf_.getAnalyzingDoc().setLanguage(locale_);
+        setLocale(locale_, conf_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
@@ -673,7 +673,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
-        conf_.getAnalyzingDoc().setLanguage(locale_);
+        setLocale(locale_, conf_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());

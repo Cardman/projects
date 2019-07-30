@@ -18,6 +18,8 @@ import code.formathtml.RenderExpUtil;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.structs.StdStruct;
+import code.sml.Element;
+import code.sml.Node;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -107,6 +109,8 @@ public final class BeanCustLgNames extends BeanLgNames {
     private String validateVarArgForm;
     private String validateVarArgClassField;
     private String vlidateVarArgNameField;
+
+    private Struct storedForms = NullStruct.NULL_VALUE;
 
     public void buildIterables(Configuration _context) {
         ContextEl context_ = _context.getContext();
@@ -708,7 +712,16 @@ public final class BeanCustLgNames extends BeanLgNames {
         _conf.getLastPage().getInternVars().removeKey(setDataBaseVar);
         _conf.getLastPage().getInternVars().removeKey(setDataBaseVarArg);
     }
+
     @Override
+    public void storeForms(Struct _bean, Configuration _conf) {
+        Argument forms_ = getForms(_bean, _conf);
+        if (_conf.getContext().hasExceptionOrFailInit()) {
+            return;
+        }
+        storedForms = forms_.getStruct();
+    }
+
     public Argument getForms(Struct _bean, Configuration _conf) {
         String clName_ = _bean.getClassName(_conf);
         if (!Templates.isCorrectExecute(clName_,getAliasBean(),_conf)) {
@@ -728,7 +741,22 @@ public final class BeanCustLgNames extends BeanLgNames {
         }
         return argument_;
     }
+
     @Override
+    public void setStoredForms(Struct _bean, Configuration _conf) {
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(_bean, _conf.getContext()));
+        locVar_.setStruct(_bean);
+        _conf.getLastPage().getInternVars().put(setFormsVar, locVar_);
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(getStructClassName(storedForms, _conf.getContext()));
+        locVar_.setStruct(storedForms);
+        _conf.getLastPage().getInternVars().put(setFormsVarArg, locVar_);
+        RenderExpUtil.calculateReuse(expsSetForms, _conf);
+        _conf.getLastPage().getInternVars().removeKey(setFormsVar);
+        _conf.getLastPage().getInternVars().removeKey(setFormsVarArg);
+    }
+
     public void setForms(Struct _bean, Struct _map, Configuration _conf) {
         LocalVariable locVar_ = new LocalVariable();
         locVar_.setClassName(getStructClassName(_bean, _conf.getContext()));
@@ -742,8 +770,36 @@ public final class BeanCustLgNames extends BeanLgNames {
         _conf.getLastPage().getInternVars().removeKey(setFormsVar);
         _conf.getLastPage().getInternVars().removeKey(setFormsVarArg);
     }
-    @Override
-    public void forwardMap(Struct _map, Struct _to, Struct _key, Configuration _conf) {
+
+    protected void gearFw(Configuration _conf, Struct _mainBean, Node _node, boolean _keepField, Struct _bean) {
+        ImportingPage ip_ = _conf.getLastPage();
+        String prefix_ = ip_.getPrefix();
+        Argument forms_ = getForms(_bean, _conf);
+        if (_conf.getContext().getException() != null) {
+            return;
+        }
+        Argument formsMap_ = getForms(_mainBean,_conf);
+        if (_conf.getContext().getException() != null) {
+            return;
+        }
+        if (_keepField) {
+            for (Element f_: _node.getChildElements()) {
+                if (!StringList.quickEq(f_.getTagName(),StringList.concat(prefix_,"form"))) {
+                    continue;
+                }
+                String name_ = f_.getAttribute("form");
+                forwardMap(formsMap_.getStruct(),forms_.getStruct(),new StringStruct(name_),_conf);
+                if (_conf.getContext().getException() != null) {
+                    return;
+                }
+            }
+        } else {
+            //add option for copying forms (default copy)
+            putAllMap(forms_.getStruct(),formsMap_.getStruct(),_conf);
+        }
+    }
+
+    private void forwardMap(Struct _map, Struct _to, Struct _key, Configuration _conf) {
         LocalVariable locVar_ = new LocalVariable();
         locVar_.setClassName(getStructClassName(_map, _conf.getContext()));
         locVar_.setStruct(_map);
@@ -775,7 +831,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         _conf.getLastPage().getInternVars().removeKey(putVarCustKey);
         _conf.getLastPage().getInternVars().removeKey(putVarCustValue);
     }
-    @Override
+
     public void putAllMap(Struct _map, Struct _other, Configuration _conf) {
         LocalVariable locVar_ = new LocalVariable();
         locVar_.setClassName(getStructClassName(_map, _conf.getContext()));
@@ -858,7 +914,16 @@ public final class BeanCustLgNames extends BeanLgNames {
         return expsSecondCust;
     }
 
-    public Message validate(Configuration _conf,NodeContainer _cont, Struct _validator) {
+    @Override
+    public Message validate(Configuration _conf, NodeContainer _cont, String _validatorId) {
+        Struct validator_ = _conf.getBuiltValidators().getVal(_validatorId);
+        if (validator_ == null) {
+            return null;
+        }
+        return validate(_conf,_cont,validator_);
+    }
+
+    public Message validate(Configuration _conf, NodeContainer _cont, Struct _validator) {
         LocalVariable locVar_ = new LocalVariable();
         locVar_.setClassName(getStructClassName(_validator, _conf.getContext()));
         locVar_.setStruct(_validator);

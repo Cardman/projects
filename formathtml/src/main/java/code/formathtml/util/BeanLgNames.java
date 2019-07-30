@@ -472,32 +472,10 @@ public abstract class BeanLgNames extends LgNames {
         if (bean_ == null) {
             return;
         }
-        ImportingPage ip_ = _conf.getLastPage();
-        String prefix_ = ip_.getPrefix();
-        Argument forms_ = getForms(bean_, _conf);
-        if (_conf.getContext().getException() != null) {
-            return;
-        }
-        Argument formsMap_ = getForms(_mainBean,_conf);
-        if (_conf.getContext().getException() != null) {
-            return;
-        }
-        if (_keepField) {
-            for (Element f_: _node.getChildElements()) {
-                if (!StringList.quickEq(f_.getTagName(),StringList.concat(prefix_,"form"))) {
-                    continue;
-                }
-                String name_ = f_.getAttribute("form");
-                forwardMap(formsMap_.getStruct(),forms_.getStruct(),new StringStruct(name_),_conf);
-                if (_conf.getContext().getException() != null) {
-                    return;
-                }
-            }
-        } else {
-            //add option for copying forms (default copy)
-            putAllMap(forms_.getStruct(),formsMap_.getStruct(),_conf);
-        }
+        gearFw(_conf, _mainBean, _node, _keepField, bean_);
     }
+
+    protected abstract void gearFw(Configuration _conf, Struct _mainBean, Node _node, boolean _keepField, Struct _bean);
 
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
@@ -548,11 +526,12 @@ public abstract class BeanLgNames extends LgNames {
         return res_;
     }
     public abstract void forwardDataBase(Struct _bean, Struct _to, Configuration _conf);
-    public abstract Argument getForms(Struct _bean, Configuration _conf);
-    public abstract void setForms(Struct _bean, Struct _map, Configuration _conf);
-    public abstract void forwardMap(Struct _map, Struct _to, Struct _key, Configuration _conf);
-    public abstract void putAllMap(Struct _map, Struct _other, Configuration _conf);
-    public abstract Message validate(Configuration _conf,NodeContainer _cont, Struct _validator);
+    public abstract void storeForms(Struct _bean, Configuration _conf);
+
+    public abstract void setStoredForms(Struct _bean, Configuration _conf);
+
+    public abstract Message validate(Configuration _conf,NodeContainer _cont, String _validatorId);
+
     public Validator buildValidator(Element _element) {
         return null;
     }
