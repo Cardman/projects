@@ -15,6 +15,19 @@ public final class AnalyzingDoc {
     private String attribute="";
 
     public static int getSum(int _offset, int _glOffset, RendBlock _currentBlock, String _attribute) {
+        int delta_ = getDelta(_offset, _currentBlock, _attribute);
+        return _glOffset+_offset+delta_;
+    }
+
+    public int getSum(int _offset) {
+        if (currentBlock == null) {
+            return 0;
+        }
+        int delta_ = getDelta(_offset, currentBlock, attribute);
+        return _offset+delta_;
+    }
+
+    private static int getDelta(int _offset, RendBlock _currentBlock, String _attribute) {
         int delta_ = 0;
         IntTreeMap< Integer> esc_ = getEscapedChars(_currentBlock, _attribute);
         if (esc_ != null) {
@@ -23,22 +36,7 @@ public final class AnalyzingDoc {
                 delta_ += esc_.getValue(i);
             }
         }
-        return _glOffset+_offset+delta_;
-    }
-
-    public int getSum(int _offset) {
-        int delta_ = 0;
-        if (currentBlock == null) {
-            return 0;
-        }
-        IntTreeMap< Integer> esc_ = getEscapedChars(currentBlock, attribute);
-        if (esc_ != null) {
-            int nbIndexes_ = getIndexesCount(esc_, _offset);
-            for (int i = 0; i < nbIndexes_; i++) {
-                delta_ += esc_.getValue(i);
-            }
-        }
-        return _offset+delta_;
+        return delta_;
     }
 
     private static int getIndexesCount(IntTreeMap< Integer> _t, int _offset) {

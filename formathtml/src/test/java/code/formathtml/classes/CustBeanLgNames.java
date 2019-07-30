@@ -1,6 +1,7 @@
 package code.formathtml.classes;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.*;
@@ -79,6 +80,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
     private static final String GET_CHOSEN_NUMBERS = "getChosenNumbers";
     private static final String TYPED_STRING = "typedString";
     private static final String TYPED_INT = "typedInt";
+    private static final String TYPED_SHORT = "typedShort";
     private static final String RATE = "rate";
     private static final String NULLABLE_INT = "nullableInt";
     private static final String NULLABLE_CHECKBOX = "nullableCheckbox";
@@ -243,7 +245,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         fields_.put(TRANSLATIONS,new StandardField(TRANSLATIONS,getCustMap(),false,false,cl_));
         fields_.put(TREE,new StandardField(TREE,getCustMap(),false,false,cl_));
         fields_.put(STRINGS,new StandardField(STRINGS,TYPE_STRING_LIST,false,false,cl_));
-        params_ = new StringList(getAliasLong());
+        params_ = new StringList(getAliasInteger());
         method_ = new StandardMethod(GET_LIST,params_,getCustList(), false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasLong());
@@ -309,6 +311,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         fields_.put(NULLABLE_INT,new StandardField(NULLABLE_INT,getAliasLong(),false,false,cl_));
         fields_.put(RATE,new StandardField(RATE,TYPE_RATE,false,false,cl_));
         fields_.put(TYPED_INT,new StandardField(TYPED_INT,getAliasPrimInteger(),false,false,cl_));
+        fields_.put(TYPED_SHORT,new StandardField(TYPED_SHORT,getAliasPrimShort(),false,false,cl_));
         fields_.put(TYPED_STRING,new StandardField(TYPED_STRING,getAliasString(),false,false,cl_));
         params_ = new StringList();
         method_ = new StandardMethod(GET_CHOSEN_NUMBERS,params_,getCustList(), false, MethodModifier.NORMAL,cl_);
@@ -939,6 +942,10 @@ public final class CustBeanLgNames extends BeanNatLgNames {
                 res_.setResult(new IntStruct(i_.getTypedInt()));
                 return res_;
             }
+            if (StringList.quickEq(fieldName_,TYPED_SHORT)) {
+                res_.setResult(new ShortStruct(i_.getTypedShort()));
+                return res_;
+            }
             if (StringList.quickEq(fieldName_,TYPED_STRING)) {
                 if (i_.getTypedString() == null) {
                     res_.setResult(NullStruct.NULL_VALUE);
@@ -1174,6 +1181,11 @@ public final class CustBeanLgNames extends BeanNatLgNames {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
+            if (StringList.quickEq(fieldName_,TYPED_SHORT)) {
+                i_.setTypedShort((Short)_value);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
             if (StringList.quickEq(fieldName_,TYPED_STRING)) {
                 i_.setTypedString((String)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
@@ -1307,7 +1319,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
                 }
             }
             if (StringList.quickEq(methodName_,GET_LIST)) {
-                res_.setResult(StdStruct.newListInt(i_.getList((Long)_args[0]),ALIAS_LS));
+                res_.setResult(new IntStruct(i_.getList((Integer)_args[0])));
                 return res_;
             }
             if (StringList.quickEq(methodName_,GET_DOUBLE)) {
@@ -1688,20 +1700,12 @@ public final class CustBeanLgNames extends BeanNatLgNames {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(methodName_,GET)) {
-                res_.setResult(StdStruct.wrapStd(i_.get((Integer)_args[0]),_cont));
-                return res_;
-            }
         }
         if (StringList.quickEq(className_,TYPE_GENE_OBJECTS)) {
             GeneObjects i_ = (GeneObjects)instance_;
             if (StringList.quickEq(methodName_,ADD)) {
                 i_.add(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringList.quickEq(methodName_,LAST)) {
-                res_.setResult(StdStruct.wrapStd(i_.last(), _cont));
                 return res_;
             }
             if (StringList.quickEq(methodName_,CLEAR)) {
@@ -1926,6 +1930,49 @@ public final class CustBeanLgNames extends BeanNatLgNames {
             return TYPE_SIMPLE_DATA_BASE;
         }
         return getAliasObject();
+    }
+
+    @Override
+    protected Struct wrapStd(Object _element, ExecutableCode _ex) {
+        if (_element == null) {
+            return NullStruct.NULL_VALUE;
+        }
+        if (_element instanceof Byte) {
+            return new ByteStruct((Byte) _element);
+        }
+        if (_element instanceof Short) {
+            return new ShortStruct((Short) _element);
+        }
+        if (_element instanceof Character) {
+            return new CharStruct((Character) _element);
+        }
+        if (_element instanceof Integer) {
+            return new IntStruct((Integer) _element);
+        }
+        if (_element instanceof Long) {
+            return new LongStruct((Long) _element);
+        }
+        if (_element instanceof Float) {
+            return new FloatStruct((Float) _element);
+        }
+        if (_element instanceof Double) {
+            return new DoubleStruct((Double) _element);
+        }
+        if (_element instanceof Boolean) {
+            return new BooleanStruct((Boolean) _element);
+        }
+        if (_element instanceof String) {
+            return new StringStruct((String) _element);
+        }
+        if (_element instanceof StringBuilder) {
+            return new StringBuilderStruct((StringBuilder) _element);
+        }
+        String aliasObject_ = getAliasObject();
+        String className_ = getStdBeanStructClassName(_element, _ex.getContextEl());
+        if (StringList.quickEq(className_, getAliasObject())) {
+            return StdStruct.newInstance(_element, aliasObject_);
+        }
+        return StdStruct.newInstance(_element, className_);
     }
     @Override
     public ResultErrorStd getOtherStructToBeValidated(StringList _values,

@@ -40,6 +40,8 @@ public class BeanOne extends Bean {
     private StringList strings = new StringList();
 
     public BeanOne() {
+        getMap().put("ONE",1);
+        getMap().put("TWO",2);
         composite.setStrings(new StringList());
         for (EnumNumber e: EnumNumber.values()) {
             translations.put(e, Integer.toString(e.ordinal() + 1));
@@ -138,11 +140,8 @@ public class BeanOne extends Bean {
         return 2 * _index.intValue();
     }
 
-    public Ints getList(Long _index) {
-        if (_index >= numbers.size()) {
-            return numbers.getValue(numbers.size() - 1);
-        }
-        return numbers.getValue(_index.intValue());
+    public int getList(Integer _index) {
+        return _index;
     }
 
     public EnumNumber getDefaultChoice() {

@@ -95,6 +95,7 @@ public final class Configuration implements ExecutableCode {
 
     private Document document;
 
+    private String beanName;
     private final CustList<ImportingPage> importing = new CustList<ImportingPage>();
 
     private String currentUrl;
@@ -1029,9 +1030,6 @@ public final class Configuration implements ExecutableCode {
     @Override
     public int getCurrentLocationIndex() {
         AnalyzedPageEl analyzing_ = context.getAnalyzing();
-        if (analyzing_ == null) {
-            return 0;
-        }
         int offset_ = analyzing_.getOffset();
         return analyzingDoc.getSum(offset_)+analyzing_.getTraceIndex()-offset_;
     }
@@ -1242,5 +1240,13 @@ public final class Configuration implements ExecutableCode {
 
     public void setCurrentLanguage(String _currentLanguage) {
         currentLanguage = _currentLanguage;
+    }
+
+    public String getBeanName() {
+        return beanName;
+    }
+
+    public void setBeanName(String _beanName) {
+        beanName = _beanName;
     }
 }

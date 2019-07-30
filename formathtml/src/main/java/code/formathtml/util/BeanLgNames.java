@@ -330,7 +330,7 @@ public abstract class BeanLgNames extends LgNames {
         }
         Message instance_ = (Message) ((RealInstanceStruct)_instance).getInstance();
         if (StringList.quickEq(name_, aliasMessageFormat)) {
-            res_.setResult(StdStruct.wrapStd(instance_.format(),_cont));
+            res_.setResult(wrapStd(instance_.format()));
             return res_;
         }
         if (StringList.quickEq(name_, aliasMessageGetArgs)) {
@@ -339,7 +339,7 @@ public abstract class BeanLgNames extends LgNames {
             int len_ = resArgs_.size();
             ArrayStruct arr_ = new ArrayStruct(new Struct[len_],arrStr_);
             for (int i = 0; i < len_; i++){
-                arr_.getInstance()[i] = StdStruct.wrapStd(resArgs_.get(i),_cont);
+                arr_.getInstance()[i] = wrapStd(resArgs_.get(i));
             }
             res_.setResult(arr_);
             return res_;
@@ -356,6 +356,12 @@ public abstract class BeanLgNames extends LgNames {
         instance_.setArgs(resArgs_);
         res_.setResult(NullStruct.NULL_VALUE);
         return res_;
+    }
+    private static Struct wrapStd(String _element) {
+        if (_element == null) {
+            return NullStruct.NULL_VALUE;
+        }
+        return new StringStruct(_element);
     }
     public abstract void forwardDataBase(Struct _bean, Struct _to, Configuration _conf);
     public abstract void storeForms(Struct _bean, Configuration _conf);

@@ -222,6 +222,7 @@ public abstract class RendBlock {
         _conf.getHtmlPage().setFormsArgs(_conf.getFormsArgs());
         _conf.getHtmlPage().setFormsVars(_conf.getFormsVars());
         _conf.getHtmlPage().setFormsNames(_conf.getFormsNames());
+        _conf.setBeanName(doc_.getDocumentElement().getAttribute(StringList.concat(_conf.getPrefix(), BEAN_ATTRIBUTE)));
         doc_.getDocumentElement().removeAttribute(StringList.concat(_conf.getPrefix(), BEAN_ATTRIBUTE));
         _conf.setDocument(doc_);
         _conf.clearPages();

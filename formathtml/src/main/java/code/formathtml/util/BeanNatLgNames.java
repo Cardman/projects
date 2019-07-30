@@ -7,6 +7,7 @@ import code.bean.validator.Validator;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.*;
@@ -278,14 +279,14 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     public Argument first(Struct _arg, Configuration _conf) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         Object resObj_ = ((SimpleEntry)instance_).getSimpleKey();
-        return new Argument(StdStruct.wrapStd(resObj_, _conf.getContext()));
+        return new Argument(wrapStd(resObj_, _conf));
     }
 
     @Override
     public Argument second(Struct _arg, Configuration _conf) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         Object resObj_ = ((SimpleEntry)instance_).getSimpleValue();
-        return new Argument(StdStruct.wrapStd(resObj_, _conf.getContext()));
+        return new Argument(wrapStd(resObj_, _conf));
     }
 
     @Override
@@ -300,7 +301,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     public Argument next(Struct _arg, Configuration _cont) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         Object resObj_ = ((SimpleItr)instance_).next();
-        return new Argument(StdStruct.wrapStd(resObj_, _cont.getContext()));
+        return new Argument(wrapStd(resObj_, _cont));
     }
 
     @Override
@@ -310,6 +311,9 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         return new Argument(new BooleanStruct(it_.hasNext()));
     }
 
+    protected Struct wrapStd(Object _element, ExecutableCode _ex){
+        return NullStruct.NULL_VALUE;
+    }
     @Override
     public String processString(Argument _arg, Configuration _cont) {
         Struct struct_ = _arg.getStruct();

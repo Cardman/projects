@@ -238,6 +238,7 @@ import aiki.map.pokemon.enums.Gender;
 import code.bean.Bean;
 import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -248,15 +249,11 @@ import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.ByteStruct;
+import code.expressionlanguage.structs.*;
 import code.formathtml.structs.BeanStruct;
 import code.formathtml.structs.RealInstanceStruct;
 import code.formathtml.structs.StdStruct;
 import code.formathtml.util.*;
-import code.expressionlanguage.structs.ShortStruct;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
 import code.formathtml.DefaultInitialization;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -2915,6 +2912,49 @@ public final class PokemonStandards extends BeanNatLgNames {
             return getAliasSimpleIteratorType();
         }
         return getAliasObject();
+    }
+
+    @Override
+    protected Struct wrapStd(Object _element, ExecutableCode _ex) {
+        if (_element == null) {
+            return NullStruct.NULL_VALUE;
+        }
+        if (_element instanceof Byte) {
+            return new ByteStruct((Byte) _element);
+        }
+        if (_element instanceof Short) {
+            return new ShortStruct((Short) _element);
+        }
+        if (_element instanceof Character) {
+            return new CharStruct((Character) _element);
+        }
+        if (_element instanceof Integer) {
+            return new IntStruct((Integer) _element);
+        }
+        if (_element instanceof Long) {
+            return new LongStruct((Long) _element);
+        }
+        if (_element instanceof Float) {
+            return new FloatStruct((Float) _element);
+        }
+        if (_element instanceof Double) {
+            return new DoubleStruct((Double) _element);
+        }
+        if (_element instanceof Boolean) {
+            return new BooleanStruct((Boolean) _element);
+        }
+        if (_element instanceof String) {
+            return new StringStruct((String) _element);
+        }
+        if (_element instanceof StringBuilder) {
+            return new StringBuilderStruct((StringBuilder) _element);
+        }
+        String aliasObject_ = getAliasObject();
+        String className_ = getStdBeanStructClassName(_element, _ex.getContextEl());
+        if (StringList.quickEq(className_, getAliasObject())) {
+            return StdStruct.newInstance(_element, aliasObject_);
+        }
+        return StdStruct.newInstance(_element, className_);
     }
     @Override
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {

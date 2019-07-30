@@ -15,6 +15,7 @@ public class BeanTwo extends Bean {
     private EnumNumber chosenNumber;
 
     private int typedInt;
+    private short typedShort;
 
     private Rate rate;
 
@@ -148,6 +149,14 @@ public class BeanTwo extends Bean {
 
     public String getNewOld() {
         return newOld;
+    }
+
+    public short getTypedShort() {
+        return typedShort;
+    }
+
+    public void setTypedShort(short _typedShort) {
+        typedShort = _typedShort;
     }
 
     public int getTypedInt() {

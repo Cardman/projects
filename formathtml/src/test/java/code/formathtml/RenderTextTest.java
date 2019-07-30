@@ -216,4 +216,20 @@ public final class RenderTextTest extends CommonRender {
         rendDocumentBlock_.buildFctInstructions(conf_);
         assertTrue(!conf_.getClasses().isEmptyErrors());
     }
+    @Test
+    public void process6FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:set value=\"({)}&quot;&quot;\"/></body></html>";
+        Configuration conf_ = contextElThird();
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
 }

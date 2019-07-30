@@ -1,20 +1,8 @@
 package code.formathtml.structs;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.ByteStruct;
-import code.expressionlanguage.structs.CharStruct;
-import code.expressionlanguage.structs.DoubleStruct;
-import code.expressionlanguage.structs.FloatStruct;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.ShortStruct;
-import code.expressionlanguage.structs.StringBuilderStruct;
-import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.util.BeanLgNames;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.*;
@@ -78,54 +66,6 @@ public final class StdStruct implements RealInstanceStruct {
     }
     public static StdStruct newListByte(Bytes _instance, String _className) {
         return new StdStruct((Object)_instance, _className);
-    }
-
-    public static Struct wrapStd(Object _element, ContextEl _context) {
-        BeanLgNames lgNames_ = (BeanLgNames) _context.getStandards();
-        String aliasObject_ = lgNames_.getAliasObject();
-        return wrapStd(_element, _context, aliasObject_);
-    }
-
-    public static Struct wrapStd(Object _element, ContextEl _context, String _alias) {
-        if (_element == null) {
-            return NullStruct.NULL_VALUE;
-        }
-        if (_element instanceof Byte) {
-            return new ByteStruct((Byte) _element);
-        }
-        if (_element instanceof Short) {
-            return new ShortStruct((Short) _element);
-        }
-        if (_element instanceof Character) {
-            return new CharStruct((Character) _element);
-        }
-        if (_element instanceof Integer) {
-            return new IntStruct((Integer) _element);
-        }
-        if (_element instanceof Long) {
-            return new LongStruct((Long) _element);
-        }
-        if (_element instanceof Float) {
-            return new FloatStruct((Float) _element);
-        }
-        if (_element instanceof Double) {
-            return new DoubleStruct((Double) _element);
-        }
-        if (_element instanceof Boolean) {
-            return new BooleanStruct((Boolean) _element);
-        }
-        if (_element instanceof String) {
-            return new StringStruct((String) _element);
-        }
-        if (_element instanceof StringBuilder) {
-            return new StringBuilderStruct((StringBuilder) _element);
-        }
-        BeanLgNames lgNames_ = (BeanLgNames) _context.getStandards();
-        String className_ = lgNames_.getStdBeanStructClassName(_element, _context);
-        if (StringList.quickEq(className_, lgNames_.getAliasObject())) {
-            return StdStruct.newInstance(_element, _alias);
-        }
-        return StdStruct.newInstance(_element, className_);
     }
 
     @Override

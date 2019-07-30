@@ -21,6 +21,744 @@ public final class RenderNavigationTest extends CommonRender {
     private static final String CUST_PAIR_PATH = "pkg/CustPair";
     private static final String CUST_TABLE_PATH = "pkg/CustTable";
     @Test
+    public void noBeanTest() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html><body><a c:command=\"page2.html\"/></body></html>";
+        String htmlTwo_ = "<html><body>Next</body></html>";
+        StringMap<String> filesSec_ = new StringMap<String>();
+        filesSec_.put(CUST_ITER_PATH, getCustomIterator());
+        filesSec_.put(CUST_LIST_PATH, getCustomList());
+        filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        filesSec_.put(CUST_TABLE_PATH, getCustomTable());
+        filesSec_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration conf_ = contextElThird(filesSec_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", htmlTwo_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page1.html");
+        conf_.setValidators(new StringMap<Validator>());
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        Navigation nav_ = newNavigation(conf_);
+        nav_.setLanguage(locale_);
+        nav_.setSession(conf_);
+        nav_.setFiles(files_);
+        nav_.getSession().getRenderFiles().add("page1.html");
+        nav_.getSession().getRenderFiles().add("page2.html");
+        initSession(nav_);
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("", nav_.getCurrentBeanName());
+        assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+        assertEq("",nav_.getTitle());
+        assertEq("",nav_.getReferenceScroll());
+        
+        nav_.getHtmlPage().setUrl(0);
+        nav_.processRendAnchorRequest("page2.html");
+        assertEq("page2.html", nav_.getCurrentUrl());
+        assertEq("", nav_.getCurrentBeanName());
+        assertEq("<html><body>Next</body></html>", nav_.getHtmlText());
+    }
+    @Test
+    public void noCustBeanTest() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html c:bean='bean_one'><body><a c:command=\"page2.html\"/></body></html>";
+        String htmlTwo_ = "<html><body>Next</body></html>";
+        StringMap<String> filesSec_ = new StringMap<String>();
+        filesSec_.put(CUST_ITER_PATH, getCustomIterator());
+        filesSec_.put(CUST_LIST_PATH, getCustomList());
+        filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        filesSec_.put(CUST_TABLE_PATH, getCustomTable());
+        filesSec_.put(CUST_PAIR_PATH, getCustomPair());
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne{");
+        file_.append(" $public String click($int p){");
+        file_.append("  $return $bool(p;.;>2,\"val1\",\"val2\"):");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        Configuration conf_ = contextElThird(filesSec_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", htmlTwo_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page1.html");
+        conf_.setValidators(new StringMap<Validator>());
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        Navigation nav_ = newNavigation(conf_);
+        nav_.setLanguage(locale_);
+        nav_.setSession(conf_);
+        nav_.setFiles(files_);
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope("session");
+        i_.setClassName("pkg.BeanOne");
+        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        nav_.getSession().getRenderFiles().add("page1.html");
+        nav_.getSession().getRenderFiles().add("page2.html");
+        initSession(nav_);
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
+        assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+        assertEq("",nav_.getTitle());
+        assertEq("",nav_.getReferenceScroll());
+    }
+    @Test
+    public void emptyLinkTest() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html><body><a c:command=\"page2.html\"/></body></html>";
+        String htmlTwo_ = "<html><body>Next</body></html>";
+        StringMap<String> filesSec_ = new StringMap<String>();
+        filesSec_.put(CUST_ITER_PATH, getCustomIterator());
+        filesSec_.put(CUST_LIST_PATH, getCustomList());
+        filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        filesSec_.put(CUST_TABLE_PATH, getCustomTable());
+        filesSec_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration conf_ = contextElThird(filesSec_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", htmlTwo_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page1.html");
+        conf_.setValidators(new StringMap<Validator>());
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        Navigation nav_ = newNavigation(conf_);
+        nav_.setLanguage(locale_);
+        nav_.setSession(conf_);
+        nav_.setFiles(files_);
+        nav_.getSession().getRenderFiles().add("page1.html");
+        nav_.getSession().getRenderFiles().add("page2.html");
+        initSession(nav_);
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("", nav_.getCurrentBeanName());
+        assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+        assertEq("",nav_.getTitle());
+        assertEq("",nav_.getReferenceScroll());
+
+        nav_.getHtmlPage().setUrl(0);
+        nav_.processRendAnchorRequest("");
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("", nav_.getCurrentBeanName());
+        assertEq("",nav_.getReferenceScroll());
+        assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+    }
+    @Test
+    public void beanInitTest() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html c:bean='bean_one'><body><a c:command=\"page2.html\"/></body></html>";
+        String htmlTwo_ = "<html><body>Next</body></html>";
+        StringMap<String> filesSec_ = new StringMap<String>();
+        filesSec_.put(CUST_ITER_PATH, getCustomIterator());
+        filesSec_.put(CUST_LIST_PATH, getCustomList());
+        filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        filesSec_.put(CUST_TABLE_PATH, getCustomTable());
+        filesSec_.put(CUST_PAIR_PATH, getCustomPair());
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" {");
+        file_.append("  $int i = 1/0:");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        Configuration conf_ = contextElThird(filesSec_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", htmlTwo_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page1.html");
+        conf_.setValidators(new StringMap<Validator>());
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        Navigation nav_ = newNavigation(conf_);
+        nav_.setLanguage(locale_);
+        nav_.setSession(conf_);
+        nav_.setFiles(files_);
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope("session");
+        i_.setClassName("pkg.BeanOne");
+        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        nav_.getSession().getRenderFiles().add("page1.html");
+        nav_.getSession().getRenderFiles().add("page2.html");
+        initSession(nav_);
+        assertEq("", nav_.getHtmlText());
+        assertEq("",nav_.getTitle());
+    }
+    @Test
+    public void titleTest() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html><head><title>MyTitle</title></head><body>Content</body></html>";
+        StringMap<String> filesSec_ = new StringMap<String>();
+        filesSec_.put(CUST_ITER_PATH, getCustomIterator());
+        filesSec_.put(CUST_LIST_PATH, getCustomList());
+        filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        filesSec_.put(CUST_TABLE_PATH, getCustomTable());
+        filesSec_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration conf_ = contextElThird(filesSec_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page1.html");
+        conf_.setValidators(new StringMap<Validator>());
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        Navigation nav_ = newNavigation(conf_);
+        nav_.setLanguage(locale_);
+        nav_.setSession(conf_);
+        nav_.setFiles(files_);
+        nav_.getSession().getRenderFiles().add("page1.html");
+        initSession(nav_);
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("", nav_.getCurrentBeanName());
+        assertEq("<html><head><title>MyTitle</title></head><body>Content</body></html>", nav_.getHtmlText());
+        assertEq("MyTitle",nav_.getTitle());
+        assertEq("",nav_.getReferenceScroll());
+    }
+    @Test
+    public void anchor1Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html c:bean='bean_one'><body><a c:command=\"$click(4)\"/></body></html>";
+        String htmlTwo_ = "<html c:bean='bean_one'><body>Next</body></html>";
+        String htmlThree_ = "<html c:bean='bean_one'><body>After</body></html>";
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public String click($int p){");
+        file_.append("  $return $bool(p;.;>2,\"val1\",\"val2\"):");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        filesSec_.put(CUST_ITER_PATH, getCustomIterator());
+        filesSec_.put(CUST_LIST_PATH, getCustomList());
+        filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        filesSec_.put(CUST_TABLE_PATH, getCustomTable());
+        filesSec_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration conf_ = contextElThird(filesSec_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", htmlTwo_);
+        files_.put("page3.html", htmlThree_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page1.html");
+        conf_.setValidators(new StringMap<Validator>());
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setNavigation(new StringMap<StringMap<String>>());
+        conf_.getNavigation().addEntry("bean_one.click()",new StringMap<String>());
+        conf_.getNavigation().getVal("bean_one.click()").addEntry("val1","page2.html");
+        conf_.getNavigation().getVal("bean_one.click()").addEntry("val2","page3.html");
+        Navigation nav_ = newNavigation(conf_);
+        nav_.setLanguage(locale_);
+        nav_.setSession(conf_);
+        nav_.setFiles(files_);
+        nav_.getSession().getRenderFiles().add("page1.html");
+        nav_.getSession().getRenderFiles().add("page2.html");
+        nav_.getSession().getRenderFiles().add("page3.html");
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope("session");
+        i_.setClassName("pkg.BeanOne");
+        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        initSession(nav_);
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
+        assertEq("<html><body><a c:command=\"$bean_one.click(4)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+        assertEq("",nav_.getTitle());
+        assertEq("",nav_.getReferenceScroll());
+        
+        nav_.getHtmlPage().setUrl(0);
+        nav_.processRendAnchorRequest("$bean_one.click(4)");
+        assertEq("page2.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
+        assertEq("<html><body>Next</body></html>", nav_.getHtmlText());
+    }
+    @Test
+    public void anchor2Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html c:bean='bean_one'><body><a c:command=\"$click(1)\"/></body></html>";
+        String htmlTwo_ = "<html c:bean='bean_one'><body>Next</body></html>";
+        String htmlThree_ = "<html c:bean='bean_one'><body>After</body></html>";
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public String click($int p){");
+        file_.append("  $return $bool(p;.;>2,\"val1\",\"val2\"):");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        filesSec_.put(CUST_ITER_PATH, getCustomIterator());
+        filesSec_.put(CUST_LIST_PATH, getCustomList());
+        filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        filesSec_.put(CUST_TABLE_PATH, getCustomTable());
+        filesSec_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration conf_ = contextElThird(filesSec_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", htmlTwo_);
+        files_.put("page3.html", htmlThree_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page1.html");
+        conf_.setValidators(new StringMap<Validator>());
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setNavigation(new StringMap<StringMap<String>>());
+        conf_.getNavigation().addEntry("bean_one.click()",new StringMap<String>());
+        conf_.getNavigation().getVal("bean_one.click()").addEntry("val1","page2.html");
+        conf_.getNavigation().getVal("bean_one.click()").addEntry("val2","page3.html");
+        Navigation nav_ = newNavigation(conf_);
+        nav_.setLanguage(locale_);
+        nav_.setSession(conf_);
+        nav_.setFiles(files_);
+        nav_.getSession().getRenderFiles().add("page1.html");
+        nav_.getSession().getRenderFiles().add("page2.html");
+        nav_.getSession().getRenderFiles().add("page3.html");
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope("session");
+        i_.setClassName("pkg.BeanOne");
+        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        initSession(nav_);
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
+        assertEq("<html><body><a c:command=\"$bean_one.click(1)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+        assertEq("",nav_.getTitle());
+        assertEq("",nav_.getReferenceScroll());
+        
+        nav_.getHtmlPage().setUrl(0);
+        nav_.processRendAnchorRequest("$bean_one.click(1)");
+        assertEq("page3.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
+        assertEq("<html><body>After</body></html>", nav_.getHtmlText());
+    }
+    @Test
+    public void anchor3Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html c:bean='bean_one'><body><a c:command=\"$click(1)\"/></body></html>";
+        String htmlTwo_ = "<html c:bean='bean_one'><body>Next</body></html>";
+        String htmlThree_ = "<html c:bean='bean_one'><body>After</body></html>";
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public String click($int p){");
+        file_.append("  $return $bool(p;.;>2,\"val1\",\"val3\"):");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        filesSec_.put(CUST_ITER_PATH, getCustomIterator());
+        filesSec_.put(CUST_LIST_PATH, getCustomList());
+        filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        filesSec_.put(CUST_TABLE_PATH, getCustomTable());
+        filesSec_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration conf_ = contextElThird(filesSec_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", htmlTwo_);
+        files_.put("page3.html", htmlThree_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page1.html");
+        conf_.setValidators(new StringMap<Validator>());
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setNavigation(new StringMap<StringMap<String>>());
+        conf_.getNavigation().addEntry("bean_one.click()",new StringMap<String>());
+        conf_.getNavigation().getVal("bean_one.click()").addEntry("val1","page2.html");
+        conf_.getNavigation().getVal("bean_one.click()").addEntry("val2","page3.html");
+        Navigation nav_ = newNavigation(conf_);
+        nav_.setLanguage(locale_);
+        nav_.setSession(conf_);
+        nav_.setFiles(files_);
+        nav_.getSession().getRenderFiles().add("page1.html");
+        nav_.getSession().getRenderFiles().add("page2.html");
+        nav_.getSession().getRenderFiles().add("page3.html");
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope("session");
+        i_.setClassName("pkg.BeanOne");
+        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        initSession(nav_);
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
+        assertEq("<html><body><a c:command=\"$bean_one.click(1)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+        assertEq("",nav_.getTitle());
+        assertEq("",nav_.getReferenceScroll());
+        
+        nav_.getHtmlPage().setUrl(0);
+        nav_.processRendAnchorRequest("$bean_one.click(1)");
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
+        assertEq("<html><body><a c:command=\"$bean_one.click(1)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+    }
+    @Test
+    public void anchor4Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html c:bean='bean_one'><body><a c:command=\"$click(1)\"/></body></html>";
+        String htmlTwo_ = "<html c:bean='bean_one'><body>Next</body></html>";
+        String htmlThree_ = "<html c:bean='bean_one'><body>After</body></html>";
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public String click($int p){");
+        file_.append("  $return $bool(p;.;>2,\"val1\",\"val3\"):");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        filesSec_.put(CUST_ITER_PATH, getCustomIterator());
+        filesSec_.put(CUST_LIST_PATH, getCustomList());
+        filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        filesSec_.put(CUST_TABLE_PATH, getCustomTable());
+        filesSec_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration conf_ = contextElThird(filesSec_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", htmlTwo_);
+        files_.put("page3.html", htmlThree_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page1.html");
+        conf_.setValidators(new StringMap<Validator>());
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setNavigation(new StringMap<StringMap<String>>());
+        conf_.getNavigation().addEntry("bean_one.click2()",new StringMap<String>());
+        conf_.getNavigation().getVal("bean_one.click2()").addEntry("val1","page2.html");
+        conf_.getNavigation().getVal("bean_one.click2()").addEntry("val2","page3.html");
+        Navigation nav_ = newNavigation(conf_);
+        nav_.setLanguage(locale_);
+        nav_.setSession(conf_);
+        nav_.setFiles(files_);
+        nav_.getSession().getRenderFiles().add("page1.html");
+        nav_.getSession().getRenderFiles().add("page2.html");
+        nav_.getSession().getRenderFiles().add("page3.html");
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope("session");
+        i_.setClassName("pkg.BeanOne");
+        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        initSession(nav_);
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
+        assertEq("<html><body><a c:command=\"$bean_one.click(1)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+        assertEq("",nav_.getTitle());
+        assertEq("",nav_.getReferenceScroll());
+        
+        nav_.getHtmlPage().setUrl(0);
+        nav_.processRendAnchorRequest("$bean_one.click(1)");
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
+        assertEq("<html><body><a c:command=\"$bean_one.click(1)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+    }
+    @Test
+    public void anchor5Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html c:bean='bean_one'><body><a c:command=\"$click(1)\"/></body></html>";
+        String htmlTwo_ = "<html c:bean='bean_one'><body>Next</body></html>";
+        String htmlThree_ = "<html c:bean='bean_one'><body>After</body></html>";
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public String click($int p){");
+        file_.append("  $return $bool(p;.;>2,\"val1\",\"val2\"):");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        filesSec_.put(CUST_ITER_PATH, getCustomIterator());
+        filesSec_.put(CUST_LIST_PATH, getCustomList());
+        filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        filesSec_.put(CUST_TABLE_PATH, getCustomTable());
+        filesSec_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration conf_ = contextElThird(filesSec_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", htmlTwo_);
+        files_.put("page3.html", htmlThree_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page1.html");
+        conf_.setValidators(new StringMap<Validator>());
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setNavigation(new StringMap<StringMap<String>>());
+        conf_.getNavigation().addEntry("bean_one.click()",new StringMap<String>());
+        conf_.getNavigation().getVal("bean_one.click()").addEntry("val1","page2.html");
+        conf_.getNavigation().getVal("bean_one.click()").addEntry("val2","page4.html");
+        Navigation nav_ = newNavigation(conf_);
+        nav_.setLanguage(locale_);
+        nav_.setSession(conf_);
+        nav_.setFiles(files_);
+        nav_.getSession().getRenderFiles().add("page1.html");
+        nav_.getSession().getRenderFiles().add("page2.html");
+        nav_.getSession().getRenderFiles().add("page3.html");
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope("session");
+        i_.setClassName("pkg.BeanOne");
+        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        initSession(nav_);
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
+        assertEq("<html><body><a c:command=\"$bean_one.click(1)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+        assertEq("",nav_.getTitle());
+        assertEq("",nav_.getReferenceScroll());
+        
+        nav_.getHtmlPage().setUrl(0);
+        nav_.processRendAnchorRequest("$bean_one.click(1)");
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
+        assertEq("<html><body><a c:command=\"$bean_one.click(1)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+    }
+    @Test
+    public void anchor6Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html c:bean='bean_one'><body><a c:command=\"$click(4)\"/></body></html>";
+        String htmlTwo_ = "<html c:bean='bean_two'><body>Next</body></html>";
+        String htmlThree_ = "<html c:bean='bean_one'><body>After</body></html>";
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public String click($int p){");
+        file_.append("  $return $bool(p;.;>2,\"val1\",\"val2\"):");
+        file_.append(" }");
+        file_.append("}");
+        file_.append("$public $class pkg.BeanTwo:code.bean.Bean{");
+        file_.append(" $public String click($int p){");
+        file_.append("  $return $bool(p;.;>2,\"val1\",\"val2\"):");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        filesSec_.put(CUST_ITER_PATH, getCustomIterator());
+        filesSec_.put(CUST_LIST_PATH, getCustomList());
+        filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        filesSec_.put(CUST_TABLE_PATH, getCustomTable());
+        filesSec_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration conf_ = contextElThird(filesSec_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", htmlTwo_);
+        files_.put("page3.html", htmlThree_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page1.html");
+        conf_.setValidators(new StringMap<Validator>());
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setNavigation(new StringMap<StringMap<String>>());
+        conf_.getNavigation().addEntry("bean_one.click()",new StringMap<String>());
+        conf_.getNavigation().getVal("bean_one.click()").addEntry("val1","page2.html");
+        conf_.getNavigation().getVal("bean_one.click()").addEntry("val2","page3.html");
+        Navigation nav_ = newNavigation(conf_);
+        nav_.setLanguage(locale_);
+        nav_.setSession(conf_);
+        nav_.setFiles(files_);
+        nav_.getSession().getRenderFiles().add("page1.html");
+        nav_.getSession().getRenderFiles().add("page2.html");
+        nav_.getSession().getRenderFiles().add("page3.html");
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope("session");
+        i_.setClassName("pkg.BeanOne");
+        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        i_ = new BeanInfo();
+        i_.setScope("session");
+        i_.setClassName("pkg.BeanTwo");
+        nav_.getSession().getBeansInfos().addEntry("bean_two",i_);
+        initSession(nav_);
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
+        assertEq("<html><body><a c:command=\"$bean_one.click(4)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+        assertEq("",nav_.getTitle());
+        assertEq("",nav_.getReferenceScroll());
+        
+        nav_.getHtmlPage().setUrl(0);
+        nav_.processRendAnchorRequest("$bean_one.click(4)");
+        assertEq("page2.html", nav_.getCurrentUrl());
+        assertEq("bean_two", nav_.getCurrentBeanName());
+        assertEq("<html><body>Next</body></html>", nav_.getHtmlText());
+    }
+    @Test
+    public void anchor7Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html c:bean='bean_one'><body><a c:command=\"$click(4)\"/></body></html>";
+        String htmlTwo_ = "<html c:bean='bean_one'><body><a name='sampleName'>Next</a></body></html>";
+        String htmlThree_ = "<html c:bean='bean_one'><body>After</body></html>";
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public String click($int p){");
+        file_.append("  $return $bool(p;.;>2,\"val1\",\"val2\"):");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        filesSec_.put(CUST_ITER_PATH, getCustomIterator());
+        filesSec_.put(CUST_LIST_PATH, getCustomList());
+        filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        filesSec_.put(CUST_TABLE_PATH, getCustomTable());
+        filesSec_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration conf_ = contextElThird(filesSec_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", htmlTwo_);
+        files_.put("page3.html", htmlThree_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page1.html");
+        conf_.setValidators(new StringMap<Validator>());
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setNavigation(new StringMap<StringMap<String>>());
+        conf_.getNavigation().addEntry("bean_one.click()",new StringMap<String>());
+        conf_.getNavigation().getVal("bean_one.click()").addEntry("val1","page2.html#sampleName");
+        conf_.getNavigation().getVal("bean_one.click()").addEntry("val2","page3.html");
+        Navigation nav_ = newNavigation(conf_);
+        nav_.setLanguage(locale_);
+        nav_.setSession(conf_);
+        nav_.setFiles(files_);
+        nav_.getSession().getRenderFiles().add("page1.html");
+        nav_.getSession().getRenderFiles().add("page2.html");
+        nav_.getSession().getRenderFiles().add("page3.html");
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope("session");
+        i_.setClassName("pkg.BeanOne");
+        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        initSession(nav_);
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
+        assertEq("<html><body><a c:command=\"$bean_one.click(4)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+        assertEq("",nav_.getTitle());
+        assertEq("",nav_.getReferenceScroll());
+
+        nav_.getHtmlPage().setUrl(0);
+        nav_.processRendAnchorRequest("$bean_one.click(4)");
+        assertEq("page2.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
+        assertEq("sampleName", nav_.getReferenceScroll());
+        assertEq("<html><body><a name=\"sampleName\">Next</a></body></html>", nav_.getHtmlText());
+    }
+    @Test
+    public void form0Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html c:bean='bean_one'><body><form c:command=\"$validate\"><c:select default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></form></body></html>";
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public pkg.CustTable<String,Integer> combo=$new pkg.CustTable<>():");
+        file_.append(" {");
+        file_.append("  combo.add(\"ONE\",1):");
+        file_.append("  combo.add(\"TWO\",2):");
+        file_.append(" }");
+        file_.append(" $public String choice=\"TWO\":");
+        file_.append(" $public $int index:");
+        file_.append(" $public $int indexTwo:");
+        file_.append(" $public $int[] numbers:");
+        file_.append(" $public $int[] numbersTwo:");
+        file_.append(" $public $void beforeDisplaying(){");
+        file_.append("  $var ch = getForms().getVal(\"choice\"):");
+        file_.append("  $if (ch;. != $null){");
+        file_.append("   choice=(String)ch;.:");
+        file_.append("  }");
+        file_.append("  numbers={2,4,6}:");
+        file_.append("  numbersTwo={2,4,6}:");
+        file_.append("  index=4:");
+        file_.append("  indexTwo=6:");
+        file_.append(" }");
+        file_.append(" $public $void validate(){");
+        file_.append("  getForms().put(\"choice\",choice):");
+        file_.append(" }");
+        file_.append(" $public String conv(String a){");
+        file_.append("  $return a;.;:");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        filesSec_.put(CUST_ITER_PATH, getCustomIterator());
+        filesSec_.put(CUST_LIST_PATH, getCustomList());
+        filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        filesSec_.put(CUST_TABLE_PATH, getCustomTable());
+        filesSec_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration conf_ = contextElThird(filesSec_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page1.html");
+        conf_.setValidators(new StringMap<Validator>());
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        Navigation nav_ = newNavigation(conf_);
+        nav_.setLanguage(locale_);
+        nav_.setSession(conf_);
+        nav_.setFiles(files_);
+        nav_.getSession().getRenderFiles().add("page1.html");
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope("session");
+        i_.setClassName("pkg.BeanOne");
+        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        initSession(nav_);
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
+        assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
+        assertEq("",nav_.getTitle());
+        assertEq("",nav_.getReferenceScroll());
+
+        Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
+        assertEq("TWO", ((StringStruct) choice_).getInstance());
+        HtmlPage htmlPage_ = nav_.getHtmlPage();
+        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        containersMap_ = htmlPage_.getContainers();
+        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        NodeContainer nc_;
+        NodeInformations ni_;
+        StringList values_;
+        nc_ = containers_.getVal(0L);
+        nc_.setEnabled(true);
+        ni_ = nc_.getNodeInformation();
+        values_ = new StringList();
+        values_.add("ONE");
+        ni_.setValue(values_);
+        nav_.getHtmlPage().setUrl(-1);
+        nav_.processRendFormRequest();
+        assertEq("page1.html", nav_.getCurrentUrl());
+    }
+    @Test
     public void form1Test() {
         String locale_ = "en";
         String folder_ = "messages";
@@ -87,7 +825,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -186,7 +924,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
         assertEq(1, ((NumberStruct)((FieldableStruct)choice_).getStruct(new ClassField("pkg.CustList","length"))).intStruct());
         Struct array_ = ((FieldableStruct) choice_).getStruct(new ClassField("pkg.CustList", "list"));
@@ -275,7 +1013,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
         choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "indexTwo"));
@@ -369,7 +1107,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
         assertEq(-1, ((NumberStruct) choice_).intStruct());
         choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "indexTwo"));
@@ -466,7 +1204,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
         choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "indexTwo"));
@@ -568,7 +1306,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -659,7 +1397,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -744,7 +1482,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
         choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "indexTwo"));
@@ -835,7 +1573,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
         choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "indexTwo"));
@@ -920,7 +1658,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.choice\">2</textarea></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
         assertEq(2, ((NumberStruct) choice_).intStruct());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -1020,7 +1758,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -1121,7 +1859,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -1222,7 +1960,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -1331,7 +2069,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,three\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -1432,7 +2170,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><textarea id=\"myId\" c:validator=\"valRef\" n-i=\"0\" name=\"bean_one.choice\">TWO</textarea><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -1534,7 +2272,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"1\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -1644,7 +2382,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"1\" checked=\"checked\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -1743,7 +2481,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
         choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "indexTwo"));
@@ -1849,7 +2587,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/><input type=\"text\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"1\" checked=\"checked\"/><textarea/><select name=\"\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -1959,7 +2697,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -2060,7 +2798,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">NOT DELETE</span></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -2161,7 +2899,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"> </span></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -2262,7 +3000,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span>NOT DELETE</span></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -2439,7 +3177,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"range\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"4\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
         assertEq(2, ((NumberStruct) choice_).intStruct());
         choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choiceSec"));
@@ -2552,7 +3290,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"4\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
         assertEq(2, ((NumberStruct) choice_).intStruct());
         choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choiceSec"));
@@ -3005,7 +3743,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
         choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "indexTwo"));
@@ -3098,7 +3836,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate(2,4)\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
         choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "indexTwo"));
@@ -3183,7 +3921,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2.0\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4.0\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6.0\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).doubleStruct());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -3258,7 +3996,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2.0\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4.0\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6.0\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).doubleStruct());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -3333,7 +4071,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).doubleStruct());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -3458,7 +4196,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
         assertSame(NullStruct.NULL_VALUE, choice_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -3521,7 +4259,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"text\" name=\"bean_one.textField\" n-i=\"0\" value=\"txt\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "textField"));
         assertEq("txt", ((StringStruct)choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -3584,7 +4322,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"text\" name=\"bean_one.textField\" n-i=\"0\" value=\"txt\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "textField"));
         assertEq("txt", ((StringStruct)choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -3646,7 +4384,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.boolField\" n-i=\"0\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "boolField"));
         assertTrue(!((BooleanStruct)choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -3708,7 +4446,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.boolField\" n-i=\"0\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "boolField"));
         assertTrue(((BooleanStruct)choice_).getInstance());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -3781,7 +4519,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
         assertSame(NullStruct.NULL_VALUE, choice_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -3855,7 +4593,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
         assertEq('4', ((CharStruct) choice_).getChar());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -3929,7 +4667,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "index"));
         assertSame(NullStruct.NULL_VALUE, choice_);
         HtmlPage htmlPage_ = nav_.getHtmlPage();
@@ -4037,7 +4775,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"4\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
         assertEq(2, ((NumberStruct) choice_).intStruct());
         choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choiceSec"));
@@ -4294,7 +5032,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"4\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
         assertEq(2, ((NumberStruct) choice_).intStruct());
         choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choiceSec"));
@@ -4410,7 +5148,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><form c:command=\"page2.html\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"4\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        assertEq(0,nav_.getTooltips().size());
+        
         Struct choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choice"));
         assertEq(2, ((NumberStruct) choice_).intStruct());
         choice_ = ((FieldableStruct) nav_.getSession().getBuiltBeans().getVal("bean_one")).getStruct(new ClassField("pkg.BeanOne", "choiceSec"));
@@ -4700,6 +5438,111 @@ public final class RenderNavigationTest extends CommonRender {
         nav_.setSession(conf_);
         nav_.setFiles(files_);
         nav_.getSession().getRenderFiles().add("page1.html");
+        initSession(nav_);
+        assertTrue(!nav_.getSession().getClasses().isEmptyErrors());
+
+    }
+    @Test
+    public void form2FailTest() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html><body>Content</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $int index=4:");
+        file_.append(" $public $int[] numbers={2,4,6}:");
+        file_.append(" $public $void beforeDisplaying(){");
+        file_.append("  numbers={2,4,6}:");
+        file_.append("  index=4:");
+        file_.append("  $var ch = getForms().getVal(\"index\"):");
+        file_.append("  $if (ch;. != $null){");
+        file_.append("   index=($int)ch;.:");
+        file_.append("  }");
+        file_.append(" }");
+        file_.append(" $public $void validate(){");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        Configuration conf_ = contextElThird(filesSec_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page.html");
+        conf_.setValidators(new StringMap<Validator>());
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        Navigation nav_ = newNavigation(conf_);
+        nav_.setLanguage(locale_);
+        nav_.setSession(conf_);
+        nav_.setFiles(files_);
+        nav_.getSession().getRenderFiles().add("page1.html");
+        initSession(nav_);
+        assertTrue(!nav_.getSession().getClasses().isEmptyErrors());
+
+    }
+    @Test
+    public void form3FailTest() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean='bean_one'><body>Content</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $abstract $class pkg.BeanOne:code.bean.Bean{");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        Configuration conf_ = contextElThird(filesSec_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page1.html");
+        conf_.setValidators(new StringMap<Validator>());
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        Navigation nav_ = newNavigation(conf_);
+        nav_.setLanguage(locale_);
+        nav_.setSession(conf_);
+        nav_.setFiles(files_);
+        nav_.getSession().getRenderFiles().add("page1.html");
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope("page");
+        i_.setClassName("pkg.BeanOne");
+        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        initSession(nav_);
+        assertTrue(!nav_.getSession().getClasses().isEmptyErrors());
+
+    }
+    @Test
+    public void form4FailTest() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html><body>Content";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        Configuration conf_ = contextElThird();
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page1.html");
+        conf_.setValidators(new StringMap<Validator>());
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        Navigation nav_ = newNavigation(conf_);
+        nav_.setLanguage(locale_);
+        nav_.setSession(conf_);
+        nav_.setFiles(files_);
+        nav_.getSession().getRenderFiles().add("page1.html");
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope("page");
+        i_.setClassName("pkg.BeanOne");
+        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
         initSession(nav_);
         assertTrue(!nav_.getSession().getClasses().isEmptyErrors());
 

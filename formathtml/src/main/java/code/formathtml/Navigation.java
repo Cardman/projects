@@ -5,10 +5,10 @@ import code.bean.validator.Message;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.util.BadElRender;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
@@ -19,7 +19,6 @@ import code.util.EntryCust;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.ints.WithMathFactory;
 
 public final class Navigation {
 
@@ -102,8 +101,6 @@ public final class Navigation {
     private Object dataBase;
     private Struct dataBaseStruct = NullStruct.NULL_VALUE;
 
-    private StringList tooltips = new StringList();
-
     private String title = EMPTY_STRING;
 
     private String resourcesFolder = EMPTY_STRING;
@@ -148,14 +145,10 @@ public final class Navigation {
         dataBase = _dataBase;
         if (dataBase != null) {
             String className_ = session.getDataBaseClassName();
-            dataBaseStruct = StdStruct.wrapStd(dataBase, session.getContext(), className_);
+            dataBaseStruct = StdStruct.newInstance(dataBase, className_);
         } else {
             dataBaseStruct = NullStruct.NULL_VALUE;
         }
-    }
-
-    public StringList getTooltips() {
-        return tooltips;
     }
 
     public String getHtmlText() {
@@ -191,26 +184,22 @@ public final class Navigation {
         }
         String currentUrl_ = session.getFirstUrl();
         String realFilePath_ = RendExtractFromResources.getRealFilePath(language, currentUrl_);
-        String text_ = files.getVal(realFilePath_);
-        if (text_ == null) {
-            return;
-        }
         String currentBeanName_;
-        DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(text_);
-        Document doc_ = res_.getDocument();
-        if (doc_ == null) {
-            session.getContext().setException(NullStruct.NULL_VALUE);
+        RendDocumentBlock rendDocumentBlock_ = session.getRenders().getVal(realFilePath_);
+        if (rendDocumentBlock_ == null) {
+            BadElRender badEl_ = new BadElRender();
+            badEl_.setErrors(session.getClasses().getErrorsDet());
+            badEl_.setFileName(session.getCurrentFileName());
+            badEl_.setIndexFile(session.getCurrentLocationIndex());
+            session.getClasses().addError(badEl_);
             return;
         }
-        Element root_ = doc_.getDocumentElement();
-        session.setDocument(doc_);
-        currentBeanName_ = root_.getAttribute(StringList.concat(session.getPrefix(),RendBlock.BEAN_ATTRIBUTE));
-        RendDocumentBlock rendDocumentBlock_ = session.getRenders().getVal(realFilePath_);
         htmlText = RendBlock.getRes(rendDocumentBlock_,session);
         if (htmlText.isEmpty()) {
             return;
         }
         //For title
+        currentBeanName_ = session.getBeanName();
         currentBeanName = currentBeanName_;
         currentUrl = currentUrl_;
         setupText(htmlText);
@@ -304,7 +293,9 @@ public final class Navigation {
     }
 
     void processAfterInvoke(String _dest, String _beanName, Struct _bean){
-        session.getAdvStandards().storeForms(_bean, session);
+        if (!_beanName.isEmpty()) {
+            session.getAdvStandards().storeForms(_bean, session);
+        }
         if (session.getContext().getException() != null) {
             return;
         }
@@ -314,31 +305,24 @@ public final class Navigation {
         }
         session.setCurrentUrl(_dest);
         String dest_ = StringList.getFirstToken(_dest, REF_TAG);
-        String textToBeChanged_ = files.getVal(dest_);
-        if (textToBeChanged_ == null) {
-            return;
-        }
         String currentBeanName_;
-        DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(textToBeChanged_);
-        Document doc_ = res_.getDocument();
-        if (doc_ == null) {
-            session.getContext().setException(NullStruct.NULL_VALUE);
+        RendDocumentBlock rendDocumentBlock_ = session.getRenders().getVal(dest_);
+        if (rendDocumentBlock_ == null) {
             return;
         }
-        Element root_ = doc_.getDocumentElement();
-        session.setDocument(doc_);
-        currentBeanName_ = root_.getAttribute(StringList.concat(session.getPrefix(),RendBlock.BEAN_ATTRIBUTE));
+        currentBeanName_ = rendDocumentBlock_.getBeanName();
         Struct bean_ = getBeanOrNull(currentBeanName_);
-        session.getAdvStandards().setStoredForms(bean_,session);
+        if (!_beanName.isEmpty()) {
+            session.getAdvStandards().setStoredForms(bean_, session);
+        }
         if (session.getContext().getException() != null) {
             return;
         }
-        RendDocumentBlock rendDocumentBlock_ = session.getRenders().getVal(dest_);
-        textToBeChanged_ = RendBlock.getRes(rendDocumentBlock_,session);
+        String textToBeChanged_ = RendBlock.getRes(rendDocumentBlock_,session);
         if (textToBeChanged_.isEmpty()) {
             return;
         }
-        currentBeanName = currentBeanName_;
+        currentBeanName = session.getBeanName();
         currentUrl = _dest;
         setupText(textToBeChanged_);
     }
@@ -607,24 +591,11 @@ public final class Navigation {
         return true;
     }
     void setupText(String _text) {
-        tooltips.clear();
         Document doc_ = session.getDocument();
-        ElementList nodes_ = doc_.getElementsByTagName(TAG_A);
-        int size_ = nodes_.getLength();
-        for (int i = CustList.FIRST_INDEX; i < size_; i++) {
-            Element node_ = nodes_.item(i);
-            if (node_.getAttribute(ATTRIBUTE_HREF).isEmpty()) {
-                continue;
-            }
-            String title_ = node_.getAttribute(ATTRIBUTE_TITLE);
-            if (title_.isEmpty()) {
-                continue;
-            }
-            tooltips.add(title_);
-        }
+        ElementList nodes_;
         title = EMPTY_STRING;
         nodes_ = doc_.getElementsByTagName(TAG_HEAD);
-        size_ = nodes_.getLength();
+        int size_ = nodes_.getLength();
         for (int i = CustList.FIRST_INDEX; i < size_; i++) {
             Element node_ = nodes_.item(i);
             ElementList subNodes_ = node_.getElementsByTagName(TAG_TITLE);
@@ -638,6 +609,7 @@ public final class Navigation {
         StringList tokens_ = StringList.splitStrings(currentUrl, REF_TAG);
         if (tokens_.size() > CustList.ONE_ELEMENT) {
             referenceScroll = tokens_.get(CustList.SECOND_INDEX);
+            currentUrl = tokens_.first();
         } else {
             referenceScroll = EMPTY_STRING;
         }
@@ -646,7 +618,7 @@ public final class Navigation {
     private String getRendUrlDest(String _method, Struct _return) {
         StringMap<String> cases_ = session.getNavigation().getVal(_method);
         if (cases_ == null) {
-            return EMPTY_STRING;
+            return null;
         }
         String case_ = session.getAdvStandards().processString(new Argument(_return),session);
         return cases_.getVal(case_);
@@ -702,10 +674,6 @@ public final class Navigation {
 
     public void setHtmlText(String _htmlText) {
         htmlText = _htmlText;
-    }
-
-    public void setTooltips(StringList _tooltips) {
-        tooltips = _tooltips;
     }
 
     public String getTitle() {
