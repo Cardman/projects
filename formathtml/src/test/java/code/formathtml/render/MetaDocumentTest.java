@@ -2306,4 +2306,143 @@ public final class MetaDocumentTest {
         ch_ = root_.getChildren().last();
         assertTrue(ch_ instanceof MetaLine);
     }
+
+    @Test
+    public void newInstance38Test() {
+        StringBuilder doc_ = new StringBuilder();
+        doc_.append("<html>\n");
+        doc_.append("<body>\n");
+        doc_.append("<form n-f='0'>\n");
+        doc_.append("<select name='myradio' n-i='0'>\n");
+        doc_.append("<option value='ONE'>1</option>\n");
+        doc_.append("<option value='TWO' selected='selected'>2</option>\n");
+        doc_.append("</select>\n");
+        doc_.append("</form>\n");
+        doc_.append("</body>\n");
+        doc_.append("</html>");
+        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
+        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaBlock root_ = out_.getRoot();
+        assertEq(3, root_.getChildren().size());
+        MetaComponent ch_ = root_.getChildren().get(0);
+        assertTrue(ch_ instanceof MetaLine);
+        MetaContainer cont_ = (MetaContainer) ch_;
+        assertEq(0, cont_.getChildren().size());
+        ch_ = root_.getChildren().get(1);
+        assertTrue(ch_ instanceof MetaLine);
+        cont_ = (MetaContainer) ch_;
+        assertEq(1, cont_.getChildren().size());
+        MetaForm form_ = (MetaForm) cont_.getChildren().get(0);
+        assertEq(1, form_.getChildren().size());
+        MetaLine formLine_ = (MetaLine)form_.getChildren().get(0);
+        assertEq(1, formLine_.getChildren().size());
+        MetaComboBox radio_ = (MetaComboBox)formLine_.getChildren().get(0);
+        assertEq(1,radio_.getSelected());
+        assertEq(2,radio_.getChoicesStrings().size());
+        assertEq("1",radio_.getChoicesStrings().get(0));
+        assertEq("2",radio_.getChoicesStrings().get(1));
+        assertEq(2,radio_.getChoicesValues().size());
+        assertEq("ONE",radio_.getChoicesValues().get(0));
+        assertEq("TWO",radio_.getChoicesValues().get(1));
+        ch_ = root_.getChildren().get(2);
+        assertTrue(ch_ instanceof MetaLine);
+        cont_ = (MetaContainer) ch_;
+        assertEq(0, cont_.getChildren().size());
+    }
+
+    @Test
+    public void newInstance39Test() {
+        StringBuilder doc_ = new StringBuilder();
+        doc_.append("<html>\n");
+        doc_.append("<body>\n");
+        doc_.append("<form n-f='0'>\n");
+        doc_.append("<select name='myradio' n-i='0' multiple='' rows='2'>\n");
+        doc_.append("<option value='ONE'>1</option>\n");
+        doc_.append("<option value='TWO' selected='selected'>2</option>\n");
+        doc_.append("</select>\n");
+        doc_.append("</form>\n");
+        doc_.append("</body>\n");
+        doc_.append("</html>");
+        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
+        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaBlock root_ = out_.getRoot();
+        assertEq(3, root_.getChildren().size());
+        MetaComponent ch_ = root_.getChildren().get(0);
+        assertTrue(ch_ instanceof MetaLine);
+        MetaContainer cont_ = (MetaContainer) ch_;
+        assertEq(0, cont_.getChildren().size());
+        ch_ = root_.getChildren().get(1);
+        assertTrue(ch_ instanceof MetaLine);
+        cont_ = (MetaContainer) ch_;
+        assertEq(1, cont_.getChildren().size());
+        MetaForm form_ = (MetaForm) cont_.getChildren().get(0);
+        assertEq(1, form_.getChildren().size());
+        MetaLine formLine_ = (MetaLine)form_.getChildren().get(0);
+        assertEq(1, formLine_.getChildren().size());
+        MetaComboList radio_ = (MetaComboList)formLine_.getChildren().get(0);
+        assertEq(1,radio_.getSelected().size());
+        assertTrue(radio_.getSelected().contains(1));
+        assertEq(2,radio_.getChoicesStrings().size());
+        assertEq("1",radio_.getChoicesStrings().get(0));
+        assertEq("2",radio_.getChoicesStrings().get(1));
+        assertEq(2,radio_.getChoicesValues().size());
+        assertEq("ONE",radio_.getChoicesValues().get(0));
+        assertEq("TWO",radio_.getChoicesValues().get(1));
+        assertEq(0,radio_.getGroup());
+        assertEq(2,radio_.getVisible());
+        ch_ = root_.getChildren().get(2);
+        assertTrue(ch_ instanceof MetaLine);
+        cont_ = (MetaContainer) ch_;
+        assertEq(0, cont_.getChildren().size());
+    }
+    @Test
+    public void newInstance40Test() {
+        StringBuilder doc_ = new StringBuilder();
+        doc_.append("<html>");
+        doc_.append("<body>");
+        doc_.append("<div>\n");
+        doc_.append("<span>1</span><span>2</span><br/>\n");
+        doc_.append("<span>3</span><span>4</span>\n");
+        doc_.append("</div>");
+        doc_.append("</body>");
+        doc_.append("</html>");
+        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
+        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaBlock root_ = out_.getRoot();
+        assertEq(3, root_.getChildren().size());
+        MetaComponent ch_ = root_.getChildren().get(0);
+        assertTrue(ch_ instanceof MetaLine);
+        MetaContainer cont_ = (MetaContainer) ch_;
+        assertEq(0, cont_.getChildren().size());
+        ch_ = root_.getChildren().get(1);
+        assertTrue(ch_ instanceof MetaLine);
+        cont_ = (MetaContainer) ch_;
+        assertEq(2, cont_.getChildren().size());
+        ch_ = cont_.getChildren().get(0);
+        assertEq(3, ((MetaImageMap)ch_).getWidth());
+        assertEq(3, ((MetaImageMap)ch_).getChildren().size());
+        MetaPlainLabel search_ = (MetaPlainLabel) ((MetaImageMap)ch_).getChildren().get(0);
+        assertEq("1",search_.getText());
+        assertEq(0, search_.getPartGroup());
+        assertEq(0, search_.getRowGroup());
+        search_ = (MetaPlainLabel) ((MetaImageMap)ch_).getChildren().get(1);
+        assertEq("2",search_.getText());
+        assertEq(0, search_.getPartGroup());
+        assertEq(0, search_.getRowGroup());
+        assertTrue(((MetaImageMap)ch_).getChildren().get(2) instanceof MetaEndLine);
+        ch_ = cont_.getChildren().get(1);
+        assertEq(2, ((MetaLine)ch_).getChildren().size());
+        search_ = (MetaPlainLabel) ((MetaLine)ch_).getChildren().get(0);
+        assertEq("3",search_.getText());
+        assertEq(0, search_.getPartGroup());
+        assertEq(1, search_.getRowGroup());
+        search_ = (MetaPlainLabel) ((MetaLine)ch_).getChildren().get(1);
+        assertEq("4",search_.getText());
+        assertEq(0, search_.getPartGroup());
+        assertEq(1, search_.getRowGroup());
+        ch_ = root_.getChildren().get(2);
+        assertTrue(ch_ instanceof MetaLine);
+        cont_ = (MetaContainer) ch_;
+        assertEq(0, cont_.getChildren().size());
+    }
 }

@@ -9,17 +9,6 @@ public abstract class MetaInput extends MetaLeaf {
         group = _group;
     }
 
-    public MetaForm getParentForm() {
-        MetaContainer par_ = getParent();
-        while (par_ != null) {
-            if (par_ instanceof MetaForm) {
-                break;
-            }
-            par_ = par_.getParent();
-        }
-        return (MetaForm) par_;
-    }
-
     public int getGroup() {
         return group;
     }
