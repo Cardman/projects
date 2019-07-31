@@ -3,6 +3,7 @@ package code.formathtml;
 import code.bean.Bean;
 import code.bean.BeanInfo;
 import code.bean.validator.Validator;
+import code.bean.validator.ValidatorInfo;
 import code.expressionlanguage.*;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.calls.util.NotInitializedClass;
@@ -71,18 +72,15 @@ public final class Configuration implements ExecutableCode {
 
     private int tabWidth = DEFAULT_TAB_WIDTH;
 
-    private String filesConfName;
+    private String filesConfName = "";
 
     private ContextEl context;
 
-    private StringMap<String> lateValidators = new StringMap<String>();
-    private StringMap<String> lateTranslators = new StringMap<String>();
+    private StringMap<ValidatorInfo> lateValidators = new StringMap<ValidatorInfo>();
 
     private String prefix = EMPTY_STRING;
     private BeanLgNames standards;
     private String dataBaseClassName;
-
-    private boolean uncompressed;
 
     private int nextIndex;
 
@@ -98,7 +96,7 @@ public final class Configuration implements ExecutableCode {
     private String beanName;
     private final CustList<ImportingPage> importing = new CustList<ImportingPage>();
 
-    private String currentUrl;
+    private String currentUrl = "";
 
     private String html;
 
@@ -147,20 +145,9 @@ public final class Configuration implements ExecutableCode {
         htmlPage = new HtmlPage();
         document = null;
         currentUrl = firstUrl;
-        if (prefix == null || prefix.isEmpty()) {
-            prefix = EMPTY_STRING;
-        } else {
-            prefix = StringList.concat(prefix,SEP);
-        }
-        if (lateValidators == null) {
-            lateValidators = new StringMap<String>();
-        }
-        if (lateTranslators == null) {
-            lateTranslators = new StringMap<String>();
-        }
+        prefix = StringList.concat(prefix,SEP);
         standards.build();
         standards.setupOverrides(context);
-        standards.buildIterables(this);
         renderFiles.removeAllString(firstUrl);
         renderFiles.add(firstUrl);
     }
@@ -170,21 +157,12 @@ public final class Configuration implements ExecutableCode {
             return;
         }
         String conf_ = getFilesConfName();
-        if (conf_ == null) {
-            return;
-        }
-        if (context == null) {
-            return;
-        }
         StringList content_ = new StringList();
         for (EntryCust<String, String> e: _files.entryList()) {
             if (StringList.quickEq(e.getKey(),conf_)) {
                 content_ = StringList.splitStrings(e.getValue(), RETURN_LINE);
                 break;
             }
-        }
-        if (content_.isEmpty()) {
-            return;
         }
         StringMap<String> classFiles_ = new StringMap<String>();
         for (String f: content_) {
@@ -200,22 +178,11 @@ public final class Configuration implements ExecutableCode {
         if (!context.getClasses().getErrorsDet().isEmpty()) {
             return;
         }
-        StringList types_ = new StringList();
-        for (EntryCust<String, Bean> e: getBeans().entryList()) {
-            types_.add(e.getValue().getClassName());
-        }
-        for (EntryCust<String, String> e: getLateValidators().entryList()) {
-            types_.add(e.getValue());
-        }
-        for (String s: types_) {
-            if (!context.getClasses().isCustomType(s)) {
-                return;
-            }
-        }
-        for (EntryCust<String, String> e: getLateValidators().entryList()) {
-            Struct str_ = RenderExpUtil.processEl(StringList.concat(INSTANCE,e.getValue(),NO_PARAM), 0, this).getStruct();
-            getBuiltValidators().put(e.getKey(), str_);
-        }
+        standards.buildIterables(this);
+//        for (EntryCust<String, String> e: getLateValidators().entryList()) {
+//            Struct str_ = RenderExpUtil.processEl(StringList.concat(INSTANCE,e.getValue(),NO_PARAM), 0, this).getStruct();
+//            getBuiltValidators().put(e.getKey(), str_);
+//        }
     }
     public void setupRenders(StringMap<String> _files) {
         renders.clear();
@@ -492,12 +459,18 @@ public final class Configuration implements ExecutableCode {
         context = _context;
     }
 
-    public StringMap<String> getLateValidators() {
+    public StringMap<ValidatorInfo> getLateValidators() {
         return lateValidators;
     }
 
     public void setLateValidators(StringMap<String> _lateValidators) {
-        lateValidators = _lateValidators;
+        StringMap<ValidatorInfo> lateValidators_ = new StringMap<ValidatorInfo>();
+        for (EntryCust<String, String> e: _lateValidators.entryList()) {
+            ValidatorInfo val_ = new ValidatorInfo();
+            val_.setClassName(e.getValue());
+            lateValidators_.addEntry(e.getKey(), val_);
+        }
+        lateValidators = lateValidators_;
     }
 
     public StringMap<Struct> getBuiltBeans() {
@@ -536,20 +509,9 @@ public final class Configuration implements ExecutableCode {
         dataBaseClassName = _dataBaseClassName;
     }
 
-    public boolean isUncompressed() {
-        return uncompressed;
-    }
-
-    public void setUncompressed(boolean _uncompressed) {
-        uncompressed = _uncompressed;
-    }
-
     @Override
     public String getGlobalClass() {
-        if (importing.isEmpty()) {
-            return context.getGlobalClass();
-        }
-        return getLastPage().getGlobalClass();
+        return context.getGlobalClass();
     }
 
     @Override
@@ -564,18 +526,12 @@ public final class Configuration implements ExecutableCode {
 
     @Override
     public String getCurrentFileName() {
-        if (importing.isEmpty()) {
-            return "";
-        }
-        return getLastPage().getReadUrl();
+        return currentUrl;
     }
 
     @Override
     public LoopVariable getVar(String _var) {
-        if (importing.isEmpty()) {
-            return context.getVar(_var);
-        }
-        return getLastPage().getVars().getVal(_var);
+        return context.getVar(_var);
     }
 
     public StringMap<LoopVariable> getVars() {
@@ -622,7 +578,7 @@ public final class Configuration implements ExecutableCode {
 
     @Override
     public int getOffset() {
-        return getLastPage().getOffset();
+        return context.getOffset();
     }
 
     @Override
@@ -1070,12 +1026,14 @@ public final class Configuration implements ExecutableCode {
     public void setupAnalyzing() {
         boolean merged_ = false;
         String currentVarSetting_ = "";
+        String globalClass_ = "";
         if (context.getAnalyzing() != null) {
             merged_ = isMerged();
             currentVarSetting_ = getCurrentVarSetting();
+            globalClass_ = getGlobalClass();
         }
         context.setAnalyzing(new AnalyzedPageEl());
-        context.getAnalyzing().setGlobalClass(getGlobalClass());
+        context.getAnalyzing().setGlobalClass(globalClass_);
         context.getAnalyzing().initLocalVars();
         context.getAnalyzing().initMutableLoopVars();
         CustList<StringMap<LocalVariable>> l_ = new CustList<StringMap<LocalVariable>>();

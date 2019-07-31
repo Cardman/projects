@@ -3,9 +3,12 @@ package code.formathtml;
 import code.bean.BeanInfo;
 
 import code.bean.validator.Validator;
+import code.bean.validator.ValidatorInfo;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.structs.*;
 
+import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
 import code.util.*;
@@ -197,8 +200,79 @@ public final class RenderNavigationTest extends CommonRender {
         nav_.getSession().getRenderFiles().add("page1.html");
         nav_.getSession().getRenderFiles().add("page2.html");
         initSession(nav_);
-        assertEq("", nav_.getHtmlText());
-        assertEq("",nav_.getTitle());
+        assertNotNull(nav_.getSession().getException());
+    }
+    @Test
+    public void validatorInitTest() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html c:bean='bean_one'><body><form c:command=\"$validate\"><c:select validator='valRef' id='myId' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></form></body></html>";
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");
+        file_.append(" {");
+        file_.append("  $int i = 1/0:");
+        file_.append(" }");
+        file_.append(" $public Message validate(Object n,Object o,Object b,Object f,String c,String fd){");
+        file_.append("  $return $null:");
+        file_.append(" }");
+        file_.append("}");
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public pkg.CustTable<String,Integer> combo=$new pkg.CustTable<>():");
+        file_.append(" {");
+        file_.append("  combo.add(\"ONE\",1):");
+        file_.append("  combo.add(\"TWO\",2):");
+        file_.append(" }");
+        file_.append(" $public String choice=\"TWO\":");
+        file_.append(" $public $int index:");
+        file_.append(" $public $int indexTwo:");
+        file_.append(" $public $int[] numbers:");
+        file_.append(" $public $int[] numbersTwo:");
+        file_.append(" $public $void beforeDisplaying(){");
+        file_.append("  $var ch = getForms().getVal(\"choice\"):");
+        file_.append("  $if (ch;. != $null){");
+        file_.append("   choice=(String)ch;.:");
+        file_.append("  }");
+        file_.append("  numbers={2,4,6}:");
+        file_.append("  numbersTwo={2,4,6}:");
+        file_.append("  index=4:");
+        file_.append("  indexTwo=6:");
+        file_.append(" }");
+        file_.append(" $public $void validate(){");
+        file_.append("  getForms().put(\"choice\",choice):");
+        file_.append(" }");
+        file_.append(" $public String conv(String a){");
+        file_.append("  $return a;.;:");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        filesSec_.put(CUST_ITER_PATH, getCustomIterator());
+        filesSec_.put(CUST_LIST_PATH, getCustomList());
+        filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        filesSec_.put(CUST_TABLE_PATH, getCustomTable());
+        filesSec_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration conf_ = contextElThird(filesSec_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page1.html");
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        Navigation nav_ = newNavigation(conf_);
+        nav_.setLanguage(locale_);
+        nav_.setSession(conf_);
+        nav_.setFiles(files_);
+        nav_.getSession().getRenderFiles().add("page1.html");
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope("session");
+        i_.setClassName("pkg.BeanOne");
+        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        addVal(nav_,"valRef","pkg.MyVal");
+        initSession(nav_);
+        assertNotNull(nav_.getSession().getException());
     }
     @Test
     public void titleTest() {
@@ -1736,11 +1810,6 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        addImportingPage(conf_);
-        Struct str_ = RenderExpUtil.processEl("$new pkg.MyVal()", 0, conf_).getStruct();
-        conf_.clearPages();
-        conf_.getBuiltValidators().put("valRef", str_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -1752,6 +1821,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        addVal(nav_,"valRef","pkg.MyVal");
         initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -1837,11 +1907,6 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        addImportingPage(conf_);
-        Struct str_ = RenderExpUtil.processEl("$new pkg.MyVal()", 0, conf_).getStruct();
-        conf_.clearPages();
-        conf_.getBuiltValidators().put("valRef", str_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -1853,6 +1918,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        addVal(nav_,"valRef","pkg.MyVal");
         initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -1938,11 +2004,6 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        addImportingPage(conf_);
-        Struct str_ = RenderExpUtil.processEl("$new pkg.MyVal()", 0, conf_).getStruct();
-        conf_.clearPages();
-        conf_.getBuiltValidators().put("valRef", str_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -1954,6 +2015,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        addVal(nav_,"valRef","pkg.MyVal");
         initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -2047,11 +2109,6 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        addImportingPage(conf_);
-        Struct str_ = RenderExpUtil.processEl("$new pkg.MyVal()", 0, conf_).getStruct();
-        conf_.clearPages();
-        conf_.getBuiltValidators().put("valRef", str_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -2063,6 +2120,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        addVal(nav_,"valRef","pkg.MyVal");
         initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -2148,11 +2206,6 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        addImportingPage(conf_);
-        Struct str_ = RenderExpUtil.processEl("$new pkg.MyVal()", 0, conf_).getStruct();
-        conf_.clearPages();
-        conf_.getBuiltValidators().put("valRef", str_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -2164,6 +2217,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        addVal(nav_,"valRef","pkg.MyVal");
         initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -2250,11 +2304,6 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        addImportingPage(conf_);
-        Struct str_ = RenderExpUtil.processEl("$new pkg.MyVal()", 0, conf_).getStruct();
-        conf_.clearPages();
-        conf_.getBuiltValidators().put("valRef", str_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -2266,6 +2315,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        addVal(nav_,"valRef","pkg.MyVal");
         initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -2360,11 +2410,6 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        addImportingPage(conf_);
-        Struct str_ = RenderExpUtil.processEl("$new pkg.MyVal()", 0, conf_).getStruct();
-        conf_.clearPages();
-        conf_.getBuiltValidators().put("valRef", str_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -2376,6 +2421,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        addVal(nav_,"valRef","pkg.MyVal");
         initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -2460,10 +2506,6 @@ public final class RenderNavigationTest extends CommonRender {
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        addImportingPage(conf_);
-        Struct str_ = RenderExpUtil.processEl("$new pkg.MyVal()", 0, conf_).getStruct();
-        conf_.clearPages();
-        conf_.getBuiltValidators().put("valRef", str_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -2475,6 +2517,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        addVal(nav_,"valRef","pkg.MyVal");
         initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -2565,11 +2608,6 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        addImportingPage(conf_);
-        Struct str_ = RenderExpUtil.processEl("$new pkg.MyVal()", 0, conf_).getStruct();
-        conf_.clearPages();
-        conf_.getBuiltValidators().put("valRef", str_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -2581,6 +2619,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        addVal(nav_,"valRef","pkg.MyVal");
         initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -2675,11 +2714,6 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        addImportingPage(conf_);
-        Struct str_ = RenderExpUtil.processEl("$new pkg.MyVal()", 0, conf_).getStruct();
-        conf_.clearPages();
-        conf_.getBuiltValidators().put("valRef", str_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -2691,6 +2725,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        addVal(nav_,"valRef","pkg.MyVal");
         initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -2776,11 +2811,6 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        addImportingPage(conf_);
-        Struct str_ = RenderExpUtil.processEl("$new pkg.MyVal()", 0, conf_).getStruct();
-        conf_.clearPages();
-        conf_.getBuiltValidators().put("valRef", str_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -2792,6 +2822,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        addVal(nav_,"valRef","pkg.MyVal");
         initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -2877,11 +2908,6 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        addImportingPage(conf_);
-        Struct str_ = RenderExpUtil.processEl("$new pkg.MyVal()", 0, conf_).getStruct();
-        conf_.clearPages();
-        conf_.getBuiltValidators().put("valRef", str_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -2893,6 +2919,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        addVal(nav_,"valRef","pkg.MyVal");
         initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -2978,11 +3005,6 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        addImportingPage(conf_);
-        Struct str_ = RenderExpUtil.processEl("$new pkg.MyVal()", 0, conf_).getStruct();
-        conf_.clearPages();
-        conf_.getBuiltValidators().put("valRef", str_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -2994,6 +3016,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        addVal(nav_,"valRef","pkg.MyVal");
         initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -3079,11 +3102,6 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        addImportingPage(conf_);
-        Struct str_ = RenderExpUtil.processEl("$new pkg.MyVal()", 0, conf_).getStruct();
-        conf_.clearPages();
-        conf_.getBuiltValidators().put("valRef", str_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -3095,6 +3113,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        addVal(nav_,"valRef","pkg.MyVal");
         initSession(nav_);
         assertEq("", nav_.getHtmlText());
     }
@@ -3155,11 +3174,6 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        addImportingPage(conf_);
-        Struct str_ = RenderExpUtil.processEl("$new pkg.MyVal()", 0, conf_).getStruct();
-        conf_.clearPages();
-        conf_.getBuiltValidators().put("valRef", str_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -3171,6 +3185,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        addVal(nav_,"valRef","pkg.MyVal");
         initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -3268,11 +3283,6 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        addImportingPage(conf_);
-        Struct str_ = RenderExpUtil.processEl("$new pkg.MyVal()", 0, conf_).getStruct();
-        conf_.clearPages();
-        conf_.getBuiltValidators().put("valRef", str_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -3284,6 +3294,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        addVal(nav_,"valRef","pkg.MyVal");
         initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -4753,11 +4764,6 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        addImportingPage(conf_);
-        Struct str_ = RenderExpUtil.processEl("$new pkg.MyVal()", 0, conf_).getStruct();
-        conf_.clearPages();
-        conf_.getBuiltValidators().put("valRef", str_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -4769,6 +4775,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        addVal(nav_,"valRef","pkg.MyVal");
         initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -5010,11 +5017,6 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        addImportingPage(conf_);
-        Struct str_ = RenderExpUtil.processEl("$new pkg.MyVal()", 0, conf_).getStruct();
-        conf_.clearPages();
-        conf_.getBuiltValidators().put("valRef", str_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -5026,6 +5028,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("page");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        addVal(nav_,"valRef","pkg.MyVal");
         initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -5125,11 +5128,6 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page2.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        addImportingPage(conf_);
-        Struct str_ = RenderExpUtil.processEl("$new pkg.MyVal()", 0, conf_).getStruct();
-        conf_.clearPages();
-        conf_.getBuiltValidators().put("valRef", str_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -5142,6 +5140,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("page");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        addVal(nav_,"valRef","pkg.MyVal");
         initSession(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -5686,8 +5685,16 @@ public final class RenderNavigationTest extends CommonRender {
         return xml_.toString();
     }
 
+    private static void addVal(Navigation _nav, String _valId, String _class) {
+        ValidatorInfo v_ = new ValidatorInfo();
+        v_.setClassName(_class);
+        _nav.getSession().getLateValidators().addEntry(_valId,v_);
+    }
     private static void initSession(Navigation _nav) {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
+        _nav.getSession().getContext().setAnalyzing(new AnalyzedPageEl());
+        _nav.initInstancesPattern();
+        _nav.setupRenders();
         _nav.initializeRendSession();
     }
 

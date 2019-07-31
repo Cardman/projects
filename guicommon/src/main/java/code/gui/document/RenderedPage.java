@@ -111,6 +111,7 @@ public final class RenderedPage implements ProcessingSession {
             return;
         }
         updateFiles(navigation);
+        navigation.setupRendClasses();
         navigation.initializeRendSession();
         setupText(true);
         directScroll();
@@ -142,6 +143,7 @@ public final class RenderedPage implements ProcessingSession {
             return;
         }
         updateFiles(navigation);
+        navigation.setupRendClasses();
         navigation.initializeRendSession();
         setupText(true);
         finish(false);
@@ -181,6 +183,7 @@ public final class RenderedPage implements ProcessingSession {
             return;
         }
         updateFiles(navigation);
+        navigation.setupRendClasses();
         navigation.initializeRendSession();
         setupText(true);
         directScroll();

@@ -61,7 +61,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -120,7 +120,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -179,7 +179,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -238,7 +238,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -300,7 +300,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -362,7 +362,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -430,7 +430,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -501,7 +501,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -572,7 +572,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -634,7 +634,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -709,7 +709,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -777,7 +777,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -845,7 +845,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -910,7 +910,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -975,7 +975,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -1043,7 +1043,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -1112,7 +1112,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -1180,7 +1180,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -1248,7 +1248,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -1316,7 +1316,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -1379,7 +1379,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -1448,7 +1448,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -1511,7 +1511,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -1577,7 +1577,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -1637,7 +1637,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -1696,7 +1696,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -1758,7 +1758,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -1820,7 +1820,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -1870,7 +1870,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -1920,7 +1920,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -1978,7 +1978,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -2038,7 +2038,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -2098,7 +2098,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -2158,7 +2158,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -2218,7 +2218,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -2281,7 +2281,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -2343,7 +2343,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -2405,7 +2405,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -2464,7 +2464,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
@@ -2524,7 +2524,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         addImportingPage(conf_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
-        conf_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(conf_,"bean_one",bean_);
         conf_.clearPages();
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());

@@ -2,6 +2,8 @@ package code.formathtml;
 import code.bean.Bean;
 import code.bean.BeanInfo;
 import code.bean.validator.Message;
+import code.bean.validator.ValidatorInfo;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -29,12 +31,6 @@ public final class Navigation {
     private static final char BEGIN_ARGS = '(';
     private static final char SEP_ARGS = ',';
     private static final char END_ARGS = ')';
-
-    private static final String ATTRIBUTE_TITLE = "title";
-
-    private static final String ATTRIBUTE_HREF = "href";
-
-    private static final String TAG_A = "a";
 
     private static final String REF_TAG = "#";
 
@@ -107,16 +103,6 @@ public final class Navigation {
 
     private boolean error;
 
-    public void setFiles(StringMap<String> _web, StringMap<String> _images) {
-        files = new StringMap<String>();
-        for (String f: _web.getKeys()) {
-            files.put(f, _web.getVal(f));
-        }
-        for (String f: _images.getKeys()) {
-            files.put(f, _images.getVal(f));
-        }
-    }
-
     public void loadConfiguration(String _cont, BeanLgNames _lgNames, Interrupt _i) {
         error = false;
         DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(_cont);
@@ -164,22 +150,12 @@ public final class Navigation {
     }
 
     public void initializeRendSession() {
-        session.setupRendClasses(files);
-        String keyWordNew_ = session.getKeyWords().getKeyWordNew();
-        for (EntryCust<String, BeanInfo> e: session.getBeansInfos().entryList()) {
-            BeanInfo info_ = e.getValue();
-            CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", info_.getClassName(), "()"), 0, session, Calculation.staticCalculation(true));
-            info_.setExps(exps_);
-        }
         if (!session.getClasses().isEmptyErrors()) {
             return;
         }
         BeanLgNames stds_ = session.getAdvStandards();
         stds_.initBeans(session,language,dataBaseStruct);
-        session.getAnalyzingDoc().setLanguages(languages);
-        session.setCurrentLanguage(language);
-        session.setupRenders(files);
-        if (!session.getClasses().isEmptyErrors()) {
+        if (session.getContext().hasException()) {
             return;
         }
         String currentUrl_ = session.getFirstUrl();
@@ -203,6 +179,34 @@ public final class Navigation {
         currentBeanName = currentBeanName_;
         currentUrl = currentUrl_;
         setupText(htmlText);
+    }
+
+    public void setupRendClasses() {
+        session.setupRendClasses(files);
+        initInstancesPattern();
+        setupRenders();
+    }
+
+    public void setupRenders() {
+        BeanLgNames stds_ = session.getAdvStandards();
+        stds_.preInitBeans(session);
+        session.getAnalyzingDoc().setLanguages(languages);
+        session.setCurrentLanguage(language);
+        session.setupRenders(files);
+    }
+
+    public void initInstancesPattern() {
+        String keyWordNew_ = session.getKeyWords().getKeyWordNew();
+        for (EntryCust<String, BeanInfo> e: session.getBeansInfos().entryList()) {
+            BeanInfo info_ = e.getValue();
+            CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", info_.getClassName(), "()"), 0, session, Calculation.staticCalculation(true));
+            info_.setExps(exps_);
+        }
+        for (EntryCust<String,ValidatorInfo> e: session.getLateValidators().entryList()) {
+            ValidatorInfo v_ = e.getValue();
+            CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", v_.getClassName(), "()"), 0, session, Calculation.staticCalculation(true));
+            v_.setExps(exps_);
+        }
     }
 
     public void rendRefresh() {
@@ -247,6 +251,8 @@ public final class Navigation {
             Struct bean_ = getBeanOrNull(beanName_);
             ip_.setOffset(indexPoint_+1);
             ip_.setGlobalArgumentStruct(bean_, session);
+            session.getContext().setAnalyzing(new AnalyzedPageEl());
+            session.getContext().setGlobalClass(ip_.getGlobalClass());
             Struct return_;
             if (htmlPage_.isForm()) {
                 if (getArg_) {

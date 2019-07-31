@@ -1,6 +1,6 @@
 <cfg>
 	<java.lang.String class="cfg" field="firstUrl" value="resources_cards/help//aide_generale/logiciel/menus/parametres/langue.html"/>
-	<sm class="cfg" field="beans"/>
+	<java.lang.String class="cfg" field="prefix" value="c"/>
 	<sm class="cfg" field="navigation"/>
 	<java.lang.String class="cfg" field="messagesFolder" value=""/>
 	<sm class="cfg" field="properties"/>

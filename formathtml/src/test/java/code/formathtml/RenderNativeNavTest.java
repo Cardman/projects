@@ -8,6 +8,7 @@ import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.classes.*;
 import code.formathtml.structs.BeanStruct;
+import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
 import code.sml.Document;
@@ -126,13 +127,12 @@ public final class RenderNativeNavTest extends CommonRender {
         conf_.setBeans(new StringMap<Bean>());
         conf_.setFirstUrl("page1.html");
         bean_.getForms().put("key", "sample_value");
-        conf_.getBeans().put("bean_one", bean_);
-        conf_.getBuiltBeans().put("bean_one", new BeanStruct(bean_));
-        conf_.getBeans().put("bean_two", beanTwo_);
-        conf_.getBuiltBeans().put("bean_two", new BeanStruct(beanTwo_));
+        addBeanInfo(conf_,"bean_one", new BeanStruct(bean_));
+        addBeanInfo(conf_,"bean_two", new BeanStruct(beanTwo_));
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
+        conf_.getAdvStandards().preInitBeans(conf_);
 
 
         conf_.setHtml(html_);
@@ -178,15 +178,12 @@ public final class RenderNativeNavTest extends CommonRender {
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
         Configuration conf_ = contextElSec();
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_one", bean_);
-        conf_.getBuiltBeans().put("bean_one", new BeanStruct(bean_));
-        conf_.getBeans().put("bean_two", beanTwo_);
-        conf_.getBuiltBeans().put("bean_two", new BeanStruct(beanTwo_));
+        addBeanInfo(conf_,"bean_one", new BeanStruct(bean_));
+        addBeanInfo(conf_,"bean_two", new BeanStruct(beanTwo_));
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-
+        conf_.getAdvStandards().preInitBeans(conf_);
 
         Document doc_ = DocumentBuilder.parseSax(html_);
         Document docSec_ = DocumentBuilder.parseSax(htmlTwo_);
@@ -956,6 +953,9 @@ public final class RenderNativeNavTest extends CommonRender {
         }
         _nav.getSession().setBeansInfos(map_);
         _nav.setLanguages(new StringList(_nav.getLanguage()));
+        _nav.getSession().getContext().setAnalyzing(new AnalyzedPageEl());
+        _nav.initInstancesPattern();
+        _nav.setupRenders();
         _nav.initializeRendSession();
     }
 

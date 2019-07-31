@@ -2,6 +2,7 @@ package code.formathtml;
 
 import code.bean.BeanInfo;
 import code.bean.validator.Validator;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultInitializer;
 import code.expressionlanguage.DefaultLockingClass;
@@ -11,6 +12,7 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.BeanNatLgNames;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.ElementList;
@@ -74,10 +76,6 @@ public final class ReadConfiguration {
                 _configuration.setContext(loadContext(c, stds_));
                 continue;
             }
-            if (StringList.quickEq(fieldName_, "uncompressed")) {
-                _configuration.setUncompressed(Boolean.parseBoolean(c.getAttribute("value")));
-                continue;
-            }
             if (StringList.quickEq(fieldName_, "addedFiles")) {
                 _configuration.setAddedFiles(getStringList(c));
                 continue;
@@ -86,7 +84,7 @@ public final class ReadConfiguration {
                 _configuration.setRenderFiles(getStringList(c));
             }
         }
-        if (!found_) {
+        if (!found_ && stds_ instanceof BeanNatLgNames) {
             DefaultLockingClass lk_ = new DefaultLockingClass();
             DefaultInitializer di_ = new DefaultInitializer();
             KeyWords kw_ = new KeyWords();
@@ -95,6 +93,7 @@ public final class ReadConfiguration {
             context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
             context_.setStandards(stds_);
             _configuration.setContext(context_);
+            context_.setAnalyzing(new AnalyzedPageEl());
         }
     }
     static ContextEl loadContext(Element _elt, LgNames _stds) {

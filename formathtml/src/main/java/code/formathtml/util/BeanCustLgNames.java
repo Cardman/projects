@@ -2,6 +2,7 @@ package code.formathtml.util;
 
 import code.bean.BeanInfo;
 import code.bean.validator.Message;
+import code.bean.validator.ValidatorInfo;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -536,9 +537,9 @@ public final class BeanCustLgNames extends BeanLgNames {
         file_.append(return_).append(" -1").append(endLine_);
         file_.append("}");
         file_.append(public_).append(" ").append(void_).append(" ").append(putAll_).append("(").append(getAliasStringMapObject()).append(" ").append(tr("m",_context)).append("){");
-        file_.append(int_).append(" ").append(tr("len",_context)).append("=").append(trParam("(m",_context)).append(").").append(keys_).append(".").append(length_).append(endLine_);
+        file_.append(int_).append(" ").append(tr("len",_context)).append("=").append("(").append(trParam("m",_context)).append(").").append(keys_).append(".").append(length_).append(endLine_);
         file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context)).append("=0").append(endLine_).append(trLoop("i",_context)).append("<").append(trLoc("len",_context)).append(endLine_).append(trLoop("i",_context)).append("++){");
-        file_.append(" ").append(put_).append("(").append(trParam("(m",_context)).append(").").append(keys_).append("[").append(trLoop("i",_context)).append("], ").append(trParam("(m",_context)).append(").").append(values_).append("[").append(trLoop("i",_context)).append("])").append(endLine_);
+        file_.append(" ").append(put_).append("(").append("(").append(trParam("m",_context)).append(").").append(keys_).append("[").append(trLoop("i",_context)).append("], ").append("(").append(trParam("m",_context)).append(").").append(values_).append("[").append(trLoop("i",_context)).append("])").append(endLine_);
         file_.append("}");
         file_.append("}");
         file_.append(public_).append(" ").append(void_).append(" ").append(removeKey_).append("(").append(string_).append(" ").append(tr("k",_context)).append("){");
@@ -657,9 +658,19 @@ public final class BeanCustLgNames extends BeanLgNames {
         return StringList.concat(_candidate,suffixLocal_);
     }
 
+    @Override
+    public void preInitBeans(Configuration _conf) {
+        for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
+            _conf.getBuiltBeans().addEntry(e.getKey(),NullStruct.NULL_VALUE);
+        }
+        for (EntryCust<String, ValidatorInfo> e: _conf.getLateValidators().entryList()) {
+            _conf.getBuiltValidators().addEntry(e.getKey(),NullStruct.NULL_VALUE);
+        }
+    }
 
     @Override
     public void initBeans(Configuration _conf,String _language,Struct _db) {
+        int index_ = 0;
         for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
             BeanInfo info_ = e.getValue();
             _conf.addPage(new ImportingPage());
@@ -672,7 +683,8 @@ public final class BeanCustLgNames extends BeanLgNames {
             String clName_ = strBean_.getClassName(_conf);
             if (!Templates.isCorrectExecute(clName_,getAliasBean(),_conf)) {
                 _conf.removeLastPage();
-                _conf.getBuiltBeans().addEntry(e.getKey(),strBean_);
+                _conf.getBuiltBeans().setValue(index_,strBean_);
+                index_++;
                 continue;
             }
             Struct map_ = RenderExpUtil.calculateReuse(opsMap, _conf).getStruct();
@@ -681,7 +693,21 @@ public final class BeanCustLgNames extends BeanLgNames {
             ((FieldableStruct)strBean_).setStruct(new ClassField(getAliasBean(),getAliasLanguage()),new StringStruct(_language));
             ((FieldableStruct)strBean_).setStruct(new ClassField(getAliasBean(),getAliasScope()),new StringStruct(info_.getScope()));
             _conf.removeLastPage();
-            _conf.getBuiltBeans().addEntry(e.getKey(),strBean_);
+            _conf.getBuiltBeans().setValue(index_,strBean_);
+            index_++;
+        }
+        index_ = 0;
+        for (EntryCust<String, ValidatorInfo> e: _conf.getLateValidators().entryList()) {
+            ValidatorInfo info_ = e.getValue();
+            _conf.addPage(new ImportingPage());
+            Argument arg_ = RenderExpUtil.calculateReuse(info_.getExps(), _conf);
+            _conf.removeLastPage();
+            if (_conf.getContext().getException() != null) {
+                return;
+            }
+            Struct strBean_ = arg_.getStruct();
+            _conf.getBuiltValidators().setValue(index_,strBean_);
+            index_++;
         }
     }
     @Override

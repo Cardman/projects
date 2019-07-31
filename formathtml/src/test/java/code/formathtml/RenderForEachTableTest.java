@@ -38,7 +38,7 @@ public final class RenderForEachTableTest extends CommonRender {
         Configuration conf_ = contextElSec();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
-        conf_.getBuiltBeans().put("bean_one",new BeanStruct(bean_));
+        addBeanInfo(conf_,"bean_one",new BeanStruct(bean_));
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -151,7 +151,7 @@ public final class RenderForEachTableTest extends CommonRender {
         Configuration conf_ = contextElSec();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
-        conf_.getBuiltBeans().put("bean_one",new BeanStruct(bean_));
+        addBeanInfo(conf_,"bean_one",new BeanStruct(bean_));
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -185,7 +185,7 @@ public final class RenderForEachTableTest extends CommonRender {
         Configuration conf_ = contextElSec();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
-        conf_.getBuiltBeans().put("bean_one",new BeanStruct(bean_));
+        addBeanInfo(conf_,"bean_one",new BeanStruct(bean_));
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);

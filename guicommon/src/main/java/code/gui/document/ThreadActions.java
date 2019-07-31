@@ -63,6 +63,7 @@ public final class ThreadActions extends Thread {
                 HtmlPage htmlPage_ = page.getNavigation().getHtmlPage();
                 htmlPage_.setUrl(-1);
                 RenderedPage.updateFiles(page.getNavigation());
+                page.getNavigation().setupRendClasses();
                 page.getNavigation().initializeRendSession();
             }
             afterAction();
@@ -81,6 +82,7 @@ public final class ThreadActions extends Thread {
             if (page.getArea() != null) {
                 page.getArea().append(StringList.concat(page.getNavigation().getSession().joinPages(), RETURN_LINE));
             }
+            page.getNavigation().getSession().getContext().setException(null);
             finish();
             return;
         }

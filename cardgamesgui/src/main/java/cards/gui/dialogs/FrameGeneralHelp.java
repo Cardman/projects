@@ -207,7 +207,6 @@ public final class FrameGeneralHelp extends ChildFrame {
         arbre_.addTreeSelectionListener(new ListenerClickTree(racineBis, editor, arbre_));
         editor.setLanguage(lg_);
         BeanLgNames bean_ = new GeneralHelpLgNames();
-        DefaultInitialization.basicStandards(bean_);
         editor.initialize(racineBis.getFile(), bean_);
         if (field == null) {
             field = new JTextField(20);

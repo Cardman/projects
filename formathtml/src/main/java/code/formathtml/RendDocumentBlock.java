@@ -29,9 +29,9 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         _cont.setStaticContext(true);
-        if (_cont.getBuiltBeans().contains(beanName)) {
+        if (_cont.getBeansInfos().contains(beanName)) {
             _cont.setStaticContext(false);
-            page_.setGlobalClass(_cont.getBuiltBeans().getVal(beanName).getClassName(_cont));
+            page_.setGlobalClass(_cont.getBeansInfos().getVal(beanName).getClassName());
         }
         StringMap<StringList> vars_ = _cont.getCurrentConstraints();
         Mapping mapping_ = new Mapping();

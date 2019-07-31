@@ -8790,6 +8790,9 @@ public final class RenderExpUtilTest {
         assertNotNull(context_.getContext().getException());
     }
     private static Argument processEl(String _el, Configuration _cont) {
+        if (_cont.hasPages() && _cont.getContext().getAnalyzing() != null) {
+            _cont.getContext().setGlobalClass(_cont.getLastPage().getGlobalClass());
+        }
         return RenderExpUtil.processEl(_el, 0, _cont);
     }
     private static Argument processEl(String _el, Configuration _conf, int _minIndex){

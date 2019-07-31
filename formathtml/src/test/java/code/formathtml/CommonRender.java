@@ -1,9 +1,11 @@
 package code.formathtml;
 
+import code.bean.BeanInfo;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.VariableSuffix;
 import code.formathtml.util.BeanLgNames;
 import code.util.StringList;
@@ -25,13 +27,9 @@ public abstract class CommonRender {
     static Navigation newNavigation(Configuration _conf) {
         Navigation nav_ = new Navigation();
         nav_.setSession(_conf);
-        Options opt_ = new Options();
-        opt_.setEndLineSemiColumn(false);
-        opt_.setSuffixVar(VariableSuffix.DISTINCT);
         ContextEl context_ = _conf.getContext();
         BeanLgNames standards_ = (BeanLgNames) context_.getStandards();
         nav_.getSession().setStandards(standards_);
-        standards_.buildIterables(nav_.getSession());
         return nav_;
     }
     Configuration contextElSec() {
@@ -70,5 +68,11 @@ public abstract class CommonRender {
         conf_.setStandards(standards_);
         standards_.buildIterables(conf_);
         return conf_;
+    }
+    static void addBeanInfo(Configuration _conf, String _id,Struct _str) {
+        BeanInfo b_ = new BeanInfo();
+        b_.setClassName(_str.getClassName(_conf));
+        _conf.getBeansInfos().addEntry(_id,b_);
+        _conf.getBuiltBeans().addEntry(_id,_str);
     }
 }

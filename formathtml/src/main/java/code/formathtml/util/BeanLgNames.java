@@ -138,6 +138,7 @@ public abstract class BeanLgNames extends LgNames {
 
     public abstract String getStringKey(Configuration _conf, Struct _instance);
 
+    public abstract void preInitBeans(Configuration _conf);
     public abstract void initBeans(Configuration _conf,String _language,Struct _db);
 
     @Override

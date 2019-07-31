@@ -59,9 +59,18 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     @Override
-    public void initBeans(Configuration _conf,String _language,Struct _db) {
+    public void preInitBeans(Configuration _conf) {
         for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
-            _conf.getBuiltBeans().addEntry(e.getKey(), _conf.newSimpleBean(_language, _db, e.getValue()));
+            _conf.getBuiltBeans().addEntry(e.getKey(), NullStruct.NULL_VALUE);
+        }
+    }
+
+    @Override
+    public void initBeans(Configuration _conf,String _language,Struct _db) {
+        int index_ = 0;
+        for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
+            _conf.getBuiltBeans().setValue(index_, _conf.newSimpleBean(_language, _db, e.getValue()));
+            index_++;
         }
     }
     @Override

@@ -35,7 +35,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         Configuration context_ = contextElSec();
         context_.setBeans(new StringMap<Bean>());
         context_.getBeans().put("bean_one", bean_);
-        context_.getBuiltBeans().put("bean_one",new BeanStruct(bean_));
+        addBeanInfo(context_,"bean_one",new BeanStruct(bean_));
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
@@ -61,7 +61,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         Configuration context_ = contextElSec();
         context_.setBeans(new StringMap<Bean>());
         context_.getBeans().put("bean_one", bean_);
-        context_.getBuiltBeans().put("bean_one",new BeanStruct(bean_));
+        addBeanInfo(context_,"bean_one",new BeanStruct(bean_));
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
@@ -89,7 +89,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         Configuration context_ = contextElSec();
         context_.setBeans(new StringMap<Bean>());
         context_.getBeans().put("bean_one", bean_);
-        context_.getBuiltBeans().put("bean_one",new BeanStruct(bean_));
+        addBeanInfo(context_,"bean_one",new BeanStruct(bean_));
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
@@ -117,7 +117,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         Configuration context_ = contextElSec();
         context_.setBeans(new StringMap<Bean>());
         context_.getBeans().put("bean_one", bean_);
-        context_.getBuiltBeans().put("bean_one",new BeanStruct(bean_));
+        addBeanInfo(context_,"bean_one",new BeanStruct(bean_));
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
@@ -145,7 +145,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         Configuration context_ = contextElThird();
         context_.setBeans(new StringMap<Bean>());
         context_.getBeans().put("bean_one", bean_);
-        context_.getBuiltBeans().put("bean_one",new BeanStruct(bean_));
+        addBeanInfo(context_,"bean_one",new BeanStruct(bean_));
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
@@ -173,7 +173,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         Configuration context_ = contextElThird();
         context_.setBeans(new StringMap<Bean>());
         context_.getBeans().put("bean_one", bean_);
-        context_.getBuiltBeans().put("bean_one",new BeanStruct(bean_));
+        addBeanInfo(context_,"bean_one",new BeanStruct(bean_));
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
@@ -201,7 +201,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         Configuration context_ = contextElThird();
         context_.setBeans(new StringMap<Bean>());
         context_.getBeans().put("bean_one", bean_);
-        context_.getBuiltBeans().put("bean_one",new BeanStruct(bean_));
+        addBeanInfo(context_,"bean_one",new BeanStruct(bean_));
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
@@ -266,7 +266,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setBeans(new StringMap<Bean>());
         addImportingPage(context_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, context_).getStruct();
-        context_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(context_,"bean_one",bean_);
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
@@ -296,7 +296,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         Configuration context_ = contextElThird();
         context_.setBeans(new StringMap<Bean>());
         context_.getBeans().put("bean_one", bean_);
-        context_.getBuiltBeans().put("bean_one",new BeanStruct(bean_));
+        addBeanInfo(context_,"bean_one",new BeanStruct(bean_));
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
@@ -324,7 +324,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         Configuration context_ = contextElThird();
         context_.setBeans(new StringMap<Bean>());
         context_.getBeans().put("bean_one", bean_);
-        context_.getBuiltBeans().put("bean_one",new BeanStruct(bean_));
+        addBeanInfo(context_,"bean_one",new BeanStruct(bean_));
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
@@ -352,7 +352,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         Configuration context_ = contextElThird();
         context_.setBeans(new StringMap<Bean>());
         context_.getBeans().put("bean_one", bean_);
-        context_.getBuiltBeans().put("bean_one",new BeanStruct(bean_));
+        addBeanInfo(context_,"bean_one",new BeanStruct(bean_));
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
@@ -380,7 +380,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         Configuration context_ = contextElThird();
         context_.setBeans(new StringMap<Bean>());
         context_.getBeans().put("bean_one", bean_);
-        context_.getBuiltBeans().put("bean_one",new BeanStruct(bean_));
+        addBeanInfo(context_,"bean_one",new BeanStruct(bean_));
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
@@ -518,7 +518,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setBeans(new StringMap<Bean>());
         addImportingPage(context_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, context_).getStruct();
-        context_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(context_,"bean_one",bean_);
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
@@ -553,7 +553,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setBeans(new StringMap<Bean>());
         addImportingPage(context_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, context_).getStruct();
-        context_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(context_,"bean_one",bean_);
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
@@ -583,7 +583,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         Configuration context_ = contextElSec();
         context_.setBeans(new StringMap<Bean>());
         context_.getBeans().put("bean_one", bean_);
-        context_.getBuiltBeans().put("bean_one",new BeanStruct(bean_));
+        addBeanInfo(context_,"bean_one",new BeanStruct(bean_));
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
@@ -762,7 +762,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         context_.setBeans(new StringMap<Bean>());
         addImportingPage(context_);
         Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, context_).getStruct();
-        context_.getBuiltBeans().put("bean_one",bean_);
+        addBeanInfo(context_,"bean_one",bean_);
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
@@ -790,7 +790,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         Configuration context_ = contextElSec();
         context_.setBeans(new StringMap<Bean>());
         context_.getBeans().put("bean_one", bean_);
-        context_.getBuiltBeans().put("bean_one",new BeanStruct(bean_));
+        addBeanInfo(context_,"bean_one",new BeanStruct(bean_));
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
