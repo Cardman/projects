@@ -10,7 +10,7 @@ import code.util.EqList;
 import code.util.IdMap;
 
 
-public class FindNextElementTest {
+public final class FindNextElementTest {
 
     @Test
     public void next1Test() {
@@ -169,5 +169,50 @@ public class FindNextElementTest {
         assertEq(1, segs_.lastValue().size());
         assertEq(0, segs_.lastValue().first().getBegin());
         assertEq(5, segs_.lastValue().first().getEnd());
+    }
+    @Test
+    public void next9Test() {
+        StringBuilder doc_ = new StringBuilder();
+        doc_.append("<html>\n");
+        doc_.append("<body>\n");
+        doc_.append("</body>\n");
+        doc_.append("</html>");
+        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
+        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        FindNextElement f_ = new FindNextElement(out_);
+        f_.next("loWorldEvery");
+        IdMap<MetaSearchableLabel, EqList<SegmentPart>> segs_ = f_.getSegments();
+        assertEq(0, segs_.size());
+    }
+    @Test
+    public void next10Test() {
+        StringBuilder doc_ = new StringBuilder();
+        doc_.append("<html>\n");
+        doc_.append("<body>\n");
+        doc_.append("<pre>\n");
+        doc_.append("</pre>\n");
+        doc_.append("</body>\n");
+        doc_.append("</html>");
+        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
+        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        FindNextElement f_ = new FindNextElement(out_);
+        f_.next("");
+        IdMap<MetaSearchableLabel, EqList<SegmentPart>> segs_ = f_.getSegments();
+        assertEq(1, segs_.size());
+    }
+    @Test
+    public void next11Test() {
+        StringBuilder doc_ = new StringBuilder();
+        doc_.append("<html>\n");
+        doc_.append("<body>\n");
+        doc_.append("Hello World<hr/>Everybody");
+        doc_.append("</body>\n");
+        doc_.append("</html>");
+        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
+        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        FindNextElement f_ = new FindNextElement(out_);
+        f_.next("loWorldEvery");
+        IdMap<MetaSearchableLabel, EqList<SegmentPart>> segs_ = f_.getSegments();
+        assertEq(0, segs_.size());
     }
 }

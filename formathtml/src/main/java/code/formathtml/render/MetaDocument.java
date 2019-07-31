@@ -2,6 +2,7 @@ package code.formathtml.render;
 
 import code.expressionlanguage.stds.NumParsers;
 import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.FormInputCoords;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.Node;
@@ -28,7 +29,7 @@ public final class MetaDocument {
     private Ints lis;
     private BooleanList ordered;
     private CustList<MetaContainer> dynamicNewLines = new CustList<MetaContainer>();
-    private StringMap<Integer> indexesButtons = new StringMap<Integer>();
+    private int formIndex = -1;
     private StringMap<MetaAnchorLabel> anchorsRef = new StringMap<MetaAnchorLabel>();
     private StringMap<String> classesCssStyles = new StringMap<String>();
     private StringMap<String> tagsCssStyles = new StringMap<String>();
@@ -40,6 +41,7 @@ public final class MetaDocument {
     private MetaDocument(Document _document) {
         int tabWidth_ = _document.getTabWidth();
         //process style parse
+        ObjectMap<FormInputCoords, Integer> indexesButtons_ = new ObjectMap<FormInputCoords, Integer>();
         for (Element e: _document.getElementsByTagName("head")) {
             for (Element s: e.getElementsByTagName("style")) {
                 processStyle(s.getTextContent());
@@ -66,60 +68,11 @@ public final class MetaDocument {
                 tags_.put(e.getValue(), e.getKey());
             }
             if (current_ instanceof Element) {
-                int len_ = tags_.size();
-                int j_ = len_ - 1;
-                while (j_ > -1) {
-                    String v_ = tags_.getVal(j_);
-                    if (v_.startsWith(".")) {
-                        if (classesCssStyles.contains(v_.substring(1)) && StringList.quickEq(v_.substring(1), ((Element) current_).getAttribute("class"))) {
-                            setupStyle(styleLoc_, classesCssStyles.getVal(v_.substring(1)), true);
-                            break;
-                        }
-                        j_--;
-                        continue;
-                    }
-                    if (tagsClassesCssStyles.contains(v_)) {
-                        String tag_ = v_.substring(0, v_.indexOf('.'));
-                        String class_ = v_.substring(v_.indexOf('.') + 1);
-                        if (StringList.quickEq(class_, ((Element) current_).getAttribute("class")) && StringList.quickEq(tag_, ((Element) current_).getTagName())) {
-                            setupStyle(styleLoc_, tagsClassesCssStyles.getVal(v_), true);
-                            break;
-                        }
-                    }
-                    if (tagsCssStyles.contains(v_) && StringList.quickEq(v_, ((Element) current_).getTagName())) {
-                        setupStyle(styleLoc_, tagsCssStyles.getVal(v_), true);
-                        break;
-                    }
-                    j_--;
-                }
+                Element currentElt_ = (Element) current_;
+                setupGeneStyle(styleLoc_, tags_, currentElt_, true);
             }
             while (parStyle_ != null) {
-                int len_ = tags_.size();
-                int j_ = len_ - 1;
-                while (j_ > -1) {
-                    String v_ = tags_.getVal(j_);
-                    if (v_.startsWith(".")) {
-                        if (classesCssStyles.contains(v_.substring(1)) && StringList.quickEq(v_.substring(1), parStyle_.getAttribute("class"))) {
-                            setupStyle(styleLoc_, classesCssStyles.getVal(v_.substring(1)), false);
-                            break;
-                        }
-                        j_--;
-                        continue;
-                    }
-                    if (tagsClassesCssStyles.contains(v_)) {
-                        String tag_ = v_.substring(0, v_.indexOf('.'));
-                        String class_ = v_.substring(v_.indexOf('.') + 1);
-                        if (StringList.quickEq(class_, parStyle_.getAttribute("class")) && StringList.quickEq(tag_, parStyle_.getTagName())) {
-                            setupStyle(styleLoc_, tagsClassesCssStyles.getVal(v_), false);
-                            break;
-                        }
-                    }
-                    if (tagsCssStyles.contains(v_) && StringList.quickEq(v_, parStyle_.getTagName())) {
-                        setupStyle(styleLoc_, tagsCssStyles.getVal(v_), false);
-                        break;
-                    }
-                    j_--;
-                }
+                setupGeneStyle(styleLoc_, tags_, parStyle_, false);
                 parStyle_ = parStyle_.getParentNode();
             }
             if (current_ instanceof Text) {
@@ -186,20 +139,12 @@ public final class MetaDocument {
                     int begin_ = 0;
                     int end_ = realText_.length() - 1;
                     if (trimLeftText(txt_)) {
-                        while(begin_ < end_) {
-                            if (!Character.isWhitespace(realText_.charAt(begin_))) {
-                                break;
-                            }
-                            begin_++;
-                        }
+                        begin_ = StringList.getFirstPrintableCharIndex(realText_);
+                        begin_ = Math.max(begin_,0);
                     }
                     if (trimRightText(txt_)) {
-                        while(begin_ < end_) {
-                            if (!Character.isWhitespace(realText_.charAt(end_))) {
-                                break;
-                            }
-                            end_--;
-                        }
+                        end_ = StringList.getLastPrintableCharIndex(realText_);
+                        end_ = Math.max(end_,begin_-1);
                     }
                     text_ = realText_.substring(begin_, end_ + 1);
                     StringBuilder adjustedText_ = new StringBuilder(text_.length());
@@ -305,11 +250,7 @@ public final class MetaDocument {
                     end_.setStyle(styleLoc_);
                     currentParent.appendChild(end_);
                     MetaContainer line_ = new MetaLine(curPar_);
-                    if (li_) {
-                        MetaIndentNbLabel ind_ = new MetaIndentNbLabel(line_);
-                        ind_.setStyle(styleLoc_);
-                        line_.appendChild(ind_);
-                    }
+                    indent(styleLoc_, li_, line_);
                     curPar_.appendChild(line_);
                     currentParent = line_;
                 }
@@ -343,7 +284,6 @@ public final class MetaDocument {
                 }
                 if (StringList.quickEq(tagName_, "select")) {
                     skipChildrenBuild_ = true;
-                    String name_ = elt_.getAttribute("name");
                     rowGroup = 0;
                     partGroup++;
                     if (elt_.hasAttribute("multiple")) {
@@ -360,7 +300,7 @@ public final class MetaDocument {
                             i_++;
                         }
                         int vis_ = BeanLgNames.parseInt(elt_.getAttribute("rows"),1);
-                        MetaInput input_ = new MetaComboList(currentParent, name_, Numbers.parseInt(elt_.getAttribute("n-i")), strings_, values_, selected_, vis_);
+                        MetaInput input_ = new MetaComboList(currentParent, Numbers.parseInt(elt_.getAttribute("n-i")), strings_, values_, selected_, vis_);
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     } else {
@@ -376,7 +316,7 @@ public final class MetaDocument {
                             strings_.add(c.getTextContent());
                             i_++;
                         }
-                        MetaInput input_ = new MetaComboBox(currentParent, name_, Numbers.parseInt(elt_.getAttribute("n-i")), strings_, values_, selected_);
+                        MetaInput input_ = new MetaComboBox(currentParent, Numbers.parseInt(elt_.getAttribute("n-i")), strings_, values_, selected_);
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     }
@@ -384,31 +324,34 @@ public final class MetaDocument {
                 if (StringList.quickEq(tagName_, "input")) {
                     skipChildrenBuild_ = true;
                     String type_ = elt_.getAttribute("type");
-                    String name_ = elt_.getAttribute("name");
                     if (StringList.quickEq(type_, "text")) {
                         int cols_ = BeanLgNames.parseInt(elt_.getAttribute("cols"),32);
-                        MetaInput input_ = new MetaTextField(currentParent, name_, Numbers.parseInt(elt_.getAttribute("n-i")), cols_, elt_.getAttribute("value"));
+                        MetaInput input_ = new MetaTextField(currentParent, Numbers.parseInt(elt_.getAttribute("n-i")), cols_, elt_.getAttribute("value"));
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     } else if (StringList.quickEq(type_, "number")) {
-                        MetaInput input_ = new MetaSpinner(currentParent, name_, Numbers.parseInt(elt_.getAttribute("n-i")), elt_.getAttribute("value"));
+                        MetaInput input_ = new MetaSpinner(currentParent, Numbers.parseInt(elt_.getAttribute("n-i")), elt_.getAttribute("value"));
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     } else if (StringList.quickEq(type_, "range")) {
-                        MetaInput input_ = new MetaSlider(currentParent, name_, Numbers.parseInt(elt_.getAttribute("n-i")), elt_.getAttribute("value"));
+                        MetaInput input_ = new MetaSlider(currentParent, Numbers.parseInt(elt_.getAttribute("n-i")), elt_.getAttribute("value"));
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     } else if (StringList.quickEq(type_, "checkbox")) {
-                        MetaInput input_ = new MetaCheckedBox(currentParent, name_, Numbers.parseInt(elt_.getAttribute("n-i")), elt_.hasAttribute("checked"));
+                        MetaInput input_ = new MetaCheckedBox(currentParent, Numbers.parseInt(elt_.getAttribute("n-i")), elt_.hasAttribute("checked"));
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     } else if (StringList.quickEq(type_, "radio")) {
-                        if (indexesButtons.contains(name_)) {
-                            indexesButtons.put(name_, indexesButtons.getVal(name_) + 1);
+                        int inputNb_ = Numbers.parseInt(elt_.getAttribute("n-i"));
+                        FormInputCoords id_ = new FormInputCoords();
+                        id_.setForm(formIndex);
+                        id_.setInput(inputNb_);
+                        if (indexesButtons_.contains(id_)) {
+                            indexesButtons_.put(id_, indexesButtons_.getVal(id_) + 1);
                         } else {
-                            indexesButtons.put(name_, 0);
+                            indexesButtons_.put(id_, 0);
                         }
-                        MetaInput input_ = new MetaRadioButton(currentParent, name_, Numbers.parseInt(elt_.getAttribute("n-i")), indexesButtons.getVal(name_),elt_.hasAttribute("checked"), elt_.getAttribute("value"));
+                        MetaInput input_ = new MetaRadioButton(currentParent, inputNb_, indexesButtons_.getVal(id_),elt_.hasAttribute("checked"), elt_.getAttribute("value"),id_);
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     } else {
@@ -430,17 +373,17 @@ public final class MetaDocument {
                     partGroup++;
                 }
                 if (StringList.quickEq(tagName_, "textarea")) {
-                    String name_ = elt_.getAttribute("name");
                     skipChildrenBuild_ = true;
                     rowGroup = 0;
                     partGroup++;
                     int rows_ = BeanLgNames.parseInt(elt_.getAttribute("rows"),32);
                     int cols_ = BeanLgNames.parseInt(elt_.getAttribute("cols"),32);
-                    MetaInput input_ = new MetaTextArea(currentParent, name_, Numbers.parseInt(elt_.getAttribute("n-i")), cols_, rows_, elt_.getTextContent());
+                    MetaInput input_ = new MetaTextArea(currentParent, Numbers.parseInt(elt_.getAttribute("n-i")), cols_, rows_, elt_.getTextContent());
                     input_.setStyle(styleLoc_);
                     currentParent.appendChild(input_);
                 }
                 if (StringList.quickEq(tagName_, "form")) {
+                    formIndex = Integer.parseInt(elt_.getAttribute("n-f"));
                     MetaContainer surline_ = new MetaLine(curPar_);
                     surline_.setStyle(styleLoc_);
                     MetaContainer bl_ = new MetaForm(surline_);
@@ -449,11 +392,7 @@ public final class MetaDocument {
                     line_.setStyle(styleLoc_);
                     bl_.appendChild(line_);
                   //indent
-                    if (li_) {
-                        MetaLabel ind_ = new MetaIndentNbLabel(surline_);
-                        ind_.setStyle(styleLoc_);
-                        surline_.appendChild(ind_);
-                    }
+                    indent(styleLoc_, li_, surline_);
                     surline_.appendChild(bl_);
                     curPar_.appendChild(surline_);
                     containers.add(curPar_);
@@ -475,11 +414,7 @@ public final class MetaDocument {
                     line_.setStyle(styleLoc_);
                     bl_.appendChild(line_);
                   //indent
-                    if (li_) {
-                        MetaLabel ind_ = new MetaIndentNbLabel(surline_);
-                        ind_.setStyle(styleLoc_);
-                        surline_.appendChild(ind_);
-                    }
+                    indent(styleLoc_, li_, surline_);
                     surline_.appendChild(bl_);
                     curPar_.appendChild(surline_);
                     containers.add(curPar_);
@@ -498,11 +433,7 @@ public final class MetaDocument {
                     }
                     bl_.setStyle(styleLoc_);
                     //indent
-                    if (li_) {
-                        MetaLabel ind_ = new MetaIndentNbLabel(line_);
-                        ind_.setStyle(styleLoc_);
-                        line_.appendChild(ind_);
-                    }
+                    indent(styleLoc_, li_, line_);
                     MetaLabel ind_ = new MetaIndentLabel(line_,1);
                     ind_.setStyle(styleLoc_);
                     line_.appendChild(ind_);
@@ -582,11 +513,7 @@ public final class MetaDocument {
                     line_.setStyle(styleLoc_);
                     MetaTable bl_ = new MetaTable(line_);
                     //indent
-                    if (li_) {
-                        MetaIndentNbLabel ind_ = new MetaIndentNbLabel(line_);
-                        ind_.setStyle(styleLoc_);
-                        line_.appendChild(ind_);
-                    }
+                    indent(styleLoc_, li_, line_);
                     bl_.setStyle(styleLoc_);
                     line_.appendChild(bl_);
                     curPar_.appendChild(line_);
@@ -623,11 +550,7 @@ public final class MetaDocument {
                 if (StringList.quickEq(tagName_, "map")) {
                     int width_ = BeanLgNames.parseInt(elt_.getAttribute("width"),1);
                     MetaContainer line_ = new MetaLine(curPar_);
-                    if (li_) {
-                        MetaIndentNbLabel ind_ = new MetaIndentNbLabel(line_);
-                        ind_.setStyle(styleLoc_);
-                        line_.appendChild(ind_);
-                    }
+                    indent(styleLoc_, li_, line_);
                     MetaContainer map_ = new MetaImageMap(line_, width_);
                     map_.setStyle(styleLoc_);
                     line_.setStyle(styleLoc_);
@@ -658,11 +581,7 @@ public final class MetaDocument {
                         }
                     }
                     MetaContainer line_ = new MetaLine(curPar_);
-                    if (li_) {
-                        MetaIndentNbLabel ind_ = new MetaIndentNbLabel(line_);
-                        ind_.setStyle(styleLoc_);
-                        line_.appendChild(ind_);
-                    }
+                    indent(styleLoc_, li_, line_);
                     MetaContainer map_ = new MetaImageMap(line_, index_);
                     map_.setStyle(styleLoc_);
                     line_.setStyle(styleLoc_);
@@ -679,32 +598,26 @@ public final class MetaDocument {
                 current_ = next_;
                 continue;
             }
-            next_ = current_.getNextSibling();
-            if (next_ != null) {
-                current_ = next_;
-                continue;
-            }
-            Element par_ = current_.getParentNode();
-            String lastTag_ = par_.getTagName();
-            unstack(lastTag_);
-            if (par_ == body_) {
-                break;
-            }
-            next_ = par_.getNextSibling();
-            while (next_ == null) {
-                Element grandPar_ = par_.getParentNode();
-                lastTag_ = grandPar_.getTagName();
-                unstack(lastTag_);
-                if (grandPar_ == body_) {
+            Node n_ = current_;
+            boolean stop_ = false;
+            while (true) {
+                next_ = n_.getNextSibling();
+                if (next_ != null) {
+                    current_ = next_;
                     break;
                 }
-                next_ = grandPar_.getNextSibling();
-                par_ = grandPar_;
+                Element par_ = n_.getParentNode();
+                String lastTag_ = par_.getTagName();
+                unstack(lastTag_);
+                if (par_ == body_) {
+                    stop_ = true;
+                    break;
+                }
+                n_ = par_;
             }
-            if (next_ == null) {
+            if (stop_) {
                 break;
             }
-            current_ = next_;
         }
         for (MetaContainer c: dynamicNewLines) {
             if (c.onlyBlanks()) {
@@ -712,6 +625,44 @@ public final class MetaDocument {
             }
         }
     }
+
+    private static void indent(MetaStyle _styleLoc, boolean _li, MetaContainer _surline) {
+        if (_li) {
+            MetaLabel ind_ = new MetaIndentNbLabel(_surline);
+            ind_.setStyle(_styleLoc);
+            _surline.appendChild(ind_);
+        }
+    }
+
+    private void setupGeneStyle(MetaStyle _styleLoc, IntTreeMap<String> _tags, Element _currentElt, boolean _local) {
+        int len_ = _tags.size();
+        int j_ = len_ - 1;
+        while (j_ > -1) {
+            String v_ = _tags.getVal(j_);
+            if (v_.startsWith(".")) {
+                if (classesCssStyles.contains(v_.substring(1)) && StringList.quickEq(v_.substring(1), _currentElt.getAttribute("class"))) {
+                    setupStyle(_styleLoc, classesCssStyles.getVal(v_.substring(1)), _local);
+                    break;
+                }
+                j_--;
+                continue;
+            }
+            if (tagsClassesCssStyles.contains(v_)) {
+                String tag_ = v_.substring(0, v_.indexOf('.'));
+                String class_ = v_.substring(v_.indexOf('.') + 1);
+                if (StringList.quickEq(class_, _currentElt.getAttribute("class")) && StringList.quickEq(tag_, _currentElt.getTagName())) {
+                    setupStyle(_styleLoc, tagsClassesCssStyles.getVal(v_), _local);
+                    break;
+                }
+            }
+            if (tagsCssStyles.contains(v_) && StringList.quickEq(v_, _currentElt.getTagName())) {
+                setupStyle(_styleLoc, tagsCssStyles.getVal(v_), _local);
+                break;
+            }
+            j_--;
+        }
+    }
+
     private static void setupStyle(MetaStyle _style, String _value, boolean _local) {
         for (String p: StringList.splitChars(_value, ';')) {
             int indexSep_ = p.indexOf(':');
@@ -914,42 +865,11 @@ public final class MetaDocument {
     private void processStyle(String _style) {
         int len_ = _style.length();
         int i_ = 0;
-        boolean comment_ = false;
-        boolean commentMulti_ = false;
         int nbOpened_ = 0;
         StringBuilder key_ = new StringBuilder(_style.length());
         StringBuilder str_ = new StringBuilder(_style.length());
         while (i_ < len_) {
             char currentChar_ = _style.charAt(i_);
-            if (comment_) {
-                if (currentChar_ == '\n') {
-                    comment_ = false;
-                }
-                i_++;
-                continue;
-            }
-            if (commentMulti_) {
-                if (currentChar_ == '*' && i_ + 1 < len_ && _style.charAt(i_ + 1) == '/') {
-                    commentMulti_ = false;
-                    i_++;
-                }
-                i_++;
-                continue;
-            }
-            if (currentChar_ == '/') {
-                if (i_ + 1 < len_ && _style.charAt(i_ + 1) == '/') {
-                    comment_ = true;
-                    i_++;
-                    i_++;
-                    continue;
-                }
-                if (i_ + 1 < len_ && _style.charAt(i_ + 1) == '*') {
-                    commentMulti_ = true;
-                    i_++;
-                    i_++;
-                    continue;
-                }
-            }
             if (currentChar_ == '{') {
                 nbOpened_++;
             }
@@ -983,48 +903,32 @@ public final class MetaDocument {
         }
     }
     private static boolean trimLeftText(Text _text) {
-        Node previous_ = _text.getPreviousSibling();
-        if (previous_ != null) {
-            return blockElement(previous_);
-        }
-        Element par_ = _text.getParentNode();
-        if (blockElement(par_)) {
-            return true;
-        }
-        par_ = par_.getParentNode();
-        while (par_ != null) {
-            previous_ = par_.getPreviousSibling();
+        Node curr_ = _text;
+        while (true) {
+            Node previous_ = curr_.getPreviousSibling();
             if (previous_ != null) {
                 return blockElement(previous_);
             }
+            Element par_ = curr_.getParentNode();
             if (blockElement(par_)) {
                 return true;
             }
-            par_ = par_.getParentNode();
+            curr_ = par_;
         }
-        return false;
     }
     private static boolean trimRightText(Text _text) {
-        Node previous_ = _text.getNextSibling();
-        if (previous_ != null) {
-            return blockElement(previous_);
-        }
-        Element par_ = _text.getParentNode();
-        if (blockElement(par_)) {
-            return true;
-        }
-        par_ = par_.getParentNode();
-        while (par_ != null) {
-            previous_ = par_.getNextSibling();
+        Node curr_ = _text;
+        while (true) {
+            Node previous_ = curr_.getNextSibling();
             if (previous_ != null) {
                 return blockElement(previous_);
             }
+            Element par_ = curr_.getParentNode();
             if (blockElement(par_)) {
                 return true;
             }
-            par_ = par_.getParentNode();
+            curr_ = par_;
         }
-        return false;
     }
     private static boolean blockElement(Node _elt) {
         if (!(_elt instanceof Element)) {
@@ -1106,7 +1010,7 @@ public final class MetaDocument {
             tables.removeLast();
         }
         if (StringList.quickEq(_last, "form")) {
-            indexesButtons.clear();
+            formIndex = -1;
             containers.removeLast();
             MetaContainer last_ = containers.last();
             containers.removeLast();

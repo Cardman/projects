@@ -4,16 +4,9 @@ public abstract class MetaInput extends MetaLeaf {
 
     private final int group;
 
-    private final String name;
-
-    public MetaInput(MetaContainer _parent, int _group, String _name) {
+    public MetaInput(MetaContainer _parent, int _group) {
         super(_parent);
         group = _group;
-        name = _name;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public MetaForm getParentForm() {

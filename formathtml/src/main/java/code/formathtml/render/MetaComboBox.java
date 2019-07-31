@@ -8,12 +8,12 @@ public final class MetaComboBox extends MetaInput {
     private final StringList choicesValues;
     private final StringList choicesStrings;
 
-    public MetaComboBox(MetaContainer _parent, String _name, int _group, StringList _choicesStrings, StringList _choicesValues) {
-        this(_parent, _name, _group, _choicesStrings, _choicesValues, 0);
+    public MetaComboBox(MetaContainer _parent, int _group, StringList _choicesStrings, StringList _choicesValues) {
+        this(_parent, _group, _choicesStrings, _choicesValues, 0);
     }
 
-    public MetaComboBox(MetaContainer _parent, String _name, int _group, StringList _choicesStrings, StringList _choicesValues, int _selected) {
-        super(_parent, _group, _name);
+    public MetaComboBox(MetaContainer _parent, int _group, StringList _choicesStrings, StringList _choicesValues, int _selected) {
+        super(_parent, _group);
         choicesValues = _choicesValues;
         choicesStrings = _choicesStrings;
         selected = _selected;

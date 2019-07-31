@@ -15,18 +15,20 @@ public final class FindNextElement {
     private int end;
     private MetaDocument document;
     private boolean setup;
+    private int row = 0;
+    private int group = 0;
     private IdMap<MetaSearchableLabel, EqList<SegmentPart>> segments = new IdMap<MetaSearchableLabel, EqList<SegmentPart>>();
 
     public FindNextElement(MetaDocument _document) {
         document = _document;
     }
     public void next(String _text) {
-        int row_ = 0;
-        int group_ = 0;
+        row = 0;
+        group = 0;
         MetaComponent cur_ = document.getRoot();
         if (label != null) {
-            row_ = label.getRowGroup();
-            group_ = label.getPartGroup();
+            row = label.getRowGroup();
+            group = label.getPartGroup();
             setResults(label, _text);
             if (setup) {
                 return;
@@ -37,17 +39,7 @@ public final class FindNextElement {
                 reset();
                 return;
             }
-            if (next_ instanceof MetaSearchableLabel) {
-                MetaSearchableLabel l_ = (MetaSearchableLabel) next_;
-                if (l_.getPartGroup() != group_) {
-                    group_ = l_.getPartGroup();
-                    row_ = l_.getRowGroup();
-                    reset();
-                } else if (l_.getRowGroup() != row_) {
-                    row_ = l_.getRowGroup();
-                    reset();
-                }
-            }
+            fetchedGroupRow(next_);
             cur_ = next_;
         }
         while (true) {
@@ -67,18 +59,8 @@ public final class FindNextElement {
                     keep_ = false;
                     break;
                 }
-                if (next_ instanceof MetaSearchableLabel) {
-                    MetaSearchableLabel l_ = (MetaSearchableLabel) next_;
-                    if (l_.getPartGroup() != group_) {
-                        group_ = l_.getPartGroup();
-                        row_ = l_.getRowGroup();
-                        reset();
-                        break;
-                    } else if (l_.getRowGroup() != row_) {
-                        row_ = l_.getRowGroup();
-                        reset();
-                        break;
-                    }
+                if (fetchedGroupRow(next_)) {
+                    break;
                 }
                 cur_ = next_;
             }
@@ -88,6 +70,22 @@ public final class FindNextElement {
                 break;
             }
         }
+    }
+    private boolean fetchedGroupRow(MetaComponent _meta) {
+        if (_meta instanceof MetaSearchableLabel) {
+            MetaSearchableLabel l_ = (MetaSearchableLabel) _meta;
+            if (l_.getPartGroup() != group) {
+                group = l_.getPartGroup();
+                row = l_.getRowGroup();
+                reset();
+                return true;
+            } else if (l_.getRowGroup() != row) {
+                row = l_.getRowGroup();
+                reset();
+                return true;
+            }
+        }
+        return false;
     }
     private void setResults(MetaSearchableLabel _label, String _text) {
         int index_ = line.indexOf(_text, index);
@@ -155,95 +153,69 @@ public final class FindNextElement {
                 return ch_;
             }
         }
-        MetaComponent next_ = getNextSibling(_current);
-        if (next_ != null) {
-            return next_;
-        }
-        MetaContainer par_ = _current.getParent();
-        if (par_ == document.getRoot()) {
-            return null;
-        }
-        next_ = getNextSibling(par_);
-        while (next_ == null) {
-            MetaContainer grandPar_ = par_.getParent();
-            if (grandPar_ == document.getRoot()) {
+        MetaComponent current_ = _current;
+        while (true) {
+            MetaComponent next_ = getNextSibling(current_);
+            if (next_ != null) {
+                return next_;
+            }
+            MetaContainer par_ = current_.getParent();
+            if (par_ == document.getRoot()) {
                 return null;
             }
-            next_ = getNextSibling(grandPar_);
-            par_ = grandPar_;
+            current_ = par_;
         }
-        return next_;
     }
     private static MetaComponent getNextSibling(MetaComponent _current) {
         MetaContainer cont_ = _current.getParent();
         CustList<MetaComponent> ch_ = cont_.getChildren();
         int len_ = ch_.size();
-        int index_ = -1;
-        for (int i = 0; i < len_; i++) {
-            MetaComponent c_ = ch_.get(i);
+        int i_ = 0;
+        while (true) {
+            MetaComponent c_ = ch_.get(i_);
             if (c_ == _current) {
-                index_ = i + 1;
-                break;
+                int index_ = i_ + 1;
+                if (index_ >= len_) {
+                    return null;
+                }
+                return ch_.get(index_);
             }
+            i_++;
         }
-        if (index_ >= len_) {
-            return null;
-        }
-        return ch_.get(index_);
     }
     public IdMap<MetaSearchableLabel, EqList<SegmentPart>> getSegments() {
         return segments;
     }
-    public void setSegments(
-            IdMap<MetaSearchableLabel, EqList<SegmentPart>> _segments) {
-        segments = _segments;
-    }
+
     public StringBuilder getLine() {
         return line;
     }
-    public void setLine(StringBuilder _line) {
-        line = _line;
-    }
+
     public CustList<MetaSearchableLabel> getLabels() {
         return labels;
     }
-    public void setLabels(CustList<MetaSearchableLabel> _labels) {
-        labels = _labels;
-    }
+
     public int getIndex() {
         return index;
     }
-    public void setIndex(int _index) {
-        index = _index;
-    }
+
     public MetaSearchableLabel getLabel() {
         return label;
     }
-    public void setLabel(MetaSearchableLabel _label) {
-        label = _label;
-    }
+
     public int getBeginLabel() {
         return beginLabel;
     }
-    public void setBeginLabel(int _beginLabel) {
-        beginLabel = _beginLabel;
-    }
+
     public int getOffset() {
         return offset;
     }
-    public void setOffset(int _offset) {
-        offset = _offset;
-    }
+
     public int getEnd() {
         return end;
     }
-    public void setEnd(int _end) {
-        end = _end;
-    }
+
     public MetaDocument getDocument() {
         return document;
-    }
-    public void setDocument(MetaDocument _document) {
-        document = _document;
     }
 }

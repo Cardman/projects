@@ -4,8 +4,8 @@ public final class MetaSlider extends MetaInput {
 
     private final String value;
 
-    public MetaSlider(MetaContainer _parent, String _name, int _group, String _value) {
-        super(_parent, _group, _name);
+    public MetaSlider(MetaContainer _parent, int _group, String _value) {
+        super(_parent, _group);
         value = _value;
     }
 

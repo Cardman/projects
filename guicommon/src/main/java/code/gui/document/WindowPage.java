@@ -11,7 +11,9 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 
 import code.formathtml.render.*;
+import code.formathtml.util.FormInputCoords;
 import code.util.CustList;
+import code.util.ObjectMap;
 import code.util.StringMap;
 
 public class WindowPage implements Runnable {
@@ -37,7 +39,7 @@ public class WindowPage implements Runnable {
         MetaComponent meta_ = metaroot_.getFirstChild();
         DualContainer root_ = page.getPage();
         DualComponent cur_ = root_;
-        CustList<StringMap<ButtonGroup>> radiosGroup_ = new CustList<StringMap<ButtonGroup>>();
+        CustList<ObjectMap<FormInputCoords,ButtonGroup>> radiosGroup_ = new CustList<ObjectMap<FormInputCoords,ButtonGroup>>();
         while (true) {
             if (meta_ instanceof MetaContainer) {
                 MetaContainer container_ = (MetaContainer) meta_;
@@ -48,7 +50,7 @@ public class WindowPage implements Runnable {
                     } else if (container_ instanceof MetaImageMap) {
                         cur_.add(new DualImageMap((DualContainer) cur_,(MetaImageMap) container_, page));
                     } else if (container_ instanceof MetaForm) {
-                        radiosGroup_.add(new StringMap<ButtonGroup>());
+                        radiosGroup_.add(new ObjectMap<FormInputCoords,ButtonGroup>());
                         cur_.add(new DualForm((DualContainer) cur_, (MetaForm) container_, page));
                     } else {
                         cur_.add(new DualPanel((DualContainer) cur_,container_, page));
@@ -121,13 +123,13 @@ public class WindowPage implements Runnable {
                 cur_.add(dual_);
                 JRadioButton radioButton_ = dual_.getRadio();
                 if (!radiosGroup_.isEmpty()) {
-                    StringMap<ButtonGroup> grs_ = radiosGroup_.last();
+                    ObjectMap<FormInputCoords,ButtonGroup> grs_ = radiosGroup_.last();
                     if (radio_.getIndexButton() == 0) {
                         ButtonGroup gr_ = new ButtonGroup();
-                        grs_.put(radio_.getName(), gr_);
+                        grs_.put(radio_.getId(), gr_);
                         gr_.add(radioButton_);
                     } else {
-                        grs_.getVal(radio_.getName()).add(radioButton_);
+                        grs_.getVal(radio_.getId()).add(radioButton_);
                     }
                 }
             } else if (meta_ instanceof MetaComboBox) {

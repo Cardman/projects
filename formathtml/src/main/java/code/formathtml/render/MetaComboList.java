@@ -9,12 +9,12 @@ public final class MetaComboList extends MetaInput {
     private final StringList choicesStrings;
     private final Ints selected;
 
-    public MetaComboList(MetaContainer _parent, String _name, int _group, StringList _choicesStrings, StringList _choicesValues) {
-        this(_parent, _name, _group, _choicesStrings, _choicesValues, new Ints(), 1);
+    public MetaComboList(MetaContainer _parent, int _group, StringList _choicesStrings, StringList _choicesValues) {
+        this(_parent, _group, _choicesStrings, _choicesValues, new Ints(), 1);
     }
 
-    public MetaComboList(MetaContainer _parent, String _name, int _group, StringList _choicesStrings, StringList _choicesValues, Ints _selected, int _visible) {
-        super(_parent, _group, _name);
+    public MetaComboList(MetaContainer _parent, int _group, StringList _choicesStrings, StringList _choicesValues, Ints _selected, int _visible) {
+        super(_parent, _group);
         choicesValues = _choicesValues;
         choicesStrings = _choicesStrings;
         selected = _selected;
