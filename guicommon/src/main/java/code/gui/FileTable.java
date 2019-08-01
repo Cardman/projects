@@ -5,6 +5,9 @@ import java.util.Date;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
@@ -58,13 +61,20 @@ public class FileTable extends CustComponent {
 
     private boolean increasing;
 
-    private DefaultTableModel model = new DefaultTableModel(0,NB_COLS);
+    private DefaultTableModel model;
 
-    private JTable table = new JTable(model);
+    private JTable table;
 
     public FileTable(String _lg) {
         messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, _lg,ACCESS);
+        Object[] cols_ = new Object[NB_COLS];
+        for (int i = 0; i < NB_COLS; i++) {
+            cols_[i] = getColumnName(i);
+        }
+        model = new DefaultTableModel(cols_,0);
+        table = new JTable(model);
     }
+
     public int getRowCount() {
         return files.size();
     }

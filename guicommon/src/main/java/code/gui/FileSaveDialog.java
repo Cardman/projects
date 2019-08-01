@@ -5,6 +5,7 @@ import java.io.File;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 import code.gui.events.CancelSelectFileEvent;
@@ -103,12 +104,12 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         } else {
             StringList pathFull_ = new StringList();
             for (Object o: treePath_.getPath()) {
-                pathFull_.add((String)o);
+                pathFull_.add((String) ((DefaultMutableTreeNode)o).getUserObject());
             }
             StringList.removeObj(pathFull_, EMPTY_STRING);
             StringBuilder str_ = new StringBuilder();
-            for (Object o: pathFull_) {
-                str_.append((String)o).append(StreamTextFile.SEPARATEUR);
+            for (String o: pathFull_) {
+                str_.append(o).append(StreamTextFile.SEPARATEUR);
             }
             str_.append(typedString.getText());
             new File(str_.toString()).mkdirs();

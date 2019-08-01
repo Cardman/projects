@@ -12,7 +12,7 @@ public class SplitPane extends CustComponent {
     }
 
     public SplitPane(int _orientation, CustComponent _left, CustComponent _right) {
-        component = new JSplitPane(_orientation);
+        component = new JSplitPane(_orientation,_left.getComponent(),_right.getComponent());
         _left.setParent(this);
         getChildren().add(_left);
         _right.setParent(this);

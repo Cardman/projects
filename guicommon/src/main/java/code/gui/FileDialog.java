@@ -151,10 +151,8 @@ public abstract class FileDialog extends Dialog {
         } else {
             DefaultMutableTreeNode default_ = new DefaultMutableTreeNode(EMPTY_STRING);
             for (File f: File.listRoots()) {
-//                default_.add(new DefaultMutableTreeNode(f.getAbsolutePath().replaceAll(SLASHES, EMPTY_STRING)));
                 String path_ = f.getAbsolutePath();
                 path_ = StringList.replaceBackSlash(path_);
-//                default_.add(new DefaultMutableTreeNode(StringList.splitStrings(f.getAbsolutePath(), StreamTextFile.SEPARATEUR_WIN, StreamTextFile.SEPARATEUR).join(EMPTY_STRING)));
                 default_.add(new DefaultMutableTreeNode(StringList.join(StringList.splitStrings(path_, StreamTextFile.SEPARATEUR), EMPTY_STRING)));
             }
             folderSystem = new JTree(default_);
@@ -237,7 +235,7 @@ public abstract class FileDialog extends Dialog {
 //        }
         StringList pathFull_ = new StringList();
         for (Object o: _treePath.getPath()) {
-            pathFull_.add((String)o);
+            pathFull_.add((String) ((DefaultMutableTreeNode)o).getUserObject());
         }
         StringList.removeObj(pathFull_, EMPTY_STRING);
         StringBuilder str_ = new StringBuilder();
