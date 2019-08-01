@@ -2,6 +2,7 @@ package code.formathtml.render;
 
 import static code.formathtml.EquallableExUtil.assertEq;
 
+import code.util.CustList;
 import org.junit.Test;
 
 import code.sml.DocumentBuilder;
@@ -24,7 +25,7 @@ public final class FindNextElementTest {
         MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
         FindNextElement f_ = new FindNextElement(out_);
         f_.next("o");
-        IdMap<MetaSearchableLabel, EqList<SegmentPart>> segs_ = f_.getSegments();
+        IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(1, segs_.size());
         assertEq(1, segs_.firstValue().size());
         assertEq(4, segs_.firstValue().first().getBegin());
@@ -44,7 +45,7 @@ public final class FindNextElementTest {
         FindNextElement f_ = new FindNextElement(out_);
         f_.next("o");
         f_.next("o");
-        IdMap<MetaSearchableLabel, EqList<SegmentPart>> segs_ = f_.getSegments();
+        IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(1, segs_.size());
         assertEq(2, segs_.firstValue().size());
         assertEq(4, segs_.firstValue().first().getBegin());
@@ -64,7 +65,7 @@ public final class FindNextElementTest {
         MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
         FindNextElement f_ = new FindNextElement(out_);
         f_.next("a");
-        IdMap<MetaSearchableLabel, EqList<SegmentPart>> segs_ = f_.getSegments();
+        IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(0, segs_.size());
     }
     @Test
@@ -80,7 +81,7 @@ public final class FindNextElementTest {
         FindNextElement f_ = new FindNextElement(out_);
         f_.next("o");
         f_.next("o");
-        IdMap<MetaSearchableLabel, EqList<SegmentPart>> segs_ = f_.getSegments();
+        IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(2, segs_.size());
         assertEq(1, segs_.firstValue().size());
         assertEq(4, segs_.firstValue().first().getBegin());
@@ -102,7 +103,7 @@ public final class FindNextElementTest {
         FindNextElement f_ = new FindNextElement(out_);
         f_.next("o");
         f_.next("o");
-        IdMap<MetaSearchableLabel, EqList<SegmentPart>> segs_ = f_.getSegments();
+        IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(1, segs_.size());
         assertEq(1, segs_.firstValue().size());
         assertEq(1, segs_.firstValue().first().getBegin());
@@ -122,7 +123,7 @@ public final class FindNextElementTest {
         f_.next("o");
         f_.next("o");
         f_.next("o");
-        IdMap<MetaSearchableLabel, EqList<SegmentPart>> segs_ = f_.getSegments();
+        IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(0, segs_.size());
     }
     @Test
@@ -137,7 +138,7 @@ public final class FindNextElementTest {
         MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
         FindNextElement f_ = new FindNextElement(out_);
         f_.next("loWorld");
-        IdMap<MetaSearchableLabel, EqList<SegmentPart>> segs_ = f_.getSegments();
+        IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(2, segs_.size());
         assertEq(1, segs_.firstValue().size());
         assertEq(3, segs_.firstValue().first().getBegin());
@@ -158,7 +159,7 @@ public final class FindNextElementTest {
         MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
         FindNextElement f_ = new FindNextElement(out_);
         f_.next("loWorldEvery");
-        IdMap<MetaSearchableLabel, EqList<SegmentPart>> segs_ = f_.getSegments();
+        IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(3, segs_.size());
         assertEq(1, segs_.firstValue().size());
         assertEq(3, segs_.firstValue().first().getBegin());
@@ -181,7 +182,7 @@ public final class FindNextElementTest {
         MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
         FindNextElement f_ = new FindNextElement(out_);
         f_.next("loWorldEvery");
-        IdMap<MetaSearchableLabel, EqList<SegmentPart>> segs_ = f_.getSegments();
+        IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(0, segs_.size());
     }
     @Test
@@ -197,7 +198,7 @@ public final class FindNextElementTest {
         MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
         FindNextElement f_ = new FindNextElement(out_);
         f_.next("");
-        IdMap<MetaSearchableLabel, EqList<SegmentPart>> segs_ = f_.getSegments();
+        IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(1, segs_.size());
     }
     @Test
@@ -212,7 +213,7 @@ public final class FindNextElementTest {
         MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
         FindNextElement f_ = new FindNextElement(out_);
         f_.next("loWorldEvery");
-        IdMap<MetaSearchableLabel, EqList<SegmentPart>> segs_ = f_.getSegments();
+        IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(0, segs_.size());
     }
 }

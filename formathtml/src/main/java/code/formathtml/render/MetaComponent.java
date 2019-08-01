@@ -1,6 +1,5 @@
 package code.formathtml.render;
 
-import code.util.CustList;
 
 public abstract class MetaComponent {
 
@@ -39,23 +38,4 @@ public abstract class MetaComponent {
     public abstract MetaComponent getFirstChild();
     public abstract MetaComponent getLastChild();
 
-    public final MetaComponent getNextSibling() {
-        if (parent == null) {
-            //root
-            return null;
-        }
-        CustList<MetaComponent> children_ = parent.getChildren();
-        int len_ = children_.size();
-        int index_ = len_;
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            if (children_.get(i) == this) {
-                index_ = i;
-                break;
-            }
-        }
-        if (index_ + 1 < len_) {
-            return children_.get(index_ + 1);
-        }
-        return null;
-    }
 }

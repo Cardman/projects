@@ -56,7 +56,7 @@ public final class FindEvent extends MouseAdapter {
             labels.clear();
             return;
         }
-        for (EntryCust<MetaSearchableLabel, EqList<SegmentPart>> l: finding.getSegments().entryList()) {
+        for (EntryCust<MetaSearchableLabel, CustList<SegmentPart>> l: finding.getSegments().entryList()) {
             DualLabel l_ = (DualLabel) page.getRefs().getVal(l.getKey());
             for (SegmentPart s: l.getValue()) {
                 l_.addSegment(s);

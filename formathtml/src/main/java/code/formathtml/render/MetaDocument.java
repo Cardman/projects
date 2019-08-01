@@ -95,10 +95,10 @@ public final class MetaDocument {
                     if (StringList.quickEq(tagName_, "a") && anchor_ == null) {
                         anchor_ = par_;
                     }
-                    if (StringList.quickEq(tagName_, "b") && bold_ == 0) {
+                    if (StringList.quickEq(tagName_, "b")) {
                         bold_ = 1;
                     }
-                    if (StringList.quickEq(tagName_, "i") && italic_ == 0) {
+                    if (StringList.quickEq(tagName_, "i")) {
                         italic_ = 2;
                     }
                     if (StringList.quickEq(tagName_, "pre")) {
@@ -640,8 +640,9 @@ public final class MetaDocument {
         while (j_ > -1) {
             String v_ = _tags.getVal(j_);
             if (v_.startsWith(".")) {
-                if (classesCssStyles.contains(v_.substring(1)) && StringList.quickEq(v_.substring(1), _currentElt.getAttribute("class"))) {
-                    setupStyle(_styleLoc, classesCssStyles.getVal(v_.substring(1)), _local);
+                String value_ = getValueOrEmpty(classesCssStyles, v_.substring(1));
+                if (StringList.quickEq(v_.substring(1), _currentElt.getAttribute("class"))) {
+                    setupStyle(_styleLoc, value_, _local);
                     break;
                 }
                 j_--;
@@ -655,12 +656,20 @@ public final class MetaDocument {
                     break;
                 }
             }
-            if (tagsCssStyles.contains(v_) && StringList.quickEq(v_, _currentElt.getTagName())) {
-                setupStyle(_styleLoc, tagsCssStyles.getVal(v_), _local);
+            String value_ = getValueOrEmpty(tagsCssStyles, v_);
+            if (StringList.quickEq(v_, _currentElt.getTagName())) {
+                setupStyle(_styleLoc, value_, _local);
                 break;
             }
             j_--;
         }
+    }
+    private static String getValueOrEmpty(StringMap<String> _map, String _key) {
+        String val_ = _map.getVal(_key);
+        if (val_ == null) {
+            return "";
+        }
+        return val_;
     }
 
     private static void setupStyle(MetaStyle _style, String _value, boolean _local) {
@@ -678,105 +687,15 @@ public final class MetaDocument {
             if (StringList.quickEq(key_, "font-size")) {
                 if (value_.endsWith("px")) {
                     String size_ = value_.substring(0, value_.length() - 2);
-                    Long val_ = NumParsers.parseLongTen(size_);
-                    if (val_ != null) {
-                        _style.setSize(val_.intValue());
-                    }
+                    int val_ = Numbers.parseInt(size_);
+                    _style.setSize(val_);
                 }
                 continue;
             }
             if (StringList.quickEq(key_, "color")) {
-                if (value_.startsWith("rgb")) {
-                    Ints rates_ = new Ints();
-                    for (String c: StringList.splitChars(value_, ',')) {
-                        Long l_ = NumParsers.parseLongTen(c.trim());
-                        if (l_ != null) {
-                            rates_.add(l_.intValue());
-                        }
-                    }
-                    int rgb_ = 0;
-                    int power_ = rates_.size() - 1;
-                    for (int i: rates_.getReverse()) {
-                        int p_ = 1;
-                        for (int j = 0; j < power_; j++) {
-                            p_ *= 256;
-                        }
-                        rgb_ += i * p_; 
-                        power_--;
-                    }
-                    _style.setFgColor(rgb_);
-                    continue;
-                }
-                if (value_.startsWith("#")) {
-                    Long val_ = NumParsers.parseLong(value_.substring(1), 16);
-                    if (val_ != null) {
-                        _style.setFgColor(val_.intValue());
-                    }
-                } else if (StringList.quickEq(value_, "red")){
-                    _style.setFgColor(255*256*256);
-                } else if (StringList.quickEq(value_, "green")){
-                    _style.setFgColor(255*256);
-                } else if (StringList.quickEq(value_, "blue")){
-                    _style.setFgColor(255);
-                } else if (StringList.quickEq(value_, "yellow")){
-                    _style.setFgColor(255*256*256+255*256);
-                } else if (StringList.quickEq(value_, "cyan")){
-                    _style.setFgColor(255*256 + 255);
-                } else if (StringList.quickEq(value_, "magenta")){
-                    _style.setFgColor(255*256*256 + 255);
-                } else if (StringList.quickEq(value_, "white")){
-                    _style.setFgColor(255*256*256 + 255*256 + 255);
-                } else if (StringList.quickEq(value_, "grey")){
-                    _style.setFgColor(127*256*256 + 127*256 + 127);
-                } else if (StringList.quickEq(value_, "black")){
-                    _style.setFgColor(0);
-                }
+                _style.setFgColor(getColor(value_,_style.getFgColor()));
             } else if (StringList.quickEq(key_, "background")) {
-                if (value_.startsWith("rgb")) {
-                    Ints rates_ = new Ints();
-                    for (String c: StringList.splitChars(value_, ',')) {
-                        Long l_ = NumParsers.parseLongTen(c.trim());
-                        if (l_ != null) {
-                            rates_.add(l_.intValue());
-                        }
-                    }
-                    int rgb_ = 0;
-                    int power_ = rates_.size() - 1;
-                    for (int i: rates_.getReverse()) {
-                        int p_ = 1;
-                        for (int j = 0; j < power_; j++) {
-                            p_ *= 256;
-                        }
-                        rgb_ += i * p_; 
-                        power_--;
-                    }
-                    _style.setBgColor(rgb_);
-                    continue;
-                }
-                if (value_.startsWith("#")) {
-                    Long val_ = NumParsers.parseLong(value_.substring(1), 16);
-                    if (val_ != null) {
-                        _style.setBgColor(val_.intValue());
-                    }
-                } else if (StringList.quickEq(value_, "red")){
-                    _style.setBgColor(255*256*256);
-                } else if (StringList.quickEq(value_, "green")){
-                    _style.setBgColor(255*256);
-                } else if (StringList.quickEq(value_, "blue")){
-                    _style.setBgColor(255);
-                } else if (StringList.quickEq(value_, "yellow")){
-                    _style.setBgColor(255*256*256+255*256);
-                } else if (StringList.quickEq(value_, "cyan")){
-                    _style.setBgColor(255*256 + 255);
-                } else if (StringList.quickEq(value_, "magenta")){
-                    _style.setBgColor(255*256*256 + 255);
-                } else if (StringList.quickEq(value_, "white")){
-                    _style.setBgColor(255*256*256 + 255*256 + 255);
-                } else if (StringList.quickEq(value_, "grey")){
-                    _style.setBgColor(127*256*256 + 127*256 + 127);
-                } else if (StringList.quickEq(value_, "black")){
-                    _style.setBgColor(0);
-                }
+                _style.setBgColor(getColor(value_,_style.getBgColor()));
             } else if (StringList.quickEq(key_, "border")) {
                 if (!_local) {
                     continue;
@@ -784,84 +703,80 @@ public final class MetaDocument {
                 for (String v: StringList.splitChars(value_, ' ','\t','\n','\r')) {
                     if (v.endsWith("px")) {
                         String size_ = v.substring(0, v.length() - 2);
-                        Long val_ = NumParsers.parseLongTen(size_);
-                        if (val_ != null) {
-                            _style.setBorderSize(val_.intValue());
-                        }
-                        continue;
-                    }
-                    if (v.startsWith("rgb")) {
-                        Ints rates_ = new Ints();
-                        for (String c: StringList.splitChars(value_, ',')) {
-                            Long l_ = NumParsers.parseLongTen(c.trim());
-                            if (l_ != null) {
-                                rates_.add(l_.intValue());
-                            }
-                        }
-                        int rgb_ = 0;
-                        int power_ = rates_.size() - 1;
-                        for (int i: rates_.getReverse()) {
-                            int p_ = 1;
-                            for (int j = 0; j < power_; j++) {
-                                p_ *= 256;
-                            }
-                            rgb_ += i * p_; 
-                            power_--;
-                        }
-                        _style.setBorderColor(rgb_);
-                        continue;
-                    }
-                    if (v.startsWith("#")) {
-                        Long val_ = NumParsers.parseLong(v.substring(1), 16);
-                        if (val_ != null) {
-                            _style.setBorderColor(val_.intValue());
-                        }
-                        continue;
-                    }
-                    if (StringList.quickEq(v, "red")){
-                        _style.setBorderColor(255*256*256);
-                        continue;
-                    }
-                    if (StringList.quickEq(v, "green")){
-                        _style.setBorderColor(255*256);
-                        continue;
-                    }
-                    if (StringList.quickEq(v, "blue")){
-                        _style.setBorderColor(255);
-                        continue;
-                    }
-                    if (StringList.quickEq(v, "yellow")){
-                        _style.setBorderColor(255*256*256+255*256);
-                        continue;
-                    }
-                    if (StringList.quickEq(v, "cyan")){
-                        _style.setBorderColor(255*256 + 255);
-                        continue;
-                    }
-                    if (StringList.quickEq(v, "magenta")){
-                        _style.setBorderColor(255*256*256 + 255);
-                        continue;
-                    }
-                    if (StringList.quickEq(v, "white")){
-                        _style.setBorderColor(255*256*256 + 255*256 + 255);
-                        continue;
-                    }
-                    if (StringList.quickEq(v, "grey")){
-                        _style.setBorderColor(127*256*256 + 127*256 + 127);
-                        continue;
-                    }
-                    if (StringList.quickEq(v, "black")){
-                        _style.setBorderColor(0);
+                        int val_ = Numbers.parseInt(size_);
+                        _style.setBorderSize(val_);
                         continue;
                     }
                     if (StringList.quickEq(v, "solid")){
                         _style.setBorder(BorderEnum.SOLID);
                         continue;
                     }
+                    _style.setBorderColor(getColor(v,_style.getBorderColor()));
                 }
             }
         }
     }
+
+    private static int getColor(String _value, int _default) {
+        if (_value.startsWith("rgb")&&_value.substring("rgb".length()).trim().indexOf('(')==0) {
+            String val_ = StringList.removeChars(_value.substring("rgb".length()), '(', ')');
+            return getRgb(val_);
+        }
+        if (_value.startsWith("#")) {
+            Long val_ = NumParsers.parseLong(_value.substring(1), 16);
+            if (val_ != null) {
+                return val_.intValue();
+            }
+            return _default;
+        }
+        if (StringList.quickEq(_value, "red")){
+            return 255*256*256;
+        }
+        if (StringList.quickEq(_value, "green")){
+            return 255*256;
+        }
+        if (StringList.quickEq(_value, "blue")){
+            return 255;
+        }
+        if (StringList.quickEq(_value, "yellow")){
+            return 255*256*256+255*256;
+        }
+        if (StringList.quickEq(_value, "cyan")){
+            return 255*256 + 255;
+        }
+        if (StringList.quickEq(_value, "magenta")){
+            return 255*256*256 + 255;
+        }
+        if (StringList.quickEq(_value, "white")){
+            return 255*256*256 + 255*256 + 255;
+        }
+        if (StringList.quickEq(_value, "grey")){
+            return 127*256*256 + 127*256 + 127;
+        }
+        if (StringList.quickEq(_value, "black")){
+            return 0;
+        }
+        return _default;
+    }
+    private static int getRgb(String _value) {
+        int rgb_ = 0;
+        Ints rates_ = new Ints();
+        for (String c: StringList.splitChars(_value, ',')) {
+            int l_ = Numbers.parseInt(c.trim());
+            rates_.add(l_);
+        }
+        int power_ = rates_.size()-1;
+        for (int i: rates_) {
+            int p_ = 1;
+            for (int j = 0; j < power_; j++) {
+                p_ *= 256;
+            }
+            rgb_ += i * p_;
+            power_--;
+        }
+        return rgb_;
+    }
+
     private void processStyle(String _style) {
         int len_ = _style.length();
         int i_ = 0;

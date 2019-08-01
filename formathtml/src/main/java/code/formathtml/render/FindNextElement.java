@@ -1,7 +1,6 @@
 package code.formathtml.render;
 
 import code.util.CustList;
-import code.util.EqList;
 import code.util.IdMap;
 
 public final class FindNextElement {
@@ -17,7 +16,7 @@ public final class FindNextElement {
     private boolean setup;
     private int row = 0;
     private int group = 0;
-    private IdMap<MetaSearchableLabel, EqList<SegmentPart>> segments = new IdMap<MetaSearchableLabel, EqList<SegmentPart>>();
+    private IdMap<MetaSearchableLabel, CustList<SegmentPart>> segments = new IdMap<MetaSearchableLabel, CustList<SegmentPart>>();
 
     public FindNextElement(MetaDocument _document) {
         document = _document;
@@ -130,13 +129,12 @@ public final class FindNextElement {
         }
     }
     private void addSegment(MetaSearchableLabel _label, SegmentPart _seg) {
-        EqList<SegmentPart> segs_ = segments.getVal(_label);
+        CustList<SegmentPart> segs_ = segments.getVal(_label);
         if (segs_ == null) {
-            segs_ = new EqList<SegmentPart>(_seg);
+            segs_ = new CustList<SegmentPart>(_seg);
             segments.put(_label, segs_);
         } else {
             segs_.add(_seg);
-            segs_.removeDuplicates();
         }
     }
     private void reset() {
@@ -183,7 +181,7 @@ public final class FindNextElement {
             i_++;
         }
     }
-    public IdMap<MetaSearchableLabel, EqList<SegmentPart>> getSegments() {
+    public IdMap<MetaSearchableLabel, CustList<SegmentPart>> getSegments() {
         return segments;
     }
 

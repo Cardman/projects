@@ -74,6 +74,14 @@ public final class MetaNumberedLabelTest {
         assertEq("aaaa",MetaNumberedLabel.convert(26 + 26*26+26*26*26+1,MetaNumberBase.LETTER));
     }
     @Test
+    public void convert017Test() {
+        assertEq("zzzz",MetaNumberedLabel.convert(26 + 26*26+26*26*26+26*26*26*26,MetaNumberBase.LETTER));
+    }
+    @Test
+    public void convert018Test() {
+        assertEq("aaaaa",MetaNumberedLabel.convert(1+26 + 26*26+26*26*26+26*26*26*26,MetaNumberBase.LETTER));
+    }
+    @Test
     public void convert18Test() {
         assertEq("A",MetaNumberedLabel.convert(1,MetaNumberBase.MAJ_LETTER));
     }

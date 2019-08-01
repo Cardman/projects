@@ -31,9 +31,6 @@ public abstract class MetaContainer extends MetaComponent {
     }
 
     public final boolean onlyBlanks() {
-        if (addEmpty) {
-            return false;
-        }
         for (MetaComponent c: children) {
             if (c instanceof MetaIndent) {
                 continue;

@@ -23,64 +23,7 @@ public final class MetaNumberedLabel extends MetaLabel {
             } else {
                 firstLetter_ = 'A';
             }
-            if (_number <= 26) {
-                return Character.toString((char)(_number + firstLetter_ - 1));
-            }
-            int powTwo_ = 26 * 26;
-            if (_number <= 26 + powTwo_) {
-                StringBuilder str_ = new StringBuilder(2);
-                int rem_ = _number % 26;
-                if (rem_ == 0) {
-                    char diff_ = (char)((_number-1)/26 + firstLetter_ - 1);
-                    str_.append(diff_);
-                    diff_ = (char)(firstLetter_ + 26 - 1);
-                    str_.append(diff_);
-                } else {
-                    char diff_ = (char)(_number/26 + firstLetter_ - 1);
-                    str_.append(diff_);
-                    diff_ = (char)(firstLetter_ + rem_ - 1);
-                    str_.append(diff_);
-                }
-                return str_.toString();
-            }
-            if (_number <= 26 + powTwo_ + powTwo_ * 26) {
-                StringBuilder str_ = new StringBuilder(3);
-                int nb_ = (_number- powTwo_ -26)/ (powTwo_);
-                char diff_ = (char)(nb_ + firstLetter_);
-                int quot_ = (_number - nb_ * powTwo_- powTwo_)/26;
-                nb_ = (_number - nb_ * powTwo_- powTwo_)%26;
-                if (nb_ == 0) {
-                    nb_ = 26;
-                    quot_--;
-                }
-                if (quot_ == 0) {
-                    quot_=26;
-                    diff_--;
-                }
-                str_.append(diff_);
-                diff_ = (char)(quot_ + firstLetter_ - 1);
-                str_.append(diff_);
-
-                diff_ = (char)(nb_ + firstLetter_-1);
-                str_.append(diff_);
-                return str_.toString();
-
-            }
-            Ints parts_ = new Ints();
-            int current_ = _number;
-            while (current_ > 0) {
-                int rem_ = current_ % 26;
-                parts_.add(rem_);
-                current_ /= 26;
-            }
-            StringBuilder str_ = new StringBuilder(parts_.size());
-            int delta_ = 1;
-            for (int i: parts_.getReverse()) {
-                char diff_ = (char)(i + firstLetter_ - delta_);
-                str_.append(diff_);
-                delta_ = 1;
-            }
-            return str_.toString();
+            return str(_number,firstLetter_);
         }
         char firstUnit_ = 'i';
         char firstDemi_ = 'v';
@@ -133,6 +76,32 @@ public final class MetaNumberedLabel extends MetaLabel {
             return toLatinUpperCase(str_.toString());
         }
         return str_.toString();
+    }
+    private static String str(int _nb, char _firstLetter) {
+        int n_ = 1;
+        long s_ = 0;
+        while (s_ < _nb) {
+            s_ += pow(n_);
+            n_++;
+        }
+        n_--;
+        long inf_ = (pow(n_)-1)/25;
+        StringBuilder str_ = new StringBuilder();
+        long base_ = _nb - inf_;
+        for (int i = 0; i < n_; i++) {
+            long q_ = base_ /26;
+            long r_ = base_ %26;
+            str_.insert(0,(char)(r_+_firstLetter));
+            base_ = q_;
+        }
+        return str_.toString();
+    }
+    private static long pow(int _n) {
+        long p_ = 1;
+        for (int i = 0; i < _n; i++) {
+            p_ *= 26;
+        }
+        return p_;
     }
     private static String toLatinUpperCase(String _string) {
         int len_ = _string.length();
