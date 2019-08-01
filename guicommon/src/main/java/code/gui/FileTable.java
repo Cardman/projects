@@ -141,13 +141,13 @@ public class FileTable extends CustComponent {
         files.addAllElts(_list);
         int len_ = _list.size();
         model.setRowCount(len_);
+        folder = _folder;
         for (int j = 0; j <len_; j++) {
             int cols_ = getColumnCount();
             for (int i = 0; i < cols_; i++) {
                 model.setValueAt(getValueAt(j, i), j, i);
             }
         }
-        folder = _folder;
         model.fireTableDataChanged();
         model.fireTableStructureChanged();
     }

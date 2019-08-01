@@ -819,18 +819,16 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getEvents().append(StringList.concat(getMessages().getVal(MainWindow.PLAYER_HAVING_TO_PLAY),pseudos_.getVal(relative_),RETURN_LINE));
         panneau2_.add(new ScrollPane(getEvents()));
         panneau2_.add(getMini());
-        setDeclaringHandful(new SplitPane(JSplitPane.HORIZONTAL_SPLIT));
+        setIncludedTrumpsForHandful(new Panel(new FlowLayout(FlowLayout.CENTER,0,0)));
+        ScrollPane scrollInc_ = new ScrollPane(getIncludedTrumpsForHandful());
+        scrollInc_.setPreferredSize(new Dimension(125,60));
+        setExcludedTrumpsForHandful(new Panel(new FlowLayout(FlowLayout.CENTER,0,0)));
+        ScrollPane scrollExc_ = new ScrollPane(getExcludedTrumpsForHandful());
+        scrollExc_.setPreferredSize(new Dimension(125,60));
+        setDeclaringHandful(new SplitPane(JSplitPane.HORIZONTAL_SPLIT,scrollInc_,scrollExc_));
         getDeclaringHandful().setAlignmentY(Component.LEFT_ALIGNMENT);
         getDeclaringHandful().setContinuousLayout(true);
         getDeclaringHandful().setOneTouchExpandable(true);
-        setIncludedTrumpsForHandful(new Panel(new FlowLayout(FlowLayout.CENTER,0,0)));
-        ScrollPane scroll_ = new ScrollPane(getIncludedTrumpsForHandful());
-        scroll_.setPreferredSize(new Dimension(125,60));
-        getDeclaringHandful().setLeftComponent(scroll_);
-        setExcludedTrumpsForHandful(new Panel(new FlowLayout(FlowLayout.CENTER,0,0)));
-        scroll_ = new ScrollPane(getExcludedTrumpsForHandful());
-        scroll_.setPreferredSize(new Dimension(125,60));
-        getDeclaringHandful().setRightComponent(scroll_);
         setScrollDeclaringHandful(new ScrollPane(getDeclaringHandful()));
         getScrollDeclaringHandful().setPreferredSize(new Dimension(250,60));
         getScrollDeclaringHandful().setVisible(false);
@@ -851,7 +849,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             getDeclaredHandfuls().put(relative_, declaredHandful_);
             declaredHandfuls_.add(declaredHandfulGroup_);
         }
-        scroll_ = new ScrollPane(declaredHandfuls_);
+        ScrollPane scroll_ = new ScrollPane(declaredHandfuls_);
         panneau2_.add(scroll_);
 
         setPanelCallableCards(new Panel(new FlowLayout(FlowLayout.LEFT,0,0)));

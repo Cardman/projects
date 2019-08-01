@@ -40,7 +40,6 @@ import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
 import code.sml.Element;
 import code.util.*;
-import code.util.ints.MathFactory;
 
 public final class Configuration implements ExecutableCode {
     private static final String INSTANCE = "$new ";
@@ -67,8 +66,6 @@ public final class Configuration implements ExecutableCode {
     private StringMap<String> properties = new StringMap<String>();
 
     private String messagesFolder = EMPTY_STRING;
-
-    private MathFactory mathFactory;
 
     private int tabWidth = DEFAULT_TAB_WIDTH;
 
@@ -99,8 +96,6 @@ public final class Configuration implements ExecutableCode {
     private String currentUrl = "";
 
     private String html;
-
-    private String resourceUrl;
 
     private StringList addedFiles = new StringList();
     private StringList renderFiles = new StringList();
@@ -341,18 +336,6 @@ public final class Configuration implements ExecutableCode {
         return htmlPage;
     }
 
-    public void setHtmlPage(HtmlPage _htmlPage) {
-        htmlPage = _htmlPage;
-    }
-
-    public MathFactory getMathFactory() {
-        return mathFactory;
-    }
-
-    public void setMathFactory(MathFactory _mathFactory) {
-        mathFactory = _mathFactory;
-    }
-
     public int getTabWidth() {
         return tabWidth;
     }
@@ -403,14 +386,6 @@ public final class Configuration implements ExecutableCode {
 
     public void setHtml(String _html) {
         html = _html;
-    }
-
-    public String getResourceUrl() {
-        return resourceUrl;
-    }
-
-    public void setResourceUrl(String _resourceUrl) {
-        resourceUrl = _resourceUrl;
     }
 
     public String getPrefix() {

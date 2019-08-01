@@ -4,13 +4,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.io.File;
 
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.JTree;
-import javax.swing.ListSelectionModel;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -167,10 +161,8 @@ public abstract class FileDialog extends Dialog {
             folderSystem.setRootVisible(false);
         }
         folderSystem.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-        SplitPane fileSelector_ = new SplitPane();
-        fileSelector_.setLeftComponent(new ScrollPane(folderSystem));
+        SplitPane fileSelector_ = new SplitPane(JSplitPane.HORIZONTAL_SPLIT,new ScrollPane(folderSystem),new ScrollPane(fileTable));
         folderSystem.addTreeSelectionListener(new DeployTreeEvent(this));
-        fileSelector_.setRightComponent(new ScrollPane(fileTable));
         contentPane.add(fileSelector_, BorderLayout.CENTER);
         contentPane.add(openSaveFile_, BorderLayout.SOUTH);
         setContentPane(contentPane);
