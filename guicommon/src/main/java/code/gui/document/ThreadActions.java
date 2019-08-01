@@ -3,6 +3,10 @@ package code.gui.document;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
+import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.structs.Struct;
+import code.formathtml.Configuration;
 import code.formathtml.HtmlPage;
 import code.formathtml.render.MetaDocument;
 import code.formathtml.util.BeanLgNames;
@@ -78,15 +82,19 @@ public final class ThreadActions extends Thread {
         afterAction();
     }
     private void afterAction() {
-        if (page.getNavigation().getSession().getContext().getException() != null) {
+        Configuration conf_ = page.getNavigation().getSession();
+        ContextEl context_ = conf_.getContext();
+        if (context_.getException() != null) {
             if (page.getArea() != null) {
-                page.getArea().append(StringList.concat(page.getNavigation().getSession().joinPages(), RETURN_LINE));
+                Struct exception_ = context_.getException();
+                String str_ = conf_.getAdvStandards().processString(new Argument(exception_), conf_);
+                page.getArea().append(str_);
             }
-            page.getNavigation().getSession().getContext().setException(null);
+            context_.setException(null);
             finish();
             return;
         }
-        if (page.getNavigation().getSession().isInterrupt()) {
+        if (conf_.isInterrupt()) {
             if (page.isProcessing()) {
                 finish();
                 return;

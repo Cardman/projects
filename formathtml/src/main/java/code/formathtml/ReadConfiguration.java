@@ -43,7 +43,7 @@ public final class ReadConfiguration {
                 _configuration.setDataBaseClassName(c.getAttribute("value"));
                 continue;
             }
-            if (StringList.quickEq(fieldName_, "validators")) {
+            if (stds_ instanceof BeanNatLgNames && StringList.quickEq(fieldName_, "validators")) {
                 _configuration.setValidators(loadValidator(c, stds_));
                 continue;
             }

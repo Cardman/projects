@@ -109,7 +109,6 @@ public final class Navigation {
         Document doc_ = res_.getDocument();
         if (doc_ == null) {
             error = true;
-            session.getContext().setException(NullStruct.NULL_VALUE);
             return;
         }
         session = new Configuration();
@@ -117,6 +116,10 @@ public final class Navigation {
         session.setupInterrupt(_i);
         session.setStandards(_lgNames);
         ReadConfiguration.load(session,doc_);
+        if (session.getContext() == null) {
+            error = true;
+            return;
+        }
         session.init();
     }
     public boolean isError() {

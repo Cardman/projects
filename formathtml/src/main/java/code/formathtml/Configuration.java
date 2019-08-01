@@ -80,7 +80,7 @@ public final class Configuration implements ExecutableCode {
 
     private String prefix = EMPTY_STRING;
     private BeanLgNames standards;
-    private String dataBaseClassName;
+    private String dataBaseClassName = EMPTY_STRING;
 
     private int nextIndex;
 
@@ -179,10 +179,6 @@ public final class Configuration implements ExecutableCode {
             return;
         }
         standards.buildIterables(this);
-//        for (EntryCust<String, String> e: getLateValidators().entryList()) {
-//            Struct str_ = RenderExpUtil.processEl(StringList.concat(INSTANCE,e.getValue(),NO_PARAM), 0, this).getStruct();
-//            getBuiltValidators().put(e.getKey(), str_);
-//        }
     }
     public void setupRenders(StringMap<String> _files) {
         renders.clear();
@@ -374,13 +370,6 @@ public final class Configuration implements ExecutableCode {
     }
 
 
-    public String joinPages() {
-        StringList l_ = new StringList();
-        for (ImportingPage p: importing) {
-            l_.add(p.getInfos(this));
-        }
-        return StringList.join(l_, RETURN_LINE);
-    }
     public boolean noPages() {
         return importing.isEmpty();
     }

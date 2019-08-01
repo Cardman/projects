@@ -69,7 +69,7 @@ public final class RenderInitStdsTest {
     }
     private Configuration contextEl(StringMap<String> _files,Options _opt, BeanLgNames _beanLgNames, KeyWords _kw) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
-        conf_.setPrefix("c:");
+        conf_.setPrefix("c");
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         ContextEl cont_ = ContextFactory.build(-1,lk_, di_, _opt, _kw, _beanLgNames,4);

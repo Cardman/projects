@@ -1745,6 +1745,18 @@ public final class CustBeanLgNames extends BeanNatLgNames {
     public ResultErrorStd getOtherResultBean(ContextEl _cont, ConstructorId _method, Object... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         String className_ = _method.getName();
+        if (StringList.quickEq(className_,TYPE_BEAN_ONE)) {
+            res_.setResult(new BeanStruct(new BeanOne()));
+            return res_;
+        }
+        if (StringList.quickEq(className_,TYPE_BEAN_FIVE)) {
+            res_.setResult(new BeanStruct(new BeanFive()));
+            return res_;
+        }
+        if (StringList.quickEq(className_,TYPE_BEAN_TWO)) {
+            res_.setResult(new BeanStruct(new BeanTwo()));
+            return res_;
+        }
         if (StringList.quickEq(className_,TYPE_COMPOSITE)) {
             if (_method.getParametersTypes().isEmpty()) {
                 res_.setResult(new StdStruct(new Composite(),TYPE_COMPOSITE));
