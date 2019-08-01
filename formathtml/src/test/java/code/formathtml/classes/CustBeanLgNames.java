@@ -1607,11 +1607,6 @@ public final class CustBeanLgNames extends BeanNatLgNames {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(methodName_,UPDATE_VALUE)) {
-                i_.updateValue((ValueChangeEvent)_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
         }
         if (StringList.quickEq(className_,TYPE_BEAN_UTIL)) {
             if (StringList.quickEq(methodName_,SUM)) {

@@ -1,6 +1,5 @@
 package code.formathtml.classes;
 import code.bean.Bean;
-import code.formathtml.util.ValueChangeEvent;
 import code.util.CustList;
 import code.util.NatStringTreeMap;
 import code.util.Ints;
@@ -24,8 +23,6 @@ public class BeanOne extends Bean {
     private EnumNumbers chosenNumbers = new EnumNumbers(EnumNumber.ONE,EnumNumber.FOUR);
 
     private String message="Test {0}";
-
-    private ValueChangeEvent changing;
 
     private NatStringTreeMap< Integer> tree = new NatStringTreeMap< Integer>();
 
@@ -108,18 +105,9 @@ public class BeanOne extends Bean {
         composite = _composite;
     }
 
-    public void updateValue(ValueChangeEvent _changing) {
-        composite.getStrings().add(StringList.concat(((Composite)_changing.getNewValue()).display()," ",((Composite)_changing.getOldValue()).display()));
-        changing = _changing;
-    }
-
     public String invokeMethod(Long _index) {
         composite.getStrings().add(_index.toString());
         return "returned value";
-    }
-
-    public ValueChangeEvent getChanging() {
-        return changing;
     }
 
     public NatStringTreeMap< Integer> getTree() {
@@ -225,10 +213,6 @@ public class BeanOne extends Bean {
 
     public void setCommonClass(String _commonClass) {
         commonClass = _commonClass;
-    }
-
-    public void setChanging(ValueChangeEvent _changing) {
-        changing = _changing;
     }
 
     public void setTree(NatStringTreeMap< Integer> _tree) {

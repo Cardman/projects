@@ -23,8 +23,8 @@ public final class HtmlPage {
     private CustList<StringList> formsArgs = new CustList<StringList>();
     private CustList<StringList> formsVars = new CustList<StringList>();
     private StringList formsNames = new StringList();
-    private LongMap<CustList<IdFormat>> formatIdMap = new LongMap<CustList<IdFormat>>();
-    private CustList<IdFormat> formatId = new CustList<IdFormat>();
+    private LongMap<StringList> formatIdMap = new LongMap<StringList>();
+    private StringList formatId = new StringList();
 
     private long url = CustList.INDEX_NOT_FOUND_ELT;
 
@@ -144,19 +144,19 @@ public final class HtmlPage {
         callsFormExps = _callsFormExps;
     }
 
-    public LongMap<CustList<IdFormat>> getFormatIdMap() {
+    public LongMap<StringList> getFormatIdMap() {
         return formatIdMap;
     }
 
-    public void setFormatIdMap(LongMap<CustList<IdFormat>> _formatIdMap) {
+    public void setFormatIdMap(LongMap<StringList> _formatIdMap) {
         formatIdMap = _formatIdMap;
     }
 
-    public CustList<IdFormat> getFormatId() {
+    public StringList getFormatId() {
         return formatId;
     }
 
-    public void setFormatId(CustList<IdFormat> _formatId) {
+    public void setFormatId(StringList _formatId) {
         formatId = _formatId;
     }
 }

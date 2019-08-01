@@ -1,12 +1,9 @@
 package code.formathtml.classes;
 import code.bean.validator.Message;
 import code.bean.validator.Validator;
+import code.util.StringList;
 
-public class MyValidator extends Validator {
-
-    public MyValidator() {
-        setClassName("code.formathtml.classes.MyValidator");
-    }
+public class MyValidator implements Validator {
 
     @Override
     public Message validate(Object _value) {
@@ -18,15 +15,13 @@ public class MyValidator extends Validator {
             } else {
                 message_.setArgs(String.valueOf(((Long)_value).longValue()));
             }
-            message_.setMessage("{0} is not a no zero rate");
-            message_.setFormatMessage(true);
+            message_.setMessage(StringList.simpleStringsFormat("{0} is not a no zero rate", message_.getArgs()));
             return message_;
         }
         if (!Rate.matchesRate((String)_value)) {
             Message message_ = new Message();
             message_.setArgs((String) _value);
-            message_.setMessage("{0} is not a no zero rate");
-            message_.setFormatMessage(true);
+            message_.setMessage(StringList.simpleStringsFormat("{0} is not a no zero rate", message_.getArgs()));
             return message_;
         }
         Rate rate_ = new Rate((String)_value);
@@ -34,7 +29,6 @@ public class MyValidator extends Validator {
             Message message_ = new Message();
             message_.setArgs((String) _value);
             message_.setMessage("0 is unacceptable");
-            message_.setFormatMessage(false);
             return message_;
         }
         return null;

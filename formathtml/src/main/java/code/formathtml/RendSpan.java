@@ -37,10 +37,7 @@ public final class RendSpan extends RendElement {
             return;
         }
         ((Element)_nextWrite).setAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_FOR),txt_);
-        IdFormat id_ = new IdFormat();
-        id_.setId(txt_);
-        id_.setFormat(formatted.getVal(_cont.getCurrentLanguage()));
-        _cont.getFormatId().add(id_);
+        _cont.getFormatId().add(formatted.getVal(_cont.getCurrentLanguage()));
     }
 
     @Override

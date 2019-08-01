@@ -407,7 +407,7 @@ public final class Navigation {
                 return;
             }
             if (messageTr_ != null) {
-                errors_.put(id_, messageTr_.format());
+                errors_.put(id_, messageTr_.getMessage());
                 errorsArgs_.put(id_, messageTr_.getArgs());
             }
         }
@@ -474,7 +474,7 @@ public final class Navigation {
         HtmlPage htmlPage_ = session.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        CustList<IdFormat> idFormats_ = htmlPage_.getFormatIdMap().getVal(_id);
+        StringList idFormats_ = htmlPage_.getFormatIdMap().getVal(_id);
         LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(_id);
         for (String i : _errors.getKeys()) {
             int count_ = 0;
@@ -496,10 +496,9 @@ public final class Navigation {
                     elt_.removeChild((MutableNode) children_.item(k));
                 }
                 String error_ = _errors.getVal(i);
-                IdFormat idFormat_ = idFormats_.get(count_);
-                String valueMessage_ = idFormat_.getFormat();
-                if (!valueMessage_.isEmpty()) {
-                    error_ = StringList.simpleStringsFormat(valueMessage_,_errorsArgs.getVal(i));
+                String message_ = idFormats_.get(count_);
+                if (!message_.isEmpty()) {
+                    error_ = StringList.simpleStringsFormat(message_,_errorsArgs.getVal(i));
                 }
                 Text text_ = _doc.createTextNode(error_);
                 elt_.appendChild(text_);

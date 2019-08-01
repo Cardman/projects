@@ -1,6 +1,4 @@
 package code.formathtml.classes;
-import code.expressionlanguage.structs.NumberStruct;
-import code.formathtml.util.ValueChangeEvent;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -16,8 +14,6 @@ public class Composite implements Displayable {
     private CompositeSec composite = new CompositeSec();
 
     private int privateInt;
-
-    private ValueChangeEvent changing;
 
     private StringList strings;
 
@@ -58,19 +54,6 @@ public class Composite implements Displayable {
 
     public void setComposite(CompositeSec _composite) {
         composite = _composite;
-    }
-
-    public void updateValue(ValueChangeEvent _changing) {
-        getStrings().add(StringList.concat(Integer.toString(((NumberStruct)_changing.getNewValue()).intStruct())," ",Integer.toString(((NumberStruct)_changing.getOldValue()).intStruct())));
-        changing = _changing;
-    }
-
-    public String getValue(ValueChangeEvent _changing) {
-        return StringList.concat(Integer.toString(((NumberStruct)_changing.getNewValue()).intStruct())," ",Integer.toString(((NumberStruct)_changing.getOldValue()).intStruct()));
-    }
-
-    public ValueChangeEvent getChanging() {
-        return changing;
     }
 
     public int getInteger() {

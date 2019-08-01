@@ -10,6 +10,7 @@ import code.formathtml.util.NodeContainer;
 import code.sml.Element;
 import code.sml.MutableNode;
 import code.util.CustList;
+import code.util.LongMap;
 import code.util.LongTreeMap;
 import code.util.StringList;
 
@@ -72,6 +73,8 @@ public final class RendForm extends RendElement {
         long currentForm_ = _cont.getCurrentForm();
         _cont.getContainersMap().put(currentForm_, _cont.getContainers());
         _cont.setContainers(new LongTreeMap< NodeContainer>());
+        _cont.getFormatIdMap().put(currentForm_,_cont.getFormatId());
+        _cont.setFormatId(new StringList());
         currentForm_++;
         _cont.setCurrentForm(currentForm_);
         _cont.getIndexes().setInput(0);

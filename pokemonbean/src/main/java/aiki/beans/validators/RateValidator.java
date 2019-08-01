@@ -3,11 +3,7 @@ import code.bean.validator.Message;
 import code.bean.validator.Validator;
 import code.maths.Rate;
 
-public class RateValidator extends Validator {
-
-    public RateValidator() {
-        setClassName("RateValidator");
-    }
+public class RateValidator implements Validator {
 
     @Override
     public Message validate(Object _value) {

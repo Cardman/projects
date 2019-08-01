@@ -194,9 +194,9 @@ public abstract class RendBlock {
             return EMPTY_STRING;
         }
         LongMap<LongTreeMap<NodeContainer>> containersMap_ = _conf.getContainersMap();
-        LongMap<CustList<IdFormat>> formatIdMap_ = _conf.getFormatIdMap();
+        LongMap<StringList> formatIdMap_ = _conf.getFormatIdMap();
         LongTreeMap<NodeContainer> containers_ = _conf.getContainers();
-        CustList<IdFormat> formatId_ = _conf.getFormatId();
+        StringList formatId_ = _conf.getFormatId();
         long currentForm_ = _conf.getCurrentForm();
         containersMap_.put(currentForm_, containers_);
         containersMap_.removeKey(0L);

@@ -1,16 +1,7 @@
 package code.bean.validator;
 
-public abstract class Validator {
+public interface Validator {
 
-    private String className;
+    Message validate(Object _value);
 
-    public abstract Message validate(Object _value);
-
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String _className) {
-        className = _className;
-    }
 }

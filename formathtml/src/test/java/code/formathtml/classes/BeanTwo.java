@@ -1,7 +1,5 @@
 package code.formathtml.classes;
 import code.bean.Bean;
-import code.expressionlanguage.structs.NumberStruct;
-import code.formathtml.util.ValueChangeEvent;
 import code.util.CustList;
 import code.util.StringList;
 

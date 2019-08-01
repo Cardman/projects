@@ -331,7 +331,7 @@ public abstract class BeanLgNames extends LgNames {
         }
         Message instance_ = (Message) ((RealInstanceStruct)_instance).getInstance();
         if (StringList.quickEq(name_, aliasMessageFormat)) {
-            res_.setResult(wrapStd(instance_.format()));
+            res_.setResult(wrapStd(instance_.getMessage()));
             return res_;
         }
         if (StringList.quickEq(name_, aliasMessageGetArgs)) {
