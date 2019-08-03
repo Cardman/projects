@@ -1,8 +1,7 @@
 package cards.gui.labels;
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 
+import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
 import code.maths.Rate;
 import code.util.CustList;
@@ -23,45 +22,44 @@ public class Graphic extends PaintableLabel {
         couleurs=_pcouleurs;
     }
     @Override
-    public void paintComponent(Graphics _g) {
-        Graphics2D g2_=(Graphics2D)_g;
+    public void paintComponent(CustGraphics _g) {
         int rapport_=getWidth()/scores.size();
-        g2_.setColor(Color.WHITE);
-        g2_.fillRect(0,0,getWidth(),getHeight());
-        g2_.translate(0,getHeight()/2);
-        dessinerPointilles(g2_,true);
-        dessinerPointilles(g2_,false);
-        g2_.setColor(Color.BLACK);
-        g2_.drawLine(0,0,getWidth(),0);
+        _g.setColor(Color.WHITE);
+        _g.fillRect(0,0,getWidth(),getHeight());
+        _g.translate(0,getHeight()/2);
+        dessinerPointilles(_g,true);
+        dessinerPointilles(_g,false);
+        _g.setColor(Color.BLACK);
+        _g.drawLine(0,0,getWidth(),0);
         int nombreJoueurs_=scores.last().size();
         double esperance_;
         int nbDealsMinusOne_ = scores.size();
         nbDealsMinusOne_--;
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
-            g2_.setColor(couleurs.get(joueur_));
+            _g.setColor(couleurs.get(joueur_));
             esperance_=sommes.first()/(double)nombreJoueurs_;
-            g2_.drawLine(0,0,rapport_,(int)(esperance_-scores.first().get(joueur_)));
+            _g.drawLine(0,0,rapport_,(int)(esperance_-scores.first().get(joueur_)));
             for(int partie_=CustList.FIRST_INDEX;partie_<nbDealsMinusOne_;partie_++) {
                 esperance_=sommes.get(partie_)/(double)nombreJoueurs_;
                 double esperance2_=sommes.get(partie_+1)/(double)nombreJoueurs_;
-                g2_.drawLine(rapport_*(partie_+1),(int)(esperance_-scores.get(partie_).get(joueur_)),rapport_*(partie_+2),(int)(esperance2_-scores.get(partie_+1).get(joueur_)));
+                _g.drawLine(rapport_*(partie_+1),(int)(esperance_-scores.get(partie_).get(joueur_)),rapport_*(partie_+2),(int)(esperance2_-scores.get(partie_+1).get(joueur_)));
             }
         }
-        g2_.setColor(Color.GRAY);
+        _g.setColor(Color.GRAY);
         Rate espPlusTroisSigmas_=sigmas.first();
         Rate espMoinsTroisSigmas_=sigmas.first().opposNb();
-        g2_.drawLine(0,0,rapport_,(int)-espPlusTroisSigmas_.ll());
-        g2_.drawLine(0,0,rapport_,(int)-espMoinsTroisSigmas_.ll());
+        _g.drawLine(0,0,rapport_,(int)-espPlusTroisSigmas_.ll());
+        _g.drawLine(0,0,rapport_,(int)-espMoinsTroisSigmas_.ll());
         for(int partie_=CustList.FIRST_INDEX;partie_<nbDealsMinusOne_;partie_++) {
             espPlusTroisSigmas_=sigmas.get(partie_);
             Rate espPlusTroisSigmas2_=sigmas.get(partie_+1);
             espMoinsTroisSigmas_=sigmas.get(partie_).opposNb();
             Rate espMoinsTroisSigmas2_=sigmas.get(partie_+1).opposNb();
-            g2_.drawLine(rapport_*(partie_+1),(int)-espPlusTroisSigmas_.ll(),rapport_*(partie_+2),(int)-espPlusTroisSigmas2_.ll());
-            g2_.drawLine(rapport_*(partie_+1),(int)-espMoinsTroisSigmas_.ll(),rapport_*(partie_+2),(int)-espMoinsTroisSigmas2_.ll());
+            _g.drawLine(rapport_*(partie_+1),(int)-espPlusTroisSigmas_.ll(),rapport_*(partie_+2),(int)-espPlusTroisSigmas2_.ll());
+            _g.drawLine(rapport_*(partie_+1),(int)-espMoinsTroisSigmas_.ll(),rapport_*(partie_+2),(int)-espMoinsTroisSigmas2_.ll());
         }
     }
-    private void dessinerPointilles(Graphics2D _g2,boolean _horizontal) {
+    private void dessinerPointilles(CustGraphics _g2,boolean _horizontal) {
         _g2.setColor(Color.BLACK);
         int rapport2_=10;
         if(_horizontal) {

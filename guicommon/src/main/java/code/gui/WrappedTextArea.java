@@ -22,14 +22,6 @@ public class WrappedTextArea extends CustComponent {
         textArea.setEditable(_b);
     }
 
-    public Color getForeground() {
-        return textArea.getForeground();
-    }
-
-    public Color getBackground() {
-        return textArea.getBackground();
-    }
-
     public void setForeground(Color _fg) {
         textArea.setForeground(_fg);
     }

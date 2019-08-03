@@ -1,17 +1,11 @@
 package aiki.gui.components.fight;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-
-import javax.swing.JLabel;
 
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fighter;
-import code.gui.CustCellRender;
-import code.gui.GraphicListable;
-import code.gui.PaintableLabel;
-import code.gui.PreparedLabel;
+import code.gui.*;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -65,12 +59,12 @@ public class FighterRenderer extends CustCellRender {
     }
 
     @Override
-    public void paintComponent(Graphics _g) {
+    public void paintComponent(CustGraphics _g) {
         if (!enabled) {
             _g.setColor(new Color(225, 225, 225));
             _g.fillRect(0, 0, getWidth() - 1, getHeight() -1);
         }
-        _g.drawImage(pkImage, 0, 0, null);
+        _g.drawImage(pkImage, 0, 0);
         _g.setColor(Color.BLACK);
         String name_ = fighter.getName();
         _g.drawString(facade.translatePokemon(name_), sideLength, 10);

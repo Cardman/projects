@@ -18,6 +18,7 @@ public abstract class CommonFrame implements ChangeableTitle {
 
     private Ownable owner;
     private JFrame frame = new JFrame();
+    private MenuBar menuBar;
     private String languageKey;
     protected CommonFrame(String _languageKey) {
         languageKey = _languageKey;
@@ -138,6 +139,13 @@ public abstract class CommonFrame implements ChangeableTitle {
         return contentPane;
     }
 
+    protected MenuBar getJMenuBar() {
+        return menuBar;
+    }
+    public void setJMenuBar(MenuBar _menu) {
+        frame.setJMenuBar(_menu.getMenuBar());
+        menuBar = _menu;
+    }
     public JFrame getFrame() {
         return frame;
     }

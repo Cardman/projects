@@ -251,7 +251,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 return;
             }
             animCarteTarot=new AnimationCardTarot(this);
-            animCarteTarot.start();
+            CustComponent.newThread(animCarteTarot).start();
             return;
         }
         if(partie_.keepBidding()) {
@@ -267,7 +267,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             }
             if(partie_.playerHavingToBid() != DealTarot.NUMERO_UTILISATEUR) {
                 setAnimContratTarot(new AnimationBidTarot(this));
-                getAnimContratTarot().start();
+                CustComponent.newThread(getAnimContratTarot()).start();
             } else {
                 //Activer les conseils
                 getConsulting().setEnabledMenu(true);
@@ -492,7 +492,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             return;
         }
         animCarteTarot=new AnimationCardTarot(this);
-        animCarteTarot.start();
+        CustComponent.newThread(animCarteTarot).start();
     }
     public void ajouterBoutonContratTarot(String _texte,BidTarot _action,boolean _apte) {
         Panel panneau_=getPanneauBoutonsJeu();
@@ -746,7 +746,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         setRaisonCourante(getMessages().getVal(MainWindow.WAIT_TURN));
         setThreadAnime(true);
         animCarteTarot=new AnimationCardTarot(this);
-        animCarteTarot.start();
+        CustComponent.newThread(animCarteTarot).start();
     }
     @Override
     public void annonceTarotChelem() {
@@ -914,7 +914,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         getPanneauBoutonsJeu().validate();
         getPanneauBoutonsJeu().repaint();
         animCarteTarot=new AnimationCardTarot(this);
-        animCarteTarot.start();
+        CustComponent.newThread(animCarteTarot).start();
         setThreadAnime(true);
 
     }
@@ -1112,7 +1112,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if(partie_.avecContrat()) {
             if (partie_.playerHavingToBid() != DealTarot.NUMERO_UTILISATEUR) {
                 setAnimContratTarot(new AnimationBidTarot(this));
-                getAnimContratTarot().start();
+                CustComponent.newThread(getAnimContratTarot()).start();
             } else {
                 setCanBid(true);
                 for(BidTarot b:partie_.allowedBids()) {

@@ -1,7 +1,7 @@
 package code.gui;
 import javax.swing.Timer;
 
-public final class DoneWebThread extends Thread {
+public final class DoneWebThread implements Runnable {
 
     private ProgressingWebDialog dialog;
 

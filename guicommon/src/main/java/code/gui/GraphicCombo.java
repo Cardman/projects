@@ -1,10 +1,6 @@
 package code.gui;
 
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import javax.swing.BorderFactory;
@@ -59,7 +55,7 @@ public class GraphicCombo extends CustComponent implements GraphicComboInt, Inpu
         FontMetrics fontMetrics_ = panel.getFontMetrics(font_);
         int s_ = fontMetrics_.getHeight() + 2;
         BufferedImage img_ = new BufferedImage(s_, s_, BufferedImage.TYPE_INT_RGB);
-        Graphics2D gr_ = img_.createGraphics();
+        Graphics gr_ = img_.createGraphics();
         gr_.setColor(Color.WHITE);
         gr_.fillRect(0, 0, s_, s_);
         gr_.setColor(Color.BLACK);
@@ -99,7 +95,7 @@ public class GraphicCombo extends CustComponent implements GraphicComboInt, Inpu
             FontMetrics fontMetrics_ = panel.getFontMetrics(font_);
             int s_ = fontMetrics_.getHeight() + 2;
             BufferedImage img_ = new BufferedImage(w_, s_, BufferedImage.TYPE_INT_RGB);
-            Graphics2D gr_ = img_.createGraphics();
+            Graphics gr_ = img_.createGraphics();
             gr_.setColor(Color.WHITE);
             gr_.fillRect(0, 0, w_, s_);
             gr_.setColor(Color.BLACK);
@@ -171,7 +167,7 @@ public class GraphicCombo extends CustComponent implements GraphicComboInt, Inpu
         grList.setFirstIndex(_index);
         grList.setLastIndex(_index);
         grList.addRange();
-        SwingUtilities.invokeLater(new SelectionComboEvent(_index, _index, this));
+        CustComponent.invokeLater(new SelectionComboEvent(_index, _index, this));
     }
 
     public void update() {
@@ -184,7 +180,7 @@ public class GraphicCombo extends CustComponent implements GraphicComboInt, Inpu
         FontMetrics fontMetrics_ = panel.getFontMetrics(font_);
         int s_ = fontMetrics_.getHeight() + 2;
         BufferedImage img_ = new BufferedImage(w_, s_, BufferedImage.TYPE_INT_RGB);
-        Graphics2D gr_ = img_.createGraphics();
+        Graphics gr_ = img_.createGraphics();
         gr_.setColor(Color.WHITE);
         gr_.fillRect(0, 0, w_, s_);
         gr_.setColor(Color.BLACK);
@@ -198,7 +194,7 @@ public class GraphicCombo extends CustComponent implements GraphicComboInt, Inpu
         int s_ = fontMetrics_.getHeight() + 2;
         int w_ = 5;
         BufferedImage img_ = new BufferedImage(w_, s_, BufferedImage.TYPE_INT_RGB);
-        Graphics2D gr_ = img_.createGraphics();
+        Graphics gr_ = img_.createGraphics();
         gr_.setColor(Color.WHITE);
         gr_.fillRect(0, 0, w_, s_);
         currentSelected.setIcon(new ImageIcon(img_));

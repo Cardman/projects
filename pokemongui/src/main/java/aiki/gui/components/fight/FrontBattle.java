@@ -3,7 +3,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import aiki.db.DataBase;
@@ -25,6 +24,7 @@ import aiki.game.fight.animations.InfosAnimationStatistic;
 import aiki.game.fight.enums.FightState;
 import aiki.gui.MainWindow;
 import aiki.gui.dialogs.FrameHtmlData;
+import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
 import code.gui.SetStyle;
 import code.gui.images.ConverterGraphicBufferedImage;
@@ -775,7 +775,7 @@ public class FrontBattle extends PaintableLabel {
                     widthVar_ = statSide_;
                 }
                 BufferedImage varStat_ = new BufferedImage(widthVar_, h_ + statSide_, BufferedImage.TYPE_INT_ARGB);
-                Graphics2D g_ = varStat_.createGraphics();
+                Graphics g_ = varStat_.createGraphics();
                 g_.drawImage(t_, 0, 0, null);
                 g_.setColor(Color.BLACK);
                 g_.drawString(var_, 0, statSide_ + h_);
@@ -811,7 +811,7 @@ public class FrontBattle extends PaintableLabel {
                 }
                 if (width_ > 0) {
                     image = new BufferedImage(width_, hMax_, BufferedImage.TYPE_INT_ARGB);
-                    Graphics2D g_ = image.createGraphics();
+                    Graphics g_ = image.createGraphics();
                     g_.setColor(Color.WHITE);
                     g_.fillRect(0, 0, width_, hMax_);
                     int x_ = 0;
@@ -1161,7 +1161,7 @@ public class FrontBattle extends PaintableLabel {
     }*/
 
     @Override
-    public void paintComponent(Graphics _g) {
+    public void paintComponent(CustGraphics _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0, 0, getWidth(), getHeight());
         if (drawImage) {
@@ -1171,7 +1171,7 @@ public class FrontBattle extends PaintableLabel {
                 _g.setColor(new Color(Color.BLACK.getRed(), Color.BLACK.getGreen(), Color.BLACK.getBlue(), 255));
                 _g.drawRect(xIni, yIni, 20, 20);
             } else {
-                _g.drawImage(image, xIni, yIni, null);
+                _g.drawImage(image, xIni, yIni);
             }
         }
         if (heal) {
@@ -1184,11 +1184,11 @@ public class FrontBattle extends PaintableLabel {
             _g.fillRect(maxWidth/2, maxHeight/2-2, 20, 4);
         }
         if (drawImages) {
-            _g.drawImage(heros, xPlayer, yPlayer, null);
+            _g.drawImage(heros, xPlayer, yPlayer);
             if (paintTwoHeros) {
-                _g.drawImage(herosSexOpposite, xPlayer + heros.getWidth(), yPlayer, null);
+                _g.drawImage(herosSexOpposite, xPlayer + heros.getWidth(), yPlayer);
             }
-            _g.drawImage(other, xOther, yOther, null);
+            _g.drawImage(other, xOther, yOther);
         } else {
 //            int i_;
 //            i_ = CustList.FIRST_INDEX;
@@ -1202,10 +1202,10 @@ public class FrontBattle extends PaintableLabel {
 //                i_++;
 //            }
             for (byte k: playerTargets.getKeys()) {
-                _g.drawImage(playerTargets.getVal(k).getImage(), playerTargets.getVal(k).getxPoint(), playerTargets.getVal(k).getyPoint(), null);
+                _g.drawImage(playerTargets.getVal(k).getImage(), playerTargets.getVal(k).getxPoint(), playerTargets.getVal(k).getyPoint());
             }
             for (byte k: foeTargets.getKeys()) {
-                _g.drawImage(foeTargets.getVal(k).getImage(), foeTargets.getVal(k).getxPoint(), foeTargets.getVal(k).getyPoint(), null);
+                _g.drawImage(foeTargets.getVal(k).getImage(), foeTargets.getVal(k).getxPoint(), foeTargets.getVal(k).getyPoint());
             }
             if (drawBlueRect) {
                 _g.setColor(Color.BLUE);

@@ -1,10 +1,6 @@
 package code.gui.document;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
@@ -51,7 +47,7 @@ public final class DualAnchoredLabel extends DualLabel {
         String text_ = getText();
         int w_ = fontMetrics_.stringWidth(text_);
         BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_RGB);
-        Graphics2D gr_ = img_.createGraphics();
+        Graphics gr_ = img_.createGraphics();
         gr_.setFont(copy_);
         gr_.setColor(new Color(style_.getBgColor()));
         gr_.fillRect(0, 0, w_, h_);

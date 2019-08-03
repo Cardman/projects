@@ -2,11 +2,6 @@ package cards.gui.containers;
 import java.awt.Rectangle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.swing.JLabel;
-import javax.swing.JMenuBar;
-import javax.swing.JTextArea;
-import javax.swing.text.BadLocationException;
-
 import cards.belote.DisplayingBelote;
 import cards.belote.RulesBelote;
 import cards.facade.Games;
@@ -137,16 +132,11 @@ public class ContainerGame implements Containable {
 
     public void ajouterTexteDansZone(String _texte) {
         getEvents().append(_texte);
-        try {
-            int endPosition_ = getEvents().getDocument().getLength();
-            Rectangle bottom_ = getEvents().modelToView(endPosition_);
-            getEvents().scrollRectToVisible(bottom_);
-        } catch (BadLocationException _0) {
-        }
+        int endPosition_ = getEvents().getDocument().getLength();
+        Rectangle bottom_ = getEvents().modelToView(endPosition_);
+        getEvents().scrollRectToVisible(bottom_);
     }
-    public JMenuBar getJMenuBar() {
-        return getWindow().getJMenuBar();
-    }
+
     public void revalidate() {
         getWindow().revalidateFrame();
     }

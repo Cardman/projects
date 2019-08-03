@@ -11,7 +11,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
-public class FileTable extends CustComponent {
+public class FileTable {
 
     static final int NAME_INDEX = 0;
 
@@ -60,7 +60,7 @@ public class FileTable extends CustComponent {
 
     private DefaultTableModel model;
 
-    private JTable table;
+    private TableGui table;
 
     public FileTable(String _lg) {
         messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, _lg,ACCESS);
@@ -69,7 +69,7 @@ public class FileTable extends CustComponent {
             cols_[i] = getColumnName(i);
         }
         model = new DefaultTableModel(cols_,0);
-        table = new JTable(model);
+        table = new TableGui(model);
     }
 
     public int getRowCount() {
@@ -218,12 +218,7 @@ public class FileTable extends CustComponent {
         return files.get(_index).getAbsolutePath();
     }
 
-    @Override
-    public JComponent getComponent() {
-        return getTable();
-    }
-
-    public JTable getTable() {
+    public TableGui getTable() {
         return table;
     }
 }

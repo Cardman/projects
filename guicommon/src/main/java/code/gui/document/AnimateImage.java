@@ -1,6 +1,6 @@
 package code.gui.document;
 
-public class AnimateImage extends Thread {
+public class AnimateImage implements Runnable {
 
     private DualAnimatedImage images;
 

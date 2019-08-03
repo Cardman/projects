@@ -1,6 +1,7 @@
 package aiki.main;
 import aiki.sml.LoadingGame;
 import aiki.gui.MainWindow;
+import code.gui.CustComponent;
 import code.gui.SetStyle;
 import code.gui.SoftApplicationCore;
 import code.gui.TopLeftFrame;
@@ -8,7 +9,7 @@ import code.util.StringMap;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
-public final class CreateMainWindow extends Thread {
+public final class CreateMainWindow implements Runnable {
 
     private MainWindow window;
 
@@ -39,9 +40,9 @@ public final class CreateMainWindow extends Thread {
         SetStyle.setupStyle(window);
         window.setVisible(true);
         if (!withParam.isEmpty()) {
-            new CreateMainWindowParam(window, load, path, withParam).start();
+            CustComponent.newThread(new CreateMainWindowParam(window, load, path, withParam)).start();
         } else {
-            new CreateMainWindowNoParam(window, load, path).start();
+            CustComponent.newThread(new CreateMainWindowNoParam(window, load, path)).start();
         }
     }
 }

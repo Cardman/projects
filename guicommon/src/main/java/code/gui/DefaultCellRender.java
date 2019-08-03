@@ -3,7 +3,6 @@ package code.gui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
-import java.awt.Graphics;
 
 import javax.swing.JLabel;
 
@@ -41,7 +40,7 @@ public final class DefaultCellRender extends CustCellRender {
     }
 
     @Override
-    public void paintComponent(Graphics _g) {
+    public void paintComponent(CustGraphics _g) {
         Font font_ = label.getFont();
         FontMetrics fontMetrics_ = label.getFontMetrics(font_);
         int h_ = fontMetrics_.getHeight();

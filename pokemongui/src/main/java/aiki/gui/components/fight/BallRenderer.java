@@ -2,17 +2,11 @@ package aiki.gui.components.fight;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-
-import javax.swing.JLabel;
 
 import aiki.facade.FacadeGame;
 import aiki.game.fight.BallNumberRate;
-import code.gui.CustCellRender;
-import code.gui.GraphicListable;
-import code.gui.PaintableLabel;
-import code.gui.PreparedLabel;
+import code.gui.*;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.Rate;
 import code.util.NatStringTreeMap;
@@ -76,10 +70,10 @@ public class BallRenderer extends CustCellRender {
     }
 
     @Override
-    public void paintComponent(Graphics _g) {
+    public void paintComponent(CustGraphics _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
-        _g.drawImage(ballImage, 0, 0, null);
+        _g.drawImage(ballImage, 0, 0);
         _g.setColor(Color.BLACK);
         _g.drawString(ball.getNumber().toNumberString(), maxWidthImage, ballImage.getHeight());
         _g.drawString(ball.getRate().toNumberString(), maxWidthImage +10+ maxWidthNumber, ballImage.getHeight());

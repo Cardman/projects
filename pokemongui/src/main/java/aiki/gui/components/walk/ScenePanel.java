@@ -490,10 +490,6 @@ public class ScenePanel extends Panel {
         pad.getRight().removeMouseListener(pad.getRight().getMouseListeners()[0]);
     }
 
-    public void paintScene() {
-        scene.repaint();
-    }
-
     private void initMenu() {
         panelMenu = Panel.newPageBox();
         endGame.setVisible(false);

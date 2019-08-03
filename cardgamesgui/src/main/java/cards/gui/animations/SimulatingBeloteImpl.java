@@ -100,7 +100,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
 
     @Override
     public void prepare() {
-        SwingUtilities.invokeLater(new PrepareSimuBelote(this));
+        CustComponent.invokeLater(new PrepareSimuBelote(this));
     }
     void prepareGui() {
         container.setArretDemo(false);
@@ -188,12 +188,12 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
 
     @Override
     public void stopDemo() {
-        SwingUtilities.invokeLater(new StopDemo(container));
+        CustComponent.invokeLater(new StopDemo(container));
     }
 
     @Override
     public void endDeal() {
-        SwingUtilities.invokeLater(new EndDealSimuBelote(this));
+        CustComponent.invokeLater(new EndDealSimuBelote(this));
     }
 
     void endGuiDeal() {

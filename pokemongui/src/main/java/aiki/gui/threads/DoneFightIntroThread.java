@@ -1,7 +1,7 @@
 package aiki.gui.threads;
 import aiki.gui.components.fight.Battle;
 
-public final class DoneFightIntroThread extends Thread {
+public final class DoneFightIntroThread implements Runnable {
 
     private Battle battle;
 

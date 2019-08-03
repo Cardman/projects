@@ -1,29 +1,13 @@
 package code.gui;
 
-import javax.accessibility.AccessibleContext;
-import javax.print.PrintService;
-import javax.print.attribute.PrintRequestAttributeSet;
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.event.AncestorListener;
 import javax.swing.event.CaretListener;
-import javax.swing.plaf.TextUI;
 import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.InputMethodListener;
 import java.awt.event.MouseEvent;
-import java.awt.im.InputMethodRequests;
-import java.awt.print.Printable;
-import java.awt.print.PrinterException;
-import java.beans.VetoableChangeListener;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
-import java.text.MessageFormat;
-import java.util.EventListener;
-import java.util.Locale;
-import java.util.Set;
 
 public final class TextArea extends CustComponent {
 
@@ -39,9 +23,6 @@ public final class TextArea extends CustComponent {
     }
     public TextArea(String _txt,int _r,int _c) {
         textArea = new JTextArea(_txt,_r,_c);
-    }
-    public String getUIClassID() {
-        return textArea.getUIClassID();
     }
 
     public void setTabSize(int size) {
@@ -68,20 +49,8 @@ public final class TextArea extends CustComponent {
         return textArea.getWrapStyleWord();
     }
 
-    public int getLineOfOffset(int offset) throws BadLocationException {
-        return textArea.getLineOfOffset(offset);
-    }
-
     public int getLineCount() {
         return textArea.getLineCount();
-    }
-
-    public int getLineStartOffset(int line) throws BadLocationException {
-        return textArea.getLineStartOffset(line);
-    }
-
-    public int getLineEndOffset(int line) throws BadLocationException {
-        return textArea.getLineEndOffset(line);
     }
 
     public void insert(String str, int pos) {
@@ -112,10 +81,6 @@ public final class TextArea extends CustComponent {
         textArea.setColumns(columns);
     }
 
-    public Dimension getPreferredSize() {
-        return textArea.getPreferredSize();
-    }
-
     public void setFont(Font f) {
         textArea.setFont(f);
     }
@@ -130,22 +95,6 @@ public final class TextArea extends CustComponent {
 
     public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction) {
         return textArea.getScrollableUnitIncrement(visibleRect, orientation, direction);
-    }
-
-    public AccessibleContext getAccessibleContext() {
-        return textArea.getAccessibleContext();
-    }
-
-    public TextUI getUI() {
-        return textArea.getUI();
-    }
-
-    public void setUI(TextUI ui) {
-        textArea.setUI(ui);
-    }
-
-    public void updateUI() {
-        textArea.updateUI();
     }
 
     public void addCaretListener(CaretListener listener) {
@@ -168,44 +117,8 @@ public final class TextArea extends CustComponent {
         return textArea.getDocument();
     }
 
-    public void setComponentOrientation(ComponentOrientation o) {
-        textArea.setComponentOrientation(o);
-    }
-
     public Action[] getActions() {
         return textArea.getActions();
-    }
-
-    public void setMargin(Insets m) {
-        textArea.setMargin(m);
-    }
-
-    public Insets getMargin() {
-        return textArea.getMargin();
-    }
-
-    public void setNavigationFilter(NavigationFilter filter) {
-        textArea.setNavigationFilter(filter);
-    }
-
-    public NavigationFilter getNavigationFilter() {
-        return textArea.getNavigationFilter();
-    }
-
-    public void setCaret(Caret c) {
-        textArea.setCaret(c);
-    }
-
-    public Highlighter getHighlighter() {
-        return textArea.getHighlighter();
-    }
-
-    public void setHighlighter(Highlighter h) {
-        textArea.setHighlighter(h);
-    }
-
-    public void setKeymap(Keymap map) {
-        textArea.setKeymap(map);
     }
 
     public void setDragEnabled(boolean b) {
@@ -222,30 +135,6 @@ public final class TextArea extends CustComponent {
 
     public DropMode getDropMode() {
         return textArea.getDropMode();
-    }
-
-    public JTextComponent.DropLocation getDropLocation() {
-        return textArea.getDropLocation();
-    }
-
-    public Keymap getKeymap() {
-        return textArea.getKeymap();
-    }
-
-    public static Keymap addKeymap(String nm, Keymap parent) {
-        return JTextComponent.addKeymap(nm, parent);
-    }
-
-    public static Keymap removeKeymap(String nm) {
-        return JTextComponent.removeKeymap(nm);
-    }
-
-    public static Keymap getKeymap(String nm) {
-        return JTextComponent.getKeymap(nm);
-    }
-
-    public static void loadKeymap(Keymap map, JTextComponent.KeyBinding[] bindings, Action[] actions) {
-        JTextComponent.loadKeymap(map, bindings, actions);
     }
 
     public Color getCaretColor() {
@@ -284,12 +173,12 @@ public final class TextArea extends CustComponent {
         textArea.replaceSelection(content);
     }
 
-    public String getText(int offs, int len) throws BadLocationException {
-        return textArea.getText(offs, len);
-    }
-
-    public Rectangle modelToView(int pos) throws BadLocationException {
-        return textArea.modelToView(pos);
+    public Rectangle modelToView(int pos) {
+        try {
+            return textArea.modelToView(pos);
+        } catch (Exception e) {
+            return new Rectangle();
+        }
     }
 
     public int viewToModel(Point pt) {
@@ -318,18 +207,6 @@ public final class TextArea extends CustComponent {
 
     public char getFocusAccelerator() {
         return textArea.getFocusAccelerator();
-    }
-
-    public void read(Reader in, Object desc) throws IOException {
-        textArea.read(in, desc);
-    }
-
-    public void write(Writer out) throws IOException {
-        textArea.write(out);
-    }
-
-    public void removeNotify() {
-        textArea.removeNotify();
     }
 
     public void setCaretPosition(int position) {
@@ -384,10 +261,6 @@ public final class TextArea extends CustComponent {
         return textArea.getScrollableTracksViewportHeight();
     }
 
-    public InputMethodRequests getInputMethodRequests() {
-        return textArea.getInputMethodRequests();
-    }
-
     public void addInputMethodListener(InputMethodListener l) {
         textArea.addInputMethodListener(l);
     }
@@ -406,22 +279,6 @@ public final class TextArea extends CustComponent {
 
     public JPopupMenu getComponentPopupMenu() {
         return textArea.getComponentPopupMenu();
-    }
-
-    public void update(Graphics g) {
-        textArea.update(g);
-    }
-
-    public void paint(Graphics g) {
-        textArea.paint(g);
-    }
-
-    public void printAll(Graphics g) {
-        textArea.printAll(g);
-    }
-
-    public void print(Graphics g) {
-        textArea.print(g);
     }
 
     public boolean isPaintingTile() {
@@ -468,64 +325,12 @@ public final class TextArea extends CustComponent {
         return textArea.getFontMetrics(font);
     }
 
-    public void setPreferredSize(Dimension preferredSize) {
-        textArea.setPreferredSize(preferredSize);
-    }
-
-    public void setMaximumSize(Dimension maximumSize) {
-        textArea.setMaximumSize(maximumSize);
-    }
-
-    public void setMinimumSize(Dimension minimumSize) {
-        textArea.setMinimumSize(minimumSize);
-    }
-
     public boolean contains(int x, int y) {
         return textArea.contains(x, y);
     }
 
-    public void setBorder(Border border) {
-        textArea.setBorder(border);
-    }
-
     public Border getBorder() {
         return textArea.getBorder();
-    }
-
-    public Insets getInsets() {
-        return textArea.getInsets();
-    }
-
-    public Insets getInsets(Insets insets) {
-        return textArea.getInsets(insets);
-    }
-
-    public float getAlignmentY() {
-        return textArea.getAlignmentY();
-    }
-
-    public void setAlignmentY(float alignmentY) {
-        textArea.setAlignmentY(alignmentY);
-    }
-
-    public float getAlignmentX() {
-        return textArea.getAlignmentX();
-    }
-
-    public void setAlignmentX(float alignmentX) {
-        textArea.setAlignmentX(alignmentX);
-    }
-
-    public void setInputVerifier(InputVerifier inputVerifier) {
-        textArea.setInputVerifier(inputVerifier);
-    }
-
-    public InputVerifier getInputVerifier() {
-        return textArea.getInputVerifier();
-    }
-
-    public Graphics getGraphics() {
-        return textArea.getGraphics();
     }
 
     public void setDebugGraphicsOptions(int debugOptions) {
@@ -572,24 +377,11 @@ public final class TextArea extends CustComponent {
         return textArea.getInputMap(condition);
     }
 
-    public InputMap getInputMap() {
-        return textArea.getInputMap();
-    }
-
-    public void setActionMap(ActionMap am) {
-        textArea.setActionMap(am);
-    }
-
     public ActionMap getActionMap() {
         return textArea.getActionMap();
     }
-
     public int getBaseline(int width, int height) {
         return textArea.getBaseline(width, height);
-    }
-
-    public Component.BaselineResizeBehavior getBaselineResizeBehavior() {
-        return textArea.getBaselineResizeBehavior();
     }
 
     public void setVisible(boolean aFlag) {
@@ -608,18 +400,6 @@ public final class TextArea extends CustComponent {
         textArea.setBackground(bg);
     }
 
-    public static Locale getDefaultLocale() {
-        return JComponent.getDefaultLocale();
-    }
-
-    public static void setDefaultLocale(Locale l) {
-        JComponent.setDefaultLocale(l);
-    }
-
-    public void setToolTipText(String text) {
-        textArea.setToolTipText(text);
-    }
-
     public String getToolTipText() {
         return textArea.getToolTipText();
     }
@@ -630,10 +410,6 @@ public final class TextArea extends CustComponent {
 
     public Point getPopupLocation(MouseEvent event) {
         return textArea.getPopupLocation(event);
-    }
-
-    public JToolTip createToolTip() {
-        return textArea.createToolTip();
     }
 
     public void scrollRectToVisible(Rectangle aRect) {
@@ -648,28 +424,12 @@ public final class TextArea extends CustComponent {
         return textArea.getAutoscrolls();
     }
 
-    public void setTransferHandler(TransferHandler newHandler) {
-        textArea.setTransferHandler(newHandler);
-    }
-
-    public TransferHandler getTransferHandler() {
-        return textArea.getTransferHandler();
-    }
-
     public Object getClientProperty(Object key) {
         return textArea.getClientProperty(key);
     }
 
     public void putClientProperty(Object key, Object value) {
         textArea.putClientProperty(key, value);
-    }
-
-    public void setFocusTraversalKeys(int id, Set<? extends AWTKeyStroke> keystrokes) {
-        textArea.setFocusTraversalKeys(id, keystrokes);
-    }
-
-    public static boolean isLightweightComponent(Component c) {
-        return JComponent.isLightweightComponent(c);
     }
 
     public Rectangle getBounds(Rectangle rv) {
@@ -697,14 +457,6 @@ public final class TextArea extends CustComponent {
         return textArea;
     }
 
-    public int getWidth() {
-        return textArea.getWidth();
-    }
-
-    public int getHeight() {
-        return textArea.getHeight();
-    }
-
     public boolean isOpaque() {
         return textArea.isOpaque();
     }
@@ -721,58 +473,6 @@ public final class TextArea extends CustComponent {
         return textArea.getVisibleRect();
     }
 
-    public void firePropertyChange(String propertyName, boolean oldValue, boolean newValue) {
-        textArea.firePropertyChange(propertyName, oldValue, newValue);
-    }
-
-    public void firePropertyChange(String propertyName, int oldValue, int newValue) {
-        textArea.firePropertyChange(propertyName, oldValue, newValue);
-    }
-
-    public void firePropertyChange(String propertyName, char oldValue, char newValue) {
-        textArea.firePropertyChange(propertyName, oldValue, newValue);
-    }
-
-    public void addVetoableChangeListener(VetoableChangeListener listener) {
-        textArea.addVetoableChangeListener(listener);
-    }
-
-    public void removeVetoableChangeListener(VetoableChangeListener listener) {
-        textArea.removeVetoableChangeListener(listener);
-    }
-
-    public VetoableChangeListener[] getVetoableChangeListeners() {
-        return textArea.getVetoableChangeListeners();
-    }
-
-    public Container getTopLevelAncestor() {
-        return textArea.getTopLevelAncestor();
-    }
-
-    public void addAncestorListener(AncestorListener listener) {
-        textArea.addAncestorListener(listener);
-    }
-
-    public void removeAncestorListener(AncestorListener listener) {
-        textArea.removeAncestorListener(listener);
-    }
-
-    public AncestorListener[] getAncestorListeners() {
-        return textArea.getAncestorListeners();
-    }
-
-    public void addNotify() {
-        textArea.addNotify();
-    }
-
-    public void repaint(long tm, int x, int y, int width, int height) {
-        textArea.repaint(tm, x, y, width, height);
-    }
-
-    public void repaint(Rectangle r) {
-        textArea.repaint(r);
-    }
-
     public void revalidate() {
         textArea.revalidate();
     }
@@ -781,31 +481,23 @@ public final class TextArea extends CustComponent {
         return textArea.isValidateRoot();
     }
 
-    public boolean isOptimizedDrawingEnabled() {
-        return textArea.isOptimizedDrawingEnabled();
-    }
-
-    public void paintImmediately(int x, int y, int w, int h) {
-        textArea.paintImmediately(x, y, w, h);
-    }
-
-    public void paintImmediately(Rectangle r) {
-        textArea.paintImmediately(r);
-    }
-
-    public void setDoubleBuffered(boolean aFlag) {
-        textArea.setDoubleBuffered(aFlag);
-    }
-
-    public boolean isDoubleBuffered() {
-        return textArea.isDoubleBuffered();
-    }
-
-    public JRootPane getRootPane() {
-        return textArea.getRootPane();
-    }
-
     public int getCaretPosition() {
         return textArea.getCaretPosition();
+    }
+
+    public int getLineOfOffset(int caretpos) {
+        try {
+            return textArea.getLineOfOffset(caretpos);
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+
+    public int getLineStartOffset(int linenum) {
+        try {
+            return textArea.getLineStartOffset(linenum);
+        } catch (Exception e) {
+            return -1;
+        }
     }
 }

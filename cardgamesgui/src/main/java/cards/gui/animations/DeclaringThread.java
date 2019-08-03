@@ -7,7 +7,7 @@ import code.gui.Panel;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
-public final class DeclaringThread extends Thread {
+public final class DeclaringThread implements Runnable {
 
     private Panel panelToSet;
 

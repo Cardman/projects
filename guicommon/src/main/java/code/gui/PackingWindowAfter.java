@@ -3,7 +3,7 @@ import javax.swing.SwingUtilities;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
-public final class PackingWindowAfter extends Thread {
+public final class PackingWindowAfter implements Runnable {
 
     private Packable frame;
 
@@ -15,7 +15,7 @@ public final class PackingWindowAfter extends Thread {
             PackingWindowAfter p_;
             p_ = new PackingWindowAfter();
             p_.frame = _frame;
-            p_.start();
+            CustComponent.newThread(p_).start();
         } else {
             pack(_frame);
         }
@@ -33,6 +33,6 @@ public final class PackingWindowAfter extends Thread {
     }
 
     private void pack() {
-        SwingUtilities.invokeLater(new PackThread(frame));
+        CustComponent.invokeLater(new PackThread(frame));
     }
 }

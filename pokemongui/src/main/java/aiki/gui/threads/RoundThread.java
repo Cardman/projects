@@ -6,7 +6,7 @@ import code.gui.ThreadUtil;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
-public abstract class RoundThread extends Thread {
+public abstract class RoundThread implements Runnable {
 
     private FacadeGame facade;
 

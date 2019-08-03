@@ -3,7 +3,7 @@ package minirts;
 import jm.music.data.Score;
 import jm.util.Play;
 
-public class ThreadSound extends Thread {
+public class ThreadSound implements Runnable {
 
     private Score score;
     public ThreadSound(Score _score) {

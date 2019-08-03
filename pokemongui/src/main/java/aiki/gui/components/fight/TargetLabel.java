@@ -1,7 +1,5 @@
 package aiki.gui.components.fight;
-import java.awt.Color;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import aiki.db.DataBase;
@@ -186,7 +184,7 @@ public class TargetLabel {
                 }
                 widthStatis_ += i.getWidth();
             }
-            Graphics2D g_ = image.createGraphics();
+            Graphics g_ = image.createGraphics();
             g_.setColor(Color.WHITE);
             g_.fillRect(deltaWidth_, 0, widthStatis_, hMax_);
             int x_ = 0;

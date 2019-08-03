@@ -4,7 +4,7 @@ import cards.president.enumerations.Playing;
 import code.util.*;
 
 /**Thread safe class*/
-public final class SettingPresidentStatus extends Thread {
+public final class SettingPresidentStatus implements Runnable {
 
     private ContainerPresident container;
 

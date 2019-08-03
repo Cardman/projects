@@ -1,7 +1,6 @@
 package cards.gui.labels.selection;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 
 import javax.swing.JLabel;
 
@@ -9,10 +8,7 @@ import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.MainWindow;
-import code.gui.CustCellRender;
-import code.gui.GraphicListable;
-import code.gui.PaintableLabel;
-import code.gui.PreparedLabel;
+import code.gui.*;
 import code.util.*;
 /**
  */
@@ -33,7 +29,7 @@ public class CardBeloteCellRenderer extends CustCellRender{
         return label_;
     }
     @Override
-    public void paintComponent(Graphics _g) {
+    public void paintComponent(CustGraphics _g) {
         if(!selectionne) {
             _g.setColor(Color.WHITE);
         } else {

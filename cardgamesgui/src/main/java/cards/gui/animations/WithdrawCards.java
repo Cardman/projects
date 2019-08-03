@@ -3,7 +3,7 @@ import cards.gui.containers.ContainerSimu;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
-public final class WithdrawCards extends Thread {
+public final class WithdrawCards implements Runnable {
 
     private ContainerSimu container;
 

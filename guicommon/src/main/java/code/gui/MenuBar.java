@@ -9,8 +9,8 @@ public class MenuBar {
         return menuBar;
     }
 
-    public JMenu add(JMenu _c) {
-        return menuBar.add(_c);
+    public void add(Menu _c) {
+        menuBar.add(_c.getMenu());
     }
 
     public JMenu getMenu(int _index) {

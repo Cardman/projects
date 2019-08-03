@@ -1,7 +1,7 @@
 package code.gui;
 
 
-public final class SelectionComboEvent extends Thread {
+public final class SelectionComboEvent implements Runnable {
     private int firstIndex;
     private int lastIndex;
     private GraphicCombo grList;

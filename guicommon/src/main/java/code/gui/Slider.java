@@ -71,6 +71,6 @@ public final class Slider extends CustComponent {
     }
     @Override
     public JComponent getComponent() {
-        return null;
+        return slider;
     }
 }

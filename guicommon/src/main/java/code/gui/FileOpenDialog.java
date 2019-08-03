@@ -39,7 +39,8 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
 
     private StringMap<String> messages;
 
-    private ThreadSearchingFile thread;
+    private ThreadSearchingFile info;
+    private Thread thread;
 
     private AtomicBoolean keepSearching = new AtomicBoolean();
 
@@ -113,7 +114,8 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         init(getCurrentFolder(), getExtension());
         getFileModel().clear();
         setKeepSearching(true);
-        thread = new ThreadSearchingFile(DIALOG, backup_, currentFolder_);
+        info = new ThreadSearchingFile(DIALOG, backup_, currentFolder_);
+        thread = CustComponent.newThread(info);
         thread.start();
 //        setKeepSearching(true);
 //        Cursor cursor_ = getCursor();

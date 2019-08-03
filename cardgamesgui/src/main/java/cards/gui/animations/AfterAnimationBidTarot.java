@@ -13,7 +13,7 @@ import code.util.StringList;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
-public final class AfterAnimationBidTarot extends Thread {
+public final class AfterAnimationBidTarot implements Runnable {
 
     private ContainerSingleTarot container;
 

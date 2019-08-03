@@ -90,7 +90,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
 
     @Override
     public void prepare() {
-        SwingUtilities.invokeLater(new PrepareSimuTarot(this));
+        CustComponent.invokeLater(new PrepareSimuTarot(this));
     }
 
     void prepareGui() {
@@ -180,12 +180,12 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
 
     @Override
     public void stopDemo() {
-        SwingUtilities.invokeLater(new StopDemo(container));
+        CustComponent.invokeLater(new StopDemo(container));
     }
 
     @Override
     public void endDeal() {
-        SwingUtilities.invokeLater(new EndDealSimuTarot(this));
+        CustComponent.invokeLater(new EndDealSimuTarot(this));
     }
 
     void endGuiDeal() {

@@ -1,7 +1,7 @@
 package cards.gui.animations;
 import code.gui.TextLabel;
 
-public final class SettingText extends Thread {
+public final class SettingText implements Runnable {
 
     private TextLabel label;
 

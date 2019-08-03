@@ -14,7 +14,7 @@ import code.gui.CustComponent;
 
 /**AnimationBalle permet de deplacer
 un petit carre de 10 pixels noir en haut vers la droite*/
-public final class AnimationUnitSoldier extends Thread {
+public final class AnimationUnitSoldier implements Runnable {
 
     private static final ReentrantLock MOVING_LOCK = new ReentrantLock();
 

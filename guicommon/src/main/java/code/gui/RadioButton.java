@@ -3,7 +3,6 @@ package code.gui;
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemListener;
 import java.awt.event.MouseListener;
 
 public final class RadioButton extends CustComponent {
@@ -36,10 +35,6 @@ public final class RadioButton extends CustComponent {
 
     public void addChangeListener(ChangeListener l) {
         radioButton.addChangeListener(l);
-    }
-
-    public void addItemListener(ItemListener l) {
-        radioButton.addItemListener(l);
     }
 
     public void addMouseListener(MouseListener _l) {

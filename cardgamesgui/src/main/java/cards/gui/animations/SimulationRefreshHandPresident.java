@@ -7,7 +7,7 @@ import code.gui.Panel;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
-public final class SimulationRefreshHandPresident extends Thread {
+public final class SimulationRefreshHandPresident implements Runnable {
 
     private ContainerGame container;
 

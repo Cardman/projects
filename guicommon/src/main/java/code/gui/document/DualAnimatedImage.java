@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import code.formathtml.render.MetaAnimatedImage;
+import code.gui.CustComponent;
 import code.gui.PreparedLabel;
 import code.gui.TextLabel;
 import code.gui.ThreadUtil;
@@ -55,7 +56,7 @@ public class DualAnimatedImage extends DualImage {
 
     public void start() {
         imageThread.setAnimated(true);
-        imageThread.start();
+        CustComponent.newThread(imageThread).start();
     }
 
     public void increment() {

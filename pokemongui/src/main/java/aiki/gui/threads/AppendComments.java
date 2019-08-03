@@ -2,7 +2,7 @@ package aiki.gui.threads;
 import aiki.facade.FacadeGame;
 import aiki.gui.components.fight.Battle;
 
-public final class AppendComments extends Thread {
+public final class AppendComments implements Runnable {
 
     private FacadeGame facade;
 

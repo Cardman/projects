@@ -1,13 +1,13 @@
 package aiki.gui.components.labels;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.components.Paginator;
 import aiki.util.SortingHealingItem;
+import code.gui.CustGraphics;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.sml.stream.ExtractFromFiles;
 import code.util.Ints;
@@ -95,10 +95,10 @@ public class HealingItemLabel extends SelectableLabel {
     }
 
     @Override
-    public void paintComponent(Graphics _g) {
+    public void paintComponent(CustGraphics _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0,0,getWidth(),getHeight());
-        _g.drawImage(miniImageItem, 0, 0, null);
+        _g.drawImage(miniImageItem, 0, 0);
         _g.setColor(Color.BLACK);
         _g.drawString(item.getName(), sideLength, FIRST_LINE);
         _g.drawString(item.getItemClass(), sideLength, SECOND_LINE);

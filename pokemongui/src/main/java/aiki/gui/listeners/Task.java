@@ -7,6 +7,7 @@ import aiki.gui.MainWindow;
 import aiki.gui.components.walk.Scene;
 import aiki.gui.threads.Painting;
 import aiki.map.enums.Direction;
+import code.gui.CustComponent;
 
 public class Task implements ActionListener {
 
@@ -38,7 +39,7 @@ public class Task implements ActionListener {
             return;
         }
         painting = new Painting(scene, facade, dir, window);
-        painting.start();
+        CustComponent.newThread(painting).start();
     }
 
     public Direction getDir() {

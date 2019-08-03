@@ -24,10 +24,6 @@ public final class Spinner extends CustComponent {
         spinner.setValue(value);
     }
 
-    public Object getNextValue() {
-        return spinner.getNextValue();
-    }
-
     public void addChangeListener(ChangeListener listener) {
         spinner.addChangeListener(listener);
     }

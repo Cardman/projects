@@ -2,7 +2,6 @@ package code.gui;
 
 import javax.swing.JComponent;
 import javax.swing.JSplitPane;
-import java.awt.*;
 
 public class SplitPane extends CustComponent {
 
@@ -45,16 +44,8 @@ public class SplitPane extends CustComponent {
         component.setOneTouchExpandable(_b);
     }
 
-    @Override
-    public int getWidth() {
-        return component.getWidth();
-    }
-
     public void setDividerLocation(int _i) {
         component.setDividerLocation(_i);
     }
 
-    public void setPreferredSize(Dimension _dimension) {
-        component.setPreferredSize(_dimension);
-    }
 }

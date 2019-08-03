@@ -2,7 +2,7 @@ package aiki.gui.threads;
 import aiki.game.fight.animations.AnimationInt;
 import aiki.gui.components.fight.Battle;
 
-public final class DrawingAnimation extends Thread {
+public final class DrawingAnimation implements Runnable {
 
     private Battle battle;
 

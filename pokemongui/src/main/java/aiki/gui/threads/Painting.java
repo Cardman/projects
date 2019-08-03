@@ -5,12 +5,13 @@ import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import aiki.gui.components.walk.Scene;
 import aiki.map.enums.Direction;
+import code.gui.CustComponent;
 import code.gui.ThreadUtil;
 import code.util.CustList;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
-public final class Painting extends Thread {
+public final class Painting implements Runnable {
 
     private Scene scene;
 
@@ -54,10 +55,10 @@ public final class Painting extends Thread {
             ThreadUtil.sleep(pause);
             scene.repaint();
             if (facade.isChangeToFightScene()) {
-                SwingUtilities.invokeLater(new SetFightPanel(window));
+                CustComponent.invokeLater(new SetFightPanel(window));
                 return;
             }
-            SwingUtilities.invokeLater(new SetInteractionScene(window));
+            CustComponent.invokeLater(new SetInteractionScene(window));
             return;
         }
         scene.setAnimated(true);
@@ -77,7 +78,7 @@ public final class Painting extends Thread {
                     scene.repaint();
                 }
             }
-            SwingUtilities.invokeLater(new SetFightPanel(window));
+            CustComponent.invokeLater(new SetFightPanel(window));
             return;
         }
         if (facade.getGame().getNbSteps() == 0) {
@@ -86,7 +87,7 @@ public final class Painting extends Thread {
             scene.setDelta(0, false);
             ThreadUtil.sleep(pause);
             scene.repaint();
-            SwingUtilities.invokeLater(new SetInteractionScene(window));
+            CustComponent.invokeLater(new SetInteractionScene(window));
             return;
         }
         if (facade.getGame().isPlaceChanged()) {
@@ -95,7 +96,7 @@ public final class Painting extends Thread {
             scene.load(facade, false);
             ThreadUtil.sleep(pause);
             scene.repaint();
-            SwingUtilities.invokeLater(new SetInteractionScene(window));
+            CustComponent.invokeLater(new SetInteractionScene(window));
             return;
         }
         facade.changeCamera(dir);
@@ -105,6 +106,6 @@ public final class Painting extends Thread {
             ThreadUtil.sleep(pause);
             scene.repaint();
         }
-        SwingUtilities.invokeLater(new SetInteractionScene(window));
+        CustComponent.invokeLater(new SetInteractionScene(window));
     }
 }

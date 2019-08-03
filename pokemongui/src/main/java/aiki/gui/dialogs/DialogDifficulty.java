@@ -91,6 +91,6 @@ public final class DialogDifficulty extends Dialog {
         super.closeWindow();
 //        session.clearSession();
         facade.initIv();
-        SwingUtilities.invokeLater(new AfterSettingDifficutyThread(window, facade));
+        CustComponent.invokeLater(new AfterSettingDifficutyThread(window, facade));
     }
 }

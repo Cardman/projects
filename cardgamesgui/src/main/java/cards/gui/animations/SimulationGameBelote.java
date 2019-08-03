@@ -6,11 +6,12 @@ import cards.consts.MixCardsChoice;
 import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.gui.containers.ContainerSimuBelote;
+import code.gui.CustComponent;
 import code.gui.LabelButton;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
-public final class SimulationGameBelote extends Thread implements SimulationGame {
+public final class SimulationGameBelote implements Runnable,SimulationGame {
     private Games partieSimulee = new Games();
     private ContainerSimuBelote container;
     private LabelButton stopButton;
@@ -46,7 +47,7 @@ public final class SimulationGameBelote extends Thread implements SimulationGame
 
     @Override
     public void run() {
-        new SettingSimulationComponent(this).start();
+        CustComponent.newThread(new SettingSimulationComponent(this)).start();
     }
 
     @Override

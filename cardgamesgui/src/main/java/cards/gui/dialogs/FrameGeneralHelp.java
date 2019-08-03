@@ -199,7 +199,7 @@ public final class FrameGeneralHelp extends ChildFrame {
         if (wasNull_) {
             editor = new RenderedPage(new ScrollPane());
         }
-        JTree arbre_ = new JTree(root_);
+        TreeGui arbre_ = new TreeGui(root_);
         arbre_.setRootVisible(false);
         arbre_.addTreeSelectionListener(new ListenerClickTree(racineBis, editor, arbre_));
         editor.setLanguage(lg_);

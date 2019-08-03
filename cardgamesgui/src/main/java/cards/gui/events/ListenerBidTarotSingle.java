@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import cards.gui.animations.AnimationBidTarot;
 import cards.gui.containers.ContainerSingleTarot;
 import cards.tarot.enumerations.BidTarot;
+import code.gui.CustComponent;
 
 public class ListenerBidTarotSingle extends MouseAdapter {
 
@@ -29,7 +30,7 @@ public class ListenerBidTarotSingle extends MouseAdapter {
         container.setCanBid(false);
         container.setContratUtilisateur(enchere);
         container.setAnimContratTarot(new AnimationBidTarot(container));
-        container.getAnimContratTarot().start();
+        CustComponent.newThread(container.getAnimContratTarot()).start();
 
     }
 

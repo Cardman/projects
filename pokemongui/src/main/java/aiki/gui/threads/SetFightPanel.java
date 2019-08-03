@@ -3,7 +3,7 @@ import aiki.gui.MainWindow;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
-public final class SetFightPanel extends Thread {
+public final class SetFightPanel implements Runnable {
 
     private MainWindow window;
 

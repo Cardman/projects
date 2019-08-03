@@ -1,5 +1,6 @@
 package minirts;
 
+import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
 import minirts.rts.Facade;
 import minirts.rts.Rect;
@@ -15,7 +16,7 @@ public class Selecting extends PaintableLabel {
     }
 
     @Override
-    public void paintComponent(Graphics _g) {
+    public void paintComponent(CustGraphics _g) {
         Graphics g_ = getComponent().getGraphics();
         Rect r_ = facade.getSelection();
         g_.setColor(Color.BLUE);

@@ -1,12 +1,9 @@
 package cards.gui;
-import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.net.Socket;
 
-import javax.swing.JLabel;
-import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
@@ -597,10 +594,6 @@ public final class MainWindow extends NetGroupFrame {
         }
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
-        //pack();
-        //setVisible(true);
-        //SetStyle.setupStyle(this);
-        //SwingUtilities.invokeLater(new SetStyle(this));
     }
 
     public String getTooManyString() {
@@ -778,7 +771,7 @@ public final class MainWindow extends NetGroupFrame {
     public void gearClient(Socket _newSocket) {
         Net.getSockets().put(Net.getSockets().size(), _newSocket);
         SendReceiveServer sendReceiveServer_=new SendReceiveServer(_newSocket,this);
-        sendReceiveServer_.start();
+        CustComponent.newThread(sendReceiveServer_).start();
         Net.getConnectionsServer().put(Net.getSockets().size()-1,sendReceiveServer_);
         IndexOfArriving index_ = new IndexOfArriving();
         index_.setIndex(Net.getSockets().size()-1);
@@ -1216,7 +1209,7 @@ public final class MainWindow extends NetGroupFrame {
         exit.addActionListener(new QuitEvent(this));
         exit.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_ESCAPE));
         file.addMenuItem(exit);
-        getJMenuBar().add(file.getMenu());
+        getJMenuBar().add(file);
     }
     public void loadGame() {
 //        if (!load.isEnabled()) {
@@ -1432,7 +1425,7 @@ public final class MainWindow extends NetGroupFrame {
         multiStop = new MenuItem(getMessages().getVal(MULTI_STOP));
         multiStop.addActionListener(new QuitMultiEvent(this));
         deal.addMenuItem(multiStop);
-        getJMenuBar().add(deal.getMenu());
+        getJMenuBar().add(deal);
     }
     public void consult() {
 //        if (!consulting.isEnabled()) {
@@ -1708,7 +1701,7 @@ public final class MainWindow extends NetGroupFrame {
         displaying.addMenuItem(sousSousMenu_);
         displayingGames.put(GameEnum.TAROT, sousSousMenu_);
         parameters.addMenuItem(displaying);
-        getJMenuBar().add(parameters.getMenu());
+        getJMenuBar().add(parameters);
     }
     public void manageRules(GameEnum _game) {
         String lg_ = getLanguageKey();
@@ -1797,7 +1790,7 @@ public final class MainWindow extends NetGroupFrame {
         generalHelp.addActionListener(new DisplayHelpEvent(this));
         generalHelp.setAccelerator(KeyStroke.getKeyStroke(F_THREE));
         help.addMenuItem(generalHelp);
-        getJMenuBar().add(help.getMenu());
+        getJMenuBar().add(help);
 
     }
 
@@ -1817,14 +1810,11 @@ public final class MainWindow extends NetGroupFrame {
 
     /**Initialise la barre de menus*/
     private void initMenus() {
-        setJMenuBar(new JMenuBar());
+        setJMenuBar(new MenuBar());
         initFileMenu();
         initDealMenu();
         initParametersMenu();
         initHelpMenu();
-    }
-    private void setJMenuBar(JMenuBar _jMenuBar) {
-        getFrame().setJMenuBar(_jMenuBar);
     }
 
     private int confirm(String _message,String _titre) {
@@ -2161,10 +2151,6 @@ public final class MainWindow extends NetGroupFrame {
     @Override
     public Object getObject(String _object) {
         return DocumentReaderCardsMultiUtil.getObject(_object);
-    }
-
-    public JMenuBar getJMenuBar() {
-        return getFrame().getJMenuBar();
     }
 
 }

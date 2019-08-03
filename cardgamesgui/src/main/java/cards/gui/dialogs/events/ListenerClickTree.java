@@ -1,5 +1,4 @@
 package cards.gui.dialogs.events;
-import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -7,8 +6,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.NodeHelp;
 import cards.gui.dialogs.help.beans.GeneralHelpLgNames;
-import code.formathtml.DefaultInitialization;
 import code.formathtml.util.BeanLgNames;
+import code.gui.TreeGui;
 import code.gui.document.RenderedPage;
 import code.util.CustList;
 import code.util.Ints;
@@ -19,10 +18,10 @@ public class ListenerClickTree implements TreeSelectionListener {
 
     private RenderedPage editor;
 
-    private JTree tree;
+    private TreeGui tree;
 
     public ListenerClickTree(NodeHelp _node,
-            RenderedPage _editor, JTree _tree) {
+            RenderedPage _editor, TreeGui _tree) {
         node = _node;
         editor = _editor;
         tree = _tree;

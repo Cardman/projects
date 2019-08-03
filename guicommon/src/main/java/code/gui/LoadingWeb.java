@@ -8,9 +8,9 @@ import code.util.CustList;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
-public final class LoadingWeb extends Thread {
+public final class LoadingWeb implements Runnable {
 
-    //extends Thread
+    //implements Runnable
 
     private static final int DELTA = 100;
 

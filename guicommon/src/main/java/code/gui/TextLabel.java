@@ -3,7 +3,6 @@ package code.gui;
 import javax.swing.*;
 import java.awt.Font;
 import java.awt.FontMetrics;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public final class TextLabel extends PaintableLabel {
@@ -26,7 +25,7 @@ public final class TextLabel extends PaintableLabel {
     }
 
     @Override
-    public void paintComponent(Graphics _g2) {
+    public void paintComponent(CustGraphics _g2) {
         Font font_ = getFont();
         FontMetrics fontMetrics_ = getFontMetrics(font_);
         int h_ = fontMetrics_.getHeight();

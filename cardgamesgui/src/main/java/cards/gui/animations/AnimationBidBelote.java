@@ -7,13 +7,14 @@ import cards.belote.GameBelote;
 import cards.facade.Games;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleBelote;
+import code.gui.CustComponent;
 import code.gui.ThreadInvoker;
 import code.gui.ThreadUtil;
 import code.util.StringList;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
-public final class AnimationBidBelote extends Thread {
+public final class AnimationBidBelote implements Runnable {
 
     private ContainerSingleBelote container;
 
@@ -61,7 +62,7 @@ public final class AnimationBidBelote extends Thread {
             }
             container.pause();
         }
-        SwingUtilities.invokeLater(new AfterAnimationBidBelote(container));
+        CustComponent.invokeLater(new AfterAnimationBidBelote(container));
 //        container.getPanneauBoutonsJeu().removeAll();
 //        if(partie_.keepBidding()) {
 //            container.setCanBid(true);

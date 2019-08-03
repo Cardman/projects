@@ -22,6 +22,7 @@ public class InteractClick extends MouseAdapter {
     private MainWindow fenetre;
 
     private ThreadSound sound;
+    private Thread soundTh;
 
     private Score chor;
 
@@ -34,12 +35,13 @@ public class InteractClick extends MouseAdapter {
         if (!SwingUtilities.isLeftMouseButton(e)) {
             Point pt_ = e.getPoint();
             fenetre.setNewLocation(pt_.x, pt_.y);
-            if (sound != null && sound.isAlive()) {
+            if (soundTh != null && soundTh.isAlive()) {
                 return;
             }
             Score s_ = getCloneSoldierSound();
             sound = new ThreadSound(s_);
-            sound.start();
+            soundTh = new Thread(sound);
+            soundTh.start();
             return;
         }
         if (fenetre.isDragged()) {

@@ -37,9 +37,9 @@ public abstract class FileDialog extends Dialog {
     private Panel contentPane = Panel.newBorder();
     private Panel buttons = new Panel();
     private TextField fileName = new TextField(NB_COLS);
-    private JTree folderSystem;
+    private TreeGui folderSystem;
     private FileTable fileModel;
-    private JTable fileTable;
+    private TableGui fileTable;
     private boolean currentFolderRoot;
     private String selectedPath;
     private String selectedAbsolutePath;
@@ -146,7 +146,7 @@ public abstract class FileDialog extends Dialog {
                 }
                 refreshList(filesList_);
             }
-            folderSystem = new JTree(default_);
+            folderSystem = new TreeGui(default_);
         } else {
             DefaultMutableTreeNode default_ = new DefaultMutableTreeNode(EMPTY_STRING);
             for (File f: File.listRoots()) {
@@ -154,7 +154,7 @@ public abstract class FileDialog extends Dialog {
                 path_ = StringList.replaceBackSlash(path_);
                 default_.add(new DefaultMutableTreeNode(StringList.join(StringList.splitStrings(path_, StreamTextFile.SEPARATEUR), EMPTY_STRING)));
             }
-            folderSystem = new JTree(default_);
+            folderSystem = new TreeGui(default_);
             folderSystem.setRootVisible(false);
         }
         folderSystem.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
@@ -306,7 +306,7 @@ public abstract class FileDialog extends Dialog {
         return fileName;
     }
 
-    protected JTree getFolderSystem() {
+    protected TreeGui getFolderSystem() {
         return folderSystem;
     }
 
@@ -314,7 +314,7 @@ public abstract class FileDialog extends Dialog {
         return fileModel;
     }
 
-    protected JTable getFileTable() {
+    protected TableGui getFileTable() {
         return fileTable;
     }
 

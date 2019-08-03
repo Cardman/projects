@@ -1,8 +1,8 @@
 package aiki.gui.components.fight;
 import java.awt.Color;
-import java.awt.Graphics;
 
 import aiki.game.fight.enums.ActionType;
+import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
 
 public class ActionLabel extends PaintableLabel {
@@ -28,7 +28,7 @@ public class ActionLabel extends PaintableLabel {
     }
 
     @Override
-    public void paintComponent(Graphics _g) {
+    public void paintComponent(CustGraphics _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
         _g.setColor(Color.BLACK);

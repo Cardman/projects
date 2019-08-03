@@ -3,7 +3,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
-import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
@@ -16,7 +15,7 @@ public abstract class PaintableLabel extends CustComponent {
 
     private JLabel label = new JLabel();
 
-    public abstract void paintComponent(Graphics _g);
+    public abstract void paintComponent(CustGraphics _g);
 
     public void validate() {
         label.validate();
@@ -48,10 +47,6 @@ public abstract class PaintableLabel extends CustComponent {
 
     public MouseListener[] getMouseListeners() {
         return label.getMouseListeners();
-    }
-
-    public void setToolTipText(String _text) {
-        label.setToolTipText(_text);
     }
 
     public void setOpaque(boolean _b) {
@@ -90,20 +85,8 @@ public abstract class PaintableLabel extends CustComponent {
         label.setIcon(_icon);
     }
 
-    public Point getLocation() {
-        return label.getLocation();
-    }
-
     public void setLocation(Point _p) {
         label.setLocation(_p);
-    }
-
-    public Color getForeground() {
-        return label.getForeground();
-    }
-
-    public Color getBackground() {
-        return label.getBackground();
     }
 
     public FontMetrics getFontMetrics(Font _font) {
@@ -124,14 +107,6 @@ public abstract class PaintableLabel extends CustComponent {
 
     public void setFont(Font _font) {
         label.setFont(_font);
-    }
-
-    public void setPreferredSize(Dimension _preferredSize) {
-        label.setPreferredSize(_preferredSize);
-    }
-
-    public Dimension getPreferredSize() {
-        return label.getPreferredSize();
     }
 
     public boolean isVisible() {

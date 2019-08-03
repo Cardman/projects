@@ -2,7 +2,7 @@ package cards.gui.animations;
 import cards.gui.containers.ContainerGame;
 
 /**Thread safe class*/
-public final class ChangingPause extends Thread {
+public final class ChangingPause implements Runnable {
 
     private ContainerGame container;
 

@@ -3,7 +3,7 @@ import cards.gui.containers.ContainerGame;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
-public final class GoSimulateGame extends Thread {
+public final class GoSimulateGame implements Runnable {
 
     private Thread simulation;
 

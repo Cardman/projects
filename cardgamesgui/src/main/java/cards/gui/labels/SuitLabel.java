@@ -3,11 +3,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
-import java.awt.Graphics;
 
 import cards.belote.BidBeloteSuit;
 import cards.consts.Suit;
 import cards.facade.Games;
+import code.gui.CustGraphics;
 import code.gui.LabelButtonUtil;
 import code.gui.PaintableLabel;
 import code.util.*;
@@ -52,7 +52,7 @@ public class SuitLabel extends PaintableLabel {
     }
 
     @Override
-    public void paintComponent(Graphics _g) {
+    public void paintComponent(CustGraphics _g) {
         if (!getText().isEmpty()) {
             Font font_ = getFont();
             FontMetrics fontMetrics_ = getFontMetrics(font_);
@@ -76,7 +76,7 @@ public class SuitLabel extends PaintableLabel {
         return text;
     }
 
-    private void dessinerGrandSymbole(Graphics _g,int _x,int _y) {
+    private void dessinerGrandSymbole(CustGraphics _g,int _x,int _y) {
         if(bid.getCouleur() == Suit.HEART) {
             _g.setColor(Color.RED);
             _g.fillOval(_x,_y,10,10);

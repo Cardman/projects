@@ -40,13 +40,6 @@ public class Menu implements EnabledMenu {
         MenuItemUtils.setEnabled(_b, this);
     }
 
-    public void addMenuItem(JMenuItem _menuItem) {
-        if (_menuItem instanceof EnabledMenu) {
-            ((EnabledMenu)_menuItem).setParentMenu(this);
-        }
-        menu.add(_menuItem);
-    }
-
     public void addMenuItem(CheckBoxMenuItem _menuItem) {
         _menuItem.setParentMenu(this);
         menu.add(_menuItem.getMenu());
@@ -55,7 +48,7 @@ public class Menu implements EnabledMenu {
         _menuItem.setParentMenu(this);
         menu.add(_menuItem.getMenu());
     }
-    public JMenu getMenu() {
+    JMenu getMenu() {
         return menu;
     }
     public void addMenuItem(Menu _menuItem) {
@@ -79,7 +72,7 @@ public class Menu implements EnabledMenu {
         menu.addSeparator();
     }
 
-    public JMenuItem getItem(int _i) {
+    JMenuItem getItem(int _i) {
         return menu.getItem(_i);
     }
 

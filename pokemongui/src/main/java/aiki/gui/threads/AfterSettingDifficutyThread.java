@@ -5,7 +5,7 @@ import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 
 /**Thread safe class*/
-public final class AfterSettingDifficutyThread extends Thread {
+public final class AfterSettingDifficutyThread implements Runnable {
 
     private MainWindow window;
 

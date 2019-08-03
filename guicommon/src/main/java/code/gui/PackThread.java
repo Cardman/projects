@@ -1,7 +1,7 @@
 package code.gui;
 
 /**Thread safe class*/
-final class PackThread extends Thread {
+final class PackThread implements Runnable {
 
     private Packable frame;
 

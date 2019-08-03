@@ -2,7 +2,7 @@ package cards.gui.animations;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
-public final class SettingSimulationComponent extends Thread {
+public final class SettingSimulationComponent implements Runnable {
 
     private SimulationGame simulation;
 

@@ -1,7 +1,7 @@
 package cards.gui.animations;
 import code.gui.SplashWindow;
 
-public final class DoneThread extends Thread {
+public final class DoneThread implements Runnable {
 
     private SplashWindow progressingWindow;
 

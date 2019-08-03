@@ -7,7 +7,7 @@ import code.util.CustList;
 import code.util.StringList;
 
 /**Thread safe class*/
-public final class ThreadSearchingFile extends Thread {
+public final class ThreadSearchingFile implements Runnable {
 
     private FileOpenDialog dialog;
 
@@ -46,13 +46,13 @@ public final class ThreadSearchingFile extends Thread {
                 }
                 for (File f: files_) {
                     if (!dialog.isKeepSearching()) {
-//                        SwingUtilities.invokeLater(new AfterSearchingFile(dialog, cursor, false, results_));
-//                        SwingUtilities.invokeLater(new AfterSearchingFile(dialog, false, results_, backup_));
-                        SwingUtilities.invokeLater(new AfterSearchingFile(dialog, backup));
+//                        CustComponent.invokeLater(new AfterSearchingFile(dialog, cursor, false, results_));
+//                        CustComponent.invokeLater(new AfterSearchingFile(dialog, false, results_, backup_));
+                        CustComponent.invokeLater(new AfterSearchingFile(dialog, backup));
                         return;
                     }
                     nb_++;
-                    SwingUtilities.invokeLater(new SettingInformation(dialog, nb_, results_.size()));
+                    CustComponent.invokeLater(new SettingInformation(dialog, nb_, results_.size()));
                     if (f.isDirectory()) {
                         if (StringList.contains(dialog.getExcludedFolders(), StringList.replaceBackSlash(f.getAbsolutePath()))) {
                             continue;
@@ -70,11 +70,11 @@ public final class ThreadSearchingFile extends Thread {
                             continue;
                         }
                         results_.add(f);
-                        SwingUtilities.invokeLater(new SearchingFile(dialog, f));
+                        CustComponent.invokeLater(new SearchingFile(dialog, f));
 //                        if (StringList.match(f.getName(), dialog.getTypedString())) {
 //                            if (f.getName().endsWith(dialog.getExtension())) {
 //                                results_.add(f);
-//                                SwingUtilities.invokeLater(new SearchingFile(dialog, f));
+//                                CustComponent.invokeLater(new SearchingFile(dialog, f));
 //                            }
 //                        }
                     }
@@ -88,6 +88,6 @@ public final class ThreadSearchingFile extends Thread {
         }
         dialog.setKeepSearching(false);
 //        dialog.setCursor(cursor);
-//        SwingUtilities.invokeLater(new AfterSearchingFile(dialog, cursor, true, results_));
+//        CustComponent.invokeLater(new AfterSearchingFile(dialog, cursor, true, results_));
     }
 }

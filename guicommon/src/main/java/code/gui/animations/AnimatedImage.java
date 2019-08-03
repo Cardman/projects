@@ -11,7 +11,7 @@ import code.gui.TextLabel;
 import code.gui.ThreadUtil;
 import code.util.CustList;
 
-public final class AnimatedImage extends Thread {
+public final class AnimatedImage implements Runnable {
 
     private PreparedLabel label;
 

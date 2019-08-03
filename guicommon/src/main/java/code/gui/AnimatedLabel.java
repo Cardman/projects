@@ -1,7 +1,6 @@
 package code.gui;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import code.util.CustList;
@@ -29,12 +28,12 @@ public class AnimatedLabel extends PaintableLabel {
     }
 
     @Override
-    public void paintComponent(Graphics _g) {
+    public void paintComponent(CustGraphics _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0, 0, getWidth(), getHeight());
         if (index >= list.size()) {
             return;
         }
-        _g.drawImage(list.get(index), 0, 0, null);
+        _g.drawImage(list.get(index), 0, 0);
     }
 }

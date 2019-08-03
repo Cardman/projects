@@ -2,7 +2,7 @@ package code.gui;
 import java.io.File;
 
 /**Thread safe class*/
-public final class SearchingFile extends Thread {
+public final class SearchingFile implements Runnable {
 
     private FileOpenDialog dialog;
 

@@ -8,12 +8,13 @@ import aiki.db.PerCent;
 import aiki.sml.LoadingGame;
 import aiki.gui.MainWindow;
 import aiki.gui.threads.PerCentIncr;
+import code.gui.CustComponent;
 import code.util.StringList;
 import code.util.StringMap;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
-public final class CreateMainWindowParam extends Thread {
+public final class CreateMainWindowParam implements Runnable {
 
     private MainWindow window;
 
@@ -51,7 +52,7 @@ public final class CreateMainWindowParam extends Thread {
         PerCent p_ = new PerCentIncr();
         window.getLoadFlag().set(true);
         OpeningGame opening_ = new OpeningGame(window,p_);
-        opening_.start();
+        CustComponent.newThread(opening_).start();
         if (!load.getLastSavedGame().isEmpty()) {
             window.loadRomGame(load, path, files, true,p_);
         } else {
@@ -62,7 +63,7 @@ public final class CreateMainWindowParam extends Thread {
         }
         window.getLoadFlag().set(false);
         window.setLoadingConf(load, false);
-        SwingUtilities.invokeLater(new AfterLoadingBegin(window, stoppedLoading_, false, loadRom_));
+        CustComponent.invokeLater(new AfterLoadingBegin(window, stoppedLoading_, false, loadRom_));
     }
 
     public MainWindow getWindow() {

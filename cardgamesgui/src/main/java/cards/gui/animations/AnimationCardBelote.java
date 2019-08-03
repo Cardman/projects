@@ -4,13 +4,14 @@ import javax.swing.SwingUtilities;
 import cards.belote.DealBelote;
 import cards.belote.GameBelote;
 import cards.gui.containers.ContainerSingleBelote;
+import code.gui.CustComponent;
 import code.gui.ThreadInvoker;
 import code.gui.ThreadUtil;
 import code.util.StringList;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
-public final class AnimationCardBelote extends Thread {
+public final class AnimationCardBelote implements Runnable {
 
     private ContainerSingleBelote container;
 
@@ -67,7 +68,7 @@ public final class AnimationCardBelote extends Thread {
             container.jouerBelote(player_,pseudos_.get(player_));
             container.pause();
         }
-        SwingUtilities.invokeLater(new AfterAnimationCardBelote(container));
+        CustComponent.invokeLater(new AfterAnimationCardBelote(container));
 //        //Desactiver le menu Partie/Pause
 //        if(partie_.keepPlayingCurrentTrick())
 //        {

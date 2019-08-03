@@ -5,7 +5,7 @@ import code.gui.ThreadInvoker;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
-public final class LoadGame extends Thread {
+public final class LoadGame implements Runnable {
 
     private MainWindow frame;
 

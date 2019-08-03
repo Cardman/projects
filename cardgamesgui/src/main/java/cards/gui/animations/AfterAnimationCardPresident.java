@@ -4,7 +4,7 @@ import cards.president.GamePresident;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
-public final class AfterAnimationCardPresident extends Thread {
+public final class AfterAnimationCardPresident implements Runnable {
 
     private ContainerSinglePresident container;
 

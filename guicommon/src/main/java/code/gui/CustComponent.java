@@ -3,8 +3,7 @@ package code.gui;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
+import javax.swing.*;
 import javax.swing.border.Border;
 
 import code.util.CustList;
@@ -14,6 +13,12 @@ public abstract class CustComponent {
     private CustComponent parent;
     private CustList<CustComponent> children = new CustList<CustComponent>();
     public abstract JComponent getComponent();
+    public static void invokeLater(Runnable _r) {
+        SwingUtilities.invokeLater(_r);
+    }
+    public static Thread newThread(Runnable _r) {
+        return new Thread(_r);
+    }
     public void repaint() {
         if (children.isEmpty()) {
             paint(this);
@@ -47,7 +52,7 @@ public abstract class CustComponent {
             int w_ = _cust.getWidth();
             int h_ = _cust.getHeight();
             BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
-            p_.paintComponent(img_.getGraphics());
+            p_.paintComponent(new CustGraphics(img_.getGraphics()));
             p_.setIcon(new ImageIcon(img_));
             return;
         }
@@ -59,7 +64,7 @@ public abstract class CustComponent {
     public int getHeight() {
         return getComponent().getHeight();
     }
-    public static CustComponent getNextSibling(CustComponent _current) {
+    private static CustComponent getNextSibling(CustComponent _current) {
         CustComponent parent_ = _current.getParent();
         CustList<CustComponent> children_ = parent_.getChildren();
         int count_ = children_.size();
@@ -82,9 +87,6 @@ public abstract class CustComponent {
     }
     public CustList<CustComponent> getChildren() {
         return children;
-    }
-    public void setChildren(CustList<CustComponent> _children) {
-        children = _children;
     }
 
     public void setBorder(Border lineBorder) {

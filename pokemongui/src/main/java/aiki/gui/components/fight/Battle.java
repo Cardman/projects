@@ -225,6 +225,7 @@ public class Battle extends ChildFrame {
     private boolean enabledChangeLanguage;
 
     private RoundThread roundThread;
+    private Thread roundThreadLau;
 
     private boolean enableAnimation;
 
@@ -576,7 +577,8 @@ public class Battle extends ChildFrame {
             window.pack();
             commentsRound.setText(DataBase.EMPTY_STRING);
             roundThread = new RoundBasicThread(facade, this);
-            roundThread.start();
+            roundThreadLau = CustComponent.newThread(roundThread);
+            roundThreadLau.start();
         } else {
             afterRoundWithoutAnimation();
         }
@@ -674,7 +676,8 @@ public class Battle extends ChildFrame {
             window.pack();
             commentsRound.setText(DataBase.EMPTY_STRING);
             roundThread = new RoundKoUserThread(facade, this);
-            roundThread.start();
+            roundThreadLau = CustComponent.newThread(roundThread);
+            roundThreadLau.start();
         } else {
             afterRoundWithoutAnimation();
         }
@@ -768,7 +771,7 @@ public class Battle extends ChildFrame {
 //            }
 //            window.pack();
         }
-//        SwingUtilities.invokeLater(new Runnable() {
+//        CustComponent.invokeLater(new Runnable() {
 //            @Override
 //            public void run() {
 //                if (!facade.isExistingFight()) {
@@ -792,7 +795,7 @@ public class Battle extends ChildFrame {
 //        });
 //        if (!facade.isExistingFight()) {
 //            closeWindows();
-//            SwingUtilities.invokeLater(new Runnable() {
+//            CustComponent.invokeLater(new Runnable() {
 //                @Override
 //                public void run() {
 //                    //window.addToArea();
@@ -916,7 +919,8 @@ public class Battle extends ChildFrame {
             window.pack();
             commentsRound.setText(DataBase.EMPTY_STRING);
             roundThread = new RoundFleeThread(facade, this);
-            roundThread.start();
+            roundThreadLau = CustComponent.newThread(roundThread);
+            roundThreadLau.start();
         } else {
             if (!facade.isExistingFight()) {
                 if (window.getComment().isEmpty()) {
@@ -977,7 +981,8 @@ public class Battle extends ChildFrame {
             } else {
                 roundThread = new RoundBallThread(facade, this, ball_.getName());
             }
-            roundThread.start();
+            roundThreadLau = CustComponent.newThread(roundThread);
+            roundThreadLau.start();
         } else {
             if (!facade.isExistingFight()) {
                 if (window.getComment().isEmpty()) {
@@ -1485,7 +1490,7 @@ public class Battle extends ChildFrame {
     }
 
     public boolean isAliveThread() {
-        return roundThread != null && roundThread.isAlive();
+        return roundThreadLau != null && roundThreadLau.isAlive();
     }
 
     public boolean isKeepAnimation() {

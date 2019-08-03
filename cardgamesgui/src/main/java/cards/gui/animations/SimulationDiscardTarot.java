@@ -4,7 +4,7 @@ import cards.tarot.HandTarot;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
-public final class SimulationDiscardTarot extends Thread {
+public final class SimulationDiscardTarot implements Runnable {
 
     private ContainerSimuTarot container;
 

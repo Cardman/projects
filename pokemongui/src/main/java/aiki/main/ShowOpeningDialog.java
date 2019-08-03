@@ -3,7 +3,7 @@ import aiki.gui.MainWindow;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
-public final class ShowOpeningDialog extends Thread {
+public final class ShowOpeningDialog implements Runnable {
 
     private MainWindow window;
 

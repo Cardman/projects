@@ -4,12 +4,13 @@ import javax.swing.SwingUtilities;
 import cards.gui.containers.ContainerSingleTarot;
 import cards.tarot.DealTarot;
 import cards.tarot.GameTarot;
+import code.gui.CustComponent;
 import code.gui.ThreadUtil;
 import code.util.StringList;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
-public final class AnimationCardTarot extends Thread {
+public final class AnimationCardTarot implements Runnable {
 
     private ContainerSingleTarot container;
 
@@ -64,7 +65,7 @@ public final class AnimationCardTarot extends Thread {
             container.jouerTarot(player_,pseudos_.get(player_));
             container.pause();
         }
-        SwingUtilities.invokeLater(new AfterAnimationCardTarot(container));
+        CustComponent.invokeLater(new AfterAnimationCardTarot(container));
 //        if(partie_.keepPlayingCurrentTrick())
 //        {
 //            container.setThreadAnime(false);

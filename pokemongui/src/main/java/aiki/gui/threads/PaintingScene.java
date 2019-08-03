@@ -1,7 +1,7 @@
 package aiki.gui.threads;
 import aiki.gui.components.walk.ScenePanel;
 
-public final class PaintingScene extends Thread {
+public final class PaintingScene implements Runnable {
 
     private ScenePanel scenePanel;
 

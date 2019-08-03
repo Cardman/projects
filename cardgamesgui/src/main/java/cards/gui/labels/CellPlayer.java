@@ -1,8 +1,8 @@
 package cards.gui.labels;
 import java.awt.Color;
-import java.awt.Graphics;
 
 import cards.consts.Status;
+import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
 
 public class CellPlayer extends PaintableLabel {
@@ -20,7 +20,7 @@ public class CellPlayer extends PaintableLabel {
     }
 
     @Override
-    public void paintComponent(Graphics _arg0) {
+    public void paintComponent(CustGraphics _arg0) {
         if (st == Status.TAKER) {
             _arg0.setColor(Color.RED);
         } else if (st == Status.CALLED_PLAYER) {

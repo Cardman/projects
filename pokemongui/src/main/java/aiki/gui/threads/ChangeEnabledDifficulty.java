@@ -1,7 +1,7 @@
 package aiki.gui.threads;
 import code.gui.MenuItem;
 
-public final class ChangeEnabledDifficulty extends Thread {
+public final class ChangeEnabledDifficulty implements Runnable {
 
     private MenuItem difficulty;
 

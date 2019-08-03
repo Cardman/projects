@@ -1,7 +1,6 @@
 package aiki.gui.components.walk;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -10,6 +9,7 @@ import aiki.comparators.ComparatorScreenCoords;
 import aiki.facade.FacadeGame;
 import aiki.map.enums.Direction;
 import aiki.map.util.ScreenCoords;
+import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.util.CustList;
@@ -201,7 +201,7 @@ public class Scene extends PaintableLabel implements MouseListener {
     }
 
     @Override
-    public void paintComponent(Graphics _g) {
+    public void paintComponent(CustGraphics _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0, 0, sideLength*screenWidth - 1, sideLength*screenHeight - 1);
         int dx_ = 0;
@@ -218,7 +218,7 @@ public class Scene extends PaintableLabel implements MouseListener {
         }
         for (ScreenCoords sc_: background.getKeys()) {
             BufferedImage buff_ = background.getVal(sc_);
-            _g.drawImage(buff_, sideLength* sc_.getXcoords() + xDelta_, sideLength * sc_.getYcoords() + yDelta_, null);
+            _g.drawImage(buff_, sideLength* sc_.getXcoords() + xDelta_, sideLength * sc_.getYcoords() + yDelta_);
         }
         for (ScreenCoords sc_: foreground.getKeys()) {
             if (sc_.getXcoords() == xHeros + dx_) {
@@ -230,7 +230,7 @@ public class Scene extends PaintableLabel implements MouseListener {
                         if (i != size_ - 1) {
                             int wMin_ = buff_.getWidth();
                             int hMin_ = buff_.getHeight();
-                            _g.drawImage(buff_, sideLength* sc_.getXcoords() + xDelta_ + (sideLength - wMin_) / 2, sideLength * sc_.getYcoords() + yDelta_ + (sideLength - hMin_) / 2, null);
+                            _g.drawImage(buff_, sideLength* sc_.getXcoords() + xDelta_ + (sideLength - wMin_) / 2, sideLength * sc_.getYcoords() + yDelta_ + (sideLength - hMin_) / 2);
                         }
                     }
                     continue;
@@ -239,7 +239,7 @@ public class Scene extends PaintableLabel implements MouseListener {
             for (BufferedImage b:foreground.getVal(sc_)) {
                 int wMin_ = b.getWidth();
                 int hMin_ = b.getHeight();
-                _g.drawImage(b, sideLength* sc_.getXcoords() + xDelta_ + (sideLength - wMin_) / 2, sideLength * sc_.getYcoords() + yDelta_ + (sideLength - hMin_) / 2, null);
+                _g.drawImage(b, sideLength* sc_.getXcoords() + xDelta_ + (sideLength - wMin_) / 2, sideLength * sc_.getYcoords() + yDelta_ + (sideLength - hMin_) / 2);
             }
         }
         if (!foreground.isEmpty()) {
@@ -249,7 +249,7 @@ public class Scene extends PaintableLabel implements MouseListener {
                 BufferedImage buff_ = imgs_.last();
                 int wMin_ = buff_.getWidth();
                 int hMin_ = buff_.getHeight();
-                _g.drawImage(buff_, sideLength* (sc_.getXcoords() - dx_) + (sideLength - wMin_) / 2, sideLength * (sc_.getYcoords() - dy_) + (sideLength - hMin_) / 2, null);
+                _g.drawImage(buff_, sideLength* (sc_.getXcoords() - dx_) + (sideLength - wMin_) / 2, sideLength * (sc_.getYcoords() - dy_) + (sideLength - hMin_) / 2);
             }
         }
     }

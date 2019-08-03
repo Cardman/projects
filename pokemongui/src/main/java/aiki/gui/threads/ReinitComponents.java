@@ -1,7 +1,7 @@
 package aiki.gui.threads;
 import aiki.gui.MainWindow;
 
-public final class ReinitComponents extends Thread {
+public final class ReinitComponents implements Runnable {
 
     private MainWindow window;
 

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
@@ -34,11 +33,11 @@ public final class LabelButtonUtil {
         return paintButton(_label, _text, _enabled, DEFAULT_FOREGROUND, DISABLED, Color.WHITE);
     }
 
-    public static void paintDefaultLabel(Graphics _label, String _text, int _w, int _fw, int _h,
+    public static void paintDefaultLabel(CustGraphics _label, String _text, int _w, int _fw, int _h,
             Color _front, Color _back) {
         int w_ = _fw;
         w_ = Math.max(_w, w_);
-        Graphics gr_ = _label;
+        CustGraphics gr_ = _label;
         gr_.setColor(_back);
         gr_.fillRect(0, 0, w_ + 2, _h + 2);
         gr_.setColor(_front);
@@ -52,7 +51,7 @@ public final class LabelButtonUtil {
         int w_ = fontMetrics_.stringWidth(_text);
         w_ = Math.max(_w, w_);
         BufferedImage img_ = new BufferedImage(w_ + 2, h_ + 2, BufferedImage.TYPE_INT_RGB);
-        Graphics2D gr_ = img_.createGraphics();
+        Graphics gr_ = img_.createGraphics();
         gr_.setFont(font_);
         gr_.setColor(_back);
         gr_.fillRect(0, 0, w_ + 2, h_ + 2);
@@ -68,7 +67,7 @@ public final class LabelButtonUtil {
         int h_ = fontMetrics_.getHeight();
         int w_ = fontMetrics_.stringWidth(_text);
         BufferedImage img_ = new BufferedImage(w_ + 2, h_ + 2, BufferedImage.TYPE_INT_RGB);
-        Graphics2D gr_ = img_.createGraphics();
+        Graphics gr_ = img_.createGraphics();
         gr_.setFont(font_);
         gr_.setColor(_back);
         gr_.fillRect(0, 0, w_ + 2, h_ + 2);

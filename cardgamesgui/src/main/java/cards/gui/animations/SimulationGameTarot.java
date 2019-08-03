@@ -10,7 +10,7 @@ import code.gui.*;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
-public final class SimulationGameTarot extends Thread implements SimulationGame {
+public final class SimulationGameTarot implements Runnable,SimulationGame {
 
     private Games partieSimulee = new Games();
 
@@ -50,7 +50,7 @@ public final class SimulationGameTarot extends Thread implements SimulationGame 
 
     @Override
     public void run() {
-        new SettingSimulationComponent(this).start();
+        CustComponent.newThread(new SettingSimulationComponent(this)).start();
     }
 
     @Override

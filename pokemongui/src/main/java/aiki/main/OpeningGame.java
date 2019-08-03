@@ -6,7 +6,7 @@ import code.gui.ThreadUtil;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
-public final class OpeningGame extends Thread {
+public final class OpeningGame implements Runnable {
 
     private static final int WAIT_VIDEO = 1000;
 

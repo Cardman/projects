@@ -7,13 +7,14 @@ import cards.gui.containers.ContainerSingleTarot;
 import cards.tarot.DealTarot;
 import cards.tarot.GameTarot;
 import cards.tarot.enumerations.BidTarot;
+import code.gui.CustComponent;
 import code.gui.ThreadInvoker;
 import code.gui.ThreadUtil;
 import code.util.StringList;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
-public final class AnimationBidTarot extends Thread {
+public final class AnimationBidTarot implements Runnable {
 
     private ContainerSingleTarot container;
 
@@ -59,6 +60,6 @@ public final class AnimationBidTarot extends Thread {
 //            container.ajouterTexteDansZone(pseudos_.get(player_)+ContainerGame.INTRODUCTION_PTS+contrat_+ContainerTarot.RETURN_LINE_CHAR);
             container.pause();
         }
-        SwingUtilities.invokeLater(new AfterAnimationBidTarot(container));
+        CustComponent.invokeLater(new AfterAnimationBidTarot(container));
     }
 }

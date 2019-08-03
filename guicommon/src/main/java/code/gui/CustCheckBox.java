@@ -2,10 +2,8 @@ package code.gui;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
-import javax.swing.plaf.ButtonUI;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemListener;
 
 public final class CustCheckBox extends CustComponent {
 
@@ -28,14 +26,6 @@ public final class CustCheckBox extends CustComponent {
 
     public boolean isBorderPaintedFlat() {
         return checkBox.isBorderPaintedFlat();
-    }
-
-    public void updateUI() {
-        checkBox.updateUI();
-    }
-
-    public String getUIClassID() {
-        return checkBox.getUIClassID();
     }
 
     public void setHideActionText(boolean hideActionText) {
@@ -68,14 +58,6 @@ public final class CustCheckBox extends CustComponent {
 
     public void doClick(int pressTime) {
         checkBox.doClick(pressTime);
-    }
-
-    public void setMargin(Insets m) {
-        checkBox.setMargin(m);
-    }
-
-    public Insets getMargin() {
-        return checkBox.getMargin();
     }
 
     public Icon getIcon() {
@@ -170,24 +152,12 @@ public final class CustCheckBox extends CustComponent {
         checkBox.setIconTextGap(iconTextGap);
     }
 
-    public void removeNotify() {
-        checkBox.removeNotify();
-    }
-
     public void setActionCommand(String actionCommand) {
         checkBox.setActionCommand(actionCommand);
     }
 
     public String getActionCommand() {
         return checkBox.getActionCommand();
-    }
-
-    public void setAction(Action a) {
-        checkBox.setAction(a);
-    }
-
-    public Action getAction() {
-        return checkBox.getAction();
     }
 
     public boolean isBorderPainted() {
@@ -254,18 +224,6 @@ public final class CustCheckBox extends CustComponent {
         checkBox.setModel(newModel);
     }
 
-    public ButtonUI getUI() {
-        return checkBox.getUI();
-    }
-
-    public void setUI(ButtonUI ui) {
-        checkBox.setUI(ui);
-    }
-
-    public void setLayout(LayoutManager mgr) {
-        checkBox.setLayout(mgr);
-    }
-
     public void addChangeListener(ChangeListener l) {
         checkBox.addChangeListener(l);
     }
@@ -292,14 +250,6 @@ public final class CustCheckBox extends CustComponent {
 
     public void setEnabled(boolean b) {
         checkBox.setEnabled(b);
-    }
-
-    public void addItemListener(ItemListener l) {
-        checkBox.addItemListener(l);
-    }
-
-    public void removeItemListener(ItemListener l) {
-        checkBox.removeItemListener(l);
     }
 
     @Override

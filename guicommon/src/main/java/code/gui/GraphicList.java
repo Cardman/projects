@@ -218,7 +218,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
             index_++;
         }
         SelectionEvent sel_ = new SelectionEvent(min_, max_, this);
-        SwingUtilities.invokeLater(sel_);
+        CustComponent.invokeLater(sel_);
     }
     public void setSelectedIndice(int _min) {
         selectedIndexes.add(_min);
@@ -233,7 +233,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
             index_++;
         }
         SelectionEvent sel_ = new SelectionEvent(_min, _min, this);
-        SwingUtilities.invokeLater(sel_);
+        CustComponent.invokeLater(sel_);
     }
     public void clearSelection() {
         CustCellRender r_ = getRender();
@@ -251,7 +251,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         setFirstIndex(-1);
         setLastIndex(-1);
         SelectionEvent sel_ = new SelectionEvent(0, array_.length, this);
-        SwingUtilities.invokeLater(sel_);
+        CustComponent.invokeLater(sel_);
     }
     @Override
     public Ints getSelectedIndexes() {
@@ -264,7 +264,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
     protected void resetDimensions(){
         Panel panel_ = getPanel();
         int width_ = getMaxWidth();
-        for (CustComponent c: getListComponents()) {
+        for (PreparedLabel c: getListComponents()) {
             width_ = Math.max(width_, c.getPreferredSize().width);
         }
         int h_ = 0;

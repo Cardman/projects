@@ -4,7 +4,7 @@ import java.awt.Dimension;
 
 import javax.swing.*;
 
-public class ScrollPane extends CustComponent {
+public final class ScrollPane extends CustComponent {
 
     private JScrollPane component;
 
@@ -18,17 +18,9 @@ public class ScrollPane extends CustComponent {
         component = new JScrollPane();
     }
 
-    public ScrollPane(JComponent _commentsErrors) {
-        this(new PseudoComponent(_commentsErrors));
-    }
-
     @Override
     public JComponent getComponent() {
         return component;
-    }
-
-    public void setPreferredSize(Dimension _dimension) {
-        component.setPreferredSize(_dimension);
     }
 
     public void setVisible(boolean _b) {

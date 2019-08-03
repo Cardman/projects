@@ -1,21 +1,14 @@
 package aiki.gui.components.walk;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JLabel;
-
-import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
-import code.gui.CustCellRender;
-import code.gui.GraphicListable;
-import code.gui.PaintableLabel;
-import code.gui.PreparedLabel;
+import code.gui.*;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -111,14 +104,14 @@ public class PokemonRenderer extends CustCellRender {
     }
 
     @Override
-    public void paintComponent(Graphics _g) {
+    public void paintComponent(CustGraphics _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0,0,getWidth(),getHeight());
         if (pokemon instanceof PokemonPlayer) {
             PokemonPlayer pk_ = (PokemonPlayer) pokemon;
             _g.setColor(Color.BLACK);
             int h_ = 10;
-            _g.drawImage(miniImagePk, 0, 0, null);
+            _g.drawImage(miniImagePk, 0, 0);
             _g.drawString(facade.translatePokemon(pk_.getName()), sideLength, h_);
             _g.drawString(Integer.toString(pk_.getLevel()), coords + sideLength, h_);
             _g.drawString(facade.translateAbility(pk_.getAbility()), sideLength, h_ * 2);
@@ -137,13 +130,13 @@ public class PokemonRenderer extends CustCellRender {
                 _g.drawString(rateRemain, coords + sideLength, h_ * 3);
             }
             if (withItem) {
-                _g.drawImage(miniImageItem, 2 * coords + sideLength, 0, null);
+                _g.drawImage(miniImageItem, 2 * coords + sideLength, 0);
             }
         } else {
             Egg egg_ = (Egg) pokemon;
             int h_ = 10;
             _g.setColor(Color.BLACK);
-            _g.drawImage(miniImagePk, 0, 0, null);
+            _g.drawImage(miniImagePk, 0, 0);
             _g.drawString(facade.translatePokemon(egg_.getName()), sideLength, h_);
             _g.drawString(Integer.toString(egg_.getSteps()), coords + sideLength, h_);
             _g.drawString(Integer.toString(remainSteps), coords + sideLength * 2, h_);

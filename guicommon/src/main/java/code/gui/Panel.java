@@ -79,16 +79,16 @@ public class Panel extends CustComponent {
         return getChildren().get(_n);
     }
 
-    public Component add(CustComponent _comp) {
+    public void add(CustComponent _comp) {
         _comp.setParent(this);
         getChildren().add(_comp);
-        return panel.add(_comp.getComponent());
+        panel.add(_comp.getComponent());
     }
 
-    public Component add(CustComponent _comp, int _index) {
+    public void add(CustComponent _comp, int _index) {
         _comp.setParent(this);
         getChildren().add(_index,_comp);
-        return panel.add(_comp.getComponent(), _index);
+        panel.add(_comp.getComponent(), _index);
     }
     
     public void add(CustComponent _comp, Object _constraints) {
@@ -149,10 +149,6 @@ public class Panel extends CustComponent {
         panel.requestFocus();
     }
 
-    public LayoutManager getLayout() {
-        return panel.getLayout();
-    }
-
     public boolean requestFocus(boolean _temporary) {
         return panel.requestFocus(_temporary);
     }
@@ -169,24 +165,12 @@ public class Panel extends CustComponent {
         panel.validate();
     }
 
-    public Color getForeground() {
-        return panel.getForeground();
-    }
-
     public FontMetrics getFontMetrics(Font _font) {
         return panel.getFontMetrics(_font);
     }
 
-    public void setPreferredSize(Dimension _preferredSize) {
-        panel.setPreferredSize(_preferredSize);
-    }
-
     public Font getFont() {
         return panel.getFont();
-    }
-
-    public Dimension getPreferredSize() {
-        return panel.getPreferredSize();
     }
 
     public void setMaximumSize(Dimension _maximumSize) {
@@ -203,14 +187,6 @@ public class Panel extends CustComponent {
 
     public Dimension getMinimumSize() {
         return panel.getMinimumSize();
-    }
-
-    public void setBorder(Border _border) {
-        panel.setBorder(_border);
-    }
-
-    public Point getLocation() {
-        return panel.getLocation();
     }
 
     public Point getLocationOnScreen() {
@@ -265,10 +241,6 @@ public class Panel extends CustComponent {
         panel.setFont(_font);
     }
 
-    public void setCursor(Cursor _cursor) {
-        panel.setCursor(_cursor);
-    }
-
     public Cursor getCursor() {
         return panel.getCursor();
     }
@@ -305,16 +277,6 @@ public class Panel extends CustComponent {
         return panel.getY();
     }
 
-    @Override
-    public int getWidth() {
-        return panel.getWidth();
-    }
-
-    @Override
-    public int getHeight() {
-        return panel.getHeight();
-    }
-
     public boolean isOpaque() {
         return panel.isOpaque();
     }
@@ -339,10 +301,6 @@ public class Panel extends CustComponent {
         return panel.isValidateRoot();
     }
 
-    public JRootPane getRootPane() {
-        return panel.getRootPane();
-    }
-
     public void addKeyListener(KeyListener _l) {
         panel.addKeyListener(_l);
     }
@@ -360,7 +318,4 @@ public class Panel extends CustComponent {
         panel.setLayout(_borderLayout);
     }
 
-    public Color getBackground() {
-        return panel.getBackground();
-    }
 }

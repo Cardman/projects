@@ -20,14 +20,6 @@ public final class PreparedLabel extends CustComponent {
         label.setIcon(_icon);
     }
 
-    public Color getForeground() {
-        return label.getForeground();
-    }
-
-    public Color getBackground() {
-        return label.getBackground();
-    }
-
     public FontMetrics getFontMetrics(Font _font) {
         return label.getFontMetrics(_font);
     }

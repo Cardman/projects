@@ -24,13 +24,14 @@ import code.formathtml.Configuration;
 import code.formathtml.HtmlPage;
 import code.formathtml.render.MetaDocument;
 import code.formathtml.util.BeanLgNames;
+import code.gui.CustComponent;
 import code.resources.ResourceFiles;
 import code.sml.Document;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class ThreadActions extends Thread {
+public final class ThreadActions implements Runnable {
 
     private static final String RETURN_LINE = "\n";
 
@@ -193,7 +194,7 @@ public final class ThreadActions extends Thread {
         }
         Document doc_ = page.getNavigation().getDocument();
         MetaDocument metadoc_ = MetaDocument.newInstance(doc_);
-        SwingUtilities.invokeLater(new WindowPage(metadoc_, page.getScroll(), page));
+        CustComponent.invokeLater(new WindowPage(metadoc_, page.getScroll(), page));
     }
 
     void finish() {

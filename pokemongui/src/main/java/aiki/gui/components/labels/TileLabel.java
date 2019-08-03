@@ -1,8 +1,8 @@
 package aiki.gui.components.labels;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
 import code.gui.images.ConverterGraphicBufferedImage;
 
@@ -16,7 +16,7 @@ public class TileLabel extends PaintableLabel {
     }
 
     @Override
-    public void paintComponent(Graphics _g) {
-        _g.drawImage(image, 0, 0, null);
+    public void paintComponent(CustGraphics _g) {
+        _g.drawImage(image, 0, 0);
     }
 }

@@ -13,7 +13,7 @@ public class MainClass implements Runnable {
     }
 
     public static void main(String[] _args) {
-        SwingUtilities.invokeLater(new MainClass(_args));
+        CustComponent.invokeLater(new MainClass(_args));
     }
 
     @Override

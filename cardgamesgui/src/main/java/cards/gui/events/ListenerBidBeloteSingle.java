@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import cards.belote.BidBeloteSuit;
 import cards.gui.animations.AnimationBidBelote;
 import cards.gui.containers.ContainerSingleBelote;
+import code.gui.CustComponent;
 
 public class ListenerBidBeloteSingle extends MouseAdapter {
 
@@ -28,6 +29,6 @@ public class ListenerBidBeloteSingle extends MouseAdapter {
         container.setCanBid(false);
         container.setContratUtilisateurBelote(texte);
         container.setAnimContratBelote(new AnimationBidBelote(container));
-        container.getAnimContratBelote().start();
+        CustComponent.newThread(container.getAnimContratBelote()).start();
     }
 }

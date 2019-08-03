@@ -3,7 +3,7 @@ import cards.gui.containers.ContainerPresident;
 import cards.president.HandPresident;
 
 /**Thread safe class*/
-public final class SettingPresidentHand extends Thread {
+public final class SettingPresidentHand implements Runnable {
 
     private ContainerPresident container;
 

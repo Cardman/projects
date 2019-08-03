@@ -5,6 +5,7 @@ import java.net.Socket;
 
 import javax.swing.SwingUtilities;
 
+import code.gui.CustComponent;
 import code.gui.ThreadInvoker;
 
 /**Thread safe class*/
@@ -40,13 +41,13 @@ public final class BasicClient extends SendReceive {
                 }
                 if (readObject_ instanceof Exiting) {
                     Exiting bye_ = (Exiting) readObject_;
-                    SwingUtilities.invokeLater(new Quitting(bye_, window, getSocket()));
+                    CustComponent.invokeLater(new Quitting(bye_, window, getSocket()));
                     break;
                 }
                 ThreadInvoker.invokeNow(new LoopClient(window, readObject_, getSocket()));
             }
         } catch (Throwable _0) {
-            SwingUtilities.invokeLater(new Quitting(window, getSocket()));
+            CustComponent.invokeLater(new Quitting(window, getSocket()));
         }
     }
 }

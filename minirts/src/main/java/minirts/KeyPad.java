@@ -2,8 +2,8 @@ package minirts;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 
+import code.gui.CustGraphics;
 import minirts.rts.Direction;
 import code.gui.PaintableLabel;
 
@@ -17,7 +17,7 @@ public class KeyPad extends PaintableLabel {
     }
 
     @Override
-    public void paintComponent(Graphics _g) {
+    public void paintComponent(CustGraphics _g) {
         _g.setColor(Color.YELLOW);
         _g.fillRect(0, 0, getWidth(), getHeight());
         _g.setColor(Color.BLACK);

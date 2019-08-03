@@ -7,7 +7,7 @@ import code.gui.images.ConverterGraphicBufferedImage;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
-public abstract class FightIntroThread extends Thread {
+public abstract class FightIntroThread implements Runnable {
 
     private FacadeGame facade;
 

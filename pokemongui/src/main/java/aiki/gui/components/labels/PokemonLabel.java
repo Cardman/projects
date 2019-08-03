@@ -1,12 +1,12 @@
 package aiki.gui.components.labels;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import aiki.facade.FacadeGame;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.SortingPokemonPlayer;
+import code.gui.CustGraphics;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.util.EnumMap;
 import code.util.Ints;
@@ -77,18 +77,18 @@ public class PokemonLabel extends SelectableLabel {
     }
 
     @Override
-    public void paintComponent(Graphics _g) {
+    public void paintComponent(CustGraphics _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0,0,getWidth(),getHeight());
         _g.setColor(Color.BLACK);
-        _g.drawImage(miniImagePk, 0, 0, null);
+        _g.drawImage(miniImagePk, 0, 0);
         _g.drawString(pokemon.getName(), sideLength, FIRST_LINE);
         _g.drawString(Integer.toString(pokemon.getLevel()), xName + sideLength, FIRST_LINE);
         _g.drawString(pokemon.getAbility(), sideLength, SECOND_LINE);
         _g.drawString(gender, xName + sideLength, SECOND_LINE);
         //_g.drawString(pokemon.getItem(), xItem, h_);
         if (withItem) {
-            _g.drawImage(miniImageItem, thirdColumn + xName + sideLength, 0, null);
+            _g.drawImage(miniImageItem, thirdColumn + xName + sideLength, 0);
         }
         super.paintComponent(_g);
     }

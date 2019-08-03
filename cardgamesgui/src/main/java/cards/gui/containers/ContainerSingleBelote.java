@@ -162,7 +162,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             byte debut_= partie_.playerHavingToBid();
             if(debut_ != DealBelote.NUMERO_UTILISATEUR) {
                 animContratBelote=new AnimationBidBelote(this);
-                animContratBelote.start();
+                CustComponent.newThread(animContratBelote).start();
             } else {
                 if(partie_.keepBidding()) {
                     //Activer les conseils
@@ -200,7 +200,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                     return;
                 }
                 animCarteBelote=new AnimationCardBelote(this);
-                animCarteBelote.start();
+                CustComponent.newThread(animCarteBelote).start();
             } else if(partie_.getContrat().jouerDonne()) {
                 getMini().setStatus(Status.TAKER, partie_.getPreneur());
                 getMini().setStatus(Status.CALLED_PLAYER, partie_.getTeamsRelation().partenaires(partie_.getPreneur()).first());
@@ -223,7 +223,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             return;
         }
         animCarteBelote=new AnimationCardBelote(this);
-        animCarteBelote.start();
+        CustComponent.newThread(animCarteBelote).start();
     }
     public void addButtonsForCoinche(GameBelote _partie) {
         int square_ = 1;
@@ -305,7 +305,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         contratUtilisateurBelote.setEnchere(getBidType());
         contratUtilisateurBelote.setPoints(getPts());
         animContratBelote=new AnimationBidBelote(this);
-        animContratBelote.start();
+        CustComponent.newThread(animContratBelote).start();
     }
     @Override
     public void fold() {
@@ -319,7 +319,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         setCanBid(false);
         contratUtilisateurBelote=new BidBeloteSuit();
         animContratBelote=new AnimationBidBelote(this);
-        animContratBelote.start();
+        CustComponent.newThread(animContratBelote).start();
     }
     public void ajouterBoutonContratBelote(String _texte,BidBeloteSuit _action,boolean _apte) {
         Panel panneau_=getPanneauBoutonsJeu();
@@ -497,7 +497,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         String lg_ = getOwner().getLanguageKey();
         if(debut_ != DealBelote.NUMERO_UTILISATEUR) {
             animContratBelote=new AnimationBidBelote(this);
-            animContratBelote.start();
+            CustComponent.newThread(animContratBelote).start();
         } else {
             setCanBid(true);
             if (!partie_.getRegles().dealAll()) {
@@ -580,7 +580,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         setRaisonCourante(getMessages().getVal(MainWindow.WAIT_TURN));
         setThreadAnime(true);
         animCarteBelote=new AnimationCardBelote(this);
-        animCarteBelote.start();
+        CustComponent.newThread(animCarteBelote).start();
 
 
     }
@@ -654,7 +654,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         getPanneauBoutonsJeu().validate();
         getPanneauBoutonsJeu().repaint();
         animCarteBelote = new AnimationCardBelote(this);
-        animCarteBelote.start();
+        CustComponent.newThread(animCarteBelote).start();
         setThreadAnime(true);
 
     }

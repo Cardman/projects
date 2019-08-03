@@ -53,7 +53,7 @@ public final class DualTable extends DualContainer {
         super.add(_dual);
     }
 
-    public GridBagLayout getLayout() {
+    private GridBagLayout getLayout() {
         return (GridBagLayout) getGraphic().getComponent().getLayout();
     }
 }

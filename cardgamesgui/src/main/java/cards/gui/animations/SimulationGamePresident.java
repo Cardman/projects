@@ -7,6 +7,7 @@ import cards.gui.MainWindow;
 import cards.gui.containers.ContainerSimuPresident;
 import cards.gui.dialogs.FileConst;
 import cards.president.*;
+import code.gui.CustComponent;
 import code.gui.LabelButton;
 import code.util.*;
 
@@ -49,7 +50,7 @@ public final class SimulationGamePresident implements Runnable,SimulationGame {
 
     @Override
     public void run() {
-        new SettingSimulationComponent(this).start();
+        CustComponent.newThread(new SettingSimulationComponent(this)).start();
     }
 
     @Override

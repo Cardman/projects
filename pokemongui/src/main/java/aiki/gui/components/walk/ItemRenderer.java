@@ -1,16 +1,10 @@
 package aiki.gui.components.walk;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JLabel;
-
 import aiki.facade.FacadeGame;
-import code.gui.CustCellRender;
-import code.gui.GraphicListable;
-import code.gui.PaintableLabel;
-import code.gui.PreparedLabel;
+import code.gui.*;
 import code.gui.images.ConverterGraphicBufferedImage;
 
 public class ItemRenderer extends CustCellRender {
@@ -60,8 +54,8 @@ public class ItemRenderer extends CustCellRender {
     }
 
     @Override
-    public void paintComponent(Graphics _g) {
-        _g.drawImage(miniItem, 0, 0, null);
+    public void paintComponent(CustGraphics _g) {
+        _g.drawImage(miniItem, 0, 0);
         _g.setColor(Color.BLACK);
         _g.drawString(displayName, sideLength, getHeight());
         _g.drawString(facade.getChosenItemsForBuyOrSell().getVal(name).toNumberString(), maxWordWidth+sideLength, getHeight());

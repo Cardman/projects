@@ -1,7 +1,5 @@
 package code.gui;
 
-import javax.swing.JPopupMenu;
-
 public final class ComboSelection extends ListSelection {
 
     private PopupMenu popup;

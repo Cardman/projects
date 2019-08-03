@@ -1,9 +1,9 @@
 package aiki.gui.components.labels;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
 
 import aiki.gui.components.Paginator;
+import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
 
 public class SelectableLabel extends PaintableLabel {
@@ -24,7 +24,7 @@ public class SelectableLabel extends PaintableLabel {
     }
 
     @Override
-    public void paintComponent(Graphics _g) {
+    public void paintComponent(CustGraphics _g) {
         if (selected) {
             _g.setColor(Color.RED);
             _g.drawRect(0,0,getWidth()-1,getHeight()-1);

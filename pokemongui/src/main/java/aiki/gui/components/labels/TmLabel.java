@@ -1,12 +1,12 @@
 package aiki.gui.components.labels;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.MoveData;
 import aiki.util.SortingMove;
+import code.gui.CustGraphics;
 import code.images.ConverterBufferedImage;
 import code.util.CustList;
 import code.util.NatStringTreeMap;
@@ -131,7 +131,7 @@ public class TmLabel extends SelectableLabel {
 //    }
 
     @Override
-    public void paintComponent(Graphics _g) {
+    public void paintComponent(CustGraphics _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0, 0, getWidth(), getHeight());
         _g.setColor(Color.BLACK);

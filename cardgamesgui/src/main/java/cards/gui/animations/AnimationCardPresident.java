@@ -4,13 +4,14 @@ import javax.swing.SwingUtilities;
 import cards.gui.containers.ContainerSinglePresident;
 import cards.president.DealPresident;
 import cards.president.GamePresident;
+import code.gui.CustComponent;
 import code.gui.ThreadInvoker;
 import code.gui.ThreadUtil;
 import code.util.StringList;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
-public final class AnimationCardPresident extends Thread {
+public final class AnimationCardPresident implements Runnable {
 
     private ContainerSinglePresident container;
 
@@ -76,6 +77,6 @@ public final class AnimationCardPresident extends Thread {
 //                Constants.sleep(delaiCarte_);
 //            }
         }
-        SwingUtilities.invokeLater(new AfterAnimationCardPresident(container));
+        CustComponent.invokeLater(new AfterAnimationCardPresident(container));
     }
 }

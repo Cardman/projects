@@ -1,7 +1,6 @@
 package code.gui;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
-import java.awt.Graphics;
 
 import code.util.CustList;
 import code.util.StringList;
@@ -41,7 +40,7 @@ public class WrappedLabel extends PaintableLabel {
     }
 
     @Override
-    public void paintComponent(Graphics _g) {
+    public void paintComponent(CustGraphics _g) {
         _g.setColor(getBackground());
         _g.fillRect(0, 0, getWidth(), getHeight());
         _g.setColor(getForeground());

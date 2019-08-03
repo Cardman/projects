@@ -1,13 +1,12 @@
 package minirts;
 
-import javax.swing.SwingUtilities;
-
+import code.gui.CustComponent;
 import code.util.consts.Constants;
 
-public final class MainClass extends Thread {
+public final class MainClass implements Runnable {
 
     public static void main(String[] _args) {
-        SwingUtilities.invokeLater(new MainClass());
+        CustComponent.invokeLater(new MainClass());
     }
 
     @Override

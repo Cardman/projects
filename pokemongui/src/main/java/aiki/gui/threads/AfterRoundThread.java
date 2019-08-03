@@ -3,7 +3,7 @@ import aiki.gui.components.fight.Battle;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
-public final class AfterRoundThread extends Thread {
+public final class AfterRoundThread implements Runnable {
 
     private Battle battle;
 

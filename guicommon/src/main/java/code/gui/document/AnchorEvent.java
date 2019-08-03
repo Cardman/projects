@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 
 import code.formathtml.HtmlPage;
 import code.formathtml.Navigation;
+import code.gui.CustComponent;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.*;
@@ -44,7 +45,7 @@ public class AnchorEvent extends MouseAdapter {
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         htmlPage_.setForm(false);
         htmlPage_.setUrl(na_);
-        new ThreadActions(page, page.getStandards(), anchorRef_, "", false, false, false).start();
+        CustComponent.newThread(new ThreadActions(page, page.getStandards(), anchorRef_, "", false, false, false)).start();
         page.animateProcess();
     }
 }

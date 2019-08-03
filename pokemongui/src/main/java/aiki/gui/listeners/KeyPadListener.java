@@ -7,6 +7,7 @@ import aiki.gui.MainWindow;
 import aiki.gui.components.walk.Scene;
 import aiki.gui.threads.Painting;
 import aiki.map.enums.Direction;
+import code.gui.CustComponent;
 
 public class KeyPadListener implements KeyListener {
 
@@ -69,7 +70,7 @@ public class KeyPadListener implements KeyListener {
             return;
         }
         thread = new Painting(scene, facade, dir_, window);
-        thread.start();
+        CustComponent.newThread(thread).start();
     }
 
     @Override

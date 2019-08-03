@@ -78,7 +78,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
 
     @Override
     public void prepare() {
-        SwingUtilities.invokeLater(new PrepareSimuPresident(this));
+        CustComponent.invokeLater(new PrepareSimuPresident(this));
     }
 
     void prepareGui() {
@@ -163,12 +163,12 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
 
     @Override
     public void stopDemo() {
-        SwingUtilities.invokeLater(new StopDemo(container));
+        CustComponent.invokeLater(new StopDemo(container));
     }
 
     @Override
     public void displaySwitchedUserHand(Bytes _winners, Bytes _loosers, int _noDeal,CustList<HandPresident> _switchedCards) {
-        SwingUtilities.invokeLater(new DisplaySwitchedCardsSimuPresident(this,_winners,_loosers,_switchedCards));
+        CustComponent.invokeLater(new DisplaySwitchedCardsSimuPresident(this,_winners,_loosers,_switchedCards));
     }
 
     void displayGuiSwitchedUserHand(Bytes _winners, Bytes _loosers, CustList<HandPresident> _switchedCards) {
@@ -225,7 +225,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
 
     @Override
     public void endDeal() {
-        SwingUtilities.invokeLater(new EndDealSimuPresident(this));
+        CustComponent.invokeLater(new EndDealSimuPresident(this));
     }
 
     void endGuiDeal() {

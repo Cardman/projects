@@ -1,8 +1,8 @@
 package aiki.gui.components;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 
+import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
 import code.util.StringList;
 
@@ -29,7 +29,7 @@ public class AbilityLabel extends PaintableLabel {
     }
 
     @Override
-    public void paintComponent(Graphics _g) {
+    public void paintComponent(CustGraphics _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0, 0, getWidth(), getHeight());
         _g.setColor(Color.BLACK);

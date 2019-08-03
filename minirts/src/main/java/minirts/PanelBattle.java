@@ -7,6 +7,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 
+import code.gui.CustGraphics;
 import code.util.EntryCust;
 import minirts.events.InteractClick;
 import minirts.rts.CustPoint;
@@ -79,7 +80,7 @@ public class PanelBattle {
                 continue;
             }
             BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
-            u_.paintComponent(img_.getGraphics());
+            u_.paintComponent(new CustGraphics(img_.getGraphics()));
             u_.setIcon(new ImageIcon(img_));
         }
         paintSelection();
@@ -90,7 +91,7 @@ public class PanelBattle {
             int w_ = selecting.getWidth();
             int h_ = selecting.getHeight();
             BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
-            selecting.paintComponent(img_.getGraphics());
+            selecting.paintComponent(new CustGraphics(img_.getGraphics()));
             selecting.setIcon(new ImageIcon(img_));
             container.repaint();
         }

@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import code.formathtml.HtmlPage;
 import code.formathtml.Navigation;
 import code.formathtml.util.NodeContainer;
+import code.gui.CustComponent;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.*;
@@ -120,7 +121,7 @@ public class FormEvent extends MouseAdapter {
             }
             current_ = n_;
         }
-        new ThreadActions(page, page.getStandards(), "", "", true, false, false).start();
+        CustComponent.newThread(new ThreadActions(page, page.getStandards(), "", "", true, false, false)).start();
         page.animateProcess();
     }
     private static DualComponent getNextSibling(DualComponent _current) {

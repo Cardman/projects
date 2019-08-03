@@ -1,7 +1,7 @@
 package code.gui;
 
 
-public final class SelectionEvent extends Thread {
+public final class SelectionEvent implements Runnable {
     private int firstIndex;
     private int lastIndex;
     private GraphicListable grList;

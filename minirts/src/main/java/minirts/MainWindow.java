@@ -62,6 +62,7 @@ public final class MainWindow extends GroupFrame {
     private PanelBattle battleground = new PanelBattle(facade);
 
     private AnimationUnitSoldier thread = new AnimationUnitSoldier(battleground);
+    private Thread threadLau = new Thread(thread);
 
     private CustCheckBox addSoldier = new CustCheckBox("Add soldier");
 
@@ -150,49 +151,49 @@ public final class MainWindow extends GroupFrame {
     }
 
     public void moveCamera(Point _pt) {
-        if (!thread.isAlive()) {
+        if (!threadLau.isAlive()) {
             return;
         }
         AnimationUnitSoldier.moveCamera(_pt);
     }
 
     public void pause() {
-        if (!thread.isAlive()) {
+        if (!threadLau.isAlive()) {
             return;
         }
         AnimationUnitSoldier.pause();
     }
 
     public void stopGame() {
-        if (!thread.isAlive()) {
+        if (!threadLau.isAlive()) {
             return;
         }
         AnimationUnitSoldier.stopGame();
     }
 
     public void addNewSoldier(int _x, int _y) {
-        if (!thread.isAlive()) {
+        if (!threadLau.isAlive()) {
             return;
         }
         AnimationUnitSoldier.addNewSoldier(_x, _y);
     }
 
     public void setNewLocation(int _x, int _y) {
-        if (!thread.isAlive()) {
+        if (!threadLau.isAlive()) {
             return;
         }
         AnimationUnitSoldier.setNewLocation(_x, _y);
     }
 
     public void selectOrDeselect(int _x, int _y) {
-        if (!thread.isAlive()) {
+        if (!threadLau.isAlive()) {
             return;
         }
         AnimationUnitSoldier.selectOrDeselect(_x, _y);
     }
 
     public void selectOrDeselectMulti() {
-        if (!thread.isAlive()) {
+        if (!threadLau.isAlive()) {
             return;
         }
         AnimationUnitSoldier.selectOrDeselect(first, last);
@@ -201,11 +202,12 @@ public final class MainWindow extends GroupFrame {
     public void animate() {
         //Un seul thread peut affecter l'objet de la classe Balle
         //Si un thread est en train d'executer, on empeche les autres de passer
-        if (thread.isAlive()) {
+        if (threadLau.isAlive()) {
             return;
         }
         thread = new AnimationUnitSoldier(battleground);
-        thread.start();
+        threadLau = new Thread(thread);
+        threadLau.start();
     }
 
     public boolean isDragged() {

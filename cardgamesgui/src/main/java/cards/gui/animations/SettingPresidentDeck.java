@@ -2,7 +2,7 @@ package cards.gui.animations;
 import cards.gui.containers.ContainerPresident;
 
 /**Thread safe class*/
-public final class SettingPresidentDeck extends Thread {
+public final class SettingPresidentDeck implements Runnable {
 
     private ContainerPresident container;
 

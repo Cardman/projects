@@ -6,6 +6,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import code.gui.CustComponent;
 import code.gui.GroupFrame;
 import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
@@ -15,6 +16,7 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
 
     private Socket socket;
 
+    private Thread connectionTh;
     private ConnectionToServer connection;
 
     private String ipHost;
@@ -39,7 +41,8 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
             }
             ipHost = ip_;
             connection=new ConnectionToServer(serverSocket_,this,ip_, _port);
-            connection.start();
+            connectionTh = CustComponent.newThread(connection);
+            connectionTh.start();
             return;
         } catch (RuntimeException _0) {
         }
@@ -58,7 +61,7 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
         if (_first) {
             try {
                 Socket socket_ = new Socket(_host, _port);
-                new BasicClient(socket_, this).start();
+                CustComponent.newThread(new BasicClient(socket_, this)).start();
                 initIndexInGame(_first);
                 socket = socket_;
                 return new SocketResults(socket_);
@@ -79,7 +82,7 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
         }
         try {
             Socket socket_ = new Socket(allAddresses_.first(), _port);
-            new BasicClient(socket_, this).start();
+            CustComponent.newThread(new BasicClient(socket_, this)).start();
             initIndexInGame(_first);
             socket = socket_;
             return new SocketResults(socket_);

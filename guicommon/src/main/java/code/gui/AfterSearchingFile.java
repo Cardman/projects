@@ -5,7 +5,7 @@ import code.util.CustList;
 import code.util.StringList;
 
 /**Thread safe class*/
-public final class AfterSearchingFile extends Thread {
+public final class AfterSearchingFile implements Runnable {
 
     private FileOpenDialog dialog;
 

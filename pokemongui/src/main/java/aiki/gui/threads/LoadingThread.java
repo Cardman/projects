@@ -3,10 +3,11 @@ import javax.swing.SwingUtilities;
 
 import aiki.db.PerCent;
 import aiki.gui.MainWindow;
+import code.gui.CustComponent;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
-public final class LoadingThread extends Thread {
+public final class LoadingThread implements Runnable {
 
     private MainWindow window;
 
@@ -29,7 +30,7 @@ public final class LoadingThread extends Thread {
             window.getDialog().setVisible(false);
             return;
         }
-        SwingUtilities.invokeLater(new AfterLoadingThread(window, fileName));
+        CustComponent.invokeLater(new AfterLoadingThread(window, fileName));
         window = null;
     }
 }

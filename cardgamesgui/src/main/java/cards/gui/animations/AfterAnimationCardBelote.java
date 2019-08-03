@@ -4,7 +4,7 @@ import cards.gui.containers.ContainerSingleBelote;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
-public final class AfterAnimationCardBelote extends Thread {
+public final class AfterAnimationCardBelote implements Runnable {
 
     private ContainerSingleBelote container;
 

@@ -9,7 +9,6 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Point;
-import java.awt.PopupMenu;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 
@@ -78,10 +77,6 @@ public final class TextField extends CustComponent {
         return textField.contains(x, y);
     }
 
-    public void setBorder(Border border) {
-        textField.setBorder(border);
-    }
-
     public Border getBorder() {
         return textField.getBorder();
     }
@@ -100,10 +95,6 @@ public final class TextField extends CustComponent {
 
     public void setBackground(Color bg) {
         textField.setBackground(bg);
-    }
-
-    public void setToolTipText(String text) {
-        textField.setToolTipText(text);
     }
 
     public int getX() {
@@ -134,10 +125,6 @@ public final class TextField extends CustComponent {
         textField.setLocation(p);
     }
 
-    public void setCursor(Cursor cursor) {
-        textField.setCursor(cursor);
-    }
-
     public Cursor getCursor() {
         return textField.getCursor();
     }
@@ -151,7 +138,7 @@ public final class TextField extends CustComponent {
     }
 
     public void add(PopupMenu popup) {
-        textField.add(popup);
+        textField.add(popup.getComponent());
     }
 
 

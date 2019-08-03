@@ -4,7 +4,7 @@ import cards.tarot.GameTarot;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
-public final class AfterAnimationCardTarot extends Thread {
+public final class AfterAnimationCardTarot implements Runnable {
 
     private ContainerSingleTarot container;
 

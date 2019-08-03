@@ -2,7 +2,7 @@ package code.network;
 import java.net.Socket;
 
 /**Thread safe class*/
-public final class LoopClient extends Thread {
+public final class LoopClient implements Runnable {
 
     private NetGroupFrame window;
 

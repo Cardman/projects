@@ -3,7 +3,7 @@ package code.gui;
 /**This thread is safe
 This class thread is independant from EDT,
 Thread safe class*/
-public final class PaintingLabel extends Thread {
+public final class PaintingLabel implements Runnable {
 
     private AnimatedLabel anim;
 

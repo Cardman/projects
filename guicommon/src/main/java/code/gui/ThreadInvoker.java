@@ -3,7 +3,7 @@ import javax.swing.SwingUtilities;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
-public final class ThreadInvoker extends Thread {
+public final class ThreadInvoker implements Runnable {
 
     private Runnable thread;
 
@@ -11,16 +11,16 @@ public final class ThreadInvoker extends Thread {
         thread = _thread;
     }
 
-    /**this method is thread safe because of calling SwingUtilities.invokeLater in an thread.
+    /**this method is thread safe because of calling CustComponent.invokeLater in an thread.
     Besides, this method execute immediately the thread after all "Event" threads.
     @param _thread the thread to invoke now for updating GUI, the "thread" parameter should not use thread sleep method*/
     public static void invokeNow(Runnable _thread) {
         ThreadInvoker thread_ = new ThreadInvoker(_thread);
-        thread_.start();
+        CustComponent.newThread(thread_).start();
     }
 
     @Override
     public void run() {
-        SwingUtilities.invokeLater(thread);
+        CustComponent.invokeLater(thread);
     }
 }

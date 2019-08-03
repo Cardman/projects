@@ -6,12 +6,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.net.Socket;
 
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
 
@@ -220,6 +215,7 @@ public final class MainWindow extends NetGroupFrame {
     private boolean enabledMove;
 
     private FightIntroThread fightIntroThread;
+    private Thread fightIntroThreadLau;
 
     private VideoLoading videoLoading = new VideoLoading();
     private LoadFlag loadFlag = new LoadFlagImpl();
@@ -630,7 +626,7 @@ public final class MainWindow extends NetGroupFrame {
 //    }
 
     private void initMenuBar() {
-        JMenuBar bar_ = new JMenuBar();
+        MenuBar bar_ = new MenuBar();
         file = new Menu();
         zipLoad = new MenuItem();
         zipLoad.addActionListener(new LoadZipEvent(this));
@@ -660,7 +656,7 @@ public final class MainWindow extends NetGroupFrame {
         quit.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_ESCAPE));
         quit.addActionListener(new QuitEvent(this));
         file.addMenuItem(quit);
-        bar_.add(file.getMenu());
+        bar_.add(file);
         dataGame = new Menu();
 //        dataGame = new JMenuItem();
 //        dataGame.addMouseListener(new MouseAdapter() {
@@ -703,12 +699,8 @@ public final class MainWindow extends NetGroupFrame {
         difficulty.addActionListener(new ManageDifficultyEvent(this));
         difficulty.setAccelerator(KeyStroke.getKeyStroke(F_THREE));
         dataGame.addMenuItem(difficulty);
-        bar_.add(dataGame.getMenu());
+        bar_.add(dataGame);
         setJMenuBar(bar_);
-    }
-
-    private void setJMenuBar(JMenuBar _bar) {
-        getFrame().setJMenuBar(_bar);
     }
 
     public void loadZip() {
@@ -761,8 +753,8 @@ public final class MainWindow extends NetGroupFrame {
         loadFlag.set(true);
         LoadingThread load_ = new LoadingThread(this, fileName_,p_);
         LoadGame opening_ = new LoadGame(this,p_);
-        load_.start();
-        opening_.start();
+        CustComponent.newThread(load_).start();
+        CustComponent.newThread(opening_).start();
     }
 
     public void loadGame() {
@@ -1119,7 +1111,7 @@ public final class MainWindow extends NetGroupFrame {
     public void gearClient(Socket _newSocket) {
         Net.getSockets().put(Net.getSockets().size(), _newSocket);
         SendReceiveServer sendReceiveServer_=new SendReceiveServer(_newSocket,this);
-        sendReceiveServer_.start();
+        CustComponent.newThread(sendReceiveServer_).start();
         Net.getConnectionsServer().put(Net.getSockets().size()-1,sendReceiveServer_);
         IndexOfArriving index_ = new IndexOfArriving();
         index_.setIndex(Net.getSockets().size()-1);
@@ -1308,7 +1300,8 @@ public final class MainWindow extends NetGroupFrame {
             } else {
                 fightIntroThread = new FightTrainerIntroThread(facade, battle.getBattle());
             }
-            fightIntroThread.start();
+            fightIntroThreadLau = CustComponent.newThread(fightIntroThread);
+            fightIntroThreadLau.start();
         } else {
             battle.setComments();
             battle.display();
@@ -1370,7 +1363,7 @@ public final class MainWindow extends NetGroupFrame {
 //    }
 
     public boolean isAliveThread() {
-        return battle.isAliveThread() || fightIntroThread != null && fightIntroThread.isAlive();
+        return battle.isAliveThread() || fightIntroThreadLau != null && fightIntroThreadLau.isAlive();
     }
 
     public boolean isClickButtonsPad() {
@@ -1485,7 +1478,7 @@ public final class MainWindow extends NetGroupFrame {
 //            successfulCompile = true;
 //        }
 //        StreamTextFile.saveTextFile(LOG_FILE, _results);
-//        SwingUtilities.invokeLater(new AfterCompiling(this, _success, true));
+//        CustComponent.invokeLater(new AfterCompiling(this, _success, true));
 //    }
 
     public void setTextArea(String _text, int _messageType) {

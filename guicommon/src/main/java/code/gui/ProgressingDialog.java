@@ -81,7 +81,7 @@ public abstract class ProgressingDialog extends Dialog implements ProgressDialog
         if (animation == null) {
             return;
         }
-        animation.start();
+        CustComponent.newThread(animation).start();
     }
 
     public void stopAnimation() {

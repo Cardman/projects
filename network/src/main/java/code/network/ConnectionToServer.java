@@ -5,7 +5,7 @@ import java.net.Socket;
 import java.net.SocketException;
 
 /**Thread safe class*/
-public final class ConnectionToServer extends Thread {
+public final class ConnectionToServer implements Runnable {
 
     private ServerSocket serverSocket;
     private NetGroupFrame serverWindow;

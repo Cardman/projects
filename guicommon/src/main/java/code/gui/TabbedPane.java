@@ -17,10 +17,6 @@ public class TabbedPane extends CustComponent {
         return component.getComponentCount();
     }
 
-    public Component add(String _title, JComponent _component) {
-        return add(_title, new PseudoComponent(_component));
-    }
-
     public Component add(String _title, CustComponent _component) {
         _component.setParent(this);
         getChildren().add(_component);

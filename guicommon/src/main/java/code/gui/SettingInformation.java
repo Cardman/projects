@@ -1,7 +1,7 @@
 package code.gui;
 
 /**Thread safe class*/
-public final class SettingInformation extends Thread {
+public final class SettingInformation implements Runnable {
 
     private FileOpenDialog dialog;
 

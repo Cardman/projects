@@ -9,7 +9,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 /**Thread safe class*/
-public final class Quitting extends Thread {
+public final class Quitting implements Runnable {
 
     private static final String QUITTING = "network.quitting";
 

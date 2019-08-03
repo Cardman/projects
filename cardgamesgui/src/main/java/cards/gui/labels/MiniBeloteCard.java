@@ -1,13 +1,13 @@
 package cards.gui.labels;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 
 import javax.swing.SwingConstants;
 
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
 import cards.facade.Games;
+import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
 import code.util.*;
 
@@ -27,7 +27,7 @@ public class MiniBeloteCard extends PaintableLabel {
     }
 
     @Override
-    public void paintComponent(Graphics _g) {
+    public void paintComponent(CustGraphics _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0,0,75+getWidth(),getHeight());
         _g.setColor(Color.BLACK);
@@ -36,7 +36,7 @@ public class MiniBeloteCard extends PaintableLabel {
         dessinerGrandSymbole(_g, 0, 20);
     }
 
-    private void dessinerGrandSymbole(Graphics _g,int _x,int _y) {
+    private void dessinerGrandSymbole(CustGraphics _g,int _x,int _y) {
         Suit couleur_=card.couleur();
         if(couleur_ == Suit.TRUMP) {
             _g.setColor(Color.BLUE);

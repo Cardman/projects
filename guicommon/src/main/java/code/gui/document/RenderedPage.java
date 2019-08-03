@@ -38,7 +38,7 @@ public final class RenderedPage implements ProcessingSession {
 
     private AtomicBoolean processing = new AtomicBoolean();
 
-    private ThreadActions threadAction;
+    private Thread threadAction;
 
     private CustList<BufferedImage> process = new CustList<BufferedImage>();
 
@@ -120,7 +120,7 @@ public final class RenderedPage implements ProcessingSession {
             return;
         }
         standards = _stds;
-        threadAction = new ThreadActions(this, _stds, "", _conf, false, false, true);
+        threadAction = CustComponent.newThread(new ThreadActions(this, _stds, "", _conf, false, false, true));
         threadAction.start();
         animateProcess();
     }
@@ -130,16 +130,17 @@ public final class RenderedPage implements ProcessingSession {
             return;
         }
         standards = _stds;
-        threadAction = new ThreadActions(this, _stds, "", _conf, _files,false, false, true);
-        threadAction.setClassDbName(_clName);
-        threadAction.setMethodName(_methodName);
+        ThreadActions actions_ = new ThreadActions(this, _stds, "", _conf, _files, false, false, true);
+        actions_.setClassDbName(_clName);
+        actions_.setMethodName(_methodName);
+        threadAction = CustComponent.newThread(actions_);
         threadAction.start();
         animateProcess();
     }
     public void animateProcess() {
         if (!process.isEmpty()) {
             LoadingWeb load_ = new LoadingWeb(this, process, frame, dialog);
-            load_.start();
+            CustComponent.newThread(load_).start();
         }
     }
     public void initializeHtml(String _conf, BeanLgNames _lgNames) {
@@ -167,7 +168,7 @@ public final class RenderedPage implements ProcessingSession {
         if (processing.get()) {
             return;
         }
-        threadAction = new ThreadActions(this, standards, "", "", false, true, false);
+        threadAction = CustComponent.newThread(new ThreadActions(this, standards, "", "", false, true, false));
         threadAction.start();
         animateProcess();
     }
@@ -177,7 +178,7 @@ public final class RenderedPage implements ProcessingSession {
             return;
         }
         standards = _lgNames;
-        threadAction = new ThreadActions(this, _lgNames, "", navigation.getSession().getFirstUrl(), false, false, true);
+        threadAction = CustComponent.newThread(new ThreadActions(this, _lgNames, "", navigation.getSession().getFirstUrl(), false, false, true));
         threadAction.start();
         animateProcess();
     }
@@ -246,7 +247,7 @@ public final class RenderedPage implements ProcessingSession {
         }
         Document doc_ = navigation.getDocument();
         MetaDocument metadoc_ = MetaDocument.newInstance(doc_);
-        SwingUtilities.invokeLater(new WindowPage(metadoc_, scroll, this));
+        CustComponent.invokeLater(new WindowPage(metadoc_, scroll, this));
     }
     void directScroll() {
         if (frame != null) {
@@ -304,14 +305,6 @@ public final class RenderedPage implements ProcessingSession {
     }
     public DualPanel getPage() {
         return page;
-    }
-
-    public ThreadActions getThreadAction() {
-        return threadAction;
-    }
-
-    public void setThreadAction(ThreadActions _threadAction) {
-        threadAction = _threadAction;
     }
 
     public ProgressingWebDialog getDialog() {

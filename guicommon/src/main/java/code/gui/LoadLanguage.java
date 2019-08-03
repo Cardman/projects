@@ -3,7 +3,7 @@ import java.awt.Image;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
-public final class LoadLanguage extends Thread {
+public final class LoadLanguage implements Runnable {
 
     private String dir;
 

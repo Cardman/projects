@@ -1,15 +1,11 @@
 package aiki.gui.components.walk;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 
 import javax.swing.JLabel;
 
 import aiki.facade.FacadeGame;
-import code.gui.CustCellRender;
-import code.gui.GraphicListable;
-import code.gui.PaintableLabel;
-import code.gui.PreparedLabel;
+import code.gui.*;
 import code.maths.LgInt;
 
 public class TmRenderer extends CustCellRender {
@@ -44,7 +40,7 @@ public class TmRenderer extends CustCellRender {
     }
 
     @Override
-    public void paintComponent(Graphics _g) {
+    public void paintComponent(CustGraphics _g) {
         _g.setColor(Color.BLACK);
         _g.drawString(facade.translateMove(name), 0, getHeight());
         _g.drawString(price.toNumberString(), 100, getHeight());

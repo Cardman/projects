@@ -3,7 +3,7 @@ import code.util.StringMap;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
-public final class LaunchingGame extends Thread {
+public final class LaunchingGame implements Runnable {
 
     private StringMap<Object> args;
 
