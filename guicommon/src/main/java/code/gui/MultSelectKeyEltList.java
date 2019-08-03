@@ -29,7 +29,7 @@ public final class MultSelectKeyEltList extends KeyAdapter implements IndexableL
         int index_ = 0;
         Object[] array_ = grList.toArray();
         for (Object v: array_) {
-            JLabel c_;
+            PreparedLabel c_;
             c_ = r_.getListCellRendererComponent(grList, v, index_, sel_, false);
             r_.paintComponent(c_);
             index_++;

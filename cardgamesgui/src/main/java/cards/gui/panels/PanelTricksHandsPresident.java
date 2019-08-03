@@ -31,7 +31,7 @@ import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
-public class PanelTricksHandsPresident extends Panel implements ViewablePanelTricksHands {
+public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
 
     private static final String ACCESS = "cards.gui.panels.paneltrickshandspresident";
     private static final String CURRENT_TRICK = "";
@@ -52,6 +52,7 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
     private byte numberPlayers;
     private DisplayingPresident displayingPresident;
     private MainWindow window;
+    private Panel container;
 
     public PanelTricksHandsPresident(ChangeableTitle _parent,
             TricksHandsPresident _tricksHands,
@@ -68,9 +69,9 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
         tricksHands.restoreHandsAtSelectedNumberedTrick(displayingPresident, numberPlayers, (byte) -1);
         DealPresident dealt_ = tricksHands.getDistribution();
 //        CustList<TrickPresident> tricks_ = tricksHands.getTricks();
-        setLayout(new BorderLayout());
+        container = Panel.newBorder();
         cards=new Panel();
-        Panel players_ = new Panel(new GridLayout(0,1));
+        Panel players_ = Panel.newGrid(0,1);
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<_numberPlayers;joueur_++) {
             players_.add(getBlankCard(_pseudos, joueur_));
         }
@@ -79,13 +80,13 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
 //            players_.add(getBlankCard(_pseudos, joueur_));
 //        }
         cards.add(players_);
-        selectedTrick = new Panel(new GridLayout(0,1));
+        selectedTrick = Panel.newGrid(0,1);
         cards.add(selectedTrick);
-        hands=new Panel(new GridLayout(0,1));
+        hands=Panel.newGrid(0,1);
         Panel sousPanneau3_;
         //boolean entered_ = false;
         for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_numberPlayers;joueur_++) {
-            sousPanneau3_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
+            sousPanneau3_=Panel.newFlow(FlowLayout.LEFT,0,0);
             for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,dealt_.hand(joueur_))) {
                 sousPanneau3_.add(c);
             }
@@ -103,7 +104,7 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
 //            hands.add(new JPanel(new FlowLayout(FlowLayout.LEFT,0,0)));
 //        }
         cards.add(hands);
-        Panel sousPanneau2_=new Panel(new GridLayout(0,1));
+        Panel sousPanneau2_=Panel.newGrid(0,1);
 //        sousPanneau3_=new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
 //        for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(dealt_.derniereMain())) {
 //            sousPanneau3_.add(c);
@@ -117,9 +118,9 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
 //        }
 //        sousPanneau2_.add(sousPanneau3_);
         cards.add(sousPanneau2_);
-        add(cards,BorderLayout.CENTER);
+        container.add(cards,BorderLayout.CENTER);
         Panel selectionGameState_=new Panel();
-        selectionGameState_.add(new JLabel(messages.getVal(TRICK)));
+        selectionGameState_.add(new TextLabel(messages.getVal(TRICK)));
 //        Integer[] numerosPlis_;
 //        numerosPlis_=new Integer[tricks_.size()+2];
         int nbTricks_ = tricksHands.getFilledTricksCount();
@@ -143,7 +144,7 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
         trickNumber.refresh(map_);
         trickNumber.setListener(new ListenerTricks(this));
         selectionGameState_.add(trickNumber);
-        selectionGameState_.add(new JLabel(messages.getVal(CARD)));
+        selectionGameState_.add(new TextLabel(messages.getVal(CARD)));
 //        if (nbTricks_ == CustList.SIZE_EMPTY) {
 //            int nbCards_ = game.getProgressingTrick().total();
 //            Integer[] numerosJoueurs_=new Integer[nbCards_+1];
@@ -166,7 +167,7 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
 //        cardNumberTrick.setModel(new DefaultComboBoxModel<Integer>(numerosJoueurs_));
         cardNumberTrick.setListener(new ListenerCards(this));
         selectionGameState_.add(cardNumberTrick);
-        add(selectionGameState_,BorderLayout.SOUTH);
+        container.add(selectionGameState_,BorderLayout.SOUTH);
     }
 
     private static TextLabel getBlankCard(StringList _nicknames, byte _player) {
@@ -187,17 +188,14 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
         if (trickNumber.isSelectNullCurrent()) {
             tricksHands.restoreHandsAtSelectedNumberedTrick(displayingPresident, numberPlayers);
             hands.removeAll();
-            hands.setLayout(new GridLayout(0,1));
             DealPresident dealt_ = tricksHands.getDistribution();
             for (byte joueur_ = CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
-                Panel sousPanneau4_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
+                Panel sousPanneau4_=Panel.newFlow(FlowLayout.LEFT,0,0);
                 for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,dealt_.hand(joueur_))) {
                     sousPanneau4_.add(c);
                 }
                 hands.add(sousPanneau4_);
             }
-            selectedTrick.removeAll();
-//            selectedTrick.setLayout(new GridLayout(numberPlayers, 0));
             byte entameur_=tricksHands.getProgressingTrick().getEntameur();
             byte indice_=0;
             byte col_ = 0;
@@ -208,14 +206,13 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(Color.WHITE);
-//                selectedTrick.add(etiquette2_);
                 row_++;
                 panels_.put(new CoordsHands(0, indice_), etiquette2_);
                 indice_++;
             }
             int nb_ = tricksHands.getProgressingTrick().getNombreDeCartesParJoueur();
             for(HandPresident h_:tricksHands.getProgressingTrick()) {
-                Panel cards_ = new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
+                Panel cards_ = Panel.newFlow(FlowLayout.LEFT,0,0);
                 for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,h_)) {
                     cards_.add(c);
                 }
@@ -234,8 +231,6 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
                     row_ = 0;
                     col_++;
                 }
-//                selectedTrick.add(cards_);
-//                indice_++;
             }
 //            indice_=0;
             while(row_ + 1 <numberPlayers) {
@@ -244,15 +239,18 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
                 etiquette2_.setOpaque(true);
                 etiquette2_.setForeground(Color.WHITE);
                 etiquette2_.setBackground(Color.WHITE);
-//                selectedTrick.add(etiquette2_);
                 panels_.put(new CoordsHands(col_, row_), etiquette2_);
                 row_++;
             }
-            selectedTrick.setLayout(new GridLayout(0, col_ + 1));
+            selectedTrick.removeAll();
+            int indexRem_ = cards.remove(selectedTrick);
+            Panel gr_ = Panel.newGrid(0, col_ + 1);
             for (CoordsHands c: panels_.getKeys()) {
-                selectedTrick.add(panels_.getVal(c));
+                gr_.add(panels_.getVal(c));
             }
-            selectedTrick.repaint();
+            gr_.repaint();
+            selectedTrick = gr_;
+            cards.add(gr_,indexRem_);
             int nbCards_ = tricksHands.getProgressingTrick().total();
             Integer[] numerosJoueurs_=new Integer[nbCards_+1];
             for(byte indiceJoueur_=CustList.FIRST_INDEX;indiceJoueur_<=nbCards_;indiceJoueur_++) {
@@ -268,11 +266,10 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
         numeroPli_ = (byte) tricksHands.getFilledTricksIndex(numeroPli_);
         tricksHands.restoreHandsAtSelectedNumberedTrick(displayingPresident, numberPlayers, numeroPli_);
         hands.removeAll();
-        hands.setLayout(new GridLayout(0,1));
         DealPresident dealt_ = tricksHands.getDistribution();
         CustList<TrickPresident> tricks_ = tricksHands.getTricks();
         for (byte joueur_ = CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
-            Panel sousPanneau4_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
+            Panel sousPanneau4_=Panel.newFlow(FlowLayout.LEFT,0,0);
             for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,dealt_.hand(joueur_))) {
                 sousPanneau4_.add(c);
             }
@@ -295,7 +292,6 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
         if(numeroPli_>=0) {
 //            int sum_ = tricks_.get(numeroPli_-1).total() + tricks_.get(numeroPli_-1).getEntameur();
             int nb_ = tricks_.get(numeroPli_).getNombreDeCartesParJoueur();
-//            selectedTrick.setLayout(new GridLayout(numberPlayers, 0));
             byte entameur_=tricks_.get(numeroPli_).getEntameur();
             byte indice_=0;
             byte col_ = 0;
@@ -306,13 +302,12 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(Color.WHITE);
-//                selectedTrick.add(etiquette2_);
                 row_++;
                 panels_.put(new CoordsHands(0, indice_), etiquette2_);
                 indice_++;
             }
             for(HandPresident h_:tricks_.get(numeroPli_)) {
-                Panel cards_ = new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
+                Panel cards_ = Panel.newFlow(FlowLayout.LEFT,0,0);
                 for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,h_)) {
                     cards_.add(c);
                 }
@@ -330,8 +325,6 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
                     row_ = 0;
                     col_++;
                 }
-//                selectedTrick.add(cards_);
-//                indice_++;
             }
             while(row_ + 1 <numberPlayers) {
                 TextLabel etiquette2_=new TextLabel(SPACE);
@@ -339,24 +332,17 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
                 etiquette2_.setOpaque(true);
                 etiquette2_.setForeground(Color.WHITE);
                 etiquette2_.setBackground(Color.WHITE);
-//                selectedTrick.add(etiquette2_);
                 panels_.put(new CoordsHands(col_, row_), etiquette2_);
                 row_++;
             }
-            selectedTrick.setLayout(new GridLayout(0, col_ + 1));
+            int indexRem_ = cards.remove(selectedTrick);
+            Panel gr_ = Panel.newGrid(0, col_ + 1);
             for (CoordsHands c: panels_.getKeys()) {
-                selectedTrick.add(panels_.getVal(c));
+                gr_.add(panels_.getVal(c));
             }
-//            while(indice_<2*numberPlayers-1) {
-//                JLabel etiquette2_=new JLabel(Long.toString(indice_-numberPlayers));
-//                etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
-//                etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
-//                etiquette2_.setOpaque(true);
-//                etiquette2_.setBackground(Color.WHITE);
-//                selectedTrick.add(etiquette2_);
-//                indice_++;
-//            }
-            selectedTrick.repaint();
+            selectedTrick = gr_;
+            cards.add(gr_,indexRem_);
+            gr_.repaint();
             int nbCards_ = tricks_.get(numeroPli_).total();
             Integer[] numerosJoueurs_=new Integer[nbCards_ + 1];
             for(byte indiceJoueur_=CustList.FIRST_INDEX;indiceJoueur_<=nbCards_;indiceJoueur_++) {
@@ -383,16 +369,13 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
             DealPresident dealt_ = tricksHands.getDistribution();
             tricksHands.restoreHandsAtSelectedNumberedTrickWithSelectedCard(displayingPresident, numberPlayers, numeroCarte_);
             hands.removeAll();
-            hands.setLayout(new GridLayout(0,1));
             for(byte joueur_=CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
-                Panel sousPanneau4_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
+                Panel sousPanneau4_=Panel.newFlow(FlowLayout.LEFT,0,0);
                 for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,dealt_.hand(joueur_))) {
                     sousPanneau4_.add(c);
                 }
                 hands.add(sousPanneau4_);
             }
-            selectedTrick.removeAll();
-//            selectedTrick.setLayout(new GridLayout(numberPlayers, 0));
             byte entameur_=tricksHands.getProgressingTrick().getEntameur();
             byte indice_=0;
             byte indice2_=0;
@@ -404,7 +387,6 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(Color.WHITE);
-//                selectedTrick.add(etiquette2_);
                 row_++;
                 panels_.put(new CoordsHands(0, indice_), etiquette2_);
                 indice_++;
@@ -412,7 +394,7 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
             int nb_ = tricksHands.getProgressingTrick().getNombreDeCartesParJoueur();
             for(HandPresident h_ :tricksHands.getProgressingTrick()) {
                 if(indice2_<=numeroCarte_) {
-                    Panel cards_ = new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
+                    Panel cards_ = Panel.newFlow(FlowLayout.LEFT,0,0);
                     for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,h_)) {
                         cards_.add(c);
                     }
@@ -430,7 +412,6 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
                         row_ = 0;
                         col_++;
                     }
-//                    selectedTrick.add(cards_);
                     indice2_++;
                 } else {
                     break;
@@ -442,15 +423,18 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
                 etiquette2_.setOpaque(true);
                 etiquette2_.setForeground(Color.WHITE);
                 etiquette2_.setBackground(Color.WHITE);
-//                selectedTrick.add(etiquette2_);
                 panels_.put(new CoordsHands(col_, row_), etiquette2_);
                 row_++;
             }
-            selectedTrick.setLayout(new GridLayout(0, col_ + 1));
+            selectedTrick.removeAll();
+            int indexRem_ = cards.remove(selectedTrick);
+            Panel gr_ = Panel.newGrid(0, col_ + 1);
             for (CoordsHands c: panels_.getKeys()) {
-                selectedTrick.add(panels_.getVal(c));
+                gr_.add(panels_.getVal(c));
             }
-            selectedTrick.repaint();
+            gr_.repaint();
+            selectedTrick = gr_;
+            cards.add(gr_,indexRem_);
             parent.pack();
             return;
         }
@@ -468,9 +452,8 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
         CustList<TrickPresident> tricks_ = tricksHands.getTricks();
         tricksHands.restoreHandsAtSelectedNumberedTrickWithSelectedCard(displayingPresident, numberPlayers,numeroPli_,numeroCarte_);
         hands.removeAll();
-        hands.setLayout(new GridLayout(0,1));
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
-            Panel sousPanneau4_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
+            Panel sousPanneau4_=Panel.newFlow(FlowLayout.LEFT,0,0);
             for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,dealt_.hand(joueur_))) {
                 sousPanneau4_.add(c);
             }
@@ -490,9 +473,7 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
 //        }
         selectedTrick.removeAll();
         if(numeroPli_>=0) {
-//            selectedTrick.setLayout(new GridLayout(0,1));
             int nb_ = tricks_.get(numeroPli_).getNombreDeCartesParJoueur();
-//            selectedTrick.setLayout(new GridLayout(numberPlayers, 0));
             byte entameur_=tricks_.get(numeroPli_).getEntameur();
             byte indice_=0;
             byte indice2_=0;
@@ -504,15 +485,13 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(Color.WHITE);
-//                selectedTrick.add(etiquette2_);
-//                indice_++;
                 row_++;
                 panels_.put(new CoordsHands(0, indice_), etiquette2_);
                 indice_++;
             }
             for(HandPresident h_ :tricks_.get(numeroPli_)) {
                 if(indice2_<=numeroCarte_) {
-                    Panel cards_ = new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
+                    Panel cards_ =Panel.newFlow(FlowLayout.LEFT,0,0);
                     for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,h_)) {
                         cards_.add(c);
                     }
@@ -524,8 +503,6 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
                         etiquette2_.setBackground(Color.WHITE);
                         cards_.add(etiquette2_);
                     }
-//                    selectedTrick.add(cards_);
-//                    indice_++;
                     panels_.put(new CoordsHands(col_, row_), cards_);
                     row_++;
                     if (row_ % numberPlayers == 0) {
@@ -543,26 +520,23 @@ public class PanelTricksHandsPresident extends Panel implements ViewablePanelTri
                 etiquette2_.setOpaque(true);
                 etiquette2_.setForeground(Color.WHITE);
                 etiquette2_.setBackground(Color.WHITE);
-//                selectedTrick.add(etiquette2_);
                 panels_.put(new CoordsHands(col_, row_), etiquette2_);
                 row_++;
             }
-            selectedTrick.setLayout(new GridLayout(0, col_ + 1));
+            int indexRem_ = cards.remove(selectedTrick);
+            Panel gr_ = Panel.newGrid(0, col_ + 1);
             for (CoordsHands c: panels_.getKeys()) {
-                selectedTrick.add(panels_.getVal(c));
+                gr_.add(panels_.getVal(c));
             }
-//            while(indice_<2*numberPlayers-1) {
-//                JLabel etiquette2_=new JLabel(Long.toString(indice_-numberPlayers));
-//                etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
-//                etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
-//                etiquette2_.setOpaque(true);
-//                etiquette2_.setBackground(Color.WHITE);
-//                selectedTrick.add(etiquette2_);
-//                indice_++;
-//            }
+            selectedTrick = gr_;
+            cards.add(gr_,indexRem_);
         }
         selectedTrick.repaint();
         parent.pack();
 
+    }
+
+    public Panel getContainer() {
+        return container;
     }
 }

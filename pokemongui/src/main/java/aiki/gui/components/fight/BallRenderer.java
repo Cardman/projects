@@ -11,6 +11,8 @@ import aiki.facade.FacadeGame;
 import aiki.game.fight.BallNumberRate;
 import code.gui.CustCellRender;
 import code.gui.GraphicListable;
+import code.gui.PaintableLabel;
+import code.gui.PreparedLabel;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.Rate;
 import code.util.NatStringTreeMap;
@@ -62,9 +64,9 @@ public class BallRenderer extends CustCellRender {
     }
 
     @Override
-    public JLabel getListCellRendererComponent(GraphicListable _list, Object _value, int _index,
-            boolean _isSelected, boolean _cellHasFocus) {
-        JLabel label_ = (JLabel) _list.getListComponents().get(_index);
+    public PreparedLabel getListCellRendererComponent(GraphicListable _list, Object _value, int _index,
+                                                       boolean _isSelected, boolean _cellHasFocus) {
+        PreparedLabel label_ = _list.getListComponents().get(_index);
         selected = _isSelected;
         ball = (BallNumberRate)_value;
         int[][] img_ = facade.getData().getMiniItems().getVal(ball.getName());

@@ -699,4 +699,8 @@ public final class Navigation {
     public void setLanguages(StringList _languages) {
         languages = _languages;
     }
+
+    public void setDataBaseStruct(Struct _dataBaseStruct) {
+        dataBaseStruct = _dataBaseStruct;
+    }
 }

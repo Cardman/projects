@@ -2,22 +2,24 @@ package code.gui.document;
 
 import code.formathtml.render.MetaSpinner;
 import code.formathtml.render.MetaTextField;
+import code.gui.CustComponent;
+import code.gui.Spinner;
 
 import javax.swing.*;
 
 public final class DualSpinner extends DualInput {
 
-    private final JSpinner field;
+    private final Spinner field;
 
     public DualSpinner(DualContainer _container, MetaSpinner _component, RenderedPage _page) {
         super(_container, _component, _page);
-        field = new JSpinner();
+        field = new Spinner();
         field.setValue(Integer.parseInt(_component.getValue()));
         updateGraphics(field,_component);
     }
 
     @Override
-    public JComponent getGraphic() {
+    public CustComponent getGraphic() {
         return field;
     }
 

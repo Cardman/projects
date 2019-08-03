@@ -1,50 +1,50 @@
 package aiki.gui.components.walk;
-import java.awt.GridLayout;
-
-import javax.swing.JLabel;
 
 import aiki.db.DataBase;
 import aiki.gui.components.labels.KeyPad;
 import aiki.map.enums.Direction;
 import code.gui.PaintableLabel;
 import code.gui.Panel;
+import code.gui.TextLabel;
 
-public class Pad extends Panel {
+public class Pad {
 
     private PaintableLabel up;
     private PaintableLabel left;
     private PaintableLabel down;
     private PaintableLabel right;
 
+    private Panel container;
+
     /**
     Create the panel.
     */
     public Pad() {
-        setLayout(new GridLayout(3, 3, 10, 10));
+        container = Panel.newGrid(3, 3, 10, 10);
 
-        JLabel lblNewLabel_ = new JLabel(DataBase.EMPTY_STRING);
-        add(lblNewLabel_);
+        TextLabel lblNewLabel_ = new TextLabel(DataBase.EMPTY_STRING);
+        container.add(lblNewLabel_);
 
         up = new KeyPad(Direction.UP);
-        add(up);
+        container.add(up);
 
-        JLabel lblNewLabelSec_ = new JLabel(DataBase.EMPTY_STRING);
-        add(lblNewLabelSec_);
+        TextLabel lblNewLabelSec_ = new TextLabel(DataBase.EMPTY_STRING);
+        container.add(lblNewLabelSec_);
 
         left = new KeyPad(Direction.LEFT);
-        add(left);
+        container.add(left);
 
-        JLabel lblNewLabelThird_ = new JLabel(DataBase.EMPTY_STRING);
-        add(lblNewLabelThird_);
+        TextLabel lblNewLabelThird_ = new TextLabel(DataBase.EMPTY_STRING);
+        container.add(lblNewLabelThird_);
 
         right = new KeyPad(Direction.RIGHT);
-        add(right);
+        container.add(right);
 
-        JLabel lblNewLabelFour_ = new JLabel(DataBase.EMPTY_STRING);
-        add(lblNewLabelFour_);
+        TextLabel lblNewLabelFour_ = new TextLabel(DataBase.EMPTY_STRING);
+        container.add(lblNewLabelFour_);
 
         down = new KeyPad(Direction.DOWN);
-        add(down);
+        container.add(down);
     }
 
     public PaintableLabel getUp() {
@@ -61,5 +61,9 @@ public class Pad extends Panel {
 
     public PaintableLabel getRight() {
         return right;
+    }
+
+    public Panel getContainer() {
+        return container;
     }
 }

@@ -16,7 +16,7 @@ import code.util.Ints;
 public class GraphicList<T> extends CustComponent implements GraphicListable {
 
     private CustList<T> list;
-    private CustList<JComponent> listComponents = new CustList<JComponent>();
+    private CustList<PreparedLabel> listComponents = new CustList<PreparedLabel>();
     private CustList<IndexableListener> indexableMouse = new CustList<IndexableListener>();
     private CustList<IndexableListener> indexableKey = new CustList<IndexableListener>();
     private Ints selectedIndexes = new Ints();
@@ -25,8 +25,8 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
 
     private ListSelection listener;
 
-    private JPanel panel;
-    private JScrollPane scroll;
+    private Panel panel;
+    private ScrollPane scroll;
 
     private int firstIndex = -1;
 
@@ -47,10 +47,9 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         owned = _owned;
         list = new CustList<T>(_objects);
         simple = _simple;
-        panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+        panel = Panel.newPageBox();
         panel.setAutoscrolls(true);
-        scroll = new JScrollPane(panel);
+        scroll = new ScrollPane(panel);
         buildList();
     }
     protected void buildList() {
@@ -65,13 +64,13 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
     }
     public void add(int _index, T _elt) {
         list.add(_index, _elt);
-        JPanel panel_ = getPanel();
-        JLabel lab_ = new JLabel();
+        Panel panel_ = getPanel();
+        PreparedLabel lab_ = new PreparedLabel();
         listComponents.add(_index, lab_);
         panel_.add(lab_, _index);
         CustCellRender r_ = getRender();
         if (r_ != null) {
-            JLabel c_ = r_.getListCellRendererComponent(this, _elt, _index, false, false);
+            PreparedLabel c_ = r_.getListCellRendererComponent(this, _elt, _index, false, false);
             r_.paintComponent(c_);
         }
         resetDimensions();
@@ -93,7 +92,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
     }
     public void clear() {
         list.clear();
-        JPanel panel_ = getPanel();
+        Panel panel_ = getPanel();
         listComponents.clear();
         panel_.removeAll();
         selectedIndexes.clear();
@@ -102,7 +101,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
     }
     public void clearRevalidate() {
         list.clear();
-        JPanel panel_ = getPanel();
+        Panel panel_ = getPanel();
         listComponents.clear();
         panel_.removeAll();
         selectedIndexes.clear();
@@ -114,7 +113,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
     }
     public void remove(int _index) {
         list.remove(_index);
-        JPanel panel_ = getPanel();
+        Panel panel_ = getPanel();
         listComponents.remove(_index);
         panel_.remove(_index);
         selectedIndexes.removeObj(_index);
@@ -135,29 +134,29 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         if (r_ == null) {
             return;
         }
-        JPanel panel_ = getPanel();
+        Panel panel_ = getPanel();
         panel_.removeAll();
         indexableMouse.clear();
         indexableKey.clear();
         int index_ = 0;
         for (Object o: list) {
-            JLabel lab_ = new JLabel();
+            PreparedLabel lab_ = new PreparedLabel();
             listComponents.add(lab_);
             panel_.add(lab_);
-            JLabel c_ = r_.getListCellRendererComponent(this, o, index_, selectedIndexes.containsObj(index_), false);
+            PreparedLabel c_ = r_.getListCellRendererComponent(this, o, index_, selectedIndexes.containsObj(index_), false);
             r_.paintComponent(c_);
             index_++;
         }
         index_ = 0;
         if (simple) {
-            for (Component c: listComponents) {
+            for (PreparedLabel c: listComponents) {
                 SimpleSelectEltList i_ = new SimpleSelectEltList(this, index_);
                 indexableMouse.add(i_);
                 c.addMouseListener(i_);
                 index_++;
             }
         } else {
-            for (Component c: listComponents) {
+            for (PreparedLabel c: listComponents) {
                 MultSelectKeyEltList i_ = new MultSelectKeyEltList(this, index_);
                 indexableKey.add(i_);
                 c.addKeyListener(i_);
@@ -213,7 +212,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         int index_ = 0;
         Object[] array_ = list.toArray();
         for (Object v: array_) {
-            JLabel c_;
+            PreparedLabel c_;
             c_ = r_.getListCellRendererComponent(this, v, index_, selectedIndexes.containsObj(index_), false);
             r_.paintComponent(c_);
             index_++;
@@ -228,7 +227,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         int index_ = 0;
         Object[] array_ = list.toArray();
         for (Object v: array_) {
-            JLabel c_;
+            PreparedLabel c_;
             c_ = r_.getListCellRendererComponent(this, v, index_, selectedIndexes.containsObj(index_), false);
             r_.paintComponent(c_);
             index_++;
@@ -241,7 +240,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         int index_ = 0;
         Object[] array_ = list.toArray();
         for (Object v: array_) {
-            JLabel c_;
+            PreparedLabel c_;
             c_ = r_.getListCellRendererComponent(this, v, index_, false, false);
             r_.paintComponent(c_);
             index_++;
@@ -263,14 +262,14 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         return 0;
     }
     protected void resetDimensions(){
-        JPanel panel_ = getPanel();
+        Panel panel_ = getPanel();
         int width_ = getMaxWidth();
-        for (Component c: getListComponents()) {
+        for (CustComponent c: getListComponents()) {
             width_ = Math.max(width_, c.getPreferredSize().width);
         }
         int h_ = 0;
         int c_ = 0;
-        for (Component c: getListComponents()) {
+        for (PreparedLabel c: getListComponents()) {
             h_ = c.getPreferredSize().height;
             c.setPreferredSize(new Dimension(width_, h_));
             c_++;
@@ -337,17 +336,17 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
     }
 
     @Override
-    public JPanel getPanel() {
+    public Panel getPanel() {
         return panel;
     }
 
     @Override
-    public JScrollPane getScroll() {
+    public ScrollPane getScroll() {
         return scroll;
     }
 
     @Override
-    public CustList<JComponent> getListComponents() {
+    public CustList<PreparedLabel> getListComponents() {
         return listComponents;
     }
 
@@ -394,6 +393,6 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
 
     @Override
     public JComponent getComponent() {
-        return scroll;
+        return scroll.getComponent();
     }
 }

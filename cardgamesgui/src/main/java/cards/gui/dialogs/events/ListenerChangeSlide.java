@@ -1,9 +1,9 @@
 package cards.gui.dialogs.events;
 import javax.swing.JLabel;
-import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import code.gui.Slider;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -13,7 +13,7 @@ public class ListenerChangeSlide implements ChangeListener {
     private String key;
     private StringMap<String> messages;
 //    private DialogSoft dialog;
-    private JSlider slide;
+    private Slider slide;
     private JLabel etiquette;
     private String sentence;
     public ListenerChangeSlide(String _key, StringMap<String> _messages, String _sentence) {

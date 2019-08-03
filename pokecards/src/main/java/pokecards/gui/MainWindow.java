@@ -8,16 +8,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JRadioButton;
 import javax.swing.WindowConstants;
 
+import code.gui.*;
 import pokecards.main.LaunchingPokecards;
 import aiki.main.LaunchingPokemon;
 import cards.main.LaunchingCards;
-import code.gui.Clock;
-import code.gui.GroupFrame;
-import code.gui.LabelButton;
-import code.gui.Panel;
-import code.gui.SetStyle;
-import code.gui.SoftApplicationCore;
-import code.gui.ThreadUtil;
 import code.gui.events.QuittingEvent;
 import code.util.CustList;
 import code.util.StringList;
@@ -31,16 +25,15 @@ public final class MainWindow extends GroupFrame {
 
     private LabelButton buttonCards;
 
-    private ButtonGroup group = new ButtonGroup();
+    private CustButtonGroup group = new CustButtonGroup();
 
-    private CustList<JRadioButton> radios = new CustList<JRadioButton>();
+    private CustList<RadioButton> radios = new CustList<RadioButton>();
 
     public MainWindow(String _lg) {
         super(_lg);
         setFocusableWindowState(true);
         setTitle(POKE_CARDS);
-        Panel panel_ = new Panel();
-        panel_.setLayout(new BoxLayout(panel_.getComponent(), BoxLayout.PAGE_AXIS));
+        Panel panel_ = Panel.newPageBox();
         Panel linePokemon_ = new Panel();
         buttonPokemon = new LabelButton(new ImageIcon(LaunchingPokemon.getIcon()));
         buttonPokemon.addMouseListener(new PokemonEvent(this));
@@ -53,7 +46,7 @@ public final class MainWindow extends GroupFrame {
         panel_.add(lineCards_);
         panel_.add(new Clock());
         for (String l: Constants.getAvailableLanguages()) {
-            JRadioButton radio_ = new JRadioButton(Constants.getDisplayLanguage(l));
+            RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
             radio_.addMouseListener(new SetLanguage(l));
             radio_.setSelected(StringList.quickEq(l,_lg));
             group.add(radio_);
@@ -64,7 +57,7 @@ public final class MainWindow extends GroupFrame {
         setContentPane(panel_);
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
-        SetStyle.setupStyle(getFrame());
+        SetStyle.setupStyle(this);
         setVisible(true);
         pack();
     }
@@ -105,10 +98,10 @@ public final class MainWindow extends GroupFrame {
     }
 
     private void selectLangagueButton(String _language) {
-        for (JRadioButton r: radios) {
+        for (RadioButton r: radios) {
             r.setSelected(false);
         }
-        for (JRadioButton r: radios) {
+        for (RadioButton r: radios) {
             if (StringList.quickEq(r.getText(),Constants.getDisplayLanguage(_language))) {
                 r.setSelected(true);
             } else {

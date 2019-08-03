@@ -11,6 +11,9 @@ import javax.swing.*;
 import code.formathtml.render.MetaLabel;
 import code.formathtml.render.MetaStyle;
 import code.formathtml.render.SegmentPart;
+import code.gui.CustComponent;
+import code.gui.PreparedLabel;
+import code.gui.TextLabel;
 import code.util.CustList;
 
 public abstract class DualLabel extends DualLeaf {
@@ -18,12 +21,12 @@ public abstract class DualLabel extends DualLeaf {
     private CustList<SegmentPart> segments = new CustList<SegmentPart>();
 
     private String text;
-    private JLabel label;
+    private PreparedLabel label;
 
     public DualLabel(DualContainer _container, MetaLabel _component, RenderedPage _page) {
         super(_container, _component, _page);
         text = _component.getText();
-        label = new JLabel();
+        label = new PreparedLabel();
         updateGraphics(label,_component);
     }
 
@@ -49,11 +52,11 @@ public abstract class DualLabel extends DualLeaf {
     }
 
     @Override
-    public JComponent getGraphic() {
+    public CustComponent getGraphic() {
         return getLabel();
     }
 
-    public JLabel getLabel() {
+    public PreparedLabel getLabel() {
         return label;
     }
 
@@ -63,6 +66,9 @@ public abstract class DualLabel extends DualLeaf {
         FontMetrics fontMetrics_ = label.getFontMetrics(copy_);
         int h_ = fontMetrics_.getHeight();
         int w_ = fontMetrics_.stringWidth(text);
+        if (w_ == 0) {
+            w_ = fontMetrics_.stringWidth(" ");
+        }
         BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_RGB);
         Graphics2D gr_ = img_.createGraphics();
         gr_.setFont(copy_);

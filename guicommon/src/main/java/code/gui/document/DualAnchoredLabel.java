@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import code.formathtml.render.MetaAnchorLabel;
 import code.formathtml.render.MetaStyle;
 import code.formathtml.render.SegmentPart;
+import code.gui.PreparedLabel;
+import code.gui.TextLabel;
 
 public final class DualAnchoredLabel extends DualLabel {
 
@@ -20,7 +22,7 @@ public final class DualAnchoredLabel extends DualLabel {
 
     public DualAnchoredLabel(DualContainer _container, MetaAnchorLabel _component, RenderedPage _page) {
         super(_container, _component, _page);
-        JLabel label_ = getLabel();
+        PreparedLabel label_ = getLabel();
         label_.setCursor(new Cursor(Cursor.HAND_CURSOR));
         label_.addMouseListener(new AnchorEvent(_component.getAnchor(), _page, this));
         String prefix_ = getPage().getNavigation().getSession().getPrefix();
@@ -41,7 +43,7 @@ public final class DualAnchoredLabel extends DualLabel {
 
     @Override
     public void paint() {
-        JLabel lab_ = getLabel();
+        PreparedLabel lab_ = getLabel();
         MetaStyle style_ = getComponent().getStyle();
         Font copy_ =  newFont(style_);
         FontMetrics fontMetrics_ = lab_.getFontMetrics(copy_);

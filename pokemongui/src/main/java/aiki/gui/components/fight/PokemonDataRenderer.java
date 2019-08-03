@@ -10,6 +10,8 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import code.gui.CustCellRender;
 import code.gui.GraphicListable;
+import code.gui.PaintableLabel;
+import code.gui.PreparedLabel;
 import code.gui.images.ConverterGraphicBufferedImage;
 
 public class PokemonDataRenderer extends CustCellRender {
@@ -38,10 +40,10 @@ public class PokemonDataRenderer extends CustCellRender {
     }
 
     @Override
-    public JLabel getListCellRendererComponent(GraphicListable _list, Object _value,
-            int _index,
-            boolean _isSelected, boolean _cellHasFocus) {
-        JLabel label_ = (JLabel) _list.getListComponents().get(_index);
+    public PreparedLabel getListCellRendererComponent(GraphicListable _list, Object _value,
+                                                       int _index,
+                                                       boolean _isSelected, boolean _cellHasFocus) {
+        PreparedLabel label_ = _list.getListComponents().get(_index);
         selected = _isSelected;
         String key_ = (String) _value;
         if (!key_.isEmpty()) {

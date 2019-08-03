@@ -18,9 +18,7 @@ import cards.gui.dialogs.events.RemoveSuitEvent;
 import cards.gui.dialogs.events.ValidateDisplayingEvent;
 import cards.gui.panels.SuitsScrollableList;
 import cards.president.DisplayingPresident;
-import code.gui.ConfirmDialog;
-import code.gui.LabelButton;
-import code.gui.Panel;
+import code.gui.*;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.Ints;
@@ -45,10 +43,10 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
     private static final String WISE = "wise";
     private StringMap<String> messages = new StringMap<String>();
     private DisplayingPresident displayingPresident = new DisplayingPresident();
-    private JCheckBox checkClockwise;
+    private CustCheckBox checkClockwise;
     private SuitsScrollableList orderedSuits;
-    private JCheckBox sortByDecreasing;
-    private JSpinner nbDealsDemo;
+    private CustCheckBox sortByDecreasing;
+    private Spinner nbDealsDemo;
     private ComboBoxSuit listeChoix;
 
     private DialogDisplayingPresident() {
@@ -77,21 +75,18 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
 
     public void setDialogue(MainWindow _window) {
         initMessageName(_window);
-        Panel container_=new Panel();
-        container_.setLayout(new BorderLayout());
-        Panel panneau_=new Panel();
-        panneau_.setLayout(new GridLayout(0,2));
+        Panel container_=Panel.newBorder();
+        Panel panneau_=Panel.newGrid(0,2);
         //Sous - panneau Battre les cartes
         EnumList<Suit> liste_=new EnumList<Suit>();
-        panneau_.add(new JLabel(messages.getVal(WISE)));
+        panneau_.add(new TextLabel(messages.getVal(WISE)));
         //Panneau Distribution
-        checkClockwise=new JCheckBox(messages.getVal(CLOCK_WISE));
+        checkClockwise=new CustCheckBox(messages.getVal(CLOCK_WISE));
         checkClockwise.setSelected(displayingPresident.isClockwise());
         panneau_.add(checkClockwise);
         getJt().add(messages.getVal(DEALING),panneau_);
         //Panneau Tri avant enchere
-        panneau_=new Panel();
-        panneau_.setLayout(new GridLayout(0,4));
+        panneau_=Panel.newGrid(0,4);
 //        listeChoix=new ComboBoxSuit();
 //        for (Suit couleur_:Suit.couleursOrdinaires()) {
 //            listeChoix.addItem(couleur_);
@@ -106,15 +101,14 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         }
         listeChoix.refresh(ls_, trSuit_);
         panneau_.add(listeChoix);
-        Panel sousPanneauTwo_=new Panel();
-        sousPanneauTwo_.setLayout(new GridLayout(0,1));
+        Panel sousPanneauTwo_=Panel.newGrid(0,1);
         LabelButton bouton_=new LabelButton(messages.getVal(ADD_SUIT));
         bouton_.addMouseListener(new AddSuitEvent(this));
         sousPanneauTwo_.add(bouton_);
         bouton_=new LabelButton(messages.getVal(REMOVE_SUIT));
         bouton_.addMouseListener(new RemoveSuitEvent(this, _window));
         sousPanneauTwo_.add(bouton_);
-        sortByDecreasing=new JCheckBox(messages.getVal(SORT_DECREASING));
+        sortByDecreasing=new CustCheckBox(messages.getVal(SORT_DECREASING));
         sortByDecreasing.setSelected(displayingPresident.isDecreasing());
         sousPanneauTwo_.add(sortByDecreasing);
         panneau_.add(sousPanneauTwo_);
@@ -123,17 +117,16 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         }
         orderedSuits=new SuitsScrollableList(liste_,4, _window);
         liste_.clear();
-        panneau_.add(orderedSuits);
+        panneau_.add(orderedSuits.getContainer());
         //Panneau Tri avant enchere (Atout)
-        Panel sousPanneau_=new Panel();
-        sousPanneau_.setLayout(new GridLayout(0,1));
-        sousPanneau_.add(new JLabel(messages.getVal(NB_DEALS_DEMO)));
+        Panel sousPanneau_=Panel.newGrid(0,1);
+        sousPanneau_.add(new TextLabel(messages.getVal(NB_DEALS_DEMO)));
         Ints decks_ = new Ints();
         //Panneau Distribution
         for(int b=FileConst.MIN_DEALS;b<=FileConst.MAX_DEALS;b++) {
             decks_.add(b);
         }
-        nbDealsDemo = new JSpinner(new SpinnerListModel(decks_.toArray()));
+        nbDealsDemo = new Spinner(new SpinnerListModel(decks_.toArray()));
         nbDealsDemo.setValue(displayingPresident.getNbDeals());
         sousPanneau_.add(nbDealsDemo);
         panneau_.add(sousPanneau_);

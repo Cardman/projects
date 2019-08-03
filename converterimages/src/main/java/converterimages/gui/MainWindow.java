@@ -9,11 +9,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import code.gui.FolderOpenDialog;
-import code.gui.GroupFrame;
-import code.gui.LabelButton;
-import code.gui.Panel;
-import code.gui.ThreadUtil;
+import code.gui.*;
 import code.gui.events.QuittingEvent;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.images.BaseSixtyFourUtil;
@@ -39,24 +35,23 @@ public class MainWindow extends GroupFrame {
 
     private static final String CONVERT_IMAGE = "convert image";
 
-    private JCheckBox readImages;
+    private CustCheckBox readImages;
 
-    private JTextField path;
+    private TextField path;
 
-    private JTextField pathExport;
+    private TextField pathExport;
 
     public MainWindow(String _lg) {
         super(_lg);
         setTitle(CONVERT_IMAGE);
-        Panel content_ = new Panel();
-        content_.setLayout(new BoxLayout(content_.getComponent(), BoxLayout.PAGE_AXIS));
-        readImages = new JCheckBox(READ_IMAGES);
+        Panel content_ = Panel.newPageBox();
+        readImages = new CustCheckBox(READ_IMAGES);
         readImages.setSelected(true);
         content_.add(readImages);
-        path = new JTextField(50);
+        path = new TextField(50);
         //path.setText(Constants.getJarPath());
         content_.add(path);
-        pathExport = new JTextField(50);
+        pathExport = new TextField(50);
         pathExport.setText(EMPTY_STRING);
         content_.add(pathExport);
         LabelButton read_ = new LabelButton(READ);

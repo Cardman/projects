@@ -14,17 +14,14 @@ import aiki.gui.components.listeners.NextDeltaEvent;
 import aiki.gui.components.listeners.NextEvent;
 import aiki.gui.components.listeners.PreviousDeltaEvent;
 import aiki.gui.components.listeners.PreviousEvent;
-import code.gui.ChangeableTitle;
-import code.gui.LabelButton;
-import code.gui.NumComboBox;
-import code.gui.Panel;
+import code.gui.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.sml.stream.ExtractFromFiles;
 import code.util.*;
 import aiki.facade.enums.SearchingMode;
 
-public abstract class Paginator extends Panel{
+public abstract class Paginator {
 
     public static final int HEIGTH_CHARS = 10;
 
@@ -59,6 +56,8 @@ public abstract class Paginator extends Panel{
 
     private ChangeableTitle window;
 
+    private Panel container;
+
     private FacadeGame facade;
 
     private boolean adding;
@@ -69,9 +68,9 @@ public abstract class Paginator extends Panel{
 
     private Header header;
 
-    private JTextField delta = new JTextField(4);
+    private TextField delta = new TextField(4);
 
-    private JSpinner nbResults = new JSpinner();
+    private Spinner nbResults = new Spinner();
 
     private NumComboBox pages = new NumComboBox();
 
@@ -91,8 +90,9 @@ public abstract class Paginator extends Panel{
 
     private MainWindow main;
 
-    public Paginator(MainWindow _window, String _access) {
+    public Paginator(MainWindow _window, String _access, Panel _dest) {
         main = _window;
+        container = _dest;
         initMessages(_access);
         header = new Header();
         begin = new LabelButton(BEGIN);
@@ -241,11 +241,11 @@ public abstract class Paginator extends Panel{
         return header;
     }
 
-    protected JTextField getDelta() {
+    protected TextField getDelta() {
         return delta;
     }
 
-    protected JSpinner getNbResults() {
+    protected Spinner getNbResults() {
         return nbResults;
     }
 
@@ -279,5 +279,9 @@ public abstract class Paginator extends Panel{
 
     protected CustList<SelectableLabel> getResultsLabels() {
         return resultsLabels;
+    }
+
+    public Panel getContainer() {
+        return container;
     }
 }

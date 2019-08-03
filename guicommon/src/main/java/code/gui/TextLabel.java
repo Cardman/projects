@@ -1,9 +1,10 @@
 package code.gui;
 
-import java.awt.Dimension;
+import javax.swing.*;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 public final class TextLabel extends PaintableLabel {
 
@@ -13,9 +14,15 @@ public final class TextLabel extends PaintableLabel {
         text = _text;
         Font font_ = getFont();
         FontMetrics fontMetrics_ = getFontMetrics(font_);
-        int h_ = fontMetrics_.getHeight();
         int w_ = fontMetrics_.stringWidth(text)+2;
-        setPreferredSize(new Dimension(w_, h_));
+        JLabel lab_ = getLabel();
+        BufferedImage img_ = LabelButtonUtil.paintDefaultLabel(lab_, text, w_, getForeground(), getBackground());
+        lab_.setIcon(new ImageIcon(img_));
+    }
+
+    public TextLabel(String _titre, int _align) {
+        this(_titre);
+        setHorizontalAlignment(_align);
     }
 
     @Override
@@ -45,9 +52,13 @@ public final class TextLabel extends PaintableLabel {
         text = _simpleNumberFormat;
         Font font_ = getFont();
         FontMetrics fontMetrics_ = getFontMetrics(font_);
-        int h_ = fontMetrics_.getHeight();
         int w_ = fontMetrics_.stringWidth(text)+2;
-        setPreferredSize(new Dimension(w_, h_));
+        JLabel lab_ = getLabel();
+        BufferedImage img_ = LabelButtonUtil.paintDefaultLabel(lab_, text, w_, getForeground(), getBackground());
+        lab_.setIcon(new ImageIcon(img_));
     }
 
+    public String getText() {
+        return text;
+    }
 }

@@ -26,4 +26,8 @@ public class UnitSoldier extends PaintableLabel {
         }
         _g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
     }
+
+    public Soldier getSoldier() {
+        return soldier;
+    }
 }

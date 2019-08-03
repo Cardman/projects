@@ -1,20 +1,12 @@
 package code.gui;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.LayoutManager;
-import java.awt.Point;
-import java.awt.Rectangle;
+import code.util.CustList;
+
+import java.awt.*;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import javax.swing.JRootPane;
+import javax.swing.*;
 import javax.swing.border.Border;
 
 public class Panel extends CustComponent {
@@ -25,12 +17,58 @@ public class Panel extends CustComponent {
         this(new JPanel());
     }
 
-    public Panel(LayoutManager _panel) {
+    private Panel(LayoutManager _panel) {
         this(new JPanel(_panel));
     }
 
-    public Panel(JPanel _panel) {
+    private Panel(BorderLayout _panel) {
+        this(new JPanel(_panel));
+    }
+
+    private Panel(GridLayout _panel) {
+        this(new JPanel(_panel));
+    }
+
+    private Panel(FlowLayout _panel) {
+        this(new JPanel(_panel));
+    }
+
+    private Panel(JPanel _panel) {
         panel = _panel;
+    }
+
+    public static Panel newAbsolute() {
+        return new Panel((LayoutManager)null);
+    }
+
+    public static Panel newBorder() {
+        return new Panel(new BorderLayout());
+    }
+
+    public static Panel newFlow() {
+        return new Panel(new FlowLayout());
+    }
+
+    public static Panel newFlow(int _cst) {
+        return new Panel(new FlowLayout(_cst));
+    }
+
+    public static Panel newFlow(int _cst, int _h, int _v) {
+        return new Panel(new FlowLayout(_cst,_h,_v));
+    }
+
+    public static Panel newGrid(int _row,int _col) {
+        return new Panel(new GridLayout(_row,_col));
+    }
+
+    public static Panel newGrid(int _row,int _col, int _h, int _v) {
+        return new Panel(new GridLayout(_row,_col,_h,_v));
+    }
+
+    public static Panel newPageBox() {
+        Panel panel_ = new Panel();
+        panel_.setLayout(new BoxLayout(panel_.getComponent(), BoxLayout.PAGE_AXIS));
+        return panel_;
     }
 
     public int getComponentCount() {
@@ -41,22 +79,12 @@ public class Panel extends CustComponent {
         return getChildren().get(_n);
     }
 
-    public Component[] getComponents() {
-        return panel.getComponents();
-    }
-
     public Component add(CustComponent _comp) {
         _comp.setParent(this);
         getChildren().add(_comp);
         return panel.add(_comp.getComponent());
     }
-    
-    public Component add(String _name, CustComponent _comp) {
-        _comp.setParent(this);
-        getChildren().add(_comp);
-        return panel.add(_name, _comp.getComponent());
-    }
-    
+
     public Component add(CustComponent _comp, int _index) {
         _comp.setParent(this);
         getChildren().add(_index,_comp);
@@ -67,32 +95,6 @@ public class Panel extends CustComponent {
         _comp.setParent(this);
         getChildren().add(_comp);
         panel.add(_comp.getComponent(), _constraints);
-    }
-
-    public void add(CustComponent _comp, Object _constraints, int _index) {
-        _comp.setParent(this);
-        getChildren().add(_index,_comp);
-        panel.add(_comp.getComponent(), _constraints, _index);
-    }
-
-    public Component add(JComponent _comp) {
-        return add(new PseudoComponent(_comp));
-    }
-
-    public Component add(String _name, JComponent _comp) {
-        return add(_name, new PseudoComponent(_comp));
-    }
-
-    public Component add(JComponent _comp, int _index) {
-        return add(new PseudoComponent(_comp), _index);
-    }
-
-    public void add(JComponent _comp, Object _constraints) {
-        add(new PseudoComponent(_comp), _constraints);
-    }
-
-    public void add(JComponent _comp, Object _constraints, int _index) {
-        add(new PseudoComponent(_comp), _constraints, _index);
     }
 
     public boolean isDisplayable() {
@@ -113,6 +115,28 @@ public class Panel extends CustComponent {
         return panel.isEnabled();
     }
 
+    public int remove(CustComponent _cust) {
+        int i_ = 0;
+        int index_ = -1;
+        CustList<CustComponent> rem_ = new CustList<CustComponent>();
+        for (CustComponent c: getChildren()) {
+            if (c.getComponent() == _cust.getComponent()) {
+                c.setParent(null);
+                _cust.setParent(null);
+                index_ = i_;
+            } else {
+                rem_.add(c);
+            }
+            i_++;
+        }
+        getChildren().clear();
+        panel.removeAll();
+        for (CustComponent c: rem_) {
+            getChildren().add(c);
+            panel.add(c.getComponent());
+        }
+        return index_;
+    }
     public void removeAll() {
         for (CustComponent c: getChildren()) {
             c.setParent(null);
@@ -332,7 +356,7 @@ public class Panel extends CustComponent {
         return panel;
     }
 
-    public void setLayout(LayoutManager _borderLayout) {
+    private void setLayout(BoxLayout _borderLayout) {
         panel.setLayout(_borderLayout);
     }
 

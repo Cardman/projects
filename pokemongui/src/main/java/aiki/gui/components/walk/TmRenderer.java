@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import aiki.facade.FacadeGame;
 import code.gui.CustCellRender;
 import code.gui.GraphicListable;
+import code.gui.PaintableLabel;
+import code.gui.PreparedLabel;
 import code.maths.LgInt;
 
 public class TmRenderer extends CustCellRender {
@@ -28,10 +30,10 @@ public class TmRenderer extends CustCellRender {
     }
 
     @Override
-    public JLabel getListCellRendererComponent(
+    public PreparedLabel getListCellRendererComponent(
             GraphicListable _list, Object _item, int _arg2,
             boolean _selected, boolean _arg4) {
-        JLabel label_ = (JLabel) _list.getListComponents().get(_arg2);
+        PreparedLabel label_ = _list.getListComponents().get(_arg2);
         selected = _selected;
         name = (String) _item;
 //        short tm_ = facade.getData().getTm().getKeys(name).first();

@@ -11,12 +11,13 @@ import aiki.facade.FacadeGame;
 import aiki.gui.listeners.PokemonSelection;
 import code.gui.GraphicList;
 import code.gui.Panel;
+import code.gui.TextLabel;
 import code.util.CustList;
 import code.util.TreeMap;
 
-public class PokemonPanel extends Panel {
+public class PokemonPanel {
 
-    private JLabel title;
+    private TextLabel title;
 
     private PokemonDataRenderer renderer;
 
@@ -26,13 +27,14 @@ public class PokemonPanel extends Panel {
 
     private String noEvo;
 
+    private Panel container;
     public PokemonPanel(int _nb, String _titre, FacadeGame _facade, String _noEvo) {
         liste = new GraphicList<String>(false,true);
         facade = _facade;
-        setLayout(new BorderLayout());
-        setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
-        title = new JLabel(_titre, SwingConstants.CENTER);
-        add(title, BorderLayout.NORTH);
+        container = Panel.newBorder();
+        container.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+        title = new TextLabel(_titre, SwingConstants.CENTER);
+        container.add(title, BorderLayout.NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb);
@@ -40,8 +42,8 @@ public class PokemonPanel extends Panel {
         renderer = new PokemonDataRenderer(facade, noEvo);
         liste.setRender(renderer);
         initEvos();
-        add(liste.getComponent(),BorderLayout.CENTER);
-        setPreferredSize(new Dimension(100,32*(_nb+1)));
+        container.add(liste,BorderLayout.CENTER);
+        container.setPreferredSize(new Dimension(100,32*(_nb+1)));
     }
 
     public void setNoEvoMessage(String _message) {
@@ -76,4 +78,7 @@ public class PokemonPanel extends Panel {
         return liste.getSelectedValue();
     }
 
+    public Panel getContainer() {
+        return container;
+    }
 }

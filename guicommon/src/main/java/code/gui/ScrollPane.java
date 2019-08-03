@@ -2,8 +2,7 @@ package code.gui;
 
 import java.awt.Dimension;
 
-import javax.swing.JComponent;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 
 public class ScrollPane extends CustComponent {
 
@@ -40,4 +39,29 @@ public class ScrollPane extends CustComponent {
         return component.isVisible();
     }
 
+    public void setViewportView(CustComponent _graphic) {
+        component.setViewportView(_graphic.getComponent());
+        _graphic.setParent(this);
+        if (!getChildren().isEmpty()) {
+            getChildren().first().setParent(null);
+            getChildren().clear();
+        }
+        getChildren().add(_graphic);
+    }
+
+    public void validate() {
+        component.validate();
+    }
+
+    public JScrollBar getHorizontalScrollBar() {
+        return component.getHorizontalScrollBar();
+    }
+
+    public JScrollBar getVerticalScrollBar() {
+        return component.getVerticalScrollBar();
+    }
+
+    public void revalidate() {
+        component.revalidate();
+    }
 }

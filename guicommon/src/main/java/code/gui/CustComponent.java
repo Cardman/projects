@@ -1,9 +1,11 @@
 package code.gui;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.border.Border;
 
 import code.util.CustList;
 
@@ -85,4 +87,35 @@ public abstract class CustComponent {
         children = _children;
     }
 
+    public void setBorder(Border lineBorder) {
+        getComponent().setBorder(lineBorder);
+    }
+
+    public void setToolTipText(String _title) {
+        getComponent().setToolTipText(_title);
+    }
+
+    public void setCursor(Cursor cursor) {
+        getComponent().setCursor(cursor);
+    }
+
+    protected Dimension getPreferredSize() {
+        return getComponent().getPreferredSize();
+    }
+
+    public void setPreferredSize(Dimension dimension) {
+        getComponent().setPreferredSize(dimension);
+    }
+
+    public Point getLocation() {
+        return getComponent().getLocation();
+    }
+
+    public Color getBackground() {
+        return getComponent().getBackground();
+    }
+
+    public Color getForeground() {
+        return getComponent().getForeground();
+    }
 }

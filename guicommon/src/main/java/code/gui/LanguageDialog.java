@@ -16,7 +16,7 @@ public final class LanguageDialog extends Dialog implements SetterLanguage {
 
     private static final String NO_TITLE = " ";
 
-    private ButtonGroup groupe = new ButtonGroup();
+    private CustButtonGroup groupe = new CustButtonGroup();
     private String langue;
 
     private LanguageDialog(){
@@ -38,10 +38,9 @@ public final class LanguageDialog extends Dialog implements SetterLanguage {
         setDialogIcon(_owner);
         setLocationRelativeTo(_owner);
         setTitle(_title);
-        Panel panneau_ = new Panel();
-        panneau_.setLayout(new GridLayout(0,1));
+        Panel panneau_ = Panel.newGrid(0,1);
         for (String l: Constants.getAvailableLanguages()) {
-            JRadioButton radio_ = new JRadioButton(Constants.getDisplayLanguage(l));
+            RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
             radio_.addMouseListener(new LanguageChoice(l, this));
             groupe.add(radio_);
             panneau_.add(radio_);

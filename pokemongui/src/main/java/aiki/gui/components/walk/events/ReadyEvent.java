@@ -6,14 +6,15 @@ import javax.swing.JCheckBox;
 
 import aiki.gui.MainWindow;
 import aiki.network.stream.Ready;
+import code.gui.CustCheckBox;
 
 public class ReadyEvent implements ActionListener {
 
     private MainWindow window;
 
-    private JCheckBox ready;
+    private CustCheckBox ready;
 
-    public ReadyEvent(MainWindow _window, JCheckBox _ready) {
+    public ReadyEvent(MainWindow _window, CustCheckBox _ready) {
         window = _window;
         ready = _ready;
     }

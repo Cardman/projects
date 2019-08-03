@@ -18,6 +18,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import code.gui.CustCheckBox;
+import code.gui.PlainButton;
 import minirts.events.Animate;
 import minirts.events.InteractClick;
 import minirts.events.MouseTask;
@@ -49,11 +51,11 @@ public final class MainWindow extends GroupFrame {
 
     private static final String SELECT = "select";
 
-    private JButton animate = new JButton("Animate");
+    private PlainButton animate = new PlainButton("Animate");
 
-    private JCheckBox pause = new JCheckBox("Pause");
+    private CustCheckBox pause = new CustCheckBox("Pause");
 
-    private JButton stop = new JButton("Stop");
+    private PlainButton stop = new PlainButton("Stop");
 
     private Facade facade = new Facade();
 
@@ -61,7 +63,7 @@ public final class MainWindow extends GroupFrame {
 
     private AnimationUnitSoldier thread = new AnimationUnitSoldier(battleground);
 
-    private JCheckBox addSoldier = new JCheckBox("Add soldier");
+    private CustCheckBox addSoldier = new CustCheckBox("Add soldier");
 
     private boolean dragged;
 
@@ -72,17 +74,15 @@ public final class MainWindow extends GroupFrame {
     public MainWindow(String _lg) {
         super(_lg);
         AnimationUnitSoldier.setWindow(this);
-        Panel contentPane_ = new Panel();
-        Panel scene_ = new Panel();
-        contentPane_.setLayout(new BorderLayout());
-        scene_.setLayout(new BorderLayout());
+        Panel contentPane_ = Panel.newBorder();
+        Panel scene_ = Panel.newBorder();
         InteractClick i_ = new InteractClick(this);
         battleground.addMouseListener(i_);
         battleground.addMouseMotionListener(i_);
         battleground.setSize(new Dimension(2048, 2048));
 //        JPanel panelGame_ = new JPanel(new BorderLayout());
-        Panel battlegroundWrapper_ = new Panel((LayoutManager)null);
-        battlegroundWrapper_.add(battleground);
+        Panel battlegroundWrapper_ = Panel.newAbsolute();
+        battlegroundWrapper_.add(battleground.getContainer());
         CustPoint cust_ = facade.getTopLeftPoint();
         Point pt_ = new Point();
         pt_.x = -cust_.getX();
@@ -108,7 +108,7 @@ public final class MainWindow extends GroupFrame {
         contentPane_.add(left_, BorderLayout.WEST);
         contentPane_.add(right_, BorderLayout.EAST);
         animate.addActionListener(new Animate(this));
-        JPanel buttons_ = new JPanel();
+        Panel buttons_ = new Panel();
         buttons_.add(animate);
         buttons_.add(addSoldier);
         pause.addActionListener(new Pause(this));

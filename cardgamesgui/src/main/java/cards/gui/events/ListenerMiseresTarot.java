@@ -6,13 +6,14 @@ import javax.swing.JCheckBox;
 
 import cards.gui.containers.ContainerTarot;
 import cards.tarot.enumerations.Miseres;
+import code.gui.CustCheckBox;
 
 public class ListenerMiseresTarot implements ActionListener {
 
     private ContainerTarot container;
-    private JCheckBox check;
+    private CustCheckBox check;
     private Miseres miseres;
-    public ListenerMiseresTarot(ContainerTarot _container,JCheckBox _check,Miseres _m) {
+    public ListenerMiseresTarot(ContainerTarot _container, CustCheckBox _check, Miseres _m) {
         container = _container;
         check = _check;
         miseres = _m;

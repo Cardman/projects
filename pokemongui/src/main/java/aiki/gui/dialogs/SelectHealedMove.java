@@ -29,7 +29,7 @@ public final class SelectHealedMove extends Dialog {
 
     private FacadeGame facade;
 
-    private Panel movesLearnt = new Panel();
+    private Panel movesLearnt = Panel.newPageBox();
 
     private StringMap<String> messages;
 
@@ -46,8 +46,7 @@ public final class SelectHealedMove extends Dialog {
         messages = getMessages(_parent,Resources.MESSAGES_FOLDER);
         setTitle(messages.getVal(TITLE));
         facade = _facade;
-        Panel contentPane_ = new Panel();
-        contentPane_.setLayout(new BorderLayout());
+        Panel contentPane_ = Panel.newBorder();
         StringMap<Short> moves_ = facade.getPlayer().getChosenMoves();
         StringList keys_ = new StringList(moves_.getKeys());
 //        keys_.sort(new Comparator<String>() {
@@ -59,7 +58,6 @@ public final class SelectHealedMove extends Dialog {
 //            }
 //        });
         keys_.sortElts(new TrMovesComparator(facade.getData()));
-        movesLearnt.setLayout(new BoxLayout(movesLearnt.getComponent(), BoxLayout.PAGE_AXIS));
         movesLearnt.removeAll();
         for (String m: keys_) {
             String tr_ = facade.translateMove(m);

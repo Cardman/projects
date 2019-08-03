@@ -79,13 +79,7 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.network.Net;
 import aiki.network.stream.SentPokemon;
-import code.gui.ConfirmDialog;
-import code.gui.ConstFiles;
-import code.gui.LabelButton;
-import code.gui.Panel;
-import code.gui.ScrollPane;
-import code.gui.Separator;
-import code.gui.WrappedTextArea;
+import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.maths.LgInt;
 import code.network.NetCreate;
@@ -239,9 +233,9 @@ public class ScenePanel extends Panel {
 
     private Panel panelMenu;
 
-    private JLabel endGame = new JLabel();
+    private TextLabel endGame = new TextLabel("");
 
-    private JLabel useKeyPad;
+    private TextLabel useKeyPad;
 
     private LabelButton team;
 
@@ -278,7 +272,7 @@ public class ScenePanel extends Panel {
 
     private TmPanel tmPanel;
 
-    private JCheckBox buy;
+    private CustCheckBox buy;
 
     private LabelButton selectPkBox;
 
@@ -296,7 +290,7 @@ public class ScenePanel extends Panel {
 
     private LabelButton switchPk;
 
-    private JLabel selectedForSwitch;
+    private TextLabel selectedForSwitch;
 
     private FacadeGame facade;
 
@@ -304,7 +298,7 @@ public class ScenePanel extends Panel {
 
     private Panel sceneInteract;
 
-    private JLabel placeName;
+    private TextLabel placeName;
 
     private Scene scene;
 
@@ -318,9 +312,9 @@ public class ScenePanel extends Panel {
 
     private Pad pad;
 
-    private JLabel time;
+    private TextLabel time;
 
-    private JCheckBox switchUsable;
+    private CustCheckBox switchUsable;
 
     private LabelButton takeItemTeam;
 
@@ -338,7 +332,7 @@ public class ScenePanel extends Panel {
 
     private boolean enabledReady;
 
-    private JCheckBox readyCheck;
+    private CustCheckBox readyCheck;
 
     private MapPanel mapPanel;
 
@@ -352,11 +346,10 @@ public class ScenePanel extends Panel {
         Panel panelHoriz_ = new Panel();
         initMenu();
         panelHoriz_.add(panelMenu);
-        panelOptions = new Panel();
-        panelOptions.setLayout(new BorderLayout());
+        panelOptions = Panel.newBorder();
         panelHoriz_.add(panelOptions);
         add(panelHoriz_);
-        time = new JLabel();
+        time = new TextLabel("");
         add(time);
         //gamePanel = new GamePanel(facade);
         mapPanel = new MapPanel();
@@ -454,13 +447,12 @@ public class ScenePanel extends Panel {
         wasNull_ = false;
         if (sceneInteract == null) {
             wasNull_ = true;
-            sceneInteract = new Panel();
-            sceneInteract.setLayout(new BorderLayout());
+            sceneInteract = Panel.newBorder();
         } else {
             sceneInteract.removeAll();
         }
         if (placeName == null) {
-            placeName = new JLabel();
+            placeName = new TextLabel("");
         }
         placeName.setText(facade.getCurrentPlace());
         sceneInteract.add(placeName, BorderLayout.NORTH);
@@ -503,15 +495,13 @@ public class ScenePanel extends Panel {
     }
 
     private void initMenu() {
-        panelMenu = new Panel();
-        panelMenu.setLayout(new BoxLayout(panelMenu.getComponent(), BoxLayout.PAGE_AXIS));
+        panelMenu = Panel.newPageBox();
         endGame.setVisible(false);
         endGame.setOpaque(true);
         endGame.setBackground(Color.YELLOW);
-        Panel menus_ = new Panel();
-        menus_.setLayout(new GridLayout(0,1));
+        Panel menus_ = Panel.newGrid(0,1);
         menus_.add(endGame);
-        useKeyPad = new JLabel();
+        useKeyPad = new TextLabel("");
         menus_.add(useKeyPad);
         team = new LabelButton();
         team.addMouseListener(new ManageTeamEvent(this));
@@ -548,7 +538,7 @@ public class ScenePanel extends Panel {
         menus_.add(server);
         panelMenu.add(menus_);
         pad = new Pad();
-        panelMenu.add(pad);
+        panelMenu.add(pad.getContainer());
         panelMenu.setVisible(false);
     }
 
@@ -611,14 +601,12 @@ public class ScenePanel extends Panel {
         Panel set_ = new Panel();
         teamPan = new TeamPanel(2, messages.getVal(POKEMON_SELECT), facade, pks_, true, messagesTeamPanel);
         teamPan.addListener(this);
-        set_.add(teamPan);
-        movesLearnt = new Panel();
-        movesLearnt.setLayout(new GridLayout(0,1));
+        set_.add(teamPan.getContainer());
+        movesLearnt = Panel.newGrid(0,1);
         ScrollPane scroll_ = new ScrollPane(movesLearnt);
         scroll_.setPreferredSize(new Dimension(100, 220));
         set_.add(scroll_);
-        abilities = new Panel();
-        abilities.setLayout(new GridLayout(0,1));
+        abilities = Panel.newGrid(0,1);
         set_.add(abilities);
         panelOptions.add(set_, BorderLayout.CENTER);
         addExit();
@@ -658,14 +646,12 @@ public class ScenePanel extends Panel {
         Panel set_ = new Panel();
         teamPan = new TeamPanel(2, messages.getVal(POKEMON_SELECT), facade, pks_, true, messagesTeamPanel);
         teamPan.addListenerTm(this);
-        set_.add(teamPan);
-        movesLearnt = new Panel();
-        movesLearnt.setLayout(new GridLayout(0,1));
+        set_.add(teamPan.getContainer());
+        movesLearnt = Panel.newGrid(0,1);
         ScrollPane scroll_ = new ScrollPane(movesLearnt);
         scroll_.setPreferredSize(new Dimension(100, 220));
         set_.add(scroll_);
-        abilities = new Panel();
-        abilities.setLayout(new GridLayout(0,1));
+        abilities = Panel.newGrid(0,1);
         set_.add(abilities);
         panelOptions.add(set_, BorderLayout.CENTER);
         addExit();
@@ -720,17 +706,16 @@ public class ScenePanel extends Panel {
 //        }
 //        panelOptions.add(panelPlaces_, BorderLayout.CENTER);
         mapPanel.init(facade, this);
-        Panel box_ = new Panel();
-        box_.setLayout(new BoxLayout(box_.getComponent(), BoxLayout.PAGE_AXIS));
-        box_.add(new JLabel(messages.getVal(GO_BACK)));
+        Panel box_ =Panel.newPageBox();
+        box_.add(new TextLabel(messages.getVal(GO_BACK)));
         chosenCity = new LabelButton();
         chosenCity.setBackground(box_.getBackground());
         chosenCity.setForeground(box_.getForeground());
         box_.add(chosenCity);
         Panel line_ = new Panel();
         //avoid vertical spaces between tiles in map
-        line_.add(mapPanel);
-        line_.add(new JLabel(DataBase.EMPTY_STRING));
+        line_.add(mapPanel.getContainer());
+        line_.add(new TextLabel(DataBase.EMPTY_STRING));
         box_.add(line_);
         LabelButton ok_ = new LabelButton(MainWindow.OK);
         ok_.addMouseListener(new ChoosePlaceEvent(this));
@@ -773,8 +758,7 @@ public class ScenePanel extends Panel {
         window.getNewGame().setEnabledMenu(false);
         facade.openMenu();
         panelMenu.setVisible(false);
-        panelNetWork = new Panel();
-        panelNetWork.setLayout(new BoxLayout(panelNetWork.getComponent(), BoxLayout.PAGE_AXIS));
+        panelNetWork = Panel.newPageBox();
         panelOptions.add(panelNetWork, BorderLayout.CENTER);
         LabelButton exit_ = new LabelButton(messages.getVal(EXIT));
         exit_.addMouseListener(new ExitTradeEvent(window));
@@ -797,11 +781,10 @@ public class ScenePanel extends Panel {
         }
         teamPan = new TeamPanel(2, messages.getVal(POKEMON_SELECT), facade, teamPks_, true,messagesTeamPanel);
         teamPan.addListenerTrading(this);
-        panelNetWork.add(teamPan);
-        JPanel group_ = new JPanel();
-        group_.setLayout(new BorderLayout());
-        group_.add(new JLabel(messages.getVal(RECEIVED_POKEMON)), BorderLayout.NORTH);
-        JScrollPane scrollSession_ = new JScrollPane();
+        panelNetWork.add(teamPan.getContainer());
+        Panel group_ = Panel.newBorder();
+        group_.add(new TextLabel(messages.getVal(RECEIVED_POKEMON)), BorderLayout.NORTH);
+        ScrollPane scrollSession_ = new ScrollPane();
         receivedPk = new RenderedPage(scrollSession_);
         receivedPk.setLanguage(facade.getLanguage());
         receivedPk.setDataBase(facade);
@@ -815,7 +798,7 @@ public class ScenePanel extends Panel {
         group_.add(scrollSession_, BorderLayout.CENTER);
         panelNetWork.add(group_);
         enabledReady = false;
-        readyCheck = new JCheckBox(messages.getVal(READY));
+        readyCheck = new CustCheckBox(messages.getVal(READY));
         readyCheck.setEnabled(enabledReady);
         readyCheck.addActionListener(new ReadyEvent(window, readyCheck));
         panelNetWork.add(readyCheck);
@@ -900,9 +883,8 @@ public class ScenePanel extends Panel {
     private void showOptions() {
         panelOptions.removeAll();
         if (facade.getInterfaceType() == InterfaceType.ECH_BOITE) {
-            selectedForSwitch = new JLabel();
-            Panel storage_ = new Panel();
-            storage_.setLayout(new GridLayout(0, 1));
+            selectedForSwitch = new TextLabel("");
+            Panel storage_ = Panel.newGrid(0, 1);
             selectPkBox = new LabelButton(messages.getVal(SELECT_PK_BOX));
             selectPkBox.addMouseListener(new SelectPokemonBoxEvent(this));
             storage_.add(selectPkBox);
@@ -941,16 +923,15 @@ public class ScenePanel extends Panel {
             Panel set_ = new Panel();
             initTeam();
             teamPan.addListenerStorage(this);
-            set_.add(teamPan);
+            set_.add(teamPan.getContainer());
             set_.add(storage_);
             panelOptions.add(set_, BorderLayout.CENTER);
             panelMenu.setVisible(false);
         } else if (facade.getInterfaceType() == InterfaceType.MOVE_TUTORS) {
             initPkTeamMoveTutors();
             Panel set_ = new Panel();
-            set_.add(teamPan);
-            movesLearnt = new Panel();
-            movesLearnt.setLayout(new GridLayout(0,1));
+            set_.add(teamPan.getContainer());
+            movesLearnt = Panel.newGrid(0,1);
             ScrollPane scroll_ = new ScrollPane(movesLearnt);
             scroll_.setPreferredSize(new Dimension(100, 220));
             set_.add(scroll_);
@@ -958,24 +939,22 @@ public class ScenePanel extends Panel {
             panelMenu.setVisible(false);
         } else if (facade.getInterfaceType() == InterfaceType.ACHATS_CT) {
             tmPanel = new TmPanel(5, messages.getVal(TM_TITLE), facade);
-            Panel set_ = new Panel();
-            set_.setLayout(new BoxLayout(set_.getComponent(), BoxLayout.PAGE_AXIS));
+            Panel set_ = Panel.newPageBox();
             LabelButton selectItem_ = new LabelButton(messages.getVal(TM_SELECT));
             selectItem_.addMouseListener(new AddTmEvent(this));
             set_.add(selectItem_);
             LabelButton removeItem_ = new LabelButton(messages.getVal(TM_REMOVE));
             removeItem_.addMouseListener(new RemoveTmEvent(this));
             set_.add(removeItem_);
-            set_.add(tmPanel);
+            set_.add(tmPanel.getContainer());
             LabelButton changeInv_ = new LabelButton(messages.getVal(TM_BUY));
             changeInv_.addMouseListener(new BuyTmEvent(this));
             set_.add(changeInv_);
             panelOptions.add(set_, BorderLayout.CENTER);
             panelMenu.setVisible(false);
         } else if (facade.getInterfaceType() == InterfaceType.ACHATS) {
-            Panel set_ = new Panel();
-            set_.setLayout(new BoxLayout(set_.getComponent(), BoxLayout.PAGE_AXIS));
-            buy = new JCheckBox(messages.getVal(ITEM_BUY));
+            Panel set_ = Panel.newPageBox();
+            buy = new CustCheckBox(messages.getVal(ITEM_BUY));
             buy.setSelected(true);
             buy.addActionListener(new BuyOrSellEvent(this));
             set_.add(buy);
@@ -989,7 +968,7 @@ public class ScenePanel extends Panel {
             LabelButton removeItem_ = new LabelButton(messages.getVal(ITEM_REMOVE));
             removeItem_.addMouseListener(new ChangeItemListEvent(this, false));
             set_.add(removeItem_);
-            set_.add(itemsPan);
+            set_.add(itemsPan.getContainer());
             LabelButton changeInv_ = new LabelButton(messages.getVal(ITEM_BUY_SELL));
             changeInv_.addMouseListener(new BuyItemsEvent(this));
             set_.add(changeInv_);
@@ -1004,9 +983,8 @@ public class ScenePanel extends Panel {
             }
             teamPan = new TeamPanel(2, messages.getVal(POKEMON_SELECT_TWO), facade, teamPks_, false,messagesTeamPanel);
             teamPan.addListenerHost(this);
-            set_.add(teamPan);
-            Panel form_ = new Panel();
-            form_.setLayout(new BoxLayout(form_.getComponent(), BoxLayout.PAGE_AXIS));
+            set_.add(teamPan.getContainer());
+            Panel form_ = Panel.newPageBox();
             int nbRemSteps_ = facade.getRemaingingSteps();
             String buttonText_= StringList.simpleNumberFormat(messages.getVal(GET_EGG), nbRemSteps_);
             LabelButton receiveEgg_ = new LabelButton(buttonText_);
@@ -1263,9 +1241,8 @@ public class ScenePanel extends Panel {
 
     private void addButtonsTeam() {
         Panel set_ = new Panel();
-        Panel teamMenu_ = new Panel();
-        teamMenu_.setLayout(new BoxLayout(teamMenu_.getComponent(), BoxLayout.PAGE_AXIS));
-        switchUsable = new JCheckBox(messages.getVal(SWITCH_PK_TEAM));
+        Panel teamMenu_ = Panel.newPageBox();
+        switchUsable = new CustCheckBox(messages.getVal(SWITCH_PK_TEAM));
 //        enabledSwitchTeam = false;
 //        switchUsable.addChangeListener(new ChangeListener() {
 //            @Override
@@ -1290,7 +1267,7 @@ public class ScenePanel extends Panel {
         nicknamePk.setEnabledLabel(false);
         nicknamePk.addMouseListener(new ChangeNicknameEvent(this));
         teamMenu_.add(nicknamePk);
-        set_.add(teamPan);
+        set_.add(teamPan.getContainer());
         set_.add(teamMenu_);
         panelOptions.add(set_, BorderLayout.CENTER);
     }
@@ -1314,7 +1291,7 @@ public class ScenePanel extends Panel {
 //            return;
 //        }
         RenderedPage session_;
-        session_ = new RenderedPage(new JScrollPane());
+        session_ = new RenderedPage(new ScrollPane());
         session_.setLanguage(facade.getLanguage());
         session_.setDataBase(facade);
 //        session_.setFiles(facade.getData().getWebPk(), Resources.ACCESS_TO_DEFAULT_FILES);
@@ -1368,14 +1345,14 @@ public class ScenePanel extends Panel {
         }
         facade.choosePokemonForMoveTutors((short) teamPan.getSelectedIndex());
         movesLearnt.removeAll();
-        movesLearnt.add(new JLabel(messages.getVal(SELECT_MT)));
+        movesLearnt.add(new TextLabel(messages.getVal(SELECT_MT)));
         StringList selectedMoves_ = facade.getSelectedMoves();
         for (String m: selectedMoves_) {
             String tr_ = facade.translateMove(m);
             MoveTutorCheckBox check_ = new MoveTutorCheckBox(m,tr_, true,this);
             check_.setBackground(Color.RED);
             check_.setSelected(true);
-            movesLearnt.add(check_);
+            movesLearnt.add(check_.getComponent());
         }
         StringList unselectedMoves_ = facade.getUnselectedMoves();
         StringMap<Short> chosenMoves_ = facade.getPlayer().getChosenMoves();
@@ -1384,7 +1361,7 @@ public class ScenePanel extends Panel {
             MoveTutorCheckBox check_ = new MoveTutorCheckBox(m,StringList.concat(tr_,SPACE,Long.toString(chosenMoves_.getVal(m))),false,this);
             check_.setBackground(Color.WHITE);
             check_.setSelected(false);
-            movesLearnt.add(check_);
+            movesLearnt.add(check_.getComponent());
         }
         LabelButton cancel_ = new LabelButton(messages.getVal(CANCEL_MT));
         cancel_.addMouseListener(new CancelMtEvent(this));
@@ -1526,7 +1503,7 @@ public class ScenePanel extends Panel {
 
     private void setMovesAbilities() {
         movesLearnt.removeAll();
-        movesLearnt.add(new JLabel(messages.getVal(SELECT_MT)));
+        movesLearnt.add(new TextLabel(messages.getVal(SELECT_MT)));
 //        Map<String,Boolean> selected_ = facade.getPlayer().getMovesToBeKeptEvo();
 //        StringList kept_ = new StringList(selected_.getKeys(true));
         StringList kept_ = facade.getKeptMovesToEvo();
@@ -1543,7 +1520,7 @@ public class ScenePanel extends Panel {
             String tr_ = facade.translateMove(m);
             MoveEvoCheckBox check_ = new MoveEvoCheckBox(m,tr_,true, this);
             check_.setBackground(Color.RED);
-            movesLearnt.add(check_);
+            movesLearnt.add(check_.getComponent());
         }
 //        StringList unkept_ = new StringList(selected_.getKeys(false));
         StringList unkept_ = facade.getUnKeptMovesToEvo();
@@ -1560,13 +1537,13 @@ public class ScenePanel extends Panel {
             String tr_ = facade.translateMove(m);
             MoveEvoCheckBox check_ = new MoveEvoCheckBox(m,tr_,false, this);
             check_.setBackground(Color.WHITE);
-            movesLearnt.add(check_);
+            movesLearnt.add(check_.getComponent());
         }
         StringList ab_ = facade.getPlayer().getNewAbilitiesToBeChosen();
         abilities.removeAll();
         abilityLabels.clear();
         if (!ab_.isEmpty()) {
-            abilities.add(new JLabel(messages.getVal(SELECT_ABILITY)));
+            abilities.add(new TextLabel(messages.getVal(SELECT_ABILITY)));
             for (String a: ab_) {
                 AbilityLabel lab_ = new AbilityLabel(facade.translateAbility(a), a);
                 lab_.addMouseListener(new AbilityWalkEvent(this, a));
@@ -1594,7 +1571,7 @@ public class ScenePanel extends Panel {
 
     private void setHealedMoves() {
         movesLearnt.removeAll();
-        movesLearnt.add(new JLabel(messages.getVal(SELECT_HEAL_MOVE)));
+        movesLearnt.add(new TextLabel(messages.getVal(SELECT_HEAL_MOVE)));
         StringMap<Short> moves_ = facade.getPlayer().getChosenMoves();
         StringList keys_ = new StringList(moves_.getKeys());
 //        keys_.sort(new Comparator<String>() {
@@ -1617,7 +1594,7 @@ public class ScenePanel extends Panel {
 
     private void setBoostedMoves() {
         movesLearnt.removeAll();
-        movesLearnt.add(new JLabel(messages.getVal(SELECT_BOOST_MOVE)));
+        movesLearnt.add(new TextLabel(messages.getVal(SELECT_BOOST_MOVE)));
         StringMap<Short> moves_ = facade.getPlayer().getChosenMoves();
         StringList keys_ = new StringList(moves_.getKeys());
 //        keys_.sort(new Comparator<String>() {
@@ -1682,7 +1659,7 @@ public class ScenePanel extends Panel {
             return;
         }
         movesLearnt.removeAll();
-        movesLearnt.add(new JLabel(messages.getVal(SELECT_TM)));
+        movesLearnt.add(new TextLabel(messages.getVal(SELECT_TM)));
         StringMap<Short> moves_ = facade.getPlayer().getChosenMoves();
         StringList keys_ = new StringList(moves_.getKeys());
 //        keys_.sort(new Comparator<String>() {

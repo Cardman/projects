@@ -30,8 +30,7 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
     @Override
     public void setDialogue(MainWindow _parent) {
         validated = false;
-        Panel container_=new Panel();
-        container_.setLayout(new BorderLayout());
+        Panel container_=Panel.newBorder();
         initMessageName(_parent);
         String lg_ = _parent.getLanguageKey();
         initJt(null,lg_);

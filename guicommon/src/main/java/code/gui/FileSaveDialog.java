@@ -48,7 +48,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
 
     private static final int NB_COLS = 24;
 
-    private JTextField typedString = new JTextField(NB_COLS);
+    private TextField typedString = new TextField(NB_COLS);
 
     private Panel searchingPanel = new Panel();
 
@@ -81,8 +81,8 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         getButtons().add(action_);
         if (StringList.quickEq(getFolder(),ConstFiles.getHomePath())) {
             searchingPanel.removeAll();
-            JLabel label_;
-            label_ = new JLabel(messages.getVal(FOLDER_NAME));
+            TextLabel label_;
+            label_ = new TextLabel(messages.getVal(FOLDER_NAME));
             LabelButton search_ = new LabelButton(CREATE);
             search_.addMouseListener(new CreateFolderEvent(this));
             searchingPanel.add(label_);

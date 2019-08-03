@@ -1,0 +1,65 @@
+package code.gui;
+
+import javax.swing.*;
+import javax.swing.event.ChangeListener;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseListener;
+
+public final class RadioButton extends CustComponent {
+    private JRadioButton radioButton;
+    public RadioButton() {
+        radioButton = new JRadioButton();
+    }
+    public RadioButton(String _text) {
+        radioButton = new JRadioButton(_text);
+    }
+    public RadioButton(String _text,boolean _s) {
+        radioButton = new JRadioButton(_text,_s);
+    }
+
+    public String getText() {
+        return radioButton.getText();
+    }
+
+    public void setText(String text) {
+        radioButton.setText(text);
+    }
+
+    public boolean isSelected() {
+        return radioButton.isSelected();
+    }
+
+    public void setSelected(boolean b) {
+        radioButton.setSelected(b);
+    }
+
+    public void addChangeListener(ChangeListener l) {
+        radioButton.addChangeListener(l);
+    }
+
+    public void addItemListener(ItemListener l) {
+        radioButton.addItemListener(l);
+    }
+
+    public void addMouseListener(MouseListener _l) {
+        radioButton.addMouseListener(_l);
+    }
+
+    @Override
+    public JComponent getComponent() {
+        return radioButton;
+    }
+
+    public void addActionListener(ActionListener _list) {
+        radioButton.addActionListener(_list);
+    }
+
+    public void setEnabled(boolean b) {
+        radioButton.setEnabled(b);
+    }
+
+    public boolean isEnabled() {
+        return radioButton.isEnabled();
+    }
+}

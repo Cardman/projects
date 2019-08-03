@@ -1,14 +1,17 @@
 package cards.gui.panels;
-import java.awt.BorderLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.border.BevelBorder;
 
 import code.gui.Panel;
 /** */
-abstract class ScrollableList extends Panel {
+abstract class ScrollableList {
+    private Panel container = Panel.newBorder();
     ScrollableList() {
-        setLayout(new BorderLayout());
-        setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+        container.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+    }
+
+    public Panel getContainer() {
+        return container;
     }
 }

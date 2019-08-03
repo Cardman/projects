@@ -6,14 +6,15 @@ import code.gui.AutoCompleteDocument;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
 import aiki.facade.enums.SearchingMode;
+import code.gui.TextField;
 
 public class ChangedModeEvent extends ListSelection {
 
     private ComboBoxSearchingMode mode;
 
-    private JTextField field;
+    private TextField field;
 
-    public ChangedModeEvent(ComboBoxSearchingMode _mode, JTextField _field) {
+    public ChangedModeEvent(ComboBoxSearchingMode _mode, TextField _field) {
         mode = _mode;
         field = _field;
     }

@@ -4,7 +4,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import code.formathtml.render.MetaCell;
+import code.formathtml.render.MetaContainer;
 import code.formathtml.render.MetaTable;
+import code.gui.Panel;
 import code.util.Ints;
 
 public final class DualTable extends DualContainer {
@@ -14,11 +16,17 @@ public final class DualTable extends DualContainer {
 
     public DualTable(DualContainer _container, MetaTable _component, RenderedPage _page) {
         super(_container, _component, _page);
-        GridBagLayout lay_ = new GridBagLayout();
-        getGraphic().setLayout(lay_);
         constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.BOTH;
         remainders = _component.getRemainders();
+    }
+
+    @Override
+    protected Panel newPanel(DualContainer _container, MetaContainer _component, RenderedPage _page) {
+        Panel p_ = new Panel();
+        GridBagLayout lay_ = new GridBagLayout();
+        p_.getComponent().setLayout(lay_);
+        return p_;
     }
 
     public GridBagConstraints getConstraints() {
@@ -41,11 +49,11 @@ public final class DualTable extends DualContainer {
             constraints.gridheight = ((MetaCell)_dual.getComponent()).getRowspan();
             constraints.gridwidth = ((MetaCell)_dual.getComponent()).getColspan();
         }
-        getLayout().setConstraints(_dual.getGraphic(), constraints);
+        getLayout().setConstraints(_dual.getGraphic().getComponent(), constraints);
         super.add(_dual);
     }
 
     public GridBagLayout getLayout() {
-        return (GridBagLayout) getGraphic().getLayout();
+        return (GridBagLayout) getGraphic().getComponent().getLayout();
     }
 }

@@ -31,8 +31,8 @@ public interface GraphicListable {
 
     void setLastIndex(int _lastIndex);
 
-    JPanel getPanel();
-    JScrollPane getScroll();
+    Panel getPanel();
+    ScrollPane getScroll();
 
-    CustList<JComponent> getListComponents();
+    CustList<PreparedLabel> getListComponents();
 }

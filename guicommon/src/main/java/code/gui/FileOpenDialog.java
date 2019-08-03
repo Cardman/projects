@@ -34,8 +34,8 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
     private static final String ERROR_TITLE = "errorTitle";
     private static final String ERROR_TYPING = "errorTyping";
     private static final int NB_COLS = 24;
-    private JTextField typedString = new JTextField(NB_COLS);
-    private Panel searchingPanel = new Panel();
+    private TextField typedString = new TextField(NB_COLS);
+    private Panel searchingPanel = Panel.newPageBox();
 
     private StringMap<String> messages;
 
@@ -45,14 +45,13 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
 
     private AtomicBoolean showNewResults = new AtomicBoolean();
 
-    private JLabel searchedFiles = new JLabel();
+    private TextLabel searchedFiles = new TextLabel("");
 
-    private JLabel foundFiles = new JLabel();
+    private TextLabel foundFiles = new TextLabel("");
     private CommonFrame frame;
 
     private FileOpenDialog(){
         setAccessFile(DIALOG_ACCESS);
-        searchingPanel.setLayout(new BoxLayout(searchingPanel.getComponent(), BoxLayout.PAGE_AXIS));
     }
     public static void setFileOpenDialog(GroupFrame _w,String _language,boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
         DIALOG.setFileDialogByFrame(_w, _language, _currentFolderRoot, _extension, _folder, _excludedFolders);
@@ -72,8 +71,8 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         action_ = new LabelButton(messages.getVal(CANCEL));
         action_.addMouseListener(new CancelSelectFileEvent(this));
         getButtons().add(action_);
-        JLabel label_;
-        label_ = new JLabel(messages.getVal(TYPE_TEXT));
+        TextLabel label_;
+        label_ = new TextLabel(messages.getVal(TYPE_TEXT));
         LabelButton search_ = new LabelButton(messages.getVal(SEARCH));
         search_.addMouseListener(new SearchingEvent(this));
         searchingPanel.removeAll();
@@ -88,9 +87,9 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         LabelButton cancelSearching_ = new LabelButton(messages.getVal(CANCEL_SEARCHING));
         cancelSearching_.addMouseListener(new StopSearchingEvent(this, false));
         searchingPanel.add(cancelSearching_);
-        searchedFiles = new JLabel(StringList.simpleNumberFormat(messages.getVal(FILE_COUNT), 0));
+        searchedFiles = new TextLabel(StringList.simpleNumberFormat(messages.getVal(FILE_COUNT), 0));
         searchingPanel.add(searchedFiles);
-        foundFiles = new JLabel(StringList.simpleNumberFormat(messages.getVal(RESULT_COUNT), 0));
+        foundFiles = new TextLabel(StringList.simpleNumberFormat(messages.getVal(RESULT_COUNT), 0));
         searchingPanel.add(foundFiles);
         getPane().add(searchingPanel, BorderLayout.NORTH);
         pack();
@@ -176,6 +175,14 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
     }
 
     public void submit() {
+        String fileName_ = getFileName().getText();
+        String extFileName_ = StringList.concat(fileName_,getExtension());
+        String selectedRelPath_ = StringList.concat(getCurrentFolder(), extFileName_);
+        if (new File(selectedRelPath_).exists()) {
+            closeWindow();
+            setSelectedPath(selectedRelPath_);
+            return;
+        }
         String selectedPath_ = getSelectedAbsolutePath();
         String lg_ = frame.getLanguageKey();
         if (selectedPath_ != null) {
@@ -221,7 +228,6 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
 //            closeWindow();
 //            return;
 //        }
-        String fileName_ = getFileName().getText();
         if (fileName_.isEmpty()) {
             ConfirmDialog.showMessage(this, messages.getVal(ERROR_TYPING), messages.getVal(ERROR_TITLE),lg_, JOptionPane.ERROR_MESSAGE);
             return;
@@ -240,7 +246,6 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
 //            closeWindow();
 //            return;
         }
-        String extFileName_ = StringList.concat(fileName_,getExtension());
         if (!new File(extFileName_).isAbsolute()) {
             selectedPath_ = StringList.concat(getCurrentFolder(), extFileName_);
         } else {

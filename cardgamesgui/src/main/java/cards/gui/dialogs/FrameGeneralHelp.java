@@ -18,9 +18,7 @@ import cards.gui.dialogs.help.NodeHelp;
 import cards.gui.dialogs.help.beans.GeneralHelpLgNames;
 import code.formathtml.DefaultInitialization;
 import code.formathtml.util.BeanLgNames;
-import code.gui.ChildFrame;
-import code.gui.LabelButton;
-import code.gui.Panel;
+import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
 import code.resources.ResourceFiles;
@@ -72,7 +70,7 @@ public final class FrameGeneralHelp extends ChildFrame {
 
     private RenderedPage editor;
 
-    private JTextField field;
+    private TextField field;
 
     private LabelButton search;
 
@@ -170,8 +168,7 @@ public final class FrameGeneralHelp extends ChildFrame {
         boolean wasNull_ = editor == null;
         Panel container_;
         if (wasNull_) {
-            container_ = new Panel();
-            container_.setLayout(new BoxLayout(container_.getComponent(), BoxLayout.PAGE_AXIS));
+            container_ = Panel.newPageBox();
         } else {
             container_ = getPane();
             container_.removeAll();
@@ -200,7 +197,7 @@ public final class FrameGeneralHelp extends ChildFrame {
                     elementLoc_.nom()));
         }
         if (wasNull_) {
-            editor = new RenderedPage(new JScrollPane());
+            editor = new RenderedPage(new ScrollPane());
         }
         JTree arbre_ = new JTree(root_);
         arbre_.setRootVisible(false);
@@ -209,15 +206,15 @@ public final class FrameGeneralHelp extends ChildFrame {
         BeanLgNames bean_ = new GeneralHelpLgNames();
         editor.initialize(racineBis.getFile(), bean_);
         if (field == null) {
-            field = new JTextField(20);
+            field = new TextField(20);
             search = new LabelButton();
             editor.setSearchText(search);
             editor.setField(field);
             editor.addFinder();
         }
         search.setTextAndSize(messages.getVal(SEARCH_LABEL));
-        JSplitPane separateur_ = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-                new JScrollPane(arbre_), editor.getScroll());
+        SplitPane separateur_ = new SplitPane(JSplitPane.HORIZONTAL_SPLIT,
+                new ScrollPane(arbre_), editor.getScroll());
         separateur_.setPreferredSize(new Dimension(600, 550));
         separateur_.setDividerLocation(150);
         container_.add(separateur_);

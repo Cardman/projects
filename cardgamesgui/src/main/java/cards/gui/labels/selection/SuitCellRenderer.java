@@ -10,6 +10,8 @@ import cards.facade.Games;
 import cards.gui.MainWindow;
 import code.gui.CustCellRender;
 import code.gui.GraphicListable;
+import code.gui.PaintableLabel;
+import code.gui.PreparedLabel;
 import code.util.*;
 /**
     */
@@ -23,9 +25,9 @@ public class SuitCellRenderer extends CustCellRender {
     }
     /**Donne la facon de presenter une couleur dans une liste avec un symbole et un nom*/
     @Override
-    public JLabel getListCellRendererComponent(GraphicListable _list, Object _value,
-            int _index, boolean _isSelected, boolean _cellHasFocus) {
-        JLabel label_ = (JLabel) _list.getListComponents().get(_index);
+    public PreparedLabel getListCellRendererComponent(GraphicListable _list, Object _value,
+                                                      int _index, boolean _isSelected, boolean _cellHasFocus) {
+        PreparedLabel label_ = _list.getListComponents().get(_index);
         couleur=(Suit)_value;
         selectionne=_isSelected;
         label_.setPreferredSize(new Dimension(100,10));

@@ -89,17 +89,10 @@ import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
-import code.gui.ConfirmDialog;
-import code.gui.LabelButton;
-import code.gui.NumComboBox;
-import code.gui.Panel;
-import code.gui.ScrollPane;
-import code.gui.SplitPane;
-import code.gui.TabbedPane;
+import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.util.CustList;
 import code.util.EnumMap;
-import code.util.*;
 import code.util.*;
 import code.util.StringList;
 import code.util.comparators.ComparatorBoolean;
@@ -113,21 +106,21 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     private HandTarot takerCardsDog = new HandTarot();
     private int nbChoosenPlayers = CustList.INDEX_NOT_FOUND_ELT;
     private NumComboBox choiceOfPlaceForPlayingGame;
-    private JCheckBox ready;
+    private CustCheckBox ready;
 
     private DealingTarot repTarot;
     private boolean hasCreatedServer;
     private boolean readyToPlay;
-    private CustList<JLabel> playersPseudos = new CustList<JLabel>();
-    private CustList<JLabel> playersPlaces = new CustList<JLabel>();
-    private CustList<JCheckBox> playersReady = new CustList<JCheckBox>();
+    private CustList<TextLabel> playersPseudos = new CustList<TextLabel>();
+    private CustList<TextLabel> playersPlaces = new CustList<TextLabel>();
+    private CustList<CustCheckBox> playersReady = new CustList<CustCheckBox>();
     private RenderedPage editor;
     private IntTreeMap<Byte> playersPlacesForGame = new IntTreeMap<Byte>();
     private IntMap<String> playersPseudosForGame = new IntMap<String>();
     private RulesTarot rulesTarotMulti=new RulesTarot();
 
     private EnumMap<Handfuls,Integer> requiredTrumps = new EnumMap<Handfuls,Integer>();
-    private JLabel canPlayLabel = new JLabel();
+    private TextLabel canPlayLabel = new TextLabel("");
 
     public ContainerMultiTarot(MainWindow _window, boolean _hasCreatedServer, int _nbPlayers) {
         super(_window);
@@ -246,11 +239,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getLoad().setEnabledMenu(false);
         nbChoosenPlayers = _players.getNbPlayers();
         rulesTarotMulti = _players.getRulesTarot();
-        Panel container_=new Panel();
-        container_.setLayout(new BoxLayout(container_.getComponent(), BoxLayout.PAGE_AXIS));
-        Panel panel_ = new Panel();
-        panel_.setLayout(new BoxLayout(panel_.getComponent(), BoxLayout.PAGE_AXIS));
-        panel_.add(new JLabel(getMessages().getVal(MainWindow.PLACE)));
+        Panel container_=Panel.newPageBox();
+        Panel panel_ = Panel.newPageBox();
+        panel_.add(new TextLabel(getMessages().getVal(MainWindow.PLACE)));
         choiceOfPlaceForPlayingGame = new NumComboBox();
         for (int i = CustList.FIRST_INDEX;i<nbChoosenPlayers;i++) {
             choiceOfPlaceForPlayingGame.addItem(i);
@@ -259,28 +250,27 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         indexInGame = choiceOfPlaceForPlayingGame.getCurrent().byteValue();
         choiceOfPlaceForPlayingGame.setListener(new ChangePlaceEvent(this));
         panel_.add(choiceOfPlaceForPlayingGame);
-        ready = new JCheckBox(getMessages().getVal(MainWindow.READY));
+        ready = new CustCheckBox(getMessages().getVal(MainWindow.READY));
         ready.addActionListener(new ReadyEvent(this));
         panel_.add(ready);
         container_.add(panel_);
-        panel_ = new Panel();
-        panel_.setLayout(new GridLayout(0,3));
+        panel_ = Panel.newGrid(0,3);
         playersPseudos.clear();
         for (int i = CustList.FIRST_INDEX;i<nbChoosenPlayers;i++) {
-            JLabel pseudo_ = new JLabel();
+            TextLabel pseudo_ = new TextLabel("");
             playersPseudos.add(pseudo_);
             panel_.add(pseudo_);
-            JLabel place_ = new JLabel();
+            TextLabel place_ = new TextLabel("");
             playersPlaces.add(place_);
             panel_.add(place_);
-            JCheckBox ready_ = new JCheckBox();
+            CustCheckBox ready_ = new CustCheckBox();
             ready_.setEnabled(false);
             playersReady.add(ready_);
             panel_.add(ready_);
         }
         container_.add(panel_);
 
-        JScrollPane scroll_ = new JScrollPane();
+        ScrollPane scroll_ = new ScrollPane();
         editor = new RenderedPage(scroll_);
 
         editor.setLanguage(lg_);
@@ -578,24 +568,22 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         setCanExcludeTrumps(true);
         displayTrumpsForHandfulMulti(GameTarotCommonPlaying.atoutsPoignee(playerHand.couleurs()));
         getPanneauBoutonsJeu().removeAll();
-        getPanneauBoutonsJeu().setLayout(new BoxLayout(getPanneauBoutonsJeu().getComponent(), BoxLayout.PAGE_AXIS));
-        Panel handFuls_ = new Panel(new FlowLayout(FlowLayout.TRAILING,0,0));
-        handFuls_.setLayout(new BoxLayout(handFuls_.getComponent(), BoxLayout.PAGE_AXIS));
-        setInfoCurrentHandful(new JTextArea(EMPTY_STRING,1,15));
+        Panel handFuls_ = Panel.newPageBox();
+        setInfoCurrentHandful(new TextArea(EMPTY_STRING,1,15));
         ScrollPane scroll_ = new ScrollPane(getInfoCurrentHandful());
         scroll_.setPreferredSize(new Dimension(getEvents().getWidth(),70));
         handFuls_.add(scroll_);
         setChoosenHandful(Handfuls.NO);
         setSelectedMiseres(new EnumMap<Miseres,Boolean>());
-        setListHandfuls(new ButtonGroup());
+        setListHandfuls(new CustButtonGroup());
         for (Handfuls h: Handfuls.getNonDeclarableHandFuls()) {
-            JRadioButton radio_ = new JRadioButton(Games.toString(h,lg_));
+            RadioButton radio_ = new RadioButton(Games.toString(h,lg_));
             radio_.addMouseListener(new ListenerNoHandfulTarot(this, radio_, h));
             getListHandfuls().add(radio_);
             handFuls_.add(radio_);
         }
         for (Handfuls h: _declaration.getAllowedHandfuls()) {
-            JRadioButton radio_ = new JRadioButton(Games.toString(h,lg_));
+            RadioButton radio_ = new RadioButton(Games.toString(h,lg_));
             int diff_ = getCurrentIncludedTrumps().total()-requiredTrumps.getVal(h);
             radio_.setEnabled(diff_ >= 0);
             radio_.addMouseListener(new ListenerHandfulTarot(requiredTrumps.getVal(h), radio_, this, h));
@@ -603,9 +591,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             handFuls_.add(radio_);
         }
         getPanneauBoutonsJeu().add(handFuls_);
-        Panel miseres_ = new Panel(new GridLayout(0,1));
+        Panel miseres_ = Panel.newGrid(0,1);
         for(Miseres po_:_declaration.getAllowedMiseres()) {
-            JCheckBox check_ = new JCheckBox(Games.toString(po_,lg_));
+            CustCheckBox check_ = new CustCheckBox(Games.toString(po_,lg_));
             check_.addActionListener(new ListenerMiseresTarot(this,check_,po_));
             getSelectedMiseres().put(po_, false);
             miseres_.add(check_);
@@ -783,10 +771,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
     private void placerIhmTarotMulti(HandTarot _dog, byte _beginPlace) {
         String lg_ = getOwner().getLanguageKey();
-        Panel container_=new Panel();
-        container_.setLayout(new BorderLayout());
-        container_.add(new JLabel(getMessages().getVal(MainWindow.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
-        CarpetTarot tapis_=new CarpetTarot();
+        Panel container_=Panel.newBorder();
+        container_.add(new TextLabel(getMessages().getVal(MainWindow.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         ByteTreeMap<String> pseudos_ = new ByteTreeMap<String>();
         byte p_ = 0;
         for (String s: pseudosTarot((byte) nbChoosenPlayers)) {
@@ -798,31 +784,29 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             pseudos_.put(relative_, getPseudoByPlace(p));
         }
         StringList list_ = new StringList(pseudos_.values());
-        setMini(new MiniCarpet(list_.size(), getDisplayingTarot().isClockwise(), list_));
-        tapis_.initTapisTarot(lg_,nbChoosenPlayers,getDisplayingTarot().isClockwise(),_dog.total());
+        setMini(MiniCarpet.newCarpet(list_.size(), getDisplayingTarot().isClockwise(), list_));
+        CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, nbChoosenPlayers, getDisplayingTarot().isClockwise(), _dog.total());
         getTapis().setTapisTarot(tapis_);
-        container_.add(tapis_,BorderLayout.CENTER);
-        setPanelHand(new Panel());
-        getPanelHand().setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
+        container_.add(tapis_.getContainer(),BorderLayout.CENTER);
+        setPanelHand(Panel.newFlow(FlowLayout.LEFT,0,0));
         Panel panneau_=new Panel();
         panneau_.add(getPanelHand());
         panneau_.setBackground(Color.BLUE);
-        setPanelDiscardedTrumps(new Panel(new FlowLayout(FlowLayout.LEFT,0,0)));
+        setPanelDiscardedTrumps(Panel.newFlow(FlowLayout.LEFT,0,0));
         getPanelDiscardedTrumps().setVisible(false);
         panneau_.add(getPanelDiscardedTrumps());
         container_.add(panneau_,BorderLayout.SOUTH);
-        Panel panneau2_=new Panel();
-        panneau2_.setLayout(new BoxLayout(panneau2_.getComponent(), BoxLayout.PAGE_AXIS));
-        setEvents(new JTextArea(EMPTY,8, 30));
+        Panel panneau2_=Panel.newPageBox();
+        setEvents(new TextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
         byte relative_ = relative(_beginPlace);
         getEvents().append(StringList.concat(getMessages().getVal(MainWindow.PLAYER_HAVING_TO_PLAY),pseudos_.getVal(relative_),RETURN_LINE));
         panneau2_.add(new ScrollPane(getEvents()));
-        panneau2_.add(getMini());
-        setIncludedTrumpsForHandful(new Panel(new FlowLayout(FlowLayout.CENTER,0,0)));
+        panneau2_.add(getMiniPanel());
+        setIncludedTrumpsForHandful(Panel.newFlow(FlowLayout.CENTER,0,0));
         ScrollPane scrollInc_ = new ScrollPane(getIncludedTrumpsForHandful());
         scrollInc_.setPreferredSize(new Dimension(125,60));
-        setExcludedTrumpsForHandful(new Panel(new FlowLayout(FlowLayout.CENTER,0,0)));
+        setExcludedTrumpsForHandful(Panel.newFlow(FlowLayout.CENTER,0,0));
         ScrollPane scrollExc_ = new ScrollPane(getExcludedTrumpsForHandful());
         scrollExc_.setPreferredSize(new Dimension(125,60));
         setDeclaringHandful(new SplitPane(JSplitPane.HORIZONTAL_SPLIT,scrollInc_,scrollExc_));
@@ -833,18 +817,18 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getScrollDeclaringHandful().setPreferredSize(new Dimension(250,60));
         getScrollDeclaringHandful().setVisible(false);
         panneau2_.add(getScrollDeclaringHandful());
-        setHandfuls(new ByteMap<JLabel>());
+        setHandfuls(new ByteMap<TextLabel>());
         setDeclaredHandfuls(new ByteMap<Panel>());
-        Panel declaredHandfuls_ = new Panel(new GridLayout(0,1));
+        Panel declaredHandfuls_ = Panel.newGrid(0,1);
         for (byte i = CustList.FIRST_INDEX;i<nbChoosenPlayers;i++) {
             relative_ = relative(i);
-            Panel declaredHandfulGroup_ = new Panel(new FlowLayout());
-            JLabel lab_ = new JLabel(pseudos_.getVal(relative_));
+            Panel declaredHandfulGroup_ = Panel.newFlow();
+            TextLabel lab_ = new TextLabel(pseudos_.getVal(relative_));
             declaredHandfulGroup_.add(lab_);
-            JLabel handful_ = new JLabel(EMPTY_STRING);
+            TextLabel handful_ = new TextLabel(EMPTY_STRING);
             declaredHandfulGroup_.add(handful_);
             getHandfuls().put(relative_, handful_);
-            Panel declaredHandful_ = new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
+            Panel declaredHandful_ = Panel.newFlow(FlowLayout.LEFT,0,0);
             declaredHandfulGroup_.add(declaredHandful_);
             getDeclaredHandfuls().put(relative_, declaredHandful_);
             declaredHandfuls_.add(declaredHandfulGroup_);
@@ -852,19 +836,17 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         ScrollPane scroll_ = new ScrollPane(declaredHandfuls_);
         panneau2_.add(scroll_);
 
-        setPanelCallableCards(new Panel(new FlowLayout(FlowLayout.LEFT,0,0)));
+        setPanelCallableCards(Panel.newFlow(FlowLayout.LEFT,0,0));
         setScrollCallableCards(new ScrollPane(getPanelCallableCards()));
         getScrollCallableCards().setVisible(false);
         panneau2_.add(getScrollCallableCards());
-        Panel sousPanneau_=new Panel(new FlowLayout(FlowLayout.TRAILING,0,0));
-        sousPanneau_.setLayout(new BoxLayout(sousPanneau_.getComponent(), BoxLayout.PAGE_AXIS));
+        Panel sousPanneau_=Panel.newPageBox();
         setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
 
         container_.add(panneau2_,BorderLayout.EAST);
         tapisTarot().setTalonTarot(lg_,_dog);
-        Panel panel_ = new Panel();
-        panel_.setLayout(new BoxLayout(panel_.getComponent(), BoxLayout.PAGE_AXIS));
+        Panel panel_ = Panel.newPageBox();
         panel_.add(new ScrollPane(container_));
         canPlayLabel.setText(EMPTY_STRING);
         panel_.add(canPlayLabel);
@@ -929,7 +911,6 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         panneau_.removeAll();
         panneau_.repaint();
         panneau_.setBackground(new Color(0,125,0));
-        panneau_.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
         _main.trier(getDisplayingTarot().getSuits(), getDisplayingTarot().isDecreasing());
         setCanDiscard(_ecouteur);
         updateCardsInPanelTarotDogMulti(tapisTarot().getCenterDeck(), _main, false);
@@ -1108,22 +1089,21 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getHelpGame().setEnabledMenu(false);
         getOwner().getTricksHands().setEnabledMenu(false);
         getOwner().getTeams().setEnabledMenu(false);
-        Panel container_=new Panel();
-        JScrollPane ascenseur_;
-        container_.setLayout(new BorderLayout());
+        Panel container_=Panel.newBorder();
+        ScrollPane ascenseur_;
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);
         TabbedPane onglets_=new TabbedPane();
         String lg_ = getOwner().getLanguageKey();
         setScores(_res.getScores());
-        JScrollPane scroll_=new JScrollPane();
+        ScrollPane scroll_=new ScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
         editor_.setLanguage(lg_);
         editor_.setDataBase(_res);
         editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT, new TarotStandards());
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
-        ascenseur_=new JScrollPane();
+        ascenseur_=new ScrollPane();
         editor_ = new RenderedPage(ascenseur_);
         editor_.setLanguage(lg_);
         editor_.setDataBase(_res);
@@ -1131,15 +1111,13 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         ascenseur_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.DETAIL_RESULTS_PAGE),ascenseur_);
         container_.add(onglets_,BorderLayout.CENTER);
-        Panel panneau_=new Panel();
-        panneau_.setLayout(new BoxLayout(panneau_.getComponent(), BoxLayout.PAGE_AXIS));
+        Panel panneau_=Panel.newPageBox();
         readyToPlay = false;
-        ready = new JCheckBox(getMessages().getVal(MainWindow.READY));
+        ready = new CustCheckBox(getMessages().getVal(MainWindow.READY));
         ready.addActionListener(new ReadyEvent(this));
         panneau_.add(ready);
 
-        Panel panel_ = new Panel();
-        panel_.setLayout(new GridLayout(0,3));
+        Panel panel_ = Panel.newGrid(0,3);
 
         for (int i = CustList.FIRST_INDEX;i<nbChoosenPlayers;i++) {
             panel_.add(playersPseudos.get(i));

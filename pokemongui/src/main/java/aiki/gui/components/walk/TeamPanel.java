@@ -19,13 +19,14 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import code.gui.GraphicList;
 import code.gui.Panel;
+import code.gui.TextLabel;
 import code.util.CustList;
 import code.util.*;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
-public class TeamPanel extends Panel {
+public class TeamPanel {
     public static final String TEAM_PANEL = "aiki.gui.components.walk.teampanel";
 
     private static final String SPACE = " ";
@@ -42,15 +43,16 @@ public class TeamPanel extends Panel {
 
     private FacadeGame facade;
 
-    private JLabel nbRemainPlaces;
+    private TextLabel nbRemainPlaces;
 
+    private Panel container;
     public TeamPanel(int _nb, String _titre, FacadeGame _facade, ByteTreeMap<UsablePokemon> _team, boolean _single, StringMap<String> _mess) {
         facade = _facade;
         liste = new GraphicList<UsablePokemon>(false,true);
-        setLayout(new BorderLayout());
-        setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
-        JLabel titrePanneau_ = new JLabel(_titre, SwingConstants.CENTER);
-        add(titrePanneau_, BorderLayout.NORTH);
+        container = Panel.newBorder();
+        container.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+        TextLabel titrePanneau_ = new TextLabel(_titre, SwingConstants.CENTER);
+        container.add(titrePanneau_, BorderLayout.NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb+1);
@@ -58,11 +60,11 @@ public class TeamPanel extends Panel {
         liste.setRender(renderer);
         initFighters(_team,_mess);
         int side_ = facade.getMap().getSideLength();
-        add(liste.getComponent(),BorderLayout.CENTER);
-        nbRemainPlaces = new JLabel();
+        container.add(liste,BorderLayout.CENTER);
+        nbRemainPlaces = new TextLabel("");
         translate(_mess);
-        add(nbRemainPlaces,BorderLayout.SOUTH);
-        setPreferredSize(new Dimension(getDeltaName(_team) * 2 + side_ * 2,side_*2*_nb));
+        container.add(nbRemainPlaces,BorderLayout.SOUTH);
+        container.setPreferredSize(new Dimension(getDeltaName(_team) * 2 + side_ * 2,side_*2*_nb));
     }
 
     public void initFighters(ByteTreeMap<UsablePokemon> _fighters, StringMap<String> _mess) {
@@ -169,5 +171,9 @@ public class TeamPanel extends Panel {
 
     public void addListenerTm(ScenePanel _mainWindow) {
         liste.setListener(new PokemonSelectionTm(_mainWindow));
+    }
+
+    public Panel getContainer() {
+        return container;
     }
 }

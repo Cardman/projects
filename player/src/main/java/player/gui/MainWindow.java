@@ -15,14 +15,7 @@ import javax.swing.JTextArea;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
-import code.gui.Clock;
-import code.gui.GroupFrame;
-import code.gui.LabelButton;
-import code.gui.PackingWindowAfter;
-import code.gui.Panel;
-import code.gui.ScrollPane;
-import code.gui.SetStyle;
-import code.gui.ThreadUtil;
+import code.gui.*;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.images.BaseSixtyFourUtil;
 import code.maths.montecarlo.AbMonteCarlo;
@@ -96,39 +89,39 @@ public class MainWindow extends GroupFrame {
     private static StringMap<String> _messages_ = new StringMap<String>();
 
     private Timer timer;
-    private JLabel songsLabel = new JLabel();
+    private TextLabel songsLabel = new TextLabel("");
     private ClipStream clipStream;
     private int noSong = -1;
-    private JTextArea songs = new JTextArea(10, 40);
+    private TextArea songs = new TextArea(10, 40);
     private SongRenderer songRend = new SongRenderer();
-    private JCheckBox random = new JCheckBox();
+    private CustCheckBox random = new CustCheckBox();
     private LabelButton play = new LabelButton(PLAY);
     private LabelButton playPrevious = new LabelButton(PREVIOUS);
     private LabelButton playNext = new LabelButton(NEXT);
     private LabelButton stop = new LabelButton(STOP);
-    private JLabel currentSong = new JLabel(EMPTY);
-    private JLabel elapsedTime = new JLabel(EMPTY);
+    private TextLabel currentSong = new TextLabel(EMPTY);
+    private TextLabel elapsedTime = new TextLabel(EMPTY);
     private boolean pausing;
     private boolean next;
     private boolean playSong;
     private int lastFrame;
     private StringList songsList = new StringList();
 
-    private ButtonGroup group = new ButtonGroup();
+    private CustButtonGroup group = new CustButtonGroup();
 
-    private CustList<JRadioButton> radios = new CustList<JRadioButton>();
+    private CustList<RadioButton> radios = new CustList<RadioButton>();
 
     public MainWindow(String _lg,String[] _args) {
         super(_lg);
         initMessages(_lg);
         setTitle(_messages_.getVal(TITLE_PLAYER));
         setIconImage(getImage());
-        getPane().setLayout(new BoxLayout(getPane().getComponent(), BoxLayout.PAGE_AXIS));
+        Panel pane_ = Panel.newPageBox();
         songsLabel.setText(_messages_.getVal(SONGS));
-        getPane().add(songsLabel);
-        getPane().add(songs);
+        pane_.add(songsLabel);
+        pane_.add(songs);
         random.setText(_messages_.getVal(RANDOM));
-        getPane().add(random);
+        pane_.add(random);
         Panel actions_ = new Panel();
 //        playPrevious.setTextAndSize(PREVIOUS);
 //        playPrevious.repaint();
@@ -158,25 +151,25 @@ public class MainWindow extends GroupFrame {
                 }
             }
         }
-        getPane().add(actions_);
+        pane_.add(actions_);
         ScrollPane scr_ = new ScrollPane(songRend);
         scr_.setPreferredSize(new Dimension(100, 60));
-        getPane().add(scr_);
-        getPane().add(currentSong);
-        getPane().add(elapsedTime);
-        getPane().add(new Clock());
+        pane_.add(scr_);
+        pane_.add(currentSong);
+        pane_.add(elapsedTime);
+        pane_.add(new Clock());
         for (String l: Constants.getAvailableLanguages()) {
-            JRadioButton radio_ = new JRadioButton(Constants.getDisplayLanguage(l));
+            RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
             radio_.addActionListener(new SetLanguage(l));
             radio_.setSelected(StringList.quickEq(l,_lg));
             group.add(radio_);
-            getPane().add(radio_);
+            pane_.add(radio_);
             radios.add(radio_);
         }
-        setContentPane(getPane());
+        setContentPane(pane_);
         pack();
         setVisible(true);
-        SetStyle.setupStyle(getFrame());
+        SetStyle.setupStyle(this);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 

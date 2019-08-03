@@ -4,6 +4,7 @@ import javax.swing.JLabel;
 import cards.gui.MainWindow;
 import cards.gui.panels.CardsScrollableList;
 import code.gui.Panel;
+import code.gui.TextLabel;
 import code.util.CustList;
 
 public interface SetterSelectedCardList {
@@ -13,7 +14,7 @@ public interface SetterSelectedCardList {
     int getNombreCartesSelectionneesPrecedent();
     void setNombreCartesSelectionneesPrecedent(int _nombreCartesSelectionneesPrecedent);
     Panel getPanelsCards();
-    JLabel getLabelSelectCards();
+    TextLabel getLabelSelectCards();
     CustList<CardsScrollableList> getHands(boolean _addStack);
     void validateRulesDeal(MainWindow _parent);
     void backToRules(MainWindow _parent);

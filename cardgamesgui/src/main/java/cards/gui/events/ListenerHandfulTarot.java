@@ -8,19 +8,20 @@ import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.gui.containers.ContainerTarot;
 import cards.tarot.enumerations.Handfuls;
+import code.gui.RadioButton;
 import code.util.StringList;
 
 public class ListenerHandfulTarot extends MouseAdapter {
 
     private int requiredTrumps;
 
-    private JRadioButton radio;
+    private RadioButton radio;
 
     private ContainerTarot container;
 
     private Handfuls handful;
 
-    public ListenerHandfulTarot(int _requiredTrumps, JRadioButton _radio,
+    public ListenerHandfulTarot(int _requiredTrumps, RadioButton _radio,
             ContainerTarot _container, Handfuls _handful) {
         requiredTrumps = _requiredTrumps;
         radio = _radio;

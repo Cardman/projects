@@ -16,9 +16,7 @@ import cards.gui.dialogs.events.RemoveSuitEvent;
 import cards.gui.dialogs.events.ValidateDisplayingEvent;
 import cards.gui.panels.SuitsScrollableList;
 import cards.tarot.DisplayingTarot;
-import code.gui.ConfirmDialog;
-import code.gui.LabelButton;
-import code.gui.Panel;
+import code.gui.*;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.StringMap;
@@ -41,9 +39,9 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
     private static final String WISE = "wise";
     private StringMap<String> messages = new StringMap<String>();
     private DisplayingTarot displayingTarot;
-    private JCheckBox checkClockwise;
+    private CustCheckBox checkClockwise;
     private SuitsScrollableList orderedSuits;
-    private JCheckBox sortByDecreasing;
+    private CustCheckBox sortByDecreasing;
     private ComboBoxSuit listeChoix;
 
     private DialogDisplayingTarot() {
@@ -72,21 +70,18 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
 
     public void setDialogue(MainWindow _window) {
         initMessageName(_window);
-        Panel container_=new Panel();
-        container_.setLayout(new BorderLayout());
-        Panel panneau_=new Panel();
-        panneau_.setLayout(new GridLayout(0,2));
+        Panel container_=Panel.newBorder();
+        Panel panneau_=Panel.newGrid(0,2);
         //Panneau Battre les cartes
         EnumList<Suit> liste_=new EnumList<Suit>();
-        panneau_.add(new JLabel(messages.getVal(WISE)));
+        panneau_.add(new TextLabel(messages.getVal(WISE)));
         //Panneau Distribution
-        checkClockwise=new JCheckBox(messages.getVal(CLOCK_WISE));
+        checkClockwise=new CustCheckBox(messages.getVal(CLOCK_WISE));
         checkClockwise.setSelected(displayingTarot.isClockwise());
         panneau_.add(checkClockwise);
         getJt().add(messages.getVal(DEALING),panneau_);
         //Panneau Tri
-        Panel sousPanneau_=new Panel();
-        sousPanneau_.setLayout(new GridLayout(0,3));
+        Panel sousPanneau_=Panel.newGrid(0,3);
         listeChoix=new ComboBoxSuit();
         EnumMap<Suit,String> trSuit_;
         trSuit_ = new EnumMap<Suit,String>();
@@ -106,15 +101,14 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
 //            listeChoix.addItem(couleur_);
 //        }
         sousPanneau_.add(listeChoix);
-        Panel sousPanneauTwo_=new Panel();
-        sousPanneauTwo_.setLayout(new GridLayout(0,1));
+        Panel sousPanneauTwo_=Panel.newGrid(0,1);
         LabelButton bouton_=new LabelButton(messages.getVal(ADD_SUIT));
         bouton_.addMouseListener(new AddSuitEvent(this));
         sousPanneauTwo_.add(bouton_);
         bouton_=new LabelButton(messages.getVal(REMOVE_SUIT));
         bouton_.addMouseListener(new RemoveSuitEvent(this, _window));
         sousPanneauTwo_.add(bouton_);
-        sortByDecreasing=new JCheckBox(messages.getVal(SORT_DECREASING));
+        sortByDecreasing=new CustCheckBox(messages.getVal(SORT_DECREASING));
         sortByDecreasing.setSelected(displayingTarot.isDecreasing());
         sousPanneauTwo_.add(sortByDecreasing);
         sousPanneau_.add(sousPanneauTwo_);
@@ -123,7 +117,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         }
         orderedSuits=new SuitsScrollableList(liste_,5, _window);
         liste_.clear();
-        sousPanneau_.add(orderedSuits);
+        sousPanneau_.add(orderedSuits.getContainer());
         getJt().add(messages.getVal(SORTING),sousPanneau_);
         container_.add(getJt(),BorderLayout.CENTER);
         bouton_=new LabelButton(messages.getVal(VALIDATE));

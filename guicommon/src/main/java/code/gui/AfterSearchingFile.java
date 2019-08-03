@@ -2,6 +2,7 @@ package code.gui;
 import java.io.File;
 
 import code.util.CustList;
+import code.util.StringList;
 
 /**Thread safe class*/
 public final class AfterSearchingFile extends Thread {
@@ -30,7 +31,7 @@ public final class AfterSearchingFile extends Thread {
             dialog.getFileModel().setupFiles(results,dialog.getCurrentFolder(), dialog.getExtension());
         } else*/
         if (!dialog.isShowNewResults()) {
-            dialog.getFileModel().setupFiles(backup,dialog.getCurrentFolder(), dialog.getExtension());
+            dialog.refreshList(backup);
         }
         /*else {
             dialog.getFileModel().setupFiles(results,dialog.getCurrentFolder(), dialog.getExtension());

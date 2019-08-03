@@ -8,6 +8,7 @@ import aiki.sml.Resources;
 import aiki.sml.LoadingGame;
 import aiki.gui.MainWindow;
 import aiki.gui.dialogs.events.ValidateSoftParams;
+import code.gui.CustCheckBox;
 import code.gui.Dialog;
 import code.gui.LabelButton;
 import code.gui.Panel;
@@ -30,23 +31,23 @@ public final class SoftParams extends Dialog {
 
     private StringMap<String> messages;
 
-    private JCheckBox loadLastRom;
+    private CustCheckBox loadLastRom;
 
-    private JCheckBox loadLastGame;
+    private CustCheckBox loadLastGame;
 
-    private JCheckBox saveGameAtExit;
+    private CustCheckBox saveGameAtExit;
 
-    private JCheckBox enableAnimation;
+    private CustCheckBox enableAnimation;
 
-    private JCheckBox enableMovingHerosAnimation;
+    private CustCheckBox enableMovingHerosAnimation;
 
-    private JCheckBox clickButtonsPad;
+    private CustCheckBox clickButtonsPad;
 
-    private JCheckBox enabledKeyPad;
+    private CustCheckBox enabledKeyPad;
 
-    private JCheckBox selectHomePath;
+    private CustCheckBox selectHomePath;
 
-    private JCheckBox selectHomePathZip;
+    private CustCheckBox selectHomePathZip;
 
     private boolean ok;
 
@@ -64,8 +65,7 @@ public final class SoftParams extends Dialog {
         ok = false;
         setTitle(messages.getVal(TITLE));
         setLocationRelativeTo(_window);
-        Panel panel_ = new Panel();
-        panel_.setLayout(new GridLayout(0,1));
+        Panel panel_ = Panel.newGrid(0,1);
 //        loadLastRom = _loading.isLoadLastRom();
 //        loadLastGame = _loading.isLoadLastGame();
 //        saveGameAtExit = _loading.isSaveGameAtExit();
@@ -75,7 +75,7 @@ public final class SoftParams extends Dialog {
 //        selectHomePath = _loading.isSaveHomeFolder();
 //        selectHomePathZip = _loading.isLoadHomeFolder();
 //        JCheckBox check_;
-        loadLastRom = new JCheckBox(messages.getVal(ZIP_LOAD));
+        loadLastRom = new CustCheckBox(messages.getVal(ZIP_LOAD));
         loadLastRom.setSelected(_loading.isLoadLastRom());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -84,7 +84,7 @@ public final class SoftParams extends Dialog {
 //            }
 //        });
         panel_.add(loadLastRom);
-        loadLastGame = new JCheckBox(messages.getVal(GAME_LOAD));
+        loadLastGame = new CustCheckBox(messages.getVal(GAME_LOAD));
         loadLastGame.setSelected(_loading.isLoadLastGame());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -93,7 +93,7 @@ public final class SoftParams extends Dialog {
 //            }
 //        });
         panel_.add(loadLastGame);
-        enableAnimation = new JCheckBox(messages.getVal(ANIMATION));
+        enableAnimation = new CustCheckBox(messages.getVal(ANIMATION));
         enableAnimation.setSelected(_loading.isEnableAnimation());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -103,10 +103,10 @@ public final class SoftParams extends Dialog {
 //        });
         panel_.add(enableAnimation);
         panel_.add(loadLastGame);
-        enableMovingHerosAnimation = new JCheckBox(messages.getVal(ANIMATION_MOVING));
+        enableMovingHerosAnimation = new CustCheckBox(messages.getVal(ANIMATION_MOVING));
         enableMovingHerosAnimation.setSelected(_loading.isEnableMovingHerosAnimation());
         panel_.add(enableMovingHerosAnimation);
-        clickButtonsPad = new JCheckBox(messages.getVal(CLICK_PAD));
+        clickButtonsPad = new CustCheckBox(messages.getVal(CLICK_PAD));
         clickButtonsPad.setSelected(_loading.isClickButtonsPad());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -115,7 +115,7 @@ public final class SoftParams extends Dialog {
 //            }
 //        });
         panel_.add(clickButtonsPad);
-        enabledKeyPad = new JCheckBox(messages.getVal(ENABLE_KEY_PAD));
+        enabledKeyPad = new CustCheckBox(messages.getVal(ENABLE_KEY_PAD));
         enabledKeyPad.setSelected(_loading.isEnabledKeyPad());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -124,7 +124,7 @@ public final class SoftParams extends Dialog {
 //            }
 //        });
         panel_.add(enabledKeyPad);
-        saveGameAtExit = new JCheckBox(messages.getVal(SAVE_EXIT));
+        saveGameAtExit = new CustCheckBox(messages.getVal(SAVE_EXIT));
         saveGameAtExit.setSelected(_loading.isSaveGameAtExit());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -133,7 +133,7 @@ public final class SoftParams extends Dialog {
 //            }
 //        });
         panel_.add(saveGameAtExit);
-        selectHomePath = new JCheckBox(messages.getVal(SELECT_HOME_PATH));
+        selectHomePath = new CustCheckBox(messages.getVal(SELECT_HOME_PATH));
         selectHomePath.setSelected(_loading.isSaveHomeFolder());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -142,7 +142,7 @@ public final class SoftParams extends Dialog {
 //            }
 //        });
         panel_.add(selectHomePath);
-        selectHomePathZip = new JCheckBox(messages.getVal(SELECT_HOME_PATH_ZIP));
+        selectHomePathZip = new CustCheckBox(messages.getVal(SELECT_HOME_PATH_ZIP));
         selectHomePathZip.setSelected(_loading.isLoadHomeFolder());
 //        check_.addItemListener(new ItemListener() {
 //            @Override

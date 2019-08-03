@@ -24,11 +24,7 @@ import cards.tarot.DisplayingTarot;
 import cards.tarot.GameTarot;
 import cards.tarot.HandTarot;
 import cards.tarot.sml.DocumentWriterTarotUtil;
-import code.gui.ConfirmDialog;
-import code.gui.ConstFiles;
-import code.gui.FileSaveDialog;
-import code.gui.LabelButton;
-import code.gui.Panel;
+import code.gui.*;
 import code.maths.montecarlo.AbMonteCarlo;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -68,7 +64,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     private TarotCardsScrollableList stack;
     private CustList<TarotCardsScrollableList> hands = new CustList<TarotCardsScrollableList>();
     private TarotCardsScrollableList dog;
-    private JLabel labelSelectCards;
+    private TextLabel labelSelectCards;
     private int nombreCartesSelectionnees;
     private int nombreCartesSelectionneesPrecedent;
     private StringComboBox liste;
@@ -130,15 +126,14 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     @Override
     public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, MainWindow _window) {
         getJt().removeAll();
-        Panel container_=new Panel();
-        container_.setLayout(new BorderLayout());
+        Panel container_=Panel.newBorder();
         initMessageName(_window);
         Ints decks_ = new Ints();
         //Panneau Distribution
         for(int b=FileConst.MIN_DEALS;b<=FileConst.MAX_DEALS;b++) {
             decks_.add(b);
         }
-        initJt(new JSpinner(new SpinnerListModel(decks_.toArray())),_enabledChangingNbPlayers,_nbPlayers, _window);
+        initJt(new Spinner(new SpinnerListModel(decks_.toArray())),_enabledChangingNbPlayers,_nbPlayers, _window);
         container_.add(getJt(),BorderLayout.CENTER);
         Panel panneau_=new Panel();
         LabelButton bouton_=new LabelButton(getMessages().getVal(NEXT));
@@ -157,8 +152,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     private void distribuer(MainWindow _parent) {
 
         setTitle(getMessages().getVal(DEALING_CARDS));
-        Panel c=new Panel();
-        c.setLayout(new BorderLayout());
+        Panel c=Panel.newBorder();
         Panel panneau_=new Panel();
 //        byte nbJ_=(byte) getReglesTarot().getRepartition().getNombreJoueurs();
         byte nbCartesPJ_ = (byte) getReglesTarot().getRepartition().getNombreCartesParJoueur();
@@ -166,7 +160,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 
         HandTarot pile_=HandTarot.pileBase();
         panneau_=new Panel();
-        panneau_.add(new JLabel(getMessages().getVal(DEALER)));
+        panneau_.add(new TextLabel(getMessages().getVal(DEALER)));
         liste=new StringComboBox();
         liste.addItem(nickNames.getPseudo());
         int nbPlayers_ = getReglesTarot().getRepartition().getNombreJoueurs();
@@ -187,12 +181,12 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         panelsCards=new Panel();
         stack = plc_;
-        panelsCards.add(plc_);
+        panelsCards.add(plc_.getContainer());
         plc_=new TarotCardsScrollableList(nbCartesPJ_,nbCartesPJ_,getMessages().getVal(USER_HAND));
         plc_.initSelectionCarteTarot(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         plc_.setTriTarot(displayingTarot.getSuits(), displayingTarot.isDecreasing());
-        panelsCards.add(plc_);
+        panelsCards.add(plc_.getContainer());
         hands.clear();
         hands.add(plc_);
 //        int i_=0;
@@ -209,7 +203,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
             plc_.initSelectionCarteTarot(_parent);
             plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
             plc_.setTriTarot(displayingTarot.getSuits(), displayingTarot.isDecreasing());
-            panelsCards.add(plc_);
+            panelsCards.add(plc_.getContainer());
             hands.add(plc_);
 //            i_++;
         }
@@ -217,10 +211,9 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         plc_.initSelectionCarteTarot(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         plc_.setTriTarot(displayingTarot.getSuits(), displayingTarot.isDecreasing());
-        panelsCards.add(plc_);
+        panelsCards.add(plc_.getContainer());
         dog = plc_;
-        panneau_=new Panel();
-        panneau_.setLayout(new BorderLayout());
+        panneau_=Panel.newBorder();
         panneau_.add(panelsCards,BorderLayout.CENTER);
         Panel sousPanneau_=new Panel();
         LabelButton bouton_=new LabelButton(getMessages().getVal(MOVE_CARDS));
@@ -239,7 +232,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         }
         listeTwo.addItem(getMessages().getVal(REMAINING));
         sousPanneau_.add(listeTwo);
-        labelSelectCards = new JLabel(StringList.simpleNumberFormat(getMessages().getVal(SELECTED_CARDS),nombreCartesSelectionnees));
+        labelSelectCards = new TextLabel(StringList.simpleNumberFormat(getMessages().getVal(SELECTED_CARDS),nombreCartesSelectionnees));
         sousPanneau_.add(labelSelectCards);
         panneau_.add(sousPanneau_,BorderLayout.SOUTH);
         c.add(panneau_,BorderLayout.CENTER);
@@ -428,7 +421,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         return panelsCards;
     }
     @Override
-    public JLabel getLabelSelectCards() {
+    public TextLabel getLabelSelectCards() {
         return labelSelectCards;
     }
     @Override

@@ -61,12 +61,7 @@ import cards.president.TricksHandsPresident;
 import cards.president.beans.PresidentStandards;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
-import code.gui.ConfirmDialog;
-import code.gui.LabelButton;
-import code.gui.NumComboBox;
-import code.gui.Panel;
-import code.gui.ScrollPane;
-import code.gui.TabbedPane;
+import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.util.CustList;
 import code.util.*;
@@ -82,20 +77,20 @@ public class ContainerMultiPresident extends ContainerPresident implements
     private byte indexInGame = CustList.INDEX_NOT_FOUND_ELT;
     private RulesPresident rulesPresidentMulti = new RulesPresident();
     private NumComboBox choiceOfPlaceForPlayingGame;
-    private JCheckBox ready;
+    private CustCheckBox ready;
 
 //    private DealingPresident repPresident;
     private int nbChoosenPlayers = CustList.INDEX_NOT_FOUND_ELT;
     private boolean hasCreatedServer;
     private boolean readyToPlay;
-    private CustList<JLabel> playersPseudos = new CustList<JLabel>();
-    private CustList<JLabel> playersPlaces = new CustList<JLabel>();
-    private CustList<JCheckBox> playersReady = new CustList<JCheckBox>();
+    private CustList<TextLabel> playersPseudos = new CustList<TextLabel>();
+    private CustList<TextLabel> playersPlaces = new CustList<TextLabel>();
+    private CustList<CustCheckBox> playersReady = new CustList<CustCheckBox>();
     private RenderedPage editor;
     private IntTreeMap< Byte> playersPlacesForGame = new IntTreeMap< Byte>();
     private IntMap<String> playersPseudosForGame = new IntMap<String>();
     private HandPresident playerHandPresident = new HandPresident();
-    private JLabel canPlayLabel = new JLabel();
+    private TextLabel canPlayLabel = new TextLabel("");
     private int nbCardsDiscard;
 
     public ContainerMultiPresident(MainWindow _window, boolean _hasCreatedServer, int _nbPlayers) {
@@ -118,11 +113,9 @@ public class ContainerMultiPresident extends ContainerPresident implements
         getLoad().setEnabledMenu(false);
         rulesPresidentMulti = _players.getRulesPresident();
         nbChoosenPlayers = _players.getNbPlayers();
-        Panel container_ = new Panel();
-        container_.setLayout(new BoxLayout(container_.getComponent(), BoxLayout.PAGE_AXIS));
-        Panel panel_ = new Panel();
-        panel_.setLayout(new GridLayout(0, 2));
-        panel_.add(new JLabel(getMessages().getVal(MainWindow.PLACE)));
+        Panel container_ = Panel.newPageBox();
+        Panel panel_ = Panel.newGrid(0, 2);
+        panel_.add(new TextLabel(getMessages().getVal(MainWindow.PLACE)));
         choiceOfPlaceForPlayingGame = new NumComboBox();
         for (int i = CustList.FIRST_INDEX; i < nbChoosenPlayers; i++) {
             choiceOfPlaceForPlayingGame.addItem(i);
@@ -132,28 +125,27 @@ public class ContainerMultiPresident extends ContainerPresident implements
         indexInGame = choiceOfPlaceForPlayingGame.getCurrent().byteValue();
         choiceOfPlaceForPlayingGame.setListener(new ChangePlaceEvent(this));
         panel_.add(choiceOfPlaceForPlayingGame);
-        ready = new JCheckBox(getMessages().getVal(MainWindow.READY));
+        ready = new CustCheckBox(getMessages().getVal(MainWindow.READY));
         ready.addActionListener(new ReadyEvent(this));
         panel_.add(ready);
         container_.add(panel_);
-        panel_ = new Panel();
-        panel_.setLayout(new GridLayout(0, 3));
+        panel_ = Panel.newGrid(0, 3);
         playersPseudos.clear();
         for (int i = CustList.FIRST_INDEX; i < nbChoosenPlayers; i++) {
-            JLabel pseudo_ = new JLabel();
+            TextLabel pseudo_ = new TextLabel("");
             playersPseudos.add(pseudo_);
             panel_.add(pseudo_);
-            JLabel place_ = new JLabel();
+            TextLabel place_ = new TextLabel("");
             playersPlaces.add(place_);
             panel_.add(place_);
-            JCheckBox ready_ = new JCheckBox();
+            CustCheckBox ready_ = new CustCheckBox();
             ready_.setEnabled(false);
             playersReady.add(ready_);
             panel_.add(ready_);
         }
         container_.add(panel_);
 
-        JScrollPane scroll_ = new JScrollPane();
+        ScrollPane scroll_ = new ScrollPane();
         editor = new RenderedPage(scroll_);
         editor.setLanguage(lg_);
         editor.setDataBase(rulesPresidentMulti);
@@ -495,9 +487,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
     }
 
     private void placerIhmPresidentMulti(ByteMap<Playing> _status, int _nbMax) {
-        Panel container_ = new Panel();
-        container_.setLayout(new BorderLayout());
-        container_.add(new JLabel(getMessages().getVal(MainWindow.HELP_GO_MENU),
+        Panel container_ = Panel.newBorder();
+        container_.add(new TextLabel(getMessages().getVal(MainWindow.HELP_GO_MENU),
                 SwingConstants.CENTER), BorderLayout.NORTH);
         String lg_ = getOwner().getLanguageKey();
         CarpetPresident tapis_ = new CarpetPresident();
@@ -518,32 +509,30 @@ public class ContainerMultiPresident extends ContainerPresident implements
         StringList list_ = new StringList(pseudos_.values());
         tapis_.initTapisPresident(lg_,list_, status_, _nbMax);
         getTapis().setTapisPresident(tapis_);
-        container_.add(tapis_, BorderLayout.CENTER);
-        Panel panneau_ = new Panel();
+        container_.add(tapis_.getContainer(), BorderLayout.CENTER);
+        Panel panneau_;
+        panneau_=Panel.newFlow(FlowLayout.LEFT, 0, 0);
         panneau_.setBackground(Color.BLUE);
-        panneau_.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         setPanelHand(panneau_);
         container_.add(panneau_, BorderLayout.SOUTH);
-        Panel panneau2_=new Panel();
-        panneau2_.setLayout(new BoxLayout(panneau2_.getComponent(), BoxLayout.PAGE_AXIS));
-        setEvents(new JTextArea(EMPTY,8, 30));
+        Panel panneau2_=Panel.newPageBox();
+        setEvents(new TextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
         panneau2_.add(new ScrollPane(getEvents()));
-        setHandfuls(new ByteMap<JLabel>());
+        setHandfuls(new ByteMap<TextLabel>());
         setDeclaredHandfuls(new ByteMap<Panel>());
 //        JPanel declaredHandfuls_ = new JPanel(new GridLayout(0,1));
 //        int nbPlayers_ = partie_.getNombreDeJoueurs();
-        Panel sousPanneau_=new Panel();
-        sousPanneau_.setLayout(new BoxLayout(sousPanneau_.getComponent(), BoxLayout.PAGE_AXIS));
+        Panel sousPanneau_=Panel.newPageBox();
         Panel panelCards_ = new Panel();
         Panel panelDiscard_ = new Panel();
+        panelDiscard_=Panel.newFlow(FlowLayout.LEFT,0,0);
         panelDiscard_.setBorder(BorderFactory.createTitledBorder(getMessages().getVal(MainWindow.GIVEN_CARDS)));
-        panelDiscard_.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
         panelCards_.add(panelDiscard_);
         setPanelGivenCards(panelDiscard_);
         Panel panelRec_ = new Panel();
+        panelRec_=Panel.newFlow(FlowLayout.LEFT,0,0);
         panelRec_.setBorder(BorderFactory.createTitledBorder(getMessages().getVal(MainWindow.RECEIVED_CARDS)));
-        panelRec_.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
         panelCards_.add(panelRec_);
         setPanelReceivedCards(panelRec_);
         sousPanneau_.add(panelCards_);
@@ -555,8 +544,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         panneau2_.add(getNoPlay());
         setActionsHistory(panneau2_);
         container_.add(panneau2_,BorderLayout.EAST);
-        Panel panel_ = new Panel();
-        panel_.setLayout(new BoxLayout(panel_.getComponent(), BoxLayout.PAGE_AXIS));
+        Panel panel_ = Panel.newPageBox();
         panel_.add(new ScrollPane(container_));
         canPlayLabel.setText(EMPTY_STRING);
         panel_.add(canPlayLabel);
@@ -627,7 +615,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         if (!_inHand) {
             int rec_ = getReceivedCards().total();
             while (index_ < rec_) {
-                JLabel l_ = new JLabel();
+                TextLabel l_ = new TextLabel("");
                 if (index_ > CustList.FIRST_INDEX) {
                     l_.setPreferredSize(GraphicPresidentCard.getDimension(true));
                 } else {
@@ -658,8 +646,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         getHelpGame().setEnabledMenu(false);
         getOwner().getTricksHands().setEnabledMenu(false);
         getOwner().getTeams().setEnabledMenu(false);
-        Panel container_=new Panel();
-        container_.setLayout(new BorderLayout());
+        Panel container_=Panel.newBorder();
 
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);
@@ -668,7 +655,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         String lg_ = getOwner().getLanguageKey();
         setScores(_res.getScores());
 
-        JScrollPane scroll_=new JScrollPane();
+        ScrollPane scroll_=new ScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
         editor_.setLanguage(lg_);
         editor_.setDataBase(_res);
@@ -676,15 +663,13 @@ public class ContainerMultiPresident extends ContainerPresident implements
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         container_.add(onglets_,BorderLayout.CENTER);
-        Panel panneau_=new Panel();
-        panneau_.setLayout(new BoxLayout(panneau_.getComponent(), BoxLayout.PAGE_AXIS));
+        Panel panneau_=Panel.newPageBox();
         readyToPlay = false;
-        ready = new JCheckBox(getMessages().getVal(MainWindow.READY));
+        ready = new CustCheckBox(getMessages().getVal(MainWindow.READY));
         ready.addActionListener(new ReadyEvent(this));
         panneau_.add(ready);
 
-        Panel panel_ = new Panel();
-        panel_.setLayout(new GridLayout(0,3));
+        Panel panel_ = Panel.newGrid(0,3);
 
         for (int i = CustList.FIRST_INDEX;i<nbChoosenPlayers;i++) {
             panel_.add(playersPseudos.get(i));

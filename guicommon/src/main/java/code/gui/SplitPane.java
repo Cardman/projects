@@ -2,14 +2,11 @@ package code.gui;
 
 import javax.swing.JComponent;
 import javax.swing.JSplitPane;
+import java.awt.*;
 
 public class SplitPane extends CustComponent {
 
     private JSplitPane component;
-
-    public SplitPane(int _orientation) {
-        component = new JSplitPane(_orientation);
-    }
 
     public SplitPane(int _orientation, CustComponent _left, CustComponent _right) {
         component = new JSplitPane(_orientation,_left.getComponent(),_right.getComponent());
@@ -17,10 +14,6 @@ public class SplitPane extends CustComponent {
         getChildren().add(_left);
         _right.setParent(this);
         getChildren().add(_right);
-    }
-
-    public SplitPane() {
-        component = new JSplitPane();
     }
 
     @Override
@@ -59,5 +52,9 @@ public class SplitPane extends CustComponent {
 
     public void setDividerLocation(int _i) {
         component.setDividerLocation(_i);
+    }
+
+    public void setPreferredSize(Dimension _dimension) {
+        component.setPreferredSize(_dimension);
     }
 }

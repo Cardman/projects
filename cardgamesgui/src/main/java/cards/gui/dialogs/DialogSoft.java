@@ -6,7 +6,6 @@ import java.awt.GridLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-import javax.swing.JSlider;
 
 import cards.facade.SoftParams;
 import cards.facade.enumerations.GameEnum;
@@ -14,8 +13,7 @@ import cards.gui.MainWindow;
 import cards.gui.comboboxes.ComboBoxGameEnum;
 import cards.gui.dialogs.events.ListenerChangeSlide;
 import cards.gui.dialogs.events.ListenerParameters;
-import code.gui.LabelButton;
-import code.gui.Panel;
+import code.gui.*;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.StringList;
@@ -41,13 +39,13 @@ public final class DialogSoft extends DialogCards {
     private StringMap<String> messages;
     private SoftParams parametres=new SoftParams();
     private ComboBoxGameEnum list;
-    private JCheckBox saveHomeFolder;
+    private CustCheckBox saveHomeFolder;
     private String menu;
-    private JCheckBox waitTrickClick;
-    private JSlider delayWaitTricks;
-    private JSlider delayWaitCards;
-    private JSlider delayWaitBids;
-    private JCheckBox clickCard;
+    private CustCheckBox waitTrickClick;
+    private Slider delayWaitTricks;
+    private Slider delayWaitCards;
+    private Slider delayWaitBids;
+    private CustCheckBox clickCard;
 
     private DialogSoft() {
         setAccessFile(DIALOG_ACCESS);
@@ -71,12 +69,10 @@ public final class DialogSoft extends DialogCards {
     private void setDialogue(String _menu, MainWindow _fenetre) {
         menu = _menu;
         String lg_ = _fenetre.getLanguageKey();
-        Panel container_=new Panel();
-        container_.setLayout(new BorderLayout());
+        Panel container_=Panel.newBorder();
         if(StringList.quickEq(menu,MainWindow.LAUNCHING)) {
             //Lancement du logiciel
-            Panel panneau_=new Panel();
-            panneau_.setLayout(new BoxLayout(panneau_.getComponent(), BoxLayout.PAGE_AXIS));
+            Panel panneau_=Panel.newPageBox();
             list = new ComboBoxGameEnum();
             EnumMap<GameEnum,String> mess_;
             EnumList<GameEnum> order_;
@@ -92,12 +88,12 @@ public final class DialogSoft extends DialogCards {
 //            liste=new JComboBox<>(new Object[]{messages.getVal(LAUNCHING),GameEnum.BELOTE,GameEnum.PRESIDENT,GameEnum.TAROT});
 //            panneau_.add(liste);
             panneau_.add(list);
-            saveHomeFolder = new JCheckBox(messages.getVal(SELECT_HOME_PATH));
+            saveHomeFolder = new CustCheckBox(messages.getVal(SELECT_HOME_PATH));
             panneau_.add(saveHomeFolder);
             container_.add(panneau_,BorderLayout.CENTER);
         } else if(StringList.quickEq(menu,MainWindow.TIMING)) {
-            Panel panneau_=new Panel(new GridLayout(0,1));
-            JLabel label_;
+            Panel panneau_=Panel.newGrid(0,1);
+            TextLabel label_;
             int valeur_=0;
             int minValeur_=0;
             int maxValeur_=0;
@@ -109,9 +105,9 @@ public final class DialogSoft extends DialogCards {
             String sentence_ = messages.getVal(WAITING_SENTENCE);
             String prefix_ = messages.getVal(WAITING_BIDDING);
             String values_ = StringList.simpleNumberFormat(messages.getVal(WAITING_VALUES), minValeur_, maxValeur_, valeur_);
-            label_ = new JLabel(StringList.simpleStringsFormat(sentence_, prefix_, values_));
+            label_ = new TextLabel(StringList.simpleStringsFormat(sentence_, prefix_, values_));
             panneau_.add(label_);
-            delayWaitBids=new JSlider(minValeur_,maxValeur_);
+            delayWaitBids=new Slider(minValeur_,maxValeur_);
             delayWaitBids.setValue(valeur_);
             delayWaitBids.addChangeListener(new ListenerChangeSlide(WAITING_BIDDING, messages, sentence_));
             panneau_.add(delayWaitBids);
@@ -121,9 +117,9 @@ public final class DialogSoft extends DialogCards {
             maxValeur_=2000;
             prefix_ = messages.getVal(WAITING_PLAYED_CARD);
             values_ = StringList.simpleNumberFormat(messages.getVal(WAITING_VALUES),minValeur_, maxValeur_, valeur_);
-            label_ = new JLabel(StringList.simpleStringsFormat(sentence_, prefix_, values_));
+            label_ = new TextLabel(StringList.simpleStringsFormat(sentence_, prefix_, values_));
             panneau_.add(label_);
-            delayWaitCards=new JSlider(minValeur_,maxValeur_);
+            delayWaitCards=new Slider(minValeur_,maxValeur_);
             delayWaitCards.setValue(valeur_);
             delayWaitCards.addChangeListener(new ListenerChangeSlide(WAITING_PLAYED_CARD, messages, sentence_));
             panneau_.add(delayWaitCards);
@@ -133,21 +129,21 @@ public final class DialogSoft extends DialogCards {
             maxValeur_=3000;
             prefix_ = messages.getVal(WAITING_TRICK);
             values_ = StringList.simpleNumberFormat(messages.getVal(WAITING_VALUES),minValeur_, maxValeur_, valeur_);
-            label_ = new JLabel(StringList.simpleStringsFormat(sentence_, prefix_, values_));
+            label_ = new TextLabel(StringList.simpleStringsFormat(sentence_, prefix_, values_));
             panneau_.add(label_);
-            delayWaitTricks=new JSlider(minValeur_,maxValeur_);
+            delayWaitTricks=new Slider(minValeur_,maxValeur_);
             delayWaitTricks.setValue(valeur_);
             delayWaitTricks.addChangeListener(new ListenerChangeSlide(WAITING_TRICK, messages, sentence_));
             panneau_.add(delayWaitTricks);
 //            indiceInfo_++;
-            waitTrickClick =new JCheckBox(messages.getVal(CLICK_FOR_PLAYING_TRICK));
+            waitTrickClick =new CustCheckBox(messages.getVal(CLICK_FOR_PLAYING_TRICK));
             waitTrickClick.setSelected(parametres.getAttentePlisClic());
             panneau_.add(waitTrickClick);
             panneau_.setPreferredSize(new Dimension(600,400));
             container_.add(panneau_,BorderLayout.CENTER);
         } else {
-            Panel panneau_=new Panel(new GridLayout(0,1));
-            clickCard=new JCheckBox(messages.getVal(CLICK_FOR_PLAYING_CARD));
+            Panel panneau_=Panel.newGrid(0,1);
+            clickCard=new CustCheckBox(messages.getVal(CLICK_FOR_PLAYING_CARD));
             clickCard.setSelected(parametres.getJeuCarteClic());
             panneau_.add(clickCard);
             container_.add(panneau_,BorderLayout.CENTER);

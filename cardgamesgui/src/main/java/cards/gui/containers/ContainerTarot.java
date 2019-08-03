@@ -16,10 +16,7 @@ import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import cards.tarot.sml.DocumentReaderTarotUtil;
-import code.gui.LabelButton;
-import code.gui.Panel;
-import code.gui.ScrollPane;
-import code.gui.SplitPane;
+import code.gui.*;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -49,7 +46,7 @@ public class ContainerTarot extends ContainerGame{
     private boolean discardCall;
     /**Carte survol&eacute;e par la souris*/
     private Panel panelDiscardedTrumps;
-    private ButtonGroup listHandfuls = new ButtonGroup();
+    private CustButtonGroup listHandfuls = new CustButtonGroup();
     private HandTarot currentIncludedTrumps = new HandTarot();
     private HandTarot currentExcludedTrumps = new HandTarot();
     private ScrollPane scrollDeclaringHandful;
@@ -61,7 +58,7 @@ public class ContainerTarot extends ContainerGame{
     private Panel panelCallableCards;
     private Handfuls choosenHandful = Handfuls.NO;
     private CardTarot carteSurvoleeTarot;
-    private JTextArea infoCurrentHandful;
+    private TextArea infoCurrentHandful;
     private LabelButton validateDog;
     private LabelButton slamButton;
 
@@ -167,10 +164,10 @@ public class ContainerTarot extends ContainerGame{
     public void setChoosenHandful(Handfuls _choosenHandful) {
         choosenHandful = _choosenHandful;
     }
-    protected ButtonGroup getListHandfuls() {
+    protected CustButtonGroup getListHandfuls() {
         return listHandfuls;
     }
-    protected void setListHandfuls(ButtonGroup _listHandfuls) {
+    protected void setListHandfuls(CustButtonGroup _listHandfuls) {
         listHandfuls = _listHandfuls;
     }
     public ScrollPane getScrollDeclaringHandful() {
@@ -268,10 +265,10 @@ public class ContainerTarot extends ContainerGame{
     public void setCarteSurvoleeTarot(CardTarot _carteSurvoleeTarot) {
         carteSurvoleeTarot = _carteSurvoleeTarot;
     }
-    public JTextArea getInfoCurrentHandful() {
+    public TextArea getInfoCurrentHandful() {
         return infoCurrentHandful;
     }
-    public void setInfoCurrentHandful(JTextArea _infoCurrentHandful) {
+    public void setInfoCurrentHandful(TextArea _infoCurrentHandful) {
         infoCurrentHandful = _infoCurrentHandful;
     }
     public LabelButton getValidateDog() {

@@ -37,7 +37,7 @@ public final class DialogTricksBelote extends DialogCards {
             DisplayingBelote _displayingBelote, MainWindow _ow) {
         _tricksHands.sortHands(_displayingBelote, _numberPlayers);
         ScrollPane scroll_ = new ScrollPane(new PanelTricksHandsBelote(this,
-                _tricksHands, _numberPlayers, _pseudos, _displayingBelote, _ow));
+                _tricksHands, _numberPlayers, _pseudos, _displayingBelote, _ow).getContainer());
         scroll_.setPreferredSize(new Dimension(600, 600));
         setContentPane(scroll_);
         pack();

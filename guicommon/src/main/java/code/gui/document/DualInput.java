@@ -1,8 +1,7 @@
 package code.gui.document;
 
-import javax.swing.JComponent;
-
 import code.formathtml.render.MetaInput;
+import code.gui.CustComponent;
 import code.gui.Input;
 
 public abstract class DualInput extends DualLeaf {
@@ -23,7 +22,7 @@ public abstract class DualInput extends DualLeaf {
     }
 
     @Override
-    public JComponent getGraphic() {
+    public CustComponent getGraphic() {
         return select.getGlobal();
     }
 

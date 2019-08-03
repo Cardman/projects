@@ -9,15 +9,18 @@ import aiki.game.fight.Fighter;
 import aiki.gui.listeners.SelectFoeTarget;
 import aiki.gui.listeners.SelectPlayerTarget;
 import code.gui.Panel;
+import code.gui.TextLabel;
 import code.util.BooleanList;
 import code.util.CustList;
 import code.util.*;
 
-public class TargetsPanel extends Panel {
+public class TargetsPanel {
 
     private CustList<MiniTargetLabel> foeTargets = new CustList<MiniTargetLabel>();
 
     private CustList<MiniTargetLabel> playerTargets = new CustList<MiniTargetLabel>();
+
+    private Panel container = Panel.newFlow();
 
     public void setTargets(FacadeGame _facade, Battle _battle) {
         byte mult_ = _facade.getFight().getMult();
@@ -90,139 +93,142 @@ public class TargetsPanel extends Panel {
     }
 
     private void placeLabels(byte _mult) {
-        removeAll();
         if (_mult == 1) {
-            setLayout(new GridLayout(0, 2));
-            add(new JLabel(DataBase.EMPTY_STRING));
+            container = Panel.newGrid(0, 2);
+            container.add(new TextLabel(DataBase.EMPTY_STRING));
             if (foeTargets.isValidIndex(CustList.FIRST_INDEX)) {
-                add(foeTargets.get(CustList.FIRST_INDEX));
+                container.add(foeTargets.get(CustList.FIRST_INDEX));
             } else {
-                add(new JLabel(DataBase.EMPTY_STRING));
+                container.add(new TextLabel(DataBase.EMPTY_STRING));
             }
             if (playerTargets.isValidIndex(CustList.FIRST_INDEX)) {
-                add(playerTargets.get(CustList.FIRST_INDEX));
+                container.add(playerTargets.get(CustList.FIRST_INDEX));
             } else {
-                add(new JLabel(DataBase.EMPTY_STRING));
+                container.add(new TextLabel(DataBase.EMPTY_STRING));
             }
-            add(new JLabel(DataBase.EMPTY_STRING));
+            container.add(new TextLabel(DataBase.EMPTY_STRING));
         } else if (_mult == 2) {
-            setLayout(new GridLayout(0, 4));
-            add(new JLabel(DataBase.EMPTY_STRING));
-            add(new JLabel(DataBase.EMPTY_STRING));
+            container = Panel.newGrid(0, 4);
+            container.add(new TextLabel(DataBase.EMPTY_STRING));
+            container.add(new TextLabel(DataBase.EMPTY_STRING));
             if (foeTargets.isValidIndex(CustList.FIRST_INDEX)) {
-                add(foeTargets.get(CustList.FIRST_INDEX));
+                container.add(foeTargets.get(CustList.FIRST_INDEX));
             } else {
-                add(new JLabel(DataBase.EMPTY_STRING));
+                container.add(new TextLabel(DataBase.EMPTY_STRING));
             }
             if (foeTargets.isValidIndex(CustList.FIRST_INDEX + 1)) {
-                add(foeTargets.get(CustList.FIRST_INDEX + 1));
+                container.add(foeTargets.get(CustList.FIRST_INDEX + 1));
             } else {
-                add(new JLabel(DataBase.EMPTY_STRING));
+                container.add(new TextLabel(DataBase.EMPTY_STRING));
             }
             if (playerTargets.isValidIndex(CustList.FIRST_INDEX)) {
-                add(playerTargets.get(CustList.FIRST_INDEX));
+                container.add(playerTargets.get(CustList.FIRST_INDEX));
             } else {
-                add(new JLabel(DataBase.EMPTY_STRING));
+                container.add(new TextLabel(DataBase.EMPTY_STRING));
             }
             if (playerTargets.isValidIndex(CustList.FIRST_INDEX + 1)) {
-                add(playerTargets.get(CustList.FIRST_INDEX + 1));
+                container.add(playerTargets.get(CustList.FIRST_INDEX + 1));
             } else {
-                add(new JLabel(DataBase.EMPTY_STRING));
+                container.add(new TextLabel(DataBase.EMPTY_STRING));
             }
-            add(new JLabel(DataBase.EMPTY_STRING));
-            add(new JLabel(DataBase.EMPTY_STRING));
+            container.add(new TextLabel(DataBase.EMPTY_STRING));
+            container.add(new TextLabel(DataBase.EMPTY_STRING));
         } else if (_mult == 3) {
-            setLayout(new GridLayout(0, 4));
-            add(new JLabel(DataBase.EMPTY_STRING));
-            add(new JLabel(DataBase.EMPTY_STRING));
+            container = Panel.newGrid(0, 4);
+            container.add(new TextLabel(DataBase.EMPTY_STRING));
+            container.add(new TextLabel(DataBase.EMPTY_STRING));
             if (foeTargets.isValidIndex(CustList.FIRST_INDEX)) {
-                add(foeTargets.get(CustList.FIRST_INDEX));
+                container.add(foeTargets.get(CustList.FIRST_INDEX));
             } else {
-                add(new JLabel(DataBase.EMPTY_STRING));
+                container.add(new TextLabel(DataBase.EMPTY_STRING));
             }
-            add(new JLabel(DataBase.EMPTY_STRING));
-            add(new JLabel(DataBase.EMPTY_STRING));
-            add(new JLabel(DataBase.EMPTY_STRING));
+            container.add(new TextLabel(DataBase.EMPTY_STRING));
+            container.add(new TextLabel(DataBase.EMPTY_STRING));
+            container.add(new TextLabel(DataBase.EMPTY_STRING));
             if (foeTargets.isValidIndex(CustList.FIRST_INDEX+1)) {
-                add(foeTargets.get(CustList.FIRST_INDEX+1));
+                container.add(foeTargets.get(CustList.FIRST_INDEX+1));
             } else {
-                add(new JLabel(DataBase.EMPTY_STRING));
+                container.add(new TextLabel(DataBase.EMPTY_STRING));
             }
             if (foeTargets.isValidIndex(CustList.FIRST_INDEX+2)) {
-                add(foeTargets.get(CustList.FIRST_INDEX+2));
+                container.add(foeTargets.get(CustList.FIRST_INDEX+2));
             } else {
-                add(new JLabel(DataBase.EMPTY_STRING));
+                container.add(new TextLabel(DataBase.EMPTY_STRING));
             }
             if (playerTargets.isValidIndex(CustList.FIRST_INDEX)) {
-                add(playerTargets.get(CustList.FIRST_INDEX));
+                container.add(playerTargets.get(CustList.FIRST_INDEX));
             } else {
-                add(new JLabel(DataBase.EMPTY_STRING));
+                container.add(new TextLabel(DataBase.EMPTY_STRING));
             }
             if (playerTargets.isValidIndex(CustList.FIRST_INDEX+1)) {
-                add(playerTargets.get(CustList.FIRST_INDEX+1));
+                container.add(playerTargets.get(CustList.FIRST_INDEX+1));
             } else {
-                add(new JLabel(DataBase.EMPTY_STRING));
+                container.add(new TextLabel(DataBase.EMPTY_STRING));
             }
-            add(new JLabel(DataBase.EMPTY_STRING));
-            add(new JLabel(DataBase.EMPTY_STRING));
-            add(new JLabel(DataBase.EMPTY_STRING));
+            container.add(new TextLabel(DataBase.EMPTY_STRING));
+            container.add(new TextLabel(DataBase.EMPTY_STRING));
+            container.add(new TextLabel(DataBase.EMPTY_STRING));
             if (playerTargets.isValidIndex(CustList.FIRST_INDEX+2)) {
-                add(playerTargets.get(CustList.FIRST_INDEX+2));
+                container.add(playerTargets.get(CustList.FIRST_INDEX+2));
             } else {
-                add(new JLabel(DataBase.EMPTY_STRING));
+                container.add(new TextLabel(DataBase.EMPTY_STRING));
             }
-            add(new JLabel(DataBase.EMPTY_STRING));
-            add(new JLabel(DataBase.EMPTY_STRING));
+            container.add(new TextLabel(DataBase.EMPTY_STRING));
+            container.add(new TextLabel(DataBase.EMPTY_STRING));
         } else {
-            setLayout(new GridLayout(0, 4));
-            add(new JLabel(DataBase.EMPTY_STRING));
-            add(new JLabel(DataBase.EMPTY_STRING));
+            container = Panel.newGrid(0, 4);
+            container.add(new TextLabel(DataBase.EMPTY_STRING));
+            container.add(new TextLabel(DataBase.EMPTY_STRING));
             if (foeTargets.isValidIndex(CustList.FIRST_INDEX)) {
-                add(foeTargets.get(CustList.FIRST_INDEX));
+                container.add(foeTargets.get(CustList.FIRST_INDEX));
             } else {
-                add(new JLabel(DataBase.EMPTY_STRING));
+                container.add(new TextLabel(DataBase.EMPTY_STRING));
             }
             if (foeTargets.isValidIndex(CustList.FIRST_INDEX+1)) {
-                add(foeTargets.get(CustList.FIRST_INDEX+1));
+                container.add(foeTargets.get(CustList.FIRST_INDEX+1));
             } else {
-                add(new JLabel(DataBase.EMPTY_STRING));
+                container.add(new TextLabel(DataBase.EMPTY_STRING));
             }
-            add(new JLabel(DataBase.EMPTY_STRING));
-            add(new JLabel(DataBase.EMPTY_STRING));
+            container.add(new TextLabel(DataBase.EMPTY_STRING));
+            container.add(new TextLabel(DataBase.EMPTY_STRING));
             if (foeTargets.isValidIndex(CustList.FIRST_INDEX+2)) {
-                add(foeTargets.get(CustList.FIRST_INDEX+2));
+                container.add(foeTargets.get(CustList.FIRST_INDEX+2));
             } else {
-                add(new JLabel(DataBase.EMPTY_STRING));
+                container.add(new TextLabel(DataBase.EMPTY_STRING));
             }
             if (foeTargets.isValidIndex(CustList.FIRST_INDEX+3)) {
-                add(foeTargets.get(CustList.FIRST_INDEX+3));
+                container.add(foeTargets.get(CustList.FIRST_INDEX+3));
             } else {
-                add(new JLabel(DataBase.EMPTY_STRING));
+                container.add(new TextLabel(DataBase.EMPTY_STRING));
             }
             if (playerTargets.isValidIndex(CustList.FIRST_INDEX)) {
-                add(playerTargets.get(CustList.FIRST_INDEX));
+                container.add(playerTargets.get(CustList.FIRST_INDEX));
             } else {
-                add(new JLabel(DataBase.EMPTY_STRING));
+                container.add(new TextLabel(DataBase.EMPTY_STRING));
             }
             if (playerTargets.isValidIndex(CustList.FIRST_INDEX+1)) {
-                add(playerTargets.get(CustList.FIRST_INDEX+1));
+                container.add(playerTargets.get(CustList.FIRST_INDEX+1));
             } else {
-                add(new JLabel(DataBase.EMPTY_STRING));
+                container.add(new TextLabel(DataBase.EMPTY_STRING));
             }
-            add(new JLabel(DataBase.EMPTY_STRING));
-            add(new JLabel(DataBase.EMPTY_STRING));
+            container.add(new TextLabel(DataBase.EMPTY_STRING));
+            container.add(new TextLabel(DataBase.EMPTY_STRING));
             if (playerTargets.isValidIndex(CustList.FIRST_INDEX+2)) {
-                add(playerTargets.get(CustList.FIRST_INDEX+2));
+                container.add(playerTargets.get(CustList.FIRST_INDEX+2));
             } else {
-                add(new JLabel(DataBase.EMPTY_STRING));
+                container.add(new TextLabel(DataBase.EMPTY_STRING));
             }
             if (playerTargets.isValidIndex(CustList.FIRST_INDEX+3)) {
-                add(playerTargets.get(CustList.FIRST_INDEX+3));
+                container.add(playerTargets.get(CustList.FIRST_INDEX+3));
             } else {
-                add(new JLabel(DataBase.EMPTY_STRING));
+                container.add(new TextLabel(DataBase.EMPTY_STRING));
             }
-            add(new JLabel(DataBase.EMPTY_STRING));
-            add(new JLabel(DataBase.EMPTY_STRING));
+            container.add(new TextLabel(DataBase.EMPTY_STRING));
+            container.add(new TextLabel(DataBase.EMPTY_STRING));
         }
+    }
+
+    public Panel getContainer() {
+        return container;
     }
 }

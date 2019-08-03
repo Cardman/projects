@@ -18,21 +18,20 @@ public final class LabelButtonUtil {
     private LabelButtonUtil(){
     }
 
-    public static void setTextDefaultColors(JLabel _label, String _text,
-            boolean _enabled) {
+    static void setTextDefaultColors(JLabel _label, String _text,
+                                     boolean _enabled) {
         BufferedImage img_ = paintButton(_label, _text, _enabled);
         _label.setIcon(new ImageIcon(img_));
     }
 
-    public static BufferedImage paintButton(JLabel _label, String _text,
-            boolean _enabled) {
-        return paintButton(_label, _text, _enabled, DEFAULT_FOREGROUND, DISABLED, Color.WHITE);
+    public static BufferedImage paintButton(PreparedLabel _label, String _text,
+                                            boolean _enabled) {
+        return paintButton(_label.getLabel(), _text, _enabled, DEFAULT_FOREGROUND, DISABLED, Color.WHITE);
     }
 
-    public static void setTextDefaultLabel(JLabel _label, String _text, int _w,
-            Color _front, Color _back) {
-        BufferedImage img_ = paintDefaultLabel(_label, _text, _w, _front, _back);
-        _label.setIcon(new ImageIcon(img_));
+    private static BufferedImage paintButton(JLabel _label, String _text,
+            boolean _enabled) {
+        return paintButton(_label, _text, _enabled, DEFAULT_FOREGROUND, DISABLED, Color.WHITE);
     }
 
     public static void paintDefaultLabel(Graphics _label, String _text, int _w, int _fw, int _h,
@@ -45,8 +44,8 @@ public final class LabelButtonUtil {
         gr_.setColor(_front);
         gr_.drawString(_text, 1, _h);
     }
-    public static BufferedImage paintDefaultLabel(JLabel _label, String _text, int _w,
-            Color _front, Color _back) {
+    static BufferedImage paintDefaultLabel(JLabel _label, String _text, int _w,
+                                           Color _front, Color _back) {
         Font font_ = _label.getFont();
         FontMetrics fontMetrics_ = _label.getFontMetrics(font_);
         int h_ = fontMetrics_.getHeight();
@@ -62,8 +61,8 @@ public final class LabelButtonUtil {
         gr_.dispose();
         return img_;
     }
-    public static BufferedImage paintButton(JLabel _label, String _text,
-            boolean _enabled, Color _enable, Color _disable, Color _back) {
+    private static BufferedImage paintButton(JLabel _label, String _text,
+                                             boolean _enabled, Color _enable, Color _disable, Color _back) {
         Font font_ = _label.getFont();
         FontMetrics fontMetrics_ = _label.getFontMetrics(font_);
         int h_ = fontMetrics_.getHeight();

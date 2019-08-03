@@ -10,6 +10,8 @@ import aiki.facade.FacadeGame;
 import aiki.game.fight.Fighter;
 import code.gui.CustCellRender;
 import code.gui.GraphicListable;
+import code.gui.PaintableLabel;
+import code.gui.PreparedLabel;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -43,9 +45,9 @@ public class FighterRenderer extends CustCellRender {
     }
 
     @Override
-    public JLabel getListCellRendererComponent(GraphicListable _list, Object _value, int _index,
-            boolean _isSelected, boolean _cellHasFocus) {
-        JLabel label_ = (JLabel) _list.getListComponents().get(_index);
+    public PreparedLabel getListCellRendererComponent(GraphicListable _list, Object _value, int _index,
+                                                      boolean _isSelected, boolean _cellHasFocus) {
+        PreparedLabel label_ = _list.getListComponents().get(_index);
         fighter = (Fighter) _value;
         ko = fighter.estKo();
         intRate = fighter.rateRemainHp();

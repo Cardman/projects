@@ -21,13 +21,13 @@ public final class AutoCompleteDocument implements Document {
 
     private final StringList dictionary = new StringList();
 
-    private final JTextComponent textField;
+    private final TextField textField;
 
     private boolean wholeString = true;
 
     private PlainDocument doc = new PlainDocument();
 
-    public AutoCompleteDocument(JTextComponent _field, StringList _aDictionary) {
+    public AutoCompleteDocument(TextField _field, StringList _aDictionary) {
         textField = _field;
         dictionary.addAllElts(_aDictionary);
     }
@@ -194,8 +194,8 @@ public final class AutoCompleteDocument implements Document {
     @param dictionary
     @return
     */
-    public static JTextField createAutoCompleteTextField(StringList _dictionary) {
-        JTextField field_ = new JTextField(WIDTH_FIELD);
+    public static TextField createAutoCompleteTextField(StringList _dictionary) {
+        TextField field_ = new TextField(WIDTH_FIELD);
 
         AutoCompleteDocument doc_ = new AutoCompleteDocument(field_, _dictionary);
         field_.setDocument(doc_);
@@ -206,17 +206,24 @@ public final class AutoCompleteDocument implements Document {
     @param dictionary
     @return
     */
-    public static JTextField createAutoCompleteTextField(StringList _dictionary, int _cols) {
-        JTextField field_ = new JTextField(_cols);
+    public static TextField createAutoCompleteTextField(StringList _dictionary, int _cols) {
+        TextField field_ = new TextField(_cols);
 
         AutoCompleteDocument doc_ = new AutoCompleteDocument(field_, _dictionary);
         field_.setDocument(doc_);
         return field_;
     }
 
-    public static void setMode(JTextField _field,boolean _wholeString) {
+    public static void setMode(TextField _field,boolean _wholeString) {
         AutoCompleteDocument doc_;
         doc_ = (AutoCompleteDocument) _field.getDocument();
         doc_.wholeString = _wholeString;
+    }
+
+    public static void setDictionary(TextField _field,StringList _dictionary) {
+        AutoCompleteDocument doc_;
+        doc_ = (AutoCompleteDocument) _field.getDocument();
+        doc_.dictionary.clear();
+        doc_.dictionary.addAllElts(_dictionary);
     }
 }

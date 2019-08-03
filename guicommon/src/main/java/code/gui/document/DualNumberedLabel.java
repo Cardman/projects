@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 
 import code.formathtml.render.MetaNumberedLabel;
 import code.formathtml.render.MetaStyle;
+import code.gui.PreparedLabel;
+import code.gui.TextLabel;
 
 public final class DualNumberedLabel extends DualLabel {
 
@@ -19,13 +21,13 @@ public final class DualNumberedLabel extends DualLabel {
     public DualNumberedLabel(DualContainer _container, MetaNumberedLabel _component,
                              RenderedPage _page) {
         super(_container, _component, _page);
-        getGraphic().setOpaque(true);
+        getLabel().setOpaque(true);
         number = _component.getNumber();
     }
 
     @Override
     public void paint() {
-        JLabel lab_ = getLabel();
+        PreparedLabel lab_ = getLabel();
         MetaStyle style_ = getComponent().getStyle();
         Font copy_ =  newFont(style_);
         FontMetrics fontMetrics_ = lab_.getFontMetrics(copy_);

@@ -9,6 +9,7 @@ import cards.gui.MainWindow;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.selection.SuitCellRenderer;
 import code.gui.GraphicList;
+import code.gui.TextLabel;
 import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EnumList;
@@ -24,8 +25,8 @@ public class SuitsScrollableList extends ScrollableList {
     public SuitsScrollableList(EnumList<Suit> _couleurs,int _nb, MainWindow _window) {
         String lg_ = _window.getLanguageKey();
         messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_, ACCESS);
-        JLabel titrePanneau_ = new JLabel(messages.getVal(SUITS), SwingConstants.CENTER);
-        add(titrePanneau_, BorderLayout.NORTH);
+        TextLabel titrePanneau_ = new TextLabel(messages.getVal(SUITS), SwingConstants.CENTER);
+        getContainer().add(titrePanneau_, BorderLayout.NORTH);
 //        suits = _couleurs;
         liste=new GraphicList<Suit>(false,false);
         liste.setRender(new SuitCellRenderer(_window));
@@ -35,7 +36,7 @@ public class SuitsScrollableList extends ScrollableList {
         //On peut selectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb);
-        add(liste.getComponent(),BorderLayout.CENTER);
+        getContainer().add(liste,BorderLayout.CENTER);
     }
     public EnumList<Suit> getCouleurs() {
         int s_ = liste.size();

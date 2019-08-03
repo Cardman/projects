@@ -11,6 +11,8 @@ import code.formathtml.render.FindNextElement;
 import code.formathtml.render.MetaDocument;
 import code.formathtml.render.MetaSearchableLabel;
 import code.formathtml.render.SegmentPart;
+import code.gui.ScrollPane;
+import code.gui.TextField;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -21,11 +23,11 @@ public final class FindEvent extends MouseAdapter {
 
     private FindNextElement finding;
 
-    private JTextField field;
+    private TextField field;
 
     private CustList<DualLabel> labels = new CustList<DualLabel>();
 
-    public FindEvent(JTextField _field, RenderedPage _page) {
+    public FindEvent(TextField _field, RenderedPage _page) {
         field = _field;
         page = _page;
     }
@@ -64,7 +66,7 @@ public final class FindEvent extends MouseAdapter {
             l_.paint();
             labels.add(l_);
         }
-        JScrollPane sc_ = page.getScroll();
+        ScrollPane sc_ = page.getScroll();
         DualComponent r_ = page.getPage();
         int x_ = 0;
         int y_ = 0;

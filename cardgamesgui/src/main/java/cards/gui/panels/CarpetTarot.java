@@ -1,9 +1,6 @@
 package cards.gui.panels;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 
 import javax.swing.SwingConstants;
 
@@ -14,160 +11,160 @@ import code.gui.Panel;
 import code.util.CustList;
 import code.util.*;
 
-public class CarpetTarot extends Panel {
+public class CarpetTarot {
 
     /** sens de distribution des cartes */
     private boolean horaire;
     private Panel centerDeck;
 
     private IntMap<GraphicTarotCard> cards = new IntMap<GraphicTarotCard>();
+    private Panel container;
 
     public CarpetTarot() {
     }
 
-    public void initTapisTarot(String _lg, int _nombreDeJoueurs, boolean _horaire, int _nombre) {
-        horaire = _horaire;
+    public static CarpetTarot initTapisTarot(String _lg, int _nombreDeJoueurs, boolean _horaire, int _nombre) {
+        CarpetTarot c_ = new CarpetTarot();
+        Panel cont_;
+        c_.horaire = _horaire;
         if (_nombreDeJoueurs == 4) {
-            setLayout(new GridLayout(0, 3));
+            cont_ = Panel.newGrid(0, 3);
             for (int i = 0; i < 9; i++) {
-                Panel surPanneau_ = new Panel();
-                surPanneau_.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+                Panel surPanneau_;
+                surPanneau_=Panel.newFlow(FlowLayout.CENTER, 0, 0);
                 if (i % 2 == 1) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             SwingConstants.RIGHT, true);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
                     if (i == 1) {
-                        cards.put(2, carte_);
+                        c_.cards.put(2, carte_);
                     } else if (i == 3) {
-                        if (horaire) {
-                            cards.put(1, carte_);
+                        if (c_.horaire) {
+                            c_.cards.put(1, carte_);
                         } else {
-                            cards.put(3, carte_);
+                            c_.cards.put(3, carte_);
                         }
                     } else if (i == 5) {
-                        if (horaire) {
-                            cards.put(3, carte_);
+                        if (c_.horaire) {
+                            c_.cards.put(3, carte_);
                         } else {
-                            cards.put(1, carte_);
+                            c_.cards.put(1, carte_);
                         }
                     } else {
-                        cards.put(0, carte_);
+                        c_.cards.put(0, carte_);
                     }
                     surPanneau_.add(carte_);
                 } else if (i == 4) {
                     surPanneau_.setPreferredSize(GraphicTarotCard.getDimensionForSeveralCards(_nombre));
-                    centerDeck = surPanneau_;
+                    c_.centerDeck = surPanneau_;
                 }
                 surPanneau_.setBackground(new Color(0, 125, 0));
-                add(surPanneau_);
+                cont_.add(surPanneau_);
             }
         } else if (_nombreDeJoueurs == 6) {
-            GridBagLayout grid_ = new GridBagLayout();
-            setLayout(grid_);
-            for (int i = 0; i < 12; i++) {
+            cont_ = Panel.newPageBox();
+            Panel sub_ = Panel.newGrid(0,4);
+            for (int i = 0; i < 4; i++) {
                 Panel surPanneau_ = new Panel();
                 if (i == 1) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             SwingConstants.RIGHT, true);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
-                    if (horaire) {
-                        cards.put(2, carte_);
+                    if (c_.horaire) {
+                        c_.cards.put(2, carte_);
                     } else {
-                        cards.put(4, carte_);
+                        c_.cards.put(4, carte_);
                     }
                     surPanneau_.add(carte_);
-                    GridBagConstraints c = new GridBagConstraints();
-                    grid_.setConstraints(surPanneau_.getComponent(), c);
-                } else if (i == 7) {
-                    GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
-                            SwingConstants.RIGHT, true);
-                    carte_.setPreferredSize(GraphicTarotCard
-                            .getMaxDimension());
-                    if (horaire) {
-                        cards.put(4, carte_);
-                    } else {
-                        cards.put(2, carte_);
-                    }
-                    surPanneau_.add(carte_);
-                    GridBagConstraints c = new GridBagConstraints();
-                    c.gridwidth = GridBagConstraints.REMAINDER;
-                    grid_.setConstraints(surPanneau_.getComponent(), c);
-                } else if (i == 4) {
-                    GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
-                            SwingConstants.RIGHT, true);
-                    carte_.setPreferredSize(GraphicTarotCard
-                            .getMaxDimension());
-                    if (horaire) {
-                        cards.put(1, carte_);
-                    } else {
-                        cards.put(5, carte_);
-                    }
-                    surPanneau_.add(carte_);
-                    GridBagConstraints c = new GridBagConstraints();
-                    grid_.setConstraints(surPanneau_.getComponent(), c);
-                } else if (i == 10) {
-                    GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
-                            SwingConstants.RIGHT, true);
-                    carte_.setPreferredSize(GraphicTarotCard
-                            .getMaxDimension());
-                    if (horaire) {
-                        cards.put(5, carte_);
-                    } else {
-                        cards.put(1, carte_);
-                    }
-                    surPanneau_.add(carte_);
-                    GridBagConstraints c = new GridBagConstraints();
-                    grid_.setConstraints(surPanneau_.getComponent(), c);
                 } else if (i == 2) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             SwingConstants.RIGHT, true);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
-                    cards.put(3, carte_);
+                    c_.cards.put(3, carte_);
                     surPanneau_.add(carte_);
-                    GridBagConstraints c = new GridBagConstraints();
-                    grid_.setConstraints(surPanneau_.getComponent(), c);
+                }
+                surPanneau_.setBackground(new Color(0, 125, 0));
+                sub_.add(surPanneau_);
+            }
+            cont_.add(sub_);
+            sub_ = Panel.newGrid(0,3);
+            for (int i = 4; i < 7; i++) {
+                Panel surPanneau_ = new Panel();
+                if (i == 6) {
+                    GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
+                            SwingConstants.RIGHT, true);
+                    carte_.setPreferredSize(GraphicTarotCard
+                            .getMaxDimension());
+                    if (c_.horaire) {
+                        c_.cards.put(4, carte_);
+                    } else {
+                        c_.cards.put(2, carte_);
+                    }
+                    surPanneau_.add(carte_);
+                } else if (i == 4) {
+                    GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
+                            SwingConstants.RIGHT, true);
+                    carte_.setPreferredSize(GraphicTarotCard
+                            .getMaxDimension());
+                    if (c_.horaire) {
+                        c_.cards.put(1, carte_);
+                    } else {
+                        c_.cards.put(5, carte_);
+                    }
+                    surPanneau_.add(carte_);
+                } else {
+                    surPanneau_ =Panel.newFlow(FlowLayout.CENTER, 0,
+                            0);
+                    surPanneau_.setPreferredSize(GraphicTarotCard.getDimensionForSeveralCards(_nombre));
+                    c_.centerDeck = surPanneau_;
+                }
+                surPanneau_.setBackground(new Color(0, 125, 0));
+                sub_.add(surPanneau_);
+            }
+            cont_.add(sub_);
+            sub_ = Panel.newGrid(0,4);
+            for (int i = 8; i < 12; i++) {
+                Panel surPanneau_ = new Panel();
+                if (i == 10) {
+                    GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
+                            SwingConstants.RIGHT, true);
+                    carte_.setPreferredSize(GraphicTarotCard
+                            .getMaxDimension());
+                    if (c_.horaire) {
+                        c_.cards.put(5, carte_);
+                    } else {
+                        c_.cards.put(1, carte_);
+                    }
+                    surPanneau_.add(carte_);
                 } else if (i == 9) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             SwingConstants.RIGHT, true);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
-                    cards.put(0, carte_);
+                    c_.cards.put(0, carte_);
                     surPanneau_.add(carte_);
-                    GridBagConstraints c = new GridBagConstraints();
-                    grid_.setConstraints(surPanneau_.getComponent(), c);
-                } else if (i == 5) {
-                    surPanneau_.setLayout(new FlowLayout(FlowLayout.CENTER, 0,
-                            0));
-                    surPanneau_.setPreferredSize(GraphicTarotCard.getDimensionForSeveralCards(_nombre));
-                    centerDeck = surPanneau_;
-                    GridBagConstraints c = new GridBagConstraints();
-                    c.gridwidth = 2;
-                    grid_.setConstraints(surPanneau_.getComponent(), c);
-                } else if ((i+1) % 4 == 0){
-                    GridBagConstraints c = new GridBagConstraints();
-                    c.gridwidth = GridBagConstraints.REMAINDER;
-                    grid_.setConstraints(surPanneau_.getComponent(), c);
                 }
                 surPanneau_.setBackground(new Color(0, 125, 0));
-                add(surPanneau_);
+                sub_.add(surPanneau_);
             }
+            cont_.add(sub_);
         } else if (_nombreDeJoueurs == 3) {
-            setLayout(new GridLayout(0, 3));
+            cont_ = Panel.newGrid(0, 3);
             for (int i = 0; i < 9; i++) {
-                Panel surPanneau_ = new Panel();
-                surPanneau_.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+                Panel surPanneau_;
+                surPanneau_=Panel.newFlow(FlowLayout.CENTER, 0, 0);
                 if (i == 0) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             SwingConstants.RIGHT, true);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
-                    if (horaire) {
-                        cards.put(1, carte_);
+                    if (c_.horaire) {
+                        c_.cards.put(1, carte_);
                     } else {
-                        cards.put(2, carte_);
+                        c_.cards.put(2, carte_);
                     }
                     surPanneau_.add(carte_);
                 } else if (i == 2) {
@@ -175,10 +172,10 @@ public class CarpetTarot extends Panel {
                             SwingConstants.RIGHT, true);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
-                    if (horaire) {
-                        cards.put(2, carte_);
+                    if (c_.horaire) {
+                        c_.cards.put(2, carte_);
                     } else {
-                        cards.put(1, carte_);
+                        c_.cards.put(1, carte_);
                     }
                     surPanneau_.add(carte_);
                 } else if (i == 7) {
@@ -186,15 +183,17 @@ public class CarpetTarot extends Panel {
                             SwingConstants.RIGHT, true);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
-                    cards.put(0, carte_);
+                    c_.cards.put(0, carte_);
                     surPanneau_.add(carte_);
                 } else if (i == 4) {
                     surPanneau_.setPreferredSize(GraphicTarotCard.getDimensionForSeveralCards(_nombre));
-                    centerDeck = surPanneau_;
+                    c_.centerDeck = surPanneau_;
                 }
+                surPanneau_.setBackground(new Color(0, 125, 0));
+                cont_.add(surPanneau_);
             }
         } else {
-            setLayout(new GridLayout(0, 3));
+            cont_ = Panel.newGrid(0, 3);
             for (int i = 0; i < 9; i++) {
                 Panel surPanneau_ = new Panel();
                 if (i == 0) {
@@ -202,10 +201,10 @@ public class CarpetTarot extends Panel {
                             SwingConstants.RIGHT, true);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
-                    if (horaire) {
-                        cards.put(2, carte_);
+                    if (c_.horaire) {
+                        c_.cards.put(2, carte_);
                     } else {
-                        cards.put(3, carte_);
+                        c_.cards.put(3, carte_);
                     }
                     surPanneau_.add(carte_);
                 } else if (i == 2) {
@@ -213,10 +212,10 @@ public class CarpetTarot extends Panel {
                             SwingConstants.RIGHT, true);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
-                    if (horaire) {
-                        cards.put(3, carte_);
+                    if (c_.horaire) {
+                        c_.cards.put(3, carte_);
                     } else {
-                        cards.put(2, carte_);
+                        c_.cards.put(2, carte_);
                     }
                     surPanneau_.add(carte_);
                 } else if (i == 3) {
@@ -224,10 +223,10 @@ public class CarpetTarot extends Panel {
                             SwingConstants.RIGHT, true);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
-                    if (horaire) {
-                        cards.put(1, carte_);
+                    if (c_.horaire) {
+                        c_.cards.put(1, carte_);
                     } else {
-                        cards.put(4, carte_);
+                        c_.cards.put(4, carte_);
                     }
                     surPanneau_.add(carte_);
                 } else if (i == 5) {
@@ -235,10 +234,10 @@ public class CarpetTarot extends Panel {
                             SwingConstants.RIGHT, true);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
-                    if (horaire) {
-                        cards.put(4, carte_);
+                    if (c_.horaire) {
+                        c_.cards.put(4, carte_);
                     } else {
-                        cards.put(1, carte_);
+                        c_.cards.put(1, carte_);
                     }
                     surPanneau_.add(carte_);
                 } else if (i == 7) {
@@ -246,19 +245,21 @@ public class CarpetTarot extends Panel {
                             SwingConstants.RIGHT, true);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
-                    cards.put(0, carte_);
+                    c_.cards.put(0, carte_);
                     surPanneau_.add(carte_);
                 } else if (i == 4) {
-                    surPanneau_.setLayout(new FlowLayout(FlowLayout.CENTER, 0,
-                            0));
+                    surPanneau_=Panel.newFlow(FlowLayout.CENTER, 0,
+                            0);
                     surPanneau_.setPreferredSize(GraphicTarotCard.getDimensionForSeveralCards(_nombre));
-                    centerDeck = surPanneau_;
+                    c_.centerDeck = surPanneau_;
                 }
                 surPanneau_.setBackground(new Color(0, 125, 0));
-                add(surPanneau_);
+                cont_.add(surPanneau_);
             }
         }
-        setBackground(new Color(0, 125, 0));
+        cont_.setBackground(new Color(0, 125, 0));
+        c_.container=cont_;
+        return c_;
     }
 
     public void retirerCartes() {
@@ -315,5 +316,9 @@ public class CarpetTarot extends Panel {
 
     public Panel getCenterDeck() {
         return centerDeck;
+    }
+
+    public Panel getContainer() {
+        return container;
     }
 }

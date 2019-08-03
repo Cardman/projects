@@ -60,9 +60,9 @@ public final class SelectPokemon extends SelectDialog {
         storage = _storage;
         initOk();
 //        ok = false;
-        Panel contentPane_ = new Panel();
-        contentPane_.setLayout(new BorderLayout());
-        contentPane_.add(new ScrollPane(new PaginatorPokemon(_parent, this, _facade)), BorderLayout.CENTER);
+        Panel contentPane_ = Panel.newBorder();
+        Panel pag_ = Panel.newPageBox();
+        contentPane_.add(new ScrollPane(new PaginatorPokemon(_parent,pag_, this, _facade).getContainer()), BorderLayout.CENTER);
         Panel buttons_ = new Panel();
         LabelButton detail_ = new LabelButton(messages.getVal(DETAIL));
         detail_.addMouseListener(new SeePkDetailEvent(this));
@@ -85,7 +85,7 @@ public final class SelectPokemon extends SelectDialog {
             return;
         }
         RenderedPage session_;
-        session_ = new RenderedPage(new JScrollPane());
+        session_ = new RenderedPage(new ScrollPane());
         session_.setLanguage(facade.getLanguage());
         session_.setDataBase(facade);
         //session_.setFiles(facade.getData().getWebPk(), new Map<String,String>());

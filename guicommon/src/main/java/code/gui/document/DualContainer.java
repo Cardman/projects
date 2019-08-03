@@ -1,21 +1,23 @@
 package code.gui.document;
 
-import javax.swing.*;
-
 import code.formathtml.render.MetaContainer;
+import code.gui.CustComponent;
+import code.gui.Panel;
 
 public abstract class DualContainer extends DualComponent {
 
-    private JPanel panel;
+    private Panel panel;
 
     public DualContainer(DualContainer _container, MetaContainer _component, RenderedPage _page) {
         super(_container, _component, _page);
-        panel = new JPanel();
+        panel = newPanel(_container,_component,_page);
         updateGraphics(panel,_component);
     }
 
+    protected abstract Panel newPanel(DualContainer _container, MetaContainer _component, RenderedPage _page);
+
     @Override
-    public JComponent getGraphic() {
+    public CustComponent getGraphic() {
         return panel;
     }
 }

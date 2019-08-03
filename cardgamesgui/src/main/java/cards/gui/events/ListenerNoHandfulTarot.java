@@ -2,19 +2,18 @@ package cards.gui.events;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JRadioButton;
-
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerTarot;
 import cards.tarot.enumerations.Handfuls;
+import code.gui.RadioButton;
 
 public class ListenerNoHandfulTarot extends MouseAdapter {
 
     private ContainerTarot container;
-    private JRadioButton radio;
+    private RadioButton radio;
     private Handfuls handful;
 
-    public ListenerNoHandfulTarot(ContainerTarot _container,JRadioButton _radio, Handfuls _handful) {
+    public ListenerNoHandfulTarot(ContainerTarot _container,RadioButton _radio, Handfuls _handful) {
         container = _container;
         radio = _radio;
         handful = _handful;

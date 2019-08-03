@@ -64,20 +64,7 @@ import aiki.network.stream.NetPokemon;
 import aiki.network.stream.NewPlayer;
 import aiki.network.stream.Ok;
 import aiki.network.stream.Quit;
-import code.gui.Clock;
-import code.gui.ConfirmDialog;
-import code.gui.ConstFiles;
-import code.gui.FileOpenDialog;
-import code.gui.FileSaveDialog;
-import code.gui.GroupFrame;
-import code.gui.LabelButton;
-import code.gui.LanguageDialog;
-import code.gui.Menu;
-import code.gui.MenuItem;
-import code.gui.Panel;
-import code.gui.SetStyle;
-import code.gui.SoftApplicationCore;
-import code.gui.ThreadInvoker;
+import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.QuittingEvent;
 import code.network.AttemptConnecting;
@@ -209,19 +196,19 @@ public final class MainWindow extends NetGroupFrame {
 
     private final EnumMap<Sex,HeroLabel> herosLabels = new EnumMap<Sex,HeroLabel>();
 
-    private JTextField nickname;
+    private TextField nickname;
 
     private Sex chosenSex;
 
     private Clock time;
 
-    private JLabel lastSavedGameDate;
+    private TextLabel lastSavedGameDate;
 
     private String dateLastSaved = DataBase.EMPTY_STRING;
 
-    private JLabel helpInfo;
+    private TextLabel helpInfo;
 
-    private JLabel availableHelps;
+    private TextLabel availableHelps;
 
     private boolean inBattle;
 
@@ -261,8 +248,7 @@ public final class MainWindow extends NetGroupFrame {
         facade.setDisplayLanguages(displayLanguages_);
         facade.setSimplyLanguage(_lg);
         setImageIconFrame(LaunchingPokemon.getIcon());
-        mainPanel = new Panel();
-        mainPanel.setLayout(new BoxLayout(mainPanel.getComponent(), BoxLayout.PAGE_AXIS));
+        mainPanel = Panel.newPageBox();
         scenePanel = new ScenePanel(this, facade);
         initBattle();
         initMenuBar();
@@ -274,11 +260,11 @@ public final class MainWindow extends NetGroupFrame {
         mainPanel.add(scenePanel);
         time = new Clock();
         mainPanel.add(time);
-        lastSavedGameDate = new JLabel();
+        lastSavedGameDate = new TextLabel("");
         mainPanel.add(lastSavedGameDate);
-        helpInfo = new JLabel();
+        helpInfo = new TextLabel("");
         mainPanel.add(helpInfo);
-        availableHelps = new JLabel();
+        availableHelps = new TextLabel("");
         mainPanel.add(availableHelps);
         setContentPane(mainPanel);
         //setVisible(true);
@@ -461,8 +447,7 @@ public final class MainWindow extends NetGroupFrame {
 
     private void addBeginGame() {
         if (beginGame == null) {
-            beginGame = new Panel();
-            beginGame.setLayout(new BoxLayout(beginGame.getComponent(), BoxLayout.PAGE_AXIS));
+            beginGame = Panel.newPageBox();
         }
         beginGame.removeAll();
         Panel heros_ = new Panel();
@@ -478,9 +463,9 @@ public final class MainWindow extends NetGroupFrame {
         }
         beginGame.add(heros_);
         Panel nickname_ = new Panel();
-        nickname_.add(new JLabel(messages.getVal(NICKNAME)));
+        nickname_.add(new TextLabel(messages.getVal(NICKNAME)));
         if (nickname == null) {
-            nickname = new JTextField(16);
+            nickname = new TextField(16);
         }
         nickname_.add(nickname);
         beginGame.add(nickname_);
@@ -989,7 +974,7 @@ public final class MainWindow extends NetGroupFrame {
 
         //JTextArea area_ = new JTextArea();
         RenderedPage session_;
-        session_ = new RenderedPage(new JScrollPane());
+        session_ = new RenderedPage(new ScrollPane());
         session_.setLanguage(facade.getLanguage());
         session_.setDataBase(facade.getData());
         session_.setProcess(videoLoading.getVideo());
@@ -1346,7 +1331,7 @@ public final class MainWindow extends NetGroupFrame {
 //        battle = new Battle(this);
         battle = new FrontBattle(this, facade);
         battle.addMouseListener(new FrontClickEvent(battle));
-        SetStyle.setupStyle(battle.getComponent());
+        SetStyle.setupStyle(battle);
     }
 
     public LoadingGame getLoadingConf() {

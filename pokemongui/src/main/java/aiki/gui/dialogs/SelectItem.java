@@ -9,6 +9,7 @@ import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import aiki.gui.components.PaginatorItem;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
+import code.gui.CustCheckBox;
 import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.ScrollPane;
@@ -35,7 +36,7 @@ public final class SelectItem extends SelectDialog {
 
 //    private boolean give;
 
-    private JCheckBox giveCheckBox;
+    private CustCheckBox giveCheckBox;
 
     private StringMap<String> messages;
 
@@ -54,12 +55,12 @@ public final class SelectItem extends SelectDialog {
         facade = _facade;
         initOk();
 //        ok = false;
-        Panel contentPane_ = new Panel();
-        contentPane_.setLayout(new BorderLayout());
-        contentPane_.add(new ScrollPane(new PaginatorItem(_parent, this, _facade, !_sell)), BorderLayout.CENTER);
+        Panel contentPane_ = Panel.newBorder();
+        Panel pag_ = Panel.newPageBox();
+        contentPane_.add(new ScrollPane(new PaginatorItem(_parent,pag_, this, _facade, !_sell).getContainer()), BorderLayout.CENTER);
         Panel buttons_ = new Panel();
         if (!_buy) {
-            giveCheckBox = new JCheckBox(messages.getVal(GIVE));
+            giveCheckBox = new CustCheckBox(messages.getVal(GIVE));
 //            giveCheckBox.addChangeListener(new ChangeListener() {
 //                @Override
 //                public void stateChanged(ChangeEvent _arg0) {

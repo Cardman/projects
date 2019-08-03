@@ -44,4 +44,8 @@ public class TabbedPane extends CustComponent {
         component.removeAll();
     }
 
+    public void addTab(String _name, CustComponent _component) {
+        component.addTab(_name,_component.getComponent());
+        getChildren().add(_component);
+    }
 }

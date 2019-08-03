@@ -16,7 +16,7 @@ public class LanguageFrame extends CommonFrame implements SetterLanguage {
 
     private static final String TITLE = " ";
 
-    private ButtonGroup group = new ButtonGroup();
+    private CustButtonGroup group = new CustButtonGroup();
 
     private String langue;
 
@@ -45,10 +45,9 @@ public class LanguageFrame extends CommonFrame implements SetterLanguage {
         soft = _soft;
         args = _args;
         setTitle(TITLE);
-        Panel panneau_ = new Panel();
-        panneau_.setLayout(new GridLayout(0,1));
+        Panel panneau_ = Panel.newGrid(0,1);
         for (String l: Constants.getAvailableLanguages()) {
-            JRadioButton radio_ = new JRadioButton(Constants.getDisplayLanguage(l));
+            RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
             radio_.addMouseListener(new LanguageChoice(l, this));
             group.add(radio_);
             panneau_.add(radio_);
@@ -58,7 +57,7 @@ public class LanguageFrame extends CommonFrame implements SetterLanguage {
         setLocationRelativeTo(null);
         setVisible(true);
         pack();
-        SetStyle.setupStyle(getFrame());
+        SetStyle.setupStyle(this);
     }
 
     @Override

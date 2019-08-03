@@ -13,6 +13,7 @@ import cards.tarot.enumerations.CardTarot;
 import code.gui.Dialog;
 import code.gui.Panel;
 import code.gui.ScrollPane;
+import code.gui.TextArea;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -38,12 +39,10 @@ public final class DialogHelpTarot extends Dialog {
     }
     /**Cartes possibles et certaines &#224 la belote et au tarot*/
     public static void setDialogueTarot(EnumMap<Suit,CustList<HandTarot>> _cartesPossibles,EnumMap<Suit,CustList<HandTarot>> _cartesCertaines,EnumMap<Suit,HandTarot> _repartitionJouees,StringList _pseudos, String _lg) {
-        Panel container_=new Panel();
-        container_.setLayout(new FlowLayout());
-        Panel panneau2_=new Panel();
+        Panel container_=Panel.newFlow();
+        Panel panneau2_=Panel.newBorder();
         Panel panneau3_;
-        JTextArea zone_;
-        panneau2_.setLayout(new BorderLayout());
+        TextArea zone_;
         HandTarot tout_ = HandTarot.pileBase();
         EnumList<Suit> suits_ = new EnumList<Suit>(Suit.values());
         panneau3_=new Panel();
@@ -53,7 +52,7 @@ public final class DialogHelpTarot extends Dialog {
         nbPlayers_++;
         //Dog hand
         for(int indicePseudo_=CustList.SECOND_INDEX;indicePseudo_<nbPlayers_;indicePseudo_++) {
-            zone_=new JTextArea(EMPTY,84,15);
+            zone_=new TextArea(EMPTY,84,15);
             zone_.setRows(84);
             zone_.setEditable(false);
             if(indicePseudo_<_pseudos.size()) {

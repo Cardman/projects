@@ -3,6 +3,7 @@ import java.awt.Dimension;
 
 import javax.swing.JLabel;
 
+import code.gui.TextLabel;
 import code.util.StringList;
 
 /** */
@@ -16,10 +17,7 @@ public abstract class CardsScrollableList extends ScrollableList {
     protected void initText() {
         getRemCards().setText(StringList.concatNbs(PLS,getNbCartesRestantes()));
     }
-    /**Utilise pour le solitaire pour reduire la largeur*/
-    public void setPreference(int _nb) {
-        setPreferredSize(new Dimension(50,10*(_nb+4)));
-    }
+
     void setMax(int _max) {
         max = _max;
     }
@@ -27,7 +25,7 @@ public abstract class CardsScrollableList extends ScrollableList {
     public int getMax() {
         return max;
     }
-    protected abstract JLabel getRemCards();
+    protected abstract TextLabel getRemCards();
     public abstract int nombreCartesSelectionnees();
     protected int getNbCartesRestantes() {
         return nbCartesRestantes;

@@ -11,15 +11,15 @@ public final class DefaultCellRender extends CustCellRender {
 
     private int maxWidth;
 
-    private JLabel label;
+    private PreparedLabel label;
     private String text;
     private boolean selected;
 
     @Override
-    public JLabel getListCellRendererComponent(GraphicListable _list, Object _value,
+    public PreparedLabel getListCellRendererComponent(GraphicListable _list, Object _value,
             int _index, boolean _isSelected, boolean _cellHasFocus) {
         text = (String) _value;
-        JLabel label_ = (JLabel) _list.getListComponents().get(_index);
+        PreparedLabel label_ = _list.getListComponents().get(_index);
         label = label_;
         Font font_ = label.getFont();
         FontMetrics fontMetrics_ = label.getFontMetrics(font_);

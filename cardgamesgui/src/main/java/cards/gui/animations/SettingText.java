@@ -1,13 +1,13 @@
 package cards.gui.animations;
-import javax.swing.JLabel;
+import code.gui.TextLabel;
 
 public final class SettingText extends Thread {
 
-    private JLabel label;
+    private TextLabel label;
 
     private String text;
 
-    public SettingText(JLabel _label, String _text) {
+    public SettingText(TextLabel _label, String _text) {
         label = _label;
         text = _text;
     }

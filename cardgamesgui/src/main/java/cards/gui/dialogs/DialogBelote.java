@@ -16,7 +16,10 @@ import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.gui.comboboxes.ComboBoxEnumCards;
 import cards.gui.comboboxes.ComboBoxMixCards;
+import code.gui.CustCheckBox;
 import code.gui.Panel;
+import code.gui.Spinner;
+import code.gui.TextLabel;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -40,19 +43,19 @@ public abstract class DialogBelote extends DialogCards {
     private static final String TRUMPING_DESCRIPTION = "trumpingDescription";
     private static final String UNDER_TRUMPING_FOE = "underTrumpingFoe";
     private RulesBelote reglesBelote=new RulesBelote();
-    private JSpinner nbGames;
+    private Spinner nbGames;
     private StringMap<String> messages = new StringMap<String>();
     private EnumMap<DeclaresBelote,Integer> indicesAnnoncesValides = new EnumMap<DeclaresBelote,Integer>();
     private ComboBoxMixCards listeChoix;
-    private JCheckBox dealAll;
+    private CustCheckBox dealAll;
 
     private Panel bidding;
-    private CustList<JCheckBox> bids = new CustList<JCheckBox>();
+    private CustList<CustCheckBox> bids = new CustList<CustCheckBox>();
     private Panel declaresFirstRound;
-    private CustList<JCheckBox> declares = new CustList<JCheckBox>();
-    private JCheckBox underTrumpingFoe;
+    private CustList<CustCheckBox> declares = new CustList<CustCheckBox>();
+    private CustCheckBox underTrumpingFoe;
     private ComboBoxEnumCards<BeloteTrumpPartner> listChoiceTwo;
-    private JCheckBox classic;
+    private CustCheckBox classic;
 
     protected DialogBelote() {
     }
@@ -62,12 +65,11 @@ public abstract class DialogBelote extends DialogCards {
 //        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 //    }
 
-    protected void initJt(JSpinner _nbGames, String _lg) {
+    protected void initJt(Spinner _nbGames, String _lg) {
         setNbGames(_nbGames);
-        Panel dealing_=new Panel();
-        dealing_.setLayout(new GridLayout(0,2));
+        Panel dealing_=Panel.newGrid(0,2);
         //Sous - panneau Battre les cartes
-        dealing_.add(new JLabel(getMessages().getVal(MIX_CARDS)));
+        dealing_.add(new TextLabel(getMessages().getVal(MIX_CARDS)));
         listeChoix=new ComboBoxMixCards();
         Listable<MixCardsChoice> mix_;
         mix_ = new EnumList<MixCardsChoice>(MixCardsChoice.values());
@@ -82,26 +84,24 @@ public abstract class DialogBelote extends DialogCards {
 //        }
         listeChoix.setSelectedItem(getReglesBelote().getCartesBattues());
         dealing_.add(listeChoix);
-        dealAll = new JCheckBox(getMessages().getVal(DEALING_MODE));
+        dealAll = new CustCheckBox(getMessages().getVal(DEALING_MODE));
         dealAll.setSelected(getReglesBelote().dealAll());
         dealing_.add(dealAll);
-        dealing_.add(new JLabel());
+        dealing_.add(new TextLabel(""));
         if (getNbGames() != null) {
-            dealing_.add(new JLabel(getMessages().getVal(NUMBER_DEALS)));
+            dealing_.add(new TextLabel(getMessages().getVal(NUMBER_DEALS)));
             dealing_.add(getNbGames());
         }
 
         //Panneau Distribution
         getJt().add(getMessages().getVal(DEALING),dealing_);
-        Panel bidding_=new Panel();
-        bidding_.setLayout(new BoxLayout(bidding_.getComponent(), BoxLayout.PAGE_AXIS));
+        Panel bidding_=Panel.newPageBox();
         //Panneau Annonces autorisees
-        bidding_.add(new JLabel(getMessages().getVal(BIDS)));
+        bidding_.add(new TextLabel(getMessages().getVal(BIDS)));
         bids.clear();
-        bidding=new Panel();
-        bidding.setLayout(new GridLayout(1,0));
+        bidding=Panel.newGrid(1,0);
         for (BidBelote enchere_:BidBelote.values()) {
-            JCheckBox caseCroix_=new JCheckBox(Games.toString(enchere_,_lg));
+            CustCheckBox caseCroix_=new CustCheckBox(Games.toString(enchere_,_lg));
             caseCroix_.setSelected(getReglesBelote().getEncheresAutorisees().getVal(enchere_));
             caseCroix_.setEnabled(!enchere_.getToujoursPossibleAnnoncer());
             bidding.add(caseCroix_);
@@ -111,14 +111,13 @@ public abstract class DialogBelote extends DialogCards {
 
         bidding_.add(bidding);
 
-        bidding_.add(new JLabel(getMessages().getVal(ALLOWED_DECLARING)));
-        declaresFirstRound=new Panel();
+        bidding_.add(new TextLabel(getMessages().getVal(ALLOWED_DECLARING)));
+        declaresFirstRound=Panel.newGrid(0,3);
         declares.clear();
-        declaresFirstRound.setLayout(new GridLayout(0,3));
         int indice_ = 0;
         for (DeclaresBelote enchere_:DeclaresBelote.annoncesValides()) {
             indicesAnnoncesValides.put(enchere_, indice_);
-            JCheckBox caseCroix_=new JCheckBox(Games.toString(enchere_,_lg));
+            CustCheckBox caseCroix_=new CustCheckBox(Games.toString(enchere_,_lg));
             caseCroix_.setSelected(getReglesBelote().getAnnoncesAutorisees().getVal(enchere_));
             declaresFirstRound.add(caseCroix_);
             declares.add(caseCroix_);
@@ -127,11 +126,10 @@ public abstract class DialogBelote extends DialogCards {
         bidding_.add(declaresFirstRound);
 
         getJt().add(getMessages().getVal(DECLARING),bidding_);
-        Panel trumping_ = new Panel(new GridLayout(0,1));
+        Panel trumping_ = Panel.newGrid(0,1);
         //Panneau gestion des coupes
-        Panel sousPanneau_=new Panel();
-        sousPanneau_.setLayout(new GridLayout(0,2));
-        JLabel trumpingLabel_ = new JLabel(getMessages().getVal(TRUMPING));
+        Panel sousPanneau_=Panel.newGrid(0,2);
+        TextLabel trumpingLabel_ = new TextLabel(getMessages().getVal(TRUMPING));
         trumpingLabel_.setToolTipText(getMessages().getVal(TRUMPING_DESCRIPTION));
         sousPanneau_.add(trumpingLabel_);
         listChoiceTwo=new ComboBoxEnumCards<BeloteTrumpPartner>();
@@ -149,16 +147,15 @@ public abstract class DialogBelote extends DialogCards {
             listChoiceTwo.selectItem(i_);
         }
         sousPanneau_.add(listChoiceTwo);
-        underTrumpingFoe=new JCheckBox(getMessages().getVal(UNDER_TRUMPING_FOE));
+        underTrumpingFoe=new CustCheckBox(getMessages().getVal(UNDER_TRUMPING_FOE));
         underTrumpingFoe.setSelected(getReglesBelote().getSousCoupeAdv());
         sousPanneau_.add(underTrumpingFoe);
         trumping_.add(sousPanneau_);
         getJt().add(getMessages().getVal(RULES_TRUMPS),trumping_);
         //Panneau Calcul des scores
-        Panel endOfGame_=new Panel();
-        endOfGame_.setLayout(new GridLayout(0,1));
-        endOfGame_.add(new JLabel(getMessages().getVal(SCORING)));
-        classic=new JCheckBox(getMessages().getVal(ALL_POINTS_FOR_DEFENDER_TEAM));
+        Panel endOfGame_=Panel.newGrid(0,1);
+        endOfGame_.add(new TextLabel(getMessages().getVal(SCORING)));
+        classic=new CustCheckBox(getMessages().getVal(ALL_POINTS_FOR_DEFENDER_TEAM));
         classic.setSelected(getReglesBelote().getComptePointsClassique());
         endOfGame_.add(classic);
         getJt().add(getMessages().getVal(END_DEAL),endOfGame_);
@@ -178,14 +175,14 @@ public abstract class DialogBelote extends DialogCards {
         getReglesBelote().setCartesBattues(listeChoix.getCurrent());
         EnumMap<BidBelote,Boolean> contrats_ = new EnumMap<BidBelote,Boolean>();
         for (BidBelote enchere_: BidBelote.values()) {
-            JCheckBox jcb_= bids.get(enchere_.ordinal());
+            CustCheckBox jcb_= bids.get(enchere_.ordinal());
             contrats_.put(enchere_, jcb_.isSelected());
         }
         getReglesBelote().setEncheresAutorisees(contrats_);
 
         EnumMap<DeclaresBelote,Boolean> annonces_ = new EnumMap<DeclaresBelote,Boolean>();
         for (DeclaresBelote enchere_: indicesAnnoncesValides.getKeys()) {
-            JCheckBox jcb_= declares.get(indicesAnnoncesValides.getVal(enchere_));
+            CustCheckBox jcb_= declares.get(indicesAnnoncesValides.getVal(enchere_));
             annonces_.put(enchere_, jcb_.isSelected());
         }
         getReglesBelote().setAnnoncesAutorisees(annonces_);
@@ -217,11 +214,11 @@ public abstract class DialogBelote extends DialogCards {
         reglesBelote = _reglesBelote;
     }
 
-    protected JSpinner getNbGames() {
+    protected Spinner getNbGames() {
         return nbGames;
     }
 
-    protected void setNbGames(JSpinner _nbGames) {
+    protected void setNbGames(Spinner _nbGames) {
         nbGames = _nbGames;
     }
 

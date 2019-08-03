@@ -20,12 +20,7 @@ import aiki.gui.components.listeners.NewSearchEvent;
 import aiki.gui.components.listeners.SearchEvent;
 import aiki.gui.listeners.PaginatorEvent;
 import aiki.util.SortingHealingItem;
-import code.gui.AutoCompleteDocument;
-import code.gui.ChangeableTitle;
-import code.gui.LabelButton;
-import code.gui.NumComboBox;
-import code.gui.Panel;
-import code.gui.ScrollPane;
+import code.gui.*;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.StringList;
@@ -62,29 +57,29 @@ public final class PaginatorHealingItem extends Paginator {
 
     private static final String NUMBER = "number";
 
-    private JTextField name = new JTextField(16);
+    private TextField name = new TextField(16);
 
-    private JTextField description = new JTextField(16);
+    private TextField description = new TextField(16);
 
-    private JTextField status = new JTextField(16);
+    private TextField status = new TextField(16);
 
-    private JCheckBox relativeHpCheck;
+    private CustCheckBox relativeHpCheck;
 
 //    private ComboBoxSelectedBool relativeHp;
 
-    private JTextField minHp = new JTextField(16);
+    private TextField minHp = new TextField(16);
 
-    private JTextField maxHp = new JTextField(16);
+    private TextField maxHp = new TextField(16);
 
-    private JTextField minHpRate = new JTextField(16);
+    private TextField minHpRate = new TextField(16);
 
-    private JTextField maxHpRate = new JTextField(16);
+    private TextField maxHpRate = new TextField(16);
 
     private ComboBoxSelectedBool relativePp;
 
-    private JTextField minPp = new JTextField(16);
+    private TextField minPp = new TextField(16);
 
-    private JTextField maxPp = new JTextField(16);
+    private TextField maxPp = new TextField(16);
 
     private ComboBoxSelectedBool healMove;
 
@@ -92,13 +87,13 @@ public final class PaginatorHealingItem extends Paginator {
 
     private ComboBoxSelectedBool healFromKo;
 
-    private JTextField minPrice = new JTextField(16);
+    private TextField minPrice = new TextField(16);
 
-    private JTextField maxPrice = new JTextField(16);
+    private TextField maxPrice = new TextField(16);
 
-    private JTextField minNumber = new JTextField(16);
+    private TextField minNumber = new TextField(16);
 
-    private JTextField maxNumber = new JTextField(16);
+    private TextField maxNumber = new TextField(16);
 
     private EnumList<SearchingMode> order = new EnumList<SearchingMode>();
 
@@ -109,7 +104,7 @@ public final class PaginatorHealingItem extends Paginator {
 
     private ComboBoxSearchingMode modeStatus;
 
-    private Panel results = new Panel();
+    private Panel results = Panel.newGrid(0,1);
 
     private ComboBoxSelectedBool cmpNameSorting;
 
@@ -151,8 +146,8 @@ public final class PaginatorHealingItem extends Paginator {
 
     private NumComboBox cmpNbStatusPrio = new NumComboBox();
 
-    public PaginatorHealingItem(MainWindow _window, ChangeableTitle _w, FacadeGame _d) {
-        super(_window, ACCESS_HEALING_ITEM);
+    public PaginatorHealingItem(MainWindow _window, Panel _p,ChangeableTitle _w, FacadeGame _d) {
+        super(_window, ACCESS_HEALING_ITEM,_p);
         setWindow(_w);
         setFacade(_d);
         order.add(SearchingMode.WHOLE_STRING);
@@ -170,7 +165,7 @@ public final class PaginatorHealingItem extends Paginator {
         modeStatus = new ComboBoxSearchingMode();
         modeStatus.setWithDefaultValue(false);
         modeStatus.refresh(order, getMessagesSearchMode());
-        relativeHpCheck = new JCheckBox();
+        relativeHpCheck = new CustCheckBox();
         relativeHpCheck.setText(getMessages().getVal(RELATIVE_HP));
 //        relativeHp = new ComboBoxSelectedBool();
 //        relativeHp.setWithDefaultValue(false);
@@ -234,7 +229,6 @@ public final class PaginatorHealingItem extends Paginator {
         getFacade().setSearchModeNameHealingItem(SearchingMode.WHOLE_STRING);
         getFacade().setSearchModeDescriptionHealingItem(SearchingMode.WHOLE_STRING);
         getFacade().setSearchModeStatusHealingItem(SearchingMode.WHOLE_STRING);
-        setLayout(new BoxLayout(getComponent(),BoxLayout.PAGE_AXIS));
         StringList it_ = new StringList();
         for (String i: getFacade().getData().getItems().getKeys()) {
             String abTr_ = getFacade().translateItem(i);
@@ -486,82 +480,82 @@ public final class PaginatorHealingItem extends Paginator {
 //            }
 //        });
         Panel search_;
-        search_ = new Panel(new GridLayout(0,3));
-        search_.add(new JLabel(getMessages().getVal(NAME)));
+        search_ = Panel.newGrid(0,3);
+        search_.add(new TextLabel(getMessages().getVal(NAME)));
         search_.add(name);
         search_.add(modeName);
-        search_.add(new JLabel(getMessages().getVal(DESCRIPTION)));
+        search_.add(new TextLabel(getMessages().getVal(DESCRIPTION)));
         search_.add(description);
         search_.add(modeDescription);
-        search_.add(new JLabel(getMessages().getVal(STATUS)));
+        search_.add(new TextLabel(getMessages().getVal(STATUS)));
         search_.add(status);
         search_.add(modeStatus);
-        search_.add(new JLabel(getMessages().getVal(HP)));
+        search_.add(new TextLabel(getMessages().getVal(HP)));
         search_.add(minHp);
         search_.add(maxHp);
-        search_.add(new JLabel(getMessages().getVal(HP_RATE)));
+        search_.add(new TextLabel(getMessages().getVal(HP_RATE)));
         search_.add(minHpRate);
         search_.add(maxHpRate);
-        search_.add(new JLabel(getMessages().getVal(PP)));
+        search_.add(new TextLabel(getMessages().getVal(PP)));
         search_.add(minPp);
         search_.add(maxPp);
-        search_.add(new JLabel(getMessages().getVal(PRICE)));
+        search_.add(new TextLabel(getMessages().getVal(PRICE)));
         search_.add(minPrice);
         search_.add(maxPrice);
-        search_.add(new JLabel(getMessages().getVal(NUMBER)));
+        search_.add(new TextLabel(getMessages().getVal(NUMBER)));
         search_.add(minNumber);
         search_.add(maxNumber);
 //        search_.add(new JLabel(getMessages().getVal(RELATIVE_HP)));
 //        search_.add(relativeHp);
         search_.add(relativeHpCheck);
-        search_.add(new JLabel(DataBase.EMPTY_STRING));
-        search_.add(new JLabel(DataBase.EMPTY_STRING));
-        search_.add(new JLabel(getMessages().getVal(RELATIVE_PP)));
+        search_.add(new TextLabel(DataBase.EMPTY_STRING));
+        search_.add(new TextLabel(DataBase.EMPTY_STRING));
+        search_.add(new TextLabel(getMessages().getVal(RELATIVE_PP)));
         search_.add(relativePp);
-        search_.add(new JLabel(DataBase.EMPTY_STRING));
-        search_.add(new JLabel(getMessages().getVal(HEAL_MOVE)));
+        search_.add(new TextLabel(DataBase.EMPTY_STRING));
+        search_.add(new TextLabel(getMessages().getVal(HEAL_MOVE)));
         search_.add(healMove);
-        search_.add(new JLabel(DataBase.EMPTY_STRING));
-        search_.add(new JLabel(getMessages().getVal(HEAL_KO)));
+        search_.add(new TextLabel(DataBase.EMPTY_STRING));
+        search_.add(new TextLabel(getMessages().getVal(HEAL_KO)));
         search_.add(healFromKo);
-        search_.add(new JLabel(DataBase.EMPTY_STRING));
-        search_.add(new JLabel(getMessages().getVal(STATISTIC)));
+        search_.add(new TextLabel(DataBase.EMPTY_STRING));
+        search_.add(new TextLabel(getMessages().getVal(STATISTIC)));
         search_.add(statis);
-        search_.add(new JLabel(DataBase.EMPTY_STRING));
-        add(search_);
+        search_.add(new TextLabel(DataBase.EMPTY_STRING));
+        _p.add(search_);
         Panel sorting_;
-        sorting_ = new Panel(new GridLayout(0,3));
-        sorting_.add(new JLabel(getMessages().getVal(NAME)));
+        sorting_ = Panel.newGrid(0,3);
+        sorting_.add(new TextLabel(getMessages().getVal(NAME)));
         sorting_.add(cmpNameSorting);
         sorting_.add(cmpNamePrio);
-        sorting_.add(new JLabel(getMessages().getVal(DESCRIPTION)));
+        sorting_.add(new TextLabel(getMessages().getVal(DESCRIPTION)));
         sorting_.add(cmpDescriptionSorting);
         sorting_.add(cmpDescriptionPrio);
-        sorting_.add(new JLabel(getMessages().getVal(PRICE)));
+        sorting_.add(new TextLabel(getMessages().getVal(PRICE)));
         sorting_.add(cmpPriceSorting);
         sorting_.add(cmpPricePrio);
-        sorting_.add(new JLabel(getMessages().getVal(NUMBER)));
+        sorting_.add(new TextLabel(getMessages().getVal(NUMBER)));
         sorting_.add(cmpNumberSorting);
         sorting_.add(cmpNumberPrio);
-        sorting_.add(new JLabel(getMessages().getVal(PP)));
+        sorting_.add(new TextLabel(getMessages().getVal(PP)));
         sorting_.add(cmpPpSorting);
         sorting_.add(cmpPpPrio);
-        sorting_.add(new JLabel(getMessages().getVal(RELATIVE_PP)));
+        sorting_.add(new TextLabel(getMessages().getVal(RELATIVE_PP)));
         sorting_.add(cmpRelativePpSorting);
         sorting_.add(cmpRelativePpPrio);
-        sorting_.add(new JLabel(getMessages().getVal(HP)));
+        sorting_.add(new TextLabel(getMessages().getVal(HP)));
         sorting_.add(cmpHpSorting);
         sorting_.add(cmpHpPrio);
-        sorting_.add(new JLabel(getMessages().getVal(RELATIVE_HP)));
+        sorting_.add(new TextLabel(getMessages().getVal(RELATIVE_HP)));
         sorting_.add(cmpRelativeHpSorting);
         sorting_.add(cmpRelativeHpPrio);
-        sorting_.add(new JLabel(getMessages().getVal(STATISTIC)));
+        sorting_.add(new TextLabel(getMessages().getVal(STATISTIC)));
         sorting_.add(cmpNbStatisticsSorting);
         sorting_.add(cmpNbStatisticsPrio);
-        sorting_.add(new JLabel(getMessages().getVal(STATUS)));
+        sorting_.add(new TextLabel(getMessages().getVal(STATUS)));
         sorting_.add(cmpNbStatusSorting);
         sorting_.add(cmpNbStatusPrio);
-        add(sorting_);
+        _p.add(sorting_);
         Panel top_;
         top_ = new Panel();
         LabelButton button_;
@@ -571,9 +565,8 @@ public final class PaginatorHealingItem extends Paginator {
         button_ = new LabelButton(getMessages().getVal(NEW_SEARCH));
         button_.addMouseListener(new NewSearchEvent(this));
         top_.add(button_);
-        add(top_);
+        _p.add(top_);
 //        results.setLayout(new BoxLayout(results, BoxLayout.PAGE_AXIS));
-        results.setLayout(new GridLayout(0, 1));
         int side_ = getFacade().getMap().getSideLength();
         int nameWidth_ = getHeader().width(StringList.concat(getMessages().getVal(NAME),SPACES));
         int numberWidth_ = getHeader().width(StringList.concat(getMessages().getVal(NUMBER),SPACES));
@@ -588,7 +581,7 @@ public final class PaginatorHealingItem extends Paginator {
         getHeader().addString(StringList.concat(getMessages().getVal(PRICE),SPACES), side_+nameWidth_+numberWidth_);
         getHeader().setPreferredSize(new Dimension(width_, Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS));
         results.add(getHeader());
-        add(new ScrollPane(results));
+        _p.add(new ScrollPane(results));
         Panel bottom_ = new Panel();
         getNbResults().setValue(getFacade().getNbResultsPerPageFirstBox());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
@@ -603,7 +596,7 @@ public final class PaginatorHealingItem extends Paginator {
         bottom_.add(getNextDelta());
         bottom_.add(getEnd());
         bottom_.add(getDelta());
-        add(bottom_);
+        _p.add(bottom_);
         changeNav();
     }
 

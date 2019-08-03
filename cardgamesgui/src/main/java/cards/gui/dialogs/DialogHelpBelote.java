@@ -15,6 +15,7 @@ import cards.gui.MainWindow;
 import code.gui.Dialog;
 import code.gui.Panel;
 import code.gui.ScrollPane;
+import code.gui.TextArea;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -49,12 +50,10 @@ public final class DialogHelpBelote extends Dialog {
             EnumMap<Suit,HandBelote> _repartitionJouees,
             Suit _couleurDemandee,BidBeloteSuit _bid,
             StringList _pseudos, String _lg) {
-        Panel container_=new Panel();
-        container_.setLayout(new FlowLayout());
-        Panel panneau2_=new Panel();
+        Panel container_=Panel.newFlow();
+        Panel panneau2_=Panel.newBorder();
         Panel panneau3_;
-        JTextArea zone_;
-        panneau2_.setLayout(new BorderLayout());
+        TextArea zone_;
         HandBelote tout_ = HandBelote.pileBase();
         //une des couleurs domine
         if(_bid.getCouleur() != Suit.UNDEFINED) {
@@ -82,7 +81,7 @@ public final class DialogHelpBelote extends Dialog {
 //        Suit couleur_;
         int nbBotPlayers_ = _pseudos.size();
         for(int indicePseudo_=CustList.SECOND_INDEX;indicePseudo_<nbBotPlayers_;indicePseudo_++) {
-            zone_=new JTextArea(EMPTY,37,15);
+            zone_=new TextArea(EMPTY,37,15);
             zone_.setRows(37);
             zone_.setEditable(false);
             zone_.append(StringList.concat(_pseudos.get(indicePseudo_),RETURN_LINE));

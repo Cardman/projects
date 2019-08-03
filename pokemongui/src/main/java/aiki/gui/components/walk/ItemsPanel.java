@@ -10,10 +10,11 @@ import javax.swing.border.BevelBorder;
 import aiki.facade.FacadeGame;
 import code.gui.GraphicList;
 import code.gui.Panel;
+import code.gui.TextLabel;
 import code.util.CustList;
 import code.util.StringList;
 
-public class ItemsPanel extends Panel {
+public class ItemsPanel {
 
     private static final String SPACE = " ";
 
@@ -21,26 +22,28 @@ public class ItemsPanel extends Panel {
 
     private StringList items = new StringList();
 
-    private JLabel amount = new JLabel();
+    private TextLabel amount = new TextLabel("");
 
     private FacadeGame facade;
+
+    private Panel container;
 
     public ItemsPanel(int _nb, String _titre, FacadeGame _facade) {
         liste = new GraphicList<String>(false, true);
         facade = _facade;
-        setLayout(new BorderLayout());
-        setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
-        JLabel titrePanneau_ = new JLabel(_titre, SwingConstants.CENTER);
-        add(titrePanneau_, BorderLayout.NORTH);
+        container = Panel.newBorder();
+        container.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+        TextLabel titrePanneau_ = new TextLabel(_titre, SwingConstants.CENTER);
+        container.add(titrePanneau_, BorderLayout.NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb+1);
         liste.setRender(new ItemRenderer(facade));
         initItems();
         int side_ = facade.getMap().getSideLength();
-        add(liste.getComponent(),BorderLayout.CENTER);
-        add(amount, BorderLayout.SOUTH);
-        setPreferredSize(new Dimension(100,2*side_*_nb));
+        container.add(liste,BorderLayout.CENTER);
+        container.add(amount, BorderLayout.SOUTH);
+        container.setPreferredSize(new Dimension(100,2*side_*_nb));
     }
 
     public void initItems() {
@@ -71,5 +74,9 @@ public class ItemsPanel extends Panel {
 
     public void deselect() {
         liste.clearSelection();
+    }
+
+    public Panel getContainer() {
+        return container;
     }
 }

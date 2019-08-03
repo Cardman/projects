@@ -110,7 +110,7 @@ public class FrontBattle extends PaintableLabel {
     public FrontBattle(MainWindow _window, FacadeGame _facade) {
         facade = _facade;
         battle = new Battle(_window, _facade, this);
-        SetStyle.setupStyle(battle.getFrame());
+        SetStyle.setupStyle(battle);
     }
 
     public void setTargets() {

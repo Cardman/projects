@@ -37,7 +37,7 @@ public final class DialogTricksPresident extends DialogCards {
             DisplayingPresident _displayingPresident, MainWindow _window) {
         _tricksHands.sortHands(_displayingPresident, _numberPlayers);
         ScrollPane scroll_ = new ScrollPane(new PanelTricksHandsPresident(this,
-                _tricksHands, _numberPlayers, _pseudos, _displayingPresident,_window));
+                _tricksHands, _numberPlayers, _pseudos, _displayingPresident,_window).getContainer());
         scroll_.setPreferredSize(new Dimension(600, 600));
         setContentPane(scroll_);
         pack();

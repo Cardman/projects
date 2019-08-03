@@ -12,10 +12,7 @@ import cards.facade.Nicknames;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.MainWindow;
 import cards.gui.dialogs.events.ListenerNicknames;
-import code.gui.ConfirmDialog;
-import code.gui.LabelButton;
-import code.gui.Panel;
-import code.gui.ScrollPane;
+import code.gui.*;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -34,10 +31,10 @@ public final class DialogNicknames extends DialogCards {
     private static final String FORBIDDEN_TAB = "forbiddenTab";
     private StringMap<String> messages;
     private Nicknames pseudos;
-    private JTextField nickname;
-    private CustList<JTextField> nicknamesBelote = new CustList<JTextField>();
-    private CustList<JTextField> nicknamesTarot = new CustList<JTextField>();
-    private CustList<JTextField> nicknamesPresident = new CustList<JTextField>();
+    private TextField nickname;
+    private CustList<TextField> nicknamesBelote = new CustList<TextField>();
+    private CustList<TextField> nicknamesTarot = new CustList<TextField>();
+    private CustList<TextField> nicknamesPresident = new CustList<TextField>();
 
     private DialogNicknames() {
         setAccessFile(DIALOG_ACCESS);
@@ -62,29 +59,26 @@ public final class DialogNicknames extends DialogCards {
     public void setDialogue(MainWindow _fenetre) {
         String lg_ = _fenetre.getLanguageKey();
         getJt().removeAll();
-        Panel container_=new Panel();
-        container_.setLayout(new BorderLayout());
+        Panel container_=Panel.newBorder();
         //Panneau pseudos des joueurs belote
-        Panel sousPanneau_=new Panel();
-        sousPanneau_.setLayout(new GridLayout(0,1));
+        Panel sousPanneau_=Panel.newGrid(0,1);
         int i_=0;
         for (String p:pseudos.getPseudosBelote()) {
-            JTextField pseudo_=new JTextField(30);
+            TextField pseudo_=new TextField(30);
             pseudo_.setText(p);
-            sousPanneau_.add(new JLabel(StringList.simpleNumberFormat(messages.getVal(NICKNAME_PLAYER), i_+1)));
+            sousPanneau_.add(new TextLabel(StringList.simpleNumberFormat(messages.getVal(NICKNAME_PLAYER), i_+1)));
             sousPanneau_.add(pseudo_);
             nicknamesBelote.add(pseudo_);
             i_++;
         }
         getJt().add(GameEnum.BELOTE.toString(lg_),sousPanneau_);
         //Panneau pseudos des joueurs president
-        sousPanneau_=new Panel();
-        sousPanneau_.setLayout(new GridLayout(0,1));
+        sousPanneau_=Panel.newGrid(0,1);
         i_=0;
         for (String p:pseudos.getPseudosPresident()) {
-            JTextField pseudo_=new JTextField(30);
+            TextField pseudo_=new TextField(30);
             pseudo_.setText(p);
-            sousPanneau_.add(new JLabel(StringList.simpleNumberFormat(messages.getVal(NICKNAME_PLAYER), i_+1)));
+            sousPanneau_.add(new TextLabel(StringList.simpleNumberFormat(messages.getVal(NICKNAME_PLAYER), i_+1)));
             sousPanneau_.add(pseudo_);
             nicknamesPresident.add(pseudo_);
             i_++;
@@ -93,13 +87,12 @@ public final class DialogNicknames extends DialogCards {
         scroll_.setPreferredSize(new Dimension(300, 400));
         getJt().add(GameEnum.PRESIDENT.toString(lg_), scroll_);
         //Panneau pseudos des joueurs tarot
-        sousPanneau_=new Panel();
-        sousPanneau_.setLayout(new GridLayout(0,1));
+        sousPanneau_=Panel.newGrid(0,1);
         i_=0;
         for (String p:pseudos.getPseudosTarot()) {
-            JTextField pseudo_=new JTextField(30);
+            TextField pseudo_=new TextField(30);
             pseudo_.setText(p);
-            sousPanneau_.add(new JLabel(StringList.simpleNumberFormat(messages.getVal(NICKNAME_PLAYER), i_+1)));
+            sousPanneau_.add(new TextLabel(StringList.simpleNumberFormat(messages.getVal(NICKNAME_PLAYER), i_+1)));
             sousPanneau_.add(pseudo_);
             nicknamesTarot.add(pseudo_);
             i_++;
@@ -107,10 +100,9 @@ public final class DialogNicknames extends DialogCards {
         getJt().add(GameEnum.TAROT.toString(lg_),sousPanneau_);
         container_.add(getJt(),BorderLayout.CENTER);
         //Panneau pseudo du joueur
-        sousPanneau_=new Panel();
-        sousPanneau_.setLayout(new BoxLayout(sousPanneau_.getComponent(),BoxLayout.PAGE_AXIS));
-        sousPanneau_.add(new JLabel(messages.getVal(NICKNAME)));
-        nickname=new JTextField(30);
+        sousPanneau_=Panel.newPageBox();
+        sousPanneau_.add(new TextLabel(messages.getVal(NICKNAME)));
+        nickname=new TextField(30);
         nickname.setText(pseudos.getPseudo());
         sousPanneau_.add(nickname);
         LabelButton bouton_=new LabelButton(messages.getVal(VALIDATE));

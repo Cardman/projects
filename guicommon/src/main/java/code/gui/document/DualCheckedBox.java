@@ -1,22 +1,22 @@
 package code.gui.document;
 
-import javax.swing.*;
-
 import code.formathtml.render.MetaCheckedBox;
+import code.gui.CustCheckBox;
+import code.gui.CustComponent;
 
 public final class DualCheckedBox extends DualInput {
 
-    private final JCheckBox check;
+    private final CustCheckBox check;
 
     public DualCheckedBox(DualContainer _container, MetaCheckedBox _component,
                           RenderedPage _page) {
         super(_container, _component, _page);
-        check = new JCheckBox("", _component.isChecked());
+        check = new CustCheckBox("", _component.isChecked());
         updateGraphics(check,_component);
     }
 
     @Override
-    public JComponent getGraphic() {
+    public CustComponent getGraphic() {
         return check;
     }
 

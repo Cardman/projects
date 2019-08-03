@@ -11,6 +11,7 @@ import cards.gui.labels.selection.CardTarotCellRenderer;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.GraphicList;
+import code.gui.TextLabel;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.StringList;
@@ -20,21 +21,21 @@ public class TarotCardsScrollableList extends CardsScrollableList {
     private EnumList<Suit> couleurs;
     private boolean decroissant;
     private GraphicList<CardTarot> liste;
-    private JLabel remCards;
+    private TextLabel remCards;
 
     public TarotCardsScrollableList(int _nb, int _pmax, String _titre) {
         liste = new GraphicList<CardTarot>(false,false);
         setMax(_pmax);
-        JLabel titrePanneau_ = new JLabel(_titre, SwingConstants.CENTER);
-        add(titrePanneau_, BorderLayout.NORTH);
+        TextLabel titrePanneau_ = new TextLabel(_titre, SwingConstants.CENTER);
+        getContainer().add(titrePanneau_, BorderLayout.NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb);
         setNbCartesRestantes(_pmax);
-        add(liste.getComponent(),BorderLayout.CENTER);
-        remCards = new JLabel(StringList.concatNbs(PLS,getNbCartesRestantes()), SwingConstants.CENTER);
-        add(remCards, BorderLayout.SOUTH);
-        setPreferredSize(new Dimension(100,10*(_nb+4)));
+        getContainer().add(liste,BorderLayout.CENTER);
+        remCards = new TextLabel(StringList.concatNbs(PLS,getNbCartesRestantes()), SwingConstants.CENTER);
+        getContainer().add(remCards, BorderLayout.SOUTH);
+        getContainer().setPreferredSize(new Dimension(100,10*(_nb+4)));
     }
     public void initSelectionCarteTarot(MainWindow _window) {
         liste.setRender(new CardTarotCellRenderer(_window));
@@ -125,7 +126,7 @@ public class TarotCardsScrollableList extends CardsScrollableList {
         return liste;
     }
     @Override
-    protected JLabel getRemCards() {
+    protected TextLabel getRemCards() {
         return remCards;
     }
 }

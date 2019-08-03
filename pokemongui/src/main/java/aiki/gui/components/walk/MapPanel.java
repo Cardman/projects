@@ -11,11 +11,12 @@ import code.gui.Panel;
 import code.images.ConverterBufferedImage;
 import code.util.TreeMap;
 
-public class MapPanel extends Panel {
+public class MapPanel {
+
+    private Panel container;
 
     public void init(FacadeGame _facade, ScenePanel _scene) {
-        setLayout(new GridLayout(_facade.getMapHeight(), _facade.getMapWidth(), 0, 0));
-        removeAll();
+        container = Panel.newGrid(_facade.getMapHeight(), _facade.getMapWidth());
         TreeMap<MiniMapCoords, int[][]> images_;
         images_ = _facade.getImages();
         int sideLength_ = _facade.getMap().getSideLength();
@@ -31,8 +32,12 @@ public class MapPanel extends Panel {
                 tile_.setToolTipText(tooltip_);
             }
             tile_.addMouseListener(new TileListener(_scene, t.getXcoords(), t.getYcoords()));
-            add(tile_);
+            container.add(tile_);
         }
-        setPreferredSize(new Dimension(_facade.getMapWidth()*sideLength_, _facade.getMapHeight()*sideLength_));
+        container.setPreferredSize(new Dimension(_facade.getMapWidth()*sideLength_, _facade.getMapHeight()*sideLength_));
+    }
+
+    public Panel getContainer() {
+        return container;
     }
 }

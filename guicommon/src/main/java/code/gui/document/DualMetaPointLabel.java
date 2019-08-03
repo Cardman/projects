@@ -12,6 +12,8 @@ import javax.swing.JLabel;
 import code.formathtml.render.MetaPointForm;
 import code.formathtml.render.MetaPointLabel;
 import code.formathtml.render.MetaStyle;
+import code.gui.PreparedLabel;
+import code.gui.TextLabel;
 
 public final class DualMetaPointLabel extends DualLabel {
 
@@ -19,13 +21,13 @@ public final class DualMetaPointLabel extends DualLabel {
     public DualMetaPointLabel(DualContainer _container, MetaPointLabel _component,
             RenderedPage _page) {
         super(_container, _component, _page);
-        getGraphic().setOpaque(true);
+        getLabel().setOpaque(true);
         form = _component.getForm();
     }
 
     @Override
     public void paint() {
-        JLabel lab_ = getLabel();
+        PreparedLabel lab_ = getLabel();
         MetaStyle style_ = getComponent().getStyle();
         Font copy_ =  newFont(style_);
         FontMetrics fontMetrics_ = lab_.getFontMetrics(copy_);

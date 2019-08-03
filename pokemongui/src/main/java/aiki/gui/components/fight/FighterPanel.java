@@ -14,30 +14,33 @@ import aiki.gui.listeners.FighterSelection;
 import aiki.gui.listeners.FrontFighterSelection;
 import code.gui.GraphicList;
 import code.gui.Panel;
+import code.gui.TextLabel;
 import code.util.*;
 
-public class FighterPanel extends Panel {
+public class FighterPanel {
 
-    private JLabel title;
+    private TextLabel title;
 
     private GraphicList<Fighter> liste;
 
     private FacadeGame facade;
 
+    private Panel container;
+
     public FighterPanel(int _nb, String _titre, FacadeGame _facade, ByteTreeMap<Fighter> _fighters) {
         liste = new GraphicList<Fighter>(false,true);
         facade = _facade;
-        setLayout(new BorderLayout());
-        setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
-        title = new JLabel(_titre, SwingConstants.CENTER);
-        add(title, BorderLayout.NORTH);
+        container = Panel.newBorder();
+        container.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+        title = new TextLabel(_titre, SwingConstants.CENTER);
+        container.add(title, BorderLayout.NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb+1);
         liste.setRender(new FighterRenderer(facade));
         initFighters(_fighters);
-        add(liste.getComponent(), BorderLayout.CENTER);
-        setPreferredSize(new Dimension(150,64*_nb));
+        container.add(liste, BorderLayout.CENTER);
+        container.setPreferredSize(new Dimension(150,64*_nb));
     }
 
     public void initFighters(ByteTreeMap<Fighter> _fighters) {
@@ -91,5 +94,9 @@ public class FighterPanel extends Panel {
 
     public void deselect() {
         liste.clearSelection();
+    }
+
+    public Panel getContainer() {
+        return container;
     }
 }

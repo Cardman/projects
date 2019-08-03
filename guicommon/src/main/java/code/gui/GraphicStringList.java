@@ -27,7 +27,7 @@ public class GraphicStringList extends GraphicList<String> implements Input {
     }
     @Override
     public int getMaxWidth() {
-        JPanel panel_ = getPanel();
+        Panel panel_ = getPanel();
         Font font_ = panel_.getFont();
         FontMetrics fontMetics_ = panel_.getFontMetrics(font_);
         int width_ = 4;
@@ -38,7 +38,7 @@ public class GraphicStringList extends GraphicList<String> implements Input {
     }
 
     @Override
-    public JComponent getGlobal() {
+    public CustComponent getGlobal() {
         return getScroll();
     }
 

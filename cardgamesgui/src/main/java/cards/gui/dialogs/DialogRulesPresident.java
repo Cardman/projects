@@ -32,8 +32,7 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
     @Override
     public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, MainWindow _window) {
         validated = false;
-        Panel container_=new Panel();
-        container_.setLayout(new BorderLayout());
+        Panel container_=Panel.newBorder();
         initMessageName(_window);
         initJt(null, _enabledChangingNbPlayers, _nbPlayers, _window);
 

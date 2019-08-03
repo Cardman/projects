@@ -176,4 +176,8 @@ public abstract class PaintableLabel extends CustComponent {
     public JComponent getComponent() {
         return label;
     }
+
+    public JLabel getLabel() {
+        return label;
+    }
 }

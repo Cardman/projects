@@ -33,7 +33,7 @@ public final class DialogTricksTarot extends DialogCards {
 
         _tricksHands.sortHands(_displayingTarot, _numberPlayers);
         ScrollPane scroll_ = new ScrollPane(new PanelTricksHandsTarot(this,
-                _tricksHands, _numberPlayers, _pseudos, _displayingTarot,_window));
+                _tricksHands, _numberPlayers, _pseudos, _displayingTarot,_window).getContainer());
         scroll_.setPreferredSize(new Dimension(600, 600));
         setContentPane(scroll_);
         pack();

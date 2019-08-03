@@ -49,12 +49,7 @@ import aiki.gui.threads.RoundFailBallThread;
 import aiki.gui.threads.RoundFleeThread;
 import aiki.gui.threads.RoundKoUserThread;
 import aiki.gui.threads.RoundThread;
-import code.gui.ChildFrame;
-import code.gui.ConfirmDialog;
-import code.gui.LabelButton;
-import code.gui.Panel;
-import code.gui.ScrollPane;
-import code.gui.WrappedTextArea;
+import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
 import code.maths.Rate;
@@ -185,7 +180,7 @@ public class Battle extends ChildFrame {
 
     private Panel movesPanel;
 
-    private JLabel selectedItem;
+    private TextLabel selectedItem;
 
     private Panel targetsPanel;
 
@@ -201,7 +196,7 @@ public class Battle extends ChildFrame {
 
     private LabelButton flee;
 
-    private JLabel webLabel;
+    private TextLabel webLabel;
 
     private LabelButton web;
 
@@ -213,17 +208,17 @@ public class Battle extends ChildFrame {
 
     private boolean enableClick = true;
 
-    private JLabel nickname = new JLabel();
+    private TextLabel nickname = new TextLabel("");
 
     private LabelButton nicknameLabel;
 
     private String typedNickname = DataBase.EMPTY_STRING;
 
-    private JLabel errorLabel;
+    private TextLabel errorLabel;
 
     private WrappedTextArea commentsErrors;
 
-    private JLabel roundLabel;
+    private TextLabel roundLabel;
 
     private WrappedTextArea commentsRound;
 
@@ -397,12 +392,11 @@ public class Battle extends ChildFrame {
             addFlee();
 //            UPPER.add(fleeWeb);
             Panel forms_ = new Panel();
-            Panel team_ = new Panel();
-            team_.setLayout(new BoxLayout(team_.getComponent(), BoxLayout.PAGE_AXIS));
+            Panel team_ = Panel.newPageBox();
             fighterFrontPanel.initFighters(facade.getPlayerFrontTeam());
-            team_.add(fighterFrontPanel);
+            team_.add(fighterFrontPanel.getContainer());
             fighterBackPanel.initFighters(facade.getPlayerBackTeam());
-            team_.add(fighterBackPanel);
+            team_.add(fighterBackPanel.getContainer());
             actionType.removeAll();
 //            team_.add(actionType);//removed
             forms_.add(team_);
@@ -459,10 +453,9 @@ public class Battle extends ChildFrame {
             fleeWeb.add(validateActions);
 //            UPPER.add(fleeWeb);
             Panel forms_ = new Panel();
-            Panel team_ = new Panel();
-            team_.setLayout(new BoxLayout(team_.getComponent(), BoxLayout.PAGE_AXIS));
+            Panel team_ = Panel.newPageBox();
             fighterPanel.initFighters(facade.getPlayerTeam());
-            team_.add(fighterPanel);
+            team_.add(fighterPanel.getContainer());
             forms_.add(team_);
             actions.removeAll();
             forms_.add(actions);
@@ -479,12 +472,11 @@ public class Battle extends ChildFrame {
 //            actionsBattle.setRightComponent(new JScrollPane(lower));
         } else if (facade.getFight().getState() == FightState.SWITCH_PROPOSE) {
             Panel forms_ = new Panel();
-            Panel team_ = new Panel();
-            team_.setLayout(new BoxLayout(team_.getComponent(), BoxLayout.PAGE_AXIS));
+            Panel team_ = Panel.newPageBox();
             fighterFrontPanel.initFighters(facade.getPlayerFrontTeamForSubstituting());
-            team_.add(fighterFrontPanel);
+            team_.add(fighterFrontPanel.getContainer());
             fighterBackPanel.initFighters(facade.getPlayerBackTeamForSubstituting());
-            team_.add(fighterBackPanel);
+            team_.add(fighterBackPanel.getContainer());
             forms_.add(team_);
             panelPlaces.removeAll();
             placesLabels.clear();
@@ -527,12 +519,11 @@ public class Battle extends ChildFrame {
             addFlee();
 //            UPPER.add(fleeWeb);
             Panel forms_ = new Panel();
-            Panel team_ = new Panel();
-            team_.setLayout(new BoxLayout(team_.getComponent(), BoxLayout.PAGE_AXIS));
+            Panel team_ = Panel.newPageBox();
 //            fighterFrontPanel.initFighters(new TreeMap<Byte,Fighter>(new));
 //            team_.add(fighterFrontPanel);
             fighterBackPanel.initFighters(facade.getPlayerBackTeam());
-            team_.add(fighterBackPanel);
+            team_.add(fighterBackPanel.getContainer());
             forms_.add(team_);
 //            forms_.add(new JScrollPane(commentsErrors));
 //            c_ = new GridBagConstraints();
@@ -708,8 +699,7 @@ public class Battle extends ChildFrame {
     }
 
     private Panel initCommentsPanel() {
-        Panel comments_ = new Panel();
-        comments_.setLayout(new BoxLayout(comments_.getComponent(), BoxLayout.PAGE_AXIS));
+        Panel comments_ = Panel.newPageBox();
         comments_.add(errorLabel);
         comments_.add(new ScrollPane(commentsErrors));
         comments_.add(roundLabel);
@@ -829,7 +819,7 @@ public class Battle extends ChildFrame {
             ballPanel.initBalls();
 //            GridBagConstraints c_ = new GridBagConstraints();
 //            grid.setConstraints(ballPanel, c_);
-            fleeWeb.add(ballPanel);
+            fleeWeb.add(ballPanel.getContainer());
         }
     }
 
@@ -847,10 +837,10 @@ public class Battle extends ChildFrame {
 
     private void initializeComponents() {
         if (errorLabel == null) {
-            errorLabel = new JLabel();
+            errorLabel = new TextLabel("");
         }
         if (roundLabel == null) {
-            roundLabel = new JLabel();
+            roundLabel = new TextLabel("");
         }
         if (flee == null) {
             flee = new LabelButton();
@@ -861,27 +851,23 @@ public class Battle extends ChildFrame {
             web.addMouseListener(new ShowFightDataEvent(this));
         }
         if (webLabel == null) {
-            webLabel = new JLabel();
+            webLabel = new TextLabel("");
         }
         if (nicknameLabel == null) {
             nicknameLabel = new LabelButton();
             nicknameLabel.addMouseListener(new NicknameEvent(this));
         }
         if (fleeWeb == null) {
-            fleeWeb = new Panel();
-            fleeWeb.setLayout(new BoxLayout(fleeWeb.getComponent(), BoxLayout.PAGE_AXIS));
+            fleeWeb = Panel.newPageBox();
         }
         if (actionType == null) {
-            actionType = new Panel();
-            actionType.setLayout(new BoxLayout(actionType.getComponent(), BoxLayout.PAGE_AXIS));
+            actionType = Panel.newPageBox();
         }
         if (panelPlaces == null) {
-            panelPlaces = new Panel();
-            panelPlaces.setLayout(new BoxLayout(panelPlaces.getComponent(), BoxLayout.PAGE_AXIS));
+            panelPlaces = Panel.newPageBox();
         }
         if (actions == null) {
-            actions = new Panel();
-            actions.setLayout(new BoxLayout(actions.getComponent(), BoxLayout.PAGE_AXIS));
+            actions = Panel.newPageBox();
         }
         if (targets == null) {
             targets = new TargetsPanel();
@@ -903,12 +889,10 @@ public class Battle extends ChildFrame {
             pokemonPanel.addListener(this);
         }
         if (movesLearnPanel == null) {
-            movesLearnPanel = new Panel();
-            movesLearnPanel.setLayout(new BoxLayout(movesLearnPanel.getComponent(), BoxLayout.PAGE_AXIS));
+            movesLearnPanel = Panel.newPageBox();
         }
         if (abilitiesLearnPanel == null) {
-            abilitiesLearnPanel = new Panel();
-            abilitiesLearnPanel.setLayout(new BoxLayout(abilitiesLearnPanel.getComponent(), BoxLayout.PAGE_AXIS));
+            abilitiesLearnPanel = Panel.newPageBox();
         }
         if (ballPanel == null) {
             ballPanel = new BallPanel(5, DataBase.EMPTY_STRING, facade);
@@ -1024,7 +1008,7 @@ public class Battle extends ChildFrame {
             return;
         }
         RenderedPage session_;
-        session_ = new RenderedPage(new JScrollPane());
+        session_ = new RenderedPage(new ScrollPane());
         session_.setLanguage(facade.getLanguage());
         session_.setDataBase(facade);
         session_.setProcess(window.getVideoLoading().getVideo());
@@ -1139,7 +1123,7 @@ public class Battle extends ChildFrame {
         actions.removeAll();
         initEvos();
         initLearntMovesAbilities();
-        actions.add(pokemonPanel);
+        actions.add(pokemonPanel.getContainer());
         ScrollPane scroll_ = new ScrollPane(movesLearnPanel);
         scroll_.setPreferredSize(new Dimension(150,150));
         actions.add(scroll_);
@@ -1163,7 +1147,7 @@ public class Battle extends ChildFrame {
         NatStringTreeMap<Boolean> retMoves_ = facade.getMoves();
         moves_.putAllMap(retMoves_);
         movesLearnPanel.removeAll();
-        movesLearnPanel.add(new JLabel(messages.getVal(SELECT_MT)));
+        movesLearnPanel.add(new TextLabel(messages.getVal(SELECT_MT)));
         for (String m: moves_.getKeys()) {
             boolean learnt_ = moves_.getVal(m);
             if (!learnt_) {
@@ -1172,7 +1156,7 @@ public class Battle extends ChildFrame {
             String tr_ = facade.translateMove(m);
             MoveFighterCheckBox check_ = new MoveFighterCheckBox(m,tr_,learnt_,this);
             check_.setBackground(Color.RED);
-            movesLearnPanel.add(check_);
+            movesLearnPanel.add(check_.getComponent());
         }
         for (String m: moves_.getKeys()) {
             boolean learnt_ = moves_.getVal(m);
@@ -1182,7 +1166,7 @@ public class Battle extends ChildFrame {
             String tr_ = facade.translateMove(m);
             MoveFighterCheckBox check_ = new MoveFighterCheckBox(m,tr_,learnt_,this);
             check_.setBackground(Color.WHITE);
-            movesLearnPanel.add(check_);
+            movesLearnPanel.add(check_.getComponent());
         }
 //        for (String m: moves_.getKeys(true)) {
 //            String tr_ = facade.translateMove(m);
@@ -1200,7 +1184,7 @@ public class Battle extends ChildFrame {
 //        }
         abilitiesLearnPanel.removeAll();
         abilityLabels.clear();
-        abilitiesLearnPanel.add(new JLabel(messages.getVal(SELECT_ABILITY)));
+        abilitiesLearnPanel.add(new TextLabel(messages.getVal(SELECT_ABILITY)));
         StringList abilities_ = facade.getAbilities();
         StringList abilitiesCopy_ = new StringList(abilities_);
 //        abilitiesCopy_.sort(new Comparator<String>() {
@@ -1226,7 +1210,7 @@ public class Battle extends ChildFrame {
 
     private void displayActionsBeforeRound() {
         actionType.removeAll();
-        actionType.add(new JLabel(messages.getVal(SELECT_ACTION)));
+        actionType.add(new TextLabel(messages.getVal(SELECT_ACTION)));
         actionsLabels.clear();
         EnumList<ActionType> actions_ = facade.getFight().getPossibleActionsCurFighter();
         StringMap<String> map_ = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, window.getLanguageKey(), ACTION_TYPE);
@@ -1263,7 +1247,7 @@ public class Battle extends ChildFrame {
     private void displayMovesToBeHealed() {
         actions.removeAll();
         actions.add(actionType);
-        selectedItem = new JLabel(messages.getVal(NO_ITEM));
+        selectedItem = new TextLabel(messages.getVal(NO_ITEM));
         LabelButton button_ = new LabelButton(messages.getVal(SELECT_ITEM));
         button_.addMouseListener(new SelectHealingItemEvent(this));
         String str_ = facade.getFight().getChosenHealingMove();
@@ -1277,12 +1261,11 @@ public class Battle extends ChildFrame {
         if (!moves_.isEmpty()) {
             boolean wasNull_ = movesPanel == null;
             if (wasNull_) {
-                movesPanel = new Panel();
+                movesPanel = Panel.newPageBox();
             } else {
                 movesPanel.removeAll();
             }
-            movesPanel.setLayout(new BoxLayout(movesPanel.getComponent(), BoxLayout.PAGE_AXIS));
-            movesPanel.add(new JLabel(messages.getVal(SELECT_MOVE_HEAL)));
+            movesPanel.add(new TextLabel(messages.getVal(SELECT_MOVE_HEAL)));
             movesLabels.clear();
             for (String m: moves_.getKeys()) {
                 ChosenMoveInfos info_ = moves_.getVal(m);
@@ -1336,9 +1319,8 @@ public class Battle extends ChildFrame {
     private void displayMoves() {
         NatStringTreeMap<ChosenMoveInfos> moves_ = facade.getFight().getCurrentFighterMoves();
         if (!moves_.isEmpty()) {
-            Panel movesPanel_ = new Panel();
-            movesPanel_.setLayout(new BoxLayout(movesPanel_.getComponent(), BoxLayout.PAGE_AXIS));
-            movesPanel_.add(new JLabel(messages.getVal(SELECT_MOVE_ROUND)));
+            Panel movesPanel_ = Panel.newPageBox();
+            movesPanel_.add(new TextLabel(messages.getVal(SELECT_MOVE_ROUND)));
             movesLabels.clear();
             for (String m: moves_.getKeys()) {
                 ChosenMoveInfos info_ = moves_.getVal(m);
@@ -1353,8 +1335,7 @@ public class Battle extends ChildFrame {
             actions.add(movesPanel_);
             boolean wasNull_ = targetsPanel == null;
             if (wasNull_) {
-                targetsPanel = new Panel();
-                targetsPanel.setLayout(new BorderLayout());
+                targetsPanel = Panel.newBorder();
             } else {
                 targetsPanel.removeAll();
             }
@@ -1362,12 +1343,12 @@ public class Battle extends ChildFrame {
             BooleanList chosableFoe_ = facade.getFight().getChosableFoeTargets();
             if (chosablePlayer_.indexesOfObj(true).size() + chosableFoe_.indexesOfObj(true).size() > DataBase.ONE_POSSIBLE_CHOICE) {
                 targets.setTargets(facade, this);
-                JLabel header_ = new JLabel(messages.getVal(SELECT_TARGET));
+                TextLabel header_ = new TextLabel(messages.getVal(SELECT_TARGET));
                 targetsPanel.add(header_, BorderLayout.NORTH);
             } else {
-                targets.removeAll();
+                targets.getContainer().removeAll();
             }
-            targetsPanel.add(targets, BorderLayout.CENTER);
+            targetsPanel.add(targets.getContainer(), BorderLayout.CENTER);
             actions.add(targetsPanel);
         }
     }
@@ -1384,8 +1365,7 @@ public class Battle extends ChildFrame {
 //            }
             boolean wasNull_ = targetsPanel == null;
             if (wasNull_) {
-                targetsPanel = new Panel();
-                targetsPanel.setLayout(new BorderLayout());
+                targetsPanel = Panel.newBorder();
             } else {
                 targetsPanel.removeAll();
             }
@@ -1393,19 +1373,19 @@ public class Battle extends ChildFrame {
             BooleanList plTargets_ = facade.getFight().getChosablePlayerTargets();
             if (foeTargets_.indexesOfObj(true).size() + plTargets_.indexesOfObj(true).size() > DataBase.ONE_POSSIBLE_CHOICE) {
                 targets.setTargets(facade, this);
-                JLabel header_ = new JLabel(messages.getVal(SELECT_TARGET));
+                TextLabel header_ = new TextLabel(messages.getVal(SELECT_TARGET));
                 targetsPanel.add(header_, BorderLayout.NORTH);
             } else {
                 window.setSavedGame(false);
-                targets.removeAll();
+                targets.getContainer().removeAll();
             }
-            targetsPanel.add(targets, BorderLayout.CENTER);
+            targetsPanel.add(targets.getContainer(), BorderLayout.CENTER);
             if (wasNull_) {
                 actions.add(targetsPanel);
             }
         } else if (facade.getFight().getSelectedActionCurFighter() == ActionType.HEALING) {
             window.setSavedGame(false);
-            targets.removeAll();
+            targets.getContainer().removeAll();
         }
 //        window.pack();
         pack();

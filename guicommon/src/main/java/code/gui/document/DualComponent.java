@@ -8,6 +8,8 @@ import javax.swing.JComponent;
 import code.formathtml.render.BorderEnum;
 import code.formathtml.render.MetaComponent;
 import code.formathtml.render.MetaStyle;
+import code.gui.CustComponent;
+import code.gui.Panel;
 import code.util.CustList;
 
 public abstract class DualComponent {
@@ -24,7 +26,7 @@ public abstract class DualComponent {
         page = _page;
     }
 
-    protected void updateGraphics(JComponent _component,MetaComponent _metaComponent) {
+    protected void updateGraphics(CustComponent _component,MetaComponent _metaComponent) {
         MetaStyle style_ = _metaComponent.getStyle();
         if (style_.getBorder() == BorderEnum.SOLID) {
             _component.setBorder(BorderFactory.createLineBorder(new Color(style_.getBorderColor()), style_.getBorderSize()));
@@ -43,20 +45,31 @@ public abstract class DualComponent {
     }
 
     public int getComponentCount() {
-        return getGraphic().getComponentCount();
+        CustComponent g_ = getGraphic();
+        if (g_ instanceof Panel) {
+            return ((Panel)g_).getComponentCount();
+        }
+        return 0;
     }
 
-    public JComponent getParent() {
-        return (JComponent) getGraphic().getParent();
+    public CustComponent getParent() {
+        return getGraphic().getParent();
     }
-    public JComponent getComponent(int _index) {
-        return (JComponent) getGraphic().getComponent(_index);
+    public CustComponent getComponent(int _index) {
+        CustComponent g_ = getGraphic();
+        if (g_ instanceof Panel) {
+            return ((Panel)g_).getComponent(_index);
+        }
+        return null;
     }
 
     public void add(DualComponent _dual) {
         page.getRefs().put(_dual.getComponent(), _dual);
         children.add(_dual);
-        getGraphic().add(_dual.getGraphic());
+        CustComponent g_ = getGraphic();
+        if (g_ instanceof Panel) {
+            ((Panel)g_).add(_dual.getGraphic());
+        }
         if (_dual instanceof DualAnimatedImage) {
             page.getAnims().add((DualAnimatedImage) _dual);
         }
@@ -70,7 +83,7 @@ public abstract class DualComponent {
         return component;
     }
 
-    public abstract JComponent getGraphic();
+    public abstract CustComponent getGraphic();
 
     public RenderedPage getPage() {
         return page;

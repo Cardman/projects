@@ -11,6 +11,7 @@ import cards.gui.MainWindow;
 import cards.president.enumerations.CardPresident;
 import code.gui.Dialog;
 import code.gui.Panel;
+import code.gui.TextLabel;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -44,23 +45,21 @@ public final class DialogHelpPresident extends Dialog {
 
     public static void setDialoguePresident(TreeMap<CardPresident, Byte> _playedCards, boolean _reversed, int _nbStacks, String _lg) {
         int count_ = Suit.couleursOrdinaires().size() * _nbStacks;
-        Panel contentPane_ = new Panel();
-        contentPane_.setLayout(new BoxLayout(contentPane_.getComponent(), BoxLayout.PAGE_AXIS));
-        Panel panelCards_ = new Panel();
-        panelCards_.setLayout(new GridLayout(0, 3));
-        panelCards_.add(new JLabel(DIALOG.messages.getVal(LEVEL)));
-        panelCards_.add(new JLabel(DIALOG.messages.getVal(NB_PLAYED)));
-        panelCards_.add(new JLabel(DIALOG.messages.getVal(NB_REM)));
+        Panel contentPane_ = Panel.newPageBox();
+        Panel panelCards_ = Panel.newGrid(0, 3);
+        panelCards_.add(new TextLabel(DIALOG.messages.getVal(LEVEL)));
+        panelCards_.add(new TextLabel(DIALOG.messages.getVal(NB_PLAYED)));
+        panelCards_.add(new TextLabel(DIALOG.messages.getVal(NB_REM)));
         for (CardPresident c: _playedCards.getKeys()) {
             CardChar char_ = c.getNomFigure();
             if (char_ == CardChar.UNDEFINED) {
-                panelCards_.add(new JLabel(Byte.toString(c.valeur())));
+                panelCards_.add(new TextLabel(Byte.toString(c.valeur())));
             } else {
-                panelCards_.add(new JLabel(Games.toString(char_,_lg)));
+                panelCards_.add(new TextLabel(Games.toString(char_,_lg)));
             }
             byte pl_ = _playedCards.getVal(c);
-            panelCards_.add(new JLabel(Byte.toString(pl_)));
-            panelCards_.add(new JLabel(Integer.toString(count_ - pl_)));
+            panelCards_.add(new TextLabel(Byte.toString(pl_)));
+            panelCards_.add(new TextLabel(Integer.toString(count_ - pl_)));
         }
         contentPane_.add(panelCards_);
         String message_ = DIALOG.messages.getVal(REVERSED);
@@ -71,7 +70,7 @@ public final class DialogHelpPresident extends Dialog {
             value_ = DIALOG.messages.getVal(NO);
         }
         message_ = StringList.simpleStringsFormat(message_, value_);
-        JLabel reversed_ = new JLabel(message_);
+        TextLabel reversed_ = new TextLabel(message_);
         contentPane_.add(reversed_);
         DIALOG.setContentPane(contentPane_);
         DIALOG.pack();

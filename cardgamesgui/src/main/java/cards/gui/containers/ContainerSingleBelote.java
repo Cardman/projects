@@ -3,7 +3,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
@@ -61,12 +60,7 @@ import cards.gui.panels.MiniCarpet;
 import cards.gui.panels.PanelTricksHandsBelote;
 import cards.main.LaunchingCards;
 import cards.network.common.select.TeamsPlayers;
-import code.gui.ConfirmDialog;
-import code.gui.LabelButton;
-import code.gui.Panel;
-import code.gui.ScrollPane;
-import code.gui.TabbedPane;
-import code.gui.ThreadInvoker;
+import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.maths.Rate;
 import code.stream.StreamTextFile;
@@ -108,7 +102,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             ThreadInvoker.invokeNow(new AddTextEvents(this,StringList.concat(_pseudo,INTRODUCTION_PTS,Games.toString(usDecl_.getDeclare(),lg_),RETURN_LINE)));
 //            ajouterTexteDansZone(pseudo()+INTRODUCTION_PTS+usDecl_.getAnnonce()+RETURN_LINE_CHAR);
             if(!usDecl_.getHand().estVide()) {
-                JLabel label_ = getHandfuls().getVal(_joueur);
+                TextLabel label_ = getHandfuls().getVal(_joueur);
                 ThreadInvoker.invokeNow(new SettingText(label_, Games.toString(usDecl_.getDeclare(),lg_)));
 //                getHandfuls().getVal(_joueur).setText(usDecl_.getAnnonce().toString());
             }
@@ -238,7 +232,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         while (square_ * square_ < size_) {
             square_++;
         }
-        setPanneauBoutonsJeuPoints(new Panel(new GridLayout(0, square_)));
+        setPanneauBoutonsJeuPoints(Panel.newGrid(0, square_));
         getPointsButtons().clear();
         String lg_ = getOwner().getLanguageKey();
         for (int p_: points_) {
@@ -255,8 +249,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         setBidOk(new LabelButton(MainWindow.OK));
         getBidOk().setEnabledLabel(false);
         getBidOk().addMouseListener(new BidEvent(this));
-        Panel panel_ = new Panel();
-        panel_.setLayout(new BoxLayout(panel_.getComponent(), BoxLayout.PAGE_AXIS));
+        Panel panel_ = Panel.newPageBox();
         Panel panelSuits_ = new Panel();
         getBidsButtons().clear();
         for (Suit s: Suit.couleursOrdinaires()) {
@@ -383,7 +376,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         if(!partie_.cartesBeloteRebelote().estVide()) {
             annonceBeloteRebelote = false;
             Panel panneau_ =getPanneauBoutonsJeu();
-            JCheckBox caseCoche_ = new JCheckBox(Games.toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,lg_));
+            CustCheckBox caseCoche_ = new CustCheckBox(Games.toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,lg_));
             caseCoche_.setEnabled(partie_.autoriseBeloteRebelote());
             caseCoche_.addActionListener(new ChangeBeloteRebeloteEvent(this));
             panneau_.add(caseCoche_);
@@ -393,7 +386,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             if(annonceMain_.getDeclare() != DeclaresBelote.UNDEFINED) {
                 annonceBelote = false;
                 Panel panneau_ =getPanneauBoutonsJeu();
-                JCheckBox caseCoche_ = new JCheckBox(StringList.concat(Games.toString(annonceMain_.getDeclare(),lg_),INTRODUCTION_PTS,Games.toString(annonceMain_.getHand(),lg_)));
+                CustCheckBox caseCoche_ = new CustCheckBox(StringList.concat(Games.toString(annonceMain_.getDeclare(),lg_),INTRODUCTION_PTS,Games.toString(annonceMain_.getHand(),lg_)));
                 caseCoche_.addActionListener(new ChangeBeloteDeclareEvent(this));
                 panneau_.add(caseCoche_);
             }
@@ -445,56 +438,51 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         placerIhmBelote();
     }
     private void placerIhmBelote() {
-        Panel container_=new Panel();
-        container_.setLayout(new BorderLayout());
-        container_.add(new JLabel(getMessages().getVal(MainWindow.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
+        Panel container_=Panel.newBorder();
+        container_.add(new TextLabel(getMessages().getVal(MainWindow.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         GameBelote partie_=partieBelote();
-        CarpetBelote tapis_=new CarpetBelote();
         StringList pseudos_ = pseudosBelote();
         String lg_ = getOwner().getLanguageKey();
-        tapis_.initTapisBelote(lg_,partie_.getNombreDeJoueurs(),getDisplayingBelote().isClockwise(),pseudos_,1);
+        CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, partie_.getNombreDeJoueurs(), getDisplayingBelote().isClockwise(), pseudos_, 1);
         getTapis().setTapisBelote(tapis_);
-        container_.add(tapis_,BorderLayout.CENTER);
-        Panel panneau_=new Panel();
+        container_.add(tapis_.getContainer(),BorderLayout.CENTER);
+        Panel panneau_;
+        panneau_=Panel.newFlow(FlowLayout.LEFT,0,0);
         panneau_.setBackground(Color.BLUE);
-        panneau_.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
         setPanelHand(panneau_);
         container_.add(panneau_,BorderLayout.SOUTH);
-        Panel panneau2_=new Panel();
-        panneau2_.setLayout(new BoxLayout(panneau2_.getComponent(), BoxLayout.PAGE_AXIS));
-        setEvents(new JTextArea(EMPTY,8, 30));
+        Panel panneau2_=Panel.newPageBox();
+        setEvents(new TextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
         panneau2_.add(new ScrollPane(getEvents()));
-        setMini(new MiniCarpet(partie_.getNombreDeJoueurs(),getDisplayingBelote().isClockwise(),pseudos_));
-        panneau2_.add(getMini());
-        setHandfuls(new ByteMap<JLabel>());
+        setMini(MiniCarpet.newCarpet(partie_.getNombreDeJoueurs(),getDisplayingBelote().isClockwise(),pseudos_));
+        panneau2_.add(getMiniPanel());
+        setHandfuls(new ByteMap<TextLabel>());
         setDeclaredHandfuls(new ByteMap<Panel>());
-        Panel declaredHandfuls_ = new Panel(new GridLayout(0,1));
+        Panel declaredHandfuls_ = Panel.newGrid(0,1);
         int nbPlayers_ = partie_.getNombreDeJoueurs();
         for (byte i=CustList.FIRST_INDEX;i<nbPlayers_;i++) {
-            Panel declaredHandfulGroup_ = new Panel(new FlowLayout());
-            JLabel lab_ = new JLabel(pseudos_.get(i));
+            Panel declaredHandfulGroup_ = Panel.newFlow();
+            TextLabel lab_ = new TextLabel(pseudos_.get(i));
             declaredHandfulGroup_.add(lab_);
-            JLabel handful_ = new JLabel(EMPTY_STRING);
+            TextLabel handful_ = new TextLabel(EMPTY_STRING);
             declaredHandfulGroup_.add(handful_);
             getHandfuls().put(i, handful_);
-            Panel declaredHandful_ = new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
+            Panel declaredHandful_ = Panel.newFlow(FlowLayout.LEFT,0,0);
             declaredHandfulGroup_.add(declaredHandful_);
             getDeclaredHandfuls().put(i, declaredHandful_);
             declaredHandfuls_.add(declaredHandfulGroup_);
         }
         ScrollPane scroll_ = new ScrollPane(declaredHandfuls_);
         panneau2_.add(scroll_);
-        Panel sousPanneau_=new Panel();
-        sousPanneau_.setLayout(new BoxLayout(sousPanneau_.getComponent(), BoxLayout.PAGE_AXIS));
+        Panel sousPanneau_=Panel.newPageBox();
         setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
         container_.add(panneau2_,BorderLayout.EAST);
         if (!partie_.getDistribution().derniereMain().estVide()) {
             tapisBelote().setTalonBelote(lg_,partie_.getDistribution().derniereMain());
         }
-        Panel panel_ = new Panel();
-        panel_.setLayout(new BoxLayout(panel_.getComponent(), BoxLayout.PAGE_AXIS));
+        Panel panel_ = Panel.newPageBox();
         panel_.add(new ScrollPane(container_));
         panel_.add(getWindow().getClock());
         panel_.add(getWindow().getLastSavedGameDate());
@@ -677,9 +665,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         getHelpGame().setEnabledMenu(false);
         getOwner().getTricksHands().setEnabledMenu(false);
         getOwner().getTeams().setEnabledMenu(false);
-        Panel container_=new Panel();
+        Panel container_=Panel.newBorder();
         ScrollPane ascenseur_;
-        container_.setLayout(new BorderLayout());
         Panel panneau_=new Panel();
         if(isChangerPileFin()) {
             GameBelote partie_=partieBelote();
@@ -705,7 +692,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
         setScores(res_.getScores());
         BeloteStandards stds_;
-        JScrollPane scroll_=new JScrollPane();
+        ScrollPane scroll_=new ScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
         editor_.setLanguage(lg_);
         editor_.setDataBase(res_);
@@ -714,7 +701,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         if(partie_.getContrat().jouerDonne()) {
-            scroll_=new JScrollPane();
+            scroll_=new ScrollPane();
             editor_ = new RenderedPage(scroll_);
             editor_.setLanguage(lg_);
             editor_.setDataBase(res_);
@@ -768,8 +755,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             ascenseur_=new ScrollPane(graphique_);
             graphique_.setLocation(0,(600-dimy_)/2);
             ascenseur_.setPreferredSize(new Dimension(300,200));
-            panneau_=new Panel(new BorderLayout());
-            panneau_.add(new JLabel(getMessages().getVal(MainWindow.SCORES_EVOLUTION_DETAIL),SwingConstants.CENTER),BorderLayout.NORTH);
+            panneau_=Panel.newBorder();
+            panneau_.add(new TextLabel(getMessages().getVal(MainWindow.SCORES_EVOLUTION_DETAIL),SwingConstants.CENTER),BorderLayout.NORTH);
             panneau_.add(ascenseur_,BorderLayout.CENTER);
             GraphicKey legende_=new GraphicKey(pseudos_,couleurs_, lg_);
             legende_.setPreferredSize(new Dimension(300,15*(nombreJoueurs_+1)));
@@ -787,12 +774,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
         tricksHands_.sortHands(getDisplayingBelote(), game_.getNombreDeJoueurs());
         MainWindow ow_ = getOwner();
-        ascenseur_=new ScrollPane(new PanelTricksHandsBelote(ow_, tricksHands_, nombreJoueurs_, pseudosBelote(), getDisplayingBelote(),ow_));
+        ascenseur_=new ScrollPane(new PanelTricksHandsBelote(ow_, tricksHands_, nombreJoueurs_, pseudosBelote(), getDisplayingBelote(),ow_).getContainer());
         ascenseur_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.HANDS_TRICKS),ascenseur_);
         container_.add(onglets_,BorderLayout.CENTER);
-        panneau_=new Panel();
-        panneau_.setLayout(new BoxLayout(panneau_.getComponent(), BoxLayout.PAGE_AXIS));
+        panneau_=Panel.newPageBox();
         Panel buttons_ = new Panel();
         GameType type_;
         long nombreParties_;

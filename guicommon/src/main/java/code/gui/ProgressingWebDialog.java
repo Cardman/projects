@@ -18,7 +18,7 @@ public final class ProgressingWebDialog extends Dialog implements ProgressDialog
 
     private static final String PER_CENT = "";
 
-    private JLabel anim;
+    private PreparedLabel anim;
     private AnimatedImage animation;
 
     public ProgressingWebDialog() {
@@ -31,11 +31,11 @@ public final class ProgressingWebDialog extends Dialog implements ProgressDialog
         }
         setLocationRelativeToWindow(_window);
         if (!_images.isEmpty()) {
-            anim = new JLabel();
+            anim = new PreparedLabel();
             anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
             animation = new AnimatedImage(anim, _images, TIME * 10);
         } else {
-            anim = new JLabel();
+            anim = new PreparedLabel();
             anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
             anim.setOpaque(true);
             anim.setBackground(Color.WHITE);

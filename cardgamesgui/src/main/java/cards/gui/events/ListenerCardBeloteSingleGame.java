@@ -52,7 +52,7 @@ public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
                     //message d'erreur sur la belote rebelote
                     HandBelote cartesBeloteRebelote_=partie_.cartesBeloteRebelote();
                     /*On ordonne la poignee d'atouts*/
-                    Panel panneau_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
+                    Panel panneau_=Panel.newFlow(FlowLayout.LEFT,0,0);
                     for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(lg_,cartesBeloteRebelote_)) {
                         panneau_.add(c);
                     }

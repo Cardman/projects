@@ -34,9 +34,9 @@ public abstract class FileDialog extends Dialog {
     private static final int DIALOG_WIDTH = 400;
     private static final int DIALOG_HEIGHT = 278;
     private static final Dimension DIM = new Dimension(DIALOG_WIDTH, DIALOG_HEIGHT);
-    private Panel contentPane = new Panel();
+    private Panel contentPane = Panel.newBorder();
     private Panel buttons = new Panel();
-    private JTextField fileName = new JTextField(NB_COLS);
+    private TextField fileName = new TextField(NB_COLS);
     private JTree folderSystem;
     private FileTable fileModel;
     private JTable fileTable;
@@ -116,12 +116,11 @@ public abstract class FileDialog extends Dialog {
         fileTable.getTableHeader().addMouseListener(new ClickHeaderEvent(this));
         fileTable.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         fileTable.getSelectionModel().addListSelectionListener(new ClickRowEvent(this));
-        contentPane.setLayout(new BorderLayout());
-        Panel openSaveFile_ = new Panel();
-        openSaveFile_.setLayout(new BoxLayout(openSaveFile_.getComponent(),BoxLayout.PAGE_AXIS));
+        Panel openSaveFile_ = Panel.newPageBox();
+        fileName = AutoCompleteDocument.createAutoCompleteTextField(new StringList(),NB_COLS);
         if (addTypingFileName) {
             Panel fieldFile_ = new Panel();
-            fieldFile_.add(new JLabel(messages.getVal(NAME)));
+            fieldFile_.add(new TextLabel(messages.getVal(NAME)));
             fieldFile_.add(fileName);
             openSaveFile_.add(fieldFile_);
         }
@@ -145,7 +144,7 @@ public abstract class FileDialog extends Dialog {
                         filesList_.add(f);
                     }
                 }
-                fileModel.setupFiles(filesList_, currentFolder, extension);
+                refreshList(filesList_);
             }
             folderSystem = new JTree(default_);
         } else {
@@ -164,6 +163,15 @@ public abstract class FileDialog extends Dialog {
         contentPane.add(fileSelector_, BorderLayout.CENTER);
         contentPane.add(openSaveFile_, BorderLayout.SOUTH);
         setContentPane(contentPane);
+    }
+
+    public void refreshList(CustList<File> _filesList) {
+        StringList list_ = new StringList();
+        for (File f: _filesList) {
+            list_.add(f.getName());
+        }
+        AutoCompleteDocument.setDictionary(fileName, list_);
+        fileModel.setupFiles(_filesList, currentFolder, extension);
     }
 
     public void clickHeader(MouseEvent _e) {
@@ -203,28 +211,21 @@ public abstract class FileDialog extends Dialog {
         if (!currentFolder_.exists()) {
             return;
         }
-        StringList folderList_ = new StringList();
         CustList<File> files_ = new CustList<File>();
         File[] filesArray_ = currentFolder_.listFiles();
         if (filesArray_ != null) {
             CustList<File> currentFiles_ = new CustList<File>(filesArray_);
             currentFiles_.sortElts(new FileNameComparator());
             for (File l: currentFiles_) {
-                if (l.isDirectory()) {
-                    if (StringList.contains(excludedFolders, StringList.replaceBackSlash(l.getAbsolutePath()))) {
-                        continue;
-                    }
-                    folderList_.add(l.getName());
-                } else if (l.getName().endsWith(extension)) {
+                if (!l.isDirectory()&&l.getName().endsWith(extension)) {
                     files_.add(l);
                 }
             }
         }
-        folderList_.sort();
         DefaultTreeModel d_;
         d_ = (DefaultTreeModel) folderSystem.getModel();
         d_.reload();
-        fileModel.setupFiles(files_,currentFolder, extension);
+        refreshList(files_);
     }
 
     public void applyTreeChange(TreePath _treePath) {
@@ -275,7 +276,7 @@ public abstract class FileDialog extends Dialog {
         DefaultTreeModel d_;
         d_ = (DefaultTreeModel) folderSystem.getModel();
         d_.reload(selected_);
-        fileModel.setupFiles(files_,currentFolder, extension);
+        refreshList(files_);
     }
     @Override
     public void pack() {
@@ -301,7 +302,7 @@ public abstract class FileDialog extends Dialog {
         return buttons;
     }
 
-    protected JTextField getFileName() {
+    protected TextField getFileName() {
         return fileName;
     }
 

@@ -18,12 +18,7 @@ import aiki.gui.components.listeners.NewSearchEvent;
 import aiki.gui.components.listeners.SearchEvent;
 import aiki.gui.listeners.PaginatorEvent;
 import aiki.util.SortingItem;
-import code.gui.AutoCompleteDocument;
-import code.gui.ChangeableTitle;
-import code.gui.LabelButton;
-import code.gui.NumComboBox;
-import code.gui.Panel;
-import code.gui.ScrollPane;
+import code.gui.*;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.Ints;
@@ -42,17 +37,17 @@ public final class PaginatorItem extends Paginator {
 
     private static final String NUMBER = "number";
 
-    private JTextField name;
+    private TextField name;
 
-    private JTextField description = new JTextField(16);
+    private TextField description = new TextField(16);
 
-    private JTextField minPrice = new JTextField(16);
+    private TextField minPrice = new TextField(16);
 
-    private JTextField maxPrice = new JTextField(16);
+    private TextField maxPrice = new TextField(16);
 
-    private JTextField minNumber = new JTextField(16);
+    private TextField minNumber = new TextField(16);
 
-    private JTextField maxNumber = new JTextField(16);
+    private TextField maxNumber = new TextField(16);
 
 
     private EnumList<SearchingMode> order = new EnumList<SearchingMode>();
@@ -62,7 +57,7 @@ public final class PaginatorItem extends Paginator {
 
     private ComboBoxSearchingMode modeDescription;
 
-    private Panel results = new Panel();
+    private Panel results = Panel.newGrid(0,1);
 
     private ComboBoxSelectedBool cmpNameSorting;
 
@@ -82,8 +77,8 @@ public final class PaginatorItem extends Paginator {
 
     private boolean buy;
 
-    public PaginatorItem(MainWindow _window, ChangeableTitle _w, FacadeGame _d, boolean _buy) {
-        super(_window, ACCESS_ITEM);
+    public PaginatorItem(MainWindow _window, Panel _p,ChangeableTitle _w, FacadeGame _d, boolean _buy) {
+        super(_window, ACCESS_ITEM,_p);
         setWindow(_w);
         setFacade(_d);
         buy = _buy;
@@ -120,7 +115,6 @@ public final class PaginatorItem extends Paginator {
         }
         getFacade().setSearchModeNameItem(SearchingMode.WHOLE_STRING);
         getFacade().setSearchModeDescriptionItem(SearchingMode.WHOLE_STRING);
-        setLayout(new BoxLayout(getComponent(),BoxLayout.PAGE_AXIS));
         StringList it_ = new StringList();
         for (String i: getFacade().getData().getItems().getKeys()) {
             String abTr_ = getFacade().translateItem(i);
@@ -218,35 +212,35 @@ public final class PaginatorItem extends Paginator {
 //            }
 //        });
         Panel search_;
-        search_ = new Panel(new GridLayout(0,3));
-        search_.add(new JLabel(getMessages().getVal(NAME)));
+        search_ = Panel.newGrid(0,3);
+        search_.add(new TextLabel(getMessages().getVal(NAME)));
         search_.add(name);
         search_.add(modeName);
-        search_.add(new JLabel(getMessages().getVal(DESCRIPTION)));
+        search_.add(new TextLabel(getMessages().getVal(DESCRIPTION)));
         search_.add(description);
         search_.add(modeDescription);
-        search_.add(new JLabel(getMessages().getVal(PRICE)));
+        search_.add(new TextLabel(getMessages().getVal(PRICE)));
         search_.add(minPrice);
         search_.add(maxPrice);
-        search_.add(new JLabel(getMessages().getVal(NUMBER)));
+        search_.add(new TextLabel(getMessages().getVal(NUMBER)));
         search_.add(minNumber);
         search_.add(maxNumber);
-        add(search_);
+        _p.add(search_);
         Panel sorting_;
-        sorting_ = new Panel(new GridLayout(0,3));
-        sorting_.add(new JLabel(getMessages().getVal(NAME)));
+        sorting_ = Panel.newGrid(0,3);
+        sorting_.add(new TextLabel(getMessages().getVal(NAME)));
         sorting_.add(cmpNameSorting);
         sorting_.add(cmpNamePrio);
-        sorting_.add(new JLabel(getMessages().getVal(DESCRIPTION)));
+        sorting_.add(new TextLabel(getMessages().getVal(DESCRIPTION)));
         sorting_.add(cmpDescriptionSorting);
         sorting_.add(cmpDescriptionPrio);
-        sorting_.add(new JLabel(getMessages().getVal(PRICE)));
+        sorting_.add(new TextLabel(getMessages().getVal(PRICE)));
         sorting_.add(cmpPriceSorting);
         sorting_.add(cmpPricePrio);
-        sorting_.add(new JLabel(getMessages().getVal(NUMBER)));
+        sorting_.add(new TextLabel(getMessages().getVal(NUMBER)));
         sorting_.add(cmpNumberSorting);
         sorting_.add(cmpNumberPrio);
-        add(sorting_);
+        _p.add(sorting_);
         Panel top_;
         top_ = new Panel();
         LabelButton button_;
@@ -256,8 +250,7 @@ public final class PaginatorItem extends Paginator {
         button_ = new LabelButton(getMessages().getVal(NEW_SEARCH));
         button_.addMouseListener(new NewSearchEvent(this));
         top_.add(button_);
-        add(top_);
-        results.setLayout(new GridLayout(0, 1));
+        _p.add(top_);
         int side_ = getFacade().getMap().getSideLength();
         Ints widths_ = new Ints();
 //        int nameWidth_ = getHeader().width(getMessages().getVal(NAME));
@@ -280,7 +273,7 @@ public final class PaginatorItem extends Paginator {
         getHeader().setPreferredSize(new Dimension((int)widths_.getMaximum(1), Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS));
         results.add(getHeader());
         //results.add(new JLabel(getMessages().getVal(ITEM)));
-        add(new ScrollPane(results));
+        _p.add(new ScrollPane(results));
         Panel bottom_ = new Panel();
         getNbResults().setValue(getFacade().getNbResultsPerPageFirstBox());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
@@ -295,7 +288,7 @@ public final class PaginatorItem extends Paginator {
         bottom_.add(getNextDelta());
         bottom_.add(getEnd());
         bottom_.add(getDelta());
-        add(bottom_);
+        _p.add(bottom_);
         changeNav();
     }
 

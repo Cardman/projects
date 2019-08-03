@@ -7,6 +7,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import code.formathtml.render.MetaAnimatedImage;
+import code.gui.PreparedLabel;
+import code.gui.TextLabel;
 import code.gui.ThreadUtil;
 import code.sml.Element;
 import code.util.CustList;
@@ -29,7 +31,7 @@ public class DualAnimatedImage extends DualImage {
         Element anchor_ = _component.getAnchor();
         href = "";
         if (anchor_ != null) {
-            JLabel label_ = getLabel();
+            PreparedLabel label_ = getLabel();
             label_.setCursor(new Cursor(Cursor.HAND_CURSOR));
             label_.addMouseListener(new AnchorEvent(anchor_, _page, this));
             if (!anchor_.getAttribute("command").isEmpty()) {

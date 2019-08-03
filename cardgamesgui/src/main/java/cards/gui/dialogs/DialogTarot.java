@@ -27,8 +27,7 @@ import cards.tarot.enumerations.EndDealTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.ModeTarot;
-import code.gui.LabelButton;
-import code.gui.Panel;
+import code.gui.*;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -57,22 +56,22 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
     private static final String VALIDATE_HANDFUL = "validateHandful";
     private RulesTarot reglesTarot=new RulesTarot();
 
-    private JSpinner nbGames;
+    private Spinner nbGames;
     private StringMap<String> messages = new StringMap<String>();
     private ComboBoxMixCards listeChoix;
     private Panel bidding;
-    private CustList<JCheckBox> bids = new CustList<JCheckBox>();
+    private CustList<CustCheckBox> bids = new CustList<CustCheckBox>();
     private Panel declaringMiseres;
-    private CustList<JCheckBox> miseres = new CustList<JCheckBox>();
+    private CustList<CustCheckBox> miseres = new CustList<CustCheckBox>();
     private ComboBoxEnumCards<EndDealTarot> listeChoixTwo;
     private ComboBoxEnumCards<ModeTarot> listeChoixThree;
-    private JCheckBox discardAfterCall;
+    private CustCheckBox discardAfterCall;
     private ComboBoxEnumCards<DealingTarot> listeChoixFour;
     private ComboBoxEnumCards<Handfuls> listeChoixFive;
 
-    private JSpinner nbAtoutsPoignee;
+    private Spinner nbAtoutsPoignee;
     private Panel players;
-    private JSpinner nbJoueurs;
+    private Spinner nbJoueurs;
     private EnumMap<Handfuls,Integer> poigneesAutorisees = new EnumMap<Handfuls,Integer>();
 
     protected DialogTarot() {
@@ -83,13 +82,12 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
 //        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 //    }
 
-    protected void initJt(JSpinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, MainWindow _window) {
+    protected void initJt(Spinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, MainWindow _window) {
         String lg_ = _window.getLanguageKey();
         setNbGames(_nbGames);
-        Panel dealing_=new Panel();
-        dealing_.setLayout(new GridLayout(0,2));
+        Panel dealing_=Panel.newGrid(0,2);
         //Panneau Battre les cartes
-        dealing_.add(new JLabel(getMessages().getVal(MIX_CARDS)));
+        dealing_.add(new TextLabel(getMessages().getVal(MIX_CARDS)));
         listeChoix=new ComboBoxMixCards();
         Listable<MixCardsChoice> mix_;
         mix_ = new EnumList<MixCardsChoice>(MixCardsChoice.values());
@@ -105,19 +103,17 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         listeChoix.setSelectedItem(getReglesTarot().getCartesBattues());
         dealing_.add(listeChoix);
         if (getNbGames() != null) {
-            dealing_.add(new JLabel(getMessages().getVal(NUMBER_DEALS)));
+            dealing_.add(new TextLabel(getMessages().getVal(NUMBER_DEALS)));
             dealing_.add(getNbGames());
         }
         //Panneau Distribution
         getJt().add(getMessages().getVal(DEALING),dealing_);
-        Panel declaring_=new Panel();
-        declaring_.setLayout(new BoxLayout(declaring_.getComponent(), BoxLayout.PAGE_AXIS));
-        declaring_.add(new JLabel(getMessages().getVal(BIDS)));
-        bidding=new Panel();
+        Panel declaring_=Panel.newPageBox();
+        declaring_.add(new TextLabel(getMessages().getVal(BIDS)));
+        bidding=Panel.newFlow();
         bids.clear();
-        bidding.setLayout(new FlowLayout());
         for (BidTarot enchere_:BidTarot.values()) {
-            JCheckBox caseCroix_=new JCheckBox(Games.toString(enchere_,lg_));
+            CustCheckBox caseCroix_=new CustCheckBox(Games.toString(enchere_,lg_));
             caseCroix_.setSelected(getReglesTarot().getContrats().getVal(enchere_));
             caseCroix_.setEnabled(
                     enchere_.getPossibiliteAnnonce()!=AllowedBiddingTarot.ALWAYS);
@@ -126,34 +122,32 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         }
         declaring_.add(bidding);
         //Panneau Poignees
-        Panel sousPanneau_=new Panel();
-        sousPanneau_.setLayout(new GridLayout(3,2));
-        sousPanneau_.add(new JLabel(getMessages().getVal(HANDFUL)));
+        Panel sousPanneau_=Panel.newGrid(3,2);
+        sousPanneau_.add(new TextLabel(getMessages().getVal(HANDFUL)));
         listeChoixFive = new ComboBoxEnumCards<Handfuls>();
         for (Handfuls p: Handfuls.getDeclarableHandFuls()) {
             listeChoixFive.addItem(p, Games.toString(p,lg_));
         }
         listeChoixFive.setListener(new ListenerHandfulName(this));
         sousPanneau_.add(listeChoixFive);
-        sousPanneau_.add(new JLabel(getMessages().getVal(NUMBER_TRUMPS)));
+        sousPanneau_.add(new TextLabel(getMessages().getVal(NUMBER_TRUMPS)));
         int nbCartesJoueur_ = getReglesTarot().getRepartition().getNombreCartesParJoueur();
         int nbTrumps_ = HandTarot.trumpsPlusExcuse().total();
         nbCartesJoueur_ = Math.min(nbCartesJoueur_, nbTrumps_);
         poigneesAutorisees = new EnumMap<Handfuls,Integer>(getReglesTarot().getPoigneesAutorisees());
         int valeur_ = poigneesAutorisees.getVal(listeChoixFive.getCurrentElement());
-        nbAtoutsPoignee = new JSpinner(new SpinnerNumberModel(valeur_,0,nbCartesJoueur_,1));
+        nbAtoutsPoignee = new Spinner(new SpinnerNumberModel(valeur_,0,nbCartesJoueur_,1));
         sousPanneau_.add(nbAtoutsPoignee);
         LabelButton boutonPoignees_ = new LabelButton(getMessages().getVal(VALIDATE_HANDFUL));
         boutonPoignees_.addMouseListener(new ListenerHandful(this));
         sousPanneau_.add(boutonPoignees_);
         declaring_.add(sousPanneau_);
         //Panneau Miseres
-        declaringMiseres=new Panel();
+        declaringMiseres=Panel.newFlow();
         miseres.clear();
-        declaringMiseres.setLayout(new FlowLayout());
-        declaringMiseres.add(new JLabel(getMessages().getVal(ALLOWED_MISERES)));
+        declaringMiseres.add(new TextLabel(getMessages().getVal(ALLOWED_MISERES)));
         for (Miseres annonce_:Miseres.values()) {
-            JCheckBox caseCroix_=new JCheckBox(Games.toString(annonce_,lg_));
+            CustCheckBox caseCroix_=new CustCheckBox(Games.toString(annonce_,lg_));
             caseCroix_.setSelected(getReglesTarot().getMiseres().containsObj(annonce_));
             declaringMiseres.add(caseCroix_);
             miseres.add(caseCroix_);
@@ -162,13 +156,11 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         getJt().add(getMessages().getVal(DECLARING),declaring_);
 
         //Panneau Chelem
-        Panel bidding_ =new Panel();
-        bidding_.setLayout(new GridLayout(0,3));
+        Panel bidding_ =Panel.newGrid(0,3);
 
         //Panneau Regle du demi-point
-        sousPanneau_=new Panel();
-        sousPanneau_.setLayout(new GridLayout(0,1));
-        JLabel endDeal_ = new JLabel(getMessages().getVal(END_DEAL));
+        sousPanneau_=Panel.newGrid(0,1);
+        TextLabel endDeal_ = new TextLabel(getMessages().getVal(END_DEAL));
         endDeal_.setToolTipText(getMessages().getVal(END_DEAL_RULE));
         sousPanneau_.add(endDeal_);
         listeChoixTwo=new ComboBoxEnumCards<EndDealTarot>();
@@ -188,7 +180,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         sousPanneau_.add(listeChoixTwo);
         bidding_.add(sousPanneau_);
         sousPanneau_=new Panel();
-        sousPanneau_.add(new JLabel(getMessages().getVal(MODE_GAME)));
+        sousPanneau_.add(new TextLabel(getMessages().getVal(MODE_GAME)));
         listeChoixThree=new ComboBoxEnumCards<ModeTarot>();
         ModeTarot curTwo_ = getReglesTarot().getMode();
         index_ = 0;
@@ -205,18 +197,16 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         }
         sousPanneau_.add(listeChoixThree);
         bidding_.add(sousPanneau_);
-        discardAfterCall = new JCheckBox(getMessages().getVal(DISCARDING));
+        discardAfterCall = new CustCheckBox(getMessages().getVal(DISCARDING));
         discardAfterCall.setSelected(getReglesTarot().getDiscardAfterCall());
         bidding_.add(discardAfterCall);
         getJt().add(getMessages().getVal(RULES),bidding_);
         //Panneau 4-5 joueurs
-        players=new Panel();
-        players.setLayout(new GridLayout(2,0));
-        sousPanneau_=new Panel();
-        sousPanneau_.setLayout(new GridLayout(2,0));
+        players=Panel.newGrid(2,0);
+        sousPanneau_=Panel.newGrid(2,0);
 
-        sousPanneau_.add(new JLabel(getMessages().getVal(NUMBER_PLAYERS)));
-        sousPanneau_.add(new JLabel(getMessages().getVal(REPARTITION_PLAYERS)));
+        sousPanneau_.add(new TextLabel(getMessages().getVal(NUMBER_PLAYERS)));
+        sousPanneau_.add(new TextLabel(getMessages().getVal(REPARTITION_PLAYERS)));
 
         Ints nombreJoueursPossible_=new Ints();
         EnumList<DealingTarot> repValides_ = new EnumList<DealingTarot>(DealingTarot.getRepartitionsValides());
@@ -245,7 +235,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         } else {
             spin_.setValue(getReglesTarot().getRepartition().getNombreJoueurs());
         }
-        nbJoueurs=new JSpinner(spin_);
+        nbJoueurs=new Spinner(spin_);
         if (_enabledChangingNbPlayers) {
             nbJoueurs.addChangeListener(new ListenerPlayers(this, _window));
         } else {
@@ -359,7 +349,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         getReglesTarot().setPoigneesAutorisees(poigneesAutorisees);
         EnumList<Miseres> miseres_=new EnumList<Miseres>();
         for (Miseres misere_: Miseres.values()) {
-            JCheckBox jcb_= miseres.get(misere_.ordinal());
+            CustCheckBox jcb_= miseres.get(misere_.ordinal());
             if(jcb_.isSelected()) {
                 miseres_.add(misere_);
             }
@@ -367,7 +357,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         getReglesTarot().setMiseres(miseres_);
         EnumMap<BidTarot,Boolean> contrats_ = new EnumMap<BidTarot,Boolean>();
         for (BidTarot enchere_: BidTarot.values()) {
-            JCheckBox jcb_= bids.get(enchere_.ordinal());
+            CustCheckBox jcb_= bids.get(enchere_.ordinal());
             contrats_.put(enchere_, jcb_.isSelected());
         }
         getReglesTarot().setContrats(contrats_);
@@ -395,11 +385,11 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         reglesTarot = _reglesTarot;
     }
 
-    protected JSpinner getNbGames() {
+    protected Spinner getNbGames() {
         return nbGames;
     }
 
-    protected void setNbGames(JSpinner _nbGames) {
+    protected void setNbGames(Spinner _nbGames) {
         nbGames = _nbGames;
     }
 

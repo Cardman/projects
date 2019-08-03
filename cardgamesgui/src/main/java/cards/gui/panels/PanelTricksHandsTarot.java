@@ -22,12 +22,13 @@ import cards.tarot.enumerations.CardTarot;
 import code.gui.ChangeableTitle;
 import code.gui.NumComboBox;
 import code.gui.Panel;
+import code.gui.TextLabel;
 import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
-public class PanelTricksHandsTarot extends Panel implements ViewablePanelTricksHands {
+public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
 
     private static final String ACCESS = "cards.gui.panels.paneltrickshandstarot";
     private static final String DEFAULT ="Default";
@@ -46,6 +47,7 @@ public class PanelTricksHandsTarot extends Panel implements ViewablePanelTricksH
     private byte numberPlayers;
     private DisplayingTarot displayingTarot;
     private MainWindow window;
+    private Panel container;
     public PanelTricksHandsTarot(ChangeableTitle _parent,
             TricksHandsTarot _tricksHands,
             byte _numberPlayers,
@@ -60,10 +62,9 @@ public class PanelTricksHandsTarot extends Panel implements ViewablePanelTricksH
         tricksHands = _tricksHands;
         DealTarot dealt_ = tricksHands.getDistribution();
         CustList<TrickTarot> tricks_ = tricksHands.getTricks();
-
-        setLayout(new BorderLayout());
+        container = Panel.newBorder();
         cards=new Panel();
-        Panel players_ = new Panel(new GridLayout(0,1));
+        Panel players_ = Panel.newGrid(0,1);
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<_numberPlayers;joueur_++) {
             players_.add(getBlankCard(_pseudos, joueur_));
         }
@@ -72,15 +73,15 @@ public class PanelTricksHandsTarot extends Panel implements ViewablePanelTricksH
             players_.add(getBlankCard(_pseudos, joueur_));
         }
         cards.add(players_);
-        tricks = new Panel(new GridLayout(0,1));
+        tricks = Panel.newGrid(0,1);
         cards.add(tricks);
-        selectedTrick = new Panel(new GridLayout(0,1));
+        selectedTrick = Panel.newGrid(0,1);
         cards.add(selectedTrick);
-        hands=new Panel(new GridLayout(0,1));
+        hands=Panel.newGrid(0,1);
         Panel sousPanneau3_;
         //boolean entered_ = false;
         for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_numberPlayers;joueur_++) {
-            sousPanneau3_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
+            sousPanneau3_=Panel.newFlow(FlowLayout.LEFT,0,0);
             for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_, dealt_.hand(joueur_))) {
                 sousPanneau3_.add(c);
             }
@@ -95,11 +96,11 @@ public class PanelTricksHandsTarot extends Panel implements ViewablePanelTricksH
             hands.add(sousPanneau3_);
         }
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<nbBots_;joueur_++) {
-            hands.add(new Panel(new FlowLayout(FlowLayout.LEFT,0,0)));
+            hands.add(Panel.newFlow(FlowLayout.LEFT,0,0));
         }
         cards.add(hands);
-        Panel sousPanneau2_=new Panel(new GridLayout(0,1));
-        sousPanneau3_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
+        Panel sousPanneau2_=Panel.newGrid(0,1);
+        sousPanneau3_=Panel.newFlow(FlowLayout.LEFT,0,0);
         for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_, dealt_.derniereMain())) {
             sousPanneau3_.add(c);
         }
@@ -113,7 +114,7 @@ public class PanelTricksHandsTarot extends Panel implements ViewablePanelTricksH
 //        }
         sousPanneau2_.add(sousPanneau3_);
         if (!tricks_.isEmpty()) {
-            sousPanneau3_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
+            sousPanneau3_=Panel.newFlow(FlowLayout.LEFT,0,0);
             for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_, tricks_.first())) {
                 sousPanneau3_.add(c);
             }
@@ -128,9 +129,9 @@ public class PanelTricksHandsTarot extends Panel implements ViewablePanelTricksH
             sousPanneau2_.add(sousPanneau3_);
         }
         cards.add(sousPanneau2_);
-        add(cards,BorderLayout.CENTER);
+        container.add(cards,BorderLayout.CENTER);
         Panel selectionGameState_=new Panel();
-        selectionGameState_.add(new JLabel(messages.getVal(TRICK)));
+        selectionGameState_.add(new TextLabel(messages.getVal(TRICK)));
         Integer[] numerosPlis_;
         numerosPlis_=new Integer[tricks_.size()+1];
         int nbTricksNumbers_ = numerosPlis_.length;
@@ -140,7 +141,7 @@ public class PanelTricksHandsTarot extends Panel implements ViewablePanelTricksH
         trickNumber=new NumComboBox(numerosPlis_);
         trickNumber.setListener(new ListenerTricks(this));
         selectionGameState_.add(trickNumber);
-        selectionGameState_.add(new JLabel(messages.getVal(CARD)));
+        selectionGameState_.add(new TextLabel(messages.getVal(CARD)));
         Integer[] numerosJoueurs_=new Integer[_numberPlayers];
         for(byte indiceJoueur_=CustList.FIRST_INDEX;indiceJoueur_<_numberPlayers;indiceJoueur_++) {
             numerosJoueurs_[indiceJoueur_]=indiceJoueur_+1;
@@ -148,11 +149,11 @@ public class PanelTricksHandsTarot extends Panel implements ViewablePanelTricksH
         cardNumberTrick=new NumComboBox(numerosJoueurs_);
         cardNumberTrick.setListener(new ListenerCards(this));
         selectionGameState_.add(cardNumberTrick);
-        add(selectionGameState_,BorderLayout.SOUTH);
+        container.add(selectionGameState_,BorderLayout.SOUTH);
     }
 
-    private static JLabel getBlankCard(StringList _nicknames, byte _player) {
-        JLabel etiquette2_=new JLabel(_nicknames.get(_player));
+    private static TextLabel getBlankCard(StringList _nicknames, byte _player) {
+        TextLabel etiquette2_=new TextLabel(_nicknames.get(_player));
         etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
         etiquette2_.setOpaque(true);
         etiquette2_.setBackground(Color.WHITE);
@@ -169,10 +170,9 @@ public class PanelTricksHandsTarot extends Panel implements ViewablePanelTricksH
         tricksHands.restoreHandsAtSelectedNumberedTrick(displayingTarot, numberPlayers, numeroPli_);
 
         hands.removeAll();
-        hands.setLayout(new GridLayout(0,1));
         DealTarot restoredDeal_ = tricksHands.getDistribution();
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
-            Panel sousPanneau4_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
+            Panel sousPanneau4_=Panel.newFlow(FlowLayout.LEFT,0,0);
             for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_, restoredDeal_.hand(joueur_))) {
                 sousPanneau4_.add(c);
             }
@@ -189,15 +189,14 @@ public class PanelTricksHandsTarot extends Panel implements ViewablePanelTricksH
         int nbBots_ = numberPlayers;
         nbBots_--;
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<nbBots_;joueur_++) {
-            hands.add(new Panel(new FlowLayout(FlowLayout.LEFT,0,0)));
+            hands.add(Panel.newFlow(FlowLayout.LEFT,0,0));
         }
         selectedTrick.removeAll();
         if(numeroPli_>0) {
-            selectedTrick.setLayout(new GridLayout(0,1));
             byte entameur_=tricks_.get(numeroPli_).getEntameur();
             byte indice_=0;
             while(indice_<entameur_) {
-                JLabel etiquette2_=new JLabel(Long.toString(indice_));
+                TextLabel etiquette2_=new TextLabel(Long.toString(indice_));
                 etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
@@ -212,7 +211,7 @@ public class PanelTricksHandsTarot extends Panel implements ViewablePanelTricksH
                 indice_++;
             }
             while(indice_<2*numberPlayers-1) {
-                JLabel etiquette2_=new JLabel(Long.toString(indice_-numberPlayers));
+                TextLabel etiquette2_=new TextLabel(Long.toString(indice_-numberPlayers));
                 etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
@@ -222,69 +221,43 @@ public class PanelTricksHandsTarot extends Panel implements ViewablePanelTricksH
             }
         }
         tricks.removeAll();
+        int indexRem_ = cards.remove(tricks);
+        Panel tr_;
         if(numeroPli_>1) {
-            if(numeroPli_==numeroSelectionne_) {
-                tricks.setLayout(new GridLayout(0,numeroPli_-1));
-            } else if(numeroPli_==numeroSelectionne_+1&&numeroSelectionne_>1) {
-                tricks.setLayout(new GridLayout(0,numeroSelectionne_-1));
-            }
+            tr_ = Panel.newGrid(0,numeroPli_ - 1);
+        } else {
+            tr_ = Panel.newGrid(0,1);
         }
-        boolean passe2_=false;
+        tricks = tr_;
         for(byte indicePli_=1;indicePli_<numeroPli_;indicePli_++) {
             byte entameur_=tricks_.get(indicePli_).getEntameur();
             byte indice_=0;
-            if(!passe2_) {
-                while(indice_<entameur_) {
-                    JLabel etiquette2_=new JLabel(Long.toString(indice_));
-                    etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
-                    etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
-                    etiquette2_.setOpaque(true);
-                    etiquette2_.setBackground(Color.WHITE);
-                    tricks.add(etiquette2_,indicePli_*(indice_+1)-1);
-                    indice_++;
-                }
-                for(CardTarot carte_:tricks_.get(indicePli_)) {
-                    GraphicTarotCard carteGraphique2_=new GraphicTarotCard(lg_, carte_,SwingConstants.RIGHT,true);
-                    carteGraphique2_.setPreferredSize(GraphicTarotCard.getMaxDimension());
-                    tricks.add(carteGraphique2_,indicePli_*(indice_+1)-1);
-                    indice_++;
-                }
-                while(indice_<numberPlayers*2-1) {
-                    JLabel etiquette2_=new JLabel(Long.toString(indice_-numberPlayers));
-                    etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
-                    etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
-                    etiquette2_.setOpaque(true);
-                    etiquette2_.setBackground(Color.WHITE);
-                    tricks.add(etiquette2_,indicePli_*(indice_+1)-1);
-                    indice_++;
-                }
-            } else {
-                while(indice_<entameur_) {
-                    JLabel etiquette2_=new JLabel(Long.toString(indice_));
-                    etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
-                    etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
-                    etiquette2_.setOpaque(true);
-                    etiquette2_.setBackground(Color.WHITE);
-                    tricks.add(etiquette2_,(indicePli_-1)*(indice_+1)-1);
-                    indice_++;
-                }
-                for(CardTarot carte_:tricks_.get(indicePli_)) {
-                    GraphicTarotCard carteGraphique2_=new GraphicTarotCard(lg_, carte_,SwingConstants.RIGHT,true);
-                    carteGraphique2_.setPreferredSize(GraphicTarotCard.getMaxDimension());
-                    tricks.add(carteGraphique2_,(indicePli_-1)*(indice_+1)-1);
-                    indice_++;
-                }
-                while(indice_<numberPlayers*2-1) {
-                    JLabel etiquette2_=new JLabel(Long.toString(indice_-numberPlayers));
-                    etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
-                    etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
-                    etiquette2_.setOpaque(true);
-                    etiquette2_.setBackground(Color.WHITE);
-                    tricks.add(etiquette2_,(indicePli_-1)*(indice_+1)-1);
-                    indice_++;
-                }
+            while(indice_<entameur_) {
+                TextLabel etiquette2_=new TextLabel(Long.toString(indice_));
+                etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
+                etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
+                etiquette2_.setOpaque(true);
+                etiquette2_.setBackground(Color.WHITE);
+                tr_.add(etiquette2_,indicePli_*(indice_+1)-1);
+                indice_++;
+            }
+            for(CardTarot carte_:tricks_.get(indicePli_)) {
+                GraphicTarotCard carteGraphique2_=new GraphicTarotCard(lg_, carte_,SwingConstants.RIGHT,true);
+                carteGraphique2_.setPreferredSize(GraphicTarotCard.getMaxDimension());
+                tr_.add(carteGraphique2_,indicePli_*(indice_+1)-1);
+                indice_++;
+            }
+            while(indice_<numberPlayers*2-1) {
+                TextLabel etiquette2_=new TextLabel(Long.toString(indice_-numberPlayers));
+                etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
+                etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
+                etiquette2_.setOpaque(true);
+                etiquette2_.setBackground(Color.WHITE);
+                tr_.add(etiquette2_,indicePli_*(indice_+1)-1);
+                indice_++;
             }
         }
+        cards.add(tricks,indexRem_);
         parent.pack();
 
     }
@@ -302,10 +275,9 @@ public class PanelTricksHandsTarot extends Panel implements ViewablePanelTricksH
         tricksHands.restoreHandsAtSelectedNumberedTrickWithSelectedCard(displayingTarot, numberPlayers, numeroPli_, numeroCarte_);
 
         hands.removeAll();
-        hands.setLayout(new GridLayout(0,1));
         DealTarot restoredDeal_ = tricksHands.getDistribution();
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
-            Panel sousPanneau4_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
+            Panel sousPanneau4_=Panel.newFlow(FlowLayout.LEFT,0,0);
             for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_, restoredDeal_.hand(joueur_))) {
                 sousPanneau4_.add(c);
             }
@@ -322,16 +294,15 @@ public class PanelTricksHandsTarot extends Panel implements ViewablePanelTricksH
         int nbBots_ = numberPlayers;
         nbBots_--;
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<nbBots_;joueur_++) {
-            hands.add(new Panel(new FlowLayout(FlowLayout.LEFT,0,0)));
+            hands.add(Panel.newFlow(FlowLayout.LEFT,0,0));
         }
         selectedTrick.removeAll();
         if(numeroPli_>0) {
-            selectedTrick.setLayout(new GridLayout(0,1));
             byte entameur_=tricks_.get(numeroPli_).getEntameur();
             byte indice_=0;
             byte indice2_=0;
             while(indice_<entameur_) {
-                JLabel etiquette2_=new JLabel(Long.toString(indice_));
+                TextLabel etiquette2_=new TextLabel(Long.toString(indice_));
                 etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
@@ -351,7 +322,7 @@ public class PanelTricksHandsTarot extends Panel implements ViewablePanelTricksH
                 }
             }
             while(indice_<2*numberPlayers-1) {
-                JLabel etiquette2_=new JLabel(Long.toString(indice_-numberPlayers));
+                TextLabel etiquette2_=new TextLabel(Long.toString(indice_-numberPlayers));
                 etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
@@ -362,5 +333,9 @@ public class PanelTricksHandsTarot extends Panel implements ViewablePanelTricksH
         }
         parent.pack();
 
+    }
+
+    public Panel getContainer() {
+        return container;
     }
 }

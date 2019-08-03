@@ -99,7 +99,7 @@ public final class AnimationUnitSoldier extends Thread {
     static void moving() {
         MOVING_LOCK.lock();
         Facade f_ = battleground.getFacade();
-        CustComponent parent_ = battleground.getParent();
+        CustComponent parent_ = battleground.getContainer().getParent();
         int w_ = parent_.getWidth();
         int h_ = parent_.getHeight();
         for (UnitMapKey u: f_.getVisibleSoldiers(w_, h_)) {
@@ -116,7 +116,7 @@ public final class AnimationUnitSoldier extends Thread {
 
     private static void repaintBattleground() {
         Facade f_ = battleground.getFacade();
-        CustComponent parent_ = battleground.getParent();
+        CustComponent parent_ = battleground.getContainer().getParent();
         int w_ = parent_.getWidth();
         int h_ = parent_.getHeight();
         CustPoint curTopLeft_ = f_.getTopLeftPoint();
@@ -132,7 +132,7 @@ public final class AnimationUnitSoldier extends Thread {
         }
         window.setEnabledPause(true);
         while (paused.get()) {
-            continue;
+            battleground.paintSelection();
         }
     }
 }

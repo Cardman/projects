@@ -11,11 +11,12 @@ import aiki.facade.FacadeGame;
 import aiki.game.fight.BallNumberRate;
 import code.gui.GraphicList;
 import code.gui.Panel;
+import code.gui.TextLabel;
 import code.util.NatStringTreeMap;
 
-public class BallPanel extends Panel {
+public class BallPanel {
 
-    private JLabel title;
+    private TextLabel title;
 
     private GraphicList<BallNumberRate> liste;
 
@@ -23,21 +24,23 @@ public class BallPanel extends Panel {
 
     private BallRenderer renderer;
 
+    private Panel container;
+
     public BallPanel(int _nb, String _titre, FacadeGame _facade) {
         liste = new GraphicList<BallNumberRate>(false,true);
         facade = _facade;
-        setLayout(new BorderLayout());
-        setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
-        title = new JLabel(_titre, SwingConstants.CENTER);
-        add(title, BorderLayout.NORTH);
+        container = Panel.newBorder();
+        container.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+        title = new TextLabel(_titre, SwingConstants.CENTER);
+        container.add(title, BorderLayout.NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb);
         renderer = new BallRenderer(facade);
         liste.setRender(renderer);
         initBalls();
-        add(liste.getComponent(),BorderLayout.CENTER);
-        setPreferredSize(new Dimension(100,32*_nb));
+        container.add(liste,BorderLayout.CENTER);
+        container.setPreferredSize(new Dimension(100,32*_nb));
     }
 
     public void setPanelTitle(String _title) {
@@ -57,4 +60,7 @@ public class BallPanel extends Panel {
         return liste.getSelectedValue();
     }
 
+    public Panel getContainer() {
+        return container;
+    }
 }

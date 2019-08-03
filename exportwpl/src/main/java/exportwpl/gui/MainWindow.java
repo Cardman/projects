@@ -6,14 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import code.gui.Clock;
-import code.gui.ConstFiles;
-import code.gui.FileSaveDialog;
-import code.gui.FolderOpenDialog;
-import code.gui.GroupFrame;
-import code.gui.LabelButton;
-import code.gui.SetStyle;
-import code.gui.ThreadUtil;
+import code.gui.*;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
@@ -34,32 +27,33 @@ public class MainWindow extends GroupFrame {
     private static final String WRITE_TO_FILE = "write to file";
     private static final String SELECT_FILE = "select file";
     private static final String SELECT_FOLDER = "select folder";
-    private JLabel folderLabel = new JLabel("songs:");
-    private JTextField folder = new JTextField(40);
-    private JLabel fileLabel = new JLabel("file:");
-    private JTextField file = new JTextField(40);
+    private TextLabel folderLabel = new TextLabel("songs:");
+    private TextField folder = new TextField(40);
+    private TextLabel fileLabel = new TextLabel("file:");
+    private TextField file = new TextField(40);
 
     public MainWindow(String _lg) {
         super(_lg);
-        getPane().setLayout(new BoxLayout(getPane().getComponent(), BoxLayout.PAGE_AXIS));
-        getPane().add(folderLabel);
-        getPane().add(folder);
+        Panel pane_ = Panel.newPageBox();
+        pane_.add(folderLabel);
+        pane_.add(folder);
         LabelButton b_;
         b_ = new LabelButton(SELECT_FOLDER);
         b_.addMouseListener(new SelectFolder(this));
-        getPane().add(b_);
-        getPane().add(fileLabel);
-        getPane().add(file);
+        pane_.add(b_);
+        pane_.add(fileLabel);
+        pane_.add(file);
         b_ = new LabelButton(SELECT_FILE);
         b_.addMouseListener(new SelectFile(this));
-        getPane().add(b_);
+        pane_.add(b_);
         b_ = new LabelButton(WRITE_TO_FILE);
         b_.addMouseListener(new WriteFile(this));
-        getPane().add(b_);
-        getPane().add(new Clock());
+        pane_.add(b_);
+        pane_.add(new Clock());
+        setContentPane(pane_);
         pack();
         setVisible(true);
-        SetStyle.setupStyle(getFrame());
+        SetStyle.setupStyle(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 

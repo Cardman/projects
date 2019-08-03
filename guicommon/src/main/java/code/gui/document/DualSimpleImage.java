@@ -7,6 +7,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import code.formathtml.render.MetaSimpleImage;
+import code.gui.PreparedLabel;
+import code.gui.TextLabel;
 import code.sml.Element;
 
 
@@ -20,7 +22,7 @@ public class DualSimpleImage extends DualImage {
         image = _component.getImage();
         href = "";
         if (anchor_ != null) {
-            JLabel label_ = getLabel();
+            PreparedLabel label_ = getLabel();
             String prefix_ = getPage().getNavigation().getSession().getPrefix();
             String command_ = new StringBuilder(prefix_).append("command").toString();
             command_ = _component.getAnchor().getAttribute(command_);

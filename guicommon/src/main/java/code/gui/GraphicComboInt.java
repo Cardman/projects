@@ -1,8 +1,5 @@
 package code.gui;
 
-import javax.swing.JPanel;
-
-import code.util.ints.SimpleIterable;
 
 public interface GraphicComboInt {
 
@@ -18,6 +15,6 @@ public interface GraphicComboInt {
     void addItem(String _object);
     void setListener(ListSelection _listener);
     int getMaxWidth();
-    JPanel getPanel();
+    Panel getPanel();
     void popup();
 }

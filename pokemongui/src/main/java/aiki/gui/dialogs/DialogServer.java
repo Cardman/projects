@@ -7,10 +7,7 @@ import javax.swing.WindowConstants;
 
 import aiki.sml.Resources;
 import aiki.gui.MainWindow;
-import code.gui.AbstractDialogServer;
-import code.gui.Dialog;
-import code.gui.LabelButton;
-import code.gui.Panel;
+import code.gui.*;
 import code.gui.events.ClosingDialogEvent;
 import code.gui.events.CreateServerEvent;
 import code.gui.events.JoinServerEvent;
@@ -31,7 +28,7 @@ public final class DialogServer extends Dialog implements AbstractDialogServer{
     private static final String CREATE_SERVER = "createServer";
     private static final String JOIN_SERVER = "joinServer";
     private static final String CANCEL = "cancel";
-    private JTextField ipOrHostName;
+    private TextField ipOrHostName;
     private ComboBoxIpType ipType;
     private boolean create;
     private boolean join;
@@ -64,12 +61,10 @@ public final class DialogServer extends Dialog implements AbstractDialogServer{
         setLocationRelativeTo(_fenetre);
         setResizable(false);
         setTitle(messages.getVal(TITLE));
-        ipOrHostName = new JTextField();
-        Panel pane_ = new Panel();
-        pane_.setLayout(new GridLayout(0, 1));
-        Panel panel_ = new Panel();
-        panel_.setLayout(new GridLayout(0, 2));
-        JLabel ipServer_ = new JLabel(messages.getVal(IP_SERVER));
+        ipOrHostName = new TextField();
+        Panel pane_ = Panel.newGrid(0, 1);
+        Panel panel_ = Panel.newGrid(0, 2);
+        TextLabel ipServer_ = new TextLabel(messages.getVal(IP_SERVER));
         ipServer_.setToolTipText(messages.getVal(IP_SERVER_TOOL_TIP));
         panel_.add(ipServer_);
         panel_.add(ipOrHostName);

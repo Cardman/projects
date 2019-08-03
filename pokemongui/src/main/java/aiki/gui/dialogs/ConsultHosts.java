@@ -13,9 +13,7 @@ import aiki.gui.listeners.SelectHostedPokemon;
 import aiki.map.places.Place;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.util.Coords;
-import code.gui.Dialog;
-import code.gui.LabelButton;
-import code.gui.Panel;
+import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.util.EqList;
 import code.util.*;
@@ -59,8 +57,7 @@ public final class ConsultHosts extends Dialog {
 //        window = _frame;
         setTitle(messages.getVal(TITLE));
         facade = _facade;
-        Panel contentPane_ = new Panel();
-        contentPane_.setLayout(new GridLayout(0,1));
+        Panel contentPane_ = Panel.newGrid(0,1);
         ShortTreeMap<EqList<Coords>> hostsByPlace_;
         hostsByPlace_ = new ShortTreeMap<EqList<Coords>>();
         for (Coords c: facade.getMap().getHostPokemons()) {
@@ -72,23 +69,21 @@ public final class ConsultHosts extends Dialog {
         }
         for (short p: hostsByPlace_.getKeys()) {
             Place pl_ = facade.getMap().getPlace(p);
-            Panel hosting_ = new Panel();
-            hosting_.setLayout(new GridLayout(0,1));
-            JLabel place_ = new JLabel(pl_.getName());
+            Panel hosting_ = Panel.newGrid(0,1);
+            TextLabel place_ = new TextLabel(pl_.getName());
             hosting_.add(place_);
             for (Coords c: hostsByPlace_.getVal(p)) {
-                Panel hostingLoc_ = new Panel();
-                hostingLoc_.setLayout(new GridLayout(0,1));
+                Panel hostingLoc_ = Panel.newGrid(0,1);
                 HostPokemonDuo host_ = facade.getGame().getHostedPk().getVal(c);
                 String rem_ = messages.getVal(STEPS);
                 if (host_.isFree()) {
-                    hostingLoc_.add(new JLabel(messages.getVal(FREE)));
+                    hostingLoc_.add(new TextLabel(messages.getVal(FREE)));
                     hostingLoc_.setBackground(Color.WHITE);
                     hosting_.add(hostingLoc_);
                     continue;
                 }
                 hostingLoc_.setBackground(Color.YELLOW);
-                JLabel steps_ = new JLabel(StringList.simpleNumberFormat(rem_, Math.max(facade.getRemaingingSteps(c), 0)));
+                TextLabel steps_ = new TextLabel(StringList.simpleNumberFormat(rem_, Math.max(facade.getRemaingingSteps(c), 0)));
                 hostingLoc_.add(steps_);
                 PokemonPlayer pk_;
                 String gender_;
@@ -115,7 +110,7 @@ public final class ConsultHosts extends Dialog {
     public void seeHostedPokemon(boolean _first, Coords _coords) {
         facade.setHostedPokemon(_first, _coords);
         RenderedPage session_;
-        session_ = new RenderedPage(new JScrollPane());
+        session_ = new RenderedPage(new ScrollPane());
         session_.setLanguage(facade.getLanguage());
         session_.setDataBase(facade);
 //        session_.setFiles(facade.getData().getWebPk(), Resources.ACCESS_TO_DEFAULT_FILES);

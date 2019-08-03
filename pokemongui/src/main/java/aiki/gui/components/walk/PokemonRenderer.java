@@ -14,6 +14,8 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import code.gui.CustCellRender;
 import code.gui.GraphicListable;
+import code.gui.PaintableLabel;
+import code.gui.PreparedLabel;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -69,10 +71,10 @@ public class PokemonRenderer extends CustCellRender {
     }
 
     @Override
-    public JLabel getListCellRendererComponent(
+    public PreparedLabel getListCellRendererComponent(
             GraphicListable _list, Object _arg1,
             int _index, boolean _selected, boolean _arg4) {
-        JLabel label_ = (JLabel) _list.getListComponents().get(_index);
+        PreparedLabel label_ = _list.getListComponents().get(_index);
         pokemon = (UsablePokemon) _arg1;
         selected = _selected;
         if (pokemon instanceof PokemonPlayer) {

@@ -23,11 +23,7 @@ import cards.president.RulesPresident;
 import cards.tarot.DisplayingTarot;
 import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.ChoiceTarot;
-import code.gui.CheckBoxMenuItem;
-import code.gui.Menu;
-import code.gui.MenuItem;
-import code.gui.Ownable;
-import code.gui.Panel;
+import code.gui.*;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EnumMap;
@@ -62,7 +58,7 @@ public class ContainerGame implements Containable {
     private boolean threadAnime;
     private boolean aJoueCarte;
     private AtomicBoolean pause = new AtomicBoolean();
-    private JTextArea events;
+    private TextArea events;
     private MiniCarpet mini;
     /**Est vrai si et seulement si le jeu est en pause*/
     private AtomicBoolean passe = new AtomicBoolean();
@@ -72,7 +68,7 @@ public class ContainerGame implements Containable {
     private DisplayingBelote displayingBelote;
     private DisplayingPresident displayingPresident;
     private DisplayingTarot displayingTarot;
-    private ByteMap<JLabel> handfuls = new ByteMap<JLabel>();
+    private ByteMap<TextLabel> handfuls = new ByteMap<TextLabel>();
     private ByteMap<Panel> declaredHandfuls = new ByteMap<Panel>();
     private Carpet tapis = new Carpet();
     private boolean changerPileFin;
@@ -269,10 +265,10 @@ public class ContainerGame implements Containable {
     protected void setTapis(Carpet _tapis) {
         tapis = _tapis;
     }
-    public ByteMap<JLabel> getHandfuls() {
+    public ByteMap<TextLabel> getHandfuls() {
         return handfuls;
     }
-    public void setHandfuls(ByteMap<JLabel> _handfuls) {
+    public void setHandfuls(ByteMap<TextLabel> _handfuls) {
         handfuls = _handfuls;
     }
     protected boolean isChangerPileFin() {
@@ -280,6 +276,9 @@ public class ContainerGame implements Containable {
     }
     public void setChangerPileFin(boolean _changerPileFin) {
         changerPileFin = _changerPileFin;
+    }
+    public Panel getMiniPanel() {
+        return mini.getContainer();
     }
     public MiniCarpet getMini() {
         return mini;
@@ -293,10 +292,10 @@ public class ContainerGame implements Containable {
     protected void setParametres(SoftParams _parametres) {
         parametres = _parametres;
     }
-    public JTextArea getEvents() {
+    public TextArea getEvents() {
         return events;
     }
-    public void setEvents(JTextArea _events) {
+    public void setEvents(TextArea _events) {
         events = _events;
     }
     public boolean isPasse() {

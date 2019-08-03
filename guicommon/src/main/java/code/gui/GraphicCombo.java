@@ -25,13 +25,13 @@ public class GraphicCombo extends CustComponent implements GraphicComboInt, Inpu
 
     private ListSelection listener;
 
-    private JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+    private Panel panel = Panel.newFlow(FlowLayout.LEFT, 0, 0);
 
-    private JLabel currentSelected = new JLabel();
+    private PreparedLabel currentSelected = new PreparedLabel();
 
-    private JLabel pseudoButton = new JLabel();
+    private PreparedLabel pseudoButton = new PreparedLabel();
 
-    private JPopupMenu menu = new JPopupMenu();
+    private PopupMenu menu = new PopupMenu();
 
     private int selectedIndex = -1;
 
@@ -137,7 +137,7 @@ public class GraphicCombo extends CustComponent implements GraphicComboInt, Inpu
     }
 
     @Override
-    public JPanel getPanel() {
+    public Panel getPanel() {
         return panel;
     }
 
@@ -205,7 +205,7 @@ public class GraphicCombo extends CustComponent implements GraphicComboInt, Inpu
     }
 
     @Override
-    public JComponent getGlobal() {
+    public CustComponent getGlobal() {
         return getPanel();
     }
 
@@ -219,7 +219,7 @@ public class GraphicCombo extends CustComponent implements GraphicComboInt, Inpu
 
     @Override
     public JComponent getComponent() {
-        return getPanel();
+        return getPanel().getComponent();
     }
 
 }

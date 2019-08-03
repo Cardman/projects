@@ -32,7 +32,7 @@ public class Task implements ActionListener {
         if (window.isDragged()) {
             return;
         }
-        CustComponent par_ = scene.getParent();
+        CustComponent par_ = scene.getContainer().getParent();
         CustPoint loc_ = facade.getTopLeftPoint();
         Point rel_ = new Point();
         rel_.x = loc_.getX();

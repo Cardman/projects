@@ -25,14 +25,14 @@ public final class SimpleSelectEltList extends MouseAdapter implements Indexable
         boolean sel_ = !_e.isPopupTrigger();
         if (!sel_) {
             Object v_ = array_[index];
-            JLabel c_;
+            PreparedLabel c_;
             c_ = r_.getListCellRendererComponent(grList, v_, index, false, false);
             r_.paintComponent(c_);
         } else {
             int len_ = grList.getListComponents().size();
             for (int i = 0; i < len_; i++) {
                 Object v_ = array_[i];
-                JLabel c_;
+                PreparedLabel c_;
                 c_ = r_.getListCellRendererComponent(grList, v_, i, index == i, false);
                 r_.paintComponent(c_);
             }

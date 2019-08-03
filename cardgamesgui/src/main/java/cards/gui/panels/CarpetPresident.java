@@ -12,18 +12,19 @@ import cards.gui.labels.GraphicPresidentCard;
 import cards.president.HandPresident;
 import cards.president.enumerations.Playing;
 import code.gui.Panel;
+import code.gui.TextLabel;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
 
-public class CarpetPresident extends Panel {
+public class CarpetPresident {
 
     private static final String SEPARATOR = ":";
 //    private static final String EMPTY="";
 //    private static final char RETURN_LINE_CHAR='\n';
 
     private Panel playersPanel;
-    private CustList<JLabel> labels = new CustList<JLabel>();
+    private CustList<TextLabel> labels = new CustList<TextLabel>();
 
     private Panel centerDeck;
     private CustList<GraphicPresidentCard> listCards = new CustList<GraphicPresidentCard>();
@@ -37,15 +38,15 @@ public class CarpetPresident extends Panel {
 //    private Boolean horaire=false;
     /**max number of cards*/
     private int number;
+    private Panel container;
     public CarpetPresident() {}
 
     public void initTapisPresident(String _lg, StringList _pseudos, ByteMap<Playing> _status,int _nombre) {
-        setLayout(new BorderLayout());
+        container = Panel.newBorder();
         number = _nombre;
         pseudos = _pseudos;
         cards = new ByteMap<Playing>(_status);
-        centerDeck = new Panel();
-        centerDeck.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        centerDeck=Panel.newFlow(FlowLayout.LEFT, 0, 0);
         centerDeck.setPreferredSize(GraphicPresidentCard.getDimensionForSeveralCards(_nombre));
         listCards.clear();
         boolean entered_ = false;
@@ -58,16 +59,15 @@ public class CarpetPresident extends Panel {
             entered_ = true;
         }
         centerDeck.setBackground(new Color(0, 125, 0));
-        add(centerDeck, BorderLayout.CENTER);
-        playersPanel = new Panel();
-        playersPanel.setLayout(new BoxLayout(playersPanel.getComponent(), BoxLayout.PAGE_AXIS));
+        container.add(centerDeck, BorderLayout.CENTER);
+        playersPanel = Panel.newPageBox();
         for (String n: pseudos) {
-            JLabel l_ = new JLabel(n);
+            TextLabel l_ = new TextLabel(n);
             l_.setOpaque(true);
             labels.add(l_);
             playersPanel.add(l_);
         }
-        add(playersPanel, BorderLayout.WEST);
+        container.add(playersPanel, BorderLayout.WEST);
     }
 
 //    public void retirerCartes() {
@@ -128,7 +128,7 @@ public class CarpetPresident extends Panel {
     public void setStatus(String _lg, ByteMap<Playing> _status, byte _nextPlayer) {
         cards.putAllMap(_status);
         for (byte p: cards.getKeys()) {
-            JLabel l_ = labels.get(p);
+            TextLabel l_ = labels.get(p);
             if (p == _nextPlayer) {
                 l_.setBackground(Color.YELLOW);
             } else {
@@ -137,5 +137,9 @@ public class CarpetPresident extends Panel {
             l_.setText(StringList.concat(pseudos.get(p),SEPARATOR, Games.toString(cards.getVal(p),_lg)));
         }
         repaintValidate();
+    }
+
+    public Panel getContainer() {
+        return container;
     }
 }

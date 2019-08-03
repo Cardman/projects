@@ -4,7 +4,6 @@ import java.awt.Font;
 import java.util.Calendar;
 
 import javax.swing.JComponent;
-import javax.swing.JTextField;
 import javax.swing.Timer;
 
 import code.gui.events.UpdateTimeEvent;
@@ -23,10 +22,10 @@ public class Clock extends CustComponent {
     private static final int HEIGHT_TIME = 15;
 
     private Timer timer;
-    private JTextField component;
+    private TextField component;
 
     public Clock() {
-        component = new JTextField(DEFAULT_NB_CHARS);
+        component = new TextField(DEFAULT_NB_CHARS);
         component.setEditable(false);
         component.setFont(new Font(ARIAL,Font.PLAIN,HEIGHT_TIME));
         component.setForeground(COLOR);
@@ -82,6 +81,6 @@ public class Clock extends CustComponent {
 
     @Override
     public JComponent getComponent() {
-        return component;
+        return component.getComponent();
     }
 }

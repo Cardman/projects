@@ -45,9 +45,9 @@ public final class SelectTm extends SelectDialog {
         facade = _facade;
 //        ok = false;
         initOk();
-        Panel contentPane_ = new Panel();
-        contentPane_.setLayout(new BorderLayout());
-        contentPane_.add(new ScrollPane(new PaginatorMove(_parent, this, _facade, _buy)), BorderLayout.CENTER);
+        Panel contentPane_ = Panel.newBorder();
+        Panel pag_ = Panel.newPageBox();
+        contentPane_.add(new ScrollPane(new PaginatorMove(_parent,pag_, this, _facade, _buy).getContainer()), BorderLayout.CENTER);
         Panel buttons_ = new Panel();
         LabelButton ok_ = new LabelButton(MainWindow.OK);
         ok_.addMouseListener(new ValidateSelectionEvent(this));

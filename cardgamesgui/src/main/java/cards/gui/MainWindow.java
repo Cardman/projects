@@ -138,19 +138,7 @@ import cards.tarot.TricksHandsTarot;
 import cards.tarot.enumerations.ChoiceTarot;
 import cards.tarot.sml.DocumentReaderTarotUtil;
 import cards.tarot.sml.DocumentWriterTarotUtil;
-import code.gui.CheckBoxMenuItem;
-import code.gui.Clock;
-import code.gui.ConfirmDialog;
-import code.gui.ConstFiles;
-import code.gui.FileOpenDialog;
-import code.gui.FileSaveDialog;
-import code.gui.GroupFrame;
-import code.gui.LabelButton;
-import code.gui.LanguageDialog;
-import code.gui.Menu;
-import code.gui.MenuItem;
-import code.gui.Panel;
-import code.gui.SoftApplicationCore;
+import code.gui.*;
 import code.gui.events.QuittingEvent;
 import code.network.AttemptConnecting;
 import code.network.BasicClient;
@@ -472,7 +460,7 @@ public final class MainWindow extends NetGroupFrame {
     private ContainerGame containerGame;
     private Clock clock;
 
-    private JLabel lastSavedGameDate;
+    private TextLabel lastSavedGameDate;
 
     private String dateLastSaved = EMPTY_STRING;
 
@@ -536,10 +524,10 @@ public final class MainWindow extends NetGroupFrame {
 
     //labels at main menu
 
-    private JLabel welcomeLabel;
+    private TextLabel welcomeLabel;
     private LabelButton singleModeButton;
     private LabelButton multiModeButton;
-    private JLabel goHelpMenu;
+    private TextLabel goHelpMenu;
 
     //private final boolean standalone;
 
@@ -552,7 +540,7 @@ public final class MainWindow extends NetGroupFrame {
         setFocusableWindowState(true);
         setImageIconFrame(LaunchingCards.getIcon());
         clock = new Clock();
-        lastSavedGameDate = new JLabel();
+        lastSavedGameDate = new TextLabel("");
         reglesBelote = DocumentReaderBeloteUtil.getRulesBelote(StreamTextFile.contentsOfFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_BELOTE)));
         if (!reglesBelote.isValidRules()) {
             reglesBelote = new RulesBelote();
@@ -666,7 +654,7 @@ public final class MainWindow extends NetGroupFrame {
     public Clock getClock() {
         return clock;
     }
-    public JLabel getLastSavedGameDate() {
+    public TextLabel getLastSavedGameDate() {
         return lastSavedGameDate;
     }
 
@@ -1088,10 +1076,9 @@ public final class MainWindow extends NetGroupFrame {
         }
         containerGame.finirParties();
         setTitle(Launching.WELCOME.toString(getLanguageKey()));
-        Panel container_=new Panel();
-        container_.setLayout(new GridLayout(0,1));
+        Panel container_=Panel.newGrid(0,1);
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
-        container_.add(new JLabel(StringList.simpleStringsFormat(getMessages().getVal(WELCOME), pseudo()),SwingConstants.CENTER));
+        container_.add(new TextLabel(StringList.simpleStringsFormat(getMessages().getVal(WELCOME), pseudo()),SwingConstants.CENTER));
         /*Cree les boutons de jeu*/
         String lg_ = getLanguageKey();
         for (GameEnum jeu2_:GameEnum.values()) {
@@ -1102,7 +1089,7 @@ public final class MainWindow extends NetGroupFrame {
         container_.add(button_);
         //Ajout d'une etiquette pour indiquer ou aller pour avoir de l'aide
         if (goHelpMenu == null) {
-            goHelpMenu = new JLabel(getMessages().getVal(GO_HELP_MENU),SwingConstants.CENTER);
+            goHelpMenu = new TextLabel(getMessages().getVal(GO_HELP_MENU),SwingConstants.CENTER);
         }
         container_.add(goHelpMenu);
         getLoad().setEnabledMenu(false);
@@ -1127,10 +1114,9 @@ public final class MainWindow extends NetGroupFrame {
         containerGame.setChangerPileFin(false);
         containerGame.finirParties();
         setTitle(Launching.WELCOME.toString(getLanguageKey()));
-        Panel container_=new Panel();
-        container_.setLayout(new GridLayout(0,1));
+        Panel container_=Panel.newGrid(0,1);
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
-        container_.add(new JLabel(StringList.simpleStringsFormat(getMessages().getVal(WELCOME), pseudo()),SwingConstants.CENTER));
+        container_.add(new TextLabel(StringList.simpleStringsFormat(getMessages().getVal(WELCOME), pseudo()),SwingConstants.CENTER));
         /*Cree les boutons de jeu*/
         String lg_ = getLanguageKey();
         for (GameEnum jeu2_:GameEnum.values()) {
@@ -1141,7 +1127,7 @@ public final class MainWindow extends NetGroupFrame {
         container_.add(button_);
         //Ajout d'une etiquette pour indiquer ou aller pour avoir de l'aide
         if (goHelpMenu == null) {
-            goHelpMenu = new JLabel(getMessages().getVal(GO_HELP_MENU),SwingConstants.CENTER);
+            goHelpMenu = new TextLabel(getMessages().getVal(GO_HELP_MENU),SwingConstants.CENTER);
         }
         container_.add(goHelpMenu);
         getSave().setEnabledMenu(false);
@@ -1172,27 +1158,27 @@ public final class MainWindow extends NetGroupFrame {
         for (MenuItem m: getRulesGames().values()) {
             m.setEnabledMenu(true);
         }
-        getPane().removeAll();
         containerGame.finirParties();
         setTitle(Launching.WELCOME.toString(getLanguageKey()));
-        getPane().setLayout(new GridLayout(0,1));
+        Panel pane_ = Panel.newGrid(0,1);
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
-        welcomeLabel = new JLabel(StringList.simpleStringsFormat(getMessages().getVal(WELCOME), pseudo()));
-        getPane().add(welcomeLabel,SwingConstants.CENTER);
+        welcomeLabel = new TextLabel(StringList.simpleStringsFormat(getMessages().getVal(WELCOME), pseudo()));
+        pane_.add(welcomeLabel,SwingConstants.CENTER);
         /*Cree les boutons de jeu*/
         singleModeButton = new LabelButton(getMessages().getVal(SINGLE_MODE));
         singleModeButton.addMouseListener(new ChooseModeEvent(this, true));
-        getPane().add(singleModeButton);
+        pane_.add(singleModeButton);
         multiModeButton = new LabelButton(getMessages().getVal(MULTI_MODE));
         multiModeButton.addMouseListener(new ChooseModeEvent(this, false));
-        getPane().add(multiModeButton);
+        pane_.add(multiModeButton);
         //Ajout d'une etiquette pour indiquer ou aller pour avoir de l'aide
         if (goHelpMenu == null) {
-            goHelpMenu = new JLabel(getMessages().getVal(GO_HELP_MENU),SwingConstants.CENTER);
+            goHelpMenu = new TextLabel(getMessages().getVal(GO_HELP_MENU),SwingConstants.CENTER);
         }
-        getPane().add(goHelpMenu);
-        getPane().add(clock);
-        getPane().add(lastSavedGameDate);
+        pane_.add(goHelpMenu);
+        pane_.add(clock);
+        pane_.add(lastSavedGameDate);
+        setContentPane(pane_);
         getSave().setEnabledMenu(false);
         getChange().setEnabledMenu(false);
     }

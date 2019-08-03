@@ -18,7 +18,10 @@ import cards.gui.dialogs.events.ListenerPlayers;
 import cards.gui.dialogs.events.ListenerStacks;
 import cards.president.RulesPresident;
 import cards.president.enumerations.EqualtyPlaying;
+import code.gui.CustCheckBox;
 import code.gui.Panel;
+import code.gui.Spinner;
+import code.gui.TextLabel;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.Ints;
@@ -49,21 +52,21 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
     private static final String REPARTITION = "repartition";
 
     private RulesPresident reglesPresident=new RulesPresident();
-    private JSpinner nbGames;
+    private Spinner nbGames;
     private StringMap<String> messages = new StringMap<String>();
     private ComboBoxMixCards listeChoix;
 
     private ComboBoxEnumCards<EqualtyPlaying> equality;
-    private JLabel stopAllPlayedCards;
-    private JCheckBox canPass;
-    private JCheckBox possibleReversing;
+    private TextLabel stopAllPlayedCards;
+    private CustCheckBox canPass;
+    private CustCheckBox possibleReversing;
 
-    private JCheckBox looseFinishBestCards;
-    private JCheckBox switchCards;
-    private JCheckBox looserStartsFirst;
+    private CustCheckBox looseFinishBestCards;
+    private CustCheckBox switchCards;
+    private CustCheckBox looserStartsFirst;
 
-    private JSpinner nbJoueurs;
-    private JSpinner nbStacks;
+    private Spinner nbJoueurs;
+    private Spinner nbStacks;
 
     protected DialogPresident() {
     }
@@ -74,13 +77,12 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         setMessages(getMessages(_parent,FileConst.FOLDER_MESSAGES_GUI));
     }
 
-    protected void initJt(JSpinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, MainWindow _window) {
+    protected void initJt(Spinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, MainWindow _window) {
         String lg_ = _window.getLanguageKey();
         setNbGames(_nbGames);
-        Panel dealing_=new Panel();
-        dealing_.setLayout(new GridLayout(0,2));
+        Panel dealing_=Panel.newGrid(0,2);
         //Sous - panneau Battre les cartes
-        dealing_.add(new JLabel(getMessages().getVal(MIX_CARDS)));
+        dealing_.add(new TextLabel(getMessages().getVal(MIX_CARDS)));
         listeChoix=new ComboBoxMixCards();
         Listable<MixCardsChoice> mix_;
         mix_ = new EnumList<MixCardsChoice>(MixCardsChoice.values());
@@ -96,16 +98,15 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         listeChoix.setSelectedItem(getReglesPresident().getMixedCards());
         dealing_.add(listeChoix);
         if (getNbGames() != null) {
-            dealing_.add(new JLabel(getMessages().getVal(NUMBER_DEALS)));
+            dealing_.add(new TextLabel(getMessages().getVal(NUMBER_DEALS)));
             dealing_.add(getNbGames());
         }
 
         //Panneau Distribution
         getJt().add(getMessages().getVal(DEALING),dealing_);
 
-        Panel rules_=new Panel();
-        rules_.setLayout(new GridLayout(0,2));
-        rules_.add(new JLabel(getMessages().getVal(EQUALITY)));
+        Panel rules_=Panel.newGrid(0,2);
+        rules_.add(new TextLabel(getMessages().getVal(EQUALITY)));
         equality = new ComboBoxEnumCards<EqualtyPlaying>();
         EqualtyPlaying curThree_ = getReglesPresident().getEqualty();
         int index_ = 0;
@@ -122,44 +123,42 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         }
         equality.setListener(new ListenerEqualityPlaying(this));
         rules_.add(equality);
-        rules_.add(new JLabel());
-        stopAllPlayedCards = new JLabel();
+        rules_.add(new TextLabel(""));
+        stopAllPlayedCards = new TextLabel("");
         if (getReglesPresident().getEqualty() == EqualtyPlaying.SKIP_DIFF_NEXT_STOP) {
             stopAllPlayedCards.setText(getMessages().getVal(STOP_ALL_PLAYED_CARDS));
         } else {
             stopAllPlayedCards.setText(EMPTY);
         }
         rules_.add(stopAllPlayedCards);
-        rules_.add(new JLabel());
-        canPass = new JCheckBox(getMessages().getVal(CAN_PASS));
+        rules_.add(new TextLabel(""));
+        canPass = new CustCheckBox(getMessages().getVal(CAN_PASS));
         canPass.setSelected(!getReglesPresident().isHasToPlay());
         rules_.add(canPass);
-        rules_.add(new JLabel());
+        rules_.add(new TextLabel(""));
         int nbSuits_ = Suit.couleursOrdinaires().size();
         nbSuits_ *= getReglesPresident().getNbStacks();
         String message_ = StringList.simpleNumberFormat(getMessages().getVal(POSSIBLE_REVERSING), nbSuits_);
-        possibleReversing = new JCheckBox(message_);
+        possibleReversing = new CustCheckBox(message_);
         possibleReversing.setSelected(getReglesPresident().isPossibleReversing());
         rules_.add(possibleReversing);
         getJt().add(getMessages().getVal(RULES),rules_);
 
-        Panel endDeal_ = new Panel();
-        endDeal_.setLayout(new BoxLayout(endDeal_.getComponent(), BoxLayout.PAGE_AXIS));
-        looseFinishBestCards = new JCheckBox(getMessages().getVal(LOOSE_FINISH_BEST_CARDS));
+        Panel endDeal_ = Panel.newPageBox();
+        looseFinishBestCards = new CustCheckBox(getMessages().getVal(LOOSE_FINISH_BEST_CARDS));
         looseFinishBestCards.setSelected(getReglesPresident().isLoosingIfFinishByBestCards());
         endDeal_.add(looseFinishBestCards);
-        switchCards = new JCheckBox(getMessages().getVal(SWITCH_CARDS));
+        switchCards = new CustCheckBox(getMessages().getVal(SWITCH_CARDS));
         switchCards.setSelected(getReglesPresident().isSwitchCards());
         endDeal_.add(switchCards);
-        looserStartsFirst = new JCheckBox(getMessages().getVal(LOOSER_STARTS_FIRST));
+        looserStartsFirst = new CustCheckBox(getMessages().getVal(LOOSER_STARTS_FIRST));
         looserStartsFirst.setSelected(getReglesPresident().isLooserStartsFirst());
         endDeal_.add(looserStartsFirst);
         getJt().add(getMessages().getVal(END_DEAL),endDeal_);
 
-        Panel players_ = new Panel();
-        players_.setLayout(new GridLayout(2,0));
-        players_.add(new JLabel(getMessages().getVal(NUMBER_PLAYERS)));
-        players_.add(new JLabel(getMessages().getVal(NUMBER_STACKS)));
+        Panel players_ = Panel.newGrid(2,0);
+        players_.add(new TextLabel(getMessages().getVal(NUMBER_PLAYERS)));
+        players_.add(new TextLabel(getMessages().getVal(NUMBER_STACKS)));
 
         Ints nombreJoueursPossible_=new Ints();
         int minJoueurs_ = RulesPresident.getNbMinPlayers();
@@ -173,7 +172,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         } else {
             spin_.setValue(getReglesPresident().getNbPlayers());
         }
-        nbJoueurs=new JSpinner(spin_);
+        nbJoueurs=new Spinner(spin_);
         if (_enabledChangingNbPlayers) {
             nbJoueurs.addChangeListener(new ListenerPlayers(this, _window));
         } else {
@@ -188,7 +187,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         }
         spin_ = new SpinnerListModel(stacks_.toArray());
         spin_.setValue(getReglesPresident().getNbStacks());
-        nbStacks=new JSpinner(spin_);
+        nbStacks=new Spinner(spin_);
         nbStacks.addChangeListener(new ListenerStacks(this));
         players_.add(nbStacks);
         getJt().add(getMessages().getVal(REPARTITION),players_);
@@ -262,11 +261,11 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         reglesPresident = _reglesPresident;
     }
 
-    protected JSpinner getNbGames() {
+    protected Spinner getNbGames() {
         return nbGames;
     }
 
-    protected void setNbGames(JSpinner _nbGames) {
+    protected void setNbGames(Spinner _nbGames) {
         nbGames = _nbGames;
     }
 }

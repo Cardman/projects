@@ -4,10 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
+import javax.swing.table.*;
 
 import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
@@ -87,6 +84,18 @@ public class FileTable extends CustComponent {
         indexOfSorted = _col;
         increasing = !increasing;
         files.sortElts(new FileComparator(increasing, indexOfSorted, folder));
+        int s_ = files.size();
+        for (int j = 0; j < s_; j++) {
+            for (int i = 0; i < NB_COLS; i++) {
+                model.setValueAt(getValueAt(j, i), j, i);
+            }
+        }
+        TableModel model_ = table.getModel();
+        Object[] cols_ = new Object[NB_COLS];
+        for (int i = 0; i < NB_COLS; i++) {
+            cols_[i] = getColumnName(i);
+        }
+        ((DefaultTableModel)model_).setColumnIdentifiers(cols_);
         model.fireTableStructureChanged();
         model.fireTableDataChanged();
     }

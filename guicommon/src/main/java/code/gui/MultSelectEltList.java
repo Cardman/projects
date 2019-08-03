@@ -25,7 +25,7 @@ public final class MultSelectEltList extends MouseAdapter implements IndexableLi
             grList.setLastIndex(index);
             CustCellRender r_ = grList.getRender();
             Object v_ = array_[index];
-            JLabel c_;
+            PreparedLabel c_;
             if (!sel_) {
                 c_ = r_.getListCellRendererComponent(grList, v_, index, false, false);
             } else {
@@ -47,7 +47,7 @@ public final class MultSelectEltList extends MouseAdapter implements IndexableLi
         CustCellRender r_ = grList.getRender();
         for (int i = min_; i <= max_; i++) {
             Object v_ = array_[i];
-            JLabel c_;
+            PreparedLabel c_;
             c_ = r_.getListCellRendererComponent(grList, v_, i, sel_, false);
             r_.paintComponent(c_);
         }

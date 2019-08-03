@@ -18,12 +18,7 @@ import aiki.gui.components.listeners.NewSearchEvent;
 import aiki.gui.components.listeners.SearchEvent;
 import aiki.gui.listeners.PaginatorEvent;
 import aiki.util.SortingEgg;
-import code.gui.AutoCompleteDocument;
-import code.gui.ChangeableTitle;
-import code.gui.LabelButton;
-import code.gui.NumComboBox;
-import code.gui.Panel;
-import code.gui.ScrollPane;
+import code.gui.*;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.StringList;
@@ -39,18 +34,18 @@ public final class PaginatorEgg extends Paginator {
 
     //private static final String EGG = "egg";
 
-    private JTextField name;
+    private TextField name;
 
     private EnumList<SearchingMode> order = new EnumList<SearchingMode>();
 
     //private JComboBoxSearchingMode modeFirstName = new JComboBoxSearchingMode();
     private ComboBoxSearchingMode modeName;
 
-    private JTextField minSteps = new JTextField(16);
+    private TextField minSteps = new TextField(16);
 
-    private JTextField maxSteps = new JTextField(16);
+    private TextField maxSteps = new TextField(16);
 
-    private Panel results = new Panel();
+    private Panel results = Panel.newGrid(0,1);
 
     private ComboBoxSelectedBool cmpNameSorting;
 
@@ -60,8 +55,8 @@ public final class PaginatorEgg extends Paginator {
 
     private NumComboBox cmpStepsPrio = new NumComboBox();
 
-    public PaginatorEgg(MainWindow _window, ChangeableTitle _w, FacadeGame _d) {
-        super(_window, ACCESS_EGG);
+    public PaginatorEgg(MainWindow _window, Panel _p,ChangeableTitle _w, FacadeGame _d) {
+        super(_window, ACCESS_EGG,_p);
         setWindow(_w);
         setFacade(_d);
         order.add(SearchingMode.WHOLE_STRING);
@@ -85,7 +80,6 @@ public final class PaginatorEgg extends Paginator {
             cmpStepsPrio.addItem(i);
         }
         getFacade().setSearchModeNameEgg(SearchingMode.WHOLE_STRING);
-        setLayout(new BoxLayout(getComponent(),BoxLayout.PAGE_AXIS));
         StringList pk_ = new StringList();
         for (String p: getFacade().getData().getPokedex().getKeys()) {
             String pkTr_ = getFacade().translatePokemon(p);
@@ -139,23 +133,23 @@ public final class PaginatorEgg extends Paginator {
 //            }
 //        });
         Panel search_;
-        search_ = new Panel(new GridLayout(0,3));
-        search_.add(new JLabel(getMessages().getVal(NAME)));
+        search_ = Panel.newGrid(0,3);
+        search_.add(new TextLabel(getMessages().getVal(NAME)));
         search_.add(name);
         search_.add(modeName);
-        search_.add(new JLabel(getMessages().getVal(REMAIN_STEPS)));
+        search_.add(new TextLabel(getMessages().getVal(REMAIN_STEPS)));
         search_.add(minSteps);
         search_.add(maxSteps);
-        add(search_);
+        _p.add(search_);
         Panel sorting_;
-        sorting_ = new Panel(new GridLayout(0,3));
-        sorting_.add(new JLabel(getMessages().getVal(NAME)));
+        sorting_ = Panel.newGrid(0,3);
+        sorting_.add(new TextLabel(getMessages().getVal(NAME)));
         sorting_.add(cmpNameSorting);
         sorting_.add(cmpNamePrio);
-        sorting_.add(new JLabel(getMessages().getVal(REMAIN_STEPS)));
+        sorting_.add(new TextLabel(getMessages().getVal(REMAIN_STEPS)));
         sorting_.add(cmpStepsSorting);
         sorting_.add(cmpStepsPrio);
-        add(sorting_);
+        _p.add(sorting_);
         Panel top_;
         top_ = new Panel();
         LabelButton button_;
@@ -165,9 +159,8 @@ public final class PaginatorEgg extends Paginator {
         button_ = new LabelButton(getMessages().getVal(NEW_SEARCH));
         button_.addMouseListener(new NewSearchEvent(this));
         top_.add(button_);
-        add(top_);
+        _p.add(top_);
         //        results.setLayout(new BoxLayout(results, BoxLayout.PAGE_AXIS));
-        results.setLayout(new GridLayout(0, 1));
         //map.getSideLength()
         //miniImagePk egg.getName() steps remainSteps
         //getHeader().setText(getMessages().getVal(EGG));
@@ -177,7 +170,7 @@ public final class PaginatorEgg extends Paginator {
         getHeader().addString(h_.toString(), FIRST_PIXEL);
         getHeader().setPreferredSize(new Dimension(getHeader().width(h_.toString()), HEIGTH_CHARS));
         results.add(getHeader());
-        add(new ScrollPane(results));
+        _p.add(new ScrollPane(results));
         Panel bottom_ = new Panel();
         getNbResults().setValue(getFacade().getNbResultsPerPageEgg());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
@@ -192,7 +185,7 @@ public final class PaginatorEgg extends Paginator {
         bottom_.add(getNextDelta());
         bottom_.add(getEnd());
         bottom_.add(getDelta());
-        add(bottom_);
+        _p.add(bottom_);
         changeNav();
     }
 

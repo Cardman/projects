@@ -14,11 +14,9 @@ import code.formathtml.Navigation;
 import code.formathtml.render.MetaAnchorLabel;
 import code.formathtml.render.MetaComponent;
 import code.formathtml.render.MetaDocument;
+import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
-import code.gui.ChangeableTitle;
-import code.gui.LabelButton;
-import code.gui.LoadingWeb;
-import code.gui.ProgressingWebDialog;
+import code.gui.*;
 import code.resources.ResourceFiles;
 import code.sml.Document;
 import code.sml.util.ResourcesMessagesUtil;
@@ -33,7 +31,7 @@ public final class RenderedPage implements ProcessingSession {
     private static final String SEPARATOR_PATH = "/";
     private static final String IMPLICIT_LANGUAGE = "//";
     private DualPanel page;
-    private final JScrollPane scroll;
+    private final ScrollPane scroll;
     private final Navigation navigation;
     private IdMap<MetaComponent,DualComponent> refs = new IdMap<MetaComponent,DualComponent>();
     private FindEvent finding;
@@ -44,7 +42,7 @@ public final class RenderedPage implements ProcessingSession {
 
     private CustList<BufferedImage> process = new CustList<BufferedImage>();
 
-    private JTextArea area;
+    private TextArea area;
 
     private ProgressingWebDialog dialog;
 
@@ -55,16 +53,16 @@ public final class RenderedPage implements ProcessingSession {
     private CustList<DualAnimatedImage> anims = new CustList<DualAnimatedImage>();
 
     private LabelButton find;
-    private JTextField field;
+    private TextField field;
 
-    public RenderedPage(JScrollPane _frame) {
+    public RenderedPage(ScrollPane _frame) {
         scroll = _frame;
         navigation = new Navigation();
         navigation.setSession(new Configuration());
         navigation.getSession().setupInterrupt(new InterruptImpl());
     }
 
-    public RenderedPage(JScrollPane _frame, LabelButton _find, JTextField _field) {
+    public RenderedPage(ScrollPane _frame, LabelButton _find, TextField _field) {
         scroll = _frame;
         navigation = new Navigation();
         navigation.setSession(new Configuration());
@@ -123,6 +121,18 @@ public final class RenderedPage implements ProcessingSession {
         }
         standards = _stds;
         threadAction = new ThreadActions(this, _stds, "", _conf, false, false, true);
+        threadAction.start();
+        animateProcess();
+    }
+
+    public void initializeOnlyConf(String _conf, BeanCustLgNames _stds, StringMap<String> _files, String _clName, String _methodName) {
+        if (processing.get()) {
+            return;
+        }
+        standards = _stds;
+        threadAction = new ThreadActions(this, _stds, "", _conf, _files,false, false, true);
+        threadAction.setClassDbName(_clName);
+        threadAction.setMethodName(_methodName);
         threadAction.start();
         animateProcess();
     }
@@ -267,7 +277,7 @@ public final class RenderedPage implements ProcessingSession {
         }
         finish(false);
     }
-    public JTextArea getArea() {
+    public TextArea getArea() {
         return area;
     }
     @Override
@@ -289,7 +299,7 @@ public final class RenderedPage implements ProcessingSession {
     public Navigation getNavigation() {
         return navigation;
     }
-    public JScrollPane getScroll() {
+    public ScrollPane getScroll() {
         return scroll;
     }
     public DualPanel getPage() {
@@ -335,7 +345,7 @@ public final class RenderedPage implements ProcessingSession {
     public void setProcessing(boolean _processing) {
         processing.set(_processing);
     }
-    public void setArea(JTextArea _area) {
+    public void setArea(TextArea _area) {
         area = _area;
     }
 
@@ -356,7 +366,7 @@ public final class RenderedPage implements ProcessingSession {
         find = _search;
     }
 
-    public void setField(JTextField _field) {
+    public void setField(TextField _field) {
         field = _field;
     }
 

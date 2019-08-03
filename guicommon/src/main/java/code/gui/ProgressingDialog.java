@@ -23,9 +23,9 @@ public abstract class ProgressingDialog extends Dialog implements ProgressDialog
 
     private static final int DELTA = 100;
 
-    private JLabel anim;
+    private PreparedLabel anim;
 
-    private JProgressBar bar;
+    private ProgressBar bar;
 
     private Timer timer;
 
@@ -41,15 +41,14 @@ public abstract class ProgressingDialog extends Dialog implements ProgressDialog
         }
         perCent = PER_CENT;
         setLocationRelativeToWindow(_window);
-        Panel contentPane_ = new Panel();
-        contentPane_.setLayout(new BoxLayout(contentPane_.getComponent(), BoxLayout.PAGE_AXIS));
+        Panel contentPane_ = Panel.newPageBox();
         Panel label_ = new Panel();
         if (!_images.isEmpty()) {
-            anim = new JLabel();
+            anim = new PreparedLabel();
             anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
             animation = new AnimatedImage(anim, _images, TIME * 10);
         } else {
-            anim = new JLabel();
+            anim = new PreparedLabel();
             anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
             anim.setOpaque(true);
             anim.setBackground(Color.WHITE);
@@ -57,7 +56,7 @@ public abstract class ProgressingDialog extends Dialog implements ProgressDialog
 //        anim.setList(_images);
         label_.add(anim);
         contentPane_.add(label_);
-        bar = new JProgressBar();
+        bar = new ProgressBar();
         bar.setValue(0);
         contentPane_.add(bar);
         setContentPane(contentPane_);

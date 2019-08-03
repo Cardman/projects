@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import cards.gui.MainWindow;
 import cards.network.common.select.TeamsPlayers;
 import code.gui.Panel;
+import code.gui.TextLabel;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -35,15 +36,15 @@ public final class DialogTeamsPlayers extends DialogCards {
     }
 
     public void setDialogue(StringList _pseudos, TeamsPlayers _teamsPlayers) {
-        Panel panel_ = new Panel(new GridLayout(0,1));
+        Panel panel_ = Panel.newGrid(0,1);
         int i_ = 1;
         String stringTeam_ = messages.getVal(TEAM);
         for (Bytes t: _teamsPlayers.getTeams()) {
             String stringTeamLoc_ = StringList.simpleNumberFormat(stringTeam_, i_);
-            Panel team_ = new Panel(new GridLayout(0,1));
+            Panel team_ = Panel.newGrid(0,1);
             team_.setBorder(BorderFactory.createTitledBorder(stringTeamLoc_));
             for (byte p:t) {
-                JLabel player_ = new JLabel(_pseudos.get(p));
+                TextLabel player_ = new TextLabel(_pseudos.get(p));
                 team_.add(player_);
             }
             panel_.add(team_);

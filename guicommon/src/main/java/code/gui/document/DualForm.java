@@ -1,19 +1,17 @@
 package code.gui.document;
-
-import java.awt.LayoutManager;
-
-import javax.swing.BoxLayout;
-
+import code.formathtml.render.MetaContainer;
 import code.formathtml.render.MetaForm;
+import code.gui.Panel;
 
 public final class DualForm extends DualContainer {
 
     public DualForm(DualContainer _container, MetaForm _component,
             RenderedPage _page) {
         super(_container, _component, _page);
-        LayoutManager lay_;
-        lay_ = new BoxLayout(getGraphic(), BoxLayout.PAGE_AXIS);
-        getGraphic().setLayout(lay_);
     }
 
+    @Override
+    protected Panel newPanel(DualContainer _container, MetaContainer _component, RenderedPage _page) {
+        return Panel.newPageBox();
+    }
 }

@@ -6,12 +6,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import code.gui.PreparedLabel;
+import code.gui.TextLabel;
 import code.gui.ThreadUtil;
 import code.util.CustList;
 
 public final class AnimatedImage extends Thread {
 
-    private JLabel label;
+    private PreparedLabel label;
 
     private CustList<BufferedImage> images;
 
@@ -19,8 +21,8 @@ public final class AnimatedImage extends Thread {
 
     private AtomicBoolean animated = new AtomicBoolean(true);
 
-    public AnimatedImage(JLabel _label, CustList<BufferedImage> _images,
-            int _delay) {
+    public AnimatedImage(PreparedLabel _label, CustList<BufferedImage> _images,
+                         int _delay) {
         label = _label;
         images = _images;
         delay = _delay;

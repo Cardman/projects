@@ -12,9 +12,7 @@ import cards.facade.enumerations.GameEnum;
 import cards.gui.MainWindow;
 import cards.president.RulesPresident;
 import cards.tarot.enumerations.DealingTarot;
-import code.gui.AbstractDialogServer;
-import code.gui.LabelButton;
-import code.gui.Panel;
+import code.gui.*;
 import code.gui.events.ClosingDialogEvent;
 import code.gui.events.CreateServerEvent;
 import code.gui.events.JoinServerEvent;
@@ -36,11 +34,11 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
     private static final String JOIN_SERVER = "joinServer";
     private static final String NUMBER_PLAYERS = "numberPlayers";
     private static final String TITLE = "title";
-    private JTextField ipOrHostName;
+    private TextField ipOrHostName;
     private ComboBoxIpType ipType;
     private boolean create;
     private boolean join;
-    private JSpinner nbPlayers;
+    private Spinner nbPlayers;
     private StringMap<String> messages;
     private EnumMap<IpType,String> messagesIpEnum;
 //    private JComboBox<DealingBelote> repBelote;
@@ -66,11 +64,9 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
         }
         setTitle(messages.getVal(TITLE));
         setLocationRelativeTo(_fenetre);
-        ipOrHostName = new JTextField();
-        Panel pane_ = new Panel();
-        pane_.setLayout(new GridLayout(0, 1));
-        Panel panel_ = new Panel();
-        panel_.setLayout(new GridLayout(0, 2));
+        ipOrHostName = new TextField();
+        Panel pane_ = Panel.newGrid(0, 1);
+        Panel panel_ = Panel.newGrid(0, 2);
         if (_game == GameEnum.TAROT) {
             Ints nombreJoueursPossible_=new Ints();
             EnumList<DealingTarot> repValides_ = new EnumList<DealingTarot>(DealingTarot.getRepartitionsValides());
@@ -88,8 +84,8 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
                 }
             }
             nombreJoueursPossible_.sort();
-            nbPlayers = new JSpinner(new SpinnerListModel(nombreJoueursPossible_.toArray()));
-            panel_.add(new JLabel(messages.getVal(NUMBER_PLAYERS)));
+            nbPlayers = new Spinner(new SpinnerListModel(nombreJoueursPossible_.toArray()));
+            panel_.add(new TextLabel(messages.getVal(NUMBER_PLAYERS)));
             panel_.add(nbPlayers);
         } else if (_game == GameEnum.PRESIDENT) {
             Ints nombreJoueursPossible_=new Ints();
@@ -98,8 +94,8 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
             for (int i = minJoueurs_; i <= maxJoueurs_; i++) {
                 nombreJoueursPossible_.add(i);
             }
-            nbPlayers = new JSpinner(new SpinnerListModel(nombreJoueursPossible_.toArray()));
-            panel_.add(new JLabel(messages.getVal(NUMBER_PLAYERS)));
+            nbPlayers = new Spinner(new SpinnerListModel(nombreJoueursPossible_.toArray()));
+            panel_.add(new TextLabel(messages.getVal(NUMBER_PLAYERS)));
             panel_.add(nbPlayers);
         } else {
             Ints nombreJoueursPossible_=new Ints();
@@ -118,11 +114,11 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
                 }
             }
             nombreJoueursPossible_.sort();
-            nbPlayers = new JSpinner(new SpinnerListModel(nombreJoueursPossible_.toArray()));
-            panel_.add(new JLabel(messages.getVal(NUMBER_PLAYERS)));
+            nbPlayers = new Spinner(new SpinnerListModel(nombreJoueursPossible_.toArray()));
+            panel_.add(new TextLabel(messages.getVal(NUMBER_PLAYERS)));
             panel_.add(nbPlayers);
         }
-        JLabel ipServer_ = new JLabel(messages.getVal(IP_SERVER));
+        TextLabel ipServer_ = new TextLabel(messages.getVal(IP_SERVER));
         ipServer_.setToolTipText(messages.getVal(IP_SERVER_TOOL_TIP));
         panel_.add(ipServer_);
         panel_.add(ipOrHostName);

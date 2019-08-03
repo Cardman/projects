@@ -12,6 +12,7 @@ import javax.swing.JScrollPane;
 
 import code.formathtml.render.*;
 import code.formathtml.util.FormInputCoords;
+import code.gui.*;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringMap;
@@ -20,11 +21,11 @@ public class WindowPage implements Runnable {
 
     private RenderedPage page;
 
-    private JScrollPane frame;
+    private ScrollPane frame;
 
     private MetaDocument meta;
 
-    public WindowPage(MetaDocument _meta, JScrollPane _frame, RenderedPage _page) {
+    public WindowPage(MetaDocument _meta, ScrollPane _frame, RenderedPage _page) {
         page = _page;
         meta = _meta;
         frame = _frame;
@@ -39,7 +40,7 @@ public class WindowPage implements Runnable {
         MetaComponent meta_ = metaroot_.getFirstChild();
         DualContainer root_ = page.getPage();
         DualComponent cur_ = root_;
-        CustList<ObjectMap<FormInputCoords,ButtonGroup>> radiosGroup_ = new CustList<ObjectMap<FormInputCoords,ButtonGroup>>();
+        CustList<ObjectMap<FormInputCoords,CustButtonGroup>> radiosGroup_ = new CustList<ObjectMap<FormInputCoords,CustButtonGroup>>();
         while (true) {
             if (meta_ instanceof MetaContainer) {
                 MetaContainer container_ = (MetaContainer) meta_;
@@ -50,13 +51,13 @@ public class WindowPage implements Runnable {
                     } else if (container_ instanceof MetaImageMap) {
                         cur_.add(new DualImageMap((DualContainer) cur_,(MetaImageMap) container_, page));
                     } else if (container_ instanceof MetaForm) {
-                        radiosGroup_.add(new ObjectMap<FormInputCoords,ButtonGroup>());
+                        radiosGroup_.add(new ObjectMap<FormInputCoords,CustButtonGroup>());
                         cur_.add(new DualForm((DualContainer) cur_, (MetaForm) container_, page));
                     } else {
                         cur_.add(new DualPanel((DualContainer) cur_,container_, page));
                     }
                     if (container_.containsOnlyEndLine()) {
-                        JComponent c_ = cur_.getGraphic();
+                        Panel c_ = (Panel) cur_.getGraphic();
                         Font font_ = c_.getFont();
                         FontMetrics fMetrics_ = c_.getFontMetrics(font_);
                         int em_ = cur_.getComponent().getStyle().getEmToPixels();
@@ -91,7 +92,7 @@ public class WindowPage implements Runnable {
                 MetaListItem li_ = (MetaListItem) par_;
                 MetaContainer gr_ = li_.getParent();
                 int width_ = meta_.getStyle().getEmToPixels();
-                JPanel p_ = (JPanel) cur_.getGraphic();
+                Panel p_ = (Panel) cur_.getGraphic();
                 Font font_ = p_.getFont();
                 FontMetrics fontMetrics_ = p_.getFontMetrics(font_);
                 if (gr_ instanceof MetaOrderedList) {
@@ -121,11 +122,11 @@ public class WindowPage implements Runnable {
                 MetaRadioButton radio_ = (MetaRadioButton) meta_;
                 DualRadionButton dual_ = new DualRadionButton((DualContainer) cur_,radio_, page);
                 cur_.add(dual_);
-                JRadioButton radioButton_ = dual_.getRadio();
+                RadioButton radioButton_ = dual_.getRadio();
                 if (!radiosGroup_.isEmpty()) {
-                    ObjectMap<FormInputCoords,ButtonGroup> grs_ = radiosGroup_.last();
+                    ObjectMap<FormInputCoords,CustButtonGroup> grs_ = radiosGroup_.last();
                     if (radio_.getIndexButton() == 0) {
-                        ButtonGroup gr_ = new ButtonGroup();
+                        CustButtonGroup gr_ = new CustButtonGroup();
                         grs_.put(radio_.getId(), gr_);
                         gr_.add(radioButton_);
                     } else {
