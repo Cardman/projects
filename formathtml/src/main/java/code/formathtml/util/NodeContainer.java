@@ -30,7 +30,7 @@ public class NodeContainer {
 
     private final NodeInformations nodeInformation = new NodeInformations();
 
-    private boolean enabled = true;
+    private boolean enabled;
 
     public Struct getStruct() {
         return object;

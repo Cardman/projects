@@ -254,16 +254,18 @@ public final class FullElement extends FullNode implements Element {
         FullElement root_ = this;
         Node current_ = this;
         StringBuilder str_ = new StringBuilder();
+        if (getFirstChild() == null) {
+            appendInfos(str_, this);
+            str_.append(END_TAG);
+            str_.append(BEGIN_FOOTER);
+            str_.append(getTagName());
+            str_.append(END_TAG);
+            return str_.toString();
+        }
         while (current_ != null) {
             if (current_ instanceof FullElement) {
                 FullElement elt_ = (FullElement) current_;
-                str_.append(BEGIN_TAG);
-                str_.append(elt_.getTagName());
-                if (!elt_.attributes.isEmpty()) {
-                    for (Attr a: elt_.attributes) {
-                        str_.append(a.export());
-                    }
-                }
+                appendInfos(str_, elt_);
             }
             if (current_ instanceof Text) {
                 Text txt_ = (Text) current_;
@@ -288,10 +290,6 @@ public final class FullElement extends FullNode implements Element {
                     break;
                 }
                 Element parent_ = current_.getParentNode();
-                if (parent_ == null) {
-                    current_ = null;
-                    break;
-                }
                 str_.append(BEGIN_FOOTER);
                 str_.append(parent_.getTagName());
                 str_.append(END_TAG);
@@ -308,20 +306,15 @@ public final class FullElement extends FullNode implements Element {
         FullElement root_ = this;
         Node current_ = this;
         StringBuilder str_ = new StringBuilder();
+        if (getFirstChild() == null) {
+            appendSortedInfos(str_, this);
+            str_.append(END_LEAF);
+            return str_.toString();
+        }
         while (current_ != null) {
             if (current_ instanceof FullElement) {
                 FullElement elt_ = (FullElement) current_;
-                str_.append(BEGIN_TAG);
-                str_.append(elt_.getTagName());
-                if (!elt_.attributes.isEmpty()) {
-                    NatStringTreeMap<String> m_ = new NatStringTreeMap<String>();
-                    for (Attr a : elt_.attributes) {
-                        m_.put(a.getName(),a.export());
-                    }
-                    for (String a : m_.values()) {
-                        str_.append(a);
-                    }
-                }
+                appendSortedInfos(str_, elt_);
             }
             if (current_ instanceof Text) {
                 Text txt_ = (Text) current_;
@@ -343,10 +336,6 @@ public final class FullElement extends FullNode implements Element {
                     break;
                 }
                 Element parent_ = current_.getParentNode();
-                if (parent_ == null) {
-                    current_ = null;
-                    break;
-                }
                 str_.append(BEGIN_FOOTER);
                 str_.append(parent_.getTagName());
                 str_.append(END_TAG);
@@ -359,21 +348,35 @@ public final class FullElement extends FullNode implements Element {
         }
         return str_.toString();
     }
+
+    private static void appendSortedInfos(StringBuilder _str, FullElement _elt) {
+        _str.append(BEGIN_TAG);
+        _str.append(_elt.getTagName());
+        if (!_elt.attributes.isEmpty()) {
+            NatStringTreeMap<String> m_ = new NatStringTreeMap<String>();
+            for (Attr a : _elt.attributes) {
+                m_.put(a.getName(),a.export());
+            }
+            for (String a : m_.values()) {
+                _str.append(a);
+            }
+        }
+    }
+
     @Override
     public String export() {
         FullElement root_ = this;
         Node current_ = this;
         StringBuilder str_ = new StringBuilder();
+        if (getFirstChild() == null) {
+            appendInfos(str_, this);
+            str_.append(END_LEAF);
+            return str_.toString();
+        }
         while (current_ != null) {
             if (current_ instanceof FullElement) {
                 FullElement elt_ = (FullElement) current_;
-                str_.append(BEGIN_TAG);
-                str_.append(elt_.getTagName());
-                if (!elt_.attributes.isEmpty()) {
-                    for (Attr a : elt_.attributes) {
-                        str_.append(a.export());
-                    }
-                }
+                appendInfos(str_, elt_);
             }
             if (current_ instanceof Text) {
                 Text txt_ = (Text) current_;
@@ -395,10 +398,6 @@ public final class FullElement extends FullNode implements Element {
                     break;
                 }
                 Element parent_ = current_.getParentNode();
-                if (parent_ == null) {
-                    current_ = null;
-                    break;
-                }
                 str_.append(BEGIN_FOOTER);
                 str_.append(parent_.getTagName());
                 str_.append(END_TAG);
@@ -411,6 +410,17 @@ public final class FullElement extends FullNode implements Element {
         }
         return str_.toString();
     }
+
+    private static void appendInfos(StringBuilder _str, FullElement _elt) {
+        _str.append(BEGIN_TAG);
+        _str.append(_elt.getTagName());
+        if (!_elt.attributes.isEmpty()) {
+            for (Attr a : _elt.attributes) {
+                _str.append(a.export());
+            }
+        }
+    }
+
     @Override
     public boolean hasChildNodes() {
         return getFirstChild() != null;
@@ -424,6 +434,10 @@ public final class FullElement extends FullNode implements Element {
     @Override
     public NodeList getDescNodes() {
         NodeList elements_ = new NodeList();
+        if (getFirstChild() == null) {
+            elements_.add(this);
+            return elements_;
+        }
         Element root_ = this;
         Node current_ = this;
         while (current_ != null) {
@@ -440,10 +454,6 @@ public final class FullElement extends FullNode implements Element {
                     break;
                 }
                 Element parent_ = current_.getParentNode();
-                if (parent_ == null) {
-                    current_ = null;
-                    break;
-                }
                 if (parent_ == root_) {
                     current_ = null;
                     break;
@@ -456,6 +466,10 @@ public final class FullElement extends FullNode implements Element {
     @Override
     public NodeList getElementsByTagName() {
         NodeList elements_ = new NodeList();
+        if (getFirstChild() == null) {
+            elements_.add(this);
+            return elements_;
+        }
         Element root_ = this;
         Node current_ = this;
         while (current_ != null) {
@@ -474,10 +488,6 @@ public final class FullElement extends FullNode implements Element {
                     break;
                 }
                 Element parent_ = current_.getParentNode();
-                if (parent_ == null) {
-                    current_ = null;
-                    break;
-                }
                 if (parent_ == root_) {
                     current_ = null;
                     break;
@@ -491,14 +501,16 @@ public final class FullElement extends FullNode implements Element {
     @Override
     public ElementList getElementsByTagName(String _tagName) {
         ElementList elements_ = new ElementList();
+        if (getFirstChild() == null) {
+            addIfMatch(_tagName, elements_, this);
+            return elements_;
+        }
         Element root_ = this;
         Node current_ = this;
         while (current_ != null) {
             if (current_ instanceof Element) {
                 Element elt_ = (Element) current_;
-                if (StringList.quickEq(elt_.getTagName(), _tagName)) {
-                    elements_.add(elt_);
-                }
+                addIfMatch(_tagName, elements_, elt_);
             }
             Node next_ = current_.getFirstChild();
             if (next_ != null) {
@@ -512,10 +524,6 @@ public final class FullElement extends FullNode implements Element {
                     break;
                 }
                 Element parent_ = current_.getParentNode();
-                if (parent_ == null) {
-                    current_ = null;
-                    break;
-                }
                 if (parent_ == root_) {
                     current_ = null;
                     break;
@@ -525,6 +533,13 @@ public final class FullElement extends FullNode implements Element {
         }
         return elements_;
     }
+
+    private static void addIfMatch(String _tagName, ElementList _elements, Element _elt) {
+        if (StringList.quickEq(_elt.getTagName(), _tagName)) {
+            _elements.add(_elt);
+        }
+    }
+
     @Override
     public String getTextContent() {
         if (getFirstChild() == null) {

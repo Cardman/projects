@@ -6,9 +6,7 @@ public class NodeInformations {
 
     private String id = "";
     private String inputClass = "";
-    private String changing = "";
     private String validator = "";
-    private String varMethod = "";
     private StringList value = new StringList();
     public String getId() {
         return id;
@@ -22,23 +20,12 @@ public class NodeInformations {
     public void setInputClass(String _inputClass) {
         inputClass = _inputClass;
     }
-    public String getChanging() {
-        return changing;
-    }
-    public void setChanging(String _changing) {
-        changing = _changing;
-    }
+
     public String getValidator() {
         return validator;
     }
     public void setValidator(String _validator) {
         validator = _validator;
-    }
-    public String getVarMethod() {
-        return varMethod;
-    }
-    public void setVarMethod(String _varMethod) {
-        varMethod = _varMethod;
     }
 
     public StringList getValue() {

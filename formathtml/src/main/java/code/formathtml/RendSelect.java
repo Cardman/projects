@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.errors.custom.BadElError;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -28,6 +29,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
     private CustList<RendDynOperationNode> opsConverterField = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsConverterFieldValue = new CustList<RendDynOperationNode>();
     private StringMap<ResultText> attributesText = new StringMap<ResultText>();
+    private StringMap<ResultText> attributes = new StringMap<ResultText>();
     private String varName = EMPTY_STRING;
     private ClassField idField;
     private Element elt;
@@ -72,8 +74,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         if (_cont.getAdvStandards() instanceof BeanCustLgNames) {
             if (multiple) {
                 if (converterValue_.trim().isEmpty()) {
-                    BadElRender badEl_ = new BadElRender();
-                    badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                    BadElError badEl_ = new BadElError();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(_cont.getCurrentLocationIndex());
                     _cont.getClasses().addError(badEl_);
@@ -97,8 +98,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                     IterableAnalysisResult it_ = _cont.getStandards().getCustomType(names_, _cont.getContext());
                     StringList candidates_ = it_.getClassName();
                     if (candidates_.size() != 1) {
-                        BadElRender badEl_ = new BadElRender();
-                        badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                        BadElError badEl_ = new BadElError();
                         badEl_.setFileName(_cont.getCurrentFileName());
                         badEl_.setIndexFile(_cont.getCurrentLocationIndex());
                         _cont.getClasses().addError(badEl_);
@@ -107,8 +107,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                     m_.setArg(opsConverter.last().getResultClass());
                     m_.setParam(opsRead.last().getResultClass());
                     if (!Templates.isCorrectOrNumbers(m_,_cont)) {
-                        BadElRender badEl_ = new BadElRender();
-                        badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                        BadElError badEl_ = new BadElError();
                         badEl_.setFileName(_cont.getCurrentFileName());
                         badEl_.setIndexFile(_cont.getCurrentLocationIndex());
                         _cont.getClasses().addError(badEl_);
@@ -120,8 +119,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 m_.setParam(_cont.getStandards().getAliasCharSequence());
                 if (!Templates.isCorrectOrNumbers(m_,_cont)) {
                     if (converterValue_.trim().isEmpty()) {
-                        BadElRender badEl_ = new BadElRender();
-                        badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                        BadElError badEl_ = new BadElError();
                         badEl_.setFileName(_cont.getCurrentFileName());
                         badEl_.setIndexFile(_cont.getCurrentLocationIndex());
                         _cont.getClasses().addError(badEl_);
@@ -142,8 +140,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                     m_.setArg(opsConverter.last().getResultClass());
                     m_.setParam(opsRead.last().getResultClass());
                     if (!Templates.isCorrectOrNumbers(m_,_cont)) {
-                        BadElRender badEl_ = new BadElRender();
-                        badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                        BadElError badEl_ = new BadElError();
                         badEl_.setFileName(_cont.getCurrentFileName());
                         badEl_.setIndexFile(_cont.getCurrentLocationIndex());
                         _cont.getClasses().addError(badEl_);
@@ -165,8 +162,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                     m_.setArg(opsConverter.last().getResultClass());
                     m_.setParam(opsRead.last().getResultClass());
                     if (!Templates.isCorrectOrNumbers(m_,_cont)) {
-                        BadElRender badEl_ = new BadElRender();
-                        badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                        BadElError badEl_ = new BadElError();
                         badEl_.setFileName(_cont.getCurrentFileName());
                         badEl_.setIndexFile(_cont.getCurrentLocationIndex());
                         _cont.getClasses().addError(badEl_);
@@ -193,8 +189,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             m_.setArg(opsConverterField.last().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());
             if (!Templates.isCorrectOrNumbers(m_,_cont)) {
-                BadElRender badEl_ = new BadElRender();
-                badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                BadElError badEl_ = new BadElError();
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(_cont.getCurrentLocationIndex());
                 _cont.getClasses().addError(badEl_);
@@ -219,8 +214,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             m_.setArg(opsConverterFieldValue.last().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());
             if (!Templates.isCorrectOrNumbers(m_,_cont)) {
-                BadElRender badEl_ = new BadElRender();
-                badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                BadElError badEl_ = new BadElError();
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(_cont.getCurrentLocationIndex());
                 _cont.getClasses().addError(badEl_);
@@ -230,8 +224,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         if (!default_.isEmpty()) {
             String mName_ = elt.getAttribute(ATTRIBUTE_CONVERT);
             if (mName_.trim().isEmpty()) {
-                BadElRender badEl_ = new BadElRender();
-                badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                BadElError badEl_ = new BadElError();
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(_cont.getCurrentLocationIndex());
                 _cont.getClasses().addError(badEl_);
@@ -243,8 +236,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             if (!multiple) {
                 m_.setParam(_cont.getStandards().getAliasCharSequence());
                 if (!Templates.isCorrectOrNumbers(m_,_cont)) {
-                    BadElRender badEl_ = new BadElRender();
-                    badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                    BadElError badEl_ = new BadElError();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(_cont.getCurrentLocationIndex());
                     _cont.getClasses().addError(badEl_);
@@ -253,13 +245,18 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 IterableAnalysisResult it_ = _cont.getStandards().getCustomType(opsDefault.last().getResultClass().getNames(), _cont.getContext());
                 StringList candidates_ = it_.getClassName();
                 if (candidates_.size() != 1) {
-                    BadElRender badEl_ = new BadElRender();
-                    badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                    BadElError badEl_ = new BadElError();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(_cont.getCurrentLocationIndex());
                     _cont.getClasses().addError(badEl_);
                 }
             }
+        }
+        String rows_ = elt.getAttribute(ATTRIBUTE_ROWS);
+        if (!rows_.isEmpty()) {
+            ResultText rId_ = new ResultText();
+            rId_.build(rows_,_cont,_doc);
+            attributes.addEntry(ATTRIBUTE_ROWS,rId_);
         }
     }
 
@@ -336,6 +333,14 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 allOptions_.add(opt_.getAttribute(ATTRIBUTE_VALUE));
             }
             _cont.getHtmlPage().getSelects().put(inputs_, allOptions_);
+        }
+        for (EntryCust<String,ResultText> e: attributes.entryList()) {
+            ResultText res_ = e.getValue();
+            String txt_ = ResultText.render(res_.getOpExp(), res_.getTexts(), _cont);
+            if (_cont.getContext().hasExceptionOrFailInit()) {
+                return;
+            }
+            docElementSelect_.setAttribute(e.getKey(),txt_);
         }
         if (!(_cont.getAdvStandards() instanceof BeanCustLgNames)) {
             docElementSelect_.removeAttribute(StringList.concat(_cont.getPrefix(), ATTRIBUTE_CLASS_NAME));
@@ -460,7 +465,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         }
         return obj_;
     }
-    Argument processIndexes(Configuration _cont, Element _read, Element _write) {
+    private Argument processIndexes(Configuration _cont, Element _read, Element _write) {
         FieldUpdates f_ = new FieldUpdates();
         f_.setIdField(idField);
         f_.setOpsRead(opsRead);

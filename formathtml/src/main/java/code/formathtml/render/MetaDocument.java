@@ -299,7 +299,7 @@ public final class MetaDocument {
                             strings_.add(c.getTextContent());
                             i_++;
                         }
-                        int vis_ = BeanLgNames.parseInt(elt_.getAttribute("rows"),1);
+                        int vis_ = BeanLgNames.parseInt(elt_.getAttribute("rows"),8);
                         MetaInput input_ = new MetaComboList(currentParent, Numbers.parseInt(elt_.getAttribute("n-i")), strings_, values_, selected_, vis_);
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);

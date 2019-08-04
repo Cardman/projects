@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.errors.custom.BadElError;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.variables.LocalVariable;
@@ -106,8 +107,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                 DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(concat_);
                 Document docLoc_ = res_.getDocument();
                 if (docLoc_ == null) {
-                    BadElRender badEl_ = new BadElRender();
-                    badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                    BadElError badEl_ = new BadElError();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(_cont.getCurrentLocationIndex());
                     _cont.getClasses().addError(badEl_);

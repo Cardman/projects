@@ -778,20 +778,6 @@ public final class BeanCustLgNames extends BeanLgNames {
         _conf.getLastPage().getInternVars().removeKey(setFormsVarArg);
     }
 
-    public void setForms(Struct _bean, Struct _map, Configuration _conf) {
-        LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(getStructClassName(_bean, _conf.getContext()));
-        locVar_.setStruct(_bean);
-        _conf.getLastPage().getInternVars().put(setFormsVar, locVar_);
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(getStructClassName(_map, _conf.getContext()));
-        locVar_.setStruct(_map);
-        _conf.getLastPage().getInternVars().put(setFormsVarArg, locVar_);
-        RenderExpUtil.calculateReuse(expsSetForms, _conf);
-        _conf.getLastPage().getInternVars().removeKey(setFormsVar);
-        _conf.getLastPage().getInternVars().removeKey(setFormsVarArg);
-    }
-
     @Override
     protected void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean) {
         Argument forms_ = getForms(_bean, _conf);

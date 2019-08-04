@@ -5,12 +5,12 @@ import code.bean.validator.Message;
 import code.bean.validator.ValidatorInfo;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.errors.custom.BadElError;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendDynOperationNode;
-import code.formathtml.util.BadElRender;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
@@ -166,8 +166,7 @@ public final class Navigation {
         String currentBeanName_;
         RendDocumentBlock rendDocumentBlock_ = session.getRenders().getVal(realFilePath_);
         if (rendDocumentBlock_ == null) {
-            BadElRender badEl_ = new BadElRender();
-            badEl_.setErrors(session.getClasses().getErrorsDet());
+            BadElError badEl_ = new BadElError();
             badEl_.setFileName(session.getCurrentFileName());
             badEl_.setIndexFile(session.getCurrentLocationIndex());
             session.getClasses().addError(badEl_);
@@ -419,9 +418,6 @@ public final class Navigation {
             if (!elt_.hasAttribute(StringList.concat(ip_.getPrefix(),ATTRIBUTE_FOR))) {
                 continue;
             }
-            if (!elt_.getTextContent().trim().isEmpty()) {
-                continue;
-            }
             NodeList children_ = elt_.getChildNodes();
             int ch_ = children_.getLength();
             for (int i = CustList.FIRST_INDEX; i < ch_; i++) {
@@ -483,10 +479,6 @@ public final class Navigation {
             for (int j = CustList.FIRST_INDEX; j < lengthSpans_; j++) {
                 Element elt_ = spans_.item(j);
                 if (!StringList.quickEq(elt_.getAttribute(StringList.concat(session.getPrefix(),ATTRIBUTE_FOR)),i)) {
-                    count_++;
-                    continue;
-                }
-                if (!elt_.getTextContent().trim().isEmpty()) {
                     count_++;
                     continue;
                 }

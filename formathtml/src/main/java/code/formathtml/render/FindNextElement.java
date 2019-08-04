@@ -9,9 +9,6 @@ public final class FindNextElement {
     private CustList<MetaSearchableLabel> labels = new CustList<MetaSearchableLabel>();
     private int index;
     private MetaSearchableLabel label;
-    private int beginLabel;
-    private int offset;
-    private int end;
     private MetaDocument document;
     private boolean setup;
     private int row = 0;
@@ -109,22 +106,22 @@ public final class FindNextElement {
                 }
             }
             lastIndex_++;
-            beginLabel = lastIndex_;
-            offset = index_ - relIndex_;
-            end = _label.getText().length() - (relIndexEnd_ - index_ - _text.length());
+            int beginLabel_ = lastIndex_;
+            int offset_ = index_ - relIndex_;
+            int end_ = _label.getText().length() - (relIndexEnd_ - index_ - _text.length());
             index = index_ + _text.length();
             label = _label;
             int lenMinusOne_ = len_ - 1;
-            if (beginLabel + 1 <= lenMinusOne_) {
-                MetaSearchableLabel l_ = labels.get(beginLabel);
-                addSegment(l_, new SegmentPart(offset, l_.getText().length()));
-                for (int i = beginLabel + 1; i < lenMinusOne_; i++) {
+            if (beginLabel_ + 1 <= lenMinusOne_) {
+                MetaSearchableLabel l_ = labels.get(beginLabel_);
+                addSegment(l_, new SegmentPart(offset_, l_.getText().length()));
+                for (int i = beginLabel_ + 1; i < lenMinusOne_; i++) {
                     l_ = labels.get(i);
                     addSegment(l_, new SegmentPart(0, l_.getText().length()));
                 }
-                addSegment(label, new SegmentPart(0, end));
+                addSegment(label, new SegmentPart(0, end_));
             } else {
-                addSegment(label, new SegmentPart(offset, end));
+                addSegment(label, new SegmentPart(offset_, end_));
             }
         }
     }
@@ -185,35 +182,8 @@ public final class FindNextElement {
         return segments;
     }
 
-    public StringBuilder getLine() {
-        return line;
-    }
-
-    public CustList<MetaSearchableLabel> getLabels() {
-        return labels;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
     public MetaSearchableLabel getLabel() {
         return label;
     }
 
-    public int getBeginLabel() {
-        return beginLabel;
-    }
-
-    public int getOffset() {
-        return offset;
-    }
-
-    public int getEnd() {
-        return end;
-    }
-
-    public MetaDocument getDocument() {
-        return document;
-    }
 }

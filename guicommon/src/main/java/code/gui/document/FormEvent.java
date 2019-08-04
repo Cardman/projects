@@ -72,11 +72,9 @@ public class FormEvent extends MouseAdapter {
                         nCont_.getNodeInformation().setValue(new StringList(ch_.getValue()));
                     } else if (input_ instanceof DualRadionButton) {
                         DualRadionButton ch_ = (DualRadionButton) input_;
-                        nCont_.getNodeInformation().setValue(new StringList(ch_.getValue()));
                         if (!ch_.getValue().isEmpty()) {
+                            nCont_.getNodeInformation().setValue(new StringList(ch_.getValue()));
                             nCont_.setEnabled(true);
-                        } else if (nCont_.getNodeInformation().getValue().isEmpty()) {
-                            nCont_.setEnabled(false);
                         }
                     } else if (input_ instanceof DualComboBox) {
                         nCont_.setEnabled(true);

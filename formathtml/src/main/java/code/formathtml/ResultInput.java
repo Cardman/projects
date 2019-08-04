@@ -1,12 +1,12 @@
 package code.formathtml;
 
+import code.expressionlanguage.errors.custom.BadElError;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exec.*;
-import code.formathtml.util.BadElRender;
 import code.formathtml.util.BeanCustLgNames;
 import code.sml.Element;
 import code.util.CustList;
@@ -102,16 +102,14 @@ public final class ResultInput {
             }
             RendSettableElResult settable_ = RendAffectationOperation.castDottedTo(res_);
             if (!(settable_ instanceof RendSettableFieldOperation)) {
-                BadElRender badEl_ = new BadElRender();
-                badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                BadElError badEl_ = new BadElError();
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(_cont.getCurrentLocationIndex());
                 _cont.getClasses().addError(badEl_);
             } else {
                 FieldInfo infoField_ = ((RendSettableFieldOperation) settable_).getFieldMetaInfo();
                 if (infoField_.isStaticField()) {
-                    BadElRender badEl_ = new BadElRender();
-                    badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                    BadElError badEl_ = new BadElError();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(_cont.getCurrentLocationIndex());
                     _cont.getClasses().addError(badEl_);

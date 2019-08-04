@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.errors.custom.BadElError;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
@@ -8,7 +9,6 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
-import code.formathtml.util.BadElRender;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.FieldUpdates;
 import code.sml.Document;
@@ -25,6 +25,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
     private CustList<RendDynOperationNode> opsConverter = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsConverterField = new CustList<RendDynOperationNode>();
     private StringMap<ResultText> attributesText = new StringMap<ResultText>();
+    private StringMap<ResultText> attributes = new StringMap<ResultText>();
 
     private String varNameConverter = "";
     private String varNameConverterField = "";
@@ -53,8 +54,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
             m_.setParam(_cont.getStandards().getAliasCharSequence());
             if (!Templates.isCorrectOrNumbers(m_,_cont)) {
                 if (converterValue_.trim().isEmpty()) {
-                    BadElRender badEl_ = new BadElRender();
-                    badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                    BadElError badEl_ = new BadElError();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(_cont.getCurrentLocationIndex());
                     _cont.getClasses().addError(badEl_);
@@ -75,8 +75,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
                 m_.setArg(opsConverter.last().getResultClass());
                 m_.setParam(opsRead.last().getResultClass());
                 if (!Templates.isCorrectOrNumbers(m_,_cont)) {
-                    BadElRender badEl_ = new BadElRender();
-                    badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                    BadElError badEl_ = new BadElError();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(_cont.getCurrentLocationIndex());
                     _cont.getClasses().addError(badEl_);
@@ -102,8 +101,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
             m_.setArg(opsConverterField.last().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());
             if (!Templates.isCorrectOrNumbers(m_,_cont)) {
-                BadElRender badEl_ = new BadElRender();
-                badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                BadElError badEl_ = new BadElError();
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(_cont.getCurrentLocationIndex());
                 _cont.getClasses().addError(badEl_);
@@ -122,6 +120,18 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
             ResultText rId_ = new ResultText();
             rId_.buildId(groupId_,_cont,_doc);
             attributesText.put(prefGr_,rId_);
+        }
+        String rows_ = elt.getAttribute(ATTRIBUTE_ROWS);
+        if (!rows_.isEmpty()) {
+            ResultText rId_ = new ResultText();
+            rId_.build(rows_,_cont,_doc);
+            attributes.addEntry(ATTRIBUTE_ROWS,rId_);
+        }
+        String cols_ = elt.getAttribute(ATTRIBUTE_COLS);
+        if (!cols_.isEmpty()) {
+            ResultText rId_ = new ResultText();
+            rId_.build(cols_,_cont,_doc);
+            attributes.addEntry(ATTRIBUTE_COLS,rId_);
         }
     }
 
@@ -167,6 +177,14 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
         fetchValue(_cont,elt,docElementSelect_,opsValue,varNameConverterField,opsConverterField);
         if (_cont.getContext().hasExceptionOrFailInit()) {
             return;
+        }
+        for (EntryCust<String,ResultText> e: attributes.entryList()) {
+            ResultText res_ = e.getValue();
+            String txt_ = ResultText.render(res_.getOpExp(), res_.getTexts(), _cont);
+            if (_cont.getContext().hasExceptionOrFailInit()) {
+                return;
+            }
+            docElementSelect_.setAttribute(e.getKey(),txt_);
         }
         processBlock(_cont);
     }

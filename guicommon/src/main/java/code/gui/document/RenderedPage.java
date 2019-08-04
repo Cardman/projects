@@ -32,7 +32,7 @@ public final class RenderedPage implements ProcessingSession {
     private static final String IMPLICIT_LANGUAGE = "//";
     private DualPanel page;
     private final ScrollPane scroll;
-    private final Navigation navigation;
+    private Navigation navigation;
     private IdMap<MetaComponent,DualComponent> refs = new IdMap<MetaComponent,DualComponent>();
     private FindEvent finding;
 
@@ -57,18 +57,20 @@ public final class RenderedPage implements ProcessingSession {
 
     public RenderedPage(ScrollPane _frame) {
         scroll = _frame;
-        navigation = new Navigation();
-        navigation.setSession(new Configuration());
-        navigation.getSession().setupInterrupt(new InterruptImpl());
+        initNav();
     }
 
     public RenderedPage(ScrollPane _frame, LabelButton _find, TextField _field) {
         scroll = _frame;
+        initNav();
+        finding = new FindEvent(_field, this);
+        _find.addMouseListener(finding);
+    }
+
+    public void initNav() {
         navigation = new Navigation();
         navigation.setSession(new Configuration());
         navigation.getSession().setupInterrupt(new InterruptImpl());
-        finding = new FindEvent(_field, this);
-        _find.addMouseListener(finding);
     }
 
     public void setFiles(String _url) {

@@ -195,15 +195,14 @@ public final class NotTextElement implements Element {
         NotTextElement root_ = this;
         Node current_ = this;
         StringBuilder str_ = new StringBuilder();
+        if (getFirstChild() == null) {
+            appendInfos(str_, this);
+            str_.append(END_LEAF);
+            return str_.toString();
+        }
         while (current_ != null) {
             NotTextElement elt_ = (NotTextElement) current_;
-            str_.append(BEGIN_TAG);
-            str_.append(elt_.getTagName());
-            if (!elt_.attributes.isEmpty()) {
-                for (Attr a : elt_.attributes) {
-                    str_.append(a.export());
-                }
-            }
+            appendInfos(str_, elt_);
             Node next_ = current_.getFirstChild();
             if (next_ != null) {
                 str_.append(END_TAG);
@@ -218,10 +217,6 @@ public final class NotTextElement implements Element {
                     break;
                 }
                 Element parent_ = current_.getParentNode();
-                if (parent_ == null) {
-                    current_ = null;
-                    break;
-                }
                 str_.append(BEGIN_FOOTER);
                 str_.append(parent_.getTagName());
                 str_.append(END_TAG);
@@ -234,6 +229,17 @@ public final class NotTextElement implements Element {
         }
         return str_.toString();
     }
+
+    private static void appendInfos(StringBuilder _str, NotTextElement _elt) {
+        _str.append(BEGIN_TAG);
+        _str.append(_elt.getTagName());
+        if (!_elt.attributes.isEmpty()) {
+            for (Attr a : _elt.attributes) {
+                _str.append(a.export());
+            }
+        }
+    }
+
     @Override
     public boolean hasChildNodes() {
         return getFirstChild() != null;
@@ -255,6 +261,10 @@ public final class NotTextElement implements Element {
     @Override
     public NodeList getElementsByTagName() {
         NodeList elements_ = new NodeList();
+        if (getFirstChild() == null) {
+            elements_.add(this);
+            return elements_;
+        }
         Element root_ = this;
         Node current_ = this;
         while (current_ != null) {
@@ -271,10 +281,6 @@ public final class NotTextElement implements Element {
                     break;
                 }
                 Element parent_ = current_.getParentNode();
-                if (parent_ == null) {
-                    current_ = null;
-                    break;
-                }
                 if (parent_ == root_) {
                     current_ = null;
                     break;
@@ -288,13 +294,15 @@ public final class NotTextElement implements Element {
     @Override
     public ElementList getElementsByTagName(String _tagName) {
         ElementList elements_ = new ElementList();
+        if (getFirstChild() == null) {
+            addIfMatch(_tagName, elements_, this);
+            return elements_;
+        }
         Element root_ = this;
         Node current_ = this;
         while (current_ != null) {
             Element elt_ = (Element) current_;
-            if (StringList.quickEq(elt_.getTagName(), _tagName)) {
-                elements_.add(elt_);
-            }
+            addIfMatch(_tagName, elements_, elt_);
             Node next_ = current_.getFirstChild();
             if (next_ != null) {
                 current_ = next_;
@@ -307,10 +315,6 @@ public final class NotTextElement implements Element {
                     break;
                 }
                 Element parent_ = current_.getParentNode();
-                if (parent_ == null) {
-                    current_ = null;
-                    break;
-                }
                 if (parent_ == root_) {
                     current_ = null;
                     break;
@@ -320,6 +324,13 @@ public final class NotTextElement implements Element {
         }
         return elements_;
     }
+
+    private static void addIfMatch(String _tagName, ElementList _elemets, Element _elt) {
+        if (StringList.quickEq(_elt.getTagName(), _tagName)) {
+            _elemets.add(_elt);
+        }
+    }
+
     @Override
     public String getTextContent() {
         return "";

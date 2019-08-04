@@ -1,6 +1,8 @@
 package code.formathtml.render;
 
 import static code.formathtml.EquallableExUtil.assertEq;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import code.util.CustList;
 import org.junit.Test;
@@ -30,6 +32,7 @@ public final class FindNextElementTest {
         assertEq(1, segs_.firstValue().size());
         assertEq(4, segs_.firstValue().first().getBegin());
         assertEq(5, segs_.firstValue().first().getEnd());
+        assertNotNull(f_.getLabel());
     }
 
     @Test
@@ -52,6 +55,7 @@ public final class FindNextElementTest {
         assertEq(5, segs_.firstValue().first().getEnd());
         assertEq(7, segs_.firstValue().get(1).getBegin());
         assertEq(8, segs_.firstValue().get(1).getEnd());
+        assertNotNull(f_.getLabel());
     }
     @Test
     public void next3Test() {
@@ -67,6 +71,7 @@ public final class FindNextElementTest {
         f_.next("a");
         IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(0, segs_.size());
+        assertNull(f_.getLabel());
     }
     @Test
     public void next4Test() {
@@ -89,6 +94,7 @@ public final class FindNextElementTest {
         assertEq(1, segs_.lastValue().size());
         assertEq(1, segs_.lastValue().first().getBegin());
         assertEq(2, segs_.lastValue().first().getEnd());
+        assertNotNull(f_.getLabel());
     }
     @Test
     public void next5Test() {
@@ -108,6 +114,7 @@ public final class FindNextElementTest {
         assertEq(1, segs_.firstValue().size());
         assertEq(1, segs_.firstValue().first().getBegin());
         assertEq(2, segs_.firstValue().first().getEnd());
+        assertNotNull(f_.getLabel());
     }
     @Test
     public void next6Test() {
@@ -125,6 +132,7 @@ public final class FindNextElementTest {
         f_.next("o");
         IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(0, segs_.size());
+        assertNull(f_.getLabel());
     }
     @Test
     public void next7Test() {
@@ -146,6 +154,7 @@ public final class FindNextElementTest {
         assertEq(1, segs_.lastValue().size());
         assertEq(0, segs_.lastValue().first().getBegin());
         assertEq(5, segs_.lastValue().first().getEnd());
+        assertNotNull(f_.getLabel());
     }
     @Test
     public void next8Test() {
@@ -170,6 +179,7 @@ public final class FindNextElementTest {
         assertEq(1, segs_.lastValue().size());
         assertEq(0, segs_.lastValue().first().getBegin());
         assertEq(5, segs_.lastValue().first().getEnd());
+        assertNotNull(f_.getLabel());
     }
     @Test
     public void next9Test() {
@@ -184,6 +194,7 @@ public final class FindNextElementTest {
         f_.next("loWorldEvery");
         IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(0, segs_.size());
+        assertNull(f_.getLabel());
     }
     @Test
     public void next10Test() {
@@ -200,6 +211,7 @@ public final class FindNextElementTest {
         f_.next("");
         IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(1, segs_.size());
+        assertNotNull(f_.getLabel());
     }
     @Test
     public void next11Test() {
@@ -215,5 +227,6 @@ public final class FindNextElementTest {
         f_.next("loWorldEvery");
         IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(0, segs_.size());
+        assertNull(f_.getLabel());
     }
 }

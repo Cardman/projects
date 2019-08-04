@@ -9,6 +9,7 @@ import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.errors.custom.BadElError;
 import code.expressionlanguage.inherits.TypeOwnersDepends;
 import code.expressionlanguage.instr.ResultAfterInstKeyWord;
 import code.expressionlanguage.methods.AccessingImportingBlock;
@@ -186,8 +187,7 @@ public final class Configuration implements ExecutableCode {
             DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(file_);
             Document document_ = res_.getDocument();
             if (document_ == null) {
-                BadElRender badEl_ = new BadElRender();
-                badEl_.setErrors(getClasses().getErrorsDet());
+                BadElError badEl_ = new BadElError();
                 badEl_.setFileName(getCurrentFileName());
                 badEl_.setIndexFile(getCurrentLocationIndex());
                 getClasses().addError(badEl_);

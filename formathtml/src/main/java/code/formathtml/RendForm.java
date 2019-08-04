@@ -1,16 +1,15 @@
 package code.formathtml;
 
+import code.expressionlanguage.errors.custom.BadElError;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.Calculation;
 import code.formathtml.exec.RendDynOperationNode;
-import code.formathtml.util.BadElRender;
 import code.formathtml.util.NodeContainer;
 import code.sml.Element;
 import code.sml.MutableNode;
 import code.util.CustList;
-import code.util.LongMap;
 import code.util.LongTreeMap;
 import code.util.StringList;
 
@@ -41,8 +40,7 @@ public final class RendForm extends RendElement {
                 m_.setArg(e.last().getResultClass());
                 m_.setParam(_cont.getStandards().getAliasNumber());
                 if (!Templates.isCorrectOrNumbers(m_,_cont)) {
-                    BadElRender badEl_ = new BadElRender();
-                    badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                    BadElError badEl_ = new BadElError();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(_cont.getCurrentLocationIndex());
                     _cont.getClasses().addError(badEl_);

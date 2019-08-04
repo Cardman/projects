@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.errors.custom.BadElError;
 import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -44,6 +45,8 @@ public abstract class RendBlock {
     static final String ATTRIBUTE_FOR = "for";
     static final String ATTRIBUTE_VALUE_MESSAGE = "valueMessage";
     static final String ATTRIBUTE_GROUP_ID = "groupId";
+    static final String ATTRIBUTE_ROWS = "rows";
+    static final String ATTRIBUTE_COLS = "cols";
     static final String ATTRIBUTE_MULTIPLE = "multiple";
     static final String ATTRIBUTE_SRC = "src";
     static final String ATTRIBUTE_KEY = "key";
@@ -571,7 +574,7 @@ public abstract class RendBlock {
             return new RendTextArea(elt_,new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,SPAN_TAG)) {
-            if (!elt_.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_FOR)).isEmpty() && elt_.getTextContent().trim().isEmpty()) {
+            if (!elt_.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_FOR)).isEmpty()) {
                 return new RendSpan(elt_,new OffsetsBlock(_begin,_begin));
             }
         }
@@ -586,8 +589,7 @@ public abstract class RendBlock {
         String var_ = elts_.first();
         String fileName_ = getProperty(_cont, var_);
         if (fileName_ == null) {
-            BadElRender badEl_ = new BadElRender();
-            badEl_.setErrors(_cont.getClasses().getErrorsDet());
+            BadElError badEl_ = new BadElError();
             badEl_.setFileName(_cont.getCurrentFileName());
             badEl_.setIndexFile(_cont.getCurrentLocationIndex());
             _cont.getClasses().addError(badEl_);
@@ -600,8 +602,7 @@ public abstract class RendBlock {
             String content_ = RendExtractFromResources.tryGetContent(_cont, l, fileName_, files_);
             int index_ = RendExtractFromResources.indexCorrectMessages(content_);
             if (index_ >= 0) {
-                BadElRender badEl_ = new BadElRender();
-                badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                BadElError badEl_ = new BadElError();
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(_cont.getCurrentLocationIndex());
                 _cont.getClasses().addError(badEl_);
@@ -611,8 +612,7 @@ public abstract class RendBlock {
             String key_ = elts_.last();
             String format_ = RendExtractFromResources.getQuickFormat(messages_, key_);
             if (format_ == null) {
-                BadElRender badEl_ = new BadElRender();
-                badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                BadElError badEl_ = new BadElError();
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(_cont.getCurrentLocationIndex());
                 _cont.getClasses().addError(badEl_);
@@ -818,7 +818,6 @@ public abstract class RendBlock {
         if (found_ == -1) {
             long currentInput_ = _cont.getIndexes().getInput();
             NodeContainer nodeCont_ = new NodeContainer();
-            nodeCont_.setEnabled(true);
             nodeCont_.setIdField(idField_);
             nodeCont_.setIndex(index_);
             nodeCont_.setTypedStruct(currentField_);
@@ -841,7 +840,6 @@ public abstract class RendBlock {
             nodeInfos_.setValidator(_write.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VALIDATOR)));
             nodeInfos_.setId(id_);
             nodeInfos_.setInputClass(class_);
-            nodeInfos_.setChanging(_write.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VALUE_CHANGE_EVENT)));
             _cont.getContainers().put(currentInput_, nodeCont_);
             _cont.getIndexes().setNb(currentInput_);
             currentInput_++;

@@ -6,9 +6,9 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.errors.custom.BadElError;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
-import code.formathtml.util.BadElRender;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import org.junit.Test;
@@ -8804,8 +8804,7 @@ public final class RenderExpUtilTest {
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf, _minIndex, _begin, _end);
         if (d_.getBadOffset() >= 0) {
             _conf.setOffset(d_.getBadOffset());
-            BadElRender badEl_ = new BadElRender();
-            badEl_.setErrors(_conf.getClasses().getErrorsDet());
+            BadElError badEl_ = new BadElError();
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
@@ -8833,8 +8832,7 @@ public final class RenderExpUtilTest {
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, static_, _conf);
         CustList<RendDynOperationNode> out_ = RenderExpUtil.getExecutableNodes(all_);
         if (!_conf.getClasses().isEmptyErrors()) {
-            BadElRender badEl_ = new BadElRender();
-            badEl_.setErrors(_conf.getClasses().getErrorsDet());
+            BadElError badEl_ = new BadElError();
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));

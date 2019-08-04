@@ -514,6 +514,17 @@ public class DescendantTest {
     }
 
     @Test
+    public void getElementsByTagNameFullFilter25Test() {
+        Element elt_ = (Element) DocumentBuilder.parseSax("<outer><tag><inner/></tag><after/></outer>").getDocumentElement().getFirstChild();
+        assertEq(1,elt_.getElementsByTagName("tag").size());
+    }
+
+    @Test
+    public void getElementsByTagNameFullFilter26Test() {
+        Element elt_ = (Element) DocumentBuilder.parseSax("<outer><tag/><after/></outer>").getDocumentElement().getFirstChild();
+        assertEq(1,elt_.getElementsByTagName("tag").size());
+    }
+    @Test
     public void getElementsByTagNameFullFilterDocTest() {
         Document elt_ =DocumentBuilder.parseSax("<tag/>");
         assertEq(1,elt_.getElementsByTagName("tag").size());
@@ -522,6 +533,7 @@ public class DescendantTest {
     public void getElementsByTagNameNoTextFilter1Test() {
         Element elt_ =DocumentBuilder.parseNoTextDocument("<tag/>").getDocumentElement();
         assertEq(1,elt_.getElementsByTagName("tag").size());
+        assertNull(elt_.getNextSibling());
     }
 
     @Test

@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.errors.custom.BadElError;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
@@ -8,7 +9,6 @@ import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exec.*;
-import code.formathtml.util.BadElRender;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.FieldUpdates;
 import code.sml.Element;
@@ -60,8 +60,7 @@ public abstract class RendInput extends RendElement {
                 m_.setArg(opsConverter.last().getResultClass());
                 m_.setParam(opsRead.last().getResultClass());
                 if (!Templates.isCorrectOrNumbers(m_,_cont)) {
-                    BadElRender badEl_ = new BadElRender();
-                    badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                    BadElError badEl_ = new BadElError();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(_cont.getCurrentLocationIndex());
                     _cont.getClasses().addError(badEl_);
@@ -87,8 +86,7 @@ public abstract class RendInput extends RendElement {
             m_.setArg(opsConverterField.last().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());
             if (!Templates.isCorrectOrNumbers(m_,_cont)) {
-                BadElRender badEl_ = new BadElRender();
-                badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                BadElError badEl_ = new BadElError();
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(_cont.getCurrentLocationIndex());
                 _cont.getClasses().addError(badEl_);

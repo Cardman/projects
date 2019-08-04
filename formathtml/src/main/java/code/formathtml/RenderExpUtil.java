@@ -25,7 +25,6 @@ import code.formathtml.exec.RendMethodOperation;
 import code.formathtml.exec.RendPossibleIntermediateDotted;
 import code.formathtml.exec.RendSemiAffectationOperation;
 import code.formathtml.exec.InternGlobalOperation;
-import code.formathtml.util.BadElRender;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -124,8 +123,7 @@ public final class RenderExpUtil {
         CustList<OperationNode> all_ = getSortedDescNodes(op_, static_, _conf);
         CustList<RendDynOperationNode> out_ = getExecutableNodes(all_);
         if (!_conf.getClasses().isEmptyErrors()) {
-            BadElRender badEl_ = new BadElRender();
-            badEl_.setErrors(_conf.getClasses().getErrorsDet());
+            BadElError badEl_ = new BadElError();
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));

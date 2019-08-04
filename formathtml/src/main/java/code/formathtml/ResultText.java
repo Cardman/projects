@@ -1,11 +1,11 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.errors.custom.BadElError;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.Calculation;
 import code.formathtml.exec.RendDynOperationNode;
-import code.formathtml.util.BadElRender;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
 import code.util.CustList;
@@ -70,8 +70,7 @@ public final class ResultText {
                 expOffsets.add(i_);
                 i_++;
                 if (i_ >= length_ || _expression.charAt(i_) == RIGHT_EL) {
-                    BadElRender badEl_ = new BadElRender();
-                    badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                    BadElError badEl_ = new BadElError();
                     badEl_.setFileName(_conf.getCurrentFileName());
                     badEl_.setIndexFile(_conf.getCurrentLocationIndex());
                     _conf.getClasses().addError(badEl_);
@@ -86,8 +85,7 @@ public final class ResultText {
             }
             if (cur_ == RIGHT_EL){
 //                _conf.getLastPage().setOffset(i_);
-                BadElRender badEl_ = new BadElRender();
-                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                BadElError badEl_ = new BadElError();
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(badEl_);
@@ -126,8 +124,7 @@ public final class ResultText {
                     i_++;
                     continue;
                 }
-                BadElRender badEl_ = new BadElRender();
-                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                BadElError badEl_ = new BadElError();
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getContext().getClasses().addError(badEl_);
@@ -144,8 +141,7 @@ public final class ResultText {
                 expOffsets.add(i_);
                 i_++;
                 if (i_ >= length_ || _expression.charAt(i_) == RIGHT_EL) {
-                    BadElRender badEl_ = new BadElRender();
-                    badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                    BadElError badEl_ = new BadElError();
                     badEl_.setFileName(_conf.getCurrentFileName());
                     badEl_.setIndexFile(_conf.getCurrentLocationIndex());
                     _conf.getClasses().addError(badEl_);
@@ -160,8 +156,7 @@ public final class ResultText {
             }
             if (cur_ == RIGHT_EL){
 //                _conf.getLastPage().setOffset(i_);
-                BadElRender badEl_ = new BadElRender();
-                badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                BadElError badEl_ = new BadElError();
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(badEl_);
@@ -188,8 +183,7 @@ public final class ResultText {
                 m_.setArg(e.last().getResultClass());
                 m_.setParam(_cont.getStandards().getAliasNumber());
                 if (!Templates.isCorrectOrNumbers(m_,_cont)) {
-                    BadElRender badEl_ = new BadElRender();
-                    badEl_.setErrors(_cont.getClasses().getErrorsDet());
+                    BadElError badEl_ = new BadElError();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(_cont.getCurrentLocationIndex());
                     _cont.getClasses().addError(badEl_);

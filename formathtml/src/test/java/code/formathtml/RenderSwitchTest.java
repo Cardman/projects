@@ -923,6 +923,26 @@ public final class RenderSwitchTest extends CommonRender {
         assertNull(conf_.getException());
     }
     @Test
+    public void process44Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:if condition='$true' label='myllabel'><c:switch value='10'><c:case value='10'>Text<c:break label='myllabel'/></c:case></c:switch>Not Displayed</c:if></body></html>";
+        Configuration conf_ = contextElThird();
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+
+
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
+    }
+    @Test
     public void process1FailTest() {
         String folder_ = "messages";
         String relative_ = "sample/file";

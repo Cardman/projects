@@ -52,6 +52,18 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         scroll = new ScrollPane(panel);
         buildList();
     }
+
+    protected GraphicList(boolean _owned, boolean _simple, Ints _selectedIndexes, CustList<T> _objects, int _visible) {
+        selectedIndexes = new Ints(_selectedIndexes);
+        visibleRowCount = _visible;
+        owned = _owned;
+        list = new CustList<T>(_objects);
+        simple = _simple;
+        panel = Panel.newPageBox();
+        panel.setAutoscrolls(true);
+        scroll = new ScrollPane(panel);
+        buildList();
+    }
     protected void buildList() {
         rebuild();
     }

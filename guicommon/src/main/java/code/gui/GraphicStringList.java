@@ -18,6 +18,10 @@ public class GraphicStringList extends GraphicList<String> implements Input {
         super(_owned, _simple, _selectedIndexes, _objects);
     }
 
+    public GraphicStringList(boolean _owned, boolean _simple, StringList _objects, Ints _selectedIndexes, int _visibleRows) {
+        super(_owned, _simple, _selectedIndexes, _objects,_visibleRows);
+    }
+
     @Override
     protected void buildList() {
         DefaultCellRender render_ = new DefaultCellRender();
