@@ -505,7 +505,7 @@ public final class Navigation {
                 count_++;
             }
         }
-        ElementList inputs_ = _doc.getElementsByTagName(TAG_INPUT);
+        ElementList inputs_ = _formElement.getElementsByTagName(TAG_INPUT);
         int lengthInputs_ = inputs_.getLength();
         for (int i = CustList.FIRST_INDEX; i < lengthInputs_; i++) {
             Element elt_ = inputs_.item(i);
@@ -537,7 +537,7 @@ public final class Navigation {
             }
             elt_.setAttribute(ATTRIBUTE_VALUE, nCont_.getNodeInformation().getValue().first());
         }
-        inputs_ = _doc.getElementsByTagName(TAG_SELECT);
+        inputs_ = _formElement.getElementsByTagName(TAG_SELECT);
         lengthInputs_ = inputs_.getLength();
         for (int i = CustList.FIRST_INDEX; i < lengthInputs_; i++) {
             Element elt_ = inputs_.item(i);
@@ -557,7 +557,7 @@ public final class Navigation {
                 }
             }
         }
-        inputs_ = _doc.getElementsByTagName(TEXT_AREA);
+        inputs_ = _formElement.getElementsByTagName(TEXT_AREA);
         lengthInputs_ = inputs_.getLength();
         for (int i = CustList.FIRST_INDEX; i < lengthInputs_; i++) {
             Element elt_ = inputs_.item(i);
