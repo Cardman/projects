@@ -155,7 +155,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
             container.tapisBelote().setTalonBelote(lg_,partie_.getDistribution().derniereMain());
         }
         contentPane_.add(container_);
-        contentPane_.add(container.getWindow().getClock());
+        contentPane_.add(container.getWindow().getClock().getComponent());
         contentPane_.add(container.getWindow().getLastSavedGameDate());
         container.setContentPane(contentPane_);
         panneau_=container.getPanneauBoutonsJeu();

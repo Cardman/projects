@@ -1,7 +1,6 @@
 package code.gui;
 
 import javax.swing.*;
-import javax.swing.event.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -121,10 +120,6 @@ public final class TableGui extends CustComponent {
 
     public DropMode getDropMode() {
         return table.getDropMode();
-    }
-
-    public JTable.DropLocation getDropLocation() {
-        return table.getDropLocation();
     }
 
     public void setAutoCreateRowSorter(boolean autoCreateRowSorter) {
@@ -385,46 +380,6 @@ public final class TableGui extends CustComponent {
 
     public ListSelectionModel getSelectionModel() {
         return table.getSelectionModel();
-    }
-
-    public void sorterChanged(RowSorterEvent e) {
-        table.sorterChanged(e);
-    }
-
-    public void tableChanged(TableModelEvent e) {
-        table.tableChanged(e);
-    }
-
-    public void columnAdded(TableColumnModelEvent e) {
-        table.columnAdded(e);
-    }
-
-    public void columnRemoved(TableColumnModelEvent e) {
-        table.columnRemoved(e);
-    }
-
-    public void columnMoved(TableColumnModelEvent e) {
-        table.columnMoved(e);
-    }
-
-    public void columnMarginChanged(ChangeEvent e) {
-        table.columnMarginChanged(e);
-    }
-
-    public void columnSelectionChanged(ListSelectionEvent e) {
-        table.columnSelectionChanged(e);
-    }
-
-    public void valueChanged(ListSelectionEvent e) {
-        table.valueChanged(e);
-    }
-
-    public void editingStopped(ChangeEvent e) {
-        table.editingStopped(e);
-    }
-
-    public void editingCanceled(ChangeEvent e) {
-        table.editingCanceled(e);
     }
 
     public void setPreferredScrollableViewportSize(Dimension size) {

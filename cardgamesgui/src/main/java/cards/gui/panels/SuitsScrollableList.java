@@ -86,8 +86,8 @@ public class SuitsScrollableList extends ScrollableList {
             return new EnumList<Suit>();
         }
         EnumList<Suit> valeurs_=new EnumList<Suit>();
-        for (Object s: liste.getSelectedValuesLs()) {
-            valeurs_.add((Suit)s);
+        for (Suit s: liste.getSelectedValuesLs()) {
+            valeurs_.add(s);
         }
         //Appelee 2 fois
         return valeurs_;

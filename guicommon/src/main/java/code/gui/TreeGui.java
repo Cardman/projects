@@ -1,11 +1,8 @@
 package code.gui;
 
-import javax.accessibility.AccessibleContext;
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.event.TreeExpansionListener;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.event.TreeWillExpandListener;
 import javax.swing.tree.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -387,14 +384,6 @@ public final class TreeGui extends CustComponent {
         return tree.isSelectionEmpty();
     }
 
-    public void addTreeExpansionListener(TreeExpansionListener tel) {
-        tree.addTreeExpansionListener(tel);
-    }
-
-    public void addTreeWillExpandListener(TreeWillExpandListener tel) {
-        tree.addTreeWillExpandListener(tel);
-    }
-
     public void addTreeSelectionListener(TreeSelectionListener tsl) {
         tree.addTreeSelectionListener(tsl);
     }
@@ -429,10 +418,6 @@ public final class TreeGui extends CustComponent {
 
     public boolean getScrollableTracksViewportHeight() {
         return tree.getScrollableTracksViewportHeight();
-    }
-
-    public AccessibleContext getAccessibleContext() {
-        return tree.getAccessibleContext();
     }
 
     public void setInheritsPopupMenu(boolean value) {
@@ -557,14 +542,6 @@ public final class TreeGui extends CustComponent {
 
     public boolean getAutoscrolls() {
         return tree.getAutoscrolls();
-    }
-
-    public void setTransferHandler(TransferHandler newHandler) {
-        tree.setTransferHandler(newHandler);
-    }
-
-    public TransferHandler getTransferHandler() {
-        return tree.getTransferHandler();
     }
 
     public Object getClientProperty(Object key) {

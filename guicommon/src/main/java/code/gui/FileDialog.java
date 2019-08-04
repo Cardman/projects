@@ -240,8 +240,8 @@ public abstract class FileDialog extends Dialog {
         }
         StringList.removeObj(pathFull_, EMPTY_STRING);
         StringBuilder str_ = new StringBuilder();
-        for (Object o: pathFull_) {
-            str_.append((String)o).append(StreamTextFile.SEPARATEUR);
+        for (String o: pathFull_) {
+            str_.append(o).append(StreamTextFile.SEPARATEUR);
         }
         currentFolder = str_.toString();
         currentTitle = StringList.simpleStringsFormat(messages.getVal(FILES_PARAM), currentFolder);

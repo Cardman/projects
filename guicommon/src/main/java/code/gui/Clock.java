@@ -9,7 +9,7 @@ import javax.swing.Timer;
 import code.gui.events.UpdateTimeEvent;
 import code.util.StringList;
 
-public class Clock extends CustComponent {
+public class Clock {
 
     private static final String ARIAL = "Arial";
     private static final String SAMPLE_SEPARATOR = "_";
@@ -79,8 +79,7 @@ public class Clock extends CustComponent {
         return StringList.concat(String.valueOf(y_),SEPARATOR_DATE,String.valueOf(m_),SEPARATOR_DATE,String.valueOf(d_));
     }
 
-    @Override
-    public JComponent getComponent() {
-        return component.getComponent();
+    public CustComponent getComponent() {
+        return component;
     }
 }

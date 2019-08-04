@@ -133,6 +133,11 @@ public final class ThreadActions implements Runnable {
                         ContextEl ctx_ = conf_.getContext();
                         CustList<OverridableBlock> methods_ = Classes.getMethodBodiesById(ctx_, classDbName, id_);
                         if (!methods_.isEmpty()) {
+                            ProcessMethod.initializeClass(classDbName,ctx_);
+                            if (ctx_.hasException()) {
+                                afterAction();
+                                return;
+                            }
                             Argument arg_ = new Argument();
                             CustList<Argument> args_ = new CustList<Argument>();
                             int len_ = fileNames.size();

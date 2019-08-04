@@ -527,6 +527,9 @@ public final class FullElement extends FullNode implements Element {
     }
     @Override
     public String getTextContent() {
+        if (getFirstChild() == null) {
+            return EMPTY_STRING;
+        }
         FullElement root_ = this;
         Node current_ = this;
         StringBuilder str_ = new StringBuilder();
@@ -547,10 +550,6 @@ public final class FullElement extends FullNode implements Element {
                     break;
                 }
                 Element parent_ = current_.getParentNode();
-                if (parent_ == null) {
-                    current_ = null;
-                    break;
-                }
                 if (parent_ == root_) {
                     current_ = null;
                     break;

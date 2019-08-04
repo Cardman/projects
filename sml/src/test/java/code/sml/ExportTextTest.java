@@ -155,4 +155,16 @@ public class ExportTextTest {
         Element elt_ = DocumentBuilder.parseNoTextDocument("<tag><inner/></tag>").getDocumentElement();
         assertEq("",elt_.getTextContent());
     }
+
+    @Test
+    public void getTextContent26Test() {
+        Element elt_ = (Element) DocumentBuilder.parseSax("<tag><inner/>After</tag>").getDocumentElement().getFirstChild();
+        assertEq("",elt_.getTextContent());
+    }
+
+    @Test
+    public void getTextContent27Test() {
+        Element elt_ = (Element) DocumentBuilder.parseSax("<tag><inner>Before</inner>After</tag>").getDocumentElement().getFirstChild();
+        assertEq("Before",elt_.getTextContent());
+    }
 }

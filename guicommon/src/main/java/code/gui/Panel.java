@@ -7,7 +7,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 
 public class Panel extends CustComponent {
 
@@ -79,6 +78,10 @@ public class Panel extends CustComponent {
         return getChildren().get(_n);
     }
 
+    public void add(Clock _comp) {
+        add(_comp.getComponent());
+    }
+
     public void add(CustComponent _comp) {
         _comp.setParent(this);
         getChildren().add(_comp);
@@ -90,13 +93,12 @@ public class Panel extends CustComponent {
         getChildren().add(_index,_comp);
         panel.add(_comp.getComponent(), _index);
     }
-    
-    public void add(CustComponent _comp, Object _constraints) {
+
+    public void add(CustComponent _comp, String _constraints) {
         _comp.setParent(this);
         getChildren().add(_comp);
         panel.add(_comp.getComponent(), _constraints);
     }
-
     public boolean isDisplayable() {
         return panel.isDisplayable();
     }

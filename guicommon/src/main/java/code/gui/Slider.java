@@ -30,14 +30,6 @@ public final class Slider extends CustComponent {
         slider.removeChangeListener(l);
     }
 
-    public BoundedRangeModel getModel() {
-        return slider.getModel();
-    }
-
-    public void setModel(BoundedRangeModel newModel) {
-        slider.setModel(newModel);
-    }
-
     public int getValue() {
         return slider.getValue();
     }
