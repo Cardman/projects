@@ -36,6 +36,7 @@ public final class MetaDocument {
     private StringMap<String> tagsClassesCssStyles = new StringMap<String>();
     private StringMap<Integer> tagsClasses = new StringMap<Integer>();
     private StringList typesLi = new StringList();
+    private CustList<IntForm> forms = new CustList<IntForm>();
     private int indexTagClass;
 
     private MetaDocument(Document _document) {
@@ -392,17 +393,18 @@ public final class MetaDocument {
                     formIndex.add(lg_);
                     MetaContainer surline_ = new MetaLine(curPar_);
                     surline_.setStyle(styleLoc_);
-                    MetaContainer bl_ = new MetaForm(surline_, lg_);
-                    bl_.setStyle(styleLoc_);
-                    MetaContainer line_ = new MetaLine(bl_);
+                    MetaForm form_ = new MetaForm(surline_, lg_);
+                    form_.setStyle(styleLoc_);
+                    MetaContainer line_ = new MetaLine(form_);
                     line_.setStyle(styleLoc_);
-                    bl_.appendChild(line_);
-                  //indent
+                    form_.appendChild(line_);
+                    forms.add(form_);
+                    //indent
                     indent(styleLoc_, li_, surline_);
-                    surline_.appendChild(bl_);
+                    surline_.appendChild(form_);
                     curPar_.appendChild(surline_);
                     containers.add(curPar_);
-                    containers.add(bl_);
+                    containers.add(form_);
                     currentParent = line_;
                 }
                 if (StringList.quickEq(tagName_, "p")) {
@@ -1015,5 +1017,9 @@ public final class MetaDocument {
     }
     public static MetaDocument newInstance(Document _document) {
         return new MetaDocument(_document);
+    }
+
+    public CustList<IntForm> getForms() {
+        return forms;
     }
 }

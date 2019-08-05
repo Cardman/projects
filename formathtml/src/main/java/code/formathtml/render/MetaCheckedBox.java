@@ -28,4 +28,7 @@ public final class MetaCheckedBox extends MetaInput implements IntCheckBox {
         return "off";
     }
 
+    public void setChecked(boolean _checked) {
+        checked = _checked;
+    }
 }

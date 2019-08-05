@@ -19,6 +19,10 @@ public final class MetaTextField extends MetaInput implements IntTextField {
         return cols;
     }
 
+    public void setValue(String _value) {
+        value = _value;
+    }
+
     @Override
     public String getValue() {
         return value;

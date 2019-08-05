@@ -16,6 +16,9 @@ public final class MetaSlider extends MetaInput implements IntSlider {
         return formNb;
     }
 
+    public void setValue(String _value) {
+        value = _value;
+    }
     @Override
     public String getValue() {
         return value;

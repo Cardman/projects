@@ -1,9 +1,10 @@
 package code.gui.document;
+import code.formathtml.render.IntForm;
 import code.formathtml.render.MetaContainer;
 import code.formathtml.render.MetaForm;
 import code.gui.Panel;
 
-public final class DualForm extends DualContainer {
+public final class DualForm extends DualContainer implements IntForm {
 
     private final long number;
 
@@ -18,6 +19,7 @@ public final class DualForm extends DualContainer {
         return Panel.newPageBox();
     }
 
+    @Override
     public long getNumber() {
         return number;
     }

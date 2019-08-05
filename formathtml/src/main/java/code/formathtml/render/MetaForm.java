@@ -1,6 +1,6 @@
 package code.formathtml.render;
 
-public final class MetaForm extends MetaContainer {
+public final class MetaForm extends MetaContainer implements IntForm {
 
     private long number;
     public MetaForm(MetaContainer _parent, long _number) {
@@ -8,6 +8,7 @@ public final class MetaForm extends MetaContainer {
         number = _number;
     }
 
+    @Override
     public long getNumber() {
         return number;
     }

@@ -6,7 +6,7 @@ public final class MetaRadioButton extends MetaInput implements IntRadioButton {
 
     private final String value;
 
-    private final boolean checked;
+    private boolean checked;
 
     private final int indexButton;
 
@@ -35,6 +35,10 @@ public final class MetaRadioButton extends MetaInput implements IntRadioButton {
     @Override
     public String getValue() {
         return value;
+    }
+
+    void setChecked(boolean _checked) {
+        checked = _checked;
     }
 
     @Override

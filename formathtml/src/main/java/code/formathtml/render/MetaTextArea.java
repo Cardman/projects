@@ -30,6 +30,10 @@ public final class MetaTextArea extends MetaInput implements IntTextArea {
         return formNb;
     }
 
+    public void setValue(String _value) {
+        value = _value;
+    }
+
     @Override
     public String getValue() {
         return value;

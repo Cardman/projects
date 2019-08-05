@@ -11,6 +11,10 @@ public final class MetaSpinner extends MetaInput implements IntSpinner {
         formNb = _formNb;
     }
 
+    public void setValue(String _value) {
+        value = _value;
+    }
+
     @Override
     public String getValue() {
         return value;
