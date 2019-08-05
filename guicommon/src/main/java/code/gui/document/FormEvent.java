@@ -5,24 +5,19 @@ import java.awt.event.MouseEvent;
 
 import code.formathtml.HtmlPage;
 import code.formathtml.Navigation;
+import code.formathtml.render.*;
 import code.formathtml.util.NodeContainer;
 import code.gui.CustComponent;
-import code.sml.Element;
-import code.util.CustList;
-import code.util.*;
 import code.util.*;
 import code.util.StringList;
 
 public class FormEvent extends MouseAdapter {
 
-    private Element form;
-
     private DualButton current;
 
     private RenderedPage page;
 
-    public FormEvent(Element _form, DualButton _current, RenderedPage _page) {
-        form = _form;
+    public FormEvent(DualButton _current, RenderedPage _page) {
         current = _current;
         page = _page;
     }
@@ -39,103 +34,82 @@ public class FormEvent extends MouseAdapter {
         Navigation nav_ = page.getNavigation();
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         htmlPage_.setForm(true);
-        String nbForm_ = form.getAttribute("n-f");
-        htmlPage_.setUrl(Numbers.parseLongZero(nbForm_));
+        long formNb_ = form_.getNumber();
+        htmlPage_.setUrl(formNb_);
         LongTreeMap<NodeContainer> inputsMap_;
-        inputsMap_ = htmlPage_.getContainers().getVal(Numbers.parseLongZero(nbForm_));
-        DualComponent current_ = form_.getChildren().first();
+        inputsMap_ = htmlPage_.getContainers().getVal(formNb_);
+        IntComponent current_ = form_.getChildren().first();
         while (true) {
-            if (current_ instanceof DualInput) {
-                DualInput input_ = (DualInput) current_;
-                if (input_.getParentForm() == form_) {
+            if (current_ instanceof IntInput) {
+                IntInput input_ = (IntInput) current_;
+                if (input_.getFormNb() == formNb_) {
                     long nbId_ = input_.getGroup();
                     NodeContainer nCont_ = inputsMap_.getVal(nbId_);
-                    if (input_ instanceof DualTextArea) {
+                    if (input_ instanceof IntTextArea) {
                         nCont_.setEnabled(true);
-                        DualTextArea area_ = (DualTextArea) input_;
+                        IntTextArea area_ = (IntTextArea) input_;
                         nCont_.getNodeInformation().setValue(new StringList(area_.getValue()));
-                    } else if (input_ instanceof DualTextField) {
+                    } else if (input_ instanceof IntTextField) {
                         nCont_.setEnabled(true);
-                        DualTextField area_ = (DualTextField) input_;
+                        IntTextField area_ = (IntTextField) input_;
                         nCont_.getNodeInformation().setValue(new StringList(area_.getValue()));
-                    } else if (input_ instanceof DualSpinner) {
+                    } else if (input_ instanceof IntSpinner) {
                         nCont_.setEnabled(true);
-                        DualSpinner area_ = (DualSpinner) input_;
+                        IntSpinner area_ = (IntSpinner) input_;
                         nCont_.getNodeInformation().setValue(new StringList(area_.getValue()));
-                    } else if (input_ instanceof DualSlider) {
+                    } else if (input_ instanceof IntSlider) {
                         nCont_.setEnabled(true);
-                        DualSlider area_ = (DualSlider) input_;
+                        IntSlider area_ = (IntSlider) input_;
                         nCont_.getNodeInformation().setValue(new StringList(area_.getValue()));
-                    } else if (input_ instanceof DualCheckedBox) {
+                    } else if (input_ instanceof IntCheckBox) {
                         nCont_.setEnabled(true);
-                        DualCheckedBox ch_ = (DualCheckedBox) input_;
+                        IntCheckBox ch_ = (IntCheckBox) input_;
                         nCont_.getNodeInformation().setValue(new StringList(ch_.getValue()));
-                    } else if (input_ instanceof DualRadionButton) {
-                        DualRadionButton ch_ = (DualRadionButton) input_;
-                        if (!ch_.getValue().isEmpty()) {
+                    } else if (input_ instanceof IntRadioButton) {
+                        IntRadioButton ch_ = (IntRadioButton) input_;
+                        if (ch_.isChecked()) {
                             nCont_.getNodeInformation().setValue(new StringList(ch_.getValue()));
                             nCont_.setEnabled(true);
                         }
-                    } else if (input_ instanceof DualComboBox) {
+                    } else if (input_ instanceof IntComboBox) {
                         nCont_.setEnabled(true);
-                        DualComboBox c_ = (DualComboBox) input_;
-                        if (c_.getSelectedIndexes().isEmpty()) {
+                        IntComboBox c_ = (IntComboBox) input_;
+                        Ints selected_ = c_.getSelectedIndexes();
+                        if (selected_.isEmpty()) {
                             nCont_.getNodeInformation().setValue(new StringList());
                         } else {
-                            nCont_.getNodeInformation().setValue(new StringList(c_.getValue()));
+                            nCont_.getNodeInformation().setValue(new StringList(c_.getValue(selected_.first())));
                         }
-                    } else if (input_ instanceof DualComboList) {
+                    } else if (input_ instanceof IntComboList) {
                         nCont_.setEnabled(true);
-                        DualComboList c_ = (DualComboList) input_;
+                        IntComboList c_ = (IntComboList) input_;
                         nCont_.getNodeInformation().setValue(c_.getValue());
                     }
                 }
             }
-            CustList<DualComponent> ch_ = current_.getChildren();
-            if (!ch_.isEmpty()) {
-                current_ = ch_.first();
+            IntComponent first_ = current_.getFirstChildCompo();
+            if (first_ != null) {
+                current_ = first_;
                 continue;
             }
-            DualComponent n_ = getNextSibling(current_);
-            if (n_ != null) {
-                current_ = n_;
-                continue;
-            }
-            DualContainer par_ = current_.getContainer();
-            if (par_ == form_) {
-                break;
-            }
-            n_ = getNextSibling(par_);
-            while (n_ == null) {
-                DualContainer grPar_ = par_.getContainer();
-                if (grPar_ == form_) {
+            while (true) {
+                IntComponent n_ = current_.getNextSibling();
+                if (n_ != null) {
+                    current_ = n_;
                     break;
                 }
-                n_ = getNextSibling(grPar_);
-                par_ = grPar_;
+                IntComponent par_ = current_.getParentCompo();
+                if (par_ == form_) {
+                    current_ = null;
+                    break;
+                }
+                current_ = par_;
             }
-            if (n_ == null) {
+            if (current_ == null) {
                 break;
             }
-            current_ = n_;
         }
         CustComponent.newThread(new ThreadActions(page, page.getStandards(), "", "", true, false, false)).start();
         page.animateProcess();
-    }
-    private static DualComponent getNextSibling(DualComponent _current) {
-        DualContainer par_ = _current.getContainer();
-        CustList<DualComponent> next_ = par_.getChildren();
-        int len_ = next_.size();
-        int index_ = -1;
-        for (int i = 0; i < len_; i++) {
-            if (next_.get(i) == _current) {
-                index_ = i + 1;
-                break;
-            }
-        }
-        if (index_ < len_) {
-            return next_.get(index_);
-        }
-        return null;
     }
 }

@@ -1,12 +1,11 @@
 package code.gui.document;
 
-import javax.swing.*;
-
+import code.formathtml.render.IntTextField;
 import code.formathtml.render.MetaTextField;
 import code.gui.CustComponent;
 import code.gui.TextField;
 
-public final class DualTextField extends DualInput {
+public final class DualTextField extends DualInput implements IntTextField {
 
     private final TextField field;
 
@@ -21,6 +20,7 @@ public final class DualTextField extends DualInput {
         return field;
     }
 
+    @Override
     public String getValue() {
         return field.getText();
     }

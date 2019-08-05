@@ -3,6 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.sml.Element;
 import code.sml.MutableNode;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -37,7 +38,11 @@ public final class RendSpan extends RendElement {
             return;
         }
         ((Element)_nextWrite).setAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_FOR),txt_);
-        _cont.getFormatId().add(formatted.getVal(_cont.getCurrentLanguage()));
+        CustList<StringList> stack_ = _cont.getFormatIdMapStack();
+        if (stack_.isEmpty()) {
+            return;
+        }
+        stack_.last().add(formatted.getVal(_cont.getCurrentLanguage()));
     }
 
     @Override

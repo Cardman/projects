@@ -78,6 +78,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
 //        newIp_.setReadUrl(newElt_.getUrl());
         newIp_.setBeanName(beanName_);
         RendReadWrite rwLoc_ = new RendReadWrite();
+        rwLoc_.setConf(_cont);
         Struct newBean_ = _cont.getBuiltBeans().getVal(beanName_);
         boolean keepField_ = elt.hasAttribute(KEEPFIELD_ATTRIBUTE);
         Struct mainBean_ = _cont.getMainBean();

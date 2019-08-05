@@ -1,12 +1,11 @@
 package code.gui.document;
 
-import javax.swing.*;
-
+import code.formathtml.render.IntRadioButton;
 import code.formathtml.render.MetaRadioButton;
 import code.gui.CustComponent;
 import code.gui.RadioButton;
 
-public final class DualRadionButton extends DualInput {
+public final class DualRadionButton extends DualInput implements IntRadioButton {
 
     private final RadioButton radio;
     private String value;
@@ -28,11 +27,14 @@ public final class DualRadionButton extends DualInput {
         return radio;
     }
 
+    @Override
+    public boolean isChecked() {
+        return getRadio().isSelected();
+    }
+
+    @Override
     public String getValue() {
-        if (radio.isSelected()) {
-            return value;
-        }
-        return "";
+        return value;
     }
 
 }

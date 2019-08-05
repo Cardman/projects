@@ -173,6 +173,7 @@ public abstract class RendBlock {
         FullDocument doc_ = DocumentBuilder.newXmlDocument(tabWidth_);
         appendChild(doc_, doc_, _rend.getElt());
         RendReadWrite rw_ = new RendReadWrite();
+        rw_.setConf(_conf);
         rw_.setRead(_rend.getFirstChild());
         rw_.setWrite(doc_);
         rw_.setDocument(doc_);
@@ -198,22 +199,6 @@ public abstract class RendBlock {
         }
         LongMap<LongTreeMap<NodeContainer>> containersMap_ = _conf.getContainersMap();
         LongMap<StringList> formatIdMap_ = _conf.getFormatIdMap();
-        LongTreeMap<NodeContainer> containers_ = _conf.getContainers();
-        StringList formatId_ = _conf.getFormatId();
-        long currentForm_ = _conf.getCurrentForm();
-        containersMap_.put(currentForm_, containers_);
-        containersMap_.removeKey(0L);
-        formatIdMap_.put(currentForm_, formatId_);
-        formatIdMap_.removeKey(0L);
-        if (currentForm_ > 1) {
-            _conf.getCurForm().setAttribute(NUMBER_FORM, String.valueOf(currentForm_ - 1));
-        }
-        for (Long k: containersMap_.getKeys()) {
-            containersMap_.move(k, k - 1);
-        }
-        for (Long k: formatIdMap_.getKeys()) {
-            formatIdMap_.move(k, k - 1);
-        }
         _conf.getHtmlPage().setContainers(containersMap_);
         _conf.getHtmlPage().setFormatIdMap(formatIdMap_);
         _conf.getHtmlPage().setCallsExps(_conf.getCallsExps());
@@ -803,7 +788,12 @@ public abstract class RendBlock {
         } else {
             obj_ = _cont.getLastPage().getGlobalArgument().getStruct();
         }
-        for (EntryCust<Long, NodeContainer> e: _cont.getContainers().entryList()) {
+        Argument arg_ = pair_.getArgument();
+        CustList<LongTreeMap<NodeContainer>> stack_ = _cont.getContainersMapStack();
+        if (stack_.isEmpty()) {
+            return arg_;
+        }
+        for (EntryCust<Long, NodeContainer> e: stack_.last().entryList()) {
             if (!e.getValue().getStruct().sameReference(obj_)) {
                 continue;
             }
@@ -813,10 +803,9 @@ public abstract class RendBlock {
             found_ = e.getKey();
             break;
         }
-        Argument arg_ = pair_.getArgument();
         currentField_ = arg_.getStruct();
         if (found_ == -1) {
-            long currentInput_ = _cont.getIndexes().getInput();
+            long currentInput_ = _cont.getInputs().last();
             NodeContainer nodeCont_ = new NodeContainer();
             nodeCont_.setIdField(idField_);
             nodeCont_.setIndex(index_);
@@ -840,10 +829,10 @@ public abstract class RendBlock {
             nodeInfos_.setValidator(_write.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VALIDATOR)));
             nodeInfos_.setId(id_);
             nodeInfos_.setInputClass(class_);
-            _cont.getContainers().put(currentInput_, nodeCont_);
+            stack_.last().put(currentInput_, nodeCont_);
             _cont.getIndexes().setNb(currentInput_);
             currentInput_++;
-            _cont.getIndexes().setInput(currentInput_);
+            _cont.getInputs().setLast(currentInput_);
         } else {
             _cont.getIndexes().setNb(found_);
         }

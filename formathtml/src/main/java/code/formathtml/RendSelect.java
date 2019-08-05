@@ -322,17 +322,20 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             if (_cont.getContext().getException() != null) {
                 return;
             }
-            FormInputCoords inputs_ = new FormInputCoords();
-            inputs_.setForm(_cont.getCurrentForm() - 1);
-            inputs_.setInput(_cont.getIndexes().getNb());
-            StringList allOptions_ = new StringList();
-            ElementList elts_ = docElementSelect_.getElementsByTagName(TAG_OPTION);
-            int nbElts_ = elts_.getLength();
-            for (int i = 0; i < nbElts_; i++) {
-                Element opt_ = elts_.item(i);
-                allOptions_.add(opt_.getAttribute(ATTRIBUTE_VALUE));
+            Longs stack_ = _cont.getFormsNb();
+            if (!stack_.isEmpty()) {
+                FormInputCoords inputs_ = new FormInputCoords();
+                inputs_.setForm(stack_.last());
+                inputs_.setInput(_cont.getIndexes().getNb());
+                StringList allOptions_ = new StringList();
+                ElementList elts_ = docElementSelect_.getElementsByTagName(TAG_OPTION);
+                int nbElts_ = elts_.getLength();
+                for (int i = 0; i < nbElts_; i++) {
+                    Element opt_ = elts_.item(i);
+                    allOptions_.add(opt_.getAttribute(ATTRIBUTE_VALUE));
+                }
+                _cont.getHtmlPage().getSelects().put(inputs_, allOptions_);
             }
-            _cont.getHtmlPage().getSelects().put(inputs_, allOptions_);
         }
         for (EntryCust<String,ResultText> e: attributes.entryList()) {
             ResultText res_ = e.getValue();

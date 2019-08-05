@@ -205,7 +205,6 @@ public final class ThreadActions implements Runnable {
             finish();
             return;
         }
-        System.out.println(doc_.export());
         MetaDocument metadoc_ = MetaDocument.newInstance(doc_);
         CustComponent.invokeLater(new WindowPage(metadoc_, page.getScroll(), page));
     }

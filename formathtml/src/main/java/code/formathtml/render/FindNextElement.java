@@ -21,7 +21,7 @@ public final class FindNextElement {
     public void next(String _text) {
         row = 0;
         group = 0;
-        MetaComponent cur_ = document.getRoot();
+        IntComponent cur_ = document.getRoot();
         if (label != null) {
             row = label.getRowGroup();
             group = label.getPartGroup();
@@ -29,7 +29,7 @@ public final class FindNextElement {
             if (setup) {
                 return;
             }
-            MetaComponent next_ = getNextElement(label);
+            IntComponent next_ = getNextElement(label);
             if (next_ == null) {
                 label = null;
                 reset();
@@ -50,7 +50,7 @@ public final class FindNextElement {
                         return;
                     }
                 }
-                MetaComponent next_ = getNextElement(cur_);
+                IntComponent next_ = getNextElement(cur_);
                 if (next_ == null) {
                     keep_ = false;
                     break;
@@ -67,7 +67,7 @@ public final class FindNextElement {
             }
         }
     }
-    private boolean fetchedGroupRow(MetaComponent _meta) {
+    private boolean fetchedGroupRow(IntComponent _meta) {
         if (_meta instanceof MetaSearchableLabel) {
             MetaSearchableLabel l_ = (MetaSearchableLabel) _meta;
             if (l_.getPartGroup() != group) {
@@ -140,44 +140,28 @@ public final class FindNextElement {
         segments.clear();
         index = 0;
     }
-    private MetaComponent getNextElement(MetaComponent _current) {
+    private IntComponent getNextElement(IntComponent _current) {
         if (_current instanceof MetaContainer) {
             MetaContainer cont_ = (MetaContainer) _current;
-            MetaComponent ch_ = cont_.getFirstChild();
+            IntComponent ch_ = cont_.getFirstChildCompo();
             if (ch_ != null) {
                 return ch_;
             }
         }
-        MetaComponent current_ = _current;
+        IntComponent current_ = _current;
         while (true) {
-            MetaComponent next_ = getNextSibling(current_);
+            IntComponent next_ = current_.getNextSibling();
             if (next_ != null) {
                 return next_;
             }
-            MetaContainer par_ = current_.getParent();
+            IntComponent par_ = current_.getParentCompo();
             if (par_ == document.getRoot()) {
                 return null;
             }
             current_ = par_;
         }
     }
-    private static MetaComponent getNextSibling(MetaComponent _current) {
-        MetaContainer cont_ = _current.getParent();
-        CustList<MetaComponent> ch_ = cont_.getChildren();
-        int len_ = ch_.size();
-        int i_ = 0;
-        while (true) {
-            MetaComponent c_ = ch_.get(i_);
-            if (c_ == _current) {
-                int index_ = i_ + 1;
-                if (index_ >= len_) {
-                    return null;
-                }
-                return ch_.get(index_);
-            }
-            i_++;
-        }
-    }
+
     public IdMap<MetaSearchableLabel, CustList<SegmentPart>> getSegments() {
         return segments;
     }

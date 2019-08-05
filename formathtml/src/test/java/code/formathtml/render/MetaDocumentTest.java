@@ -4580,4 +4580,32 @@ public final class MetaDocumentTest {
         assertEq(6,imgMeta_.getStyle().getDelta());
         assertEq("Family",imgMeta_.getStyle().getFontFamily());
     }
+
+    @Test
+    public void newInstance97Test() {
+        StringBuilder doc_ = new StringBuilder();
+        doc_.append("<html>\n");
+        doc_.append("<body>\n");
+        doc_.append("<input type='radio' name='myradio' n-i='0' value='0'/>\n");
+        doc_.append("<input type='radio' name='myradio' n-i='0' value='1' checked='checked'/>\n");
+        doc_.append("</body>\n");
+        doc_.append("</html>");
+        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
+        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaBlock root_ = out_.getRoot();
+        assertEq(1, root_.getChildren().size());
+        MetaComponent ch_ = root_.getChildren().get(0);
+        assertTrue(ch_ instanceof MetaLine);
+        MetaContainer cont_ = (MetaContainer) ch_;
+        assertEq(2, cont_.getChildren().size());
+        MetaRadioButton radio_ = (MetaRadioButton)cont_.getChildren().get(0);
+        assertEq(-1,radio_.getId().getForm());
+        assertEq(0,radio_.getId().getInput());
+        assertTrue(!radio_.isChecked());
+        radio_ = (MetaRadioButton)cont_.getChildren().get(1);
+        assertEq(-1,radio_.getId().getForm());
+        assertEq(0,radio_.getId().getInput());
+        assertTrue(radio_.isChecked());
+    }
+
 }

@@ -10,9 +10,7 @@ import code.formathtml.stacks.RendLoopBlockStack;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.stacks.RendRemovableVars;
 import code.formathtml.util.*;
-import code.util.CustList;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public final class ImportingPage {
 
@@ -176,6 +174,20 @@ public final class ImportingPage {
         if (last_ instanceof RendIfStack) {
             if (last_.getBlock() instanceof RendElement) {
                 rendReadWrite.setWrite(rendReadWrite.getWrite().getParentNode());
+            }
+            if (last_.getBlock() instanceof RendForm) {
+                CustList<LongTreeMap<NodeContainer>> map_ = rendReadWrite.getContainersMap();
+                Longs formsNb_ = rendReadWrite.getFormsNb();
+                Long nb_ = formsNb_.last();
+                LongTreeMap<NodeContainer> containers_ = map_.last();
+                rendReadWrite.getConf().getContainersMap().put(nb_, containers_);
+                CustList<StringList> formatId_ = rendReadWrite.getFormatIdMap();
+                StringList fid_ = formatId_.last();
+                rendReadWrite.getConf().getFormatIdMap().put(nb_,fid_);
+                rendReadWrite.getInputs().removeLast();
+                map_.removeLast();
+                formatId_.removeLast();
+                formsNb_.removeLast();
             }
         }
         rendBlockStacks.removeLast();

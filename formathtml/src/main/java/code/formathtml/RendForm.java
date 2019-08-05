@@ -69,13 +69,12 @@ public final class RendForm extends RendElement {
     @Override
     protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read) {
         long currentForm_ = _cont.getCurrentForm();
-        _cont.getContainersMap().put(currentForm_, _cont.getContainers());
-        _cont.setContainers(new LongTreeMap< NodeContainer>());
-        _cont.getFormatIdMap().put(currentForm_,_cont.getFormatId());
-        _cont.setFormatId(new StringList());
+        _cont.getContainersMapStack().add(new LongTreeMap< NodeContainer>());
+        _cont.getFormatIdMapStack().add(new StringList());
+        _cont.getFormsNb().add(currentForm_);
+        _cont.getInputs().add(0L);
         currentForm_++;
         _cont.setCurrentForm(currentForm_);
-        _cont.getIndexes().setInput(0);
         String href_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_COMMAND));
         _cont.getCallsFormExps().add(new CustList<RendDynOperationNode>());
         _cont.getFormsArgs().add(new StringList());
@@ -88,7 +87,6 @@ public final class RendForm extends RendElement {
             _cont.getFormsNames().add(EMPTY_STRING);
             currentForm_ = _cont.getCurrentForm();
             elt_.setAttribute(NUMBER_FORM, String.valueOf(currentForm_ - 1));
-            _cont.setCurForm(elt_);
             return;
         }
         String render_ = ResultText.render(opExp, texts, _cont);
@@ -96,7 +94,6 @@ public final class RendForm extends RendElement {
             _cont.getFormsNames().add(EMPTY_STRING);
             currentForm_ = _cont.getCurrentForm();
             elt_.setAttribute(NUMBER_FORM, String.valueOf(currentForm_ - 1));
-            _cont.setCurForm(elt_);
             return;
         }
         _cont.getFormsNames().add(render_);
@@ -105,7 +102,6 @@ public final class RendForm extends RendElement {
         elt_.setAttribute(ATTRIBUTE_ACTION, EMPTY_STRING);
         currentForm_ = _cont.getCurrentForm();
         elt_.setAttribute(NUMBER_FORM, String.valueOf(currentForm_ - 1));
-        _cont.setCurForm(elt_);
     }
 
     @Override

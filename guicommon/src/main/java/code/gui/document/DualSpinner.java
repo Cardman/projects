@@ -1,13 +1,11 @@
 package code.gui.document;
 
+import code.formathtml.render.IntSpinner;
 import code.formathtml.render.MetaSpinner;
-import code.formathtml.render.MetaTextField;
 import code.gui.CustComponent;
 import code.gui.Spinner;
 
-import javax.swing.*;
-
-public final class DualSpinner extends DualInput {
+public final class DualSpinner extends DualInput implements IntSpinner {
 
     private final Spinner field;
 
@@ -23,6 +21,7 @@ public final class DualSpinner extends DualInput {
         return field;
     }
 
+    @Override
     public String getValue() {
         return Integer.toString((Integer)field.getValue());
     }

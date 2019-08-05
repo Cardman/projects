@@ -2,7 +2,7 @@ package code.formathtml.render;
 
 import code.formathtml.util.FormInputCoords;
 
-public final class MetaRadioButton extends MetaInput {
+public final class MetaRadioButton extends MetaInput implements IntRadioButton {
 
     private final String value;
 
@@ -27,10 +27,17 @@ public final class MetaRadioButton extends MetaInput {
         return indexButton;
     }
 
+    @Override
+    public long getFormNb() {
+        return id.getForm();
+    }
+
+    @Override
     public String getValue() {
         return value;
     }
 
+    @Override
     public boolean isChecked() {
         return checked;
     }

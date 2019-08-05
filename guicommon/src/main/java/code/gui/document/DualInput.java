@@ -7,11 +7,13 @@ import code.gui.Input;
 public abstract class DualInput extends DualLeaf {
     private Input select;
     private int group;
+    private long formNb;
 
     public DualInput(DualContainer _container, MetaInput _component,
                      RenderedPage _page) {
         super(_container, _component, _page);
         group = _component.getGroup();
+        formNb = _component.getFormNb();
     }
 
     public DualInput(DualContainer _container, MetaInput _component,
@@ -19,6 +21,11 @@ public abstract class DualInput extends DualLeaf {
         super(_container, _component, _page);
         select = _graphic;
         group = _component.getGroup();
+        formNb = _component.getFormNb();
+    }
+
+    public long getFormNb() {
+        return formNb;
     }
 
     @Override

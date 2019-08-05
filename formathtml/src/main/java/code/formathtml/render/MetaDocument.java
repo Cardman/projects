@@ -29,7 +29,7 @@ public final class MetaDocument {
     private Ints lis;
     private BooleanList ordered;
     private CustList<MetaContainer> dynamicNewLines = new CustList<MetaContainer>();
-    private int formIndex = -1;
+    private Longs formIndex = new Longs();
     private StringMap<MetaAnchorLabel> anchorsRef = new StringMap<MetaAnchorLabel>();
     private StringMap<String> classesCssStyles = new StringMap<String>();
     private StringMap<String> tagsCssStyles = new StringMap<String>();
@@ -286,6 +286,7 @@ public final class MetaDocument {
                     skipChildrenBuild_ = true;
                     rowGroup = 0;
                     partGroup++;
+                    long idForm_ = getParentFormNb();
                     if (elt_.hasAttribute("multiple")) {
                         Ints selected_ = new Ints();
                         StringList values_ = new StringList();
@@ -300,23 +301,25 @@ public final class MetaDocument {
                             i_++;
                         }
                         int vis_ = BeanLgNames.parseInt(elt_.getAttribute("rows"),8);
-                        MetaInput input_ = new MetaComboList(currentParent, Numbers.parseInt(elt_.getAttribute("n-i")), strings_, values_, selected_, vis_);
+                        MetaInput input_ = new MetaComboList(currentParent, Numbers.parseInt(elt_.getAttribute("n-i")), strings_, values_, selected_, vis_,idForm_);
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     } else {
                         int selected_ = 0;
+                        Ints selInd_ = new Ints();
                         StringList values_ = new StringList();
                         StringList strings_ = new StringList();
                         int i_ = 0;
                         for (Element c: elt_.getChildElements()) {
                             if (c.hasAttribute("selected")) {
                                 selected_ = i_;
+                                selInd_.add(i_);
                             }
                             values_.add(c.getAttribute("value"));
                             strings_.add(c.getTextContent());
                             i_++;
                         }
-                        MetaInput input_ = new MetaComboBox(currentParent, Numbers.parseInt(elt_.getAttribute("n-i")), strings_, values_, selected_);
+                        MetaInput input_ = new MetaComboBox(currentParent, Numbers.parseInt(elt_.getAttribute("n-i")), strings_, values_, selected_,selInd_,idForm_);
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     }
@@ -324,27 +327,28 @@ public final class MetaDocument {
                 if (StringList.quickEq(tagName_, "input")) {
                     skipChildrenBuild_ = true;
                     String type_ = elt_.getAttribute("type");
+                    long idForm_ = getParentFormNb();
                     if (StringList.quickEq(type_, "text")) {
                         int cols_ = BeanLgNames.parseInt(elt_.getAttribute("cols"),32);
-                        MetaInput input_ = new MetaTextField(currentParent, Numbers.parseInt(elt_.getAttribute("n-i")), cols_, elt_.getAttribute("value"));
+                        MetaInput input_ = new MetaTextField(currentParent, Numbers.parseInt(elt_.getAttribute("n-i")), cols_, elt_.getAttribute("value"),idForm_);
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     } else if (StringList.quickEq(type_, "number")) {
-                        MetaInput input_ = new MetaSpinner(currentParent, Numbers.parseInt(elt_.getAttribute("n-i")), elt_.getAttribute("value"));
+                        MetaInput input_ = new MetaSpinner(currentParent, Numbers.parseInt(elt_.getAttribute("n-i")), elt_.getAttribute("value"),idForm_);
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     } else if (StringList.quickEq(type_, "range")) {
-                        MetaInput input_ = new MetaSlider(currentParent, Numbers.parseInt(elt_.getAttribute("n-i")), elt_.getAttribute("value"));
+                        MetaInput input_ = new MetaSlider(currentParent, Numbers.parseInt(elt_.getAttribute("n-i")), elt_.getAttribute("value"),idForm_);
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     } else if (StringList.quickEq(type_, "checkbox")) {
-                        MetaInput input_ = new MetaCheckedBox(currentParent, Numbers.parseInt(elt_.getAttribute("n-i")), elt_.hasAttribute("checked"));
+                        MetaInput input_ = new MetaCheckedBox(currentParent, Numbers.parseInt(elt_.getAttribute("n-i")), elt_.hasAttribute("checked"),idForm_);
                         input_.setStyle(styleLoc_);
                         currentParent.appendChild(input_);
                     } else if (StringList.quickEq(type_, "radio")) {
                         int inputNb_ = Numbers.parseInt(elt_.getAttribute("n-i"));
                         FormInputCoords id_ = new FormInputCoords();
-                        id_.setForm(formIndex);
+                        id_.setForm(idForm_);
                         id_.setInput(inputNb_);
                         if (indexesButtons_.contains(id_)) {
                             indexesButtons_.put(id_, indexesButtons_.getVal(id_) + 1);
@@ -365,7 +369,7 @@ public final class MetaDocument {
                             }
                             par_ = par_.getParentNode();
                         }
-                        MetaInput button_ = new MetaButton(currentParent, -1, form_, elt_.getAttribute("value"));
+                        MetaInput button_ = new MetaButton(currentParent, -1, form_, elt_.getAttribute("value"),idForm_);
                         button_.setStyle(styleLoc_);
                         currentParent.appendChild(button_);
                     }
@@ -374,19 +378,21 @@ public final class MetaDocument {
                 }
                 if (StringList.quickEq(tagName_, "textarea")) {
                     skipChildrenBuild_ = true;
+                    long idForm_ = getParentFormNb();
                     rowGroup = 0;
                     partGroup++;
                     int rows_ = BeanLgNames.parseInt(elt_.getAttribute("rows"),32);
                     int cols_ = BeanLgNames.parseInt(elt_.getAttribute("cols"),32);
-                    MetaInput input_ = new MetaTextArea(currentParent, Numbers.parseInt(elt_.getAttribute("n-i")), cols_, rows_, elt_.getTextContent());
+                    MetaInput input_ = new MetaTextArea(currentParent, Numbers.parseInt(elt_.getAttribute("n-i")), cols_, rows_, elt_.getTextContent(),idForm_);
                     input_.setStyle(styleLoc_);
                     currentParent.appendChild(input_);
                 }
                 if (StringList.quickEq(tagName_, "form")) {
-                    formIndex = Integer.parseInt(elt_.getAttribute("n-f"));
+                    long lg_ = Numbers.parseLongZero(elt_.getAttribute("n-f"));
+                    formIndex.add(lg_);
                     MetaContainer surline_ = new MetaLine(curPar_);
                     surline_.setStyle(styleLoc_);
-                    MetaContainer bl_ = new MetaForm(surline_);
+                    MetaContainer bl_ = new MetaForm(surline_, lg_);
                     bl_.setStyle(styleLoc_);
                     MetaContainer line_ = new MetaLine(bl_);
                     line_.setStyle(styleLoc_);
@@ -624,6 +630,13 @@ public final class MetaDocument {
                 c.getChildren().clear();
             }
         }
+    }
+
+    private long getParentFormNb() {
+        if (formIndex.isEmpty()) {
+            return -1;
+        }
+        return formIndex.last();
     }
 
     private static void indent(MetaStyle _styleLoc, boolean _li, MetaContainer _surline) {
@@ -925,7 +938,7 @@ public final class MetaDocument {
             tables.removeLast();
         }
         if (StringList.quickEq(_last, "form")) {
-            formIndex = -1;
+            formIndex.removeLast();
             containers.removeLast();
             MetaContainer last_ = containers.last();
             containers.removeLast();

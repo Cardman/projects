@@ -1,6 +1,6 @@
 package code.formathtml.render;
 
-public abstract class MetaInput extends MetaLeaf {
+public abstract class MetaInput extends MetaLeaf implements IntInput {
 
     private final int group;
 
@@ -9,6 +9,7 @@ public abstract class MetaInput extends MetaLeaf {
         group = _group;
     }
 
+    @Override
     public int getGroup() {
         return group;
     }

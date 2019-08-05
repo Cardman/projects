@@ -4,18 +4,11 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-
 import code.formathtml.render.*;
 import code.formathtml.util.FormInputCoords;
 import code.gui.*;
 import code.util.CustList;
 import code.util.ObjectMap;
-import code.util.StringMap;
 
 public class WindowPage implements Runnable {
 
@@ -37,7 +30,7 @@ public class WindowPage implements Runnable {
         page.setFinding(meta);
         page.getAnims().clear();
         MetaComponent metaroot_ = meta.getRoot();
-        MetaComponent meta_ = metaroot_.getFirstChild();
+        IntComponent meta_ = metaroot_.getFirstChildCompo();
         DualContainer root_ = page.getPage();
         DualComponent cur_ = root_;
         CustList<ObjectMap<FormInputCoords,CustButtonGroup>> radiosGroup_ = new CustList<ObjectMap<FormInputCoords,CustButtonGroup>>();
@@ -64,8 +57,9 @@ public class WindowPage implements Runnable {
                         cur_.getChildren().last().getGraphic().setPreferredSize(new Dimension(em_, fMetrics_.getHeight()));
                     }
                 }
-                if (count_ > 0) {
-                    meta_ = container_.getFirstChild();
+                IntComponent firstChild_ = container_.getFirstChildCompo();
+                if (firstChild_ != null) {
+                    meta_ = firstChild_;
                     cur_ = cur_.getChildren().last();
                     continue;
                 }
@@ -76,7 +70,7 @@ public class WindowPage implements Runnable {
                 MetaAnchorLabel lab_ = (MetaAnchorLabel) meta_;
                 cur_.add(new DualAnchoredLabel((DualContainer) cur_,lab_, page));
             } else if (meta_ instanceof MetaSeparator) {
-                cur_.add(new DualSeparator((DualContainer) cur_,meta_, page));
+                cur_.add(new DualSeparator((DualContainer) cur_,(MetaComponent) meta_, page));
             } else if (meta_ instanceof MetaSimpleImage) {
                 cur_.add(new DualSimpleImage((DualContainer) cur_,(MetaSimpleImage) meta_, page));
             } else if (meta_ instanceof MetaAnimatedImage) {
@@ -85,13 +79,13 @@ public class WindowPage implements Runnable {
             } else if (meta_ instanceof MetaIndentLabel) {
                 cur_.add(new DualIndentLabel((DualContainer) cur_,(MetaIndentLabel) meta_, page));
             } else if (meta_ instanceof MetaIndentNbLabel) {
-                MetaContainer par_ = meta_.getParent();
+                MetaContainer par_ = ((MetaIndentNbLabel)meta_).getParent();
                 while (!(par_ instanceof MetaListItem)) {
                     par_ = par_.getParent();
                 }
                 MetaListItem li_ = (MetaListItem) par_;
                 MetaContainer gr_ = li_.getParent();
-                int width_ = meta_.getStyle().getEmToPixels();
+                int width_ = ((MetaIndentNbLabel)meta_).getStyle().getEmToPixels();
                 Panel p_ = (Panel) cur_.getGraphic();
                 Font font_ = p_.getFont();
                 FontMetrics fontMetrics_ = p_.getFontMetrics(font_);
@@ -138,36 +132,27 @@ public class WindowPage implements Runnable {
             } else if (meta_ instanceof MetaComboList) {
                 cur_.add(new DualComboList((DualContainer) cur_,(MetaComboList) meta_, page));
             }
-            MetaComponent nextSibling_ = getNextSibling(meta_);
-            if (nextSibling_ != null) {
-                meta_ = nextSibling_;
-                continue;
-            }
-            MetaComponent parent_ =  meta_.getParent();
-            cur_ = cur_.getContainer();
-            if (parent_ instanceof MetaForm) {
-                radiosGroup_.removeLast();
-            }
-            if (parent_ == metaroot_) {
-                break;
-            }
-            nextSibling_ = getNextSibling(parent_);
-            while (nextSibling_ == null) {
-                MetaComponent grParent_ = parent_.getParent();
-                cur_ = cur_.getContainer();
-                if (grParent_ instanceof MetaForm) {
-                    radiosGroup_.removeLast();
-                }
-                if (grParent_ == metaroot_) {
+            boolean stop_ = false;
+            while (true) {
+                IntComponent nextSibling_ = meta_.getNextSibling();
+                if (nextSibling_ != null) {
+                    meta_ = nextSibling_;
                     break;
                 }
-                nextSibling_ = getNextSibling(grParent_);
-                parent_ = grParent_;
+                IntComponent parent_ =  meta_.getParentCompo();
+                cur_ = cur_.getContainer();
+                if (parent_ instanceof MetaForm) {
+                    radiosGroup_.removeLast();
+                }
+                if (parent_ == metaroot_) {
+                    stop_ = true;
+                    break;
+                }
+                meta_ = parent_;
             }
-            if (nextSibling_ == null) {
+            if (stop_) {
                 break;
             }
-            meta_ = nextSibling_;
         }
         frame.setViewportView(page.getPage().getGraphic());
         frame.validate();
@@ -177,23 +162,4 @@ public class WindowPage implements Runnable {
         }
     }
 
-    private static MetaComponent getNextSibling(MetaComponent _component) {
-        MetaContainer par_ = _component.getParent();
-        int len_ = par_.getChildren().size();
-        int index_ = getIndexChild(_component);
-        if (index_ + 1 >= len_) {
-            return null;
-        }
-        return par_.getChildren().get(index_ + 1);
-    }
-    private static int getIndexChild(MetaComponent _component) {
-        MetaContainer par_ = _component.getParent();
-        int len_ = par_.getChildren().size();
-        for (int i = 0; i < len_; i++) {
-            if (par_.getChildren().get(i) == _component) {
-                return i;
-            }
-        }
-        return -1;
-    }
 }

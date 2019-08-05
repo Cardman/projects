@@ -41,6 +41,9 @@ public abstract class MetaContainer extends MetaComponent {
     }
 
     public final void appendChild(MetaComponent _child) {
+        if (!children.isEmpty()) {
+            children.last().setNexSibling(_child);
+        }
         children.add(_child);
     }
 

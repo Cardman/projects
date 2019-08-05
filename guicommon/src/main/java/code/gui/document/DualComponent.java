@@ -6,17 +6,19 @@ import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 
 import code.formathtml.render.BorderEnum;
+import code.formathtml.render.IntComponent;
 import code.formathtml.render.MetaComponent;
 import code.formathtml.render.MetaStyle;
 import code.gui.CustComponent;
 import code.gui.Panel;
 import code.util.CustList;
 
-public abstract class DualComponent {
+public abstract class DualComponent implements IntComponent {
 
     private final DualContainer container;
     private final CustList<DualComponent> children = new CustList<DualComponent>();
     private final MetaComponent component;
+    private DualComponent nextSibling;
 
     private RenderedPage page;
 
@@ -36,6 +38,24 @@ public abstract class DualComponent {
             _component.setToolTipText(title_);
         }
     }
+
+    @Override
+    public IntComponent getFirstChildCompo() {
+        if (children.isEmpty()) {
+            return null;
+        }
+        return children.first();
+    }
+
+    @Override
+    public IntComponent getNextSibling() {
+        return nextSibling;
+    }
+
+    public void setNextSibling(DualComponent _nextSibling) {
+        nextSibling = _nextSibling;
+    }
+
     public CustList<DualComponent> getChildren() {
         return children;
     }
@@ -52,6 +72,11 @@ public abstract class DualComponent {
         return 0;
     }
 
+    @Override
+    public IntComponent getParentCompo() {
+        return container;
+    }
+
     public CustComponent getParent() {
         return getGraphic().getParent();
     }
@@ -65,6 +90,9 @@ public abstract class DualComponent {
 
     public void add(DualComponent _dual) {
         page.getRefs().put(_dual.getComponent(), _dual);
+        if (!children.isEmpty()) {
+            children.last().setNextSibling(_dual);
+        }
         children.add(_dual);
         CustComponent g_ = getGraphic();
         if (g_ instanceof Panel) {

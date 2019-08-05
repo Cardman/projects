@@ -1,5 +1,6 @@
 package code.gui.document;
 
+import code.formathtml.render.IntSlider;
 import code.formathtml.render.MetaSlider;
 import code.formathtml.render.MetaSpinner;
 import code.gui.CustComponent;
@@ -7,7 +8,7 @@ import code.gui.Slider;
 
 import javax.swing.*;
 
-public final class DualSlider extends DualInput {
+public final class DualSlider extends DualInput implements IntSlider {
 
     private final Slider field;
 
@@ -23,6 +24,7 @@ public final class DualSlider extends DualInput {
         return field;
     }
 
+    @Override
     public String getValue() {
         return Integer.toString(field.getValue());
     }

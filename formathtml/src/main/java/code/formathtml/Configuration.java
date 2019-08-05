@@ -39,7 +39,6 @@ import code.formathtml.util.*;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
-import code.sml.Element;
 import code.util.*;
 
 public final class Configuration implements ExecutableCode {
@@ -107,7 +106,7 @@ public final class Configuration implements ExecutableCode {
     private StringMap<RendDocumentBlock> renders = new StringMap<RendDocumentBlock>();
 
     private LongMap<LongTreeMap<NodeContainer>> containersMap;
-    private LongTreeMap<NodeContainer> containers;
+    private CustList<LongTreeMap<NodeContainer>> containersMapStack;
     private IndexesFormInput indexes;
     private CustList<CustList<RendDynOperationNode>> callsExps = new CustList<CustList<RendDynOperationNode>>();
     private CustList<StringList> anchorsArgs = new CustList<StringList>();
@@ -120,9 +119,10 @@ public final class Configuration implements ExecutableCode {
     private CustList<StringList> formsVars = new CustList<StringList>();
     private StringList formsNames = new StringList();
     private LongMap<StringList> formatIdMap = new LongMap<StringList>();
-    private StringList formatId = new StringList();
+    private CustList<StringList> formatIdMapStack = new CustList<StringList>();
+    private Longs formsNb = new Longs();
+    private Longs inputs = new Longs();
     private long currentForm;
-    private Element curForm;
 
     private Struct mainBean;
     private String currentLanguage = "";
@@ -206,16 +206,17 @@ public final class Configuration implements ExecutableCode {
         constAnchors = new BooleanList();
         anchorsNames = new StringList();
         containersMap = new LongMap<LongTreeMap<NodeContainer>>();
-        containers = new LongTreeMap<NodeContainer>();
+        containersMapStack = new CustList<LongTreeMap<NodeContainer>>();
         indexes = new IndexesFormInput();
         callsFormExps = new CustList<CustList<RendDynOperationNode>>();
         formatIdMap = new LongMap<StringList>();
-        formatId = new StringList();
+        formatIdMapStack = new CustList<StringList>();
+        formsNb = new Longs();
+        inputs = new Longs();
         formsArgs = new CustList<StringList>();
         formsVars = new CustList<StringList>();
         formsNames = new StringList();
         currentForm = 0;
-        curForm = null;
     }
 
     public Struct newSimpleBean(String _language, Struct _dataBase, BeanInfo _bean) {
@@ -1072,16 +1073,12 @@ public final class Configuration implements ExecutableCode {
         return indexes;
     }
 
+    public CustList<LongTreeMap<NodeContainer>> getContainersMapStack() {
+        return containersMapStack;
+    }
+
     public LongMap<LongTreeMap<NodeContainer>> getContainersMap() {
         return containersMap;
-    }
-
-    public LongTreeMap<NodeContainer> getContainers() {
-        return containers;
-    }
-
-    public void setContainers(LongTreeMap<NodeContainer> _containers) {
-        containers = _containers;
     }
 
     public CustList<CustList<RendDynOperationNode>> getCallsExps() {
@@ -1108,16 +1105,20 @@ public final class Configuration implements ExecutableCode {
         return callsFormExps;
     }
 
+    public CustList<StringList> getFormatIdMapStack() {
+        return formatIdMapStack;
+    }
+
+    public Longs getFormsNb() {
+        return formsNb;
+    }
+
+    public Longs getInputs() {
+        return inputs;
+    }
+
     public LongMap<StringList> getFormatIdMap() {
         return formatIdMap;
-    }
-
-    public StringList getFormatId() {
-        return formatId;
-    }
-
-    public void setFormatId(StringList _formatId) {
-        formatId = _formatId;
     }
 
     public StringList getFormsNames() {
@@ -1138,14 +1139,6 @@ public final class Configuration implements ExecutableCode {
 
     public void setCurrentForm(long _currentForm) {
         currentForm = _currentForm;
-    }
-
-    public Element getCurForm() {
-        return curForm;
-    }
-
-    public void setCurForm(Element _curForm) {
-        curForm = _curForm;
     }
 
     public Struct getMainBean() {

@@ -2076,6 +2076,65 @@ public final class RenderSelectTest extends CommonRender {
         assertNull(conf_.getException());
     }
     @Test
+    public void process23Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html c:bean='bean_one'><body><c:select default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\"/></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public pkg.CustTable<String,Integer> combo=$new pkg.CustTable<>():");
+        file_.append(" {");
+        file_.append("  combo.add(\"ONE\",1):");
+        file_.append("  combo.add(\"TWO\",2):");
+        file_.append("  combo.add($null,3):");
+        file_.append(" }");
+        file_.append(" $public String choice=\"TWO\":");
+        file_.append(" $public $int index:");
+        file_.append(" $public $int indexTwo:");
+        file_.append(" $public $int[] numbers:");
+        file_.append(" $public $int[] numbersTwo:");
+        file_.append(" $public $void beforeDisplaying(){");
+        file_.append("  numbers={2,4,6}:");
+        file_.append("  numbersTwo={2,4,6}:");
+        file_.append("  index=4:");
+        file_.append("  indexTwo=6:");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        filesSec_.put(CUST_ITER_PATH, getCustomIterator());
+        filesSec_.put(CUST_LIST_PATH, getCustomList());
+        filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        filesSec_.put(CUST_TABLE_PATH, getCustomTable());
+        filesSec_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration conf_ = contextElThird(filesSec_);
+        conf_.setBeans(new StringMap<Bean>());
+        addImportingPage(conf_);
+        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, conf_).getStruct();
+        addBeanInfo(conf_,"bean_one",bean_);
+        conf_.clearPages();
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+
+
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        conf_.getAnalyzingDoc().setFiles(files_);
+        setLocale(locale_, conf_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
+        conf_.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_.getContext().setAnalyzing(new AnalyzedPageEl());
+        conf_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(conf_);
+        assertTrue(conf_.getClasses().isEmptyErrors());
+        assertEq("<html><body><select name=\"choice\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
+        assertNull(conf_.getException());
+    }
+    @Test
     public void process1FailTest() {
         String locale_ = "en";
         String folder_ = "messages";

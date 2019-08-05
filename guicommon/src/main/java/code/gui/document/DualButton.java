@@ -10,7 +10,6 @@ import code.formathtml.render.MetaButton;
 import code.gui.CustComponent;
 import code.gui.LabelButtonUtil;
 import code.gui.PreparedLabel;
-import code.gui.TextLabel;
 
 public final class DualButton extends DualInput {
 
@@ -24,7 +23,7 @@ public final class DualButton extends DualInput {
         updateGraphics(label,_component);
         label.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         label.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        label.addMouseListener(new FormEvent(_component.getForm(), this, _page));
+        label.addMouseListener(new FormEvent(this, _page));
         value = _component.getValue();
     }
 

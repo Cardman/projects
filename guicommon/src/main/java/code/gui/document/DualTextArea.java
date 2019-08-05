@@ -1,12 +1,11 @@
 package code.gui.document;
 
-import javax.swing.*;
-
+import code.formathtml.render.IntTextArea;
 import code.formathtml.render.MetaTextArea;
 import code.gui.CustComponent;
 import code.gui.TextArea;
 
-public final class DualTextArea extends DualInput {
+public final class DualTextArea extends DualInput implements IntTextArea {
 
     private final TextArea area;
 
@@ -21,6 +20,7 @@ public final class DualTextArea extends DualInput {
         return area;
     }
 
+    @Override
     public String getValue() {
         return area.getText();
     }

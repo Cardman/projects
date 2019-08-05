@@ -1,11 +1,12 @@
 package code.gui.document;
 
+import code.formathtml.render.IntComboBox;
 import code.formathtml.render.MetaComboBox;
 import code.gui.GraphicCombo;
 import code.util.Ints;
 import code.util.StringList;
 
-public final class DualComboBox extends DualInput {
+public final class DualComboBox extends DualInput implements IntComboBox {
 
     private final StringList choicesValues;
 
@@ -16,8 +17,14 @@ public final class DualComboBox extends DualInput {
         updateGraphics(getSelect().getGlobal(),_component);
     }
 
+    @Override
     public Ints getSelectedIndexes() {
         return getSelect().getSelectedIndexes();
+    }
+
+    @Override
+    public String getValue(int _index) {
+        return choicesValues.get(_index);
     }
 
     public String getValue() {

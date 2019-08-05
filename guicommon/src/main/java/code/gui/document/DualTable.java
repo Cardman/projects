@@ -47,6 +47,9 @@ public final class DualTable extends DualContainer {
         }
         CustComponent c_ = getPanel().getComponent(count_ -1);
         getPage().getRefs().put(_dual.getComponent(), _dual);
+        if (!getChildren().isEmpty()) {
+            getChildren().last().setNextSibling(_dual);
+        }
         getChildren().add(_dual);
         if (c_ instanceof Panel) {
             ((Panel)c_).add(_dual.getGraphic());

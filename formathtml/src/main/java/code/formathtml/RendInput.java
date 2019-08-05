@@ -120,7 +120,4 @@ public abstract class RendInput extends RendElement {
         return arg_;
     }
 
-    protected CustList<RendDynOperationNode> getOpsRead() {
-        return opsRead;
-    }
 }
