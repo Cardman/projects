@@ -162,6 +162,7 @@ public final class Navigation {
             return;
         }
         String currentUrl_ = session.getFirstUrl();
+        session.setCurrentUrl(currentUrl_);
         String realFilePath_ = RendExtractFromResources.getRealFilePath(language, currentUrl_);
         String currentBeanName_;
         RendDocumentBlock rendDocumentBlock_ = session.getRenders().getVal(realFilePath_);

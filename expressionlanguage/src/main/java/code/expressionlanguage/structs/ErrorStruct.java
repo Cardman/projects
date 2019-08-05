@@ -9,6 +9,7 @@ import code.util.StringList;
 public final class ErrorStruct implements ErroneousStruct {
 
     private final ArrayStruct stack;
+    private final ArrayStruct fullStack;
 
     private final String className;
 
@@ -20,7 +21,8 @@ public final class ErrorStruct implements ErroneousStruct {
 
     public ErrorStruct(ExecutableCode _context, String _message, String _className) {
         ContextEl cont_ = _context.getContextEl();
-        stack = StackTraceElementStruct.newStackTraceElementArray(cont_);
+        stack = cont_.newStackTraceElementArray();
+        fullStack = _context.getExecutingInstance().newStackTraceElementArray();
         className = _className;
         message = _message;
     }
@@ -46,18 +48,23 @@ public final class ErrorStruct implements ErroneousStruct {
 
     @Override
     public StringStruct getDisplayedString(Analyzable _an) {
-        return new StringStruct(getStringRep());
+        Struct[] calls_ = stack.getInstance();
+        return new StringStruct(getStringRep(_an,calls_));
     }
 
-    private String getStringRep() {
-        Struct[] calls_ = stack.getInstance();
-        StringList str_ = new StringList(new CollCapacity(calls_.length+2));
+    public String getStringRep(Analyzable _an,Struct[] _array) {
+        StringList str_ = new StringList(new CollCapacity(_array.length+2));
         str_.add(className);
         str_.add(message);
-        for (Struct s: calls_) {
+        for (Struct s: _array) {
             str_.add(((StackTraceElementStruct)s).getStringRep());
         }
         return StringList.join(str_, "\n");
+    }
+
+    @Override
+    public ArrayStruct getFullStack() {
+        return fullStack;
     }
 
     @Override

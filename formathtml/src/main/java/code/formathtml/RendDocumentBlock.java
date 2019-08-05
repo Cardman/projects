@@ -15,11 +15,16 @@ import code.util.CustList;
 public final class RendDocumentBlock extends RendParentBlock implements FunctionBlock {
     private boolean staticContext;
     private Element elt;
+
+    private String file;
+    private String fileName;
     private String beanName;
     private CustList<RendBlock> bodies = new CustList<RendBlock>();
-    RendDocumentBlock(Element _elt, OffsetsBlock _offset) {
+    RendDocumentBlock(Element _elt, String _file, OffsetsBlock _offset, String _fileName) {
         super(_offset);
         elt = _elt;
+        file = _file;
+        fileName = _fileName;
     }
 
     public void buildFctInstructions(Configuration _cont) {
@@ -43,6 +48,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
         CustList<RendLoop> parentsContinuable_ = new CustList<RendLoop>();
         CustList<RendEval> parentsReturnable_ = new CustList<RendEval>();
         StringList labels_ = new StringList();
+        _cont.getAnalyzingDoc().setFileName(fileName);
         while (true) {
             _cont.getAnalyzingDoc().setCurrentBlock(en_);
             if (en_ instanceof RendStdElement) {
@@ -201,5 +207,9 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
 
     @Override
     public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc) {
+    }
+
+    public String getFile() {
+        return file;
     }
 }

@@ -1,11 +1,7 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.methods.*;
 import code.util.*;
 import code.util.StringList;
 
@@ -18,40 +14,13 @@ public final class StackTraceElementStruct implements DisplayableStruct {
     private final String currentClassName;
     private final String signature;
 
-    private StackTraceElementStruct(AbstractPageEl _page,ContextEl _context) {
-        indexFileType = _page.getTraceIndex();
-        FileBlock f_ = _page.getFile();
-        if (f_ != null) {
-            fileName = f_.getFileName();
-            row = f_.getRowFile(indexFileType);
-            col = f_.getColFile(indexFileType,row);
-        } else {
-            fileName = "";
-            row = 0;
-            col = 0;
-        }
-        currentClassName = _page.getGlobalClass();
-        Block bl_ = _page.getBlockRoot();
-        if (bl_ != null) {
-            FunctionBlock fct_ = bl_.getFunction();
-            if (fct_ instanceof ReturnableWithSignature) {
-                signature =((ReturnableWithSignature)fct_).getSignature(_context);
-                return;
-            }
-        }
-        signature = "";
-    }
-
-    public static ArrayStruct newStackTraceElementArray(ContextEl _context) {
-        int count_ = _context.nbPages();
-        Struct[] arr_ = new Struct[count_];
-        for (int i = 0; i < count_; i++) {
-            AbstractPageEl call_ = _context.getCall(i);
-            arr_[i] = new StackTraceElementStruct(call_,_context);
-        }
-        String cl_ = _context.getStandards().getAliasStackTraceElement();
-        cl_ = PrimitiveTypeUtil.getPrettyArrayType(cl_);
-        return new ArrayStruct(arr_, cl_);
+    public StackTraceElementStruct(String _fileName, int _row, int _col, int _indexFileType, String _currentClassName, String _signature) {
+        fileName = _fileName;
+        row = _row;
+        col = _col;
+        indexFileType = _indexFileType;
+        currentClassName = _currentClassName;
+        signature = _signature;
     }
 
     @Override

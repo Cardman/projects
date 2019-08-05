@@ -716,9 +716,11 @@ public final class BeanCustLgNames extends BeanLgNames {
         locVar_.setClassName(getStructClassName(_bean, _conf.getContext()));
         locVar_.setStruct(_bean);
         _conf.getLastPage().getInternVars().put(getDataBaseVar, locVar_);
+        _conf.getLastPage().setEnabledOp(false);
         Argument argument_ = RenderExpUtil.calculateReuse(expsGetDataBase, _conf);
         _conf.getLastPage().getInternVars().removeKey(getDataBaseVar);
         if (_conf.getContext().hasExceptionOrFailInit()) {
+            _conf.getLastPage().setEnabledOp(true);
             return;
         }
         locVar_ = new LocalVariable();
@@ -730,6 +732,7 @@ public final class BeanCustLgNames extends BeanLgNames {
         locVar_.setStruct(argument_.getStruct());
         _conf.getLastPage().getInternVars().put(setDataBaseVarArg, locVar_);
         RenderExpUtil.calculateReuse(expsSetDataBase, _conf);
+        _conf.getLastPage().setEnabledOp(true);
         _conf.getLastPage().getInternVars().removeKey(setDataBaseVar);
         _conf.getLastPage().getInternVars().removeKey(setDataBaseVarArg);
     }
@@ -737,6 +740,7 @@ public final class BeanCustLgNames extends BeanLgNames {
     @Override
     public void storeForms(Struct _bean, Configuration _conf) {
         Argument forms_ = getForms(_bean, _conf);
+        _conf.getLastPage().setEnabledOp(true);
         if (_conf.getContext().hasExceptionOrFailInit()) {
             return;
         }
@@ -745,6 +749,7 @@ public final class BeanCustLgNames extends BeanLgNames {
 
     public Argument getForms(Struct _bean, Configuration _conf) {
         String clName_ = _bean.getClassName(_conf);
+        _conf.getLastPage().setEnabledOp(false);
         if (!Templates.isCorrectExecute(clName_,getAliasBean(),_conf)) {
             return RenderExpUtil.calculateReuse(opsMap, _conf);
         }
@@ -765,6 +770,7 @@ public final class BeanCustLgNames extends BeanLgNames {
 
     @Override
     public void setStoredForms(Struct _bean, Configuration _conf) {
+        _conf.getLastPage().setEnabledOp(false);
         LocalVariable locVar_ = new LocalVariable();
         locVar_.setClassName(getStructClassName(_bean, _conf.getContext()));
         locVar_.setStruct(_bean);
@@ -776,16 +782,19 @@ public final class BeanCustLgNames extends BeanLgNames {
         RenderExpUtil.calculateReuse(expsSetForms, _conf);
         _conf.getLastPage().getInternVars().removeKey(setFormsVar);
         _conf.getLastPage().getInternVars().removeKey(setFormsVarArg);
+        _conf.getLastPage().setEnabledOp(true);
     }
 
     @Override
     protected void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean) {
         Argument forms_ = getForms(_bean, _conf);
         if (_conf.getContext().getException() != null) {
+            _conf.getLastPage().setEnabledOp(true);
             return;
         }
         Argument formsMap_ = getForms(_mainBean,_conf);
         if (_conf.getContext().getException() != null) {
+            _conf.getLastPage().setEnabledOp(true);
             return;
         }
         if (_keepField) {
@@ -796,6 +805,7 @@ public final class BeanCustLgNames extends BeanLgNames {
                 String name_ = ((RendImportForm)f_).getName();
                 forwardMap(formsMap_.getStruct(),forms_.getStruct(),new StringStruct(name_),_conf);
                 if (_conf.getContext().getException() != null) {
+                    _conf.getLastPage().setEnabledOp(true);
                     return;
                 }
             }
@@ -803,6 +813,7 @@ public final class BeanCustLgNames extends BeanLgNames {
             //add option for copying forms (default copy)
             putAllMap(forms_.getStruct(),formsMap_.getStruct(),_conf);
         }
+        _conf.getLastPage().setEnabledOp(true);
     }
 
     private void forwardMap(Struct _map, Struct _to, Struct _key, Configuration _conf) {
@@ -956,7 +967,9 @@ public final class BeanCustLgNames extends BeanLgNames {
         locVar_.setClassName(getAliasString());
         locVar_.setStruct(new StringStruct(_cont.getIdField().getFieldName()));
         _conf.getLastPage().getInternVars().put(vlidateVarArgNameField, locVar_);
+        _conf.getLastPage().setEnabledOp(false);
         Argument arg_ = RenderExpUtil.calculateReuse(expsValidate, _conf);
+        _conf.getLastPage().setEnabledOp(true);
         _conf.getLastPage().getInternVars().removeKey(validateVar);
         _conf.getLastPage().getInternVars().removeKey(validateVarArgNewValue);
         _conf.getLastPage().getInternVars().removeKey(validateVarArgOldValue);
@@ -991,7 +1004,9 @@ public final class BeanCustLgNames extends BeanLgNames {
         locVar_.setClassName(clName_);
         locVar_.setStruct(_arg);
         _cont.getLastPage().getInternVars().put(locName_, locVar_);
+        _cont.getLastPage().setEnabledOp(false);
         RenderExpUtil.calculateReuse(expsBeforeDisplaying,_cont);
+        _cont.getLastPage().setEnabledOp(true);
     }
 
     public String getScope(Struct _bean, Configuration _cont) {
@@ -999,7 +1014,9 @@ public final class BeanCustLgNames extends BeanLgNames {
         locVar_.setClassName(getStructClassName(_bean, _cont.getContext()));
         locVar_.setStruct(_bean);
         _cont.getLastPage().getInternVars().put(getScopeVar, locVar_);
+        _cont.getLastPage().setEnabledOp(false);
         Argument argument_ = RenderExpUtil.calculateReuse(expsGetScope, _cont);
+        _cont.getLastPage().setEnabledOp(true);
         _cont.getLastPage().getInternVars().removeKey(getScopeVar);
         if (_cont.getContext().hasExceptionOrFailInit() || argument_.isNull()) {
             return "";
@@ -1014,8 +1031,10 @@ public final class BeanCustLgNames extends BeanLgNames {
         locVar_ = new LocalVariable();
         locVar_.setClassName(getAliasString());
         locVar_.setStruct(new StringStruct(_scope));
+        _cont.getLastPage().setEnabledOp(false);
         _cont.getLastPage().getInternVars().put(setScopeVarArg, locVar_);
         RenderExpUtil.calculateReuse(expsSetScope, _cont);
+        _cont.getLastPage().setEnabledOp(true);
         _cont.getLastPage().getInternVars().removeKey(setScopeVar);
         _cont.getLastPage().getInternVars().removeKey(setScopeVarArg);
     }
@@ -1028,7 +1047,9 @@ public final class BeanCustLgNames extends BeanLgNames {
         locVar_.setClassName(getAliasString());
         locVar_.setStruct(new StringStruct(_scope));
         _cont.getLastPage().getInternVars().put(setLanguageVarArg, locVar_);
+        _cont.getLastPage().setEnabledOp(false);
         RenderExpUtil.calculateReuse(expsSetLanguage, _cont);
+        _cont.getLastPage().setEnabledOp(true);
         _cont.getLastPage().getInternVars().removeKey(setLanguageVar);
         _cont.getLastPage().getInternVars().removeKey(setLanguageVarArg);
     }
@@ -1040,8 +1061,10 @@ public final class BeanCustLgNames extends BeanLgNames {
         locVar_.setClassName(getStructClassName(_arg, _cont.getContext()));
         locVar_.setStruct(_arg);
         _cont.getLastPage().getInternVars().put(locName_, locVar_);
+        _cont.getLastPage().setEnabledOp(false);
         Argument arg_ = RenderExpUtil.calculateReuse(getExpsIteratorTableCust(), _cont);
         _cont.getLastPage().getInternVars().removeKey(locName_);
+        _cont.getLastPage().setEnabledOp(true);
         return arg_;
     }
 
@@ -1052,8 +1075,10 @@ public final class BeanCustLgNames extends BeanLgNames {
         locVar_.setClassName(getStructClassName(_arg, _conf.getContext()));
         locVar_.setStruct(_arg);
         _conf.getLastPage().getInternVars().put(locName_, locVar_);
+        _conf.getLastPage().setEnabledOp(false);
         Argument arg_ = RenderExpUtil.calculateReuse(getExpsHasNextPairCust(),_conf);
         _conf.getLastPage().getInternVars().removeKey(locName_);
+        _conf.getLastPage().setEnabledOp(true);
         return arg_;
     }
 
@@ -1064,8 +1089,10 @@ public final class BeanCustLgNames extends BeanLgNames {
         locVar_.setClassName(getStructClassName(_arg, _conf.getContext()));
         locVar_.setStruct(_arg);
         _conf.getLastPage().getInternVars().put(locName_, locVar_);
+        _conf.getLastPage().setEnabledOp(false);
         Argument arg_ = RenderExpUtil.calculateReuse(getExpsNextPairCust(), _conf);
         _conf.getLastPage().getInternVars().removeKey(locName_);
+        _conf.getLastPage().setEnabledOp(true);
         return arg_;
     }
 
@@ -1076,8 +1103,10 @@ public final class BeanCustLgNames extends BeanLgNames {
         locVar_.setClassName(getStructClassName(_arg, _conf.getContext()));
         locVar_.setStruct(_arg);
         _conf.getLastPage().getInternVars().put(locName_, locVar_);
+        _conf.getLastPage().setEnabledOp(false);
         Argument arg_ = RenderExpUtil.calculateReuse(getExpsFirstCust(), _conf);
         _conf.getLastPage().getInternVars().removeKey(locName_);
+        _conf.getLastPage().setEnabledOp(true);
         return arg_;
     }
 
@@ -1088,8 +1117,10 @@ public final class BeanCustLgNames extends BeanLgNames {
         locVar_.setClassName(getStructClassName(_arg, _conf.getContextEl()));
         locVar_.setStruct(_arg);
         _conf.getLastPage().getInternVars().put(locName_, locVar_);
+        _conf.getLastPage().setEnabledOp(false);
         Argument arg_ = RenderExpUtil.calculateReuse(getExpsSecondCust(), _conf);
         _conf.getLastPage().getInternVars().removeKey(locName_);
+        _conf.getLastPage().setEnabledOp(true);
         return arg_;
     }
 
@@ -1100,8 +1131,10 @@ public final class BeanCustLgNames extends BeanLgNames {
         locVar_.setClassName(getStructClassName(_arg, _cont.getContext()));
         locVar_.setStruct(_arg);
         _cont.getLastPage().getInternVars().put(locName_, locVar_);
+        _cont.getLastPage().setEnabledOp(false);
         Argument arg_ = RenderExpUtil.calculateReuse(getExpsIterator(), _cont);
         _cont.getLastPage().getInternVars().removeKey(locName_);
+        _cont.getLastPage().setEnabledOp(true);
         return arg_;
     }
 
@@ -1112,8 +1145,10 @@ public final class BeanCustLgNames extends BeanLgNames {
         locVar_.setClassName(getStructClassName(_arg, _cont.getContext()));
         locVar_.setStruct(_arg);
         _cont.getLastPage().getInternVars().put(locName_, locVar_);
+        _cont.getLastPage().setEnabledOp(false);
         Argument arg_ = RenderExpUtil.calculateReuse(getExpsNext(), _cont);
         _cont.getLastPage().getInternVars().removeKey(locName_);
+        _cont.getLastPage().setEnabledOp(true);
         return arg_;
     }
 
@@ -1124,8 +1159,10 @@ public final class BeanCustLgNames extends BeanLgNames {
         locVar_.setClassName(getStructClassName(_arg, _cont.getContext()));
         locVar_.setStruct(_arg);
         _cont.getLastPage().getInternVars().put(locName_, locVar_);
+        _cont.getLastPage().setEnabledOp(false);
         Argument arg_ = RenderExpUtil.calculateReuse(getExpsHasNext(), _cont);
         _cont.getLastPage().getInternVars().removeKey(locName_);
+        _cont.getLastPage().setEnabledOp(true);
         return arg_;
     }
 

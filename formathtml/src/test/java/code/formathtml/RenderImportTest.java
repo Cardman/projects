@@ -1321,6 +1321,77 @@ public final class RenderImportTest extends CommonRender {
         assertNull(context_.getException());
     }
     @Test
+    public void process27Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+
+        String html_ = "<html c:bean='bean_one'>\n<body>\n<c:try>\n<c:import page=\"page2.html\"/>\n</c:try>\n<c:catch var='e' className='java.lang.Exception'>\n{java.lang.Exception.toString(e;..)}\n</c:catch>\n</body>\n</html>";
+        String htmlTwo_ = "<html c:bean='bean_two'>\n<body>\n\t<c:import page=\"page3.html\">\n<c:package name='pkg'>\n<c:class name='BeanThree'>\n<c:field prepare='$intern.nb=3'/>\n</c:class>\n</c:package>\n</c:import>\n</body>\n</html>";
+        String htmlThree_ = "<html c:bean='bean_three'><body>{nb}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        Document docSec_ = DocumentBuilder.parseSax(htmlTwo_);
+        Document docThird_ = DocumentBuilder.parseSax(htmlThree_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{\n");
+        file_.append(" $public $int[] array:\n");
+        file_.append(" $public $void beforeDisplaying(){\n");
+        file_.append("  array={1,2}:\n");
+        file_.append(" }\n");
+        file_.append("}\n");
+        file_.append("$public $class pkg.BeanTwo:code.bean.Bean{\n");
+        file_.append(" $public $int[] array:\n");
+        file_.append(" $public $int[] arrayBis:\n");
+        file_.append(" $public $void beforeDisplaying(){\n");
+        file_.append("  arrayBis=array:\n");
+        file_.append(" }\n");
+        file_.append("}\n");
+        file_.append("$public $class pkg.BeanThree:code.bean.Bean{\n");
+        file_.append(" $public $int nb:\n");
+        file_.append(" $public $void beforeDisplaying(){\n");
+        file_.append("  callee():\n");
+        file_.append(" }\n");
+        file_.append(" $public $void callee(){\n");
+        file_.append("  nb=1/0:\n");
+        file_.append(" }\n");
+        file_.append("}\n");
+        filesSec_.put("my_file",file_.toString());
+        Configuration context_ = contextElThird(filesSec_);
+        addImportingPage(context_);
+        Struct bean_ = RenderExpUtil.processEl("$new pkg.BeanOne()", 0, context_).getStruct();
+        addBeanInfo(context_,"bean_one",bean_);
+        bean_ = RenderExpUtil.processEl("$new pkg.BeanTwo()", 0, context_).getStruct();
+        addBeanInfo(context_,"bean_two",bean_);
+        bean_ = RenderExpUtil.processEl("$new pkg.BeanThree()", 0, context_).getStruct();
+        addBeanInfo(context_,"bean_three",bean_);
+        context_.setMessagesFolder(folder_);
+        context_.setProperties(new StringMap<String>());
+        context_.getProperties().put("msg_example", relative_);
+        context_.clearPages();
+        context_.setCurrentUrl("page1.html");
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
+        context_.setCurrentUrl("page2.html");
+        RendDocumentBlock rendDocumentBlockSec_ = RendBlock.newRendDocumentBlock(context_, "c:", docSec_, htmlTwo_);
+        context_.setCurrentUrl("page3.html");
+        RendDocumentBlock rendDocumentBlockThird_ = RendBlock.newRendDocumentBlock(context_, "c:", docThird_, htmlThree_);
+        context_.getRenders().put("page1.html",rendDocumentBlock_);
+        context_.getRenders().put("page2.html",rendDocumentBlockSec_);
+        context_.getRenders().put("page3.html",rendDocumentBlockThird_);
+        context_.getContext().setAnalyzing(new AnalyzedPageEl());
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        rendDocumentBlockSec_.buildFctInstructions(context_);
+        rendDocumentBlockThird_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        context_.setCurrentUrl("page1.html");
+        assertEq("<html>\n<body>\n\n\n\t\ncode.expressionlanguage.exceptions.DivideZeroException\n\npage1.html:4,17:56\npkg.BeanOne.\npage2.html:3,21:49\npkg.BeanTwo.\nmy_file:17,3:371\npkg.BeanThree.beforeDisplaying()\nmy_file:20,7:415\npkg.BeanThree.callee()\n\n</body>\n</html>",RendBlock.getRes(rendDocumentBlock_, context_));
+        assertNull(context_.getException());
+    }
+    @Test
     public void process1FailTest() {
         String locale_ = "en";
         String folder_ = "messages";

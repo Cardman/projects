@@ -106,6 +106,7 @@ public abstract class RendBlock {
     static final String ATTRIBUTE_VALIDATOR = "validator";
     static final String ATTRIBUTE_VAR_VALUE = "varValue";
     static final String TAG_IMG = "img";
+    static final String PAGE_ATTRIBUTE = "page";
     private static final String FOR_BLOCK_TAG = "for";
     private static final String WHILE_BLOCK_TAG = "while";
     private static final String ELSE_BLOCK_TAG = "else";
@@ -165,6 +166,7 @@ public abstract class RendBlock {
         ip_.setTabWidth(tabWidth_);
         ip_.setReadUrl(_conf.getCurrentUrl());
         ip_.setBeanName(beanName_);
+        ip_.setFile(_rend.getFile());
         ip_.setPrefix(_conf.getPrefix());
         if (bean_ != null) {
             ip_.setGlobalArgumentStruct(bean_, _conf);
@@ -252,7 +254,7 @@ public abstract class RendBlock {
         Element documentElement_ = _doc.getDocumentElement();
         Node curNode_ = documentElement_;
         int indexGlobal_ = _docText.indexOf(LT_BEGIN_TAG)+1;
-        RendDocumentBlock out_ = new RendDocumentBlock(documentElement_,new OffsetsBlock());
+        RendDocumentBlock out_ = new RendDocumentBlock(documentElement_,_docText,new OffsetsBlock(),_conf.getCurrentUrl());
         RendBlock curWrite_ = newRendBlockEsc(indexGlobal_,out_, _conf, _prefix, curNode_,_docText);
         out_.appendChild(curWrite_);
         while (curWrite_ != null) {
@@ -508,7 +510,7 @@ public abstract class RendBlock {
             return new RendDefaultCondition(new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,IMPORT_BLOCK_TAG))) {
-            return new RendImport(elt_,new OffsetsBlock(_begin,_begin));
+            return new RendImport(elt_,newOffsetStringInfo(elt_,PAGE_ATTRIBUTE, attr_),new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,SUBMIT_BLOCK_TAG))) {
             return new RendSubmit(elt_,new OffsetsBlock(_begin,_begin));

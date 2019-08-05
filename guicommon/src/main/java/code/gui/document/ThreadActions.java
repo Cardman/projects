@@ -18,6 +18,7 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.ErroneousStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
@@ -181,8 +182,13 @@ public final class ThreadActions implements Runnable {
         if (context_.getException() != null) {
             if (page.getArea() != null) {
                 Struct exception_ = context_.getException();
-                String str_ = conf_.getAdvStandards().processString(new Argument(exception_), conf_);
-                page.getArea().append(str_);
+                if (exception_ instanceof ErroneousStruct) {
+                    ArrayStruct fullStack_ = ((ErroneousStruct) exception_).getFullStack();
+                    page.getArea().append(((ErroneousStruct) exception_).getStringRep(conf_,fullStack_.getInstance()));
+                } else {
+                    String str_ = conf_.getAdvStandards().processString(new Argument(exception_), conf_);
+                    page.getArea().append(str_);
+                }
             }
             context_.setException(null);
             finish();

@@ -5,20 +5,16 @@ import code.bean.BeanInfo;
 import code.bean.validator.Validator;
 import code.bean.validator.ValidatorInfo;
 import code.expressionlanguage.*;
+import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.BadElError;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.TypeOwnersDepends;
 import code.expressionlanguage.instr.ResultAfterInstKeyWord;
-import code.expressionlanguage.methods.AccessingImportingBlock;
-import code.expressionlanguage.methods.AnalyzingEl;
-import code.expressionlanguage.methods.AssignedVariablesBlock;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.ForLoopPart;
-import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.FieldInfo;
@@ -26,10 +22,7 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.CausingErrorStruct;
-import code.expressionlanguage.structs.ClassMetaInfo;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.expressionlanguage.types.PartTypeUtil;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -133,6 +126,37 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
+    public ExecutableCode getExecutingInstance() {
+        return this;
+    }
+
+    @Override
+    public ArrayStruct newStackTraceElementArray() {
+        int count_ = importing.size();
+        int lenArrCtx_ = context.nbPages();
+        Struct[] arr_ = new Struct[count_+ lenArrCtx_];
+        for (int i = 0; i < count_; i++) {
+            arr_[i] = newStackTraceElement(i);
+        }
+        for (int i = 0; i < lenArrCtx_; i++) {
+            arr_[i+count_] = context.newStackTraceElement(i);
+        }
+        String cl_ = getStandards().getAliasStackTraceElement();
+        cl_ = PrimitiveTypeUtil.getPrettyArrayType(cl_);
+        return new ArrayStruct(arr_, cl_);
+    }
+
+    @Override
+    public StackTraceElementStruct newStackTraceElement(int _index) {
+        ImportingPage call_ = importing.get(_index);
+        int indexFileType_ = call_.getSum();
+        int row_ = call_.getRowFile(indexFileType_);
+        int col_ = call_.getColFile(indexFileType_,row_);
+        String fileName_ = call_.getReadUrl();
+        String currentClassName_ = call_.getGlobalClass();
+        return new StackTraceElementStruct(fileName_,row_,col_,indexFileType_,currentClassName_,"");
+    }
+    @Override
     public void setMerged(boolean _merged) {
         context.setMerged(_merged);
     }
@@ -146,6 +170,7 @@ public final class Configuration implements ExecutableCode {
         standards.setupOverrides(context);
         renderFiles.removeAllString(firstUrl);
         renderFiles.add(firstUrl);
+        context.setExecutingInstance(this);
     }
 
     public void setupRendClasses(StringMap<String> _files) {
@@ -193,6 +218,7 @@ public final class Configuration implements ExecutableCode {
                 getClasses().addError(badEl_);
                 continue;
             }
+            currentUrl = link_;
             renders.put(link_,RendBlock.newRendDocumentBlock(this,getPrefix(), document_, file_));
         }
         for (EntryCust<String,RendDocumentBlock> d: renders.entryList()) {
@@ -491,7 +517,7 @@ public final class Configuration implements ExecutableCode {
 
     @Override
     public String getCurrentFileName() {
-        return currentUrl;
+        return analyzingDoc.getFileName();
     }
 
     @Override
@@ -686,6 +712,11 @@ public final class Configuration implements ExecutableCode {
     @Override
     public ContextEl getContextEl() {
         return context;
+    }
+
+    @Override
+    public ExecutableCode getCurrentExec() {
+        return this;
     }
 
     @Override

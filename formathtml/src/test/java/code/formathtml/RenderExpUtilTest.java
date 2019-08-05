@@ -8874,6 +8874,7 @@ public final class RenderExpUtilTest {
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
         standards_.buildIterables(conf_);
+        cont_.setExecutingInstance(conf_);
         return conf_;
     }
 
@@ -8896,6 +8897,7 @@ public final class RenderExpUtilTest {
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
         standards_.buildIterables(conf_);
+        cont_.setExecutingInstance(conf_);
         return conf_;
     }
 }

@@ -373,6 +373,7 @@ public abstract class LgNames {
                 getAliasNext()));
         map_.put(getAliasStackTraceElement(), new StringList(
                 getAliasCurrentStack(),
+                getAliasCurrentFullStack(),
                 getAliasToString()));
         map_.put(getAliasMath(), new StringList(
                 getAliasAbs(),
@@ -859,16 +860,41 @@ public abstract class LgNames {
             return AliasStackTraceElement.invokeMethod(c_, _method, _struct);
         }
         if (StringList.quickEq(type_, lgNames_.getAliasError())) {
-            ErroneousStruct err_ = (ErroneousStruct) _struct;
             if (StringList.quickEq(name_, lgNames_.getAliasCurrentStack())) {
-                result_.setResult(err_.getStack());
+                ErroneousStruct err_;
+                if (args_.length == 0) {
+                    err_ = (ErroneousStruct) _struct;
+                    result_.setResult(err_.getStack());
+                    return result_;
+                }
+                if (args_[0] instanceof ErroneousStruct){
+                    err_ = (ErroneousStruct) args_[0];
+                    result_.setResult(err_.getFullStack());
+                    return result_;
+                }
+                Struct[] arr_ = new Struct[0];
+                String cl_ = lgNames_.getAliasStackTraceElement();
+                cl_ = PrimitiveTypeUtil.getPrettyArrayType(cl_);
+                result_.setResult(new ArrayStruct(arr_, cl_));
                 return result_;
             }
             if (StringList.quickEq(name_, lgNames_.getAliasGetMessage())) {
+                ErroneousStruct err_ = (ErroneousStruct) _struct;
                 result_.setResult(err_.getMessage());
                 return result_;
             }
-            result_.setResult(err_.getDisplayedString(_cont));
+            ErroneousStruct err_;
+            if (args_.length == 0) {
+                err_ = (ErroneousStruct) _struct;
+                result_.setResult(err_.getDisplayedString(_cont));
+                return result_;
+            }
+            if (args_[0] instanceof ErroneousStruct){
+                err_ = (ErroneousStruct) args_[0];
+                result_.setResult(new StringStruct(err_.getStringRep(_cont,err_.getFullStack().getInstance())));
+                return result_;
+            }
+            result_.setResult(new StringStruct(""));
             return result_;
         }
         if (StringList.quickEq(type_, mathType_)) {
@@ -2732,6 +2758,12 @@ public abstract class LgNames {
     }
     public void setAliasCurrentStack(String _aliasCurrentStack) {
         stackElt.setAliasCurrentStack(_aliasCurrentStack);
+    }
+    public String getAliasCurrentFullStack() {
+        return stackElt.getAliasCurrentFullStack();
+    }
+    public void setAliasCurrentFullStack(String _aliasCurrentStack) {
+        stackElt.setAliasCurrentFullStack(_aliasCurrentStack);
     }
 
     public String getAliasEnumName() {

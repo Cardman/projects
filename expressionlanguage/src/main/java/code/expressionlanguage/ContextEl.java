@@ -72,9 +72,11 @@ public abstract class ContextEl implements ExecutableCode {
     private IdList<Struct> sensibleFields = new IdList<Struct>();
     private boolean covering;
     private Coverage coverage;
+    private ExecutableCode executingInstance;
 
     public ContextEl(boolean _covering, int _stackOverFlow, DefaultLockingClass _lock,Options _options, KeyWords _keyWords, LgNames _stds, int _tabWitdth) {
         this();
+        setExecutingInstance(this);
         setCovering(_covering);
         setOptions(_options);
         setStackOverFlow(_stackOverFlow);
@@ -1063,6 +1065,62 @@ public abstract class ContextEl implements ExecutableCode {
     @Override
     public ContextEl getContextEl() {
         return this;
+    }
+
+    @Override
+    public ExecutableCode getCurrentExec() {
+        return this;
+    }
+
+    @Override
+    public ExecutableCode getExecutingInstance() {
+        return executingInstance;
+    }
+
+    public void setExecutingInstance(ExecutableCode _executingInstance) {
+        executingInstance = _executingInstance;
+    }
+
+    @Override
+    public ArrayStruct newStackTraceElementArray() {
+        int count_ = nbPages();
+        Struct[] arr_ = new Struct[count_];
+        for (int i = 0; i < count_; i++) {
+            arr_[i] = newStackTraceElement(i);
+        }
+        String cl_ = getStandards().getAliasStackTraceElement();
+        cl_ = PrimitiveTypeUtil.getPrettyArrayType(cl_);
+        return new ArrayStruct(arr_, cl_);
+    }
+
+    @Override
+    public StackTraceElementStruct newStackTraceElement(int _index) {
+        AbstractPageEl call_ = getCall(_index);
+        int indexFileType = call_.getTraceIndex();
+        FileBlock f_ = call_.getFile();
+        String fileName;
+        int row;
+        int col;
+        if (f_ != null) {
+            fileName = f_.getFileName();
+            row = f_.getRowFile(indexFileType);
+            col = f_.getColFile(indexFileType,row);
+        } else {
+            fileName = "";
+            row = 0;
+            col = 0;
+        }
+        String currentClassName = call_.getGlobalClass();
+        Block bl_ = call_.getBlockRoot();
+        if (bl_ != null) {
+            FunctionBlock fct_ = bl_.getFunction();
+            if (fct_ instanceof ReturnableWithSignature) {
+                String signature =((ReturnableWithSignature)fct_).getSignature(this);
+                return new StackTraceElementStruct(fileName,row,col,indexFileType,currentClassName,signature);
+            }
+        }
+        String signature = "";
+        return new StackTraceElementStruct(fileName,row,col,indexFileType,currentClassName,signature);
     }
 
     @Override

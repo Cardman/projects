@@ -188,6 +188,7 @@ public final class InitializationLgNames {
         _lgNames.setAliasClass("java.lang.$Class");
         _lgNames.setAliasStackTraceElement("java.lang.$stack");
         _lgNames.setAliasCurrentStack("current");
+        _lgNames.setAliasCurrentFullStack("currentFull");
         _lgNames.setAliasFct("java.lang.$Fct");
         _lgNames.setAliasCall("call");
         _lgNames.setAliasAnnotation("java.lang.$Annotation");

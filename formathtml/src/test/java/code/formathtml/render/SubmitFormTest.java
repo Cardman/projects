@@ -1015,6 +1015,7 @@ public final class SubmitFormTest {
         ContextEl context_ = _conf.getContext();
         BeanLgNames standards_ = (BeanLgNames) context_.getStandards();
         nav_.getSession().setStandards(standards_);
+        context_.setExecutingInstance(nav_.getSession());
         return nav_;
     }
 
@@ -1030,6 +1031,7 @@ public final class SubmitFormTest {
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
+        cont_.setExecutingInstance(conf_);
         standards_.buildIterables(conf_);
         return conf_;
     }

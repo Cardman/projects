@@ -16,14 +16,6 @@ public final class ImportingPage {
 
     private static final String EMPTY_STRING = "";
 
-    private static final String READ_URL = "readUrl";
-
-    private static final String BEAN_NAME = "beanName";
-
-    private static final String SEP_INFO = "\n";
-
-    private static final String SEP_KEY_VAL = ":";
-
     private PageEl pageEl = new SimplePageEl();
     private Struct internGlobal;
 
@@ -50,28 +42,56 @@ public final class ImportingPage {
 
     private boolean finallyToProcess;
 
-    public String getInfos(Configuration _context) {
-        StringList list_ = new StringList();
-        StringBuilder keyMessage_ = new StringBuilder();
-        StringBuilder page_ = new StringBuilder();
-        StringBuilder str_ = new StringBuilder(READ_URL);
-        str_.append(SEP_KEY_VAL);
-        str_.append(readUrl);
-        str_.append(page_);
-        str_.append(SEP_INFO);
-        str_.append(keyMessage_);
-        str_.append(BEAN_NAME);
-        str_.append(SEP_KEY_VAL);
-        str_.append(beanName);
-        str_.append(SEP_INFO);
-        str_.append(getSum());
-        str_.append(SEP_INFO);
-        str_.append(list_.display());
-        return str_.toString();
+    private String file = "";
+
+    private boolean enabledOp=true;
+
+    public int getRowFile(int _sum) {
+        int i_ = 0;
+        int r_ = 1;
+        while (i_ < Math.min(_sum,file.length())) {
+            char ch_ = file.charAt(i_);
+            if (ch_ == '\n') {
+                r_++;
+            }
+            i_++;
+        }
+        return r_;
     }
 
+    public int getColFile(int _sum, int _r) {
+        int i_ = 0;
+        int r_ = 1;
+        while (r_ < _r) {
+            char ch_ = file.charAt(i_);
+            if (ch_ == '\n') {
+                r_++;
+            }
+            i_++;
+        }
+        int begin_ = i_;
+        int d_ = 0;
+        int count_ =  Math.min(_sum,file.length()-1);
+        for (int j = begin_; j <= count_; j++) {
+            char ch_ = file.charAt(j);
+            if (ch_ == '\t') {
+                d_ += tabWidth;
+                d_ -= d_ % tabWidth;
+            } else {
+                d_++;
+            }
+        }
+        return d_;
+    }
     public int getSum() {
+        if (rendReadWrite == null) {
+            return 0;
+        }
         return AnalyzingDoc.getSum(opOffset,offset,rendReadWrite.getRead(),processingAttribute);
+    }
+
+    public void setFile(String _file) {
+        file = _file;
     }
 
     public PageEl getPageEl() {
@@ -91,6 +111,9 @@ public final class ImportingPage {
     }
 
     public void setOpOffset(int _opOffset) {
+        if (!isEnabledOp()) {
+            return;
+        }
         opOffset = _opOffset;
     }
 
@@ -269,4 +292,11 @@ public final class ImportingPage {
         return internVars;
     }
 
+    public boolean isEnabledOp() {
+        return enabledOp;
+    }
+
+    public void setEnabledOp(boolean _enabledOp) {
+        enabledOp = _enabledOp;
+    }
 }

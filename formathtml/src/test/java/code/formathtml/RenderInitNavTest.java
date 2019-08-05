@@ -42,6 +42,7 @@ public final class RenderInitNavTest extends CommonRender {
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
+        cont_.setExecutingInstance(conf_);
         conf_.setFirstUrl("page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -89,6 +90,7 @@ public final class RenderInitNavTest extends CommonRender {
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
+        cont_.setExecutingInstance(conf_);
         conf_.setFirstUrl("page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -134,6 +136,7 @@ public final class RenderInitNavTest extends CommonRender {
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
+        cont_.setExecutingInstance(conf_);
         conf_.setFirstUrl("page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -179,6 +182,7 @@ public final class RenderInitNavTest extends CommonRender {
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
+        cont_.setExecutingInstance(conf_);
         conf_.setFirstUrl("page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -570,6 +574,7 @@ public final class RenderInitNavTest extends CommonRender {
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
+        cont_.setExecutingInstance(conf_);
         conf_.setFirstUrl("page2.html");
         conf_.getRenderFiles().add("page1.html");
         conf_.getRenderFiles().add("page2.html");
@@ -733,6 +738,7 @@ public final class RenderInitNavTest extends CommonRender {
         _lgNames.setAliasClass("java.lang.$Class");
         _lgNames.setAliasStackTraceElement("java.lang.$stack");
         _lgNames.setAliasCurrentStack("current");
+        _lgNames.setAliasCurrentFullStack("currentFull");
         _lgNames.setAliasFct("java.lang.$Fct");
         _lgNames.setAliasCall("call");
         _lgNames.setAliasAnnotation("java.lang.$Annotation");

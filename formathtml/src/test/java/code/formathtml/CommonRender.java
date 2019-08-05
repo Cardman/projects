@@ -30,6 +30,7 @@ public abstract class CommonRender {
         ContextEl context_ = _conf.getContext();
         BeanLgNames standards_ = (BeanLgNames) context_.getStandards();
         nav_.getSession().setStandards(standards_);
+        context_.setExecutingInstance(nav_.getSession());
         return nav_;
     }
     Configuration contextElSec() {
@@ -48,6 +49,7 @@ public abstract class CommonRender {
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
+        cont_.setExecutingInstance(conf_);
         standards_.buildIterables(conf_);
         return conf_;
     }
@@ -66,6 +68,7 @@ public abstract class CommonRender {
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
+        cont_.setExecutingInstance(conf_);
         standards_.buildIterables(conf_);
         return conf_;
     }

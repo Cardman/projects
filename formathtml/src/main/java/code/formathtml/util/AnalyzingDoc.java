@@ -13,6 +13,7 @@ public final class AnalyzingDoc {
     private RendBlock currentBlock;
     private String internGlobalClass="";
     private String attribute="";
+    private String fileName="";
 
     public static int getSum(int _offset, int _glOffset, RendBlock _currentBlock, String _attribute) {
         int delta_ = getDelta(_offset, _currentBlock, _attribute);
@@ -97,5 +98,13 @@ public final class AnalyzingDoc {
 
     public void setInternGlobalClass(String _internGlobalClass) {
         internGlobalClass = _internGlobalClass;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String _fileName) {
+        fileName = _fileName;
     }
 }

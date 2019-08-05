@@ -68,6 +68,12 @@ public final class AliasCore {
         params_ = new StringList();
         method_ = new StandardMethod(_lgNames.getAliasToString(), params_, _lgNames.getAliasString(), false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasError);
+        method_ = new StandardMethod(_lgNames.getAliasCurrentStack(), params_, stackElt_, false, MethodModifier.STATIC,std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasError);
+        method_ = new StandardMethod(_lgNames.getAliasToString(), params_, _lgNames.getAliasString(), false, MethodModifier.STATIC,std_);
+        methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetMessage, params_, _lgNames.getAliasString(), false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);

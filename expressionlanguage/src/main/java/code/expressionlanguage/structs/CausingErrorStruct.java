@@ -9,6 +9,7 @@ import code.util.StringList;
 public final class CausingErrorStruct implements ErroneousStruct {
 
     private final ArrayStruct stack;
+    private final ArrayStruct fullStack;
 
     private final Struct cause;
     private final String message;
@@ -25,7 +26,8 @@ public final class CausingErrorStruct implements ErroneousStruct {
         message = _message;
         cause = _cause;
         ContextEl cont_ = _cont.getContextEl();
-        stack = StackTraceElementStruct.newStackTraceElementArray(cont_);
+        stack = cont_.newStackTraceElementArray();
+        fullStack = _cont.getExecutingInstance().newStackTraceElementArray();
     }
 
     @Override
@@ -48,7 +50,8 @@ public final class CausingErrorStruct implements ErroneousStruct {
 
     @Override
     public StringStruct getDisplayedString(Analyzable _an) {
-        return new StringStruct(getStringRep(_an.getStandards().getAliasErrorInitClass()));
+        Struct[] calls_ = stack.getInstance();
+        return new StringStruct(getStringRep(_an,calls_));
     }
 
     @Override
@@ -57,17 +60,21 @@ public final class CausingErrorStruct implements ErroneousStruct {
     }
 
     @Override
+    public ArrayStruct getFullStack() {
+        return fullStack;
+    }
+
+    @Override
     public Struct getMessage() {
         return new StringStruct(message);
     }
 
 
-    private String getStringRep(String _cl) {
-        Struct[] calls_ = stack.getInstance();
-        StringList str_ = new StringList(new CollCapacity(calls_.length+2));
-        str_.add(_cl);
+    public String getStringRep(Analyzable _an, Struct[] _array) {
+        StringList str_ = new StringList(new CollCapacity(_array.length+2));
+        str_.add(getClassName(_an.getCurrentExec()));
         str_.add(message);
-        for (Struct s: calls_) {
+        for (Struct s: _array) {
             str_.add(((StackTraceElementStruct)s).getStringRep());
         }
         return StringList.join(str_, "\n");

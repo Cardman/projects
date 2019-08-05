@@ -17,6 +17,7 @@ public final class AliasStackTraceElement {
     private String aliasStackTraceElement;
 
     private String aliasCurrentStack;
+    private String aliasCurrentFullStack;
 
     public void build(LgNames _stds) {
         StringMap<StandardField> fields_;
@@ -38,6 +39,9 @@ public final class AliasStackTraceElement {
         method_ = new StandardMethod(aliasCurrentStack, params_, out_, false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
+        method_ = new StandardMethod(aliasCurrentFullStack, params_, out_, false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
         method_ = new StandardMethod(aliasToString_, params_, aliasString_, false, MethodModifier.NORMAL, stdcl_);
         methods_.put(method_.getId(), method_);
         _stds.getStandards().put(aliasStackTraceElement, stdcl_);
@@ -49,7 +53,11 @@ public final class AliasStackTraceElement {
         LgNames lgNames_ = _cont.getStandards();
         AliasStackTraceElement ref_ = lgNames_.getStackElt();
         if (StringList.quickEq(name_, ref_.aliasCurrentStack)) {
-            result_.setResult(StackTraceElementStruct.newStackTraceElementArray(_cont));
+            result_.setResult(_cont.newStackTraceElementArray());
+            return result_;
+        }
+        if (StringList.quickEq(name_, ref_.aliasCurrentFullStack)) {
+            result_.setResult(_cont.getExecutingInstance().newStackTraceElementArray());
             return result_;
         }
         result_.setResult(((StackTraceElementStruct)_struct).getDisplayedString(_cont));
@@ -70,5 +78,13 @@ public final class AliasStackTraceElement {
     public void setAliasCurrentStack(String _aliasCurrentStack) {
         aliasCurrentStack = _aliasCurrentStack;
     }
-    
+
+    public String getAliasCurrentFullStack() {
+        return aliasCurrentFullStack;
+    }
+
+    public void setAliasCurrentFullStack(String _aliasCurrentFullStack) {
+        aliasCurrentFullStack = _aliasCurrentFullStack;
+    }
+
 }

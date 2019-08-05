@@ -39,6 +39,10 @@ public final class RendField extends RendParentBlock {
         }
     }
 
+    public int getPrepareOffset() {
+        return prepareOffset;
+    }
+
     public CustList<RendDynOperationNode> getExps() {
         return exps;
     }

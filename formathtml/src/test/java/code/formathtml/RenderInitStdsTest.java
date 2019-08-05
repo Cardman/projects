@@ -78,6 +78,7 @@ public final class RenderInitStdsTest {
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
+        cont_.setExecutingInstance(conf_);
         standards_.buildIterables(conf_);
         return conf_;
     }
@@ -225,6 +226,7 @@ public final class RenderInitStdsTest {
         _lgNames.setAliasClass("java.lang.$Class");
         _lgNames.setAliasStackTraceElement("java.lang.$stack");
         _lgNames.setAliasCurrentStack("current");
+        _lgNames.setAliasCurrentFullStack("currentFull");
         _lgNames.setAliasFct("java.lang.$Fct");
         _lgNames.setAliasCall("call");
         _lgNames.setAliasAnnotation("java.lang.$Annotation");

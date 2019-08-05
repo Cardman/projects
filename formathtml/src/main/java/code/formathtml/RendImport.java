@@ -1,5 +1,7 @@
 package code.formathtml;
 
+import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.structs.Struct;
@@ -13,7 +15,6 @@ import code.util.CustList;
 import code.util.StringList;
 
 public final class RendImport extends RendParentBlock implements RendWithEl, RendReducableOperations,RendBuildableElMethod {
-    private static final String PAGE_ATTRIBUTE = "page";
     private static final String KEEPFIELD_ATTRIBUTE = "keepfields";
     private Element elt;
 
@@ -21,14 +22,19 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
 
     private StringList texts = new StringList();
 
-    RendImport(Element _elt, OffsetsBlock _offset) {
+    private int pageOffset;
+    RendImport(Element _elt, OffsetStringInfo _page, OffsetsBlock _offset) {
         super(_offset);
+        pageOffset = _page.getOffset();
         elt = _elt;
     }
 
     @Override
     public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc) {
         ResultText res_ = new ResultText();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        page_.setGlobalOffset(pageOffset);
+        page_.setOffset(0);
         String pageName_ = elt.getAttribute(PAGE_ATTRIBUTE);
         res_.build(pageName_,_cont,_doc);
         opExp = res_.getOpExp();
@@ -53,6 +59,9 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
                 return;
             }
         }
+        ip_.setProcessingAttribute(PAGE_ATTRIBUTE);
+        ip_.setOffset(pageOffset);
+        ip_.setOpOffset(0);
         String lg_ = _cont.getCurrentLanguage();
         String pageName_ = ResultText.render(opExp,texts,_cont);
         if (_cont.getContext().getException() != null) {
@@ -71,11 +80,9 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
         String beanName_ = val_.getBeanName();
         ImportingPage newIp_ = new ImportingPage();
         newIp_.setTabWidth(_cont.getTabWidth());
-//        newIp_.setHtml(newElt_.getHtml());
         newIp_.setOffset(0);
-//        newIp_.setRoot(newElt_.getRoot());
-//        newIp_.setProcessingNode(newElt_.getRoot().getFirstChild());
-//        newIp_.setReadUrl(newElt_.getUrl());
+        newIp_.setFile(val_.getFile());
+        newIp_.setReadUrl(link_);
         newIp_.setBeanName(beanName_);
         RendReadWrite rwLoc_ = new RendReadWrite();
         rwLoc_.setConf(_cont);
@@ -100,6 +107,9 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
                     }
                     for (RendBlock f: getDirectChildren(c)) {
                         if (f instanceof RendField) {
+                            ip_.setOffset(((RendField) f).getPrepareOffset());
+                            ip_.setOpOffset(0);
+                            ip_.setProcessingAttribute(ATTRIBUTE_PREPARE_BEAN);
                             CustList<RendDynOperationNode> exps_ = ((RendField) f).getExps();
                             ip_.setInternGlobal(newBean_);
                             RenderExpUtil.calculateReuse(exps_,_cont);
@@ -112,6 +122,9 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
                 }
             }
         }
+        ip_.setOffset(pageOffset);
+        ip_.setOpOffset(0);
+        ip_.setProcessingAttribute(PAGE_ATTRIBUTE);
         beforeDisplaying(newBean_,_cont);
         if (_cont.getContext().getException() != null) {
             return;

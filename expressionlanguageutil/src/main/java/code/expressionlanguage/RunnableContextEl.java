@@ -32,6 +32,7 @@ public final class RunnableContextEl extends ContextEl {
         setThrowing(_context.getThrowing());
         setCovering(_context.isCovering());
         setCoverage(_context.getCoverage());
+        setExecutingInstance(_context.getExecutingInstance());
         executingOptions = ((RunnableContextEl)_context).executingOptions;
         interrupt = ((RunnableContextEl)_context).interrupt;
         custInit = ((RunnableContextEl)_context).getCustInit();
