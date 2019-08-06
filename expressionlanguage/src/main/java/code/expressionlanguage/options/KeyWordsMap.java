@@ -345,6 +345,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasGetDeclaredClasses("getDeclaredClasses");
         _lgNames.setAliasForName("forName");
         _lgNames.setAliasObjectsUtil("$core.ObjectsUtil");
+        _lgNames.setAliasStringUtil("$core.StringUtil");
         _lgNames.setAliasSameRef("eq");
         _lgNames.setAliasGetParent("getParent");
         _lgNames.setAliasNext("next");
@@ -608,6 +609,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasGetDeclaredClasses("valClassesDeclarees");
         _lgNames.setAliasForName("parNom");
         _lgNames.setAliasObjectsUtil("$coeur.ObjetsUtil");
+        _lgNames.setAliasStringUtil("$coeur.ChaineUtil");
         _lgNames.setAliasSameRef("eq");
         _lgNames.setAliasGetParent("valParent");
         _lgNames.setAliasNext("suivant");

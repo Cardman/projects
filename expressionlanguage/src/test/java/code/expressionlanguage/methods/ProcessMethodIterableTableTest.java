@@ -16,7 +16,7 @@ import org.junit.Test;
 import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-public class ProcessMethodIterableTableTest extends ProcessMethodCommon {
+public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
     private static final String CUST_ITER_PATH = "pkg/CustIter";
     private static final String CUST_ITER_TABLE_PATH = "pkg/CustIterTable";
     private static final String CUST_LIST_PATH = "pkg/CustList";

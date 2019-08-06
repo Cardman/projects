@@ -13,6 +13,7 @@ import code.expressionlanguage.methods.ForEachLoop;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.PredefinedClasses;
 import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
@@ -120,6 +121,7 @@ public abstract class LgNames {
         list_.add(getAliasField());
         list_.add(getAliasMethod());
         list_.add(getAliasObjectsUtil());
+        list_.add(getAliasStringUtil());
         list_.add(getAliasResources());
         list_.add(getAliasClassNotFoundError());
         list_.add(getAliasErrorInitClass());
@@ -355,6 +357,8 @@ public abstract class LgNames {
         map_.put(getAliasObjectsUtil(), new StringList(
                 getAliasSameRef(),
                 getAliasGetParent()));
+        map_.put(getAliasStringUtil(), new StringList(
+                getAliasValueOf()));
         map_.put(getAliasResources(), new StringList(
                 getAliasReadResourcesNames(),
                 getAliasReadResources()));
@@ -779,6 +783,15 @@ public abstract class LgNames {
             return result_;
         }
         String mathType_ = lgNames_.getAliasMath();
+        String stringUtil_ = lgNames_.getAliasStringUtil();
+        if (StringList.quickEq(type_, stringUtil_)) {
+            Argument a_ = new Argument(args_[0]);
+            ExecOperationNode.processString(a_,_cont);
+            if (_cont.getCallMethod() == null) {
+                result_.setResult(a_.getStruct());
+            }
+            return result_;
+        }
         if (StringList.quickEq(type_, mathType_)) {
             if (_cont.isInitEnums()) {
                 _cont.failInitEnums();
@@ -2319,6 +2332,12 @@ public abstract class LgNames {
     }
     public void setAliasObjectsUtil(String _aliasObjectsUtil) {
         coreNames.setAliasObjectsUtil(_aliasObjectsUtil);
+    }
+    public String getAliasStringUtil() {
+        return coreNames.getAliasStringUtil();
+    }
+    public void setAliasStringUtil(String _aliasObjectsUtil) {
+        coreNames.setAliasStringUtil(_aliasObjectsUtil);
     }
     public String getAliasSameRef() {
         return coreNames.getAliasSameRef();

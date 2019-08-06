@@ -40,6 +40,7 @@ public final class AliasCore {
     private String aliasReadResourcesNames;
     private String aliasReadResources;
     private String aliasResources;
+    private String aliasStringUtil;
 
     public void build(LgNames _lgNames) {
         StringMap<StandardType> standards_ = _lgNames.getStandards();
@@ -167,6 +168,14 @@ public final class AliasCore {
         method_ = new StandardMethod(aliasGetParent, params_, aliasObject, false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         standards_.put(aliasObjectsUtil, stdcl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasStringUtil, fields_, constructors_, methods_, aliasObject, MethodModifier.ABSTRACT);
+        params_ = new StringList(aliasObject);
+        method_ = new StandardMethod(_lgNames.getAliasValueOf(), params_, _lgNames.getAliasString(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        standards_.put(aliasStringUtil, stdcl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
@@ -322,6 +331,14 @@ public final class AliasCore {
 
     public void setAliasObjectsUtil(String _aliasObjectsUtil) {
         aliasObjectsUtil = _aliasObjectsUtil;
+    }
+
+    public String getAliasStringUtil() {
+        return aliasStringUtil;
+    }
+
+    public void setAliasStringUtil(String _aliasStringUtil) {
+        aliasStringUtil = _aliasStringUtil;
     }
 
     public String getAliasSameRef() {

@@ -188,6 +188,7 @@ public final class DefaultInitialization {
         _lgNames.setAliasGetDeclaredClasses("getDeclaredClasses");
         _lgNames.setAliasForName("forName");
         _lgNames.setAliasObjectsUtil("java.lang.$ObjectsUtil");
+        _lgNames.setAliasStringUtil("java.lang.$StringUtil");
         _lgNames.setAliasSameRef("eq");
         _lgNames.setAliasGetParent("getParent");
         _lgNames.setAliasNext("next");
