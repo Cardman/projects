@@ -1,11 +1,15 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.calls.util.CustomFoundMethod;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.Delimiters;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.*;
+import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
@@ -335,7 +339,7 @@ public abstract class RendDynOperationNode {
         return out_;
     }
 
-    final void setNextSiblingsArg(Argument _arg, Configuration _cont) {
+    private void setNextSiblingsArg(Argument _arg, Configuration _cont) {
         if (_cont.getContextEl().hasException()) {
             return;
         }
@@ -426,21 +430,48 @@ public abstract class RendDynOperationNode {
 
 
     public final void setSimpleArgument(Argument _argument, Configuration _conf, IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {
-        setQuickSimpleArgument(_argument, _conf, _nodes);
+        setQuickConvertSimpleArgument(_argument, _conf, _nodes);
         setNextSiblingsArg(_argument, _conf);
     }
 
-    protected final void setQuickSimpleArgument(Argument _argument, Configuration _conf, IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {
+    protected final void setQuickNoConvertSimpleArgument(Argument _argument, Configuration _conf, IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {
+        setQuickSimpleArgument(false,_argument,_conf,_nodes);
+    }
+    protected final void setQuickConvertSimpleArgument(Argument _argument, Configuration _conf, IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {
+        setQuickSimpleArgument(true,_argument,_conf,_nodes);
+    }
+    private void setQuickSimpleArgument(boolean _convertToString,Argument _argument, Configuration _conf, IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {
         if (_conf.getContextEl().hasException()) {
             return;
         }
+        Argument out_ = _argument;
+        if (_convertToString && resultClass.isConvertToString()){
+            out_ = processString(_argument,_conf);
+            ContextEl ctx_ = _conf.getContext();
+            if (ctx_.hasException()) {
+                return;
+            }
+        }
         RendPossibleIntermediateDotted n_ = getSiblingSet();
         if (n_ != null) {
-            _nodes.getValue(n_.getOrder()).setPreviousArgument(_argument);
+            _nodes.getValue(n_.getOrder()).setPreviousArgument(out_);
         }
-        _nodes.getValue(getOrder()).setArgument(_argument);
+        _nodes.getValue(getOrder()).setArgument(out_);
     }
 
+    public static Argument processString(Argument _argument, Configuration _conf) {
+        Argument out_ = new Argument(_argument.getStruct());
+        ContextEl ctx_ = _conf.getContext();
+        ExecOperationNode.processString(out_, ctx_);
+        CustomFoundMethod method_ = ctx_.getCallMethod();
+        if (method_ != null) {
+            out_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(), method_.getId(), method_.getArguments(), ctx_,method_.getRight());
+        }
+        if (ctx_.hasException()) {
+            return Argument.createVoid();
+        }
+        return out_;
+    }
     public final ClassArgumentMatching getResultClass() {
         return resultClass;
     }

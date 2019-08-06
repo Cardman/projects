@@ -29,7 +29,7 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
         Argument f_ = getArgument(_nodes,first_);
         Struct abs_ = f_.getStruct();
         if (absorbingStruct().sameReference(abs_)) {
-            setQuickSimpleArgument(f_, _conf, _nodes);
+            setQuickConvertSimpleArgument(f_, _conf, _nodes);
             return;
         }
         ExecOperationNode last_ = chidren_.last();

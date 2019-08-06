@@ -43,7 +43,7 @@ public abstract class ExecAbstractFieldOperation extends ExecLeafOperation imple
             }
         }
         if (simple_) {
-            setQuickSimpleArgument(arg_, _conf, _nodes);
+            setQuickNoConvertSimpleArgument(arg_, _conf, _nodes);
         } else {
             setSimpleArgument(arg_, _conf, _nodes);
         }

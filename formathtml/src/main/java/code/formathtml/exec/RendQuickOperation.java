@@ -22,7 +22,7 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
         Argument f_ = getArgument(_nodes,chidren_.first());
         Struct abs_ = f_.getStruct();
         if (absorbingStruct().sameReference(abs_)) {
-            setQuickSimpleArgument(f_, _conf,_nodes);
+            setQuickConvertSimpleArgument(f_, _conf,_nodes);
             return;
         }
         Argument a_ = getArgument(_nodes,chidren_.last());

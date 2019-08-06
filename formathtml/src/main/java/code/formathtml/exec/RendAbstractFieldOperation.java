@@ -49,7 +49,7 @@ public abstract class RendAbstractFieldOperation extends RendLeafOperation imple
             }
         }
         if (simple_) {
-            setQuickSimpleArgument(arg_, _conf,_nodes);
+            setQuickNoConvertSimpleArgument(arg_, _conf,_nodes);
         } else {
             setSimpleArgument(arg_, _conf,_nodes);
         }

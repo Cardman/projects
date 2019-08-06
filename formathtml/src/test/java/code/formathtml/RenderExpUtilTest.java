@@ -8183,6 +8183,69 @@ public final class RenderExpUtilTest {
         assertNotNull(conf_.getException());
     }
     @Test
+    public void processEl449Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static String test(){\n");
+        xml_.append("  Ex e = $new Ex():\n");
+        xml_.append("  $return \"\"+e;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int[] inst={2,4}:\n");
+        xml_.append(" $public String $toString()\n");
+        xml_.append(" {\n");
+        xml_.append("  $return \"\"+inst[0]+\",\"+inst[1]:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration cont_ = getConfiguration4(files_);
+        addImportingPage(cont_);
+        Argument arg_ = processEl("pkg.Apply.test()", cont_);
+        assertEq("2,4",arg_.getString());
+    }
+    @Test
+    public void processEl450Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static String test(){\n");
+        xml_.append("  Ex e = $new Ex():\n");
+        xml_.append("  $return \"\"+e;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int[] inst={2,4}:\n");
+        xml_.append(" $public String $toString()\n");
+        xml_.append(" {\n");
+        xml_.append("  $return \"\"+inst[0]/0+\",\"+inst[1]:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration cont_ = getConfiguration4(files_);
+        addImportingPage(cont_);
+        processEl("pkg.Apply.test()", cont_);
+        assertNotNull(cont_.getException());
+    }
+    @Test
+    public void processEl451Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int[] inst={2,4}:\n");
+        xml_.append(" $public String $toString()\n");
+        xml_.append(" {\n");
+        xml_.append("  $return \"\"+inst[0]/0+\",\"+inst[1]:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration cont_ = getConfiguration4(files_);
+        addImportingPage(cont_);
+        processEl("\"\"+$new pkg.Ex()", cont_);
+        assertNotNull(cont_.getException());
+    }
+    @Test
     public void procesAffect00Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);

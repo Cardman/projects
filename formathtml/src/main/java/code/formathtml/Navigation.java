@@ -275,6 +275,9 @@ public final class Navigation {
             if (return_ != NullStruct.NULL_VALUE) {
                 ip_.setOffset(_anchorRef.length());
                 urlDest_ = getRendUrlDest(StringList.concat(beanName_, DOT, methodName_,suffix_), return_);
+                if (session.getContext().getException() != null) {
+                    return;
+                }
                 if (urlDest_ == null) {
                     urlDest_ = currentUrl;
                 }
@@ -622,6 +625,9 @@ public final class Navigation {
             return null;
         }
         String case_ = session.getAdvStandards().processString(new Argument(_return),session);
+        if (session.getContext().getException() != null) {
+            return null;
+        }
         return cases_.getVal(case_);
     }
 

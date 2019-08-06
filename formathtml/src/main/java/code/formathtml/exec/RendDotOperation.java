@@ -24,7 +24,7 @@ public final class RendDotOperation extends RendMethodOperation implements RendC
             simple_ = false;
         }
         if (simple_) {
-            setQuickSimpleArgument(getArgument(_nodes,chidren_.last()), _conf,_nodes);
+            setQuickNoConvertSimpleArgument(getArgument(_nodes,chidren_.last()), _conf,_nodes);
         } else {
             setSimpleArgument(getArgument(_nodes,chidren_.last()), _conf,_nodes);
         }

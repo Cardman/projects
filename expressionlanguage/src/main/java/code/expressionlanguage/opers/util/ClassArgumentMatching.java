@@ -14,6 +14,7 @@ public final class ClassArgumentMatching {
     private String unwrapObject = "";
 
     private boolean checkOnlyNullPe;
+    private boolean convertToString;
 
     public ClassArgumentMatching(String _className) {
         className.add(_className);
@@ -21,6 +22,13 @@ public final class ClassArgumentMatching {
 
     public ClassArgumentMatching(StringList _className) {
         className.addAllElts(_className);
+    }
+
+    public ClassArgumentMatching(ClassArgumentMatching _copy) {
+        className.addAllElts(_copy.className);
+        unwrapObject = _copy.unwrapObject;
+        checkOnlyNullPe = _copy.checkOnlyNullPe;
+        convertToString = _copy.convertToString;
     }
 
     public static ClassArgumentMatching[] toArgArray(CustList<ClassArgumentMatching> _args) {
@@ -137,4 +145,13 @@ public final class ClassArgumentMatching {
     public void setCheckOnlyNullPe(boolean _checkOnlyNullPe) {
         checkOnlyNullPe = _checkOnlyNullPe;
     }
+
+    public boolean isConvertToString() {
+        return convertToString;
+    }
+
+    public void setConvertToString(boolean _convertToString) {
+        convertToString = _convertToString;
+    }
+
 }

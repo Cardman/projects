@@ -51,7 +51,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
             array_ = getPreviousArgument(_nodes,this).getStruct();
             Argument a_ = new Argument();
             a_.setStruct(array_);
-            setQuickSimpleArgument(a_, _conf, _nodes);
+            setQuickNoConvertSimpleArgument(a_, _conf, _nodes);
             return;
         }
         CustList<Argument> arguments_ = getArguments(_nodes, this);

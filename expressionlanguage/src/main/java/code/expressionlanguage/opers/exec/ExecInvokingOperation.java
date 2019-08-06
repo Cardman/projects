@@ -176,7 +176,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         String classNameFound_ = _classMethodId.getClassName();
         classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
         String argClassName_ = _conf.getStandards().getStructClassName(_previous, _conf);
-        argClassName_ = Templates.getGenericString(argClassName_, _conf);
         String base_ = Templates.getIdFromAllTypes(argClassName_);
         MethodId id_ = _classMethodId.getConstraints();
         MethodId methodId_;

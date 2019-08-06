@@ -529,6 +529,16 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" $public $static Ex[] values(){\n");
         xml_.append(" }\n");
         xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int $toString(){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public String $toString($int p){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $private String $toString(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());

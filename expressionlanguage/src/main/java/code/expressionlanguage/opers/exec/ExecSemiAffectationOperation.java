@@ -52,11 +52,21 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         if (pair_ instanceof TwoStepsArgumentsPair) {
             TwoStepsArgumentsPair s_ = (TwoStepsArgumentsPair) pair_;
             if (s_.isCalledIndexer()) {
+                if (s_.isCalledToString()) {
+                    setSimpleArgument(_right, _conf, _nodes);
+                    return;
+                }
                 Argument out_ = ExecSemiAffectationOperation.getPrePost(post, stored_, _right);
                 setSimpleArgument(out_, _conf, _nodes);
                 return;
             }
             s_.setCalledIndexer(true);
+        }
+        if (pair_.isConvertToString()) {
+            if (pair_.isCalledToString()) {
+                setSimpleArgument(_right, _conf, _nodes);
+                return;
+            }
         }
         Argument arg_ = settable.endCalculate(_conf, _nodes, post, stored_, _right);
         setSimpleArgument(arg_, _conf, _nodes);

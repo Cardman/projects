@@ -186,6 +186,7 @@ public final class ThreadActions implements Runnable {
                     ArrayStruct fullStack_ = ((ErroneousStruct) exception_).getFullStack();
                     page.getArea().append(((ErroneousStruct) exception_).getStringRep(conf_,fullStack_.getInstance()));
                 } else {
+                    context_.setException(null);
                     String str_ = conf_.getAdvStandards().processString(new Argument(exception_), conf_);
                     page.getArea().append(str_);
                 }

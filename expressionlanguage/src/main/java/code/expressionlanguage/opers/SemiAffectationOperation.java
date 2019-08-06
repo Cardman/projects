@@ -40,7 +40,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        setResultClass(settable.getResultClass());
+        setResultClass(new ClassArgumentMatching(settable.getResultClass()));
         settable.setVariable(false);
         IntTreeMap< String> ops_ = getOperations().getOperators();
         String op_ = ops_.firstValue();

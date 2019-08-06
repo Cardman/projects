@@ -25,7 +25,7 @@ public final class RendIdOperation extends RendAbstractUnaryOperation {
             }
         }
         if (simple_) {
-            setQuickSimpleArgument(a_, _conf,_nodes);
+            setQuickNoConvertSimpleArgument(a_, _conf,_nodes);
         } else {
             setSimpleArgument(a_, _conf,_nodes);
         }

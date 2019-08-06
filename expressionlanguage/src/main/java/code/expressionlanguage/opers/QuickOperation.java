@@ -81,7 +81,7 @@ public abstract class QuickOperation extends MethodOperation {
                 okNum = false;
             }
         }
-        setResultClass(chidren_.last().getResultClass());
+        setResultClass(new ClassArgumentMatching(chidren_.last().getResultClass()));
     }
 
     public boolean isOkNum() {

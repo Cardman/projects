@@ -53,7 +53,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
             array_ = getPreviousArgument(_nodes,this).getStruct();
             Argument a_ = new Argument();
             a_.setStruct(array_);
-            setQuickSimpleArgument(a_, _conf,_nodes);
+            setQuickNoConvertSimpleArgument(a_, _conf,_nodes);
             return;
         }
         processCalling(_nodes,_conf, null);

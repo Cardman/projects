@@ -1168,11 +1168,11 @@ public final class BeanCustLgNames extends BeanLgNames {
 
     @Override
     public String processString(Argument _arg, Configuration _cont) {
-        Struct struct_ = _arg.getStruct();
-        if (struct_ instanceof DisplayableStruct) {
-            return ((DisplayableStruct)struct_).getDisplayedString(_cont).getInstance();
+        Argument arg_ = RendDynOperationNode.processString(_arg, _cont);
+        if (_cont.getContext().hasException()) {
+            return "";
         }
-        return struct_.getClassName(_cont);
+        return arg_.getString();
     }
 
     public String getAliasMapKeys() {

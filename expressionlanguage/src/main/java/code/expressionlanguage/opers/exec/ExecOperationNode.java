@@ -4,16 +4,19 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.calls.util.CustomFoundMethod;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.Delimiters;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.*;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.opers.util.ClassMethodIdReturn;
+import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -481,13 +484,27 @@ public abstract class ExecOperationNode implements Operable {
     }
 
     public final void setSimpleArgument(Argument _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
-        setQuickSimpleArgument(_argument, _conf, _nodes);
+        setQuickConvertSimpleArgument(_argument, _conf, _nodes);
         setNextSiblingsArg(_argument, _conf);
     }
 
-    protected final void setQuickSimpleArgument(Argument _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
+    protected final void setQuickNoConvertSimpleArgument(Argument _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
+        setQuickSimpleArgument(false,_argument, _conf, _nodes);
+    }
+    protected final void setQuickConvertSimpleArgument(Argument _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
+        setQuickSimpleArgument(true,_argument, _conf, _nodes);
+    }
+    protected final void setQuickSimpleArgument(boolean _convertToString,Argument _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
         if (_conf.callsOrException()) {
             return;
+        }
+        ArgumentsPair pair_ = getArgumentPair(_nodes,this);
+        if (_convertToString && resultClass.isConvertToString()){
+            pair_.setCalledToString(true);
+            processString(_argument,_conf);
+            if (_conf.getCallMethod() != null) {
+                return;
+            }
         }
         ExecPossibleIntermediateDotted n_ = getSiblingSet();
         if (n_ != null) {
@@ -497,6 +514,30 @@ public abstract class ExecOperationNode implements Operable {
         _conf.getCoverage().passBlockOperation(_conf, this,_argument);
     }
 
+    public static void processString(Argument _argument, ContextEl _conf) {
+        Struct struct_ = _argument.getStruct();
+        if (struct_ instanceof DisplayableStruct) {
+            _argument.setStruct(((DisplayableStruct)struct_).getDisplayedString(_conf));
+        } else {
+            String argClassName_ = _conf.getStandards().getStructClassName(struct_, _conf);
+            ClassMethodIdReturn resDyn_ = OperationNode.tryGetDeclaredToString(_conf, argClassName_);
+            ClassMethodId methodId_ = null;
+            if (resDyn_.isFoundMethod()) {
+                String foundClass_ = resDyn_.getRealClass();
+                foundClass_ = Templates.getIdFromAllTypes(foundClass_);
+                MethodId id_ = resDyn_.getRealId();
+                methodId_ = new ClassMethodId(foundClass_, id_);
+            }
+            if (methodId_ == null) {
+                _argument.setStruct(new StringStruct(struct_.getClassName(_conf)));
+            } else {
+                ClassMethodId polymorph_ = ExecInvokingOperation.polymorph(_conf, struct_, methodId_);
+                String className_ = polymorph_.getClassName();
+                MethodId ct_ = polymorph_.getConstraints();
+                _conf.setCallMethod(new CustomFoundMethod(_argument,className_,ct_,new CustList<Argument>(),null));
+            }
+        }
+    }
     @Override
     public final void setSimpleArgumentAna(Argument _argument, Analyzable _conf) {
         OperationNode.setArgAna(this, _argument, _conf);

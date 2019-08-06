@@ -47,6 +47,7 @@ public final class KeyWords {
     private String keyWordBreak = "$break";
     private String keyWordContinue = "$continue";
     private String keyWordOperator = "$operator";
+    private String keyWordToString = "$toString";
 
     private String keyWordEscUnicode = "u";
     private String keyWordEscForm = "f";
@@ -425,6 +426,7 @@ public final class KeyWords {
         keyWords_.add(keyWordBreak);
         keyWords_.add(keyWordContinue);
         keyWords_.add(keyWordOperator);
+        keyWords_.add(keyWordToString);
         keyWords_.add(keyWordCast);
         keyWords_.add(keyWordClasschoice);
         keyWords_.add(keyWordIntern);
@@ -483,6 +485,9 @@ public final class KeyWords {
             return false;
         }
         if (StringList.quickEq(_word, keyWordValue)) {
+            return false;
+        }
+        if (StringList.quickEq(_word, keyWordToString)) {
             return false;
         }
         return isKeyWord(_word);
@@ -750,6 +755,15 @@ public final class KeyWords {
     public void setKeyWordOperator(String _keyWordOperator) {
         keyWordOperator = _keyWordOperator;
     }
+
+    public String getKeyWordToString() {
+        return keyWordToString;
+    }
+
+    public void setKeyWordToString(String _keyWordToString) {
+        keyWordToString = _keyWordToString;
+    }
+
     public String getKeyWordEscUnicode() {
         return keyWordEscUnicode;
     }

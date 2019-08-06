@@ -71,7 +71,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
         }
         clMatch_.setUnwrapObject(cl_);
         child_.cancelArgument();
-        setResultClass(cl_);
+        setResultClass(new ClassArgumentMatching(cl_));
     }
 
     @Override

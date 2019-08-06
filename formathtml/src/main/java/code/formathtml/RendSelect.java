@@ -376,7 +376,6 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
     }
 
     private void processOptions(Configuration _conf, Document _docSelect, Element _docElementSelect, CustList<Struct> _obj, Struct _l) {
-        BeanLgNames stds_ = _conf.getAdvStandards();
         while (true) {
             Argument hasNext_ = hasNextPair(_l, _conf);
             if (_conf.getContext().getException() != null) {
@@ -399,20 +398,11 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 continue;
             }
             Element option_ = _docSelect.createElement(TAG_OPTION);
-            if (opsConverterField.isEmpty()) {
-                option_.setAttribute(ATTRIBUTE_VALUE, getStringKey(_conf, o_));
-            } else {
-                LocalVariable locVar_ = new LocalVariable();
-                locVar_.setClassName(_conf.getStandards().getAliasObject());
-                locVar_.setStruct(o_);
-                _conf.getLastPage().putLocalVar(varNameConverterField, locVar_);
-                Argument arg_ = RenderExpUtil.calculateReuse(opsConverterField, _conf);
-                _conf.getLastPage().removeLocalVar(varNameConverterField);
-                if (_conf.getContext().getException() != null) {
-                    return;
-                }
-                option_.setAttribute(ATTRIBUTE_VALUE,stds_.processString(arg_,_conf));
+            String value_ = processOptionValue(_conf, o_);
+            if (_conf.getContext().getException() != null) {
+                return;
             }
+            option_.setAttribute(ATTRIBUTE_VALUE,value_);
             for (Struct n: _obj) {
                 if (n.sameReference(o_)) {
                     option_.setAttribute(SELECTED, SELECTED);
@@ -423,22 +413,45 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             if (_conf.getContext().getException() != null) {
                 return;
             }
-            if (opsConverterFieldValue.isEmpty()) {
-                option_.appendChild(_docSelect.createTextNode(stds_.processString(second_,_conf)));
-            } else {
-                LocalVariable locVar_ = new LocalVariable();
-                locVar_.setClassName(_conf.getStandards().getAliasObject());
-                locVar_.setStruct(second_.getStruct());
-                _conf.getLastPage().putLocalVar(varNameConverterFieldValue, locVar_);
-                Argument arg_ = RenderExpUtil.calculateReuse(opsConverterFieldValue, _conf);
-                _conf.getLastPage().removeLocalVar(varNameConverterFieldValue);
-                if (_conf.getContext().getException() != null) {
-                    return;
-                }
-                option_.appendChild(_docSelect.createTextNode(stds_.processString(arg_,_conf)));
+            String txt_ = processOptionText(_conf, second_);
+            if (_conf.getContext().getException() != null) {
+                return;
             }
+            option_.appendChild(_docSelect.createTextNode(txt_));
             _docElementSelect.appendChild(option_);
         }
+    }
+    private String processOptionValue(Configuration _conf, Struct _arg) {
+        BeanLgNames stds_ = _conf.getAdvStandards();
+        if (opsConverterField.isEmpty()) {
+            return getStringKey(_conf, _arg);
+        }
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(_conf.getStandards().getAliasObject());
+        locVar_.setStruct(_arg);
+        _conf.getLastPage().putLocalVar(varNameConverterField, locVar_);
+        Argument arg_ = RenderExpUtil.calculateReuse(opsConverterField, _conf);
+        _conf.getLastPage().removeLocalVar(varNameConverterField);
+        if (_conf.getContext().getException() != null) {
+            return EMPTY_STRING;
+        }
+        return stds_.processString(arg_,_conf);
+    }
+    private String processOptionText(Configuration _conf, Argument _arg) {
+        BeanLgNames stds_ = _conf.getAdvStandards();
+        if (opsConverterFieldValue.isEmpty()) {
+            return stds_.processString(_arg,_conf);
+        }
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(_conf.getStandards().getAliasObject());
+        locVar_.setStruct(_arg.getStruct());
+        _conf.getLastPage().putLocalVar(varNameConverterFieldValue, locVar_);
+        Argument arg_ = RenderExpUtil.calculateReuse(opsConverterFieldValue, _conf);
+        _conf.getLastPage().removeLocalVar(varNameConverterFieldValue);
+        if (_conf.getContext().getException() != null) {
+            return EMPTY_STRING;
+        }
+        return stds_.processString(arg_,_conf);
     }
 
     CustList<Struct> values(Configuration _conf,Struct _returnedVarValue) {

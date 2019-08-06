@@ -20,6 +20,7 @@ import code.expressionlanguage.opers.util.ClassFormattedMethodId;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
@@ -511,10 +512,11 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         EqList<ConstructorId> idConstructors_ = new EqList<ConstructorId>();
         StringList idsField_ = new StringList();
         StringList idsAnnotMethods_ = new StringList();
-        String className_ = getFullName();
         CustList<Block> bl_;
         bl_ = Classes.getDirectChildren(this);
-        String keyWordValue_ = _context.getKeyWords().getKeyWordValue();
+        KeyWords keyWords_ = _context.getKeyWords();
+        LgNames stds_ = _context.getStandards();
+        String keyWordValue_ = keyWords_.getKeyWordValue();
         for (Block b: bl_) {
             if (b instanceof InfoBlock) {
                 continue;
@@ -566,13 +568,36 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     OverridableBlock m_ = (OverridableBlock) method_;
                     if (m_.getKind() == MethodKind.STD_METHOD) {
                         m_.buildImportedTypes(_context);
-                        if (!_context.isValidToken(name_)) {
+                        if (!_context.isValidToken(name_) && !StringList.quickEq(name_, keyWords_.getKeyWordToString())) {
                             int r_ = m_.getNameOffset();
                             BadMethodName badMeth_ = new BadMethodName();
                             badMeth_.setFileName(getFile().getFileName());
                             badMeth_.setIndexFile(r_);
                             badMeth_.setName(name_);
                             _context.getClasses().addError(badMeth_);
+                        } else if (StringList.quickEq(name_, keyWords_.getKeyWordToString()) && !m_.isStaticMethod()) {
+                            if (!StringList.quickEq(m_.getImportedReturnType(),stds_.getAliasString())) {
+                                int r_ = m_.getNameOffset();
+                                BadMethodName badMeth_ = new BadMethodName();
+                                badMeth_.setFileName(getFile().getFileName());
+                                badMeth_.setIndexFile(r_);
+                                badMeth_.setName(name_);
+                                _context.getClasses().addError(badMeth_);
+                            } else if (!m_.getParametersTypes().isEmpty()) {
+                                int r_ = m_.getNameOffset();
+                                BadMethodName badMeth_ = new BadMethodName();
+                                badMeth_.setFileName(getFile().getFileName());
+                                badMeth_.setIndexFile(r_);
+                                badMeth_.setName(name_);
+                                _context.getClasses().addError(badMeth_);
+                            } else if (m_.getAccess() != AccessEnum.PUBLIC) {
+                                int r_ = m_.getNameOffset();
+                                BadMethodName badMeth_ = new BadMethodName();
+                                badMeth_.setFileName(getFile().getFileName());
+                                badMeth_.setIndexFile(r_);
+                                badMeth_.setName(name_);
+                                _context.getClasses().addError(badMeth_);
+                            }
                         }
                     } else {
                         if (m_.isStaticMethod()) {
@@ -616,11 +641,11 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     if (m_.getKind() == MethodKind.STD_METHOD) {
                         MethodId id_ = m_.getId();
                         if (this instanceof EnumBlock || this instanceof InnerElementBlock) {
-                            String aliasName_ = _context.getStandards().getAliasEnumName();
-                            String ordinal_ = _context.getStandards().getAliasEnumOrdinal();
-                            String valueOf_ = _context.getStandards().getAliasEnumPredValueOf();
-                            String values_ = _context.getStandards().getAliasEnumValues();
-                            String string_ = _context.getStandards().getAliasString();
+                            String aliasName_ = stds_.getAliasEnumName();
+                            String ordinal_ = stds_.getAliasEnumOrdinal();
+                            String valueOf_ = stds_.getAliasEnumPredValueOf();
+                            String values_ = stds_.getAliasEnumValues();
+                            String string_ = stds_.getAliasString();
                             if (id_.eq(new MethodId(false, aliasName_, new StringList()))) {
                                 int r_ = m_.getOffset().getOffsetTrim();
                                 DuplicateMethod duplicate_;

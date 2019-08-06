@@ -60,12 +60,12 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
             Struct instance_ = arg_.getStruct();
             if (instance_ instanceof ByteStruct) {
                 clMatch_.setUnwrapObject(cl_);
-                setResultClass(cl_);
+                setResultClass(new ClassArgumentMatching(cl_));
                 return;
             }
             if (instance_ instanceof ShortStruct) {
                 clMatch_.setUnwrapObject(cl_);
-                setResultClass(cl_);
+                setResultClass(new ClassArgumentMatching(cl_));
                 return;
             }
         }
@@ -90,7 +90,7 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
         }
         clMatch_.setUnwrapObject(cl_);
         child_.cancelArgument();
-        setResultClass(cl_);
+        setResultClass(new ClassArgumentMatching(cl_));
     }
 
     @Override

@@ -42,7 +42,7 @@ public final class RendVariableOperation extends RendLeafOperation implements
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         Argument arg_ = getCommonArgument(_conf);
         if (resultCanBeSet()) {
-            setQuickSimpleArgument(arg_, _conf,_nodes);
+            setQuickNoConvertSimpleArgument(arg_, _conf,_nodes);
         } else {
             setSimpleArgument(arg_, _conf,_nodes);
         }

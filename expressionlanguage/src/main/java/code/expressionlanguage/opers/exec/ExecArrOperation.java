@@ -34,7 +34,7 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         }
         Argument a_ = getArgument(_nodes, max_, _conf);
         if (resultCanBeSet()) {
-            setQuickSimpleArgument(a_, _conf, _nodes);
+            setQuickNoConvertSimpleArgument(a_, _conf, _nodes);
         } else {
             setSimpleArgument(a_, _conf, _nodes);
         }

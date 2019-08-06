@@ -5,8 +5,7 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ResultOperand;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.StringStruct;
@@ -32,6 +31,12 @@ public final class AddOperation extends NumericOperation {
             ExecutableCode _cont) {
         if (StringList.quickEq(_op.trim(), PLUS)) {
             if (catString) {
+                if (!(_a.getStruct() instanceof DisplayableStruct)) {
+                    return new Argument();
+                }
+                if (!(_b.getStruct() instanceof DisplayableStruct)) {
+                    return new Argument();
+                }
                 StringBuilder str_ = new StringBuilder();
                 str_.append(((DisplayableStruct)_a.getStruct()).getDisplayedString(_cont).getInstance());
                 str_.append(((DisplayableStruct)_b.getStruct()).getDisplayedString(_cont).getInstance());
@@ -45,7 +50,6 @@ public final class AddOperation extends NumericOperation {
     ResultOperand analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, Analyzable _cont) {
         ResultOperand res_ = new ResultOperand();
         String stringType_ = _cont.getStandards().getAliasString();
-        String stringBuilderType_ = _cont.getStandards().getAliasStringBuilder();
         if (StringList.quickEq(_op.trim(), PLUS)) {
             int oa_ = PrimitiveTypeUtil.getOrderClass(_a, _cont);
             int ob_ = PrimitiveTypeUtil.getOrderClass(_b, _cont);
@@ -58,26 +62,14 @@ public final class AddOperation extends NumericOperation {
             }
             boolean str_ = false;
             if (_a.matchClass(stringType_)) {
-                if (_b.matchClass(stringType_)) {
-                    str_ = true;
-                } else if (_b.matchClass(stringBuilderType_)) {
-                    str_ = true;
-                } else if (_b.isVariable()) {
-                    str_ = true;
-                } else if (PrimitiveTypeUtil.isPrimitiveOrWrapper(_b, _cont)) {
-                    str_ = true;
-                }
+                str_ = true;
             }
             if (_b.matchClass(stringType_)) {
-                if (_a.matchClass(stringBuilderType_)) {
-                    str_ = true;
-                } else if (_a.isVariable()) {
-                    str_ = true;
-                } else if (PrimitiveTypeUtil.isPrimitiveOrWrapper(_a, _cont)) {
-                    str_ = true;
-                }
+                str_ = true;
             }
             if (str_) {
+                _a.setConvertToString(true);
+                _b.setConvertToString(true);
                 res_.setResult(new ClassArgumentMatching(stringType_));
                 res_.setCatString(true);
                 return res_;

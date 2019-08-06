@@ -127,6 +127,8 @@ public final class KeyWordsMap {
         fr_.setKeyWordNull("nul");
         en_.setKeyWordOperator("operator");
         fr_.setKeyWordOperator("operateur");
+        en_.setKeyWordToString("$toString");
+        fr_.setKeyWordToString("$versChaine");
         en_.setKeyWordPackage("package");
         fr_.setKeyWordPackage("paquetage");
         en_.setKeyWordPrivate("private");

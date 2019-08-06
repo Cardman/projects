@@ -880,7 +880,11 @@ public abstract class RendBlock {
                 if (_cont.getContext().getException() != null) {
                     return;
                 }
-                _write.setAttribute(ATTRIBUTE_VALUE, _cont.getAdvStandards().processString(o_, _cont));
+                String value_ = _cont.getAdvStandards().processString(o_, _cont);
+                if (_cont.getContext().getException() != null) {
+                    return;
+                }
+                _write.setAttribute(ATTRIBUTE_VALUE, value_);
             }
         }
         if (StringList.quickEq(_read.getTagName(),TEXT_AREA)) {
@@ -893,7 +897,11 @@ public abstract class RendBlock {
                 return;
             }
             Document doc_ = _write.getOwnerDocument();
-            Text text_ = doc_.createTextNode(_cont.getAdvStandards().processString(o_,_cont));
+            String value_ = _cont.getAdvStandards().processString(o_, _cont);
+            if (_cont.getContext().getException() != null) {
+                return;
+            }
+            Text text_ = doc_.createTextNode(value_);
             _write.appendChild(text_);
         }
         _write.removeAttribute(StringList.concat(_cont.getPrefix(),ATTRIBUTE_VAR_VALUE));
@@ -922,6 +930,9 @@ public abstract class RendBlock {
     }
     static String escapeParam(Configuration _conf, Argument _arg) {
         String str_ = _conf.getAdvStandards().processString(_arg,_conf);
+        if (_conf.getContext().hasExceptionOrFailInit()) {
+            return str_;
+        }
         StringMap<String> rep_ = new StringMap<String>();
         String quote_ = String.valueOf(QUOTE);
         rep_.put(String.valueOf(LEFT_EL), StringList.concat(quote_,String.valueOf(LEFT_EL),quote_));

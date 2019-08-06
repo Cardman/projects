@@ -93,6 +93,9 @@ public final class RendRadio extends RendInput {
             elt_.removeAttribute(CHECKED);
         } else {
             String strObj_ = getStringKey(_cont, res_);
+            if (_cont.getContext().getException() != null) {
+                return;
+            }
             if (StringList.quickEq(elt_.getAttribute(ATTRIBUTE_VALUE),strObj_)) {
                 elt_.setAttribute(CHECKED, CHECKED);
             } else {

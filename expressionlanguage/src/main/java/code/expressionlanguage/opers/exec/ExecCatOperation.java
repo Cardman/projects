@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AddOperation;
 import code.expressionlanguage.structs.DisplayableStruct;
+import code.expressionlanguage.structs.ReplacementStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -34,7 +35,13 @@ public final class ExecCatOperation extends ExecNumericOperation {
     public void quickCalculate(Analyzable _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         Argument a_ = chidren_.first().getArgument();
+        if (!(a_.getStruct() instanceof DisplayableStruct)) {
+            return;
+        }
         Argument c_ = chidren_.last().getArgument();
+        if (!(c_.getStruct() instanceof DisplayableStruct)) {
+            return;
+        }
         Argument r_;
         r_ = localSumDiff(a_, c_, _conf);
         setSimpleArgumentAna(r_, _conf);

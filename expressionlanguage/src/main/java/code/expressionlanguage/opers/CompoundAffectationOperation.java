@@ -81,7 +81,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             }
             return;
         }
-        setResultClass(elt_.getResultClass());
+        setResultClass(new ClassArgumentMatching(elt_.getResultClass()));
         elt_.setVariable(false);
         String stringType_ = stds_.getAliasString();
         boolean isString_ = elt_.getResultClass().matchClass(stringType_);
@@ -95,17 +95,22 @@ public final class CompoundAffectationOperation extends MethodOperation {
         Mapping mapping_ = new Mapping();
         mapping_.setArg(clMatchRight_);
         mapping_.setParam(clMatchLeft_);
-        BadImplicitCast cast_ = new BadImplicitCast();
-        cast_.setMapping(mapping_);
-        cast_.setFileName(_conf.getCurrentFileName());
-        cast_.setIndexFile(_conf.getCurrentLocationIndex());
         if (StringList.quickEq(oper, Block.PLUS_EQ)) {
             if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
-                if (!clMatchLeft_.matchClass(_conf.getStandards().getAliasString())) {
+                if (!isString_) {
+                    BadImplicitCast cast_ = new BadImplicitCast();
+                    cast_.setMapping(mapping_);
+                    cast_.setFileName(_conf.getCurrentFileName());
+                    cast_.setIndexFile(_conf.getCurrentLocationIndex());
                     _conf.getClasses().addError(cast_);
                     return;
                 }
+                clMatchRight_.setConvertToString(true);
             } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_, _conf)) {
+                BadImplicitCast cast_ = new BadImplicitCast();
+                cast_.setMapping(mapping_);
+                cast_.setFileName(_conf.getCurrentFileName());
+                cast_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(cast_);
                 return;
             }
@@ -121,13 +126,25 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 }
             }
             if (!okRes_) {
+                BadImplicitCast cast_ = new BadImplicitCast();
+                cast_.setMapping(mapping_);
+                cast_.setFileName(_conf.getCurrentFileName());
+                cast_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(cast_);
                 return;
             }
         } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
+            BadImplicitCast cast_ = new BadImplicitCast();
+            cast_.setMapping(mapping_);
+            cast_.setFileName(_conf.getCurrentFileName());
+            cast_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(cast_);
             return;
         } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_, _conf)) {
+            BadImplicitCast cast_ = new BadImplicitCast();
+            cast_.setMapping(mapping_);
+            cast_.setFileName(_conf.getCurrentFileName());
+            cast_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(cast_);
             return;
         }

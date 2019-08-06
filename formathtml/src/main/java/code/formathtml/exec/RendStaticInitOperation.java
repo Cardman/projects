@@ -25,6 +25,6 @@ public final class RendStaticInitOperation extends RendLeafOperation implements 
             NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
             ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
         }
-        setQuickSimpleArgument(Argument.createVoid(), _conf,_nodes);
+        setQuickNoConvertSimpleArgument(Argument.createVoid(), _conf,_nodes);
     }
 }

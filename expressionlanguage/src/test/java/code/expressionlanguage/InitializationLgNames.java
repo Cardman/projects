@@ -15,6 +15,12 @@ public final class InitializationLgNames {
         basicStandards(lgName_);
         return build(CustList.INDEX_NOT_FOUND_ELT,lgName_, _opt);
     }
+
+    public static ContextEl buildStdToString(Options _opt) {
+        LgNames lgName_ = new CustLgNames();
+        basicStandards(lgName_);
+        return buildToString(CustList.INDEX_NOT_FOUND_ELT,lgName_, _opt);
+    }
     public static ContextEl buildStdOne(String _lg,Options _opt) {
         LgNames lgName_ = new CustLgNames();
         basicStandards(lgName_);
@@ -29,6 +35,15 @@ public final class InitializationLgNames {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         KeyWords kw_ = new KeyWords();
+        ContextEl out_ = ContextFactory.build(_stack,lk_, di_, _opt, kw_, _lgNames,4);
+        Assert.assertTrue(out_.getClasses().isEmptyStdError());
+        return out_;
+    }
+    public static ContextEl buildToString(int _stack, LgNames _lgNames, Options _opt) {
+        DefaultLockingClass lk_ = new DefaultLockingClass();
+        DefaultInitializer di_ = new DefaultInitializer();
+        KeyWords kw_ = new KeyWords();
+        kw_.setKeyWordToString("toSpecString");
         ContextEl out_ = ContextFactory.build(_stack,lk_, di_, _opt, kw_, _lgNames,4);
         Assert.assertTrue(out_.getClasses().isEmptyStdError());
         return out_;

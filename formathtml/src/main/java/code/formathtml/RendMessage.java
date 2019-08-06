@@ -147,6 +147,9 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
             } else {
                 res_ = _cont.getAdvStandards().processString(arg_,_cont);
             }
+            if (_cont.getContext().hasExceptionOrFailInit()) {
+                return;
+            }
             objects_.add(res_);
             anchorArg_.add(res_);
         }

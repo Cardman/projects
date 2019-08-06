@@ -751,6 +751,88 @@ public abstract class OperationNode implements Operable {
         return return_;
     }
 
+    public static ClassMethodIdReturn tryGetDeclaredToString(Analyzable _conf, String _class) {
+        String toString_ = _conf.getKeyWords().getKeyWordToString();
+        ObjectMap<ClassMethodId, MethodInfo> methods_;
+        methods_ = new ObjectMap<ClassMethodId, MethodInfo>();
+        String baseCurName_ = Templates.getIdFromAllTypes(_class);
+        GeneType root_ = _conf.getClassBody(baseCurName_);
+        if (root_ != null) {
+            fetchInstanceMethods(_conf, false, true, null, "", methods_, 0, root_, _class);
+        }
+        return getCustResultExec(_conf, methods_, toString_);
+    }
+
+    private static ClassMethodIdReturn getCustResultExec(Analyzable _conf,
+                                                         ObjectMap<ClassMethodId, MethodInfo> _methods,
+                                                         String _name) {
+        CustList<MethodInfo> signatures_ = new CustList<MethodInfo>();
+        for (EntryCust<ClassMethodId, MethodInfo> e: _methods.entryList()) {
+            ClassMethodId key_ = e.getKey();
+            MethodId id_ = key_.getConstraints();
+            if (!StringList.quickEq(id_.getName(), _name)) {
+                continue;
+            }
+            MethodInfo mi_ = e.getValue();
+            signatures_.add(mi_);
+        }
+        MethodInfo found_ = sortFctExec(signatures_, _conf);
+        if (found_ == null) {
+            return new ClassMethodIdReturn(false);
+        }
+        MethodId constraints_ = found_.getConstraints();
+        String baseClassName_ = found_.getClassName();
+        ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
+        MethodId id_ = found_.getFormatted();
+        res_.setId(new ClassMethodId(baseClassName_, id_));
+        res_.setRealId(constraints_);
+        res_.setRealClass(baseClassName_);
+        res_.setReturnType(found_.getReturnType());
+        res_.setAncestor(found_.getAncestor());
+        res_.setAbstractMethod(found_.isAbstractMethod());
+        res_.setStaticMethod(found_.isStatic());
+        return res_;
+    }
+    private static MethodInfo sortFctExec(CustList<MethodInfo> _fct, Analyzable _context) {
+        MethodInfo meth_ = getFoundMethodExec(_fct, _context);
+        if (meth_ != null) {
+            return meth_;
+        }
+        return null;
+    }
+
+    private static MethodInfo getFoundMethodExec(CustList<MethodInfo> _fct, Analyzable _context) {
+        CustList<MethodInfo> nonAbs_ = new CustList<MethodInfo>();
+        CustList<MethodInfo> finals_ = new CustList<MethodInfo>();
+        for (MethodInfo p: _fct) {
+            if (!p.isFinalMethod()) {
+                continue;
+            }
+            finals_.add(p);
+        }
+        if (finals_.size() == 1) {
+            return finals_.first();
+        }
+        for (MethodInfo p: _fct) {
+            if (p.isAbstractMethod()) {
+                continue;
+            }
+            String type_ = p.getClassName();
+            type_ = Templates.getIdFromAllTypes(type_);
+            if (_context.getClassBody(type_) instanceof GeneInterface) {
+                continue;
+            }
+            nonAbs_.add(p);
+        }
+        if (nonAbs_.size() == 1) {
+            return nonAbs_.first();
+        }
+        if (_fct.isEmpty()) {
+            return null;
+        }
+        return _fct.first();
+    }
+
     protected static ClassMethodIdReturn tryGetDeclaredCustMethod(Analyzable _conf, int _varargOnly, boolean _staticContext, StringList _classes, String _name, boolean _superClass, boolean _accessFromSuper, boolean _import, ClassMethodId _uniqueId, ClassArgumentMatching[] _argsClass) {
         ObjectMap<ClassMethodId, MethodInfo> methods_;
         methods_ = getDeclaredCustMethodByType(_conf, _staticContext, _accessFromSuper, _superClass, _classes, _name, _import, _uniqueId);

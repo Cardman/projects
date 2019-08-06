@@ -101,7 +101,7 @@ public abstract class NumericOperation extends MethodOperation implements Symbol
         setCatenize(r_);
         okNum = _conf.isOkNumOp();
         a_ = r_.getResult();
-        setResultClass(a_);
+        setResultClass(new ClassArgumentMatching(a_));
     }
 
     abstract ResultOperand analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, Analyzable _cont);

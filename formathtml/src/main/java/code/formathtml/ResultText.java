@@ -253,7 +253,11 @@ public final class ResultText {
             if (_cont.getContext().hasExceptionOrFailInit()) {
                 return str_.toString();
             }
-            str_.append(standards_.processString(argument_,_cont));
+            String string_ = standards_.processString(argument_, _cont);
+            if (_cont.getContext().hasExceptionOrFailInit()) {
+                return str_.toString();
+            }
+            str_.append(string_);
         }
         str_.append(_texts.last());
         return str_.toString();

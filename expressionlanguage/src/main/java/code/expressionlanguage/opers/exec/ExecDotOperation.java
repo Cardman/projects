@@ -29,7 +29,7 @@ public final class ExecDotOperation extends ExecMethodOperation implements Atomi
             simple_ = false;
         }
         if (simple_) {
-            setQuickSimpleArgument(a_, _conf, _nodes);
+            setQuickNoConvertSimpleArgument(a_, _conf, _nodes);
         } else {
             setSimpleArgument(a_, _conf, _nodes);
         }
