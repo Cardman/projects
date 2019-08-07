@@ -56,6 +56,7 @@ public class LgNamesUtils extends LgNames {
     private String aliasWrite;
     private String aliasAppendToFile;
     private String aliasIllegalThreadStateException;
+
     private String aliasCustIterator;
     private String aliasList;
     private String aliasListItr;
@@ -68,6 +69,32 @@ public class LgNamesUtils extends LgNames {
     private String aliasArrayLi;
     private String aliasCustIteratorVar;
     private String aliasListVar;
+
+    private String aliasCustPair;
+    private String aliasFirst;
+    private String aliasSecond;
+    private String aliasSetFirst;
+    private String aliasSetSecond;
+    private String aliasCustIterTable;
+    private String aliasListIterTable;
+    private String aliasLengthItrTa;
+    private String aliasIndexItrTa;
+    private String aliasTable;
+    private String aliasListTa;
+    private String aliasAddTa;
+    private String aliasGetTa;
+    private String aliasSizeTa;
+    private String aliasGetFirstTa;
+    private String aliasGetSecondTa;
+    private String aliasSetFirstTa;
+    private String aliasSetSecondTa;
+    private String aliasRemoveTa;
+    private String aliasPairVarFirst;
+    private String aliasPairVarSecond;
+    private String aliasIterTaVarFirst;
+    private String aliasIterTaVarSecond;
+    private String aliasTableVarFirst;
+    private String aliasTableVarSecond;
 
     @Override
     public StringMap<String> buildFiles(ContextEl _context) {
@@ -165,6 +192,50 @@ public class LgNamesUtils extends LgNames {
         stds_.put(aliasList, content_);
         getPredefinedInterfacesInitOrder().add(aliasCustIterator);
         getPredefinedInterfacesInitOrder().add(aliasList);
+        content_ = ResourceFiles.ressourceFichier("resources_lg/collections/table.txt");
+        map_.put("{CustPair}",aliasCustPair);
+        map_.put("{Pair}",getAliasPairType());
+        map_.put("{U}",aliasPairVarFirst);
+        map_.put("{V}",aliasPairVarSecond);
+        map_.put("{first}",aliasFirst);
+        map_.put("{second}",aliasSecond);
+        map_.put("{getFirst}",getAliasGetFirst());
+        map_.put("{getSecond}",getAliasGetSecond());
+        map_.put("{setFirst}",aliasSetFirst);
+        map_.put("{setSecond}",aliasSetSecond);
+        map_.put("{f}", tr("f",_context));
+        map_.put("{s}", tr("s",_context));
+        map_.put("{CustIterTable}", aliasCustIterTable);
+        map_.put("{IterTypeTable}", getAliasIteratorTableType());
+        map_.put("{listItrTa}", aliasListIterTable);
+        map_.put("{lengthItrTa}", aliasLengthItrTa);
+        map_.put("{indexItrTa}", aliasIndexItrTa);
+        map_.put("{A}",aliasIterTaVarFirst);
+        map_.put("{B}",aliasIterTaVarSecond);
+        map_.put("{nextPair}",getAliasNextPair());
+        map_.put("{hasNextPair}",getAliasHasNextPair());
+        map_.put("{Table}",aliasTable);
+        map_.put("{listTa}",aliasListTa);
+        map_.put("{iterableTable}",getAliasIterableTable());
+        map_.put("{E}",aliasTableVarFirst);
+        map_.put("{F}",aliasTableVarSecond);
+        map_.put("{addTa}",aliasAddTa);
+        map_.put("{sizeTa}",aliasSizeTa);
+        map_.put("{getTa}",aliasGetTa);
+        map_.put("{getFirstTa}",aliasGetFirstTa);
+        map_.put("{getSecondTa}",aliasGetSecondTa);
+        map_.put("{setFirstTa}",aliasSetFirstTa);
+        map_.put("{setSecondTa}",aliasSetSecondTa);
+        map_.put("{removeTa}",aliasRemoveTa);
+        map_.put("{iteratorTable}",getAliasIteratorTable());
+        content_ = StringList.formatQuote(content_, map_);
+        getPredefinedClasses().add(aliasCustPair);
+        getPredefinedClasses().add(aliasCustIterTable);
+        getPredefinedClasses().add(aliasTable);
+        stds_.put(aliasTable, content_);
+        getPredefinedInterfacesInitOrder().add(aliasCustPair);
+        getPredefinedInterfacesInitOrder().add(aliasCustIterTable);
+        getPredefinedInterfacesInitOrder().add(aliasTable);
         return stds_;
     }
     private static String tr(String _var, ContextEl _context) {
@@ -1032,6 +1103,206 @@ public class LgNamesUtils extends LgNames {
         this.aliasListVar = aliasListVar;
     }
 
+    public String getAliasCustPair() {
+        return aliasCustPair;
+    }
+
+    public void setAliasCustPair(String aliasCustPair) {
+        this.aliasCustPair = aliasCustPair;
+    }
+
+    public String getAliasFirst() {
+        return aliasFirst;
+    }
+
+    public void setAliasFirst(String aliasFirst) {
+        this.aliasFirst = aliasFirst;
+    }
+
+    public String getAliasSecond() {
+        return aliasSecond;
+    }
+
+    public void setAliasSecond(String aliasSecond) {
+        this.aliasSecond = aliasSecond;
+    }
+
+    public String getAliasSetFirst() {
+        return aliasSetFirst;
+    }
+
+    public void setAliasSetFirst(String aliasSetFirst) {
+        this.aliasSetFirst = aliasSetFirst;
+    }
+
+    public String getAliasSetSecond() {
+        return aliasSetSecond;
+    }
+
+    public void setAliasSetSecond(String aliasSetSecond) {
+        this.aliasSetSecond = aliasSetSecond;
+    }
+
+    public String getAliasCustIterTable() {
+        return aliasCustIterTable;
+    }
+
+    public void setAliasCustIterTable(String aliasCustIterTable) {
+        this.aliasCustIterTable = aliasCustIterTable;
+    }
+
+    public String getAliasListIterTable() {
+        return aliasListIterTable;
+    }
+
+    public void setAliasListIterTable(String aliasListIterTable) {
+        this.aliasListIterTable = aliasListIterTable;
+    }
+
+    public String getAliasLengthItrTa() {
+        return aliasLengthItrTa;
+    }
+
+    public void setAliasLengthItrTa(String aliasLengthItrTa) {
+        this.aliasLengthItrTa = aliasLengthItrTa;
+    }
+
+    public String getAliasIndexItrTa() {
+        return aliasIndexItrTa;
+    }
+
+    public void setAliasIndexItrTa(String aliasIndexItrTa) {
+        this.aliasIndexItrTa = aliasIndexItrTa;
+    }
+
+    public String getAliasTable() {
+        return aliasTable;
+    }
+
+    public void setAliasTable(String aliasTable) {
+        this.aliasTable = aliasTable;
+    }
+
+    public String getAliasListTa() {
+        return aliasListTa;
+    }
+
+    public void setAliasListTa(String aliasListTa) {
+        this.aliasListTa = aliasListTa;
+    }
+
+    public String getAliasAddTa() {
+        return aliasAddTa;
+    }
+
+    public void setAliasAddTa(String aliasAddTa) {
+        this.aliasAddTa = aliasAddTa;
+    }
+
+    public String getAliasGetTa() {
+        return aliasGetTa;
+    }
+
+    public void setAliasGetTa(String aliasGetTa) {
+        this.aliasGetTa = aliasGetTa;
+    }
+
+    public String getAliasSizeTa() {
+        return aliasSizeTa;
+    }
+
+    public void setAliasSizeTa(String aliasSizeTa) {
+        this.aliasSizeTa = aliasSizeTa;
+    }
+
+    public String getAliasGetFirstTa() {
+        return aliasGetFirstTa;
+    }
+
+    public void setAliasGetFirstTa(String aliasGetFirstTa) {
+        this.aliasGetFirstTa = aliasGetFirstTa;
+    }
+
+    public String getAliasGetSecondTa() {
+        return aliasGetSecondTa;
+    }
+
+    public void setAliasGetSecondTa(String aliasGetSecondTa) {
+        this.aliasGetSecondTa = aliasGetSecondTa;
+    }
+
+    public String getAliasSetFirstTa() {
+        return aliasSetFirstTa;
+    }
+
+    public void setAliasSetFirstTa(String aliasSetFirstTa) {
+        this.aliasSetFirstTa = aliasSetFirstTa;
+    }
+
+    public String getAliasSetSecondTa() {
+        return aliasSetSecondTa;
+    }
+
+    public void setAliasSetSecondTa(String aliasSetSecondTa) {
+        this.aliasSetSecondTa = aliasSetSecondTa;
+    }
+
+    public String getAliasRemoveTa() {
+        return aliasRemoveTa;
+    }
+
+    public void setAliasRemoveTa(String aliasRemoveTa) {
+        this.aliasRemoveTa = aliasRemoveTa;
+    }
+
+    public String getAliasPairVarFirst() {
+        return aliasPairVarFirst;
+    }
+
+    public void setAliasPairVarFirst(String aliasPairVarFirst) {
+        this.aliasPairVarFirst = aliasPairVarFirst;
+    }
+
+    public String getAliasPairVarSecond() {
+        return aliasPairVarSecond;
+    }
+
+    public void setAliasPairVarSecond(String aliasPairVarSecond) {
+        this.aliasPairVarSecond = aliasPairVarSecond;
+    }
+
+    public String getAliasIterTaVarFirst() {
+        return aliasIterTaVarFirst;
+    }
+
+    public void setAliasIterTaVarFirst(String aliasIterTaVarFirst) {
+        this.aliasIterTaVarFirst = aliasIterTaVarFirst;
+    }
+
+    public String getAliasIterTaVarSecond() {
+        return aliasIterTaVarSecond;
+    }
+
+    public void setAliasIterTaVarSecond(String aliasIterTaVarSecond) {
+        this.aliasIterTaVarSecond = aliasIterTaVarSecond;
+    }
+
+    public String getAliasTableVarFirst() {
+        return aliasTableVarFirst;
+    }
+
+    public void setAliasTableVarFirst(String aliasTableVarFirst) {
+        this.aliasTableVarFirst = aliasTableVarFirst;
+    }
+
+    public String getAliasTableVarSecond() {
+        return aliasTableVarSecond;
+    }
+
+    public void setAliasTableVarSecond(String aliasTableVarSecond) {
+        this.aliasTableVarSecond = aliasTableVarSecond;
+    }
+
     public void otherAlias(String _lang) {
         if (StringList.quickEq(_lang, "en")) {
             setAliasPrint("print");
@@ -1072,6 +1343,31 @@ public class LgNamesUtils extends LgNames {
             setAliasArrayLi("array");
             setAliasCustIteratorVar("T");
             setAliasListVar("T");
+            setAliasCustPair("$core.PairImpl");
+            setAliasFirst("first");
+            setAliasSecond("second");
+            setAliasSetFirst("setFirst");
+            setAliasSetSecond("setSecond");
+            setAliasPairVarFirst("T");
+            setAliasPairVarSecond("U");
+            setAliasCustIterTable("$core.CustIteratorTable");
+            setAliasListIterTable("list");
+            setAliasLengthItrTa("length");
+            setAliasIndexItrTa("index");
+            setAliasIterTaVarFirst("T");
+            setAliasIterTaVarSecond("U");
+            setAliasTable("$core.Table");
+            setAliasListTa("list");
+            setAliasAddTa("add");
+            setAliasGetTa("get");
+            setAliasSizeTa("size");
+            setAliasGetFirstTa("getFirst");
+            setAliasGetSecondTa("getSecond");
+            setAliasSetFirstTa("setFirst");
+            setAliasSetSecondTa("setSecond");
+            setAliasRemoveTa("remove");
+            setAliasTableVarFirst("T");
+            setAliasTableVarSecond("U");
         } else {
             setAliasPrint("afficher");
             setAliasRunnable("$coeur.Executable");
@@ -1111,6 +1407,31 @@ public class LgNamesUtils extends LgNames {
             setAliasArrayLi("tableau");
             setAliasCustIteratorVar("T");
             setAliasListVar("T");
+            setAliasCustPair("$core.PairImpl");
+            setAliasFirst("premier");
+            setAliasSecond("deuxieme");
+            setAliasSetFirst("majPremier");
+            setAliasSetSecond("majDeuxieme");
+            setAliasPairVarFirst("T");
+            setAliasPairVarSecond("U");
+            setAliasCustIterTable("$coeur.CustIterateurTable");
+            setAliasListIterTable("liste");
+            setAliasLengthItrTa("longueur");
+            setAliasIndexItrTa("indice");
+            setAliasIterTaVarFirst("T");
+            setAliasIterTaVarSecond("U");
+            setAliasTable("$coeur.Table");
+            setAliasListTa("liste");
+            setAliasAddTa("ajouter");
+            setAliasGetTa("val");
+            setAliasSizeTa("taille");
+            setAliasGetFirstTa("valPremier");
+            setAliasGetSecondTa("valDeuxieme");
+            setAliasSetFirstTa("majPremier");
+            setAliasSetSecondTa("majDeuxieme");
+            setAliasRemoveTa("supprimer");
+            setAliasTableVarFirst("T");
+            setAliasTableVarSecond("U");
         }
     }
     private static boolean sleep(long _time) {
