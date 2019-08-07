@@ -238,7 +238,7 @@ public class LgNamesUtils extends LgNames {
         getPredefinedInterfacesInitOrder().add(aliasTable);
         return stds_;
     }
-    private static String tr(String _var, ContextEl _context) {
+    protected static String tr(String _var, ContextEl _context) {
         StringList allKeysWords_ = _context.getKeyWords().allKeyWords();
         allKeysWords_.addAllElts(_context.getStandards().getPrimitiveTypes().getKeys());
         allKeysWords_.add(_context.getStandards().getAliasVoid());

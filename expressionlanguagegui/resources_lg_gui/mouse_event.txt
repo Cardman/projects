@@ -1,0 +1,7 @@
+{public} {interface} {MouseListener} '{'
+ {void} {mouseClicked}({MouseEvent} {e}){endLine}
+ {void} {mousePressed}({MouseEvent} {e}){endLine}
+ {void} {mouseReleased}({MouseEvent} {e}){endLine}
+ {void} {mouseEntered}({MouseEvent} {e}){endLine}
+ {void} {mouseExited}({MouseEvent} {e}){endLine}
+'}'

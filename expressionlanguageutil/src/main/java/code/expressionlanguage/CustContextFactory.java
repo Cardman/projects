@@ -10,6 +10,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class CustContextFactory {
+    private CustContextFactory(){}
     public static RunnableContextEl buildDefKw(String _lang,
             Options _options, ExecutingOptions _exec,LgNamesUtils _undefinedLgNames, StringMap<String> _files, int _tabWidth) {
         KeyWordsMap km_ = new KeyWordsMap(); 

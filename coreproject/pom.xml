@@ -27,5 +27,6 @@
 		<module>../guicommon</module>
 		<module>../network</module>
 		<module>../musiccore</module>
+		<module>../expressionlanguagegui</module>
 	</modules>
 </project>

@@ -32,6 +32,9 @@ public final class PlainButton extends CustComponent {
         button.addActionListener(l);
     }
 
+    public boolean isEnabled() {
+        return button.isEnabled();
+    }
     public void setEnabled(boolean b) {
         button.setEnabled(b);
     }

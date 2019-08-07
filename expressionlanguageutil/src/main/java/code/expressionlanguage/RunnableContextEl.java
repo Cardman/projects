@@ -7,7 +7,7 @@ import code.expressionlanguage.structs.ErrorStruct;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public final class RunnableContextEl extends ContextEl {
+public class RunnableContextEl extends ContextEl {
 
     private CustInitializer custInit;
     private AtomicBoolean interrupt;
