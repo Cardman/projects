@@ -422,7 +422,7 @@ public final class PaginatorPokemon extends Paginator {
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
         bottom_.add(getNbResults());
         getPages().setListener(new ChangedPageEvent(this));
-        getDelta().getDocument().addDocumentListener(new ChangedDeltaPageEvent(this));
+        getDelta().addDocumentListener(new ChangedDeltaPageEvent(this));
         bottom_.add(getBegin());
         bottom_.add(getPreviousDelta());
         bottom_.add(getPrevious());

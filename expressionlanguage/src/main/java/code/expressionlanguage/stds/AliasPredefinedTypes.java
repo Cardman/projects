@@ -2,18 +2,26 @@ package code.expressionlanguage.stds;
 
 public final class AliasPredefinedTypes {
     private String aliasIterable;
+    private String aliasIterableVar;
     private String aliasIterator;
     private String aliasIteratorType;
+    private String aliasIteratorTypeVar;
     private String aliasNext;
     private String aliasHasNext;
     private String aliasIterableTable;
+    private String aliasIterableTableVarFirst;
+    private String aliasIterableTableVarSecond;
     private String aliasIteratorTable;
     private String aliasIteratorTableType;
+    private String aliasIteratorTableTypeVarFirst;
+    private String aliasIteratorTableTypeVarSecond;
     private String aliasHasNextPair;
     private String aliasNextPair;
     private String aliasPairType;
     private String aliasGetFirst;
     private String aliasGetSecond;
+    private String aliasPairTypeVarFirst;
+    private String aliasPairTypeVarSecond;
 
     private String aliasEnumParam;
     private String aliasEnum;
@@ -21,6 +29,7 @@ public final class AliasPredefinedTypes {
     private String aliasEnumOrdinal;
     private String aliasEnumValues;
     private String aliasEnumPredValueOf;
+    private String aliasEnumParamVar;
 
     public String getAliasIterable() {
         return aliasIterable;
@@ -137,4 +146,75 @@ public final class AliasPredefinedTypes {
         aliasEnumPredValueOf = _aliasEnumPredValueOf;
     }
 
+    public String getAliasIterableVar() {
+        return aliasIterableVar;
+    }
+
+    public void setAliasIterableVar(String aliasIterableVar) {
+        this.aliasIterableVar = aliasIterableVar;
+    }
+
+    public String getAliasIteratorTypeVar() {
+        return aliasIteratorTypeVar;
+    }
+
+    public void setAliasIteratorTypeVar(String aliasIteratorTypeVar) {
+        this.aliasIteratorTypeVar = aliasIteratorTypeVar;
+    }
+
+    public String getAliasIterableTableVarFirst() {
+        return aliasIterableTableVarFirst;
+    }
+
+    public void setAliasIterableTableVarFirst(String aliasIterableTableVarFirst) {
+        this.aliasIterableTableVarFirst = aliasIterableTableVarFirst;
+    }
+
+    public String getAliasIterableTableVarSecond() {
+        return aliasIterableTableVarSecond;
+    }
+
+    public void setAliasIterableTableVarSecond(String aliasIterableTableVarSecond) {
+        this.aliasIterableTableVarSecond = aliasIterableTableVarSecond;
+    }
+
+    public String getAliasIteratorTableTypeVarFirst() {
+        return aliasIteratorTableTypeVarFirst;
+    }
+
+    public void setAliasIteratorTableTypeVarFirst(String aliasIteratorTableTypeVarFirst) {
+        this.aliasIteratorTableTypeVarFirst = aliasIteratorTableTypeVarFirst;
+    }
+
+    public String getAliasIteratorTableTypeVarSecond() {
+        return aliasIteratorTableTypeVarSecond;
+    }
+
+    public void setAliasIteratorTableTypeVarSecond(String aliasIteratorTableTypeVarSecond) {
+        this.aliasIteratorTableTypeVarSecond = aliasIteratorTableTypeVarSecond;
+    }
+
+    public String getAliasPairTypeVarFirst() {
+        return aliasPairTypeVarFirst;
+    }
+
+    public void setAliasPairTypeVarFirst(String aliasPairTypeVarFirst) {
+        this.aliasPairTypeVarFirst = aliasPairTypeVarFirst;
+    }
+
+    public String getAliasPairTypeVarSecond() {
+        return aliasPairTypeVarSecond;
+    }
+
+    public void setAliasPairTypeVarSecond(String aliasPairTypeVarSecond) {
+        this.aliasPairTypeVarSecond = aliasPairTypeVarSecond;
+    }
+
+    public String getAliasEnumParamVar() {
+        return aliasEnumParamVar;
+    }
+
+    public void setAliasEnumParamVar(String aliasEnumParamVar) {
+        this.aliasEnumParamVar = aliasEnumParamVar;
+    }
 }

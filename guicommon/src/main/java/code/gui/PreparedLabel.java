@@ -61,7 +61,7 @@ public final class PreparedLabel extends CustComponent {
         label.addKeyListener(_l);
     }
 
-    public JLabel getLabel() {
+    JLabel getLabel() {
         return label;
     }
 }

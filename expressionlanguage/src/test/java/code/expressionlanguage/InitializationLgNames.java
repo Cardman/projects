@@ -252,6 +252,15 @@ public final class InitializationLgNames {
         _lgNames.setAliasEnumName("$name");
         _lgNames.setAliasEnumOrdinal("$ordinal");
         _lgNames.setAliasEnumPredValueOf("valueOf");
+        _lgNames.setAliasIterableVar("T");
+        _lgNames.setAliasIteratorTypeVar("T");
+        _lgNames.setAliasIterableTableVarFirst("T");
+        _lgNames.setAliasIterableTableVarSecond("U");
+        _lgNames.setAliasIteratorTableTypeVarFirst("T");
+        _lgNames.setAliasIteratorTableTypeVarSecond("U");
+        _lgNames.setAliasPairTypeVarFirst("T");
+        _lgNames.setAliasPairTypeVarSecond("U");
+        _lgNames.setAliasEnumParamVar("T");
         _lgNames.setAliasGetOldString("getOldString");
         _lgNames.setAliasGetNewString("getNewString");
         _lgNames.setAliasGetSuperClass("getSuperClass");

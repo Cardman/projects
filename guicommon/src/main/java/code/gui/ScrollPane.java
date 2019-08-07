@@ -1,7 +1,5 @@
 package code.gui;
 
-import java.awt.Dimension;
-
 import javax.swing.*;
 
 public final class ScrollPane extends CustComponent {
@@ -45,12 +43,12 @@ public final class ScrollPane extends CustComponent {
         component.validate();
     }
 
-    public JScrollBar getHorizontalScrollBar() {
-        return component.getHorizontalScrollBar();
+    public ScrollBar getHorizontalScrollBar() {
+        return new ScrollBar(component.getHorizontalScrollBar());
     }
 
-    public JScrollBar getVerticalScrollBar() {
-        return component.getVerticalScrollBar();
+    public ScrollBar getVerticalScrollBar() {
+        return new ScrollBar(component.getVerticalScrollBar());
     }
 
     public void revalidate() {

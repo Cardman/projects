@@ -20,6 +20,7 @@ import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.variables.VariableSuffix;
 import code.resources.ResourceFiles;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -55,6 +56,18 @@ public class LgNamesUtils extends LgNames {
     private String aliasWrite;
     private String aliasAppendToFile;
     private String aliasIllegalThreadStateException;
+    private String aliasCustIterator;
+    private String aliasList;
+    private String aliasListItr;
+    private String aliasLengthItrLi;
+    private String aliasLengthLi;
+    private String aliasIndexItrLi;
+    private String aliasSizeLi;
+    private String aliasAddLi;
+    private String aliasRemoveLi;
+    private String aliasArrayLi;
+    private String aliasCustIteratorVar;
+    private String aliasListVar;
 
     @Override
     public StringMap<String> buildFiles(ContextEl _context) {
@@ -62,9 +75,37 @@ public class LgNamesUtils extends LgNames {
         String content_ = ResourceFiles.ressourceFichier("resources_lg/threads/runnable.txt");
         KeyWords keyWords_ = _context.getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
+        String private_ = keyWords_.getKeyWordPrivate();
         String interface_ = keyWords_.getKeyWordInterface();
+        String int_ = getAliasPrimInteger();
+        String boolean_ = getAliasPrimBoolean();
+        String class_ = keyWords_.getKeyWordClass();
+        String this_ = keyWords_.getKeyWordThis();
+        String new_ = keyWords_.getKeyWordNew();
+        String return_ = keyWords_.getKeyWordReturn();
+        String iter_ = keyWords_.getKeyWordIter();
+        String value_ = keyWords_.getKeyWordValue();
         String abstract_ = keyWords_.getKeyWordAbstract();
         String endLine_ = String.valueOf(_context.getOptions().getEndLine());
+        String suffix_ = String.valueOf(_context.getOptions().getSuffix());
+        String suffixLocal_ = "";
+        if (_context.getOptions().getSuffixVar() == VariableSuffix.DISTINCT) {
+            suffixLocal_ = StringList.concat(suffix_,".");
+        } else if (_context.getOptions().getSuffixVar() != VariableSuffix.NONE) {
+            suffixLocal_ = suffix_;
+        }
+        String suffixParam_ = "";
+        if (_context.getOptions().getSuffixVar() == VariableSuffix.DISTINCT) {
+            suffixParam_ = StringList.concat(suffix_,".",suffix_);
+        } else if (_context.getOptions().getSuffixVar() != VariableSuffix.NONE) {
+            suffixParam_ = suffix_;
+        }
+        String suffixLoop_ = "";
+        if (_context.getOptions().getSuffixVar() == VariableSuffix.DISTINCT) {
+            suffixLoop_ = suffix_;
+        } else if (_context.getOptions().getSuffixVar() != VariableSuffix.NONE) {
+            suffixLoop_ = suffix_;
+        }
         StringMap<String> map_;
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -78,8 +119,67 @@ public class LgNamesUtils extends LgNames {
         getPredefinedClasses().add(aliasRunnable);
         stds_.put(aliasRunnable, content_);
         getPredefinedInterfacesInitOrder().add(aliasRunnable);
+        content_ = ResourceFiles.ressourceFichier("resources_lg/collections/list.txt");
+        map_ = new StringMap<String>();
+        map_.put("{public}", public_);
+        map_.put("{private}", private_);
+        map_.put("{class}", class_);
+        map_.put("{Iter}", aliasCustIterator);
+        map_.put("{T}", aliasCustIteratorVar);
+        map_.put("{List}", aliasList);
+        map_.put("{E}", aliasListVar);
+        map_.put("{int}", int_);
+        map_.put("{boolean}", boolean_);
+        map_.put("{i}", tr("i",_context));
+        map_.put("{p}", tr("p",_context));
+        map_.put("{out}", tr("out",_context));
+        map_.put("{ind}", tr("ind",_context));
+        map_.put("{param}", suffixParam_);
+        map_.put("{local}", suffixLocal_);
+        map_.put("{loop}", suffixLoop_);
+        map_.put("{iteratorType}", getAliasIteratorType());
+        map_.put("{iterable}", getAliasIterable());
+        map_.put("{listItr}", aliasListItr);
+        map_.put("{lengthItrLi}", aliasLengthItrLi);
+        map_.put("{indexItrLi}", aliasIndexItrLi);
+        map_.put("{void}", getAliasVoid());
+        map_.put("{this}", this_);
+        map_.put("{sizeLi}", aliasSizeLi);
+        map_.put("{next}", getAliasNext());
+        map_.put("{hasNext}", getAliasHasNext());
+        map_.put("{return}", return_);
+        map_.put("{array}", aliasArrayLi);
+        map_.put("{lengthLi}", aliasLengthLi);
+        map_.put("{new}", new_);
+        map_.put("{clone}", getAliasClone());
+        map_.put("{length}", getAliasLength());
+        map_.put("{add}", aliasAddLi);
+        map_.put("{iter}", iter_);
+        map_.put("{value}", value_);
+        map_.put("{remove}", aliasRemoveLi);
+        map_.put("{iterator}", getAliasIterator());
+        map_.put("{endLine}", endLine_);
+        content_ = StringList.formatQuote(content_, map_);
+        getPredefinedClasses().add(aliasCustIterator);
+        getPredefinedClasses().add(aliasList);
+        stds_.put(aliasList, content_);
+        getPredefinedInterfacesInitOrder().add(aliasCustIterator);
+        getPredefinedInterfacesInitOrder().add(aliasList);
         return stds_;
     }
+    private static String tr(String _var, ContextEl _context) {
+        StringList allKeysWords_ = _context.getKeyWords().allKeyWords();
+        allKeysWords_.addAllElts(_context.getStandards().getPrimitiveTypes().getKeys());
+        allKeysWords_.add(_context.getStandards().getAliasVoid());
+        String candidate_ = _var;
+        int index_ = 0;
+        while (StringList.contains(allKeysWords_,candidate_)) {
+            candidate_ = StringList.concatNbs(_var,index_);
+            index_++;
+        }
+        return candidate_;
+    }
+
     @Override
     public void buildOther() {
         StringMap<StandardField> fields_;
@@ -646,6 +746,14 @@ public class LgNamesUtils extends LgNames {
                 getAliasRead(),
                 getAliasWrite(),
                 getAliasAppendToFile()));
+        m_.put(getAliasCustIterator(), new StringList(
+                getAliasNext(),
+                getAliasHasNext()));
+        m_.put(getAliasList(), new StringList(
+                getAliasAddLi(),
+                getAliasSizeLi(),
+                getAliasRemoveLi(),
+                getAliasIterator()));
         return m_;
     }
 
@@ -659,6 +767,8 @@ public class LgNamesUtils extends LgNames {
         ref_.add(getAliasAtomicLong());
         ref_.add(getAliasFile());
         ref_.add(getAliasIllegalThreadStateException());
+        ref_.add(getAliasCustIterator());
+        ref_.add(getAliasList());
         return ref_;
     }
 
@@ -826,6 +936,102 @@ public class LgNamesUtils extends LgNames {
         aliasIllegalThreadStateException = _aliasIllegalThreadStateException;
     }
 
+    public String getAliasCustIterator() {
+        return aliasCustIterator;
+    }
+
+    public void setAliasCustIterator(String aliasCustIterator) {
+        this.aliasCustIterator = aliasCustIterator;
+    }
+
+    public String getAliasList() {
+        return aliasList;
+    }
+
+    public void setAliasList(String aliasList) {
+        this.aliasList = aliasList;
+    }
+
+    public String getAliasListItr() {
+        return aliasListItr;
+    }
+
+    public void setAliasListItr(String aliasListItr) {
+        this.aliasListItr = aliasListItr;
+    }
+
+    public String getAliasLengthItrLi() {
+        return aliasLengthItrLi;
+    }
+
+    public void setAliasLengthItrLi(String aliasLengthItrLi) {
+        this.aliasLengthItrLi = aliasLengthItrLi;
+    }
+
+    public String getAliasLengthLi() {
+        return aliasLengthLi;
+    }
+
+    public void setAliasLengthLi(String aliasLengthLi) {
+        this.aliasLengthLi = aliasLengthLi;
+    }
+
+    public String getAliasIndexItrLi() {
+        return aliasIndexItrLi;
+    }
+
+    public void setAliasIndexItrLi(String aliasIndexItrLi) {
+        this.aliasIndexItrLi = aliasIndexItrLi;
+    }
+
+    public String getAliasSizeLi() {
+        return aliasSizeLi;
+    }
+
+    public void setAliasSizeLi(String aliasSizeLi) {
+        this.aliasSizeLi = aliasSizeLi;
+    }
+
+    public String getAliasAddLi() {
+        return aliasAddLi;
+    }
+
+    public void setAliasAddLi(String aliasAddLi) {
+        this.aliasAddLi = aliasAddLi;
+    }
+
+    public String getAliasRemoveLi() {
+        return aliasRemoveLi;
+    }
+
+    public void setAliasRemoveLi(String aliasRemoveLi) {
+        this.aliasRemoveLi = aliasRemoveLi;
+    }
+
+    public String getAliasArrayLi() {
+        return aliasArrayLi;
+    }
+
+    public void setAliasArrayLi(String aliasArrayLi) {
+        this.aliasArrayLi = aliasArrayLi;
+    }
+
+    public String getAliasCustIteratorVar() {
+        return aliasCustIteratorVar;
+    }
+
+    public void setAliasCustIteratorVar(String aliasCustIteratorVar) {
+        this.aliasCustIteratorVar = aliasCustIteratorVar;
+    }
+
+    public String getAliasListVar() {
+        return aliasListVar;
+    }
+
+    public void setAliasListVar(String aliasListVar) {
+        this.aliasListVar = aliasListVar;
+    }
+
     public void otherAlias(String _lang) {
         if (StringList.quickEq(_lang, "en")) {
             setAliasPrint("print");
@@ -854,6 +1060,18 @@ public class LgNamesUtils extends LgNames {
             setAliasWrite("write");
             setAliasAppendToFile("appendToFile");
             setAliasIllegalThreadStateException("$core.IllegalThreadState");
+            setAliasCustIterator("$core.CustIterator");
+            setAliasList("$core.List");
+            setAliasListItr("list");
+            setAliasLengthItrLi("length");
+            setAliasLengthLi("length");
+            setAliasIndexItrLi("index");
+            setAliasSizeLi("size");
+            setAliasAddLi("add");
+            setAliasRemoveLi("remove");
+            setAliasArrayLi("array");
+            setAliasCustIteratorVar("T");
+            setAliasListVar("T");
         } else {
             setAliasPrint("afficher");
             setAliasRunnable("$coeur.Executable");
@@ -881,6 +1099,18 @@ public class LgNamesUtils extends LgNames {
             setAliasWrite("ecrire");
             setAliasAppendToFile("ajouterFinFichier");
             setAliasIllegalThreadStateException("$coeur.IllegalEtatTache");
+            setAliasCustIterator("$coeur.CustIterateur");
+            setAliasList("$coeur.Liste");
+            setAliasListItr("liste");
+            setAliasLengthItrLi("longueur");
+            setAliasLengthLi("longueur");
+            setAliasIndexItrLi("indice");
+            setAliasSizeLi("taille");
+            setAliasAddLi("ajouter");
+            setAliasRemoveLi("supprimer");
+            setAliasArrayLi("tableau");
+            setAliasCustIteratorVar("T");
+            setAliasListVar("T");
         }
     }
     private static boolean sleep(long _time) {

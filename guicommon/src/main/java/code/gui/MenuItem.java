@@ -6,7 +6,7 @@ import javax.swing.Icon;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-public class MenuItem implements EnabledMenu {
+public final class MenuItem implements EnabledMenu {
 
     private Menu parentMenu;
 
@@ -36,7 +36,7 @@ public class MenuItem implements EnabledMenu {
         menu =new JMenuItem(_text);
     }
 
-    public JMenuItem getMenu() {
+    JMenuItem getMenu() {
         return menu;
     }
 

@@ -1,24 +1,27 @@
 package code.gui;
-import javax.swing.JMenu;
+import code.util.CustList;
+
 import javax.swing.JMenuBar;
-public class MenuBar {
+public final class MenuBar {
 
     private JMenuBar menuBar = new JMenuBar();
+    private CustList<Menu> menus = new CustList<Menu>();
 
-    public JMenuBar getMenuBar() {
+    JMenuBar getMenuBar() {
         return menuBar;
     }
 
     public void add(Menu _c) {
         menuBar.add(_c.getMenu());
+        menus.add(_c);
     }
 
-    public JMenu getMenu(int _index) {
-        return menuBar.getMenu(_index);
+    public Menu getMenu(int _index) {
+        return menus.get(_index);
     }
 
     public int getMenuCount() {
-        return menuBar.getMenuCount();
+        return menus.size();
     }
 
 }

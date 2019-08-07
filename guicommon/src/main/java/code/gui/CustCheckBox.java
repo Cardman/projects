@@ -216,14 +216,6 @@ public final class CustCheckBox extends CustComponent {
         return checkBox.getMultiClickThreshhold();
     }
 
-    public ButtonModel getModel() {
-        return checkBox.getModel();
-    }
-
-    public void setModel(ButtonModel newModel) {
-        checkBox.setModel(newModel);
-    }
-
     public void addChangeListener(ChangeListener l) {
         checkBox.addChangeListener(l);
     }

@@ -1,12 +1,5 @@
 package cards.gui.dialogs;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 
-import javax.swing.BoxLayout;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerNumberModel;
 
 import cards.consts.MixCardsChoice;
@@ -208,7 +201,6 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         sousPanneau_.add(new TextLabel(getMessages().getVal(NUMBER_PLAYERS)));
         sousPanneau_.add(new TextLabel(getMessages().getVal(REPARTITION_PLAYERS)));
 
-        Ints nombreJoueursPossible_=new Ints();
         EnumList<DealingTarot> repValides_ = new EnumList<DealingTarot>(DealingTarot.getRepartitionsValides());
         int minJoueurs_=repValides_.get(0).getNombreJoueurs();
         int maxJoueurs_=repValides_.get(0).getNombreJoueurs();
@@ -219,17 +211,8 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
             if(maxJoueurs_<r.getNombreJoueurs()) {
                 maxJoueurs_=r.getNombreJoueurs();
             }
-            if (_nbPlayers != 0) {
-                if (_nbPlayers != r.getNombreJoueurs()) {
-                    continue;
-                }
-            }
-            if(!nombreJoueursPossible_.containsObj(r.getNombreJoueurs())) {
-                nombreJoueursPossible_.add(r.getNombreJoueurs());
-            }
         }
-        nombreJoueursPossible_.sort();
-        SpinnerListModel spin_ = new SpinnerListModel(nombreJoueursPossible_.toArray());
+        SpinnerNumberModel spin_ = new SpinnerNumberModel(minJoueurs_,minJoueurs_,maxJoueurs_,1);
         if (_nbPlayers != 0) {
             spin_.setValue(_nbPlayers);
         } else {
@@ -276,7 +259,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
 
     public void validateHandful() {
         int valeur_ = poigneesAutorisees.getVal(listeChoixFive.getCurrentElement());
-        SpinnerNumberModel modele_ = (SpinnerNumberModel) nbAtoutsPoignee.getModel();
+        SpinnerNumberModel modele_ = nbAtoutsPoignee.getModel();
         modele_.setValue(valeur_);
     }
 
@@ -314,7 +297,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
             poigneesAutorisees.put(p, Handfuls.getConfigurationParDefautAnnoncePoignee(p).getVal(nbCartesJoueur_));
         }
         Handfuls poignee_ = listeChoixFive.getCurrentElement();
-        SpinnerNumberModel modele_ = (SpinnerNumberModel) nbAtoutsPoignee.getModel();
+        SpinnerNumberModel modele_ = nbAtoutsPoignee.getModel();
         modele_.setMaximum(nbCartesJoueur_);
         modele_.setValue(Handfuls.getConfigurationParDefautAnnoncePoignee(poignee_).getVal(nbCartesJoueur_));
     }
@@ -330,14 +313,14 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
             poigneesAutorisees.put(p, Handfuls.getConfigurationParDefautAnnoncePoignee(p).getVal(nbCartesJoueur_));
         }
         Handfuls poignee_ = listeChoixFive.getCurrentElement();
-        SpinnerNumberModel modele_ = (SpinnerNumberModel) nbAtoutsPoignee.getModel();
+        SpinnerNumberModel modele_ = nbAtoutsPoignee.getModel();
         modele_.setMaximum(nbCartesJoueur_);
         modele_.setValue(Handfuls.getConfigurationParDefautAnnoncePoignee(poignee_).getVal(nbCartesJoueur_));
     }
 
     public void validateHandfulTrumps() {
         Handfuls poignee_ = listeChoixFive.getCurrentElement();
-        SpinnerNumberModel modele_ = (SpinnerNumberModel) nbAtoutsPoignee.getModel();
+        SpinnerNumberModel modele_ = nbAtoutsPoignee.getModel();
         int valeur_ = (Integer) modele_.getValue();
         poigneesAutorisees.put(poignee_, valeur_);
     }

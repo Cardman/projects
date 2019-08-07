@@ -9,6 +9,10 @@ public final class PopupMenu extends CustComponent {
         return popupMenu;
     }
 
+    JPopupMenu getPopupMenu() {
+        return popupMenu;
+    }
+
     public void setVisible(boolean b) {
         popupMenu.setVisible(b);
     }

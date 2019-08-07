@@ -14,19 +14,7 @@ public final class TableGui extends CustComponent {
         table = new JTable(_d);
     }
 
-    public void addNotify() {
-        table.addNotify();
-    }
-
-    public void removeNotify() {
-        table.removeNotify();
-    }
-
-    public void setTableHeader(JTableHeader tableHeader) {
-        table.setTableHeader(tableHeader);
-    }
-
-    public JTableHeader getTableHeader() {
+    JTableHeader getTableHeader() {
         return table.getTableHeader();
     }
 
@@ -250,10 +238,6 @@ public final class TableGui extends CustComponent {
         table.setSelectionBackground(selectionBackground);
     }
 
-    public TableColumn getColumn(Object identifier) {
-        return table.getColumn(identifier);
-    }
-
     public int convertColumnIndexToModel(int viewColumnIndex) {
         return table.convertColumnIndexToModel(viewColumnIndex);
     }
@@ -292,14 +276,6 @@ public final class TableGui extends CustComponent {
 
     public boolean isCellEditable(int row, int column) {
         return table.isCellEditable(row, column);
-    }
-
-    public void addColumn(TableColumn aColumn) {
-        table.addColumn(aColumn);
-    }
-
-    public void removeColumn(TableColumn aColumn) {
-        table.removeColumn(aColumn);
     }
 
     public void moveColumn(int column, int targetColumn) {
@@ -346,10 +322,6 @@ public final class TableGui extends CustComponent {
         return table.isEditing();
     }
 
-    public Component getEditorComponent() {
-        return table.getEditorComponent();
-    }
-
     public int getEditingColumn() {
         return table.getEditingColumn();
     }
@@ -358,27 +330,11 @@ public final class TableGui extends CustComponent {
         return table.getEditingRow();
     }
 
-    public void setModel(TableModel dataModel) {
-        table.setModel(dataModel);
-    }
-
-    public TableModel getModel() {
+    TableModel getModel() {
         return table.getModel();
     }
 
-    public void setColumnModel(TableColumnModel columnModel) {
-        table.setColumnModel(columnModel);
-    }
-
-    public TableColumnModel getColumnModel() {
-        return table.getColumnModel();
-    }
-
-    public void setSelectionModel(ListSelectionModel newModel) {
-        table.setSelectionModel(newModel);
-    }
-
-    public ListSelectionModel getSelectionModel() {
+    ListSelectionModel getSelectionModel() {
         return table.getSelectionModel();
     }
 
@@ -410,28 +366,12 @@ public final class TableGui extends CustComponent {
         return table.getFillsViewportHeight();
     }
 
-    public TableCellEditor getCellEditor() {
-        return table.getCellEditor();
-    }
-
-    public void setCellEditor(TableCellEditor anEditor) {
-        table.setCellEditor(anEditor);
-    }
-
     public void setEditingColumn(int aColumn) {
         table.setEditingColumn(aColumn);
     }
 
     public void setEditingRow(int aRow) {
         table.setEditingRow(aRow);
-    }
-
-    public TableCellRenderer getCellRenderer(int row, int column) {
-        return table.getCellRenderer(row, column);
-    }
-
-    public TableCellEditor getCellEditor(int row, int column) {
-        return table.getCellEditor(row, column);
     }
 
     public void removeEditor() {

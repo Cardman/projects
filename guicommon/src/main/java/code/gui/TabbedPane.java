@@ -1,11 +1,9 @@
 package code.gui;
 
-import java.awt.Component;
-
 import javax.swing.JComponent;
 import javax.swing.JTabbedPane;
 
-public class TabbedPane extends CustComponent {
+public final class TabbedPane extends CustComponent {
 
     private JTabbedPane component;
 
@@ -14,17 +12,20 @@ public class TabbedPane extends CustComponent {
     }
 
     public int getComponentCount() {
-        return component.getComponentCount();
+        return getChildren().size();
     }
 
-    public Component add(String _title, CustComponent _component) {
+    public void add(String _title, CustComponent _component) {
+        if (_component.getParent() != null) {
+            return;
+        }
         _component.setParent(this);
         getChildren().add(_component);
-        return component.add(_title, _component.getComponent());
+        component.add(_title, _component.getComponent());
     }
 
-    public Component getComponentAt(int _index) {
-        return component.getComponentAt(_index);
+    public CustComponent getComponent(int _index) {
+        return getChildren().get(_index);
     }
 
     @Override
@@ -41,6 +42,9 @@ public class TabbedPane extends CustComponent {
     }
 
     public void addTab(String _name, CustComponent _component) {
+        if (_component.getParent() != null) {
+            return;
+        }
         component.addTab(_name,_component.getComponent());
         getChildren().add(_component);
     }

@@ -1,11 +1,6 @@
 package cards.gui.dialogs;
-import java.awt.GridLayout;
 
-import javax.swing.BoxLayout;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerListModel;
+import javax.swing.*;
 
 import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
@@ -160,13 +155,9 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         players_.add(new TextLabel(getMessages().getVal(NUMBER_PLAYERS)));
         players_.add(new TextLabel(getMessages().getVal(NUMBER_STACKS)));
 
-        Ints nombreJoueursPossible_=new Ints();
         int minJoueurs_ = RulesPresident.getNbMinPlayers();
         int maxJoueurs_ = RulesPresident.getNbMaxPlayers();
-        for (int i = minJoueurs_; i <= maxJoueurs_; i++) {
-            nombreJoueursPossible_.add(i);
-        }
-        SpinnerListModel spin_ = new SpinnerListModel(nombreJoueursPossible_.toArray());
+        SpinnerNumberModel spin_ = new SpinnerNumberModel(minJoueurs_,minJoueurs_,maxJoueurs_,1);
         if (_nbPlayers != 0) {
             spin_.setValue(_nbPlayers);
         } else {
@@ -179,13 +170,9 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
             nbJoueurs.setEnabled(false);
         }
         players_.add(nbJoueurs);
-        Ints stacks_ = new Ints();
         int minStacks_ = getReglesPresident().getNbMinStacks();
         int maxStacks_ = getReglesPresident().getNbMaxStacks();
-        for (int i = minStacks_; i <= maxStacks_; i++) {
-            stacks_.add(i);
-        }
-        spin_ = new SpinnerListModel(stacks_.toArray());
+        spin_ = new SpinnerNumberModel(minStacks_,minStacks_,maxStacks_,1);
         spin_.setValue(getReglesPresident().getNbStacks());
         nbStacks=new Spinner(spin_);
         nbStacks.addChangeListener(new ListenerStacks(this));
@@ -203,12 +190,8 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
 
     @Override
     public void validateNbPlayers(MainWindow _window) {
-        Ints stacks_ = new Ints();
         int minStacks_ = RulesPresident.getNbMinStacks((Integer) nbJoueurs.getValue());
         int maxStacks_ = RulesPresident.getNbMaxStacks((Integer) nbJoueurs.getValue());
-        for (int i = minStacks_; i <= maxStacks_; i++) {
-            stacks_.add(i);
-        }
         int v_ = (Integer) nbStacks.getValue();
         if (v_ < minStacks_) {
             v_ = minStacks_;
@@ -216,7 +199,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         if (v_ > maxStacks_) {
             v_ = maxStacks_;
         }
-        SpinnerListModel spin_ = new SpinnerListModel(stacks_.toArray());
+        SpinnerNumberModel spin_ = new SpinnerNumberModel(minStacks_,minStacks_,maxStacks_,1);
         nbStacks.setModel(spin_);
         nbStacks.setValue(v_);
         int nbSuits_ = Suit.couleursOrdinaires().size();

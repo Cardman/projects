@@ -258,7 +258,4 @@ public final class MainWindow extends GroupFrame {
         
     }
 
-    public void printAll(Graphics _g) {
-        getFrame().printAll(_g);
-    }
 }

@@ -3,7 +3,7 @@ package code.gui;
 import javax.swing.JComponent;
 import javax.swing.JSplitPane;
 
-public class SplitPane extends CustComponent {
+public final class SplitPane extends CustComponent {
 
     private JSplitPane component;
 
@@ -21,12 +21,18 @@ public class SplitPane extends CustComponent {
     }
 
     public void setLeftComponent(CustComponent _scroll) {
+        if (_scroll.getParent() != null) {
+            return;
+        }
         getChildren().first().setParent(null);
         _scroll.setParent(this);
         getChildren().set(0, _scroll);
     }
 
     public void setRightComponent(CustComponent _scroll) {
+        if (_scroll.getParent() != null) {
+            return;
+        }
         getChildren().last().setParent(null);
         _scroll.setParent(this);
         getChildren().set(1, _scroll);

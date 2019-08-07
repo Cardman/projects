@@ -2110,6 +2110,78 @@ public abstract class LgNames {
     public void setAliasEnumPredValueOf(String _aliasValues) {
         predefTypes.setAliasEnumPredValueOf(_aliasValues);
     }
+
+    public String getAliasIterableVar() {
+        return predefTypes.getAliasIterableVar();
+    }
+
+    public void setAliasIterableVar(String aliasIterableVar) {
+        predefTypes.setAliasIterableVar(aliasIterableVar);
+    }
+
+    public String getAliasIteratorTypeVar() {
+        return predefTypes.getAliasIteratorTypeVar();
+    }
+
+    public void setAliasIteratorTypeVar(String aliasIteratorTypeVar) {
+        predefTypes.setAliasIteratorTypeVar(aliasIteratorTypeVar);
+    }
+
+    public String getAliasIterableTableVarFirst() {
+        return predefTypes.getAliasIterableTableVarFirst();
+    }
+
+    public void setAliasIterableTableVarFirst(String aliasIterableTableVarFirst) {
+        predefTypes.setAliasIterableTableVarFirst(aliasIterableTableVarFirst);
+    }
+
+    public String getAliasIterableTableVarSecond() {
+        return predefTypes.getAliasIterableTableVarSecond();
+    }
+
+    public void setAliasIterableTableVarSecond(String aliasIterableTableVarSecond) {
+        predefTypes.setAliasIterableTableVarSecond(aliasIterableTableVarSecond);
+    }
+
+    public String getAliasIteratorTableTypeVarFirst() {
+        return predefTypes.getAliasIteratorTableTypeVarFirst();
+    }
+
+    public void setAliasIteratorTableTypeVarFirst(String aliasIteratorTableTypeVarFirst) {
+        predefTypes.setAliasIteratorTableTypeVarFirst(aliasIteratorTableTypeVarFirst);
+    }
+
+    public String getAliasIteratorTableTypeVarSecond() {
+        return predefTypes.getAliasIteratorTableTypeVarSecond();
+    }
+
+    public void setAliasIteratorTableTypeVarSecond(String aliasIteratorTableTypeVarSecond) {
+        predefTypes.setAliasIteratorTableTypeVarSecond(aliasIteratorTableTypeVarSecond);
+    }
+
+    public String getAliasPairTypeVarFirst() {
+        return predefTypes.getAliasPairTypeVarFirst();
+    }
+
+    public void setAliasPairTypeVarFirst(String aliasPairTypeVarFirst) {
+        predefTypes.setAliasPairTypeVarFirst(aliasPairTypeVarFirst);
+    }
+
+    public String getAliasPairTypeVarSecond() {
+        return predefTypes.getAliasPairTypeVarSecond();
+    }
+
+    public void setAliasPairTypeVarSecond(String aliasPairTypeVarSecond) {
+        predefTypes.setAliasPairTypeVarSecond(aliasPairTypeVarSecond);
+    }
+
+    public String getAliasEnumParamVar() {
+        return predefTypes.getAliasEnumParamVar();
+    }
+
+    public void setAliasEnumParamVar(String aliasEnumParamVar) {
+        predefTypes.setAliasEnumParamVar(aliasEnumParamVar);
+    }
     public String getAliasInvokeTarget() {
         return reflect.getAliasInvokeTarget();
     }

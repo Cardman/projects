@@ -39,7 +39,7 @@ public class CheckBoxMenuItem implements EnabledMenu {
         menu = new JCheckBoxMenuItem(_text, _icon, _b);
     }
 
-    public JCheckBoxMenuItem getMenu() {
+    JCheckBoxMenuItem getMenu() {
         return menu;
     }
 

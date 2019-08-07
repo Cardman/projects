@@ -1,7 +1,6 @@
 package code.gui;
 
 import java.awt.*;
-import java.text.AttributedCharacterIterator;
 
 public final class CustGraphics {
     private Graphics graphics;
@@ -35,14 +34,6 @@ public final class CustGraphics {
 
     public void setFont(Font font) {
         graphics.setFont(font);
-    }
-
-    public FontMetrics getFontMetrics() {
-        return graphics.getFontMetrics();
-    }
-
-    public FontMetrics getFontMetrics(Font f) {
-        return graphics.getFontMetrics(f);
     }
 
     public Rectangle getClipBounds() {
@@ -139,10 +130,6 @@ public final class CustGraphics {
 
     public void drawString(String str, int x, int y) {
         graphics.drawString(str, x, y);
-    }
-
-    public void drawString(AttributedCharacterIterator iterator, int x, int y) {
-        graphics.drawString(iterator, x, y);
     }
 
     public void drawChars(char[] data, int offset, int length, int x, int y) {

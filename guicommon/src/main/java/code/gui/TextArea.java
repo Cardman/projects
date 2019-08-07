@@ -6,12 +6,12 @@ import javax.swing.event.CaretListener;
 import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.InputMethodListener;
 import java.awt.event.MouseEvent;
 
 public final class TextArea extends CustComponent {
 
     private JTextArea textArea;
+    private PopupMenu popupMenu;
     public TextArea() {
         textArea = new JTextArea();
     }
@@ -113,12 +113,12 @@ public final class TextArea extends CustComponent {
         textArea.setDocument(doc);
     }
 
-    public Document getDocument() {
-        return textArea.getDocument();
+    public int getDocumentLength() {
+        return textArea.getDocument().getLength();
     }
 
-    public Action[] getActions() {
-        return textArea.getActions();
+    public Document getDocument() {
+        return textArea.getDocument();
     }
 
     public void setDragEnabled(boolean b) {
@@ -261,10 +261,6 @@ public final class TextArea extends CustComponent {
         return textArea.getScrollableTracksViewportHeight();
     }
 
-    public void addInputMethodListener(InputMethodListener l) {
-        textArea.addInputMethodListener(l);
-    }
-
     public void setInheritsPopupMenu(boolean value) {
         textArea.setInheritsPopupMenu(value);
     }
@@ -273,12 +269,13 @@ public final class TextArea extends CustComponent {
         return textArea.getInheritsPopupMenu();
     }
 
-    public void setComponentPopupMenu(JPopupMenu popup) {
-        textArea.setComponentPopupMenu(popup);
+    public void setComponentPopupMenu(PopupMenu _popup) {
+        textArea.setComponentPopupMenu(_popup.getPopupMenu());
+        popupMenu = _popup;
     }
 
-    public JPopupMenu getComponentPopupMenu() {
-        return textArea.getComponentPopupMenu();
+    public PopupMenu getComponentPopupMenu() {
+        return popupMenu;
     }
 
     public boolean isPaintingTile() {
@@ -319,10 +316,6 @@ public final class TextArea extends CustComponent {
 
     public boolean getVerifyInputWhenFocusTarget() {
         return textArea.getVerifyInputWhenFocusTarget();
-    }
-
-    public FontMetrics getFontMetrics(Font font) {
-        return textArea.getFontMetrics(font);
     }
 
     public boolean contains(int x, int y) {

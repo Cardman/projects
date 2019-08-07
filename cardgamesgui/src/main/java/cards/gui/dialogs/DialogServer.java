@@ -1,11 +1,6 @@
 package cards.gui.dialogs;
-import java.awt.GridLayout;
 
-import javax.swing.JLabel;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
-import javax.swing.SpinnerListModel;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 
 import cards.belote.enumerations.DealingBelote;
 import cards.facade.enumerations.GameEnum;
@@ -20,7 +15,6 @@ import code.network.ComboBoxIpType;
 import code.network.enums.IpType;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.Ints;
 import code.util.StringMap;
 
 public final class DialogServer extends DialogCards implements AbstractDialogServer{
@@ -68,7 +62,6 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
         Panel pane_ = Panel.newGrid(0, 1);
         Panel panel_ = Panel.newGrid(0, 2);
         if (_game == GameEnum.TAROT) {
-            Ints nombreJoueursPossible_=new Ints();
             EnumList<DealingTarot> repValides_ = new EnumList<DealingTarot>(DealingTarot.getRepartitionsValides());
             int minJoueurs_=repValides_.get(0).getNombreJoueurs();
             int maxJoueurs_=repValides_.get(0).getNombreJoueurs();
@@ -79,26 +72,17 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
                 if(maxJoueurs_<r.getNombreJoueurs()){
                     maxJoueurs_=r.getNombreJoueurs();
                 }
-                if(!nombreJoueursPossible_.containsObj(r.getNombreJoueurs())){
-                    nombreJoueursPossible_.add(r.getNombreJoueurs());
-                }
             }
-            nombreJoueursPossible_.sort();
-            nbPlayers = new Spinner(new SpinnerListModel(nombreJoueursPossible_.toArray()));
+            nbPlayers = new Spinner(new SpinnerNumberModel(minJoueurs_,minJoueurs_,maxJoueurs_,1));
             panel_.add(new TextLabel(messages.getVal(NUMBER_PLAYERS)));
             panel_.add(nbPlayers);
         } else if (_game == GameEnum.PRESIDENT) {
-            Ints nombreJoueursPossible_=new Ints();
             int minJoueurs_ = RulesPresident.getNbMinPlayers();
             int maxJoueurs_ = RulesPresident.getNbMaxPlayers();
-            for (int i = minJoueurs_; i <= maxJoueurs_; i++) {
-                nombreJoueursPossible_.add(i);
-            }
-            nbPlayers = new Spinner(new SpinnerListModel(nombreJoueursPossible_.toArray()));
+            nbPlayers = new Spinner(new SpinnerNumberModel(minJoueurs_,minJoueurs_,maxJoueurs_,1));
             panel_.add(new TextLabel(messages.getVal(NUMBER_PLAYERS)));
             panel_.add(nbPlayers);
         } else {
-            Ints nombreJoueursPossible_=new Ints();
             EnumList<DealingBelote> repValides_ = new EnumList<DealingBelote>(DealingBelote.getRepartitionsValides());
             int minJoueurs_=repValides_.get(0).getNombreJoueurs();
             int maxJoueurs_=repValides_.get(0).getNombreJoueurs();
@@ -109,12 +93,8 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
                 if(maxJoueurs_<r.getNombreJoueurs()){
                     maxJoueurs_=r.getNombreJoueurs();
                 }
-                if(!nombreJoueursPossible_.containsObj(r.getNombreJoueurs())){
-                    nombreJoueursPossible_.add(r.getNombreJoueurs());
-                }
             }
-            nombreJoueursPossible_.sort();
-            nbPlayers = new Spinner(new SpinnerListModel(nombreJoueursPossible_.toArray()));
+            nbPlayers = new Spinner(new SpinnerNumberModel(minJoueurs_,minJoueurs_,maxJoueurs_,1));
             panel_.add(new TextLabel(messages.getVal(NUMBER_PLAYERS)));
             panel_.add(nbPlayers);
         }

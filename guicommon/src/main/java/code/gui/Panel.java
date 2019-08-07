@@ -83,18 +83,27 @@ public class Panel extends CustComponent {
     }
 
     public void add(CustComponent _comp) {
+        if (_comp.getParent() != null) {
+            return;
+        }
         _comp.setParent(this);
         getChildren().add(_comp);
         panel.add(_comp.getComponent());
     }
 
     public void add(CustComponent _comp, int _index) {
+        if (_comp.getParent() != null) {
+            return;
+        }
         _comp.setParent(this);
         getChildren().add(_index,_comp);
         panel.add(_comp.getComponent(), _index);
     }
 
     public void add(CustComponent _comp, String _constraints) {
+        if (_comp.getParent() != null) {
+            return;
+        }
         _comp.setParent(this);
         getChildren().add(_comp);
         panel.add(_comp.getComponent(), _constraints);

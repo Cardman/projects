@@ -4,14 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.sound.sampled.LineEvent;
-import javax.sound.sampled.LineListener;
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
-import javax.swing.JTextArea;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
@@ -237,7 +230,7 @@ public class MainWindow extends GroupFrame {
                         }
                     }
                     if (songsList.isEmpty()) {
-                        JOptionPane.showMessageDialog(getFrame(), _messages_.getVal(CANNOT_READ_MESSAGE_WAV), _messages_.getVal(CANNOT_READ_TITLE), JOptionPane.ERROR_MESSAGE);
+                        ConfirmDialog.showMessage(this,_messages_.getVal(CANNOT_READ_MESSAGE_WAV),_messages_.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                     clipStream = c_;
@@ -279,7 +272,7 @@ public class MainWindow extends GroupFrame {
                     }
                     songsList.removeAllString(EMPTY);
                     if (songsList.isEmpty()) {
-                        JOptionPane.showMessageDialog(getFrame(), _messages_.getVal(CANNOT_READ_MESSAGE_WPL), _messages_.getVal(CANNOT_READ_TITLE), JOptionPane.ERROR_MESSAGE);
+                        ConfirmDialog.showMessage(this,_messages_.getVal(CANNOT_READ_MESSAGE_WPL),_messages_.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                     if (random.isSelected()) {
@@ -313,7 +306,7 @@ public class MainWindow extends GroupFrame {
                     }
                     clipStream = c_;
                     if (songsList.isEmpty()) {
-                        JOptionPane.showMessageDialog(getFrame(), _messages_.getVal(CANNOT_READ_MESSAGE_WPL), _messages_.getVal(CANNOT_READ_TITLE), JOptionPane.ERROR_MESSAGE);
+                        ConfirmDialog.showMessage(this,_messages_.getVal(CANNOT_READ_MESSAGE_WPL),_messages_.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                 }
@@ -334,7 +327,7 @@ public class MainWindow extends GroupFrame {
                     timer.start();
                 }
             } catch (RuntimeException _0) {
-                JOptionPane.showMessageDialog(getFrame(), _messages_.getVal(CANNOT_READ_MESSAGE_WPL), _messages_.getVal(CANNOT_READ_TITLE), JOptionPane.ERROR_MESSAGE);
+                ConfirmDialog.showMessage(this,_messages_.getVal(CANNOT_READ_MESSAGE_WPL),_messages_.getVal(CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
             }
         } else {
             if (clipStream.getClip().isRunning()) {
@@ -378,21 +371,8 @@ public class MainWindow extends GroupFrame {
         return list_;
     }
 
-    public static ClipStream resourceClipSixtyFour(String _file) {
-        String content_ = ResourceFiles.ressourceFichier(_file);
-        return openClip(content_, null);
-    }
-
-    public static ClipStream resourceClipSixtyFour(String _file, LineListener _l) {
-        String content_ = ResourceFiles.ressourceFichier(_file);
-        return openClip(content_, _l);
-    }
-
     public static ClipStream openClip(String _imageString) {
-        return StreamSoundFile.openClip(parseBaseSixtyFourBinary(_imageString), null);
-    }
-    public static ClipStream openClip(String _imageString, LineListener _l) {
-        return StreamSoundFile.openClip(parseBaseSixtyFourBinary(_imageString), _l);
+        return StreamSoundFile.openClip(parseBaseSixtyFourBinary(_imageString));
     }
 
     public static byte[] parseBaseSixtyFourBinary(String _text) {

@@ -16,13 +16,6 @@ public final class TreeGui extends CustComponent {
     public TreeGui(TreeNode _t) {
         tree = new JTree(_t);
     }
-    public TreeCellRenderer getCellRenderer() {
-        return tree.getCellRenderer();
-    }
-
-    public void setCellRenderer(TreeCellRenderer x) {
-        tree.setCellRenderer(x);
-    }
 
     public void setEditable(boolean flag) {
         tree.setEditable(flag);
@@ -32,20 +25,8 @@ public final class TreeGui extends CustComponent {
         return tree.isEditable();
     }
 
-    public void setCellEditor(TreeCellEditor cellEditor) {
-        tree.setCellEditor(cellEditor);
-    }
-
-    public TreeCellEditor getCellEditor() {
-        return tree.getCellEditor();
-    }
-
-    public TreeModel getModel() {
+    TreeModel getModel() {
         return tree.getModel();
-    }
-
-    public void setModel(TreeModel newModel) {
-        tree.setModel(newModel);
     }
 
     public boolean isRootVisible() {
@@ -340,11 +321,7 @@ public final class TreeGui extends CustComponent {
         return tree.getEditingPath();
     }
 
-    public void setSelectionModel(TreeSelectionModel selectionModel) {
-        tree.setSelectionModel(selectionModel);
-    }
-
-    public TreeSelectionModel getSelectionModel() {
+    TreeSelectionModel getSelectionModel() {
         return tree.getSelectionModel();
     }
 

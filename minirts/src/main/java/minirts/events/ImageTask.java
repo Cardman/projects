@@ -40,11 +40,7 @@ public class ImageTask implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent _e) {
         noImg++;
-        int w_ = window.getWidth();
-        int h_ = window.getHeight();
-        BufferedImage b_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
-        Graphics g_ = b_.createGraphics();
-        window.printAll(g_);
+        BufferedImage b_ = window.printAll();
         try {
             Image tmpImg_;
             PointerInfo p_ = MouseInfo.getPointerInfo();
@@ -70,7 +66,7 @@ public class ImageTask implements ActionListener {
                 }
             }
             tmpImg_ = tool_.createImage(new MemoryImageSource(wCurs_, hCurs_, pixels_, 0, wCurs_));
-            g_.drawImage(tmpImg_, pt_.x, pt_.y, null);
+            b_.getGraphics().drawImage(tmpImg_, pt_.x, pt_.y, null);
             ImageIO.write(b_, PNG, new File(StringList.concat(MainWindow.FOLDER, StreamTextFile.SEPARATEUR,Long.toString(noImg),EXT,PNG)));
         } catch (IOException e) {
         }

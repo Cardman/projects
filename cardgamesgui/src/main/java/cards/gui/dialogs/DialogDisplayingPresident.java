@@ -1,13 +1,7 @@
 package cards.gui.dialogs;
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerListModel;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 
 import cards.consts.Suit;
 import cards.facade.Games;
@@ -21,7 +15,6 @@ import cards.president.DisplayingPresident;
 import code.gui.*;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.Ints;
 import code.util.StringMap;
 import code.util.ints.Listable;
 
@@ -121,12 +114,8 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         //Panneau Tri avant enchere (Atout)
         Panel sousPanneau_=Panel.newGrid(0,1);
         sousPanneau_.add(new TextLabel(messages.getVal(NB_DEALS_DEMO)));
-        Ints decks_ = new Ints();
         //Panneau Distribution
-        for(int b=FileConst.MIN_DEALS;b<=FileConst.MAX_DEALS;b++) {
-            decks_.add(b);
-        }
-        nbDealsDemo = new Spinner(new SpinnerListModel(decks_.toArray()));
+        nbDealsDemo = new Spinner(new SpinnerNumberModel(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1));
         nbDealsDemo.setValue(displayingPresident.getNbDeals());
         sousPanneau_.add(nbDealsDemo);
         panneau_.add(sousPanneau_);

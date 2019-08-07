@@ -1,9 +1,7 @@
 package code.gui;
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Window;
+import java.awt.*;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
@@ -146,7 +144,7 @@ public abstract class CommonFrame implements ChangeableTitle {
         frame.setJMenuBar(_menu.getMenuBar());
         menuBar = _menu;
     }
-    public JFrame getFrame() {
+    JFrame getFrame() {
         return frame;
     }
     @Override
@@ -178,4 +176,12 @@ public abstract class CommonFrame implements ChangeableTitle {
         frame.setTitle(_title);
     }
 
+    public BufferedImage printAll() {
+        int w_ = getWidth();
+        int h_ = getHeight();
+        BufferedImage b_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
+        Graphics g_ = b_.createGraphics();
+        frame.printAll(g_);
+        return b_;
+    }
 }

@@ -112,7 +112,7 @@ public final class MainWindow extends GroupFrame {
     }
 
     private void writeCoords() {
-        Point point_=getFrame().getLocation();
+        Point point_=getLocation();
         int x_ = point_.x;
         int y_ = point_.y;
         SoftApplicationCore.saveCoords(LaunchingPokecards.getTempFolder(), LaunchingPokecards.COORDS, x_, y_);

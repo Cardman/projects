@@ -8,14 +8,17 @@ public final class Spinner extends CustComponent {
 
     private JSpinner spinner;
 
+    private SpinnerNumberModel model;
+
     public Spinner() {
         spinner = new JSpinner();
+        model = (SpinnerNumberModel) spinner.getModel();
     }
 
-    public Spinner(SpinnerModel _model) {
+    public Spinner(SpinnerNumberModel _model) {
         spinner = new JSpinner(_model);
+        model = _model;
     }
-
     public Object getValue() {
         return spinner.getValue();
     }
@@ -57,11 +60,12 @@ public final class Spinner extends CustComponent {
         return spinner;
     }
 
-    public void setModel(SpinnerModel _spin) {
+    public void setModel(SpinnerNumberModel _spin) {
         spinner.setModel(_spin);
+        model = _spin;
     }
 
-    public SpinnerModel getModel() {
-        return spinner.getModel();
+    public SpinnerNumberModel getModel() {
+        return model;
     }
 }

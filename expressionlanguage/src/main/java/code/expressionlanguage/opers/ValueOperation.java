@@ -24,7 +24,7 @@ public final class ValueOperation extends LeafOperation {
                 continue;
             }
             OverridableBlock i_ = (OverridableBlock) b;
-            if (i_.getKind() == MethodKind.SET_INDEX) {
+            if (i_.getKind() != MethodKind.GET_INDEX) {
                 continue;
             }
             if (!i_.getId().eqPartial(indexer_.getId())) {

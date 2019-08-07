@@ -1,10 +1,7 @@
 package cards.gui.dialogs;
 import java.awt.BorderLayout;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerListModel;
+import javax.swing.*;
 
 import cards.belote.DealBelote;
 import cards.belote.DisplayingBelote;
@@ -28,8 +25,6 @@ import code.gui.*;
 import code.maths.montecarlo.AbMonteCarlo;
 import code.stream.StreamTextFile;
 import code.util.CustList;
-import code.util.EqList;
-import code.util.Ints;
 import code.util.StringList;
 
 public final class EditorBelote extends DialogBelote implements SetterSelectedCardList{
@@ -127,13 +122,9 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         getJt().removeAll();
         Panel container_=Panel.newBorder();
         initMessageName(_parent);
-        Ints decks_ = new Ints();
         //Panneau Distribution
-        for(int b=FileConst.MIN_DEALS;b<=FileConst.MAX_DEALS;b++) {
-            decks_.add(b);
-        }
         String lg_ = _parent.getLanguageKey();
-        initJt(new Spinner(new SpinnerListModel(decks_.toArray())),lg_);
+        initJt(new Spinner(new SpinnerNumberModel(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1)),lg_);
         container_.add(getJt(),BorderLayout.CENTER);
         Panel panneau_=new Panel();
         LabelButton bouton_=new LabelButton(getMessages().getVal(NEXT));

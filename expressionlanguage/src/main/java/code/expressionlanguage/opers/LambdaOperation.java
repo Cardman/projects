@@ -1143,7 +1143,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     continue;
                 }
                 OverridableBlock i_ = (OverridableBlock) b;
-                if (i_.getKind() == MethodKind.SET_INDEX) {
+                if (i_.getKind() != MethodKind.GET_INDEX) {
                     continue;
                 }
                 if (!i_.getId().eqPartial(_id.getRealId())) {

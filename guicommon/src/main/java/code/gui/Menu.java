@@ -3,7 +3,7 @@ import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-public class Menu implements EnabledMenu {
+public final class Menu implements EnabledMenu {
 
     private Menu parentMenu;
 

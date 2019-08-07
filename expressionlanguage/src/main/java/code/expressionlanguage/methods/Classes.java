@@ -1828,7 +1828,7 @@ public final class Classes {
                                 continue;
                             }
                             OverridableBlock i_ = (OverridableBlock) d;
-                            if (i_.getKind() == MethodKind.SET_INDEX) {
+                            if (i_.getKind() != MethodKind.GET_INDEX) {
                                 continue;
                             }
                             if (!i_.getId().eqPartial(method_.getId())) {

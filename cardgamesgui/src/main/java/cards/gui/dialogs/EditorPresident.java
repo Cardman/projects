@@ -2,10 +2,7 @@ package cards.gui.dialogs;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerListModel;
+import javax.swing.*;
 
 import cards.consts.GameType;
 import cards.facade.Nicknames;
@@ -122,12 +119,8 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         getJt().removeAll();
         Panel container_=Panel.newBorder();
         initMessageName(_window);
-        Ints decks_ = new Ints();
         //Panneau Distribution
-        for(int b=FileConst.MIN_DEALS;b<=FileConst.MAX_DEALS;b++) {
-            decks_.add(b);
-        }
-        initJt(new Spinner(new SpinnerListModel(decks_.toArray())),_enabledChangingNbPlayers,_nbPlayers, _window);
+        initJt(new Spinner(new SpinnerNumberModel(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1)),_enabledChangingNbPlayers,_nbPlayers, _window);
         container_.add(getJt(),BorderLayout.CENTER);
         Panel panneau_=new Panel();
         LabelButton bouton_=new LabelButton(getMessages().getVal(NEXT));

@@ -3,6 +3,7 @@ package code.gui;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -29,7 +30,7 @@ public final class TextField extends CustComponent {
         textField = new JTextField(_txt,_nbCols);
     }
 
-    public void setDocument(Document doc) {
+    void setDocument(Document doc) {
         textField.setDocument(doc);
     }
 
@@ -41,10 +42,13 @@ public final class TextField extends CustComponent {
         textField.addActionListener(l);
     }
 
-    public Document getDocument() {
+    Document getDocument() {
         return textField.getDocument();
     }
 
+    public void addDocumentListener(DocumentListener _listener) {
+        textField.getDocument().addDocumentListener(_listener);
+    }
     public void moveCaretPosition(int pos) {
         textField.moveCaretPosition(pos);
     }
