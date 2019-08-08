@@ -31,12 +31,13 @@ public class PanelBattle {
 
     private Selecting selecting;
     private Panel container = Panel.newAbsolute();
+    private Panel content = Panel.newAbsolute();
     public void addMouseMotionListener(MouseMotionListener _l) {
-        container.getComponent().addMouseMotionListener(_l);
+        content.getComponent().addMouseMotionListener(_l);
     }
 
     public void addMouseWheelListener(MouseWheelListener _l) {
-        container.getComponent().addMouseWheelListener(_l);
+        content.getComponent().addMouseWheelListener(_l);
     }
 
     public PanelBattle(Facade _facade) {
@@ -44,6 +45,7 @@ public class PanelBattle {
         container.setBackground(Color.WHITE);
         selecting = new Selecting(_facade);
         container.add(selecting);
+        container.add(content);
     }
 
     public void addNewSoldier(int _x, int _y) {
@@ -55,7 +57,7 @@ public class PanelBattle {
         Soldier s_ = facade.getLastSoldier();
         UnitSoldier soldierLabel_ = new UnitSoldier(s_);
         soldierLabel_.setSize(new Dimension(p_.getWidth(), p_.getHeight()));
-        container.add(soldierLabel_);
+        content.add(soldierLabel_);
         soldierLabel_.setLocation(_x, _y);
         soldierLabels.put(facade.getLastSoldierKey(),soldierLabel_);
         CustPoint curTopLeft_ = facade.getTopLeftPoint();
@@ -68,7 +70,7 @@ public class PanelBattle {
     }
 
     public void repaint(int _x, int _y, int _width, int _height) {
-        container.repaint(_x, _y, _width, _height);
+        content.repaint(_x, _y, _width, _height);
         Rect gl_ = new Rect(_x,_y,_width,_height);
         for (EntryCust<UnitMapKey, UnitSoldier> e: soldierLabels.entryList()) {
             UnitSoldier u_ = e.getValue();
@@ -93,7 +95,6 @@ public class PanelBattle {
             BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
             selecting.paintComponent(new CustGraphics(img_.getGraphics()));
             selecting.setIcon(new ImageIcon(img_));
-            container.repaint();
         }
     }
 
@@ -179,7 +180,7 @@ public class PanelBattle {
     }
 
     public void addMouseListener(InteractClick _i) {
-        container.addMouseListener(_i);
+        content.addMouseListener(_i);
     }
 
     public Panel getContainer() {
@@ -188,6 +189,7 @@ public class PanelBattle {
 
     public void setSize(Dimension _dimension) {
         container.setSize(_dimension);
+        content.setSize(_dimension);
     }
 
     public void setLocation(Point _pt) {

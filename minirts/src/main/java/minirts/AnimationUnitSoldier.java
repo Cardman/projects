@@ -39,6 +39,7 @@ public final class AnimationUnitSoldier implements Runnable {
 
     public static void selectOrDeselect(CustPoint _first, CustPoint _last) {
         battleground.setRectangle(_first, _last);
+        battleground.setPaintSelection(true);
         repaintBattleground();
     }
 
