@@ -1,5 +1,6 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
@@ -54,6 +55,7 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasCount;
     private String aliasSetVisible;
     private String aliasWindow;
+    private String aliasArgs;
     private String aliasPack;
     private String aliasDispose;
 
@@ -84,6 +86,9 @@ public class LgNamesGui extends LgNamesUtils {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasWindow, params_, aliasFrame, false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasArgs, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasString()), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasWindowListener);
         method_ = new StandardMethod(aliasAddWindowListener, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
@@ -269,6 +274,18 @@ public class LgNamesGui extends LgNamesUtils {
             }
             if (StringList.quickEq(name_, aliasWindow)) {
                 res_.setResult(((GuiContextEl)_cont).getFrame());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasArgs)) {
+                StringList mainArgs_ = ((GuiContextEl) _cont).getMainArgs();
+                String typeStr_ = getAliasString();
+                typeStr_ = PrimitiveTypeUtil.getPrettyArrayType(typeStr_);
+                int len_ = mainArgs_.size();
+                Struct[] struct_ = new Struct[len_];
+                for (int i = 0; i < len_; i++) {
+                    struct_[i] = new StringStruct(mainArgs_.get(i));
+                }
+                res_.setResult(new ArrayStruct(struct_,typeStr_));
                 return res_;
             }
             GroupFrame inst_ = ((FrameStruct) _instance).getCommonFrame();
@@ -618,6 +635,14 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasWindow = aliasWindow;
     }
 
+    public String getAliasArgs() {
+        return aliasArgs;
+    }
+
+    public void setAliasArgs(String aliasArgs) {
+        this.aliasArgs = aliasArgs;
+    }
+
     public String getAliasMouseListener() {
         return aliasMouseListener;
     }
@@ -803,6 +828,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasPack("pack");
             setAliasSetVisible("setVisible");
             setAliasWindow("window");
+            setAliasArgs("args");
             setAliasDispose("dispose");
         } else {
             setAliasActionEvent("$coeur.ActionEvt");
@@ -843,6 +869,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasPack("cadrer");
             setAliasSetVisible("majVisible");
             setAliasWindow("fenetre");
+            setAliasArgs("args");
             setAliasDispose("liberer");
         }
     }
@@ -852,6 +879,7 @@ public class LgNamesGui extends LgNamesUtils {
         m_.put(getAliasFrame(), new StringList(
                 getAliasPack(),
                 getAliasWindow(),
+                getAliasArgs(),
                 getAliasAddWindowListener(),
                 getAliasDispose(),
                 getAliasSetContent()));

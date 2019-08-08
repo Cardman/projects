@@ -6,6 +6,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.TextLabel;
+import code.util.StringList;
 
 import javax.swing.*;
 import java.awt.event.WindowEvent;
@@ -15,12 +16,14 @@ public final class GuiContextEl extends RunnableContextEl {
     private TextLabel textLabel;
     private FrameStruct frame;
     private String lgExec;
+    private StringList mainArgs;
 
     GuiContextEl(int _stackOverFlow, DefaultLockingClass _lock, CustInitializer _init, Options _options, ExecutingOptions _exec, KeyWords _keyWords, LgNames _stds, int _tabWidth) {
         super(_stackOverFlow, _lock, _init, _options, _exec, _keyWords, _stds, _tabWidth);
     }
 
-    public void initApplicationParts(String _lgExec) {
+    public void initApplicationParts(String _lgExec, StringList _mainArgs) {
+        mainArgs = _mainArgs;
         textLabel = new TextLabel("");
         MainInitFrame fr_ = new MainInitFrame(_lgExec);
         fr_.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -33,6 +36,7 @@ public final class GuiContextEl extends RunnableContextEl {
         textLabel = ((GuiContextEl)_context).textLabel;
         frame = ((GuiContextEl)_context).frame;
         lgExec = ((GuiContextEl)_context).lgExec;
+        mainArgs = ((GuiContextEl)_context).mainArgs;
     }
 
     public void addWindowListener(FrameStruct _frame,Struct _event) {
@@ -47,6 +51,10 @@ public final class GuiContextEl extends RunnableContextEl {
 
     public FrameStruct getFrame() {
         return frame;
+    }
+
+    public StringList getMainArgs() {
+        return mainArgs;
     }
 
     public boolean matchMain(WindowEvent _event) {

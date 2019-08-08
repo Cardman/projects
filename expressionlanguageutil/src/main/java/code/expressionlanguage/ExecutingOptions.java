@@ -13,8 +13,16 @@ public final class ExecutingOptions {
         return logFolder;
     }
 
+    public void setLogFolder(String _logFolder) {
+        logFolder = _logFolder;
+    }
+
     public String getMainThread() {
         return mainThread;
+    }
+
+    public void setMainThread(String _mainThread) {
+        mainThread = _mainThread;
     }
 
     public AtomicBoolean getInterrupt() {
