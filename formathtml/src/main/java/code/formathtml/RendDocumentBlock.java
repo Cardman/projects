@@ -110,6 +110,10 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
                 RendParentBlock par_;
                 par_ = en_.getParent();
                 if (par_ == this) {
+                    page_.removeLocalVars();
+                    page_.removeVars();
+                    page_.removeMutableLoopVars();
+                    page_.removeCatchVars();
                     return;
                 }
                 if (par_ instanceof RendForMutableIterativeLoop) {

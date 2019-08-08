@@ -129,6 +129,10 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 par_.abruptGroup(anEl_);
                 if (par_ == this) {
                     setAssignmentAfterCall(_cont, anEl_);
+                    page_.removeLocalVars();
+                    page_.removeVars();
+                    page_.removeMutableLoopVars();
+                    page_.removeCatchVars();
                     return;
                 }
                 if (par_ instanceof ForMutableIterativeLoop) {
