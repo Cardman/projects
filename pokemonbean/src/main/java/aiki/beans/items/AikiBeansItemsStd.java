@@ -430,6 +430,11 @@ public final class AikiBeansItemsStd {
         method_ = new StandardMethod(GET_TR_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
         methods_.put(method_.getId(), method_);
         _std.getStandards().put(TYPE_HEALING_STATUS_BEAN, type_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        type_ = new StandardClass(TYPE_HEALING_HP_STATUS_BEAN, fields_, constructors_, methods_, AikiBeansItemsStd.TYPE_HEALING_STATUS_BEAN, MethodModifier.NORMAL);
+        _std.getStandards().put(TYPE_HEALING_HP_STATUS_BEAN, type_);
     }
     private static void buildItemBean(BeanLgNames _std) {
         StandardClass type_;

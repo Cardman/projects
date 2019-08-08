@@ -101,9 +101,6 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                         }
                     }
                 }
-                for (String v:varNames_) {
-                    _cont.getLocalVarsAna().last().removeKey(v);
-                }
                 DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(concat_);
                 Document docLoc_ = res_.getDocument();
                 if (docLoc_ == null) {
@@ -115,6 +112,10 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                 callsExps.addEntry(e.getKey(),callExpsLoc_);
                 locDoc.addEntry(e.getKey(),docLoc_);
             }
+            for (String v:varNames_) {
+                _cont.getLocalVarsAna().last().removeKey(v);
+            }
+
         }
     }
 
