@@ -76,6 +76,12 @@ public final class MetaDocument {
                 setupGeneStyle(styleLoc_, tags_, parStyle_, false);
                 parStyle_ = parStyle_.getParentNode();
             }
+            boolean li_ = false;
+            if (!stacks.isEmpty()) {
+                if (StringList.quickEq(stacks.last(), "li")) {
+                    li_ = true;
+                }
+            }
             if (current_ instanceof Text) {
                 Text txt_ = (Text) current_;
                 String realText_ = txt_.getTextContent();
@@ -181,7 +187,10 @@ public final class MetaDocument {
                     label_.setStyle(styleLoc_);
                     currentParent.appendChild(label_);
                 } else if (pre_) {
-                    for (String l: StringList.splitStrings(realText_, "\n","\r\n")) {
+                    StringList strings_ = StringList.splitStrings(realText_, "\n", "\r\n");
+                    int nbLines_ = strings_.size();
+                    int indLine_ = 0;
+                    for (String l: strings_) {
                         StringBuilder line_ = new StringBuilder(realText_.length());
                         for (char c: l.toCharArray()) {
                             if (c == '\t') {
@@ -206,6 +215,17 @@ public final class MetaDocument {
                         rowGroup++;
                         label_.setStyle(styleLoc_);
                         currentParent.appendChild(label_);
+                        if (indLine_ + 1 < nbLines_) {
+                            MetaEndLine end_ = new MetaEndLine(currentParent);
+                            end_.setStyle(styleLoc_);
+                            currentParent.appendChild(end_);
+                            MetaContainer curPar_ = currentParent.getParent();
+                            MetaContainer lineBl_ = new MetaLine(curPar_);
+                            indent(styleLoc_, li_, lineBl_);
+                            curPar_.appendChild(lineBl_);
+                            currentParent = lineBl_;
+                        }
+                        indLine_++;
                     }
                     rowGroup--;
                 }
@@ -235,12 +255,6 @@ public final class MetaDocument {
                     processStyle(elt_.getAttribute("style"));
                 }
                 MetaContainer curPar_ = currentParent.getParent();
-                boolean li_ = false;
-                if (!stacks.isEmpty()) {
-                    if (StringList.quickEq(stacks.last(), "li")) {
-                        li_ = true;
-                    }
-                }
                 if (newLine_) {
                     if (StringList.quickEq(tagName_, "hr")) {
                         MetaSeparator sep_ = new MetaSeparator(curPar_);
