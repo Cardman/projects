@@ -21,6 +21,8 @@ import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendLoopBlockStack;
 import code.formathtml.stacks.RendReadWrite;
+import code.formathtml.util.BeanCustLgNames;
+import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -224,7 +226,8 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
                 mapping_.setParam(importedClassName);
                 StringMap<StringList> vars_ = _cont.getCurrentConstraints();
                 mapping_.setMapping(vars_);
-                if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
+                BeanLgNames stds_ = _cont.getAdvStandards();
+                if (stds_ instanceof BeanCustLgNames && !Templates.isCorrectOrNumbers(mapping_, _cont)) {
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_cont.getCurrentFileName());

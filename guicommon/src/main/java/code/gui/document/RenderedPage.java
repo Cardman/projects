@@ -211,10 +211,12 @@ public final class RenderedPage implements ProcessingSession {
             String name_ = StringList.concat(resourcesFolder_, a);
             files_.put(a,ResourceFiles.ressourceFichier(name_));
         }
-        for (String a: session_.getProperties().values()) {
-            String folder_ = session_.getMessagesFolder();
-            String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,lg_,a);
-            files_.put(fileName_,ResourceFiles.ressourceFichier(StringList.concat(resourcesFolder_,fileName_)));
+        for (String l: _navigation.getLanguages()) {
+            for (String a: session_.getProperties().values()) {
+                String folder_ = session_.getMessagesFolder();
+                String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,l,a);
+                files_.put(fileName_,ResourceFiles.ressourceFichier(StringList.concat(resourcesFolder_,fileName_)));
+            }
         }
         String realFilePath_ = getRealFilePath(lg_, session_.getFirstUrl());
         String rel_ = StringList.concat(resourcesFolder_,realFilePath_);

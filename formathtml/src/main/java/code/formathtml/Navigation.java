@@ -695,6 +695,10 @@ public final class Navigation {
         resourcesFolder = _resourcesFolder;
     }
 
+    public StringList getLanguages() {
+        return languages;
+    }
+
     public void setLanguages(StringList _languages) {
         languages = _languages;
     }

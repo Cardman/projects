@@ -61,19 +61,19 @@
 		<p>
 			<c:if condition="successfulBid()">
 				<c:message value="msg,successful">
-					<param value="$bidString"/>
-					<param value="$absoluteDiff()"/>
+					<param value="bidString"/>
+					<param value="absoluteDiff()"/>
 				</c:message>
 			</c:if>
 			<c:if condition="midBid()">
 				<c:message value="msg,mid">
-					<param value="$bidString"/>
+					<param value="bidString"/>
 				</c:message>
 			</c:if>
 			<c:if condition="failedBid()">
 				<c:message value="msg,failed">
-					<param value="$bidString"/>
-					<param value="$absoluteDiff()"/>
+					<param value="bidString"/>
+					<param value="absoluteDiff()"/>
 				</c:message>
 			</c:if>
 		</p>

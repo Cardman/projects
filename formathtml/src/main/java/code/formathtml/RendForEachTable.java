@@ -19,6 +19,7 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.BeanNatLgNames;
 import code.formathtml.stacks.RendLoopBlockStack;
@@ -123,7 +124,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
     private StringList getCustomType(StringList _names, Configuration _context) {
         StringList out_ = new StringList();
         BeanLgNames stds_ = _context.getAdvStandards();
-        if (stds_ instanceof BeanNatLgNames) {
+        if (!(stds_ instanceof BeanCustLgNames)) {
             return _names;
         }
         for (String f : _names) {
@@ -217,7 +218,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
 
     public void checkIterableCandidates(StringList _types, Configuration _cont) {
         if (_types.size() == 1) {
-            if (_cont.getStandards() instanceof BeanNatLgNames) {
+            if (!(_cont.getStandards() instanceof BeanCustLgNames)) {
                 return;
             }
             KeyWords keyWords_ = _cont.getKeyWords();
