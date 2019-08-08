@@ -10,21 +10,22 @@ import code.gui.TextLabel;
 import javax.swing.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public final class GuiContextEl extends RunnableContextEl {
     private TextLabel textLabel;
     private FrameStruct frame;
     private String lgExec;
-    private AtomicInteger nbVisible;
-    GuiContextEl(String _lgExec,int _stackOverFlow, DefaultLockingClass _lock, CustInitializer _init, Options _options, ExecutingOptions _exec, KeyWords _keyWords, LgNames _stds, int _tabWidth) {
+
+    GuiContextEl(int _stackOverFlow, DefaultLockingClass _lock, CustInitializer _init, Options _options, ExecutingOptions _exec, KeyWords _keyWords, LgNames _stds, int _tabWidth) {
         super(_stackOverFlow, _lock, _init, _options, _exec, _keyWords, _stds, _tabWidth);
+    }
+
+    public void initApplicationParts(String _lgExec) {
         textLabel = new TextLabel("");
         MainInitFrame fr_ = new MainInitFrame(_lgExec);
         fr_.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame = new FrameStruct(fr_);
         lgExec = _lgExec;
-        nbVisible = new AtomicInteger();
     }
 
     GuiContextEl(ContextEl _context) {
@@ -32,16 +33,8 @@ public final class GuiContextEl extends RunnableContextEl {
         textLabel = ((GuiContextEl)_context).textLabel;
         frame = ((GuiContextEl)_context).frame;
         lgExec = ((GuiContextEl)_context).lgExec;
-        nbVisible = ((GuiContextEl)_context).nbVisible;
     }
 
-    public void incrNbVisible(boolean _visible) {
-        if (_visible) {
-            nbVisible.getAndIncrement();
-        } else {
-            nbVisible.getAndDecrement();
-        }
-    }
     public void addWindowListener(FrameStruct _frame,Struct _event) {
         if (_event instanceof WindowListener) {
             _frame.addWindowEvent((WindowListener)_event);
@@ -56,11 +49,6 @@ public final class GuiContextEl extends RunnableContextEl {
         return frame;
     }
 
-    public void quit(WindowEvent _event, boolean _closeWindow) {
-        if (_closeWindow && nbVisible.get() == 1 && matchMain(_event)) {
-            frame.getCommonFrame().quit();
-        }
-    }
     public boolean matchMain(WindowEvent _event) {
         return frame.getCommonFrame().getComponent() == _event.getWindow();
     }

@@ -13,10 +13,7 @@ public class PanelStruct extends CustComponentStruct {
         super(_className);
         panel = new Panel();
     }
-    public PanelStruct(Panel _plainButton, String _className) {
-        super(_className);
-        panel = _plainButton;
-    }
+
     public static PanelStruct newFlow(String _className) {
         return new PanelStruct(_className);
     }
@@ -25,8 +22,12 @@ public class PanelStruct extends CustComponentStruct {
         return panel.getComponentCount();
     }
 
-    public CustComponentStruct getComponent(int _n) {
-        return getChildren().get(_n);
+    public Struct getComponent(int _n) {
+        CustList<CustComponentStruct> ch_ = getChildren();
+        if (!ch_.isValidIndex(_n)) {
+            return NullStruct.NULL_VALUE;
+        }
+        return ch_.get(_n);
     }
 
     public void add(CustComponentStruct _comp) {

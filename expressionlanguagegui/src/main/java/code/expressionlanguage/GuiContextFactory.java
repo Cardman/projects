@@ -22,13 +22,13 @@ public final class GuiContextFactory {
         } else {
             return null;
         }
-        return build(_lang,CustList.INDEX_NOT_FOUND_ELT, _options, _exec,kwl_, _undefinedLgNames, _files, _tabWidth);
+        return build(CustList.INDEX_NOT_FOUND_ELT, _options, _exec,kwl_, _undefinedLgNames, _files, _tabWidth);
     }
-    public static GuiContextEl build(String _lgExec,int _stack,
-                                          Options _options, ExecutingOptions _exec,KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files, int _tabWidth) {
+    public static GuiContextEl build(int _stack,
+                                     Options _options, ExecutingOptions _exec, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files, int _tabWidth) {
         CustLockingClass cl_ = new CustLockingClass();
         CustInitializer ci_ = new GuiInitializer();
-        GuiContextEl r_ = new GuiContextEl(_lgExec,_stack, cl_, ci_, _options, _exec, _definedKw, _definedLgNames,_tabWidth);
+        GuiContextEl r_ = new GuiContextEl(_stack, cl_, ci_, _options, _exec, _definedKw, _definedLgNames,_tabWidth);
         ContextFactory.validate(_definedKw,_definedLgNames,_files,r_);
         return r_;
     }

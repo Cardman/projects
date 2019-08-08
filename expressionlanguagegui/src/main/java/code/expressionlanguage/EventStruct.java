@@ -159,37 +159,79 @@ public final class EventStruct implements FieldableStruct,EnumerableStruct,
 
     @Override
     public void windowOpened(WindowEvent e) {
-
+        String actEv_ = ((LgNamesGui) original.getStandards()).getAliasWindowEvent();
+        WindowEventStruct a_ = new WindowEventStruct(e,actEv_);
+        GuiContextEl r_ = newCtx();
+        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasWindowOpened();
+        String actList_ = ((LgNamesGui) original.getStandards()).getAliasWindowListener();
+        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
     }
 
     @Override
     public void windowClosing(WindowEvent e) {
-
+        String actEv_ = ((LgNamesGui) original.getStandards()).getAliasWindowEvent();
+        WindowEventStruct a_ = new WindowEventStruct(e,actEv_);
+        GuiContextEl r_ = newCtx();
+        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasWindowClosing();
+        String actList_ = ((LgNamesGui) original.getStandards()).getAliasWindowListener();
+        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
     }
 
     @Override
     public void windowClosed(WindowEvent e) {
-
+        String actEv_ = ((LgNamesGui) original.getStandards()).getAliasWindowEvent();
+        WindowEventStruct a_ = new WindowEventStruct(e,actEv_);
+        GuiContextEl r_ = newCtx();
+        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasWindowClosed();
+        String actList_ = ((LgNamesGui) original.getStandards()).getAliasWindowListener();
+        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
     }
 
     @Override
     public void windowIconified(WindowEvent e) {
-
+        String actEv_ = ((LgNamesGui) original.getStandards()).getAliasWindowEvent();
+        WindowEventStruct a_ = new WindowEventStruct(e,actEv_);
+        GuiContextEl r_ = newCtx();
+        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasWindowIconified();
+        String actList_ = ((LgNamesGui) original.getStandards()).getAliasWindowListener();
+        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
     }
 
     @Override
     public void windowDeiconified(WindowEvent e) {
-
+        String actEv_ = ((LgNamesGui) original.getStandards()).getAliasWindowEvent();
+        WindowEventStruct a_ = new WindowEventStruct(e,actEv_);
+        GuiContextEl r_ = newCtx();
+        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasWindowDeiconified();
+        String actList_ = ((LgNamesGui) original.getStandards()).getAliasWindowListener();
+        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
     }
 
     @Override
     public void windowActivated(WindowEvent e) {
-
+        String actEv_ = ((LgNamesGui) original.getStandards()).getAliasWindowEvent();
+        WindowEventStruct a_ = new WindowEventStruct(e,actEv_);
+        GuiContextEl r_ = newCtx();
+        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasWindowActivated();
+        String actList_ = ((LgNamesGui) original.getStandards()).getAliasWindowListener();
+        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
     }
 
     @Override
     public void windowDeactivated(WindowEvent e) {
-
+        String actEv_ = ((LgNamesGui) original.getStandards()).getAliasWindowEvent();
+        WindowEventStruct a_ = new WindowEventStruct(e,actEv_);
+        GuiContextEl r_ = newCtx();
+        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
+        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasWindowDeactivated();
+        String actList_ = ((LgNamesGui) original.getStandards()).getAliasWindowListener();
+        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
     }
 
     private void invoke(GuiContextEl _r, String _typeName,String _methName, StringList _argTypes, CustList<Argument> _args) {
@@ -198,6 +240,7 @@ public final class EventStruct implements FieldableStruct,EnumerableStruct,
         String base_ = Templates.getIdFromAllTypes(className);
         ClassMethodId mId_ = TypeUtil.getConcreteMethodsToCall(type_, id_, _r).getVal(base_);
         if (mId_ == null) {
+            _r.getCustInit().removeThreadFromList();
             return;
         }
         Argument arg_ = new Argument();

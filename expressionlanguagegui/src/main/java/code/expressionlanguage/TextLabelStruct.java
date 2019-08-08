@@ -19,10 +19,6 @@ public class TextLabelStruct extends CustComponentStruct {
         textLabel = new TextLabel("");
         setText(_txt);
     }
-    protected TextLabelStruct(TextLabel _txt,String _className) {
-        super(_className);
-        textLabel = _txt;
-    }
 
     public Struct getText() {
         String txt_ = textLabel.getText();

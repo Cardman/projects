@@ -65,10 +65,15 @@ public class CustInitializer extends DefaultInitializer {
         	toFile_ = StringList.concat(folder_,"/",toFile_);
         	StreamTextFile.logToFile(toFile_, text_);
         }
+        removeThreadFromList();
+    }
+
+    public void removeThreadFromList() {
         Thread thread_ = Thread.currentThread();
         threadIdDate.remove(thread_);
         alive.remove(thread_);
     }
+
     public String getCurrentFileThread(RunnableContextEl _cont) {
         String toFile_ = getCurrentTreadIdDate();
         if (toFile_ == null) {

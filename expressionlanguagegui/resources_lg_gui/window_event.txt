@@ -1,0 +1,9 @@
+{public} {interface} {WindowListener} '{'
+ {void} {windowOpened}({WindowEvent} {e}){endLine}
+ {void} {windowClosing}({WindowEvent} {e}){endLine}
+ {void} {windowClosed}({WindowEvent} {e}){endLine}
+ {void} {windowIconified}({WindowEvent} {e}){endLine}
+ {void} {windowDeiconified}({WindowEvent} {e}){endLine}
+ {void} {windowActivated}({WindowEvent} {e}){endLine}
+ {void} {windowDeactivated}({WindowEvent} {e}){endLine}
+'}'

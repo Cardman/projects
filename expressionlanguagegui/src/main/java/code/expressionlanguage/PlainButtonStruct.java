@@ -18,10 +18,6 @@ public final class PlainButtonStruct extends CustComponentStruct {
         plainButton = new PlainButton();
         setText(_txt);
     }
-    public PlainButtonStruct(PlainButton _plainButton, String _className) {
-        super(_className);
-        plainButton = _plainButton;
-    }
 
     public Struct getText() {
         String txt_ = plainButton.getText();

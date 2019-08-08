@@ -40,7 +40,11 @@ public abstract class CommonFrame implements ChangeableTitle {
     }
 
     public void setLocationRelativeTo(CommonFrame _c) {
-        frame.setLocationRelativeTo(_c.getFrame());
+        if (_c == null) {
+            frame.setLocationRelativeTo(null);
+        } else {
+            frame.setLocationRelativeTo(_c.getFrame());
+        }
     }
 
     public void requestFocus() {
