@@ -1580,12 +1580,15 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasGetMouseEventSecond()));
         m_.put(getAliasComponent(), new StringList(
                 getAliasGetParentCompo(),
+                getAliasGetNextCompo(),
+                getAliasComponentRepaint(),
                 getAliasComponentGetPaint(),
                 getAliasComponentSetPaint(),
                 getAliasGetFont()
         ));
         m_.put(getAliasTextLabel(), new StringList(
-                getAliasSetLabelText()));
+                getAliasSetLabelText(),
+                getAliasAddListener()));
         m_.put(getAliasFont(), new StringList(
                 getAliasFontGetName(),
                 getAliasFontGetSize(),

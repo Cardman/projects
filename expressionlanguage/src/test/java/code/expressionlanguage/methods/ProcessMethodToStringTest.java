@@ -2072,4 +2072,66 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         assertEq("2,4", ret_.getString());
     }
+    @Test
+    public void calculate49Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static String test(){\n");
+        xml_.append("  $return $new ExTwo(\"static\").toSpecString(4):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo{\n");
+        xml_.append(" $public String instance:\n");
+        xml_.append(" $public ExTwo(String p){\n");
+        xml_.append("  instance = p;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public String toSpecString($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return instance+\":\"+p;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElToString();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq("static:4", ret_.getString());
+    }
+    @Test
+    public void calculate50Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static String test(){\n");
+        xml_.append("  $return \"\"+$new ExTwo(\"static\"):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo{\n");
+        xml_.append(" $public String instance:\n");
+        xml_.append(" $public ExTwo(String p){\n");
+        xml_.append("  instance = p;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public String toSpecString()\n");
+        xml_.append(" {\n");
+        xml_.append("  $return instance+\":\":\n");
+        xml_.append(" }\n");
+        xml_.append(" $public String toSpecString($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return instance+\":\"+p;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElToString();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq("static:", ret_.getString());
+    }
 }

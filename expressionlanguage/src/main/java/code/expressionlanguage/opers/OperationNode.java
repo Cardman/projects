@@ -774,6 +774,9 @@ public abstract class OperationNode implements Operable {
                 continue;
             }
             MethodInfo mi_ = e.getValue();
+            if (!mi_.getConstraints().getParametersTypes().isEmpty()) {
+                continue;
+            }
             signatures_.add(mi_);
         }
         MethodInfo found_ = sortFctExec(signatures_, _conf);

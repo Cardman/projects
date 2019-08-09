@@ -575,15 +575,8 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                             badMeth_.setIndexFile(r_);
                             badMeth_.setName(name_);
                             _context.getClasses().addError(badMeth_);
-                        } else if (StringList.quickEq(name_, keyWords_.getKeyWordToString()) && !m_.isStaticMethod()) {
+                        } else if (StringList.quickEq(name_, keyWords_.getKeyWordToString()) && !m_.isStaticMethod() && m_.getParametersTypes().isEmpty()) {
                             if (!StringList.quickEq(m_.getImportedReturnType(),stds_.getAliasString())) {
-                                int r_ = m_.getNameOffset();
-                                BadMethodName badMeth_ = new BadMethodName();
-                                badMeth_.setFileName(getFile().getFileName());
-                                badMeth_.setIndexFile(r_);
-                                badMeth_.setName(name_);
-                                _context.getClasses().addError(badMeth_);
-                            } else if (!m_.getParametersTypes().isEmpty()) {
                                 int r_ = m_.getNameOffset();
                                 BadMethodName badMeth_ = new BadMethodName();
                                 badMeth_.setFileName(getFile().getFileName());

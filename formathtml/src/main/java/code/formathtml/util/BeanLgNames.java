@@ -174,18 +174,18 @@ public abstract class BeanLgNames extends LgNames {
     @Override
     public StringList allRefTypes() {
         StringList types_ = super.allRefTypes();
-        types_.add(aliasMessage);
+        types_.add(getAliasMessage());
         return types_;
     }
 
     @Override
     public StringMap<StringList> allTableTypeMethodNames() {
         StringMap<StringList> methods_ = super.allTableTypeMethodNames();
-        methods_.put(aliasMessage,
-                new StringList(aliasNewMessage,
-                        aliasMessageFormat,
-                        aliasMessageGetArgs,
-                        aliasMessageSetArgs));
+        methods_.put(getAliasMessage(),
+                new StringList(getAliasNewMessage(),
+                        getAliasMessageFormat(),
+                        getAliasMessageGetArgs(),
+                        getAliasMessageSetArgs()));
         return methods_;
     }
 
