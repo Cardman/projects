@@ -361,6 +361,24 @@ public final class TarotStandards extends BeanNatLgNames {
     public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         String fieldName_ = _classField.getFieldName();
+        if (((RealInstanceStruct)_instance).getInstance() instanceof TarotBean) {
+//            if (StringList.quickEq(_method.getConstraints().getName(), PLAY_CLASSIC_GAME)) {
+//                res_.setResult(new BooleanStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).playClassicGame()));
+//                return res_;
+//            }
+//            if (StringList.quickEq(_method.getConstraints().getName(), PLAY_VARIANT_MODE_GAME)) {
+//                res_.setResult(new BooleanStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).playVariantModeGame()));
+//                return res_;
+//            }
+            if (StringList.quickEq(fieldName_, NICKNAMES)) {
+                res_.setResult(new StdStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).getNicknames(), getCustList()));
+                return res_;
+            }
+//            if (StringList.quickEq(_method.getConstraints().getName(), GET_SCORES)) {
+//                res_.setResult(new StdStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).getScores(), getCustList()));
+//                return res_;
+//            }
+        }
         if (((RealInstanceStruct)_instance).getInstance() instanceof DetailsResultsTarotBean) {
             DetailsResultsTarotBean instance_ = (DetailsResultsTarotBean) ((RealInstanceStruct)_instance).getInstance();
             if (StringList.quickEq(fieldName_, RATE)) {
@@ -399,7 +417,7 @@ public final class TarotStandards extends BeanNatLgNames {
                 res_.setResult(new StringStruct(instance_.getPlayerSmall()));
                 return res_;
             }
-            if (StringList.quickEq(fieldName_, PLAYER_SMALL)) {
+            if (StringList.quickEq(fieldName_, SMALL)) {
                 res_.setResult(new StringStruct(instance_.getSmall()));
                 return res_;
             }
@@ -459,6 +477,10 @@ public final class TarotStandards extends BeanNatLgNames {
             }
             if (StringList.quickEq(fieldName_, SCORE)) {
                 res_.setResult(new ShortStruct(instance_.getScore()));
+                return res_;
+            }
+            if (StringList.quickEq(fieldName_, RATE)) {
+                res_.setResult(wrapStd(instance_.getRate(),_cont));
                 return res_;
             }
         }

@@ -74,7 +74,7 @@ public abstract class Dialog implements ChangeableTitle {
 
     public void closeWindow() {
         setVisible(false);
-        dialog.getContentPane().removeAll();
+        contentPane.removeAll();
     }
 
     protected void setDialogIcon(Iconifiable _group) {
