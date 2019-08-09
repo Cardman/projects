@@ -2,6 +2,7 @@ package code.gui;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -15,6 +16,13 @@ public abstract class CustComponent {
     public abstract JComponent getComponent();
     public static void invokeLater(Runnable _r) {
         SwingUtilities.invokeLater(_r);
+    }
+    public static void invokeAndWait(Runnable _r) {
+        try {
+            SwingUtilities.invokeAndWait(_r);
+        } catch (Exception _0) {
+            //
+        }
     }
     public static Thread newThread(Runnable _r) {
         return new Thread(_r);

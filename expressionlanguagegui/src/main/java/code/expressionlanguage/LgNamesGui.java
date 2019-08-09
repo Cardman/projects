@@ -240,6 +240,9 @@ public class LgNamesGui extends LgNamesUtils {
         if (!arg_.isNull()) {
             return arg_;
         }
+        if (StringList.quickEq(_id,aliasFont)) {
+            return new Argument(new FontStruct());
+        }
         if (_cont.getContextEl().isInitEnums()) {
             _cont.getContextEl().failInitEnums();
             return new Argument();
@@ -255,9 +258,6 @@ public class LgNamesGui extends LgNamesUtils {
         }
         if (StringList.quickEq(_id,aliasTextLabel)) {
             return new Argument(new TextLabelStruct(aliasTextLabel));
-        }
-        if (StringList.quickEq(_id,aliasFont)) {
-            return new Argument(new FontStruct());
         }
         return arg_;
     }
@@ -310,11 +310,6 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_,aliasFont)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
             if (_method.getParametersTypes().size() == 0) {
                 r_.setResult(new FontStruct());
                 return r_;
@@ -474,11 +469,6 @@ public class LgNamesGui extends LgNamesUtils {
             return res_;
         }
         if (StringList.quickEq(type_, aliasFont)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
             FontStruct f_ = (FontStruct) _instance;
             if (StringList.quickEq(name_, aliasFontGetName)) {
                 res_.setResult(f_.getName());

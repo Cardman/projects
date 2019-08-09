@@ -23,8 +23,6 @@ public final class GuiProcess implements Runnable {
     private ExecutingOptions executingOptions;
     private String clName;
     private String mName;
-    private StringList mainArgs;
-    private String locale;
     public static void launch(String[] _args) {
         if (_args.length == 0) {
             return;
@@ -83,7 +81,7 @@ public final class GuiProcess implements Runnable {
         String folder_ = exec_.getLogFolder();
         Options opt_ = new Options();
         LgNamesGui stds_ = new LgNamesGui();
-        GuiContextEl cont_ = GuiContextFactory.buildDefKw(lg_, opt_, exec_, stds_, zipFiles_, 4);
+        GuiContextEl cont_ = GuiContextFactory.buildDefKw(lg_, mainArgs_,opt_, exec_, stds_, zipFiles_, 4);
         if (cont_ == null) {
             return;
         }
@@ -101,8 +99,6 @@ public final class GuiProcess implements Runnable {
             StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+cont_.getClasses().displayWarnings());
         }
         GuiProcess pr_ = new GuiProcess();
-        pr_.locale = lg_;
-        pr_.mainArgs = mainArgs_;
         pr_.executingOptions = exec_;
         pr_.context = cont_;
         pr_.clName = clName_;
@@ -120,7 +116,6 @@ public final class GuiProcess implements Runnable {
         dtPart_.append(context.getCustInit().increment());
         dtPart_.append(".txt");
         context.getCustInit().putNewCustTreadIdDate(thread_, dtPart_.toString());
-        context.initApplicationParts(locale,mainArgs);
         String folder_ = executingOptions.getLogFolder();
         new File(folder_).mkdirs();
         MethodId id_ = new MethodId(MethodModifier.STATIC, mName, new StringList());
