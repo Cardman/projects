@@ -42,6 +42,9 @@ public abstract class CustComponentStruct implements Struct {
         getComponent().setToolTipText(_title);
     }
 
+    public FontStruct getFont() {
+        return new FontStruct(getComponent().getFont());
+    }
     public int getWidth() {
         return getComponent().getWidth();
     }

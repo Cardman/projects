@@ -180,10 +180,6 @@ public class Panel extends CustComponent {
         return panel.getFontMetrics(_font);
     }
 
-    public Font getFont() {
-        return panel.getFont();
-    }
-
     public void setMaximumSize(Dimension _maximumSize) {
         panel.setMaximumSize(_maximumSize);
     }

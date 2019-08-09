@@ -8,7 +8,7 @@ import code.gui.TextLabel;
 
 import java.awt.event.MouseListener;
 
-public class TextLabelStruct extends CustComponentStruct {
+public final class TextLabelStruct extends CustComponentStruct {
     private TextLabel textLabel;
     protected TextLabelStruct(String _className) {
         super(_className);

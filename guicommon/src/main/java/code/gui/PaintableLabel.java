@@ -93,10 +93,6 @@ public abstract class PaintableLabel extends CustComponent {
         return label.getFontMetrics(_font);
     }
 
-    public Font getFont() {
-        return label.getFont();
-    }
-
     public void setForeground(Color _fg) {
         label.setForeground(_fg);
     }

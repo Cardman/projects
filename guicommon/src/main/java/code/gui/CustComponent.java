@@ -79,6 +79,9 @@ public abstract class CustComponent {
             i_++;
         }
     }
+    public Font getFont() {
+        return getComponent().getFont();
+    }
     public CustComponent getParent() {
         return parent;
     }

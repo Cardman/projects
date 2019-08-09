@@ -76,7 +76,7 @@ public abstract class GroupFrame extends CommonFrame {
             index_++;
         }
         if(FRAMES.isEmpty()) {
-            ThreadUtil.exit();
+            exit();
         }
     }
 
@@ -108,8 +108,12 @@ public abstract class GroupFrame extends CommonFrame {
 //        }
 //        if(index_ == CustList.SIZE_EMPTY) {}
         if(!FRAMES.first().opened) {
-            ThreadUtil.exit();
+            exit();
         }
+    }
+
+    protected void exit() {
+        ThreadUtil.exit();
     }
 
     @Override

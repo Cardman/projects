@@ -43,6 +43,13 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasPanel;
     private String aliasButton;
     private String aliasTextLabel;
+    private String aliasGetFont;
+    private String aliasFont;
+    private String aliasFontGetName;
+    private String aliasFontGetSize;
+    private String aliasFontIsBold;
+    private String aliasFontIsItalic;
+    private String aliasFontStringWidth;
     private String aliasComponent;
     private String aliasSetContent;
     private String aliasAddCompo;
@@ -105,6 +112,9 @@ public class LgNamesGui extends LgNamesUtils {
         stdcl_ = new StandardClass(aliasComponent, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetParentCompo, params_, aliasComponent, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetFont, params_, aliasFont, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,stdcl_);
@@ -195,8 +205,45 @@ public class LgNamesGui extends LgNamesUtils {
         constructors_.add(ctor_);
         std_ = stdcl_;
         getStandards().put(aliasTextLabel, std_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasFont, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasFontGetName, params_, getAliasString(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasFontGetSize, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasFontIsBold, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasFontIsItalic, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(aliasFontStringWidth, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasPrimInteger());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasString(),getAliasPrimBoolean(),getAliasPrimBoolean(),getAliasPrimInteger());
+        ctor_ = new StandardConstructor(params_,false,stdcl_);
+        constructors_.add(ctor_);
+        getStandards().put(aliasFont, stdcl_);
     }
     public Argument defaultInstance(ExecutableCode _cont, String _id) {
+        Argument arg_ = super.defaultInstance(_cont, _id);
+        if (!arg_.isNull()) {
+            return arg_;
+        }
+        if (_cont.getContextEl().isInitEnums()) {
+            _cont.getContextEl().failInitEnums();
+            return new Argument();
+        }
         if (StringList.quickEq(_id,aliasFrame)) {
             return new Argument(new FrameStruct(new OtherFrame(((GuiContextEl)_cont).getLgExec())));
         }
@@ -209,7 +256,10 @@ public class LgNamesGui extends LgNamesUtils {
         if (StringList.quickEq(_id,aliasTextLabel)) {
             return new Argument(new TextLabelStruct(aliasTextLabel));
         }
-        return super.defaultInstance(_cont,_id);
+        if (StringList.quickEq(_id,aliasFont)) {
+            return new Argument(new FontStruct());
+        }
+        return arg_;
     }
     public ResultErrorStd getOtherResult(ContextEl _cont,
                                          ConstructorId _method, Struct... _args) {
@@ -257,6 +307,23 @@ public class LgNamesGui extends LgNamesUtils {
             } else {
                 r_.setResult(new TextLabelStruct(aliasTextLabel));
             }
+            return r_;
+        }
+        if (StringList.quickEq(name_,aliasFont)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            if (_method.getParametersTypes().size() == 0) {
+                r_.setResult(new FontStruct());
+                return r_;
+            }
+            if (_method.getParametersTypes().size() == 1) {
+                r_.setResult(new FontStruct(((NumberStruct)_args[0]).intStruct()));
+                return r_;
+            }
+            r_.setResult(new FontStruct(_args[0],((BooleanStruct)_args[1]).getInstance(),((BooleanStruct)_args[2]).getInstance(),((NumberStruct)_args[3]).intStruct()));
             return r_;
         }
         return super.getOtherResult(_cont,_method,_args);
@@ -322,6 +389,10 @@ public class LgNamesGui extends LgNamesUtils {
                 return res_;
             }
             CustComponentStruct inst_ = (CustComponentStruct)_instance;
+            if (StringList.quickEq(name_, aliasGetFont)) {
+                res_.setResult(inst_.getFont());
+                return res_;
+            }
             res_.setResult(inst_.getParentComponent());
             return res_;
         }
@@ -400,6 +471,32 @@ public class LgNamesGui extends LgNamesUtils {
             PlainButtonStruct pl_ = (PlainButtonStruct) _instance;
             pl_.addActionListener(_args[0]);
             res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
+        }
+        if (StringList.quickEq(type_, aliasFont)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            FontStruct f_ = (FontStruct) _instance;
+            if (StringList.quickEq(name_, aliasFontGetName)) {
+                res_.setResult(f_.getName());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasFontGetSize)) {
+                res_.setResult(f_.getSize());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasFontIsBold)) {
+                res_.setResult(f_.isBold());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasFontIsItalic)) {
+                res_.setResult(f_.isItalic());
+                return res_;
+            }
+            res_.setResult(((GuiContextEl)_cont).stringWidth(f_,_args[0]));
             return res_;
         }
         return super.getOtherResult(_cont,_instance,_method,_args);
@@ -521,6 +618,62 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasTextLabel(String aliasTextLabel) {
         this.aliasTextLabel = aliasTextLabel;
+    }
+
+    public String getAliasGetFont() {
+        return aliasGetFont;
+    }
+
+    public void setAliasGetFont(String aliasGetFont) {
+        this.aliasGetFont = aliasGetFont;
+    }
+
+    public String getAliasFont() {
+        return aliasFont;
+    }
+
+    public void setAliasFont(String aliasFont) {
+        this.aliasFont = aliasFont;
+    }
+
+    public String getAliasFontGetName() {
+        return aliasFontGetName;
+    }
+
+    public void setAliasFontGetName(String aliasFontGetName) {
+        this.aliasFontGetName = aliasFontGetName;
+    }
+
+    public String getAliasFontGetSize() {
+        return aliasFontGetSize;
+    }
+
+    public void setAliasFontGetSize(String aliasFontGetSize) {
+        this.aliasFontGetSize = aliasFontGetSize;
+    }
+
+    public String getAliasFontIsBold() {
+        return aliasFontIsBold;
+    }
+
+    public void setAliasFontIsBold(String aliasFontIsBold) {
+        this.aliasFontIsBold = aliasFontIsBold;
+    }
+
+    public String getAliasFontIsItalic() {
+        return aliasFontIsItalic;
+    }
+
+    public void setAliasFontIsItalic(String aliasFontIsItalic) {
+        this.aliasFontIsItalic = aliasFontIsItalic;
+    }
+
+    public String getAliasFontStringWidth() {
+        return aliasFontStringWidth;
+    }
+
+    public void setAliasFontStringWidth(String aliasFontStringWidth) {
+        this.aliasFontStringWidth = aliasFontStringWidth;
     }
 
     public String getAliasComponent() {
@@ -816,6 +969,13 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasPanel("$core.Panel");
             setAliasButton("$core.Button");
             setAliasTextLabel("$core.TextLabel");
+            setAliasGetFont("getFont");
+            setAliasFont("$core.Font");
+            setAliasFontGetName("getName");
+            setAliasFontGetSize("getSize");
+            setAliasFontIsBold("isBold");
+            setAliasFontIsItalic("isItalic");
+            setAliasFontStringWidth("stringWidth");
             setAliasComponent("$core.Component");
             setAliasSetContent("setContent");
             setAliasAddCompo("add");
@@ -857,6 +1017,13 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasPanel("$coeur.Panneau");
             setAliasButton("$coeur.Bouton");
             setAliasTextLabel("$coeur.Etiquette");
+            setAliasGetFont("valPolice");
+            setAliasFont("$coeur.Police");
+            setAliasFontGetName("valNom");
+            setAliasFontGetSize("valTaille");
+            setAliasFontIsBold("estGras");
+            setAliasFontIsItalic("estItalique");
+            setAliasFontStringWidth("largeurChaine");
             setAliasComponent("$coeur.Composant");
             setAliasSetContent("majContenu");
             setAliasAddCompo("ajout");
@@ -885,14 +1052,24 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasSetContent()));
         m_.put(getAliasPanel(), new StringList(
                 getAliasCount(),
+                getAliasGetIndexCompo(),
                 getAliasAddCompo(),
                 getAliasRemoveCompo()));
         m_.put(getAliasMouseEvent(), new StringList(
                 getAliasGetMouseEventFirst(),
                 getAliasGetMouseEventSecond()));
-        m_.put(getAliasComponent(), new StringList());
+        m_.put(getAliasComponent(), new StringList(
+                getAliasGetParentCompo(),
+                getAliasGetFont()
+        ));
         m_.put(getAliasTextLabel(), new StringList(
                 getAliasSetLabelText()));
+        m_.put(getAliasFont(), new StringList(
+                getAliasFontGetName(),
+                getAliasFontGetSize(),
+                getAliasFontIsBold(),
+                getAliasFontIsItalic(),
+                getAliasFontStringWidth()));
         m_.put(getAliasButton(), new StringList(
                 getAliasAddListener()));
         return m_;
@@ -909,6 +1086,7 @@ public class LgNamesGui extends LgNamesUtils {
         ref_.add(getAliasPanel());
         ref_.add(getAliasButton());
         ref_.add(getAliasTextLabel());
+        ref_.add(getAliasFont());
         return ref_;
     }
 }

@@ -3,6 +3,7 @@ package code.expressionlanguage;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.TextLabel;
@@ -60,7 +61,10 @@ public final class GuiContextEl extends RunnableContextEl {
     public boolean matchMain(WindowEvent _event) {
         return frame.getCommonFrame().getComponent() == _event.getWindow();
     }
-    public int stringWidth(FontStruct _font, StringStruct _string) {
-        return textLabel.getFontMetrics(_font.getFont()).stringWidth(_string.getInstance());
+    public IntStruct stringWidth(FontStruct _font, Struct _string) {
+        if (!(_string instanceof StringStruct)) {
+            return new IntStruct(-1);
+        }
+        return new IntStruct(textLabel.getFontMetrics(_font.getFont()).stringWidth(((StringStruct)_string).getInstance()));
     }
 }
