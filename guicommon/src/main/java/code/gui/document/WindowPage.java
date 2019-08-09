@@ -156,7 +156,7 @@ public class WindowPage implements Runnable {
         }
         frame.setViewportView(page.getPage().getGraphic());
         frame.validate();
-        page.directScroll();
+        page.directScroll(meta);
         for (DualAnimatedImage a: page.getAnims()) {
             a.start();
         }

@@ -4,11 +4,6 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
 import code.formathtml.render.MetaAnchorLabel;
@@ -106,15 +101,13 @@ public final class RenderedPage implements ProcessingSession {
         String content_ = ResourceFiles.ressourceFichier(_conf);
         navigation.loadConfiguration(content_, _stds, new InterruptImpl());
         if (navigation.isError()) {
-            setupText(true);
-            directScroll();
+            setupText();
             return;
         }
         updateFiles(navigation);
         navigation.setupRendClasses();
         navigation.initializeRendSession();
-        setupText(true);
-        directScroll();
+        setupText();
     }
 
     public void initializeOnlyConf(String _conf, BeanLgNames _stds) {
@@ -151,14 +144,14 @@ public final class RenderedPage implements ProcessingSession {
         String content_ = ResourceFiles.ressourceFichier(_conf);
         navigation.loadConfiguration(content_, _lgNames, new InterruptImpl());
         if (navigation.isError()) {
-            setupText(true);
+            setupText();
             finish(false);
             return;
         }
         updateFiles(navigation);
         navigation.setupRendClasses();
         navigation.initializeRendSession();
-        setupText(true);
+        setupText();
         finish(false);
     }
 
@@ -191,15 +184,13 @@ public final class RenderedPage implements ProcessingSession {
         String content_ = ResourceFiles.ressourceFichier(_conf);
         navigation.loadConfiguration(content_, _lgNames, new InterruptImpl());
         if (navigation.isError()) {
-            setupText(true);
-            directScroll();
+            setupText();
             return;
         }
         updateFiles(navigation);
         navigation.setupRendClasses();
         navigation.initializeRendSession();
-        setupText(true);
-        directScroll();
+        setupText();
     }
 
     static void updateFiles(Navigation _navigation) {
@@ -242,10 +233,7 @@ public final class RenderedPage implements ProcessingSession {
         }
     }
 
-    void setupText(boolean _setText) {
-        if (!_setText) {
-            return;
-        }
+    void setupText() {
         if (!processing.get()) {
             return;
         }
@@ -253,7 +241,7 @@ public final class RenderedPage implements ProcessingSession {
         MetaDocument metadoc_ = MetaDocument.newInstance(doc_);
         CustComponent.invokeLater(new WindowPage(metadoc_, scroll, this));
     }
-    void directScroll() {
+    void directScroll(MetaDocument _meta) {
         if (frame != null) {
             if (!navigation.getTitle().isEmpty()) {
                 frame.setTitle(navigation.getTitle());
@@ -261,9 +249,7 @@ public final class RenderedPage implements ProcessingSession {
         }
         String ref_ = navigation.getReferenceScroll();
         if (!ref_.isEmpty()) {
-            Document doc_ = navigation.getDocument();
-            MetaDocument metadoc_ = MetaDocument.newInstance(doc_);
-            MetaAnchorLabel lab_ = metadoc_.getAnchorsRef().getVal(ref_);
+            MetaAnchorLabel lab_ = _meta.getAnchorsRef().getVal(ref_);
             DualComponent c_ = getRefs().getVal(lab_);
             DualComponent r_ = page;
             int x_ = 0;

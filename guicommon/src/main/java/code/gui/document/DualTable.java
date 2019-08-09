@@ -11,6 +11,7 @@ public final class DualTable extends DualContainer {
 
     private Ints remainders;
     private int width;
+    private int count;
 
     public DualTable(DualContainer _container, MetaTable _component, RenderedPage _page) {
         super(_container, _component, _page);
@@ -34,12 +35,13 @@ public final class DualTable extends DualContainer {
 
     @Override
     public void add(DualComponent _dual) {
+        count++;
         if (_dual.getComponent() instanceof MetaCaption) {
             super.add(_dual);
             getPanel().add(Panel.newGrid(0,width));
             return;
         }
-        int remNext_ = remainders.indexOf(getComponentCount());
+        int remNext_ = remainders.indexOf(count-1);
         int count_ = getPanel().getComponentCount();
         if (count_ == 0) {
             getPanel().add(Panel.newGrid(0,width));

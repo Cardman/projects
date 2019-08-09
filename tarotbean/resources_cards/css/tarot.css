@@ -1,3 +1,6 @@
 h1 {
 	color: #0000FF;
 }
+td,caption{
+	border:1px solid black;
+}
