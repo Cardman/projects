@@ -12,6 +12,7 @@ public abstract class CustComponentStruct implements Struct {
     private Struct parentComponent = NullStruct.NULL_VALUE;
     private CustList<CustComponentStruct> children = new CustList<CustComponentStruct>();
     private String className;
+    private Struct paintEvent = NullStruct.NULL_VALUE;
 
     protected CustComponentStruct(String _className) {
         className = _className;
@@ -55,6 +56,31 @@ public abstract class CustComponentStruct implements Struct {
 
     public CustList<CustComponentStruct> getChildren() {
         return children;
+    }
+
+    public Struct getPaintEvent() {
+        return paintEvent;
+    }
+    public Struct getNext() {
+        Struct parent_ = getParentComponent();
+        if (!(parent_ instanceof PanelStruct)) {
+            return NullStruct.NULL_VALUE;
+        }
+        CustList<CustComponentStruct> children_ = ((PanelStruct)parent_).getChildren();
+        int count_ = children_.size();
+        int i_ = 0;
+        while (true) {
+            if (children_.get(i_) == this) {
+                if (i_ + 1 >= count_) {
+                    return NullStruct.NULL_VALUE;
+                }
+                return children_.get(i_ + 1);
+            }
+            i_++;
+        }
+    }
+    public void setPaintEvent(Struct paintEvent) {
+        this.paintEvent = paintEvent;
     }
 
     @Override

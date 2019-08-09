@@ -58,7 +58,7 @@ public final class FontStruct implements Struct {
     }
     @Override
     public String getClassName(ExecutableCode _contextEl) {
-        return  ((LgNamesGui) _contextEl.getStandards()).getAliasFont();
+        return ((LgNamesGui) _contextEl.getStandards()).getAliasFont();
     }
 
     public Font getFont() {

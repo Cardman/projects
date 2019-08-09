@@ -171,6 +171,24 @@ public abstract class BeanLgNames extends LgNames {
         getStandards().put(aliasMessage, std_);
     }
 
+    @Override
+    public StringList allRefTypes() {
+        StringList types_ = super.allRefTypes();
+        types_.add(aliasMessage);
+        return types_;
+    }
+
+    @Override
+    public StringMap<StringList> allTableTypeMethodNames() {
+        StringMap<StringList> methods_ = super.allTableTypeMethodNames();
+        methods_.put(aliasMessage,
+                new StringList(aliasNewMessage,
+                        aliasMessageFormat,
+                        aliasMessageGetArgs,
+                        aliasMessageSetArgs));
+        return methods_;
+    }
+
     public String getInputClass(Element _write, Configuration _conf) {
         String type_ = _write.getAttribute(ATTRIBUTE_TYPE);
         String class_ = _write.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_CLASS_NAME));

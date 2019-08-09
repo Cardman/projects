@@ -1,6 +1,8 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.calls.util.CustomFoundMethod;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
@@ -8,6 +10,7 @@ import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.variables.VariableSuffix;
 import code.gui.GroupFrame;
 import code.resources.ResourceFiles;
 import code.util.CustList;
@@ -42,6 +45,7 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasFrame;
     private String aliasPanel;
     private String aliasButton;
+    private String aliasImageLabel;
     private String aliasTextLabel;
     private String aliasGetFont;
     private String aliasFont;
@@ -50,14 +54,48 @@ public class LgNamesGui extends LgNamesUtils {
     private String aliasFontIsBold;
     private String aliasFontIsItalic;
     private String aliasFontStringWidth;
+    private String aliasImage;
+    private String aliasImageGetWidth;
+    private String aliasImageGetHeight;
+    private String aliasImageGet;
+    private String aliasImageGetGraphics;
+    private String aliasImageSet;
+    private String aliasImageIsWithAlpha;
+    private String aliasComponentGetGraphics;
+    private String aliasGraphics;
+    private String aliasGraphicsGetColor;
+    private String aliasGraphicsSetColor;
+    private String aliasGraphicsGetFont;
+    private String aliasGraphicsSetFont;
+    private String aliasGraphicsDraw;
+    private String aliasGraphicsDrawLine;
+    private String aliasGraphicsDrawRect;
+    private String aliasGraphicsDrawOval;
+    private String aliasGraphicsFillRect;
+    private String aliasGraphicsFillOval;
+    private String aliasGraphicsDrawPolygon;
+    private String aliasGraphicsFillPolygon;
+    private String aliasColor;
+    private String aliasColorRed;
+    private String aliasColorGreen;
+    private String aliasColorBlue;
+    private String aliasColorAlpha;
+    private String aliasColorIsTransparent;
+    private String aliasComponentSetPaint;
+    private String aliasComponentGetPaint;
+    private String aliasComponentRepaint;
     private String aliasComponent;
     private String aliasSetContent;
     private String aliasAddCompo;
     private String aliasGetParentCompo;
+    private String aliasGetNextCompo;
     private String aliasGetIndexCompo;
     private String aliasAddListener;
     private String aliasAddWindowListener;
     private String aliasSetLabelText;
+    private String aliasSetLabelImage;
+    private String aliasPaint;
+    private String aliasPaintMethod;
     private String aliasRemoveCompo;
     private String aliasCount;
     private String aliasSetVisible;
@@ -114,8 +152,23 @@ public class LgNamesGui extends LgNamesUtils {
         method_ = new StandardMethod(aliasGetParentCompo, params_, aliasComponent, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
+        method_ = new StandardMethod(aliasGetNextCompo, params_, aliasComponent, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
         method_ = new StandardMethod(aliasGetFont, params_, aliasFont, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+
+        params_ = new StringList();
+        String type_ = StringList.concat(getAliasFct(),"<",aliasComponent,",?>");
+        method_ = new StandardMethod(aliasComponentGetPaint, params_, type_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(type_);
+        method_ = new StandardMethod(aliasComponentSetPaint, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasComponentRepaint, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,stdcl_);
         constructors_.add(ctor_);
@@ -205,6 +258,7 @@ public class LgNamesGui extends LgNamesUtils {
         constructors_.add(ctor_);
         std_ = stdcl_;
         getStandards().put(aliasTextLabel, std_);
+
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
@@ -237,7 +291,7 @@ public class LgNamesGui extends LgNamesUtils {
     }
     public Argument defaultInstance(ExecutableCode _cont, String _id) {
         Argument arg_ = super.defaultInstance(_cont, _id);
-        if (!arg_.isNull()) {
+        if (!arg_.isNull() || _cont.getContextEl().hasExceptionOrFailInit()) {
             return arg_;
         }
         if (StringList.quickEq(_id,aliasFont)) {
@@ -258,6 +312,9 @@ public class LgNamesGui extends LgNamesUtils {
         }
         if (StringList.quickEq(_id,aliasTextLabel)) {
             return new Argument(new TextLabelStruct(aliasTextLabel));
+        }
+        if (StringList.quickEq(_id,aliasImageLabel)) {
+            return new Argument(new PreparedLabelStruct(aliasImageLabel));
         }
         return arg_;
     }
@@ -306,6 +363,19 @@ public class LgNamesGui extends LgNamesUtils {
                 r_.setResult(new TextLabelStruct(_args[0],aliasTextLabel));
             } else {
                 r_.setResult(new TextLabelStruct(aliasTextLabel));
+            }
+            return r_;
+        }
+        if (StringList.quickEq(name_,aliasImageLabel)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                r_.setResult(NullStruct.NULL_VALUE);
+                return r_;
+            }
+            if (_method.getParametersTypes().size() == 1) {
+                r_.setResult(new PreparedLabelStruct(_args[0],aliasImageLabel));
+            } else {
+                r_.setResult(new PreparedLabelStruct(aliasImageLabel));
             }
             return r_;
         }
@@ -388,6 +458,27 @@ public class LgNamesGui extends LgNamesUtils {
                 res_.setResult(inst_.getFont());
                 return res_;
             }
+            if (StringList.quickEq(name_, aliasGetNextCompo)) {
+                res_.setResult(inst_.getNext());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasComponentGetPaint)) {
+                res_.setResult(inst_.getPaintEvent());
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasComponentSetPaint)) {
+                inst_.setPaintEvent(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(name_, aliasComponentRepaint)) {
+                ClassMethodId polymorph_ = new ClassMethodId(aliasPaint,new MethodId(true,aliasPaintMethod,new StringList(aliasComponent)));
+                String className_ = polymorph_.getClassName();
+                MethodId ct_ = polymorph_.getConstraints();
+                Argument arg_ = new Argument(inst_);
+                _cont.setCallMethod(new CustomFoundMethod(Argument.createVoid(),className_,ct_,new CustList<Argument>(arg_),null));
+                return res_;
+            }
             res_.setResult(inst_.getParentComponent());
             return res_;
         }
@@ -440,6 +531,22 @@ public class LgNamesGui extends LgNamesUtils {
                 return res_;
             }
             txt_.setText(_args[0]);
+            res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
+        }
+        if (StringList.quickEq(type_, aliasImageLabel)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            PreparedLabelStruct txt_ = (PreparedLabelStruct) _instance;
+            if (StringList.quickEq(name_, aliasAddListener)) {
+                txt_.addMouse(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            txt_.setImage(_args[0]);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -498,6 +605,20 @@ public class LgNamesGui extends LgNamesUtils {
         KeyWords keyWords_ = _context.getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
+        String class_ = keyWords_.getKeyWordClass();
+        String abstract_ = keyWords_.getKeyWordAbstract();
+        String static_ = keyWords_.getKeyWordStatic();
+        String if_ = keyWords_.getKeyWordIf();
+        String elseif_ = keyWords_.getKeyWordElseif();
+        String while_ = keyWords_.getKeyWordWhile();
+        String final_ = keyWords_.getKeyWordFinal();
+        String return_ = keyWords_.getKeyWordReturn();
+        String continue_ = keyWords_.getKeyWordContinue();
+        String break_ = keyWords_.getKeyWordBreak();
+        String null_ = keyWords_.getKeyWordNull();
+        String cast_ = keyWords_.getKeyWordCast();
+        String true_ = keyWords_.getKeyWordTrue();
+        String is_ = keyWords_.getKeyWordInstanceof();
         String endLine_ = String.valueOf(_context.getOptions().getEndLine());
         StringMap<String> map_;
         map_ = new StringMap<String>();
@@ -551,6 +672,62 @@ public class LgNamesGui extends LgNamesUtils {
         getPredefinedClasses().add(aliasWindowListener);
         stds_.put(aliasWindowListener, content_);
         getPredefinedInterfacesInitOrder().add(aliasWindowListener);
+        String suffix_ = String.valueOf(_context.getOptions().getSuffix());
+        String suffixLocal_ = "";
+        if (_context.getOptions().getSuffixVar() == VariableSuffix.DISTINCT) {
+            suffixLocal_ = StringList.concat(suffix_,".");
+        } else if (_context.getOptions().getSuffixVar() != VariableSuffix.NONE) {
+            suffixLocal_ = suffix_;
+        }
+        String suffixParam_ = "";
+        if (_context.getOptions().getSuffixVar() == VariableSuffix.DISTINCT) {
+            suffixParam_ = StringList.concat(suffix_,".",suffix_);
+        } else if (_context.getOptions().getSuffixVar() != VariableSuffix.NONE) {
+            suffixParam_ = suffix_;
+        }
+        content_ = ResourceFiles.ressourceFichier("resources_lg_gui/repaint.txt");
+        map_ = new StringMap<String>();
+        map_.put("{public}", public_);
+        map_.put("{abstract}", abstract_);
+        map_.put("{final}", final_);
+        map_.put("{class}", class_);
+        map_.put("{Paint}", aliasPaint);
+        map_.put("{paint}", aliasPaintMethod);
+        map_.put("{static}", static_);
+        map_.put("{if}", if_);
+        map_.put("{elseif}", elseif_);
+        map_.put("{true}", true_);
+        map_.put("{return}", return_);
+        map_.put("{break}", break_);
+        map_.put("{continue}", continue_);
+        map_.put("{is}", is_);
+        map_.put("{while}", while_);
+        map_.put("{null}", null_);
+        map_.put("{cast}", cast_);
+        map_.put("{param}", suffixParam_);
+        map_.put("{local}", suffixLocal_);
+        map_.put("{Component}", aliasComponent);
+        map_.put("{Panel}", aliasPanel);
+        map_.put("{Fct}", getAliasFct());
+        map_.put("{void}", getAliasVoid());
+        map_.put("{call}", getAliasCall());
+        map_.put("{getComponent}", aliasGetIndexCompo);
+        map_.put("{next}", aliasGetNextCompo);
+        map_.put("{getParent}", aliasGetParentCompo);
+        map_.put("{getPainting}", aliasComponentGetPaint);
+        map_.put("{e}", tr("e",_context));
+        map_.put("{c}", tr("c",_context));
+        map_.put("{p}", tr("p",_context));
+        map_.put("{par}", tr("par",_context));
+        map_.put("{pan}", tr("pan",_context));
+        map_.put("{fct}", tr("fct",_context));
+        map_.put("{endLine}", endLine_);
+        content_ = StringList.formatQuote(content_, map_);
+        getPredefinedClasses().add(aliasPaint);
+        stds_.put(aliasPaint, content_);
+        getPredefinedInterfacesInitOrder().add(aliasPaint);
+        //Paint
+        //paint
         return stds_;
     }
 
@@ -608,6 +785,14 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasTextLabel(String aliasTextLabel) {
         this.aliasTextLabel = aliasTextLabel;
+    }
+
+    public String getAliasImageLabel() {
+        return aliasImageLabel;
+    }
+
+    public void setAliasImageLabel(String aliasImageLabel) {
+        this.aliasImageLabel = aliasImageLabel;
     }
 
     public String getAliasGetFont() {
@@ -674,6 +859,246 @@ public class LgNamesGui extends LgNamesUtils {
         this.aliasComponent = aliasComponent;
     }
 
+    public String getAliasImage() {
+        return aliasImage;
+    }
+
+    public void setAliasImage(String aliasImage) {
+        this.aliasImage = aliasImage;
+    }
+
+    public String getAliasImageGetWidth() {
+        return aliasImageGetWidth;
+    }
+
+    public void setAliasImageGetWidth(String aliasImageGetWidth) {
+        this.aliasImageGetWidth = aliasImageGetWidth;
+    }
+
+    public String getAliasImageGetHeight() {
+        return aliasImageGetHeight;
+    }
+
+    public void setAliasImageGetHeight(String aliasImageGetHeight) {
+        this.aliasImageGetHeight = aliasImageGetHeight;
+    }
+
+    public String getAliasImageGet() {
+        return aliasImageGet;
+    }
+
+    public void setAliasImageGet(String aliasImageGet) {
+        this.aliasImageGet = aliasImageGet;
+    }
+
+    public String getAliasImageGetGraphics() {
+        return aliasImageGetGraphics;
+    }
+
+    public void setAliasImageGetGraphics(String aliasImageGetGraphics) {
+        this.aliasImageGetGraphics = aliasImageGetGraphics;
+    }
+
+    public String getAliasImageSet() {
+        return aliasImageSet;
+    }
+
+    public void setAliasImageSet(String aliasImageSet) {
+        this.aliasImageSet = aliasImageSet;
+    }
+
+    public String getAliasImageIsWithAlpha() {
+        return aliasImageIsWithAlpha;
+    }
+
+    public void setAliasImageIsWithAlpha(String aliasImageIsWithAlpha) {
+        this.aliasImageIsWithAlpha = aliasImageIsWithAlpha;
+    }
+
+    public String getAliasComponentGetGraphics() {
+        return aliasComponentGetGraphics;
+    }
+
+    public void setAliasComponentGetGraphics(String aliasComponentGetGraphics) {
+        this.aliasComponentGetGraphics = aliasComponentGetGraphics;
+    }
+
+    public String getAliasGraphics() {
+        return aliasGraphics;
+    }
+
+    public void setAliasGraphics(String aliasGraphics) {
+        this.aliasGraphics = aliasGraphics;
+    }
+
+    public String getAliasGraphicsGetColor() {
+        return aliasGraphicsGetColor;
+    }
+
+    public void setAliasGraphicsGetColor(String aliasGraphicsGetColor) {
+        this.aliasGraphicsGetColor = aliasGraphicsGetColor;
+    }
+
+    public String getAliasGraphicsSetColor() {
+        return aliasGraphicsSetColor;
+    }
+
+    public void setAliasGraphicsSetColor(String aliasGraphicsSetColor) {
+        this.aliasGraphicsSetColor = aliasGraphicsSetColor;
+    }
+
+    public String getAliasGraphicsGetFont() {
+        return aliasGraphicsGetFont;
+    }
+
+    public void setAliasGraphicsGetFont(String aliasGraphicsGetFont) {
+        this.aliasGraphicsGetFont = aliasGraphicsGetFont;
+    }
+
+    public String getAliasGraphicsSetFont() {
+        return aliasGraphicsSetFont;
+    }
+
+    public void setAliasGraphicsSetFont(String aliasGraphicsSetFont) {
+        this.aliasGraphicsSetFont = aliasGraphicsSetFont;
+    }
+
+    public String getAliasGraphicsDraw() {
+        return aliasGraphicsDraw;
+    }
+
+    public void setAliasGraphicsDraw(String aliasGraphicsDraw) {
+        this.aliasGraphicsDraw = aliasGraphicsDraw;
+    }
+
+    public String getAliasGraphicsDrawLine() {
+        return aliasGraphicsDrawLine;
+    }
+
+    public void setAliasGraphicsDrawLine(String aliasGraphicsDrawLine) {
+        this.aliasGraphicsDrawLine = aliasGraphicsDrawLine;
+    }
+
+    public String getAliasGraphicsDrawRect() {
+        return aliasGraphicsDrawRect;
+    }
+
+    public void setAliasGraphicsDrawRect(String aliasGraphicsDrawRect) {
+        this.aliasGraphicsDrawRect = aliasGraphicsDrawRect;
+    }
+
+    public String getAliasGraphicsDrawOval() {
+        return aliasGraphicsDrawOval;
+    }
+
+    public void setAliasGraphicsDrawOval(String aliasGraphicsDrawOval) {
+        this.aliasGraphicsDrawOval = aliasGraphicsDrawOval;
+    }
+
+    public String getAliasGraphicsFillRect() {
+        return aliasGraphicsFillRect;
+    }
+
+    public void setAliasGraphicsFillRect(String aliasGraphicsFillRect) {
+        this.aliasGraphicsFillRect = aliasGraphicsFillRect;
+    }
+
+    public String getAliasGraphicsFillOval() {
+        return aliasGraphicsFillOval;
+    }
+
+    public void setAliasGraphicsFillOval(String aliasGraphicsFillOval) {
+        this.aliasGraphicsFillOval = aliasGraphicsFillOval;
+    }
+
+    public String getAliasGraphicsDrawPolygon() {
+        return aliasGraphicsDrawPolygon;
+    }
+
+    public void setAliasGraphicsDrawPolygon(String aliasGraphicsDrawPolygon) {
+        this.aliasGraphicsDrawPolygon = aliasGraphicsDrawPolygon;
+    }
+
+    public String getAliasGraphicsFillPolygon() {
+        return aliasGraphicsFillPolygon;
+    }
+
+    public void setAliasGraphicsFillPolygon(String aliasGraphicsFillPolygon) {
+        this.aliasGraphicsFillPolygon = aliasGraphicsFillPolygon;
+    }
+
+    public String getAliasColor() {
+        return aliasColor;
+    }
+
+    public void setAliasColor(String aliasColor) {
+        this.aliasColor = aliasColor;
+    }
+
+    public String getAliasColorRed() {
+        return aliasColorRed;
+    }
+
+    public void setAliasColorRed(String aliasColorRed) {
+        this.aliasColorRed = aliasColorRed;
+    }
+
+    public String getAliasColorGreen() {
+        return aliasColorGreen;
+    }
+
+    public void setAliasColorGreen(String aliasColorGreen) {
+        this.aliasColorGreen = aliasColorGreen;
+    }
+
+    public String getAliasColorBlue() {
+        return aliasColorBlue;
+    }
+
+    public void setAliasColorBlue(String aliasColorBlue) {
+        this.aliasColorBlue = aliasColorBlue;
+    }
+
+    public String getAliasColorAlpha() {
+        return aliasColorAlpha;
+    }
+
+    public void setAliasColorAlpha(String aliasColorAlpha) {
+        this.aliasColorAlpha = aliasColorAlpha;
+    }
+
+    public String getAliasColorIsTransparent() {
+        return aliasColorIsTransparent;
+    }
+
+    public void setAliasColorIsTransparent(String aliasColorIsTransparent) {
+        this.aliasColorIsTransparent = aliasColorIsTransparent;
+    }
+
+    public String getAliasComponentSetPaint() {
+        return aliasComponentSetPaint;
+    }
+
+    public void setAliasComponentSetPaint(String aliasComponentSetPaint) {
+        this.aliasComponentSetPaint = aliasComponentSetPaint;
+    }
+
+    public String getAliasComponentGetPaint() {
+        return aliasComponentGetPaint;
+    }
+
+    public void setAliasComponentGetPaint(String aliasComponentGetPaint) {
+        this.aliasComponentGetPaint = aliasComponentGetPaint;
+    }
+
+    public String getAliasComponentRepaint() {
+        return aliasComponentRepaint;
+    }
+
+    public void setAliasComponentRepaint(String aliasComponentRepaint) {
+        this.aliasComponentRepaint = aliasComponentRepaint;
+    }
+
     public String getAliasSetContent() {
         return aliasSetContent;
     }
@@ -696,6 +1121,14 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasGetParentCompo(String aliasGetParentCompo) {
         this.aliasGetParentCompo = aliasGetParentCompo;
+    }
+
+    public String getAliasGetNextCompo() {
+        return aliasGetNextCompo;
+    }
+
+    public void setAliasGetNextCompo(String aliasGetNextCompo) {
+        this.aliasGetNextCompo = aliasGetNextCompo;
     }
 
     public String getAliasGetIndexCompo() {
@@ -728,6 +1161,30 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void setAliasSetLabelText(String aliasSetLabelText) {
         this.aliasSetLabelText = aliasSetLabelText;
+    }
+
+    public String getAliasSetLabelImage() {
+        return aliasSetLabelImage;
+    }
+
+    public void setAliasSetLabelImage(String aliasSetLabelImage) {
+        this.aliasSetLabelImage = aliasSetLabelImage;
+    }
+
+    public String getAliasPaint() {
+        return aliasPaint;
+    }
+
+    public void setAliasPaint(String aliasPaint) {
+        this.aliasPaint = aliasPaint;
+    }
+
+    public String getAliasPaintMethod() {
+        return aliasPaintMethod;
+    }
+
+    public void setAliasPaintMethod(String aliasPaintMethod) {
+        this.aliasPaintMethod = aliasPaintMethod;
     }
 
     public String getAliasRemoveCompo() {
@@ -959,6 +1416,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasPanel("$core.Panel");
             setAliasButton("$core.Button");
             setAliasTextLabel("$core.TextLabel");
+            setAliasImageLabel("$core.ImageLabel");
             setAliasGetFont("getFont");
             setAliasFont("$core.Font");
             setAliasFontGetName("getName");
@@ -971,15 +1429,50 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasAddCompo("add");
             setAliasAddListener("addList");
             setAliasSetLabelText("setText");
+            setAliasSetLabelImage("setImage");
+            setAliasPaint("$core.Painting");
+            setAliasPaintMethod("paint");
             setAliasRemoveCompo("remove");
             setAliasCount("count");
             setAliasGetIndexCompo("get");
             setAliasGetParentCompo("getParent");
+            setAliasGetNextCompo("next");
             setAliasPack("pack");
             setAliasSetVisible("setVisible");
             setAliasWindow("window");
             setAliasArgs("args");
             setAliasDispose("dispose");
+            setAliasImage("$core.Image");
+            setAliasImageGet("get");
+            setAliasImageSet("set");
+            setAliasImageGetGraphics("getGraphics");
+            setAliasImageGetHeight("h");
+            setAliasImageGetWidth("w");
+            setAliasImageIsWithAlpha("alpha");
+            setAliasGraphics("$core.Graphics");
+            setAliasGraphicsDraw("draw");
+            setAliasGraphicsDrawRect("drawRect");
+            setAliasGraphicsDrawLine("drawLine");
+            setAliasGraphicsDrawOval("drawOval");
+            setAliasGraphicsDrawPolygon("drawPolygon");
+            setAliasGraphicsFillRect("fillRect");
+            setAliasGraphicsFillOval("fillOval");
+            setAliasGraphicsFillPolygon("fillPolygon");
+            setAliasGraphicsGetColor("getColor");
+            setAliasGraphicsSetColor("setColor");
+            setAliasGraphicsGetFont("getFont");
+            setAliasGraphicsSetFont("setFont");
+            setAliasComponentGetGraphics("getGraphics");
+            setAliasColor("$core.Color");
+            setAliasColorAlpha("a");
+            setAliasColorRed("r");
+            setAliasColorGreen("g");
+            setAliasColorBlue("b");
+            setAliasColorIsTransparent("transparent");
+            setAliasComponentGetGraphics("getGraphics");
+            setAliasComponentGetPaint("getPaint");
+            setAliasComponentSetPaint("setPaint");
+            setAliasComponentRepaint("repaint");
         } else {
             setAliasActionEvent("$coeur.ActionEvt");
             setAliasActionListener("$coeur.ActionEcouteur");
@@ -1007,6 +1500,7 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasPanel("$coeur.Panneau");
             setAliasButton("$coeur.Bouton");
             setAliasTextLabel("$coeur.Etiquette");
+            setAliasImageLabel("$coeur.EtImage");
             setAliasGetFont("valPolice");
             setAliasFont("$coeur.Police");
             setAliasFontGetName("valNom");
@@ -1019,15 +1513,50 @@ public class LgNamesGui extends LgNamesUtils {
             setAliasAddCompo("ajout");
             setAliasAddListener("ajEcout");
             setAliasSetLabelText("majTexte");
+            setAliasSetLabelImage("majImage");
+            setAliasPaint("$coeur.Peinture");
+            setAliasPaintMethod("peindre");
             setAliasRemoveCompo("supprimer");
             setAliasCount("nb");
             setAliasGetIndexCompo("val");
             setAliasGetParentCompo("valParent");
+            setAliasGetNextCompo("suivant");
             setAliasPack("cadrer");
             setAliasSetVisible("majVisible");
             setAliasWindow("fenetre");
             setAliasArgs("args");
             setAliasDispose("liberer");
+            setAliasImage("$coeur.Image");
+            setAliasImageGet("val");
+            setAliasImageSet("maj");
+            setAliasImageGetGraphics("valGraphiques");
+            setAliasImageGetHeight("h");
+            setAliasImageGetWidth("l");
+            setAliasImageIsWithAlpha("alpha");
+            setAliasGraphics("$coeur.Graphiques");
+            setAliasGraphicsDraw("dessiner");
+            setAliasGraphicsDrawRect("dessinerRect");
+            setAliasGraphicsDrawLine("dessinerLigne");
+            setAliasGraphicsDrawOval("dessinerOval");
+            setAliasGraphicsDrawPolygon("dessinerPolygone");
+            setAliasGraphicsFillRect("remplierRect");
+            setAliasGraphicsFillOval("remplierOval");
+            setAliasGraphicsFillPolygon("remplierPolygone");
+            setAliasGraphicsGetColor("valColor");
+            setAliasGraphicsSetColor("majColor");
+            setAliasGraphicsGetFont("valPolice");
+            setAliasGraphicsSetFont("majPolice");
+            setAliasComponentGetGraphics("valGraphiques");
+            setAliasColor("$coeur.Couleur");
+            setAliasColorAlpha("a");
+            setAliasColorRed("r");
+            setAliasColorGreen("v");
+            setAliasColorBlue("b");
+            setAliasColorIsTransparent("transparent");
+            setAliasComponentGetGraphics("valGraphiques");
+            setAliasComponentGetPaint("valPeindre");
+            setAliasComponentSetPaint("majPeindre");
+            setAliasComponentRepaint("repeindre");
         }
     }
     @Override
@@ -1039,6 +1568,7 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasArgs(),
                 getAliasAddWindowListener(),
                 getAliasDispose(),
+                getAliasSetVisible(),
                 getAliasSetContent()));
         m_.put(getAliasPanel(), new StringList(
                 getAliasCount(),
@@ -1050,6 +1580,8 @@ public class LgNamesGui extends LgNamesUtils {
                 getAliasGetMouseEventSecond()));
         m_.put(getAliasComponent(), new StringList(
                 getAliasGetParentCompo(),
+                getAliasComponentGetPaint(),
+                getAliasComponentSetPaint(),
                 getAliasGetFont()
         ));
         m_.put(getAliasTextLabel(), new StringList(

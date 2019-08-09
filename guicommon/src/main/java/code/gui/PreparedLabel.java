@@ -16,7 +16,7 @@ public final class PreparedLabel extends CustComponent {
         label = new JLabel(_icon);
     }
 
-    public void setIcon(Icon _icon) {
+    public void setIcon(ImageIcon _icon) {
         label.setIcon(_icon);
     }
 

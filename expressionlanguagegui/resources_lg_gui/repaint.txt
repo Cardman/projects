@@ -1,0 +1,43 @@
+{public} {abstract} {final} {class} {Paint} '{'
+  {public} {static} {void} {paint}({Component} {e})'{'
+  {if} ({e}{param} == {null}) '{'
+   {return}{endLine}
+  '}'
+  {if} (!({e}{param} {is} {Panel})) '{'
+   {Fct}<{Component},?> {fct} = ({e}{param}).{getPainting}(){endLine}
+   {if} ({fct}{local} != {null}) '{'
+      ({fct}{local}).{call}({e}{param}){endLine}
+   '}'
+   {return}{endLine}
+  '}'
+  {Component} {c} = {e}{param}{endLine}
+  {while} ({true}) '{'
+     {Fct}<{Component},?> {fct} = ({c}{local}).{getPainting}(){endLine}
+     {if} ({fct}{local} != {null}) '{'
+        ({fct}{local}).{call}({c}{local}){endLine}
+     '}'
+     {if} ({c}{local} {is} {Panel}) '{'
+       {Panel} {pan} = {cast}({Panel}){c}{local}{endLine}
+       {Component} {p} = ({pan}{local}).{getComponent}(0){endLine}
+       {if} ({p}{local} != {null}) '{'
+         {c}{local} = {p}{local}{endLine}
+         {continue}{endLine}
+       '}'{elseif} ({c}{local} == {e}{param})'{'
+         {return}{endLine}
+       '}'
+     '}'
+     {while} ({true}) '{'
+         {Component} {p} = ({c}{local}).{next}(){endLine}
+         {if} ({p}{local} != {null}) '{'
+            {c}{local} = {p}{local}{endLine}
+            {break}{endLine}
+         '}'
+          {Component} {par} = ({c}{local}).{getParent}(){endLine}
+          {if} ({par}{local} == {e}{param}) '{'
+              {return}{endLine}
+         '}'
+         {c}{local} = {par}{local}{endLine}
+      '}'
+      '}'
+  '}'
+'}'

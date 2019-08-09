@@ -17,11 +17,12 @@ public abstract class CustComponent {
     public static void invokeLater(Runnable _r) {
         SwingUtilities.invokeLater(_r);
     }
-    public static void invokeAndWait(Runnable _r) {
+    public static boolean invokeAndWait(Runnable _r) {
         try {
             SwingUtilities.invokeAndWait(_r);
+            return true;
         } catch (Exception _0) {
-            //
+            return false;
         }
     }
     public static Thread newThread(Runnable _r) {
