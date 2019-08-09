@@ -19,10 +19,7 @@ import cards.tarot.DisplayingTarot;
 import cards.tarot.TrickTarot;
 import cards.tarot.TricksHandsTarot;
 import cards.tarot.enumerations.CardTarot;
-import code.gui.ChangeableTitle;
-import code.gui.NumComboBox;
-import code.gui.Panel;
-import code.gui.TextLabel;
+import code.gui.*;
 import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.StringList;
@@ -46,13 +43,13 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
 
     private byte numberPlayers;
     private DisplayingTarot displayingTarot;
-    private MainWindow window;
+    private CommonFrame window;
     private Panel container;
     public PanelTricksHandsTarot(ChangeableTitle _parent,
             TricksHandsTarot _tricksHands,
             byte _numberPlayers,
             StringList _pseudos,
-            DisplayingTarot _displayingTarot, MainWindow _window) {
+            DisplayingTarot _displayingTarot, CommonFrame _window) {
         window = _window;
         String lg_ = window.getLanguageKey();
         numberPlayers = _numberPlayers;
@@ -297,39 +294,37 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
             hands.add(Panel.newFlow(FlowLayout.LEFT,0,0));
         }
         selectedTrick.removeAll();
-        if(numeroPli_>0) {
-            byte entameur_=tricks_.get(numeroPli_).getEntameur();
-            byte indice_=0;
-            byte indice2_=0;
-            while(indice_<entameur_) {
-                TextLabel etiquette2_=new TextLabel(Long.toString(indice_));
-                etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
-                etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
-                etiquette2_.setOpaque(true);
-                etiquette2_.setBackground(Color.WHITE);
-                selectedTrick.add(etiquette2_);
+        byte entameur_=tricks_.get(numeroPli_).getEntameur();
+        byte indice_=0;
+        byte indice2_=0;
+        while(indice_<entameur_) {
+            TextLabel etiquette2_=new TextLabel(Long.toString(indice_));
+            etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
+            etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
+            etiquette2_.setOpaque(true);
+            etiquette2_.setBackground(Color.WHITE);
+            selectedTrick.add(etiquette2_);
+            indice_++;
+        }
+        for(CardTarot carte_:tricks_.get(numeroPli_)) {
+            if(indice2_<=numeroCarte_) {
+                GraphicTarotCard carteGraphique2_=new GraphicTarotCard(lg_, carte_,SwingConstants.RIGHT,true);
+                carteGraphique2_.setPreferredSize(GraphicTarotCard.getMaxDimension());
+                selectedTrick.add(carteGraphique2_);
                 indice_++;
+                indice2_++;
+            } else {
+                break;
             }
-            for(CardTarot carte_:tricks_.get(numeroPli_)) {
-                if(indice2_<=numeroCarte_) {
-                    GraphicTarotCard carteGraphique2_=new GraphicTarotCard(lg_, carte_,SwingConstants.RIGHT,true);
-                    carteGraphique2_.setPreferredSize(GraphicTarotCard.getMaxDimension());
-                    selectedTrick.add(carteGraphique2_);
-                    indice_++;
-                    indice2_++;
-                } else {
-                    break;
-                }
-            }
-            while(indice_<2*numberPlayers-1) {
-                TextLabel etiquette2_=new TextLabel(Long.toString(indice_-numberPlayers));
-                etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
-                etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
-                etiquette2_.setOpaque(true);
-                etiquette2_.setBackground(Color.WHITE);
-                selectedTrick.add(etiquette2_);
-                indice_++;
-            }
+        }
+        while(indice_<2*numberPlayers-1) {
+            TextLabel etiquette2_=new TextLabel(Long.toString(indice_-numberPlayers));
+            etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
+            etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
+            etiquette2_.setOpaque(true);
+            etiquette2_.setBackground(Color.WHITE);
+            selectedTrick.add(etiquette2_);
+            indice_++;
         }
         parent.pack();
 

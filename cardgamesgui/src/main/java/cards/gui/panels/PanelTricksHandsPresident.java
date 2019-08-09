@@ -19,11 +19,7 @@ import cards.president.DisplayingPresident;
 import cards.president.HandPresident;
 import cards.president.TrickPresident;
 import cards.president.TricksHandsPresident;
-import code.gui.ChangeableTitle;
-import code.gui.CustComponent;
-import code.gui.IntTreeComboBox;
-import code.gui.Panel;
-import code.gui.TextLabel;
+import code.gui.*;
 import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.NatCmpTreeMap;
@@ -51,14 +47,14 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
     private ChangeableTitle parent;
     private byte numberPlayers;
     private DisplayingPresident displayingPresident;
-    private MainWindow window;
+    private CommonFrame window;
     private Panel container;
 
     public PanelTricksHandsPresident(ChangeableTitle _parent,
             TricksHandsPresident _tricksHands,
             byte _numberPlayers,
             StringList _pseudos,
-            DisplayingPresident _displayingPresident, MainWindow _window) {
+            DisplayingPresident _displayingPresident, CommonFrame _window) {
         window = _window;
         String lg_ = window.getLanguageKey();
         numberPlayers = _numberPlayers;

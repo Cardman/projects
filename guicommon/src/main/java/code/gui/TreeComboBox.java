@@ -1,5 +1,6 @@
 package code.gui;
 import code.util.AbsMap;
+import code.util.StringList;
 import code.util.TreeMap;
 
 public abstract class TreeComboBox<T> extends GraphicCombo {
@@ -20,6 +21,7 @@ public abstract class TreeComboBox<T> extends GraphicCombo {
     }
 
     public TreeComboBox(AbsMap<T,String> _tr){
+        super(new StringList(_tr.values()));
         elements = _tr;
     }
 

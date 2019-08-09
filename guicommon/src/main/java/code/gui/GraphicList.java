@@ -286,7 +286,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
             c.setPreferredSize(new Dimension(width_, h_));
             c_++;
         }
-        scroll.setPreferredSize(new Dimension(width_ + 4, (h_ + 2)* Math.min(c_, visibleRowCount)));
+        scroll.setPreferredSize(new Dimension(width_ + 24, (h_ + 2)* Math.min(c_, visibleRowCount)));
         panel_.revalidate();
         scroll.revalidate();
         panel_.repaint();

@@ -19,10 +19,7 @@ import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicBeloteCard;
 import cards.gui.panels.events.ListenerCards;
 import cards.gui.panels.events.ListenerTricks;
-import code.gui.ChangeableTitle;
-import code.gui.NumComboBox;
-import code.gui.Panel;
-import code.gui.TextLabel;
+import code.gui.*;
 import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.StringList;
@@ -45,7 +42,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
     private ChangeableTitle parent;
     private byte numberPlayers;
     private DisplayingBelote displayingBelote;
-    private MainWindow window;
+    private CommonFrame window;
     private Panel container;
 
     public PanelTricksHandsBelote(ChangeableTitle _parent,
@@ -53,7 +50,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
             byte _numberPlayers,
             StringList _pseudos,
             DisplayingBelote _displayingBelote,
-            MainWindow _window) {
+                                  CommonFrame _window) {
         window= _window;
         numberPlayers = _numberPlayers;
         displayingBelote = _displayingBelote;
