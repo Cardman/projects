@@ -1,6 +1,6 @@
 package player.main;
-import javax.swing.SwingUtilities;
 
+import code.gui.CustComponent;
 import code.util.consts.Constants;
 import player.gui.MainWindow;
 

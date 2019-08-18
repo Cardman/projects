@@ -73,10 +73,6 @@ public final class TextField extends CustComponent {
         textField.select(selectionStart, selectionEnd);
     }
 
-    public FontMetrics getFontMetrics(Font font) {
-        return textField.getFontMetrics(font);
-    }
-
     public boolean contains(int x, int y) {
         return textField.contains(x, y);
     }

@@ -57,7 +57,6 @@ public class LanguageFrame extends CommonFrame implements SetterLanguage {
         setLocationRelativeTo(null);
         setVisible(true);
         pack();
-        SetStyle.setupStyle(this);
     }
 
     @Override

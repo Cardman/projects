@@ -2,7 +2,6 @@ package aiki.main;
 import aiki.sml.LoadingGame;
 import aiki.gui.MainWindow;
 import code.gui.CustComponent;
-import code.gui.SetStyle;
 import code.gui.SoftApplicationCore;
 import code.gui.TopLeftFrame;
 import code.util.StringMap;
@@ -37,7 +36,6 @@ public final class CreateMainWindow implements Runnable {
         window = new MainWindow(lg);
         SoftApplicationCore.setLocation(window, topLeft);
         window.pack();
-        SetStyle.setupStyle(window);
         window.setVisible(true);
         if (!withParam.isEmpty()) {
             CustComponent.newThread(new CreateMainWindowParam(window, load, path, withParam)).start();

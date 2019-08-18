@@ -131,7 +131,11 @@ public final class GuiProcess implements Runnable {
             ProcessMethod.calculateArgument(arg_, clName, id_, args_, context, null);
             if (context.hasException()) {
                 context.getCustInit().prExc(context);
+            } else {
+                context.getCustInit().removeThreadFromList();
             }
+        } else {
+            context.getCustInit().removeThreadFromList();
         }
     }
 }

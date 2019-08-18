@@ -26,7 +26,6 @@ import aiki.gui.MainWindow;
 import aiki.gui.dialogs.FrameHtmlData;
 import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
-import code.gui.SetStyle;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.LgInt;
 import code.util.CustList;
@@ -110,7 +109,6 @@ public class FrontBattle extends PaintableLabel {
     public FrontBattle(MainWindow _window, FacadeGame _facade) {
         facade = _facade;
         battle = new Battle(_window, _facade, this);
-        SetStyle.setupStyle(battle);
     }
 
     public void setTargets() {

@@ -41,7 +41,6 @@ public class LaunchingCards extends SoftApplicationCore {
 
         SoftApplicationCore.setLocation(window_, coordonnees_);
         window_.pack();
-        SetStyle.setupStyle(window_);
         window_.setVisible(true);
 
         if (!_args.isEmpty()) {

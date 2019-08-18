@@ -1318,13 +1318,8 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     private void initBattle() {
-        if (battle != null) {
-            return;
-        }
-//        battle = new Battle(this);
         battle = new FrontBattle(this, facade);
         battle.addMouseListener(new FrontClickEvent(battle));
-        SetStyle.setupStyle(battle);
     }
 
     public LoadingGame getLoadingConf() {

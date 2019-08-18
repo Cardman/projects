@@ -57,7 +57,6 @@ public final class MainWindow extends GroupFrame {
         setContentPane(panel_);
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
-        SetStyle.setupStyle(this);
         setVisible(true);
         pack();
     }

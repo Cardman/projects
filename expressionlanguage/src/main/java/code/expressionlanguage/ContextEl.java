@@ -511,7 +511,7 @@ public abstract class ContextEl implements ExecutableCode {
     }
     public abstract void initError();
     @Override
-    public ClassMetaInfo getClassMetaInfo(String _name) {
+    public final ClassMetaInfo getClassMetaInfo(String _name) {
         String base_ = Templates.getIdFromAllTypes(_name);
         LgNames stds_ = getStandards();
         for (EntryCust<String, StandardType> c: stds_.getStandards().entryList()) {
@@ -524,7 +524,7 @@ public abstract class ContextEl implements ExecutableCode {
         }
         return classes.getClassMetaInfo(_name, this);
     }
-    public ClassMetaInfo getClassMetaInfo(StandardType _type,String _name) {
+    public final ClassMetaInfo getClassMetaInfo(StandardType _type,String _name) {
         String k_ = _type.getFullName();
         ObjectMap<MethodId, MethodMetaInfo> infos_;
         infos_ = new ObjectMap<MethodId, MethodMetaInfo>();
@@ -2436,7 +2436,7 @@ public abstract class ContextEl implements ExecutableCode {
         return b_.toString();
     }
 
-    public ClassMetaInfo getExtendedClassMetaInfo(String _name, String _variableOwner) {
+    public final ClassMetaInfo getExtendedClassMetaInfo(String _name, String _variableOwner) {
         if (StringList.quickEq(_name, Templates.SUB_TYPE)) {
             StringList upperBounds_ = new StringList();
             StringList lowerBounds_ = new StringList();
@@ -2463,7 +2463,7 @@ public abstract class ContextEl implements ExecutableCode {
         return getExtendedClassMetaInfo(_name);
     }
     @Override
-    public ClassMetaInfo getExtendedClassMetaInfo(String _name) {
+    public final ClassMetaInfo getExtendedClassMetaInfo(String _name) {
         if (StringList.quickEq(_name.trim(), getStandards().getAliasVoid())) {
             return new ClassMetaInfo(_name, this, ClassCategory.VOID,"");
         }

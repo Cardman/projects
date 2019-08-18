@@ -162,7 +162,6 @@ public class MainWindow extends GroupFrame {
         setContentPane(pane_);
         pack();
         setVisible(true);
-        SetStyle.setupStyle(this);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 

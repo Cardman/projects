@@ -17,8 +17,10 @@ public abstract class CustComponentStruct implements Struct {
     protected CustComponentStruct(String _className) {
         className = _className;
     }
-    public static void invokeLater(RunnableStruct _r) {
-        SwingUtilities.invokeLater(_r);
+    public static void invokeLater(Struct _r) {
+        if (_r instanceof EventStruct) {
+            SwingUtilities.invokeLater((EventStruct) _r);
+        }
     }
     @Override
     public Struct getParent() {
