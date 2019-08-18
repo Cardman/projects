@@ -462,7 +462,7 @@ public abstract class RendDynOperationNode {
     public static Argument processString(Argument _argument, Configuration _conf) {
         Argument out_ = new Argument(_argument.getStruct());
         ContextEl ctx_ = _conf.getContext();
-        ExecOperationNode.processString(out_, ctx_);
+        out_ = ExecOperationNode.processString(out_, ctx_);
         CustomFoundMethod method_ = ctx_.getCallMethod();
         if (method_ != null) {
             out_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(), method_.getId(), method_.getArguments(), ctx_,method_.getRight());

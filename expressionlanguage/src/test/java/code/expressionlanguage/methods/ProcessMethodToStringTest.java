@@ -2134,4 +2134,64 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         assertEq("static:", ret_.getString());
     }
+    @Test
+    public void calculate51Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$operator+ pkg.Ex(pkg.Ex p,pkg.Ex q) {\n");
+        xml_.append("  pkg.Ex e = $new pkg.Ex():\n");
+        xml_.append("  e;.[0] = p;.;[0]:\n");
+        xml_.append("  e;.[0]+=q;.;[0]:\n");
+        xml_.append("  e;.[1] = p;.;[1]:\n");
+        xml_.append("  e;.[1]+=q;.;[1]:\n");
+        xml_.append("  $return e;.:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static String test(){\n");
+        xml_.append("  ExCont c = $new ExCont():\n");
+        xml_.append("  Ex e = $new Ex():\n");
+        xml_.append("  Ex f = $new Ex():\n");
+        xml_.append("  e;.[0] = 5:\n");
+        xml_.append("  e;.[1] = 1:\n");
+        xml_.append("  f;.[0] = 15:\n");
+        xml_.append("  f;.[1] = 2:\n");
+        xml_.append("  $return (c;.[0]+=e;.)+';'+(c;.[1]+=f;.):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExCont {\n");
+        xml_.append(" $public String[] inst={\"str1:\",\"str2:\"}:\n");
+        xml_.append(" $public String $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p;.;]:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p;.;] = $value;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int[] inst=$new $int[2]:\n");
+        xml_.append(" $public $int $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p;.;]:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p;.;] = $value;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public String $toString()\n");
+        xml_.append(" {\n");
+        xml_.append("  $return \"\"+inst[0]+\",\"+inst[1]:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq("str1:5,1;str2:15,2", ret_.getString());
+    }
 }

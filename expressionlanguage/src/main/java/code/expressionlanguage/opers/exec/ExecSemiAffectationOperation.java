@@ -41,6 +41,11 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             return;
         }
         Argument arg_ = settable.calculateSemiSetting(_nodes, _conf, oper, post);
+        ArgumentsPair pair_ = getArgumentPair(_nodes,this);
+        if (_conf.callsOrException() && pair_ instanceof TwoStepsArgumentsPair) {
+            TwoStepsArgumentsPair s_ = (TwoStepsArgumentsPair) pair_;
+            s_.setCalledIndexer(true);
+        }
         setSimpleArgument(arg_, _conf, _nodes);
     }
 

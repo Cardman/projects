@@ -2,7 +2,9 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.structs.StringStruct;
 import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -1969,6 +1971,81 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         assertEq(6, ret_.getNumber());
+    }
+    @Test
+    public void calculate46Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $int test(){\n");
+        xml_.append("  Ex e = $new Ex():\n");
+        xml_.append("  e;.[0] = 5:\n");
+        xml_.append("  e;.[0]++:\n");
+        xml_.append("  $return e;.[0]:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int[] inst=$new $int[2]:\n");
+        xml_.append(" $public $static $int count:\n");
+        xml_.append(" $public $static String calls = \"\":\n");
+        xml_.append(" $public $int $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  calls +=++count+\" get at \"+p;.;+\";\":\n");
+        xml_.append("  $return inst[p;.;]:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  calls +=++count+\" set at \"+p;.;+\",\"+$value;.;+\";\":\n");
+        xml_.append("  inst[p;.;] = $value;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq(6, ret_.getNumber());
+        assertEq("1 set at 0,5;2 get at 0;3 set at 0,6;4 get at 0;", ((StringStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex","calls"))).getInstance());
+    }
+    @Test
+    public void calculate47Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $int test(){\n");
+        xml_.append("  Ex e = $new Ex():\n");
+        xml_.append("  e;.[0] = 5:\n");
+        xml_.append("  $return e;.[0]+=10:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int[] inst=$new $int[2]:\n");
+        xml_.append(" $public $static $int count:\n");
+        xml_.append(" $public $static String calls = \"\":\n");
+        xml_.append(" $public $int $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  calls +=++count+\" get at \"+p;.;+\";\":\n");
+        xml_.append("  $return inst[p;.;]:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  calls +=++count+\" set at \"+p;.;+\",\"+$value;.;+\";\":\n");
+        xml_.append("  inst[p;.;] = $value;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
+        assertEq(15, ret_.getNumber());
+        assertEq("1 set at 0,5;2 get at 0;3 set at 0,15;", ((StringStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex","calls"))).getInstance());
     }
     @Test
     public void calculateFailTest() {

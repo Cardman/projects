@@ -499,25 +499,28 @@ public abstract class ExecOperationNode implements Operable {
             return;
         }
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
+        Argument arg_ = _argument;
         if (_convertToString && resultClass.isConvertToString()){
             pair_.setCalledToString(true);
-            processString(_argument,_conf);
+            arg_ = processString(_argument,_conf);
             if (_conf.getCallMethod() != null) {
                 return;
             }
         }
         ExecPossibleIntermediateDotted n_ = getSiblingSet();
         if (n_ != null) {
-            _nodes.getValue(n_.getOrder()).setPreviousArgument(_argument);
+            _nodes.getValue(n_.getOrder()).setPreviousArgument(arg_);
         }
-        _nodes.getValue(getOrder()).setArgument(_argument);
-        _conf.getCoverage().passBlockOperation(_conf, this,_argument);
+        _nodes.getValue(getOrder()).setArgument(arg_);
+        _conf.getCoverage().passBlockOperation(_conf, this,arg_);
     }
 
-    public static void processString(Argument _argument, ContextEl _conf) {
+    public static Argument processString(Argument _argument, ContextEl _conf) {
+        Argument out_ = new Argument();
+        out_.setStruct(_argument.getStruct());
         Struct struct_ = _argument.getStruct();
         if (struct_ instanceof DisplayableStruct) {
-            _argument.setStruct(((DisplayableStruct)struct_).getDisplayedString(_conf));
+            out_.setStruct(((DisplayableStruct)struct_).getDisplayedString(_conf));
         } else {
             String argClassName_ = _conf.getStandards().getStructClassName(struct_, _conf);
             ClassMethodIdReturn resDyn_ = OperationNode.tryGetDeclaredToString(_conf, argClassName_);
@@ -529,14 +532,15 @@ public abstract class ExecOperationNode implements Operable {
                 methodId_ = new ClassMethodId(foundClass_, id_);
             }
             if (methodId_ == null) {
-                _argument.setStruct(new StringStruct(struct_.getClassName(_conf)));
+                out_.setStruct(new StringStruct(struct_.getClassName(_conf)));
             } else {
                 ClassMethodId polymorph_ = ExecInvokingOperation.polymorph(_conf, struct_, methodId_);
                 String className_ = polymorph_.getClassName();
                 MethodId ct_ = polymorph_.getConstraints();
-                _conf.setCallMethod(new CustomFoundMethod(_argument,className_,ct_,new CustList<Argument>(),null));
+                _conf.setCallMethod(new CustomFoundMethod(out_,className_,ct_,new CustList<Argument>(),null));
             }
         }
+        return out_;
     }
     @Override
     public final void setSimpleArgumentAna(Argument _argument, Analyzable _conf) {
