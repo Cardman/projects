@@ -3771,7 +3771,7 @@ public final class TemplatesTest {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("java.lang.$Fct", t_,cont_));
+        assertTrue(Templates.isCorrectTemplateAll("java.lang.$Fct", t_,cont_));
     }
     @Test
     public void isCorrectTemplate49Test() {
@@ -3782,7 +3782,7 @@ public final class TemplatesTest {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("java.lang.$Fct<?>", t_,cont_));
+        assertTrue(Templates.isCorrectTemplateAll("java.lang.$Fct<?>", t_,cont_));
     }
     @Test
     public void isCorrectTemplate50Test() {
@@ -3793,7 +3793,7 @@ public final class TemplatesTest {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("java.lang.$Fct<?,?>", t_,cont_));
+        assertTrue(Templates.isCorrectTemplateAll("java.lang.$Fct<?,?>", t_,cont_));
     }
     @Test
     public void isCorrectTemplate51Test() {
@@ -3804,7 +3804,7 @@ public final class TemplatesTest {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("pkg.Ex", t_,cont_));
+        assertTrue(Templates.isCorrectTemplateAll("pkg.Ex", t_,cont_));
     }
 
     @Test
@@ -3816,7 +3816,7 @@ public final class TemplatesTest {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("pkg.Ex", t_,cont_));
+        assertTrue(Templates.isCorrectTemplateAll("pkg.Ex", t_,cont_));
     }
 
     @Test
@@ -3828,7 +3828,7 @@ public final class TemplatesTest {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("pkg.Ex", t_,cont_));
+        assertTrue(Templates.isCorrectTemplateAll("pkg.Ex", t_,cont_));
     }
 
     @Test
@@ -3840,7 +3840,7 @@ public final class TemplatesTest {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex", t_,cont_));
+        assertTrue(Templates.isCorrectTemplateAll("[pkg.Ex", t_,cont_));
     }
 
     @Test
@@ -3852,7 +3852,7 @@ public final class TemplatesTest {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex", t_,cont_));
+        assertTrue(Templates.isCorrectTemplateAll("[pkg.Ex", t_,cont_));
     }
 
     @Test
@@ -3864,7 +3864,7 @@ public final class TemplatesTest {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex", t_,cont_));
+        assertTrue(Templates.isCorrectTemplateAll("[pkg.Ex", t_,cont_));
     }
 
     @Test
@@ -3876,7 +3876,7 @@ public final class TemplatesTest {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("pkg.Ex<java.lang.Object>", t_,cont_));
+        assertTrue(Templates.isCorrectTemplateAll("pkg.Ex<java.lang.Object>", t_,cont_));
     }
 
     @Test
@@ -3888,7 +3888,7 @@ public final class TemplatesTest {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("pkg.Ex<java.lang.Object>", t_,cont_));
+        assertTrue(Templates.isCorrectTemplateAll("pkg.Ex<java.lang.Object>", t_,cont_));
     }
 
     @Test
@@ -3900,7 +3900,7 @@ public final class TemplatesTest {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,cont_));
+        assertTrue(Templates.isCorrectTemplateAll("[pkg.Ex<java.lang.Object>", t_,cont_));
     }
 
     @Test
@@ -3912,7 +3912,7 @@ public final class TemplatesTest {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,cont_));
+        assertTrue(Templates.isCorrectTemplateAll("[pkg.Ex<java.lang.Object>", t_,cont_));
     }
 
     @Test
@@ -3925,7 +3925,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
+        assertTrue(Templates.isCorrectTemplateAll("[pkg.Ex<#E>", t_,cont_));
     }
 
     @Test
@@ -3938,7 +3938,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
+        assertTrue(Templates.isCorrectTemplateAll("[pkg.Ex<#E>", t_,cont_));
     }
 
     @Test
@@ -3951,7 +3951,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Integer"));
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
+        assertTrue(Templates.isCorrectTemplateAll("[pkg.Ex<#E>", t_,cont_));
     }
 
     @Test
@@ -3964,7 +3964,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Integer"));
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
+        assertTrue(Templates.isCorrectTemplateAll("[pkg.Ex<#E>", t_,cont_));
     }
 
     @Test
@@ -3977,7 +3977,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
-        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
+        assertTrue(!Templates.isCorrectTemplateAll("[pkg.Ex<#E>", t_,cont_));
     }
 
     @Test
@@ -3990,7 +3990,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
-        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
+        assertTrue(!Templates.isCorrectTemplateAll("[pkg.Ex<#E>", t_,cont_));
     }
 
     @Test
@@ -4002,7 +4002,7 @@ public final class TemplatesTest {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,cont_));
+        assertTrue(!Templates.isCorrectTemplateAll("[pkg.Ex<java.lang.Object>", t_,cont_));
     }
 
     @Test
@@ -4014,7 +4014,7 @@ public final class TemplatesTest {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,cont_));
+        assertTrue(!Templates.isCorrectTemplateAll("[pkg.Ex<java.lang.Object>", t_,cont_));
     }
 
     @Test
@@ -4043,7 +4043,7 @@ public final class TemplatesTest {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<java.lang.Integer>", t_,cont_));
+        assertTrue(Templates.isCorrectTemplateAll("[pkg.Ex<java.lang.Integer>", t_,cont_));
     }
 
     @Test
@@ -4055,7 +4055,7 @@ public final class TemplatesTest {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,cont_));
+        assertTrue(!Templates.isCorrectTemplateAll("[pkg.Ex<java.lang.Object>", t_,cont_));
     }
 
     @Test
@@ -4067,7 +4067,7 @@ public final class TemplatesTest {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,cont_));
+        assertTrue(!Templates.isCorrectTemplateAll("[pkg.Ex<java.lang.Object>", t_,cont_));
     }
 
     @Test
@@ -4086,7 +4086,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
+        assertTrue(Templates.isCorrectTemplateAll("[pkg.Ex<#E>", t_,cont_));
     }
 
     @Test
@@ -4105,7 +4105,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
+        assertTrue(Templates.isCorrectTemplateAll("[pkg.Ex<#E>", t_,cont_));
     }
 
     @Test
@@ -4124,7 +4124,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
-        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
+        assertTrue(!Templates.isCorrectTemplateAll("[pkg.Ex<#E>", t_,cont_));
     }
 
     @Test
@@ -4143,7 +4143,7 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
-        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
+        assertTrue(!Templates.isCorrectTemplateAll("[pkg.Ex<#E>", t_,cont_));
     }
 
     @Test
@@ -4161,7 +4161,7 @@ public final class TemplatesTest {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<pkg.ExTwo>", t_,cont_));
+        assertTrue(!Templates.isCorrectTemplateAll("[pkg.Ex<pkg.ExTwo>", t_,cont_));
     }
 
     @Test
@@ -4179,7 +4179,7 @@ public final class TemplatesTest {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<pkg.ExTwo>", t_,cont_));
+        assertTrue(!Templates.isCorrectTemplateAll("[pkg.Ex<pkg.ExTwo>", t_,cont_));
     }
 
     @Test
@@ -4230,6 +4230,18 @@ public final class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!Templates.isCorrectTemplateAll("pkg.Ex<java.lang.String>", t_,cont_,false));
+    }
+
+    @Test
+    public void isCorrectTemplate83Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(!Templates.isCorrectTemplateAll("pkg.Ex<pkg.Ex>", t_,cont_,false));
     }
     @Test
     public void isCorrectTemplateAll1Test() {

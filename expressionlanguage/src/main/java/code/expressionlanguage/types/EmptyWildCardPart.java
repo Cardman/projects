@@ -33,6 +33,11 @@ final class EmptyWildCardPart extends LeafPartType {
     }
 
     @Override
+    void analyzeTemplate(Analyzable _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
+        setAnalyzedType(Templates.SUB_TYPE);
+    }
+
+    @Override
     void analyzeLine(Analyzable _an,
             CustList<IntTreeMap< String>> _dels, String _globalType,
             AccessingImportingBlock _rooted) {

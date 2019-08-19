@@ -73,6 +73,13 @@ final class VariablePartType extends LeafPartType {
     void analyze(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _rooted) {
         analyzeLine(_an,_dels,_globalType,_rooted);
     }
+
+    @Override
+    void analyzeTemplate(Analyzable _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
+        String type_ = getTypeName();
+        setAnalyzedType(type_);
+    }
+
     @Override
     void analyzeLine(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _rooted) {
         if (getParent() instanceof InnerPartType) {

@@ -87,6 +87,14 @@ final class WildCardPartType extends ParentPartType {
     void analyze(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _rooted) {
         analyzeLine(_an,_dels,_globalType,_rooted);
     }
+
+    @Override
+    void analyzeTemplate(Analyzable _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
+        String ch_ = getFirstChild().getAnalyzedType();
+        ch_ = StringList.concat(getBegin(),ch_);
+        setAnalyzedType(ch_);
+    }
+
     @Override
     void analyzeLine(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _rooted) {
         String ch_ = getFirstChild().getAnalyzedType();

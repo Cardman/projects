@@ -81,6 +81,19 @@ final class InnerPartType extends BinaryType {
     void analyze(Analyzable _an, CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _rooted) {
         analyzeLine(_an,_dels,_globalType,_rooted);
     }
+
+    @Override
+    void analyzeTemplate(Analyzable _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
+        CustList<PartType> ch_ = new CustList<PartType>();
+        PartType f_ = getFirstChild();
+        while (f_ != null) {
+            ch_.add(f_);
+            f_ = f_.getNextSibling();
+        }
+        String t_ = ch_.last().getAnalyzedType();
+        setAnalyzedType(t_);
+    }
+
     @Override
     void analyzeLine(Analyzable _an, CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _rooted) {
         CustList<PartType> ch_ = new CustList<PartType>();

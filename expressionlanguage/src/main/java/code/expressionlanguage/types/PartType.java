@@ -62,6 +62,28 @@ abstract class PartType {
         }
         return new WildCardPartType(_parent, _index, _indexInType, _analyze.getOperators().firstValue());
     }
+    static PartType createQuickPartType(ParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, IntTreeMap<String> _dels, boolean _removedFirst) {
+        if (_analyze.getOperators().isEmpty()) {
+            if (_analyze.getKind() == KindPartType.TYPE_NAME) {
+                String type_ = _dels.getValue(_index);
+                return new NamePartType(_parent, _index, _indexInType, type_);
+            }
+            if (_analyze.getKind() == KindPartType.EMPTY_WILD_CARD) {
+                return new EmptyWildCardPart(_parent, _index, _indexInType, _dels.getValue(_index));
+            }
+            return new VariablePartType(_parent, _index, _indexInType, _dels.getValue(_index));
+        }
+        if (_analyze.getPrio() == ParserType.TMP_PRIO) {
+            return new TemplatePartType(_parent, _index, _indexInType);
+        }
+        if (_analyze.getPrio() == ParserType.INT_PRIO) {
+            return new InnerPartType(_parent, _index, _indexInType, _removedFirst);
+        }
+        if (_analyze.getPrio() == ParserType.ARR_PRIO) {
+            return new ArraryPartType(_parent, _index, _indexInType);
+        }
+        return new WildCardPartType(_parent, _index, _indexInType, _analyze.getOperators().firstValue());
+    }
     static PartType createPartTypeExec(ParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, IntTreeMap< String> _dels, boolean _removedFirst) {
         if (_analyze.isError()) {
             return new EmptyPartType(_parent, _index, _indexInType, _dels.getValue(_index));
@@ -91,6 +113,7 @@ abstract class PartType {
     abstract void analyzeInherits(Analyzable _an, int _index, CustList<IntTreeMap< String>> _dels, String _globalType, RootBlock _rooted, boolean _protected);
     abstract void analyzeDepends(Analyzable _an, int _index, CustList<IntTreeMap< String>>_dels, RootBlock _rooted,boolean _exact);
     abstract void analyzeAccessibleId(Analyzable _an, CustList<IntTreeMap< String>>_dels, AccessingImportingBlock _rooted);
+    abstract void analyzeTemplate(Analyzable _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit);
     StringList getTypeNames() {
         return typeNames;
     }

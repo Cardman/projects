@@ -452,6 +452,34 @@ final class NamePartType extends LeafPartType {
         lookupSimpleType(_an, _rooted, type_);
     }
 
+    @Override
+    void analyzeTemplate(Analyzable _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
+
+
+        InnerPartType i_ = null;
+        PartType parCur_ = null;
+        if (getParent() instanceof InnerPartType) {
+            parCur_ = this;
+            i_ = (InnerPartType) getParent();
+        } else if (getParent() instanceof TemplatePartType && getParent().getParent() instanceof InnerPartType && getIndex() == 0) {
+            parCur_ = getParent();
+            i_ = (InnerPartType) getParent().getParent();
+        }
+        String type_ = getTypeName();
+        if (i_ != null) {
+            PartType part_ = parCur_.getPreviousSibling();
+            if (part_ != null) {
+                type_ = StringList.concat(part_.getAnalyzedType(), "..", type_);
+            }
+        }
+        if (_dels.isEmpty() || _dels.last().size() -1 == getIndex()) {
+            if (!Templates.correctNbParameters(type_, _an)) {
+                return;
+            }
+        }
+        setAnalyzedType(type_);
+    }
+
     private void analyzeFullType(Analyzable _an, AccessingImportingBlock _rooted, String _type) {
         if (_rooted.isTypeHidden(_type, _an)) {
             _an.getCurrentBadIndexes().add(getIndexInType());

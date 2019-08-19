@@ -27,8 +27,14 @@ final class EmptyPartType extends LeafPartType {
     }
     @Override
     void analyze(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _rooted) {
+        analyzeTemplate(_an,_dels,new StringMap<StringList>());
+    }
+
+    @Override
+    void analyzeTemplate(Analyzable _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
         _an.getCurrentBadIndexes().add(getIndexInType());
     }
+
     @Override
     void analyzeLine(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _rooted) {
         _an.getCurrentBadIndexes().add(getIndexInType());

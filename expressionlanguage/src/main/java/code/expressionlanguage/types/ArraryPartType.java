@@ -79,4 +79,11 @@ final class ArraryPartType extends ParentPartType {
         ch_ = StringList.concat(getBegin(),ch_);
         setAnalyzedType(ch_);
     }
+
+    @Override
+    void analyzeTemplate(Analyzable _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
+        String ch_ = getFirstChild().getAnalyzedType();
+        ch_ = StringList.concat(getBegin(),ch_);
+        setAnalyzedType(ch_);
+    }
 }
