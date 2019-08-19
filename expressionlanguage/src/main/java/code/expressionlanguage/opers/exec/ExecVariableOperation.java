@@ -63,7 +63,6 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             Argument _right) {
         Argument arg_ = getCommonSetting(_conf, _right);
-        setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
 
@@ -75,7 +74,6 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
         Struct store_;
         store_ = a_.getStruct();
         Argument arg_ = getCommonCompoundSetting(_conf, store_, _op, _right);
-        setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
 
@@ -87,7 +85,6 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
         Struct store_;
         store_ = a_.getStruct();
         Argument arg_ = getCommonSemiSetting(_conf, store_, _op, _post);
-        setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
 
@@ -152,7 +149,6 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
         locVar_.setStruct(_right.getStruct());
         Argument out_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
-        setSimpleArgument(out_, _conf, _nodes);
         return out_;
     }
 }

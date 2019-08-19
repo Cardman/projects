@@ -55,10 +55,16 @@ public final class ExpressionLanguage {
     public void setArgument(Argument _arg, ContextEl _cont) {
         if (currentOper instanceof CallExecSimpleOperation) {
             ((CallExecSimpleOperation)currentOper).endCalculate(_cont, arguments, _arg);
+            if (_cont.callsOrException()) {
+                return;
+            }
             index = ExecOperationNode.getNextIndex(currentOper, _arg.getStruct());
             return;
         }
         currentOper.setSimpleArgument(_arg, _cont, arguments);
+        if (_cont.callsOrException()) {
+            return;
+        }
         index = ExecOperationNode.getNextIndex(currentOper, _arg.getStruct());
     }
 

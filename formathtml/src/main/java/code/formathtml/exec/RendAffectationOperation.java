@@ -57,8 +57,7 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         RendDynOperationNode right_ = getChildrenNodes().last();
         Argument rightArg_ = getArgument(_nodes,right_);
-        settable.calculateSetting(_nodes,_conf,rightArg_);
-        RendDynOperationNode op_ = (RendDynOperationNode)settable;
-        setSimpleArgument(getArgument(_nodes,op_), _conf,_nodes);
+        Argument arg_ = settable.calculateSetting(_nodes, _conf, rightArg_);
+        setSimpleArgument(arg_, _conf,_nodes);
     }
 }

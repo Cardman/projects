@@ -65,12 +65,12 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     }
 
     @Override
-    public void calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
-        processCalling(_nodes,_conf, _right);
+    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
+        return processCalling(_nodes,_conf, _right);
     }
 
     @Override
-    public void calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right) {
+    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right) {
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
         store_ = a_.getStruct();
@@ -80,13 +80,13 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         Argument res_;
         res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, clArg_);
         if (_conf.getContextEl().hasException()) {
-            return;
+            return res_;
         }
-        processCalling(_nodes,_conf,res_);
+        return processCalling(_nodes,_conf,res_);
     }
 
     @Override
-    public void calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post) {
+    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post) {
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
         store_ = a_.getStruct();
@@ -95,7 +95,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         ClassArgumentMatching clArg_ = getResultClass();
         Argument res_;
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, clArg_);
-        processCalling(_nodes,_conf,res_);
+        return processCalling(_nodes,_conf,res_);
     }
 
     @Override

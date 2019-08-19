@@ -12,13 +12,13 @@ public interface RendSettableElResult {
     boolean resultCanBeSet();
 
 
-    void calculateSetting(
+    Argument calculateSetting(
             IdMap<RendDynOperationNode,ArgumentsPair> _nodes, Configuration _conf, Argument _right);
 
-    void calculateCompoundSetting(
+    Argument calculateCompoundSetting(
             IdMap<RendDynOperationNode,ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right);
 
-    void calculateSemiSetting(
+    Argument calculateSemiSetting(
             IdMap<RendDynOperationNode,ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post);
     Argument endCalculate(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, Configuration _conf, Argument _right);
 

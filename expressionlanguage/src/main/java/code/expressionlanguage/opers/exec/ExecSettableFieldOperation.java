@@ -71,7 +71,6 @@ public final class ExecSettableFieldOperation extends
             Argument _right) {
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument arg_ = getCommonSetting(previous_, _conf, _right);
-        setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
     @Override
@@ -82,7 +81,6 @@ public final class ExecSettableFieldOperation extends
         Argument current_ = getArgument(_nodes,this);
         Struct store_ = current_.getStruct();
         Argument arg_ = getCommonCompoundSetting(previous_, store_, _conf, _op, _right);
-        setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
     @Override
@@ -93,7 +91,6 @@ public final class ExecSettableFieldOperation extends
         Argument current_ = getArgument(_nodes,this);
         Struct store_ = current_.getStruct();
         Argument arg_ = getCommonSemiSetting(previous_, store_, _conf, _op, _post);
-        setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
     Argument getCommonSetting(Argument _previous, ExecutableCode _conf, Argument _right) {
@@ -211,7 +208,6 @@ public final class ExecSettableFieldOperation extends
             }
             classes_.initializeStaticField(fieldId_, _right.getStruct());
             Argument a_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
-            setSimpleArgument(a_, _conf, _nodes);
             return a_;
         }
         Argument previousNode_ = getPreviousArg(this, _nodes, _conf);
@@ -223,7 +219,6 @@ public final class ExecSettableFieldOperation extends
         }
         ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, _right.getStruct());
         Argument a_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
-        setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
 }

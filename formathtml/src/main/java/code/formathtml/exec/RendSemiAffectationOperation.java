@@ -46,9 +46,8 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
             return;
         }
         Argument stored_ = getArgument(_nodes,(RendDynOperationNode) settable);
-        settable.calculateSemiSetting(_nodes,_conf, oper, post);
-        RendDynOperationNode op_ = (RendDynOperationNode)settable;
-        Argument res_ = getArgument(_nodes,op_);
+        Argument arg_ = settable.calculateSemiSetting(_nodes, _conf, oper, post);
+        Argument res_ = arg_;
         res_ = getPrePost(post,stored_,res_);
         setSimpleArgument(res_, _conf,_nodes);
     }

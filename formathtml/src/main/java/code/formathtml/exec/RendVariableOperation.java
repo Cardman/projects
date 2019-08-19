@@ -61,27 +61,24 @@ public final class RendVariableOperation extends RendLeafOperation implements
     }
 
     @Override
-    public void calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
-        Argument arg_ = getCommonSetting(_conf, _right);
-        setSimpleArgument(arg_, _conf,_nodes);
+    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
+        return getCommonSetting(_conf, _right);
     }
 
     @Override
-    public void calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right) {
+    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right) {
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
         store_ = a_.getStruct();
-        Argument arg_ = getCommonCompoundSetting(_conf, store_, _op, _right);
-        setSimpleArgument(arg_, _conf,_nodes);
+        return getCommonCompoundSetting(_conf, store_, _op, _right);
     }
 
     @Override
-    public void calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post) {
+    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post) {
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
         store_ = a_.getStruct();
-        Argument arg_ = getCommonSemiSetting(_conf, store_, _op, _post);
-        setSimpleArgument(arg_, _conf,_nodes);
+        return getCommonSemiSetting(_conf, store_, _op, _post);
     }
 
     Argument getCommonSetting(Configuration _conf, Argument _right) {
@@ -131,7 +128,6 @@ public final class RendVariableOperation extends RendLeafOperation implements
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
         locVar_.setStruct(_right.getStruct());
         Argument out_ = RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
-        setSimpleArgument(out_, _conf,_nodes);
         return out_;
     }
 }

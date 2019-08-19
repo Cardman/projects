@@ -42,12 +42,11 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             MethodId id_ = classMethodId.getConstraints();
             Argument res_;
             res_ = ProcessMethod.calculateArgument(Argument.createVoid(), classNameFound_, id_, firstArgs_, _conf.getContextEl(),null);
-            settable.endCalculate(_nodes,_conf, res_);
-            setSimpleArgument(res_, _conf,_nodes);
+            Argument arg_ = settable.endCalculate(_nodes, _conf, res_);
+            setSimpleArgument(arg_, _conf,_nodes);
             return;
         }
-        settable.calculateCompoundSetting(_nodes,_conf, oper, rightArg_);
-        RendDynOperationNode op_ = (RendDynOperationNode)settable;
-        setSimpleArgument(getArgument(_nodes,op_), _conf,_nodes);
+        Argument arg_ = settable.calculateCompoundSetting(_nodes, _conf, oper, rightArg_);
+        setSimpleArgument(arg_, _conf,_nodes);
     }
 }

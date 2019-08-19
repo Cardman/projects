@@ -61,7 +61,6 @@ public final class ExecMutableLoopVariableOperation extends ExecLeafOperation im
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             Argument _right) {
         Argument arg_ = getCommonSetting(_conf, _right);
-        setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
 
@@ -73,7 +72,6 @@ public final class ExecMutableLoopVariableOperation extends ExecLeafOperation im
         Struct store_;
         store_ = a_.getStruct();
         Argument arg_ = getCommonCompoundSetting(_conf, store_, _op, _right);
-        setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
 
@@ -85,7 +83,6 @@ public final class ExecMutableLoopVariableOperation extends ExecLeafOperation im
         Struct store_;
         store_ = a_.getStruct();
         Argument arg_ = getCommonSemiSetting(_conf, store_, _op, _post);
-        setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
 

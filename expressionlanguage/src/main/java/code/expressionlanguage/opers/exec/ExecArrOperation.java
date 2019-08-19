@@ -76,7 +76,6 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         array_ = getPreviousArgument(_nodes,this).getStruct();
         Argument lastArg_ = getArgument(_nodes, lastElement_);
         a_.setStruct(affectArray(array_, lastArg_, lastElement_.getIndexInEl(), _right, _conf));
-        setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
 
@@ -94,7 +93,6 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         array_ = getPreviousArgument(_nodes, this).getStruct();
         Argument lastArg_ = getArgument(_nodes, lastElement_);
         a_.setStruct(compoundAffectArray(array_, store_, lastArg_, lastElement_.getIndexInEl(), _op,_right, _conf));
-        setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
 
@@ -112,7 +110,6 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         array_ = getPreviousArgument(_nodes,this).getStruct();
         Argument lastArg_ = getArgument(_nodes, lastElement_);
         a_.setStruct(semiAffectArray(array_, store_, lastArg_, lastElement_.getIndexInEl(), _op, _post, _conf));
-        setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
 
@@ -167,7 +164,6 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         Argument index_ = getArgument(_nodes, lastElement_);
         ExecInvokingOperation.setElement(array_, (NumberStruct)index_.getStruct(), _right.getStruct(), _conf);
         Argument out_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
-        setSimpleArgument(out_, _conf, _nodes);
         return out_;
     }
 }

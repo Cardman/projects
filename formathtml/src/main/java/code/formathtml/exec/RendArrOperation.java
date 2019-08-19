@@ -63,7 +63,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
     }
 
     @Override
-    public void calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
+    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         Argument a_ = getArgument(_nodes,this);
         RendDynOperationNode lastElement_ = chidren_.last();
@@ -71,11 +71,11 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         Struct array_;
         array_ = getPreviousArgument(_nodes,this).getStruct();
         a_.setStruct(affectArray(array_, last_, lastElement_.getIndexInEl(), _right, _conf));
-        setSimpleArgument(a_, _conf,_nodes);
+        return a_;
     }
 
     @Override
-    public void calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right) {
+    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
@@ -85,11 +85,11 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         Struct array_;
         array_ = getPreviousArgument(_nodes,this).getStruct();
         a_.setStruct(compoundAffectArray(array_, store_, last_, lastElement_.getIndexInEl(), _op, _right, _conf));
-        setSimpleArgument(a_, _conf,_nodes);
+        return a_;
     }
 
     @Override
-    public void calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post) {
+    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
@@ -99,7 +99,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         Struct array_;
         array_ = getPreviousArgument(_nodes,this).getStruct();
         a_.setStruct(semiAffectArray(array_, store_, last_, lastElement_.getIndexInEl(), _op, _post, _conf));
-        setSimpleArgument(a_, _conf,_nodes);
+        return a_;
     }
 
     Struct affectArray(Struct _array, Argument _index, int _indexEl, Argument _right, Configuration _conf) {
@@ -151,7 +151,6 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         Argument index_ = getArgument(_nodes,lastElement_);
         ExecInvokingOperation.setElement(array_, (NumberStruct)index_.getStruct(), _right.getStruct(), _conf);
         Argument out_ = RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
-        setSimpleArgument(out_, _conf,_nodes);
         return out_;
     }
 }
