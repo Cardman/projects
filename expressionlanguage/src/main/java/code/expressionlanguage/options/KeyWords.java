@@ -41,6 +41,7 @@ public final class KeyWords {
     private String keyWordSwitch = "$switch";
     private String keyWordCase = "$case";
     private String keyWordDefault = "$default";
+    private String keyWordDefaultValue = "$defaultValue";
 
     private String keyWordReturn = "$return";
     private String keyWordThrow = "$throw";
@@ -421,6 +422,7 @@ public final class KeyWords {
         keyWords_.add(keyWordSwitch);
         keyWords_.add(keyWordCase);
         keyWords_.add(keyWordDefault);
+        keyWords_.add(keyWordDefaultValue);
         keyWords_.add(keyWordReturn);
         keyWords_.add(keyWordThrow);
         keyWords_.add(keyWordBreak);
@@ -725,6 +727,15 @@ public final class KeyWords {
     public void setKeyWordDefault(String _keyWordDefault) {
         keyWordDefault = _keyWordDefault;
     }
+
+    public String getKeyWordDefaultValue() {
+        return keyWordDefaultValue;
+    }
+
+    public void setKeyWordDefaultValue(String _keyWordDefaultValue) {
+        keyWordDefaultValue = _keyWordDefaultValue;
+    }
+
     public String getKeyWordReturn() {
         return keyWordReturn;
     }

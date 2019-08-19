@@ -8246,6 +8246,14 @@ public final class RenderExpUtilTest {
         assertNotNull(cont_.getException());
     }
     @Test
+    public void processEl452Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        Configuration cont_ = getConfiguration4(files_);
+        addImportingPage(cont_);
+        Argument argument_ = processEl("$defaultValue($char)", cont_);
+        assertEq(0,argument_.getChar());
+    }
+    @Test
     public void procesAffect00Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);

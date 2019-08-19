@@ -340,6 +340,7 @@ public final class ElResolver {
         String keyWordValueOf_ = keyWords_.getKeyWordValueOf();
         String keyWordValues_ = keyWords_.getKeyWordValues();
         String keyWordVararg_ = keyWords_.getKeyWordVararg();
+        String keyWordDefaultValue_ = keyWords_.getKeyWordDefaultValue();
         String sub_ = _string.substring(i_);
         if (ContextEl.startsWithKeyWord(sub_, keyWordCast_)) {
             int indexParLeft_ = _string.indexOf(PAR_LEFT,i_+1);
@@ -376,6 +377,23 @@ public final class ElResolver {
             }
             _d.getDelVararg().add(i_);
             _d.getDelVararg().add(indexParRight_);
+            i_ = indexParRight_ + 1;
+            _out.setNextIndex(i_);
+            return;
+        }
+        if (ContextEl.startsWithKeyWord(sub_, keyWordDefaultValue_)) {
+            int indexParLeft_ = _string.indexOf(PAR_LEFT,i_+1);
+            if (indexParLeft_ < 0) {
+                _d.setBadOffset(len_);
+                return;
+            }
+            int indexParRight_ = _string.indexOf(PAR_RIGHT,indexParLeft_+1);
+            if (indexParRight_ < 0) {
+                _d.setBadOffset(len_);
+                return;
+            }
+            _d.getDelDefaultValue().add(i_);
+            _d.getDelDefaultValue().add(indexParRight_);
             i_ = indexParRight_ + 1;
             _out.setNextIndex(i_);
             return;
@@ -3306,6 +3324,16 @@ public final class ElResolver {
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.VARARG);
+            op_.setOperators(new IntTreeMap< String>());
+            op_.setValue(_string, firstPrintChar_);
+            op_.setDelimiter(_d);
+            return op_;
+        }
+        begin_ = _d.getDelDefaultValue().indexOfObj(_offset + firstPrintChar_);
+        end_ = _d.getDelDefaultValue().indexOfObj(_offset + lastPrintChar_);
+        if (delimits(begin_, end_)) {
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(ConstType.DEFAULT_VALUE);
             op_.setOperators(new IntTreeMap< String>());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);

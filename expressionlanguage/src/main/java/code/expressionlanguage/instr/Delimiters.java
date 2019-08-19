@@ -26,6 +26,7 @@ public final class Delimiters {
     private Ints delIds = new Ints();
     private Ints delLoopVars = new Ints();
     private Ints delVararg = new Ints();
+    private Ints delDefaultValue = new Ints();
     private Ints delClass = new Ints();
     private Ints delSimpleAnnotations = new Ints();
     private Ints callings = new Ints();
@@ -102,6 +103,10 @@ public final class Delimiters {
 
     public Ints getDelVararg() {
         return delVararg;
+    }
+
+    public Ints getDelDefaultValue() {
+        return delDefaultValue;
     }
 
     public Ints getDelClass() {

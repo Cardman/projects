@@ -4904,6 +4904,24 @@ public final class ElResolverTest extends ProcessMethodCommon{
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         assertEq(5, d_.getBadOffset());
     }
+
+    @Test
+    public void checkSyntax296FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$defaultValue)";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(14, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax297FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$defaultValue(";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(14, d_.getBadOffset());
+    }
     @Test
     public void checkSyntaxDelimiters10Test() {
         ContextEl conf_ = contextEl();

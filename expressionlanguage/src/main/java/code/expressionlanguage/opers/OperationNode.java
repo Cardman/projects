@@ -153,6 +153,9 @@ public abstract class OperationNode implements Operable {
             if (ct_ == ConstType.VARARG) {
                 return new VarargOperation(_index, _indexChild, _m, _op);
             }
+            if (ct_ == ConstType.DEFAULT_VALUE) {
+                return new DefaultValueOperation(_index, _indexChild, _m, _op);
+            }
             if (ct_ == ConstType.ID) {
                 return new IdFctOperation(_index, _indexChild, _m, _op);
             }

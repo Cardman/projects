@@ -175,6 +175,10 @@ public abstract class ExecOperationNode implements Operable {
             VarargOperation f_ = (VarargOperation) _anaNode;
             return new ExecVarargOperation(f_);
         }
+        if (_anaNode instanceof DefaultValueOperation) {
+            DefaultValueOperation f_ = (DefaultValueOperation) _anaNode;
+            return new ExecDefaultValueOperation(f_);
+        }
         if (_anaNode instanceof IdFctOperation) {
             IdFctOperation f_ = (IdFctOperation) _anaNode;
             return new ExecIdFctOperation(f_);

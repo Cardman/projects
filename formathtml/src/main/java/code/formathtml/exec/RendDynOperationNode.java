@@ -177,6 +177,10 @@ public abstract class RendDynOperationNode {
             StaticInfoOperation f_ = (StaticInfoOperation) _anaNode;
             return new RendStaticInfoOperation(f_);
         }
+        if (_anaNode instanceof DefaultValueOperation) {
+            DefaultValueOperation f_ = (DefaultValueOperation) _anaNode;
+            return new RendDefaultValueOperation(f_);
+        }
         if (_anaNode instanceof ThisOperation) {
             ThisOperation f_ = (ThisOperation) _anaNode;
             return new RendThisOperation(f_);

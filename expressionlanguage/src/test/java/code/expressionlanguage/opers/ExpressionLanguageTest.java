@@ -5625,6 +5625,29 @@ public final class ExpressionLanguageTest {
     }
 
     @Test
+    public void processEl103044Test() {
+        Argument arg_ = directCalculate("$defaultValue($boolean)");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl103045Test() {
+        Argument arg_ = directCalculate("$defaultValue($int)");
+        assertEq(0, arg_.getNumber());
+    }
+
+    @Test
+    public void processEl103046Test() {
+        Argument arg_ = directCalculate("$defaultValue($char)");
+        assertEq(0, arg_.getChar());
+    }
+
+    @Test
+    public void processEl103047Test() {
+        Argument arg_ = directCalculate("$defaultValue(String)");
+        assertTrue(arg_.isNull());
+    }
+    @Test
     public void processElCmp1est() {
         Argument arg_ = directCalculate("Number.compare(1L,2d)");
         assertEq(-1,arg_.getNumber());

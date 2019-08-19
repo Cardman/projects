@@ -35,6 +35,8 @@ public final class KeyWordsMap {
         fr_.setKeyWordContinue("iterer");
         en_.setKeyWordDefault("default");
         fr_.setKeyWordDefault("autrement");
+        en_.setKeyWordDefaultValue("defaultValue");
+        fr_.setKeyWordDefaultValue("valDefaut");
         en_.setKeyWordDo("do");
         fr_.setKeyWordDo("faire");
         en_.setKeyWordElse("else");

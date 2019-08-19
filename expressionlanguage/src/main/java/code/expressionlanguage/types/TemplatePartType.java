@@ -147,6 +147,11 @@ final class TemplatePartType extends BinaryType {
             } else {
                 bounds_.add(comp_);
             }
+            for (String v: bounds_) {
+                if (!Templates.correctNbParameters(v,_an)) {
+                    return;
+                }
+            }
             for (String e: t) {
                 Mapping m_ = new Mapping();
                 String param_ = Templates.format(tempClFull_, e, _an);
