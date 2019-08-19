@@ -2905,13 +2905,13 @@ public final class ElResolver {
                     operators_.put(i_, String.valueOf(SEP_ARG));
                     prio_ = DECL_PRIO;
                 } else if (parsBrackets_.size() == 1 && prio_ == FCT_OPER_PRIO && enPars_){
-                    addOperIfNotEmpty(operators_, i_, SEP_ARG);
+                    addCommaOperIfNotEmpty(operators_, i_,PAR_LEFT,ARR_LEFT,ANN_ARR_LEFT);
                 }
             }
             if (curChar_ == PAR_RIGHT) {
                 parsBrackets_.removeKey(parsBrackets_.lastKey());
                 if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO && enPars_) {
-                    addOperIfNotEmpty(operators_, i_, PAR_RIGHT);
+                    addOperIfNotEmpty(operators_, i_, PAR_LEFT,PAR_RIGHT);
                     enPars_ = false;
                     enabledId_ = true;
                 }
@@ -2927,7 +2927,6 @@ public final class ElResolver {
                             operators_.put(i_, ANN_ARR);
                         } else {
                             fctName_ = EMPTY_STRING;
-                            instance_ = false;
                             operators_.clear();
                             addOperIfBegin(operators_, i_, firstPrintChar_, ANN_ARR);
                         }
@@ -2938,7 +2937,7 @@ public final class ElResolver {
             if (curChar_ == ANN_ARR_RIGHT) {
                 parsBrackets_.removeKey(parsBrackets_.lastKey());
                 if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO) {
-                    addOperIfNotEmpty(operators_, i_, ANN_ARR_RIGHT);
+                    addOperIfNotEmpty(operators_, i_, ANN_ARR_LEFT,ANN_ARR_RIGHT);
                     enPars_ = false;
                     enabledId_ = true;
                 }
@@ -2967,7 +2966,6 @@ public final class ElResolver {
                             }
                         } else {
                             fctName_ = EMPTY_STRING;
-                            instance_ = false;
                             operators_.clear();
                             addOperIfBegin(operators_, i_, firstPrintChar_, ARR);
                         }
@@ -2978,7 +2976,7 @@ public final class ElResolver {
             if (curChar_ == ARR_RIGHT) {
                 parsBrackets_.removeKey(parsBrackets_.lastKey());
                 if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO) {
-                    addOperIfNotEmpty(operators_, i_, ARR_RIGHT);
+                    addOperIfNotEmpty(operators_, i_, ARR_LEFT,ARR_RIGHT);
                     enPars_ = false;
                     enabledId_ = true;
                 }
@@ -3203,8 +3201,20 @@ public final class ElResolver {
         }
     }
 
-    private static void addOperIfNotEmpty(IntTreeMap< String> _operators, int _i, char _op) {
-        if (!_operators.lastValue().isEmpty()) {
+    private static void addCommaOperIfNotEmpty(IntTreeMap<String> _operators, int _i, char... _open) {
+        String oper_ = _operators.firstValue();
+        int len_ = oper_.length();
+        for (char c: _open) {
+            if (nextCharIs(oper_,0, len_,c)) {
+                _operators.put(_i, String.valueOf(SEP_ARG));
+                break;
+            }
+        }
+    }
+
+    private static void addOperIfNotEmpty(IntTreeMap< String> _operators, int _i, char _open, char _op) {
+        String oper_ = _operators.firstValue();
+        if (nextCharIs(oper_,0, oper_.length(),_open)) {
             _operators.put(_i, String.valueOf(_op));
         }
     }
