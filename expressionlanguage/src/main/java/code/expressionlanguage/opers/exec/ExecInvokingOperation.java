@@ -165,11 +165,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             arg_.setStruct(res_.getResult());
             return arg_;
         }
-        _conf.getContextEl().setCallCtor(new CustomFoundConstructor(className_, _fieldName, _blockIndex,_constId, needed_, _arguments, InstancingStep.NEWING));
+        _conf.getContextEl().setCallingState(new CustomFoundConstructor(className_, _fieldName, _blockIndex,_constId, needed_, _arguments, InstancingStep.NEWING));
         return Argument.createVoid();
     }
     public static Argument instancePrepareAnnotation(ExecutableCode _conf, String _className, StringMap<String> _fieldNames,CustList<Argument> _arguments) {
-        _conf.getContextEl().setCallAnnot(new CustomFoundAnnotation(_className, _fieldNames, _arguments));
+         _conf.getContextEl().setCallingState(new CustomFoundAnnotation(_className, _fieldNames, _arguments));
         return Argument.createVoid();
     }
     public static ClassMethodId polymorph(ContextEl _conf, Struct _previous, ClassMethodId _classMethodId) {
@@ -205,11 +205,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return Argument.createVoid();
         }
         if (_right != null) {
-            _conf.getContextEl().setCallMethod(new CustomFoundMethod(_previous, _classNameFound, _methodId, _firstArgs,_right));
+            _conf.getContextEl().setCallingState(new CustomFoundMethod(_previous, _classNameFound, _methodId, _firstArgs,_right));
             return Argument.createVoid();
         }
         if (!StringList.isDollarWord(_methodId.getName())) {
-            _conf.getContextEl().setCallMethod(new CustomFoundMethod(_previous, _classNameFound, _methodId, _firstArgs,_right));
+            _conf.getContextEl().setCallingState(new CustomFoundMethod(_previous, _classNameFound, _methodId, _firstArgs,_right));
             return Argument.createVoid();
         }
         Classes classes_ = _conf.getClasses();
@@ -261,11 +261,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         if (PrimitiveTypeUtil.canBeUseAsArgument(aliasAnnotated_, _classNameFound, _conf)) {
             if (StringList.quickEq(aliasGetAnnotations_, _methodId.getName())) {
-                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.ANNOTATION, _previous, _firstArgs, false));
+                _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.ANNOTATION, _previous, _firstArgs, false));
                 return new Argument();
             }
             if (StringList.quickEq(aliasGetAnnotationsParam_, _methodId.getName())) {
-                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.ANNOTATION_PARAM, _previous, _firstArgs, false));
+                _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.ANNOTATION_PARAM, _previous, _firstArgs, false));
                 return new Argument();
             }
         }
@@ -438,11 +438,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         String aliasNewInstance_ = stds_.getAliasNewInstance();
         if (StringList.quickEq(aliasMethod_, _classNameFound)) {
             if (StringList.quickEq(aliasGetDefaultValue_, _methodId.getName())) {
-                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.DEFAULT_VALUE, _previous, _firstArgs, false));
+                _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.DEFAULT_VALUE, _previous, _firstArgs, false));
                 return new Argument();
             }
             if (StringList.quickEq(aliasInvoke_, _methodId.getName())) {
-                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.METHOD, _previous, _firstArgs, false));
+                _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.METHOD, _previous, _firstArgs, false));
                 return new Argument();
             }
         }
@@ -463,17 +463,17 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         if (StringList.quickEq(aliasConstructor_, _classNameFound)) {
             if (StringList.quickEq(aliasNewInstance_, _methodId.getName())) {
-                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.CONSTRUCTOR, _previous, _firstArgs, false));
+                _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.CONSTRUCTOR, _previous, _firstArgs, false));
                 return new Argument();
             }
         }
         if (StringList.quickEq(aliasField_, _classNameFound)) {
             if (StringList.quickEq(aliasGetField_, _methodId.getName())) {
-                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.GET_FIELD, _previous, _firstArgs, false));
+                _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.GET_FIELD, _previous, _firstArgs, false));
                 return new Argument();
             }
             if (StringList.quickEq(aliasSetField_, _methodId.getName())) {
-                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.SET_FIELD, _previous, _firstArgs, false));
+                _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.SET_FIELD, _previous, _firstArgs, false));
                 return new Argument();
             }
         }
@@ -509,7 +509,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             return new Argument(new IntStruct(en_.getOrdinal()));
         }
-        context_.setCallMethod(new CustomFoundMethod(_previous, _classNameFound, _methodId, _firstArgs, _right));
+        context_.setCallingState(new CustomFoundMethod(_previous, _classNameFound, _methodId, _firstArgs, _right));
         return Argument.createVoid();
     }
 
@@ -536,10 +536,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         if (_ctor) {
             Argument arg_ = _conf.getOperationPageEl().getGlobalArgument();
-            _conf.getContextEl().setCallCtor(new CustomFoundConstructor(_classNameFound, EMPTY_STRING, -1, (ConstructorId) _methodId, arg_, _firstArgs, _kindCall));
+            _conf.getContextEl().setCallingState(new CustomFoundConstructor(_classNameFound, EMPTY_STRING, -1, (ConstructorId) _methodId, arg_, _firstArgs, _kindCall));
             return;
         }
-        _conf.getContextEl().setCallMethod(new CustomFoundMethod(Argument.createVoid(), _classNameFound, (MethodId) _methodId, _firstArgs, _right));
+        _conf.getContextEl().setCallingState(new CustomFoundMethod(Argument.createVoid(), _classNameFound, (MethodId) _methodId, _firstArgs, _right));
     }
     public static Argument prepareCallDyn(Argument _previous, CustList<Argument> _values, ExecutableCode _conf) {
         Struct ls_ = _previous.getStruct();
@@ -598,7 +598,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 }
                 CustList<Argument> nList_ = new CustList<Argument>();
                 nList_.add(new Argument(arr_));
-                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.CONSTRUCTOR, pr_, nList_, true));
+                _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.CONSTRUCTOR, pr_, nList_, true));
                 return new Argument();
             }
             ArrayStruct arr_ = new ArrayStruct(new Struct[_values.size()+1],obj_);
@@ -610,7 +610,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             CustList<Argument> nList_ = new CustList<Argument>();
             nList_.add(new Argument(arr_));
-            _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.CONSTRUCTOR, pr_, nList_, true));
+            _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.CONSTRUCTOR, pr_, nList_, true));
             return new Argument();
         }
         if (ls_ instanceof LambdaFieldStruct) {
@@ -654,7 +654,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             if (aff_) {
                 nList_.add(_values.last());
             }
-            _conf.getContextEl().setReflectMethod(new CustomReflectMethod(type_, pr_, nList_, true));
+            _conf.getContextEl().setCallingState(new CustomReflectMethod(type_, pr_, nList_, true));
             return new Argument();
         }
         LambdaMethodStruct l_ =  (LambdaMethodStruct) ls_;
@@ -694,7 +694,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             nList_.add(instance_);
             nList_.add(new Argument(arr_));
-            _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.METHOD, pr_, nList_, true));
+            _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.METHOD, pr_, nList_, true));
             return new Argument();
         }
         if (!StringList.isDollarWord(fid_.getName()) && !fid_.getName().startsWith("[]")) {
@@ -707,7 +707,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             CustList<Argument> nList_ = new CustList<Argument>();
             nList_.add(new Argument(arr_));
-            _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.METHOD, pr_, nList_, true));
+            _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.METHOD, pr_, nList_, true));
             return new Argument();
         }
         ArrayStruct arr_ = new ArrayStruct(new Struct[_values.size()-1],obj_);
@@ -725,7 +725,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         nList_.add(firstValue_);
         nList_.add(new Argument(arr_));
-        _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.METHOD, pr_, nList_, true));
+        _conf.getContextEl().setCallingState(new CustomReflectMethod(ReflectingType.METHOD, pr_, nList_, true));
         return new Argument();
     }
     public static Struct getElement(Struct _struct, NumberStruct _index, ExecutableCode _conf) {

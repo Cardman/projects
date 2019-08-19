@@ -22,7 +22,7 @@ public final class RendStaticInitOperation extends RendLeafOperation implements 
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         String className_ = getResultClass().getName();
         if (possibleInitClass && ExecInvokingOperation.hasToExit(_conf, className_)) {
-            NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
+            NotInitializedClass statusInit_ = (NotInitializedClass) _conf.getContextEl().getCallingState();
             ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
         }
         setQuickNoConvertSimpleArgument(Argument.createVoid(), _conf,_nodes);

@@ -1060,7 +1060,7 @@ public final class Configuration implements ExecutableCode {
         if (classes_.isCustomType(_className)) {
             InitClassState res_ = classes_.getLocks().getState(getContextEl(), _className);
             if (res_ == InitClassState.NOT_YET) {
-                getContextEl().setInitClass(new NotInitializedClass(_className));
+                getContextEl().setCallingState(new NotInitializedClass(_className));
                 return true;
             }
             if (res_ == InitClassState.ERROR) {

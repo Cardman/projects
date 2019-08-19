@@ -2,7 +2,7 @@ package code.expressionlanguage.calls.util;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.methods.InitBlock;
 
-public final class CustomFoundBlock {
+public final class CustomFoundBlock implements CallingState {
 
     private final String className;
 

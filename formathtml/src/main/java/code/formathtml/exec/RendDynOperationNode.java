@@ -2,6 +2,7 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.calls.util.CallingState;
 import code.expressionlanguage.calls.util.CustomFoundMethod;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.Delimiters;
@@ -463,8 +464,9 @@ public abstract class RendDynOperationNode {
         Argument out_ = new Argument(_argument.getStruct());
         ContextEl ctx_ = _conf.getContext();
         out_ = ExecOperationNode.processString(out_, ctx_);
-        CustomFoundMethod method_ = ctx_.getCallMethod();
-        if (method_ != null) {
+        CallingState state_ = ctx_.getCallingState();
+        if (state_ instanceof CustomFoundMethod) {
+            CustomFoundMethod method_ = (CustomFoundMethod) state_;
             out_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(), method_.getId(), method_.getArguments(), ctx_,method_.getRight());
         }
         if (ctx_.hasException()) {

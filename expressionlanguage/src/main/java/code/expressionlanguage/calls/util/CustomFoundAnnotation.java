@@ -3,7 +3,7 @@ import code.expressionlanguage.Argument;
 import code.util.CustList;
 import code.util.StringMap;
 
-public final class CustomFoundAnnotation {
+public final class CustomFoundAnnotation implements CallingState {
 
     private final String className;
 

@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.methods.ReflectingType;
 import code.util.CustList;
 
-public class CustomReflectMethod {
+public final class CustomReflectMethod implements CallingState {
 
     private final ReflectingType reflect;
 

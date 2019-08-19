@@ -3,7 +3,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.opers.util.MethodId;
 import code.util.CustList;
 
-public final class CustomFoundMethod {
+public final class CustomFoundMethod implements CallingState {
 
     private final Argument gl;
 

@@ -2,6 +2,7 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.calls.util.CallingState;
 import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -27,8 +28,9 @@ public final class RendEnumValueOfOperation extends RendAbstractUnaryOperation {
         RendDynOperationNode first_ = getFirstChild();
         Argument arg_ = getArgument(_nodes,first_);
         Argument argres_ = getCommonArgument(arg_, _conf);
-        NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
-        if (statusInit_ != null) {
+        CallingState state_ = _conf.getContextEl().getCallingState();
+        if (state_ instanceof NotInitializedClass) {
+            NotInitializedClass statusInit_ = (NotInitializedClass) state_;
             ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
             if (_conf.getContextEl().hasException()) {
                 return;

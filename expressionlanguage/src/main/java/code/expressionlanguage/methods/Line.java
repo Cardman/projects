@@ -126,7 +126,7 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl,B
             if (!inst_.isFirstField() && initFields_) {
                 inst_.setFirstField(true);
                 Argument global_ = inst_.getGlobalArgument();
-                _cont.setInitFields(new NotInitializedFields(curClass_, global_));
+                _cont.setCallingState(new NotInitializedFields(curClass_, global_));
                 return;
             }
         }

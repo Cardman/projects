@@ -56,7 +56,7 @@ public final class StaticInitPageEl extends AbstractPageEl implements WithElPage
             if (!processedBlocks.getVal((InitBlock)en_)) {
                 processedBlocks.put((InitBlock)en_, true);
                 CustomFoundBlock cust_ = new CustomFoundBlock(getGlobalClass(), getGlobalArgument(), (InitBlock)en_);
-                _context.setFoundBlock(cust_);
+                _context.setCallingState(cust_);
                 return;
             }
             en_.processBlock(_context);

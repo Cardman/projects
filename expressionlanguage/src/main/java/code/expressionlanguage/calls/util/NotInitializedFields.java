@@ -2,7 +2,7 @@ package code.expressionlanguage.calls.util;
 
 import code.expressionlanguage.Argument;
 
-public final class NotInitializedFields {
+public final class NotInitializedFields implements CallingState {
 
     private final String className;
 

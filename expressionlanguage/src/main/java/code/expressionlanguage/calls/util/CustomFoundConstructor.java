@@ -3,7 +3,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
 
-public final class CustomFoundConstructor {
+public final class CustomFoundConstructor implements CallingState {
 
     private final String className;
 

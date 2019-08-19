@@ -1,6 +1,7 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.calls.util.CallingState;
 import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -47,8 +48,9 @@ public final class RendChoiceFctOperation extends RendInvokingOperation implemen
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
         Argument argres_ = getArgument(previous_, arguments_, _conf);
-        NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
-        if (statusInit_ != null) {
+        CallingState state_ = _conf.getContextEl().getCallingState();
+        if (state_ instanceof NotInitializedClass) {
+            NotInitializedClass statusInit_ = (NotInitializedClass) state_;
             ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
             if (_conf.getContextEl().hasException()) {
                 return;

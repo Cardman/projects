@@ -2,6 +2,7 @@ package code.expressionlanguage.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
@@ -103,7 +104,7 @@ public final class ReflectMethodPageEl extends AbstractReflectPageEl {
             }
             setWrapException(false);
             Argument arg_ = ExecInvokingOperation.callPrepare(_context, className_, mid_, instance_, args_, right_);
-            if (_context.getInitClass() != null) {
+            if (_context.getCallingState() instanceof NotInitializedClass) {
                 setWrapException(true);
                 return false;
             }

@@ -82,7 +82,7 @@ public abstract class AbstractInstancingPageEl extends AbstractPageEl implements
                     ConstructorId super_ = new ConstructorId(superClassBase_, new StringList(), false);
                     Argument global_ = getGlobalArgument();
                     String generic_ = Templates.getFullTypeByBases(formatted_, superClassBase_, _context);
-                    _context.setCallCtor(new CustomFoundConstructor(generic_, EMPTY_STRING, -1, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER_IMPL));
+                    _context.setCallingState(new CustomFoundConstructor(generic_, EMPTY_STRING, -1, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER_IMPL));
                     return false;
                 }
             }
@@ -102,7 +102,7 @@ public abstract class AbstractInstancingPageEl extends AbstractPageEl implements
             if (!firstField && initFields_) {
                 firstField = true;
                 Argument global_ = getGlobalArgument();
-                _context.setInitFields(new NotInitializedFields(curClass_, global_));
+                _context.setCallingState(new NotInitializedFields(curClass_, global_));
                 return false;
             }
         }

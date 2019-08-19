@@ -46,17 +46,7 @@ public abstract class ContextEl implements ExecutableCode {
 
     private LocalThrowing throwing;
 
-    private CustomFoundAnnotation callAnnot;
-    private CustomFoundConstructor callCtor;
-
-    private NotInitializedFields initFields;
-    private CustomFoundBlock foundBlock;
-
-    private CustomFoundMethod callMethod;
-
-    private CustomReflectMethod reflectMethod;
-
-    private NotInitializedClass initClass;
+    private CallingState callingState;
 
     private LgNames standards;
 
@@ -205,26 +195,29 @@ public abstract class ContextEl implements ExecutableCode {
         ip_.tryProcessEl(this);
     }
     AbstractPageEl processAfterOperation() {
-        if (callCtor != null) {
-            return createInstancing(callCtor);
+        if (callingState instanceof CustomFoundConstructor) {
+            return createInstancing((CustomFoundConstructor)callingState);
         }
-        if (callAnnot != null) {
-            return createAnnotation(callAnnot.getClassName(), callAnnot.getId(), callAnnot.getArguments());
+        if (callingState instanceof CustomFoundAnnotation) {
+            CustomFoundAnnotation c_ = (CustomFoundAnnotation) callingState;
+            return createAnnotation(c_.getClassName(), c_.getId(), c_.getArguments());
         }
-        if (callMethod != null) {
-            return createCallingMethod(callMethod);
+        if (callingState instanceof CustomFoundMethod) {
+            return createCallingMethod((CustomFoundMethod)callingState);
         }
-        if (reflectMethod != null) {
-            return createReflectMethod(reflectMethod);
+        if (callingState instanceof CustomReflectMethod) {
+            return createReflectMethod((CustomReflectMethod)callingState);
         }
-        if (initClass != null) {
-            return createInstancingClass(initClass);
+        if (callingState instanceof NotInitializedClass) {
+            return createInstancingClass((NotInitializedClass)callingState);
         }
-        if (initFields != null) {
-            return createInitFields(initFields.getClassName(), initFields.getCurrentObject());
+        if (callingState instanceof NotInitializedFields) {
+            NotInitializedFields i_ = (NotInitializedFields) callingState;
+            return createInitFields(i_.getClassName(), i_.getCurrentObject());
         }
-        if (foundBlock != null) {
-            return createBlockPageEl(foundBlock.getClassName(), foundBlock.getCurrentObject(), foundBlock.getBlock());
+        if (callingState instanceof CustomFoundBlock) {
+            CustomFoundBlock b_ = (CustomFoundBlock) callingState;
+            return createBlockPageEl(b_.getClassName(), b_.getCurrentObject(), b_.getBlock());
         }
         if (failInit) {
             return null;
@@ -256,7 +249,7 @@ public abstract class ContextEl implements ExecutableCode {
         return createInstancingClass(_e.getClassName());
     }
     public AbstractPageEl createInstancingClass(String _class) {
-        setInitClass(null);
+        setCallingState(null);
         String baseClass_ = Templates.getIdFromAllTypes(_class);
         RootBlock class_ = classes.getClassBody(baseClass_);
         Block firstChild_ = class_.getFirstChild();
@@ -287,7 +280,7 @@ public abstract class ContextEl implements ExecutableCode {
         return createCallingMethod(gl_, cl_, id_, args_, right_);
     }
     public MethodPageEl createCallingMethod(Argument _gl, String _class, MethodId _method, CustList<Argument> _args,Argument _right) {
-        setCallMethod(null);
+        setCallingState(null);
         MethodPageEl pageLoc_ = new MethodPageEl(this,_right);
         pageLoc_.setGlobalArgument(_gl);
         pageLoc_.setGlobalClass(_class);
@@ -328,7 +321,7 @@ public abstract class ContextEl implements ExecutableCode {
         return createInstancing(cl_, _e.getCall(), in_, args_);
     }
     public NewInstancingPageEl createInstancing(String _class, CallConstructor _call, CustList<Argument> _args) {
-        setCallCtor(null);
+        setCallingState(null);
         NewInstancingPageEl page_;
         Argument global_ = _call.getArgument();
         ConstructorId id_ = _call.getId();
@@ -373,7 +366,7 @@ public abstract class ContextEl implements ExecutableCode {
     private NewAnnotationPageEl createAnnotation(String _class,
                                                  StringMap<String> _id,
                                                  CustList<Argument> _args) {
-        setCallAnnot(null);
+        setCallingState(null);
         NewAnnotationPageEl page_;
         FileBlock file_ = getFile(_class);
         Argument argGl_ = new Argument();
@@ -390,7 +383,7 @@ public abstract class ContextEl implements ExecutableCode {
         return page_;
     }
     private AbstractPageEl createInstancing(String _class, CallConstructor _call, InstancingStep _in, CustList<Argument> _args) {
-        setCallCtor(null);
+        setCallingState(null);
         AbstractPageEl page_;
         FileBlock file_ = getFile(_class);
         Argument global_ = _call.getArgument();
@@ -433,7 +426,7 @@ public abstract class ContextEl implements ExecutableCode {
         return page_;
     }
     private FieldInitPageEl createInitFields(String _class, Argument _current) {
-        setInitFields(null);
+        setCallingState(null);
         String baseClass_ = Templates.getIdFromAllTypes(_class);
         RootBlock class_ = classes.getClassBody(baseClass_);
         FieldInitPageEl page_ = new FieldInitPageEl();
@@ -454,7 +447,7 @@ public abstract class ContextEl implements ExecutableCode {
         return page_;
     }
     private BlockPageEl createBlockPageEl(String _class, Argument _current, InitBlock _block) {
-        setFoundBlock(null);
+        setCallingState(null);
         FileBlock file_ = getFile(_class);
         BlockPageEl page_ = new BlockPageEl();
         page_.setGlobalClass(_class);
@@ -475,7 +468,7 @@ public abstract class ContextEl implements ExecutableCode {
         return createReflectMethod(gl_, args_, r_, l_);
     }
     public AbstractReflectPageEl createReflectMethod(Argument _gl, CustList<Argument> _args, ReflectingType _reflect, boolean _lambda) {
-        setReflectMethod(null);
+        setCallingState(null);
         AbstractReflectPageEl pageLoc_;
         if (_reflect == ReflectingType.METHOD) {
             pageLoc_ = new ReflectMethodPageEl();
@@ -907,19 +900,7 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     public boolean calls() {
-        if (callMethod != null) {
-            return true;
-        }
-        if (reflectMethod != null) {
-            return true;
-        }
-        if (callCtor != null) {
-            return true;
-        }
-        if (callAnnot != null) {
-            return true;
-        }
-        return initClass != null;
+        return callingState != null;
     }
     @Override
     public Struct getException() {
@@ -949,49 +930,13 @@ public abstract class ContextEl implements ExecutableCode {
     public void setThrowing(LocalThrowing _throwing) {
         throwing = _throwing;
     }
-    
-    public CustomFoundConstructor getCallCtor() {
-        return callCtor;
-    }
-    
-    public void setCallCtor(CustomFoundConstructor _callCtor) {
-        callCtor = _callCtor;
+
+    public CallingState getCallingState() {
+        return callingState;
     }
 
-    public void setCallAnnot(CustomFoundAnnotation _callAnnot) {
-        callAnnot = _callAnnot;
-    }
-
-    public CustomFoundMethod getCallMethod() {
-        return callMethod;
-    }
-
-    public void setCallMethod(CustomFoundMethod _callMethod) {
-        callMethod = _callMethod;
-    }
-
-    public CustomReflectMethod getReflectMethod() {
-        return reflectMethod;
-    }
-
-    public void setReflectMethod(CustomReflectMethod _reflectMethod) {
-        reflectMethod = _reflectMethod;
-    }
-
-    public NotInitializedClass getInitClass() {
-        return initClass;
-    }
-
-    public void setInitClass(NotInitializedClass _initClass) {
-        initClass = _initClass;
-    }
-
-    public void setInitFields(NotInitializedFields _initFields) {
-        initFields = _initFields;
-    }
-
-    public void setFoundBlock(CustomFoundBlock _foundBlock) {
-        foundBlock = _foundBlock;
+    public void setCallingState(CallingState _callingState) {
+        callingState = _callingState;
     }
 
     public Struct getMemoryError() {
@@ -2744,7 +2689,7 @@ public abstract class ContextEl implements ExecutableCode {
             }
             InitClassState res_ = locks_.getState(getContextEl(), _className);
             if (res_ == InitClassState.NOT_YET) {
-                getContextEl().setInitClass(new NotInitializedClass(_className));
+                getContextEl().setCallingState(new NotInitializedClass(_className));
                 return true;
             }
             if (res_ == InitClassState.ERROR) {

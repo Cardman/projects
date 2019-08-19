@@ -503,7 +503,7 @@ public abstract class ExecOperationNode implements Operable {
         if (_convertToString && resultClass.isConvertToString()){
             pair_.setCalledToString(true);
             arg_ = processString(_argument,_conf);
-            if (_conf.getCallMethod() != null) {
+            if (_conf.getCallingState() != null) {
                 return;
             }
         }
@@ -537,7 +537,7 @@ public abstract class ExecOperationNode implements Operable {
                 ClassMethodId polymorph_ = ExecInvokingOperation.polymorph(_conf, struct_, methodId_);
                 String className_ = polymorph_.getClassName();
                 MethodId ct_ = polymorph_.getConstraints();
-                _conf.setCallMethod(new CustomFoundMethod(out_,className_,ct_,new CustList<Argument>(),null));
+                _conf.setCallingState(new CustomFoundMethod(out_,className_,ct_,new CustList<Argument>(),null));
             }
         }
         return out_;

@@ -787,7 +787,7 @@ public abstract class LgNames {
         if (StringList.quickEq(type_, stringUtil_)) {
             Argument a_ = new Argument(args_[0]);
             a_ = ExecOperationNode.processString(a_,_cont);
-            if (_cont.getCallMethod() == null) {
+            if (_cont.getCallingState() == null) {
                 result_.setResult(a_.getStruct());
             }
             return result_;

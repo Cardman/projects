@@ -476,7 +476,7 @@ public class LgNamesGui extends LgNamesUtils {
                 String className_ = polymorph_.getClassName();
                 MethodId ct_ = polymorph_.getConstraints();
                 Argument arg_ = new Argument(inst_);
-                _cont.setCallMethod(new CustomFoundMethod(Argument.createVoid(),className_,ct_,new CustList<Argument>(arg_),null));
+                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,ct_,new CustList<Argument>(arg_),null));
                 return res_;
             }
             res_.setResult(inst_.getParentComponent());
