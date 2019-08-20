@@ -11,6 +11,7 @@ import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.*;
 import code.util.*;
 
@@ -184,5 +185,13 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
             un_.setIndexFile(getOffset().getOffsetTrim());
             _an.getClasses().addError(un_);
         }
+    }
+
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        int begName_ = getNameOffset();
+        int endName_ = begName_ + getName().length();
+        _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
+        _parts.add(new PartOffset("</a>",endName_));
     }
 }

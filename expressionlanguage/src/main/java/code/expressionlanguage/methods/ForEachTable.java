@@ -16,6 +16,8 @@ import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.methods.util.AbstractCoverageResult;
 import code.expressionlanguage.methods.util.AssignedVariablesDesc;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -364,6 +366,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         varsWhile_.getMutableLoopRoot().clear();
         varsWhile_.getMutableLoopRoot().addAllElts(mutableAfter_);
     }
+
     protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
         Block first_ = getFirstChild();
         Block last_ = first_;
@@ -662,6 +665,27 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
             l_.setEvaluatingKeepLoop(false);
         }
     }
+
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        AbstractCoverageResult result_ = _cont.getCoverage().getCoverLoops().getVal(this);
+        String tag_;
+        if (result_.isFullCovered()) {
+            tag_ = "<span style=\"background-color:green;\">";
+        } else if (result_.isPartialCovered()) {
+            tag_ = "<span style=\"background-color:yellow;\">";
+        } else {
+            tag_ = "<span style=\"background-color:red;\">";
+        }
+        int off_ = getOffset().getOffsetTrim();
+        _parts.add(new PartOffset(tag_,off_));
+        tag_ = "</span>";
+        _parts.add(new PartOffset(tag_,variableNameOffsetSecond+ variableNameSecond.length()));
+        off_ = expressionOffset;
+        int offsetEndBlock_ = off_ + expression.length();
+        ElUtil.buildCoverageReport(_cont,off_,this,opList,offsetEndBlock_,_parts);
+    }
+
     public void incrementLoop(ContextEl _conf, LoopBlockStack _l,
             StringMap<LoopVariable> _vars) {
         _l.setIndex(_l.getIndex() + 1);
@@ -723,6 +747,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         lv_.setIndex(lv_.getIndex() + 1);
         call_.clearCurrentEls();
         call_.getReadWrite().setBlock(getFirstChild());
+        _l.setEvaluatingKeepLoop(false);
     }
     private Boolean iteratorHasNext(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();

@@ -6,6 +6,7 @@ import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.TryBlockStack;
@@ -157,6 +158,20 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval {
             ts_.setCurrentBlock(this);
             rw_.setBlock(getNextSibling());
         }
+    }
+
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        String tag_;
+        if (_cont.getCoverage().getCatches().getVal(this)) {
+            tag_ = "<span style=\"background-color:green;\">";
+        } else {
+            tag_ = "<span style=\"background-color:red;\">";
+        }
+        int off_ = getOffset().getOffsetTrim();
+        _parts.add(new PartOffset(tag_,off_));
+        tag_ = "</span>";
+        _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordCatch().length()));
     }
 
     @Override

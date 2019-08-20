@@ -13,7 +13,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class ExecSuperFctOperation extends ExecInvokingOperation {
+public final class ExecSuperFctOperation extends ExecInvokingOperation implements NamedCalledOperation {
 
     private String methodName;
 
@@ -76,6 +76,7 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation {
         return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
     }
 
+    @Override
     public ClassMethodId getClassMethodId() {
         return classMethodId;
     }

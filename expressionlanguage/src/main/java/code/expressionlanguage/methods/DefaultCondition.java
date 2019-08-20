@@ -5,7 +5,10 @@ import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.methods.util.AbstractCoverageResult;
 import code.expressionlanguage.stacks.SwitchBlockStack;
+import code.util.CustList;
 
 public final class DefaultCondition extends SwitchPartBlock {
 
@@ -67,5 +70,21 @@ public final class DefaultCondition extends SwitchPartBlock {
         } else {
             rw_.setBlock(getNextSibling());
         }
+    }
+
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        BracedBlock parent_ = getParent();
+        AbstractCoverageResult result_ = _cont.getCoverage().getCoverSwitchs().getVal(parent_).getVal(this);
+        String tag_;
+        if (result_.isFullCovered()) {
+            tag_ = "<span style=\"background-color:green;\">";
+        } else {
+            tag_ = "<span style=\"background-color:red;\">";
+        }
+        int off_ = getOffset().getOffsetTrim();
+        _parts.add(new PartOffset(tag_,off_));
+        tag_ = "</span>";
+        _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordDefault().length()));
     }
 }

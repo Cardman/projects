@@ -16,7 +16,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class ExecFctOperation extends ExecInvokingOperation {
+public final class ExecFctOperation extends ExecInvokingOperation implements NamedCalledOperation {
 
     private String methodName;
 
@@ -105,6 +105,7 @@ public final class ExecFctOperation extends ExecInvokingOperation {
         return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
     }
 
+    @Override
     public ClassMethodId getClassMethodId() {
         return classMethodId;
     }

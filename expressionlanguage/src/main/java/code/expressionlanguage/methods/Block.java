@@ -10,6 +10,7 @@ import code.expressionlanguage.errors.custom.DuplicateLabel;
 import code.expressionlanguage.errors.custom.UnassignedInfered;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.expressionlanguage.opers.CurrentInvokingConstructor;
 import code.expressionlanguage.opers.OperationNode;
@@ -203,6 +204,7 @@ public abstract class Block {
         _cont.getClasses().addError(un_);
     }
 
+    public abstract void processReport(ContextEl _cont, CustList<PartOffset> _parts);
     public final void processBlock(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
         ParentStackBlock parElt_ = ((WithElPageEl)ip_).getNextBlock(this);

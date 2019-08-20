@@ -6,9 +6,11 @@ import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.TryBlockStack;
+import code.util.CustList;
 import code.util.IdList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -97,6 +99,9 @@ public final class ContinueBlock extends AbruptBlock implements CallingFinally {
         continuables_.put(this, (Loop) a_);
     }
 
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+    }
     @Override
     public void processEl(ContextEl _cont) {
         removeBlockFinally(_cont);

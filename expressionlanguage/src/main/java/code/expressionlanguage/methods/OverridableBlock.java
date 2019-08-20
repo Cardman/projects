@@ -9,6 +9,7 @@ import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.options.KeyWords;
@@ -157,5 +158,13 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneMe
 
     public void setKind(MethodKind _kind) {
         kind = _kind;
+    }
+
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        int begName_ = getNameOffset();
+        int endName_ = begName_ + getName().length();
+        _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
+        _parts.add(new PartOffset("</a>",endName_));
     }
 }

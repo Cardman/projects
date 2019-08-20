@@ -5,6 +5,7 @@ import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.util.LocalThrowing;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.SimpleAssignment;
@@ -73,6 +74,11 @@ public final class FinallyEval extends BracedStack implements Eval {
         mutableVars_ = buildAssMutableLoopAfterFinally(prev_, _an, _anEl);
         assTar_.getMutableLoopRoot().clear();
         assTar_.getMutableLoopRoot().addAllElts(mutableVars_);
+    }
+
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+
     }
 
     @Override

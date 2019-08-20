@@ -2206,13 +2206,16 @@ public final class FileResolver {
             }
             exp_ = exp_.substring(beg_ +1, lastPar_);
             conditionOffest_ += StringList.getFirstPrintableCharIndex(exp_);
-            br_ = new ElseIfCondition(new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+            br_ = new ElseIfCondition(new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation),keyWordElseif_.length());
             _currentParent.appendChild(br_);
         } else if (ContextEl.startsWithKeyWord(_trimmedInstruction,keyWordElse_)) {
             String afterElse_ = _trimmedInstruction.substring(keyWordElse_.length());
             String exp_ = afterElse_.trim();
             if (ContextEl.startsWithKeyWord(exp_,keyWordIf_)) {
+                int deltaFirst_ = keyWordElse_.length();
                 int firstPr_ = StringList.getFirstPrintableCharIndex(afterElse_);
+                deltaFirst_ += firstPr_;
+                deltaFirst_ += keyWordIf_.length();
                 exp_ = exp_.substring(keyWordIf_.length());
                 int conditionOffest_ = _instructionLocation;
                 conditionOffest_ += keyWordElse_.length();
@@ -2227,7 +2230,7 @@ public final class FileResolver {
                 }
                 exp_ = exp_.substring(beg_ +1, lastPar_);
                 conditionOffest_ += StringList.getFirstPrintableCharIndex(exp_);
-                br_ = new ElseIfCondition(new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+                br_ = new ElseIfCondition(new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation),deltaFirst_);
                 _currentParent.appendChild(br_);
             } else {
                 br_ = new ElseCondition(new OffsetsBlock(_instructionRealLocation, _instructionLocation));

@@ -1,11 +1,13 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
@@ -93,5 +95,13 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
     @Override
     public CustList<TypeVar> getParamTypesMapValues() {
         return new CustList<TypeVar>();
+    }
+
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        int begName_ = getNameOffset();
+        int endName_ = begName_ + getName().length();
+        _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
+        _parts.add(new PartOffset("</a>",endName_));
     }
 }

@@ -7,9 +7,11 @@ import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
+import code.util.CustList;
 import code.util.StringList;
 
 public final class DeclareVariable extends Leaf implements InitVariable,BuildableElMethod {
@@ -72,6 +74,9 @@ public final class DeclareVariable extends Leaf implements InitVariable,Buildabl
         buildEmptyEl(_an);
     }
 
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+    }
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();

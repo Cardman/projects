@@ -6,6 +6,7 @@ import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.util.CustList;
@@ -64,6 +65,11 @@ public final class TryEval extends BracedStack implements Eval {
                 _an.getClasses().addError(un_);
             }
         }
+    }
+
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+
     }
 
     @Override

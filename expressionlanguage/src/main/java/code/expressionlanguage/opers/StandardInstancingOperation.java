@@ -362,7 +362,7 @@ public final class StandardInstancingOperation extends
             setResultClass(new ClassArgumentMatching(_realClassName));
             return;
         }
-        if (g_ instanceof EnumBlock) {
+        if (g_ instanceof EnumBlock || g_ instanceof InnerElementBlock) {
             if (fieldName.isEmpty()) {
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();
                 call_.setType(_realClassName);

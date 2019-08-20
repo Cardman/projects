@@ -7,7 +7,9 @@ import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.stacks.*;
+import code.util.CustList;
 import code.util.IdList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -100,6 +102,10 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
         id_.put((BreakableBlock) a_, pars_);
         breakablesAncestors_.put(this, id_);
         breakables_.put(this, (BreakableBlock) a_);
+    }
+
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
     }
 
     @Override

@@ -6,15 +6,19 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.StaticInitPageEl;
+import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
+import code.expressionlanguage.opers.exec.ExecStandardInstancingOperation;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.Struct;
@@ -291,6 +295,34 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     @Override
     public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
         return new ExpressionLanguage(opValue);
+    }
+
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        ExecOperationNode root_ = opValue.last();
+        String cl_ = ((ExecStandardInstancingOperation)root_).getClassName();
+        cl_ = Templates.getIdFromAllTypes(cl_);
+        ConstructorId c_ = ((ExecStandardInstancingOperation)root_).getConstId();
+        GeneType type_ = _cont.getClassBody(cl_);
+        String file_ = ((RootBlock) type_).getFile().getFileName();
+        file_ = file_.substring("src/".length());
+        CustList<GeneConstructor> ctors_ = Classes.getConstructorBodiesById(_cont, cl_, c_);
+        if (!ctors_.isEmpty()) {
+            ConstructorBlock ctor_ = (ConstructorBlock) ctors_.first();
+            String tag_ = "<a title=\""+ cl_ +"."+ c_.getSignature(_cont)+"\" href=\""+file_+".html#m"+ctor_.getNameOffset()+"\">";
+            _parts.add(new PartOffset(tag_,fieldNameOffest));
+            tag_ = "</a>";
+            _parts.add(new PartOffset(tag_,fieldNameOffest+fieldName.length()));
+        }
+        int blOffset_ = valueOffest;
+        int endBl_ = valueOffest + value.length();
+        ElUtil.buildCoverageReport(_cont,blOffset_,this,opValue,endBl_,_parts,trOffset-1,fieldName);
+//
+//        KeyWords keyWords_ = _cont.getKeyWords();
+//        String newKeyWord_ = keyWords_.getKeyWordNew();
+//        int blOffset_ = valueOffest - 2 - newKeyWord_.length() - importedClassName.length();
+//        int endBl_ = blOffset_ + value.length();
+//        ElUtil.buildCoverageReport(_cont,blOffset_,this,opValue,endBl_,_parts);
     }
 
     @Override

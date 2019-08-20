@@ -14,7 +14,7 @@ import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
 
-public final class EqOperation extends MethodOperation implements SymbolOperation {
+public final class EqOperation extends MethodOperation implements MiddleSymbolOperation {
 
     private String oper;
     private ClassMethodId classMethodId;
@@ -99,6 +99,11 @@ public final class EqOperation extends MethodOperation implements SymbolOperatio
     }
 
     public String getOper() {
+        return getOp();
+    }
+
+    @Override
+    public String getOp() {
         return oper;
     }
 

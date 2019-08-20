@@ -9,6 +9,7 @@ import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecCurrentInvokingConstructor;
@@ -138,5 +139,12 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl,B
     public ExpressionLanguage getEl(ContextEl _context,
             int _indexProcess) {
         return getRightEl();
+    }
+
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        int blOffset_ = expressionOffset;
+        int endBl_ = blOffset_ + getExpression().length();
+        ElUtil.buildCoverageReport(_cont,blOffset_,this,getExp(),endBl_,_parts);
     }
 }

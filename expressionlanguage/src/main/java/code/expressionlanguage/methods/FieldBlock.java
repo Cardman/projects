@@ -15,6 +15,7 @@ import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecDeclaringOperation;
@@ -39,6 +40,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     private final String value;
 
     private int valueOffset;
+    private Ints valuesOffset = new Ints();
 
     private final boolean staticField;
 
@@ -186,7 +188,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
-        StringList names_ = ElUtil.getFieldNames(value, _cont, Calculation.staticCalculation(staticField));
+        CustList<PartOffset> names_ = ElUtil.getFieldNames(valueOffset,value, _cont, Calculation.staticCalculation(staticField));
         if (names_.isEmpty()) {
             BadParamName b_;
             b_ = new BadParamName();
@@ -195,8 +197,8 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             _cont.getClasses().addError(b_);
         }
         StringList idsField_ = new StringList(_fieldNames);
-        for (String n: names_) {
-            String trName_ = n.trim();
+        for (PartOffset n: names_) {
+            String trName_ = n.getPart();
             if (!_cont.isValidToken(trName_)) {
                 BadFieldName b_;
                 b_ = new BadFieldName();
@@ -212,16 +214,17 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                     duplicate_ = new DuplicateField();
                     duplicate_.setIndexFile(r_);
                     duplicate_.setFileName(getFile().getFileName());
-                    duplicate_.setId(n);
+                    duplicate_.setId(n.getPart());
                     _cont.getClasses().addError(duplicate_);
                 }
             }
             idsField_.add(trName_);
         }
-        for (String n: names_) {
-            _fieldNames.add(n);
+        for (PartOffset n: names_) {
+            _fieldNames.add(n.getPart());
+            fieldName.add(n.getPart());
+            valuesOffset.add(n.getOffset());
         }
-        fieldName.addAllElts(names_);
     }
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
@@ -341,5 +344,12 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     public ExpressionLanguage getEl(ContextEl _context,
             int _indexProcess) {
         return getValueEl();
+    }
+
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        int blOffset_ = valueOffset;
+        int endBl_ = blOffset_ + value.length();
+        ElUtil.buildCoverageReport(_cont,blOffset_,this,getOpValue(),endBl_,_parts);
     }
 }

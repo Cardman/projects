@@ -13,6 +13,7 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
@@ -204,6 +205,13 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         mutableVars_ = buildAssMutableLoopAfterSwitch(def_, ch_, _an, _anEl);
         assTar_.getMutableLoopRoot().clear();
         assTar_.getMutableLoopRoot().addAllElts(mutableVars_);
+    }
+
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        int off_ = getValueOffset();
+        int offsetEndBlock_ = off_ + getValue().length();
+        ElUtil.buildCoverageReport(_cont,off_,this,getOpValue(),offsetEndBlock_,_parts);
     }
 
     private boolean hasDefaultCase() {

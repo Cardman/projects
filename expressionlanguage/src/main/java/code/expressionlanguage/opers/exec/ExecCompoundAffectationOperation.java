@@ -78,4 +78,12 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
     public ExecSettableElResult getSettable() {
         return settable;
     }
+
+    public ClassMethodId getClassMethodId() {
+        return classMethodId;
+    }
+
+    public String getOper() {
+        return oper;
+    }
 }

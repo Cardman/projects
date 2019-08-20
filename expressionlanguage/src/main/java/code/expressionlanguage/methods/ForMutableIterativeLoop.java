@@ -14,6 +14,8 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.methods.util.AbstractCoverageResult;
 import code.expressionlanguage.methods.util.AssignedVariablesDesc;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -544,6 +546,41 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             }
         }
         return variables_;
+    }
+
+
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        if (!opExp.isEmpty()) {
+            AbstractCoverageResult result_ = _cont.getCoverage().getCovers().getVal(this).getVal(opExp.last());
+            String tag_;
+            if (result_.isFullCovered()) {
+                tag_ = "<span style=\"background-color:green;\">";
+            } else if (result_.isPartialCovered()) {
+                tag_ = "<span style=\"background-color:yellow;\">";
+            } else {
+                tag_ = "<span style=\"background-color:red;\">";
+            }
+            int off_ = getOffset().getOffsetTrim();
+            _parts.add(new PartOffset(tag_,off_));
+            tag_ = "</span>";
+            _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordFor().length()));
+        }
+        if (!opInit.isEmpty()) {
+            int off_ = initOffset;
+            int offsetEndBlock_ = off_ + init.length();
+            ElUtil.buildCoverageReport(_cont,off_,this,opInit,offsetEndBlock_,_parts);
+        }
+        if (!opExp.isEmpty()) {
+            int off_ = expressionOffset;
+            int offsetEndBlock_ = off_ + expression.length();
+            ElUtil.buildCoverageReport(_cont,off_,this,opExp,offsetEndBlock_,_parts);
+        }
+        if (!opStep.isEmpty()) {
+            int off_ = stepOffset;
+            int offsetEndBlock_ = off_ + step.length();
+            ElUtil.buildCoverageReport(_cont,off_,this,opStep,offsetEndBlock_,_parts);
+        }
     }
 
 

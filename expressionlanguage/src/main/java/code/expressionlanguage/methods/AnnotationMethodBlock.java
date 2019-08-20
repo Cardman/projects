@@ -16,6 +16,7 @@ import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
@@ -215,5 +216,9 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     }
     public CustList<ExecOperationNode> getOpValue() {
         return opValue;
+    }
+
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
     }
 }

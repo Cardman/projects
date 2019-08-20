@@ -20,7 +20,7 @@ import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
 
-public final class CmpOperation extends MethodOperation implements SymbolOperation {
+public final class CmpOperation extends MethodOperation implements MiddleSymbolOperation {
 
     private boolean stringCompare;
     private ClassMethodId classMethodId;
@@ -236,6 +236,7 @@ public final class CmpOperation extends MethodOperation implements SymbolOperati
         return classMethodId;
     }
 
+    @Override
     public String getOp() {
         return op;
     }

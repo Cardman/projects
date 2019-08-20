@@ -12,6 +12,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.util.ConstructorEdge;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
@@ -1495,6 +1496,11 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             }
         }
         return false;
+    }
+
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+
     }
 
     @Override

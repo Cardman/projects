@@ -33,6 +33,12 @@ public final class BooleanCoverageResult extends AbstractCoverageResult {
         }
     }
 
+    @Override
+    public void fullCover() {
+        coverTrue = true;
+        coverFalse = true;
+    }
+
     public boolean isCoverFalse() {
         return coverFalse;
     }

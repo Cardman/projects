@@ -14,6 +14,7 @@ import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
@@ -164,6 +165,16 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
             ass_.put(e.getKey(), e.getValue().assign());
         }
         _anEl.getAssignments().put(this, ass_);
+    }
+
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        if (isEmpty()) {
+            return;
+        }
+        int off_ = getExpressionOffset();
+        int offsetEndBlock_ = off_ + getExpression().length();
+        ElUtil.buildCoverageReport(_cont,off_,this,getOpRet(),offsetEndBlock_,_parts);
     }
 
     @Override

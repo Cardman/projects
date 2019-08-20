@@ -7,6 +7,8 @@ import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.methods.util.AbstractCoverageResult;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
@@ -18,8 +20,11 @@ import code.util.StringMap;
 
 public final class ElseIfCondition extends Condition implements BlockCondition {
 
-    public ElseIfCondition(OffsetStringInfo _condition, OffsetsBlock _offset) {
+    private int delta;
+
+    public ElseIfCondition(OffsetStringInfo _condition, OffsetsBlock _offset, int _delta) {
         super(_condition, _offset);
+        delta = _delta;
     }
 
     @Override
@@ -162,6 +167,24 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
         rw_.setBlock(getNextSibling());
     }
 
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        ExecOperationNode root_ = getOpCondition().last();
+        AbstractCoverageResult result_ = _cont.getCoverage().getCovers().getVal(this).getVal(root_);
+        String tag_;
+        if (result_.isFullCovered()) {
+            tag_ = "<span style=\"background-color:green;\">";
+        } else if (result_.isPartialCovered()) {
+            tag_ = "<span style=\"background-color:yellow;\">";
+        } else {
+            tag_ = "<span style=\"background-color:red;\">";
+        }
+        int off_ = getOffset().getOffsetTrim();
+        _parts.add(new PartOffset(tag_,off_));
+        tag_ = "</span>";
+        _parts.add(new PartOffset(tag_,off_+ delta));
+        super.processReport(_cont,_parts);
+    }
     @Override
     public void exitStack(ContextEl _context) {
         AbstractPageEl ip_ = _context.getLastPage();

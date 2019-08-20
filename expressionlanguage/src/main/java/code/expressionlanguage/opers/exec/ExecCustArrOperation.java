@@ -164,4 +164,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, _right);
     }
 
+    public ClassMethodId getClassMethodId() {
+        return classMethodId;
+    }
 }

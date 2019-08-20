@@ -16,6 +16,8 @@ import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.methods.util.AbstractCoverageResult;
 import code.expressionlanguage.methods.util.AssignedVariablesDesc;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -572,6 +574,25 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         incrementLoop(_cont, l_, vars_);
     }
 
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        AbstractCoverageResult result_ = _cont.getCoverage().getCoverLoops().getVal(this);
+        String tag_;
+        if (result_.isFullCovered()) {
+            tag_ = "<span style=\"background-color:green;\">";
+        } else if (result_.isPartialCovered()) {
+            tag_ = "<span style=\"background-color:yellow;\">";
+        } else {
+            tag_ = "<span style=\"background-color:red;\">";
+        }
+        int off_ = getOffset().getOffsetTrim();
+        _parts.add(new PartOffset(tag_,off_));
+        tag_ = "</span>";
+        _parts.add(new PartOffset(tag_,variableNameOffset+ variableName.length()));
+        off_ = expressionOffset;
+        int offsetEndBlock_ = off_ + expression.length();
+        ElUtil.buildCoverageReport(_cont,off_,this,opList,offsetEndBlock_,_parts);
+    }
     Struct processLoop(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
         ip_.setGlobalOffset(expressionOffset);

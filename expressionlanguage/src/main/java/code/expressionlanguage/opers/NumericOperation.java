@@ -11,7 +11,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.*;
 
-public abstract class NumericOperation extends MethodOperation implements SymbolOperation {
+public abstract class NumericOperation extends MethodOperation implements MiddleSymbolOperation {
     private ClassMethodId classMethodId;
     private String op;
     private int opOffset;
@@ -146,6 +146,7 @@ public abstract class NumericOperation extends MethodOperation implements Symbol
         return classMethodId;
     }
 
+    @Override
     public String getOp() {
         return op;
     }

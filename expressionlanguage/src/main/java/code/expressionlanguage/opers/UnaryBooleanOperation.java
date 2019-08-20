@@ -75,7 +75,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
         OperationNode last_ = getFirstChild();
         StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
         CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
-        CustList<StringMap<Assignment>> mutableAfterLast_ = vars_.getVariables().getVal(last_);
+        CustList<StringMap<Assignment>> mutableAfterLast_ = vars_.getMutableLoop().getVal(last_);
         vars_.getFields().put(this, AssignmentsUtil.neg(fieldsAfterLast_));
         vars_.getVariables().put(this, AssignmentsUtil.neg(variablesAfterLast_));
         vars_.getMutableLoop().put(this, AssignmentsUtil.neg(mutableAfterLast_));

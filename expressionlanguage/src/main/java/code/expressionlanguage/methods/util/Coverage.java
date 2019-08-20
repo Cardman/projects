@@ -9,6 +9,7 @@ import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.NamedFunctionBlock;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.exec.ExecInternVariableOperation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.util.IdMap;
 import code.util.StringMap;
@@ -110,7 +111,7 @@ public final class Coverage {
         StandardCoverageResult cov_ = coverNoDefSwitchs.getVal(en_);
         cov_.cover(_value);
     }
-    public void passBlockOperation(Analyzable _context, ExecOperationNode _exec, Argument _value) {
+    public void passBlockOperation(Analyzable _context, ExecOperationNode _exec, Argument _value, boolean _full) {
         if (!_context.getContextEl().isCovering()) {
             return;
         }
@@ -122,7 +123,15 @@ public final class Coverage {
         Block en_ = rw_.getBlock();
         IdMap<ExecOperationNode,AbstractCoverageResult> instr_;
         instr_ = covers.getVal(en_);
-        instr_.getVal(_exec).cover(_value);
+        AbstractCoverageResult result_ = instr_.getVal(_exec);
+        if (result_ == null) {
+            return;
+        }
+        if (_full) {
+            result_.fullCover();
+        } else {
+            result_.cover(_value);
+        }
     }
     public void passCalls(Analyzable _context, String _type,NamedFunctionBlock _block) {
         if (!_context.getContextEl().isCovering()) {

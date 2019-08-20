@@ -7,6 +7,7 @@ import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
@@ -78,5 +79,12 @@ public final class Throwing extends AbruptBlock implements StackableBlock, WithN
     public ExpressionLanguage getEl(ContextEl _context,
             int _indexProcess) {
         return getEl();
+    }
+
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        int off_ = getExpressionOffset();
+        int offsetEndBlock_ = off_ + getExpression().length();
+        ElUtil.buildCoverageReport(_cont,off_,this,opThrow,offsetEndBlock_,_parts);
     }
 }

@@ -6,8 +6,10 @@ import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.stacks.LoopBlockStack;
+import code.util.CustList;
 import code.util.IdMap;
 
 public final class DoBlock extends BracedStack implements Loop {
@@ -52,6 +54,12 @@ public final class DoBlock extends BracedStack implements Loop {
             _an.getClasses().addError(un_);
         }
     }
+
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+
+    }
+
     @Override
     public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
         Block nextSibling_ = getNextSibling();

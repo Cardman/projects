@@ -75,6 +75,10 @@ public final class ExecStandardInstancingOperation extends
         return instancePrepare(_conf, className_, constId, _previous, firstArgs_, fieldName, blockIndex, true);
     }
 
+    public String getClassName() {
+        return className;
+    }
+
     public ConstructorId getConstId() {
         return constId;
     }

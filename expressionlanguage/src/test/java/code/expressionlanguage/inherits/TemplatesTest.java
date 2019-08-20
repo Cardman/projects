@@ -4256,6 +4256,18 @@ public final class TemplatesTest {
         assertTrue(!Templates.isCorrectTemplateAll("pkg.ExTwo<pkg.Ex,pkg.Ex<java.lang.Object>>", t_,cont_,false));
     }
     @Test
+    public void isCorrectTemplate85Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.ExTwo<#U> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(Templates.isCorrectTemplateAll("pkg.ExTwo<pkg.Ex<java.lang.Object>>", t_,cont_,true));
+    }
+    @Test
     public void isCorrectTemplateAll1Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

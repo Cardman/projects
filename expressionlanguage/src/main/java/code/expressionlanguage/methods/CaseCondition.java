@@ -12,10 +12,8 @@ import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.instr.Delimiters;
-import code.expressionlanguage.instr.ElResolver;
-import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.*;
+import code.expressionlanguage.methods.util.AbstractCoverageResult;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
@@ -209,5 +207,21 @@ public final class CaseCondition extends SwitchPartBlock {
         } else {
             rw_.setBlock(getNextSibling());
         }
+    }
+
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        BracedBlock parent_ = getParent();
+        AbstractCoverageResult result_ = _cont.getCoverage().getCoverSwitchs().getVal(parent_).getVal(this);
+        String tag_;
+        if (result_.isFullCovered()) {
+            tag_ = "<span style=\"background-color:green;\">";
+        } else {
+            tag_ = "<span style=\"background-color:red;\">";
+        }
+        int off_ = getValueOffset();
+        _parts.add(new PartOffset(tag_,off_));
+        tag_ = "</span>";
+        _parts.add(new PartOffset(tag_,off_+ getValue().length()));
     }
 }

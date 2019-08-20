@@ -516,7 +516,7 @@ public abstract class ExecOperationNode implements Operable {
             _nodes.getValue(n_.getOrder()).setPreviousArgument(arg_);
         }
         _nodes.getValue(getOrder()).setArgument(arg_);
-        _conf.getCoverage().passBlockOperation(_conf, this,arg_);
+        _conf.getCoverage().passBlockOperation(_conf, this,arg_,!_convertToString);
     }
 
     public static Argument processString(Argument _argument, ContextEl _conf) {

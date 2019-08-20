@@ -7,6 +7,7 @@ import code.expressionlanguage.errors.custom.UnexpectedTypeError;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
@@ -64,6 +65,13 @@ public abstract class Condition extends BracedStack implements WithNotEmptyEl, B
     public void reduce(ContextEl _context) {
         ExecOperationNode r_ = opCondition.last();
         opCondition = ElUtil.getReducedNodes(r_);
+    }
+
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        int off_ = getConditionOffset();
+        int offsetEndBlock_ = off_ + getCondition().length();
+        ElUtil.buildCoverageReport(_cont,off_,this,getOpCondition(),offsetEndBlock_,_parts);
     }
 
     public final ExpressionLanguage getElCondition() {

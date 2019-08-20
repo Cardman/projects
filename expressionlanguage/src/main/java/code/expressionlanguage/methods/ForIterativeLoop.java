@@ -14,6 +14,8 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.methods.util.AbstractCoverageResult;
 import code.expressionlanguage.methods.util.AssignedVariablesDesc;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -532,7 +534,18 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
         ip_.getReadWrite().setBlock(getFirstChild());
     }
-
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        int off_ = initOffset;
+        int offsetEndBlock_ = off_ + init.length();
+        ElUtil.buildCoverageReport(_cont,off_,this,opInit,offsetEndBlock_,_parts);
+        off_ = expressionOffset;
+        offsetEndBlock_ = off_ + expression.length();
+        ElUtil.buildCoverageReport(_cont,off_,this,opExp,offsetEndBlock_,_parts);
+        off_ = stepOffset;
+        offsetEndBlock_ = off_ + step.length();
+        ElUtil.buildCoverageReport(_cont,off_,this,opStep,offsetEndBlock_,_parts);
+    }
     void processLoop(ContextEl _conf) {
         LgNames stds_ = _conf.getStandards();
         String null_ = stds_.getAliasNullPe();

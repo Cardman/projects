@@ -21,4 +21,9 @@ public final class StandardCoverageResult extends AbstractCoverageResult {
     public void cover(Argument _arg) {
         covered = true;
     }
+
+    @Override
+    public void fullCover() {
+        covered = true;
+    }
 }

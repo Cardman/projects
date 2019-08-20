@@ -12,4 +12,5 @@ public abstract class AbstractCoverageResult {
     public abstract int getCovered();
     public abstract int getFull();
     public abstract void cover(Argument _arg);
+    public abstract void fullCover();
 }
