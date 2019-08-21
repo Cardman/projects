@@ -33,7 +33,7 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.*;
 
-public final class ForEachLoop extends BracedStack implements ForLoop {
+public final class ForEachLoop extends BracedStack implements ForLoop,ImportForEachLoop {
 
     private String label;
     private int labelOffset;
@@ -146,6 +146,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         assBl_.getMutableLoopRootBefore().add(new StringMap<AssignmentBefore>());
         id_.put(firstChild_, assBl_);
     }
+    @Override
     public String getImportedClassName() {
         return importedClassName;
     }

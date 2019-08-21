@@ -3,6 +3,7 @@ package code.expressionlanguage.types;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.methods.AccessedBlock;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.options.Options;
@@ -277,7 +278,7 @@ public final class PartTypeUtil {
         }
         return root_.getAnalyzedType();
     }
-    public static String processAnalyzeAccessibleId(String _input, Analyzable _an, AccessingImportingBlock _rooted) {
+    public static String processAnalyzeAccessibleId(String _input, Analyzable _an, AccessedBlock _rooted) {
         Options options_ = _an.getOptions();
         Ints indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {

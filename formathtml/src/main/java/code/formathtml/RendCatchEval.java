@@ -30,16 +30,6 @@ public final class RendCatchEval extends RendAbstractCatchEval {
         variableNameOffset = _variable.getOffset();
     }
 
-    public int getClassNameOffset() {
-        return classNameOffset;
-    }
-    public int getVariableNameOffset() {
-        return variableNameOffset;
-    }
-    public String getClassName() {
-        return className;
-    }
-
     public String getImportedClassName() {
         return importedClassName;
     }

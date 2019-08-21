@@ -11,6 +11,7 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.methods.ImportForEachLoop;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -27,7 +28,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class RendForEachLoop extends RendParentBlock implements RendLoop, RendReducableOperations {
+public final class RendForEachLoop extends RendParentBlock implements RendLoop, RendReducableOperations,ImportForEachLoop {
 
     private String label;
     private int labelOffset;
@@ -78,19 +79,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
 
     @Override
     public String getRealLabel() {
-        return label;
-    }
-
-    public int getLabelOffset() {
-        return labelOffset;
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public String getExpression() {
-        return expression;
+        return getLabel();
     }
 
     @Override
@@ -98,6 +87,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         RendDynOperationNode r_ = opList.last();
         opList = RenderExpUtil.getReducedNodes(r_);
     }
+    @Override
     public String getImportedClassName() {
         return importedClassName;
     }

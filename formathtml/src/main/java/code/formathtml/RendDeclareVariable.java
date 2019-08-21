@@ -29,13 +29,6 @@ public final class RendDeclareVariable extends RendLeaf implements RendInitVaria
     public StringList getVariableNames() {
         return variableNames;
     }
-    public int getClassNameOffset() {
-        return classNameOffset;
-    }
-
-    public String getClassName() {
-        return className;
-    }
 
     public void setImportedClassName(String _importedClassName) {
         importedClassName = _importedClassName;

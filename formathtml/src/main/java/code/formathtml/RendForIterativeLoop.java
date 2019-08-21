@@ -89,31 +89,11 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
 
     @Override
     public String getRealLabel() {
-        return label;
-    }
-
-    public int getLabelOffset() {
-        return labelOffset;
-    }
-
-    public String getClassName() {
-        return className;
+        return getLabel();
     }
 
     public String getVariableName() {
         return variableName;
-    }
-
-    public String getInit() {
-        return init;
-    }
-
-    public String getExpression() {
-        return expression;
-    }
-
-    public String getStep() {
-        return step;
     }
 
     public boolean isEq() {

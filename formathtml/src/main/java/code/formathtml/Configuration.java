@@ -11,14 +11,17 @@ import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.BadElError;
+import code.expressionlanguage.errors.custom.IllegalCallCtorByType;
+import code.expressionlanguage.errors.custom.UnexpectedTypeError;
+import code.expressionlanguage.errors.custom.UnknownClassName;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeOwnersDepends;
 import code.expressionlanguage.instr.ResultAfterInstKeyWord;
 import code.expressionlanguage.methods.*;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
@@ -473,10 +476,6 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public CustList<GeneType> getClassBodies() {
-        return getContext().getClassBodies();
-    }
-    @Override
     public GeneType getClassBody(String _type) {
         return getContext().getClassBody(_type);
     }
@@ -596,11 +595,6 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public ClassMetaInfo getClassMetaInfo(String _name) {
-        return getContext().getClassMetaInfo(_name);
-    }
-
-    @Override
     public CustList<GeneMethod> getMethodBodiesById(String _genericClassName,
             MethodId _id) {
         return getContext().getMethodBodiesById(_genericClassName, _id);
@@ -615,8 +609,17 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public int getCurrentChildTypeIndex() {
-        return 0;
+    public int getCurrentChildTypeIndex(OperationNode _op, GeneType _type, String _fieldName, String _realClassName) {
+        if (ContextEl.isEnumType(_type)) {
+            IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+            call_.setType(_realClassName);
+            call_.setFileName(getCurrentFileName());
+            call_.setIndexFile(getCurrentLocationIndex());
+            getClasses().addError(call_);
+            _op.setResultClass(new ClassArgumentMatching(_realClassName));
+            return -2;
+        }
+        return -1;
     }
 
     @Override
@@ -647,6 +650,11 @@ public final class Configuration implements ExecutableCode {
     @Override
     public AssignedVariablesBlock getAssignedVariables() {
         return context.getAssignedVariables();
+    }
+
+    @Override
+    public AnalyzedBlock getCurrentAnaBlock() {
+        return analyzingDoc.getCurrentBlock();
     }
 
     @Override
@@ -720,11 +728,6 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public StringList getNeedInterfaces() {
-        return context.getNeedInterfaces();
-    }
-
-    @Override
     public StringMap<LocalVariable> getInternVars() {
         return context.getInternVars();
     }
@@ -748,7 +751,53 @@ public final class Configuration implements ExecutableCode {
 
     @Override
     public String resolveAccessibleIdType(String _in) {
-        return resolveDynamicType(_in, null);
+        int rc_ = getCurrentLocationIndex();
+        String void_ = standards.getAliasVoid();
+        if (StringList.quickEq(_in.trim(), void_)) {
+            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            un_.setFileName(analyzingDoc.getFileName());
+            un_.setIndexFile(rc_);
+            un_.setType(_in);
+            getClasses().addError(un_);
+            return "";
+        }
+        StringList inners_ = Templates.getAllInnerTypes(_in);
+        String base_ = inners_.first().trim();
+        String res_ = ContextEl.removeDottedSpaces(base_);
+        if (standards.getStandards().contains(res_)) {
+            return res_;
+        }
+        RootBlock b_ = getClasses().getClassBody(res_);
+        if (b_ == null) {
+            String defPkg_ = standards.getDefaultPkg();
+            String type_ = ContextEl.removeDottedSpaces(StringList.concat(defPkg_,".",_in));
+            if (standards.getStandards().contains(type_)) {
+                return type_;
+            }
+            UnknownClassName undef_;
+            undef_ = new UnknownClassName();
+            undef_.setClassName(base_);
+            undef_.setFileName(analyzingDoc.getFileName());
+            undef_.setIndexFile(rc_);
+            getClasses().addError(undef_);
+            return "";
+        }
+        for (String i: inners_.mid(1)) {
+            String resId_ = StringList.concat(res_,"..",i.trim());
+            RootBlock inner_ = getClasses().getClassBody(resId_);
+            if (inner_ == null) {
+                //ERROR
+                UnknownClassName undef_;
+                undef_ = new UnknownClassName();
+                undef_.setClassName(base_);
+                undef_.setFileName(analyzingDoc.getFileName());
+                undef_.setIndexFile(rc_);
+                getClasses().addError(undef_);
+                return "";
+            }
+            res_ = resId_;
+        }
+        return res_;
     }
 
     @Override
@@ -761,7 +810,45 @@ public final class Configuration implements ExecutableCode {
     }
     @Override
     public String resolveCorrectAccessibleType(String _in, String _fromType) {
-        return resolveDynamicType(_in, null);
+        int rc_ = getCurrentLocationIndex();
+        String void_ = standards.getAliasVoid();
+        if (StringList.quickEq(_in.trim(), void_)) {
+            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            un_.setFileName(analyzingDoc.getFileName());
+            un_.setIndexFile(rc_);
+            un_.setType(_in);
+            getClasses().addError(un_);
+            return standards.getAliasObject();
+        }
+        AccessedBlock r_ = analyzingDoc.getCurrentDoc();
+        StringList varsList_ = new StringList();
+        StringMap<StringList> vars_ = new StringMap<StringList>();
+        String idFromType_ = Templates.getIdFromAllTypes(_fromType);
+        GeneType from_ = getClassBody(idFromType_);
+        for (TypeVar t: from_.getParamTypesMapValues()) {
+            varsList_.add(t.getName());
+            vars_.put(t.getName(), t.getConstraints());
+        }
+        getAvailableVariables().clear();
+        getAvailableVariables().addAllElts(varsList_);
+        String resType_ = PartTypeUtil.processAnalyzeAccessibleId(_in, this, r_);
+        if (resType_.trim().isEmpty()) {
+            UnknownClassName un_ = new UnknownClassName();
+            un_.setClassName(_in);
+            un_.setFileName(analyzingDoc.getFileName());
+            un_.setIndexFile(rc_);
+            getClasses().addError(un_);
+            return standards.getAliasObject();
+        }
+        if (!Templates.isCorrectTemplateAll(resType_, vars_, this, true)) {
+            UnknownClassName un_ = new UnknownClassName();
+            un_.setClassName(_in);
+            un_.setFileName(analyzingDoc.getFileName());
+            un_.setIndexFile(rc_);
+            getClasses().addError(un_);
+            return standards.getAliasObject();
+        }
+        return resType_;
     }
     @Override
     public String resolveCorrectType(String _in, boolean _exact) {
@@ -830,12 +917,12 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public String lookupImportType(String _type, AccessingImportingBlock _rooted) {
+    public String lookupImportType(String _type, AccessedBlock _rooted) {
         return ContextEl.removeDottedSpaces(_type);
     }
     @Override
     public String lookupSingleImportType(String _type,
-            AccessingImportingBlock _rooted) {
+                                         AccessedBlock _rooted) {
         return ContextEl.removeDottedSpaces(_type);
     }
 

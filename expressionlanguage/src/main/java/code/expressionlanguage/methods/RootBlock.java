@@ -225,6 +225,11 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         return imports;
     }
 
+    @Override
+    public StringList getFileImports() {
+        return getFile().getImports();
+    }
+
     public Ints getImportsOffset() {
         return importsOffset;
     }

@@ -18,14 +18,6 @@ public final class RendBreakBlock extends RendLeaf implements RendBuildableElMet
         labelOffset = _label.getOffset();
     }
 
-    public String getLabel() {
-        return label;
-    }
-
-    public int getLabelOffset() {
-        return labelOffset;
-    }
-
 
     @Override
     public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {

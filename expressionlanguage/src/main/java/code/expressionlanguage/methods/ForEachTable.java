@@ -34,7 +34,7 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.*;
 
-public final class ForEachTable extends BracedStack implements Loop, WithNotEmptyEl {
+public final class ForEachTable extends BracedStack implements Loop, WithNotEmptyEl,ImportForEachTable {
 
     private String label;
     private int labelOffset;
@@ -538,10 +538,12 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         return expression;
     }
 
+    @Override
     public String getImportedClassNameFirst() {
         return importedClassNameFirst;
     }
 
+    @Override
     public String getImportedClassNameSecond() {
         return importedClassNameSecond;
     }

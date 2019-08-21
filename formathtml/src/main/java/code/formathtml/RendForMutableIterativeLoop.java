@@ -82,27 +82,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
 
     @Override
     public String getRealLabel() {
-        return label;
-    }
-
-    public int getLabelOffset() {
-        return labelOffset;
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public String getInit() {
-        return init;
-    }
-
-    public String getExpression() {
-        return expression;
-    }
-
-    public String getStep() {
-        return step;
+        return getLabel();
     }
 
     public void setImportedClassName(String _importedClassName) {

@@ -84,6 +84,11 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
     public StringList getImports() {
         return imports;
     }
+
+    @Override
+    public StringList getFileImports() {
+        return getFile().getImports();
+    }
     public Ints getImportsOffset() {
         return importsOffset;
     }

@@ -23,11 +23,7 @@ public final class RendDoBlock extends RendParentBlock implements RendLoop {
 
     @Override
     public String getRealLabel() {
-        return label;
-    }
-
-    public int getLabelOffset() {
-        return labelOffset;
+        return getLabel();
     }
 
     @Override

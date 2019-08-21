@@ -25,10 +25,6 @@ public final class RendIfCondition extends RendCondition implements RendBreakabl
         return label;
     }
 
-    public int getLabelOffset() {
-        return labelOffset;
-    }
-
     @Override
     public void processEl(Configuration _cont) {
         ImportingPage ip_ = _cont.getLastPage();

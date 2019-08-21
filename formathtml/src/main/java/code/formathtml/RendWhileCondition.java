@@ -21,10 +21,7 @@ public final class RendWhileCondition extends RendCondition implements RendLoop 
 
     @Override
     public String getRealLabel() {
-        return label;
-    }
-    public int getLabelOffset() {
-        return labelOffset;
+        return getLabel();
     }
 
 

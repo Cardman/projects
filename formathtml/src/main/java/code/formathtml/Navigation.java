@@ -386,7 +386,6 @@ public final class Navigation {
         //retrieving form that is submitted
         Element formElement_ = DocumentBuilder.getFirstElementByAttribute(doc_, NUMBER_FORM, String.valueOf(lg_));
         if (formElement_ == null) {
-            htmlPage_.setUsedFieldUrl(EMPTY_STRING);
             session.getContext().setException(NullStruct.NULL_VALUE);
             return;
         }
@@ -394,7 +393,6 @@ public final class Navigation {
 
         //As soon as the form is retrieved, then process on it and exit from the loop
         actionCommand_ = formElement_.getAttribute(StringList.concat(ip_.getPrefix(),ATTRIBUTE_COMMAND));
-        htmlPage_.setUsedFieldUrl(StringList.concat(ip_.getPrefix(),ATTRIBUTE_COMMAND));
 
         StringMap<String> errors_;
         errors_ = new StringMap<String>();

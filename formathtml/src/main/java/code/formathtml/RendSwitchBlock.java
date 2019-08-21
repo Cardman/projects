@@ -41,19 +41,11 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
 
     @Override
     public String getRealLabel() {
-        return label;
+        return getLabel();
     }
 
     public String getLabel() {
         return label;
-    }
-
-    public int getLabelOffset() {
-        return labelOffset;
-    }
-
-    public String getValue() {
-        return value;
     }
 
     @Override

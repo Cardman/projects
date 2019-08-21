@@ -29,8 +29,6 @@ public final class ImportingPage {
 
     private String readUrl = "";
 
-    private String key;
-
     private String prefix = EMPTY_STRING;
 
     private RendReadWrite rendReadWrite;
@@ -96,14 +94,6 @@ public final class ImportingPage {
 
     public PageEl getPageEl() {
         return pageEl;
-    }
-
-    public void addToOffset(int _offset) {
-        offset += _offset;
-    }
-
-    public int getOffset() {
-        return offset;
     }
 
     public void setOffset(int _offset) {
@@ -224,24 +214,8 @@ public final class ImportingPage {
         readUrl = _readUrl;
     }
 
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String _key) {
-        key = _key;
-    }
-
-    public int getTabWidth() {
-        return tabWidth;
-    }
-
     public void setTabWidth(int _tabWidth) {
         tabWidth = _tabWidth;
-    }
-
-    public String getProcessingAttribute() {
-        return processingAttribute;
     }
 
     public void setProcessingAttribute(String _processingAttribute) {

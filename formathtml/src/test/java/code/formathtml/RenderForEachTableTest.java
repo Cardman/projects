@@ -545,6 +545,30 @@ public final class RenderForEachTableTest extends CommonRender {
         assertNull(conf_.getException());
     }
     @Test
+    public void process19Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        files_.put(CUST_TABLE_PATH, getCustomTable());
+        files_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration context_ = contextElThird(files_);
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("<html><body><table>");
+        xml_.append("<c:for key=\"k\" keyClassName=\"$int\" value=\"v\" varClassName=\"$int\" map=\"$new pkg.CustTable&lt;&gt;()\">");
+        xml_.append("<tr><td>{k;}</td><td>{v;}</td></tr>");
+        xml_.append("</c:for>");
+        xml_.append("</table></body></html>");
+        String html_ = xml_.toString();
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html><body><table/></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
+        assertNull(context_.getException());
+    }
+    @Test
     public void process1FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());

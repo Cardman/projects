@@ -16,6 +16,7 @@ import code.expressionlanguage.methods.*;
 import code.expressionlanguage.methods.util.Coverage;
 import code.expressionlanguage.methods.util.LocalThrowing;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -503,7 +504,7 @@ public abstract class ContextEl implements ExecutableCode {
         return file_;
     }
     public abstract void initError();
-    @Override
+
     public final ClassMetaInfo getClassMetaInfo(String _name) {
         String base_ = Templates.getIdFromAllTypes(_name);
         LgNames stds_ = getStandards();
@@ -575,7 +576,7 @@ public abstract class ContextEl implements ExecutableCode {
         StringList superInterfaces_ = _type.getDirectInterfaces();
         return new ClassMetaInfo(_name, superClass_, superInterfaces_, "",inners_,infosFields_,infos_, infosConst_, cat_, abs_, st_, final_,acc_);
     }
-    @Override
+
     public CustList<GeneType> getClassBodies() {
         CustList<GeneType> types_ = new CustList<GeneType>();
         for (StandardType t: standards.getStandards().values()) {
@@ -763,6 +764,12 @@ public abstract class ContextEl implements ExecutableCode {
     public String getCurrentFileName() {
         return analyzing.getCurrentBlock().getFile().getFileName();
     }
+
+    @Override
+    public AnalyzedBlock getCurrentAnaBlock() {
+        return getCurrentBlock();
+    }
+
     @Override
     public Block getCurrentBlock() {
         return analyzing.getCurrentBlock();
@@ -949,8 +956,24 @@ public abstract class ContextEl implements ExecutableCode {
     public abstract Initializer getInit();
 
     @Override
-    public int getCurrentChildTypeIndex() {
-        return analyzing.getIndexChildType();
+    public int getCurrentChildTypeIndex(OperationNode _op, GeneType _type, String _fieldName, String _realClassName) {
+        if (isEnumType(_type)) {
+            if (_fieldName.isEmpty()) {
+                IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+                call_.setType(_realClassName);
+                call_.setFileName(getCurrentFileName());
+                call_.setIndexFile(getCurrentLocationIndex());
+                getClasses().addError(call_);
+                _op.setResultClass(new ClassArgumentMatching(_realClassName));
+                return -2;
+            }
+            return analyzing.getIndexChildType();
+        }
+        return -1;
+    }
+
+    public static boolean isEnumType(GeneType _type) {
+        return _type instanceof EnumBlock || _type instanceof InnerElementBlock;
     }
 
     public void setCurrentChildTypeIndex(int _index) {
@@ -1068,7 +1091,6 @@ public abstract class ContextEl implements ExecutableCode {
         return new StackTraceElementStruct(fileName,row,col,indexFileType,currentClassName,signature);
     }
 
-    @Override
     public StringList getNeedInterfaces() {
         return analyzing.getNeedInterfaces();
     }
@@ -1116,7 +1138,7 @@ public abstract class ContextEl implements ExecutableCode {
                 UnknownClassName undef_;
                 undef_ = new UnknownClassName();
                 undef_.setClassName(base_);
-                undef_.setFileName(r_.getFile().getFileName());
+                undef_.setFileName(bl_.getFile().getFileName());
                 undef_.setIndexFile(rc_);
                 classes.addError(undef_);
                 return EMPTY_TYPE;
@@ -1131,7 +1153,7 @@ public abstract class ContextEl implements ExecutableCode {
                 UnknownClassName undef_;
                 undef_ = new UnknownClassName();
                 undef_.setClassName(base_);
-                undef_.setFileName(r_.getFile().getFileName());
+                undef_.setFileName(bl_.getFile().getFileName());
                 undef_.setIndexFile(rc_);
                 classes.addError(undef_);
                 return EMPTY_TYPE;
@@ -1184,7 +1206,7 @@ public abstract class ContextEl implements ExecutableCode {
         if (resType_.trim().isEmpty()) {
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(_in);
-            un_.setFileName(r_.getFile().getFileName());
+            un_.setFileName(bl_.getFile().getFileName());
             un_.setIndexFile(rc_);
             classes.addError(un_);
             return standards.getAliasObject();
@@ -1192,7 +1214,7 @@ public abstract class ContextEl implements ExecutableCode {
         if (!Templates.isCorrectTemplateAll(resType_, vars_, this, true)) {
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(_in);
-            un_.setFileName(r_.getFile().getFileName());
+            un_.setFileName(bl_.getFile().getFileName());
             un_.setIndexFile(rc_);
             classes.addError(un_);
             return standards.getAliasObject();
@@ -1229,7 +1251,7 @@ public abstract class ContextEl implements ExecutableCode {
         if (resType_.trim().isEmpty()) {
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(_in);
-            un_.setFileName(r_.getFile().getFileName());
+            un_.setFileName(bl_.getFile().getFileName());
             un_.setIndexFile(rc_);
             classes.addError(un_);
             return standards.getAliasObject();
@@ -1237,7 +1259,7 @@ public abstract class ContextEl implements ExecutableCode {
         if (!Templates.isCorrectTemplateAll(resType_, vars_, this, _exact)) {
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(_in);
-            un_.setFileName(r_.getFile().getFileName());
+            un_.setFileName(bl_.getFile().getFileName());
             un_.setIndexFile(rc_);
             classes.addError(un_);
             return standards.getAliasObject();
@@ -2051,7 +2073,7 @@ public abstract class ContextEl implements ExecutableCode {
         return EMPTY_TYPE;
     }
     @Override
-    public String lookupImportType(String _type, AccessingImportingBlock _rooted) {
+    public String lookupImportType(String _type, AccessedBlock _rooted) {
         String look_ = _type.trim();
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();
@@ -2121,7 +2143,7 @@ public abstract class ContextEl implements ExecutableCode {
     }
     @Override
     public String lookupSingleImportType(String _type,
-            AccessingImportingBlock _rooted) {
+                                         AccessedBlock _rooted) {
         String look_ = _type.trim();
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();
@@ -2194,7 +2216,7 @@ public abstract class ContextEl implements ExecutableCode {
         return EMPTY_TYPE;
     }
 
-    private static void fetchImports(AccessingImportingBlock _rooted, CustList<StringList> _imports) {
+    private static void fetchImports(AccessedBlock _rooted, CustList<StringList> _imports) {
         if (_rooted instanceof RootBlock) {
             RootBlock r_ = (RootBlock) _rooted;
             _imports.add(r_.getImports());
@@ -2204,7 +2226,7 @@ public abstract class ContextEl implements ExecutableCode {
         } else {
             _imports.add(_rooted.getImports());
         }
-        _imports.add(_rooted.getFile().getImports());
+        _imports.add(_rooted.getFileImports());
     }
 
     @Override

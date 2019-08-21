@@ -5,6 +5,7 @@ import code.expressionlanguage.errors.custom.BadElError;
 import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.methods.AnalyzedBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.structs.*;
@@ -16,7 +17,7 @@ import code.formathtml.util.*;
 import code.sml.*;
 import code.util.*;
 
-public abstract class RendBlock {
+public abstract class RendBlock implements AnalyzedBlock {
     static final String SPACE = " ";
     static final String TAG_PARAM = "param";
     static final String ATTRIBUTE_VALUE_SUBMIT = "message";
@@ -208,10 +209,6 @@ public abstract class RendBlock {
         _conf.getHtmlPage().setAnchorsVars(_conf.getAnchorsVars());
         _conf.getHtmlPage().setAnchorsNames(_conf.getAnchorsNames());
         _conf.getHtmlPage().setConstAnchors(_conf.getConstAnchors());
-        _conf.getHtmlPage().setCallsFormExps(_conf.getCallsFormExps());
-        _conf.getHtmlPage().setFormsArgs(_conf.getFormsArgs());
-        _conf.getHtmlPage().setFormsVars(_conf.getFormsVars());
-        _conf.getHtmlPage().setFormsNames(_conf.getFormsNames());
         _conf.setBeanName(doc_.getDocumentElement().getAttribute(StringList.concat(_conf.getPrefix(), BEAN_ATTRIBUTE)));
         doc_.getDocumentElement().removeAttribute(StringList.concat(_conf.getPrefix(), BEAN_ATTRIBUTE));
         _conf.setDocument(doc_);

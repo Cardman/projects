@@ -8254,6 +8254,176 @@ public final class RenderExpUtilTest {
         assertEq(0,argument_.getChar());
     }
     @Test
+    public void processEl453Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.ExTwo {\n");
+        xml_.append(" ONE,TWO:\n");
+        xml_.append(" $static{\n");
+        xml_.append("  Other.v++:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Other{\n");
+        xml_.append(" $public $static $int v:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        processEl("$new pkg.ExTwo()", conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void processEl454Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append(" $public $static $int inst=14:\n");
+        xml_.append(" $public $int res(#T v){\n");
+        xml_.append("  $return ($int)inst+($int)v;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        Argument argument_ = processEl("$new pkg.Ex<$int>().res($id(pkg.Ex,#T),15)", conf_);
+        assertEq(29,argument_.getNumber());
+    }
+    @Test
+    public void processEl455Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append(" $public $static $int inst=14:\n");
+        xml_.append(" $public $int res(#T v){\n");
+        xml_.append("  $return ($int)inst+($int)v;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        processEl("$new pkg.Ex<$int>().res($id(pkg.Ex,#S),15)", conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void processEl456Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append(" $public $static $int inst=14:\n");
+        xml_.append(" $public $int res(#T v){\n");
+        xml_.append("  $return ($int)inst+($int)v;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        processEl("$new pkg.Ex<$int>().res($id(pkg.Ex,pkg.Ex<pkg.Ex>),15)", conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void processEl457Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append(" $public $static $int inst=14:\n");
+        xml_.append(" $public $int res(#T v){\n");
+        xml_.append("  $return ($int)inst+($int)v;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        processEl("$new pkg.Ex<$int>().res($id(pkg.Ex,pkg.Ex<),15)", conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void processEl458Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append(" $public $static $int inst=14:\n");
+        xml_.append(" $public $int res(#T v){\n");
+        xml_.append("  $return ($int)inst+($int)v;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        processEl("$new pkg.Ex<$int>().res($id(pkg.Ex,$void),15)", conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void processEl459Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append(" $public $static $int inst=14:\n");
+        xml_.append(" $public $int res(#T v){\n");
+        xml_.append("  $return ($int)inst+($int)v;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        processEl("$new pkg.Ex<$int>().res($id(pkg.ExInex),15)", conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void processEl460Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$public $static $class Ex<#T> {\n");
+        xml_.append(" $public $static $int inst=14:\n");
+        xml_.append(" $public $int res(#T v){\n");
+        xml_.append("  $return ($int)inst+($int)v;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        Argument argument_ = processEl("$new pkg.Outer..Ex<$int>().res($id(pkg.Outer..Ex,#T),15)", conf_);
+        assertEq(29,argument_.getNumber());
+    }
+    @Test
+    public void processEl461Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$public $static $class Ex<#T> {\n");
+        xml_.append(" $public $static $int inst=14:\n");
+        xml_.append(" $public $int res(#T v){\n");
+        xml_.append("  $return ($int)inst+($int)v;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration5(files_);
+        addImportingPage(conf_);
+        processEl("$new pkg.Outer..Ex<$int>().res($id($void,#T),15)", conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void processEl462Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$public $static $class Ex<#T> {\n");
+        xml_.append(" $public $static $int inst=14:\n");
+        xml_.append(" $public $int res(#T v){\n");
+        xml_.append("  $return ($int)inst+($int)v;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        processEl("$new pkg.Outer..Ex<$int>().res($id(pkg.Outer..ExInex,#T),15)", conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
+    @Test
     public void procesAffect00Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
@@ -8961,6 +9131,26 @@ public final class RenderExpUtilTest {
         opt_.setInitializeStaticClassFirst(_init);
         opt_.setEndLineSemiColumn(false);
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
+        Classes.validateAll(_files, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        conf_.setContext(cont_);
+        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
+        conf_.setStandards(standards_);
+        standards_.buildIterables(conf_);
+        cont_.setExecutingInstance(conf_);
+        return conf_;
+    }
+    private static Configuration getConfiguration5(StringMap<String> _files) {
+        return getConfiguration5(_files,true);
+    }
+    private static Configuration getConfiguration5(StringMap<String> _files, boolean _init) {
+        Configuration conf_ = EquallableExUtil.newConfiguration();
+        Options opt_ = new Options();
+        opt_.setInitializeStaticClassFirst(_init);
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        opt_.setSingleInnerParts(true);
         ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
         Classes.validateAll(_files, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());

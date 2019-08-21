@@ -17,7 +17,7 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.util.*;
 
-public abstract class Block {
+public abstract class Block implements AnalyzedBlock {
     public static final String OR_EQ = "|=";
     public static final String AND_EQ = "&=";
     public static final String XOR_EQ = "^=";

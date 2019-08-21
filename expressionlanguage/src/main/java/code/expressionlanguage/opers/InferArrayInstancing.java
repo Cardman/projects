@@ -53,7 +53,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             m_ = m_.getParent();
         }
         String type_ = EMPTY_STRING;
-        Block cur_ = _conf.getCurrentBlock();
+        AnalyzedBlock cur_ = _conf.getCurrentAnaBlock();
         if (m_ == null && cur_ instanceof ReturnMehod) {
             FunctionBlock f_ = _conf.getAnalyzing().getCurrentFct();
             if (f_ instanceof NamedFunctionBlock) {
@@ -64,8 +64,8 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
                     type_ = ret_;
                 }
             }
-        } else if (m_ == null && cur_ instanceof ForEachLoop) {
-            ForEachLoop i_ = (ForEachLoop) _conf.getCurrentBlock();
+        } else if (m_ == null && cur_ instanceof ImportForEachLoop) {
+            ImportForEachLoop i_ = (ImportForEachLoop) cur_;
             type_ = i_.getImportedClassName();
             if (!type_.isEmpty()) {
                 type_ = PrimitiveTypeUtil.getPrettyArrayType(type_);

@@ -567,6 +567,49 @@ public final class RenderForEachLoopTest extends CommonRender {
         assertNull(context_.getException());
     }
     @Test
+    public void process22Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html><body><ul><c:for var=\"s\" list=\"{&quot;FIRST&quot;,&quot;SECOND&quot;}\" className='java.lang.String'><li>{s;length()}</li></c:for></ul></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        BeanOne bean_ = new BeanOne();
+        bean_.getComposite().getStrings().add("FIRST");
+        bean_.getComposite().getStrings().add("SECOND");
+        bean_.getComposite().setInteger(5);
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        Configuration context_ = contextElThird();
+        context_.setBeans(new StringMap<Bean>());
+        context_.getBeans().put("bean_one", bean_);
+        addBeanInfo(context_,"bean_one",new BeanStruct(bean_));
+        context_.setMessagesFolder(folder_);
+        context_.setProperties(new StringMap<String>());
+        context_.getProperties().put("msg_example", relative_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
+        assertNull(context_.getException());
+    }
+    @Test
+    public void process23Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        Configuration context_ = contextElThird(files_);
+        String html_ = "<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;&gt;(0,1,2,3)\" className='$int'>{i;}-<c:if condition=\"i;%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
+        Document documentResult_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", documentResult_, html_);
+        context_.getAnalyzing().setEnabledInternVars(false);
+        rendDocumentBlock_.buildFctInstructions(context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertEq("<html>0-Pair-1-Impair-2-Pair-3-Impair-</html>", RendBlock.getRes(rendDocumentBlock_,context_));
+        assertNull(context_.getException());
+    }
+    @Test
     public void process1FailTest() {
         String locale_ = "en";
         String folder_ = "messages";

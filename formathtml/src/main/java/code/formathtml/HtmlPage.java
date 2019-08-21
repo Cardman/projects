@@ -4,7 +4,6 @@ import code.formathtml.util.FormInputCoords;
 import code.formathtml.util.NodeContainer;
 import code.util.CustList;
 import code.util.*;
-import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;
 
@@ -19,18 +18,12 @@ public final class HtmlPage {
     private BooleanList constAnchors = new BooleanList();
     private StringList anchorsNames = new StringList();
 
-    private CustList<CustList<RendDynOperationNode>> callsFormExps = new CustList<CustList<RendDynOperationNode>>();
-    private CustList<StringList> formsArgs = new CustList<StringList>();
-    private CustList<StringList> formsVars = new CustList<StringList>();
-    private StringList formsNames = new StringList();
     private LongMap<StringList> formatIdMap = new LongMap<StringList>();
-    private StringList formatId = new StringList();
 
     private long url = CustList.INDEX_NOT_FOUND_ELT;
 
     private boolean form;
 
-    private String usedFieldUrl;
 
     public LongMap<LongTreeMap<NodeContainer>> getContainers() {
         return containers;
@@ -42,10 +35,6 @@ public final class HtmlPage {
 
     public ObjectMap<FormInputCoords,StringList> getSelects() {
         return selects;
-    }
-
-    public void setSelects(ObjectMap<FormInputCoords,StringList> _selects) {
-        selects = _selects;
     }
 
     public long getUrl() {
@@ -62,14 +51,6 @@ public final class HtmlPage {
 
     public void setForm(boolean _form) {
         form = _form;
-    }
-
-    public String getUsedFieldUrl() {
-        return usedFieldUrl;
-    }
-
-    public void setUsedFieldUrl(String _usedFieldUrl) {
-        usedFieldUrl = _usedFieldUrl;
     }
 
     public CustList<CustList<RendDynOperationNode>> getCallsExps() {
@@ -112,38 +93,6 @@ public final class HtmlPage {
         anchorsNames = _anchorsNames;
     }
 
-    public CustList<StringList> getFormsArgs() {
-        return formsArgs;
-    }
-
-    public void setFormsArgs(CustList<StringList> _formsArgs) {
-        formsArgs = _formsArgs;
-    }
-
-    public CustList<StringList> getFormsVars() {
-        return formsVars;
-    }
-
-    public void setFormsVars(CustList<StringList> _formsVars) {
-        formsVars = _formsVars;
-    }
-
-    public StringList getFormsNames() {
-        return formsNames;
-    }
-
-    public void setFormsNames(StringList _formsNames) {
-        formsNames = _formsNames;
-    }
-
-    public CustList<CustList<RendDynOperationNode>> getCallsFormExps() {
-        return callsFormExps;
-    }
-
-    public void setCallsFormExps(CustList<CustList<RendDynOperationNode>> _callsFormExps) {
-        callsFormExps = _callsFormExps;
-    }
-
     public LongMap<StringList> getFormatIdMap() {
         return formatIdMap;
     }
@@ -152,11 +101,4 @@ public final class HtmlPage {
         formatIdMap = _formatIdMap;
     }
 
-    public StringList getFormatId() {
-        return formatId;
-    }
-
-    public void setFormatId(StringList _formatId) {
-        formatId = _formatId;
-    }
 }

@@ -22,10 +22,6 @@ public final class RendThrowing extends RendLeaf implements RendBuildableElMetho
         expressionOffset = _expression.getOffset();
     }
 
-    public String getExpression() {
-        return expression;
-    }
-
     @Override
     public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();

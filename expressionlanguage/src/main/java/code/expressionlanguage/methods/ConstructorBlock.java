@@ -120,7 +120,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         setAssignmentAfter(_an,_anEl);
         Block firstChild_ = getFirstChild();
         StringList ints_ = new StringList();
-        StringList filteredCtor_ = _an.getNeedInterfaces();
+        StringList filteredCtor_ = _an.getContextEl().getNeedInterfaces();
         boolean checkThis_ = false;
         while (firstChild_ != null) {
             if (!(firstChild_ instanceof Line)) {

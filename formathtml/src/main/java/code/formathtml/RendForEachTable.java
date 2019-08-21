@@ -11,6 +11,7 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.methods.ImportForEachTable;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -28,7 +29,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class RendForEachTable extends RendParentBlock implements RendLoop, RendWithEl,RendReducableOperations {
+public final class RendForEachTable extends RendParentBlock implements RendLoop, RendWithEl,RendReducableOperations,ImportForEachTable {
 
     private String label;
     private int labelOffset;
@@ -90,11 +91,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
 
     @Override
     public String getRealLabel() {
-        return label;
-    }
-
-    public int getLabelOffset() {
-        return labelOffset;
+        return getLabel();
     }
 
     @Override
@@ -314,14 +311,12 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         return label;
     }
 
-    public String getExpression() {
-        return expression;
-    }
-
+    @Override
     public String getImportedClassNameFirst() {
         return importedClassNameFirst;
     }
 
+    @Override
     public String getImportedClassNameSecond() {
         return importedClassNameSecond;
     }

@@ -4,13 +4,8 @@ import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.inherits.TypeOwnersDepends;
 import code.expressionlanguage.instr.ResultAfterInstKeyWord;
-import code.expressionlanguage.methods.AccessingImportingBlock;
-import code.expressionlanguage.methods.AnalyzingEl;
-import code.expressionlanguage.methods.AssignedVariablesBlock;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.ForLoopPart;
-import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.methods.*;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.FieldInfo;
@@ -77,13 +72,13 @@ public interface Analyzable {
 
     void setStaticContext(boolean _staticContext);
     GeneType getClassBody(String _type);
-    CustList<GeneType> getClassBodies();
+
 
     ClassMetaInfo getExtendedClassMetaInfo(String _name);
-    ClassMetaInfo getClassMetaInfo(String _name);
+
     FieldInfo getFieldInfo(ClassField _classField);
     CustList<GeneMethod> getMethodBodiesById(String _genericClassName, MethodId _id);
-    int getCurrentChildTypeIndex();
+    int getCurrentChildTypeIndex(OperationNode _op, GeneType _type, String _fieldName, String _className);
 
     boolean isMerged();
 
@@ -98,12 +93,13 @@ public interface Analyzable {
     AnalyzedPageEl getAnalyzing();
     Ints getCurrentBadIndexes();
     Block getCurrentBlock();
+    AnalyzedBlock getCurrentAnaBlock();
     boolean hasDeclarator();
     void setupDeclaratorClass(String _className);
     boolean hasLoopDeclarator();
     void setupLoopDeclaratorClass(String _className);
     boolean isGearConst();
-    StringList getNeedInterfaces();
+
 
     String resolveCorrectType(String _in);
     String resolveAccessibleIdType(String _in);
@@ -118,8 +114,8 @@ public interface Analyzable {
 
     String lookupImportMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits);
     TypeOwnersDepends lookupImportMemberTypeDeps(String _type, RootBlock _rooted);
-    String lookupImportType(String _type, AccessingImportingBlock _rooted);
-    String lookupSingleImportType(String _type, AccessingImportingBlock _rooted);
+    String lookupImportType(String _type, AccessedBlock _rooted);
+    String lookupSingleImportType(String _type, AccessedBlock _rooted);
 
     StringList getAvailableVariables();
     StringList getVariablesNames();

@@ -25,10 +25,6 @@ public final class RendTryEval extends RendParentBlock implements RendEval {
         return label;
     }
 
-    public int getLabelOffset() {
-        return labelOffset;
-    }
-
     @Override
     public void processToFinally(ImportingPage _ip, RendTryBlockStack _stack) {
         removeLocalVars(_ip);

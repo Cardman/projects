@@ -207,6 +207,9 @@ public final class RenderExpUtil {
             if (c_ == null) {
                 break;
             }
+            if (c_ instanceof PreAnalyzableOperation) {
+                ((PreAnalyzableOperation)c_).preAnalyze(_context);
+            }
             c_ = getAnalyzedNext(c_, _root, list_, _staticBlock, _context);
         }
         return list_;

@@ -20,14 +20,6 @@ public final class RendContinueBlock extends RendLeaf implements RendBuildableEl
         labelOffset = _label.getOffset();
     }
 
-    public String getLabel() {
-        return label;
-    }
-
-    public int getLabelOffset() {
-        return labelOffset;
-    }
-
     @Override
     public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
         boolean childOfLoop_ = false;

@@ -5,14 +5,16 @@ import code.expressionlanguage.errors.custom.BadLabelName;
 import code.expressionlanguage.errors.custom.DuplicateLabel;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.methods.AccessedBlock;
 import code.expressionlanguage.methods.FunctionBlock;
+import code.expressionlanguage.methods.util.TypeVar;
 import code.formathtml.util.BeanCustLgNames;
 import code.sml.Element;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.CustList;
 
-public final class RendDocumentBlock extends RendParentBlock implements FunctionBlock {
+public final class RendDocumentBlock extends RendParentBlock implements FunctionBlock,AccessedBlock {
     private boolean staticContext;
     private Element elt;
 
@@ -38,9 +40,6 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
             _cont.setStaticContext(false);
             page_.setGlobalClass(_cont.getBeansInfos().getVal(beanName).getClassName());
         }
-        StringMap<StringList> vars_ = _cont.getCurrentConstraints();
-        Mapping mapping_ = new Mapping();
-        mapping_.setMapping(vars_);
         RendBlock root_ = this;
         RendBlock en_ = this;
         CustList<RendParentBlock> parents_ = new CustList<RendParentBlock>();
@@ -49,6 +48,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
         CustList<RendEval> parentsReturnable_ = new CustList<RendEval>();
         StringList labels_ = new StringList();
         _cont.getAnalyzingDoc().setFileName(fileName);
+        _cont.getAnalyzingDoc().setCurrentDoc(this);
         while (true) {
             _cont.getAnalyzingDoc().setCurrentBlock(en_);
             if (en_ instanceof RendStdElement) {
@@ -215,5 +215,20 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
 
     public String getFile() {
         return file;
+    }
+
+    @Override
+    public StringList getFileImports() {
+        return new StringList();
+    }
+
+    @Override
+    public CustList<TypeVar> getParamTypesMapValues() {
+        return new CustList<TypeVar>();
+    }
+
+    @Override
+    public StringList getImports() {
+        return new StringList();
     }
 }

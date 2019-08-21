@@ -1,6 +1,7 @@
 package code.formathtml.util;
 
 import code.formathtml.RendBlock;
+import code.formathtml.RendDocumentBlock;
 import code.util.EntryCust;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -14,6 +15,7 @@ public final class AnalyzingDoc {
     private String internGlobalClass="";
     private String attribute="";
     private String fileName="";
+    private RendDocumentBlock currentDoc;
 
     public static int getSum(int _offset, int _glOffset, RendBlock _currentBlock, String _attribute) {
         int delta_ = getDelta(_offset, _currentBlock, _attribute);
@@ -106,5 +108,13 @@ public final class AnalyzingDoc {
 
     public void setFileName(String _fileName) {
         fileName = _fileName;
+    }
+
+    public RendDocumentBlock getCurrentDoc() {
+        return currentDoc;
+    }
+
+    public void setCurrentDoc(RendDocumentBlock _currentDoc) {
+        currentDoc = _currentDoc;
     }
 }

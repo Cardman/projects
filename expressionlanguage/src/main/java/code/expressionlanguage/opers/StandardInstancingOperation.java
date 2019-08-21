@@ -146,7 +146,7 @@ public final class StandardInstancingOperation extends
             m_ = m_.getParent();
         }
         String typeAff_ = EMPTY_STRING;
-        Block cur_ = _an.getCurrentBlock();
+        AnalyzedBlock cur_ = _an.getCurrentAnaBlock();
         if (m_ == null && cur_ instanceof ReturnMehod) {
             FunctionBlock f_ = _an.getAnalyzing().getCurrentFct();
             if (f_ instanceof NamedFunctionBlock) {
@@ -157,15 +157,15 @@ public final class StandardInstancingOperation extends
                     typeAff_ = ret_;
                 }
             }
-        } else if (m_ == null && cur_ instanceof ForEachLoop) {
-            ForEachLoop i_ = (ForEachLoop) _an.getCurrentBlock();
+        } else if (m_ == null && cur_ instanceof ImportForEachLoop) {
+            ImportForEachLoop i_ = (ImportForEachLoop) cur_;
             typeAff_ = i_.getImportedClassName();
             if (!typeAff_.isEmpty()) {
                 String iter_ = _an.getStandards().getAliasIterable();
                 typeAff_ = StringList.concat(iter_,Templates.TEMPLATE_BEGIN,typeAff_,Templates.TEMPLATE_END);
             }
-        } else if (m_ == null && cur_ instanceof ForEachTable) {
-            ForEachTable i_ = (ForEachTable) _an.getCurrentBlock();
+        } else if (m_ == null && cur_ instanceof ImportForEachTable) {
+            ImportForEachTable i_ = (ImportForEachTable) cur_;
             String typeAffOne_ = i_.getImportedClassNameFirst();
             String typeAffTwo_ = i_.getImportedClassNameSecond();
             if (!typeAffOne_.isEmpty() && !typeAffTwo_.isEmpty()) {
@@ -362,17 +362,9 @@ public final class StandardInstancingOperation extends
             setResultClass(new ClassArgumentMatching(_realClassName));
             return;
         }
-        if (g_ instanceof EnumBlock || g_ instanceof InnerElementBlock) {
-            if (fieldName.isEmpty()) {
-                IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-                call_.setType(_realClassName);
-                call_.setFileName(_conf.getCurrentFileName());
-                call_.setIndexFile(_conf.getCurrentLocationIndex());
-                _conf.getClasses().addError(call_);
-                setResultClass(new ClassArgumentMatching(_realClassName));
-                return;
-            }
-            blockIndex = _conf.getCurrentChildTypeIndex();
+        blockIndex = _conf.getCurrentChildTypeIndex(this,g_,fieldName,_realClassName);
+        if (blockIndex < -1) {
+            return;
         }
         ConstructorId feed_ = null;
         if (idMethod_ != null) {
