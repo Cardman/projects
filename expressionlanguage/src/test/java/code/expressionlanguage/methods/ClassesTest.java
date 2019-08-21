@@ -7770,6 +7770,9 @@ public final class ClassesTest {
         xml_ = new StringBuilder();
         xml_.append("$class pkg.OuterBad{ $static{$case (a]:\t}}");
         files_.put("pkg/ExThirtySixtyTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$class pkg.OuterBad{ $static{$for (a b,c d!;){}}}");
+        files_.put("pkg/ExThirtySixtyThree", xml_.toString());
         ContextEl cont_ = contextElSingleDotDefault();
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(), !cont_.getClasses().isEmptyErrors());
