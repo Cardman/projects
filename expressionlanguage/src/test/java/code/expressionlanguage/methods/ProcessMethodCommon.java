@@ -83,6 +83,16 @@ public abstract class ProcessMethodCommon {
         return ct_;
     }
 
+    protected static ContextEl contextElCoverageDisplay() {
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
+        ct_.setCovering(true);
+        ct_.getStandards().setTrueString("\"");
+        ct_.getStandards().setFalseString("&");
+        return ct_;
+    }
     protected static ContextEl contextElCoverageOtherIni() {
         Options opt_ = new Options();
         opt_.setEndLineSemiColumn(false);

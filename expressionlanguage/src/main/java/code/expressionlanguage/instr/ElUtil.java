@@ -531,7 +531,7 @@ public final class ElUtil {
                     String file_ = ((RootBlock) type_).getFile().getFileName();
                     file_ = file_.substring("src/".length());
                     OverridableBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
-                    tag_ = "<a title=\""+ className_ +"."+ id_.getSignature(_cont)+"\" href=\""+file_+".html#m"+method_.getNameOffset()+"\">";
+                    tag_ = "<a title=\""+transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+file_+".html#m"+method_.getNameOffset()+"\">";
                     _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
                     tag_ = "</a>";
                     _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+id_.getName().length()));
@@ -549,7 +549,7 @@ public final class ElUtil {
                     StandardInstancingOperation inst_ = (StandardInstancingOperation) val_;
                     if (!ctors_.isEmpty() && inst_.getFieldName().isEmpty()) {
                         ConstructorBlock ctor_ = (ConstructorBlock) ctors_.first();
-                        tag_ = "<a title=\""+ cl_ +"."+ c_.getSignature(_cont)+"\" href=\""+file_+".html#m"+ctor_.getNameOffset()+"\">";
+                        tag_ = "<a title=\""+ transform(cl_ +"."+ c_.getSignature(_cont))+"\" href=\""+file_+".html#m"+ctor_.getNameOffset()+"\">";
                         int offsetNew_ =StringList.getFirstPrintableCharIndex(inst_.getMethodName());
                         _parts.add(new PartOffset(tag_,offsetNew_+sum_ + val_.getIndexInEl()));
                         tag_ = "</a>";
@@ -565,7 +565,7 @@ public final class ElUtil {
                 String file_ = type_.getFile().getFileName();
                 file_ = file_.substring("src/".length());
                 ConstructorBlock ctor_ = (ConstructorBlock) Classes.getConstructorBodiesById(_cont, cl_, c_).first();
-                tag_ = "<a title=\""+ cl_ +"."+ c_.getSignature(_cont)+"\" href=\""+file_+".html#m"+ctor_.getNameOffset()+"\">";
+                tag_ = "<a title=\""+ transform(cl_ +"."+ c_.getSignature(_cont))+"\" href=\""+file_+".html#m"+ctor_.getNameOffset()+"\">";
                 _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
                 tag_ = "</a>";
                 _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+((AbstractInvokingConstructor)val_).getOffsetOper()));
@@ -577,7 +577,7 @@ public final class ElUtil {
                 OperatorBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
                 String file_ = operator_.getFile().getFileName();
                 file_ = file_.substring("src/".length());
-                tag_ = "<a title=\""+ id_.getSignature(_cont)+"\" href=\""+file_+".html#m"+operator_.getNameOffset()+"\">";
+                tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+file_+".html#m"+operator_.getNameOffset()+"\">";
                 _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+par_.getOpOffset()));
                 tag_ = "</a>";
                 _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+par_.getOpOffset()+id_.getName().length()));
@@ -586,12 +586,12 @@ public final class ElUtil {
                 if (!result_.isFullCovered() && result_.isPartialCovered()) {
                     int offsetOp_ = val_.getOperations().getOperators().firstKey();
                     if(((BooleanCoverageResult)result_).isCoverTrue()){
-                        tag_ = "<a title=\""+ _cont.getStandards().getTrueString()+"\">";
+                        tag_ = "<a title=\""+ transform(_cont.getStandards().getTrueString())+"\">";
                         _parts.add(new PartOffset(tag_, sum_ + val_.getIndexInEl()+offsetOp_));
                         tag_ = "</a>";
                         _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+offsetOp_+1));
                     } else {
-                        tag_ = "<a title=\""+ _cont.getStandards().getFalseString()+"\">";
+                        tag_ = "<a title=\""+ transform(_cont.getStandards().getFalseString())+"\">";
                         _parts.add(new PartOffset(tag_, sum_ + val_.getIndexInEl()+offsetOp_));
                         tag_ = "</a>";
                         _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+offsetOp_+1));
@@ -608,7 +608,7 @@ public final class ElUtil {
                         OperatorBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
                         String file_ = operator_.getFile().getFileName();
                         file_ = file_.substring("src/".length());
-                        tag_ = "<a title=\""+ id_.getSignature(_cont)+"\" href=\""+file_+".html#m"+operator_.getNameOffset()+"\">";
+                        tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+file_+".html#m"+operator_.getNameOffset()+"\">";
                         _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+offsetOp_));
                         tag_ = "</a>";
                         _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+offsetOp_+1));
@@ -624,7 +624,7 @@ public final class ElUtil {
                         OverridableBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
                         String file_ = type_.getFile().getFileName();
                         file_ = file_.substring("src/".length());
-                        tag_ = "<a title=\""+ className_ +"."+ id_.getSignature(_cont)+"\" href=\""+file_+".html#m"+method_.getNameOffset()+"\">";
+                        tag_ = "<a title=\""+ transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+file_+".html#m"+method_.getNameOffset()+"\">";
                         _parts.add(new PartOffset(tag_, sum_ + val_.getIndexInEl()+offsetOp_+1));
                         tag_ = "</a>";
                         _parts.add(new PartOffset(tag_, sum_ + val_.getIndexInEl()+offsetOp_+2));
@@ -648,7 +648,7 @@ public final class ElUtil {
                 String file_ = type_.getFile().getFileName();
                 file_ = file_.substring("src/".length());
                 int offsetEnd_ = sum_ + val_.getIndexInEl();
-                tag_ = "<a title=\""+ className_ +"."+ id_.getSignature(_cont)+"\" href=\""+file_+".html#m"+method_.getNameOffset()+"\">";
+                tag_ = "<a title=\""+ transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+file_+".html#m"+method_.getNameOffset()+"\">";
                 _parts.add(new PartOffset(tag_, offsetEnd_));
                 tag_ = "</a>";
                 _parts.add(new PartOffset(tag_, offsetEnd_+1));
@@ -698,7 +698,7 @@ public final class ElUtil {
                         OperatorBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
                         String file_ = operator_.getFile().getFileName();
                         file_ = file_.substring("src/".length());
-                        tag_ = "<a title=\""+ id_.getSignature(_cont)+"\" href=\""+file_+".html#m"+operator_.getNameOffset()+"\">";
+                        tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+file_+".html#m"+operator_.getNameOffset()+"\">";
                         _parts.add(new PartOffset(tag_, offsetEnd_));
                         tag_ = "</a>";
                         _parts.add(new PartOffset(tag_,offsetEnd_+id_.getName().length()));
@@ -712,7 +712,7 @@ public final class ElUtil {
                             OperatorBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
                             String file_ = operator_.getFile().getFileName();
                             file_ = file_.substring("src/".length());
-                            tag_ = "<a title=\""+ id_.getSignature(_cont)+"\" href=\""+file_+".html#m"+operator_.getNameOffset()+"\">";
+                            tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+file_+".html#m"+operator_.getNameOffset()+"\">";
                             _parts.add(new PartOffset(tag_, offsetEnd_));
                             tag_ = "</a>";
                             _parts.add(new PartOffset(tag_,offsetEnd_+opDelta_));
@@ -733,7 +733,7 @@ public final class ElUtil {
                             OverridableBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
                             String file_ = type_.getFile().getFileName();
                             file_ = file_.substring("src/".length());
-                            tag_ = "<a title=\""+ className_ +"."+ id_.getSignature(_cont)+"\" href=\""+file_+".html#m"+method_.getNameOffset()+"\">";
+                            tag_ = "<a title=\""+ transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+file_+".html#m"+method_.getNameOffset()+"\">";
                             _parts.add(new PartOffset(tag_, opDelta_+offsetEnd_));
                             tag_ = "</a>";
                             _parts.add(new PartOffset(tag_, opDelta_+offsetEnd_+1));
@@ -745,12 +745,12 @@ public final class ElUtil {
                         int length_ = ((MiddleSymbolOperation) parent_).getOp().length();
                         if (!resultLoc_.isFullCovered() && resultLoc_.isPartialCovered()) {
                             if(((BooleanCoverageResult)resultLoc_).isCoverTrue()){
-                                tag_ = "<a title=\""+ _cont.getStandards().getTrueString()+"\">";
+                                tag_ = "<a title=\""+ transform(_cont.getStandards().getTrueString())+"\">";
                                 _parts.add(new PartOffset(tag_, offsetEnd_));
                                 tag_ = "</a>";
                                 _parts.add(new PartOffset(tag_,offsetEnd_+length_));
                             } else {
-                                tag_ = "<a title=\""+ _cont.getStandards().getFalseString()+"\">";
+                                tag_ = "<a title=\""+ transform(_cont.getStandards().getFalseString())+"\">";
                                 _parts.add(new PartOffset(tag_, offsetEnd_));
                                 tag_ = "</a>";
                                 _parts.add(new PartOffset(tag_,offsetEnd_+length_));
@@ -769,23 +769,23 @@ public final class ElUtil {
                         }
                         if (partial_) {
                             if(((BooleanCoverageResult)resultFirst_).isCoverTrue()){
-                                tag_ = "<a title=\""+ _cont.getStandards().getTrueString()+"\">";
+                                tag_ = "<a title=\""+ transform(_cont.getStandards().getTrueString())+"\">";
                                 _parts.add(new PartOffset(tag_, offsetEnd_));
                                 tag_ = "</a>";
                                 _parts.add(new PartOffset(tag_,offsetEnd_+1));
                             } else {
-                                tag_ = "<a title=\""+ _cont.getStandards().getFalseString()+"\">";
+                                tag_ = "<a title=\""+ transform(_cont.getStandards().getFalseString())+"\">";
                                 _parts.add(new PartOffset(tag_, offsetEnd_));
                                 tag_ = "</a>";
                                 _parts.add(new PartOffset(tag_,offsetEnd_+1));
                             }
                             if(((BooleanCoverageResult)resultLast_).isCoverTrue()){
-                                tag_ = "<a title=\""+ _cont.getStandards().getTrueString()+"\">";
+                                tag_ = "<a title=\""+ transform(_cont.getStandards().getTrueString())+"\">";
                                 _parts.add(new PartOffset(tag_, offsetEnd_+1));
                                 tag_ = "</a>";
                                 _parts.add(new PartOffset(tag_,offsetEnd_+2));
                             } else if(((BooleanCoverageResult)resultLast_).isCoverFalse()){
-                                tag_ = "<a title=\""+ _cont.getStandards().getFalseString()+"\">";
+                                tag_ = "<a title=\""+ transform(_cont.getStandards().getFalseString())+"\">";
                                 _parts.add(new PartOffset(tag_, offsetEnd_+1));
                                 tag_ = "</a>";
                                 _parts.add(new PartOffset(tag_,offsetEnd_+2));
@@ -816,7 +816,7 @@ public final class ElUtil {
                     OverridableBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
                     String file_ = type_.getFile().getFileName();
                     file_ = file_.substring("src/".length());
-                    tag_ = "<a title=\""+ className_ +"."+ id_.getSignature(_cont)+"\" href=\""+file_+".html#m"+method_.getNameOffset()+"\">";
+                    tag_ = "<a title=\""+ transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+file_+".html#m"+method_.getNameOffset()+"\">";
                     _parts.add(new PartOffset(tag_, offsetEnd_));
                     tag_ = "</a>";
                     _parts.add(new PartOffset(tag_, offsetEnd_+1));
@@ -830,7 +830,7 @@ public final class ElUtil {
                             OperatorBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
                             String file_ = operator_.getFile().getFileName();
                             file_ = file_.substring("src/".length());
-                            tag_ = "<a title=\""+ id_.getSignature(_cont)+"\" href=\""+file_+".html#m"+operator_.getNameOffset()+"\">";
+                            tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+file_+".html#m"+operator_.getNameOffset()+"\">";
                             _parts.add(new PartOffset(tag_,offsetEnd_));
                             tag_ = "</a>";
                             _parts.add(new PartOffset(tag_,offsetEnd_+1));
@@ -846,7 +846,7 @@ public final class ElUtil {
                             OverridableBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
                             String file_ = type_.getFile().getFileName();
                             file_ = file_.substring("src/".length());
-                            tag_ = "<a title=\""+ className_ +"."+ id_.getSignature(_cont)+"\" href=\""+file_+".html#m"+method_.getNameOffset()+"\">";
+                            tag_ = "<a title=\""+ transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+file_+".html#m"+method_.getNameOffset()+"\">";
                             _parts.add(new PartOffset(tag_, offsetEnd_+1));
                             tag_ = "</a>";
                             _parts.add(new PartOffset(tag_, offsetEnd_+2));
@@ -865,12 +865,26 @@ public final class ElUtil {
                 if (_fieldName.isEmpty()) {
                     _parts.add(new PartOffset(tag_,_endBlock+_tr));
                 }
-//                if (_tr == 0) {
-
-//                }
                 break;
             }
         }
+    }
+    private static String transform(String _string) {
+        StringBuilder str_ = new StringBuilder();
+        for (char c: _string.toCharArray()) {
+            if (c == '<') {
+                str_.append("&lt;");
+            } else if (c == '>') {
+                str_.append("&gt;");
+            } else if (c == '&') {
+                str_.append("&amp;");
+            } else if (c == '\"') {
+                str_.append("&quot;");
+            } else {
+                str_.append(c);
+            }
+        }
+        return str_.toString();
     }
     private static boolean canCallToString(ClassArgumentMatching _type, ContextEl _cont) {
         if (_type.matchClass(_cont.getStandards().getAliasObject())) {

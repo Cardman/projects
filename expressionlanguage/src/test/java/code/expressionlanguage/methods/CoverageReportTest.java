@@ -3192,7 +3192,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span style=\"background-color:red;\"><span style=\"background-color:red;\">length;;;</span>--</span>:\n" +
                 " }\n" +
                 " $public $normal $iterator&lt;#U&gt; <a name=\"m898\">iterator</a>(){\n" +
-                "  $return <span style=\"background-color:green;\"><a title=\"pkg.CustIter.pkg.CustIter(pkg.CustList<#T>)\" href=\"pkg/CustIter.html#m127\">$new</a> pkg.CustIter&lt;#U&gt;(<span style=\"background-color:green;\">$this</span>)</span>:\n" +
+                "  $return <span style=\"background-color:green;\"><a title=\"pkg.CustIter.pkg.CustIter(pkg.CustList&lt;#T&gt;)\" href=\"pkg/CustIter.html#m127\">$new</a> pkg.CustIter&lt;#U&gt;(<span style=\"background-color:green;\">$this</span>)</span>:\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.getValue(2));
@@ -3298,7 +3298,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\">list</span>.<span style=\"background-color:green;\"><a title=\"pkg.CustList.get($int)\" href=\"pkg/CustList.html#m571\">get</a>(<span style=\"background-color:green;\">index;.;</span>)</span></span>:\n" +
                 " }\n" +
                 " $public $iteratorTable&lt;U,V&gt; <a name=\"m434\">iteratorTable</a>(){\n" +
-                "  $return <span style=\"background-color:green;\"><a title=\"pkg.CustIterTable.pkg.CustIterTable(pkg.CustTable<#U,#V>)\" href=\"pkg/CustIterTable.html#m137\">$new</a> CustIterTable&lt;U,V&gt;(<span style=\"background-color:green;\">$this</span>)</span>:\n" +
+                "  $return <span style=\"background-color:green;\"><a title=\"pkg.CustIterTable.pkg.CustIterTable(pkg.CustTable&lt;#U,#V&gt;)\" href=\"pkg/CustIterTable.html#m137\">$new</a> CustIterTable&lt;U,V&gt;(<span style=\"background-color:green;\">$this</span>)</span>:\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.getValue(4));
@@ -3355,6 +3355,60 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.getValue(5));
+    }
+    @Test
+    public void coverage73Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$operator< $boolean (pkg.Ex p, pkg.Ex q){\n");
+        xml_.append(" $return p;.;field<q;.;field:\n");
+        xml_.append("}\n");
+        xml_.append("$operator> $boolean (pkg.Ex p, pkg.Ex q){\n");
+        xml_.append(" $return p;.;field>q;.;field:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int field:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  pkg.Ex one = $new pkg.Ex():\n");
+        xml_.append("  pkg.Ex two = $new pkg.Ex():\n");
+        xml_.append("  one;.field = 1:\n");
+        xml_.append("  two;.field = 2:\n");
+        xml_.append("  $boolean rOne = one;. < two;.:\n");
+        xml_.append("  $boolean rTwo = one;. > two;.:\n");
+        xml_.append("  $boolean rThree = one;.field < two;.field:\n");
+        xml_.append("  $boolean rFour = one;.field > two;.field:\n");
+        xml_.append("  $return 5:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageDisplay();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><body><pre>$operator<a name=\"m9\">&lt;</a> $boolean (pkg.Ex p, pkg.Ex q){\n" +
+                " $return <span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">p;.;</span><span style=\"background-color:green;\">field</span></span><a title=\"&quot;\">&lt;</a><span style=\"background-color:green;\"><span style=\"background-color:green;\">q;.;</span><span style=\"background-color:green;\">field</span></span></span>:\n" +
+                "}\n" +
+                "$operator<a name=\"m83\">&gt;</a> $boolean (pkg.Ex p, pkg.Ex q){\n" +
+                " $return <span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">p;.;</span><span style=\"background-color:green;\">field</span></span><a title=\"&amp;\">&gt;</a><span style=\"background-color:green;\"><span style=\"background-color:green;\">q;.;</span><span style=\"background-color:green;\">field</span></span></span>:\n" +
+                "}\n" +
+                "$public $class pkg.Ex {\n" +
+                " $public $int <span style=\"background-color:green;\">field</span>:\n" +
+                " $public $static $int <a name=\"m215\">exmeth</a>(){\n" +
+                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">one </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">two </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">one;.</span><span style=\"background-color:green;\">field </span></span>=<span style=\"background-color:green;\"> 1</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">two;.</span><span style=\"background-color:green;\">field </span></span>=<span style=\"background-color:green;\"> 2</span></span>:\n" +
+                "  $boolean <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">rOne </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> one;. </span><a title=\"$static &lt;(pkg.Ex,pkg.Ex)\" href=\"pkg/Ex.html#m9\">&lt;</a><span style=\"background-color:green;\"> two;.</span></span></span>:\n" +
+                "  $boolean <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">rTwo </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> one;. </span><a title=\"$static &gt;(pkg.Ex,pkg.Ex)\" href=\"pkg/Ex.html#m83\">&gt;</a><span style=\"background-color:green;\"> two;.</span></span></span>:\n" +
+                "  $boolean <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">rThree </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> one;.</span><span style=\"background-color:green;\">field </span></span><a title=\"&quot;\">&lt;</a><span style=\"background-color:green;\"><span style=\"background-color:green;\"> two;.</span><span style=\"background-color:green;\">field</span></span></span></span>:\n" +
+                "  $boolean <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">rFour </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> one;.</span><span style=\"background-color:green;\">field </span></span><a title=\"&amp;\">&gt;</a><span style=\"background-color:green;\"><span style=\"background-color:green;\"> two;.</span><span style=\"background-color:green;\">field</span></span></span></span>:\n" +
+                "  $return <span style=\"background-color:green;\">5</span>:\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
     }
     private static String getCustomPair() {
         StringBuilder xml_ = new StringBuilder();
