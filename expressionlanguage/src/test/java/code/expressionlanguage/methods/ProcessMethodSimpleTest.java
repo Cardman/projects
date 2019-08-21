@@ -1430,7 +1430,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $int sum = 0:\n");
-        xml_.append("  $for ($int i : $new $int[]{1,2,3,4}){\n");
+        xml_.append("  $for ($int i ; $new $int[]{1,2,3,4}){\n");
         xml_.append("   sum += (i):\n");
         xml_.append("  }\n");
         xml_.append("  $return sum:\n");
@@ -1445,6 +1445,24 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(10, ret_.getNumber());
+    }
+    @Test
+    public void calculateArgument73FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int sum = 0:\n");
+        xml_.append("  $for ($int i : ){\n");
+        xml_.append("   sum += (i):\n");
+        xml_.append("  }\n");
+        xml_.append("  $return sum:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.NONE);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
     }
     @Test
     public void calculateArgument74Test() {

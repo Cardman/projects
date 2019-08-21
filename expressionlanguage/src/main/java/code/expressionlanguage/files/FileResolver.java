@@ -2466,50 +2466,86 @@ public final class FileResolver {
             exp_ = exp_.substring(declaringType_.length());
             boolean ok_ = false;
             if (options_.getSuffixVar() == VariableSuffix.NONE) {
-                int nextElt_ = getIndex(exp_,suffix_);
-                if (nextElt_ > -1) {
+                int nextEltMut_ = getIndex(exp_,endLine_);
+                if (nextEltMut_ > -1) {
+                    int nextElt_ = getIndex(exp_,endLine_);
                     String init_ = exp_.substring(0, nextElt_);
                     initOff_ += StringList.getFirstPrintableCharIndex(init_);
                     exp_ = exp_.substring(init_.length()+1);
-                    int varOffset_ = typeOffset_ + declaringType_.length();
-                    varOffset_ += StringList.getFirstPrintableCharIndex(init_);
-                    int expOffset_ = varOffset_;
-                    expOffset_ += init_.length();
-                    expOffset_ += StringList.getFirstPrintableCharIndex(exp_);
-                    label_ = label_.substring(lastPar_ + 1);
-                    if (!label_.isEmpty()) {
-                        labelOff_ += StringList.getFirstPrintableCharIndex(label_);
-                    }
-                    LgNames stds_ = _context.getStandards();
-                    String variableName_ = init_.trim();
-                    if (StringList.isDollarWord(variableName_)) {
-                        br_ = stds_.newForeachLoop(_context, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, variableName_),
-                                new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
+                    int toOff_ = initOff_ + nextElt_;
+                    nextElt_ = getIndex(exp_,endLine_);
+                    if (nextElt_ > -1) {
+                        String to_ = exp_.substring(0, nextElt_);
+                        int expOff_ = toOff_ + nextElt_;
+                        toOff_ += StringList.getFirstPrintableCharIndex(to_);
+                        int stepOff_ = expOff_ + 1;
+                        exp_ = exp_.substring(nextElt_ + 1);
+                        String step_ = exp_;
+                        stepOff_ += StringList.getFirstPrintableCharIndex(step_);
+                        label_ = label_.substring(lastPar_ + 1);
+                        labelOff_ += getLabelOffset(label_);
+                        br_ = new ForMutableIterativeLoop(_context,
+                                new OffsetBooleanInfo(finalOffset_, finalLocalVar_),
+                                new OffsetStringInfo(typeOffset_,declaringType_.trim()),
+                                new OffsetStringInfo(initOff_,init_.trim()), new OffsetStringInfo(toOff_,to_.trim()),  new OffsetStringInfo(stepOff_,step_.trim()), new OffsetStringInfo(indexClassOffest_,indexClassName_.trim()),
                                 new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
                         _currentParent.appendChild(br_);
                         ok_ = true;
-                    } else {
-                        int nextIndexVar_ = variableName_.indexOf(',');
-                        if (nextIndexVar_ >= 0) {
-                            String firstVar_ = variableName_.substring(0, nextIndexVar_);
-                            String afterFirst_ = variableName_.substring(nextIndexVar_+1);
-                            String declaringTypeSec_ = getDeclaringTypeBlock(afterFirst_);
-                            int secType_ = varOffset_;
-                            secType_ += nextIndexVar_+1;
-                            int secVarOff_ = secType_;
-                            secType_ += StringList.getFirstPrintableCharIndex(declaringTypeSec_);
-                            secVarOff_ += declaringTypeSec_.length();
-                            String padSecVar_= afterFirst_.substring(declaringTypeSec_.length());
-                            secVarOff_ += StringList.getFirstPrintableCharIndex(padSecVar_);
-                            String secVar_ = padSecVar_.trim();
-                            if (StringList.isDollarWord(secVar_)) {
-                                br_ = new ForEachTable(_context,
-                                        new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, firstVar_),
-                                        new OffsetStringInfo(secType_, declaringTypeSec_.trim()), new OffsetStringInfo(secVarOff_, secVar_),
-                                        new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
-                                        new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
-                                _currentParent.appendChild(br_);
-                                ok_ = true;
+                    }
+                }
+                if (!ok_) {
+                    int nextElt_ = getIndex(exp_,suffix_);
+                    if (nextElt_ > -1) {
+                        String init_ = exp_.substring(0, nextElt_);
+                        String variableName_ = init_.trim();
+                        if (StringList.isDollarWord(variableName_)) {
+                            initOff_ += StringList.getFirstPrintableCharIndex(init_);
+                            exp_ = exp_.substring(init_.length()+1);
+                            int varOffset_ = typeOffset_ + declaringType_.length();
+                            varOffset_ += StringList.getFirstPrintableCharIndex(init_);
+                            int expOffset_ = varOffset_;
+                            expOffset_ += init_.length();
+                            expOffset_ += StringList.getFirstPrintableCharIndex(exp_);
+                            LgNames stds_ = _context.getStandards();
+                            label_ = label_.substring(lastPar_ + 1);
+                            labelOff_ += getLabelOffset(label_);
+                            br_ = stds_.newForeachLoop(_context, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, variableName_),
+                                    new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
+                                    new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+                            _currentParent.appendChild(br_);
+                            ok_ = true;
+                        } else {
+                            int nextIndexVar_ = variableName_.indexOf(',');
+                            if (nextIndexVar_ >= 0) {
+                                String firstVar_ = variableName_.substring(0, nextIndexVar_);
+                                String afterFirst_ = variableName_.substring(nextIndexVar_+1);
+                                String declaringTypeSec_ = getDeclaringTypeBlock(afterFirst_);
+                                String padSecVar_= afterFirst_.substring(declaringTypeSec_.length());
+                                String secVar_ = padSecVar_.trim();
+                                if (StringList.isDollarWord(secVar_)) {
+                                    int varOffset_ = typeOffset_ + declaringType_.length();
+                                    varOffset_ += StringList.getFirstPrintableCharIndex(init_);
+                                    int expOffset_ = varOffset_;
+                                    expOffset_ += init_.length();
+                                    int secType_ = varOffset_;
+                                    secType_ += nextIndexVar_+1;
+                                    int secVarOff_ = secType_;
+                                    secType_ += StringList.getFirstPrintableCharIndex(declaringTypeSec_);
+                                    secVarOff_ += declaringTypeSec_.length();
+                                    secVarOff_ += StringList.getFirstPrintableCharIndex(padSecVar_);
+                                    initOff_ += StringList.getFirstPrintableCharIndex(init_);
+                                    label_ = label_.substring(lastPar_ + 1);
+                                    labelOff_ += getLabelOffset(label_);
+                                    exp_ = exp_.substring(init_.length()+1);
+                                    expOffset_ += StringList.getFirstPrintableCharIndex(exp_);
+                                    br_ = new ForEachTable(_context,
+                                            new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, firstVar_),
+                                            new OffsetStringInfo(secType_, declaringTypeSec_.trim()), new OffsetStringInfo(secVarOff_, secVar_),
+                                            new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
+                                            new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+                                    _currentParent.appendChild(br_);
+                                    ok_ = true;
+                                }
                             }
                         }
                     }
@@ -2532,10 +2568,6 @@ public final class FileResolver {
                     int expOffset_ = varOffset_;
                     expOffset_ += init_.length();
                     expOffset_ += StringList.getFirstPrintableCharIndex(exp_);
-                    if (lastPar_ + 1 > label_.length()) {
-                        _badIndexes.add(_i);
-                        return null;
-                    }
                     label_ = label_.substring(lastPar_ + 1);
                     if (!label_.isEmpty()) {
                         labelOff_ += StringList.getFirstPrintableCharIndex(label_);
@@ -2620,6 +2652,14 @@ public final class FileResolver {
         //Not an error
         return br_;
     }
+
+    private static int getLabelOffset(String _label) {
+        if (_label.isEmpty()) {
+            return 0;
+        }
+        return StringList.getFirstPrintableCharIndex(_label);
+    }
+
     private static boolean isKeyWordCategory(String _key, KeyWords _keyWords) {
         if (StringList.quickEq(_key, _keyWords.getKeyWordClass())) {
             return true;
