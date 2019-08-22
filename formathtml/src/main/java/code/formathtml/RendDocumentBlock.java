@@ -1,20 +1,20 @@
 package code.formathtml;
 
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.errors.custom.BadLabelName;
 import code.expressionlanguage.errors.custom.DuplicateLabel;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.Mapping;
-import code.expressionlanguage.methods.AccessedBlock;
+import code.expressionlanguage.methods.AccessEnum;
+import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.FunctionBlock;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.formathtml.util.BeanCustLgNames;
 import code.sml.Element;
 import code.util.StringList;
-import code.util.StringMap;
 import code.util.CustList;
 
-public final class RendDocumentBlock extends RendParentBlock implements FunctionBlock,AccessedBlock {
+public final class RendDocumentBlock extends RendParentBlock implements FunctionBlock,AccessingImportingBlock {
     private boolean staticContext;
     private Element elt;
 
@@ -22,6 +22,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
     private String fileName;
     private String beanName;
     private CustList<RendBlock> bodies = new CustList<RendBlock>();
+    private StringList imports = new StringList();
     RendDocumentBlock(Element _elt, String _file, OffsetsBlock _offset, String _fileName) {
         super(_offset);
         elt = _elt;
@@ -31,6 +32,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
 
     public void buildFctInstructions(Configuration _cont) {
         beanName = elt.getAttribute(StringList.concat(_cont.getPrefix(),BEAN_ATTRIBUTE));
+        imports = StringList.splitChar(elt.getAttribute(StringList.concat(_cont.getPrefix(),ALIAS_ATTRIBUTE)),';');
         setupStaticInfo();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getOffset().getOffsetTrim());
@@ -219,7 +221,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
 
     @Override
     public StringList getFileImports() {
-        return new StringList();
+        return imports;
     }
 
     @Override
@@ -229,6 +231,11 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
 
     @Override
     public StringList getImports() {
-        return new StringList();
+        return imports;
+    }
+
+    @Override
+    public boolean isTypeHidden(String _class, Analyzable _analyzable) {
+        return _analyzable.getClassBody(_class).getAccess() != AccessEnum.PUBLIC;
     }
 }

@@ -72,6 +72,26 @@ public abstract class CommonRender {
         standards_.buildIterables(conf_);
         return conf_;
     }
+    Configuration contextElFourth() {
+        return contextElFourth(new StringMap<String>());
+    }
+    Configuration contextElFourth(StringMap<String> _files) {
+        Configuration conf_ =  EquallableExUtil.newConfiguration();
+        conf_.setPrefix("c:");
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        opt_.setSingleInnerParts(true);
+        ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
+        Classes.validateAll(_files, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        conf_.setContext(cont_);
+        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
+        conf_.setStandards(standards_);
+        cont_.setExecutingInstance(conf_);
+        standards_.buildIterables(conf_);
+        return conf_;
+    }
     static void addBeanInfo(Configuration _conf, String _id,Struct _str) {
         BeanInfo b_ = new BeanInfo();
         b_.setClassName(_str.getClassName(_conf));

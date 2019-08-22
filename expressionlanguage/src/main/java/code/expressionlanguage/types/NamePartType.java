@@ -194,7 +194,7 @@ final class NamePartType extends LeafPartType {
             deps_ = res_.getDepends();
             getTypeNames().addAllElts(deps_);
         }
-        TypeOwnersDepends res_ = _an.lookupImportMemberTypeDeps(type_, _rooted);
+        TypeOwnersDepends res_ = _an.getContextEl().lookupImportMemberTypeDeps(type_, _rooted);
         StringList owners_ = res_.getTypeOwners();
         if (owners_.size() == 1) {
             String conc_ = owners_.first();
@@ -482,7 +482,7 @@ final class NamePartType extends LeafPartType {
     }
 
     private void analyzeFullType(Analyzable _an, AccessingImportingBlock _rooted, String _type) {
-        if (_rooted.isTypeHidden(_type, _an)) {
+        if (_an.isHiddenType(_rooted,_type)) {
             _an.getCurrentBadIndexes().add(getIndexInType());
             return;
         }

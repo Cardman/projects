@@ -1487,7 +1487,7 @@ public abstract class ContextEl implements ExecutableCode {
         }
         return EMPTY_TYPE;
     }
-    @Override
+
     public TypeOwnersDepends lookupImportMemberTypeDeps(String _type,
                                                         RootBlock _rooted) {
         TypeOwnersDepends prefixedType_;
@@ -2687,6 +2687,11 @@ public abstract class ContextEl implements ExecutableCode {
     @Override
     public void processInternKeyWord(String _exp, int _fr, ResultAfterInstKeyWord _out) {
         //because of looping on characters
+    }
+
+    @Override
+    public boolean isHiddenType(AccessingImportingBlock _rooted, String _type) {
+        return _rooted.isTypeHidden(_type,this);
     }
 
     @Override

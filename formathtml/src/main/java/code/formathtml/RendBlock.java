@@ -66,6 +66,7 @@ public abstract class RendBlock implements AnalyzedBlock {
     static final String TAG_OPTION = "option";
     static final String SELECTED = "selected";
     static final String BEAN_ATTRIBUTE = "bean";
+    static final String ALIAS_ATTRIBUTE = "alias";
     static final String ATTRIBUTE_VALUE_CHANGE_EVENT = "valueChangeEvent";
     static final String CHECKED = "checked";
     static final String ATTRIBUTE_CONDITION = "condition";
@@ -211,6 +212,7 @@ public abstract class RendBlock implements AnalyzedBlock {
         _conf.getHtmlPage().setConstAnchors(_conf.getConstAnchors());
         _conf.setBeanName(doc_.getDocumentElement().getAttribute(StringList.concat(_conf.getPrefix(), BEAN_ATTRIBUTE)));
         doc_.getDocumentElement().removeAttribute(StringList.concat(_conf.getPrefix(), BEAN_ATTRIBUTE));
+        doc_.getDocumentElement().removeAttribute(StringList.concat(_conf.getPrefix(), ALIAS_ATTRIBUTE));
         _conf.setDocument(doc_);
         _conf.clearPages();
         return doc_.export();

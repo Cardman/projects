@@ -8424,6 +8424,42 @@ public final class RenderExpUtilTest {
         assertTrue(!conf_.getClasses().isEmptyErrors());
     }
     @Test
+    public void processEl463Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$public $static $class Ex<#T> {\n");
+        xml_.append(" $public $static $int inst=14:\n");
+        xml_.append(" $public $int res(#T v){\n");
+        xml_.append("  $return ($int)inst+($int)v;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration5(files_);
+        addImportingPage(conf_);
+        Argument argument_ = processEl("$new pkg.Outer.Ex<$int>().res($id(pkg.Outer.Ex,#T),15)", conf_);
+        assertEq(29,argument_.getNumber());
+    }
+    @Test
+    public void processEl464Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$public $static $class Ex<#T:pkg.Outer> {\n");
+        xml_.append(" $public $static $int inst=14:\n");
+        xml_.append(" $public $int res(#T v){\n");
+        xml_.append("  $return ($int)inst+($int)v;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        processEl("$new $void<>[i]+$new pkg.Outer..Ex<pkg.Outer..Ex<$int>>()", conf_);
+        assertTrue(!conf_.getClasses().isEmptyErrors());
+    }
+    @Test
     public void procesAffect00Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);

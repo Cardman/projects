@@ -99,6 +99,7 @@ public interface Analyzable {
     boolean hasLoopDeclarator();
     void setupLoopDeclaratorClass(String _className);
     boolean isGearConst();
+    boolean isHiddenType(AccessingImportingBlock _rooted, String _type);
 
 
     String resolveCorrectType(String _in);
@@ -113,7 +114,7 @@ public interface Analyzable {
     ObjectMap<ClassField,Integer> lookupImportStaticFields(String _glClass,String _field, Block _rooted);
 
     String lookupImportMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits);
-    TypeOwnersDepends lookupImportMemberTypeDeps(String _type, RootBlock _rooted);
+
     String lookupImportType(String _type, AccessedBlock _rooted);
     String lookupSingleImportType(String _type, AccessedBlock _rooted);
 
