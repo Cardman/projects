@@ -64,7 +64,7 @@ public final class DoBlock extends BracedStack implements Loop {
     public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
         Block nextSibling_ = getNextSibling();
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         assBl_.getFieldsRootBefore().putAllMap(buildAssListFieldBeforeIncrPart(_an, _anEl));
         assBl_.getVariablesRootBefore().addAllElts(buildAssListLocVarBeforeIncrPart(_an, _anEl));
         assBl_.getMutableLoopRootBefore().addAllElts(buildAssListMutableLoopBeforeIncrPart(_an, _anEl));

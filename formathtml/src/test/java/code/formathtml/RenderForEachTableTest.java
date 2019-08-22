@@ -43,7 +43,6 @@ public final class RenderForEachTableTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Document doc_ = DocumentBuilder.parseSax(html_);
-        conf_.setHtml(html_);
         conf_.setDocument(doc_);
 
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
@@ -156,7 +155,6 @@ public final class RenderForEachTableTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Document doc_ = DocumentBuilder.parseSax(html_);
-        conf_.setHtml(html_);
         conf_.setDocument(doc_);
 
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
@@ -190,7 +188,6 @@ public final class RenderForEachTableTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Document doc_ = DocumentBuilder.parseSax(html_);
-        conf_.setHtml(html_);
         conf_.setDocument(doc_);
 
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
@@ -491,7 +488,6 @@ public final class RenderForEachTableTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
         String html_ = xml_.toString();
         Document doc_ = DocumentBuilder.parseSax(html_);
-        conf_.setHtml(html_);
         conf_.setDocument(doc_);
 
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
@@ -534,7 +530,6 @@ public final class RenderForEachTableTest extends CommonRender {
         conf_.getProperties().put("msg_example", relative_);
         String html_ = xml_.toString();
         Document doc_ = DocumentBuilder.parseSax(html_);
-        conf_.setHtml(html_);
         conf_.setDocument(doc_);
 
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);

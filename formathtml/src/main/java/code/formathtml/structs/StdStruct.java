@@ -81,9 +81,6 @@ public final class StdStruct implements RealInstanceStruct {
     public String getClassName(ExecutableCode _contextEl) {
         return className;
     }
-    public String getClassName() {
-        return className;
-    }
 
     @Override
     public Object getInstance() {

@@ -71,7 +71,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
         Block block_ = _conf.getCurrentBlock();
-        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
+        AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
         OperationNode last_ = getFirstChild();
         StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
         CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);

@@ -72,7 +72,7 @@ public final class CausingErrorStruct implements ErroneousStruct {
 
     public String getStringRep(Analyzable _an, Struct[] _array) {
         StringList str_ = new StringList(new CollCapacity(_array.length+2));
-        str_.add(getClassName(_an.getCurrentExec()));
+        str_.add(getClassName(_an.getContextEl()));
         str_.add(message);
         for (Struct s: _array) {
             str_.add(((StackTraceElementStruct)s).getStringRep());

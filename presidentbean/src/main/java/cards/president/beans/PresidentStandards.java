@@ -122,7 +122,7 @@ public final class PresidentStandards extends BeanNatLgNames {
             res_.setResult(new BeanStruct(details_));
             return res_;
         }
-        return super.getOtherResultBean(_cont, _method, _args);
+        return res_;
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
@@ -195,7 +195,7 @@ public final class PresidentStandards extends BeanNatLgNames {
                 return res_;
             }
         }
-        return super.getOtherResult(_cont, _classField, _instance);
+        return res_;
     }
     @Override
     public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
@@ -274,4 +274,14 @@ public final class PresidentStandards extends BeanNatLgNames {
         }
         return StdStruct.newInstance(_element, className_);
     }
+    public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
+        return new ResultErrorStd();
+    }
+    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
+        return new ResultErrorStd();
+    }
+    public ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context) {
+        return new ResultErrorStd();
+    }
+
 }

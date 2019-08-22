@@ -158,7 +158,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally, Wi
         if (isEmpty()) {
             super.setAssignmentAfter(_an, _anEl);
         }
-        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
+        AssignedVariables vars_ = _an.getContextEl().getAssignedVariables().getFinalVariables().getVal(this);
         StringMap<SimpleAssignment> ass_;
         ass_ = new StringMap<SimpleAssignment>();
         for (EntryCust<String, SimpleAssignment> e: vars_.getFieldsRoot().entryList()) {

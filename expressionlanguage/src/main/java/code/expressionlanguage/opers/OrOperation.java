@@ -26,7 +26,7 @@ public final class OrOperation extends QuickOperation {
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
         Block block_ = _conf.getCurrentBlock();
-        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
+        AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<OperationNode> children_ = getChildrenNodes();
         OperationNode last_ = children_.last();
         OperationNode prev_ = children_.get(children_.size() - 2);

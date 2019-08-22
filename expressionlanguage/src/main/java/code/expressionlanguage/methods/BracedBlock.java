@@ -65,7 +65,7 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
     }
     public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
         Block firstChild_ = getFirstChild();
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
         CustList<StringMap<AssignmentBefore>> variables_;
@@ -82,7 +82,7 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         Block ch_ = getFirstChild();
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         if (ch_ == null) {
             AssignedVariables ass_ = id_.getVal(this);
             StringMap<AssignmentBefore> fields_ = ass_.getFieldsRootBefore();

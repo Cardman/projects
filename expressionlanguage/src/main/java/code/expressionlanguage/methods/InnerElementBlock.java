@@ -185,11 +185,11 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         Block prev_ = getPreviousSibling();
         AssignedVariables ass_;
         if (prev_ == null) {
-            ass_ = _an.getAssignedVariables().getFinalVariablesGlobal();
-            IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+            ass_ = _an.getContextEl().getAssignedVariables().getFinalVariablesGlobal();
+            IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
             id_.put(this, ass_);
         } else {
-            IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+            IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
             AssignedVariables parAss_ = id_.getVal(prev_);
             AssignedVariables assBl_ = buildNewAssignedVariable();
             assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignSimpleBefore(parAss_.getFieldsRoot()));
@@ -200,7 +200,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
 
     @Override
     public void setAssignmentAfter(Analyzable _an) {
-        AssignedVariablesBlock glAss_ = _an.getAssignedVariables();
+        AssignedVariablesBlock glAss_ = _an.getContextEl().getAssignedVariables();
         AssignedVariables varsAss_ = glAss_.getFinalVariables().getVal(this);
         StringMap<SimpleAssignment> as_ = varsAss_.getFieldsRoot();
         as_.putAllMap(AssignmentsUtil.assignAfterClassic(varsAss_.getFieldsRootBefore()));

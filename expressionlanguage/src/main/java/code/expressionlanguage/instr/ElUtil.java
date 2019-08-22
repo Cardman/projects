@@ -404,9 +404,9 @@ public final class ElUtil {
             return true;
         }
         boolean checkFinal_;
-        if (_conf.isAssignedFields()) {
+        if (_conf.getContextEl().isAssignedFields()) {
             checkFinal_ = true;
-        } else if (_conf.isAssignedStaticFields()) {
+        } else if (_conf.getContextEl().isAssignedStaticFields()) {
             FieldInfo meta_ = _conf.getFieldInfo(cl_);
             if (meta_.isStaticField()) {
                 checkFinal_ = true;

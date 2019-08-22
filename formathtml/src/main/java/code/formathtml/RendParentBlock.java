@@ -5,7 +5,7 @@ import code.expressionlanguage.files.OffsetsBlock;
 public abstract class RendParentBlock extends RendBlock {
 
     private RendBlock firstChild;
-    RendParentBlock(OffsetsBlock _offset) {
+    protected RendParentBlock(OffsetsBlock _offset) {
         super(_offset);
     }
 

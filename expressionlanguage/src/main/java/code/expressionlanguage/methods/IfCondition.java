@@ -65,7 +65,7 @@ public final class IfCondition extends Condition implements BlockCondition {
         if (canBeIncrementedCurGroup()) {
             return;
         }
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         AssignedBooleanVariables assTar_ = (AssignedBooleanVariables) id_.getVal(this);
         StringMap<SimpleAssignment> after_;
         CustList<StringMap<SimpleAssignment>> afterVars_;

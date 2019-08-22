@@ -25,7 +25,7 @@ public abstract class BracedStack extends BracedBlock {
     }
     protected void assignWhenFalse(boolean _add,Analyzable _an, AnalyzingEl _anEl) {
         Block firstChild_;
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
         Block pr_ = getPreviousSibling();
         if (_add) {
@@ -51,7 +51,7 @@ public abstract class BracedStack extends BracedBlock {
     }
     protected void assignWhenTrue(Analyzable _an) {
         Block firstChild_ = getFirstChild();
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
         AssignedBooleanVariables abv_ = (AssignedBooleanVariables) parAss_;
@@ -106,7 +106,7 @@ public abstract class BracedStack extends BracedBlock {
                     continue;
                 }
                 String key_ = e.getKey();
-                if (!_an.isFinalLocalVar(key_,index_)) {
+                if (!_an.getContextEl().isFinalLocalVar(key_,index_)) {
                     continue;
                 }
                 processFinalVars(this, false, _an, _root, key_);
@@ -137,7 +137,7 @@ public abstract class BracedStack extends BracedBlock {
                     continue;
                 }
                 String key_ = e.getKey();
-                if (!_an.isFinalMutableLoopVar(key_,index_)) {
+                if (!_an.getContextEl().isFinalMutableLoopVar(key_,index_)) {
                     continue;
                 }
                 processFinalMutableLoop(this, false, _an, _root, key_);
@@ -171,7 +171,7 @@ public abstract class BracedStack extends BracedBlock {
             cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _an);
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_an.getCurrentFileName());
-            un_.setIndexFile(_an.getOffset()+_curBlock.getOffset().getOffsetTrim());
+            un_.setIndexFile(_an.getContextEl().getOffset()+_curBlock.getOffset().getOffsetTrim());
             _an.getClasses().addError(un_);
         }
     }
@@ -191,7 +191,7 @@ public abstract class BracedStack extends BracedBlock {
             cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _an);
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_an.getCurrentFileName());
-            un_.setIndexFile(_an.getOffset()+_curBlock.getOffset().getOffsetTrim());
+            un_.setIndexFile(_an.getContextEl().getOffset()+_curBlock.getOffset().getOffsetTrim());
             _an.getClasses().addError(un_);
         }
     }
@@ -210,7 +210,7 @@ public abstract class BracedStack extends BracedBlock {
             cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _an);
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_an.getCurrentFileName());
-            un_.setIndexFile(_an.getOffset()+_curBlock.getOffset().getOffsetTrim());
+            un_.setIndexFile(_an.getContextEl().getOffset()+_curBlock.getOffset().getOffsetTrim());
             _an.getClasses().addError(un_);
         }
     }
@@ -221,7 +221,7 @@ public abstract class BracedStack extends BracedBlock {
         }
         CustList<ContinueBlock> continues_ = getContinuables(_anEl);
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         StringMap<SimpleAssignment> list_;
         list_ = id_.getVal(this).getFieldsRoot();
         int contLen_ = continues_.size();
@@ -247,7 +247,7 @@ public abstract class BracedStack extends BracedBlock {
         }
         CustList<ContinueBlock> continues_ = getContinuables(_anEl);
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         CustList<StringMap<AssignmentBefore>> varsList_;
         varsList_ = new CustList<StringMap<AssignmentBefore>>();
         CustList<StringMap<SimpleAssignment>> list_;
@@ -282,7 +282,7 @@ public abstract class BracedStack extends BracedBlock {
         }
         CustList<ContinueBlock> continues_ = getContinuables(_anEl);
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         CustList<StringMap<AssignmentBefore>> varsList_;
         varsList_ = new CustList<StringMap<AssignmentBefore>>();
         CustList<StringMap<SimpleAssignment>> list_;
@@ -354,7 +354,7 @@ public abstract class BracedStack extends BracedBlock {
         CustList<StringMap<SimpleAssignment>> out_;
         out_ = new CustList<StringMap<SimpleAssignment>>();
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         AssignedVariables idStdIf_;
         idStdIf_ = id_.getVal(this);
         CustList<StringMap<SimpleAssignment>> list_;
@@ -403,7 +403,7 @@ public abstract class BracedStack extends BracedBlock {
         CustList<StringMap<SimpleAssignment>> out_;
         out_ = new CustList<StringMap<SimpleAssignment>>();
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         AssignedVariables idStdIf_;
         idStdIf_ = id_.getVal(this);
         CustList<StringMap<SimpleAssignment>> list_;
@@ -450,7 +450,7 @@ public abstract class BracedStack extends BracedBlock {
     protected StringMap<SimpleAssignment> buildAssFieldsAfterIf(boolean _useBool,
             CustList<Block> _blocks,Analyzable _an, AnalyzingEl _anEl) {
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         AssignedVariables idStdIf_;
         idStdIf_ = id_.getVal(this);
         StringMap<SimpleAssignment> list_;
@@ -542,7 +542,7 @@ public abstract class BracedStack extends BracedBlock {
             Block _last,
             Analyzable _an, AnalyzingEl _anEl) {
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         CustList<StringMap<Assignment>> list_;
         list_ = id_.getVal(this).getLastVariablesOrEmpty();
         int len_ = list_.size();
@@ -575,7 +575,7 @@ public abstract class BracedStack extends BracedBlock {
             Block _last,
             Analyzable _an, AnalyzingEl _anEl) {
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         CustList<StringMap<Assignment>> list_;
         list_ = id_.getVal(this).getLastMutableLoopOrEmpty();
         int len_ = list_.size();
@@ -608,7 +608,7 @@ public abstract class BracedStack extends BracedBlock {
             Block _last,
             Analyzable _an, AnalyzingEl _anEl) {
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         StringMap<Assignment> list_;
         list_ = id_.getVal(this).getLastFieldsOrEmpty();
         StringMap<SimpleAssignment> last_;
@@ -671,7 +671,7 @@ public abstract class BracedStack extends BracedBlock {
     protected StringMap<SimpleAssignment> buildAssListFieldAfterLoop(Analyzable _an, AnalyzingEl _anEl) {
         CustList<BreakBlock> breaks_ = getBreakables(_anEl);
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         StringMap<BooleanAssignment> list_;
         list_ = ((AssignedBooleanVariables) id_.getVal(this)).getFieldsRootAfter();
         int breakLen_ = breaks_.size();
@@ -688,7 +688,7 @@ public abstract class BracedStack extends BracedBlock {
     protected CustList<StringMap<SimpleAssignment>> buildAssListLocVarAfterLoop(Analyzable _an, AnalyzingEl _anEl) {
         CustList<BreakBlock> breaks_ = getBreakables(_anEl);
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         CustList<StringMap<SimpleAssignment>> varsList_;
         varsList_ = new CustList<StringMap<SimpleAssignment>>();
         CustList<StringMap<BooleanAssignment>> list_;
@@ -712,7 +712,7 @@ public abstract class BracedStack extends BracedBlock {
     protected CustList<StringMap<SimpleAssignment>> buildAssListMutableLoopAfterLoop(Analyzable _an, AnalyzingEl _anEl) {
         CustList<BreakBlock> breaks_ = getBreakables(_anEl);
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         CustList<StringMap<SimpleAssignment>> varsList_;
         varsList_ = new CustList<StringMap<SimpleAssignment>>();
         CustList<StringMap<BooleanAssignment>> list_;
@@ -760,7 +760,7 @@ public abstract class BracedStack extends BracedBlock {
 
     protected CustList<StringMap<SimpleAssignment>> buildAssVariablesAfterFinally(CustList<Block> _blocks,Analyzable _an, AnalyzingEl _anEl) {
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         CustList<StringMap<SimpleAssignment>> list_;
         list_ = id_.getVal(this).getVariablesRoot();
         int len_ = list_.size();
@@ -837,7 +837,7 @@ public abstract class BracedStack extends BracedBlock {
 
     protected CustList<StringMap<SimpleAssignment>> buildAssMutableLoopAfterFinally(CustList<Block> _blocks,Analyzable _an, AnalyzingEl _anEl) {
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         CustList<StringMap<SimpleAssignment>> list_;
         list_ = id_.getVal(this).getMutableLoopRoot();
         int len_ = list_.size();
@@ -899,7 +899,7 @@ public abstract class BracedStack extends BracedBlock {
     }
     protected StringMap<SimpleAssignment> buildAssFieldsAfterFinally(CustList<Block> _blocks,Analyzable _an, AnalyzingEl _anEl) {
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         StringMap<SimpleAssignment> list_;
         list_ = id_.getVal(this).getFieldsRoot();
         CustList<StringMap<SimpleAssignment>> listBl_;
@@ -945,7 +945,7 @@ public abstract class BracedStack extends BracedBlock {
     }
     protected CustList<StringMap<SimpleAssignment>> buildAssVariablesAfterTry(CustList<Block> _blocks,Analyzable _an, AnalyzingEl _anEl) {
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         CustList<StringMap<SimpleAssignment>> out_;
         out_ = new CustList<StringMap<SimpleAssignment>>();
         CustList<StringMap<SimpleAssignment>> list_;
@@ -981,7 +981,7 @@ public abstract class BracedStack extends BracedBlock {
     }
     protected CustList<StringMap<SimpleAssignment>> buildAssMutableLoopAfterTry(CustList<Block> _blocks,Analyzable _an, AnalyzingEl _anEl) {
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         CustList<StringMap<SimpleAssignment>> out_;
         out_ = new CustList<StringMap<SimpleAssignment>>();
         CustList<StringMap<SimpleAssignment>> list_;
@@ -1017,7 +1017,7 @@ public abstract class BracedStack extends BracedBlock {
     }
     protected StringMap<SimpleAssignment> buildAssFieldsAfterTry(CustList<Block> _blocks,Analyzable _an, AnalyzingEl _anEl) {
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         StringMap<SimpleAssignment> list_;
         list_ = id_.getVal(this).getFieldsRoot();
         CustList<StringMap<SimpleAssignment>> listBl_;
@@ -1094,7 +1094,7 @@ public abstract class BracedStack extends BracedBlock {
         CustList<StringMap<AssignmentBefore>> others_ = new CustList<StringMap<AssignmentBefore>>();
         CustList<StringMap<SimpleAssignment>> catchs_ = new CustList<StringMap<SimpleAssignment>>();
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         for (AbruptBlock a: abr_) {
             if (a instanceof ReturnMehod) {
                 if (((ReturnMehod)a).getOpRet() == null) {
@@ -1142,7 +1142,7 @@ public abstract class BracedStack extends BracedBlock {
         CustList<AbruptBlock> abr_ = _try.getAbruptTry(_an, _anEl);
         CustList<StringMap<AssignmentBefore>> out_ = new CustList<StringMap<AssignmentBefore>>();
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         CustList<StringMap<SimpleAssignment>> tryAfters_ = id_.getVal(_try).getVariablesRoot();
         CustList<StringMap<AssignmentBefore>> tryBefores_ = id_.getVal(_try).getVariablesRootBefore();
         int loopLen_ = tryAfters_.size();
@@ -1208,7 +1208,7 @@ public abstract class BracedStack extends BracedBlock {
         CustList<AbruptBlock> abr_ = _try.getAbruptTry(_an, _anEl);
         CustList<StringMap<AssignmentBefore>> out_ = new CustList<StringMap<AssignmentBefore>>();
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         CustList<StringMap<SimpleAssignment>> tryAfters_ = id_.getVal(_try).getMutableLoopRoot();
         CustList<StringMap<AssignmentBefore>> tryBefores_ = id_.getVal(_try).getMutableLoopRootBefore();
         int loopLen_ = tryAfters_.size();
@@ -1321,7 +1321,7 @@ public abstract class BracedStack extends BracedBlock {
         return out_;
     }
     protected CustList<AbruptBlock> getAbruptTry(Analyzable _an, AnalyzingEl _anEl) {
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         IdList<Block> inners_;
         inners_ = new IdList<Block>();
         boolean add_ = false;

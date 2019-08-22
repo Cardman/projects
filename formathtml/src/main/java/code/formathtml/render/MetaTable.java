@@ -15,9 +15,7 @@ public final class MetaTable extends MetaContainer {
             remainders.add(getChildren().size());
         }
     }
-    public boolean isRemainder(int _index) {
-        return remainders.containsObj(_index);
-    }
+
     public Ints getRemainders() {
         return remainders;
     }

@@ -97,7 +97,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
         Block block_ = _conf.getCurrentBlock();
-        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
+        AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<StringMap<AssignmentBefore>> assB_ = vars_.getVariablesBefore().getVal(this);
         CustList<StringMap<AssignmentBefore>> assM_ = vars_.getMutableLoopBefore().getVal(this);
         StringMap<AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(this);

@@ -1,11 +1,47 @@
 package cards.gui.dialogs.help.beans;
 
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.stds.ResultErrorStd;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.DefaultInitialization;
 import code.formathtml.util.BeanNatLgNames;
+import code.util.StringList;
 
 public final class GeneralHelpLgNames extends BeanNatLgNames {
 
     public GeneralHelpLgNames() {
         DefaultInitialization.basicStandards(this);
+    }
+    protected Struct wrapStd(Object _element, ExecutableCode _ex){
+        return NullStruct.NULL_VALUE;
+    }
+
+    public ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context) {
+        return new ResultErrorStd();
+    }
+    public ResultErrorStd getOtherResultBean(ContextEl _cont,
+                                             ConstructorId _method, Object... _args) {
+        return new ResultErrorStd();
+    }
+    public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
+                                             ClassMethodId _method, Object... _args) {
+        return new ResultErrorStd();
+    }
+    public String getOtherBeanStructClassName(Object _struct, ContextEl _context) {
+        return getAliasObject();
+    }
+    public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
+        return new ResultErrorStd();
+    }
+    public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
+        return new ResultErrorStd();
+    }
+    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
+        return new ResultErrorStd();
     }
 }

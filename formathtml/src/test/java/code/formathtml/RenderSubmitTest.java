@@ -44,7 +44,7 @@ public final class RenderSubmitTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><input value=\"desc &amp;lt;text&amp;gt;\" type=\"submit\"/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -89,7 +89,7 @@ public final class RenderSubmitTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><input value=\"desc &amp;lt;TITLE2&amp;gt;\" type=\"submit\"/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -121,7 +121,7 @@ public final class RenderSubmitTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -168,7 +168,7 @@ public final class RenderSubmitTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(!conf_.getClasses().isEmptyErrors());
     }
@@ -211,7 +211,7 @@ public final class RenderSubmitTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(!conf_.getClasses().isEmptyErrors());
     }
@@ -254,7 +254,7 @@ public final class RenderSubmitTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(!conf_.getClasses().isEmptyErrors());
     }

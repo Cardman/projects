@@ -225,7 +225,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
     @Override
     public final void analyzeAssignmentAfter(Analyzable _conf) {
         Block block_ = _conf.getCurrentBlock();
-        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
+        AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<OperationNode> children_ = getChildrenNodes();
         if (children_.size() != BOOLEAN_ARGS) {
             analyzeStdAssignmentAfter(_conf);

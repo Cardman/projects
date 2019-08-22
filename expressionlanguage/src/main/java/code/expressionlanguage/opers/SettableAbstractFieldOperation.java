@@ -204,7 +204,7 @@ public abstract class SettableAbstractFieldOperation extends
     public final void analyzeAssignmentAfter(Analyzable _conf) {
         Argument arg_ = getArgument();
         Block block_ = _conf.getCurrentBlock();
-        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
+        AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<StringMap<AssignmentBefore>> assB_ = vars_.getVariablesBefore().getVal(this);
         CustList<StringMap<AssignmentBefore>> assM_ = vars_.getMutableLoopBefore().getVal(this);
         StringMap<AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(this);
@@ -241,13 +241,13 @@ public abstract class SettableAbstractFieldOperation extends
         }
         if (cl_ == null) {
             procField_ = false;
-        } else if (_conf.isAssignedStaticFields()) {
+        } else if (_conf.getContextEl().isAssignedStaticFields()) {
             FieldInfo meta_ = _conf.getFieldInfo(cl_);
             if (meta_.isStaticField()) {
                 procField_ = false;
             }
         }
-        if (_conf.isAssignedFields()) {
+        if (_conf.getContextEl().isAssignedFields()) {
             procField_ = false;
         }
         if (procField_) {

@@ -79,10 +79,4 @@ public final class DialogGameProgess extends Dialog {
         setVisible(true);
     }
 
-    @Override
-    public void closeWindow() {
-        session.interrupt();
-        super.closeWindow();
-//        session.clearSession();
-    }
 }

@@ -160,11 +160,11 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         }
         AssignedVariables ass_;
         if (prev_ == null) {
-            ass_ = _an.getAssignedVariables().getFinalVariablesGlobal();
-            IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+            ass_ = _an.getContextEl().getAssignedVariables().getFinalVariablesGlobal();
+            IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
             id_.put(this, ass_);
         } else {
-            IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+            IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
             AssignedVariables parAss_ = id_.getVal(prev_);
             AssignedVariables assBl_ = buildNewAssignedVariable();
             assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignSimpleBefore(parAss_.getFieldsRoot()));

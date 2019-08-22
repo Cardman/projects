@@ -80,7 +80,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
     @Override
     public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
         Block firstChild_ = getFirstChild();
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
         assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignBefore(parAss_.getLastFieldsOrEmpty()));
@@ -192,7 +192,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         while (ch_.getNextSibling() != null) {
             ch_ = ch_.getNextSibling();
         }
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         AssignedVariables assTar_ = id_.getVal(this);
         StringMap<SimpleAssignment> after_;
         CustList<StringMap<SimpleAssignment>> afterVars_;

@@ -26,7 +26,7 @@ import code.util.StringMap;
 public interface Analyzable {
 
     ContextEl getContextEl();
-    ExecutableCode getCurrentExec();
+
     LgNames getStandards();
     String getGlobalClass();
     String getLookLocalClass();
@@ -40,14 +40,12 @@ public interface Analyzable {
     void setCurrentVarSetting(String _currentVarSetting);
     LoopVariable getVar(String _key);
 
-    boolean isFinalMutableLoopVar(String _key, int _index);
     boolean containsMutableLoopVar(String _string);
     LoopVariable getMutableLoopVar(String _key);
     void putMutableLoopVar(String _string, LoopVariable _loc);
 
     CustList<StringMap<LocalVariable>> getLocalVariables();
 
-    boolean isFinalLocalVar(String _key, int _index);
     boolean containsLocalVar(String _string);
     LocalVariable getLocalVar(String _key);
     void putLocalVar(String _string, LocalVariable _loc);
@@ -61,7 +59,7 @@ public interface Analyzable {
     StringMap<LocalVariable> getParameters();
     boolean isEnabledInternVars();
     StringMap<LocalVariable> getInternVars();
-    int getOffset();
+
 
 
     void setAnalyzedOffset(int _offset);
@@ -89,7 +87,7 @@ public interface Analyzable {
     void setFinalVariable(boolean _finalVariable);
 
     Options getOptions();
-    AssignedVariablesBlock getAssignedVariables();
+
     AnalyzedPageEl getAnalyzing();
     Ints getCurrentBadIndexes();
     Block getCurrentBlock();
@@ -121,24 +119,17 @@ public interface Analyzable {
     StringList getAvailableVariables();
     StringList getVariablesNames();
 
-    boolean isAssignedStaticFields();
-
-    void setAssignedStaticFields(boolean _assignedStaticFields);
-
-    boolean isAssignedFields();
-
-    void setAssignedFields(boolean _assignedFields);
     ForLoopPart getForLoopPartState();
     void setForLoopPartState(ForLoopPart _state);
-    AnalyzingEl getAnalysisAss();
+
     boolean isAnnotAnalysis();
-    void setAnnotAnalysis(boolean _ana);
+
 
     boolean isOkNumOp();
 
     void setOkNumOp(boolean _okNumOp);
     KeyWords getKeyWords();
-    void setKeyWords(KeyWords _keyWords);
+
     boolean isValidSingleToken(String _id);
     boolean isValidToken(String _id);
     void processInternKeyWord(String _exp, int _fr, ResultAfterInstKeyWord _out);

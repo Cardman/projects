@@ -98,7 +98,7 @@ public final class ConstantOperation extends LeafOperation {
     public static void setAssignments(OperationNode _current, Analyzable _conf) {
         Argument arg_ = _current.getArgument();
         Block block_ = _conf.getCurrentBlock();
-        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
+        AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<StringMap<AssignmentBefore>> assB_ = vars_.getVariablesBefore().getVal(_current);
         CustList<StringMap<AssignmentBefore>> assM_ = vars_.getMutableLoopBefore().getVal(_current);
         StringMap<AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(_current);

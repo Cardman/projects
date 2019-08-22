@@ -456,7 +456,7 @@ public final class MetaDocument {
                     bl_.setStyle(styleLoc_);
                     //indent
                     indent(styleLoc_, li_, line_);
-                    MetaLabel ind_ = new MetaIndentLabel(line_,1);
+                    MetaLabel ind_ = new MetaIndentLabel(line_);
                     ind_.setStyle(styleLoc_);
                     line_.appendChild(ind_);
                     line_.appendChild(bl_);
@@ -559,9 +559,7 @@ public final class MetaDocument {
                     rowGroup = 0;
                     partGroup++;
                     MetaTable table_ = tables.last();
-                    int rows_ = BeanLgNames.parseInt(elt_.getAttribute("rowspan"),1);
-                    int cols_ = BeanLgNames.parseInt(elt_.getAttribute("colspan"),1);
-                    MetaContainer bl_ = new MetaCell(table_, rows_, cols_);
+                    MetaContainer bl_ = new MetaCell(table_);
                     bl_.setStyle(styleLoc_);
                     MetaContainer line_ = new MetaLine(bl_);
                     line_.setStyle(styleLoc_);
@@ -718,6 +716,11 @@ public final class MetaDocument {
                     String size_ = value_.substring(0, value_.length() - 2);
                     int val_ = Numbers.parseInt(size_);
                     _style.setSize(val_);
+                }
+                if (value_.endsWith("em")) {
+                    String size_ = value_.substring(0, value_.length() - 2);
+                    int val_ = Numbers.parseInt(size_);
+                    _style.setEm(val_);
                 }
                 continue;
             }

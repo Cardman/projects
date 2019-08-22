@@ -66,7 +66,7 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
         if (pBlock_ != null) {
             prev_.add(pBlock_);
         }
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         AssignedVariables assTar_ = id_.getVal(this);
         StringMap<SimpleAssignment> after_;
         CustList<StringMap<SimpleAssignment>> afterVars_;

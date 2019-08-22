@@ -216,8 +216,8 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     @Override
     public void setAssignmentBeforeCall(Analyzable _an, AnalyzingEl _anEl) {
         AssignedVariables ass_;
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        ass_ = _an.getAssignedVariables().getFinalVariablesGlobal();
+        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        ass_ = _an.getContextEl().getAssignedVariables().getFinalVariablesGlobal();
         id_.put(this, ass_);
     }
 

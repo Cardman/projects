@@ -765,7 +765,6 @@ public abstract class RendBlock implements AnalyzedBlock {
         }
         Struct obj_;
         Struct currentField_;
-        long index_ = -1;
         long found_ = -1;
         CustList<RendDynOperationNode> opsRead_ = _f.getOpsRead();
         CustList<RendDynOperationNode> opsWrite_ = _f.getOpsWrite();
@@ -809,9 +808,7 @@ public abstract class RendBlock implements AnalyzedBlock {
             long currentInput_ = _cont.getInputs().last();
             NodeContainer nodeCont_ = new NodeContainer();
             nodeCont_.setIdField(idField_);
-            nodeCont_.setIndex(index_);
             nodeCont_.setTypedStruct(currentField_);
-            nodeCont_.setBeanName(_cont.getLastPage().getBeanName());
             nodeCont_.setStruct(obj_);
             StringList strings_ = StringList.splitInTwo(varName_, varName_.indexOf(','));
             nodeCont_.setVarPrevName(StringList.removeChars(strings_.first(),','));

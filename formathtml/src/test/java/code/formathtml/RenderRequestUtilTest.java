@@ -64,7 +64,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
@@ -114,7 +114,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
@@ -164,7 +164,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
@@ -214,7 +214,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
@@ -268,7 +268,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
@@ -321,7 +321,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
@@ -374,7 +374,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
@@ -427,7 +427,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
@@ -478,7 +478,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
@@ -527,7 +527,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
@@ -576,7 +576,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addImportingPage(conf_);
@@ -683,7 +683,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         RendBlock.getRes(rendDocumentBlock_, conf_);
         addImportingPage(conf_);

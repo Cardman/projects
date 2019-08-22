@@ -12,10 +12,6 @@ public final class MetaAnimatedImage extends MetaImage {
 
     private final int delay;
 
-    public MetaAnimatedImage(MetaContainer _parent, StringList _images, int _delay) {
-        this(_parent, _images, EMPTY_STRING,_delay, null);
-    }
-
     public MetaAnimatedImage(MetaContainer _parent, StringList _images, String _title,int _delay, Element _anchor) {
         super(_parent, _title, _anchor);
         delay = _delay;

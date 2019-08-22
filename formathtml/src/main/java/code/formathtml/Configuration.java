@@ -91,11 +91,8 @@ public final class Configuration implements ExecutableCode {
 
     private String currentUrl = "";
 
-    private String html;
-
     private StringList addedFiles = new StringList();
     private StringList renderFiles = new StringList();
-    private Interrupt interrupt;
 
     private AnalyzingDoc analyzingDoc = new AnalyzingDoc();
     private RendLocalThrowing rendLocalThrowing = new RendLocalThrowing();
@@ -410,31 +407,12 @@ public final class Configuration implements ExecutableCode {
         currentUrl = _currentUrl;
     }
 
-    public String getHtml() {
-        return html;
-    }
-
-    public void setHtml(String _html) {
-        html = _html;
-    }
-
     public String getPrefix() {
         return prefix;
     }
 
     public void setPrefix(String _prefix) {
         prefix = _prefix;
-    }
-
-    public void setupInterrupt(Interrupt _i) {
-        interrupt = _i;
-    }
-    public boolean isInterrupt() {
-        return interrupt.get();
-    }
-
-    public void setInterrupt(boolean _interrupt) {
-        interrupt.set(_interrupt);
     }
 
     public String getFilesConfName() {
@@ -534,11 +512,6 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public boolean isFinalLocalVar(String _key, int _index) {
-        return context.getAnalyzing().isFinalLocalVar(_key, _index);
-    }
-
-    @Override
     public boolean containsLocalVar(String _key) {
         return context.containsLocalVar(_key);
     }
@@ -564,11 +537,6 @@ public final class Configuration implements ExecutableCode {
     @Override
     public StringMap<LocalVariable> getParameters() {
         return context.getParameters();
-    }
-
-    @Override
-    public int getOffset() {
-        return context.getOffset();
     }
 
     @Override
@@ -648,11 +616,6 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public AssignedVariablesBlock getAssignedVariables() {
-        return context.getAssignedVariables();
-    }
-
-    @Override
     public AnalyzedBlock getCurrentAnaBlock() {
         return analyzingDoc.getCurrentBlock();
     }
@@ -698,11 +661,6 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public boolean isFinalMutableLoopVar(String _key, int _index) {
-        return context.getAnalyzing().isFinalMutableLoopVar(_key,_index);
-    }
-
-    @Override
     public PageEl getOperationPageEl() {
         return importing.last().getPageEl();
     }
@@ -720,11 +678,6 @@ public final class Configuration implements ExecutableCode {
     @Override
     public ContextEl getContextEl() {
         return context;
-    }
-
-    @Override
-    public ExecutableCode getCurrentExec() {
-        return this;
     }
 
     @Override
@@ -1380,26 +1333,6 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public boolean isAssignedStaticFields() {
-        return context.isAssignedStaticFields();
-    }
-
-    @Override
-    public void setAssignedStaticFields(boolean _assignedStaticFields) {
-        context.setAssignedStaticFields(_assignedStaticFields);
-    }
-
-    @Override
-    public boolean isAssignedFields() {
-        return context.isAssignedFields();
-    }
-
-    @Override
-    public void setAssignedFields(boolean _assignedFields) {
-        context.setAssignedFields(_assignedFields);
-    }
-
-    @Override
     public boolean containsMutableLoopVar(String _string) {
         return context.containsMutableLoopVar(_string);
     }
@@ -1425,18 +1358,8 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public AnalyzingEl getAnalysisAss() {
-        return context.getAnalysisAss();
-    }
-
-    @Override
     public boolean isAnnotAnalysis() {
         return context.isAnnotAnalysis();
-    }
-
-    @Override
-    public void setAnnotAnalysis(boolean _ana) {
-        context.setAnnotAnalysis(_ana);
     }
 
     @Override
@@ -1482,11 +1405,6 @@ public final class Configuration implements ExecutableCode {
     @Override
     public KeyWords getKeyWords() {
         return context.getKeyWords();
-    }
-
-    @Override
-    public void setKeyWords(KeyWords _keyWords) {
-        context.setKeyWords(_keyWords);
     }
 
     @Override
@@ -1603,10 +1521,6 @@ public final class Configuration implements ExecutableCode {
 
     public AnalyzingDoc getAnalyzingDoc() {
         return analyzingDoc;
-    }
-
-    public void setAnalyzingDoc(AnalyzingDoc _analyzingDoc) {
-        analyzingDoc = _analyzingDoc;
     }
 
     public RendLocalThrowing getRendLocalThrowing() {

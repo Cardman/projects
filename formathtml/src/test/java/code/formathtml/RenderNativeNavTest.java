@@ -134,7 +134,7 @@ public final class RenderNativeNavTest extends CommonRender {
         conf_.getAdvStandards().preInitBeans(conf_);
 
 
-        conf_.setHtml(html_);
+        
         Document doc_ = DocumentBuilder.parseSax(html_);
         Document docSec_ = DocumentBuilder.parseSax(htmlTwo_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);

@@ -761,6 +761,8 @@ public final class MetaDocumentTest {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaTable);
         MetaTable table_ = (MetaTable) ch_;
+        assertTrue(!table_.isAddEmpty());
+        assertSame(MetaLayout.BAG,table_.getLayout());
         assertEq(3, table_.getRemainders().size());
         assertEq(0, table_.getRemainders().first());
         assertEq(2, table_.getRemainders().get(1));
@@ -770,6 +772,7 @@ public final class MetaDocumentTest {
         assertTrue(ch_ instanceof MetaCaption);
         MetaCaption caption_ = (MetaCaption) ch_;
         assertEq(1, caption_.getChildren().size());
+        assertTrue(caption_.isAddEmpty());
         ch_ = caption_.getFirstChild();
         assertTrue(ch_ instanceof MetaPlainLabel);
         MetaPlainLabel lab_ = (MetaPlainLabel) ch_;
@@ -856,10 +859,12 @@ public final class MetaDocumentTest {
         MetaRadioButton radio_ = (MetaRadioButton)formLine_.getChildren().get(0);
         assertEq(0,radio_.getId().getForm());
         assertEq(0,radio_.getId().getInput());
+        assertEq(0,radio_.getIndexButton());
         assertTrue(!radio_.isChecked());
         radio_ = (MetaRadioButton)formLine_.getChildren().get(1);
         assertEq(0,radio_.getId().getForm());
         assertEq(0,radio_.getId().getInput());
+        assertEq(1,radio_.getIndexButton());
         assertTrue(radio_.isChecked());
         ch_ = root_.getChildren().get(2);
         assertTrue(ch_ instanceof MetaLine);
@@ -1032,12 +1037,14 @@ public final class MetaDocumentTest {
         MetaRadioButton radio_ = (MetaRadioButton)formLine_.getChildren().get(0);
         assertEq(0,radio_.getId().getForm());
         assertEq(0,radio_.getId().getInput());
+        assertEq(0,radio_.getIndexButton());
         assertTrue(!radio_.isChecked());
         radio_ = (MetaRadioButton)formLine_.getChildren().get(1);
         assertEq(0,radio_.getId().getForm());
         assertEq(0,radio_.getId().getInput());
         assertTrue(radio_.isChecked());
         assertTrue(radio_.isChecked());
+        assertEq(1,radio_.getIndexButton());
         ch_ = root_.getChildren().get(2);
         assertTrue(ch_ instanceof MetaLine);
         cont_ = (MetaContainer) ch_;
@@ -1053,10 +1060,12 @@ public final class MetaDocumentTest {
         radio_ = (MetaRadioButton)formLine_.getChildren().get(0);
         assertEq(1,radio_.getId().getForm());
         assertEq(0,radio_.getId().getInput());
+        assertEq(0,radio_.getIndexButton());
         assertTrue(!radio_.isChecked());
         radio_ = (MetaRadioButton)formLine_.getChildren().get(1);
         assertEq(1,radio_.getId().getForm());
         assertEq(0,radio_.getId().getInput());
+        assertEq(1,radio_.getIndexButton());
         assertTrue(radio_.isChecked());
         ch_ = root_.getChildren().get(4);
         assertTrue(ch_ instanceof MetaLine);
@@ -2863,7 +2872,7 @@ public final class MetaDocumentTest {
         doc_.append("<html>\n");
         doc_.append("<body>Form\n");
         doc_.append("<form n-f='0'>\n");
-        doc_.append("<textarea name='myradio' n-i='0'>\n");
+        doc_.append("<textarea name='myradio' n-i='0' rows='128' cols='16'>\n");
         doc_.append("Content\n");
         doc_.append("</textarea>\n");
         doc_.append("</form>\n");
@@ -2888,6 +2897,8 @@ public final class MetaDocumentTest {
         assertEq(1, formLine_.getChildren().size());
         MetaTextArea radio_ = (MetaTextArea)formLine_.getChildren().get(0);
         assertEq("\nContent\n",radio_.getValue());
+        assertEq(128,radio_.getRows());
+        assertEq(16,radio_.getCols());
         ch_ = root_.getChildren().get(2);
         assertTrue(ch_ instanceof MetaLine);
         cont_ = (MetaContainer) ch_;
@@ -2899,7 +2910,7 @@ public final class MetaDocumentTest {
         doc_.append("<html>\n");
         doc_.append("<body>Form\n");
         doc_.append("<form n-f='0'>\n");
-        doc_.append("<input type='text' name='myradio' n-i='0' value='Text'/>\n");
+        doc_.append("<input type='text' name='myradio' n-i='0' value='Text' cols='64'/>\n");
         doc_.append("</form>\n");
         doc_.append("</body>\n");
         doc_.append("</html>");
@@ -2922,6 +2933,7 @@ public final class MetaDocumentTest {
         assertEq(1, formLine_.getChildren().size());
         MetaTextField radio_ = (MetaTextField)formLine_.getChildren().get(0);
         assertEq("Text",radio_.getValue());
+        assertEq(64,radio_.getCols());
         ch_ = root_.getChildren().get(2);
         assertTrue(ch_ instanceof MetaLine);
         cont_ = (MetaContainer) ch_;
@@ -4684,5 +4696,35 @@ public final class MetaDocumentTest {
         assertEq(0,radio_.getId().getInput());
         assertTrue(radio_.isChecked());
     }
-
+    @Test
+    public void newInstance98Test() {
+        StringBuilder doc_ = new StringBuilder();
+        doc_.append("<html>\n");
+        doc_.append("<head>\n");
+        doc_.append("<style>\n");
+        doc_.append("h1{font-size:2em;}\n");
+        doc_.append("</style>\n");
+        doc_.append("</head>\n");
+        doc_.append("<body>\n");
+        doc_.append("<h1>");
+        doc_.append("Text");
+        doc_.append("</h1>\n");
+        doc_.append("</body>\n");
+        doc_.append("</html>");
+        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(doc_.toString());
+        MetaDocument out_ = MetaDocument.newInstance(res_.getDocument());
+        MetaBlock root_ = out_.getRoot();
+        assertEq(1, root_.getChildren().size());
+        MetaComponent ch_ = root_.getChildren().get(0);
+        assertTrue(ch_ instanceof MetaLine);
+        MetaContainer cont_ = (MetaContainer) ch_;
+        assertEq(1, cont_.getChildren().size());
+        MetaPlainLabel imgMeta_ = (MetaPlainLabel) cont_.getChildren().get(0);
+        assertEq("",imgMeta_.getTitle());
+        assertEq("Text",imgMeta_.getText());
+        assertNull(imgMeta_.getAnchor());
+        assertEq(6,imgMeta_.getStyle().getDelta());
+        assertEq(64,imgMeta_.getStyle().getRealSize());
+        assertEq(16,imgMeta_.getStyle().getEmToPixels());
+    }
 }

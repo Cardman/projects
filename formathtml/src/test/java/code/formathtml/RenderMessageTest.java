@@ -56,7 +56,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>desc &lt;Text&gt;<a c:command=\"$bean_one.click\" href=\"\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -103,7 +103,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>desc &lt;Text&gt;<a c:command=\"$bean_one.click(2)\" href=\"\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -152,7 +152,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>desc &lt;Text&gt;<a c:command=\"link\" href=\"\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -199,7 +199,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>desc &lt;Text&gt;<br/>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -246,7 +246,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>desc &amp;lt;Text&amp;gt;&lt;br/&gt;After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -293,7 +293,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>desc &lt;Text&gt;<a name=\"link\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -340,7 +340,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>desc &lt;Text&gt;<a href=\"link\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -387,7 +387,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>desc <Text/><a href=\"link\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -434,7 +434,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>desc '{'Text'}'<a href=\"link\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -481,7 +481,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>desc '{'2'}'<a href=\"link\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -527,7 +527,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>desc &lt;Text&gt;<a c:command=\"$bean_one.click\" href=\"\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -573,7 +573,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -631,7 +631,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body>desc 2<a href=\"link\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -689,7 +689,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -735,7 +735,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(!conf_.getClasses().isEmptyErrors());
     }
@@ -779,7 +779,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(!conf_.getClasses().isEmptyErrors());
     }

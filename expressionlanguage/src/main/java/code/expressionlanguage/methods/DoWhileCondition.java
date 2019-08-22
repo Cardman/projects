@@ -89,7 +89,7 @@ public final class DoWhileCondition extends Condition {
             _an.getClasses().addError(un_);
         }
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         //by do block
         DoBlock dBlock_ = (DoBlock) getPreviousSibling();
         StringMap<AssignmentBefore> fieldsHypot_;
@@ -129,7 +129,7 @@ public final class DoWhileCondition extends Condition {
 
     protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(Analyzable _an) {
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         DoBlock dBlock_ = (DoBlock) getPreviousSibling();
         StringMap<AssignmentBefore> list_;
         list_ = dBlock_.makeHypothesisFields(_an);
@@ -139,7 +139,7 @@ public final class DoWhileCondition extends Condition {
     }
     protected CustList<StringMap<AssignmentBefore>> buildAssListLocVarInvalHypot(Analyzable _an) {
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         CustList<StringMap<AssignmentBefore>> varsList_;
         varsList_ = new CustList<StringMap<AssignmentBefore>>();
         DoBlock dBlock_ = (DoBlock) getPreviousSibling();
@@ -158,7 +158,7 @@ public final class DoWhileCondition extends Condition {
     }
     protected CustList<StringMap<AssignmentBefore>> buildAssListMutableLoopInvalHypot(Analyzable _an) {
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         CustList<StringMap<AssignmentBefore>> varsList_;
         varsList_ = new CustList<StringMap<AssignmentBefore>>();
         DoBlock dBlock_ = (DoBlock) getPreviousSibling();

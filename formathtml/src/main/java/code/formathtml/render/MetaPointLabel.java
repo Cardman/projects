@@ -4,10 +4,6 @@ public final class MetaPointLabel extends MetaLabel {
 
     private final MetaPointForm form;
 
-    public MetaPointLabel(MetaContainer _parent) {
-        this(_parent, MetaPointForm.DISK);
-    }
-
     public MetaPointLabel(MetaContainer _parent, MetaPointForm _form) {
         super(_parent);
         form = _form;

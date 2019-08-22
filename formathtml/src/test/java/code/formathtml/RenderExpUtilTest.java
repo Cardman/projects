@@ -9084,7 +9084,7 @@ public final class RenderExpUtilTest {
             BadElError badEl_ = new BadElError();
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
+            _conf.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getAliasIllegalArg()));
             context_.setAnalyzing(null);
             return Argument.createVoid();
         }
@@ -9112,7 +9112,7 @@ public final class RenderExpUtilTest {
             BadElError badEl_ = new BadElError();
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            _conf.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getAdvStandards().getErrorEl()));
+            _conf.setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getAliasIllegalArg()));
             context_.setAnalyzing(null);
             return Argument.createVoid();
         }

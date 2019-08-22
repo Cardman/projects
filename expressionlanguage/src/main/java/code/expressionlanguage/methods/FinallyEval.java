@@ -61,7 +61,7 @@ public final class FinallyEval extends BracedStack implements Eval {
         if (pBlock_ instanceof Eval) {
             prev_.add(pBlock_);
         }
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         AssignedVariables assTar_ = id_.getVal(this);
         StringMap<SimpleAssignment> after_;
         CustList<StringMap<SimpleAssignment>> afterVars_;

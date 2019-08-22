@@ -71,7 +71,7 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval {
             super.setAssignmentBeforeNextSibling(_an, _anEl);
             return;
         }
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         Block nextSibling_ = getNextSibling();
         boolean finClause_ = nextSibling_ instanceof FinallyEval;
         Block try_ = this;
@@ -125,7 +125,7 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval {
         if (pBlock_ instanceof Eval) {
             prev_.add(pBlock_);
         }
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         AssignedVariables assTar_ = id_.getVal(this);
         StringMap<SimpleAssignment> after_;
         CustList<StringMap<SimpleAssignment>> afterVars_;

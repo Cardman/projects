@@ -141,7 +141,4 @@ public final class MetaNumberedLabel extends MetaLabel {
         return number;
     }
 
-    public MetaNumberBase getBase() {
-        return base;
-    }
 }

@@ -407,6 +407,17 @@ public final class CustLgNames extends BeanNatLgNames {
         }
         return super.getOtherResult(_cont, _instance, _method, _args);
     }
+
+    @Override
+    public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+        return null;
+    }
+
+    @Override
+    public String getOtherBeanStructClassName(Object _struct, ContextEl _context) {
+        return null;
+    }
+
     @Override
     public ResultErrorStd getOtherResultBean(ContextEl _cont,
                                              ConstructorId _method, Object... _args) {
@@ -435,7 +446,7 @@ public final class CustLgNames extends BeanNatLgNames {
             res_.setError(getAliasError());
             return res_;
         }
-        return super.getOtherResultBean(_cont, _method, _args);
+        return res_;
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont,
@@ -483,7 +494,10 @@ public final class CustLgNames extends BeanNatLgNames {
                 return res_;
             }
         }
-        return super.getOtherResult(_cont, _classField, _instance);
+        return res_;
+    }
+    public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
+        return new ResultErrorStd();
     }
     @Override
     public ResultErrorStd setOtherResult(ContextEl _cont,
@@ -504,7 +518,7 @@ public final class CustLgNames extends BeanNatLgNames {
                 return res_;
             }
         }
-        return super.setOtherResult(_cont, _classField, _instance, _value);
+        return res_;
     }
 
     @Override
@@ -548,6 +562,10 @@ public final class CustLgNames extends BeanNatLgNames {
             return StdStruct.newInstance(_element, aliasObject_);
         }
         return StdStruct.newInstance(_element, className_);
+    }
+
+    public ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context) {
+        return new ResultErrorStd();
     }
     public String getAliasInts() {
         return aliasInts;

@@ -99,11 +99,9 @@ public final class Navigation {
 
     private String title = EMPTY_STRING;
 
-    private String resourcesFolder = EMPTY_STRING;
-
     private boolean error;
 
-    public void loadConfiguration(String _cont, BeanLgNames _lgNames, Interrupt _i) {
+    public void loadConfiguration(String _cont, BeanLgNames _lgNames) {
         error = false;
         DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(_cont);
         Document doc_ = res_.getDocument();
@@ -113,7 +111,6 @@ public final class Navigation {
         }
         session = new Configuration();
         session.setDataBaseClassName(_lgNames.getAliasObject());
-        session.setupInterrupt(_i);
         session.setStandards(_lgNames);
         ReadConfiguration.load(session,doc_);
         if (session.getContext() == null) {
@@ -134,9 +131,9 @@ public final class Navigation {
         dataBase = _dataBase;
         if (dataBase != null) {
             String className_ = session.getDataBaseClassName();
-            dataBaseStruct = StdStruct.newInstance(dataBase, className_);
+            setDataBaseStruct(StdStruct.newInstance(dataBase, className_));
         } else {
-            dataBaseStruct = NullStruct.NULL_VALUE;
+            setDataBaseStruct(NullStruct.NULL_VALUE);
         }
     }
 
@@ -649,20 +646,8 @@ public final class Navigation {
         return currentBeanName;
     }
 
-    public void setCurrentBeanName(String _currentBeanName) {
-        currentBeanName = _currentBeanName;
-    }
-
     public String getCurrentUrl() {
         return currentUrl;
-    }
-
-    public void setCurrentUrl(String _currentUrl) {
-        currentUrl = _currentUrl;
-    }
-
-    public StringMap<String> getFiles() {
-        return files;
     }
 
     public void setFiles(StringMap<String> _files) {
@@ -673,24 +658,8 @@ public final class Navigation {
         return language;
     }
 
-    public Object getDataBase() {
-        return dataBase;
-    }
-
-    public void setHtmlText(String _htmlText) {
-        htmlText = _htmlText;
-    }
-
     public String getTitle() {
         return title;
-    }
-
-    public String getResourcesFolder() {
-        return resourcesFolder;
-    }
-
-    public void setResourcesFolder(String _resourcesFolder) {
-        resourcesFolder = _resourcesFolder;
     }
 
     public StringList getLanguages() {

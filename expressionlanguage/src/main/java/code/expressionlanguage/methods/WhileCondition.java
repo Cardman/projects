@@ -81,7 +81,7 @@ public final class WhileCondition extends Condition implements Loop {
         }
         CustList<ContinueBlock> continues_ = getContinuables(_anEl);
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         StringMap<AssignmentBefore> list_;
         list_ = makeHypothesisFields(_an);
         int contLen_ = continues_.size();
@@ -107,7 +107,7 @@ public final class WhileCondition extends Condition implements Loop {
         }
         CustList<ContinueBlock> continues_ = getContinuables(_anEl);
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         CustList<StringMap<AssignmentBefore>> varsList_;
         varsList_ = new CustList<StringMap<AssignmentBefore>>();
         CustList<StringMap<AssignmentBefore>> list_;
@@ -142,7 +142,7 @@ public final class WhileCondition extends Condition implements Loop {
         }
         CustList<ContinueBlock> continues_ = getContinuables(_anEl);
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         CustList<StringMap<AssignmentBefore>> varsList_;
         varsList_ = new CustList<StringMap<AssignmentBefore>>();
         CustList<StringMap<AssignmentBefore>> list_;

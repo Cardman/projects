@@ -1,6 +1,5 @@
 package code.formathtml.util;
 
-import code.bean.Bean;
 import code.bean.BeanInfo;
 import code.bean.validator.Message;
 import code.bean.validator.Validator;
@@ -138,12 +137,9 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         return lgNames_.getOtherResult(_cont, _classField, _instance);
     }
 
-    public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
-        return new ResultErrorStd();
-    }
-    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
-        return new ResultErrorStd();
-    }
+    public abstract ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance);
+
+    public abstract ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Object _value);
 
     public void buildBeans() {
         StringMap<StandardField> fields_;
@@ -171,9 +167,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         cl_.getDirectInterfaces().add(getCustEntries());
         getIterables().put(getCustMap(),getAliasObject());
         getStandards().put(getCustMap(), cl_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        cl_ = new StandardClass(getErrorEl(), fields_, constructors_, methods_, getAliasError(), MethodModifier.ABSTRACT);
-        getStandards().put(getErrorEl(), cl_);
         params_ = new StringList();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         StandardInterface stdi_ = new StandardInterface(getAliasCountable(), methods_, params_);
@@ -201,16 +194,14 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     @Override
     public IterableAnalysisResult getCustomType(StringList _names, ContextEl _context) {
         StringList out_ = new StringList();
-        Boolean nativeCmp_ = null;
         for (String f: _names) {
             String type_ = getIterableFullTypeByStds(f, _context);
-            nativeCmp_ = true;
             if (type_ != null) {
                 out_.add(type_);
             }
         }
         out_.removeDuplicates();
-        return new NativeIterableAnalysisResult(out_, nativeCmp_);
+        return new IterableAnalysisResult(out_);
     }
     private static String getIterableFullTypeByStds(String _subType, ContextEl _context) {
         BeanLgNames lgNames_ = (BeanLgNames) _context.getStandards();
@@ -238,9 +229,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         }
         return getOtherName(_cont, _instance);
     }
-    public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
-        return new ResultErrorStd();
-    }
+    public abstract ResultErrorStd getOtherName(ContextEl _cont, Struct _instance);
     @Override
     public void beforeDisplaying(Struct _arg, Configuration _cont) {
         ((BeanStruct)_arg).getBean().beforeDisplaying();
@@ -320,9 +309,9 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         return new Argument(new BooleanStruct(it_.hasNext()));
     }
 
-    protected Struct wrapStd(Object _element, ExecutableCode _ex){
-        return NullStruct.NULL_VALUE;
-    }
+    protected abstract Struct wrapStd(Object _element, ExecutableCode _ex);
+    public abstract ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context);
+
     @Override
     public String processString(Argument _arg, Configuration _cont) {
         Struct struct_ = _arg.getStruct();
@@ -353,10 +342,8 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         return getOtherResultBean(_cont, _method, argsObj_);
     }
 
-    public ResultErrorStd getOtherResultBean(ContextEl _cont,
-                                             ConstructorId _method, Object... _args) {
-        return new ResultErrorStd();
-    }
+    public abstract ResultErrorStd getOtherResultBean(ContextEl _cont,
+                                             ConstructorId _method, Object... _args);
 
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
@@ -371,16 +358,12 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         }
         return getOtherResultBean(_cont, _instance, _method, argsObj_);
     }
-    public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
-                                             ClassMethodId _method, Object... _args) {
-        return new ResultErrorStd();
-    }
+    public abstract ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
+                                             ClassMethodId _method, Object... _args);
     public String getStdBeanStructClassName(Object _struct, ContextEl _context) {
         String cl_ = getOtherBeanStructClassName(_struct, _context);
         return cl_;
     }
-    public String getOtherBeanStructClassName(Object _struct, ContextEl _context) {
-        return getAliasObject();
-    }
+    public abstract String getOtherBeanStructClassName(Object _struct, ContextEl _context);
 
 }

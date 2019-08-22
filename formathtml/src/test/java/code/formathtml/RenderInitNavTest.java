@@ -275,11 +275,13 @@ public final class RenderInitNavTest extends CommonRender {
                 "\t</sm>\n" +
                 "</cfg>";
         Navigation n_ = new Navigation();
-        n_.loadConfiguration(xmlConf_,lgNames_,null);
+        n_.loadConfiguration(xmlConf_,lgNames_);
         n_.setFiles(files_);
         n_.setupRendClasses();
         n_.initializeRendSession();
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
+        assertEq(2,n_.getSession().getAddedFiles().size());
+        assertEq(0,n_.getLanguages().size());
     }
     @Test
     public void process6Test() {
@@ -363,7 +365,7 @@ public final class RenderInitNavTest extends CommonRender {
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
-        n_.loadConfiguration(xmlConf_,lgNames_,null);
+        n_.loadConfiguration(xmlConf_,lgNames_);
         n_.setFiles(files_);
         n_.setupRendClasses();
         n_.initializeRendSession();
@@ -383,8 +385,6 @@ public final class RenderInitNavTest extends CommonRender {
         opt_.setSuffixVar(VariableSuffix.DISTINCT);
         BeanLgNames lgNames_ = new CustBeanLgNames();
         basicStandards(lgNames_);
-        lgNames_.setAliasRate("java.lang.Long");
-        lgNames_.setAliasDataBase("code.formathtml.classes.SimpleDataBase");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
@@ -434,7 +434,7 @@ public final class RenderInitNavTest extends CommonRender {
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
-        n_.loadConfiguration(xmlConf_,lgNames_,null);
+        n_.loadConfiguration(xmlConf_,lgNames_);
         n_.setFiles(files_);
         n_.setupRendClasses();
         n_.initializeRendSession();
@@ -513,7 +513,7 @@ public final class RenderInitNavTest extends CommonRender {
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
-        n_.loadConfiguration(xmlConf_,lgNames_,null);
+        n_.loadConfiguration(xmlConf_,lgNames_);
         assertTrue(n_.isError());
     }
     @Test
@@ -550,7 +550,7 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("page2.html", htmlTwo_);
         String xmlConf_ = "";
         Navigation n_ = new Navigation();
-        n_.loadConfiguration(xmlConf_,lgNames_,null);
+        n_.loadConfiguration(xmlConf_,lgNames_);
         assertTrue(n_.isError());
     }
     @Test

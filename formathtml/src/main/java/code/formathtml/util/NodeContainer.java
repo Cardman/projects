@@ -13,9 +13,6 @@ public class NodeContainer {
 
     private Struct typedField = NullStruct.NULL_VALUE;
 
-    private String access;
-
-    private boolean key;
     private ClassField idField;
     private String varPrevName;
     private String varName;
@@ -23,10 +20,6 @@ public class NodeContainer {
     private CustList<RendDynOperationNode> opsWrite;
     private CustList<RendDynOperationNode> opsConvert;
     private boolean arrayConverter;
-
-    private long index = -1;
-
-    private String beanName;
 
     private final NodeInformations nodeInformation = new NodeInformations();
 
@@ -50,36 +43,12 @@ public class NodeContainer {
         return nodeInformation.getValue();
     }
 
-    public String getAccess() {
-        return access;
-    }
-
-    public void setAccess(String _access) {
-        access = _access;
-    }
-
     public ClassField getIdField() {
         return idField;
     }
 
     public void setIdField(ClassField _idField) {
         idField = _idField;
-    }
-
-    public long getIndex() {
-        return index;
-    }
-
-    public void setIndex(long _index) {
-        index = _index;
-    }
-
-    public String getBeanName() {
-        return beanName;
-    }
-
-    public void setBeanName(String _beanName) {
-        beanName = _beanName;
     }
 
     public NodeInformations getNodeInformation() {
@@ -92,14 +61,6 @@ public class NodeContainer {
 
     public void setEnabled(boolean _enabled) {
         enabled = _enabled;
-    }
-
-    public boolean isKey() {
-        return key;
-    }
-
-    public void setKey(boolean _key) {
-        key = _key;
     }
 
     public String getVarPrevName() {

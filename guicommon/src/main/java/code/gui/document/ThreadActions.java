@@ -1,19 +1,13 @@
 package code.gui.document;
 
-import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.OverridableBlock;
 import code.expressionlanguage.methods.ProcessMethod;
-import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.stds.LgNames;
@@ -66,7 +60,6 @@ public final class ThreadActions implements Runnable {
         refresh = _refresh;
         fileName = _fileName;
         usedFirstUrl = _usedFirstUrl;
-        initTimer();
     }
 
     public ThreadActions(RenderedPage _page, BeanLgNames _lgNames, String _anchor, String _fileName, StringMap<String> _fileNames, boolean _form, boolean _refresh, boolean _usedFirstUrl) {
@@ -79,7 +72,6 @@ public final class ThreadActions implements Runnable {
         fileName = _fileName;
         fileNames = _fileNames;
         usedFirstUrl = _usedFirstUrl;
-        initTimer();
     }
 
     public void setClassDbName(String _classDbName) {
@@ -90,13 +82,6 @@ public final class ThreadActions implements Runnable {
         methodName = _methodName;
     }
 
-    private void initTimer() {
-        page.getNavigation().getSession().setInterrupt(false);
-//        if (session.getLabel() != null) {
-//            timer = new Timer(DELTA, new Chronometer(session.getLabel(), session, 0));
-//            timer.start();
-//        }
-    }
     @Override
     public void run() {
         if (refresh) {
@@ -115,12 +100,12 @@ public final class ThreadActions implements Runnable {
                 afterAction();
                 return;
             }
-            page.getNavigation().loadConfiguration(content_, stds, new InterruptImpl());
+            page.getNavigation().loadConfiguration(content_, stds);
             if (!page.getNavigation().isError()) {
                 HtmlPage htmlPage_ = page.getNavigation().getHtmlPage();
                 htmlPage_.setUrl(-1);
                 if (fileNames == null) {
-                    RenderedPage.updateFiles(page.getNavigation());
+                    page.updateFiles();
                     page.getNavigation().setupRendClasses();
                 } else {
                     page.getNavigation().setFiles(fileNames);
@@ -194,12 +179,6 @@ public final class ThreadActions implements Runnable {
             context_.setException(null);
             finish();
             return;
-        }
-        if (conf_.isInterrupt()) {
-            if (page.isProcessing()) {
-                finish();
-                return;
-            }
         }
         if (!page.isProcessing()) {
             return;

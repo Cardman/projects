@@ -23,7 +23,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
     private String beanName;
     private CustList<RendBlock> bodies = new CustList<RendBlock>();
     private StringList imports = new StringList();
-    RendDocumentBlock(Element _elt, String _file, OffsetsBlock _offset, String _fileName) {
+    public RendDocumentBlock(Element _elt, String _file, OffsetsBlock _offset, String _fileName) {
         super(_offset);
         elt = _elt;
         file = _file;
@@ -221,12 +221,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
 
     @Override
     public StringList getFileImports() {
-        return imports;
-    }
-
-    @Override
-    public CustList<TypeVar> getParamTypesMapValues() {
-        return new CustList<TypeVar>();
+        return getImports();
     }
 
     @Override

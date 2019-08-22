@@ -866,7 +866,6 @@ public abstract class ContextEl implements ExecutableCode {
         return analyzing.getParameters();
     }
 
-    @Override
     public int getOffset() {
         return analyzing.getOffset();
     }
@@ -1010,7 +1009,6 @@ public abstract class ContextEl implements ExecutableCode {
         analyzing.setFinalVariable(_finalVariable);
     }
 
-    @Override
     public AssignedVariablesBlock getAssignedVariables() {
         return analyzing.getAssignedVariables();
     }
@@ -1020,7 +1018,6 @@ public abstract class ContextEl implements ExecutableCode {
         return analyzing.getLocalVars();
     }
 
-    @Override
     public boolean isFinalLocalVar(String _key, int _index) {
         return analyzing.isFinalLocalVar(_key, _index);
     }
@@ -1032,11 +1029,6 @@ public abstract class ContextEl implements ExecutableCode {
 
     @Override
     public ContextEl getContextEl() {
-        return this;
-    }
-
-    @Override
-    public ExecutableCode getCurrentExec() {
         return this;
     }
 
@@ -1283,8 +1275,8 @@ public abstract class ContextEl implements ExecutableCode {
                 static_ = fct_.isStaticContext();
             }
         }
-        if (!static_) {
-            for (TypeVar t: r_.getParamTypesMapValues()) {
+        if (r_ instanceof RootBlock && !static_) {
+            for (TypeVar t: ((RootBlock)r_).getParamTypesMapValues()) {
                 vars_.put(t.getName(), t.getConstraints());
             }
         }
@@ -2496,27 +2488,22 @@ public abstract class ContextEl implements ExecutableCode {
         return analyzing.getVariablesNames();
     }
 
-    @Override
     public boolean isAssignedStaticFields() {
         return analyzing.isAssignedStaticFields();
     }
 
-    @Override
     public void setAssignedStaticFields(boolean _assignedStaticFields) {
         analyzing.setAssignedStaticFields(_assignedStaticFields);
     }
 
-    @Override
     public boolean isAssignedFields() {
         return analyzing.isAssignedFields();
     }
 
-    @Override
     public void setAssignedFields(boolean _assignedFields) {
         analyzing.setAssignedFields(_assignedFields);
     }
 
-    @Override
     public boolean isFinalMutableLoopVar(String _key, int _index) {
         return analyzing.isFinalMutableLoopVar(_key,_index);
     }
@@ -2546,7 +2533,6 @@ public abstract class ContextEl implements ExecutableCode {
         analyzing.setForLoopPartState(_state);
     }
 
-    @Override
     public AnalyzingEl getAnalysisAss() {
         return analyzing.getAnalysisAss();
     }
@@ -2556,7 +2542,6 @@ public abstract class ContextEl implements ExecutableCode {
         return analyzing.isAnnotAnalysis();
     }
 
-    @Override
     public void setAnnotAnalysis(boolean _ana) {
         analyzing.setAnnotAnalysis(_ana);
     }
@@ -2616,7 +2601,6 @@ public abstract class ContextEl implements ExecutableCode {
         return keyWords;
     }
 
-    @Override
     public void setKeyWords(KeyWords _keyWords) {
         keyWords = _keyWords;
     }

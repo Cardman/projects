@@ -2061,6 +2061,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("  mess;.setArgs(\"an arg\"):");
         file_.append("  $var form = mess;.format():");
         file_.append("  $var args = mess;.getArgs():");
+        file_.append("  $ObjectsUtil.getParent(mess;.):");
         file_.append("  $var mess2 = Message.newStandardMessage():");
         file_.append("  mess2;.setArgs((String)$null):");
         file_.append("  mess2;.getArgs():");

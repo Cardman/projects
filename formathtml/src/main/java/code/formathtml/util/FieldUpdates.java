@@ -6,7 +6,6 @@ import code.util.CustList;
 
 public final class FieldUpdates {
     private CustList<RendDynOperationNode> opsRead = new CustList<RendDynOperationNode>();
-    private CustList<RendDynOperationNode> opsValue = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsWrite = new CustList<RendDynOperationNode>();
     private String varName = "";
     private ClassField idField;
@@ -28,14 +27,6 @@ public final class FieldUpdates {
 
     public void setOpsRead(CustList<RendDynOperationNode> _opsRead) {
         opsRead = _opsRead;
-    }
-
-    public CustList<RendDynOperationNode> getOpsValue() {
-        return opsValue;
-    }
-
-    public void setOpsValue(CustList<RendDynOperationNode> _opsValue) {
-        opsValue = _opsValue;
     }
 
     public CustList<RendDynOperationNode> getOpsWrite() {

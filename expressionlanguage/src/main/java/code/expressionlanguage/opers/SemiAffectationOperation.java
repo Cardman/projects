@@ -89,7 +89,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
         Block block_ = _conf.getCurrentBlock();
-        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
+        AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
         StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
         CustList<StringMap<Assignment>> mutableAfter_ = new CustList<StringMap<Assignment>>();
@@ -106,7 +106,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                 for (EntryCust<String, Assignment> e: s.entryList()) {
                     if (StringList.quickEq(str_, e.getKey())) {
                         if (!e.getValue().isUnassignedAfter()) {
-                            if (_conf.isFinalLocalVar(str_,index_)) {
+                            if (_conf.getContextEl().isFinalLocalVar(str_,index_)) {
                                 //error
                                 firstChild_.setRelativeOffsetPossibleAnalyzable(firstChild_.getIndexInEl(), _conf);
                                 UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
@@ -137,7 +137,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                 for (EntryCust<String, Assignment> e: s.entryList()) {
                     if (StringList.quickEq(str_, e.getKey())) {
                         if (!e.getValue().isUnassignedAfter()) {
-                            if (_conf.isFinalMutableLoopVar(str_,index_)) {
+                            if (_conf.getContextEl().isFinalMutableLoopVar(str_,index_)) {
                                 //error
                                 firstChild_.setRelativeOffsetPossibleAnalyzable(firstChild_.getIndexInEl(), _conf);
                                 UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();

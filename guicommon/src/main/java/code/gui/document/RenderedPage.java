@@ -28,6 +28,7 @@ public final class RenderedPage implements ProcessingSession {
     private DualPanel page;
     private final ScrollPane scroll;
     private Navigation navigation;
+    private String resourcesFolder;
     private IdMap<MetaComponent,DualComponent> refs = new IdMap<MetaComponent,DualComponent>();
     private FindEvent finding;
 
@@ -65,7 +66,6 @@ public final class RenderedPage implements ProcessingSession {
     public void initNav() {
         navigation = new Navigation();
         navigation.setSession(new Configuration());
-        navigation.getSession().setupInterrupt(new InterruptImpl());
     }
 
     public void setFiles(String _url) {
@@ -78,7 +78,7 @@ public final class RenderedPage implements ProcessingSession {
 
     public void setFiles(StringMap<String> _web, String _url) {
         navigation.setFiles(_web);
-        navigation.setResourcesFolder(_url);
+        resourcesFolder = _url;
     }
 
     public void setLanguage(String _language) {
@@ -99,12 +99,12 @@ public final class RenderedPage implements ProcessingSession {
         start();
         standards = _stds;
         String content_ = ResourceFiles.ressourceFichier(_conf);
-        navigation.loadConfiguration(content_, _stds, new InterruptImpl());
+        navigation.loadConfiguration(content_, _stds);
         if (navigation.isError()) {
             setupText();
             return;
         }
-        updateFiles(navigation);
+        updateFiles();
         navigation.setupRendClasses();
         navigation.initializeRendSession();
         setupText();
@@ -142,13 +142,13 @@ public final class RenderedPage implements ProcessingSession {
         start();
         standards = _lgNames;
         String content_ = ResourceFiles.ressourceFichier(_conf);
-        navigation.loadConfiguration(content_, _lgNames, new InterruptImpl());
+        navigation.loadConfiguration(content_, _lgNames);
         if (navigation.isError()) {
             setupText();
             finish(false);
             return;
         }
-        updateFiles(navigation);
+        updateFiles();
         navigation.setupRendClasses();
         navigation.initializeRendSession();
         setupText();
@@ -182,44 +182,39 @@ public final class RenderedPage implements ProcessingSession {
         start();
         standards = _lgNames;
         String content_ = ResourceFiles.ressourceFichier(_conf);
-        navigation.loadConfiguration(content_, _lgNames, new InterruptImpl());
+        navigation.loadConfiguration(content_, _lgNames);
         if (navigation.isError()) {
             setupText();
             return;
         }
-        updateFiles(navigation);
+        updateFiles();
         navigation.setupRendClasses();
         navigation.initializeRendSession();
         setupText();
     }
 
-    static void updateFiles(Navigation _navigation) {
-        String lg_ = _navigation.getLanguage();
+    void updateFiles() {
+        String lg_ = navigation.getLanguage();
         StringMap<String> files_ = new StringMap<String>();
-        Configuration session_ = _navigation.getSession();
-        String resourcesFolder_ = _navigation.getResourcesFolder();
+        Configuration session_ = navigation.getSession();
         for (String a: session_.getAddedFiles()) {
-            String name_ = StringList.concat(resourcesFolder_, a);
+            String name_ = StringList.concat(resourcesFolder, a);
             files_.put(a,ResourceFiles.ressourceFichier(name_));
         }
-        for (String l: _navigation.getLanguages()) {
+        for (String l: navigation.getLanguages()) {
             for (String a: session_.getProperties().values()) {
                 String folder_ = session_.getMessagesFolder();
                 String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,l,a);
-                files_.put(fileName_,ResourceFiles.ressourceFichier(StringList.concat(resourcesFolder_,fileName_)));
+                files_.put(fileName_,ResourceFiles.ressourceFichier(StringList.concat(resourcesFolder,fileName_)));
             }
         }
         String realFilePath_ = getRealFilePath(lg_, session_.getFirstUrl());
-        String rel_ = StringList.concat(resourcesFolder_,realFilePath_);
+        String rel_ = StringList.concat(resourcesFolder,realFilePath_);
         files_.put(realFilePath_,ResourceFiles.ressourceFichier(rel_));
-        _navigation.setFiles(files_);
+        navigation.setFiles(files_);
     }
     public void start() {
         processing.set(true);
-    }
-
-    public void interrupt() {
-        navigation.getSession().setInterrupt(true);
     }
 
     public void finish(boolean _wait) {

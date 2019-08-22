@@ -28,7 +28,7 @@ public final class RenderTitledAnchorTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setHtml(html_);
+        
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
         setLocale(locale_, conf_);
@@ -37,7 +37,7 @@ public final class RenderTitledAnchorTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><body><a title=\"desc &amp;lt;TITLE&amp;gt;\">Content</a></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -58,7 +58,7 @@ public final class RenderTitledAnchorTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setHtml(html_);
+        
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
         setLocale(locale_, conf_);
@@ -67,7 +67,7 @@ public final class RenderTitledAnchorTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -88,7 +88,7 @@ public final class RenderTitledAnchorTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.setHtml(html_);
+        
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.getAnalyzingDoc().setFiles(files_);
         setLocale(locale_, conf_);
@@ -97,7 +97,7 @@ public final class RenderTitledAnchorTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(!conf_.getClasses().isEmptyErrors());
     }

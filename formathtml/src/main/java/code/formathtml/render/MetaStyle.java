@@ -21,6 +21,7 @@ public final class MetaStyle {
 
     private String fontFamily = "Default";
 
+    private int em = 1;
     private int emToPixels = 16;
 
     private int delta;
@@ -44,29 +45,25 @@ public final class MetaStyle {
     public int getRealSize() {
         if (size == 0) {
             if (delta == 6) {
-                return emToPixels * 2;
+                return em*emToPixels * 2;
             }
             if (delta == 5) {
-                return emToPixels * 3 / 2;
+                return em*emToPixels * 3 / 2;
             }
             if (delta == 4) {
-                return emToPixels * 7 / 6;
+                return em*emToPixels * 7 / 6;
             }
             if (delta == 3) {
-                return emToPixels;
+                return em*emToPixels;
             }
             if (delta == 2) {
-                return emToPixels * 5 / 6;
+                return em*emToPixels * 5 / 6;
             }
             if (delta == 1) {
-                return emToPixels * 2 / 3;
+                return em*emToPixels * 2 / 3;
             }
-            return emToPixels;
+            return em*emToPixels;
         }
-        return size;
-    }
-
-    public int getSize() {
         return size;
     }
 
@@ -126,8 +123,8 @@ public final class MetaStyle {
         return emToPixels;
     }
 
-    public void setEmToPixels(int _emToPixels) {
-        emToPixels = _emToPixels;
+    public void setEm(int _em) {
+        em = _em;
     }
 
     public int getDelta() {

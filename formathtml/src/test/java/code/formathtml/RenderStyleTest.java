@@ -32,7 +32,7 @@ public final class RenderStyleTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><head><link href=\"main.css\" rel=\"stylesheet\"/><style>.classTest{color:blue;}</style></head><style>.classTest{color:blue;}CONTENT</style><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -57,7 +57,7 @@ public final class RenderStyleTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><head><link href=\"main.css\" rel=\"stylesheet\"/><style>.classTest{color:blue;}</style></head><style>{0}CONTENT</style><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -82,7 +82,7 @@ public final class RenderStyleTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><head><style>CONTENT.classTest{color:blue;}</style><link href=\"main.css\" rel=\"stylesheet\"/></head><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -107,7 +107,7 @@ public final class RenderStyleTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><head><style>.classTest{color:blue;}</style><link href=\"main.css\" rel=\"stylesheet\"/></head><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -132,7 +132,7 @@ public final class RenderStyleTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><head><link rel=\"stylesheet\"/></head><style>CONTENT</style><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -157,7 +157,7 @@ public final class RenderStyleTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><link href=\"main.css\" rel=\"stylesheet\"/><style>.classTest{color:blue;}CONTENT</style><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -182,7 +182,7 @@ public final class RenderStyleTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><head><link href=\"main.css\"/></head><style>CONTENT</style><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -207,7 +207,7 @@ public final class RenderStyleTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         assertEq("<html><head><link href=\"main.css\" rel=\"stylesheet\"/></head><style>CONTENT</style><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -232,7 +232,7 @@ public final class RenderStyleTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);

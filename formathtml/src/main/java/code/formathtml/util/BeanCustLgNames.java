@@ -10,6 +10,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.VariableSuffix;
@@ -1173,6 +1174,69 @@ public final class BeanCustLgNames extends BeanLgNames {
             return "";
         }
         return arg_.getString();
+    }
+
+    public ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context) {
+        return new ResultErrorStd();
+    }
+    @Override
+    public StringList allRefTypes() {
+        StringList types_ = super.allRefTypes();
+        types_.add(getAliasValidator());
+        types_.add(getAliasStringMapObject());
+        types_.add(getAliasBean());
+        return types_;
+    }
+
+    @Override
+    public StringMap<StringList> allTableTypeMethodNames() {
+        StringMap<StringList> methods_ = super.allTableTypeMethodNames();
+        methods_.put(getAliasValidator(),new StringList(getAliasValidate()));
+        methods_.put(getAliasStringMapObject(),new StringList(
+                getAliasMapGetVal(),
+                getAliasMapPut(),
+                getAliasMapPutAll(),
+                getAliasMapIndexOfEntry(),
+                getAliasMapAddEntry(),
+                getAliasMapContains(),
+                getAliasMapSize(),
+                getAliasMapIsEmpty(),
+                getAliasMapClear(),
+                getAliasMapRemoveKey(),
+                getAliasMapFirstValue(),
+                getAliasMapLastValue(),
+                getAliasMapGetValue(),
+                getAliasMapSetValue(),
+                getAliasMapFirstKey(),
+                getAliasMapLastKey(),
+                getAliasMapGetKey(),
+                getAliasMapSetKey()
+        ));
+        methods_.put(getAliasBean(),new StringList(
+                getAliasBeforeDisplaying(),
+                getAliasGetDataBase(),
+                getAliasGetLanguage(),
+                getAliasGetScope(),
+                getAliasGetForms(),
+                getAliasSetDataBase(),
+                getAliasSetLanguage(),
+                getAliasSetScope(),
+                getAliasSetForms()
+        ));
+        return methods_;
+    }
+
+    @Override
+    public StringMap<StringList> allTableTypeFieldNames() {
+        StringMap<StringList> fields_ = super.allTableTypeFieldNames();
+        fields_.put(getAliasMessage(),
+                new StringList(getAliasMapKeys(),getAliasMapValues()));
+        fields_.put(getAliasBean(),
+                new StringList(getAliasForms(),
+                        getAliasLanguage(),
+                        getAliasDataBaseField(),
+                        getAliasScope()));
+        return fields_;
     }
 
     public String getAliasMapKeys() {

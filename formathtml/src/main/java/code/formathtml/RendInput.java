@@ -108,7 +108,6 @@ public abstract class RendInput extends RendElement {
         f_.setIdField(idField);
         f_.setOpsRead(opsRead);
         f_.setOpsWrite(opsWrite);
-        f_.setOpsValue(opsValue);
         f_.setVarName(varName);
         f_.setVarNameConverter(varNameConverter);
         f_.setOpsConverter(opsConverter);

@@ -112,7 +112,7 @@ public final class RenderRadioTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         String res_ = RendBlock.getRes(rendDocumentBlock_, conf_);
@@ -165,7 +165,7 @@ public final class RenderRadioTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         String res_ = RendBlock.getRes(rendDocumentBlock_, conf_);
@@ -218,7 +218,7 @@ public final class RenderRadioTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         String res_ = RendBlock.getRes(rendDocumentBlock_, conf_);
@@ -271,7 +271,7 @@ public final class RenderRadioTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         String res_ = RendBlock.getRes(rendDocumentBlock_, conf_);
@@ -372,7 +372,7 @@ public final class RenderRadioTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, conf_);
@@ -422,7 +422,7 @@ public final class RenderRadioTest extends CommonRender {
         conf_.getContext().setAnalyzing(new AnalyzedPageEl());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
-        conf_.setHtml(html_);
+        
         conf_.setDocument(doc_);
         assertTrue(conf_.getClasses().isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, conf_);

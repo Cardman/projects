@@ -23,8 +23,6 @@ public final class InitializationLgNames {
     public static ContextEl buildStdOne(Options _opt) {
         BeanLgNames lgNames_ = new CustBeanLgNames();
         basicStandards(lgNames_);
-        lgNames_.setAliasRate("java.lang.Long");
-        lgNames_.setAliasDataBase("code.formathtml.classes.SimpleDataBase");
         ContextEl context_ = build(CustList.INDEX_NOT_FOUND_ELT,lgNames_, _opt);
         Assert.assertTrue(context_.getClasses().isEmptyStdError());
         return context_;
@@ -38,7 +36,8 @@ public final class InitializationLgNames {
         return context_;
     }
     public static ContextEl buildStdThree(Options _opt) {
-        BeanLgNames lgNames_ = new BeanCustLgNames();
+        BeanCustLgNames lgNames_ = new BeanCustLgNames();
+        basicCustStandards(lgNames_);
         basicStandards(lgNames_);
         lgNames_.setAliasMath("java.lang.$math");
         ContextEl context_ = build(CustList.INDEX_NOT_FOUND_ELT,lgNames_, _opt);
@@ -53,7 +52,51 @@ public final class InitializationLgNames {
         return out_;
     }
 
+    private static void basicCustStandards(BeanCustLgNames _lgNames) {
+        _lgNames.setAliasMapKeys("keys");
+        _lgNames.setAliasMapValues("values");
+        _lgNames.setAliasMapIndexOfEntry("indexOfEntry");
+        _lgNames.setAliasMapAddEntry("addEntry");
+        _lgNames.setAliasMapGetValue("getValue");
+        _lgNames.setAliasMapFirstValue("firstValue");
+        _lgNames.setAliasMapLastValue("lastValue");
+        _lgNames.setAliasMapSetValue("setValue");
+        _lgNames.setAliasMapPut("put");
+        _lgNames.setAliasMapPutAll("putAll");
+        _lgNames.setAliasMapContains("contains");
+        _lgNames.setAliasMapGetVal("getVal");
+        _lgNames.setAliasMapRemoveKey("removeKey");
+        _lgNames.setAliasMapGetKey("getKey");
+        _lgNames.setAliasMapFirstKey("firstKey");
+        _lgNames.setAliasMapLastKey("lastKey");
+        _lgNames.setAliasMapSetKey("setKey");
+        _lgNames.setAliasMapSize("size");
+        _lgNames.setAliasMapIsEmpty("isEmpty");
+        _lgNames.setAliasMapClear("clear");
+        _lgNames.setAliasValidator("code.bean.Validator");
+        _lgNames.setAliasValidate("validate");
+    }
     private static void basicStandards(BeanLgNames _lgNames) {
+        _lgNames.setAliasStringMapObject("code.util.StringMapObject");
+        _lgNames.setAliasBean("code.bean.Bean");
+        _lgNames.setAliasForms("forms");
+        _lgNames.setAliasGetForms("getForms");
+        _lgNames.setAliasSetForms("setForms");
+        _lgNames.setAliasLanguage("language");
+        _lgNames.setAliasGetLanguage("getLanguage");
+        _lgNames.setAliasSetLanguage("setLanguage");
+        _lgNames.setAliasScope("scope");
+        _lgNames.setAliasGetScope("getScope");
+        _lgNames.setAliasSetScope("setScope");
+        _lgNames.setAliasDataBaseField("dataBase");
+        _lgNames.setAliasGetDataBase("getDataBase");
+        _lgNames.setAliasSetDataBase("setDataBase");
+        _lgNames.setAliasBeforeDisplaying("beforeDisplaying");
+        _lgNames.setAliasMessage("code.bean.Message");
+        _lgNames.setAliasNewMessage("newStandardMessage");
+        _lgNames.setAliasMessageFormat("format");
+        _lgNames.setAliasMessageGetArgs("getArgs");
+        _lgNames.setAliasMessageSetArgs("setArgs");
         _lgNames.setDefaultPkg("java.lang");
         _lgNames.setAliasObject("java.lang.Object");
         _lgNames.setAliasVoid("$void");

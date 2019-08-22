@@ -116,7 +116,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
         if (pBlock_ != null) {
             prev_.add(pBlock_);
         }
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         AssignedBooleanVariables assTar_ = (AssignedBooleanVariables) id_.getVal(this);
         StringMap<SimpleAssignment> after_;
         CustList<StringMap<SimpleAssignment>> afterVars_;

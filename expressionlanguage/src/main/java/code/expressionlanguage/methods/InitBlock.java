@@ -35,9 +35,9 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
             prev_ = prev_.getPreviousSibling();
         }
         AssignedVariables ass_;
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         if (prev_ == null) {
-            ass_ = _an.getAssignedVariables().getFinalVariablesGlobal();
+            ass_ = _an.getContextEl().getAssignedVariables().getFinalVariablesGlobal();
             id_.put(this, ass_);
         } else {
             AssignedVariables parAss_ = id_.getVal(prev_);
@@ -50,7 +50,7 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
     @Override
     public void setAssignmentAfterCall(Analyzable _an, AnalyzingEl _anEl) {
         setAssignmentAfter(_an,_anEl);
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         for (EntryCust<ReturnMehod, StringMap<SimpleAssignment>> r: _anEl.getAssignments().entryList()) {
             for (EntryCust<String, SimpleAssignment> f: r.getValue().entryList()) {
                 checkAssignments(_an, f);

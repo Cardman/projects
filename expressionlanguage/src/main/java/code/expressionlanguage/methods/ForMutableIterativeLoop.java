@@ -185,7 +185,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
     }
     @Override
     public void defaultAssignmentBefore(Analyzable _an, OperationNode _root) {
-        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
+        AssignedVariables vars_ = _an.getContextEl().getAssignedVariables().getFinalVariables().getVal(this);
         StringMap<AssignmentBefore> fields_;
         CustList<StringMap<AssignmentBefore>> variables_;
         fields_ = new StringMap<AssignmentBefore>();
@@ -207,9 +207,9 @@ public final class ForMutableIterativeLoop extends BracedStack implements
                 mutable_.addAllElts(AssignmentsUtil.assignSimpleBefore(vars_.getMutableLoopRoot()));
             }
         } else {
-            fields_ = buildAssListFieldBeforeIncrPart(_an, _an.getAnalysisAss());
-            variables_ = buildAssListLocVarBeforeIncrPart(_an, _an.getAnalysisAss());
-            mutable_ = buildAssListMutableLoopBeforeIncrPart(_an, _an.getAnalysisAss());
+            fields_ = buildAssListFieldBeforeIncrPart(_an, _an.getContextEl().getAnalysisAss());
+            variables_ = buildAssListLocVarBeforeIncrPart(_an, _an.getContextEl().getAnalysisAss());
+            mutable_ = buildAssListMutableLoopBeforeIncrPart(_an, _an.getContextEl().getAnalysisAss());
         }
         vars_.getFieldsBefore().put(_root, fields_);
         vars_.getVariablesBefore().put(_root, variables_);
@@ -222,7 +222,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
     }
     @Override
     public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         AssignedVariables prevAss_ = id_.getVal(this);
         Block nextSibling_ = getNextSibling();
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
@@ -328,7 +328,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
 
     @Override
     public void defaultAssignmentAfter(Analyzable _an, OperationNode _root) {
-        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
+        AssignedVariables vars_ = _an.getContextEl().getAssignedVariables().getFinalVariables().getVal(this);
         if (_an.getForLoopPartState() == ForLoopPart.INIT) {
             AssignedBooleanLoopVariables loop_ = (AssignedBooleanLoopVariables) vars_;
             StringMap<Assignment> res_ = vars_.getLastFieldsOrEmpty();
@@ -410,7 +410,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         }
         CustList<ContinueBlock> continues_ = getContinuables(_anEl);
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         StringMap<AssignmentBefore> list_;
         list_ = makeHypothesisFields(_an);
         int contLen_ = continues_.size();
@@ -436,7 +436,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         }
         CustList<ContinueBlock> continues_ = getContinuables(_anEl);
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         CustList<StringMap<AssignmentBefore>> varsList_;
         varsList_ = new CustList<StringMap<AssignmentBefore>>();
         CustList<StringMap<AssignmentBefore>> list_;
@@ -471,7 +471,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         }
         CustList<ContinueBlock> continues_ = getContinuables(_anEl);
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         CustList<StringMap<AssignmentBefore>> varsList_;
         varsList_ = new CustList<StringMap<AssignmentBefore>>();
         CustList<StringMap<AssignmentBefore>> list_;
@@ -501,7 +501,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
     }
     @Override
     protected StringMap<AssignmentBefore> makeHypothesisFields(Analyzable _an) {
-        AssignedBooleanLoopVariables vars_ = (AssignedBooleanLoopVariables) _an.getAssignedVariables().getFinalVariables().getVal(this);
+        AssignedBooleanLoopVariables vars_ = (AssignedBooleanLoopVariables) _an.getContextEl().getAssignedVariables().getFinalVariables().getVal(this);
         StringMap<AssignmentBefore> fields_;
         if (opInit.isEmpty()) {
             fields_ = AssignmentsUtil.getHypoAssignmentBefore(vars_.getFieldsRootBefore());
@@ -512,7 +512,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
     }
     @Override
     protected CustList<StringMap<AssignmentBefore>> makeHypothesisVars(Analyzable _an) {
-        AssignedBooleanLoopVariables vars_ = (AssignedBooleanLoopVariables) _an.getAssignedVariables().getFinalVariables().getVal(this);
+        AssignedBooleanLoopVariables vars_ = (AssignedBooleanLoopVariables) _an.getContextEl().getAssignedVariables().getFinalVariables().getVal(this);
         CustList<StringMap<AssignmentBefore>> variables_;
         variables_ = new CustList<StringMap<AssignmentBefore>>();
         if (opInit.isEmpty()) {
@@ -531,7 +531,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
 
     @Override
     protected CustList<StringMap<AssignmentBefore>> makeHypothesisMutableLoop(Analyzable _an) {
-        AssignedBooleanLoopVariables vars_ = (AssignedBooleanLoopVariables) _an.getAssignedVariables().getFinalVariables().getVal(this);
+        AssignedBooleanLoopVariables vars_ = (AssignedBooleanLoopVariables) _an.getContextEl().getAssignedVariables().getFinalVariables().getVal(this);
         CustList<StringMap<AssignmentBefore>> variables_;
         variables_ = new CustList<StringMap<AssignmentBefore>>();
         if (opInit.isEmpty()) {

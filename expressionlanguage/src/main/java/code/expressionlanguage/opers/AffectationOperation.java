@@ -182,7 +182,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
         Block block_ = _conf.getCurrentBlock();
-        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
+        AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
         if (vars_ instanceof AssignedBooleanLoopVariables) {
             ((AssignedBooleanLoopVariables)vars_).add(this, _conf);
         }
@@ -201,7 +201,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
                 int index_ = variablesAfter_.size();
                 for (EntryCust<String, Assignment> e: s.entryList()) {
                     if (StringList.quickEq(str_, e.getKey()) && ElUtil.checkFinalVar(_conf, e.getValue())) {
-                        if (_conf.isFinalLocalVar(str_,index_)) {
+                        if (_conf.getContextEl().isFinalLocalVar(str_,index_)) {
                             //error
                             firstChild_.setRelativeOffsetPossibleAnalyzable(firstChild_.getIndexInEl(), _conf);
                             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
@@ -228,7 +228,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
                 int index_ = mutableAfter_.size();
                 for (EntryCust<String, Assignment> e: s.entryList()) {
                     if (StringList.quickEq(str_, e.getKey()) && ElUtil.checkFinalVar(_conf, e.getValue())) {
-                        if (_conf.isFinalMutableLoopVar(str_,index_)) {
+                        if (_conf.getContextEl().isFinalMutableLoopVar(str_,index_)) {
                             //error
                             firstChild_.setRelativeOffsetPossibleAnalyzable(firstChild_.getIndexInEl(), _conf);
                             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();

@@ -33,13 +33,6 @@ public final class DialogHtmlData extends Dialog {
         setAccessFile(DIALOG_ACCESS);
     }
 
-    @Override
-    public void closeWindow() {
-        session.interrupt();
-        super.closeWindow();
-//        session.clearSession();
-    }
-
 //    public static void setDialogHtmlData(JDialog _parent, String _title, SessionEditorPane _session) {
 
 //    }

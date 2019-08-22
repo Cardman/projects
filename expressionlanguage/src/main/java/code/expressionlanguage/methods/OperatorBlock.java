@@ -98,11 +98,6 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
     }
 
     @Override
-    public CustList<TypeVar> getParamTypesMapValues() {
-        return new CustList<TypeVar>();
-    }
-
-    @Override
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
         int begName_ = getNameOffset();
         int endName_ = begName_ + getName().length();

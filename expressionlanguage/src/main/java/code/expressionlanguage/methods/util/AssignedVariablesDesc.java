@@ -14,7 +14,7 @@ public final class AssignedVariablesDesc {
         IdMap<Block, AssignedVariables> allDesc_ = new IdMap<Block, AssignedVariables>();
         boolean add_ = false;
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
         AssignedVariables varsWhile_ = null;
         for (EntryCust<Block, AssignedVariables> e: id_.entryList()) {
             if (e.getKey() == _b) {

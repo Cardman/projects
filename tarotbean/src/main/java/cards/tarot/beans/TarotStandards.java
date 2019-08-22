@@ -839,4 +839,14 @@ public final class TarotStandards extends BeanNatLgNames {
         }
         return StdStruct.newInstance(_element, className_);
     }
+    public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
+        return new ResultErrorStd();
+    }
+    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
+        return new ResultErrorStd();
+    }
+    public ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context) {
+        return new ResultErrorStd();
+    }
+
 }

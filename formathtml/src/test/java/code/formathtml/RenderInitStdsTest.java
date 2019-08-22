@@ -7,12 +7,24 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.variables.VariableSuffix;
+import code.formathtml.classes.BeanOne;
+import code.formathtml.classes.SimpleRender;
+import code.formathtml.structs.BeanStruct;
+import code.formathtml.structs.StdStruct;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.Bytes;
+import code.util.Ints;
+import code.util.Longs;
 import code.util.StringMap;
 import org.junit.Test;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 public final class RenderInitStdsTest {
@@ -63,6 +75,28 @@ public final class RenderInitStdsTest {
         k_.setKeyWordElseif("m");
         k_.setKeyWordElse("index");
         contextEl(o_,b_,k_);
+    }
+    @Test
+    public void process6Test() {
+        new BeanCustLgNames().getOtherStructToBeValidated(null,null,null);
+        SimpleRender simpleRender_ = new SimpleRender();
+        simpleRender_.exitStack(null);
+        RendDocumentBlock doc_ = new RendDocumentBlock(null,null,null,null);
+        doc_.buildExpressionLanguage(null,null);
+        BeanOne b_ = new BeanOne();
+        b_.setLanguage("");
+        assertNotNull(b_.getLanguage());
+        assertSame(NullStruct.NULL_VALUE,new BeanStruct(b_).getParent());
+        StdStruct s_ = new StdStruct(Rate.zero(),"");
+        assertSame(NullStruct.NULL_VALUE,s_.getParent());
+        s_ = new StdStruct(LgInt.zero(),"");
+        assertSame(NullStruct.NULL_VALUE,s_.getParent());
+        s_ = StdStruct.newListInt(new Ints(),"");
+        assertSame(NullStruct.NULL_VALUE,s_.getParent());
+        s_ = StdStruct.newListLong(new Longs(),"");
+        assertSame(NullStruct.NULL_VALUE,s_.getParent());
+        s_ = StdStruct.newListByte(new Bytes(),"");
+        assertSame(NullStruct.NULL_VALUE,s_.getParent());
     }
     private Configuration contextEl(Options _opt, BeanLgNames _beanLgNames, KeyWords _kw) {
         return contextEl(new StringMap<String>(),_opt,_beanLgNames,_kw);

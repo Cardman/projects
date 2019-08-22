@@ -57,9 +57,6 @@ public abstract class BeanLgNames extends LgNames {
 
     private final String valueChangedEvent = "code.formathtml.util.ValueChangeEvent";
 
-    private String errorEl = "$badEl";
-    private String aliasRate;
-    private String aliasDataBase;
     private String aliasDataBaseField=DATA_BASE;
 
     private final String custEntry = "$custentry";
@@ -393,30 +390,9 @@ public abstract class BeanLgNames extends LgNames {
         return null;
     }
 
-    public ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context) {
-        return new ResultErrorStd();
-    }
-    public String getStdBeanStructClassName(Object _struct, ContextEl _context) {
-        return getAliasObject();
-    }
+    public abstract ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context);
 
 
-
-    public String getAliasRate() {
-        return aliasRate;
-    }
-
-    public void setAliasRate(String _aliasRate) {
-        aliasRate = _aliasRate;
-    }
-
-    public String getAliasDataBase() {
-        return aliasDataBase;
-    }
-
-    public void setAliasDataBase(String _aliasDataBase) {
-        aliasDataBase = _aliasDataBase;
-    }
 
     public String getCustList() {
         return custList;
@@ -445,12 +421,7 @@ public abstract class BeanLgNames extends LgNames {
     public String getValidator() {
         return validator;
     }
-    public String getErrorEl() {
-        return errorEl;
-    }
-    public void setErrorEl(String _errorEl) {
-        errorEl = _errorEl;
-    }
+
     public String getAliasSimpleIteratorType() {
         return aliasSimpleIteratorType;
     }
@@ -466,15 +437,10 @@ public abstract class BeanLgNames extends LgNames {
         aliasDisplayable = _aliasDisplayable;
     }
 
-    public String getAliasGet() {
-        return aliasGet;
-    }
     public void setAliasGet(String _aliasGet) {
         aliasGet = _aliasGet;
     }
-    public String getAliasSize() {
-        return aliasSize;
-    }
+
     public void setAliasSize(String _aliasSize) {
         aliasSize = _aliasSize;
     }
@@ -601,7 +567,7 @@ public abstract class BeanLgNames extends LgNames {
         return aliasMessage;
     }
 
-    public void setAliaMessage(String _aliasMessage) {
+    public void setAliasMessage(String _aliasMessage) {
         aliasMessage = _aliasMessage;
     }
 

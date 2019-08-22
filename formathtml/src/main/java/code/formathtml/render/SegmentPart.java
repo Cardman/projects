@@ -1,8 +1,7 @@
 package code.formathtml.render;
 
-import code.util.ints.Displayable;
 
-public final class SegmentPart implements Displayable {
+public final class SegmentPart {
 
     private int begin;
     private int end;
@@ -16,9 +15,5 @@ public final class SegmentPart implements Displayable {
     }
     public int getEnd() {
         return end;
-    }
-    @Override
-    public String display() {
-        return new StringBuilder().append(begin).append(" to ").append(end).toString();
     }
 }
