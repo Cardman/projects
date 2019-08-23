@@ -3165,11 +3165,11 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " }\n" +
                 " $public $normal $void <a name=\"m218\">add</a>($int index,#U elt){\n" +
                 "  #U[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">newlist</span>=<span style=\"background-color:green;\">$new #U[<span style=\"background-color:green;\"><span style=\"background-color:green;\">length;;;</span>+<span style=\"background-color:green;\">1i</span></span>]</span></span>:\n" +
-                "  $iter($int i=<span style=\"background-color:green;\">0i</span>:<span style=\"background-color:green;\">index;.;</span>:<span style=\"background-color:green;\">1i</span>){\n" +
+                "  <span style=\"background-color:green;\">$iter</span>($int i=<span style=\"background-color:green;\">0i</span>:<span style=\"background-color:green;\">index;.;</span>:<span style=\"background-color:green;\">1i</span>){\n" +
                 "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">newlist;.</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">i;</span>]</span></span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\">list;;;</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">i;</span>]</span></span></span>:\n" +
                 "  }\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">newlist;.</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">index;.;</span>]</span></span>=<span style=\"background-color:green;\">elt;.;</span></span>:\n" +
-                "  $iter($int i=<span style=\"background-color:green;\"><span style=\"background-color:green;\">index;.;</span>+<span style=\"background-color:green;\">1i</span></span>:<span style=\"background-color:green;\"><span style=\"background-color:green;\">length;;;</span>+<span style=\"background-color:green;\">1i</span></span>:<span style=\"background-color:green;\">1i</span>){\n" +
+                "  <span style=\"background-color:yellow;\">$iter</span>($int i=<span style=\"background-color:green;\"><span style=\"background-color:green;\">index;.;</span>+<span style=\"background-color:green;\">1i</span></span>:<span style=\"background-color:green;\"><span style=\"background-color:green;\">length;;;</span>+<span style=\"background-color:green;\">1i</span></span>:<span style=\"background-color:green;\">1i</span>){\n" +
                 "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\">newlist;.</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">i;</span>]</span></span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\">list;;;</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\"><span style=\"background-color:red;\">i;</span>-<span style=\"background-color:red;\">1i</span></span>]</span></span></span>:\n" +
                 "  }\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">length;;;</span>++</span>:\n" +
@@ -3185,7 +3185,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\">list;;;</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">index;.;</span>]</span></span>=<span style=\"background-color:red;\">elt;.;</span></span>:\n" +
                 " }\n" +
                 " $public $normal $void <a name=\"m721\">remove</a>($int index){\n" +
-                "  $iter($int i=<span style=\"background-color:red;\">index;.;</span>:<span style=\"background-color:red;\"><span style=\"background-color:red;\">length;;;</span>-<span style=\"background-color:red;\">1i</span></span>:<span style=\"background-color:red;\">1i</span>){\n" +
+                "  <span style=\"background-color:red;\">$iter</span>($int i=<span style=\"background-color:red;\">index;.;</span>:<span style=\"background-color:red;\"><span style=\"background-color:red;\">length;;;</span>-<span style=\"background-color:red;\">1i</span></span>:<span style=\"background-color:red;\">1i</span>){\n" +
                 "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\">list;;;</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">i;</span>]</span></span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\">list;;;</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\"><span style=\"background-color:red;\">i;</span>+<span style=\"background-color:red;\">1i</span></span>]</span></span></span>:\n" +
                 "  }\n" +
                 "  <span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\">list;;;</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\"><span style=\"background-color:red;\">length;;;</span>-<span style=\"background-color:red;\">1i</span></span>]</span></span>=<span style=\"background-color:red;\">$null</span></span>:\n" +
@@ -3406,6 +3406,158 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $boolean <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">rThree </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> one;.</span><span style=\"background-color:green;\">field </span></span><a title=\"&quot;\">&lt;</a><span style=\"background-color:green;\"><span style=\"background-color:green;\"> two;.</span><span style=\"background-color:green;\">field</span></span></span></span>:\n" +
                 "  $boolean <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">rFour </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> one;.</span><span style=\"background-color:green;\">field </span></span><a title=\"&amp;\">&gt;</a><span style=\"background-color:green;\"><span style=\"background-color:green;\"> two;.</span><span style=\"background-color:green;\">field</span></span></span></span>:\n" +
                 "  $return <span style=\"background-color:green;\">5</span>:\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage74Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int s = 1;\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  iter (int j=0;2;1){\n");
+        xml_.append("   int[] t = s == j ?{4i}:{6i};\n");
+        xml_.append("   sum += t[0];\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><body><pre>public class pkg.Ex {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  <span style=\"background-color:green;\">iter</span> (int j=<span style=\"background-color:green;\">0</span>;<span style=\"background-color:green;\">2</span>;<span style=\"background-color:green;\">1</span>){\n" +
+                "   int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">t </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> s </span>==<span style=\"background-color:green;\"> j </span></span>?<span style=\"background-color:green;\">{<span style=\"background-color:green;\">4i</span>}</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> t</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span></span>;\n" +
+                "  }\n" +
+                "  return <span style=\"background-color:green;\">sum</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage75Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int s = 1;\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  iter (int j=0;2;1){\n");
+        xml_.append("   int[] t = s == j ?{4i}:{6i};\n");
+        xml_.append("   sum += t[0];\n");
+        xml_.append("   break;\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><body><pre>public class pkg.Ex {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  <span style=\"background-color:yellow;\">iter</span> (int j=<span style=\"background-color:green;\">0</span>;<span style=\"background-color:green;\">2</span>;<span style=\"background-color:green;\">1</span>){\n" +
+                "   int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">t </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> s </span><a title=\"false\">==</a><span style=\"background-color:green;\"> j </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> t</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span></span>;\n" +
+                "   break;\n" +
+                "  }\n" +
+                "  return <span style=\"background-color:green;\">sum</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage76Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int s = 1;\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  iter (int j=0;0;1){\n");
+        xml_.append("   int[] t = s == j ?{4i}:{6i};\n");
+        xml_.append("   sum += t[0];\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><body><pre>public class pkg.Ex {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  <span style=\"background-color:yellow;\">iter</span> (int j=<span style=\"background-color:green;\">0</span>;<span style=\"background-color:green;\">0</span>;<span style=\"background-color:green;\">1</span>){\n" +
+                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\">t </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> s </span>==<span style=\"background-color:red;\"> j </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\">sum </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> t</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
+                "  }\n" +
+                "  return <span style=\"background-color:green;\">sum</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage77Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int s = 1;\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  if (sum == 0){\n");
+        xml_.append("   return s;\n");
+        xml_.append("  }\n");
+        xml_.append("  iter (int j=0;0;1){\n");
+        xml_.append("   int[] t = s == j ?{4i}:{6i};\n");
+        xml_.append("   sum += t[0];\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><body><pre>public class pkg.Ex {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">sum </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 0</span></span>){\n" +
+                "   return <span style=\"background-color:green;\">s</span>;\n" +
+                "  }\n" +
+                "  <span style=\"background-color:red;\">iter</span> (int j=<span style=\"background-color:red;\">0</span>;<span style=\"background-color:red;\">0</span>;<span style=\"background-color:red;\">1</span>){\n" +
+                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\">t </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> s </span>==<span style=\"background-color:red;\"> j </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\">sum </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> t</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
+                "  }\n" +
+                "  return <span style=\"background-color:red;\">sum</span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());

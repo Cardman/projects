@@ -803,7 +803,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(1, cont_.getCoverage().getCoverLoops().size());
+        assertEq(4, cont_.getCoverage().getCoverLoops().size());
+        assertTrue(cont_.getCoverage().getCoverLoops().firstKey() instanceof ForEachLoop);
         BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
         assertTrue(value_.isFullCovered());
         assertTrue(value_.isCoverTrue());
@@ -838,7 +839,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(1, cont_.getCoverage().getCoverLoops().size());
+        assertEq(4, cont_.getCoverage().getCoverLoops().size());
+        assertTrue(cont_.getCoverage().getCoverLoops().firstKey() instanceof ForEachLoop);
         BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
@@ -870,7 +872,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(1, cont_.getCoverage().getCoverLoops().size());
+        assertEq(4, cont_.getCoverage().getCoverLoops().size());
+        assertTrue(cont_.getCoverage().getCoverLoops().firstKey() instanceof ForEachLoop);
         BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
@@ -905,7 +908,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(1, cont_.getCoverage().getCoverLoops().size());
+        assertEq(4, cont_.getCoverage().getCoverLoops().size());
+        assertTrue(cont_.getCoverage().getCoverLoops().firstKey() instanceof ForEachLoop);
         BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(!value_.isPartialCovered());
@@ -943,7 +947,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(1, cont_.getCoverage().getCoverLoops().size());
+        assertEq(4, cont_.getCoverage().getCoverLoops().size());
+        assertTrue(cont_.getCoverage().getCoverLoops().firstKey() instanceof ForEachTable);
         BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
         assertTrue(value_.isFullCovered());
         assertTrue(value_.isCoverTrue());
@@ -982,7 +987,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(1, cont_.getCoverage().getCoverLoops().size());
+        assertEq(4, cont_.getCoverage().getCoverLoops().size());
+        assertTrue(cont_.getCoverage().getCoverLoops().firstKey() instanceof ForEachTable);
         BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
@@ -1018,7 +1024,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(1, cont_.getCoverage().getCoverLoops().size());
+        assertEq(4, cont_.getCoverage().getCoverLoops().size());
+        assertTrue(cont_.getCoverage().getCoverLoops().firstKey() instanceof ForEachTable);
         BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
@@ -1057,7 +1064,132 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(4, cont_.getCoverage().getCoverLoops().size());
+        assertTrue(cont_.getCoverage().getCoverLoops().firstKey() instanceof ForEachTable);
+        BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
+        assertTrue(!value_.isFullCovered());
+        assertTrue(!value_.isPartialCovered());
+        assertTrue(!value_.isCoverTrue());
+        assertTrue(!value_.isCoverFalse());
+    }
+    @Test
+    public void coverage48Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int s = 1;\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  iter (int j=0;2;1){\n");
+        xml_.append("   int[] t = s == j ?{4i}:{6i};\n");
+        xml_.append("   sum += t[0];\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1, cont_.getCoverage().getCoverLoops().size());
+        assertTrue(cont_.getCoverage().getCoverLoops().firstKey() instanceof ForIterativeLoop);
+        BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
+        assertTrue(value_.isFullCovered());
+        assertTrue(value_.isPartialCovered());
+        assertTrue(value_.isCoverTrue());
+        assertTrue(value_.isCoverFalse());
+    }
+    @Test
+    public void coverage49Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int s = 1;\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  iter (int j=0;2;1){\n");
+        xml_.append("   int[] t = s == j ?{4i}:{6i};\n");
+        xml_.append("   sum += t[0];\n");
+        xml_.append("   break;\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(1, cont_.getCoverage().getCoverLoops().size());
+        assertTrue(cont_.getCoverage().getCoverLoops().firstKey() instanceof ForIterativeLoop);
+        BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
+        assertTrue(!value_.isFullCovered());
+        assertTrue(value_.isPartialCovered());
+        assertTrue(value_.isCoverTrue());
+        assertTrue(!value_.isCoverFalse());
+    }
+    @Test
+    public void coverage50Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int s = 1;\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  iter (int j=0;0;1){\n");
+        xml_.append("   int[] t = s == j ?{4i}:{6i};\n");
+        xml_.append("   sum += t[0];\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(1, cont_.getCoverage().getCoverLoops().size());
+        assertTrue(cont_.getCoverage().getCoverLoops().firstKey() instanceof ForIterativeLoop);
+        BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
+        assertTrue(!value_.isFullCovered());
+        assertTrue(value_.isPartialCovered());
+        assertTrue(!value_.isCoverTrue());
+        assertTrue(value_.isCoverFalse());
+    }
+    @Test
+    public void coverage51Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int s = 1;\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  if (sum == 0){\n");
+        xml_.append("   return s;\n");
+        xml_.append("  }\n");
+        xml_.append("  iter (int j=0;0;1){\n");
+        xml_.append("   int[] t = s == j ?{4i}:{6i};\n");
+        xml_.append("   sum += t[0];\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(1, cont_.getCoverage().getCoverLoops().size());
+        assertTrue(cont_.getCoverage().getCoverLoops().firstKey() instanceof ForIterativeLoop);
         BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(!value_.isPartialCovered());

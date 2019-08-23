@@ -24,6 +24,7 @@ import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -283,6 +284,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         lv_.setClassName(cl_);
         lv_.setIndexClassName(importedClassIndexName);
         _cont.getAnalyzing().putVar(variableName, lv_);
+        _cont.getCoverage().putBlockOperationsLoops(_cont,this);
         buildConditions(_cont);
     }
     @Override
@@ -528,15 +530,30 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
         c_ = (LoopBlockStack) ip_.getLastStack();
         if (c_.isFinished()) {
+            _cont.getCoverage().passLoop(_cont, new Argument(new BooleanStruct(false)));
             ip_.removeLastBlock();
             processBlock(_cont);
             return;
         }
+        _cont.getCoverage().passLoop(_cont, new Argument(new BooleanStruct(true)));
         ip_.getReadWrite().setBlock(getFirstChild());
     }
     @Override
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        int off_ = initOffset;
+        AbstractCoverageResult result_ = _cont.getCoverage().getCoverLoops().getVal(this);
+        String tag_;
+        if (result_.isFullCovered()) {
+            tag_ = "<span style=\"background-color:green;\">";
+        } else if (result_.isPartialCovered()) {
+            tag_ = "<span style=\"background-color:yellow;\">";
+        } else {
+            tag_ = "<span style=\"background-color:red;\">";
+        }
+        int off_ = getOffset().getOffsetTrim();
+        _parts.add(new PartOffset(tag_,off_));
+        tag_ = "</span>";
+        _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordIter().length()));
+        off_ = initOffset;
         int offsetEndBlock_ = off_ + init.length();
         ElUtil.buildCoverageReport(_cont,off_,this,opInit,offsetEndBlock_,_parts);
         off_ = expressionOffset;
@@ -674,9 +691,11 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         rw_.setBlock(forLoopLoc_);
         if (l_.hasNext()) {
             incrementLoop(_conf, l_, vars_);
+            _conf.getCoverage().passLoop(_conf, new Argument(new BooleanStruct(true)));
             return;
         }
         l_.setFinished(true);
+        _conf.getCoverage().passLoop(_conf, new Argument(new BooleanStruct(false)));
     }
 
     public void incrementLoop(ContextEl _conf, LoopBlockStack _l,
