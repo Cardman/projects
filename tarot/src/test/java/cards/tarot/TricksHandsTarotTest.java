@@ -1,14 +1,34 @@
 package cards.tarot;
 
 import cards.consts.GameType;
+import cards.consts.Suit;
 import cards.tarot.enumerations.*;
 import code.util.*;
 import org.junit.Test;
 
 import static cards.tarot.EquallableTarotUtil.assertEq;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public final class TricksHandsTarotTest extends CommonGameTarot {
+    @Test
+    public void sortHands0Test() {
+        GameTarot game_ = newSimpleDeal();
+        TricksHandsTarot tricksHands_ = new TricksHandsTarot();
+        tricksHands_.setCardsHandsAtInitialState(new CustList<HandTarot>());
+        tricksHands_.setDistribution(game_.getDistribution());
+        tricksHands_.setPreneur(game_.getPreneur());
+        tricksHands_.setTricks(game_.getTricks());
+        DisplayingTarot displaying_ = new DisplayingTarot();
+        displaying_.setClockwise(true);
+        assertTrue(displaying_.isClockwise());
+        displaying_.setClockwise(false);
+        assertTrue(!displaying_.isClockwise());
+        displaying_.setDecreasing(true);
+        displaying_.setSuits(new EnumList<Suit>());
+        assertEq(25, tricksHands_.getTricks().size());
+        assertEq(game_.getPreneur(), tricksHands_.getPreneur());
+    }
     @Test
     public void sortHands1Test() {
         GameTarot game_ = newSimpleDeal();
@@ -27,6 +47,8 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         assertEq(24, tricksHands_.getCardsHandsAtInitialState().get((byte) 1).total());
         assertEq(24, tricksHands_.getCardsHandsAtInitialState().get((byte) 2).total());
         assertEq(6, tricksHands_.getCardsHandsAtInitialState().get((byte) 3).total());
+        assertEq(25, tricksHands_.getTricks().size());
+        assertEq(game_.getPreneur(), tricksHands_.getPreneur());
     }
     @Test
     public void sortHands2Test() {

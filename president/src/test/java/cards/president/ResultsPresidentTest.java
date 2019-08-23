@@ -2,10 +2,12 @@ package cards.president;
 
 import cards.consts.GameType;
 import cards.president.enumerations.CardPresident;
+import code.maths.Rate;
 import code.util.*;
 import org.junit.Test;
 
 import static cards.president.EquallablePresidentUtil.assertEq;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 public final class ResultsPresidentTest {
@@ -30,8 +32,23 @@ public final class ResultsPresidentTest {
         ResultsPresident res_ = new ResultsPresident();
         res_.setUser((byte) 0);
         res_.setScores(new CustList<Longs>());
+        res_.setGlobalResultsPageTitle("");
+        res_.setDetailResultsTitle("");
+        res_.setSigmas(new EqList<Rate>());
+        res_.setSums(new Longs());
+        res_.setNicknames(new StringList());
+        res_.setRenderedPages(new StringMap<String>());
+        res_.setLoc("");
         res_.calculateScores(new Shorts(),GameType.RANDOM,1,0);
         assertEq(0,res_.getScores().size());
+        assertEq(0,res_.getSums().size());
+        assertEq(0,res_.getSigmas().size());
+        assertEq(0,res_.getNicknames().size());
+        assertEq(0,res_.getRenderedPages().size());
+        assertEq(0,res_.getUser());
+        assertEq("",res_.getLoc());
+        assertEq("",res_.getGlobalResultsPageTitle());
+        assertEq("",res_.getDetailResultsTitle());
     }
 
     @Test
@@ -42,6 +59,7 @@ public final class ResultsPresidentTest {
         res_.setUser((byte) 0);
         res_.initialize(new StringList("1","2","3","4"),new CustList<Longs>());
         assertEq(4, res_.getScores().get(0).size());
+        assertSame(g_, res_.getGame());
     }
 
     @Test

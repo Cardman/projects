@@ -33,7 +33,9 @@ public final class EquallablePresidentUtil {
     public static void assertEq(CardPresident _expected, CardPresident _result) {
         Assert.assertSame(_expected, _result);
     }
-
+    public static void assertEq(String _expected, String _result) {
+        Assert.assertTrue(StringList.quickEq(_expected,_result));
+    }
     private static boolean eq(HandPresident _current, HandPresident _o) {
         if(_o.total()!= _current.total()) {
             return false;

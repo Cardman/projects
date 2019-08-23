@@ -1,14 +1,46 @@
 package cards.president;
 
 import cards.consts.GameType;
+import cards.consts.Suit;
 import cards.president.enumerations.CardPresident;
 import code.util.Bytes;
 import code.util.CustList;
+import code.util.EnumList;
 import org.junit.Test;
 
 import static cards.president.EquallablePresidentUtil.assertEq;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 public final class TricksHandsPresidentTest {
+    @Test
+    public void sortHands0Test() {
+        GamePresident game_ = getSimpleDeal();
+        TricksHandsPresident tricksHands_ = new TricksHandsPresident();
+        tricksHands_.setCardsHandsAtInitialState(new CustList<HandPresident>());
+        tricksHands_.setDistribution(game_.getDistribution());
+        tricksHands_.setNumberMaxSwitchedCards(game_.nombresCartesEchangesMax());
+        tricksHands_.setRanks(game_.getRanks());
+        tricksHands_.setSwitchedCards(game_.getSwitchedCards());
+        tricksHands_.setTricks(game_.unionPlis());
+        tricksHands_.setReversed(true);
+        tricksHands_.setProgressingTrick(game_.getProgressingTrick());
+        tricksHands_.setRanks(game_.getNewRanks());
+        DisplayingPresident displaying_ = new DisplayingPresident();
+        displaying_.setClockwise(true);
+        assertTrue(displaying_.isClockwise());
+        displaying_.setClockwise(false);
+        assertTrue(!displaying_.isClockwise());
+        displaying_.setDecreasing(true);
+        displaying_.setSuits(new EnumList<Suit>());
+        assertEq(18, tricksHands_.getTricks().size());
+        assertEq(1,displaying_.getNbDeals());
+        assertSame(game_.getProgressingTrick(),tricksHands_.getProgressingTrick());
+        assertTrue(tricksHands_.isReversed());
+        assertEq(2,tricksHands_.getNumberMaxSwitchedCards());
+        assertEq(4,tricksHands_.getRanks().size());
+        assertEq(0,tricksHands_.getSwitchedCards().size());
+    }
     @Test
     public void sortHands1Test() {
         GamePresident game_ = getSimpleDeal();

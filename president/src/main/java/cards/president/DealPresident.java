@@ -4,7 +4,6 @@ import java.util.Iterator;
 import cards.consts.MixCardsChoice;
 import code.maths.montecarlo.AbMonteCarlo;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.*;
 
 
@@ -27,12 +26,6 @@ public final class DealPresident implements Iterable<HandPresident> {
         //pile est_ necessaire_ pour_ savoir_ si_ on_ ne_ distribue_ jamais_ jouees_ depuis_ le_ lancement_
         nbDeals = _nombreDeParties;
         deck = _ppile;
-    }
-
-    // appele au chargement d'une partie, entrainement tarot
-    public DealPresident(long _nombreDeParties) {
-        // nombreDeParties_ est_ necessaire_ pour_ savoir_ si_ c'est_ la_ premiere_ fois_ qu_'une_ partie_ est_ joue_,
-        nbDeals = _nombreDeParties;
     }
 
     /** Utilise pour editer une partie non solitaire */
@@ -158,10 +151,6 @@ public final class DealPresident implements Iterable<HandPresident> {
 
     void trier(byte _joueur, boolean _decroissant, boolean _reverse) {
         deal.get(_joueur).sortCards(_decroissant, _reverse);
-    }
-
-    public HandPresident derniereMain() {
-        return deal.last();
     }
 
     public HandPresident hand(byte _i) {

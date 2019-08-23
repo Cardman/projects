@@ -101,17 +101,17 @@ public final class RulesBelote {
         allowedDeclares = _annoncesAutorisees;
     }
     public boolean getSousCoupeAdv() {
-        return underTrumpFoe;
+        return isUnderTrumpFoe();
     }
     public void setSousCoupeAdv(boolean _sousCoupeAdv) {
-        underTrumpFoe = _sousCoupeAdv;
+        setUnderTrumpFoe(_sousCoupeAdv);
     }
     public BeloteTrumpPartner getGestionCoupePartenaire() {
-        return trumpPartner;
+        return getTrumpPartner();
     }
     public void setGestionCoupePartenaire(
             BeloteTrumpPartner _gestionCoupePartenaire) {
-        trumpPartner = _gestionCoupePartenaire;
+        setTrumpPartner(_gestionCoupePartenaire);
     }
     public EnumList<BidBelote> getListeEncheresAutorisees() {
         EnumList<BidBelote> l_;
@@ -142,10 +142,10 @@ public final class RulesBelote {
     }
 
     public boolean getComptePointsClassique() {
-        return classicCountPoints;
+        return isClassicCountPoints();
     }
     public void setComptePointsClassique(boolean _comptePointsClassique) {
-        classicCountPoints = _comptePointsClassique;
+        setClassicCountPoints(_comptePointsClassique);
     }
 
     public int getNombreParties() {

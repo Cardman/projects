@@ -111,12 +111,7 @@ public final class HandBelote implements Iterable<CardBelote> {
     public void ajouter(CardBelote _t) {
         cards.add(_t);
     }
-    /**Ajoute une carte a la position donnee
-    @param _t la carte a ajouter
-    @param _a la position ou placer la carte*/
-    void ajouter(CardBelote _t,int _a) {
-        cards.add(_a,_t);
-    }
+
     /**Ajoute les cartes d'une main dans la main courante
     a la fin de celle-ci les cartes ajoutees conservent le
     meme ordre qu'a l'etat initial

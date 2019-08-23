@@ -50,7 +50,9 @@ public final class EquallableBeloteUtil {
     public static void assertEq(DeclaresBelote _expected, DeclaresBelote _result) {
         Assert.assertSame(_expected, _result);
     }
-
+    public static void assertEq(String _expected, String _result) {
+        Assert.assertTrue(StringList.quickEq(_expected,_result));
+    }
     public static boolean equalsSet(CustList<BidBeloteSuit> _list1, CustList<BidBeloteSuit> _list2) {
         for (BidBeloteSuit a: _list2) {
             boolean contains_ = false;

@@ -17,7 +17,7 @@ public final class ResultsBelote {
 
     private String loc;
 
-    private EndGameState endTarotGame = EndGameState.EQUALLITY;
+    private EndGameState endBeloteGame = EndGameState.EQUALLITY;
 
     private int differenceScoreTaker;
 
@@ -39,7 +39,7 @@ public final class ResultsBelote {
             game.setScores(end_.scores(pointsAttaqueDefinitif_, pointsDefenseDefinitif_));
             scoresDeal_=game.getScores();
             differenceScoreTaker = end_.getDiffAttackPointsMinusDefensePoints(scoresDeal_);
-            endTarotGame = end_.getUserState(user,scoresDeal_);
+            endBeloteGame = end_.getUserState(user,scoresDeal_);
         } else {
             int nbPl_ = game.getNombreDeJoueurs();
             for (int i = 0; i < nbPl_; i++) {
@@ -164,8 +164,8 @@ public final class ResultsBelote {
         res.setSums(_sums);
     }
 
-    public EndGameState getEndTarotGame() {
-        return endTarotGame;
+    public EndGameState getEndBeloteGame() {
+        return endBeloteGame;
     }
 
     public int getDifferenceScoreTaker() {

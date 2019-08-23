@@ -2,12 +2,15 @@ package cards.belote;
 
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
+import cards.consts.EndGameState;
 import cards.consts.GameType;
 import cards.consts.Suit;
+import code.maths.Rate;
 import code.util.*;
 import org.junit.Test;
 
 import static cards.belote.EquallableBeloteUtil.assertEq;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 public final class ResultsBeloteTest extends CommonGameBelote {
@@ -32,8 +35,23 @@ public final class ResultsBeloteTest extends CommonGameBelote {
         ResultsBelote res_ = new ResultsBelote();
         res_.setUser((byte) 0);
         res_.setScores(new CustList<Longs>());
+        res_.setGlobalResultsPageTitle("");
+        res_.setDetailResultsTitle("");
+        res_.setSigmas(new EqList<Rate>());
+        res_.setSums(new Longs());
+        res_.setNicknames(new StringList());
+        res_.setRenderedPages(new StringMap<String>());
+        res_.setLoc("");
         res_.calculateScores(new Shorts(),GameType.RANDOM,1,0);
         assertEq(0,res_.getScores().size());
+        assertEq(0,res_.getSums().size());
+        assertEq(0,res_.getSigmas().size());
+        assertEq(0,res_.getNicknames().size());
+        assertEq(0,res_.getRenderedPages().size());
+        assertEq(0,res_.getUser());
+        assertEq("",res_.getLoc());
+        assertEq("",res_.getGlobalResultsPageTitle());
+        assertEq("",res_.getDetailResultsTitle());
     }
 
     @Test
@@ -82,6 +100,9 @@ public final class ResultsBeloteTest extends CommonGameBelote {
         scores_.add(pr_);
         res_.initialize(new StringList("1","2","3","4"), scores_);
         assertEq(4, res_.getScores().get(0).size());
+        assertSame(game_, res_.getGame());
+        assertSame(EndGameState.WIN, res_.getEndBeloteGame());
+        assertEq(262, res_.getDifferenceScoreTaker());
     }
     GameBelote getSimpleSlamDeal() {
         RulesBelote rules_ = new RulesBelote();

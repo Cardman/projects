@@ -799,6 +799,7 @@ public class CheckerGameBeloteWithRulesTest {
         game_.ajouterContrat(bid_, (byte) first_);
         game_.completerDonne();
         game_.setPliEnCours();
+        assertTrue(!game_.autoriseBeloteRebelote());
         game_.ajouterUneCarteDansPliEnCours((byte) 0, CardBelote.DIAMOND_1);
         game_.setAnnoncesBeloteRebelote((byte) 1, CardBelote.SPADE_KING);
         assertTrue(game_.autoriseBeloteRebelote((byte)1));

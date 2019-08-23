@@ -565,10 +565,6 @@ public final class GamePresident {
         return nextPlayer;
     }
 
-    public byte getNextPlayer(byte _player) {
-        return (byte)((_player + 1) % getNombreDeJoueurs());
-    }
-
     public boolean currentPlayerHasPlayed(byte _player) {
         Bytes players_ = progressingTrick.getPlayers();
         if (!players_.isEmpty()) {

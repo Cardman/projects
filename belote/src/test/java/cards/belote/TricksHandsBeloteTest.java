@@ -6,11 +6,36 @@ import cards.consts.GameType;
 import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.CustList;
+import code.util.EnumList;
 import org.junit.Test;
 
 import static cards.belote.EquallableBeloteUtil.assertEq;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 public final class TricksHandsBeloteTest extends CommonGameBelote {
+    @Test
+    public void sortHands0Test() {
+        GameBelote game_ = getSimpleSlamDeal();
+        TricksHandsBelote tricksHands_ = new TricksHandsBelote();
+        tricksHands_.setCardsHandsAtInitialState(new CustList<HandBelote>());
+        tricksHands_.setDistribution(game_.getDistribution());
+        tricksHands_.setPreneur(game_.getPreneur());
+        tricksHands_.setTricks(game_.getTricks());
+        tricksHands_.setRules(game_.getRules());
+        tricksHands_.setBid(game_.getBid());
+        DisplayingBelote displaying_ = new DisplayingBelote();
+        displaying_.setClockwise(true);
+        assertTrue(displaying_.isClockwise());
+        displaying_.setClockwise(false);
+        assertTrue(!displaying_.isClockwise());
+        displaying_.setDecreasing(true);
+        displaying_.setSuits(new EnumList<Suit>());
+        assertEq(8, tricksHands_.getTricks().size());
+        assertEq(game_.getPreneur(), tricksHands_.getPreneur());
+        assertSame(game_.getRules(),tricksHands_.getRules());
+        assertSame(game_.getBid(),tricksHands_.getBid());
+    }
     @Test
     public void sortHands1Test() {
         GameBelote game_ = getSimpleSlamDeal();

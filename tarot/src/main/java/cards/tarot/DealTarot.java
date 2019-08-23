@@ -322,9 +322,6 @@ public final class DealTarot implements Iterable<HandTarot> {
         }
     }
 
-    void jouer(CardTarot _ct) {
-        deal.get(NUMERO_UTILISATEUR).jouer(_ct);
-    }
     void jouer(byte _joueur,CardTarot _ct) {
         deal.get(_joueur).jouer(_ct);
     }

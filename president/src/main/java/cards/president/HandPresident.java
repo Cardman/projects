@@ -103,12 +103,7 @@ public final class HandPresident implements Iterable<CardPresident> {
     public void ajouter(CardPresident _t) {
         cards.add(_t);
     }
-    /**Ajoute une carte a la position donnee
-    @param _t la carte a ajouter
-    @param _a la position ou placer la carte*/
-    public void ajouter(CardPresident _t,int _a) {
-        cards.add(_a,_t);
-    }
+
     /**Ajoute les cartes d'une main dans la main courante
     a la fin de celle-ci les cartes ajoutees conservent le
     meme ordre qu'a l'etat initial

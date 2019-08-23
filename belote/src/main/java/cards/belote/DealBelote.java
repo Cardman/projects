@@ -34,13 +34,6 @@ public final class DealBelote implements Iterable<HandBelote> {
         deck=_ppile;
     }
 
-    public DealBelote(long _nombreDeParties) {
-        //j est_ le_ jeu_ a jouer_, info_ est_ le_ vecteur_ d'informations_ pour_ le_ jeu_, nombreDeParties_ est_ necessaire_ pour_ savoir_ si_ c'est_
-        //la_ premiere_ fois_ qu_'une_ partie_ est_ joue_, pile est_ necessaire_ pour_ savoir_ si_ on_ ne_ distribue_ jamais_
-        nbDeals=_nombreDeParties;
-        //jouees_ depuis_ le_ lancement_
-    }
-
     public DealBelote(CustList<HandBelote> _pdonne,
             byte _pdonneur) {
         deal=_pdonne;

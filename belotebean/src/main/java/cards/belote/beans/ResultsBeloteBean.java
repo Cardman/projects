@@ -51,7 +51,7 @@ final class ResultsBeloteBean extends BeloteBean {
         pointsAttaqueTemporaire=pointsAttaqueSansPrime;
         pointsDefenseSansPrime=end_.pointsDefenseSansPrime();
         pointsDefenseTemporaire=pointsDefenseSansPrime;
-        winEqualityLoose = res_.getEndTarotGame();
+        winEqualityLoose = res_.getEndBeloteGame();
         if (playGame()) {
             byte preneur_=getGame().getPreneur();
             pointsAttaqueTemporaire = end_.pointsAttackWithBonus();
