@@ -982,7 +982,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><body><pre>public enum pkg.ExEnum {\n" +
                 " <a title=\"pkg.ExEnum.pkg.ExEnum()\" href=\"pkg/Ex.html#m51\">ONE</a>;\n" +
                 " public int <span style=\"background-color:green;\">field</span>;\n" +
-                " <a name=\"m51\"></a>ExEnum(){\n" +
+                " <a name=\"m51\">ExEnum(</a>){\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">field</span>=<span style=\"background-color:green;\">5</span></span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -1038,7 +1038,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><body><pre>public enum pkg.ExEnum {\n" +
                 " <a title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"pkg/Ex.html#m54\">ONE</a>(<span style=\"background-color:green;\">5</span>);\n" +
                 " public int <span style=\"background-color:green;\">field</span>;\n" +
-                " <a name=\"m54\"></a>ExEnum(int param){\n" +
+                " <a name=\"m54\">ExEnum(</a>int param){\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">field</span>=<span style=\"background-color:green;\">param</span></span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -1094,7 +1094,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><body><pre>public enum pkg.ExEnum {\n" +
                 " <a title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"pkg/Ex.html#m55\">FOUR</a>(<span style=\"background-color:green;\">5</span>);\n" +
                 " public int <span style=\"background-color:green;\">field</span>;\n" +
-                " <a name=\"m55\"></a>ExEnum(int param){\n" +
+                " <a name=\"m55\">ExEnum(</a>int param){\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">field</span>=<span style=\"background-color:green;\">param</span></span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -1201,12 +1201,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public enum pkg.ExEnum {\n" +
                 " <a title=\"pkg.ExEnum-FOUR.pkg.ExEnum-FOUR(int)\" href=\"pkg/Ex.html#m37\">FOUR</a>(<span style=\"background-color:green;\">5</span>){\n" +
-                "  <a name=\"m37\"></a>(int p){\n" +
+                "  <a name=\"m37\">(</a>int p){\n" +
                 "   <span style=\"background-color:green;\"><a title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"pkg/Ex.html#m87\">super</a>(<span style=\"background-color:green;\">p</span>)</span>;\n" +
                 "  }\n" +
                 " };\n" +
                 " public int <span style=\"background-color:green;\">field</span>;\n" +
-                " <a name=\"m87\"></a>ExEnum(int param){\n" +
+                " <a name=\"m87\">ExEnum(</a>int param){\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">field</span>=<span style=\"background-color:green;\">param</span></span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -1268,15 +1268,15 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public enum pkg.ExEnum {\n" +
                 " <a title=\"pkg.ExEnum-FOUR.pkg.ExEnum-FOUR()\" href=\"pkg/Ex.html#m34\">FOUR</a>{\n" +
-                "  <a name=\"m34\"></a>(){\n" +
+                "  <a name=\"m34\">(</a>){\n" +
                 "   <span style=\"background-color:green;\"><a title=\"pkg.ExEnum-FOUR.pkg.ExEnum-FOUR(int)\" href=\"pkg/Ex.html#m56\">this</a>(<span style=\"background-color:green;\">5</span>)</span>;\n" +
                 "  }\n" +
-                "  <a name=\"m56\"></a>(int p){\n" +
+                "  <a name=\"m56\">(</a>int p){\n" +
                 "   <span style=\"background-color:green;\"><a title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"pkg/Ex.html#m106\">super</a>(<span style=\"background-color:green;\">p</span>)</span>;\n" +
                 "  }\n" +
                 " };\n" +
                 " public int <span style=\"background-color:green;\">field</span>;\n" +
-                " <a name=\"m106\"></a>ExEnum(int param){\n" +
+                " <a name=\"m106\">ExEnum(</a>int param){\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">field</span>=<span style=\"background-color:green;\">param</span></span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -1429,10 +1429,10 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "public class pkg.Ex {\n" +
                 " public int <span style=\"background-color:green;\">field</span>;\n" +
-                " <a name=\"m244\"></a>public Ex(int field){\n" +
+                " <a name=\"m244\">public Ex(</a>int field){\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">this</span>.<span style=\"background-color:green;\">field </span></span>=<span style=\"background-color:green;\"> field</span></span>;\n" +
                 " }\n" +
-                " <a name=\"m292\"></a>public Ex(){\n" +
+                " <a name=\"m292\">public Ex(</a>){\n" +
                 "  <span style=\"background-color:red;\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">this</a>(<span style=\"background-color:red;\">0</span>)</span>;\n" +
                 " }\n" +
                 " public static int <a name=\"m338\">exmeth</a>(){\n" +
@@ -1553,10 +1553,10 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "public class pkg.Ex {\n" +
                 " public int <span style=\"background-color:green;\">field</span>;\n" +
-                " <a name=\"m244\"></a>public Ex(int field){\n" +
+                " <a name=\"m244\">public Ex(</a>int field){\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">this</span>.<span style=\"background-color:green;\">field </span></span>=<span style=\"background-color:green;\"> field</span></span>;\n" +
                 " }\n" +
-                " <a name=\"m292\"></a>public Ex(){\n" +
+                " <a name=\"m292\">public Ex(</a>){\n" +
                 "  <span style=\"background-color:red;\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">this</a>(<span style=\"background-color:red;\">0</span>)</span>;\n" +
                 " }\n" +
                 " public static int <a name=\"m338\">exmeth</a>(){\n" +
@@ -1671,10 +1671,10 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "public class pkg.Ex {\n" +
                 " public int <span style=\"background-color:green;\">field</span>;\n" +
-                " <a name=\"m244\"></a>public Ex(int field){\n" +
+                " <a name=\"m244\">public Ex(</a>int field){\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">this</span>.<span style=\"background-color:green;\">field </span></span>=<span style=\"background-color:green;\"> field</span></span>;\n" +
                 " }\n" +
-                " <a name=\"m292\"></a>public Ex(){\n" +
+                " <a name=\"m292\">public Ex(</a>){\n" +
                 "  <span style=\"background-color:red;\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">this</a>(<span style=\"background-color:red;\">0</span>)</span>;\n" +
                 " }\n" +
                 " public static int <a name=\"m338\">exmeth</a>(){\n" +
@@ -2609,7 +2609,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateArgument("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
-                " <a name=\"m25\"></a>$public Ex(){\n" +
+                " <a name=\"m25\">$public Ex(</a>){\n" +
                 " }\n" +
                 " $public $static Object <a name=\"m66\">exmeth</a>(){\n" +
                 "  $return <span style=\"background-color:green;\"><a title=\"pkg.Ex.pkg.Ex()\" href=\"pkg/Ex.html#m25\">$new</a> Ex()</span>:\n" +
@@ -3041,7 +3041,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateArgument("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
-                " <a name=\"m25\"></a>$public Ex(){\n" +
+                " <a name=\"m25\">$public Ex(</a>){\n" +
                 " }\n" +
                 " $public $static Object <a name=\"m66\">exmeth</a>(){\n" +
                 "  $return <span style=\"background-color:green;\"><a title=\"pkg.Ex.pkg.Ex()\" href=\"pkg/Ex.html#m25\">$new</a> Ex()</span>:\n" +
@@ -3069,7 +3069,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateArgument("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
-                " <a name=\"m25\"></a>$public Ex($int p){\n" +
+                " <a name=\"m25\">$public Ex(</a>$int p){\n" +
                 " }\n" +
                 " $public $static Object <a name=\"m72\">exmeth</a>(){\n" +
                 "  $return <span style=\"background-color:green;\"><a title=\"pkg.Ex.pkg.Ex($int)\" href=\"pkg/Ex.html#m25\">$new</a> Ex(<span style=\"background-color:green;\">0</span>)</span>:\n" +
@@ -3110,7 +3110,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " $private pkg.CustList&lt;#T&gt; <span style=\"background-color:green;\">list</span>:\n" +
                 " $private $int <span style=\"background-color:green;\">length</span>:\n" +
                 " $private $int <span style=\"background-color:green;\">index</span>:\n" +
-                " <a name=\"m127\"></a>$public (pkg.CustList&lt;#T&gt; i){\n" +
+                " <a name=\"m127\">$public (</a>pkg.CustList&lt;#T&gt; i){\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">list;;;</span>=<span style=\"background-color:green;\">i;.;</span></span>:\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">length;;;</span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\">list;;;</span><span style=\"background-color:green;\"><a title=\"pkg.CustList.size()\" href=\"pkg/CustList.html#m519\">size</a>()</span></span></span>:\n" +
                 " }\n" +
@@ -3157,7 +3157,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><body><pre>$public $class pkg.CustList&lt;#U&gt; :$iterable&lt;#U&gt;{\n" +
                 " $private #U[] <span style=\"background-color:green;\">list</span>:\n" +
                 " $private $int <span style=\"background-color:green;\">length</span>:\n" +
-                " <a name=\"m93\"></a>$public (){\n" +
+                " <a name=\"m93\">$public (</a>){\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">list;;;</span>=<span style=\"background-color:green;\">$new #U[<span style=\"background-color:green;\">0i</span>]</span></span>:\n" +
                 " }\n" +
                 " $public $normal $void <a name=\"m154\">add</a>(#U elt){\n" +
@@ -3169,8 +3169,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">newlist;.</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">i;</span>]</span></span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\">list;;;</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">i;</span>]</span></span></span>:\n" +
                 "  }\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">newlist;.</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">index;.;</span>]</span></span>=<span style=\"background-color:green;\">elt;.;</span></span>:\n" +
-                "  $iter($int i=index;.;+<span style=\"background-color:green;\"><span style=\"background-color:green;\">1i:lengt</span>h<span style=\"background-color:green;\">;;</span></span>;<span style=\"background-color:green;\"><span style=\"background-color:green;\">+1i:1i){\n" +
-                "</span> <span style=\"background-color:green;\">  </span></span><span style=\"background-color:green;\"></span><span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\">newlist;.</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">i;</span>]</span></span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\">list;;;</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\"><span style=\"background-color:red;\">i;</span>-<span style=\"background-color:red;\">1i</span></span>]</span></span></span>:\n" +
+                "  $iter($int i=<span style=\"background-color:green;\"><span style=\"background-color:green;\">index;.;</span>+<span style=\"background-color:green;\">1i</span></span>:<span style=\"background-color:green;\"><span style=\"background-color:green;\">length;;;</span>+<span style=\"background-color:green;\">1i</span></span>:<span style=\"background-color:green;\">1i</span>){\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\">newlist;.</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">i;</span>]</span></span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\">list;;;</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\"><span style=\"background-color:red;\">i;</span>-<span style=\"background-color:red;\">1i</span></span>]</span></span></span>:\n" +
                 "  }\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">length;;;</span>++</span>:\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">list;;;</span>=<span style=\"background-color:green;\">newlist;.</span></span>:\n" +
@@ -3185,8 +3185,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\">list;;;</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">index;.;</span>]</span></span>=<span style=\"background-color:red;\">elt;.;</span></span>:\n" +
                 " }\n" +
                 " $public $normal $void <a name=\"m721\">remove</a>($int index){\n" +
-                "  $iter($int i=index;<span style=\"background-color:red;\">.;:lengt</span>h<span style=\"background-color:red;\"><span style=\"background-color:red;\">;;;-1i:1i</span>)<span style=\"background-color:red;\">{\n" +
-                "</span></span> <span style=\"background-color:red;\">  </span><span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\">list;;;</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">i;</span>]</span></span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\">list;;;</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\"><span style=\"background-color:red;\">i;</span>+<span style=\"background-color:red;\">1i</span></span>]</span></span></span>:\n" +
+                "  $iter($int i=<span style=\"background-color:red;\">index;.;</span>:<span style=\"background-color:red;\"><span style=\"background-color:red;\">length;;;</span>-<span style=\"background-color:red;\">1i</span></span>:<span style=\"background-color:red;\">1i</span>){\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\">list;;;</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">i;</span>]</span></span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\">list;;;</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\"><span style=\"background-color:red;\">i;</span>+<span style=\"background-color:red;\">1i</span></span>]</span></span></span>:\n" +
                 "  }\n" +
                 "  <span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\">list;;;</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\"><span style=\"background-color:red;\">length;;;</span>-<span style=\"background-color:red;\">1i</span></span>]</span></span>=<span style=\"background-color:red;\">$null</span></span>:\n" +
                 "  <span style=\"background-color:red;\"><span style=\"background-color:red;\">length;;;</span>--</span>:\n" +
@@ -3233,7 +3233,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " $private CustTable&lt;U,V&gt; <span style=\"background-color:green;\">list</span>:\n" +
                 " $private $int <span style=\"background-color:green;\">length</span>:\n" +
                 " $private $int <span style=\"background-color:green;\">index</span>:\n" +
-                " <a name=\"m137\"></a>$public CustIterTable(CustTable&lt;U,V&gt; i){\n" +
+                " <a name=\"m137\">$public CustIterTable(</a>CustTable&lt;U,V&gt; i){\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">list;;;</span>=<span style=\"background-color:green;\">i;.;</span></span>:\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">length;;;</span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\">list;;;</span><span style=\"background-color:green;\"><a title=\"pkg.CustTable.size()\" href=\"pkg/CustTable.html#m298\">size</a>()</span></span></span>:\n" +
                 " }\n" +
@@ -3282,7 +3282,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.CustTable&lt;U,V&gt; :$iterableTable&lt;U,V&gt;{\n" +
                 " $private CustList&lt;CustPair&lt;U,V&gt;&gt; <span style=\"background-color:green;\">list</span>:\n" +
-                " <a name=\"m97\"></a>$public (){\n" +
+                " <a name=\"m97\">$public (</a>){\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">list</span>=<span style=\"background-color:green;\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"pkg/CustList.html#m93\">$new</a> CustList&lt;CustPair&lt;U,V&gt;&gt;()</span></span>:\n" +
                 " }\n" +
                 " $public $void <a name=\"m166\">add</a>(U f,V s){\n" +
@@ -3338,9 +3338,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><body><pre>$public $class pkg.CustPair&lt;U,V&gt; :$pair&lt;U,V&gt;{\n" +
                 " $private U <span style=\"background-color:green;\">first</span>:\n" +
                 " $private V <span style=\"background-color:green;\">second</span>:\n" +
-                " <a name=\"m86\"></a>$public CustPair(){\n" +
+                " <a name=\"m86\">$public CustPair(</a>){\n" +
                 " }\n" +
-                " <a name=\"m110\"></a>$public CustPair(U f,V s){\n" +
+                " <a name=\"m110\">$public CustPair(</a>U f,V s){\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">first </span>=<span style=\"background-color:green;\"> f;.;</span></span>:\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">second </span>=<span style=\"background-color:green;\"> s;.;</span></span>:\n" +
                 " }\n" +

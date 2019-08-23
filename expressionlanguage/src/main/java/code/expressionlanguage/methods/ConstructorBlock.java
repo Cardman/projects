@@ -21,11 +21,14 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
 
     private boolean implicitCallSuper;
 
+    private int leftPar;
+
     public ConstructorBlock(OffsetAccessInfo _access,
                             OffsetStringInfo _retType, OffsetStringInfo _fctName,
                             StringList _paramTypes, Ints _paramTypesOffset,
-                            StringList _paramNames, Ints _paramNamesOffset, OffsetsBlock _offset) {
+                            StringList _paramNames, Ints _paramNamesOffset, int _leftPar,OffsetsBlock _offset) {
         super(_access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset);
+        leftPar = _leftPar;
     }
 
     @Override
@@ -190,8 +193,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     @Override
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
         int begName_ = getNameOffset();
-        int endName_ = begName_ + getName().length();
         _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
-        _parts.add(new PartOffset("</a>",endName_));
+        _parts.add(new PartOffset("</a>",leftPar));
     }
 }

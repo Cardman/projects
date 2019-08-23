@@ -1862,6 +1862,7 @@ public final class FileResolver {
             String declaringType_ = EMPTY_STRING;
             String modifier_ = EMPTY_STRING;
             String prefModifier_ = EMPTY_STRING;
+            int leftPar_=0;
             if (meth_) {
                 if (ContextEl.startsWithKeyWord(info_,keyWordNormal_)) {
                     modifier_ = keyWordNormal_;
@@ -1902,6 +1903,7 @@ public final class FileResolver {
                 paramOffest_ = modifierOffest_;
                 int indexLeftPar_ = info_.indexOf(BEGIN_CALLING);
                 paramOffest_ += indexLeftPar_ + 1;
+                leftPar_ = paramOffest_;
                 String after_ = info_.substring(indexLeftPar_ + 1);
                 paramOffest_ += StringList.getFirstPrintableCharIndex(after_);
                 info_ = after_.trim();
@@ -1977,7 +1979,7 @@ public final class FileResolver {
                 ov_.setKind(kind_);
                 br_ = ov_;
             } else {
-                br_ = new ConstructorBlock(new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(accessOffest_, EMPTY_STRING), new OffsetStringInfo(accessOffest_, EMPTY_STRING), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                br_ = new ConstructorBlock(new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(accessOffest_, EMPTY_STRING), new OffsetStringInfo(accessOffest_, EMPTY_STRING), parametersType_, offestsTypes_, parametersName_, offestsParams_,leftPar_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
             }
             ((NamedFunctionBlock)br_).getAnnotationsParams().addAllElts(annotationsParams_);
             ((NamedFunctionBlock)br_).getAnnotationsIndexesParams().addAllElts(annotationsIndexesParams_);
@@ -2375,14 +2377,15 @@ public final class FileResolver {
                 return null;
             }
             String variable_ = exp_.substring(0, eqIndex_);
-            varOffset_ += StringList.getFirstPrintableCharIndex(variable_);
+            int firstOff_ = StringList.getFirstPrintableCharIndex(variable_);
+            varOffset_ += firstOff_;
             exp_ = exp_.substring(eqIndex_ + 1);
             int nextElt_ = getIndex(exp_,endLine_);
             if (nextElt_ < 0) {
                 _badIndexes.add(_i);
                 return null;
             }
-            int initOff_ = varOffset_ + nextElt_;
+            int initOff_ = varOffset_ + variable_.length()-firstOff_+1;
             String init_ = exp_.substring(0, nextElt_);
             initOff_ += StringList.getFirstPrintableCharIndex(init_);
             exp_ = exp_.substring(init_.length()+1);
