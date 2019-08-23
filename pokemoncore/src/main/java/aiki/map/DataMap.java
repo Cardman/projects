@@ -2082,10 +2082,6 @@ public final class DataMap {
         return currentLevel_.getBlockByPoint(closestPoint_);
     }
 
-    public Tree getTree() {
-        return tree;
-    }
-
     public ObjectMap<Coords, Condition> getAccessibility() {
         return accessibility;
     }
@@ -2225,10 +2221,6 @@ public final class DataMap {
 
     public boolean isError() {
         return error;
-    }
-
-    public void setError(boolean _error) {
-        error = _error;
     }
 
 }

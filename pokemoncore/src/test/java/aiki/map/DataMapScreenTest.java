@@ -173,6 +173,8 @@ public class DataMapScreenTest {
         assertEq(new Point((short)2,(short)0), intersect_.getVal(new ScreenCoords(2,0)).getLevel().getPoint());
         assertEq(new Point((short)2,(short)1), intersect_.getVal(new ScreenCoords(2,1)).getLevel().getPoint());
         assertEq(new Point((short)2,(short)2), intersect_.getVal(new ScreenCoords(2,2)).getLevel().getPoint());
+        assertEq(3,dataMap.getScreenHeight());
+        assertEq(3,dataMap.getScreenWidth());
     }
 
     @Test

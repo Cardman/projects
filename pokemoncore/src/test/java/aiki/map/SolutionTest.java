@@ -377,7 +377,7 @@ public class SolutionTest {
         tree_.initialize(map_);
         map_.setTree(tree_);
         map_.initializeAccessibility();
-        Solution solution_ = new Solution(map_.getAccessibility(), map_.getPlaces(), tree_);
+        Solution solution_ = map_.getSolution();
         assertEq(6, solution_.getSteps().size());
         Step step_ = solution_.getSteps().get(0);
         assertEq(2, step_.getImportantsTrainers().size());

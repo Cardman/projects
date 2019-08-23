@@ -6101,6 +6101,7 @@ public class FightRoundTest extends InitializationDataBase {
         AnimationHealing animation_ = (AnimationHealing) fight_.getEffects().first();
         assertEq(Fight.PLAYER, animation_.getHealed().getTeam());
         assertTrue(animation_.isBackOrTeam());
+        assertTrue(animation_.isPlayer());
         AnimationSwitch animSwitch_ = (AnimationSwitch) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animSwitch_.getSubstituted());
         assertEq(ARTIKODIN, animSwitch_.getSubstituteName());
@@ -6204,6 +6205,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(ARTIKODIN, animSwitch_.getSubstituteName());
         assertEq(4, animSwitch_.getLevel());
         assertTrue(!animSwitch_.isKo());
+        assertTrue(animSwitch_.isPlayer());
         assertEq(new LgInt("100"), animSwitch_.getRateRemainHp());
         assertEq(new LgInt("0"), animSwitch_.getWonExpRate());
     }

@@ -1,11 +1,7 @@
 package aiki.map.places;
 
 import aiki.db.DataBase;
-import aiki.map.characters.CharacterInRoadCave;
-import aiki.map.characters.DualFight;
-import aiki.map.characters.Person;
 import aiki.map.levels.*;
-import aiki.map.pokemon.WildPk;
 import aiki.map.tree.LevelArea;
 import aiki.map.tree.PlaceArea;
 import aiki.map.tree.Tree;
@@ -200,37 +196,6 @@ public final class Cave extends Campaign {
             levels_.add(l);
         }
         return levels_;
-    }
-
-    @Override
-    public void addObject(Coords _coords, String _object) {
-        LevelCave level_ = getLevelCave(_coords.getLevel());
-        level_.getItems().put(_coords.getLevel().getPoint(), _object);
-    }
-
-    @Override
-    public void addPerson(Coords _coords, Person _person) {
-        LevelCave level_ = getLevelCave(_coords.getLevel());
-        level_.getCharacters().put(_coords.getLevel().getPoint(),
-                (CharacterInRoadCave) _person);
-    }
-
-    @Override
-    public void addDualFight(Coords _coords, DualFight _dualFight) {
-        LevelCave level_ = getLevelCave(_coords.getLevel());
-        level_.getDualFights().put(_coords.getLevel().getPoint(), _dualFight);
-    }
-
-    @Override
-    public void addHm(Coords _coords, short _hm) {
-        LevelCave level_ = getLevelCave(_coords.getLevel());
-        level_.getHm().put(_coords.getLevel().getPoint(), _hm);
-    }
-
-    @Override
-    public void addTm(Coords _coords, short _tm) {
-        LevelCave level_ = getLevelCave(_coords.getLevel());
-        level_.getTm().put(_coords.getLevel().getPoint(), _tm);
     }
 
     @Override

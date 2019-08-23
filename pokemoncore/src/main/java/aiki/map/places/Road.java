@@ -98,28 +98,23 @@ public final class Road extends Campaign implements InitializedPlace {
         return new CustList<Level>(getLevelRoad());
     }
 
-    @Override
     public void addObject(Coords _coords, String _object) {
         getLevelRoad().getItems().put(_coords.getLevel().getPoint(), _object);
     }
 
-    @Override
     public void addPerson(Coords _coords, Person _person) {
         getLevelRoad().getCharacters().put(_coords.getLevel().getPoint(),
                 (CharacterInRoadCave) _person);
     }
 
-    @Override
     public void addDualFight(Coords _coords, DualFight _dualFight) {
         getLevelRoad().getDualFights().put(_coords.getLevel().getPoint(), _dualFight);
     }
 
-    @Override
     public void addHm(Coords _coords, short _hm) {
         getLevelRoad().getHm().put(_coords.getLevel().getPoint(), _hm);
     }
 
-    @Override
     public void addTm(Coords _coords, short _tm) {
         getLevelRoad().getTm().put(_coords.getLevel().getPoint(), _tm);
     }

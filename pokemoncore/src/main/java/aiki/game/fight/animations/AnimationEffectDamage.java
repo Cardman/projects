@@ -20,7 +20,4 @@ public class AnimationEffectDamage extends AnimationEffect {
         return types;
     }
 
-    public void setTypes(StringList _types) {
-        types = _types;
-    }
 }

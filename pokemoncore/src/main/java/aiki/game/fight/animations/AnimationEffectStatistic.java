@@ -9,7 +9,4 @@ public class AnimationEffectStatistic extends AnimationEffect {
         return infos;
     }
 
-    public void setInfos(CustList<InfosAnimationStatistic> _infos) {
-        infos = _infos;
-    }
 }

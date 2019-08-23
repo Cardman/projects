@@ -4,7 +4,6 @@ import code.util.StringList;
 
 public class Comment {
 
-    private static final String RETURN_LINE = "\n";
     private StringList messages = new StringList();
 
     public void addComment(Comment _comment) {
@@ -29,10 +28,6 @@ public class Comment {
 
     public StringList getMessages() {
         return messages;
-    }
-
-    public String joinLines() {
-        return StringList.join(messages, RETURN_LINE);
     }
 
     public String join() {

@@ -24,10 +24,10 @@ public final class TypeStatistic implements Equallable<TypeStatistic> {
 
     @Override
     public boolean eq(TypeStatistic _g) {
-        if (stat != _g.stat) {
+        if (getStat() != _g.getStat()) {
             return false;
         }
-        if (!StringList.quickEq(type, _g.type)) {
+        if (!StringList.quickEq(getType(), _g.getType())) {
             return false;
         }
         return true;

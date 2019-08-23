@@ -6409,6 +6409,7 @@ public class FightEndRoundTest extends InitializationDataBase {
         AnimationRecoil anim_ = (AnimationRecoil) fight_.getEffects().first();
         assertEq(POKEMON_FOE_TARGET_ZERO, anim_.getUser());
         assertTrue(!anim_.isKoUser());
+        assertTrue(!anim_.isPlayer());
     }
 
     @Test

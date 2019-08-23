@@ -105,9 +105,9 @@ public final class Difficulty {
 
     public MonteCarloNumber loi(short _team, short _player, DataBase _import) {
         if (Numbers.eq(_team,_player)) {
-            return _import.getLawsDamageRate().getVal(damageRatePlayer).getLaw();
+            return _import.getLawsDamageRate().getVal(getDamageRatePlayer()).getLaw();
         }
-        return _import.getLawsDamageRate().getVal(damageRateLawFoe).getLaw();
+        return _import.getLawsDamageRate().getVal(getDamageRateLawFoe()).getLaw();
     }
 
     public boolean getAllowCatchingKo() {

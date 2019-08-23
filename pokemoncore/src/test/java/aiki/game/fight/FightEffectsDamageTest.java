@@ -6293,6 +6293,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(0, animation_.getTypes().size());
         assertTrue(!animation_.isKoFromFighter());
         assertTrue(!animation_.isKoToFighter());
+        assertTrue(animation_.isPlayerFromFighter());
+        assertTrue(!animation_.isPlayerToFighter());
     }
 
     @Test
