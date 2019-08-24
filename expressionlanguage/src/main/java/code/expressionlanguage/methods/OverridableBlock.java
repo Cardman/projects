@@ -163,6 +163,18 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneMe
     @Override
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
         int begName_ = getNameOffset();
+        if (kind == MethodKind.GET_INDEX) {
+            _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
+            int endName_ = begName_ + _cont.getKeyWords().getKeyWordThis().length();
+            _parts.add(new PartOffset("</a>",endName_));
+            return;
+        }
+        if (kind == MethodKind.SET_INDEX) {
+            _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
+            int endName_ = begName_ + _cont.getKeyWords().getKeyWordThis().length();
+            _parts.add(new PartOffset("</a>",endName_));
+            return;
+        }
         int endName_ = begName_ + getName().length();
         _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
         _parts.add(new PartOffset("</a>",endName_));

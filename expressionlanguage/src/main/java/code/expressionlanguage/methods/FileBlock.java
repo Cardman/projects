@@ -10,6 +10,12 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
     private Ints lineReturns = new Ints();
     private Ints leftSpaces = new Ints();
     private Ints tabulations = new Ints();
+    private Ints beginStrings = new Ints();
+    private Ints beginTexts = new Ints();
+    private Ints beginChars = new Ints();
+    private Ints endStrings = new Ints();
+    private Ints endTexts = new Ints();
+    private Ints endChars = new Ints();
 
     private StringList imports = new StringList();
 
@@ -63,6 +69,30 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         return predefined;
     }
 
+    public Ints getBeginChars() {
+        return beginChars;
+    }
+
+    public Ints getEndChars() {
+        return endChars;
+    }
+
+    public Ints getBeginTexts() {
+        return beginTexts;
+    }
+
+    public Ints getEndTexts() {
+        return endTexts;
+    }
+
+    public Ints getBeginStrings() {
+        return beginStrings;
+    }
+
+    public Ints getEndStrings() {
+        return endStrings;
+    }
+
     public Ints getLeftSpaces() {
         return leftSpaces;
     }
@@ -109,14 +139,14 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
                 }
                 while (i_ >= off_) {
                     char ch_ = value_.charAt(i_);
-                    insertTr(xml_, ch_);
+                    fileBlock_.insertTr(xml_, ch_,i_);
                     i_--;
                 }
                 xml_.insert(0,t.getPart());
             }
             while (i_ >= 0) {
                 char ch_ = value_.charAt(i_);
-                insertTr(xml_, ch_);
+                fileBlock_.insertTr(xml_, ch_,i_);
                 i_--;
             }
             files_.addEntry(f.getKey()+".html","<html><body><pre>"+xml_+"</pre></body></html>");
@@ -124,7 +154,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         return files_;
     }
 
-    private static void insertTr(StringBuilder _xml, char _ch) {
+    private void insertTr(StringBuilder _xml, char _ch, int _index) {
         if (_ch == '<') {
             _xml.insert(0,"&lt;");
         } else if (_ch == '>') {
@@ -132,6 +162,36 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         } else if (_ch == '&') {
             _xml.insert(0,"&amp;");
         } else {
+            if (beginChars.containsObj(_index)) {
+                _xml.insert(0, _ch);
+                _xml.insert(0, "<span style=\"color:blue;\">");
+                return;
+            }
+            if (endChars.containsObj(_index)) {
+                _xml.insert(0, "</span>");
+                _xml.insert(0, _ch);
+                return;
+            }
+            if (beginStrings.containsObj(_index)) {
+                _xml.insert(0, _ch);
+                _xml.insert(0, "<span style=\"color:blue;\">");
+                return;
+            }
+            if (endStrings.containsObj(_index)) {
+                _xml.insert(0, "</span>");
+                _xml.insert(0, _ch);
+                return;
+            }
+            if (beginTexts.containsObj(_index)) {
+                _xml.insert(0, _ch);
+                _xml.insert(0, "<span style=\"color:blue;\">");
+                return;
+            }
+            if (endTexts.containsObj(_index)) {
+                _xml.insert(0, "</span>");
+                _xml.insert(0, _ch);
+                return;
+            }
             _xml.insert(0, _ch);
         }
     }

@@ -1456,15 +1456,15 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">six</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m818\">[</a><span style=\"background-color:green;\">2</span><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m818\">]</a></span></span>+<a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m863\">+</a></span>;\n" +
                 "  <span style=\"background-color:green;\">+<a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m863\">+</a><span style=\"background-color:green;\"><span style=\"background-color:green;\">six</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m818\">[</a><span style=\"background-color:green;\">3</span><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m818\">]</a></span></span></span>;\n" +
                 "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> \"\"</span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span><i>+</i>=<span style=\"background-color:green;\"> new ExTwo()</span></span>;\n" +
                 "  int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">t </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> s </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 1 </span></span>?<span style=\"background-color:green;\">{<span style=\"background-color:green;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
                 "  return <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">t</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span>+<span style=\"background-color:green;\"><a title=\"pkg.Ex.static caller()\" href=\"pkg/Ex.html#m915\">caller</a>()</span></span>;\n" +
                 " }\n" +
-                " public int <a name=\"m818\">th</a>is(int p){\n" +
+                " public int <a name=\"m818\">this</a>(int p){\n" +
                 "  return <span style=\"background-color:green;\">field</span>;\n" +
                 " }\n" +
-                " public void <a name=\"m863\">thi</a>s(int p){\n" +
+                " public void <a name=\"m863\">this</a>(int p){\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">field </span>=<span style=\"background-color:green;\"> value</span></span>;\n" +
                 " }\n" +
                 " public static int <a name=\"m915\">caller</a>(){\n" +
@@ -1576,16 +1576,16 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">six</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m785\">[</a><span style=\"background-color:green;\">0</span><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m785\">]</a> </span></span>+<a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m830\">=</a><span style=\"background-color:green;\"> 8</span></span>;\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">six</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m830\">[</a><span style=\"background-color:green;\">1</span><a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m830\">]</a> </span></span>=<span style=\"background-color:green;\"> 8</span></span>;\n" +
                 "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> \"\"</span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>+=<span style=\"background-color:green;\"> new ExTwo()</span></span>;\n" +
                 "  int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">t </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> s </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 1 </span></span>?<span style=\"background-color:green;\">{<span style=\"background-color:green;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">s</span>+=<span style=\"background-color:green;\">1</span></span>;\n" +
                 "  return <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">t</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span>+<span style=\"background-color:green;\"><a title=\"pkg.Ex.static caller()\" href=\"pkg/Ex.html#m882\">caller</a>()</span></span>;\n" +
                 " }\n" +
-                " public int <a name=\"m785\">th</a>is(int p){\n" +
+                " public int <a name=\"m785\">this</a>(int p){\n" +
                 "  return <span style=\"background-color:green;\">field</span>;\n" +
                 " }\n" +
-                " public void <a name=\"m830\">thi</a>s(int p){\n" +
+                " public void <a name=\"m830\">this</a>(int p){\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">field </span>=<span style=\"background-color:green;\"> value</span></span>;\n" +
                 " }\n" +
                 " public static int <a name=\"m882\">caller</a>(){\n" +
@@ -1694,16 +1694,16 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">six</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m791\">[</a><span style=\"background-color:green;\">0</span><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m791\">]</a> </span></span>+<a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m836\">=</a><span style=\"background-color:green;\"> 8</span></span>;\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">six</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m836\">[</a><span style=\"background-color:green;\">1</span><a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m836\">]</a> </span></span>=<span style=\"background-color:green;\"> 8</span></span>;\n" +
                 "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> \"\"</span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>+=<span style=\"background-color:green;\"> new ExTwo()</span></span>;\n" +
                 "  int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">t </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> s </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 1 </span></span>?<span style=\"background-color:green;\">{<span style=\"background-color:green;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">s</span>+=<span style=\"background-color:green;\">1</span></span>;\n" +
                 "  return <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">t</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span>+<span style=\"background-color:green;\"><a title=\"pkg.Ex.static caller()\" href=\"pkg/Ex.html#m888\">caller</a>()</span></span>;\n" +
                 " }\n" +
-                " public int <a name=\"m791\">th</a>is(int p){\n" +
+                " public int <a name=\"m791\">this</a>(int p){\n" +
                 "  return <span style=\"background-color:green;\">field</span>;\n" +
                 " }\n" +
-                " public void <a name=\"m836\">thi</a>s(int p){\n" +
+                " public void <a name=\"m836\">this</a>(int p){\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">field </span>=<span style=\"background-color:green;\"> value</span></span>;\n" +
                 " }\n" +
                 " public static int <a name=\"m888\">caller</a>(){\n" +
@@ -1736,8 +1736,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"><span style=\"background-color:red;\"> \"\"</span>&lt;<span style=\"background-color:red;\">\"\"</span></span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> \"\"</span></span>;\n" +
+                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"><span style=\"background-color:red;\"> <span style=\"color:blue;\">\"\"</span></span>&lt;<span style=\"background-color:red;\"><span style=\"color:blue;\">\"\"</span></span></span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>+=<span style=\"background-color:green;\"> 1</span></span>;\n" +
                 "  return <span style=\"background-color:green;\">1</span>;\n" +
                 " }\n" +
@@ -1767,8 +1767,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"><span style=\"background-color:red;\"> \"\"</span>&lt;<span style=\"background-color:red;\">\"\"</span></span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> \"\"</span></span>;\n" +
+                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"><span style=\"background-color:red;\"> <span style=\"color:blue;\">\"\"</span></span>&lt;<span style=\"background-color:red;\"><span style=\"color:blue;\">\"\"</span></span></span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
                 "  Object <span style=\"background-color:green;\"><span style=\"background-color:green;\">right </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span><i>+</i>=<span style=\"background-color:green;\"> right</span></span>;\n" +
                 "  return <span style=\"background-color:green;\">1</span>;\n" +
@@ -1799,8 +1799,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"><span style=\"background-color:red;\"> \"\"</span>&lt;<span style=\"background-color:red;\">\"\"</span></span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> \"\"</span></span>;\n" +
+                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"><span style=\"background-color:red;\"> <span style=\"color:blue;\">\"\"</span></span>&lt;<span style=\"background-color:red;\"><span style=\"color:blue;\">\"\"</span></span></span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
                 "  Object[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">right </span>=<span style=\"background-color:green;\"> null</span></span>;\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>+=<span style=\"background-color:green;\"> right</span></span>;\n" +
                 "  return <span style=\"background-color:green;\">1</span>;\n" +
@@ -1833,8 +1833,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><body><pre>public annotation pkg.Annotation {}\n" +
                 "public class pkg.Ex {\n" +
                 " public static int <a name=\"m77\">exmeth</a>(){\n" +
-                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"><span style=\"background-color:red;\"> \"\"</span>&lt;<span style=\"background-color:red;\">\"\"</span></span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> \"\"</span></span>;\n" +
+                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"><span style=\"background-color:red;\"> <span style=\"color:blue;\">\"\"</span></span>&lt;<span style=\"background-color:red;\"><span style=\"color:blue;\">\"\"</span></span></span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
                 "  Annotation <span style=\"background-color:green;\"><span style=\"background-color:green;\">right </span>=<span style=\"background-color:green;\"> null</span></span>;\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>+=<span style=\"background-color:green;\"> right</span></span>;\n" +
                 "  return <span style=\"background-color:green;\">1</span>;\n" +
@@ -2292,7 +2292,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "   }\n" +
                 "  }\n" +
                 "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> \"\"</span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> toStr </span><i>+</i><span style=\"background-color:green;\"> new ExTwo()</span></span></span>;\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> new ExTwo() </span><i>+</i><span style=\"background-color:green;\"> toStr</span></span></span>;\n" +
                 "  return <span style=\"background-color:green;\">6</span>;\n" +
@@ -2347,7 +2347,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "    break;\n" +
                 "   }\n" +
                 "  }\n" +
-                "  var <span style=\"background-color:red;\"><span style=\"background-color:red;\">toStr </span>=<span style=\"background-color:red;\"> \"\"</span></span>;\n" +
+                "  var <span style=\"background-color:red;\"><span style=\"background-color:red;\">toStr </span>=<span style=\"background-color:red;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
                 "  <span style=\"background-color:red;\"><span style=\"background-color:red;\">toStr </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> toStr </span>+<span style=\"background-color:red;\"> new ExTwo()</span></span></span>;\n" +
                 "  <span style=\"background-color:red;\"><span style=\"background-color:red;\">toStr </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> new ExTwo() </span>+<span style=\"background-color:red;\"> toStr</span></span></span>;\n" +
                 "  return <span style=\"background-color:red;\">6</span>;\n" +
@@ -2395,7 +2395,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  for (;;){\n" +
                 "    break;\n" +
                 "  }\n" +
-                "  var <span style=\"background-color:red;\"><span style=\"background-color:red;\">toStr </span>=<span style=\"background-color:red;\"> \"\"</span></span>;\n" +
+                "  var <span style=\"background-color:red;\"><span style=\"background-color:red;\">toStr </span>=<span style=\"background-color:red;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
                 "  <span style=\"background-color:red;\"><span style=\"background-color:red;\">toStr </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> toStr </span>+<span style=\"background-color:red;\"> new ExTwo()</span></span></span>;\n" +
                 "  <span style=\"background-color:red;\"><span style=\"background-color:red;\">toStr </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> new ExTwo() </span>+<span style=\"background-color:red;\"> toStr</span></span></span>;\n" +
                 "  return <span style=\"background-color:red;\">6</span>;\n" +
@@ -2579,7 +2579,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "   }\n" +
                 "  }\n" +
                 "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> \"\"</span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> toStr </span>+<span style=\"background-color:green;\"> new ExTwo()</span></span></span>;\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> new ExTwo() </span>+<span style=\"background-color:green;\"> toStr</span></span></span>;\n" +
                 "  return <span style=\"background-color:green;\">6</span>;\n" +
@@ -2636,7 +2636,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $static StringBuilder <a name=\"m55\">exmeth</a>(){\n" +
-                "  $return <span style=\"background-color:green;\">$new StringBuilder(<span style=\"background-color:green;\">\"hello\"</span>)</span>:\n" +
+                "  $return <span style=\"background-color:green;\">$new StringBuilder(<span style=\"background-color:green;\"><span style=\"color:blue;\">\"hello\"</span></span>)</span>:\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -3558,6 +3558,78 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "   <span style=\"background-color:red;\"><span style=\"background-color:red;\">sum </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> t</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
                 "  }\n" +
                 "  return <span style=\"background-color:red;\">sum</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage78Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static StringBuilder exmeth(){\n");
+        xml_.append("  $return $new StringBuilder(\"hel\\\"lo\"):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
+                " $public $static StringBuilder <a name=\"m55\">exmeth</a>(){\n" +
+                "  $return <span style=\"background-color:green;\">$new StringBuilder(<span style=\"background-color:green;\"><span style=\"color:blue;\">\"hel\\\"lo\"</span></span>)</span>:\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage79Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static StringBuilder exmeth(){\n");
+        xml_.append("  $return $new StringBuilder(`hel``lo`):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
+                " $public $static StringBuilder <a name=\"m55\">exmeth</a>(){\n" +
+                "  $return <span style=\"background-color:green;\">$new StringBuilder(<span style=\"background-color:green;\"><span style=\"color:blue;\">`hel``lo`</span></span>)</span>:\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage80Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $char exmeth(){\n");
+        xml_.append("  $return '\\'':\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
+                " $public $static $char <a name=\"m47\">exmeth</a>(){\n" +
+                "  $return <span style=\"background-color:green;\"><span style=\"color:blue;\">'\\''</span></span>:\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
