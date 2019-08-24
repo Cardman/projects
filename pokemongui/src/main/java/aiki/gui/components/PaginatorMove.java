@@ -400,7 +400,7 @@ public final class PaginatorMove extends Paginator {
         //results.add(new JLabel(getMessages().getVal(MOVE)));
         _p.add(new ScrollPane(results));
         Panel bottom_ = new Panel();
-        getNbResults().setValue(getFacade().getNbResultsPerPageFirstBox());
+        getNbResults().setValue(getFacade().getNbResultsPerPageMove());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
         bottom_.add(getNbResults());
         getPages().setListener(new ChangedPageEvent(this));

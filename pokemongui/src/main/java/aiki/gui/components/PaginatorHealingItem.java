@@ -583,7 +583,7 @@ public final class PaginatorHealingItem extends Paginator {
         results.add(getHeader());
         _p.add(new ScrollPane(results));
         Panel bottom_ = new Panel();
-        getNbResults().setValue(getFacade().getNbResultsPerPageFirstBox());
+        getNbResults().setValue(getFacade().getNbResultsPerPageHealingItem());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
         bottom_.add(getNbResults());
         getPages().setListener(new ChangedPageEvent(this));
@@ -653,26 +653,10 @@ public final class PaginatorHealingItem extends Paginator {
         cmpNumberSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
     }
 
-    public void clearResults() {
-        getFacade().clearFoundResultsHealingItems();
-        refreshResults();
-        changePages();
-        changeNav();
-        getWindow().pack();
-    }
-
     @Override
     public void search() {
         setInfos();
         getFacade().searchPokemonHealingItem();
-        refreshResults();
-        changePages();
-        changeNav();
-        getWindow().pack();
-    }
-
-    public void appendResults() {
-        //data.getPagination().appendResults(data.getPeople());
         refreshResults();
         changePages();
         changeNav();

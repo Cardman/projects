@@ -2,9 +2,12 @@ package aiki.db;
 import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import aiki.fight.Combos;
 import aiki.fight.pokemon.PokemonData;
 import aiki.game.fight.InitializationDataBase;
+import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.instances.Instances;
+import aiki.map.util.ScreenCoords;
 import org.junit.Test;
 
 import aiki.fight.abilities.AbilityData;
@@ -66,6 +69,46 @@ public class DataBaseTest {
     @Test
     public void test() {
         DataBase data_ = InitializationDataBase.initDataBase();
+        assertTrue(!data_.isError());
+    }
+
+    @Test
+    public void test0() {
+        DataBase data_ = new DataBase();
+        data_.initTranslations();
+        data_.setLanguages(new StringList());
+        data_.setLanguage("");
+        data_.setMiniPk(new StringMap<int[][]>());
+        data_.setMaxiPkBack(new StringMap<int[][]>());
+        data_.setMaxiPkFront(new StringMap<int[][]>());
+        data_.setMiniItems(new StringMap<int[][]>());
+        data_.setFrontHeros(new ObjectMap<ImageHeroKey, int[][]>());
+        data_.setBackHeros(new ObjectMap<ImageHeroKey, int[][]>());
+        data_.setOverWorldHeros(new ObjectMap<ImageHeroKey, int[][]>());
+        data_.setTrainers(new StringMap<int[][]>());
+        data_.setPeople(new StringMap<int[][]>());
+        data_.setTypesColors(new StringMap<String>());
+        data_.setTypesImages(new StringMap<int[][]>());
+        data_.setLinks(new StringMap<int[][]>());
+        data_.setImages(new StringMap<int[][]>());
+        data_.setImagesTiles(new StringMap<ObjectMap<ScreenCoords, int[][]>>());
+        data_.setMiniMap(new StringMap<int[][]>());
+        data_.setCombos(new Combos());
+        data_.setConstNum(new StringMap<Rate>());
+        data_.setRateBoostCriticalHit("");
+        data_.setRateBoost("");
+        data_.setRateCatching("");
+        data_.setRateFleeing("");
+        data_.setRates(new EnumMap<DifficultyWinPointsFight, String>());
+        data_.setBallDef("");
+        data_.setDisplayLanguages(new StringMap<String>());
+        data_.setMessagesFight(new StringMap<String>());
+        data_.setMessagesFighter(new StringMap<String>());
+        data_.setMessagesGame(new StringMap<String>());
+        data_.setMessagesPlayer(new StringMap<String>());
+        data_.setMessagesPokemonPlayer(new StringMap<String>());
+        data_.setMessagesTeam(new StringMap<String>());
+        data_.setMessages(data_);
         assertTrue(!data_.isError());
     }
 

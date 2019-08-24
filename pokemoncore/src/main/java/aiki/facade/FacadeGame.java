@@ -59,12 +59,10 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import code.util.ints.MathFactory;
-import code.util.ints.WithMathFactory;
 import aiki.facade.enums.SearchingMode;
 import aiki.facade.enums.SelectedBoolean;
 
-public class FacadeGame implements WithMathFactory {
+public class FacadeGame {
 
     private DataBase data = new DataBase();
 
@@ -122,11 +120,6 @@ public class FacadeGame implements WithMathFactory {
     private StringMap<String> displayLanguages = new StringMap<String>();
 
     private String zipName = DataBase.EMPTY_STRING;
-
-    @Override
-    public MathFactory getMathFactory() {
-        return data.getMathFactory();
-    }
 
     // New game option
     public void newGame(String _pseudo, Sex _sexeHeros) {
@@ -1375,10 +1368,9 @@ public class FacadeGame implements WithMathFactory {
         return paginationItem.getLine();
     }
 
-    public void clearFoundResultsHealingItems() {
-        paginationHealingItem.clear();
+    public int getNbResultsPerPageItem() {
+        return paginationItem.getNbResultsPerPage();
     }
-
     public void clearFiltersItem() {
         setContentOfNameItem(null);
         setSearchModeNameItem(SearchingMode.WHOLE_STRING);
@@ -1600,6 +1592,9 @@ public class FacadeGame implements WithMathFactory {
         paginationMove.getCriteria().setTargetChoice(_targetChoice);
     }
 
+    public int getNbResultsPerPageMove() {
+        return paginationMove.getNbResultsPerPage();
+    }
     public void clearFiltersMove() {
         setContentOfNameMove(null);
         setSearchModeNameMove(SearchingMode.WHOLE_STRING);
@@ -1779,25 +1774,6 @@ public class FacadeGame implements WithMathFactory {
     }
 
     // %%%%end%%%% option items
-
-    // %%%%begin%%%% reviving fossil
-    // public void searchFossil() {
-    // paginationItem.getCriteria().setSelectedClass(Fossil.class);
-    // searchObjectToUse();
-    // }
-    //
-    // public Fossil getFossile() {
-    // return (Fossil) data.getItem(paginationItem.currentObject());
-    // }
-    //
-    // public void doRevivingFossil() {
-    // String item_ = paginationItem.currentObject();
-    // if (item_ == null) {
-    // return;
-    // }
-    // game.doRevivingFossil(item_, data);
-    // }
-    // %%%%end%%%% reviving fossil
 
     // %%%%begin%%%% hosting pokemon
     public void setSelectPkToHost(short _selectPkToHost) {
@@ -2267,6 +2243,9 @@ public class FacadeGame implements WithMathFactory {
         paginationHealingItem.setLine(_line);
     }
 
+    public int getNbResultsPerPageHealingItem() {
+        return paginationHealingItem.getNbResultsPerPage();
+    }
     public void clearFiltersHealingItem() {
         setContentOfNameHealingItem(null);
         setContentOfDescriptionHealingItem(null);
@@ -2439,13 +2418,6 @@ public class FacadeGame implements WithMathFactory {
     // return game.getAllyBackTeam();
     // }
     // %%%%end%%%% fight player side team
-
-    // %%%%begin%%%% fight foe side team
-    public Team getFoeTeam() {
-        return game.getFight().getFoeTeam();
-    }
-
-    // %%%%end%%%% fight foe side team
 
     // %%%%begin%%%% fight evolutions and learning moves
     public boolean isChosableForLearningAndEvolving(byte _key) {

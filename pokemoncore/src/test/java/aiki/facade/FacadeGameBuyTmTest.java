@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static aiki.db.EquallablePkUtil.assertEq;
+import static org.junit.Assert.assertTrue;
 
 public final class FacadeGameBuyTmTest extends InitializationDataBase {
 
@@ -66,6 +67,7 @@ public final class FacadeGameBuyTmTest extends InitializationDataBase {
         assertEq(1,facadeGame.getChosenTmForBuy().size());
         assertEq(TONNERRE,facadeGame.getChosenTmForBuy().get(0));
         assertEq(LgInt.newLgInt("4000"),facadeGame.amountTm());
+        assertTrue(facadeGame.canBeBoughtTm());
         facadeGame.buyTm();
         assertEq(1, facadeGame.getPlayer().getInventory().gotTm().size());
         assertEq(LgInt.newLgInt("0"),game.getPlayer().getMoney());

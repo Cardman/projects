@@ -3,12 +3,15 @@ package aiki.facade;
 import aiki.db.DataBase;
 import aiki.game.Game;
 import aiki.game.fight.InitializationDataBase;
+import aiki.game.fight.actions.ActionHeal;
+import aiki.game.fight.enums.FightState;
 import aiki.game.params.Difficulty;
 import aiki.map.enums.Direction;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import code.maths.Rate;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -58,6 +61,68 @@ public final class FacadeGameFightTest extends InitializationDataBase {
         facadeGame.endRoundFightFlee();
         assertTrue(facadeGame.isEnabledMovingHero());
     }
+
+    @Test
+    public void act3Test() {
+        facadeGame.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setRemainedHp(Rate.one());
+        facadeGame.getPlayer().getItem(EAU_FRAICHE);
+        facadeGame.chooseFrontFighter((byte) 0);
+        facadeGame.searchPokemonHealingItem();
+        facadeGame.checkLineHealingItem(0);
+        facadeGame.setChosenHealingItem();
+        assertEq(EAU_FRAICHE,((ActionHeal)facadeGame.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction()).getChosenHealingItem());
+    }
+
+    @Test
+    public void act4Test() {
+        facadeGame.getPlayer().getItem(MASTER_BALL);
+        facadeGame.attemptCatchingWildPokemon(MASTER_BALL,false);
+        assertEq(FightState.SURNOM, facadeGame.getFight().getState());
+    }
+
+    @Test
+    public void act5Test() {
+        facadeGame.getPlayer().getItem(MASTER_BALL);
+        facadeGame.attemptCatchingWildPokemon(MASTER_BALL,false);
+        facadeGame.catchWildPokemon("WILD");
+        assertTrue(facadeGame.isEnabledMovingHero());
+        assertEq(3,facadeGame.getPlayer().getTeam().size());
+    }
+
+    @Test
+    public void act6Test() {
+        facadeGame.getPlayer().getItem(MASTER_BALL);
+        facadeGame.attemptCatchingWildPokemon(MASTER_BALL,true);
+        facadeGame.endRoundFightSuccessBall();
+        facadeGame.catchWildPokemon("WILD");
+        assertTrue(facadeGame.isEnabledMovingHero());
+        assertEq(3,facadeGame.getPlayer().getTeam().size());
+    }
+
+    @Test
+    public void act7Test() {
+        facadeGame.chooseFrontFighter((byte) 0);
+        facadeGame.chooseMove(JACKPOT);
+        assertEq(1,facadeGame.sortedFightersBeginRoundWildFight().size());
+        assertEq(2,facadeGame.sortedFightersBeginRoundWildFight().firstValue().size());
+    }
+
+    @Test
+    public void act8Test() {
+        facadeGame.getPlayer().getItem(MASTER_BALL);
+        assertEq(1,facadeGame.calculateCatchingRates().size());
+    }
+
+    @Test
+    public void act9Test() {
+        assertEq(Rate.one(),facadeGame.calculateFleeingRate());
+    }
+
+    @Test
+    public void act10Test() {
+        assertEq(2,facadeGame.remainingThrowersTargetsHp().size());
+    }
+
     private static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) _place);

@@ -2310,7 +2310,7 @@ public final class Game {
         commentGame.clearMessages();
     }
 
-    void newIndex(boolean _walking, int _index, AreaApparition _area,DataBase _d) {
+    public void newIndex(boolean _walking, int _index, AreaApparition _area, DataBase _d) {
         //CustList<WildPokemon> _pokemon,
 //        int nb_=_pokemon.size();
         int nb_= _area.getPokemonListLength(_walking);

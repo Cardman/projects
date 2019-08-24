@@ -275,7 +275,7 @@ public final class PaginatorItem extends Paginator {
         //results.add(new JLabel(getMessages().getVal(ITEM)));
         _p.add(new ScrollPane(results));
         Panel bottom_ = new Panel();
-        getNbResults().setValue(getFacade().getNbResultsPerPageFirstBox());
+        getNbResults().setValue(getFacade().getNbResultsPerPageItem());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
         bottom_.add(getNbResults());
         getPages().setListener(new ChangedPageEvent(this));

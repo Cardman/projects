@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static aiki.db.EquallablePkUtil.assertEq;
+import static org.junit.Assert.assertTrue;
 
 public final class FacadeGameBuyItemsTest extends InitializationDataBase {
 
@@ -136,6 +137,7 @@ public final class FacadeGameBuyItemsTest extends InitializationDataBase {
         facadeGame.checkLineItem(0);
         facadeGame.addItemToBuyOrSell();
         facadeGame.addOrRemoveItemToBuyOrSell(HYPER_BALL,true);
+        assertTrue(facadeGame.canBeBought());
         facadeGame.buyOrSellItems(true);
         assertEq(LgInt.newLgInt("1000"),game.getPlayer().getMoney());
         assertEq(LgInt.newLgInt("2"),game.getPlayer().getInventory().getNumber(HYPER_BALL));
@@ -143,6 +145,7 @@ public final class FacadeGameBuyItemsTest extends InitializationDataBase {
 
     @Test
     public void listItem5Test() {
+        facadeGame.clearItemsToBuyOrSell();
         facadeGame.setSearchModeNameItem(SearchingMode.WHOLE_STRING);
         facadeGame.setContentOfNameItem(HYPER_BALL);
         facadeGame.searchObjectToBuyOrSell(true);

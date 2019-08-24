@@ -87,11 +87,9 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.ints.Listable;
-import code.util.ints.MathFactory;
-import code.util.ints.WithMathFactory;
 import aiki.facade.enums.SelectedBoolean;
 
-public class DataBase implements WithMathFactory {
+public class DataBase {
 
     public static final String VAR_PREFIX = "VAR__";
 
@@ -373,11 +371,6 @@ public class DataBase implements WithMathFactory {
     private StringList legPks = new StringList();
     private StringMap<String> displayLanguages = new StringMap<String>();
     private String language = "";
-
-    @Override
-    public MathFactory getMathFactory() {
-        return standardMathFactory;
-    }
 
     public LgInt getMaxRd() {
         return standardMathFactory.getMaxRandomNb();
@@ -698,7 +691,7 @@ public class DataBase implements WithMathFactory {
         return next_;
     }
 
-    static boolean negativeStat(EffectStatistic _eff,Statistic _s) {
+    private static boolean negativeStat(EffectStatistic _eff, Statistic _s) {
         boolean next_ = false;
         if (_eff.getStatisVarRank().contains(_s)) {
             if (_eff.getStatisVarRank().getVal(_s) < 0) {
@@ -707,7 +700,7 @@ public class DataBase implements WithMathFactory {
         }
         return next_;
     }
-    static boolean procEffectMove(MoveData _move, Effect _sec) {
+    private static boolean procEffectMove(MoveData _move, Effect _sec) {
         boolean toBeTreated_ = false;
         if (_sec.getTargetChoice() == TargetChoice.LANCEUR) {
             toBeTreated_ = true;
@@ -1771,14 +1764,6 @@ public class DataBase implements WithMathFactory {
         return true;
     }
 
-    public void setTm(ShortMap< String> _tm) {
-        tm = _tm;
-    }
-
-    public void setHm(ShortMap< String> _hm) {
-        hm = _hm;
-    }
-
     public void setMiniPk(StringMap<int[][]> _miniPk) {
         miniPk = _miniPk;
     }
@@ -2061,7 +2046,7 @@ public class DataBase implements WithMathFactory {
 
     }
 
-    public void checkCaseOfFiles(String _folderName, StringList _files) {
+    void checkCaseOfFiles(String _folderName, StringList _files) {
         StringList filesNamesWithSameCase_;
         filesNamesWithSameCase_ = new StringList();
         for (String s : _files) {
@@ -2532,7 +2517,7 @@ public class DataBase implements WithMathFactory {
         }
     }
 
-    void removeDuplicatesCategoriesMoves() {
+    private void removeDuplicatesCategoriesMoves() {
         allCategories.removeDuplicates();
         categories.removeDuplicates();
     }
@@ -2703,7 +2688,7 @@ public class DataBase implements WithMathFactory {
         return desc_;
     }
 
-    StringList getVars(String _token, String _language) {
+    private StringList getVars(String _token, String _language) {
         StringMap<String> litt_ = litterals.getVal(_language);
         String tok_ = _token.substring(VAR_PREFIX.length());
         StringList elts_ = StringList.splitStrings(tok_, SEP_BETWEEN_KEYS);
@@ -2773,7 +2758,7 @@ public class DataBase implements WithMathFactory {
             }
         }
     }
-    public boolean isTranslatable(String _key) {
+    private boolean isTranslatable(String _key) {
         for (String l : languages) {
             if (translate(_key, l).isEmpty()) {
                 return false;
@@ -2782,7 +2767,7 @@ public class DataBase implements WithMathFactory {
         return true;
     }
 
-    public String translate(String _key, String _language) {
+    private String translate(String _key, String _language) {
         if (translatedMoves.getVal(_language).contains(_key)) {
             return translatedMoves.getVal(_language).getVal(_key);
         }
@@ -2912,7 +2897,7 @@ public class DataBase implements WithMathFactory {
         return status.getVal(_name);
     }
 
-    public StringList getVariables() {
+    StringList getVariables() {
         return variables;
     }
 
@@ -3076,8 +3061,8 @@ public class DataBase implements WithMathFactory {
 
     }
 
-    public static int[][] getValueCaseInsensitive(StringMap<int[][]> _map,
-            String _name) {
+    private static int[][] getValueCaseInsensitive(StringMap<int[][]> _map,
+                                                   String _name) {
         for (EntryCust<String, int[][]> e : _map.entryList()) {
             if (StringList.quickEq(e.getKey(),_name)) {
                 return e.getValue();
@@ -3299,7 +3284,7 @@ public class DataBase implements WithMathFactory {
         return elements_;
     }
 
-    public StringMap<StringList> getVarParamsMove() {
+    StringMap<StringList> getVarParamsMove() {
         return varParamsMove;
     }
 
@@ -3443,7 +3428,7 @@ public class DataBase implements WithMathFactory {
         endGameImage = _endGameImage;
     }
 
-    public StringList getFilesWithSameNameDifferentCase() {
+    StringList getFilesWithSameNameDifferentCase() {
         return filesWithSameNameDifferentCase;
     }
 
@@ -3604,7 +3589,7 @@ public class DataBase implements WithMathFactory {
         return new Rate(DEFAULT_INFLICTED_RATE_NUM, DEFAULT_INFLICTED_RATE_DEN);
     }
 
-    public boolean isCheckTranslation() {
+    private boolean isCheckTranslation() {
         return checkTranslation;
     }
 
