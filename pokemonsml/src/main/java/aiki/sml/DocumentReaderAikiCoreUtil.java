@@ -1452,7 +1452,7 @@ public final class DocumentReaderAikiCoreUtil {
             } else if (StringList.quickEq(infos_.first(), BALL_DEF)) {
                 _d.setBallDef(infos_.last());
             } else if (StringList.quickEq(infos_.first(), DEFAULT_EGG_GROUP)) {
-                _d.setDefaultEggGoup(infos_.last());
+                _d.setDefaultEggGroup(infos_.last());
             } else if (StringList.quickEq(infos_.first(), DAMAGE_FORMULA)) {
                 _d.setDamageFormula(infos_.last());
             }
@@ -1997,7 +1997,7 @@ public final class DocumentReaderAikiCoreUtil {
             } else if (StringList.quickEq(infos_.first(), BALL_DEF)) {
                 _d.setBallDef(infos_.last());
             } else if (StringList.quickEq(infos_.first(), DEFAULT_EGG_GROUP)) {
-                _d.setDefaultEggGoup(infos_.last());
+                _d.setDefaultEggGroup(infos_.last());
             } else if (StringList.quickEq(infos_.first(), DAMAGE_FORMULA)) {
                 _d.setDamageFormula(infos_.last());
             }

@@ -47,9 +47,13 @@ public final class FacadeGameFightKoTest extends InitializationDataBase {
         pk_.setAbility(ABSORB_EAU);
         pk_.setGender(Gender.NO_GENDER);
         pk_.setItem(NULL_REF);
+        FacadeGame facadeGame_ = new FacadeGame();
+        facadeGame_.setData(data);
+        facadeGame_.setLanguage(LANGUAGE);
+        facadeGame_.setGame(game_);
         game_.getPlayer().recevoirPokemon(pk_, game_.getDifficulty(), data);
-        game_.getPlayer().setChosenTeamPokemon((short) 0);
-        game_.getPlayer().switchTeamOrder((short) 1);
+        facadeGame_.setChosenTeamPokemon((short) 0);
+        facadeGame_.switchTeamOrder((short) 1);
         assertEq(PTITARD, ((PokemonPlayer) game_.getPlayer().getTeam().get(0)).getName());
         DataMap map_ = data.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
@@ -59,10 +63,6 @@ public final class FacadeGameFightKoTest extends InitializationDataBase {
         area_ = level_.getAreaByPoint(current_.getLevel().getPoint());
         game_.newIndex(true, 0, area_, data);
         game = game_;
-        FacadeGame facadeGame_ = new FacadeGame();
-        facadeGame_.setData(data);
-        facadeGame_.setLanguage(LANGUAGE);
-        facadeGame_.setGame(game_);
         facadeGame = facadeGame_;
     }
 

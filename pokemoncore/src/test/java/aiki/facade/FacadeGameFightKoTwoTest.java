@@ -154,6 +154,8 @@ public final class FacadeGameFightKoTwoTest extends InitializationDataBase {
 
     @Test
     public void act6Test() {
+        facadeGame.setChangeToFightScene(false);
+        facadeGame.getTrainerImage();
         facadeGame.chooseFrontFighter((byte) 0);
         facadeGame.chooseMove(BULLES_D_O);
         facadeGame.setFirstChosenMoveFoeTarget((byte) 0);

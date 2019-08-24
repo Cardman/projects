@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static aiki.db.EquallablePkUtil.assertEq;
+import static org.junit.Assert.assertTrue;
 
 public final class FacadeGameMoveTutorsTest extends InitializationDataBase {
 
@@ -43,7 +44,7 @@ public final class FacadeGameMoveTutorsTest extends InitializationDataBase {
     }
 
     @Test
-    public void listMovesTest() {
+    public void listMoves1Test() {
         facadeGame.choosePokemonForMoveTutors((short)0);
         assertEq(3,facadeGame.getSelectedMoves().size());
         assertEq(1,facadeGame.getUnselectedMoves().size());
@@ -56,6 +57,36 @@ public final class FacadeGameMoveTutorsTest extends InitializationDataBase {
         assertEq(1,facadeGame.getUnselectedMoves().size());
     }
 
+    @Test
+    public void listMoves2Test() {
+        facadeGame.choosePokemonForMoveTutors((short)0);
+        assertEq(3,facadeGame.getSelectedMoves().size());
+        assertEq(1,facadeGame.getUnselectedMoves().size());
+        String move_ = facadeGame.getUnselectedMoves().get(0);
+        facadeGame.addOrDeleteMove(move_);
+        assertEq(4,facadeGame.getSelectedMoves().size());
+        assertEq(0,facadeGame.getUnselectedMoves().size());
+        facadeGame.addOrDeleteMove(move_);
+        assertEq(3,facadeGame.getSelectedMoves().size());
+        assertEq(1,facadeGame.getUnselectedMoves().size());
+        facadeGame.cancelLearningMoveOnPokemon();
+        assertEq(3,game.getPlayer().getPokemonPlayerList().getValue(0).getMoves().size());
+    }
+
+    @Test
+    public void listMoves3Test() {
+        facadeGame.choosePokemonForMoveTutors((short)0);
+        assertEq(3,facadeGame.getSelectedMoves().size());
+        assertEq(1,facadeGame.getUnselectedMoves().size());
+        String move_ = facadeGame.getUnselectedMoves().get(0);
+        facadeGame.addOrDeleteMove(move_);
+        assertEq(4,facadeGame.getSelectedMoves().size());
+        assertEq(0,facadeGame.getUnselectedMoves().size());
+        assertEq(3,game.getPlayer().getPokemonPlayerList().getValue(0).getMoves().size());
+        facadeGame.learnMovesByMoveTutor();
+        assertEq(4,game.getPlayer().getPokemonPlayerList().getValue(0).getMoves().size());
+
+    }
     private static Coords newCoords(int _place, int _level, int _xi, int _yi, int _x, int _y) {
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) _place);

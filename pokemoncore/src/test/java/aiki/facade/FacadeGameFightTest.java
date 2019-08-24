@@ -123,6 +123,12 @@ public final class FacadeGameFightTest extends InitializationDataBase {
         assertEq(2,facadeGame.remainingThrowersTargetsHp().size());
     }
 
+    @Test
+    public void act11Test() {
+        assertTrue(facadeGame.isExistingFight());
+        assertTrue(facadeGame.isWildFight());
+    }
+
     private static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) _place);

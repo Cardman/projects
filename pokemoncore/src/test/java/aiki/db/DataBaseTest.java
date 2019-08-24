@@ -1,13 +1,20 @@
 package aiki.db;
 import static aiki.db.EquallablePkUtil.assertEq;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import aiki.fight.Combos;
 import aiki.fight.pokemon.PokemonData;
+import aiki.fight.pokemon.enums.ExpType;
+import aiki.fight.util.TypesDuo;
 import aiki.game.fight.InitializationDataBase;
+import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.instances.Instances;
+import aiki.map.enums.Direction;
+import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.util.ScreenCoords;
+import aiki.util.LawNumber;
 import org.junit.Test;
 
 import aiki.fight.abilities.AbilityData;
@@ -101,6 +108,15 @@ public class DataBaseTest {
         data_.setRateFleeing("");
         data_.setRates(new EnumMap<DifficultyWinPointsFight, String>());
         data_.setBallDef("");
+        data_.setDefaultEggGroup("");
+        data_.setDefMove("");
+        data_.setDamageFormula("");
+        data_.setExpGrowth(new EnumMap<ExpType, String>());
+        data_.setTableTypes(new ObjectMap<TypesDuo, Rate>());
+        data_.setTypes(new StringList());
+        data_.setLawsDamageRate(new EnumMap<DifficultyModelLaw, LawNumber>());
+        data_.setMaxHeightPk(0);
+        data_.setMaxWidthPk(0);
         data_.setDisplayLanguages(new StringMap<String>());
         data_.setMessagesFight(new StringMap<String>());
         data_.setMessagesFighter(new StringMap<String>());
@@ -109,6 +125,25 @@ public class DataBaseTest {
         data_.setMessagesPokemonPlayer(new StringMap<String>());
         data_.setMessagesTeam(new StringMap<String>());
         data_.setMessages(data_);
+        data_.getExpGrowth(ExpType.P);
+        assertEq(DataBase.EMPTY_STRING,data_.getRateCatching());
+        assertEq(DataBase.EMPTY_STRING,data_.getRateFleeing());
+        assertEq(DataBase.EMPTY_STRING,data_.getDefaultEggGroup());
+        assertEq(DataBase.EMPTY_STRING,data_.getBallDef());
+        assertEq(DataBase.EMPTY_STRING,data_.getDefaultBall());
+        assertEq(DataBase.EMPTY_STRING,data_.getDefMove());
+        assertEq(0,data_.getImagesTiles().size());
+        assertEq(0,data_.getDisplayLanguages().size());
+        assertEq(0,data_.getLanguages().size());
+        data_.getEndGameImage();
+        data_.getAnimAbsorb();
+        ImageHeroKey i_ = new ImageHeroKey();
+        i_.setDirection(Direction.UP);
+        i_.setSex(null);
+        i_.setType(EnvironmentType.NOTHING);
+        assertEq(Direction.UP,i_.getDirection());
+        assertNull(i_.getSex());
+        assertEq(EnvironmentType.NOTHING,i_.getType());
         assertTrue(!data_.isError());
     }
 

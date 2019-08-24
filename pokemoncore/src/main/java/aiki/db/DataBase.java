@@ -260,7 +260,7 @@ public class DataBase {
 
     private String ballDef;
 
-    private String defaultEggGoup;
+    private String defaultEggGroup;
 
     private String rateCatching;
 
@@ -1876,12 +1876,8 @@ public class DataBase {
         ballDef = _ballDef;
     }
 
-    public String getDefaultEggGoup() {
-        return defaultEggGoup;
-    }
-
-    public void setDefaultEggGoup(String _defaultEggGoup) {
-        defaultEggGoup = _defaultEggGoup;
+    public void setDefaultEggGroup(String _defaultEggGoup) {
+        defaultEggGroup = _defaultEggGoup;
     }
 
     public String getRateCatching() {
@@ -3126,7 +3122,7 @@ public class DataBase {
         rateBoostCriticalHit = _rateBoostCriticalHit;
         damageFormula = _damageFormula;
         defMove = _defMove;
-        defaultEggGoup = _defaultEggGoup;
+        defaultEggGroup = _defaultEggGoup;
     }
 
     /** USED */
@@ -3262,7 +3258,7 @@ public class DataBase {
     /** General data - show all pokemon belonging to this group */
     public String getDefaultEggGroup() {
 
-        return defaultEggGoup;
+        return defaultEggGroup;
     }
 
     public String getDefaultBall() {

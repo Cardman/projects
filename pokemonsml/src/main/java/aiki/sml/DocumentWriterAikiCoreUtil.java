@@ -1134,7 +1134,7 @@ public final class DocumentWriterAikiCoreUtil {
         lines_.add(StringList.concat(RATE_FLEEING, TAB, _d.getRateFleeing()));
         lines_.add(StringList.concat(RATE_CATCHING, TAB, _d.getRateCatching()));
         lines_.add(StringList.concat(BALL_DEF, TAB, _d.getBallDef()));
-        lines_.add(StringList.concat(DEFAULT_EGG_GROUP, TAB, _d.getDefaultEggGoup()));
+        lines_.add(StringList.concat(DEFAULT_EGG_GROUP, TAB, _d.getDefaultEggGroup()));
         lines_.add(StringList.concat(DAMAGE_FORMULA, TAB, _d.getDamageFormula()));
 
         files_.put(CONST_NOT_NUM, StringList.join(lines_, RETURN_LINE));

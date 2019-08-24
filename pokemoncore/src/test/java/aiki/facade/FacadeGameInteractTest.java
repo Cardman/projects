@@ -34,7 +34,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
         facadeGame_.setGame(game_);
         facadeGame_.directInteraction();
         facadeGame_.interact();
-        assertEq(InterfaceType.RIEN, game_.getInterfaceType());
+        assertEq(InterfaceType.RIEN, facadeGame_.getInterfaceType());
         assertTrue(!facadeGame_.isFishArea());
         facadeGame_.exitFight();
         assertTrue(facadeGame_.isEnabledMovingHero());
@@ -86,6 +86,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
         facadeGame_.directInteraction();
         facadeGame_.interact();
         assertEq(InterfaceType.RIEN, game_.getInterfaceType());
+        assertEq(InterfaceType.RIEN, facadeGame_.getGame().getInterfaceType());
     }
 
     @Test
@@ -259,6 +260,38 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
         assertTrue(!facadeGame_.isFishArea());
         facadeGame_.interact();
         assertEq(InterfaceType.RIEN, game_.getInterfaceType());
+    }
+
+    @Test
+    public void interact17Test() {
+        Game game_ = new Game(data);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
+        game_.setPlayerCoords(newCoords(0, 0, 0, 5));
+        game_.setPlayerOrientation(Direction.DOWN);
+        //newCoords(0, 0, 0, 6) is in this data invalid
+        FacadeGame facadeGame_ = new FacadeGame();
+        facadeGame_.setData(data);
+        facadeGame_.setGame(game_);
+        facadeGame_.changeCamera(Direction.DOWN);
+        assertTrue(!facadeGame_.isFishArea());
+        facadeGame_.interact();
+        assertEq(InterfaceType.RIEN, game_.getInterfaceType());
+        assertEq("R 1", facadeGame_.getCurrentPlace());
+    }
+
+    @Test
+    public void nicknameTest() {
+        Game game_ = new Game(data);
+        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data);
+        game_.setPlayerCoords(newCoords(0, 0, 0, 5));
+        game_.setPlayerOrientation(Direction.DOWN);
+        //newCoords(0, 0, 0, 6) is in this data invalid
+        FacadeGame facadeGame_ = new FacadeGame();
+        facadeGame_.setData(data);
+        facadeGame_.setGame(game_);
+        facadeGame_.setChosenTeamPokemon((short) 0);
+        facadeGame_.validateNickname("NICKNAME");
+        assertEq("NICKNAME", facadeGame_.getPlayer().getPokemonPlayerList().firstValue().getNickname());
     }
     private static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();

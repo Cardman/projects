@@ -201,6 +201,8 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class Instances {
+    private Instances() {
+    }
     public static Combos newCombos() {
         Combos object_ = new Combos();
         CollCapacity cap_ = new CollCapacity(0);

@@ -19,7 +19,6 @@ import aiki.game.enums.InterfaceType;
 import aiki.game.fight.BallNumberRate;
 import aiki.game.fight.Fight;
 import aiki.game.fight.Fighter;
-import aiki.game.fight.Team;
 import aiki.game.fight.TeamPosition;
 import aiki.game.fight.enums.ActionType;
 import aiki.game.player.Inventory;
@@ -105,10 +104,6 @@ public class FacadeGame {
     private boolean enabledMovingHero;
 
     private PokemonPlayer hostedPokemon;
-
-    private StringList places = new StringList();
-
-    private EqList<Coords> placesCoords = new EqList<Coords>();
 
     private ExchangedData exchangeData;
 
@@ -961,12 +956,6 @@ public class FacadeGame {
         return hostedPokemon;
     }
 
-    public void choosePlace(int _index) {
-        game.getPlayerCoords().affect(placesCoords.get(_index));
-        game.setRankLeague((byte) 0);
-        changeCamera();
-    }
-
     public TreeMap<MiniMapCoords, int[][]> getImages() {
         TreeMap<MiniMapCoords, int[][]> miniMap_;
         miniMap_ = data.getMap().getImages(data);
@@ -1033,10 +1022,6 @@ public class FacadeGame {
 
     public String getName(int _x, int _y) {
         return data.getMap().getName(_x, _y);
-    }
-
-    public int[][] getImage(int _x, int _y) {
-        return data.getMap().getImage(data, _x, _y);
     }
 
     public void initTrading() {
@@ -1678,7 +1663,7 @@ public class FacadeGame {
         game.getPlayer().useObject(data);
     }
 
-    public void cancelUseObject() {
+    private void cancelUseObject() {
         game.getPlayer().cancelUseObject();
     }
 
@@ -2657,10 +2642,6 @@ public class FacadeGame {
 
     public void setGame(Game _game) {
         game = _game;
-    }
-
-    public StringList getPlaces() {
-        return places;
     }
 
     public Comment getComment() {

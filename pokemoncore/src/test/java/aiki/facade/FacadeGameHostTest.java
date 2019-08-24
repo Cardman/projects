@@ -16,6 +16,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static aiki.db.EquallablePkUtil.assertEq;
+import static org.junit.Assert.assertNotNull;
 
 public final class FacadeGameHostTest extends InitializationDataBase {
 
@@ -94,6 +95,28 @@ public final class FacadeGameHostTest extends InitializationDataBase {
         assertEq(MELOFEE,facadeGame.getHostedPokemon(false,game.closestTile(data.getMap())).getName());
         facadeGame.receiveFromHost(false);
         assertEq(3,facadeGame.getPlayer().getTeam().size());
+    }
+
+    @Test
+    public void host4Test() {
+        Pokemon givPk_ = new WildPk();
+        givPk_.setName(MELOFEE);
+        givPk_.setGender(Gender.NO_GENDER);
+        givPk_.setAbility(STATIK);
+        givPk_.setLevel((short) 7);
+        givPk_.setItem(PP_PLUS);
+        game.getPlayer().recevoirPokemon(givPk_, game.getDifficulty(), data);
+        facadeGame.setSelectPkToHost((short) 1);
+        facadeGame.setSelectPkToHost((short) 2);
+        facadeGame.attemptForStoringPokemonToHost();
+        assertEq(1,facadeGame.getPlayer().getPokemonPlayerList().size());
+        assertEq(5,facadeGame.getRemainingRooms());
+        Coords coords_ = facadeGame.closestTile();
+        assertEq(1024,facadeGame.getRemaingingSteps(coords_));
+        facadeGame.setHostedPokemon(false,coords_);
+        assertNotNull(facadeGame.getHostedPokemon());
+        facadeGame.setHostedPokemon(true,coords_);
+        assertNotNull(facadeGame.getHostedPokemon());
     }
     private static Coords newCoords(int _place, int _level, int _xi, int _yi, int _x, int _y) {
         Coords begin_ = new Coords();

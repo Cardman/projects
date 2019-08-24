@@ -57,6 +57,9 @@ public final class FacadeGameTradeTest extends InitializationDataBase {
         PokemonPlayer pokemonPlayer_ = newPokemonPlayer(MELOFEE, STATIK, Gender.NO_GENDER, PP_PLUS);
         facadeGame.receivePokemonPlayer(pokemonPlayer_);
         assertEq(2,facadeGame.getPlayer().getPokemonPlayerList().size());
+        assertNotNull(facadeGame.getExchangeData());
+        assertNotNull(facadeGame.getSentPokemon());
+        assertNotNull(facadeGame.getReceivedPokemon());
     }
 
     @Test
@@ -67,6 +70,17 @@ public final class FacadeGameTradeTest extends InitializationDataBase {
         PokemonPlayer pokemonPlayer_ = newPokemonPlayer("UNKNOWN", STATIK, Gender.NO_GENDER, PP_PLUS);
         facadeGame.receivePokemonPlayer(pokemonPlayer_);
         assertEq(2,facadeGame.getPlayer().getPokemonPlayerList().size());
+    }
+    @Test
+    public void tradeTest() {
+        facadeGame.initTrading();
+        facadeGame.setIndexTeamTrading(-1);
+        facadeGame.setIndexTeamTrading(0);
+        PokemonPlayer pokemonPlayer_ = newPokemonPlayer(MELOFEE, STATIK, Gender.NO_GENDER, PP_PLUS);
+        facadeGame.receivePokemonPlayer(pokemonPlayer_);
+        facadeGame.applyTrading();
+        assertEq(2,facadeGame.getPlayer().getPokemonPlayerList().size());
+        facadeGame.closeTrading();
     }
     private static PokemonPlayer newPokemonPlayer(String _name, String _ability, Gender _gender, String _item) {
         PokemonPlayer sent_ = new PokemonPlayer();

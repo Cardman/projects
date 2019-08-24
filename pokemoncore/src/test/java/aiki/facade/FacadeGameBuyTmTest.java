@@ -72,6 +72,16 @@ public final class FacadeGameBuyTmTest extends InitializationDataBase {
         assertEq(1, facadeGame.getPlayer().getInventory().gotTm().size());
         assertEq(LgInt.newLgInt("0"),game.getPlayer().getMoney());
     }
+
+    @Test
+    public void listTm3Test() {
+        game.getPlayer().setMoney(LgInt.newLgInt("4000"));
+        facadeGame.searchTmToBuy();
+        facadeGame.checkLineMove(0);
+        facadeGame.addTmToBuy();
+        facadeGame.removeTmToBuy(TONNERRE);
+        assertEq(0,facadeGame.getChosenTmForBuy().size());
+    }
     private static Coords newCoords(int _place, int _level, int _xi, int _yi, int _x, int _y) {
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) _place);

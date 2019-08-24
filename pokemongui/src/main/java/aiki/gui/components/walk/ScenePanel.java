@@ -722,14 +722,6 @@ public class ScenePanel extends Panel {
         window.pack();
     }
 
-    public void choosePlace(int _place) {
-        window.setSavedGame(false);
-        facade.choosePlace(_place);
-        drawGameWalking(false);
-        scene.repaint();
-        exitInteractionPack();
-    }
-
     public void choosePlace() {
         facade.choosePlace();
         if (facade.getMiniMapCoords().getXcoords() != CustList.INDEX_NOT_FOUND_ELT) {
