@@ -522,19 +522,39 @@ public final class ElUtil {
                 _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
             }
             if (curOp_ instanceof NamedCalledOperation) {
+                int delta_ = ((NamedCalledOperation) curOp_).getDelta();
                 ClassMethodId classMethodId_ = ((NamedCalledOperation) curOp_).getClassMethodId();
                 String className_ = classMethodId_.getClassName();
                 className_ = Templates.getIdFromAllTypes(className_);
                 MethodId id_ = classMethodId_.getConstraints();
                 GeneType type_ = _cont.getClassBody(className_);
-                if (type_ instanceof RootBlock) {
+                if (isFromCustFile(type_)) {
                     String file_ = ((RootBlock) type_).getFile().getFileName();
                     file_ = file_.substring("src/".length());
                     OverridableBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
                     tag_ = "<a title=\""+transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+file_+".html#m"+method_.getNameOffset()+"\">";
-                    _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
+                    _parts.add(new PartOffset(tag_,sum_ +delta_+ val_.getIndexInEl()));
                     tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+id_.getName().length()));
+                    _parts.add(new PartOffset(tag_,sum_ +delta_+ val_.getIndexInEl()+id_.getName().length()));
+                }
+            }
+            if (curOp_ instanceof ExecSettableFieldOperation) {
+                if (_block instanceof FieldBlock && isDeclaringVariable(curOp_)) {
+                    ClassField c_ = ((ExecSettableFieldOperation)curOp_).getFieldId();
+                    int id_;
+                    if (curOp_.getParent() instanceof ExecAffectationOperation) {
+                        id_ = ((FieldBlock) _block).getValuesOffset().get(curOp_.getParent().getIndexChild());
+                    } else {
+                        id_ = ((FieldBlock) _block).getValuesOffset().get(curOp_.getIndexChild());
+                    }
+                    tag_ = "<a name=\"m"+id_+"\">";
+                    int d_ = ((ExecSettableFieldOperation)curOp_).getDelta();
+                    _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+d_));
+                    tag_ = "</a>";
+                    _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+d_+c_.getFieldName().length()));
+                } else {
+                    ClassField c_ = ((ExecSettableFieldOperation)curOp_).getFieldId();
+                    updateFieldAnchor(_cont,_parts,c_,sum_ + val_.getIndexInEl() + ((ExecSettableFieldOperation)curOp_).getDelta(),c_.getFieldName().length());
                 }
             }
             if (curOp_ instanceof ExecStandardInstancingOperation) {
@@ -542,7 +562,7 @@ public final class ElUtil {
                 cl_ = Templates.getIdFromAllTypes(cl_);
                 ConstructorId c_ = ((ExecStandardInstancingOperation)curOp_).getConstId();
                 GeneType type_ = _cont.getClassBody(cl_);
-                if (type_ instanceof RootBlock) {
+                if (isFromCustFile(type_)) {
                     String file_ = ((RootBlock) type_).getFile().getFileName();
                     file_ = file_.substring("src/".length());
                     CustList<GeneConstructor> ctors_ = Classes.getConstructorBodiesById(_cont, cl_, c_);
@@ -556,6 +576,60 @@ public final class ElUtil {
                         _parts.add(new PartOffset(tag_,offsetNew_+sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordNew().length()));
                     }
                 }
+            }
+            if (curOp_ instanceof ExecLambdaOperation) {
+                ClassMethodId classMethodId_ = ((ExecLambdaOperation) curOp_).getMethod();
+                ConstructorId realId_ = ((ExecLambdaOperation) curOp_).getRealId();
+                ClassField fieldId_ = ((ExecLambdaOperation) curOp_).getFieldId();
+                if (classMethodId_ != null) {
+                    String className_ = classMethodId_.getClassName();
+                    className_ = Templates.getIdFromAllTypes(className_);
+                    MethodId id_ = classMethodId_.getConstraints();
+                    if (!StringList.isDollarWord(id_.getName()) && !id_.getName().startsWith("[]")) {
+                        OperatorBlock operator_ = Classes.getOperatorsBodiesById(_cont, id_).first();
+                        String file_ = operator_.getFile().getFileName();
+                        file_ = file_.substring("src/".length());
+                        tag_ = "<a title=\""+ transform(id_.getSignature(_cont))+"\" href=\""+file_+".html#m"+operator_.getNameOffset()+"\">";
+                        _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
+                        tag_ = "</a>";
+                        _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordLambda().length()));
+                    } else {
+                        GeneType type_ = _cont.getClassBody(className_);
+                        if (isFromCustFile(type_)) {
+                            String file_ = ((RootBlock) type_).getFile().getFileName();
+                            file_ = file_.substring("src/".length());
+                            OverridableBlock method_ = Classes.getMethodBodiesById(_cont, className_, id_).first();
+                            tag_ = "<a title=\""+transform(className_ +"."+ id_.getSignature(_cont))+"\" href=\""+file_+".html#m"+method_.getNameOffset()+"\">";
+                            _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
+                            tag_ = "</a>";
+                            _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordLambda().length()));
+                        }
+                    }
+                } else if (realId_ != null) {
+                    String cl_ = ((ExecLambdaOperation) curOp_).getFoundClass();
+                    cl_ = Templates.getIdFromAllTypes(cl_);
+                    GeneType type_ = _cont.getClassBody(cl_);
+                    if (isFromCustFile(type_)) {
+                        String file_ = ((RootBlock) type_).getFile().getFileName();
+                        file_ = file_.substring("src/".length());
+                        CustList<GeneConstructor> ctors_ = Classes.getConstructorBodiesById(_cont, cl_, realId_);
+                        if (!ctors_.isEmpty()) {
+                            ConstructorBlock ctor_ = (ConstructorBlock) ctors_.first();
+                            tag_ = "<a title=\""+ transform(cl_ +"."+ realId_.getSignature(_cont))+"\" href=\""+file_+".html#m"+ctor_.getNameOffset()+"\">";
+                            _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
+                            tag_ = "</a>";
+                            _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordLambda().length()));
+                        }
+                    }
+                } else {
+                    updateFieldAnchor(_cont,_parts,fieldId_,sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length());
+                }
+            }
+            if (curOp_ instanceof ExecCallDynMethodOperation) {
+                tag_ = "<b>";
+                _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
+                tag_ = "</b>";
+                _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+_cont.getStandards().getAliasCall().length()));
             }
             if (curOp_ instanceof ExecAbstractInvokingConstructor) {
                 ConstructorId c_ = ((ExecAbstractInvokingConstructor)curOp_).getConstId();
@@ -869,6 +943,57 @@ public final class ElUtil {
             }
         }
     }
+    private static void updateFieldAnchor(ContextEl _cont,CustList<PartOffset> _parts,ClassField _id, int _begin, int _length) {
+        String className_ = _id.getClassName();
+        className_ = Templates.getIdFromAllTypes(className_);
+        GeneType type_ = _cont.getClassBody(className_);
+        if (isFromCustFile(type_)) {
+            int delta_ = -1;
+            for (Block b: Classes.getDirectChildren((Block) type_)) {
+                if (!(b instanceof FieldBlock)) {
+                    continue;
+                }
+                FieldBlock f_ = (FieldBlock) b;
+                int i_ = 0;
+                int index_ = -1;
+                for (String n: f_.getFieldName()) {
+                    if (StringList.quickEq(n, _id.getFieldName())) {
+                        index_ = i_;
+                        break;
+                    }
+                    i_++;
+                }
+                if (index_ > -1) {
+                    delta_ = f_.getValuesOffset().get(index_);
+                }
+            }
+            if (delta_ > -1) {
+                String file_ = ((RootBlock) type_).getFile().getFileName();
+                file_ = file_.substring("src/".length());
+                String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+file_+".html#m"+delta_+"\">";
+                _parts.add(new PartOffset(tag_,_begin));
+                tag_ = "</a>";
+                _parts.add(new PartOffset(tag_,_begin+_length));
+            } else {
+                for (Block b: Classes.getDirectChildren((Block) type_)) {
+                    if (!(b instanceof InnerTypeOrElement)) {
+                        continue;
+                    }
+                    InnerTypeOrElement f_ = (InnerTypeOrElement)b;
+                    if (!StringList.quickEq(f_.getUniqueFieldName(),_id.getFieldName())) {
+                        continue;
+                    }
+                    delta_ = f_.getFieldNameOffset();
+                }
+                String file_ = ((RootBlock) type_).getFile().getFileName();
+                file_ = file_.substring("src/".length());
+                String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+file_+".html#m"+delta_+"\">";
+                _parts.add(new PartOffset(tag_,_begin));
+                tag_ = "</a>";
+                _parts.add(new PartOffset(tag_,_begin+_length));
+            }
+        }
+    }
     private static String transform(String _string) {
         StringBuilder str_ = new StringBuilder();
         for (char c: _string.toCharArray()) {
@@ -907,6 +1032,12 @@ public final class ElUtil {
             }
         }
         return false;
+    }
+    private static boolean isFromCustFile(GeneType _g) {
+        if (!(_g instanceof RootBlock)) {
+            return false;
+        }
+        return !((RootBlock)_g).getFile().isPredefined();
     }
     public static void tryCalculate(FieldBlock _field, ContextEl _context, String _fieldName) {
         CustList<ExecOperationNode> nodes_ = _field.getOpValue();

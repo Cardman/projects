@@ -309,7 +309,12 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         CustList<GeneConstructor> ctors_ = Classes.getConstructorBodiesById(_cont, cl_, c_);
         if (!ctors_.isEmpty()) {
             ConstructorBlock ctor_ = (ConstructorBlock) ctors_.first();
-            String tag_ = "<a title=\""+ cl_ +"."+ c_.getSignature(_cont)+"\" href=\""+file_+".html#m"+ctor_.getNameOffset()+"\">";
+            String tag_ = "<a name=\"m"+fieldNameOffest+"\" title=\""+ cl_ +"."+ c_.getSignature(_cont)+"\" href=\""+file_+".html#m"+ctor_.getNameOffset()+"\">";
+            _parts.add(new PartOffset(tag_,fieldNameOffest));
+            tag_ = "</a>";
+            _parts.add(new PartOffset(tag_,fieldNameOffest+fieldName.length()));
+        } else {
+            String tag_ = "<a name=\"m"+fieldNameOffest+"\">";
             _parts.add(new PartOffset(tag_,fieldNameOffest));
             tag_ = "</a>";
             _parts.add(new PartOffset(tag_,fieldNameOffest+fieldName.length()));
@@ -317,12 +322,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         int blOffset_ = valueOffest;
         int endBl_ = valueOffest + value.length();
         ElUtil.buildCoverageReport(_cont,blOffset_,this,opValue,endBl_,_parts,trOffset-1,fieldName);
-//
-//        KeyWords keyWords_ = _cont.getKeyWords();
-//        String newKeyWord_ = keyWords_.getKeyWordNew();
-//        int blOffset_ = valueOffest - 2 - newKeyWord_.length() - importedClassName.length();
-//        int endBl_ = blOffset_ + value.length();
-//        ElUtil.buildCoverageReport(_cont,blOffset_,this,opValue,endBl_,_parts);
     }
 
     @Override

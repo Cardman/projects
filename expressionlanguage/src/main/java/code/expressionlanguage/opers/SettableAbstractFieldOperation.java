@@ -103,6 +103,7 @@ public abstract class SettableAbstractFieldOperation extends
     abstract String getFieldName();
     abstract boolean isBaseAccess();
     abstract boolean isSuperAccess();
+    public abstract int getDelta();
 
     @Override
     public final void setCatenizeStrings() {

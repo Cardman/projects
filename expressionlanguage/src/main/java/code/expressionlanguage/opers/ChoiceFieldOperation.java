@@ -35,6 +35,14 @@ public final class ChoiceFieldOperation extends
     }
 
     @Override
+    public int getDelta() {
+        OperationsSequence op_ = getOperations();
+        String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
+        int ind_ = originalStr_.lastIndexOf(PAR_RIGHT);
+        return ind_ + StringList.getFirstPrintableCharIndex(originalStr_.substring(ind_+1));
+    }
+
+    @Override
     boolean isBaseAccess() {
         return true;
     }

@@ -25,6 +25,7 @@ public final class OperationsSequence {
     private Delimiters delimiter;
 
     private int offset;
+    private int delta;
 
     private boolean instanceTest;
 
@@ -326,4 +327,11 @@ public final class OperationsSequence {
         extractType = _extractType;
     }
 
+    public int getDelta() {
+        return delta;
+    }
+
+    public void setDelta(int _delta) {
+        delta = _delta;
+    }
 }

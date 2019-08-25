@@ -28,6 +28,9 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation implemen
 
     private int naturalVararg;
     private int anc;
+
+    private int delta;
+
     public ExecChoiceFctOperation(ChoiceFctOperation _choice) {
         super(_choice);
         methodName = _choice.getMethodName();
@@ -37,6 +40,7 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation implemen
         lastType = _choice.getLastType();
         naturalVararg = _choice.getNaturalVararg();
         anc = _choice.getAnc();
+        delta = _choice.getDelta();
     }
 
     @Override
@@ -96,5 +100,10 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation implemen
 
     public int getNaturalVararg() {
         return naturalVararg;
+    }
+
+    @Override
+    public int getDelta() {
+        return delta;
     }
 }

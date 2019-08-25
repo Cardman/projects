@@ -29,6 +29,7 @@ public final class SuperFctOperation extends InvokingOperation {
 
     private int naturalVararg = -1;
     private int anc;
+    private int delta;
     public SuperFctOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -80,7 +81,10 @@ public final class SuperFctOperation extends InvokingOperation {
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
 
-        trimMeth_ = methodName.substring(methodName.lastIndexOf(PAR_RIGHT)+1).trim();
+        delta = methodName.lastIndexOf(PAR_RIGHT)+1;
+        String mName_ = methodName.substring(delta);
+        delta += StringList.getFirstPrintableCharIndex(mName_);
+        trimMeth_ = mName_.trim();
         ClassMethodId feed_ = null;
         if (idMethod_ != null) {
             String idClass_ = idMethod_.getClassName();
@@ -150,4 +154,7 @@ public final class SuperFctOperation extends InvokingOperation {
         return anc;
     }
 
+    public int getDelta() {
+        return delta;
+    }
 }

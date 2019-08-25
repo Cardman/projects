@@ -5,6 +5,7 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.exec.StandardFieldOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
+import code.util.StringList;
 
 public final class StandardFieldOperation extends
         SettableAbstractFieldOperation implements StandardFieldOperable {
@@ -37,6 +38,12 @@ public final class StandardFieldOperation extends
         return originalStr_.trim();
     }
 
+    @Override
+    public int getDelta() {
+        OperationsSequence op_ = getOperations();
+        String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
+        return StringList.getFirstPrintableCharIndex(originalStr_);
+    }
     @Override
     boolean isBaseAccess() {
         return true;

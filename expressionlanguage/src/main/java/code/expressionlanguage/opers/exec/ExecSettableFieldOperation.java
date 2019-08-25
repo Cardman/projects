@@ -25,12 +25,14 @@ public final class ExecSettableFieldOperation extends
 
     private int anc;
 
+    private int delta;
     public ExecSettableFieldOperation(SettableAbstractFieldOperation _s) {
         super(_s);
         variable = _s.isVariable();
         fieldMetaInfo = _s.getFieldMetaInfo();
         catString = _s.isCatString();
         anc = _s.getAnc();
+        delta = _s.getDelta();
     }
 
     public boolean resultCanBeSet() {
@@ -220,5 +222,9 @@ public final class ExecSettableFieldOperation extends
         ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, _right.getStruct());
         Argument a_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
         return a_;
+    }
+
+    public int getDelta() {
+        return delta;
     }
 }

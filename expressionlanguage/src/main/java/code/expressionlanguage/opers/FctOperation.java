@@ -41,6 +41,8 @@ public final class FctOperation extends InvokingOperation {
 
     private int anc;
 
+    private int delta;
+
     public FctOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -64,6 +66,7 @@ public final class FctOperation extends InvokingOperation {
 
         StringList l_ = clCur_.getNames();
         CustList<OperationNode> chidren_ = getChildrenNodes();
+        setDelta(_conf);
         String trimMeth_ = methodName.trim();
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
         int varargOnly_ = lookOnlyForVarArg();
@@ -187,7 +190,25 @@ public final class FctOperation extends InvokingOperation {
             checkNull(arg_,_conf);
         }
     }
-
+    private void setDelta(Analyzable _conf) {
+        String trimMeth_ = methodName.trim();
+        KeyWords keyWords_ = _conf.getKeyWords();
+        String keyWordSuper_ = keyWords_.getKeyWordSuper();
+        String keyWordThat_ = keyWords_.getKeyWordThat();
+        String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();
+        int delta_ = 0;
+        if (ContextEl.startsWithKeyWord(trimMeth_, keyWordSuper_)) {
+            delta_ = trimMeth_.indexOf('.')+1;
+            delta_ += StringList.getFirstPrintableCharIndex(trimMeth_.substring(delta_));
+        } else if (ContextEl.startsWithKeyWord(trimMeth_, keyWordThat_)) {
+            delta_ = trimMeth_.indexOf('.')+1;
+            delta_ += StringList.getFirstPrintableCharIndex(trimMeth_.substring(delta_));
+        } else if (ContextEl.startsWithKeyWord(trimMeth_, keyWordThisaccess_)) {
+            delta_ = trimMeth_.lastIndexOf(PAR_RIGHT) + 1;
+            delta_ += StringList.getFirstPrintableCharIndex(trimMeth_.substring(delta_));
+        }
+        delta = delta_;
+    }
     private static StringList getArrayBounds(StringList _bounds) {
         StringList b_ = new StringList();
         for (String b: _bounds) {
@@ -267,4 +288,7 @@ public final class FctOperation extends InvokingOperation {
         return anc;
     }
 
+    public int getDelta() {
+        return delta;
+    }
 }

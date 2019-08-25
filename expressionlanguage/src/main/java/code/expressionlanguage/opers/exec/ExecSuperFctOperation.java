@@ -25,6 +25,7 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation implement
 
     private int naturalVararg = -1;
     private int anc;
+    private int delta;
     public ExecSuperFctOperation(SuperFctOperation _s) {
         super(_s);
         methodName = _s.getMethodName();
@@ -33,6 +34,7 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation implement
         lastType = _s.getLastType();
         naturalVararg = _s.getNaturalVararg();
         anc = _s.getAnc();
+        delta = _s.getDelta();
     }
 
     @Override
@@ -83,5 +85,10 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation implement
 
     public int getNaturalVararg() {
         return naturalVararg;
+    }
+
+    @Override
+    public int getDelta() {
+        return delta;
     }
 }

@@ -32,6 +32,8 @@ public final class ExecFctOperation extends ExecInvokingOperation implements Nam
 
     private int anc;
 
+    private int delta;
+
     protected ExecFctOperation(FctOperation _fct) {
         super(_fct);
         methodName = _fct.getMethodName();
@@ -41,6 +43,7 @@ public final class ExecFctOperation extends ExecInvokingOperation implements Nam
         lastType = _fct.getLastType();
         naturalVararg = _fct.getNaturalVararg();
         anc = _fct.getAnc();
+        delta = _fct.getDelta();
     }
 
     @Override
@@ -112,5 +115,10 @@ public final class ExecFctOperation extends ExecInvokingOperation implements Nam
 
     public int getNaturalVararg() {
         return naturalVararg;
+    }
+
+    @Override
+    public int getDelta() {
+        return delta;
     }
 }

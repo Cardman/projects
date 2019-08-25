@@ -94,4 +94,20 @@ public final class ExecLambdaOperation extends ExecLeafOperation implements Atom
     public void setPreviousArgument(Argument _previousArgument) {
         previousArgument = _previousArgument;
     }
+
+    public ClassMethodId getMethod() {
+        return method;
+    }
+
+    public ConstructorId getRealId() {
+        return realId;
+    }
+
+    public ClassField getFieldId() {
+        return fieldId;
+    }
+
+    public String getFoundClass() {
+        return foundClass;
+    }
 }

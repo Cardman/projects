@@ -3283,7 +3283,6 @@ public final class ElResolver {
         KeyWords keyWords_ = _conf.getKeyWords();
         String keyWordFalse_ = keyWords_.getKeyWordFalse();
         String keyWordNull_ = keyWords_.getKeyWordNull();
-        String keyWordSuper_ = keyWords_.getKeyWordSuper();
         String keyWordThis_ = keyWords_.getKeyWordThis();
         String keyWordTrue_ = keyWords_.getKeyWordTrue();
         int firstPrintChar_ = i_;
@@ -3375,7 +3374,9 @@ public final class ElResolver {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.SUPER_KEYWORD);
             op_.setOperators(new IntTreeMap< String>());
-            op_.setValue(_string.substring(firstPrintChar_+keyWordSuper_.length() + 1, lastPrintChar_ + 1), firstPrintChar_);
+            int ind_ = _string.indexOf('.') + 1;
+            op_.setDelta(ind_);
+            op_.setValue(_string.substring(ind_, lastPrintChar_ + 1), firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }

@@ -226,6 +226,11 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             valuesOffset.add(n.getOffset());
         }
     }
+
+    public Ints getValuesOffset() {
+        return valuesOffset;
+    }
+
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
