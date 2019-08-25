@@ -807,6 +807,28 @@ public final class ElUtil {
                             _parts.add(new PartOffset(tag_, offsetEnd_));
                             tag_ = "</i>";
                             _parts.add(new PartOffset(tag_,offsetEnd_+opDelta_));
+                        } else {
+                            String b_ = _cont.getStandards().getAliasPrimBoolean();
+                            if (nextSiblingOp_.getResultClass().matchClass(b_)) {
+                                AbstractCoverageResult resultLast_ = _cont.getCoverage().getCovers().getVal(_block).getVal(nextSiblingOp_);
+                                boolean partial_ = false;
+                                if (!resultLast_.isFullCovered() && resultLast_.isPartialCovered()) {
+                                    partial_ = true;
+                                }
+                                if (partial_) {
+                                    if(((BooleanCoverageResult)resultLast_).isCoverTrue()){
+                                        tag_ = "<a title=\""+ transform(_cont.getStandards().getTrueString())+"\">";
+                                        _parts.add(new PartOffset(tag_, offsetEnd_));
+                                        tag_ = "</a>";
+                                        _parts.add(new PartOffset(tag_,offsetEnd_+opDelta_));
+                                    } else {
+                                        tag_ = "<a title=\""+ transform(_cont.getStandards().getFalseString())+"\">";
+                                        _parts.add(new PartOffset(tag_, offsetEnd_));
+                                        tag_ = "</a>";
+                                        _parts.add(new PartOffset(tag_,offsetEnd_+opDelta_));
+                                    }
+                                }
+                            }
                         }
                         if (par_.getSettable() instanceof ExecCustArrOperation) {
                             ExecCustArrOperation parArr_ = (ExecCustArrOperation) par_.getSettable();

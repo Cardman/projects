@@ -4624,6 +4624,228 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void coverage108Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $var b = $true:\n");
+        xml_.append("  $var c = $true:\n");
+        xml_.append("  b;. &= c;.:\n");
+        xml_.append("  $return 0:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
+                " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
+                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\">b </span>=<span style=\"background-color:green;\"> $true</span></span>:\n" +
+                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\">c </span>=<span style=\"background-color:green;\"> $true</span></span>:\n" +
+                "  <span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\">b;. </span><a title=\"true\">&amp;</a>=<span style=\"background-color:yellow;\"> c;.</span></span>:\n" +
+                "  $return <span style=\"background-color:green;\">0</span>:\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage109Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $var b = $true:\n");
+        xml_.append("  $var c = $false:\n");
+        xml_.append("  b;. &= c;.:\n");
+        xml_.append("  $return 0:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
+                " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
+                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\">b </span>=<span style=\"background-color:green;\"> $true</span></span>:\n" +
+                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\">c </span>=<span style=\"background-color:green;\"> $false</span></span>:\n" +
+                "  <span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\">b;. </span><a title=\"false\">&amp;</a>=<span style=\"background-color:yellow;\"> c;.</span></span>:\n" +
+                "  $return <span style=\"background-color:green;\">0</span>:\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage110Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $var b = $true:\n");
+        xml_.append("  $for ($boolean c:{$true,$false}){\n");
+        xml_.append("   b;. &= c;:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
+                " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
+                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\">b </span>=<span style=\"background-color:green;\"> $true</span></span>:\n" +
+                "  <span style=\"background-color:green;\">$for ($boolean c</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">$true</span>,<span style=\"background-color:green;\">$false</span>}</span>){\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:yellow;\">b;. </span>&amp;=<span style=\"background-color:green;\"> c;</span></span>:\n" +
+                "  }\n" +
+                "  $return <span style=\"background-color:green;\">0</span>:\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage111Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $var b = $true:\n");
+        xml_.append("  $for ($boolean c:{}){\n");
+        xml_.append("   b;. &= c;:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
+                " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
+                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\">b </span>=<span style=\"background-color:green;\"> $true</span></span>:\n" +
+                "  <span style=\"background-color:yellow;\">$for ($boolean c</span>:<span style=\"background-color:green;\">{}</span>){\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\">b;. </span>&amp;=<span style=\"background-color:red;\"> c;</span></span>:\n" +
+                "  }\n" +
+                "  $return <span style=\"background-color:green;\">0</span>:\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage112Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $var b = $true:\n");
+        xml_.append("  b;. &= $true:\n");
+        xml_.append("  b;. &= $false:\n");
+        xml_.append("  $return 0:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
+                " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
+                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\">b </span>=<span style=\"background-color:green;\"> $true</span></span>:\n" +
+                "  <span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\">b;. </span>&amp;=<span style=\"background-color:green;\"> $true</span></span>:\n" +
+                "  <span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\">b;. </span>&amp;=<span style=\"background-color:green;\"> $false</span></span>:\n" +
+                "  $return <span style=\"background-color:green;\">0</span>:\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage113Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $for ($boolean b:{$true,$false}){\n");
+        xml_.append("   $for ($boolean c:{$false,$true}){\n");
+        xml_.append("    $var loc = b;:\n");
+        xml_.append("    loc;. &= c;:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
+                " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
+                "  <span style=\"background-color:green;\">$for ($boolean b</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">$true</span>,<span style=\"background-color:green;\">$false</span>}</span>){\n" +
+                "   <span style=\"background-color:green;\">$for ($boolean c</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">$false</span>,<span style=\"background-color:green;\">$true</span>}</span>){\n" +
+                "    $var <span style=\"background-color:green;\"><span style=\"background-color:green;\">loc </span>=<span style=\"background-color:green;\"> b;</span></span>:\n" +
+                "    <span style=\"background-color:green;\"><span style=\"background-color:green;\">loc;. </span>&amp;=<span style=\"background-color:green;\"> c;</span></span>:\n" +
+                "   }\n" +
+                "  }\n" +
+                "  $return <span style=\"background-color:green;\">0</span>:\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage114Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $var b = $true:\n");
+        xml_.append("  $for ($boolean c:{$true,$false,$true}){\n");
+        xml_.append("   b;. &= c;:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
+                " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
+                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\">b </span>=<span style=\"background-color:green;\"> $true</span></span>:\n" +
+                "  <span style=\"background-color:green;\">$for ($boolean c</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">$true</span>,<span style=\"background-color:green;\">$false</span>,<span style=\"background-color:green;\">$true</span>}</span>){\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\">b;. </span>&amp;=<span style=\"background-color:green;\"> c;</span></span>:\n" +
+                "  }\n" +
+                "  $return <span style=\"background-color:green;\">0</span>:\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
     private static String getCustomPair() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.CustPair<U,V> :$pair<U,V>{\n");
