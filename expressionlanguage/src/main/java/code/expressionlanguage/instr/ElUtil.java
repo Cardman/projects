@@ -511,10 +511,22 @@ public final class ElUtil {
             String tag_;
             if (val_ instanceof StaticInitOperation) {
                 tag_ = "";
+            } else if (val_.getArgument() != null && val_.getParent() != null && val_.getParent().getArgument() != null) {
+                ExecMethodOperation parent_ = curOp_.getParent();
+                AbstractCoverageResult resultPar_ = _cont.getCoverage().getCovers().getVal(_block).getVal(parent_);
+                if (resultPar_.isPartialCovered()) {
+                    tag_ = "<span style=\"background-color:green;\">";
+                } else {
+                    tag_ = "<span style=\"background-color:red;\">";
+                }
             } else if (result_.isFullCovered()) {
                 tag_ = "<span style=\"background-color:green;\">";
             } else if (result_.isPartialCovered()) {
-                tag_ = "<span style=\"background-color:yellow;\">";
+                if (val_ instanceof AffectationOperation && val_.getFirstChild().getNextSibling().getArgument() != null) {
+                    tag_ = "<span style=\"background-color:green;\">";
+                } else {
+                    tag_ = "<span style=\"background-color:yellow;\">";
+                }
             } else {
                 tag_ = "<span style=\"background-color:red;\">";
             }
