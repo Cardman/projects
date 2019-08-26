@@ -588,6 +588,14 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         }
         int off_ = getOffset().getOffsetTrim();
         _parts.add(new PartOffset(tag_,off_));
+        KeyWords keyWords_ = _cont.getKeyWords();
+        String keyWordVar_ = keyWords_.getKeyWordVar();
+        if (StringList.quickEq(className.trim(), keyWordVar_)) {
+            tag_ = "<b>";
+            _parts.add(new PartOffset(tag_,classNameOffset));
+            tag_ = "</b>";
+            _parts.add(new PartOffset(tag_,classNameOffset+ _cont.getKeyWords().getKeyWordFor().length()));
+        }
         tag_ = "<a name=\"m"+ variableNameOffset +"\">";
         _parts.add(new PartOffset(tag_,variableNameOffset));
         tag_ = "</a>";

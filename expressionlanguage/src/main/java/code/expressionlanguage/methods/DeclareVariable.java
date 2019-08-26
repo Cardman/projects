@@ -76,6 +76,14 @@ public final class DeclareVariable extends Leaf implements InitVariable,Buildabl
 
     @Override
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        KeyWords keyWords_ = _cont.getKeyWords();
+        String keyWordVar_ = keyWords_.getKeyWordVar();
+        if (StringList.quickEq(className.trim(), keyWordVar_)) {
+            String tag_ = "<b>";
+            _parts.add(new PartOffset(tag_,classNameOffset));
+            tag_ = "</b>";
+            _parts.add(new PartOffset(tag_,classNameOffset+ _cont.getKeyWords().getKeyWordFor().length()));
+        }
     }
     @Override
     public void processEl(ContextEl _cont) {

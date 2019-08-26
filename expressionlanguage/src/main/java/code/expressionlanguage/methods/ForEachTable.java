@@ -681,10 +681,24 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         }
         int off_ = getOffset().getOffsetTrim();
         _parts.add(new PartOffset(tag_,off_));
+        KeyWords keyWords_ = _cont.getKeyWords();
+        String keyWordVar_ = keyWords_.getKeyWordVar();
+        if (StringList.quickEq(classNameFirst.trim(), keyWordVar_)) {
+            tag_ = "<b>";
+            _parts.add(new PartOffset(tag_,classNameOffsetFirst));
+            tag_ = "</b>";
+            _parts.add(new PartOffset(tag_,classNameOffsetFirst+ _cont.getKeyWords().getKeyWordFor().length()));
+        }
         tag_ = "<a name=\"m"+ variableNameOffsetFirst +"\">";
         _parts.add(new PartOffset(tag_,variableNameOffsetFirst));
         tag_ = "</a>";
         _parts.add(new PartOffset(tag_,variableNameOffsetFirst+variableNameFirst.length()));
+        if (StringList.quickEq(classNameSecond.trim(), keyWordVar_)) {
+            tag_ = "<b>";
+            _parts.add(new PartOffset(tag_,classNameOffsetSecond));
+            tag_ = "</b>";
+            _parts.add(new PartOffset(tag_,classNameOffsetSecond+ _cont.getKeyWords().getKeyWordFor().length()));
+        }
         tag_ = "<a name=\"m"+ variableNameOffsetSecond +"\">";
         _parts.add(new PartOffset(tag_,variableNameOffsetSecond));
         tag_ = "</a>";
