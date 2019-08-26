@@ -236,13 +236,12 @@ public abstract class OperationNode implements Operable {
             }
             if (_m instanceof DotOperation) {
                 OperationNode ch_ = _m.getFirstChild();
-                if (ch_ == null) {
+                if (ch_ != null) {
+                    if (ch_.getResultClass().isArray()) {
+                        return new ArrayFieldOperation(_index, _indexChild, _m, _op);
+                    }
                     return new StandardFieldOperation(_index, _indexChild, _m, _op);
                 }
-                if (ch_.getResultClass().isArray()) {
-                    return new ArrayFieldOperation(_index, _indexChild, _m, _op);
-                }
-                return new StandardFieldOperation(_index, _indexChild, _m, _op);
             }
             LoopVariable mutVar_ = _an.getMutableLoopVar(str_);
             if (mutVar_ != null) {

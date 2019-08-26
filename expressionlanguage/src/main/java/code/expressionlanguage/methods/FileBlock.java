@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.util.*;
 
@@ -129,6 +130,8 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
                 continue;
             }
             String value_ = _cont.getClasses().getResources().getVal(f.getKey());
+            String fileExp_ = f.getKey() + ".html";
+            _cont.getCoverage().setCurrentFileName(fileExp_);
             CustList<PartOffset> listStr_ = fileBlock_.processReport(_cont);
             StringBuilder xml_ = new StringBuilder(value_.length());
             int i_ = value_.length() - 1;
@@ -149,7 +152,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
                 fileBlock_.insertTr(xml_, ch_,i_);
                 i_--;
             }
-            files_.addEntry(f.getKey()+".html","<html><body><pre>"+xml_+"</pre></body></html>");
+            files_.addEntry(fileExp_,"<html><body><pre>"+xml_+"</pre></body></html>");
         }
         return files_;
     }

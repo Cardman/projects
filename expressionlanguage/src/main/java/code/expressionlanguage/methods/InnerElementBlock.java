@@ -305,11 +305,12 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         ConstructorId c_ = ((ExecStandardInstancingOperation)root_).getConstId();
         GeneType type_ = _cont.getClassBody(cl_);
         String file_ = ((RootBlock) type_).getFile().getFileName();
-        file_ = file_.substring("src/".length());
+        String fileName_ = _cont.getCoverage().getCurrentFileName();
         CustList<GeneConstructor> ctors_ = Classes.getConstructorBodiesById(_cont, cl_, c_);
         if (!ctors_.isEmpty()) {
             ConstructorBlock ctor_ = (ConstructorBlock) ctors_.first();
-            String tag_ = "<a name=\"m"+fieldNameOffest+"\" title=\""+ cl_ +"."+ c_.getSignature(_cont)+"\" href=\""+file_+".html#m"+ctor_.getNameOffset()+"\">";
+            String rel_ = ElUtil.relativize(fileName_,file_+".html#m"+ctor_.getNameOffset());
+            String tag_ = "<a name=\"m"+fieldNameOffest+"\" title=\""+ cl_ +"."+ c_.getSignature(_cont)+"\" href=\""+rel_+"\">";
             _parts.add(new PartOffset(tag_,fieldNameOffest));
             tag_ = "</a>";
             _parts.add(new PartOffset(tag_,fieldNameOffest+fieldName.length()));

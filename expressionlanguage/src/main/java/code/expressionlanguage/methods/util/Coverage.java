@@ -27,6 +27,7 @@ public final class Coverage {
     private StringMap<Integer> loopVars = new StringMap<Integer>();
     private StringMap<Integer> catchVars = new StringMap<Integer>();
     private StringMap<Integer> paramVars = new StringMap<Integer>();
+    private String currentFileName = "";
     private boolean possibleDeclareLoopVars;
     public void putBlockOperationsLoops(Analyzable _context, Block _block) {
         if (!_context.getContextEl().isCovering()) {
@@ -205,5 +206,13 @@ public final class Coverage {
 
     public void setPossibleDeclareLoopVars(boolean _possibleDeclareLoopVars) {
         possibleDeclareLoopVars = _possibleDeclareLoopVars;
+    }
+
+    public String getCurrentFileName() {
+        return currentFileName;
+    }
+
+    public void setCurrentFileName(String _currentFileName) {
+        currentFileName = _currentFileName;
     }
 }
