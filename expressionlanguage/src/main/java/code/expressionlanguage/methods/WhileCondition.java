@@ -295,11 +295,11 @@ public final class WhileCondition extends Condition implements Loop {
         AbstractCoverageResult result_ = _cont.getCoverage().getCovers().getVal(this).getVal(root_);
         String tag_;
         if (result_.isFullCovered()) {
-            tag_ = "<span style=\"background-color:green;\">";
+            tag_ = "<span class=\"f\">";
         } else if (result_.isPartialCovered()) {
-            tag_ = "<span style=\"background-color:yellow;\">";
+            tag_ = "<span class=\"p\">";
         } else {
-            tag_ = "<span style=\"background-color:red;\">";
+            tag_ = "<span class=\"n\">";
         }
         int off_ = getOffset().getOffsetTrim();
         _parts.add(new PartOffset(tag_,off_));

@@ -516,20 +516,20 @@ public final class ElUtil {
                 ExecMethodOperation parent_ = curOp_.getParent();
                 AbstractCoverageResult resultPar_ = _cont.getCoverage().getCovers().getVal(_block).getVal(parent_);
                 if (resultPar_.isPartialCovered()) {
-                    tag_ = "<span style=\"background-color:green;\">";
+                    tag_ = "<span class=\"f\">";
                 } else {
-                    tag_ = "<span style=\"background-color:red;\">";
+                    tag_ = "<span class=\"n\">";
                 }
             } else if (result_.isFullCovered()) {
-                tag_ = "<span style=\"background-color:green;\">";
+                tag_ = "<span class=\"f\">";
             } else if (result_.isPartialCovered()) {
                 if (val_ instanceof AffectationOperation && val_.getFirstChild().getNextSibling().getArgument() != null) {
-                    tag_ = "<span style=\"background-color:green;\">";
+                    tag_ = "<span class=\"f\">";
                 } else {
-                    tag_ = "<span style=\"background-color:yellow;\">";
+                    tag_ = "<span class=\"p\">";
                 }
             } else {
-                tag_ = "<span style=\"background-color:red;\">";
+                tag_ = "<span class=\"n\">";
             }
             if (curOp_ != root_ || _fieldName.isEmpty()) {
                 _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
@@ -677,7 +677,8 @@ public final class ElUtil {
                     _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+d_+c_.getFieldName().length()));
                 } else {
                     ClassField c_ = ((ExecSettableFieldOperation)curOp_).getFieldId();
-                    updateFieldAnchor(_cont,_parts,c_,sum_ + val_.getIndexInEl() + ((ExecSettableFieldOperation)curOp_).getDelta(),c_.getFieldName().length());
+                    int delta_ = ((SettableAbstractFieldOperation) val_).getOff();
+                    updateFieldAnchor(_cont,_parts,c_,sum_ +delta_+ val_.getIndexInEl() + ((ExecSettableFieldOperation)curOp_).getDelta(),c_.getFieldName().length());
                 }
             }
             if (curOp_ instanceof ExecStandardInstancingOperation) {

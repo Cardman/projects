@@ -78,9 +78,9 @@ public final class DefaultCondition extends SwitchPartBlock {
         AbstractCoverageResult result_ = _cont.getCoverage().getCoverSwitchs().getVal(parent_).getVal(this);
         String tag_;
         if (result_.isFullCovered()) {
-            tag_ = "<span style=\"background-color:green;\">";
+            tag_ = "<span class=\"f\">";
         } else {
-            tag_ = "<span style=\"background-color:red;\">";
+            tag_ = "<span class=\"n\">";
         }
         int off_ = getOffset().getOffsetTrim();
         _parts.add(new PartOffset(tag_,off_));

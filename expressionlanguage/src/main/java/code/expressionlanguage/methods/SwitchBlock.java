@@ -14,6 +14,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.methods.util.StandardCoverageResult;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
@@ -209,7 +210,32 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
 
     @Override
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        int off_ = getValueOffset();
+        int full_ = 0;
+        int count_ = 0;
+        IdMap<Block, StandardCoverageResult> cases_ = _cont.getCoverage().getCoverSwitchs().getVal(this);
+        for (EntryCust<Block, StandardCoverageResult> e: cases_.entryList()) {
+            StandardCoverageResult res_ = e.getValue();
+            count_ += res_.getCovered();
+            full_ += res_.getFull();
+        }
+        StandardCoverageResult noDef_ = _cont.getCoverage().getCoverNoDefSwitchs().getVal(this);
+        if (noDef_ != null) {
+            count_ += noDef_.getCovered();
+            full_ += noDef_.getFull();
+        }
+        String tag_;
+        if (count_ == full_) {
+            tag_ = "<span class=\"f\">";
+        } else if (count_ > 0) {
+            tag_ = "<span class=\"p\">";
+        } else {
+            tag_ = "<span class=\"n\">";
+        }
+        int off_ = getOffset().getOffsetTrim();
+        _parts.add(new PartOffset(tag_+"<a title=\""+count_+"/"+full_+"\">",off_));
+        tag_ = "</span>";
+        _parts.add(new PartOffset("</a>"+tag_,off_+ _cont.getKeyWords().getKeyWordSwitch().length()));
+        off_ = getValueOffset();
         int offsetEndBlock_ = off_ + getValue().length();
         ElUtil.buildCoverageReport(_cont,off_,this,getOpValue(),offsetEndBlock_,_parts);
     }

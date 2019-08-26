@@ -152,8 +152,17 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
                 fileBlock_.insertTr(xml_, ch_,i_);
                 i_--;
             }
-            files_.addEntry(fileExp_,"<html><body><pre>"+xml_+"</pre></body></html>");
+            String rel_ = ElUtil.relativize(fileExp_,"css/style.css");
+            String cssPart_ = "<head>" +
+                    "<link href=\""+rel_+"\" rel=\"stylesheet\" type=\"text/css\"/>" +
+                    "</head>";
+            files_.addEntry(fileExp_,"<html>"+cssPart_+"<body><pre>"+xml_+"</pre></body></html>");
         }
+        String cssContent_ = ".f{background-color:green;}\n";
+        cssContent_ += ".p{background-color:yellow;}\n";
+        cssContent_ += ".n{background-color:red;}\n";
+        cssContent_ += ".s{color:blue;}\n";
+        files_.addEntry("css/style.css",cssContent_);
         return files_;
     }
 
@@ -167,7 +176,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         } else {
             if (beginChars.containsObj(_index)) {
                 _xml.insert(0, _ch);
-                _xml.insert(0, "<span style=\"color:blue;\">");
+                _xml.insert(0, "<span class=\"s\">");
                 return;
             }
             if (endChars.containsObj(_index)) {
@@ -177,7 +186,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
             }
             if (beginStrings.containsObj(_index)) {
                 _xml.insert(0, _ch);
-                _xml.insert(0, "<span style=\"color:blue;\">");
+                _xml.insert(0, "<span class=\"s\">");
                 return;
             }
             if (endStrings.containsObj(_index)) {
@@ -187,7 +196,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
             }
             if (beginTexts.containsObj(_index)) {
                 _xml.insert(0, _ch);
-                _xml.insert(0, "<span style=\"color:blue;\">");
+                _xml.insert(0, "<span class=\"s\">");
                 return;
             }
             if (endTexts.containsObj(_index)) {

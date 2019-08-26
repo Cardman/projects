@@ -164,9 +164,9 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval {
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
         String tag_;
         if (_cont.getCoverage().getCatches().getVal(this)) {
-            tag_ = "<span style=\"background-color:green;\">";
+            tag_ = "<span class=\"f\">";
         } else {
-            tag_ = "<span style=\"background-color:red;\">";
+            tag_ = "<span class=\"n\">";
         }
         int off_ = getOffset().getOffsetTrim();
         _parts.add(new PartOffset(tag_,off_));
