@@ -16,6 +16,7 @@ public final class FinalVariableOperation extends LeafOperation {
 
     private String variableName = EMPTY_STRING;
     private int off;
+    private int delta;
     private ConstType type;
 
     public FinalVariableOperation(int _indexInEl, int _indexChild,
@@ -23,6 +24,7 @@ public final class FinalVariableOperation extends LeafOperation {
         super(_indexInEl, _indexChild, _m, _op);
         int relativeOff_ = _op.getOffset();
         String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
+        delta = _op.getDelta();
         off = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
         type = _op.getConstType();
     }
@@ -110,4 +112,7 @@ public final class FinalVariableOperation extends LeafOperation {
         return off;
     }
 
+    public int getDelta() {
+        return delta;
+    }
 }

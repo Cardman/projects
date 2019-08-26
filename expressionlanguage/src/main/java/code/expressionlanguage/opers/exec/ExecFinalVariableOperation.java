@@ -67,4 +67,15 @@ public final class ExecFinalVariableOperation extends ExecLeafOperation implemen
         return a_;
     }
 
+    public ConstType getType() {
+        return type;
+    }
+
+    public String getVariableName() {
+        return variableName;
+    }
+
+    public int getOff() {
+        return off;
+    }
 }

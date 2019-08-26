@@ -167,16 +167,30 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneMe
             _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
             int endName_ = begName_ + _cont.getKeyWords().getKeyWordThis().length();
             _parts.add(new PartOffset("</a>",endName_));
+            refParams(_cont, _parts);
             return;
         }
         if (kind == MethodKind.SET_INDEX) {
             _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
             int endName_ = begName_ + _cont.getKeyWords().getKeyWordThis().length();
             _parts.add(new PartOffset("</a>",endName_));
+            refParams(_cont, _parts);
             return;
         }
         int endName_ = begName_ + getName().length();
         _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
         _parts.add(new PartOffset("</a>",endName_));
+        refParams(_cont, _parts);
+    }
+
+    private void refParams(ContextEl _cont, CustList<PartOffset> _parts) {
+        int len_ = getParametersNamesOffset().size();
+        for (int i = 0; i < len_; i++) {
+            Integer off_ = getParametersNamesOffset().get(i);
+            String param_ = getParametersNames().get(i);
+            _parts.add(new PartOffset("<a name=\"m"+off_+"\">",off_));
+            _parts.add(new PartOffset("</a>",off_+param_.length()));
+            _cont.getCoverage().getParamVars().put(param_,off_);
+        }
     }
 }

@@ -62,9 +62,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
-                "  $long <span style=\"background-color:green;\">t</span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">t;.</span>=<span style=\"background-color:green;\">8</span></span>:\n" +
-                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\">1i</span>+<span style=\"background-color:green;\">$($int)<span style=\"background-color:green;\">t;.</span></span></span>:\n" +
+                "  $long <span style=\"background-color:green;\"><a name=\"m64\">t</a></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m64\">t</a>;.</span>=<span style=\"background-color:green;\">8</span></span>:\n" +
+                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\">1i</span>+<span style=\"background-color:green;\">$($int)<span style=\"background-color:green;\"><a href=\"#m64\">t</a>;.</span></span></span>:\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -90,9 +90,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">t </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> s </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 1 </span></span>?<span style=\"background-color:green;\">{<span style=\"background-color:green;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
-                "  return <span style=\"background-color:green;\"><span style=\"background-color:green;\">t</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m72\">t</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> <a href=\"#m57\">s</a> </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 1 </span></span>?<span style=\"background-color:green;\">{<span style=\"background-color:green;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
+                "  return <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m72\">t</a></span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -118,9 +118,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">t </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> s </span><a title=\"false\">==</a><span style=\"background-color:green;\"> 2 </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">6i</span>}</span></span></span>;\n" +
-                "  return <span style=\"background-color:green;\"><span style=\"background-color:green;\">t</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m72\">t</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> <a href=\"#m57\">s</a> </span><a title=\"false\">==</a><span style=\"background-color:green;\"> 2 </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">6i</span>}</span></span></span>;\n" +
+                "  return <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m72\">t</a></span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -150,13 +150,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
-                "  <span style=\"background-color:green;\">for (int j</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">0</span>,<span style=\"background-color:green;\">1</span>}</span>){\n" +
-                "   int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">t </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> s </span>==<span style=\"background-color:green;\"> j </span></span>?<span style=\"background-color:green;\">{<span style=\"background-color:green;\">4i</span>}</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">6i</span>}</span></span></span>;\n" +
-                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> t</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m70\">sum</a> </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  <span style=\"background-color:green;\">for (int <a name=\"m90\">j</a></span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">0</span>,<span style=\"background-color:green;\">1</span>}</span>){\n" +
+                "   int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m109\">t</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m57\">s</a> </span>==<span style=\"background-color:green;\"> <a href=\"#m90\">j</a> </span></span>?<span style=\"background-color:green;\">{<span style=\"background-color:green;\">4i</span>}</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m70\">sum</a> </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m109\">t</a></span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span></span>;\n" +
                 "  }\n" +
-                "  return <span style=\"background-color:green;\">sum</span>;\n" +
+                "  return <span style=\"background-color:green;\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -187,14 +187,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
-                "  <span style=\"background-color:yellow;\">for (int j</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">0</span>,<span style=\"background-color:green;\">1</span>}</span>){\n" +
-                "   int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">t </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> s </span><a title=\"false\">==</a><span style=\"background-color:green;\"> j </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">6i</span>}</span></span></span>;\n" +
-                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> t</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m70\">sum</a> </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  <span style=\"background-color:yellow;\">for (int <a name=\"m90\">j</a></span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">0</span>,<span style=\"background-color:green;\">1</span>}</span>){\n" +
+                "   int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m109\">t</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> <a href=\"#m57\">s</a> </span><a title=\"false\">==</a><span style=\"background-color:green;\"> <a href=\"#m90\">j</a> </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m70\">sum</a> </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m109\">t</a></span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span></span>;\n" +
                 "   break;\n" +
                 "  }\n" +
-                "  return <span style=\"background-color:green;\">sum</span>;\n" +
+                "  return <span style=\"background-color:green;\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -224,13 +224,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
-                "  <span style=\"background-color:yellow;\">for (int j</span>:<span style=\"background-color:green;\">{}</span>){\n" +
-                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\">t </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> s </span>==<span style=\"background-color:red;\"> j </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
-                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\">sum </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> t</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m70\">sum</a> </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  <span style=\"background-color:yellow;\">for (int <a name=\"m90\">j</a></span>:<span style=\"background-color:green;\">{}</span>){\n" +
+                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a name=\"m106\">t</a> </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m57\">s</a> </span>==<span style=\"background-color:red;\"> <a href=\"#m90\">j</a> </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m70\">sum</a> </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m106\">t</a></span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
                 "  }\n" +
-                "  return <span style=\"background-color:green;\">sum</span>;\n" +
+                "  return <span style=\"background-color:green;\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -260,12 +260,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m70\">sum</a> </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
                 "  <span style=\"background-color:green;\">while</span> (<span style=\"background-color:green;\">true</span>){\n" +
-                "   int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">t </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> s </span><a title=\"false\">==</a><span style=\"background-color:green;\"> 0 </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">6i</span>}</span></span></span>;\n" +
-                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> t</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span></span>;\n" +
-                "   return <span style=\"background-color:green;\">sum</span>;\n" +
+                "   int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m104\">t</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> <a href=\"#m57\">s</a> </span><a title=\"false\">==</a><span style=\"background-color:green;\"> 0 </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m70\">sum</a> </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m104\">t</a></span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span></span>;\n" +
+                "   return <span style=\"background-color:green;\"><a href=\"#m70\">sum</a></span>;\n" +
                 "  }\n" +
                 " }\n" +
                 "}\n" +
@@ -299,16 +299,16 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
-                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">sum </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 0</span></span>){\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m70\">sum</a> </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m70\">sum</a> </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 0</span></span>){\n" +
                 "   return <span style=\"background-color:green;\">5</span>;\n" +
                 "  }\n" +
-                "  <span style=\"background-color:red;\">for (int j</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">0</span>,<span style=\"background-color:red;\">1</span>}</span>){\n" +
-                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\">t </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> s </span>==<span style=\"background-color:red;\"> j </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
-                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\">sum </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> t</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
+                "  <span style=\"background-color:red;\">for (int <a name=\"m124\">j</a></span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">0</span>,<span style=\"background-color:red;\">1</span>}</span>){\n" +
+                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a name=\"m143\">t</a> </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m57\">s</a> </span>==<span style=\"background-color:red;\"> <a href=\"#m124\">j</a> </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m70\">sum</a> </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m143\">t</a></span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
                 "  }\n" +
-                "  return <span style=\"background-color:red;\">sum</span>;\n" +
+                "  return <span style=\"background-color:red;\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -348,14 +348,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "@MyAnnot\n" +
                 "$public $class pkg.Ex {\n" +
                 " $public $static $int <a name=\"m91\">catching</a>(){\n" +
-                "  $Annotation[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">arr </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> $class(Ex)</span>.<span style=\"background-color:green;\">getAnnotations()</span></span></span>:\n" +
-                "  <span style=\"background-color:yellow;\">$if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">arr;.</span><span style=\"background-color:green;\">length </span></span><a title=\"false\">!=</a><span style=\"background-color:green;\"> 1i</span></span>){\n" +
+                "  $Annotation[] <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m119\">arr</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> $class(Ex)</span>.<span style=\"background-color:green;\">getAnnotations()</span></span></span>:\n" +
+                "  <span style=\"background-color:yellow;\">$if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m119\">arr</a>;.</span><span style=\"background-color:green;\">length </span></span><a title=\"false\">!=</a><span style=\"background-color:green;\"> 1i</span></span>){\n" +
                 "   $return <span style=\"background-color:red;\">3i</span>:\n" +
                 "  }\n" +
-                "  <span style=\"background-color:yellow;\">$if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">$static($Class)</span>.<span style=\"background-color:green;\">getClass(<span style=\"background-color:green;\">arr;.</span>) </span></span><a title=\"false\">!=</a><span style=\"background-color:green;\"> $class($Annotation[])</span></span>){\n" +
+                "  <span style=\"background-color:yellow;\">$if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">$static($Class)</span>.<span style=\"background-color:green;\">getClass(<span style=\"background-color:green;\"><a href=\"#m119\">arr</a>;.</span>) </span></span><a title=\"false\">!=</a><span style=\"background-color:green;\"> $class($Annotation[])</span></span>){\n" +
                 "   $return <span style=\"background-color:red;\">2i</span>:\n" +
                 "  }\n" +
-                "  <span style=\"background-color:yellow;\">$if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">$static($Class)</span>.<span style=\"background-color:green;\">getClass(<span style=\"background-color:green;\"><span style=\"background-color:green;\">arr;.</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0i</span>]</span></span>) </span></span><a title=\"false\">!=</a><span style=\"background-color:green;\"> $class(MyAnnot)</span></span>){\n" +
+                "  <span style=\"background-color:yellow;\">$if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">$static($Class)</span>.<span style=\"background-color:green;\">getClass(<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m119\">arr</a>;.</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0i</span>]</span></span>) </span></span><a title=\"false\">!=</a><span style=\"background-color:green;\"> $class(MyAnnot)</span></span>){\n" +
                 "   $return <span style=\"background-color:red;\">1i</span>:\n" +
                 "  }\n" +
                 "  $return <span style=\"background-color:green;\">0i</span>:\n" +
@@ -398,12 +398,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "@MyAnnot(2i)\n" +
                 "$public $class pkg.Ex {\n" +
                 " $public $static $int <a name=\"m114\">catching</a>(){\n" +
-                "  java.lang.Object <span style=\"background-color:green;\"><span style=\"background-color:green;\">arr </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> $class(MyAnnot)</span>.<span style=\"background-color:green;\">getDeclaredMethods()</span></span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0i</span>]</span></span>.<span style=\"background-color:green;\">getDefaultValue()</span></span></span>:\n" +
-                "  <span style=\"background-color:yellow;\">$if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">$static($Class)</span>.<span style=\"background-color:green;\">getClass(<span style=\"background-color:green;\">arr;.</span>) </span></span><a title=\"false\">!=</a><span style=\"background-color:green;\"> $class(java.lang.Integer)</span></span>){\n" +
+                "  java.lang.Object <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m145\">arr</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> $class(MyAnnot)</span>.<span style=\"background-color:green;\">getDeclaredMethods()</span></span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0i</span>]</span></span>.<span style=\"background-color:green;\">getDefaultValue()</span></span></span>:\n" +
+                "  <span style=\"background-color:yellow;\">$if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">$static($Class)</span>.<span style=\"background-color:green;\">getClass(<span style=\"background-color:green;\"><a href=\"#m145\">arr</a>;.</span>) </span></span><a title=\"false\">!=</a><span style=\"background-color:green;\"> $class(java.lang.Integer)</span></span>){\n" +
                 "   $return <span style=\"background-color:red;\">2i</span>:\n" +
                 "  }\n" +
-                "  java.lang.Integer <span style=\"background-color:green;\"><span style=\"background-color:green;\">a </span>=<span style=\"background-color:green;\"> $(java.lang.Integer)<span style=\"background-color:green;\">arr;.</span></span></span>:\n" +
-                "  <span style=\"background-color:yellow;\">$if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">a;. </span><a title=\"false\">!=</a><span style=\"background-color:green;\"> 1i</span></span>){\n" +
+                "  java.lang.Integer <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m320\">a</a> </span>=<span style=\"background-color:green;\"> $(java.lang.Integer)<span style=\"background-color:green;\"><a href=\"#m145\">arr</a>;.</span></span></span>:\n" +
+                "  <span style=\"background-color:yellow;\">$if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m320\">a</a>;. </span><a title=\"false\">!=</a><span style=\"background-color:green;\"> 1i</span></span>){\n" +
                 "   $return <span style=\"background-color:red;\">1i</span>:\n" +
                 "  }\n" +
                 "  $return <span style=\"background-color:green;\">0i</span>:\n" +
@@ -434,9 +434,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $static $int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m46\">st</a> </span>=<span style=\"background-color:green;\"> 0</span></span>:\n" +
                 " $public $static $int <a name=\"m76\">exmeth</a>(){\n" +
-                "  $long <span style=\"background-color:green;\">t</span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">t;.</span>=<span style=\"background-color:green;\">8</span></span>:\n" +
-                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\">1i</span>+<span style=\"background-color:green;\">$($int)<span style=\"background-color:green;\">t;.</span></span></span>:\n" +
+                "  $long <span style=\"background-color:green;\"><a name=\"m94\">t</a></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m94\">t</a>;.</span>=<span style=\"background-color:green;\">8</span></span>:\n" +
+                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\">1i</span>+<span style=\"background-color:green;\">$($int)<span style=\"background-color:green;\"><a href=\"#m94\">t</a>;.</span></span></span>:\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -468,15 +468,15 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $static $int <a name=\"m46\">catching</a>(){\n" +
-                "  $int <span style=\"background-color:green;\">t</span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">t;.</span>=<span style=\"background-color:green;\">0i</span></span>:\n" +
-                "  <span style=\"background-color:yellow;\">$if</span>(<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">t;.</span><a title=\"false\">&lt;</a><span style=\"background-color:green;\">0</span></span>){\n" +
+                "  $int <span style=\"background-color:green;\"><a name=\"m65\">t</a></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span>=<span style=\"background-color:green;\">0i</span></span>:\n" +
+                "  <span style=\"background-color:yellow;\">$if</span>(<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span><a title=\"false\">&lt;</a><span style=\"background-color:green;\">0</span></span>){\n" +
                 "   $return <span style=\"background-color:red;\"><span style=\"background-color:red;\">1i</span>/<span style=\"background-color:red;\">0i</span></span>:\n" +
                 "  }\n" +
                 "  $else{\n" +
-                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\">t;.</span>=<span style=\"background-color:green;\">1i</span></span>:\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span>=<span style=\"background-color:green;\">1i</span></span>:\n" +
                 "  }\n" +
-                "  $return <span style=\"background-color:green;\">t;.</span>:\n" +
+                "  $return <span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span>:\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -508,11 +508,11 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $static $int <a name=\"m46\">catching</a>(){\n" +
-                "  $int <span style=\"background-color:green;\">t</span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">t;.</span>=<span style=\"background-color:green;\">0i</span></span>:\n" +
-                "  <span style=\"background-color:yellow;\">$if</span>(<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">t;.</span><a title=\"true\">&gt;=</a><span style=\"background-color:green;\">0</span></span>){\n" +
-                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\">t;.</span>=<span style=\"background-color:green;\">1i</span></span>:\n" +
-                "   $return <span style=\"background-color:green;\">t;.</span>:\n" +
+                "  $int <span style=\"background-color:green;\"><a name=\"m65\">t</a></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span>=<span style=\"background-color:green;\">0i</span></span>:\n" +
+                "  <span style=\"background-color:yellow;\">$if</span>(<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span><a title=\"true\">&gt;=</a><span style=\"background-color:green;\">0</span></span>){\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span>=<span style=\"background-color:green;\">1i</span></span>:\n" +
+                "   $return <span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span>:\n" +
                 "  }\n" +
                 "  $else{\n" +
                 "   $return <span style=\"background-color:red;\"><span style=\"background-color:red;\">1i</span>/<span style=\"background-color:red;\">0i</span></span>:\n" +
@@ -549,15 +549,15 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
-                "  $long <span style=\"background-color:green;\">t</span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">t;.</span>=<span style=\"background-color:green;\">10</span></span>:\n" +
-                "  $switch(<span style=\"background-color:green;\">t;.</span>){\n" +
+                "  $long <span style=\"background-color:green;\"><a name=\"m64\">t</a></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m64\">t</a>;.</span>=<span style=\"background-color:green;\">10</span></span>:\n" +
+                "  $switch(<span style=\"background-color:green;\"><a href=\"#m64\">t</a>;.</span>){\n" +
                 "   $case(<span style=\"background-color:green;\">10</span>):\n" +
                 "   $case(<span style=\"background-color:red;\">8</span>){\n" +
-                "    <span style=\"background-color:green;\"><span style=\"background-color:green;\">t;.</span>=<span style=\"background-color:green;\">12</span></span>:\n" +
+                "    <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m64\">t</a>;.</span>=<span style=\"background-color:green;\">12</span></span>:\n" +
                 "   }\n" +
                 "  }\n" +
-                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\">1i</span>+<span style=\"background-color:green;\">$($int)<span style=\"background-color:green;\">t;.</span></span></span>:\n" +
+                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\">1i</span>+<span style=\"background-color:green;\">$($int)<span style=\"background-color:green;\"><a href=\"#m64\">t</a>;.</span></span></span>:\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -590,15 +590,15 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
-                "  $long <span style=\"background-color:green;\">t</span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">t;.</span>=<span style=\"background-color:green;\">8</span></span>:\n" +
-                "  $switch(<span style=\"background-color:green;\">t;.</span>){\n" +
+                "  $long <span style=\"background-color:green;\"><a name=\"m64\">t</a></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m64\">t</a>;.</span>=<span style=\"background-color:green;\">8</span></span>:\n" +
+                "  $switch(<span style=\"background-color:green;\"><a href=\"#m64\">t</a>;.</span>){\n" +
                 "   $case(<span style=\"background-color:red;\">10</span>):\n" +
                 "   $case(<span style=\"background-color:green;\">8</span>){\n" +
-                "    <span style=\"background-color:green;\"><span style=\"background-color:green;\">t;.</span>=<span style=\"background-color:green;\">12</span></span>:\n" +
+                "    <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m64\">t</a>;.</span>=<span style=\"background-color:green;\">12</span></span>:\n" +
                 "   }\n" +
                 "  }\n" +
-                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\">1i</span>+<span style=\"background-color:green;\">$($int)<span style=\"background-color:green;\">t;.</span></span></span>:\n" +
+                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\">1i</span>+<span style=\"background-color:green;\">$($int)<span style=\"background-color:green;\"><a href=\"#m64\">t</a>;.</span></span></span>:\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -631,15 +631,15 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
-                "  $long <span style=\"background-color:green;\">t</span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">t;.</span>=<span style=\"background-color:green;\">9</span></span>:\n" +
-                "  $switch(<span style=\"background-color:green;\">t;.</span>){\n" +
+                "  $long <span style=\"background-color:green;\"><a name=\"m64\">t</a></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m64\">t</a>;.</span>=<span style=\"background-color:green;\">9</span></span>:\n" +
+                "  $switch(<span style=\"background-color:green;\"><a href=\"#m64\">t</a>;.</span>){\n" +
                 "   $case(<span style=\"background-color:red;\">10</span>):\n" +
                 "   $case(<span style=\"background-color:red;\">8</span>){\n" +
-                "    <span style=\"background-color:red;\"><span style=\"background-color:red;\">t;.</span>=<span style=\"background-color:red;\">16</span></span>:\n" +
+                "    <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m64\">t</a>;.</span>=<span style=\"background-color:red;\">16</span></span>:\n" +
                 "   }\n" +
                 "  }\n" +
-                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\">1i</span>+<span style=\"background-color:green;\">$($int)<span style=\"background-color:green;\">t;.</span></span></span>:\n" +
+                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\">1i</span>+<span style=\"background-color:green;\">$($int)<span style=\"background-color:green;\"><a href=\"#m64\">t</a>;.</span></span></span>:\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -675,18 +675,18 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
-                "  $long <span style=\"background-color:green;\">t</span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">t;.</span>=<span style=\"background-color:green;\">9</span></span>:\n" +
-                "  $switch(<span style=\"background-color:green;\">t;.</span>){\n" +
+                "  $long <span style=\"background-color:green;\"><a name=\"m64\">t</a></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m64\">t</a>;.</span>=<span style=\"background-color:green;\">9</span></span>:\n" +
+                "  $switch(<span style=\"background-color:green;\"><a href=\"#m64\">t</a>;.</span>){\n" +
                 "   $case(<span style=\"background-color:red;\">10</span>):\n" +
                 "   $case(<span style=\"background-color:red;\">8</span>){\n" +
-                "    <span style=\"background-color:red;\"><span style=\"background-color:red;\">t;.</span>=<span style=\"background-color:red;\">16</span></span>:\n" +
+                "    <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m64\">t</a>;.</span>=<span style=\"background-color:red;\">16</span></span>:\n" +
                 "   }\n" +
                 "   <span style=\"background-color:green;\">$default</span>{\n" +
-                "    <span style=\"background-color:green;\"><span style=\"background-color:green;\">t;.</span>=<span style=\"background-color:green;\">12</span></span>:\n" +
+                "    <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m64\">t</a>;.</span>=<span style=\"background-color:green;\">12</span></span>:\n" +
                 "   }\n" +
                 "  }\n" +
-                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\">1i</span>+<span style=\"background-color:green;\">$($int)<span style=\"background-color:green;\">t;.</span></span></span>:\n" +
+                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\">1i</span>+<span style=\"background-color:green;\">$($int)<span style=\"background-color:green;\"><a href=\"#m64\">t</a>;.</span></span></span>:\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -722,18 +722,18 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
-                "  $long <span style=\"background-color:green;\">t</span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">t;.</span>=<span style=\"background-color:green;\">8</span></span>:\n" +
-                "  $switch(<span style=\"background-color:green;\">t;.</span>){\n" +
+                "  $long <span style=\"background-color:green;\"><a name=\"m64\">t</a></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m64\">t</a>;.</span>=<span style=\"background-color:green;\">8</span></span>:\n" +
+                "  $switch(<span style=\"background-color:green;\"><a href=\"#m64\">t</a>;.</span>){\n" +
                 "   $case(<span style=\"background-color:red;\">10</span>):\n" +
                 "   $case(<span style=\"background-color:green;\">8</span>){\n" +
-                "    <span style=\"background-color:green;\"><span style=\"background-color:green;\">t;.</span>=<span style=\"background-color:green;\">16</span></span>:\n" +
+                "    <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m64\">t</a>;.</span>=<span style=\"background-color:green;\">16</span></span>:\n" +
                 "   }\n" +
                 "   <span style=\"background-color:red;\">$default</span>{\n" +
-                "    <span style=\"background-color:green;\"><span style=\"background-color:green;\">t;.</span>=<span style=\"background-color:green;\">12</span></span>:\n" +
+                "    <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m64\">t</a>;.</span>=<span style=\"background-color:green;\">12</span></span>:\n" +
                 "   }\n" +
                 "  }\n" +
-                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\">1i</span>+<span style=\"background-color:green;\">$($int)<span style=\"background-color:green;\">t;.</span></span></span>:\n" +
+                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\">1i</span>+<span style=\"background-color:green;\">$($int)<span style=\"background-color:green;\"><a href=\"#m64\">t</a>;.</span></span></span>:\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -833,24 +833,24 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
-        assertEq("<html><body><pre>$operator<a name=\"m9\">+</a> pkg.Ex (pkg.Ex p, pkg.Ex q){\n" +
-                " pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">out </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
-                " <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">out;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m282\">field</a> </span></span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> p;.;</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m282\">field</a></span></span>+<span style=\"background-color:green;\"><span style=\"background-color:green;\">q;.;</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m282\">field</a></span></span></span></span>:\n" +
-                " $return <span style=\"background-color:green;\">out;.</span>:\n" +
+        assertEq("<html><body><pre>$operator<a name=\"m9\">+</a> pkg.Ex (pkg.Ex <a name=\"m26\">p</a>, pkg.Ex <a name=\"m36\">q</a>){\n" +
+                " pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m48\">out</a> </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                " <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m48\">out</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m282\">field</a> </span></span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m26\">p</a>;.;</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m282\">field</a></span></span>+<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m36\">q</a>;.;</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m282\">field</a></span></span></span></span>:\n" +
+                " $return <span style=\"background-color:green;\"><a href=\"#m48\">out</a>;.</span>:\n" +
                 "}\n" +
-                "$operator<a name=\"m131\">-</a> pkg.Ex (pkg.Ex p, pkg.Ex q){\n" +
-                " pkg.Ex <span style=\"background-color:red;\"><span style=\"background-color:red;\">out </span>=<span style=\"background-color:red;\"> $new pkg.Ex()</span></span>:\n" +
-                " <span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\">out;.</span><span style=\"background-color:red;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m282\">field</a> </span></span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> p;.;</span><span style=\"background-color:red;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m282\">field</a></span></span>-<span style=\"background-color:red;\"><span style=\"background-color:red;\">q;.;</span><span style=\"background-color:red;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m282\">field</a></span></span></span></span>:\n" +
-                " $return <span style=\"background-color:red;\">out;.</span>:\n" +
+                "$operator<a name=\"m131\">-</a> pkg.Ex (pkg.Ex <a name=\"m148\">p</a>, pkg.Ex <a name=\"m158\">q</a>){\n" +
+                " pkg.Ex <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a name=\"m170\">out</a> </span>=<span style=\"background-color:red;\"> $new pkg.Ex()</span></span>:\n" +
+                " <span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m170\">out</a>;.</span><span style=\"background-color:red;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m282\">field</a> </span></span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m148\">p</a>;.;</span><span style=\"background-color:red;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m282\">field</a></span></span>-<span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m158\">q</a>;.;</span><span style=\"background-color:red;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m282\">field</a></span></span></span></span>:\n" +
+                " $return <span style=\"background-color:red;\"><a href=\"#m170\">out</a>;.</span>:\n" +
                 "}\n" +
                 "$public $class pkg.Ex {\n" +
                 " $public $int <span style=\"background-color:green;\"><a name=\"m282\">field</a></span>:\n" +
                 " $public $static $int <a name=\"m311\">exmeth</a>(){\n" +
-                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">one </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
-                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">two </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">one;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m282\">field</a> </span></span>=<span style=\"background-color:green;\"> 1</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">two;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m282\">field</a> </span></span>=<span style=\"background-color:green;\"> 2</span></span>:\n" +
-                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\">(<span style=\"background-color:green;\"><span style=\"background-color:green;\">one;.</span><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"pkg/Ex.html#m9\">+</a><span style=\"background-color:green;\">two;.</span></span>)</span>.<span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m282\">field</a></span></span>:\n" +
+                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m330\">one</a> </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m360\">two</a> </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m330\">one</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m282\">field</a> </span></span>=<span style=\"background-color:green;\"> 1</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m360\">two</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m282\">field</a> </span></span>=<span style=\"background-color:green;\"> 2</span></span>:\n" +
+                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\">(<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m330\">one</a>;.</span><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"pkg/Ex.html#m9\">+</a><span style=\"background-color:green;\"><a href=\"#m360\">two</a>;.</span></span>)</span>.<span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m282\">field</a></span></span>:\n" +
                 " }\n" +
                 " $public $static $int <a name=\"m473\">call</a>(){\n" +
                 "  $return <span style=\"background-color:red;\">1i</span>:\n" +
@@ -887,16 +887,16 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $static $int <a name=\"m46\">catching</a>(){\n" +
-                "  $int <span style=\"background-color:green;\">t</span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">t;.</span>=<span style=\"background-color:green;\">0i</span></span>:\n" +
+                "  $int <span style=\"background-color:green;\"><a name=\"m65\">t</a></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span>=<span style=\"background-color:green;\">0i</span></span>:\n" +
                 "  $try{\n" +
-                "   <span style=\"background-color:yellow;\">$if</span>(<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">t;.</span><a title=\"true\">&gt;=</a><span style=\"background-color:green;\">0</span></span>){\n" +
+                "   <span style=\"background-color:yellow;\">$if</span>(<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span><a title=\"true\">&gt;=</a><span style=\"background-color:green;\">0</span></span>){\n" +
                 "    $return <span style=\"background-color:red;\"><span style=\"background-color:green;\">1i</span>/<span style=\"background-color:green;\">0i</span></span>:\n" +
                 "   }\n" +
                 "   $return <span style=\"background-color:red;\">2</span>:\n" +
-                "  } <span style=\"background-color:green;\">$catch</span>(Object o){\n" +
-                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\">t;.</span>=<span style=\"background-color:green;\">1i</span></span>:\n" +
-                "   $return <span style=\"background-color:green;\">t;.</span>:\n" +
+                "  } <span style=\"background-color:green;\">$catch</span>(Object <a name=\"m158\">o</a>){\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span>=<span style=\"background-color:green;\">1i</span></span>:\n" +
+                "   $return <span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span>:\n" +
                 "  }\n" +
                 " }\n" +
                 "}\n" +
@@ -931,16 +931,16 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $static $int <a name=\"m46\">catching</a>(){\n" +
-                "  $int <span style=\"background-color:green;\">t</span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">t;.</span>=<span style=\"background-color:green;\">-<span style=\"background-color:green;\">1i</span></span></span>:\n" +
+                "  $int <span style=\"background-color:green;\"><a name=\"m65\">t</a></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span>=<span style=\"background-color:green;\">-<span style=\"background-color:green;\">1i</span></span></span>:\n" +
                 "  $try{\n" +
-                "   <span style=\"background-color:yellow;\">$if</span>(<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">t;.</span><a title=\"false\">&gt;=</a><span style=\"background-color:green;\">0</span></span>){\n" +
+                "   <span style=\"background-color:yellow;\">$if</span>(<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span><a title=\"false\">&gt;=</a><span style=\"background-color:green;\">0</span></span>){\n" +
                 "    $return <span style=\"background-color:red;\"><span style=\"background-color:red;\">1i</span>/<span style=\"background-color:red;\">0i</span></span>:\n" +
                 "   }\n" +
                 "   $return <span style=\"background-color:green;\">2</span>:\n" +
-                "  } <span style=\"background-color:red;\">$catch</span>(Object o){\n" +
-                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\">t;.</span>=<span style=\"background-color:red;\">1i</span></span>:\n" +
-                "   $return <span style=\"background-color:red;\">t;.</span>:\n" +
+                "  } <span style=\"background-color:red;\">$catch</span>(Object <a name=\"m159\">o</a>){\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m65\">t</a>;.</span>=<span style=\"background-color:red;\">1i</span></span>:\n" +
+                "   $return <span style=\"background-color:red;\"><a href=\"#m65\">t</a>;.</span>:\n" +
                 "  }\n" +
                 " }\n" +
                 "}\n" +
@@ -988,16 +988,16 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "public class pkg.Ex {\n" +
                 " public static int <a name=\"m118\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
-                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">sum </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 0</span></span>){\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m134\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m147\">sum</a> </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m147\">sum</a> </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 0</span></span>){\n" +
                 "   return <span style=\"background-color:green;\">5</span>;\n" +
                 "  }\n" +
-                "  <span style=\"background-color:red;\">for (int j</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">0</span>,<span style=\"background-color:red;\">1</span>}</span>){\n" +
-                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\">t </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> s </span>==<span style=\"background-color:red;\"> j </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
-                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\">sum </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> t</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
+                "  <span style=\"background-color:red;\">for (int <a name=\"m201\">j</a></span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">0</span>,<span style=\"background-color:red;\">1</span>}</span>){\n" +
+                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a name=\"m220\">t</a> </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m134\">s</a> </span>==<span style=\"background-color:red;\"> <a href=\"#m201\">j</a> </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m147\">sum</a> </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m220\">t</a></span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
                 "  }\n" +
-                "  return <span style=\"background-color:red;\">sum</span>;\n" +
+                "  return <span style=\"background-color:red;\"><a href=\"#m147\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -1038,22 +1038,22 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><body><pre>public enum pkg.ExEnum {\n" +
                 " <a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"pkg/Ex.html#m54\">ONE</a>(<span style=\"background-color:green;\">5</span>);\n" +
                 " public int <span style=\"background-color:green;\"><a name=\"m46\">field</a></span>;\n" +
-                " <a name=\"m54\">ExEnum(</a>int param){\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.ExEnum.field\" href=\"pkg/Ex.html#m46\">field</a></span>=<span style=\"background-color:green;\">param</span></span>;\n" +
+                " <a name=\"m54\">ExEnum(</a>int <a name=\"m65\">param</a>){\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.ExEnum.field\" href=\"pkg/Ex.html#m46\">field</a></span>=<span style=\"background-color:green;\"><a href=\"#m65\">param</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class pkg.Ex {\n" +
                 " public static int <a name=\"m134\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
-                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">sum </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 0</span></span>){\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m150\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m163\">sum</a> </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m163\">sum</a> </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 0</span></span>){\n" +
                 "   return <span style=\"background-color:green;\">5</span>;\n" +
                 "  }\n" +
-                "  <span style=\"background-color:red;\">for (int j</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">0</span>,<span style=\"background-color:red;\">1</span>}</span>){\n" +
-                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\">t </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> s </span>==<span style=\"background-color:red;\"> j </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
-                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\">sum </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> t</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
+                "  <span style=\"background-color:red;\">for (int <a name=\"m217\">j</a></span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">0</span>,<span style=\"background-color:red;\">1</span>}</span>){\n" +
+                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a name=\"m236\">t</a> </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m150\">s</a> </span>==<span style=\"background-color:red;\"> <a href=\"#m217\">j</a> </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m163\">sum</a> </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m236\">t</a></span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
                 "  }\n" +
-                "  return <span style=\"background-color:red;\">sum</span>;\n" +
+                "  return <span style=\"background-color:red;\"><a href=\"#m163\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -1094,22 +1094,22 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><body><pre>public enum pkg.ExEnum {\n" +
                 " <a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"pkg/Ex.html#m55\">FOUR</a>(<span style=\"background-color:green;\">5</span>);\n" +
                 " public int <span style=\"background-color:green;\"><a name=\"m47\">field</a></span>;\n" +
-                " <a name=\"m55\">ExEnum(</a>int param){\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.ExEnum.field\" href=\"pkg/Ex.html#m47\">field</a></span>=<span style=\"background-color:green;\">param</span></span>;\n" +
+                " <a name=\"m55\">ExEnum(</a>int <a name=\"m66\">param</a>){\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.ExEnum.field\" href=\"pkg/Ex.html#m47\">field</a></span>=<span style=\"background-color:green;\"><a href=\"#m66\">param</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class pkg.Ex {\n" +
                 " public static int <a name=\"m135\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
-                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">sum </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 0</span></span>){\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m151\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m164\">sum</a> </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m164\">sum</a> </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 0</span></span>){\n" +
                 "   return <span style=\"background-color:green;\">5</span>;\n" +
                 "  }\n" +
-                "  <span style=\"background-color:red;\">for (int j</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">0</span>,<span style=\"background-color:red;\">1</span>}</span>){\n" +
-                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\">t </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> s </span>==<span style=\"background-color:red;\"> j </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
-                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\">sum </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> t</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
+                "  <span style=\"background-color:red;\">for (int <a name=\"m218\">j</a></span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">0</span>,<span style=\"background-color:red;\">1</span>}</span>){\n" +
+                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a name=\"m237\">t</a> </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m151\">s</a> </span>==<span style=\"background-color:red;\"> <a href=\"#m218\">j</a> </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m164\">sum</a> </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m237\">t</a></span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
                 "  }\n" +
-                "  return <span style=\"background-color:red;\">sum</span>;\n" +
+                "  return <span style=\"background-color:red;\"><a href=\"#m164\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -1148,16 +1148,16 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "public class pkg.Ex {\n" +
                 " public static int <a name=\"m74\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
-                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">sum </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 0</span></span>){\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m90\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m103\">sum</a> </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m103\">sum</a> </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 0</span></span>){\n" +
                 "   return <span style=\"background-color:green;\">5</span>;\n" +
                 "  }\n" +
-                "  <span style=\"background-color:red;\">for (int j</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">0</span>,<span style=\"background-color:red;\">1</span>}</span>){\n" +
-                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\">t </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> s </span>==<span style=\"background-color:red;\"> j </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
-                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\">sum </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> t</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
+                "  <span style=\"background-color:red;\">for (int <a name=\"m157\">j</a></span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">0</span>,<span style=\"background-color:red;\">1</span>}</span>){\n" +
+                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a name=\"m176\">t</a> </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m90\">s</a> </span>==<span style=\"background-color:red;\"> <a href=\"#m157\">j</a> </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m103\">sum</a> </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m176\">t</a></span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
                 "  }\n" +
-                "  return <span style=\"background-color:red;\">sum</span>;\n" +
+                "  return <span style=\"background-color:red;\"><a href=\"#m103\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -1201,27 +1201,27 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public enum pkg.ExEnum {\n" +
                 " <a name=\"m26\" title=\"pkg.ExEnum-FOUR.pkg.ExEnum-FOUR(int)\" href=\"pkg/Ex.html#m37\">FOUR</a>(<span style=\"background-color:green;\">5</span>){\n" +
-                "  <a name=\"m37\">(</a>int p){\n" +
-                "   <span style=\"background-color:green;\"><a title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"pkg/Ex.html#m87\">super</a>(<span style=\"background-color:green;\">p</span>)</span>;\n" +
+                "  <a name=\"m37\">(</a>int <a name=\"m42\">p</a>){\n" +
+                "   <span style=\"background-color:green;\"><a title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"pkg/Ex.html#m87\">super</a>(<span style=\"background-color:green;\"><a href=\"#m42\">p</a></span>)</span>;\n" +
                 "  }\n" +
                 " };\n" +
                 " public int <span style=\"background-color:green;\"><a name=\"m79\">field</a></span>;\n" +
-                " <a name=\"m87\">ExEnum(</a>int param){\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.ExEnum.field\" href=\"pkg/Ex.html#m79\">field</a></span>=<span style=\"background-color:green;\">param</span></span>;\n" +
+                " <a name=\"m87\">ExEnum(</a>int <a name=\"m98\">param</a>){\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.ExEnum.field\" href=\"pkg/Ex.html#m79\">field</a></span>=<span style=\"background-color:green;\"><a href=\"#m98\">param</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class pkg.Ex {\n" +
                 " public static int <a name=\"m167\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
-                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">sum </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 0</span></span>){\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m183\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m196\">sum</a> </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m196\">sum</a> </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 0</span></span>){\n" +
                 "   return <span style=\"background-color:green;\">5</span>;\n" +
                 "  }\n" +
-                "  <span style=\"background-color:red;\">for (int j</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">0</span>,<span style=\"background-color:red;\">1</span>}</span>){\n" +
-                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\">t </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> s </span>==<span style=\"background-color:red;\"> j </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
-                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\">sum </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> t</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
+                "  <span style=\"background-color:red;\">for (int <a name=\"m250\">j</a></span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">0</span>,<span style=\"background-color:red;\">1</span>}</span>){\n" +
+                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a name=\"m269\">t</a> </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m183\">s</a> </span>==<span style=\"background-color:red;\"> <a href=\"#m250\">j</a> </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m196\">sum</a> </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m269\">t</a></span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
                 "  }\n" +
-                "  return <span style=\"background-color:red;\">sum</span>;\n" +
+                "  return <span style=\"background-color:red;\"><a href=\"#m196\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -1271,27 +1271,27 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <a name=\"m34\">(</a>){\n" +
                 "   <span style=\"background-color:green;\"><a title=\"pkg.ExEnum-FOUR.pkg.ExEnum-FOUR(int)\" href=\"pkg/Ex.html#m56\">this</a>(<span style=\"background-color:green;\">5</span>)</span>;\n" +
                 "  }\n" +
-                "  <a name=\"m56\">(</a>int p){\n" +
-                "   <span style=\"background-color:green;\"><a title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"pkg/Ex.html#m106\">super</a>(<span style=\"background-color:green;\">p</span>)</span>;\n" +
+                "  <a name=\"m56\">(</a>int <a name=\"m61\">p</a>){\n" +
+                "   <span style=\"background-color:green;\"><a title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"pkg/Ex.html#m106\">super</a>(<span style=\"background-color:green;\"><a href=\"#m61\">p</a></span>)</span>;\n" +
                 "  }\n" +
                 " };\n" +
                 " public int <span style=\"background-color:green;\"><a name=\"m98\">field</a></span>;\n" +
-                " <a name=\"m106\">ExEnum(</a>int param){\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.ExEnum.field\" href=\"pkg/Ex.html#m98\">field</a></span>=<span style=\"background-color:green;\">param</span></span>;\n" +
+                " <a name=\"m106\">ExEnum(</a>int <a name=\"m117\">param</a>){\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.ExEnum.field\" href=\"pkg/Ex.html#m98\">field</a></span>=<span style=\"background-color:green;\"><a href=\"#m117\">param</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class pkg.Ex {\n" +
                 " public static int <a name=\"m186\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
-                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">sum </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 0</span></span>){\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m202\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m215\">sum</a> </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m215\">sum</a> </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 0</span></span>){\n" +
                 "   return <span style=\"background-color:green;\">5</span>;\n" +
                 "  }\n" +
-                "  <span style=\"background-color:red;\">for (int j</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">0</span>,<span style=\"background-color:red;\">1</span>}</span>){\n" +
-                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\">t </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> s </span>==<span style=\"background-color:red;\"> j </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
-                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\">sum </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> t</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
+                "  <span style=\"background-color:red;\">for (int <a name=\"m269\">j</a></span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">0</span>,<span style=\"background-color:red;\">1</span>}</span>){\n" +
+                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a name=\"m288\">t</a> </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m202\">s</a> </span>==<span style=\"background-color:red;\"> <a href=\"#m269\">j</a> </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m215\">sum</a> </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m288\">t</a></span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
                 "  }\n" +
-                "  return <span style=\"background-color:red;\">sum</span>;\n" +
+                "  return <span style=\"background-color:red;\"><a href=\"#m215\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -1334,16 +1334,16 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "public class pkg.Ex {\n" +
                 " public static int <a name=\"m99\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
-                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">sum </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 0</span></span>){\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m115\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m128\">sum</a> </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m128\">sum</a> </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 0</span></span>){\n" +
                 "   return <span style=\"background-color:green;\">5</span>;\n" +
                 "  }\n" +
-                "  <span style=\"background-color:red;\">for (int j</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">0</span>,<span style=\"background-color:red;\">1</span>}</span>){\n" +
-                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\">t </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> s </span>==<span style=\"background-color:red;\"> j </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
-                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\">sum </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> t</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
+                "  <span style=\"background-color:red;\">for (int <a name=\"m182\">j</a></span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">0</span>,<span style=\"background-color:red;\">1</span>}</span>){\n" +
+                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a name=\"m201\">t</a> </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m115\">s</a> </span>==<span style=\"background-color:red;\"> <a href=\"#m182\">j</a> </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m128\">sum</a> </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m201\">t</a></span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
                 "  }\n" +
-                "  return <span style=\"background-color:red;\">sum</span>;\n" +
+                "  return <span style=\"background-color:red;\"><a href=\"#m128\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -1418,54 +1418,54 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
-        assertEq("<html><body><pre>operator<a name=\"m8\">+</a> pkg.Ex(pkg.Ex f,pkg.Ex s) {\n" +
-                " return <span style=\"background-color:green;\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> pkg.Ex(<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">f</span>.<span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a> </span></span>+<span style=\"background-color:green;\"><span style=\"background-color:green;\"> s</span>.<span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a></span></span></span>)</span>;\n" +
+        assertEq("<html><body><pre>operator<a name=\"m8\">+</a> pkg.Ex(pkg.Ex <a name=\"m24\">f</a>,pkg.Ex <a name=\"m33\">s</a>) {\n" +
+                " return <span style=\"background-color:green;\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> pkg.Ex(<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m24\">f</a></span>.<span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a> </span></span>+<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m33\">s</a></span>.<span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a></span></span></span>)</span>;\n" +
                 "}\n" +
-                "operator<a name=\"m87\">+</a> pkg.Ex(pkg.Ex f) {\n" +
-                " return <span style=\"background-color:green;\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> pkg.Ex(<span style=\"background-color:green;\"><span style=\"background-color:green;\">f</span>.<span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a></span></span>)</span>;\n" +
+                "operator<a name=\"m87\">+</a> pkg.Ex(pkg.Ex <a name=\"m103\">f</a>) {\n" +
+                " return <span style=\"background-color:green;\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> pkg.Ex(<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m103\">f</a></span>.<span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a></span></span>)</span>;\n" +
                 "}\n" +
-                "operator<a name=\"m147\">++</a> pkg.Ex(pkg.Ex f) {\n" +
-                " return <span style=\"background-color:green;\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> pkg.Ex(<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">f</span>.<span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a></span></span>+<span style=\"background-color:green;\">1</span></span>)</span>;\n" +
+                "operator<a name=\"m147\">++</a> pkg.Ex(pkg.Ex <a name=\"m164\">f</a>) {\n" +
+                " return <span style=\"background-color:green;\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> pkg.Ex(<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m164\">f</a></span>.<span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a></span></span>+<span style=\"background-color:green;\">1</span></span>)</span>;\n" +
                 "}\n" +
                 "public class pkg.Ex {\n" +
                 " public int <span style=\"background-color:green;\"><a name=\"m236\">field</a></span>;\n" +
-                " <a name=\"m244\">public Ex(</a>int field){\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">this</span>.<span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a> </span></span>=<span style=\"background-color:green;\"> field</span></span>;\n" +
+                " <a name=\"m244\">public Ex(</a>int <a name=\"m258\">field</a>){\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">this</span>.<span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a> </span></span>=<span style=\"background-color:green;\"> <a href=\"#m258\">field</a></span></span>;\n" +
                 " }\n" +
                 " <a name=\"m292\">public Ex(</a>){\n" +
                 "  <span style=\"background-color:red;\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">this</a>(<span style=\"background-color:red;\">0</span>)</span>;\n" +
                 " }\n" +
                 " public static int <a name=\"m338\">exmeth</a>(){\n" +
-                "  Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">one </span>=<span style=\"background-color:green;\"> <a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> Ex(<span style=\"background-color:green;\">5</span>)</span></span>;\n" +
-                "  Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">two </span>=<span style=\"background-color:green;\"> <a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> Ex(<span style=\"background-color:green;\">3</span>)</span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">three </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> one </span><a title=\"static +(pkg.Ex,pkg.Ex)\" href=\"pkg/Ex.html#m8\">+</a><span style=\"background-color:green;\"> two</span></span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">four </span>=<span style=\"background-color:green;\"> <a title=\"static +(pkg.Ex)\" href=\"pkg/Ex.html#m87\">+</a><span style=\"background-color:green;\"> two</span></span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">five </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> three </span><a title=\"static +(pkg.Ex,pkg.Ex)\" href=\"pkg/Ex.html#m8\">+</a>=<span style=\"background-color:green;\"> four</span></span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">six </span>=<span style=\"background-color:green;\"> <a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> Ex(<span style=\"background-color:green;\">6</span>)</span></span>;\n" +
-                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">seven </span>=<span style=\"background-color:yellow;\"> <a title=\"true\">!</a><span style=\"background-color:yellow;\">(<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">six </span><a title=\"false\">!=</a><span style=\"background-color:green;\"> six</span></span>)</span></span></span>;\n" +
-                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\">seven</span>){\n" +
-                "   <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">seven </span>=<span style=\"background-color:yellow;\"> <a title=\"false\">!</a><span style=\"background-color:yellow;\">seven</span></span></span>;\n" +
-                "  } <span style=\"background-color:red;\">else if</span> (<span style=\"background-color:red;\">seven</span>){\n" +
-                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\">seven </span>=<span style=\"background-color:red;\"> !<span style=\"background-color:red;\">seven</span></span></span>;\n" +
+                "  Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m353\">one</a> </span>=<span style=\"background-color:green;\"> <a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> Ex(<span style=\"background-color:green;\">5</span>)</span></span>;\n" +
+                "  Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m375\">two</a> </span>=<span style=\"background-color:green;\"> <a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> Ex(<span style=\"background-color:green;\">3</span>)</span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m398\">three</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m353\">one</a> </span><a title=\"static +(pkg.Ex,pkg.Ex)\" href=\"pkg/Ex.html#m8\">+</a><span style=\"background-color:green;\"> <a href=\"#m375\">two</a></span></span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m423\">four</a> </span>=<span style=\"background-color:green;\"> <a title=\"static +(pkg.Ex)\" href=\"pkg/Ex.html#m87\">+</a><span style=\"background-color:green;\"> <a href=\"#m375\">two</a></span></span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m443\">five</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m398\">three</a> </span><a title=\"static +(pkg.Ex,pkg.Ex)\" href=\"pkg/Ex.html#m8\">+</a>=<span style=\"background-color:green;\"> <a href=\"#m423\">four</a></span></span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m471\">six</a> </span>=<span style=\"background-color:green;\"> <a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> Ex(<span style=\"background-color:green;\">6</span>)</span></span>;\n" +
+                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a name=\"m494\">seven</a> </span>=<span style=\"background-color:yellow;\"> <a title=\"true\">!</a><span style=\"background-color:yellow;\">(<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m471\">six</a> </span><a title=\"false\">!=</a><span style=\"background-color:green;\"> <a href=\"#m471\">six</a></span></span>)</span></span></span>;\n" +
+                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><a href=\"#m494\">seven</a></span>){\n" +
+                "   <span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m494\">seven</a> </span>=<span style=\"background-color:yellow;\"> <a title=\"false\">!</a><span style=\"background-color:yellow;\"><a href=\"#m494\">seven</a></span></span></span>;\n" +
+                "  } <span style=\"background-color:red;\">else if</span> (<span style=\"background-color:red;\"><a href=\"#m494\">seven</a></span>){\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m494\">seven</a> </span>=<span style=\"background-color:red;\"> !<span style=\"background-color:red;\"><a href=\"#m494\">seven</a></span></span></span>;\n" +
                 "  }\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">six</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m818\">[</a><span style=\"background-color:green;\">0</span><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m818\">]</a> </span></span>+<a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m863\">=</a><span style=\"background-color:green;\"> 8</span></span>;\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">six</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m863\">[</a><span style=\"background-color:green;\">1</span><a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m863\">]</a> </span></span>=<span style=\"background-color:green;\"> 8</span></span>;\n" +
-                "  Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">eight </span>=<span style=\"background-color:green;\"> <a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> Ex(<span style=\"background-color:green;\">8</span>)</span></span>;\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">eight</span><a title=\"static ++(pkg.Ex)\" href=\"pkg/Ex.html#m147\">+</a>+</span>;\n" +
-                "  <span style=\"background-color:green;\"><a title=\"static ++(pkg.Ex)\" href=\"pkg/Ex.html#m147\">+</a>+<span style=\"background-color:green;\">eight</span></span>;\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">six</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m818\">[</a><span style=\"background-color:green;\">2</span><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m818\">]</a></span></span>+<a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m863\">+</a></span>;\n" +
-                "  <span style=\"background-color:green;\">+<a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m863\">+</a><span style=\"background-color:green;\"><span style=\"background-color:green;\">six</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m818\">[</a><span style=\"background-color:green;\">3</span><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m818\">]</a></span></span></span>;\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span><i>+</i>=<span style=\"background-color:green;\"> new ExTwo()</span></span>;\n" +
-                "  int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">t </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> s </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 1 </span></span>?<span style=\"background-color:green;\">{<span style=\"background-color:green;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
-                "  return <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">t</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span>+<span style=\"background-color:green;\"><a title=\"pkg.Ex.static caller()\" href=\"pkg/Ex.html#m915\">caller</a>()</span></span>;\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m471\">six</a></span><span style=\"background-color:green;\"><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m818\">[</a><span style=\"background-color:green;\">0</span><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m818\">]</a> </span></span>+<a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m863\">=</a><span style=\"background-color:green;\"> 8</span></span>;\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m471\">six</a></span><span style=\"background-color:green;\"><a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m863\">[</a><span style=\"background-color:green;\">1</span><a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m863\">]</a> </span></span>=<span style=\"background-color:green;\"> 8</span></span>;\n" +
+                "  Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m628\">eight</a> </span>=<span style=\"background-color:green;\"> <a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> Ex(<span style=\"background-color:green;\">8</span>)</span></span>;\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m628\">eight</a></span><a title=\"static ++(pkg.Ex)\" href=\"pkg/Ex.html#m147\">+</a>+</span>;\n" +
+                "  <span style=\"background-color:green;\"><a title=\"static ++(pkg.Ex)\" href=\"pkg/Ex.html#m147\">+</a>+<span style=\"background-color:green;\"><a href=\"#m628\">eight</a></span></span>;\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m471\">six</a></span><span style=\"background-color:green;\"><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m818\">[</a><span style=\"background-color:green;\">2</span><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m818\">]</a></span></span>+<a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m863\">+</a></span>;\n" +
+                "  <span style=\"background-color:green;\">+<a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m863\">+</a><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m471\">six</a></span><span style=\"background-color:green;\"><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m818\">[</a><span style=\"background-color:green;\">3</span><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m818\">]</a></span></span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m699\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m712\">toStr</a> </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m712\">toStr</a> </span><i>+</i>=<span style=\"background-color:green;\"> new ExTwo()</span></span>;\n" +
+                "  int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m756\">t</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> <a href=\"#m699\">s</a> </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 1 </span></span>?<span style=\"background-color:green;\">{<span style=\"background-color:green;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
+                "  return <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m756\">t</a></span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span>+<span style=\"background-color:green;\"><a title=\"pkg.Ex.static caller()\" href=\"pkg/Ex.html#m915\">caller</a>()</span></span>;\n" +
                 " }\n" +
-                " public int <a name=\"m818\">this</a>(int p){\n" +
+                " public int <a name=\"m818\">this</a>(int <a name=\"m827\">p</a>){\n" +
                 "  return <span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a></span>;\n" +
                 " }\n" +
-                " public void <a name=\"m863\">this</a>(int p){\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a> </span>=<span style=\"background-color:green;\"> value</span></span>;\n" +
+                " public void <a name=\"m863\">this</a>(int <a name=\"m872\">p</a>){\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a> </span>=<span style=\"background-color:green;\"> <b>value</b></span></span>;\n" +
                 " }\n" +
                 " public static int <a name=\"m915\">caller</a>(){\n" +
                 "  return <span style=\"background-color:green;\">1</span>;\n" +
@@ -1542,51 +1542,51 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
-        assertEq("<html><body><pre>operator<a name=\"m8\">+</a> pkg.Ex(pkg.Ex f,pkg.Ex s) {\n" +
-                " return <span style=\"background-color:red;\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> pkg.Ex(<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\">f</span>.<span style=\"background-color:red;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a> </span></span>+<span style=\"background-color:red;\"><span style=\"background-color:red;\"> s</span>.<span style=\"background-color:red;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a></span></span></span>)</span>;\n" +
+        assertEq("<html><body><pre>operator<a name=\"m8\">+</a> pkg.Ex(pkg.Ex <a name=\"m24\">f</a>,pkg.Ex <a name=\"m33\">s</a>) {\n" +
+                " return <span style=\"background-color:red;\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> pkg.Ex(<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m24\">f</a></span>.<span style=\"background-color:red;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a> </span></span>+<span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m33\">s</a></span>.<span style=\"background-color:red;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a></span></span></span>)</span>;\n" +
                 "}\n" +
-                "operator<a name=\"m87\">+</a> pkg.Ex(pkg.Ex f) {\n" +
-                " return <span style=\"background-color:red;\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> pkg.Ex(<span style=\"background-color:red;\"><span style=\"background-color:red;\">f</span>.<span style=\"background-color:red;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a></span></span>)</span>;\n" +
+                "operator<a name=\"m87\">+</a> pkg.Ex(pkg.Ex <a name=\"m103\">f</a>) {\n" +
+                " return <span style=\"background-color:red;\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> pkg.Ex(<span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m103\">f</a></span>.<span style=\"background-color:red;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a></span></span>)</span>;\n" +
                 "}\n" +
-                "operator<a name=\"m147\">++</a> pkg.Ex(pkg.Ex f) {\n" +
-                " return <span style=\"background-color:red;\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> pkg.Ex(<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\">f</span>.<span style=\"background-color:red;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a></span></span>+<span style=\"background-color:red;\">1</span></span>)</span>;\n" +
+                "operator<a name=\"m147\">++</a> pkg.Ex(pkg.Ex <a name=\"m164\">f</a>) {\n" +
+                " return <span style=\"background-color:red;\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> pkg.Ex(<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m164\">f</a></span>.<span style=\"background-color:red;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a></span></span>+<span style=\"background-color:red;\">1</span></span>)</span>;\n" +
                 "}\n" +
                 "public class pkg.Ex {\n" +
                 " public int <span style=\"background-color:green;\"><a name=\"m236\">field</a></span>;\n" +
-                " <a name=\"m244\">public Ex(</a>int field){\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">this</span>.<span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a> </span></span>=<span style=\"background-color:green;\"> field</span></span>;\n" +
+                " <a name=\"m244\">public Ex(</a>int <a name=\"m258\">field</a>){\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">this</span>.<span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a> </span></span>=<span style=\"background-color:green;\"> <a href=\"#m258\">field</a></span></span>;\n" +
                 " }\n" +
                 " <a name=\"m292\">public Ex(</a>){\n" +
                 "  <span style=\"background-color:red;\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">this</a>(<span style=\"background-color:red;\">0</span>)</span>;\n" +
                 " }\n" +
                 " public static int <a name=\"m338\">exmeth</a>(){\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">one </span>=<span style=\"background-color:green;\"> true</span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">two </span>=<span style=\"background-color:green;\"> true</span></span>;\n" +
-                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">three </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\"> one </span><a title=\"true\">&amp;</a><a title=\"true\">&amp;</a><span style=\"background-color:yellow;\"> two</span></span></span>;\n" +
-                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">four </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\"> <a title=\"false\">!</a><span style=\"background-color:yellow;\">one </span></span><a title=\"false\">&amp;</a>&amp;<span style=\"background-color:red;\"> two</span></span></span>;\n" +
-                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">five </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\"> <a title=\"false\">!</a><span style=\"background-color:yellow;\">one </span></span><a title=\"false\">&amp;</a>&amp;<span style=\"background-color:red;\"> !<span style=\"background-color:red;\">two</span></span></span></span>;\n" +
-                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">eight </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\"> one </span><a title=\"true\">&amp;</a><a title=\"false\">&amp;</a><span style=\"background-color:yellow;\"> <a title=\"false\">!</a><span style=\"background-color:yellow;\">two</span></span></span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">six </span>=<span style=\"background-color:green;\"> <a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> Ex(<span style=\"background-color:green;\">6</span>)</span></span>;\n" +
-                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">seven </span>=<span style=\"background-color:yellow;\"> <a title=\"true\">!</a><span style=\"background-color:yellow;\">(<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">six </span><a title=\"false\">!=</a><span style=\"background-color:green;\"> six</span></span>)</span></span></span>;\n" +
-                "  <span style=\"background-color:green;\">for</span> (int <span style=\"background-color:green;\"><span style=\"background-color:green;\">i </span>=<span style=\"background-color:green;\"> 0</span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\">i </span>&lt;<span style=\"background-color:green;\"> 2</span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\">i</span>++</span>){\n" +
-                "   <span style=\"background-color:green;\">if</span> (<span style=\"background-color:green;\">!<span style=\"background-color:green;\">(<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">i </span>%<span style=\"background-color:green;\"> 2 </span></span>==<span style=\"background-color:green;\"> 0</span></span>)</span></span>){\n" +
-                "    <span style=\"background-color:green;\"><span style=\"background-color:green;\">seven </span>=<span style=\"background-color:green;\"> true</span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m354\">one</a> </span>=<span style=\"background-color:green;\"> true</span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m372\">two</a> </span>=<span style=\"background-color:green;\"> true</span></span>;\n" +
+                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a name=\"m390\">three</a> </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\"> <a href=\"#m354\">one</a> </span><a title=\"true\">&amp;</a><a title=\"true\">&amp;</a><span style=\"background-color:yellow;\"> <a href=\"#m372\">two</a></span></span></span>;\n" +
+                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a name=\"m416\">four</a> </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\"> <a title=\"false\">!</a><span style=\"background-color:yellow;\"><a href=\"#m354\">one</a> </span></span><a title=\"false\">&amp;</a>&amp;<span style=\"background-color:red;\"> <a href=\"#m372\">two</a></span></span></span>;\n" +
+                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a name=\"m442\">five</a> </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\"> <a title=\"false\">!</a><span style=\"background-color:yellow;\"><a href=\"#m354\">one</a> </span></span><a title=\"false\">&amp;</a>&amp;<span style=\"background-color:red;\"> !<span style=\"background-color:red;\"><a href=\"#m372\">two</a></span></span></span></span>;\n" +
+                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a name=\"m469\">eight</a> </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\"> <a href=\"#m354\">one</a> </span><a title=\"true\">&amp;</a><a title=\"false\">&amp;</a><span style=\"background-color:yellow;\"> <a title=\"false\">!</a><span style=\"background-color:yellow;\"><a href=\"#m372\">two</a></span></span></span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m496\">six</a> </span>=<span style=\"background-color:green;\"> <a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> Ex(<span style=\"background-color:green;\">6</span>)</span></span>;\n" +
+                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a name=\"m519\">seven</a> </span>=<span style=\"background-color:yellow;\"> <a title=\"true\">!</a><span style=\"background-color:yellow;\">(<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m496\">six</a> </span><a title=\"false\">!=</a><span style=\"background-color:green;\"> <a href=\"#m496\">six</a></span></span>)</span></span></span>;\n" +
+                "  <span style=\"background-color:green;\">for</span> (int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m553\">i</a> </span>=<span style=\"background-color:green;\"> 0</span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m553\">i</a> </span>&lt;<span style=\"background-color:green;\"> 2</span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m553\">i</a></span>++</span>){\n" +
+                "   <span style=\"background-color:green;\">if</span> (<span style=\"background-color:green;\">!<span style=\"background-color:green;\">(<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m553\">i</a> </span>%<span style=\"background-color:green;\"> 2 </span></span>==<span style=\"background-color:green;\"> 0</span></span>)</span></span>){\n" +
+                "    <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m519\">seven</a> </span>=<span style=\"background-color:green;\"> true</span></span>;\n" +
                 "   }\n" +
                 "  }\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">six</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m785\">[</a><span style=\"background-color:green;\">0</span><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m785\">]</a> </span></span>+<a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m830\">=</a><span style=\"background-color:green;\"> 8</span></span>;\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">six</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m830\">[</a><span style=\"background-color:green;\">1</span><a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m830\">]</a> </span></span>=<span style=\"background-color:green;\"> 8</span></span>;\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>+=<span style=\"background-color:green;\"> new ExTwo()</span></span>;\n" +
-                "  int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">t </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> s </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 1 </span></span>?<span style=\"background-color:green;\">{<span style=\"background-color:green;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">s</span>+=<span style=\"background-color:green;\">1</span></span>;\n" +
-                "  return <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">t</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span>+<span style=\"background-color:green;\"><a title=\"pkg.Ex.static caller()\" href=\"pkg/Ex.html#m882\">caller</a>()</span></span>;\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m496\">six</a></span><span style=\"background-color:green;\"><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m785\">[</a><span style=\"background-color:green;\">0</span><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m785\">]</a> </span></span>+<a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m830\">=</a><span style=\"background-color:green;\"> 8</span></span>;\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m496\">six</a></span><span style=\"background-color:green;\"><a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m830\">[</a><span style=\"background-color:green;\">1</span><a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m830\">]</a> </span></span>=<span style=\"background-color:green;\"> 8</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m658\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m671\">toStr</a> </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m671\">toStr</a> </span>+=<span style=\"background-color:green;\"> new ExTwo()</span></span>;\n" +
+                "  int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m715\">t</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> <a href=\"#m658\">s</a> </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 1 </span></span>?<span style=\"background-color:green;\">{<span style=\"background-color:green;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m658\">s</a></span>+=<span style=\"background-color:green;\">1</span></span>;\n" +
+                "  return <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m715\">t</a></span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span>+<span style=\"background-color:green;\"><a title=\"pkg.Ex.static caller()\" href=\"pkg/Ex.html#m882\">caller</a>()</span></span>;\n" +
                 " }\n" +
-                " public int <a name=\"m785\">this</a>(int p){\n" +
+                " public int <a name=\"m785\">this</a>(int <a name=\"m794\">p</a>){\n" +
                 "  return <span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a></span>;\n" +
                 " }\n" +
-                " public void <a name=\"m830\">this</a>(int p){\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a> </span>=<span style=\"background-color:green;\"> value</span></span>;\n" +
+                " public void <a name=\"m830\">this</a>(int <a name=\"m839\">p</a>){\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a> </span>=<span style=\"background-color:green;\"> <b>value</b></span></span>;\n" +
                 " }\n" +
                 " public static int <a name=\"m882\">caller</a>(){\n" +
                 "  return <span style=\"background-color:green;\">1</span>;\n" +
@@ -1660,51 +1660,51 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
-        assertEq("<html><body><pre>operator<a name=\"m8\">+</a> pkg.Ex(pkg.Ex f,pkg.Ex s) {\n" +
-                " return <span style=\"background-color:red;\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> pkg.Ex(<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\">f</span>.<span style=\"background-color:red;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a> </span></span>+<span style=\"background-color:red;\"><span style=\"background-color:red;\"> s</span>.<span style=\"background-color:red;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a></span></span></span>)</span>;\n" +
+        assertEq("<html><body><pre>operator<a name=\"m8\">+</a> pkg.Ex(pkg.Ex <a name=\"m24\">f</a>,pkg.Ex <a name=\"m33\">s</a>) {\n" +
+                " return <span style=\"background-color:red;\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> pkg.Ex(<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m24\">f</a></span>.<span style=\"background-color:red;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a> </span></span>+<span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m33\">s</a></span>.<span style=\"background-color:red;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a></span></span></span>)</span>;\n" +
                 "}\n" +
-                "operator<a name=\"m87\">+</a> pkg.Ex(pkg.Ex f) {\n" +
-                " return <span style=\"background-color:red;\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> pkg.Ex(<span style=\"background-color:red;\"><span style=\"background-color:red;\">f</span>.<span style=\"background-color:red;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a></span></span>)</span>;\n" +
+                "operator<a name=\"m87\">+</a> pkg.Ex(pkg.Ex <a name=\"m103\">f</a>) {\n" +
+                " return <span style=\"background-color:red;\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> pkg.Ex(<span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m103\">f</a></span>.<span style=\"background-color:red;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a></span></span>)</span>;\n" +
                 "}\n" +
-                "operator<a name=\"m147\">++</a> pkg.Ex(pkg.Ex f) {\n" +
-                " return <span style=\"background-color:red;\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> pkg.Ex(<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\">f</span>.<span style=\"background-color:red;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a></span></span>+<span style=\"background-color:red;\">1</span></span>)</span>;\n" +
+                "operator<a name=\"m147\">++</a> pkg.Ex(pkg.Ex <a name=\"m164\">f</a>) {\n" +
+                " return <span style=\"background-color:red;\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> pkg.Ex(<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m164\">f</a></span>.<span style=\"background-color:red;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a></span></span>+<span style=\"background-color:red;\">1</span></span>)</span>;\n" +
                 "}\n" +
                 "public class pkg.Ex {\n" +
                 " public int <span style=\"background-color:green;\"><a name=\"m236\">field</a></span>;\n" +
-                " <a name=\"m244\">public Ex(</a>int field){\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">this</span>.<span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a> </span></span>=<span style=\"background-color:green;\"> field</span></span>;\n" +
+                " <a name=\"m244\">public Ex(</a>int <a name=\"m258\">field</a>){\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">this</span>.<span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a> </span></span>=<span style=\"background-color:green;\"> <a href=\"#m258\">field</a></span></span>;\n" +
                 " }\n" +
                 " <a name=\"m292\">public Ex(</a>){\n" +
                 "  <span style=\"background-color:red;\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">this</a>(<span style=\"background-color:red;\">0</span>)</span>;\n" +
                 " }\n" +
                 " public static int <a name=\"m338\">exmeth</a>(){\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">one </span>=<span style=\"background-color:green;\"> true</span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">two </span>=<span style=\"background-color:green;\"> true</span></span>;\n" +
-                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">three </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\"> one </span><a title=\"true\">|</a>|<span style=\"background-color:red;\"> two</span></span></span>;\n" +
-                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">four </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\"> <a title=\"false\">!</a><span style=\"background-color:yellow;\">one </span></span><a title=\"false\">|</a><a title=\"true\">|</a><span style=\"background-color:yellow;\"> two</span></span></span>;\n" +
-                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">five </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\"> <a title=\"false\">!</a><span style=\"background-color:yellow;\">one </span></span><a title=\"false\">|</a><a title=\"false\">|</a><span style=\"background-color:yellow;\"> <a title=\"false\">!</a><span style=\"background-color:yellow;\">two</span></span></span></span>;\n" +
-                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">eight </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\"> one </span><a title=\"true\">|</a>|<span style=\"background-color:red;\"> !<span style=\"background-color:red;\">two</span></span></span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">six </span>=<span style=\"background-color:green;\"> <a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> Ex(<span style=\"background-color:green;\">6</span>)</span></span>;\n" +
-                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">seven </span>=<span style=\"background-color:yellow;\"> <a title=\"true\">!</a><span style=\"background-color:yellow;\">(<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">six </span><a title=\"false\">!=</a><span style=\"background-color:green;\"> six</span></span>)</span></span></span>;\n" +
-                "  <span style=\"background-color:green;\">for</span> (int <span style=\"background-color:green;\"><span style=\"background-color:green;\">i </span>=<span style=\"background-color:green;\"> 0</span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\">i </span>&lt;<span style=\"background-color:green;\"> 4</span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\">i</span>++</span>){\n" +
-                "   <span style=\"background-color:green;\">if</span> (<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">i </span>%<span style=\"background-color:green;\"> 2 </span></span>==<span style=\"background-color:green;\"> 0 </span></span>&amp;&amp;<span style=\"background-color:green;\"><span style=\"background-color:green;\"> i </span>&gt;<span style=\"background-color:green;\"> 1</span></span></span>){\n" +
-                "    <span style=\"background-color:green;\"><span style=\"background-color:green;\">seven </span>=<span style=\"background-color:green;\"> true</span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m354\">one</a> </span>=<span style=\"background-color:green;\"> true</span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m372\">two</a> </span>=<span style=\"background-color:green;\"> true</span></span>;\n" +
+                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a name=\"m390\">three</a> </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\"> <a href=\"#m354\">one</a> </span><a title=\"true\">|</a>|<span style=\"background-color:red;\"> <a href=\"#m372\">two</a></span></span></span>;\n" +
+                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a name=\"m416\">four</a> </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\"> <a title=\"false\">!</a><span style=\"background-color:yellow;\"><a href=\"#m354\">one</a> </span></span><a title=\"false\">|</a><a title=\"true\">|</a><span style=\"background-color:yellow;\"> <a href=\"#m372\">two</a></span></span></span>;\n" +
+                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a name=\"m442\">five</a> </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\"> <a title=\"false\">!</a><span style=\"background-color:yellow;\"><a href=\"#m354\">one</a> </span></span><a title=\"false\">|</a><a title=\"false\">|</a><span style=\"background-color:yellow;\"> <a title=\"false\">!</a><span style=\"background-color:yellow;\"><a href=\"#m372\">two</a></span></span></span></span>;\n" +
+                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a name=\"m469\">eight</a> </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\"> <a href=\"#m354\">one</a> </span><a title=\"true\">|</a>|<span style=\"background-color:red;\"> !<span style=\"background-color:red;\"><a href=\"#m372\">two</a></span></span></span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m496\">six</a> </span>=<span style=\"background-color:green;\"> <a title=\"pkg.Ex.pkg.Ex(int)\" href=\"pkg/Ex.html#m244\">new</a> Ex(<span style=\"background-color:green;\">6</span>)</span></span>;\n" +
+                "  var <span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a name=\"m519\">seven</a> </span>=<span style=\"background-color:yellow;\"> <a title=\"true\">!</a><span style=\"background-color:yellow;\">(<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m496\">six</a> </span><a title=\"false\">!=</a><span style=\"background-color:green;\"> <a href=\"#m496\">six</a></span></span>)</span></span></span>;\n" +
+                "  <span style=\"background-color:green;\">for</span> (int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m553\">i</a> </span>=<span style=\"background-color:green;\"> 0</span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m553\">i</a> </span>&lt;<span style=\"background-color:green;\"> 4</span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m553\">i</a></span>++</span>){\n" +
+                "   <span style=\"background-color:green;\">if</span> (<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m553\">i</a> </span>%<span style=\"background-color:green;\"> 2 </span></span>==<span style=\"background-color:green;\"> 0 </span></span>&amp;&amp;<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m553\">i</a> </span>&gt;<span style=\"background-color:green;\"> 1</span></span></span>){\n" +
+                "    <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m519\">seven</a> </span>=<span style=\"background-color:green;\"> true</span></span>;\n" +
                 "   }\n" +
                 "  }\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">six</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m791\">[</a><span style=\"background-color:green;\">0</span><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m791\">]</a> </span></span>+<a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m836\">=</a><span style=\"background-color:green;\"> 8</span></span>;\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">six</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m836\">[</a><span style=\"background-color:green;\">1</span><a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m836\">]</a> </span></span>=<span style=\"background-color:green;\"> 8</span></span>;\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>+=<span style=\"background-color:green;\"> new ExTwo()</span></span>;\n" +
-                "  int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">t </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> s </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 1 </span></span>?<span style=\"background-color:green;\">{<span style=\"background-color:green;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">s</span>+=<span style=\"background-color:green;\">1</span></span>;\n" +
-                "  return <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">t</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span>+<span style=\"background-color:green;\"><a title=\"pkg.Ex.static caller()\" href=\"pkg/Ex.html#m888\">caller</a>()</span></span>;\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m496\">six</a></span><span style=\"background-color:green;\"><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m791\">[</a><span style=\"background-color:green;\">0</span><a title=\"pkg.Ex.[](int)\" href=\"pkg/Ex.html#m791\">]</a> </span></span>+<a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m836\">=</a><span style=\"background-color:green;\"> 8</span></span>;\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m496\">six</a></span><span style=\"background-color:green;\"><a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m836\">[</a><span style=\"background-color:green;\">1</span><a title=\"pkg.Ex.[]=(int)\" href=\"pkg/Ex.html#m836\">]</a> </span></span>=<span style=\"background-color:green;\"> 8</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m664\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m677\">toStr</a> </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m677\">toStr</a> </span>+=<span style=\"background-color:green;\"> new ExTwo()</span></span>;\n" +
+                "  int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m721\">t</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> <a href=\"#m664\">s</a> </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 1 </span></span>?<span style=\"background-color:green;\">{<span style=\"background-color:green;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m664\">s</a></span>+=<span style=\"background-color:green;\">1</span></span>;\n" +
+                "  return <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m721\">t</a></span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span>+<span style=\"background-color:green;\"><a title=\"pkg.Ex.static caller()\" href=\"pkg/Ex.html#m888\">caller</a>()</span></span>;\n" +
                 " }\n" +
-                " public int <a name=\"m791\">this</a>(int p){\n" +
+                " public int <a name=\"m791\">this</a>(int <a name=\"m800\">p</a>){\n" +
                 "  return <span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a></span>;\n" +
                 " }\n" +
-                " public void <a name=\"m836\">this</a>(int p){\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a> </span>=<span style=\"background-color:green;\"> value</span></span>;\n" +
+                " public void <a name=\"m836\">this</a>(int <a name=\"m845\">p</a>){\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m236\">field</a> </span>=<span style=\"background-color:green;\"> <b>value</b></span></span>;\n" +
                 " }\n" +
                 " public static int <a name=\"m888\">caller</a>(){\n" +
                 "  return <span style=\"background-color:green;\">1</span>;\n" +
@@ -1736,9 +1736,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span>&lt;<span style=\"background-color:green;\"><span style=\"color:blue;\">\"\"</span></span></span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>+=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span>&lt;<span style=\"background-color:green;\"><span style=\"color:blue;\">\"\"</span></span></span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m74\">toStr</a> </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m74\">toStr</a> </span>+=<span style=\"background-color:green;\"> 1</span></span>;\n" +
                 "  return <span style=\"background-color:green;\">1</span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -1767,10 +1767,10 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span>&lt;<span style=\"background-color:green;\"><span style=\"color:blue;\">\"\"</span></span></span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
-                "  Object <span style=\"background-color:green;\"><span style=\"background-color:green;\">right </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span><i>+</i>=<span style=\"background-color:green;\"> right</span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span>&lt;<span style=\"background-color:green;\"><span style=\"color:blue;\">\"\"</span></span></span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m74\">toStr</a> </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
+                "  Object <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m95\">right</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m74\">toStr</a> </span><i>+</i>=<span style=\"background-color:green;\"> <a href=\"#m95\">right</a></span></span>;\n" +
                 "  return <span style=\"background-color:green;\">1</span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -1799,10 +1799,10 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span>&lt;<span style=\"background-color:green;\"><span style=\"color:blue;\">\"\"</span></span></span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
-                "  Object[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">right </span>=<span style=\"background-color:green;\"> null</span></span>;\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>+=<span style=\"background-color:green;\"> right</span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span>&lt;<span style=\"background-color:green;\"><span style=\"color:blue;\">\"\"</span></span></span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m74\">toStr</a> </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
+                "  Object[] <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m97\">right</a> </span>=<span style=\"background-color:green;\"> null</span></span>;\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m74\">toStr</a> </span>+=<span style=\"background-color:green;\"> <a href=\"#m97\">right</a></span></span>;\n" +
                 "  return <span style=\"background-color:green;\">1</span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -1833,10 +1833,10 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><body><pre>public annotation pkg.Annotation {}\n" +
                 "public class pkg.Ex {\n" +
                 " public static int <a name=\"m77\">exmeth</a>(){\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span>&lt;<span style=\"background-color:green;\"><span style=\"color:blue;\">\"\"</span></span></span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
-                "  Annotation <span style=\"background-color:green;\"><span style=\"background-color:green;\">right </span>=<span style=\"background-color:green;\"> null</span></span>;\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>+=<span style=\"background-color:green;\"> right</span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m93\">s</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span>&lt;<span style=\"background-color:green;\"><span style=\"color:blue;\">\"\"</span></span></span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m110\">toStr</a> </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
+                "  Annotation <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m135\">right</a> </span>=<span style=\"background-color:green;\"> null</span></span>;\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m110\">toStr</a> </span>+=<span style=\"background-color:green;\"> <a href=\"#m135\">right</a></span></span>;\n" +
                 "  return <span style=\"background-color:green;\">1</span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -1867,12 +1867,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">one </span>=<span style=\"background-color:green;\"> true</span></span>;\n" +
-                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\">one</span>){\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">one</a> </span>=<span style=\"background-color:green;\"> true</span></span>;\n" +
+                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><a href=\"#m57\">one</a></span>){\n" +
                 "   return <span style=\"background-color:green;\">5</span>;\n" +
                 "  }\n" +
-                "  var <span style=\"background-color:red;\"><span style=\"background-color:red;\">two </span>=<span style=\"background-color:red;\"> true</span></span>;\n" +
-                "  var <span style=\"background-color:red;\"><span style=\"background-color:red;\">three </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> one </span>&amp;&amp;<span style=\"background-color:red;\"> two</span></span></span>;\n" +
+                "  var <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a name=\"m104\">two</a> </span>=<span style=\"background-color:red;\"> true</span></span>;\n" +
+                "  var <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a name=\"m122\">three</a> </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m57\">one</a> </span>&amp;&amp;<span style=\"background-color:red;\"> <a href=\"#m104\">two</a></span></span></span>;\n" +
                 "  return <span style=\"background-color:red;\">6</span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -1914,8 +1914,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m72\">inst</a>;;;</span><span style=\"background-color:green;\"><a title=\"pkg.CustList.add(#U)\" href=\"pkg/CustList.html#m154\">add</a>(<span style=\"background-color:green;\">3i</span>)</span></span>:\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m72\">inst</a>;;;</span><span style=\"background-color:green;\"><a title=\"pkg.CustList.add(#U)\" href=\"pkg/CustList.html#m154\">add</a>(<span style=\"background-color:green;\">1i</span>)</span></span>:\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m72\">inst</a>;;;</span><span style=\"background-color:green;\"><a title=\"pkg.CustList.add(#U)\" href=\"pkg/CustList.html#m154\">add</a>(<span style=\"background-color:green;\">2i</span>)</span></span>:\n" +
-                "  <span style=\"background-color:green;\">$foreach(java.lang.Number e</span>:<span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m72\">inst</a>;;;</span>){\n" +
-                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.res\" href=\"pkg/Ex.html#m138\">res</a>;;;</span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\">e;</span><span style=\"background-color:green;\">intValue()</span></span></span>:\n" +
+                "  <span style=\"background-color:green;\">$foreach(java.lang.Number <a name=\"m236\">e</a></span>:<span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m72\">inst</a>;;;</span>){\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.res\" href=\"pkg/Ex.html#m138\">res</a>;;;</span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m236\">e</a>;</span><span style=\"background-color:green;\">intValue()</span></span></span>:\n" +
                 "  }\n" +
                 " }\n" +
                 " $public $static $int <a name=\"m302\">exmeth</a>(){\n" +
@@ -1961,8 +1961,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m72\">inst</a>;;;</span><span style=\"background-color:green;\"><a title=\"pkg.CustList.add(#U)\" href=\"pkg/CustList.html#m154\">add</a>(<span style=\"background-color:green;\">3i</span>)</span></span>:\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m72\">inst</a>;;;</span><span style=\"background-color:green;\"><a title=\"pkg.CustList.add(#U)\" href=\"pkg/CustList.html#m154\">add</a>(<span style=\"background-color:green;\">1i</span>)</span></span>:\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m72\">inst</a>;;;</span><span style=\"background-color:green;\"><a title=\"pkg.CustList.add(#U)\" href=\"pkg/CustList.html#m154\">add</a>(<span style=\"background-color:green;\">2i</span>)</span></span>:\n" +
-                "  <span style=\"background-color:yellow;\">$foreach(java.lang.Number e</span>:<span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m72\">inst</a>;;;</span>){\n" +
-                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.res\" href=\"pkg/Ex.html#m138\">res</a>;;;</span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\">e;</span><span style=\"background-color:green;\">intValue()</span></span></span>:\n" +
+                "  <span style=\"background-color:yellow;\">$foreach(java.lang.Number <a name=\"m236\">e</a></span>:<span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m72\">inst</a>;;;</span>){\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.res\" href=\"pkg/Ex.html#m138\">res</a>;;;</span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m236\">e</a>;</span><span style=\"background-color:green;\">intValue()</span></span></span>:\n" +
                 "   $break:\n" +
                 "  }\n" +
                 " }\n" +
@@ -2002,8 +2002,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " $public $static pkg.CustList&lt;java.lang.Number&gt; <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m72\">inst</a></span>=<span style=\"background-color:green;\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"pkg/CustList.html#m93\">$new</a> pkg.CustList&lt;java.lang.Number&gt;()</span></span>:\n" +
                 " $public $static $int <span style=\"background-color:green;\"><a name=\"m138\">res</a></span>:\n" +
                 " $static {\n" +
-                "  <span style=\"background-color:yellow;\">$foreach(java.lang.Number e</span>:<span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m72\">inst</a>;;;</span>){\n" +
-                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.Ex.res\" href=\"pkg/Ex.html#m138\">res</a>;;;</span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\">e;</span><span style=\"background-color:red;\">intValue()</span></span></span>:\n" +
+                "  <span style=\"background-color:yellow;\">$foreach(java.lang.Number <a name=\"m182\">e</a></span>:<span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m72\">inst</a>;;;</span>){\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.Ex.res\" href=\"pkg/Ex.html#m138\">res</a>;;;</span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m182\">e</a>;</span><span style=\"background-color:red;\">intValue()</span></span></span>:\n" +
                 "  }\n" +
                 " }\n" +
                 " $public $static $int <a name=\"m248\">exmeth</a>(){\n" +
@@ -2048,8 +2048,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span style=\"background-color:yellow;\">$if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.res\" href=\"pkg/Ex.html#m138\">res</a> </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 0</span></span>) {\n" +
                 "   $return:\n" +
                 "  }\n" +
-                "  <span style=\"background-color:red;\">$foreach(java.lang.Number e</span>:<span style=\"background-color:red;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m72\">inst</a>;;;</span>){\n" +
-                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.Ex.res\" href=\"pkg/Ex.html#m138\">res</a>;;;</span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\">e;</span><span style=\"background-color:red;\">intValue()</span></span></span>:\n" +
+                "  <span style=\"background-color:red;\">$foreach(java.lang.Number <a name=\"m217\">e</a></span>:<span style=\"background-color:red;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m72\">inst</a>;;;</span>){\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.Ex.res\" href=\"pkg/Ex.html#m138\">res</a>;;;</span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m217\">e</a>;</span><span style=\"background-color:red;\">intValue()</span></span></span>:\n" +
                 "  }\n" +
                 " }\n" +
                 " $public $static $int <a name=\"m283\">exmeth</a>(){\n" +
@@ -2097,8 +2097,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m66\">inst</a></span>.<span style=\"background-color:green;\"><a title=\"pkg.CustTable.add(#U,#V)\" href=\"pkg/CustTable.html#m166\">add</a>(<span style=\"background-color:green;\">3</span>,<span style=\"background-color:green;\">5</span>)</span></span>:\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m66\">inst</a></span>.<span style=\"background-color:green;\"><a title=\"pkg.CustTable.add(#U,#V)\" href=\"pkg/CustTable.html#m166\">add</a>(<span style=\"background-color:green;\">8</span>,<span style=\"background-color:green;\">1</span>)</span></span>:\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m66\">inst</a></span>.<span style=\"background-color:green;\"><a title=\"pkg.CustTable.add(#U,#V)\" href=\"pkg/CustTable.html#m166\">add</a>(<span style=\"background-color:green;\">2</span>,<span style=\"background-color:green;\">6</span>)</span></span>:\n" +
-                "  <span style=\"background-color:green;\">$for(Number f, Number s</span>: <span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m66\">inst</a></span>){\n" +
-                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.res\" href=\"pkg/Ex.html#m126\">res</a> </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> f;</span><span style=\"background-color:green;\">intValue()</span></span>+<span style=\"background-color:green;\"><span style=\"background-color:green;\">s;</span><span style=\"background-color:green;\">intValue()</span></span></span></span>:\n" +
+                "  <span style=\"background-color:green;\">$for(Number <a name=\"m207\">f</a>, Number <a name=\"m217\">s</a></span>: <span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m66\">inst</a></span>){\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.res\" href=\"pkg/Ex.html#m126\">res</a> </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m207\">f</a>;</span><span style=\"background-color:green;\">intValue()</span></span>+<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m217\">s</a>;</span><span style=\"background-color:green;\">intValue()</span></span></span></span>:\n" +
                 "  }\n" +
                 " }\n" +
                 " $public $static $int <a name=\"m293\">exmeth</a>(){\n" +
@@ -2148,8 +2148,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m66\">inst</a></span>.<span style=\"background-color:green;\"><a title=\"pkg.CustTable.add(#U,#V)\" href=\"pkg/CustTable.html#m166\">add</a>(<span style=\"background-color:green;\">3</span>,<span style=\"background-color:green;\">5</span>)</span></span>:\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m66\">inst</a></span>.<span style=\"background-color:green;\"><a title=\"pkg.CustTable.add(#U,#V)\" href=\"pkg/CustTable.html#m166\">add</a>(<span style=\"background-color:green;\">8</span>,<span style=\"background-color:green;\">1</span>)</span></span>:\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m66\">inst</a></span>.<span style=\"background-color:green;\"><a title=\"pkg.CustTable.add(#U,#V)\" href=\"pkg/CustTable.html#m166\">add</a>(<span style=\"background-color:green;\">2</span>,<span style=\"background-color:green;\">6</span>)</span></span>:\n" +
-                "  <span style=\"background-color:yellow;\">$for(Number f, Number s</span>: <span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m66\">inst</a></span>){\n" +
-                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.res\" href=\"pkg/Ex.html#m126\">res</a> </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> f;</span><span style=\"background-color:green;\">intValue()</span></span>+<span style=\"background-color:green;\"><span style=\"background-color:green;\">s;</span><span style=\"background-color:green;\">intValue()</span></span></span></span>:\n" +
+                "  <span style=\"background-color:yellow;\">$for(Number <a name=\"m207\">f</a>, Number <a name=\"m217\">s</a></span>: <span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m66\">inst</a></span>){\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.res\" href=\"pkg/Ex.html#m126\">res</a> </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m207\">f</a>;</span><span style=\"background-color:green;\">intValue()</span></span>+<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m217\">s</a>;</span><span style=\"background-color:green;\">intValue()</span></span></span></span>:\n" +
                 "   $break:\n" +
                 "  }\n" +
                 " }\n" +
@@ -2193,8 +2193,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " $public $static CustTable&lt;Number,Number&gt; <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m66\">inst</a></span>=<span style=\"background-color:green;\"><a title=\"pkg.CustTable.pkg.CustTable()\" href=\"pkg/CustTable.html#m97\">$new</a> CustTable&lt;Number,Number&gt;()</span></span>:\n" +
                 " $public $static $int <span style=\"background-color:green;\"><a name=\"m126\">res</a></span>:\n" +
                 " $static {\n" +
-                "  <span style=\"background-color:yellow;\">$for(Number f, Number s</span>: <span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m66\">inst</a></span>){\n" +
-                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.Ex.res\" href=\"pkg/Ex.html#m126\">res</a> </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> f;</span><span style=\"background-color:red;\">intValue()</span></span>+<span style=\"background-color:red;\"><span style=\"background-color:red;\">s;</span><span style=\"background-color:red;\">intValue()</span></span></span></span>:\n" +
+                "  <span style=\"background-color:yellow;\">$for(Number <a name=\"m156\">f</a>, Number <a name=\"m166\">s</a></span>: <span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m66\">inst</a></span>){\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.Ex.res\" href=\"pkg/Ex.html#m126\">res</a> </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m156\">f</a>;</span><span style=\"background-color:red;\">intValue()</span></span>+<span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m166\">s</a>;</span><span style=\"background-color:red;\">intValue()</span></span></span></span>:\n" +
                 "  }\n" +
                 " }\n" +
                 " $public $static $int <a name=\"m242\">exmeth</a>(){\n" +
@@ -2243,8 +2243,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span style=\"background-color:yellow;\">$if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.res\" href=\"pkg/Ex.html#m126\">res</a> </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 0</span></span>) {\n" +
                 "   $return:\n" +
                 "  }\n" +
-                "  <span style=\"background-color:red;\">$for(Number f, Number s</span>: <span style=\"background-color:red;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m66\">inst</a></span>){\n" +
-                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.Ex.res\" href=\"pkg/Ex.html#m126\">res</a> </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> f;</span><span style=\"background-color:red;\">intValue()</span></span>+<span style=\"background-color:red;\"><span style=\"background-color:red;\">s;</span><span style=\"background-color:red;\">intValue()</span></span></span></span>:\n" +
+                "  <span style=\"background-color:red;\">$for(Number <a name=\"m191\">f</a>, Number <a name=\"m201\">s</a></span>: <span style=\"background-color:red;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m66\">inst</a></span>){\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.Ex.res\" href=\"pkg/Ex.html#m126\">res</a> </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m191\">f</a>;</span><span style=\"background-color:red;\">intValue()</span></span>+<span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m201\">s</a>;</span><span style=\"background-color:red;\">intValue()</span></span></span></span>:\n" +
                 "  }\n" +
                 " }\n" +
                 " $public $static $int <a name=\"m277\">exmeth</a>(){\n" +
@@ -2286,15 +2286,15 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  <span style=\"background-color:yellow;\">for</span> (int <span style=\"background-color:green;\"><span style=\"background-color:green;\">i </span>=<span style=\"background-color:green;\"> 0</span></span>; <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">i </span><a title=\"true\">&lt;</a><span style=\"background-color:green;\"> 2</span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\">i</span>++</span>){\n" +
-                "   <span style=\"background-color:green;\">if</span> (<span style=\"background-color:green;\">!<span style=\"background-color:green;\">(<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">i </span>%<span style=\"background-color:green;\"> 2 </span></span>==<span style=\"background-color:green;\"> 0</span></span>)</span></span>){\n" +
+                "  <span style=\"background-color:yellow;\">for</span> (int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m62\">i</a> </span>=<span style=\"background-color:green;\"> 0</span></span>; <span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m62\">i</a> </span><a title=\"true\">&lt;</a><span style=\"background-color:green;\"> 2</span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m62\">i</a></span>++</span>){\n" +
+                "   <span style=\"background-color:green;\">if</span> (<span style=\"background-color:green;\">!<span style=\"background-color:green;\">(<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m62\">i</a> </span>%<span style=\"background-color:green;\"> 2 </span></span>==<span style=\"background-color:green;\"> 0</span></span>)</span></span>){\n" +
                 "    break;\n" +
                 "   }\n" +
                 "  }\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> toStr </span><i>+</i><span style=\"background-color:green;\"> new ExTwo()</span></span></span>;\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> new ExTwo() </span><i>+</i><span style=\"background-color:green;\"> toStr</span></span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m131\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m144\">toStr</a> </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m144\">toStr</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m144\">toStr</a> </span><i>+</i><span style=\"background-color:green;\"> new ExTwo()</span></span></span>;\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m144\">toStr</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> new ExTwo() </span><i>+</i><span style=\"background-color:green;\"> <a href=\"#m144\">toStr</a></span></span></span>;\n" +
                 "  return <span style=\"background-color:green;\">6</span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -2338,18 +2338,18 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">s </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 1</span></span>){\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m57\">s</a> </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 1</span></span>){\n" +
                 "   return <span style=\"background-color:green;\">7</span>;\n" +
                 "  }\n" +
-                "  <span style=\"background-color:red;\">for</span> (int <span style=\"background-color:red;\"><span style=\"background-color:red;\">i </span>=<span style=\"background-color:red;\"> 0</span></span>; <span style=\"background-color:red;\"><span style=\"background-color:red;\">i </span>&lt;<span style=\"background-color:red;\"> 2</span></span>; <span style=\"background-color:red;\"><span style=\"background-color:red;\">i</span>++</span>){\n" +
-                "   <span style=\"background-color:red;\">if</span> (<span style=\"background-color:red;\">!<span style=\"background-color:red;\">(<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\">i </span>%<span style=\"background-color:red;\"> 2 </span></span>==<span style=\"background-color:red;\"> 0</span></span>)</span></span>){\n" +
+                "  <span style=\"background-color:red;\">for</span> (int <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a name=\"m107\">i</a> </span>=<span style=\"background-color:red;\"> 0</span></span>; <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m107\">i</a> </span>&lt;<span style=\"background-color:red;\"> 2</span></span>; <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m107\">i</a></span>++</span>){\n" +
+                "   <span style=\"background-color:red;\">if</span> (<span style=\"background-color:red;\">!<span style=\"background-color:red;\">(<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m107\">i</a> </span>%<span style=\"background-color:red;\"> 2 </span></span>==<span style=\"background-color:red;\"> 0</span></span>)</span></span>){\n" +
                 "    break;\n" +
                 "   }\n" +
                 "  }\n" +
-                "  var <span style=\"background-color:red;\"><span style=\"background-color:red;\">toStr </span>=<span style=\"background-color:red;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
-                "  <span style=\"background-color:red;\"><span style=\"background-color:red;\">toStr </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> toStr </span>+<span style=\"background-color:red;\"> new ExTwo()</span></span></span>;\n" +
-                "  <span style=\"background-color:red;\"><span style=\"background-color:red;\">toStr </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> new ExTwo() </span>+<span style=\"background-color:red;\"> toStr</span></span></span>;\n" +
+                "  var <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a name=\"m176\">toStr</a> </span>=<span style=\"background-color:red;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
+                "  <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m176\">toStr</a> </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m176\">toStr</a> </span>+<span style=\"background-color:red;\"> new ExTwo()</span></span></span>;\n" +
+                "  <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m176\">toStr</a> </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> new ExTwo() </span>+<span style=\"background-color:red;\"> <a href=\"#m176\">toStr</a></span></span></span>;\n" +
                 "  return <span style=\"background-color:red;\">6</span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -2388,16 +2388,16 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">s </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 1</span></span>){\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m57\">s</a> </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 1</span></span>){\n" +
                 "   return <span style=\"background-color:green;\">7</span>;\n" +
                 "  }\n" +
                 "  for (;;){\n" +
                 "    break;\n" +
                 "  }\n" +
-                "  var <span style=\"background-color:red;\"><span style=\"background-color:red;\">toStr </span>=<span style=\"background-color:red;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
-                "  <span style=\"background-color:red;\"><span style=\"background-color:red;\">toStr </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> toStr </span>+<span style=\"background-color:red;\"> new ExTwo()</span></span></span>;\n" +
-                "  <span style=\"background-color:red;\"><span style=\"background-color:red;\">toStr </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> new ExTwo() </span>+<span style=\"background-color:red;\"> toStr</span></span></span>;\n" +
+                "  var <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a name=\"m129\">toStr</a> </span>=<span style=\"background-color:red;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
+                "  <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m129\">toStr</a> </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m129\">toStr</a> </span>+<span style=\"background-color:red;\"> new ExTwo()</span></span></span>;\n" +
+                "  <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m129\">toStr</a> </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> new ExTwo() </span>+<span style=\"background-color:red;\"> <a href=\"#m129\">toStr</a></span></span></span>;\n" +
                 "  return <span style=\"background-color:red;\">6</span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -2440,14 +2440,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "@MyAnnot\n" +
                 "$public $class pkg.Ex {\n" +
                 " $public $static $int <a name=\"m91\">catching</a>(){\n" +
-                "  $Annotation[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">arr </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> $class(Ex)</span>.<span style=\"background-color:green;\">getAnnotations()</span></span></span>:\n" +
-                "  <span style=\"background-color:yellow;\">$if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">arr;.</span><span style=\"background-color:green;\">length </span></span><a title=\"false\">!=</a><span style=\"background-color:green;\"> 1i</span></span>){\n" +
+                "  $Annotation[] <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m119\">arr</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> $class(Ex)</span>.<span style=\"background-color:green;\">getAnnotations()</span></span></span>:\n" +
+                "  <span style=\"background-color:yellow;\">$if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m119\">arr</a>;.</span><span style=\"background-color:green;\">length </span></span><a title=\"false\">!=</a><span style=\"background-color:green;\"> 1i</span></span>){\n" +
                 "   $return <span style=\"background-color:red;\">3i</span>:\n" +
                 "  }\n" +
-                "  <span style=\"background-color:yellow;\">$else $if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">$static($Class)</span>.<span style=\"background-color:green;\">getClass(<span style=\"background-color:green;\">arr;.</span>) </span></span><a title=\"false\">!=</a><span style=\"background-color:green;\"> $class($Annotation[])</span></span>){\n" +
+                "  <span style=\"background-color:yellow;\">$else $if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">$static($Class)</span>.<span style=\"background-color:green;\">getClass(<span style=\"background-color:green;\"><a href=\"#m119\">arr</a>;.</span>) </span></span><a title=\"false\">!=</a><span style=\"background-color:green;\"> $class($Annotation[])</span></span>){\n" +
                 "   $return <span style=\"background-color:red;\">2i</span>:\n" +
                 "  }\n" +
-                "  <span style=\"background-color:yellow;\">$else $if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">$static($Class)</span>.<span style=\"background-color:green;\">getClass(<span style=\"background-color:green;\"><span style=\"background-color:green;\">arr;.</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0i</span>]</span></span>) </span></span><a title=\"false\">!=</a><span style=\"background-color:green;\"> $class(MyAnnot)</span></span>){\n" +
+                "  <span style=\"background-color:yellow;\">$else $if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">$static($Class)</span>.<span style=\"background-color:green;\">getClass(<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m119\">arr</a>;.</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0i</span>]</span></span>) </span></span><a title=\"false\">!=</a><span style=\"background-color:green;\"> $class(MyAnnot)</span></span>){\n" +
                 "   $return <span style=\"background-color:red;\">1i</span>:\n" +
                 "  }\n" +
                 "  $return <span style=\"background-color:green;\">0i</span>:\n" +
@@ -2484,16 +2484,16 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">seven </span>=<span style=\"background-color:green;\"> false</span></span>;\n" +
-                "  <span style=\"background-color:green;\">for</span> (int <span style=\"background-color:green;\"><span style=\"background-color:green;\">i </span>=<span style=\"background-color:green;\"> 0</span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\">i </span>&lt;<span style=\"background-color:green;\"> 4</span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\">i</span>++</span>){\n" +
-                "   <span style=\"background-color:green;\">if</span> (<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">i </span>%<span style=\"background-color:green;\"> 2 </span></span>==<span style=\"background-color:green;\"> 0</span></span>){\n" +
-                "    <span style=\"background-color:green;\"><span style=\"background-color:green;\">seven </span>=<span style=\"background-color:green;\"> true</span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">seven</a> </span>=<span style=\"background-color:green;\"> false</span></span>;\n" +
+                "  <span style=\"background-color:green;\">for</span> (int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m83\">i</a> </span>=<span style=\"background-color:green;\"> 0</span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m83\">i</a> </span>&lt;<span style=\"background-color:green;\"> 4</span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m83\">i</a></span>++</span>){\n" +
+                "   <span style=\"background-color:green;\">if</span> (<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m83\">i</a> </span>%<span style=\"background-color:green;\"> 2 </span></span>==<span style=\"background-color:green;\"> 0</span></span>){\n" +
+                "    <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m57\">seven</a> </span>=<span style=\"background-color:green;\"> true</span></span>;\n" +
                 "   }\n" +
-                "   <span style=\"background-color:green;\">else if</span> (<span style=\"background-color:green;\"><span style=\"background-color:green;\">i </span>&gt;<span style=\"background-color:green;\"> 1</span></span>){\n" +
-                "    <span style=\"background-color:green;\"><span style=\"background-color:green;\">seven </span>=<span style=\"background-color:green;\"> true</span></span>;\n" +
+                "   <span style=\"background-color:green;\">else if</span> (<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m83\">i</a> </span>&gt;<span style=\"background-color:green;\"> 1</span></span>){\n" +
+                "    <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m57\">seven</a> </span>=<span style=\"background-color:green;\"> true</span></span>;\n" +
                 "   }\n" +
                 "  }\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m199\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
                 "  return <span style=\"background-color:green;\">8</span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -2528,16 +2528,16 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">seven </span>=<span style=\"background-color:green;\"> false</span></span>;\n" +
-                "  <span style=\"background-color:green;\">for</span> (int <span style=\"background-color:green;\"><span style=\"background-color:green;\">i </span>=<span style=\"background-color:green;\"> 0</span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\">i </span>&lt;<span style=\"background-color:green;\"> 4</span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\">i</span>++</span>){\n" +
-                "   <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">i </span><a title=\"true\">&lt;</a><span style=\"background-color:green;\"> 4</span></span>){\n" +
-                "    <span style=\"background-color:green;\"><span style=\"background-color:green;\">seven </span>=<span style=\"background-color:green;\"> true</span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">seven</a> </span>=<span style=\"background-color:green;\"> false</span></span>;\n" +
+                "  <span style=\"background-color:green;\">for</span> (int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m83\">i</a> </span>=<span style=\"background-color:green;\"> 0</span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m83\">i</a> </span>&lt;<span style=\"background-color:green;\"> 4</span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m83\">i</a></span>++</span>){\n" +
+                "   <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m83\">i</a> </span><a title=\"true\">&lt;</a><span style=\"background-color:green;\"> 4</span></span>){\n" +
+                "    <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m57\">seven</a> </span>=<span style=\"background-color:green;\"> true</span></span>;\n" +
                 "   }\n" +
-                "   <span style=\"background-color:red;\">else if</span> (<span style=\"background-color:red;\"><span style=\"background-color:red;\">i </span>&gt;<span style=\"background-color:red;\"> 1</span></span>){\n" +
-                "    <span style=\"background-color:red;\"><span style=\"background-color:red;\">seven </span>=<span style=\"background-color:red;\"> true</span></span>;\n" +
+                "   <span style=\"background-color:red;\">else if</span> (<span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m83\">i</a> </span>&gt;<span style=\"background-color:red;\"> 1</span></span>){\n" +
+                "    <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m57\">seven</a> </span>=<span style=\"background-color:red;\"> true</span></span>;\n" +
                 "   }\n" +
                 "  }\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m194\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
                 "  return <span style=\"background-color:green;\">8</span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -2573,15 +2573,15 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  <span style=\"background-color:yellow;\">for</span> (int <span style=\"background-color:green;\"><span style=\"background-color:green;\">i </span>=<span style=\"background-color:green;\"> 0</span></span>; <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">i </span><a title=\"true\">&lt;</a><span style=\"background-color:green;\"> 2</span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\">i</span>++</span>){\n" +
-                "   <span style=\"background-color:green;\">if</span> (<span style=\"background-color:green;\">!<span style=\"background-color:green;\">(<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">i </span>%<span style=\"background-color:green;\"> 2 </span></span>==<span style=\"background-color:green;\"> 0</span></span>)</span></span>){\n" +
+                "  <span style=\"background-color:yellow;\">for</span> (int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m62\">i</a> </span>=<span style=\"background-color:green;\"> 0</span></span>; <span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m62\">i</a> </span><a title=\"true\">&lt;</a><span style=\"background-color:green;\"> 2</span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m62\">i</a></span>++</span>){\n" +
+                "   <span style=\"background-color:green;\">if</span> (<span style=\"background-color:green;\">!<span style=\"background-color:green;\">(<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m62\">i</a> </span>%<span style=\"background-color:green;\"> 2 </span></span>==<span style=\"background-color:green;\"> 0</span></span>)</span></span>){\n" +
                 "    break;\n" +
                 "   }\n" +
                 "  }\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> toStr </span>+<span style=\"background-color:green;\"> new ExTwo()</span></span></span>;\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">toStr </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> new ExTwo() </span>+<span style=\"background-color:green;\"> toStr</span></span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m131\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m144\">toStr</a> </span>=<span style=\"background-color:green;\"> <span style=\"color:blue;\">\"\"</span></span></span>;\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m144\">toStr</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m144\">toStr</a> </span>+<span style=\"background-color:green;\"> new ExTwo()</span></span></span>;\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m144\">toStr</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> new ExTwo() </span>+<span style=\"background-color:green;\"> <a href=\"#m144\">toStr</a></span></span></span>;\n" +
                 "  return <span style=\"background-color:green;\">6</span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -2667,14 +2667,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
-                "  <span style=\"background-color:yellow;\">while</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">s </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 1</span></span>){\n" +
-                "   int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">t </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> s </span><a title=\"false\">==</a><span style=\"background-color:green;\"> 0 </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">6i</span>}</span></span></span>;\n" +
-                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> t</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span></span>;\n" +
-                "   return <span style=\"background-color:green;\">sum</span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m70\">sum</a> </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  <span style=\"background-color:yellow;\">while</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m57\">s</a> </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 1</span></span>){\n" +
+                "   int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m106\">t</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> <a href=\"#m57\">s</a> </span><a title=\"false\">==</a><span style=\"background-color:green;\"> 0 </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m70\">sum</a> </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m106\">t</a></span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span></span>;\n" +
+                "   return <span style=\"background-color:green;\"><a href=\"#m70\">sum</a></span>;\n" +
                 "  }\n" +
-                "  return <span style=\"background-color:red;\">sum</span>;\n" +
+                "  return <span style=\"background-color:red;\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -2708,17 +2708,17 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
-                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">sum </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 0</span></span>){\n" +
-                "   return <span style=\"background-color:green;\">sum</span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m70\">sum</a> </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m70\">sum</a> </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 0</span></span>){\n" +
+                "   return <span style=\"background-color:green;\"><a href=\"#m70\">sum</a></span>;\n" +
                 "  }\n" +
-                "  <span style=\"background-color:red;\">while</span> (<span style=\"background-color:red;\"><span style=\"background-color:red;\">s </span>==<span style=\"background-color:red;\"> 1</span></span>){\n" +
-                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\">t </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> s </span>==<span style=\"background-color:red;\"> 0 </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
-                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\">sum </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> t</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
-                "   return <span style=\"background-color:red;\">sum</span>;\n" +
+                "  <span style=\"background-color:red;\">while</span> (<span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m57\">s</a> </span>==<span style=\"background-color:red;\"> 1</span></span>){\n" +
+                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a name=\"m142\">t</a> </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m57\">s</a> </span>==<span style=\"background-color:red;\"> 0 </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m70\">sum</a> </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m142\">t</a></span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
+                "   return <span style=\"background-color:red;\"><a href=\"#m70\">sum</a></span>;\n" +
                 "  }\n" +
-                "  return <span style=\"background-color:red;\">sum</span>;\n" +
+                "  return <span style=\"background-color:red;\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -2754,16 +2754,16 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $static $int <a name=\"m46\">catching</a>(){\n" +
-                "  $int <span style=\"background-color:green;\">t</span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">t;.</span>=<span style=\"background-color:green;\">0i</span></span>:\n" +
+                "  $int <span style=\"background-color:green;\"><a name=\"m65\">t</a></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span>=<span style=\"background-color:green;\">0i</span></span>:\n" +
                 "  $try{\n" +
-                "   <span style=\"background-color:yellow;\">$if</span>(<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">t;.</span><a title=\"true\">&gt;=</a><span style=\"background-color:green;\">0</span></span>){\n" +
+                "   <span style=\"background-color:yellow;\">$if</span>(<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span><a title=\"true\">&gt;=</a><span style=\"background-color:green;\">0</span></span>){\n" +
                 "    $return <span style=\"background-color:red;\"><span style=\"background-color:green;\">1i</span>/<span style=\"background-color:green;\">0i</span></span>:\n" +
                 "   }\n" +
                 "   $return <span style=\"background-color:red;\">2</span>:\n" +
-                "  } <span style=\"background-color:green;\">$catch</span>(Object o){\n" +
-                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\">t;.</span>=<span style=\"background-color:green;\">1i</span></span>:\n" +
-                "   $return <span style=\"background-color:green;\">t;.</span>:\n" +
+                "  } <span style=\"background-color:green;\">$catch</span>(Object <a name=\"m158\">o</a>){\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span>=<span style=\"background-color:green;\">1i</span></span>:\n" +
+                "   $return <span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span>:\n" +
                 "  } $finally {\n" +
                 "   $return <span style=\"background-color:green;\">3</span>:\n" +
                 "  }\n" +
@@ -2802,16 +2802,16 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $static $int <a name=\"m46\">catching</a>(){\n" +
-                "  $int <span style=\"background-color:green;\">t</span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">t;.</span>=<span style=\"background-color:green;\">-<span style=\"background-color:green;\">1i</span></span></span>:\n" +
+                "  $int <span style=\"background-color:green;\"><a name=\"m65\">t</a></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span>=<span style=\"background-color:green;\">-<span style=\"background-color:green;\">1i</span></span></span>:\n" +
                 "  $try{\n" +
-                "   <span style=\"background-color:yellow;\">$if</span>(<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">t;.</span><a title=\"false\">&gt;=</a><span style=\"background-color:green;\">0</span></span>){\n" +
+                "   <span style=\"background-color:yellow;\">$if</span>(<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span><a title=\"false\">&gt;=</a><span style=\"background-color:green;\">0</span></span>){\n" +
                 "    $return <span style=\"background-color:red;\"><span style=\"background-color:red;\">1i</span>/<span style=\"background-color:red;\">0i</span></span>:\n" +
                 "   }\n" +
                 "   $return <span style=\"background-color:green;\">2</span>:\n" +
-                "  } <span style=\"background-color:red;\">$catch</span>(Object o){\n" +
-                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\">t;.</span>=<span style=\"background-color:red;\">1i</span></span>:\n" +
-                "   $return <span style=\"background-color:red;\">t;.</span>:\n" +
+                "  } <span style=\"background-color:red;\">$catch</span>(Object <a name=\"m159\">o</a>){\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m65\">t</a>;.</span>=<span style=\"background-color:red;\">1i</span></span>:\n" +
+                "   $return <span style=\"background-color:red;\"><a href=\"#m65\">t</a>;.</span>:\n" +
                 "  } $finally {\n" +
                 "   $return <span style=\"background-color:green;\">3</span>:\n" +
                 "  }\n" +
@@ -2848,16 +2848,16 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $static $int <a name=\"m46\">catching</a>(){\n" +
-                "  $int <span style=\"background-color:green;\">t</span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\">t;.</span>=<span style=\"background-color:green;\">0i</span></span>:\n" +
+                "  $int <span style=\"background-color:green;\"><a name=\"m65\">t</a></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span>=<span style=\"background-color:green;\">0i</span></span>:\n" +
                 "  $try{\n" +
-                "   <span style=\"background-color:yellow;\">$if</span>(<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">t;.</span><a title=\"true\">&gt;=</a><span style=\"background-color:green;\">0</span></span>){\n" +
+                "   <span style=\"background-color:yellow;\">$if</span>(<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span><a title=\"true\">&gt;=</a><span style=\"background-color:green;\">0</span></span>){\n" +
                 "    $throw <span style=\"background-color:green;\">1i</span>:\n" +
                 "   }\n" +
                 "   $return <span style=\"background-color:red;\">2</span>:\n" +
-                "  } <span style=\"background-color:green;\">$catch</span>(Object o){\n" +
-                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\">t;.</span>=<span style=\"background-color:green;\">1i</span></span>:\n" +
-                "   $return <span style=\"background-color:green;\">t;.</span>:\n" +
+                "  } <span style=\"background-color:green;\">$catch</span>(Object <a name=\"m154\">o</a>){\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span>=<span style=\"background-color:green;\">1i</span></span>:\n" +
+                "   $return <span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span>:\n" +
                 "  }\n" +
                 " }\n" +
                 "}\n" +
@@ -2888,12 +2888,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m70\">sum</a> </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
                 "  do{\n" +
-                "   int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">t </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> s </span><a title=\"false\">==</a><span style=\"background-color:green;\"> 0 </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">6i</span>}</span></span></span>;\n" +
-                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> t</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span></span>;\n" +
-                "   return <span style=\"background-color:green;\">sum</span>;\n" +
+                "   int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m94\">t</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> <a href=\"#m57\">s</a> </span><a title=\"false\">==</a><span style=\"background-color:green;\"> 0 </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m70\">sum</a> </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m94\">t</a></span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span></span>;\n" +
+                "   return <span style=\"background-color:green;\"><a href=\"#m70\">sum</a></span>;\n" +
                 "  }<span style=\"background-color:red;\">while</span> (<span style=\"background-color:red;\">true</span>);\n" +
                 " }\n" +
                 "}\n" +
@@ -2924,13 +2924,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m70\">sum</a> </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
                 "  do{\n" +
-                "   int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">t </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> s </span><a title=\"false\">==</a><span style=\"background-color:green;\"> 0 </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">6i</span>}</span></span></span>;\n" +
-                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> t</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span></span>;\n" +
-                "  }<span style=\"background-color:green;\">while</span> (<span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>&lt;<span style=\"background-color:green;\"> 7</span></span>);\n" +
-                "  return <span style=\"background-color:green;\">sum</span>;\n" +
+                "   int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m94\">t</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> <a href=\"#m57\">s</a> </span><a title=\"false\">==</a><span style=\"background-color:green;\"> 0 </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m70\">sum</a> </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m94\">t</a></span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span></span>;\n" +
+                "  }<span style=\"background-color:green;\">while</span> (<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m70\">sum</a> </span>&lt;<span style=\"background-color:green;\"> 7</span></span>);\n" +
+                "  return <span style=\"background-color:green;\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -2963,16 +2963,16 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m70\">sum</a> </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
                 "  do{\n" +
-                "   int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">t </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> s </span><a title=\"false\">==</a><span style=\"background-color:green;\"> 0 </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">6i</span>}</span></span></span>;\n" +
-                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> t</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span></span>;\n" +
-                "   <span style=\"background-color:green;\">if</span> (<span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>&gt;=<span style=\"background-color:green;\"> 7</span></span>){\n" +
+                "   int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m94\">t</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> <a href=\"#m57\">s</a> </span><a title=\"false\">==</a><span style=\"background-color:green;\"> 0 </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m70\">sum</a> </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m94\">t</a></span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span></span>;\n" +
+                "   <span style=\"background-color:green;\">if</span> (<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m70\">sum</a> </span>&gt;=<span style=\"background-color:green;\"> 7</span></span>){\n" +
                 "    break;\n" +
                 "   }\n" +
-                "  }<span style=\"background-color:yellow;\">while</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">sum </span><a title=\"true\">&lt;</a><span style=\"background-color:green;\"> 17</span></span>);\n" +
-                "  return <span style=\"background-color:green;\">sum</span>;\n" +
+                "  }<span style=\"background-color:yellow;\">while</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m70\">sum</a> </span><a title=\"true\">&lt;</a><span style=\"background-color:green;\"> 17</span></span>);\n" +
+                "  return <span style=\"background-color:green;\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -3006,17 +3006,17 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m70\">sum</a> </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
                 "  do{\n" +
-                "   int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">t </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> s </span><a title=\"false\">==</a><span style=\"background-color:green;\"> 0 </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">6i</span>}</span></span></span>;\n" +
-                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> t</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span></span>;\n" +
-                "   <span style=\"background-color:green;\">if</span> (<span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>&gt;=<span style=\"background-color:green;\"> 7</span></span>){\n" +
+                "   int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m94\">t</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> <a href=\"#m57\">s</a> </span><a title=\"false\">==</a><span style=\"background-color:green;\"> 0 </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m70\">sum</a> </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m94\">t</a></span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span></span>;\n" +
+                "   <span style=\"background-color:green;\">if</span> (<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m70\">sum</a> </span>&gt;=<span style=\"background-color:green;\"> 7</span></span>){\n" +
                 "    break;\n" +
                 "   }\n" +
                 "   continue;\n" +
-                "  }<span style=\"background-color:yellow;\">while</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">sum </span><a title=\"true\">&lt;</a><span style=\"background-color:green;\"> 17</span></span>);\n" +
-                "  return <span style=\"background-color:green;\">sum</span>;\n" +
+                "  }<span style=\"background-color:yellow;\">while</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m70\">sum</a> </span><a title=\"true\">&lt;</a><span style=\"background-color:green;\"> 17</span></span>);\n" +
+                "  return <span style=\"background-color:green;\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -3069,7 +3069,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateArgument("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
-                " <a name=\"m25\">$public Ex(</a>$int p){\n" +
+                " <a name=\"m25\">$public Ex(</a>$int <a name=\"m41\">p</a>){\n" +
                 " }\n" +
                 " $public $static Object <a name=\"m72\">exmeth</a>(){\n" +
                 "  $return <span style=\"background-color:green;\"><a title=\"pkg.Ex.pkg.Ex($int)\" href=\"pkg/Ex.html#m25\">$new</a> Ex(<span style=\"background-color:green;\">0</span>)</span>:\n" +
@@ -3110,14 +3110,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " $private pkg.CustList&lt;#T&gt; <span style=\"background-color:green;\"><a name=\"m75\">list</a></span>:\n" +
                 " $private $int <span style=\"background-color:green;\"><a name=\"m96\">length</a></span>:\n" +
                 " $private $int <span style=\"background-color:green;\"><a name=\"m119\">index</a></span>:\n" +
-                " <a name=\"m127\">$public (</a>pkg.CustList&lt;#T&gt; i){\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustIter.list\" href=\"pkg/CustIter.html#m75\">list</a>;;;</span>=<span style=\"background-color:green;\">i;.;</span></span>:\n" +
+                " <a name=\"m127\">$public (</a>pkg.CustList&lt;#T&gt; <a name=\"m153\">i</a>){\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustIter.list\" href=\"pkg/CustIter.html#m75\">list</a>;;;</span>=<span style=\"background-color:green;\"><a href=\"#m153\">i</a>;.;</span></span>:\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustIter.length\" href=\"pkg/CustIter.html#m96\">length</a>;;;</span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustIter.list\" href=\"pkg/CustIter.html#m75\">list</a>;;;</span><span style=\"background-color:green;\"><a title=\"pkg.CustList.size()\" href=\"pkg/CustList.html#m519\">size</a>()</span></span></span>:\n" +
                 " }\n" +
                 " $public $normal #T <a name=\"m223\">next</a>(){\n" +
-                "  #T <span style=\"background-color:green;\"><span style=\"background-color:green;\">out</span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustIter.list\" href=\"pkg/CustIter.html#m75\">list</a>;;;</span><span style=\"background-color:green;\"><a title=\"pkg.CustList.get($int)\" href=\"pkg/CustList.html#m571\">get</a>(<span style=\"background-color:green;\"><a title=\"pkg.CustIter.index\" href=\"pkg/CustIter.html#m119\">index</a>;;;</span>)</span></span></span>:\n" +
+                "  #T <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m236\">out</a></span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustIter.list\" href=\"pkg/CustIter.html#m75\">list</a>;;;</span><span style=\"background-color:green;\"><a title=\"pkg.CustList.get($int)\" href=\"pkg/CustList.html#m571\">get</a>(<span style=\"background-color:green;\"><a title=\"pkg.CustIter.index\" href=\"pkg/CustIter.html#m119\">index</a>;;;</span>)</span></span></span>:\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustIter.index\" href=\"pkg/CustIter.html#m119\">index</a>;;;</span>++</span>:\n" +
-                "  $return <span style=\"background-color:green;\">out;.</span>:\n" +
+                "  $return <span style=\"background-color:green;\"><a href=\"#m236\">out</a>;.</span>:\n" +
                 " }\n" +
                 " $public $normal $boolean <a name=\"m322\">hasNext</a>(){\n" +
                 "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustIter.index\" href=\"pkg/CustIter.html#m119\">index</a>;;;</span>&lt;<span style=\"background-color:green;\"><a title=\"pkg.CustIter.length\" href=\"pkg/CustIter.html#m96\">length</a>;;;</span></span>:\n" +
@@ -3160,33 +3160,33 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " <a name=\"m93\">$public (</a>){\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustList.list\" href=\"pkg/CustList.html#m63\">list</a>;;;</span>=<span style=\"background-color:green;\">$new #U[<span style=\"background-color:green;\">0i</span>]</span></span>:\n" +
                 " }\n" +
-                " $public $normal $void <a name=\"m154\">add</a>(#U elt){\n" +
-                "  <span style=\"background-color:green;\"><a title=\"pkg.CustList.add($int,#U)\" href=\"pkg/CustList.html#m218\">add</a>(<span style=\"background-color:green;\"><a title=\"pkg.CustList.length\" href=\"pkg/CustList.html#m84\">length</a>;;;</span>,<span style=\"background-color:green;\">elt;.;</span>)</span>:\n" +
+                " $public $normal $void <a name=\"m154\">add</a>(#U <a name=\"m161\">elt</a>){\n" +
+                "  <span style=\"background-color:green;\"><a title=\"pkg.CustList.add($int,#U)\" href=\"pkg/CustList.html#m218\">add</a>(<span style=\"background-color:green;\"><a title=\"pkg.CustList.length\" href=\"pkg/CustList.html#m84\">length</a>;;;</span>,<span style=\"background-color:green;\"><a href=\"#m161\">elt</a>;.;</span>)</span>:\n" +
                 " }\n" +
-                " $public $normal $void <a name=\"m218\">add</a>($int index,#U elt){\n" +
-                "  #U[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">newlist</span>=<span style=\"background-color:green;\">$new #U[<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustList.length\" href=\"pkg/CustList.html#m84\">length</a>;;;</span>+<span style=\"background-color:green;\">1i</span></span>]</span></span>:\n" +
-                "  <span style=\"background-color:green;\">$iter</span>($int i=<span style=\"background-color:green;\">0i</span>:<span style=\"background-color:green;\">index;.;</span>:<span style=\"background-color:green;\">1i</span>){\n" +
-                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">newlist;.</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">i;</span>]</span></span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustList.list\" href=\"pkg/CustList.html#m63\">list</a>;;;</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">i;</span>]</span></span></span>:\n" +
+                " $public $normal $void <a name=\"m218\">add</a>($int <a name=\"m227\">index</a>,#U <a name=\"m236\">elt</a>){\n" +
+                "  #U[] <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m249\">newlist</a></span>=<span style=\"background-color:green;\">$new #U[<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustList.length\" href=\"pkg/CustList.html#m84\">length</a>;;;</span>+<span style=\"background-color:green;\">1i</span></span>]</span></span>:\n" +
+                "  <span style=\"background-color:green;\">$iter</span>($int <a name=\"m293\">i</a>=<span style=\"background-color:green;\">0i</span>:<span style=\"background-color:green;\"><a href=\"#m227\">index</a>;.;</span>:<span style=\"background-color:green;\">1i</span>){\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m249\">newlist</a>;.</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\"><a href=\"#m293\">i</a>;</span>]</span></span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustList.list\" href=\"pkg/CustList.html#m63\">list</a>;;;</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\"><a href=\"#m293\">i</a>;</span>]</span></span></span>:\n" +
                 "  }\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">newlist;.</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">index;.;</span>]</span></span>=<span style=\"background-color:green;\">elt;.;</span></span>:\n" +
-                "  <span style=\"background-color:yellow;\">$iter</span>($int i=<span style=\"background-color:green;\"><span style=\"background-color:green;\">index;.;</span>+<span style=\"background-color:green;\">1i</span></span>:<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustList.length\" href=\"pkg/CustList.html#m84\">length</a>;;;</span>+<span style=\"background-color:green;\">1i</span></span>:<span style=\"background-color:green;\">1i</span>){\n" +
-                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\">newlist;.</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">i;</span>]</span></span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.CustList.list\" href=\"pkg/CustList.html#m63\">list</a>;;;</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\"><span style=\"background-color:red;\">i;</span>-<span style=\"background-color:red;\">1i</span></span>]</span></span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m249\">newlist</a>;.</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\"><a href=\"#m227\">index</a>;.;</span>]</span></span>=<span style=\"background-color:green;\"><a href=\"#m236\">elt</a>;.;</span></span>:\n" +
+                "  <span style=\"background-color:yellow;\">$iter</span>($int <a name=\"m389\">i</a>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m227\">index</a>;.;</span>+<span style=\"background-color:green;\">1i</span></span>:<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustList.length\" href=\"pkg/CustList.html#m84\">length</a>;;;</span>+<span style=\"background-color:green;\">1i</span></span>:<span style=\"background-color:green;\">1i</span>){\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m249\">newlist</a>;.</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\"><a href=\"#m389\">i</a>;</span>]</span></span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.CustList.list\" href=\"pkg/CustList.html#m63\">list</a>;;;</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m389\">i</a>;</span>-<span style=\"background-color:red;\">1i</span></span>]</span></span></span>:\n" +
                 "  }\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustList.length\" href=\"pkg/CustList.html#m84\">length</a>;;;</span>++</span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustList.list\" href=\"pkg/CustList.html#m63\">list</a>;;;</span>=<span style=\"background-color:green;\">newlist;.</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustList.list\" href=\"pkg/CustList.html#m63\">list</a>;;;</span>=<span style=\"background-color:green;\"><a href=\"#m249\">newlist</a>;.</span></span>:\n" +
                 " }\n" +
                 " $public $normal $int <a name=\"m519\">size</a>(){\n" +
                 "  $return <span style=\"background-color:green;\"><a title=\"pkg.CustList.length\" href=\"pkg/CustList.html#m84\">length</a>;;;</span>:\n" +
                 " }\n" +
-                " $public $normal #U <a name=\"m571\">get</a>($int index){\n" +
-                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustList.list\" href=\"pkg/CustList.html#m63\">list</a>;;;</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">index;.;</span>]</span></span>:\n" +
+                " $public $normal #U <a name=\"m571\">get</a>($int <a name=\"m580\">index</a>){\n" +
+                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustList.list\" href=\"pkg/CustList.html#m63\">list</a>;;;</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\"><a href=\"#m580\">index</a>;.;</span>]</span></span>:\n" +
                 " }\n" +
-                " $public $normal $void <a name=\"m643\">set</a>($int index,#U elt){\n" +
-                "  <span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.CustList.list\" href=\"pkg/CustList.html#m63\">list</a>;;;</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">index;.;</span>]</span></span>=<span style=\"background-color:red;\">elt;.;</span></span>:\n" +
+                " $public $normal $void <a name=\"m643\">set</a>($int <a name=\"m652\">index</a>,#U <a name=\"m661\">elt</a>){\n" +
+                "  <span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.CustList.list\" href=\"pkg/CustList.html#m63\">list</a>;;;</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\"><a href=\"#m652\">index</a>;.;</span>]</span></span>=<span style=\"background-color:red;\"><a href=\"#m661\">elt</a>;.;</span></span>:\n" +
                 " }\n" +
-                " $public $normal $void <a name=\"m721\">remove</a>($int index){\n" +
-                "  <span style=\"background-color:red;\">$iter</span>($int i=<span style=\"background-color:red;\">index;.;</span>:<span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.CustList.length\" href=\"pkg/CustList.html#m84\">length</a>;;;</span>-<span style=\"background-color:red;\">1i</span></span>:<span style=\"background-color:red;\">1i</span>){\n" +
-                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.CustList.list\" href=\"pkg/CustList.html#m63\">list</a>;;;</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">i;</span>]</span></span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.CustList.list\" href=\"pkg/CustList.html#m63\">list</a>;;;</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\"><span style=\"background-color:red;\">i;</span>+<span style=\"background-color:red;\">1i</span></span>]</span></span></span>:\n" +
+                " $public $normal $void <a name=\"m721\">remove</a>($int <a name=\"m733\">index</a>){\n" +
+                "  <span style=\"background-color:red;\">$iter</span>($int <a name=\"m754\">i</a>=<span style=\"background-color:red;\"><a href=\"#m733\">index</a>;.;</span>:<span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.CustList.length\" href=\"pkg/CustList.html#m84\">length</a>;;;</span>-<span style=\"background-color:red;\">1i</span></span>:<span style=\"background-color:red;\">1i</span>){\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.CustList.list\" href=\"pkg/CustList.html#m63\">list</a>;;;</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\"><a href=\"#m754\">i</a>;</span>]</span></span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.CustList.list\" href=\"pkg/CustList.html#m63\">list</a>;;;</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m754\">i</a>;</span>+<span style=\"background-color:red;\">1i</span></span>]</span></span></span>:\n" +
                 "  }\n" +
                 "  <span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.CustList.list\" href=\"pkg/CustList.html#m63\">list</a>;;;</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.CustList.length\" href=\"pkg/CustList.html#m84\">length</a>;;;</span>-<span style=\"background-color:red;\">1i</span></span>]</span></span>=<span style=\"background-color:red;\">$null</span></span>:\n" +
                 "  <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.CustList.length\" href=\"pkg/CustList.html#m84\">length</a>;;;</span>--</span>:\n" +
@@ -3233,14 +3233,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " $private CustTable&lt;U,V&gt; <span style=\"background-color:green;\"><a name=\"m85\">list</a></span>:\n" +
                 " $private $int <span style=\"background-color:green;\"><a name=\"m106\">length</a></span>:\n" +
                 " $private $int <span style=\"background-color:green;\"><a name=\"m129\">index</a></span>:\n" +
-                " <a name=\"m137\">$public CustIterTable(</a>CustTable&lt;U,V&gt; i){\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustIterTable.list\" href=\"pkg/CustIterTable.html#m85\">list</a>;;;</span>=<span style=\"background-color:green;\">i;.;</span></span>:\n" +
+                " <a name=\"m137\">$public CustIterTable(</a>CustTable&lt;U,V&gt; <a name=\"m174\">i</a>){\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustIterTable.list\" href=\"pkg/CustIterTable.html#m85\">list</a>;;;</span>=<span style=\"background-color:green;\"><a href=\"#m174\">i</a>;.;</span></span>:\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustIterTable.length\" href=\"pkg/CustIterTable.html#m106\">length</a>;;;</span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustIterTable.list\" href=\"pkg/CustIterTable.html#m85\">list</a>;;;</span><span style=\"background-color:green;\"><a title=\"pkg.CustTable.size()\" href=\"pkg/CustTable.html#m298\">size</a>()</span></span></span>:\n" +
                 " }\n" +
                 " $public CustPair&lt;U,V&gt; <a name=\"m247\">nextPair</a>(){\n" +
-                "  CustPair&lt;U,V&gt; <span style=\"background-color:green;\"><span style=\"background-color:green;\">out</span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustIterTable.list\" href=\"pkg/CustIterTable.html#m85\">list</a>;;;</span><span style=\"background-color:green;\"><a title=\"pkg.CustTable.get($int)\" href=\"pkg/CustTable.html#m355\">get</a>(<span style=\"background-color:green;\"><a title=\"pkg.CustIterTable.index\" href=\"pkg/CustIterTable.html#m129\">index</a>;;;</span>)</span></span></span>:\n" +
+                "  CustPair&lt;U,V&gt; <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m275\">out</a></span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustIterTable.list\" href=\"pkg/CustIterTable.html#m85\">list</a>;;;</span><span style=\"background-color:green;\"><a title=\"pkg.CustTable.get($int)\" href=\"pkg/CustTable.html#m355\">get</a>(<span style=\"background-color:green;\"><a title=\"pkg.CustIterTable.index\" href=\"pkg/CustIterTable.html#m129\">index</a>;;;</span>)</span></span></span>:\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustIterTable.index\" href=\"pkg/CustIterTable.html#m129\">index</a>;;;</span>++</span>:\n" +
-                "  $return <span style=\"background-color:green;\">out;.</span>:\n" +
+                "  $return <span style=\"background-color:green;\"><a href=\"#m275\">out</a>;.</span>:\n" +
                 " }\n" +
                 " $public $boolean <a name=\"m353\">hasNextPair</a>(){\n" +
                 "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustIterTable.index\" href=\"pkg/CustIterTable.html#m129\">index</a>;;;</span>&lt;<span style=\"background-color:green;\"><a title=\"pkg.CustIterTable.length\" href=\"pkg/CustIterTable.html#m106\">length</a>;;;</span></span>:\n" +
@@ -3285,17 +3285,17 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " <a name=\"m97\">$public (</a>){\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustTable.list\" href=\"pkg/CustTable.html#m90\">list</a></span>=<span style=\"background-color:green;\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"pkg/CustList.html#m93\">$new</a> CustList&lt;CustPair&lt;U,V&gt;&gt;()</span></span>:\n" +
                 " }\n" +
-                " $public $void <a name=\"m166\">add</a>(U f,V s){\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustTable.list\" href=\"pkg/CustTable.html#m90\">list</a></span>.<span style=\"background-color:green;\"><a title=\"pkg.CustList.add(#U)\" href=\"pkg/CustList.html#m154\">add</a>(<span style=\"background-color:green;\"><a title=\"pkg.CustPair.pkg.CustPair(#U,#V)\" href=\"pkg/CustPair.html#m110\">$new</a> CustPair&lt;U,V&gt;(<span style=\"background-color:green;\">f;.;</span>,<span style=\"background-color:green;\">s;.;</span>)</span>)</span></span>:\n" +
+                " $public $void <a name=\"m166\">add</a>(U <a name=\"m172\">f</a>,V <a name=\"m176\">s</a>){\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustTable.list\" href=\"pkg/CustTable.html#m90\">list</a></span>.<span style=\"background-color:green;\"><a title=\"pkg.CustList.add(#U)\" href=\"pkg/CustList.html#m154\">add</a>(<span style=\"background-color:green;\"><a title=\"pkg.CustPair.pkg.CustPair(#U,#V)\" href=\"pkg/CustPair.html#m110\">$new</a> CustPair&lt;U,V&gt;(<span style=\"background-color:green;\"><a href=\"#m172\">f</a>;.;</span>,<span style=\"background-color:green;\"><a href=\"#m176\">s</a>;.;</span>)</span>)</span></span>:\n" +
                 " }\n" +
-                " $public $void <a name=\"m241\">add</a>(CustPair&lt;U,V&gt; p){\n" +
-                "  <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.CustTable.list\" href=\"pkg/CustTable.html#m90\">list</a></span>.<span style=\"background-color:red;\"><a title=\"pkg.CustList.add(#U)\" href=\"pkg/CustList.html#m154\">add</a>(<span style=\"background-color:red;\">p;.;</span>)</span></span>:\n" +
+                " $public $void <a name=\"m241\">add</a>(CustPair&lt;U,V&gt; <a name=\"m259\">p</a>){\n" +
+                "  <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.CustTable.list\" href=\"pkg/CustTable.html#m90\">list</a></span>.<span style=\"background-color:red;\"><a title=\"pkg.CustList.add(#U)\" href=\"pkg/CustList.html#m154\">add</a>(<span style=\"background-color:red;\"><a href=\"#m259\">p</a>;.;</span>)</span></span>:\n" +
                 " }\n" +
                 " $public $int <a name=\"m298\">size</a>(){\n" +
                 "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustTable.list\" href=\"pkg/CustTable.html#m90\">list</a></span>.<span style=\"background-color:green;\"><a title=\"pkg.CustList.size()\" href=\"pkg/CustList.html#m519\">size</a>()</span></span>:\n" +
                 " }\n" +
-                " $public CustPair&lt;U,V&gt; <a name=\"m355\">get</a>($int index){\n" +
-                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustTable.list\" href=\"pkg/CustTable.html#m90\">list</a></span>.<span style=\"background-color:green;\"><a title=\"pkg.CustList.get($int)\" href=\"pkg/CustList.html#m571\">get</a>(<span style=\"background-color:green;\">index;.;</span>)</span></span>:\n" +
+                " $public CustPair&lt;U,V&gt; <a name=\"m355\">get</a>($int <a name=\"m364\">index</a>){\n" +
+                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustTable.list\" href=\"pkg/CustTable.html#m90\">list</a></span>.<span style=\"background-color:green;\"><a title=\"pkg.CustList.get($int)\" href=\"pkg/CustList.html#m571\">get</a>(<span style=\"background-color:green;\"><a href=\"#m364\">index</a>;.;</span>)</span></span>:\n" +
                 " }\n" +
                 " $public $iteratorTable&lt;U,V&gt; <a name=\"m434\">iteratorTable</a>(){\n" +
                 "  $return <span style=\"background-color:green;\"><a title=\"pkg.CustIterTable.pkg.CustIterTable(pkg.CustTable&lt;#U,#V&gt;)\" href=\"pkg/CustIterTable.html#m137\">$new</a> CustIterTable&lt;U,V&gt;(<span style=\"background-color:green;\">$this</span>)</span>:\n" +
@@ -3340,9 +3340,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " $private V <span style=\"background-color:green;\"><a name=\"m77\">second</a></span>:\n" +
                 " <a name=\"m86\">$public CustPair(</a>){\n" +
                 " }\n" +
-                " <a name=\"m110\">$public CustPair(</a>U f,V s){\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustPair.first\" href=\"pkg/CustPair.html#m58\">first</a> </span>=<span style=\"background-color:green;\"> f;.;</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustPair.second\" href=\"pkg/CustPair.html#m77\">second</a> </span>=<span style=\"background-color:green;\"> s;.;</span></span>:\n" +
+                " <a name=\"m110\">$public CustPair(</a>U <a name=\"m129\">f</a>,V <a name=\"m133\">s</a>){\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustPair.first\" href=\"pkg/CustPair.html#m58\">first</a> </span>=<span style=\"background-color:green;\"> <a href=\"#m129\">f</a>;.;</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.CustPair.second\" href=\"pkg/CustPair.html#m77\">second</a> </span>=<span style=\"background-color:green;\"> <a href=\"#m133\">s</a>;.;</span></span>:\n" +
                 " }\n" +
                 " $public U <a name=\"m184\">getFirst</a>(){\n" +
                 "  $return <span style=\"background-color:green;\"><a title=\"pkg.CustPair.first\" href=\"pkg/CustPair.html#m58\">first</a></span>:\n" +
@@ -3350,8 +3350,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " $public V <a name=\"m227\">getSecond</a>(){\n" +
                 "  $return <span style=\"background-color:green;\"><a title=\"pkg.CustPair.second\" href=\"pkg/CustPair.html#m77\">second</a></span>:\n" +
                 " }\n" +
-                " $public $void <a name=\"m276\">setFirst</a>(U f){\n" +
-                "  <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.CustPair.first\" href=\"pkg/CustPair.html#m58\">first</a> </span>=<span style=\"background-color:red;\"> f;.;</span></span>:\n" +
+                " $public $void <a name=\"m276\">setFirst</a>(U <a name=\"m287\">f</a>){\n" +
+                "  <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.CustPair.first\" href=\"pkg/CustPair.html#m58\">first</a> </span>=<span style=\"background-color:red;\"> <a href=\"#m287\">f</a>;.;</span></span>:\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.getValue(5));
@@ -3388,23 +3388,23 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
-        assertEq("<html><body><pre>$operator<a name=\"m9\">&lt;</a> $boolean (pkg.Ex p, pkg.Ex q){\n" +
-                " $return <span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">p;.;</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m186\">field</a></span></span><a title=\"&quot;\">&lt;</a><span style=\"background-color:green;\"><span style=\"background-color:green;\">q;.;</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m186\">field</a></span></span></span>:\n" +
+        assertEq("<html><body><pre>$operator<a name=\"m9\">&lt;</a> $boolean (pkg.Ex <a name=\"m28\">p</a>, pkg.Ex <a name=\"m38\">q</a>){\n" +
+                " $return <span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m28\">p</a>;.;</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m186\">field</a></span></span><a title=\"&quot;\">&lt;</a><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m38\">q</a>;.;</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m186\">field</a></span></span></span>:\n" +
                 "}\n" +
-                "$operator<a name=\"m83\">&gt;</a> $boolean (pkg.Ex p, pkg.Ex q){\n" +
-                " $return <span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">p;.;</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m186\">field</a></span></span><a title=\"&amp;\">&gt;</a><span style=\"background-color:green;\"><span style=\"background-color:green;\">q;.;</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m186\">field</a></span></span></span>:\n" +
+                "$operator<a name=\"m83\">&gt;</a> $boolean (pkg.Ex <a name=\"m102\">p</a>, pkg.Ex <a name=\"m112\">q</a>){\n" +
+                " $return <span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m102\">p</a>;.;</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m186\">field</a></span></span><a title=\"&amp;\">&gt;</a><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m112\">q</a>;.;</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m186\">field</a></span></span></span>:\n" +
                 "}\n" +
                 "$public $class pkg.Ex {\n" +
                 " $public $int <span style=\"background-color:green;\"><a name=\"m186\">field</a></span>:\n" +
                 " $public $static $int <a name=\"m215\">exmeth</a>(){\n" +
-                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">one </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
-                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">two </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">one;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m186\">field</a> </span></span>=<span style=\"background-color:green;\"> 1</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">two;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m186\">field</a> </span></span>=<span style=\"background-color:green;\"> 2</span></span>:\n" +
-                "  $boolean <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">rOne </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> one;. </span><a title=\"$static &lt;(pkg.Ex,pkg.Ex)\" href=\"pkg/Ex.html#m9\">&lt;</a><span style=\"background-color:green;\"> two;.</span></span></span>:\n" +
-                "  $boolean <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">rTwo </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> one;. </span><a title=\"$static &gt;(pkg.Ex,pkg.Ex)\" href=\"pkg/Ex.html#m83\">&gt;</a><span style=\"background-color:green;\"> two;.</span></span></span>:\n" +
-                "  $boolean <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">rThree </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> one;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m186\">field</a> </span></span><a title=\"&quot;\">&lt;</a><span style=\"background-color:green;\"><span style=\"background-color:green;\"> two;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m186\">field</a></span></span></span></span>:\n" +
-                "  $boolean <span style=\"background-color:yellow;\"><span style=\"background-color:green;\">rFour </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> one;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m186\">field</a> </span></span><a title=\"&amp;\">&gt;</a><span style=\"background-color:green;\"><span style=\"background-color:green;\"> two;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m186\">field</a></span></span></span></span>:\n" +
+                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m234\">one</a> </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m264\">two</a> </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m234\">one</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m186\">field</a> </span></span>=<span style=\"background-color:green;\"> 1</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m264\">two</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m186\">field</a> </span></span>=<span style=\"background-color:green;\"> 2</span></span>:\n" +
+                "  $boolean <span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a name=\"m332\">rOne</a> </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> <a href=\"#m234\">one</a>;. </span><a title=\"$static &lt;(pkg.Ex,pkg.Ex)\" href=\"pkg/Ex.html#m9\">&lt;</a><span style=\"background-color:green;\"> <a href=\"#m264\">two</a>;.</span></span></span>:\n" +
+                "  $boolean <span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a name=\"m365\">rTwo</a> </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> <a href=\"#m234\">one</a>;. </span><a title=\"$static &gt;(pkg.Ex,pkg.Ex)\" href=\"pkg/Ex.html#m83\">&gt;</a><span style=\"background-color:green;\"> <a href=\"#m264\">two</a>;.</span></span></span>:\n" +
+                "  $boolean <span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a name=\"m398\">rThree</a> </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m234\">one</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m186\">field</a> </span></span><a title=\"&quot;\">&lt;</a><span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m264\">two</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m186\">field</a></span></span></span></span>:\n" +
+                "  $boolean <span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a name=\"m443\">rFour</a> </span>=<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m234\">one</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m186\">field</a> </span></span><a title=\"&amp;\">&gt;</a><span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m264\">two</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m186\">field</a></span></span></span></span>:\n" +
                 "  $return <span style=\"background-color:green;\">5</span>:\n" +
                 " }\n" +
                 "}\n" +
@@ -3435,13 +3435,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
-                "  <span style=\"background-color:green;\">iter</span> (int j=<span style=\"background-color:green;\">0</span>;<span style=\"background-color:green;\">2</span>;<span style=\"background-color:green;\">1</span>){\n" +
-                "   int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">t </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> s </span>==<span style=\"background-color:green;\"> j </span></span>?<span style=\"background-color:green;\">{<span style=\"background-color:green;\">4i</span>}</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">6i</span>}</span></span></span>;\n" +
-                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> t</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m70\">sum</a> </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  <span style=\"background-color:green;\">iter</span> (int <a name=\"m91\">j</a>=<span style=\"background-color:green;\">0</span>;<span style=\"background-color:green;\">2</span>;<span style=\"background-color:green;\">1</span>){\n" +
+                "   int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m110\">t</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m57\">s</a> </span>==<span style=\"background-color:green;\"> <a href=\"#m91\">j</a> </span></span>?<span style=\"background-color:green;\">{<span style=\"background-color:green;\">4i</span>}</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m70\">sum</a> </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m110\">t</a></span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span></span>;\n" +
                 "  }\n" +
-                "  return <span style=\"background-color:green;\">sum</span>;\n" +
+                "  return <span style=\"background-color:green;\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -3472,14 +3472,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
-                "  <span style=\"background-color:yellow;\">iter</span> (int j=<span style=\"background-color:green;\">0</span>;<span style=\"background-color:green;\">2</span>;<span style=\"background-color:green;\">1</span>){\n" +
-                "   int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\">t </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> s </span><a title=\"false\">==</a><span style=\"background-color:green;\"> j </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">6i</span>}</span></span></span>;\n" +
-                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> t</span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m70\">sum</a> </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  <span style=\"background-color:yellow;\">iter</span> (int <a name=\"m91\">j</a>=<span style=\"background-color:green;\">0</span>;<span style=\"background-color:green;\">2</span>;<span style=\"background-color:green;\">1</span>){\n" +
+                "   int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m110\">t</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> <a href=\"#m57\">s</a> </span><a title=\"false\">==</a><span style=\"background-color:green;\"> <a href=\"#m91\">j</a> </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m70\">sum</a> </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m110\">t</a></span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span></span>;\n" +
                 "   break;\n" +
                 "  }\n" +
-                "  return <span style=\"background-color:green;\">sum</span>;\n" +
+                "  return <span style=\"background-color:green;\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -3509,13 +3509,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
-                "  <span style=\"background-color:yellow;\">iter</span> (int j=<span style=\"background-color:green;\">0</span>;<span style=\"background-color:green;\">0</span>;<span style=\"background-color:green;\">1</span>){\n" +
-                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\">t </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> s </span>==<span style=\"background-color:red;\"> j </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
-                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\">sum </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> t</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m70\">sum</a> </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  <span style=\"background-color:yellow;\">iter</span> (int <a name=\"m91\">j</a>=<span style=\"background-color:green;\">0</span>;<span style=\"background-color:green;\">0</span>;<span style=\"background-color:green;\">1</span>){\n" +
+                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a name=\"m110\">t</a> </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m57\">s</a> </span>==<span style=\"background-color:red;\"> <a href=\"#m91\">j</a> </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m70\">sum</a> </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m110\">t</a></span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
                 "  }\n" +
-                "  return <span style=\"background-color:green;\">sum</span>;\n" +
+                "  return <span style=\"background-color:green;\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -3548,16 +3548,16 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>public class pkg.Ex {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">s </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
-                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\">sum </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
-                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\">sum </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 0</span></span>){\n" +
-                "   return <span style=\"background-color:green;\">s</span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m70\">sum</a> </span>=<span style=\"background-color:green;\"> 0</span></span>;\n" +
+                "  <span style=\"background-color:yellow;\">if</span> (<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m70\">sum</a> </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 0</span></span>){\n" +
+                "   return <span style=\"background-color:green;\"><a href=\"#m57\">s</a></span>;\n" +
                 "  }\n" +
-                "  <span style=\"background-color:red;\">iter</span> (int j=<span style=\"background-color:red;\">0</span>;<span style=\"background-color:red;\">0</span>;<span style=\"background-color:red;\">1</span>){\n" +
-                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\">t </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> s </span>==<span style=\"background-color:red;\"> j </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
-                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\">sum </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> t</span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
+                "  <span style=\"background-color:red;\">iter</span> (int <a name=\"m125\">j</a>=<span style=\"background-color:red;\">0</span>;<span style=\"background-color:red;\">0</span>;<span style=\"background-color:red;\">1</span>){\n" +
+                "   int[] <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a name=\"m144\">t</a> </span>=<span style=\"background-color:red;\"><span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m57\">s</a> </span>==<span style=\"background-color:red;\"> <a href=\"#m125\">j</a> </span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m70\">sum</a> </span>+=<span style=\"background-color:red;\"><span style=\"background-color:red;\"> <a href=\"#m144\">t</a></span><span style=\"background-color:red;\">[<span style=\"background-color:red;\">0</span>]</span></span></span>;\n" +
                 "  }\n" +
-                "  return <span style=\"background-color:red;\">sum</span>;\n" +
+                "  return <span style=\"background-color:red;\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -3666,18 +3666,18 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
-        assertEq("<html><body><pre>$operator<a name=\"m9\">+</a> pkg.Ex (pkg.Ex p, pkg.Ex q){\n" +
-                " pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">out </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
-                " <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">out;.</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m411\">field</a> </span></span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> p;.;</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m411\">field</a></span></span>+<span style=\"background-color:green;\"><span style=\"background-color:green;\">q;.;</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m411\">field</a></span></span></span></span>:\n" +
-                " $return <span style=\"background-color:green;\">out;.</span>:\n" +
+        assertEq("<html><body><pre>$operator<a name=\"m9\">+</a> pkg.Ex (pkg.Ex <a name=\"m26\">p</a>, pkg.Ex <a name=\"m36\">q</a>){\n" +
+                " pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m48\">out</a> </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                " <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m48\">out</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m411\">field</a> </span></span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m26\">p</a>;.;</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m411\">field</a></span></span>+<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m36\">q</a>;.;</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m411\">field</a></span></span></span></span>:\n" +
+                " $return <span style=\"background-color:green;\"><a href=\"#m48\">out</a>;.</span>:\n" +
                 "}\n" +
                 "$public $class pkg.Ex:ExTwo {\n" +
                 " $public $static $int <a name=\"m174\">exmeth</a>(){\n" +
-                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">one </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
-                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">two </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">one;.</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m411\">field</a> </span></span>=<span style=\"background-color:green;\"> 1</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">two;.</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m411\">field</a> </span></span>=<span style=\"background-color:green;\"> 2</span></span>:\n" +
-                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\">(<span style=\"background-color:green;\"><span style=\"background-color:green;\">one;.</span><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"pkg/Ex.html#m9\">+</a><span style=\"background-color:green;\">two;.</span></span>)</span>.<span style=\"background-color:green;\">$super.<a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m411\">field</a></span></span>:\n" +
+                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m193\">one</a> </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m223\">two</a> </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m193\">one</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m411\">field</a> </span></span>=<span style=\"background-color:green;\"> 1</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m223\">two</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m411\">field</a> </span></span>=<span style=\"background-color:green;\"> 2</span></span>:\n" +
+                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\">(<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m193\">one</a>;.</span><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"pkg/Ex.html#m9\">+</a><span style=\"background-color:green;\"><a href=\"#m223\">two</a>;.</span></span>)</span>.<span style=\"background-color:green;\">$super.<a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m411\">field</a></span></span>:\n" +
                 " }\n" +
                 " $public $static $int <a name=\"m343\">call</a>(){\n" +
                 "  $return <span style=\"background-color:red;\">1i</span>:\n" +
@@ -3723,18 +3723,18 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
-        assertEq("<html><body><pre>$operator<a name=\"m9\">+</a> pkg.Ex (pkg.Ex p, pkg.Ex q){\n" +
-                " pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">out </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
-                " <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">out;.</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m414\">field</a> </span></span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> p;.;</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m414\">field</a></span></span>+<span style=\"background-color:green;\"><span style=\"background-color:green;\">q;.;</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m414\">field</a></span></span></span></span>:\n" +
-                " $return <span style=\"background-color:green;\">out;.</span>:\n" +
+        assertEq("<html><body><pre>$operator<a name=\"m9\">+</a> pkg.Ex (pkg.Ex <a name=\"m26\">p</a>, pkg.Ex <a name=\"m36\">q</a>){\n" +
+                " pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m48\">out</a> </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                " <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m48\">out</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m414\">field</a> </span></span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m26\">p</a>;.;</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m414\">field</a></span></span>+<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m36\">q</a>;.;</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m414\">field</a></span></span></span></span>:\n" +
+                " $return <span style=\"background-color:green;\"><a href=\"#m48\">out</a>;.</span>:\n" +
                 "}\n" +
                 "$public $class pkg.Ex:ExTwo {\n" +
                 " $public $static $int <a name=\"m174\">exmeth</a>(){\n" +
-                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">one </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
-                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">two </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">one;.</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m414\">field</a> </span></span>=<span style=\"background-color:green;\"> 1</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">two;.</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m414\">field</a> </span></span>=<span style=\"background-color:green;\"> 2</span></span>:\n" +
-                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\">(<span style=\"background-color:green;\"><span style=\"background-color:green;\">one;.</span><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"pkg/Ex.html#m9\">+</a><span style=\"background-color:green;\">two;.</span></span>)</span>.<span style=\"background-color:green;\">$super.<a title=\"pkg.ExTwo.method()\" href=\"pkg/Ex.html#m435\">method</a>()</span></span>:\n" +
+                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m193\">one</a> </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m223\">two</a> </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m193\">one</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m414\">field</a> </span></span>=<span style=\"background-color:green;\"> 1</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m223\">two</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m414\">field</a> </span></span>=<span style=\"background-color:green;\"> 2</span></span>:\n" +
+                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\">(<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m193\">one</a>;.</span><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"pkg/Ex.html#m9\">+</a><span style=\"background-color:green;\"><a href=\"#m223\">two</a>;.</span></span>)</span>.<span style=\"background-color:green;\">$super.<a title=\"pkg.ExTwo.method()\" href=\"pkg/Ex.html#m435\">method</a>()</span></span>:\n" +
                 " }\n" +
                 " $public $static $int <a name=\"m346\">call</a>(){\n" +
                 "  $return <span style=\"background-color:red;\">1i</span>:\n" +
@@ -3775,12 +3775,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m38\">one</a></span>,<span style=\"background-color:green;\"><a name=\"m42\">two</a></span></span>:\n" +
                 " $public $static $int <a name=\"m69\">exmeth</a>(){\n" +
-                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">one </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
-                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">two </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">one;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.one\" href=\"pkg/Ex.html#m38\">one</a> </span></span>=<span style=\"background-color:green;\"> 1</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">one;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.two\" href=\"pkg/Ex.html#m42\">two</a> </span></span>=<span style=\"background-color:green;\"> 2</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">two;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.one\" href=\"pkg/Ex.html#m38\">one</a> </span></span>=<span style=\"background-color:green;\"> 3</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">two;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.two\" href=\"pkg/Ex.html#m42\">two</a> </span></span>=<span style=\"background-color:green;\"> 4</span></span>:\n" +
+                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m88\">one</a> </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m118\">two</a> </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m88\">one</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.one\" href=\"pkg/Ex.html#m38\">one</a> </span></span>=<span style=\"background-color:green;\"> 1</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m88\">one</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.two\" href=\"pkg/Ex.html#m42\">two</a> </span></span>=<span style=\"background-color:green;\"> 2</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m118\">two</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.one\" href=\"pkg/Ex.html#m38\">one</a> </span></span>=<span style=\"background-color:green;\"> 3</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m118\">two</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.two\" href=\"pkg/Ex.html#m42\">two</a> </span></span>=<span style=\"background-color:green;\"> 4</span></span>:\n" +
                 "  $return <span style=\"background-color:green;\">5</span>:\n" +
                 " }\n" +
                 "}\n" +
@@ -3813,12 +3813,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m38\">one</a></span>=<span style=\"background-color:green;\">7</span></span>,<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m44\">two</a></span>=<span style=\"background-color:green;\">8</span></span></span>:\n" +
                 " $public $static $int <a name=\"m73\">exmeth</a>(){\n" +
-                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">one </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
-                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">two </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">one;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.one\" href=\"pkg/Ex.html#m38\">one</a> </span></span>=<span style=\"background-color:green;\"> 1</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">one;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.two\" href=\"pkg/Ex.html#m44\">two</a> </span></span>=<span style=\"background-color:green;\"> 2</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">two;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.one\" href=\"pkg/Ex.html#m38\">one</a> </span></span>=<span style=\"background-color:green;\"> 3</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">two;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.two\" href=\"pkg/Ex.html#m44\">two</a> </span></span>=<span style=\"background-color:green;\"> 4</span></span>:\n" +
+                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m92\">one</a> </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m122\">two</a> </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m92\">one</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.one\" href=\"pkg/Ex.html#m38\">one</a> </span></span>=<span style=\"background-color:green;\"> 1</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m92\">one</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.two\" href=\"pkg/Ex.html#m44\">two</a> </span></span>=<span style=\"background-color:green;\"> 2</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m122\">two</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.one\" href=\"pkg/Ex.html#m38\">one</a> </span></span>=<span style=\"background-color:green;\"> 3</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m122\">two</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.two\" href=\"pkg/Ex.html#m44\">two</a> </span></span>=<span style=\"background-color:green;\"> 4</span></span>:\n" +
                 "  $return <span style=\"background-color:green;\">5</span>:\n" +
                 " }\n" +
                 "}\n" +
@@ -3893,11 +3893,11 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m72\">inst</a>;;;</span><span style=\"background-color:green;\"><a title=\"pkg.CustList.add(#U)\" href=\"pkg/CustList.html#m154\">add</a>(<span style=\"background-color:green;\">3i</span>)</span></span>:\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m72\">inst</a>;;;</span><span style=\"background-color:green;\"><a title=\"pkg.CustList.add(#U)\" href=\"pkg/CustList.html#m154\">add</a>(<span style=\"background-color:green;\">1i</span>)</span></span>:\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m72\">inst</a>;;;</span><span style=\"background-color:green;\"><a title=\"pkg.CustList.add(#U)\" href=\"pkg/CustList.html#m154\">add</a>(<span style=\"background-color:green;\">2i</span>)</span></span>:\n" +
-                "  $iterable&lt;java.lang.Number&gt; <span style=\"background-color:green;\"><span style=\"background-color:green;\">iter </span>=<span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m72\"> ins</a>t</span></span>:\n" +
-                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\">it </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> iter;.</span><span style=\"background-color:green;\">iterator()</span></span></span>:\n" +
-                "  <span style=\"background-color:green;\">$while</span>(<span style=\"background-color:green;\"><span style=\"background-color:green;\">it;.</span><span style=\"background-color:green;\">hasNext()</span></span>){\n" +
-                "   $var <span style=\"background-color:green;\"><span style=\"background-color:green;\">l </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> it;.</span><span style=\"background-color:green;\">next()</span></span></span>:\n" +
-                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.res\" href=\"pkg/Ex.html#m138\">res</a>;;;</span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\">l;.</span><span style=\"background-color:green;\">intValue()</span></span></span>:\n" +
+                "  $iterable&lt;java.lang.Number&gt; <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m238\">iter</a> </span>=<span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m72\"> ins</a>t</span></span>:\n" +
+                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m258\">it</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m238\">iter</a>;.</span><span style=\"background-color:green;\">iterator()</span></span></span>:\n" +
+                "  <span style=\"background-color:green;\">$while</span>(<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m258\">it</a>;.</span><span style=\"background-color:green;\">hasNext()</span></span>){\n" +
+                "   $var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m314\">l</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m258\">it</a>;.</span><span style=\"background-color:green;\">next()</span></span></span>:\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.res\" href=\"pkg/Ex.html#m138\">res</a>;;;</span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m314\">l</a>;.</span><span style=\"background-color:green;\">intValue()</span></span></span>:\n" +
                 "  }\n" +
                 " }\n" +
                 " $public $static $int <a name=\"m385\">exmeth</a>(){\n" +
@@ -3945,11 +3945,11 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m72\">inst</a>;;;</span><span style=\"background-color:green;\"><a title=\"pkg.CustList.add(#U)\" href=\"pkg/CustList.html#m154\">add</a>(<span style=\"background-color:green;\">3i</span>)</span></span>:\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m72\">inst</a>;;;</span><span style=\"background-color:green;\"><a title=\"pkg.CustList.add(#U)\" href=\"pkg/CustList.html#m154\">add</a>(<span style=\"background-color:green;\">1i</span>)</span></span>:\n" +
                 "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m72\">inst</a>;;;</span><span style=\"background-color:green;\"><a title=\"pkg.CustList.add(#U)\" href=\"pkg/CustList.html#m154\">add</a>(<span style=\"background-color:green;\">2i</span>)</span></span>:\n" +
-                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\">iter </span>=<span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m72\"> ins</a>t</span></span>:\n" +
-                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\">it </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> iter;.</span><span style=\"background-color:green;\"><a title=\"pkg.CustList.iterator()\" href=\"pkg/CustList.html#m898\">iterator</a>()</span></span></span>:\n" +
-                "  <span style=\"background-color:green;\">$while</span>(<span style=\"background-color:green;\"><span style=\"background-color:green;\">it;.</span><span style=\"background-color:green;\">hasNext()</span></span>){\n" +
-                "   $var <span style=\"background-color:green;\"><span style=\"background-color:green;\">l </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> it;.</span><span style=\"background-color:green;\">next()</span></span></span>:\n" +
-                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.res\" href=\"pkg/Ex.html#m138\">res</a>;;;</span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\">l;.</span><span style=\"background-color:green;\">intValue()</span></span></span>:\n" +
+                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m215\">iter</a> </span>=<span style=\"background-color:green;\"><a title=\"pkg.Ex.inst\" href=\"pkg/Ex.html#m72\"> ins</a>t</span></span>:\n" +
+                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m235\">it</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m215\">iter</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.CustList.iterator()\" href=\"pkg/CustList.html#m898\">iterator</a>()</span></span></span>:\n" +
+                "  <span style=\"background-color:green;\">$while</span>(<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m235\">it</a>;.</span><span style=\"background-color:green;\">hasNext()</span></span>){\n" +
+                "   $var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m291\">l</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m235\">it</a>;.</span><span style=\"background-color:green;\">next()</span></span></span>:\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.res\" href=\"pkg/Ex.html#m138\">res</a>;;;</span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m291\">l</a>;.</span><span style=\"background-color:green;\">intValue()</span></span></span>:\n" +
                 "  }\n" +
                 " }\n" +
                 " $public $static $int <a name=\"m362\">exmeth</a>(){\n" +
@@ -4193,8 +4193,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $int <span style=\"background-color:green;\"><a name=\"m38\">field</a></span>:\n" +
-                " <a name=\"m46\">$public Ex(</a>$int field){\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">$this</span>.<span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m38\">field</a></span></span>=<span style=\"background-color:green;\">field;.;</span></span>:\n" +
+                " <a name=\"m46\">$public Ex(</a>$int <a name=\"m62\">field</a>){\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">$this</span>.<span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m38\">field</a></span></span>=<span style=\"background-color:green;\"><a href=\"#m62\">field</a>;.;</span></span>:\n" +
                 " }\n" +
                 " $public $static Ex <a name=\"m117\">exmeth</a>(){\n" +
                 "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.pkg.Ex($int)\" href=\"pkg/Ex.html#m46\">$lambda</a>(Ex,$new,$int)</span>.<span style=\"background-color:green;\"><b>call</b>(<span style=\"background-color:green;\">5</span>)</span></span>:\n" +
@@ -4309,11 +4309,11 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " $public $static $int <a name=\"m67\">exmeth</a>(){\n" +
                 "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">$new Ex()</span>.<span style=\"background-color:green;\"><a title=\"pkg.Ex.[]($int)\" href=\"pkg/Ex.html#m143\">$lambda</a>(Ex,[],$int)</span></span>.<span style=\"background-color:green;\"><b>call</b>(<span style=\"background-color:green;\">8</span>)</span></span>:\n" +
                 " }\n" +
-                " $public $int <a name=\"m143\">$this</a>($int param){\n" +
+                " $public $int <a name=\"m143\">$this</a>($int <a name=\"m154\">param</a>){\n" +
                 "  $return <span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m38\">field</a></span>:\n" +
                 " }\n" +
-                " $public $void <a name=\"m197\">$this</a>($int param){\n" +
-                "  <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m38\">field</a> </span>=<span style=\"background-color:red;\"> $value;.;</span></span>:\n" +
+                " $public $void <a name=\"m197\">$this</a>($int <a name=\"m208\">param</a>){\n" +
+                "  <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m38\">field</a> </span>=<span style=\"background-color:red;\"> <b>$value</b>;.;</span></span>:\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -4347,11 +4347,11 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " $public $static Object <a name=\"m69\">exmeth</a>(){\n" +
                 "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">$new Ex()</span>.<span style=\"background-color:green;\"><a title=\"pkg.Ex.[]=($int)\" href=\"pkg/Ex.html#m203\">$lambda</a>(Ex,[]=,$int)</span></span>.<span style=\"background-color:green;\"><b>call</b>(<span style=\"background-color:green;\">8</span>,<span style=\"background-color:green;\">15</span>)</span></span>:\n" +
                 " }\n" +
-                " $public $int <a name=\"m149\">$this</a>($int param){\n" +
+                " $public $int <a name=\"m149\">$this</a>($int <a name=\"m160\">param</a>){\n" +
                 "  $return <span style=\"background-color:red;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m38\">field</a></span>:\n" +
                 " }\n" +
-                " $public $void <a name=\"m203\">$this</a>($int param){\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m38\">field</a> </span>=<span style=\"background-color:green;\"> $value;.;</span></span>:\n" +
+                " $public $void <a name=\"m203\">$this</a>($int <a name=\"m214\">param</a>){\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m38\">field</a> </span>=<span style=\"background-color:green;\"> <b>$value</b>;.;</span></span>:\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -4383,19 +4383,19 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
-        assertEq("<html><body><pre>$operator<a name=\"m9\">+</a> pkg.Ex(pkg.Ex a,pkg.Ex b) {\n" +
-                " $var <span style=\"background-color:green;\"><span style=\"background-color:green;\">o </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
-                " <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">o;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m153\">field</a> </span></span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> a;.;</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m153\">field</a> </span></span>+<span style=\"background-color:green;\"><span style=\"background-color:green;\"> b;.;</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m153\">field</a></span></span></span></span>:\n" +
-                " $return <span style=\"background-color:green;\">o;.</span>:\n" +
+        assertEq("<html><body><pre>$operator<a name=\"m9\">+</a> pkg.Ex(pkg.Ex <a name=\"m25\">a</a>,pkg.Ex <a name=\"m34\">b</a>) {\n" +
+                " $var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m45\">o</a> </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                " <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m45\">o</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m153\">field</a> </span></span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m25\">a</a>;.;</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m153\">field</a> </span></span>+<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m34\">b</a>;.;</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m153\">field</a></span></span></span></span>:\n" +
+                " $return <span style=\"background-color:green;\"><a href=\"#m45\">o</a>;.</span>:\n" +
                 "}\n" +
                 "$public $class pkg.Ex {\n" +
                 " $public $int <span style=\"background-color:green;\"><a name=\"m153\">field</a></span>:\n" +
                 " $public $static Object <a name=\"m184\">exmeth</a>(){\n" +
-                "  Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">one </span>=<span style=\"background-color:green;\"> $new Ex()</span></span>:\n" +
-                "  Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">two </span>=<span style=\"background-color:green;\"> $new Ex()</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">one;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m153\">field</a> </span></span>=<span style=\"background-color:green;\"> 15</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">two;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m153\">field</a> </span></span>=<span style=\"background-color:green;\"> 14</span></span>:\n" +
-                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"pkg/Ex.html#m9\">$lambda</a>($operator,+,Ex,Ex)</span>.<span style=\"background-color:green;\"><b>call</b>(<span style=\"background-color:green;\">one;.</span>,<span style=\"background-color:green;\">two;.</span>)</span></span>:\n" +
+                "  Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m199\">one</a> </span>=<span style=\"background-color:green;\"> $new Ex()</span></span>:\n" +
+                "  Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m221\">two</a> </span>=<span style=\"background-color:green;\"> $new Ex()</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m199\">one</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m153\">field</a> </span></span>=<span style=\"background-color:green;\"> 15</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m221\">two</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.field\" href=\"pkg/Ex.html#m153\">field</a> </span></span>=<span style=\"background-color:green;\"> 14</span></span>:\n" +
+                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"pkg/Ex.html#m9\">$lambda</a>($operator,+,Ex,Ex)</span>.<span style=\"background-color:green;\"><b>call</b>(<span style=\"background-color:green;\"><a href=\"#m199\">one</a>;.</span>,<span style=\"background-color:green;\"><a href=\"#m221\">two</a>;.</span>)</span></span>:\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -4463,12 +4463,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m38\">one</a></span>,<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m42\">two</a></span>=<span style=\"background-color:green;\"><a title=\"pkg.Ex.one\" href=\"pkg/Ex.html#m38\">one</a></span></span></span>:\n" +
                 " $public $static $int <a name=\"m73\">exmeth</a>(){\n" +
-                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">one </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
-                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">two </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">one;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.one\" href=\"pkg/Ex.html#m38\">one</a> </span></span>=<span style=\"background-color:green;\"> 1</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">one;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.two\" href=\"pkg/Ex.html#m42\">two</a> </span></span>=<span style=\"background-color:green;\"> 2</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">two;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.one\" href=\"pkg/Ex.html#m38\">one</a> </span></span>=<span style=\"background-color:green;\"> 3</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">two;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.two\" href=\"pkg/Ex.html#m42\">two</a> </span></span>=<span style=\"background-color:green;\"> 4</span></span>:\n" +
+                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m92\">one</a> </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m122\">two</a> </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m92\">one</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.one\" href=\"pkg/Ex.html#m38\">one</a> </span></span>=<span style=\"background-color:green;\"> 1</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m92\">one</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.two\" href=\"pkg/Ex.html#m42\">two</a> </span></span>=<span style=\"background-color:green;\"> 2</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m122\">two</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.one\" href=\"pkg/Ex.html#m38\">one</a> </span></span>=<span style=\"background-color:green;\"> 3</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m122\">two</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.Ex.two\" href=\"pkg/Ex.html#m42\">two</a> </span></span>=<span style=\"background-color:green;\"> 4</span></span>:\n" +
                 "  $return <span style=\"background-color:green;\">5</span>:\n" +
                 " }\n" +
                 "}\n" +
@@ -4509,18 +4509,18 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
-        assertEq("<html><body><pre>$operator<a name=\"m9\">+</a> pkg.Ex (pkg.Ex p, pkg.Ex q){\n" +
-                " pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">out </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
-                " <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">out;.</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m426\">field</a> </span></span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> p;.;</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m426\">field</a></span></span>+<span style=\"background-color:green;\"><span style=\"background-color:green;\">q;.;</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m426\">field</a></span></span></span></span>:\n" +
-                " $return <span style=\"background-color:green;\">out;.</span>:\n" +
+        assertEq("<html><body><pre>$operator<a name=\"m9\">+</a> pkg.Ex (pkg.Ex <a name=\"m26\">p</a>, pkg.Ex <a name=\"m36\">q</a>){\n" +
+                " pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m48\">out</a> </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                " <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m48\">out</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m426\">field</a> </span></span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m26\">p</a>;.;</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m426\">field</a></span></span>+<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m36\">q</a>;.;</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m426\">field</a></span></span></span></span>:\n" +
+                " $return <span style=\"background-color:green;\"><a href=\"#m48\">out</a>;.</span>:\n" +
                 "}\n" +
                 "$public $class pkg.Ex:ExTwo {\n" +
                 " $public $static $int <a name=\"m174\">exmeth</a>(){\n" +
-                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">one </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
-                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">two </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">one;.</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m426\">field</a> </span></span>=<span style=\"background-color:green;\"> 1</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">two;.</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m426\">field</a> </span></span>=<span style=\"background-color:green;\"> 2</span></span>:\n" +
-                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\">(<span style=\"background-color:green;\"><span style=\"background-color:green;\">one;.</span><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"pkg/Ex.html#m9\">+</a><span style=\"background-color:green;\">two;.</span></span>)</span>.<span style=\"background-color:green;\">$superaccess(ExTwo)<a title=\"pkg.ExTwo.method()\" href=\"pkg/Ex.html#m447\">method</a>()</span></span>:\n" +
+                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m193\">one</a> </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m223\">two</a> </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m193\">one</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m426\">field</a> </span></span>=<span style=\"background-color:green;\"> 1</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m223\">two</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m426\">field</a> </span></span>=<span style=\"background-color:green;\"> 2</span></span>:\n" +
+                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\">(<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m193\">one</a>;.</span><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"pkg/Ex.html#m9\">+</a><span style=\"background-color:green;\"><a href=\"#m223\">two</a>;.</span></span>)</span>.<span style=\"background-color:green;\">$superaccess(ExTwo)<a title=\"pkg.ExTwo.method()\" href=\"pkg/Ex.html#m447\">method</a>()</span></span>:\n" +
                 " }\n" +
                 " $public $static $int <a name=\"m358\">call</a>(){\n" +
                 "  $return <span style=\"background-color:red;\">1i</span>:\n" +
@@ -4569,18 +4569,18 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateArgument("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = FileBlock.export(cont_);
-        assertEq("<html><body><pre>$operator<a name=\"m9\">+</a> pkg.Ex (pkg.Ex p, pkg.Ex q){\n" +
-                " pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">out </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
-                " <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">out;.</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m426\">field</a> </span></span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> p;.;</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m426\">field</a></span></span>+<span style=\"background-color:green;\"><span style=\"background-color:green;\">q;.;</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m426\">field</a></span></span></span></span>:\n" +
-                " $return <span style=\"background-color:green;\">out;.</span>:\n" +
+        assertEq("<html><body><pre>$operator<a name=\"m9\">+</a> pkg.Ex (pkg.Ex <a name=\"m26\">p</a>, pkg.Ex <a name=\"m36\">q</a>){\n" +
+                " pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m48\">out</a> </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                " <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m48\">out</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m426\">field</a> </span></span>=<span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m26\">p</a>;.;</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m426\">field</a></span></span>+<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m36\">q</a>;.;</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m426\">field</a></span></span></span></span>:\n" +
+                " $return <span style=\"background-color:green;\"><a href=\"#m48\">out</a>;.</span>:\n" +
                 "}\n" +
                 "$public $class pkg.Ex:ExTwo {\n" +
                 " $public $static $int <a name=\"m174\">exmeth</a>(){\n" +
-                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">one </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
-                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\">two </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">one;.</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m426\">field</a> </span></span>=<span style=\"background-color:green;\"> 1</span></span>:\n" +
-                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\">two;.</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m426\">field</a> </span></span>=<span style=\"background-color:green;\"> 2</span></span>:\n" +
-                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\">(<span style=\"background-color:green;\"><span style=\"background-color:green;\">one;.</span><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"pkg/Ex.html#m9\">+</a><span style=\"background-color:green;\">two;.</span></span>)</span>.<span style=\"background-color:green;\">$classchoice(ExTwo)<a title=\"pkg.ExTwo.method()\" href=\"pkg/Ex.html#m447\">method</a>()</span></span>:\n" +
+                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m193\">one</a> </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                "  pkg.Ex <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m223\">two</a> </span>=<span style=\"background-color:green;\"> $new pkg.Ex()</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m193\">one</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m426\">field</a> </span></span>=<span style=\"background-color:green;\"> 1</span></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m223\">two</a>;.</span><span style=\"background-color:green;\"><a title=\"pkg.ExTwo.field\" href=\"pkg/Ex.html#m426\">field</a> </span></span>=<span style=\"background-color:green;\"> 2</span></span>:\n" +
+                "  $return <span style=\"background-color:green;\"><span style=\"background-color:green;\">(<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m193\">one</a>;.</span><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"pkg/Ex.html#m9\">+</a><span style=\"background-color:green;\"><a href=\"#m223\">two</a>;.</span></span>)</span>.<span style=\"background-color:green;\">$classchoice(ExTwo)<a title=\"pkg.ExTwo.method()\" href=\"pkg/Ex.html#m447\">method</a>()</span></span>:\n" +
                 " }\n" +
                 " $public $static $int <a name=\"m358\">call</a>(){\n" +
                 "  $return <span style=\"background-color:red;\">1i</span>:\n" +
@@ -4646,9 +4646,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
-                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\">b </span>=<span style=\"background-color:green;\"> $true</span></span>:\n" +
-                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\">c </span>=<span style=\"background-color:green;\"> $true</span></span>:\n" +
-                "  <span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\">b;. </span><a title=\"true\">&amp;</a>=<span style=\"background-color:yellow;\"> c;.</span></span>:\n" +
+                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m63\">b</a> </span>=<span style=\"background-color:green;\"> $true</span></span>:\n" +
+                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m81\">c</a> </span>=<span style=\"background-color:green;\"> $true</span></span>:\n" +
+                "  <span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\"><a href=\"#m63\">b</a>;. </span><a title=\"true\">&amp;</a>=<span style=\"background-color:yellow;\"> <a href=\"#m81\">c</a>;.</span></span>:\n" +
                 "  $return <span style=\"background-color:green;\">0</span>:\n" +
                 " }\n" +
                 "}\n" +
@@ -4676,9 +4676,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
-                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\">b </span>=<span style=\"background-color:green;\"> $true</span></span>:\n" +
-                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\">c </span>=<span style=\"background-color:green;\"> $false</span></span>:\n" +
-                "  <span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\">b;. </span><a title=\"false\">&amp;</a>=<span style=\"background-color:yellow;\"> c;.</span></span>:\n" +
+                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m63\">b</a> </span>=<span style=\"background-color:green;\"> $true</span></span>:\n" +
+                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m81\">c</a> </span>=<span style=\"background-color:green;\"> $false</span></span>:\n" +
+                "  <span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\"><a href=\"#m63\">b</a>;. </span><a title=\"false\">&amp;</a>=<span style=\"background-color:yellow;\"> <a href=\"#m81\">c</a>;.</span></span>:\n" +
                 "  $return <span style=\"background-color:green;\">0</span>:\n" +
                 " }\n" +
                 "}\n" +
@@ -4707,9 +4707,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
-                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\">b </span>=<span style=\"background-color:green;\"> $true</span></span>:\n" +
-                "  <span style=\"background-color:green;\">$for ($boolean c</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">$true</span>,<span style=\"background-color:green;\">$false</span>}</span>){\n" +
-                "   <span style=\"background-color:green;\"><span style=\"background-color:yellow;\">b;. </span>&amp;=<span style=\"background-color:green;\"> c;</span></span>:\n" +
+                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m63\">b</a> </span>=<span style=\"background-color:green;\"> $true</span></span>:\n" +
+                "  <span style=\"background-color:green;\">$for ($boolean <a name=\"m91\">c</a></span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">$true</span>,<span style=\"background-color:green;\">$false</span>}</span>){\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><a href=\"#m63\">b</a>;. </span>&amp;=<span style=\"background-color:green;\"> <a href=\"#m91\">c</a>;</span></span>:\n" +
                 "  }\n" +
                 "  $return <span style=\"background-color:green;\">0</span>:\n" +
                 " }\n" +
@@ -4739,9 +4739,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
-                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\">b </span>=<span style=\"background-color:green;\"> $true</span></span>:\n" +
-                "  <span style=\"background-color:yellow;\">$for ($boolean c</span>:<span style=\"background-color:green;\">{}</span>){\n" +
-                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\">b;. </span>&amp;=<span style=\"background-color:red;\"> c;</span></span>:\n" +
+                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m63\">b</a> </span>=<span style=\"background-color:green;\"> $true</span></span>:\n" +
+                "  <span style=\"background-color:yellow;\">$for ($boolean <a name=\"m91\">c</a></span>:<span style=\"background-color:green;\">{}</span>){\n" +
+                "   <span style=\"background-color:red;\"><span style=\"background-color:red;\"><a href=\"#m63\">b</a>;. </span>&amp;=<span style=\"background-color:red;\"> <a href=\"#m91\">c</a>;</span></span>:\n" +
                 "  }\n" +
                 "  $return <span style=\"background-color:green;\">0</span>:\n" +
                 " }\n" +
@@ -4770,9 +4770,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
-                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\">b </span>=<span style=\"background-color:green;\"> $true</span></span>:\n" +
-                "  <span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\">b;. </span>&amp;=<span style=\"background-color:green;\"> $true</span></span>:\n" +
-                "  <span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\">b;. </span>&amp;=<span style=\"background-color:green;\"> $false</span></span>:\n" +
+                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m63\">b</a> </span>=<span style=\"background-color:green;\"> $true</span></span>:\n" +
+                "  <span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\"><a href=\"#m63\">b</a>;. </span>&amp;=<span style=\"background-color:green;\"> $true</span></span>:\n" +
+                "  <span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\"><a href=\"#m63\">b</a>;. </span>&amp;=<span style=\"background-color:green;\"> $false</span></span>:\n" +
                 "  $return <span style=\"background-color:green;\">0</span>:\n" +
                 " }\n" +
                 "}\n" +
@@ -4803,10 +4803,10 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
-                "  <span style=\"background-color:green;\">$for ($boolean b</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">$true</span>,<span style=\"background-color:green;\">$false</span>}</span>){\n" +
-                "   <span style=\"background-color:green;\">$for ($boolean c</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">$false</span>,<span style=\"background-color:green;\">$true</span>}</span>){\n" +
-                "    $var <span style=\"background-color:green;\"><span style=\"background-color:green;\">loc </span>=<span style=\"background-color:green;\"> b;</span></span>:\n" +
-                "    <span style=\"background-color:green;\"><span style=\"background-color:green;\">loc;. </span>&amp;=<span style=\"background-color:green;\"> c;</span></span>:\n" +
+                "  <span style=\"background-color:green;\">$for ($boolean <a name=\"m73\">b</a></span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">$true</span>,<span style=\"background-color:green;\">$false</span>}</span>){\n" +
+                "   <span style=\"background-color:green;\">$for ($boolean <a name=\"m110\">c</a></span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">$false</span>,<span style=\"background-color:green;\">$true</span>}</span>){\n" +
+                "    $var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m138\">loc</a> </span>=<span style=\"background-color:green;\"> <a href=\"#m73\">b</a>;</span></span>:\n" +
+                "    <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m138\">loc</a>;. </span>&amp;=<span style=\"background-color:green;\"> <a href=\"#m110\">c</a>;</span></span>:\n" +
                 "   }\n" +
                 "  }\n" +
                 "  $return <span style=\"background-color:green;\">0</span>:\n" +
@@ -4837,11 +4837,301 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
-                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\">b </span>=<span style=\"background-color:green;\"> $true</span></span>:\n" +
-                "  <span style=\"background-color:green;\">$for ($boolean c</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">$true</span>,<span style=\"background-color:green;\">$false</span>,<span style=\"background-color:green;\">$true</span>}</span>){\n" +
-                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\">b;. </span>&amp;=<span style=\"background-color:green;\"> c;</span></span>:\n" +
+                "  $var <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m63\">b</a> </span>=<span style=\"background-color:green;\"> $true</span></span>:\n" +
+                "  <span style=\"background-color:green;\">$for ($boolean <a name=\"m91\">c</a></span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">$true</span>,<span style=\"background-color:green;\">$false</span>,<span style=\"background-color:green;\">$true</span>}</span>){\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m63\">b</a>;. </span>&amp;=<span style=\"background-color:green;\"> <a href=\"#m91\">c</a>;</span></span>:\n" +
                 "  }\n" +
                 "  $return <span style=\"background-color:green;\">0</span>:\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage115Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int s = 1, u = 2;\n");
+        xml_.append("  int[] t = s == 1 && u == 2?{4i}:{6i};\n");
+        xml_.append("  return t[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><body><pre>public class pkg.Ex {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>,<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a name=\"m64\">u</a> </span>=<span style=\"background-color:green;\"> 2</span></span></span>;\n" +
+                "  int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m79\">t</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> <a href=\"#m57\">s</a> </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 1 </span></span><a title=\"true\">&amp;</a><a title=\"true\">&amp;</a><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> <a href=\"#m64\">u</a> </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 2</span></span></span>?<span style=\"background-color:green;\">{<span style=\"background-color:green;\">4i</span>}</span>:<span style=\"background-color:red;\">{<span style=\"background-color:red;\">6i</span>}</span></span></span>;\n" +
+                "  return <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m79\">t</a></span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage116Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int s = 1;\n");
+        xml_.append("  for (int i = 0, j = 1; i < 2 && j < 4; i++,j++){\n");
+        xml_.append("   s += i + j;\n");
+        xml_.append("  }\n");
+        xml_.append("  return s;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><body><pre>public class pkg.Ex {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  <span style=\"background-color:green;\">for</span> (int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m75\">i</a> </span>=<span style=\"background-color:green;\"> 0</span></span>,<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a name=\"m82\">j</a> </span>=<span style=\"background-color:green;\"> 1</span></span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m75\">i</a> </span>&lt;<span style=\"background-color:green;\"> 2 </span></span><a title=\"true\">&amp;</a><a title=\"true\">&amp;</a><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> <a href=\"#m82\">j</a> </span><a title=\"true\">&lt;</a><span style=\"background-color:green;\"> 4</span></span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m75\">i</a></span>++</span>,<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m82\">j</a></span>++</span></span>){\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m57\">s</a> </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m75\">i</a> </span>+<span style=\"background-color:green;\"> <a href=\"#m82\">j</a></span></span></span>;\n" +
+                "  }\n" +
+                "  return <span style=\"background-color:green;\"><a href=\"#m57\">s</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage117Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int s = 1;\n");
+        xml_.append("  for (int i = 0, j = i; i < 2 && j < 4; i++,j++){\n");
+        xml_.append("   s += i + j;\n");
+        xml_.append("  }\n");
+        xml_.append("  return s;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><body><pre>public class pkg.Ex {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  <span style=\"background-color:green;\">for</span> (int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m75\">i</a> </span>=<span style=\"background-color:green;\"> 0</span></span>,<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a name=\"m82\">j</a> </span>=<span style=\"background-color:green;\"> <a href=\"#m75\">i</a></span></span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m75\">i</a> </span>&lt;<span style=\"background-color:green;\"> 2 </span></span><a title=\"true\">&amp;</a><a title=\"true\">&amp;</a><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> <a href=\"#m82\">j</a> </span><a title=\"true\">&lt;</a><span style=\"background-color:green;\"> 4</span></span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m75\">i</a></span>++</span>,<span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m82\">j</a></span>++</span></span>){\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m57\">s</a> </span>+=<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a href=\"#m75\">i</a> </span>+<span style=\"background-color:green;\"> <a href=\"#m82\">j</a></span></span></span>;\n" +
+                "  }\n" +
+                "  return <span style=\"background-color:green;\"><a href=\"#m57\">s</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage118Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int s = 1, u = s;\n");
+        xml_.append("  int[] t = s == 1 && u == 2?{4i}:{6i};\n");
+        xml_.append("  return t[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><body><pre>public class pkg.Ex {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>,<span style=\"background-color:green;\"><span style=\"background-color:green;\"> <a name=\"m64\">u</a> </span>=<span style=\"background-color:green;\"> <a href=\"#m57\">s</a></span></span></span>;\n" +
+                "  int[] <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m79\">t</a> </span>=<span style=\"background-color:green;\"><span style=\"background-color:yellow;\"><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> <a href=\"#m57\">s</a> </span><a title=\"true\">==</a><span style=\"background-color:green;\"> 1 </span></span><a title=\"true\">&amp;</a><a title=\"false\">&amp;</a><span style=\"background-color:yellow;\"><span style=\"background-color:green;\"> <a href=\"#m64\">u</a> </span><a title=\"false\">==</a><span style=\"background-color:green;\"> 2</span></span></span>?<span style=\"background-color:red;\">{<span style=\"background-color:red;\">4i</span>}</span>:<span style=\"background-color:green;\">{<span style=\"background-color:green;\">6i</span>}</span></span></span>;\n" +
+                "  return <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m79\">t</a></span><span style=\"background-color:green;\">[<span style=\"background-color:green;\">0</span>]</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage119Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int s = 1;\n");
+        xml_.append("  for (int i = 0, j; i < 2; i++){\n");
+        xml_.append("   s += i;\n");
+        xml_.append("  }\n");
+        xml_.append("  return s;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><body><pre>public class pkg.Ex {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  <span style=\"background-color:green;\">for</span> (int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m75\">i</a> </span>=<span style=\"background-color:green;\"> 0</span></span>,<span style=\"background-color:green;\"> <a name=\"m82\">j</a></span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m75\">i</a> </span>&lt;<span style=\"background-color:green;\"> 2</span></span>; <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m75\">i</a></span>++</span>){\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m57\">s</a> </span>+=<span style=\"background-color:green;\"> <a href=\"#m75\">i</a></span></span>;\n" +
+                "  }\n" +
+                "  return <span style=\"background-color:green;\"><a href=\"#m57\">s</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage120Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int s = 1;\n");
+        xml_.append("  for (int i : {1,2}){\n");
+        xml_.append("   s += ([i]);\n");
+        xml_.append("  }\n");
+        xml_.append("  return s;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><body><pre>public class pkg.Ex {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  <span style=\"background-color:green;\">for (int <a name=\"m75\">i</a></span> : <span style=\"background-color:green;\">{<span style=\"background-color:green;\">1</span>,<span style=\"background-color:green;\">2</span>}</span>){\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m57\">s</a> </span>+=<span style=\"background-color:green;\"> ([<a href=\"#m75\">i</a>])</span></span>;\n" +
+                "  }\n" +
+                "  return <span style=\"background-color:green;\"><a href=\"#m57\">s</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage121Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int s = 1:\n");
+        xml_.append("  $for ($int i : {1,2}){\n");
+        xml_.append("   s;. += i;;:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return s;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
+                " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
+                "  $int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m63\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>:\n" +
+                "  <span style=\"background-color:green;\">$for ($int <a name=\"m83\">i</a></span> : <span style=\"background-color:green;\">{<span style=\"background-color:green;\">1</span>,<span style=\"background-color:green;\">2</span>}</span>){\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m63\">s</a>;. </span>+=<span style=\"background-color:green;\"> <a href=\"#m83\">i</a>;;</span></span>:\n" +
+                "  }\n" +
+                "  $return <span style=\"background-color:green;\"><a href=\"#m63\">s</a>;.</span>:\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage122Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int s = 1;\n");
+        xml_.append("  for (int i : {1,2}){\n");
+        xml_.append("   s += i;\n");
+        xml_.append("  }\n");
+        xml_.append("  return s;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><body><pre>public class pkg.Ex {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  int <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a name=\"m57\">s</a> </span>=<span style=\"background-color:green;\"> 1</span></span>;\n" +
+                "  <span style=\"background-color:green;\">for (int <a name=\"m75\">i</a></span> : <span style=\"background-color:green;\">{<span style=\"background-color:green;\">1</span>,<span style=\"background-color:green;\">2</span>}</span>){\n" +
+                "   <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m57\">s</a> </span>+=<span style=\"background-color:green;\"> <a href=\"#m75\">i</a></span></span>;\n" +
+                "  }\n" +
+                "  return <span style=\"background-color:green;\"><a href=\"#m57\">s</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage123Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t:\n");
+        xml_.append("  t;.=0i:\n");
+        xml_.append("  $try{\n");
+        xml_.append("   $if(t;.>=0){\n");
+        xml_.append("    $throw 1i:\n");
+        xml_.append("   }\n");
+        xml_.append("   $return 2:\n");
+        xml_.append("  } $catch($int o){\n");
+        xml_.append("   $return o;..:\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><body><pre>$public $class pkg.Ex {\n" +
+                " $public $static $int <a name=\"m46\">catching</a>(){\n" +
+                "  $int <span style=\"background-color:green;\"><a name=\"m65\">t</a></span>:\n" +
+                "  <span style=\"background-color:green;\"><span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span>=<span style=\"background-color:green;\">0i</span></span>:\n" +
+                "  $try{\n" +
+                "   <span style=\"background-color:yellow;\">$if</span>(<span style=\"background-color:yellow;\"><span style=\"background-color:green;\"><a href=\"#m65\">t</a>;.</span><a title=\"true\">&gt;=</a><span style=\"background-color:green;\">0</span></span>){\n" +
+                "    $throw <span style=\"background-color:green;\">1i</span>:\n" +
+                "   }\n" +
+                "   $return <span style=\"background-color:red;\">2</span>:\n" +
+                "  } <span style=\"background-color:green;\">$catch</span>($int <a name=\"m152\">o</a>){\n" +
+                "   $return <span style=\"background-color:green;\"><a href=\"#m152\">o</a>;..</span>:\n" +
+                "  }\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());

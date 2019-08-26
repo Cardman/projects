@@ -195,5 +195,13 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         int begName_ = getNameOffset();
         _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
         _parts.add(new PartOffset("</a>",leftPar));
+        int len_ = getParametersNamesOffset().size();
+        for (int i = 0; i < len_; i++) {
+            Integer off_ = getParametersNamesOffset().get(i);
+            String param_ = getParametersNames().get(i);
+            _parts.add(new PartOffset("<a name=\"m"+off_+"\">",off_));
+            _parts.add(new PartOffset("</a>",off_+param_.length()));
+            _cont.getCoverage().getParamVars().put(param_,off_);
+        }
     }
 }

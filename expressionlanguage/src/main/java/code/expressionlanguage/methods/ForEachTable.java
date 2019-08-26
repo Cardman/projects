@@ -681,11 +681,21 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         }
         int off_ = getOffset().getOffsetTrim();
         _parts.add(new PartOffset(tag_,off_));
+        tag_ = "<a name=\"m"+ variableNameOffsetFirst +"\">";
+        _parts.add(new PartOffset(tag_,variableNameOffsetFirst));
+        tag_ = "</a>";
+        _parts.add(new PartOffset(tag_,variableNameOffsetFirst+variableNameFirst.length()));
+        tag_ = "<a name=\"m"+ variableNameOffsetSecond +"\">";
+        _parts.add(new PartOffset(tag_,variableNameOffsetSecond));
+        tag_ = "</a>";
+        _parts.add(new PartOffset(tag_,variableNameOffsetSecond+variableNameSecond.length()));
         tag_ = "</span>";
         _parts.add(new PartOffset(tag_,variableNameOffsetSecond+ variableNameSecond.length()));
         off_ = expressionOffset;
         int offsetEndBlock_ = off_ + expression.length();
         ElUtil.buildCoverageReport(_cont,off_,this,opList,offsetEndBlock_,_parts);
+        _cont.getCoverage().getLoopVars().put(variableNameFirst,variableNameOffsetFirst);
+        _cont.getCoverage().getLoopVars().put(variableNameSecond,variableNameOffsetSecond);
     }
 
     public void incrementLoop(ContextEl _conf, LoopBlockStack _l,

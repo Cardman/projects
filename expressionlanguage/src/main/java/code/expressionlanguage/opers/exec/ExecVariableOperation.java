@@ -151,4 +151,12 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
         Argument out_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
         return out_;
     }
+
+    public String getVariableName() {
+        return variableName;
+    }
+
+    public int getOff() {
+        return off;
+    }
 }

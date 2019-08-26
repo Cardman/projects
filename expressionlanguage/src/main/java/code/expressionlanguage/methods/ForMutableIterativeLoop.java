@@ -567,9 +567,11 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordFor().length()));
         }
         if (!opInit.isEmpty()) {
+            _cont.getCoverage().setPossibleDeclareLoopVars(true);
             int off_ = initOffset;
             int offsetEndBlock_ = off_ + init.length();
             ElUtil.buildCoverageReport(_cont,off_,this,opInit,offsetEndBlock_,_parts);
+            _cont.getCoverage().setPossibleDeclareLoopVars(false);
         }
         if (!opExp.isEmpty()) {
             int off_ = expressionOffset;

@@ -588,11 +588,16 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         }
         int off_ = getOffset().getOffsetTrim();
         _parts.add(new PartOffset(tag_,off_));
+        tag_ = "<a name=\"m"+ variableNameOffset +"\">";
+        _parts.add(new PartOffset(tag_,variableNameOffset));
+        tag_ = "</a>";
+        _parts.add(new PartOffset(tag_,variableNameOffset+variableName.length()));
         tag_ = "</span>";
         _parts.add(new PartOffset(tag_,variableNameOffset+ variableName.length()));
         off_ = expressionOffset;
         int offsetEndBlock_ = off_ + expression.length();
         ElUtil.buildCoverageReport(_cont,off_,this,opList,offsetEndBlock_,_parts);
+        _cont.getCoverage().getLoopVars().put(variableName,variableNameOffset);
     }
     Struct processLoop(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();

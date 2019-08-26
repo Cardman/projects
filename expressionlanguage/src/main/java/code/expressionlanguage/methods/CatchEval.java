@@ -8,8 +8,10 @@ import code.expressionlanguage.errors.custom.BadVariableName;
 import code.expressionlanguage.errors.custom.DuplicateVariable;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.expressionlanguage.variables.LocalVariable;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -124,5 +126,15 @@ public final class CatchEval extends AbstractCatchEval {
         String var_ = getVariableName();
         _ip.getCatchVars().removeKey(var_);
         super.processToFinally(_ip, _stack);
+    }
+
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        super.processReport(_cont, _parts);
+        String tag_ = "<a name=\"m"+ variableNameOffset +"\">";
+        _parts.add(new PartOffset(tag_,variableNameOffset));
+        tag_ = "</a>";
+        _parts.add(new PartOffset(tag_,variableNameOffset+variableName.length()));
+        _cont.getCoverage().getCatchVars().put(variableName,variableNameOffset);
     }
 }

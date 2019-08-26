@@ -22,6 +22,7 @@ import code.expressionlanguage.opers.exec.PossibleIntermediateDottedOperable;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.*;
 
@@ -241,6 +242,15 @@ public abstract class OperationNode implements Operable {
                 if (ch_.getResultClass().isArray()) {
                     return new ArrayFieldOperation(_index, _indexChild, _m, _op);
                 }
+                return new StandardFieldOperation(_index, _indexChild, _m, _op);
+            }
+            LoopVariable mutVar_ = _an.getMutableLoopVar(str_);
+            if (mutVar_ != null) {
+                return new MutableLoopVariableOperation(_index, _indexChild, _m, _op, mutVar_.getClassName());
+            }
+            LocalVariable locVar_ = _an.getLocalVar(str_);
+            if (locVar_ != null) {
+                return new VariableOperation(_index, _indexChild, _m, _op);
             }
             return new StandardFieldOperation(_index, _indexChild, _m, _op);
         }

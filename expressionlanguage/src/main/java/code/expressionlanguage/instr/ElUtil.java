@@ -550,6 +550,116 @@ public final class ElUtil {
                     _parts.add(new PartOffset(tag_,sum_ +delta_+ val_.getIndexInEl()+id_.getName().length()));
                 }
             }
+            if (curOp_ instanceof ExecVariableOperation) {
+                String varName_ = ((ExecVariableOperation) curOp_).getVariableName();
+                int delta_ = ((ExecVariableOperation) curOp_).getOff();
+                if (_block instanceof Line && _block.getPreviousSibling() instanceof DeclareVariable && isDeclaringVariable(curOp_)) {
+                    MethodOperation parAn_ = val_.getParent();
+                    ExecMethodOperation par_ = curOp_.getParent();
+                    int index_ = curOp_.getIndexChild();
+                    if (par_ instanceof ExecAffectationOperation) {
+                        index_ = par_.getIndexChild();
+                        parAn_ = parAn_.getParent();
+                    }
+                    if (parAn_ == null) {
+                        tag_ = "<a name=\"m"+ _offsetBlock +"\">";
+                        _cont.getCoverage().getLocalVars().put(varName_, _offsetBlock);
+                        _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()));
+                        tag_ = "</a>";
+                        _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()+varName_.length()));
+                    } else {
+                        int id_ = parAn_.getChildren().getKey(index_);
+                        id_ += StringList.getFirstPrintableCharIndex(parAn_.getChildren().getValue(index_));
+                        id_ += _offsetBlock;
+                        tag_ = "<a name=\"m"+id_+"\">";
+                        _cont.getCoverage().getLocalVars().put(varName_,id_);
+                        _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()));
+                        tag_ = "</a>";
+                        _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()+varName_.length()));
+                    }
+
+                } else {
+                    Integer id_ = _cont.getCoverage().getLocalVars().getVal(varName_);
+                    tag_ = "<a href=\"#m"+id_+"\">";
+                    _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()));
+                    tag_ = "</a>";
+                    _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()+varName_.length()));
+                }
+            }
+            if (curOp_ instanceof ExecMutableLoopVariableOperation) {
+                String varName_ = ((ExecMutableLoopVariableOperation) curOp_).getVariableName();
+                int delta_ = ((ExecMutableLoopVariableOperation) curOp_).getOff();
+                if (_block instanceof ForMutableIterativeLoop && _cont.getCoverage().isPossibleDeclareLoopVars() && isDeclaringVariable(curOp_)) {
+                    MethodOperation parAn_ = val_.getParent();
+                    ExecMethodOperation par_ = curOp_.getParent();
+                    int index_ = curOp_.getIndexChild();
+                    if (par_ instanceof ExecAffectationOperation) {
+                        index_ = par_.getIndexChild();
+                        parAn_ = parAn_.getParent();
+                    }
+                    if (parAn_ == null) {
+                        tag_ = "<a name=\"m"+ _offsetBlock +"\">";
+                        _cont.getCoverage().getMutableVars().put(varName_, _offsetBlock);
+                        _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()));
+                        tag_ = "</a>";
+                        _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()+varName_.length()));
+                    } else {
+                        int id_ = parAn_.getChildren().getKey(index_);
+                        id_ += StringList.getFirstPrintableCharIndex(parAn_.getChildren().getValue(index_));
+                        id_ += _offsetBlock;
+                        tag_ = "<a name=\"m"+id_+"\">";
+                        _cont.getCoverage().getMutableVars().put(varName_,id_);
+                        _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()));
+                        tag_ = "</a>";
+                        _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()+varName_.length()));
+                    }
+
+                } else {
+                    Integer id_ = _cont.getCoverage().getMutableVars().getVal(varName_);
+                    tag_ = "<a href=\"#m"+id_+"\">";
+                    _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()));
+                    tag_ = "</a>";
+                    _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()+varName_.length()));
+                }
+            }
+            if (curOp_ instanceof ExecFinalVariableOperation) {
+                String varName_ = ((ExecFinalVariableOperation) curOp_).getVariableName();
+                int delta_ = ((ExecFinalVariableOperation) curOp_).getOff();
+                ConstType type_ = ((ExecFinalVariableOperation) curOp_).getType();
+                if (type_ == ConstType.LOOP_VAR) {
+                    Integer id_ = _cont.getCoverage().getLoopVars().getVal(varName_);
+                    tag_ = "<a href=\"#m"+id_+"\">";
+                    _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()));
+                    tag_ = "</a>";
+                    _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()+varName_.length()));
+                } else if (type_ == ConstType.LOOP_INDEX) {
+                    int deltaLoc_ = ((FinalVariableOperation)val_).getDelta();
+                    Integer id_ = _cont.getCoverage().getLoopVars().getVal(varName_);
+                    tag_ = "<a href=\"#m"+id_+"\">";
+                    _parts.add(new PartOffset(tag_,deltaLoc_+delta_+sum_ + val_.getIndexInEl()));
+                    tag_ = "</a>";
+                    _parts.add(new PartOffset(tag_,deltaLoc_+delta_+sum_ + val_.getIndexInEl()+varName_.length()));
+                } else if (type_ == ConstType.CATCH_VAR) {
+                    Integer id_ = _cont.getCoverage().getCatchVars().getVal(varName_);
+                    tag_ = "<a href=\"#m"+id_+"\">";
+                    _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()));
+                    tag_ = "</a>";
+                    _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()+varName_.length()));
+                } else {
+                    Integer id_ = _cont.getCoverage().getParamVars().getVal(varName_);
+                    tag_ = "<a href=\"#m"+id_+"\">";
+                    _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()));
+                    tag_ = "</a>";
+                    _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()+varName_.length()));
+                }
+            }
+            if (curOp_ instanceof ExecValueOperation) {
+                int delta_ = ((ValueOperation) val_).getOff();
+                tag_ = "<b>";
+                _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()));
+                tag_ = "</b>";
+                _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordValue().length()));
+            }
             if (curOp_ instanceof ExecSettableFieldOperation) {
                 if (_block instanceof FieldBlock && isDeclaringVariable(curOp_)) {
                     ClassField c_ = ((ExecSettableFieldOperation)curOp_).getFieldId();

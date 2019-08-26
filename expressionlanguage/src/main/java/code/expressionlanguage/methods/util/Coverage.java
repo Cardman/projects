@@ -22,6 +22,12 @@ public final class Coverage {
     private IdMap<Block,StandardCoverageResult> coverNoDefSwitchs = new IdMap<Block,StandardCoverageResult>();
     private IdMap<Block,Boolean> catches = new IdMap<Block,Boolean>();
     private IdMap<Block,IdMap<ExecOperationNode,OperationNode>> mapping = new IdMap<Block,IdMap<ExecOperationNode,OperationNode>>();
+    private StringMap<Integer> localVars = new StringMap<Integer>();
+    private StringMap<Integer> mutableVars = new StringMap<Integer>();
+    private StringMap<Integer> loopVars = new StringMap<Integer>();
+    private StringMap<Integer> catchVars = new StringMap<Integer>();
+    private StringMap<Integer> paramVars = new StringMap<Integer>();
+    private boolean possibleDeclareLoopVars;
     public void putBlockOperationsLoops(Analyzable _context, Block _block) {
         if (!_context.getContextEl().isCovering()) {
             return;
@@ -171,5 +177,33 @@ public final class Coverage {
 
     public IdMap<Block, Boolean> getCatches() {
         return catches;
+    }
+
+    public StringMap<Integer> getLocalVars() {
+        return localVars;
+    }
+
+    public StringMap<Integer> getMutableVars() {
+        return mutableVars;
+    }
+
+    public StringMap<Integer> getLoopVars() {
+        return loopVars;
+    }
+
+    public StringMap<Integer> getCatchVars() {
+        return catchVars;
+    }
+
+    public StringMap<Integer> getParamVars() {
+        return paramVars;
+    }
+
+    public boolean isPossibleDeclareLoopVars() {
+        return possibleDeclareLoopVars;
+    }
+
+    public void setPossibleDeclareLoopVars(boolean _possibleDeclareLoopVars) {
+        possibleDeclareLoopVars = _possibleDeclareLoopVars;
     }
 }

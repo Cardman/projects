@@ -500,6 +500,7 @@ public final class FileResolver {
             declaringType_ = getDeclaringTypeOper(info_);
             int declTypeLen_ = declaringType_.length();
             String afterType_ = info_.substring(declTypeLen_);
+            int afterTypeOff_ = StringList.getFirstPrintableCharIndex(afterType_);
             info_ = afterType_.trim();
             int leftParIndex_ = info_.indexOf(BEGIN_CALLING);
             if (leftParIndex_ < 0) {
@@ -507,7 +508,7 @@ public final class FileResolver {
                 return out_;
             }
             String afterMethodName_ = info_.substring(leftParIndex_ + 1);
-            paramOffest_ = typeOffset_ + declTypeLen_ + 1;
+            paramOffest_ = afterTypeOff_ + typeOffset_ + declTypeLen_ + 1;
             paramOffest_ += StringList.getFirstPrintableCharIndex(afterMethodName_);
             info_ = afterMethodName_.trim();
             Ints offestsTypes_ = new Ints();
@@ -2164,7 +2165,7 @@ public final class FileResolver {
             String info_ = _trimmedInstruction.substring(keyWordCatch_.length());
             int leftPar_ = info_.indexOf(BEGIN_CALLING);
             if (leftPar_ > -1) {
-                int typeOffset_ = _instructionLocation + leftPar_+1;
+                int typeOffset_ = keyWordCatch_.length() + _instructionLocation + leftPar_+1;
                 info_ = info_.substring(leftPar_+1);
                 String declaringType_ = getDeclaringTypeBlock(info_);
                 typeOffset_ += StringList.getFirstPrintableCharIndex(declaringType_);

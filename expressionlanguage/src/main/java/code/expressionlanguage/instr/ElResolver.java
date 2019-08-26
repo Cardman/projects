@@ -3393,10 +3393,12 @@ public final class ElResolver {
         begin_ = _d.getDelLoopVars().indexOfObj(_offset + firstPrintChar_);
         end_ = _d.getDelLoopVars().indexOfObj(_offset + lastPrintChar_);
         if (delimits(begin_, end_)) {
-            String name_ = StringList.getDollarWordSeparators(_string.substring(firstPrintChar_+1, lastPrintChar_)).get(1);
+            StringList parts_ = StringList.getDollarWordSeparators(_string.substring(firstPrintChar_, lastPrintChar_));
+            String name_ = parts_.get(1);
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.LOOP_INDEX);
             op_.setOperators(new IntTreeMap< String>());
+            op_.setDelta(parts_.get(0).length());
             op_.setValue(name_, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;

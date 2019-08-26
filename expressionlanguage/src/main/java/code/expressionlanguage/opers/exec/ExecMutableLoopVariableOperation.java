@@ -151,4 +151,11 @@ public final class ExecMutableLoopVariableOperation extends ExecLeafOperation im
         return out_;
     }
 
+    public String getVariableName() {
+        return variableName;
+    }
+
+    public int getOff() {
+        return off;
+    }
 }

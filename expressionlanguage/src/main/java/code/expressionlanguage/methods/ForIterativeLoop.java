@@ -553,6 +553,10 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         _parts.add(new PartOffset(tag_,off_));
         tag_ = "</span>";
         _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordIter().length()));
+        tag_ = "<a name=\"m"+ variableNameOffset +"\">";
+        _parts.add(new PartOffset(tag_,variableNameOffset));
+        tag_ = "</a>";
+        _parts.add(new PartOffset(tag_,variableNameOffset+variableName.length()));
         off_ = initOffset;
         int offsetEndBlock_ = off_ + init.length();
         ElUtil.buildCoverageReport(_cont,off_,this,opInit,offsetEndBlock_,_parts);
@@ -562,6 +566,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         off_ = stepOffset;
         offsetEndBlock_ = off_ + step.length();
         ElUtil.buildCoverageReport(_cont,off_,this,opStep,offsetEndBlock_,_parts);
+        _cont.getCoverage().getLoopVars().put(variableName,variableNameOffset);
     }
     void processLoop(ContextEl _conf) {
         LgNames stds_ = _conf.getStandards();
