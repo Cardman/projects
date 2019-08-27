@@ -27,6 +27,10 @@ public final class CaseCondition extends SwitchPartBlock {
     private final String value;
     private CustList<ExecOperationNode> opValue;
 
+    private boolean builtEnum;
+
+    private String typeEnum = EMPTY_STRING;
+
     private int valueOffset;
 
     public CaseCondition(OffsetStringInfo _value, OffsetsBlock _offset) {
@@ -87,6 +91,8 @@ public final class CaseCondition extends SwitchPartBlock {
                     _cont.setLookLocalClass(EMPTY_STRING);
                     op_.tryAnalyzeAssignmentAfter(_cont);
                     op_.setOrder(0);
+                    builtEnum = true;
+                    typeEnum = id_;
                     opValue = new CustList<ExecOperationNode>();
                     opValue.add((ExecOperationNode) ExecOperationNode.createExecOperationNode(op_));
                     defaultAssignmentAfter(_cont, op_);
@@ -221,6 +227,30 @@ public final class CaseCondition extends SwitchPartBlock {
         }
         int off_ = getValueOffset();
         _parts.add(new PartOffset(tag_,off_));
+        if (builtEnum) {
+            GeneType type_ = _cont.getClassBody(typeEnum);
+            int delta_ = -1;
+            for (Block b: Classes.getDirectChildren((Block) type_)) {
+                if (!(b instanceof InnerTypeOrElement)) {
+                    continue;
+                }
+                InnerTypeOrElement f_ = (InnerTypeOrElement)b;
+                if (!StringList.quickEq(f_.getUniqueFieldName(),getValue())) {
+                    continue;
+                }
+                delta_ = f_.getFieldNameOffset();
+            }
+            String file_ = ((RootBlock) type_).getFile().getFileName();
+            String currentFileName_ = _cont.getCoverage().getCurrentFileName();
+            String rel_ = ElUtil.relativize(currentFileName_,file_+".html#m"+delta_);
+            tag_ = "<a title=\""+ElUtil.transform(typeEnum +"."+ getValue())+"\" href=\""+rel_+"\">";
+            _parts.add(new PartOffset(tag_,off_));
+            tag_ = "</a>";
+            _parts.add(new PartOffset(tag_,off_+getValue().length()));
+        } else {
+            int offsetEndBlock_ = off_ + getValue().length();
+            ElUtil.buildCoverageReport(_cont,off_,this,getOpValue(),offsetEndBlock_,_parts);
+        }
         tag_ = "</span>";
         _parts.add(new PartOffset(tag_,off_+ getValue().length()));
     }

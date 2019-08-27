@@ -67,6 +67,9 @@ public final class Coverage {
         IdMap<ExecOperationNode,AbstractCoverageResult> instr_;
         instr_ = covers.getVal(_block);
         IdMap<ExecOperationNode, OperationNode> mapping_ = getMapping().getVal(_block);
+        if (mapping_ == null) {
+            return;
+        }
         mapping_.put(_exec,_op);
         String b_ = _context.getStandards().getAliasPrimBoolean();
         if (_op.getResultClass().matchClass(b_) && _exec.getArgument() == null) {

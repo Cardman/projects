@@ -509,11 +509,12 @@ public final class ElUtil {
         ExecOperationNode curOp_ = root_;
         int sum_ = _tr + _offsetBlock - _fieldName.length();
         String currentFileName_ = _cont.getCoverage().getCurrentFileName();
+        boolean addCover_ = !(_block instanceof CaseCondition);
         while (true) {
             OperationNode val_ = _cont.getCoverage().getMapping().getVal(_block).getVal(curOp_);
             AbstractCoverageResult result_ = _cont.getCoverage().getCovers().getVal(_block).getVal(curOp_);
             String tag_;
-            if (val_ instanceof StaticInitOperation) {
+            if (!addCover_ ||val_ instanceof StaticInitOperation) {
                 tag_ = "";
             } else if (val_.getArgument() != null && val_.getParent() != null && val_.getParent().getArgument() != null) {
                 ExecMethodOperation parent_ = curOp_.getParent();
@@ -875,7 +876,7 @@ public final class ElUtil {
                         offsetEnd_ = sum_ + val_.getIndexInEl();
                     }
                 }
-                if (val_ instanceof StaticInitOperation) {
+                if (!addCover_ || val_ instanceof StaticInitOperation) {
                     tag_ = "";
                 } else {
                     tag_ = "</span>";
@@ -1085,7 +1086,7 @@ public final class ElUtil {
             }
             if (stopOp_) {
                 tag_ = "</span>";
-                if (_fieldName.isEmpty()) {
+                if (addCover_ && _fieldName.isEmpty()) {
                     _parts.add(new PartOffset(tag_,_endBlock+_tr));
                 }
                 break;
@@ -1175,7 +1176,7 @@ public final class ElUtil {
         }
         return b_.append(relFile_).toString();
     }
-    private static String transform(String _string) {
+    public static String transform(String _string) {
         StringBuilder str_ = new StringBuilder();
         for (char c: _string.toCharArray()) {
             if (c == '<') {

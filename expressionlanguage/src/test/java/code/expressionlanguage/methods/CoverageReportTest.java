@@ -5700,6 +5700,398 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
+
+    @Test
+    public void coverage138Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.ExEnum {\n");
+        xml_.append("ONE,TWO\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int o = 10:\n");
+        xml_.append("  ExEnum t:\n");
+        xml_.append("  t;.=ExEnum.ONE:\n");
+        xml_.append("  $switch(t;.){\n");
+        xml_.append("   $case(ONE):\n");
+        xml_.append("   $case(TWO){\n");
+        xml_.append("    o;.=12:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)o;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum pkg.ExEnum {\n" +
+                "<a name=\"m27\">ONE</a>,<a name=\"m31\">TWO</a>\n" +
+                "}\n" +
+                "$public $class pkg.Ex {\n" +
+                " $public $static $int <a name=\"m83\">exmeth</a>(){\n" +
+                "  $int <span class=\"f\"><span class=\"f\"><a name=\"m100\">o</a> </span>=<span class=\"f\"> 10</span></span>:\n" +
+                "  ExEnum <span class=\"f\"><a name=\"m117\">t</a></span>:\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m117\">t</a>;.</span>=<span class=\"f\"><span class=\"f\">ExEnum</span>.<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m27\">ONE</a></span></span></span>:\n" +
+                "  <span class=\"p\"><a title=\"1/3\">$switch</a></span>(<span class=\"f\"><a href=\"#m117\">t</a>;.</span>){\n" +
+                "   $case(<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m27\">ONE</a></span>):\n" +
+                "   $case(<span class=\"n\"><a title=\"pkg.ExEnum.TWO\" href=\"#m31\">TWO</a></span>){\n" +
+                "    <span class=\"f\"><span class=\"f\"><a href=\"#m100\">o</a>;.</span>=<span class=\"f\">12</span></span>:\n" +
+                "   }\n" +
+                "  }\n" +
+                "  $return <span class=\"f\"><span class=\"f\">1i</span>+<span class=\"f\">$($int)<span class=\"f\"><a href=\"#m100\">o</a>;.</span></span></span>:\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage139Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public enum pkg.ExEnum {\n");
+        xml_.append("ONE,TWO\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int o = 10;\n");
+        xml_.append("  ExEnum t;\n");
+        xml_.append("  t=ExEnum.ONE;\n");
+        xml_.append("  switch(t){\n");
+        xml_.append("   case(ONE):\n");
+        xml_.append("   case(TWO)\n");
+        xml_.append("    o=12;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 1+(int)o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum pkg.ExEnum {\n" +
+                "<a name=\"m25\">ONE</a>,<a name=\"m29\">TWO</a>\n" +
+                "}\n" +
+                "public class pkg.Ex {\n" +
+                " public static int <a name=\"m76\">exmeth</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m92\">o</a> </span>=<span class=\"f\"> 10</span></span>;\n" +
+                "  ExEnum <span class=\"f\"><a name=\"m109\">t</a></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m109\">t</a></span>=<span class=\"f\"><span class=\"f\">ExEnum</span>.<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m25\">ONE</a></span></span></span>;\n" +
+                "  <span class=\"p\"><a title=\"1/3\">switch</a></span>(<span class=\"f\"><a href=\"#m109\">t</a></span>){\n" +
+                "   case(<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m25\">ONE</a></span>):\n" +
+                "   case(<span class=\"n\"><a title=\"pkg.ExEnum.TWO\" href=\"#m29\">TWO</a></span>)\n" +
+                "    o=12;\n" +
+                "  }\n" +
+                "  return <span class=\"f\"><span class=\"f\">1</span>+<span class=\"f\">(int)<span class=\"f\"><a href=\"#m92\">o</a></span></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage140Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.ExEnum {\n");
+        xml_.append("ONE,TWO\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int o = 10:\n");
+        xml_.append("  ExEnum t:\n");
+        xml_.append("  t;.=ExEnum.ONE:\n");
+        xml_.append("  $switch(t;.){\n");
+        xml_.append("   $case(ONE):\n");
+        xml_.append("   $case($null){\n");
+        xml_.append("    o;.=12:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)o;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum pkg.ExEnum {\n" +
+                "<a name=\"m27\">ONE</a>,<a name=\"m31\">TWO</a>\n" +
+                "}\n" +
+                "$public $class pkg.Ex {\n" +
+                " $public $static $int <a name=\"m83\">exmeth</a>(){\n" +
+                "  $int <span class=\"f\"><span class=\"f\"><a name=\"m100\">o</a> </span>=<span class=\"f\"> 10</span></span>:\n" +
+                "  ExEnum <span class=\"f\"><a name=\"m117\">t</a></span>:\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m117\">t</a>;.</span>=<span class=\"f\"><span class=\"f\">ExEnum</span>.<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m27\">ONE</a></span></span></span>:\n" +
+                "  <span class=\"p\"><a title=\"1/3\">$switch</a></span>(<span class=\"f\"><a href=\"#m117\">t</a>;.</span>){\n" +
+                "   $case(<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m27\">ONE</a></span>):\n" +
+                "   $case(<span class=\"n\">$null</span>){\n" +
+                "    <span class=\"f\"><span class=\"f\"><a href=\"#m100\">o</a>;.</span>=<span class=\"f\">12</span></span>:\n" +
+                "   }\n" +
+                "  }\n" +
+                "  $return <span class=\"f\"><span class=\"f\">1i</span>+<span class=\"f\">$($int)<span class=\"f\"><a href=\"#m100\">o</a>;.</span></span></span>:\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage141Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public enum pkg.ExEnum {\n");
+        xml_.append("ONE,TWO\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int o = 10;\n");
+        xml_.append("  ExEnum t;\n");
+        xml_.append("  t=ExEnum.ONE;\n");
+        xml_.append("  switch(t){\n");
+        xml_.append("   case(ONE):\n");
+        xml_.append("   case(null)\n");
+        xml_.append("    o=12;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 1+(int)o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum pkg.ExEnum {\n" +
+                "<a name=\"m25\">ONE</a>,<a name=\"m29\">TWO</a>\n" +
+                "}\n" +
+                "public class pkg.Ex {\n" +
+                " public static int <a name=\"m76\">exmeth</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m92\">o</a> </span>=<span class=\"f\"> 10</span></span>;\n" +
+                "  ExEnum <span class=\"f\"><a name=\"m109\">t</a></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m109\">t</a></span>=<span class=\"f\"><span class=\"f\">ExEnum</span>.<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m25\">ONE</a></span></span></span>;\n" +
+                "  <span class=\"p\"><a title=\"1/3\">switch</a></span>(<span class=\"f\"><a href=\"#m109\">t</a></span>){\n" +
+                "   case(<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m25\">ONE</a></span>):\n" +
+                "   case(<span class=\"n\">null</span>)\n" +
+                "    o=12;\n" +
+                "  }\n" +
+                "  return <span class=\"f\"><span class=\"f\">1</span>+<span class=\"f\">(int)<span class=\"f\"><a href=\"#m92\">o</a></span></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage142Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExEnum {\n");
+        xml_.append(" $public $static $final $int ONE = 10:\n");
+        xml_.append(" $public $static $final $int TWO = 8:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int o = 10:\n");
+        xml_.append("  $int t:\n");
+        xml_.append("  t;.=ExEnum.ONE:\n");
+        xml_.append("  $switch(t;.){\n");
+        xml_.append("   $case(ExEnum.ONE):\n");
+        xml_.append("   $case(ExEnum.TWO){\n");
+        xml_.append("    o;.=12:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)o;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class pkg.ExEnum {\n" +
+                " $public $static $final $int <span class=\"f\"><span class=\"f\"><a name=\"m57\">ONE</a> </span>=<span class=\"f\"> 10</span></span>:\n" +
+                " $public $static $final $int <span class=\"f\"><span class=\"f\"><a name=\"m96\">TWO</a> </span>=<span class=\"f\"> 8</span></span>:\n" +
+                "}\n" +
+                "$public $class pkg.Ex {\n" +
+                " $public $static $int <a name=\"m153\">exmeth</a>(){\n" +
+                "  $int <span class=\"f\"><span class=\"f\"><a name=\"m170\">o</a> </span>=<span class=\"f\"> 10</span></span>:\n" +
+                "  $int <span class=\"f\"><a name=\"m185\">t</a></span>:\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m185\">t</a>;.</span>=<span class=\"f\"><span class=\"f\">ExEnum</span>.<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m57\">ONE</a></span></span></span>:\n" +
+                "  <span class=\"p\"><a title=\"1/3\">$switch</a></span>(<span class=\"f\"><a href=\"#m185\">t</a>;.</span>){\n" +
+                "   $case(<span class=\"f\">ExEnum.<a title=\"pkg.ExEnum.ONE\" href=\"#m57\">ONE</a></span>):\n" +
+                "   $case(<span class=\"n\">ExEnum.<a title=\"pkg.ExEnum.TWO\" href=\"#m96\">TWO</a></span>){\n" +
+                "    <span class=\"f\"><span class=\"f\"><a href=\"#m170\">o</a>;.</span>=<span class=\"f\">12</span></span>:\n" +
+                "   }\n" +
+                "  }\n" +
+                "  $return <span class=\"f\"><span class=\"f\">1i</span>+<span class=\"f\">$($int)<span class=\"f\"><a href=\"#m170\">o</a>;.</span></span></span>:\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage143Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExEnum {\n");
+        xml_.append(" public static final int ONE = 10;\n");
+        xml_.append(" public static final int TWO = 8;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int o = 10;\n");
+        xml_.append("  int t;\n");
+        xml_.append("  t=ExEnum.ONE;\n");
+        xml_.append("  switch(t){\n");
+        xml_.append("   case(ExEnum.ONE):\n");
+        xml_.append("   case(ExEnum.TWO)\n");
+        xml_.append("    o=12;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 1+(int)o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class pkg.ExEnum {\n" +
+                " public static final int <span class=\"f\"><span class=\"f\"><a name=\"m51\">ONE</a> </span>=<span class=\"f\"> 10</span></span>;\n" +
+                " public static final int <span class=\"f\"><span class=\"f\"><a name=\"m86\">TWO</a> </span>=<span class=\"f\"> 8</span></span>;\n" +
+                "}\n" +
+                "public class pkg.Ex {\n" +
+                " public static int <a name=\"m138\">exmeth</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m154\">o</a> </span>=<span class=\"f\"> 10</span></span>;\n" +
+                "  int <span class=\"f\"><a name=\"m168\">t</a></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m168\">t</a></span>=<span class=\"f\"><span class=\"f\">ExEnum</span>.<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m51\">ONE</a></span></span></span>;\n" +
+                "  <span class=\"p\"><a title=\"1/3\">switch</a></span>(<span class=\"f\"><a href=\"#m168\">t</a></span>){\n" +
+                "   case(<span class=\"f\">ExEnum.<a title=\"pkg.ExEnum.ONE\" href=\"#m51\">ONE</a></span>):\n" +
+                "   case(<span class=\"n\">ExEnum.<a title=\"pkg.ExEnum.TWO\" href=\"#m86\">TWO</a></span>)\n" +
+                "    o=12;\n" +
+                "  }\n" +
+                "  return <span class=\"f\"><span class=\"f\">1</span>+<span class=\"f\">(int)<span class=\"f\"><a href=\"#m154\">o</a></span></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage144Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.ExEnum {\n");
+        xml_.append("ONE,TWO:\n");
+        xml_.append(" $public $static $final $int THREE = 9:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int o = 10:\n");
+        xml_.append("  ExEnum t:\n");
+        xml_.append("  t;.=ExEnum.ONE:\n");
+        xml_.append("  $switch(t;.){\n");
+        xml_.append("   $case(ONE):\n");
+        xml_.append("   $case(TWO){\n");
+        xml_.append("    o;.=12:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)o;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverage();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum pkg.ExEnum {\n" +
+                "<a name=\"m27\">ONE</a>,<a name=\"m31\">TWO</a>:\n" +
+                " $public $static $final $int <span class=\"f\"><span class=\"f\"><a name=\"m65\">THREE</a> </span>=<span class=\"f\"> 9</span></span>:\n" +
+                "}\n" +
+                "$public $class pkg.Ex {\n" +
+                " $public $static $int <a name=\"m124\">exmeth</a>(){\n" +
+                "  $int <span class=\"f\"><span class=\"f\"><a name=\"m141\">o</a> </span>=<span class=\"f\"> 10</span></span>:\n" +
+                "  ExEnum <span class=\"f\"><a name=\"m158\">t</a></span>:\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m158\">t</a>;.</span>=<span class=\"f\"><span class=\"f\">ExEnum</span>.<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m27\">ONE</a></span></span></span>:\n" +
+                "  <span class=\"p\"><a title=\"1/3\">$switch</a></span>(<span class=\"f\"><a href=\"#m158\">t</a>;.</span>){\n" +
+                "   $case(<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m27\">ONE</a></span>):\n" +
+                "   $case(<span class=\"n\"><a title=\"pkg.ExEnum.TWO\" href=\"#m31\">TWO</a></span>){\n" +
+                "    <span class=\"f\"><span class=\"f\"><a href=\"#m141\">o</a>;.</span>=<span class=\"f\">12</span></span>:\n" +
+                "   }\n" +
+                "  }\n" +
+                "  $return <span class=\"f\"><span class=\"f\">1i</span>+<span class=\"f\">$($int)<span class=\"f\"><a href=\"#m141\">o</a>;.</span></span></span>:\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage145Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public enum pkg.ExEnum {\n");
+        xml_.append("ONE,TWO;\n");
+        xml_.append(" public static final int THREE = 9;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int o = 10;\n");
+        xml_.append("  ExEnum t;\n");
+        xml_.append("  t=ExEnum.ONE;\n");
+        xml_.append("  switch(t){\n");
+        xml_.append("   case(ONE):\n");
+        xml_.append("   case(TWO)\n");
+        xml_.append("    o=12;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 1+(int)o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextFactory.validate(cont_.getKeyWords(),cont_.getStandards(),files_,cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateArgument("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum pkg.ExEnum {\n" +
+                "<a name=\"m25\">ONE</a>,<a name=\"m29\">TWO</a>;\n" +
+                " public static final int <span class=\"f\"><span class=\"f\"><a name=\"m59\">THREE</a> </span>=<span class=\"f\"> 9</span></span>;\n" +
+                "}\n" +
+                "public class pkg.Ex {\n" +
+                " public static int <a name=\"m113\">exmeth</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m129\">o</a> </span>=<span class=\"f\"> 10</span></span>;\n" +
+                "  ExEnum <span class=\"f\"><a name=\"m146\">t</a></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m146\">t</a></span>=<span class=\"f\"><span class=\"f\">ExEnum</span>.<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m25\">ONE</a></span></span></span>;\n" +
+                "  <span class=\"p\"><a title=\"1/3\">switch</a></span>(<span class=\"f\"><a href=\"#m146\">t</a></span>){\n" +
+                "   case(<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m25\">ONE</a></span>):\n" +
+                "   case(<span class=\"n\"><a title=\"pkg.ExEnum.TWO\" href=\"#m29\">TWO</a></span>)\n" +
+                "    o=12;\n" +
+                "  }\n" +
+                "  return <span class=\"f\"><span class=\"f\">1</span>+<span class=\"f\">(int)<span class=\"f\"><a href=\"#m129\">o</a></span></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
     private static String getCustomPair() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.CustPair<U,V> :$pair<U,V>{\n");
